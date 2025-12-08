@@ -2,102 +2,142 @@ import Icon from '@/components/Icon';
 
 export default function Home() {
   return (
-    <main style={{ maxWidth: 1100, margin: '0 auto' }}>
+    <main className="container">
       {/* ✅ HERO SECTION */}
       <section className="home-hero">
-        <h1> Financial Calculators & Guides for India</h1>
-        <p>
-          Fincado helps you plan loans, investments, and savings using fast,
-          accurate and 100% free financial calculators and expert-written
-          guides.
-        </p>
+        <div className="hero-grid">
+          {/* LEFT CONTENT */}
+          <div className="hero-content">
+            <h1>Smart Financial Calculators & Loan Tools for India</h1>
+
+            <p className="hero-sub">
+              Plan your EMI, SIP, FD, Credit Score & Loans with fast, accurate
+              and 100% free tools trusted by thousands of users across India.
+            </p>
+
+            <div className="hero-cta-row">
+              <a href="/emi-calculator">
+                <button className="primary-cta">Calculate EMI</button>
+              </a>
+
+              <a href="/credit-score">
+                <button className="apply-btn">Check Credit Score</button>
+              </a>
+            </div>
+
+            <div className="hero-trust-mini">
+              ✅ No signup required &nbsp;&nbsp; ✅ Bank-grade accuracy
+              &nbsp;&nbsp; ✅ 100% Free
+            </div>
+          </div>
+
+          {/* RIGHT VISUAL */}
+          <div className="hero-visual">
+            <div className="hero-card">
+              <strong>₹12,450</strong>
+              <span>Your Monthly EMI</span>
+            </div>
+
+            <div className="hero-card">
+              <strong>₹6.8L</strong>
+              <span>Total Interest Saved</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ✅ PREMIUM TOOL GRID (BANKRATE STYLE) */}
       <section className="tools-section">
         <div className="tools-grid">
-          <a href="/emi-calculator" className="tool-tile">
+          <a href="/loans/personal-loan" className="tool-tile hot">
+            <span className="tool-badge hot-badge">POPULAR</span>
             <div className="tool-icon-box">
-              <Icon className="icon-md" />
+              <Icon name="personalLoan" className="tool-icon-svg" />
+            </div>
+            <h3>Personal Loan</h3>
+            <p>Instant approval & best rates</p>
+          </a>
+
+          <a href="/loans/home-loan" className="tool-tile hot">
+            <span className="tool-badge hot-badge">POPULAR</span>
+            <div className="tool-icon-box">
+              <Icon name="homeLoan" className="tool-icon-svg" />
+            </div>
+            <h3>Home Loan</h3>
+            <p>Lowest EMI for your dream home</p>
+          </a>
+
+          <a href="/emi-calculator" className="tool-tile star">
+            <span className="tool-badge star-badge">MOST USED</span>
+            <div className="tool-icon-box">
+              <Icon name="emi" className="tool-icon-svg" />
             </div>
             <h3>EMI Calculator</h3>
+            <p>Plan your loan instantly</p>
+          </a>
+
+          <a href="/credit-score" className="tool-tile smart">
+            <span className="tool-badge smart-badge">SMART</span>
+            <div className="tool-icon-box">
+              <Icon name="creditScore" className="tool-icon-svg" />
+            </div>
+            <h3>Credit Score</h3>
+            <p>Check your CIBIL for free</p>
           </a>
 
           <a href="/sip-calculator" className="tool-tile">
             <div className="tool-icon-box">
-              <Icon className="icon-md" />
+              <Icon name="sip" className="tool-icon-svg" />
             </div>
             <h3>SIP Calculator</h3>
+            <p>Grow wealth monthly</p>
           </a>
 
           <a href="/fd-calculator" className="tool-tile">
             <div className="tool-icon-box">
-              <Icon className="icon-md" />
+              <Icon name="fd" className="tool-icon-svg" />
             </div>
             <h3>FD Calculator</h3>
-          </a>
-
-          <a href="/loans/home-loan" className="tool-tile">
-            <div className="tool-icon-box">
-              <Icon className="icon-md" />
-            </div>
-            <h3>Home Loans</h3>
-          </a>
-
-          <a href="/loans/personal-loan" className="tool-tile">
-            <div className="tool-icon-box">
-              <Icon className="icon-md" />
-            </div>
-            <h3>Personal Loans</h3>
-          </a>
-
-          <a href="/credit-score" className="tool-tile">
-            <div className="tool-icon-box">
-              <Icon className="icon-md" />
-            </div>
-            <h3>Credit Score</h3>
+            <p>Safe returns guaranteed</p>
           </a>
 
           <a href="/investing" className="tool-tile">
             <div className="tool-icon-box">
-              <Icon className="icon-md" />
+              <Icon name="investing" className="tool-icon-svg" />
             </div>
             <h3>Investing</h3>
+            <p>Start small, grow big</p>
           </a>
 
           <a href="/savings" className="tool-tile">
             <div className="tool-icon-box">
-              <Icon className="icon-md" />
+              <Icon name="saving" className="tool-icon-svg" />
             </div>
             <h3>Savings</h3>
+            <p>Plan your emergency fund</p>
           </a>
         </div>
       </section>
 
-      {/* ✅ TRUST STATS BAR */}
-      <section className="trust-stats">
-        <div className="trust-grid">
-          <div className="trust-item">
-            <strong>10+</strong>
-            <span>Financial Tools</span>
-          </div>
-
-          <div className="trust-item">
-            <strong>5,000+</strong>
-            <span>Monthly Users</span>
-          </div>
-
-          <div className="trust-item">
-            <strong>₹500 Cr+</strong>
-            <span>EMI Calculated</span>
-          </div>
-
-          <div className="trust-item">
-            <strong>100%</strong>
-            <span>Free & Secure</span>
-          </div>
+      {/* Trust Strat bar */}
+      <div className="tool-stats-bar">
+        <div className="tool-stat">
+          <strong>10+</strong>
+          <span>Financial Tools</span>
         </div>
-      </section>
+        <div className="tool-stat">
+          <strong>5,000+</strong>
+          <span>Monthly Users</span>
+        </div>
+        <div className="tool-stat">
+          <strong>₹500 Cr+</strong>
+          <span>EMI Calculated</span>
+        </div>
+        <div className="tool-stat">
+          <strong>100%</strong>
+          <span>Free & Secure</span>
+        </div>
+      </div>
 
       {/* ✅ WHY TRUST FINCADO */}
       <section className="why-trust">
@@ -106,38 +146,69 @@ export default function Home() {
         <div className="why-grid">
           <div className="why-card">
             <div className="why-icon">🔒</div>
-            <h3>Data Privacy First</h3>
-            <p>
-              We never store your personal data. All calculations happen
-              instantly in your browser with complete privacy.
-            </p>
-          </div>
-
-          <div className="why-card">
-            <div className="why-icon">📐</div>
-            <h3>Accurate Financial Formulas</h3>
-            <p>
-              Our calculators use industry-standard banking formulas to give you
-              reliable and transparent results.
-            </p>
-          </div>
-
-          <div className="why-card">
-            <div className="why-icon">🎯</div>
-            <h3>Educational Purpose Only</h3>
-            <p>
-              Fincado provides financial tools and guides for learning and
-              planning — not for selling products.
-            </p>
+            <h3>100% Secure</h3>
+            <p>Your data is encrypted and never shared with third parties.</p>
           </div>
 
           <div className="why-card">
             <div className="why-icon">⚡</div>
-            <h3>Fast & Lightweight</h3>
+            <h3>Instant Calculations</h3>
+            <p>Get accurate EMI, SIP & FD results in real time.</p>
+          </div>
+
+          <div className="why-card">
+            <div className="why-icon">🏦</div>
+            <h3>Bank-Grade Accuracy</h3>
+            <p>Rates are sourced from official bank data.</p>
+          </div>
+
+          <div className="why-card">
+            <div className="why-icon">🇮🇳</div>
+            <h3>Built for India</h3>
+            <p>Optimized for Indian users, taxes & loan rules.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ✅ LOAN CONVERSION SECTION */}
+      <section className="loan-convert">
+        <div className="loan-convert-grid">
+          {/* LEFT CONTENT */}
+          <div className="loan-convert-content">
+            <h2>Get the Best Loan Offers for You</h2>
             <p>
-              No heavy scripts, no tracking bloat. Just fast, clean, and modern
-              financial tools.
+              Compare real-time personal & home loan offers from top banks in
+              India. No spam. No hidden charges.
             </p>
+
+            <ul className="loan-benefits">
+              <li>✅ Lowest Interest Rates</li>
+              <li>✅ Fast Approval from Banks</li>
+              <li>✅ No Impact on Credit Score</li>
+            </ul>
+
+            <div className="loan-note">
+              🔒 Your details are safe & never shared without consent.
+            </div>
+          </div>
+
+          {/* RIGHT FORM */}
+          <div className="loan-form-card">
+            <h3>Check Loan Offers</h3>
+
+            <form>
+              <input type="text" placeholder="Your Full Name" />
+              <input type="tel" placeholder="Mobile Number" />
+              <input type="email" placeholder="Email (optional)" />
+
+              <button type="submit" className="primary-cta">
+                Show Best Offers
+              </button>
+
+              <p className="form-disclaimer">
+                We will only use your details to show relevant loan offers.
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -184,6 +255,27 @@ export default function Home() {
               and EMI.
             </p>
           </a>
+        </div>
+      </section>
+
+      {/* ✅ FINAL CTA SECTION */}
+      <section className="final-cta">
+        <div className="final-cta-inner">
+          <h2>Ready to Plan Your Loan the Smart Way?</h2>
+          <p>
+            Use India’s most trusted free calculators to plan your EMI, savings
+            & investments before making any financial decision.
+          </p>
+
+          <div className="final-cta-row">
+            <a href="/emi-calculator">
+              <button className="primary-cta">Start with EMI Calculator</button>
+            </a>
+
+            <a href="/credit-score">
+              <button>Check Credit Score</button>
+            </a>
+          </div>
         </div>
       </section>
 
