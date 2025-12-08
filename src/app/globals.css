@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Rubik', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #fafafa;
+  overflow-x: hidden;
+}
+
 /* =========================================
    1. VARIABLES & RESET
    ========================================= */
@@ -16,15 +25,6 @@
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #fafafa;
-  color: var(--text);
-  line-height: 1.65;
 }
 
 main {
@@ -116,8 +116,8 @@ a:hover {
 
 .logo {
   font-size: 22px;
-  font-weight: 800;
-  color: var(--primary);
+  font-weight: 600;
+  color: #090909;
 }
 
 .nav-links {
@@ -133,7 +133,7 @@ a:hover {
   padding: 8px 14px;
   border-radius: 6px;
   color: var(--text);
-  font-weight: 600;
+  font-weight: 400;
   background: none;
   border: none;
   cursor: pointer;
@@ -145,13 +145,13 @@ a:hover {
 
 .nav-links a:hover,
 .mega-btn:hover {
-  background: #f1f5f9;
+  background: #eff8e5;
   text-decoration: none;
 }
 
 .nav-links .active {
-  background: #e0ecff;
-  color: var(--primary);
+  background: #eff8e5;
+  color: #2f3b1e;
 }
 
 .nav-cta {
@@ -265,14 +265,15 @@ a:hover {
 }
 
 .hero-content h1 {
-  font-size: 42px;
+  font-size: 55px;
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin-bottom: 16px;
 }
 
 .hero-sub {
-  font-size: 18px;
+  font-size: 16px;
   max-width: 520px;
   margin-bottom: 28px;
   color: var(--muted);
@@ -283,11 +284,12 @@ a:hover {
   gap: 18px;
   margin-bottom: 18px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .hero-trust-mini {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   color: #166534;
   margin-top: 6px;
 }
@@ -397,6 +399,10 @@ a:hover {
   box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
 }
 
+.card li {
+  text-decoration: none;
+}
+
 .article {
   margin-top: 50px;
   background: white;
@@ -414,6 +420,16 @@ a:hover {
   flex-direction: column;
   gap: 14px;
   transition: 0.25s ease;
+}
+
+.home-guide-card h3 {
+  font-weight: 500;
+  color: var(--btn-text-dark);
+}
+
+.home-guide-card p {
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .home-guide-card:hover {
@@ -467,13 +483,14 @@ a:hover {
   margin-top: 14px;
   margin-bottom: 0;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 500;
   color: #020617;
 }
 
 .tool-tile p {
   font-size: 13px;
   color: var(--muted);
+  font-weight: 400;
   margin: 0;
 }
 
@@ -540,22 +557,22 @@ a:hover {
   top: 10px;
   right: 12px;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 4px 8px;
   border-radius: 999px;
   letter-spacing: 0.3px;
 }
 
 .hot-badge {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
+  background: oklch(63.7% 0.237 25.331);
   color: white;
 }
 .star-badge {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: oklch(76.9% 0.188 70.08);
   color: white;
 }
 .smart-badge {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: oklch(69.6% 0.17 162.48);
   color: white;
 }
 
@@ -611,6 +628,7 @@ button {
   color: #1a4607;
   border: none;
   padding: 12px 22px;
+  border: 1px solid var(--muted);
   border-radius: 10px;
   cursor: pointer;
   font-weight: 800;
@@ -625,13 +643,13 @@ button:hover {
 }
 
 .apply-btn {
-  background: #a0e870;
+  font-family: 'Rubik';
+  background: white;
   color: #1a4607;
   padding: 10px 18px;
   border-radius: 8px;
-  font-weight: 800;
+  font-weight: 600;
   display: inline-block;
-  box-shadow: 0 6px 14px rgba(160, 232, 112, 0.35);
 }
 
 .apply-btn:hover {
@@ -640,11 +658,12 @@ button:hover {
 }
 
 .primary-cta {
+  font-family: 'Rubik';
   background: #a0e870;
   color: #1a4607;
   padding: 16px 36px;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 500;
   border-radius: 12px;
   letter-spacing: 0.4px;
   border: none;
@@ -658,10 +677,10 @@ button:hover {
 .table-apply-btn {
   padding: 8px 18px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
+  border: 1px solid var(--muted);
   border-radius: 8px;
   min-width: auto;
-  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.25);
 }
 
 .table-apply-btn:hover {
@@ -874,6 +893,7 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  align-items: center;
 }
 
 .result-card {
@@ -914,7 +934,10 @@ button:hover {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: conic-gradient(#16a34a 0%, #ef4444 100%);
+  background: conic-gradient(
+    oklch(76.8% 0.233 130.85) 0%,
+    oklch(63.7% 0.237 25.331) 100%
+  );
 }
 
 .donut-legend {
@@ -927,8 +950,8 @@ button:hover {
 /* EMI Summary Strip */
 .emi-summary-strip {
   margin-top: 22px;
-  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-  border: 1px solid #86efac;
+  background: rgb(239, 248, 229);
+  border: 1px solid #1b2d02;
   border-radius: 16px;
   padding: 16px;
 }
@@ -967,11 +990,13 @@ button:hover {
 .rate-table th,
 .rate-table td {
   padding: 12px;
+  font-weight: 500;
   border-bottom: 1px solid #e5e7eb;
+  text-align: center;
 }
 
 .rate-table th {
-  background: #f1f5f9;
+  background: #eff8e5;
 }
 
 /* Loan Conversion Section */
@@ -1090,7 +1115,7 @@ button:hover {
 
 .final-cta h2 {
   font-size: 38px;
-  font-weight: 900;
+  font-weight: 600;
   margin-bottom: 14px;
 }
 
@@ -1153,5 +1178,63 @@ footer a:hover {
   .tools-section {
     padding: 60px 14px;
     border-radius: 0;
+  }
+}
+
+/* ✅ FORCE HERO TO FULL WIDTH EVEN INSIDE CONTAINER */
+.home-hero {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background: white;
+  padding: 60px 0;
+}
+
+/* ✅ KEEP CONTENT CENTERED */
+.hero-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 60px;
+}
+
+/* ✅ RIGHT SIDE VISUAL STACK */
+.hero-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ✅ HERO STAT CARDS */
+.hero-card {
+  background: white;
+  border-radius: 18px;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  text-align: center;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.hero-card strong {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  color: #2f3b1e;
+}
+
+.hero-card span {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ✅ MOBILE STACK */
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 }
