@@ -6,7 +6,7 @@ function formatINR(value: number): string {
 
 export default function FDClient() {
   return (
-    <section className="card" style={{ maxWidth: 520 }}>
+    <section className="card">
       <h2>Fixed Deposit (FD) Calculator</h2>
 
       <form

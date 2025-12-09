@@ -22,58 +22,49 @@ export default function RootLayout({
         {children}
 
         {/* ✅ GLOBAL FOOTER */}
-        <footer>
-          <div
-            style={{
-              maxWidth: '1200px',
-              margin: '0 auto',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-              gap: '30px',
-            }}
-          >
-            <div>
+        <footer className="site-footer">
+          <div className="footer-inner">
+            {/* ✅ BRAND COLUMN */}
+            <div className="footer-brand">
+              <div className="footer-logo">Fincado</div>
+              <p>India’s smart financial calculator platform.</p>
+              <p className="footer-copy">
+                © 2025 Fincado. All rights reserved.
+              </p>
+            </div>
+
+            {/* ✅ CALCULATORS */}
+            <div className="footer-col">
               <h4>Calculators</h4>
               <a href="/emi-calculator">EMI Calculator</a>
-              <br />
               <a href="/sip-calculator">SIP Calculator</a>
-              <br />
               <a href="/fd-calculator">FD Calculator</a>
             </div>
 
-            <div>
+            {/* ✅ LOANS */}
+            <div className="footer-col">
               <h4>Loans</h4>
               <a href="/loans/personal-loan">Personal Loan</a>
-              <br />
               <a href="/loans/home-loan">Home Loan</a>
-              <br />
               <a href="/compare-loans">Compare Loans</a>
             </div>
 
-            <div>
+            {/* ✅ CREDIT */}
+            <div className="footer-col">
               <h4>Credit</h4>
               <a href="/credit-score">Check Credit Score</a>
-              <br />
               <a href="/guides">Loan & Finance Guides</a>
             </div>
 
-            <div>
+            {/* ✅ COMPANY */}
+            <div className="footer-col">
               <h4>Company</h4>
               <a href="/about">About Fincado</a>
-              <br />
               <a href="/contact">Contact</a>
-              <br />
               <a href="/privacy-policy">Privacy Policy</a>
-              <br />
               <a href="/terms">Terms of Use</a>
             </div>
           </div>
-
-          <p
-            style={{ marginTop: '30px', textAlign: 'center', fontSize: '13px' }}
-          >
-            © {new Date().getFullYear()} Fincado.com — All rights reserved.
-          </p>
         </footer>
 
         {/* ✅ MOBILE STICKY AD BAR */}

@@ -85,9 +85,12 @@ p {
 }
 
 a {
-  color: var(--primary);
+  color: var(--link);
   text-decoration: none;
   font-weight: 600;
+}
+.li {
+  text-decoration: none;
 }
 
 a:hover {
@@ -674,17 +677,25 @@ button:hover {
   transform: translateY(-2px);
 }
 
+/* ✅ PREMIUM GREEN CTA (NO GRADIENT) */
 .table-apply-btn {
-  padding: 8px 18px;
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid var(--muted);
-  border-radius: 8px;
-  min-width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #a0e870; /* ✅ Your green */
+  color: #1a4607; /* ✅ Your dark green text */
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 13px;
+  text-decoration: none;
+  border: none;
+  transition: all 0.15s ease;
 }
 
 .table-apply-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(26, 70, 7, 0.25);
 }
 
 /* =========================================
@@ -1131,6 +1142,7 @@ button:hover {
   gap: 18px;
   justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .final-cta-row button {
@@ -1237,4 +1249,509 @@ footer a:hover {
     grid-template-columns: 1fr;
     gap: 36px;
   }
+}
+
+.savings-box {
+  margin-top: 36px;
+  padding: 28px 24px; /* ✅ Top & bottom padding added */
+  background: #f6f9f6;
+  border: 2px dashed #a0e870; /* ✅ DOTTED GREEN BORDER */
+  border-radius: 14px;
+  text-align: center;
+}
+
+.savings-box h3 {
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #1a4607;
+}
+
+#savings {
+  color: #1a4607;
+  font-weight: 600;
+}
+
+/* ✅ FORCE LOAN CONVERT SECTION TO FULL WIDTH */
+.loan-convert {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background: white; /* ✅ White background */
+  padding: 90px 0; /* ✅ Top + bottom spacing */
+}
+
+/* ✅ KEEP CONTENT CENTERED */
+.loan-convert-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ✅ MOBILE STACK */
+@media (max-width: 900px) {
+  .loan-convert-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ✅ MAKE SECOND CTA BUTTON WHITE */
+.final-cta-row a:nth-child(2) button {
+  background: white;
+  color: #1a4607; /* Your dark green text */
+  border: 2px solid #a0e870; /* Subtle green outline */
+}
+
+/* ✅ NICE HOVER FOR WHITE BUTTON */
+.final-cta-row a:nth-child(2) button:hover {
+  background: #f6f9f6;
+}
+
+/* ✅ CLEAN WHITE MODERN FOOTER */
+
+.site-footer {
+  background: #ffffff;
+  padding: 80px 20px 60px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 120px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 48px;
+}
+
+/* ✅ LOGO / BRAND */
+.footer-brand .footer-logo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #020617;
+  margin-bottom: 10px;
+}
+
+.footer-brand p {
+  font-size: 14px;
+  color: #64748b;
+  max-width: 260px;
+}
+
+.footer-copy {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ✅ FOOTER COLUMNS */
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #020617;
+  margin-bottom: 14px;
+}
+
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-decoration: none;
+  transition: 0.15s ease;
+}
+
+.footer-col a:hover {
+  color: #000;
+}
+
+/* ✅ MOBILE FOOTER STACK */
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+  }
+}
+
+/* ✅ MODERN SIDE BAR CARDS */
+
+.side-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 22px 20px;
+  margin-top: 20px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.side-card h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #020617;
+  margin-bottom: 14px;
+}
+
+/* ✅ CLEAN LINK LIST */
+.side-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.side-links li {
+  margin-bottom: 10px;
+}
+
+.side-links a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a4607;
+  background: #f6f9f6;
+  transition: all 0.2s ease;
+}
+
+.side-links a:hover {
+  background: #a0e870;
+  color: #1a4607;
+  transform: translateX(4px);
+}
+
+.sidebar {
+  position: sticky;
+  top: 50px; /* adjust based on your navbar height */
+  align-self: flex-start;
+}
+
+.legal-note {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.loan-range {
+  font-size: 13px;
+  color: #0f172a;
+  font-weight: 700;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.rate-updated {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+/* -------------------------
+  Loan Compare Widget — fixed layout
+   - compact rows
+   - constrained bank logos (no giant svgs)
+   - green pill uses provided color
+--------------------------*/
+
+.loan-widget {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+/* widget title */
+.loan-widget-title {
+  margin: 0 0 14px 0;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* list wrapper */
+.loan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* each offer row */
+.loan-offer-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #eef2f6;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.loan-offer-row strong {
+  font-weight: 500;
+  color: var(--text);
+  font-size: 14px;
+}
+
+/* left logo column (fixed) */
+.loan-col-logo {
+  flex: 0 0 44px; /* fixed column for bank logo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* bank svg / images should be constrained */
+.bank-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+
+/* main title + pill column */
+.loan-col-main {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0; /* allow truncation */
+}
+
+/* loan title (left) */
+.loan-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+}
+
+/* the pill(s) area — keep it compact */
+.loan-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+/* green range pill (uses your colors) */
+.loan-range,
+.loan-badge {
+  display: inline-block;
+  background: #ecf9e8; /* subtle green backdrop */
+  border: 1px solid rgba(160, 232, 112, 0.28); /* light border */
+  color: #1a4607; /* your provided text color */
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* small tag (if ever used) — kept neutral or can be removed */
+.loan-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #ff7a7a; /* example — but you said you removed tags */
+}
+
+/* right CTA column */
+.loan-col-cta {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* small CTA variant used in widget */
+.table-apply-btn.small {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #a0e870; /* your button color */
+  color: #1a4607; /* your button text color */
+  font-weight: 500;
+  border: none;
+  text-decoration: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+/* hover state to give subtle feedback */
+.table-apply-btn.small:hover {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
+}
+
+/* widget footer small note */
+.loan-widget-footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #eef3f6;
+}
+
+.loan-widget-footer small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* responsive: tighten on mobile */
+@media (max-width: 640px) {
+  .loan-widget {
+    padding: 16px;
+  }
+
+  .loan-offer-row {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .loan-col-logo {
+    flex-basis: 40px;
+  }
+  .bank-logo {
+    width: 28px;
+    height: 28px;
+  }
+  .loan-title {
+    font-size: 15px;
+  }
+  .loan-range {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+  .table-apply-btn.small {
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+}
+
+/* ---------------------------
+   PREMIUM ARTICLE / GUIDE PAGE
+---------------------------- */
+
+/* Typography */
+.article h1,
+.article h2,
+.article h3 {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.article p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: #444;
+  margin: 14px 0;
+}
+
+.article ul {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+
+.article li {
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* Links inside articles */
+.article a {
+  color: #138215;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* ---------------------------
+   TABLE DESIGN (Bankrate style)
+---------------------------- */
+
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+.article table th {
+  background: #f3f7ff;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.article table td {
+  padding: 12px;
+  border-bottom: 1px solid #eaeaea;
+  color: #333;
+}
+
+.article table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Optional zebra rows */
+.article table tr:nth-child(even) td {
+  background: #fdfdfd;
+}
+
+/* ---------------------------
+   SIDEBAR CARDS (Better look)
+---------------------------- */
+
+.side-card {
+  background: white;
+  border: 1px solid #e9e9e9;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.side-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #222;
+}
+
+.side-card ul li a {
+  color: #138215;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.side-card ul li {
+  margin-bottom: 6px;
 }

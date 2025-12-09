@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import EMIClient from './EMIClient';
+import LoanCompareWidget from '@/components/LoanCompareWidget';
+import LegalNote from '@/components/LegalNote';
 
 export const metadata: Metadata = {
   title: 'EMI Calculator – Calculate Loan EMI Online | Fincado',
   description:
-    'Free EMI calculator to calculate monthly loan EMI, total interest and total repayment for home loan, car loan and personal loan. Fast, accurate & mobile-friendly.',
+    'Free EMI calculator to calculate monthly loan EMI, total interest and total repayment. Plan home loan, car loan & personal loan EMIs online.',
 };
 
 export default function EMIPage() {
@@ -15,92 +17,37 @@ export default function EMIPage() {
         margin: '0 auto',
         display: 'grid',
         gridTemplateColumns: '1fr 300px',
-        gap: 16, // ✅ reduced from 32 → 16
+        gap: 16,
       }}
     >
+      {/* LEFT CONTENT */}
       <div style={{ minWidth: 0 }}>
         <h1>EMI Calculator – Calculate Loan EMI Instantly</h1>
 
         <p style={{ maxWidth: 700 }}>
           Use this free EMI Calculator to instantly calculate your monthly loan
-          EMI, total interest payable, and total repayment amount for home loan,
-          car loan and personal loan.
+          EMI, total interest payable, and total repayment amount.
         </p>
 
-        <div className="ad-box">
-          <p>Ad will appear here (Above the fold)</p>
-        </div>
+        {/* ✅ ABOVE THE FOLD AD */}
+        <div className="ad-box">Ad will appear here (Above the fold)</div>
 
         <EMIClient />
 
-        <div className="ad-box">
-          <p>Ad will appear here (Mid content)</p>
-        </div>
+        {/* ✅ MID CONTENT AD */}
+        <div className="ad-box">Ad will appear here (Mid content)</div>
 
         <section className="article">
           <h2>What is EMI?</h2>
           <p>
-            EMI, or Equated Monthly Installment, is the fixed amount a borrower
-            pays every month to repay a loan. It consists of two components –
-            principal and interest.
+            EMI (Equated Monthly Installment) is the fixed amount you pay every
+            month to repay a loan. It includes both principal and interest.
           </p>
 
-          <h2>How is EMI Calculated?</h2>
+          <h2>EMI Formula</h2>
           <pre>EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)</pre>
 
-          <p>
-            Where P is the loan amount, r is the monthly interest rate, and n is
-            the total number of monthly installments.
-          </p>
-
-          <h2>Related Loan Tools</h2>
-          <ul>
-            <li>
-              <a href="/loans">All Loan Calculators</a>
-            </li>
-            <li>
-              <a href="/emi-calculator">Home Loan EMI Calculator</a>
-            </li>
-            <li>
-              <a href="/emi-calculator">Car Loan EMI Calculator</a>
-            </li>
-            <li>
-              <a href="/emi-calculator">Personal Loan EMI Calculator</a>
-            </li>
-          </ul>
-
-          <h2>Disclaimer</h2>
-          <p>
-            This EMI calculator provides approximate values for educational use
-            only. Actual loan terms may vary according to your bank or lender.
-          </p>
-        </section>
-
-        <div className="ad-box">
-          <p>Ad will appear here (Before footer)</p>
-        </div>
-      </div>
-
-      <aside style={{ position: 'sticky', top: 24 }}>
-        <div className="ad-box">Sticky Sidebar Ad</div>
-
-        <div className="card" style={{ marginTop: 24 }}>
-          <h3>Compare Loan Offers</h3>
-          <ul>
-            <li>
-              <a href="#">Check Home Loan Rates</a>
-            </li>
-            <li>
-              <a href="#">Best Personal Loan</a>
-            </li>
-            <li>
-              <a href="#">Low Interest Car Loan</a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="card" style={{ marginTop: 24 }}>
-          <h3>People Also Use</h3>
+          <h2>Related Tools</h2>
           <ul>
             <li>
               <a href="/sip-calculator">SIP Calculator</a>
@@ -109,11 +56,50 @@ export default function EMIPage() {
               <a href="/fd-calculator">FD Calculator</a>
             </li>
             <li>
-              <a href="/home-loan-rates">Home Loan Rates</a>
+              <a href="/loans">Loan Calculators</a>
             </li>
           </ul>
-        </div>
+
+          <LegalNote />
+        </section>
+
+        {/* ✅ BEFORE FOOTER AD */}
+        <div className="ad-box">Ad will appear here (Before footer)</div>
+      </div>
+
+      {/* ✅ STICKY SIDEBAR */}
+      <aside className="sidebar">
+        <div className="ad-box">Sticky Sidebar Ad</div>
+        <LoanCompareWidget />
       </aside>
     </main>
   );
 }
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How is EMI calculated?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'EMI is calculated using the formula EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does checking EMI affect credit score?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, using an EMI calculator does not affect your credit score.',
+          },
+        },
+      ],
+    }),
+  }}
+/>;

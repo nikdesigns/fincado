@@ -6,7 +6,7 @@ function formatINR(value: number): string {
 
 export default function SIPClient() {
   return (
-    <section className="card" style={{ maxWidth: 520 }}>
+    <section className="card">
       <h2>SIP Calculator</h2>
 
       <form

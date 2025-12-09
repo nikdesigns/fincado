@@ -1,10 +1,26 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import articles from '@/data/articles.json';
+import RelatedTopicsSidebar from '@/components/RelatedTopicsSidebar';
+
+type Article = {
+  slug: string;
+  title: string;
+  category: string;
+};
 
 export default function GuidesLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const slug = pathname.split('/').pop();
+
+  const article = (articles as Article[]).find((a) => a.slug === slug);
+
   return (
     <main
       style={{
@@ -21,8 +37,10 @@ export default function GuidesLayout({
 
       {/* ✅ RIGHT: STICKY SIDEBAR */}
       <aside style={{ position: 'sticky', top: 90, height: 'fit-content' }}>
+        {/* ✅ TOP AD */}
         <div className="ad-box">Advertisement</div>
 
+        {/* ✅ POPULAR CALCULATORS (KEPT AS IS) */}
         <div className="card" style={{ marginTop: 24 }}>
           <h3>Popular Calculators</h3>
           <ul>
@@ -38,19 +56,15 @@ export default function GuidesLayout({
           </ul>
         </div>
 
-        <div className="card" style={{ marginTop: 24 }}>
-          <h3>Credit & Loans</h3>
-          <ul>
-            <li>
-              <Link href="/guides/credit-score-loans">
-                Credit Score & Loans
-              </Link>
-            </li>
-            <li>
-              <Link href="/guides/home-loan-guide">Home Loan Guide</Link>
-            </li>
-          </ul>
-        </div>
+        {/* ✅ ✅ ✅ RELATED TOPICS (REPLACES CREDIT & LOANS) */}
+        {article && (
+          <div style={{ marginTop: 24 }}>
+            <RelatedTopicsSidebar
+              currentSlug={article.slug}
+              category={article.category}
+            />
+          </div>
+        )}
       </aside>
     </main>
   );
