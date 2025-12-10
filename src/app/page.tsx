@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Icon from '@/components/Icon';
 import AdSlot from '@/components/AdSlot'; // existing Ad component
 import React from 'react';
+import HeroWithStats from '@/components/HeroWithStats';
 
 export const metadata: Metadata = {
   title: 'Fincado — Smart Financial Calculators & Loan Tools for India',
@@ -115,61 +116,121 @@ export default function Home(): JSX.Element {
         </section>
 
         {/* TOOLS — high RPM placement next */}
-        <section className="tools-section" aria-label="Tools">
-          <div className="tools-header">
-            <h2>Most Used Tools</h2>
-            <p className="tools-sub">
-              Quick links to the calculators people use the most.
-            </p>
+        <section className="tools-section" aria-label="Most used calculators">
+          <div className="tools-header container-inner">
+            <div>
+              <h2>Most Used Tools</h2>
+              <p className="tools-sub">
+                Quick links to the calculators people use the most.
+              </p>
+            </div>
+
+            <div className="tools-cta">
+              <a
+                href="/tools"
+                className="secondary-cta"
+                aria-label="See all tools"
+              >
+                See all tools
+              </a>
+            </div>
           </div>
 
-          <div className="tools-grid">
-            <a href="/emi-calculator" className="tool-tile">
-              <div className="tool-icon-box">
-                <Icon name="emi" className="tool-icon-svg" />
+          <div className="tools-grid container-inner" role="list">
+            <a
+              role="listitem"
+              href="/emi-calculator"
+              className="tool-tile"
+              aria-label="EMI Calculator — Plan your loan instantly"
+              tabIndex={0}
+            >
+              <div className="tool-icon-wrap">
+                <div className="tool-icon-circle">
+                  <Icon name="emi" className="tool-icon-svg" />
+                </div>
               </div>
-              <h3>EMI Calculator</h3>
-              <p>Plan your loan instantly</p>
+              <h3 className="tool-title">EMI Calculator</h3>
+              <p className="tool-desc">Plan your loan instantly</p>
             </a>
 
-            <a href="/loans/home-loan" className="tool-tile">
-              <div className="tool-icon-box">
-                <Icon name="homeLoan" className="tool-icon-svg" />
+            <a
+              role="listitem"
+              href="/loans/home-loan"
+              className="tool-tile"
+              aria-label="Home Loan — Lowest rates & EMI planning"
+              tabIndex={0}
+            >
+              <div className="tool-icon-wrap">
+                <div className="tool-icon-circle">
+                  <Icon name="homeLoan" className="tool-icon-svg" />
+                </div>
               </div>
-              <h3>Home Loan</h3>
-              <p>Lowest rates & EMI planning</p>
+              <h3 className="tool-title">Home Loan</h3>
+              <p className="tool-desc">Lowest rates & EMI planning</p>
             </a>
 
-            <a href="/sip-calculator" className="tool-tile">
-              <div className="tool-icon-box">
-                <Icon name="sip" className="tool-icon-svg" />
+            <a
+              role="listitem"
+              href="/sip-calculator"
+              className="tool-tile"
+              aria-label="SIP Calculator — Grow your wealth with SIP"
+              tabIndex={0}
+            >
+              <div className="tool-icon-wrap">
+                <div className="tool-icon-circle">
+                  <Icon name="sip" className="tool-icon-svg" />
+                </div>
               </div>
-              <h3>SIP Calculator</h3>
-              <p>Grow your wealth with SIP</p>
+              <h3 className="tool-title">SIP Calculator</h3>
+              <p className="tool-desc">Grow your wealth with SIP</p>
             </a>
 
-            <a href="/fd-calculator" className="tool-tile">
-              <div className="tool-icon-box">
-                <Icon name="fd" className="tool-icon-svg" />
+            <a
+              role="listitem"
+              href="/fd-calculator"
+              className="tool-tile"
+              aria-label="FD Calculator — Safe returns with compounding"
+              tabIndex={0}
+            >
+              <div className="tool-icon-wrap">
+                <div className="tool-icon-circle">
+                  <Icon name="fd" className="tool-icon-svg" />
+                </div>
               </div>
-              <h3>FD Calculator</h3>
-              <p>Safe returns with compounding</p>
+              <h3 className="tool-title">FD Calculator</h3>
+              <p className="tool-desc">Safe returns with compounding</p>
             </a>
 
-            <a href="/savings" className="tool-tile">
-              <div className="tool-icon-box">
-                <Icon name="saving" className="tool-icon-svg" />
+            <a
+              role="listitem"
+              href="/savings"
+              className="tool-tile"
+              aria-label="Savings Planner — Build your emergency fund"
+              tabIndex={0}
+            >
+              <div className="tool-icon-wrap">
+                <div className="tool-icon-circle">
+                  <Icon name="saving" className="tool-icon-svg" />
+                </div>
               </div>
-              <h3>Savings Planner</h3>
-              <p>Build your emergency fund</p>
+              <h3 className="tool-title">Savings Planner</h3>
+              <p className="tool-desc">Build your emergency fund</p>
             </a>
 
-            <a href="/credit-score" className="tool-tile">
-              <div className="tool-icon-box">
-                <Icon name="creditScore" className="tool-icon-svg" />
+            <a
+              role="listitem"
+              href="/credit-score"
+              className="tool-tile"
+              aria-label="Credit Score — Check your CIBIL & eligibility"
+              tabIndex={0}
+            >
+              <div className="tool-icon-wrap">
+                <div className="tool-icon-circle">
+                  <Icon name="creditScore" className="tool-icon-svg" />
+                </div>
               </div>
-              <h3>Credit Score</h3>
-              <p>Check your CIBIL & eligibility</p>
+              <h3 className="tool-title">Credit Score</h3>
+              <p className="tool-desc">Check your CIBIL & eligibility</p>
             </a>
           </div>
         </section>
@@ -179,31 +240,19 @@ export default function Home(): JSX.Element {
           <AdSlot id="home-mid-ad" type="leaderboard" />
         </div>
 
-        {/* TRUST & STATS */}
         {/* Trust Strip — compact */}
-        <section className="trust-strip compact" aria-label="Site stats">
-          <div className="trust-grid">
-            <div className="trust-item">
-              <div className="trust-value">10+</div>
-              <div className="trust-label">Tools</div>
-            </div>
 
-            <div className="trust-item">
-              <div className="trust-value">5,000+</div>
-              <div className="trust-label">Monthly Users</div>
-            </div>
-
-            <div className="trust-item">
-              <div className="trust-value">₹500 Cr+</div>
-              <div className="trust-label">EMIs Calculated</div>
-            </div>
-
-            <div className="trust-item">
-              <div className="trust-value">100%</div>
-              <div className="trust-label">Free & Secure</div>
-            </div>
-          </div>
-        </section>
+        <HeroWithStats
+          imageSrc="/images/family.png"
+          imageAlt="Parent with child"
+          eyebrow="Fincado Trust"
+          title="Helping you understand your money with simple tools, transparent insights and smarter financial planning"
+          stats={[
+            { value: '49', label: 'Years in personal finance' },
+            { value: '50+', label: 'In-house financial experts' },
+            { value: '200+', label: 'Money tools & calculators' },
+          ]}
+        />
 
         {/* FEATURED GUIDES — internal linking & content discoverability */}
         <section className="featured-guides">
