@@ -1,9 +1,6 @@
+import React from 'react';
+import Link from 'next/link';
 import articles from '@/data/articles.json';
-
-type Props = {
-  currentSlug: string;
-  category: string;
-};
 
 type Article = {
   slug: string;
@@ -11,24 +8,63 @@ type Article = {
   category: string;
 };
 
-export default function RelatedTopicsSidebar({ currentSlug, category }: Props) {
-  const related = (articles as Article[])
+export default function RelatedTopicsSidebar({
+  category,
+  currentSlug,
+}: {
+  category?: string;
+  currentSlug?: string;
+}) {
+  const all = articles as Article[];
+
+  // related: same category, max 6
+  const related = all
     .filter((a) => a.category === category && a.slug !== currentSlug)
     .slice(0, 6);
 
-  if (related.length === 0) return null;
+  // popular calculators (static)
+  const calculators = [
+    { title: 'EMI Calculator', href: '/emi-calculator' },
+    { title: 'SIP Calculator', href: '/sip-calculator' },
+    { title: 'FD Calculator', href: '/fd-calculator' },
+  ];
 
   return (
-    <aside className="side-card">
-      <h3>Related Topics</h3>
+    <aside className="related-sidebar">
+      <div className="ad-box">Advertisement</div>
 
-      <ul className="side-links">
-        {related.map((item) => (
-          <li key={item.slug}>
-            <a href={`/guides/${item.slug}`}>{item.title}</a>
-          </li>
-        ))}
-      </ul>
+      <div className="card related-card">
+        <h3>Related Topics</h3>
+        <ul>
+          {related.length > 0 ? (
+            related.map((r) => (
+              <li key={r.slug}>
+                <Link href={`/guides/${r.slug}`}>{r.title}</Link>
+              </li>
+            ))
+          ) : (
+            <li>No related topics yet</li>
+          )}
+        </ul>
+      </div>
+
+      <div className="card" style={{ marginTop: 16 }}>
+        <h3>Popular Calculators</h3>
+        <ul>
+          {calculators.map((c) => (
+            <li key={c.href}>
+              <Link href={c.href}>{c.title}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="card" style={{ marginTop: 16 }}>
+        <h3>Trending Guides</h3>
+        <div id="trending-guides-root">
+          {/* Will be hydrated client-side by TrendingGuides if available */}
+        </div>
+      </div>
     </aside>
   );
 }

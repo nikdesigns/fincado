@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
+import PersonalLoanClient from './PersonalLoanClient';
+import LoanCompareWidget from '@/components/LoanCompareWidget';
+import LegalNote from '@/components/LegalNote';
 
 export const metadata: Metadata = {
-  title: 'Personal Loan – Interest Rates, EMI & Eligibility | Fincado',
+  title:
+    'Personal Loan Calculator – EMI, Eligibility & Interest Estimate | Fincado',
   description:
-    'Compare personal loan interest rates, EMI, eligibility and best offers from top banks in India.',
+    'Free Personal Loan Calculator for India. Calculate EMI, total interest, affordability (FOIR), processing fees, and see amortization schedule with smart savings tips.',
 };
 
-export default function PersonalLoanPage() {
+export default function PersonalLoanCalculatorPage() {
   return (
     <main
       style={{
@@ -15,64 +19,52 @@ export default function PersonalLoanPage() {
         display: 'grid',
         gridTemplateColumns: '1fr 300px',
         gap: 16,
-        alignItems: 'start',
       }}
     >
+      {/* LEFT SIDE */}
       <div style={{ minWidth: 0 }}>
-        <h1>Personal Loan – Interest Rates, EMI & Eligibility</h1>
+        <h1>Personal Loan Calculator – Instant EMI & Eligibility Check</h1>
 
-        <p style={{ maxWidth: 700 }}>
-          Compare personal loan interest rates from top Indian banks. Check EMI,
-          eligibility, documents required and apply with confidence.
+        <p style={{ maxWidth: 760 }}>
+          Use this India-focused **Personal Loan Calculator** to estimate your
+          EMI, total interest outgo, processing fees, and eligibility using FOIR
+          rules. Includes a smart extra-EMI savings tool and amortization
+          schedule.
         </p>
 
-        <div className="ad-box">Ad will appear here</div>
+        <div className="ad-box">Ad will appear here (above the fold)</div>
 
-        <section className="article">
-          <h2>What is a Personal Loan?</h2>
-          <p>
-            A personal loan is an unsecured loan used for medical expenses,
-            travel, weddings, education and emergencies.
-          </p>
+        <PersonalLoanClient />
 
-          <h2>Personal Loan Interest Rates in India</h2>
-          <p>Rates usually range between 10.5% to 22% per annum.</p>
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (mid content)
+        </div>
 
-          <h2>Eligibility Criteria</h2>
-          <ul>
-            <li>Age: 21–60 years</li>
-            <li>Monthly income proof</li>
-            <li>Good credit score</li>
-          </ul>
-
-          <h2>Related Tools</h2>
+        <section className="article" style={{ marginTop: 24 }}>
+          <h2>How this calculator helps</h2>
           <ul>
             <li>
-              <a href="/emi-calculator">EMI Calculator</a>
+              Accurate EMI based on reducing balance method (used by Indian
+              banks)
             </li>
-            <li>
-              <a href="/credit-score">Credit Score Check</a>
-            </li>
+            <li>FOIR-based loan affordability check</li>
+            <li>Processing fee calculation (flat %)</li>
+            <li>Amortization schedule month-wise</li>
+            <li>Savings estimate if you increase EMI slightly</li>
           </ul>
+
+          <LegalNote />
         </section>
 
-        <div className="ad-box">Ad will appear here</div>
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (before footer)
+        </div>
       </div>
 
+      {/* RIGHT SIDEBAR */}
       <aside className="sidebar">
-        <div className="ad-box">Sticky Ad</div>
-
-        <div className="side-card" style={{ marginTop: 24 }}>
-          <h3>Popular Tools</h3>
-          <ul className="side-links">
-            <li>
-              <a href="/emi-calculator">EMI Calculator</a>
-            </li>
-            <li>
-              <a href="/home-loans">Home Loan</a>
-            </li>
-          </ul>
-        </div>
+        <div className="ad-box">Sticky Sidebar Ad</div>
+        <LoanCompareWidget />
       </aside>
     </main>
   );

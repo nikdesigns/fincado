@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
-import LoanCompareWidget from './LoanCompareWidget';
+import React from 'react';
+import RelatedTopicsSidebar from '@/components/RelatedTopicsSidebar';
 
 export default function CalculatorLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
     <main
@@ -12,37 +12,15 @@ export default function CalculatorLayout({
         maxWidth: 1180,
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: '1fr 300px',
-        gap: 16,
-        alignItems: 'start',
+        gridTemplateColumns: '1fr 320px',
+        gap: 24,
+        padding: '36px 20px',
       }}
     >
-      {/* ✅ MAIN CONTENT */}
       <div style={{ minWidth: 0 }}>{children}</div>
 
-      {/* ✅ STICKY SIDEBAR */}
-      <aside className="sidebar">
-        {/* ✅ STICKY AD */}
-        <div className="ad-box">Sticky Sidebar Ad</div>
-
-        {/* ✅ LOAN COMPARISON WIDGET */}
-        <LoanCompareWidget />
-
-        {/* ✅ POPULAR CALCULATORS */}
-        <div className="side-card" style={{ marginTop: 24 }}>
-          <h3>Popular Calculators</h3>
-          <ul className="side-links">
-            <li>
-              <a href="/emi-calculator">EMI Calculator</a>
-            </li>
-            <li>
-              <a href="/sip-calculator">SIP Calculator</a>
-            </li>
-            <li>
-              <a href="/fd-calculator">FD Calculator</a>
-            </li>
-          </ul>
-        </div>
+      <aside style={{ position: 'sticky', top: 90, height: 'fit-content' }}>
+        <RelatedTopicsSidebar />
       </aside>
     </main>
   );

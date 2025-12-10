@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import CreditScoreClient from './CreditScoreClient';
+import LoanCompareWidget from '@/components/LoanCompareWidget';
+import LegalNote from '@/components/LegalNote';
 
 export const metadata: Metadata = {
-  title: 'Free Credit Score Check – CIBIL Score Online | Fincado',
+  title: 'Credit Score Checker & Planner – Improve CIBIL | Fincado',
   description:
-    'Check your CIBIL credit score online for free. Learn how to improve your credit score in India.',
+    'Estimate and improve your CIBIL credit score with an interactive planner. Learn how payment history, credit utilisation, credit mix and enquiries impact your score in India.',
 };
 
 export default function CreditScorePage() {
@@ -18,29 +21,48 @@ export default function CreditScorePage() {
       }}
     >
       <div style={{ minWidth: 0 }}>
-        <h1>Free Credit Score Check – CIBIL & Experian</h1>
+        <h1>Credit Score Planner — Estimate & Improve Your CIBIL</h1>
 
-        <p>
-          Check your free credit score instantly and understand how it impacts
-          your loan approval.
+        <p style={{ maxWidth: 760 }}>
+          This interactive tool estimates your likely credit score range
+          (CIBIL-style) and shows practical steps to improve it. Use the what-if
+          sliders to see how lowering credit utilisation, fixing overdue
+          payments, or reducing enquiries might increase your score.
         </p>
 
-        <div className="ad-box">Ad will appear here</div>
+        <div className="ad-box">Ad will appear here (Above the fold)</div>
 
-        <section className="article">
-          <h2>What is a Credit Score?</h2>
+        <CreditScoreClient />
+
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (Mid content)
+        </div>
+
+        <section className="article" style={{ marginTop: 24 }}>
+          <h2>About Credit Scores (India)</h2>
           <p>
-            A credit score is a 3-digit number that tells banks how trustworthy
-            you are as a borrower.
+            Credit bureaus (CIBIL, Experian, Equifax) produce a score typically
+            between 300–900. Higher is better. Lenders use the score plus
+            detailed report to make lending decisions.
           </p>
+          <ul>
+            <li>Excellent: 800–900</li>
+            <li>Good: 700–799</li>
+            <li>Fair: 650–699</li>
+            <li>Poor: &lt;650</li>
+          </ul>
 
-          <h2>Ideal Credit Score</h2>
-          <p>700+ is considered a good score.</p>
+          <LegalNote />
         </section>
+
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (Before footer)
+        </div>
       </div>
 
       <aside className="sidebar">
-        <div className="ad-box">Sticky Ad</div>
+        <div className="ad-box">Sticky Sidebar Ad</div>
+        <LoanCompareWidget />
       </aside>
     </main>
   );

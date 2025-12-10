@@ -1,85 +1,294 @@
 'use client';
+import React, { useMemo, useState } from 'react';
 
-function formatINR(value: number): string {
-  return '₹' + value.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+function formatINR(v: number) {
+  return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
 
+type ScheduleRow = {
+  period: number;
+  balance: number;
+  interestThisPeriod: number;
+};
+
+const COMPOUND_OPTIONS = [
+  { key: 'monthly', label: 'Monthly', periodsPerYear: 12 },
+  { key: 'quarterly', label: 'Quarterly', periodsPerYear: 4 },
+  { key: 'halfyearly', label: 'Half-Yearly', periodsPerYear: 2 },
+  { key: 'yearly', label: 'Yearly', periodsPerYear: 1 },
+];
+
 export default function FDClient() {
+  const [principal, setPrincipal] = useState<number>(100000); // ₹1L
+  const [annualRate, setAnnualRate] = useState<number>(7.0); // %
+  const [years, setYears] = useState<number>(3);
+  const [months, setMonths] = useState<number>(0);
+  const [compoundKey, setCompoundKey] = useState<string>('quarterly');
+  const [marginalTaxPct, setMarginalTaxPct] = useState<number>(20); // tax slab %
+  const [showGrossOnly, setShowGrossOnly] = useState<boolean>(false);
+
+  const totalMonths = Math.max(1, Math.round(years * 12 + months));
+  const compound =
+    COMPOUND_OPTIONS.find((c) => c.key === compoundKey) || COMPOUND_OPTIONS[1];
+  const m = compound.periodsPerYear;
+
+  // Effective periods total (number of compounding periods)
+  const totalPeriods = useMemo(
+    () => Math.ceil((totalMonths / 12) * m),
+    [totalMonths, m]
+  );
+
+  // Convert annual rate to periodic rate
+  const periodRate = useMemo(() => annualRate / 100 / m, [annualRate, m]);
+
+  // Maturity calculation using compound interest formula:
+  // A = P * (1 + r)^(n) where r = periodRate, n = totalPeriods
+  const maturity = useMemo(() => {
+    if (principal <= 0 || annualRate <= 0 || totalPeriods <= 0)
+      return principal;
+    return principal * Math.pow(1 + periodRate, totalPeriods);
+  }, [principal, periodRate, totalPeriods, annualRate]);
+
+  const grossInterest = Math.max(0, maturity - principal);
+  const taxOnInterest = Math.round(grossInterest * (marginalTaxPct / 100));
+  const postTaxMaturity = Math.max(0, maturity - taxOnInterest);
+
+  // Build schedule per compounding period (for preview)
+  const schedule: ScheduleRow[] = useMemo(() => {
+    const rows: ScheduleRow[] = [];
+    let balance = principal;
+    for (let p = 1; p <= totalPeriods; p++) {
+      const interestThis = balance * periodRate;
+      balance = balance + interestThis;
+      rows.push({
+        period: p,
+        balance,
+        interestThisPeriod: interestThis,
+      });
+    }
+    return rows;
+  }, [principal, periodRate, totalPeriods]);
+
+  // Export CSV
+  function exportCSV() {
+    const header = ['Period', 'Balance', 'InterestThisPeriod'];
+    const lines = [header.join(',')].concat(
+      schedule.map((r) =>
+        [
+          r.period,
+          Math.round(r.balance),
+          Math.round(r.interestThisPeriod),
+        ].join(',')
+      )
+    );
+    const csv = lines.join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'fd-schedule.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Small setters
+  const setter =
+    (fn: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
+      fn(e.target.value === '' ? 0 : Number(e.target.value));
+
   return (
     <section className="card">
       <h2>Fixed Deposit (FD) Calculator</h2>
 
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          const P = Number(
-            (document.getElementById('fdAmount') as HTMLInputElement).value
-          );
-          const annualRate = Number(
-            (document.getElementById('fdRate') as HTMLInputElement).value
-          );
-          const years = Number(
-            (document.getElementById('fdYears') as HTMLInputElement).value
-          );
-
-          const r = annualRate / 100;
-          const n = 4; // Quarterly compounding (standard for most FDs)
-
-          const maturity = P * Math.pow(1 + r / n, n * years);
-
-          const interest = maturity - P;
-
-          (
-            document.getElementById('fdMaturity') as HTMLSpanElement
-          ).textContent = formatINR(Math.round(maturity));
-
-          (
-            document.getElementById('fdInterest') as HTMLSpanElement
-          ).textContent = formatINR(Math.round(interest));
-
-          (
-            document.getElementById('fdInvested') as HTMLSpanElement
-          ).textContent = formatINR(Math.round(P));
-        }}
+        onSubmit={(e) => e.preventDefault()}
+        style={{ display: 'grid', gap: 12 }}
       >
         <label>
-          Deposit Amount (₹)
-          <input id="fdAmount" type="number" required />
+          Principal (₹)
+          <input
+            type="number"
+            value={principal}
+            onChange={setter(setPrincipal)}
+            min={0}
+            step={1000}
+          />
         </label>
 
         <label>
-          Interest Rate (% per year)
-          <input id="fdRate" type="number" step="0.1" required />
+          Annual Interest Rate (%)
+          <input
+            type="number"
+            step="0.01"
+            value={annualRate}
+            onChange={setter(setAnnualRate)}
+            min={0}
+          />
+        </label>
+
+        <div style={{ display: 'flex', gap: 8 }}>
+          <label style={{ flex: 1 }}>
+            Years
+            <input
+              type="number"
+              value={years}
+              onChange={setter(setYears)}
+              min={0}
+              step={1}
+            />
+          </label>
+          <label style={{ flex: 1 }}>
+            Months
+            <input
+              type="number"
+              value={months}
+              onChange={setter(setMonths)}
+              min={0}
+              max={11}
+            />
+          </label>
+        </div>
+
+        <label>
+          Compounding Frequency
+          <select
+            value={compoundKey}
+            onChange={(e) => setCompoundKey(e.target.value)}
+          >
+            {COMPOUND_OPTIONS.map((c) => (
+              <option value={c.key} key={c.key}>
+                {c.label}
+              </option>
+            ))}
+          </select>
         </label>
 
         <label>
-          Investment Duration (Years)
-          <input id="fdYears" type="number" required />
+          Marginal Tax Rate (%) — for tax estimate
+          <input
+            type="number"
+            value={marginalTaxPct}
+            onChange={setter(setMarginalTaxPct)}
+            min={0}
+            max={40}
+          />
         </label>
 
-        <button type="submit">Calculate FD Maturity</button>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <input
+            type="checkbox"
+            checked={showGrossOnly}
+            onChange={() => setShowGrossOnly(!showGrossOnly)}
+          />
+          Show gross interest only (do not subtract tax)
+        </label>
+
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button className="primary-cta">Update</button>
+          <button
+            type="button"
+            onClick={() => {
+              setPrincipal(100000);
+              setAnnualRate(7.0);
+              setYears(3);
+              setMonths(0);
+              setCompoundKey('quarterly');
+              setMarginalTaxPct(20);
+              setShowGrossOnly(false);
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </form>
 
-      <div style={{ marginTop: 20 }}>
-        <p>
-          Maturity Amount:{' '}
-          <strong>
-            <span id="fdMaturity">₹0</span>
-          </strong>
-        </p>
-        <p>
-          Total Interest:{' '}
-          <strong>
-            <span id="fdInterest">₹0</span>
-          </strong>
-        </p>
-        <p>
-          Amount Invested:{' '}
-          <strong>
-            <span id="fdInvested">₹0</span>
-          </strong>
-        </p>
+      {/* Results */}
+      <div className="result-grid emi-summary-strip" style={{ marginTop: 12 }}>
+        <div className="result-card">
+          <p className="result-label">Maturity Amount</p>
+          <p className="result-primary">{formatINR(Math.round(maturity))}</p>
+        </div>
+
+        <div className="result-card">
+          <p className="result-label">Gross Interest</p>
+          <p className="result-value">{formatINR(Math.round(grossInterest))}</p>
+        </div>
+
+        <div className="result-card">
+          <p className="result-label">Estimated Tax on Interest</p>
+          <p className="result-value">{formatINR(Math.round(taxOnInterest))}</p>
+        </div>
+
+        <div className="result-card">
+          <p className="result-label">Post-tax Maturity</p>
+          <p className="result-value">
+            {formatINR(Math.round(showGrossOnly ? maturity : postTaxMaturity))}
+          </p>
+        </div>
+      </div>
+
+      {/* Quick notes */}
+      <div className="card" style={{ marginTop: 12 }}>
+        <h3>Quick Notes</h3>
+        <ul>
+          <li>
+            Compounding frequency: {compound.label} — {m} compounding periods
+            per year.
+          </li>
+          <li>Total compounding periods: {totalPeriods}.</li>
+          <li>
+            Estimate assumes interest credited and compounded as per frequency.
+          </li>
+          <li style={{ color: '#64748b' }}>
+            Tax estimate is a simplification. Some banks deduct TDS at source;
+            exemptions may apply (e.g., Form 15G/15H). Consult a tax advisor.
+          </li>
+        </ul>
+      </div>
+
+      {/* Schedule preview */}
+      <div className="article" style={{ marginTop: 16 }}>
+        <h2>Compounding Schedule (periods)</h2>
+        <div
+          className="schedule-wrapper"
+          style={{ maxHeight: 360, overflow: 'auto' }}
+        >
+          <table className="rate-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Interest this period</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schedule.map((r) => (
+                <tr key={r.period}>
+                  <td>{r.period}</td>
+                  <td>{formatINR(Math.round(r.interestThisPeriod))}</td>
+                  <td>{formatINR(Math.round(r.balance))}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+          <button onClick={exportCSV}>Export Schedule CSV</button>
+          <button
+            onClick={() => {
+              const summary = `FD ₹${principal} @ ${annualRate}% (${
+                compound.label
+              }) for ${years}y ${months}m ⇒ Maturity ${formatINR(
+                Math.round(maturity)
+              )}`;
+              navigator.clipboard?.writeText(summary);
+              alert('Summary copied to clipboard');
+            }}
+          >
+            Copy Summary
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,125 @@
+// src/app/emi-calculator/EMIClient.tsx
 'use client';
+import React, { useMemo, useState } from 'react';
 import { loanRates, rateLastUpdated } from '@/lib/manualLoanRates';
 
-function formatINR(value: number): string {
+function formatINR(value: number) {
   return '₹' + value.toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
 
+type AmortRow = {
+  month: number;
+  emi: number;
+  principal: number;
+  interest: number;
+  balance: number;
+};
+
 export default function EMIClient() {
+  // Inputs (defaults similar to previous behavior)
+  const [loanAmount, setLoanAmount] = useState<number>(500000); // ₹5 L
+  const [annualRate, setAnnualRate] = useState<number>(10.0); // %
+  const [tenureYears, setTenureYears] = useState<number>(5); // years
+  const [monthlyIncome, setMonthlyIncome] = useState<number>(40000);
+  const [extraPaymentPercent, setExtraPaymentPercent] = useState<number>(10); // 10% extra EMI simulation
+
+  // Derived values
+  const monthlyRate = useMemo(() => annualRate / 12 / 100, [annualRate]);
+  const nMonths = useMemo(
+    () => Math.max(1, Math.round(tenureYears * 12)),
+    [tenureYears]
+  );
+
+  // EMI calculation
+  const emi = useMemo(() => {
+    if (loanAmount <= 0 || monthlyRate <= 0 || nMonths <= 0) return 0;
+    const r = monthlyRate;
+    const numerator = loanAmount * r * Math.pow(1 + r, nMonths);
+    const denominator = Math.pow(1 + r, nMonths) - 1;
+    return numerator / denominator;
+  }, [loanAmount, monthlyRate, nMonths]);
+
+  const totalPayment = useMemo(() => Math.round(emi * nMonths), [emi, nMonths]);
+  const totalInterest = useMemo(
+    () => Math.round(totalPayment - loanAmount),
+    [totalPayment, loanAmount]
+  );
+
+  // Amortization schedule
+  const schedule: AmortRow[] = useMemo(() => {
+    if (loanAmount <= 0 || nMonths <= 0) return [];
+    const rows: AmortRow[] = [];
+    let balance = loanAmount;
+    for (let m = 1; m <= nMonths; m++) {
+      const interestPortion = balance * monthlyRate;
+      const principalPortion = Math.max(0, emi - interestPortion);
+      balance -= principalPortion;
+      rows.push({
+        month: m,
+        emi,
+        principal: principalPortion,
+        interest: interestPortion,
+        balance: Math.max(0, balance),
+      });
+    }
+    return rows;
+  }, [loanAmount, monthlyRate, nMonths, emi]);
+
+  // Donut chart percentages
+  const interestPercent = useMemo(() => {
+    const tp = emi * nMonths;
+    if (tp <= 0) return 0;
+    return Math.round(((totalPayment - loanAmount) / tp) * 100);
+  }, [totalPayment, loanAmount, emi, nMonths]);
+
+  const principalPercent = Math.max(0, 100 - interestPercent);
+
+  // Affordability (FOIR) - safe rule 50%
+  const foirAllowed = Math.round(monthlyIncome * 0.5);
+  const affordabilityOk = Math.round(emi) <= foirAllowed;
+
+  // Savings by paying extra EMI % (simulate paying extraPaymentPercent% more every month)
+  const prepaymentEffect = useMemo(() => {
+    if (loanAmount <= 0 || monthlyRate <= 0)
+      return { newMonths: 0, interestSaved: 0, newTotalInterest: 0 };
+    const extraEmi = emi * (1 + extraPaymentPercent / 100);
+    let bal = loanAmount;
+    let months = 0;
+    let totalInterestPaid = 0;
+    while (bal > 0 && months < 1000) {
+      months++;
+      const interestPortion = bal * monthlyRate;
+      const principalPortion = Math.min(
+        Math.max(0, extraEmi - interestPortion),
+        bal
+      );
+      if (principalPortion <= 0) {
+        // can't progress (very low extra emi) - break
+        break;
+      }
+      bal -= principalPortion;
+      totalInterestPaid += interestPortion;
+    }
+    const originalTotalInterest = schedule.reduce((s, r) => s + r.interest, 0);
+    const interestSaved = Math.max(
+      0,
+      Math.round(originalTotalInterest - totalInterestPaid)
+    );
+    return {
+      newMonths: months,
+      interestSaved,
+      newTotalInterest: Math.round(totalInterestPaid),
+    };
+  }, [loanAmount, monthlyRate, emi, extraPaymentPercent, schedule]);
+
+  // Small helpers
+  const safeNumberSetter =
+    (setter: (v: number) => void) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const v = e.target.value;
+      setter(v === '' ? 0 : Number(v));
+    };
+
   return (
     <section className="card">
       <h2>Loan EMI Calculator</h2>
@@ -13,215 +127,203 @@ export default function EMIClient() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-
-          const P = Number(
-            (document.getElementById('loan') as HTMLInputElement).value
-          );
-          const annualRate = Number(
-            (document.getElementById('rate') as HTMLInputElement).value
-          );
-          const years = Number(
-            (document.getElementById('years') as HTMLInputElement).value
-          );
-
-          if (P <= 0 || annualRate <= 0 || years <= 0) {
-            alert('Please enter valid positive values');
-            return;
-          }
-
-          const r = annualRate / 12 / 100;
-          const n = years * 12;
-
-          const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-
-          const totalPayment = emi * n;
-          const totalInterest = totalPayment - P;
-
-          const emiRounded = Math.round(emi);
-          const interestRounded = Math.round(totalInterest);
-          const totalRounded = Math.round(totalPayment);
-
-          // ✅ Result Cards
-          (document.getElementById('emi') as HTMLParagraphElement).textContent =
-            formatINR(emiRounded);
-          (
-            document.getElementById('interest') as HTMLParagraphElement
-          ).textContent = formatINR(interestRounded);
-          (
-            document.getElementById('total') as HTMLParagraphElement
-          ).textContent = formatINR(totalRounded);
-
-          // ✅ Donut Chart
-          const interestPercent = (totalInterest / totalPayment) * 100;
-          const principalPercent = 100 - interestPercent;
-
-          const donut = document.getElementById('donut') as HTMLDivElement;
-          donut.style.background = `conic-gradient(
-            #16a34a 0% ${principalPercent}%,
-            #ef4444 ${principalPercent}% 100%
-          )`;
-
-          // ✅ Amortization Table
-          const table = document.getElementById('schedule') as HTMLTableElement;
-          table.innerHTML = '';
-
-          let balance = P;
-
-          for (let i = 1; i <= n; i++) {
-            const interestPortion = balance * r;
-            const principalPortion = emi - interestPortion;
-            balance -= principalPortion;
-
-            const row = `
-              <tr>
-                <td>${i}</td>
-                <td>${formatINR(Math.round(emi))}</td>
-                <td>${formatINR(Math.round(principalPortion))}</td>
-                <td>${formatINR(Math.round(interestPortion))}</td>
-                <td>${formatINR(Math.abs(Math.round(balance)))}</td>
-              </tr>
-            `;
-            table.innerHTML += row;
-          }
-
-          // ✅ Savings Insight
-          const boostedEMI = emi * 1.1;
-          const reducedTenure =
-            Math.log(boostedEMI / (boostedEMI - P * r)) / Math.log(1 + r);
-
-          const boostedMonths = Math.round(reducedTenure);
-          const newTotal = boostedEMI * boostedMonths;
-          const newInterest = newTotal - P;
-          const saved = totalInterest - newInterest;
-
-          (document.getElementById('savings') as HTMLSpanElement).textContent =
-            formatINR(Math.round(saved));
+          // reactive — values update automatically
         }}
+        style={{ display: 'grid', gap: 12 }}
       >
         <label>
           Loan Amount (₹)
-          <input id="loan" type="number" required />
+          <input
+            id="loan"
+            type="number"
+            value={loanAmount}
+            min={0}
+            step={1000}
+            onChange={safeNumberSetter(setLoanAmount)}
+          />
         </label>
 
         <label>
           Interest Rate (% per year)
-          <input id="rate" type="number" step="0.1" required />
+          <input
+            id="rate"
+            type="number"
+            step="0.01"
+            value={annualRate}
+            onChange={safeNumberSetter(setAnnualRate)}
+            min={0}
+          />
         </label>
 
         <label>
           Loan Tenure (Years)
-          <input id="years" type="number" required />
+          <input
+            id="years"
+            type="number"
+            value={tenureYears}
+            onChange={safeNumberSetter(setTenureYears)}
+            min={0.5}
+            step={0.5}
+          />
         </label>
 
-        <button className="primary-cta">Calculate EMI</button>
+        <label>
+          Monthly Income (₹) — for FOIR check
+          <input
+            id="income"
+            type="number"
+            value={monthlyIncome}
+            onChange={safeNumberSetter(setMonthlyIncome)}
+            min={0}
+          />
+        </label>
+
+        <label>
+          Extra EMI % (simulate paying X% more per month)
+          <input
+            id="extra"
+            type="number"
+            step="1"
+            value={extraPaymentPercent}
+            onChange={safeNumberSetter(setExtraPaymentPercent)}
+            min={0}
+            max={200}
+          />
+        </label>
+
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            className="primary-cta"
+            onClick={() => {
+              /* reactive */
+            }}
+          >
+            Calculate
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              // reset to defaults
+              setLoanAmount(500000);
+              setAnnualRate(10.0);
+              setTenureYears(5);
+              setMonthlyIncome(40000);
+              setExtraPaymentPercent(10);
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </form>
 
-      {/* ✅ RESULT CARDS */}
-      <div className="result-grid emi-summary-strip">
+      {/* RESULT CARDS */}
+      <div className="result-grid emi-summary-strip" style={{ marginTop: 16 }}>
         <div className="result-card">
           <p className="result-label">Monthly EMI</p>
           <p className="result-primary" id="emi">
-            ₹0
+            {formatINR(Math.round(emi))}
           </p>
         </div>
 
         <div className="result-card">
           <p className="result-label">Total Interest</p>
           <p className="result-value" id="interest">
-            ₹0
+            {formatINR(totalInterest)}
           </p>
         </div>
 
         <div className="result-card">
           <p className="result-label">Total Payment</p>
           <p className="result-value" id="total">
-            ₹0
+            {formatINR(totalPayment)}
           </p>
         </div>
       </div>
 
-      {/* ✅ LOAN ELIGIBILITY WIDGET */}
-      <div className="card" style={{ marginTop: 32 }}>
-        <h3>Check Your Loan Eligibility</h3>
-        <p style={{ marginBottom: 16 }}>
-          Enter your monthly income to estimate how much loan you may be
-          eligible for.
-        </p>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            const income = Number(
-              (document.getElementById('income') as HTMLInputElement).value
-            );
-
-            if (income <= 0) {
-              alert('Please enter a valid income');
-              return;
-            }
-
-            // Safe industry rule: 50% of income can go to EMI
-            const eligibleEMI = income * 0.5;
-
-            (
-              document.getElementById('eligibleEmi') as HTMLSpanElement
-            ).textContent = formatINR(Math.round(eligibleEMI));
+      {/* DONUT CHART */}
+      <div className="card" style={{ marginTop: 18, textAlign: 'center' }}>
+        <h3>Principal vs Interest</h3>
+        <div
+          id="donut"
+          className="donut"
+          style={{
+            width: 140,
+            height: 140,
+            borderRadius: '50%',
+            margin: '8px auto',
+            background: `conic-gradient(#16a34a 0% ${principalPercent}%, #ef4444 ${principalPercent}% 100%)`,
+          }}
+        />
+        <div
+          className="donut-legend"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            marginTop: 8,
           }}
         >
-          <label>
-            Monthly Income (₹)
-            <input id="income" type="number" required />
-          </label>
-
-          <div className="loan-btn-row">
-            <button>Check Eligibility</button>
-            <button className="apply-btn">Apply for Loan</button>
-          </div>
-        </form>
-
-        <p style={{ marginTop: 12 }}>
-          Estimated Eligible EMI:
-          <strong>
-            {' '}
-            <span id="eligibleEmi">₹0</span>
-          </strong>
-        </p>
-      </div>
-
-      {/* ✅ DONUT CHART */}
-      <div className="card" style={{ marginTop: 32, textAlign: 'center' }}>
-        <h3>Principal vs Interest</h3>
-        <div id="donut" className="donut"></div>
-
-        <div className="donut-legend">
-          <span>🟢 Principal</span>
-          <span>🔴 Interest</span>
+          <span>🟢 Principal {principalPercent}%</span>
+          <span>🔴 Interest {interestPercent}%</span>
         </div>
       </div>
 
-      {/* ✅ SAVINGS INSIGHT */}
-      <div className="savings-box">
-        <h3>Smart Savings Tip 💡</h3>
+      {/* ELIGIBILITY */}
+      <div className="card" style={{ marginTop: 18 }}>
+        <h3>Check Your Loan Eligibility</h3>
+        <p style={{ marginBottom: 8 }}>
+          Enter monthly income to estimate safe EMI.
+        </p>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <input
+            id="incomeInline"
+            type="number"
+            value={monthlyIncome}
+            onChange={safeNumberSetter(setMonthlyIncome)}
+          />
+          <button
+            onClick={() => {
+              // nothing required, reactive
+            }}
+          >
+            Update
+          </button>
+        </div>
+        <p style={{ marginTop: 12 }}>
+          Estimated safe EMI (50% of income):{' '}
+          <strong>{formatINR(foirAllowed)}</strong>
+        </p>
         <p>
-          If you increase your EMI by just <strong>10%</strong>, you can save
-          <strong>
-            {' '}
-            <span id="savings">₹0</span>
-          </strong>{' '}
-          in total interest.
+          Your EMI: <strong>{formatINR(Math.round(emi))}</strong> —{' '}
+          {affordabilityOk ? (
+            <span style={{ color: 'green' }}>Looks affordable</span>
+          ) : (
+            <span style={{ color: 'crimson' }}>May be unaffordable</span>
+          )}
         </p>
       </div>
 
-      {/* ✅ ✅ ✅ OPTION A — INLINE BANK COMPARISON (HIGH RPM BLOCK) */}
-      {/* ✅ ✅ ✅ INLINE BANK COMPARISON – STATIC MANUAL RATES */}
-      <div className="card" style={{ marginTop: 36 }}>
-        <h3>Compare Best Loan Offers</h3>
-        <p style={{ marginBottom: 6 }}>Updated from official bank websites.</p>
-        <p style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+      {/* SAVINGS INSIGHT */}
+      <div className="savings-box" style={{ marginTop: 18 }}>
+        <h3>Smart Savings Tip 💡</h3>
+        <p>
+          If you increase your EMI by <strong>{extraPaymentPercent}%</strong>,
+          new tenure ≈ <strong>{prepaymentEffect.newMonths}</strong> months (
+          {(prepaymentEffect.newMonths / 12).toFixed(1)} years), saving approx.{' '}
+          <strong>{formatINR(prepaymentEffect.interestSaved)}</strong> in
+          interest.
+        </p>
+        <p style={{ fontSize: 13, color: '#6b7280' }}>
+          Note: This is a simplifed simulation; actual prepayment rules and
+          charges vary by lender.
+        </p>
+      </div>
+
+      {/* INLINE BANK COMPARISON */}
+      <div className="card" style={{ marginTop: 24 }}>
+        <h3>Compare Popular Loan Offers</h3>
+        <p style={{ fontSize: 13, color: '#64748b' }}>
           Last updated: {rateLastUpdated}
         </p>
-
         <div style={{ overflowX: 'auto' }}>
           <table className="rate-table">
             <thead>
@@ -240,7 +342,9 @@ export default function EMIClient() {
                   <td>{bank.fee}</td>
                   <td>
                     <a
-                      href={`/out?to=https://example.com`}
+                      href={`/out?to=${encodeURIComponent(
+                        bank.applyLink || 'https://example.com'
+                      )}`}
                       className="apply-btn table-apply-btn"
                     >
                       Apply
@@ -253,18 +357,18 @@ export default function EMIClient() {
         </div>
 
         <p style={{ marginTop: 12, fontSize: 13, color: '#64748b' }}>
-          Rates shown are indicative and may change without notice. Final
-          interest rate depends on your credit score, income, loan tenure, and
-          city.
+          Rates shown are indicative and may change without notice. Final rate
+          depends on credit score, income, tenure, and city.
         </p>
       </div>
 
-      {/* ✅ AMORTIZATION TABLE */}
-      <div className="article" style={{ marginTop: 60 }}>
+      {/* AMORTIZATION TABLE */}
+      <div className="article" style={{ marginTop: 28 }}>
         <h2>Loan Repayment Schedule</h2>
-
-        {/* ✅ FIXED HEIGHT + SCROLLABLE TABLE (ALWAYS VISIBLE) */}
-        <div className="schedule-wrapper">
+        <div
+          className="schedule-wrapper"
+          style={{ maxHeight: 420, overflow: 'auto' }}
+        >
           <table className="rate-table">
             <thead>
               <tr>
@@ -275,7 +379,17 @@ export default function EMIClient() {
                 <th>Balance</th>
               </tr>
             </thead>
-            <tbody id="schedule"></tbody>
+            <tbody>
+              {schedule.slice(0, 120).map((r) => (
+                <tr key={r.month}>
+                  <td>{r.month}</td>
+                  <td>{formatINR(Math.round(r.emi))}</td>
+                  <td>{formatINR(Math.round(r.principal))}</td>
+                  <td>{formatINR(Math.round(r.interest))}</td>
+                  <td>{formatINR(Math.round(r.balance))}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>

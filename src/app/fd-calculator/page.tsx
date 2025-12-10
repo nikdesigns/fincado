@@ -1,37 +1,72 @@
 import type { Metadata } from 'next';
 import FDClient from './FDClient';
-import CalculatorLayout from '@/components/CalculatorLayout';
+import LoanCompareWidget from '@/components/LoanCompareWidget';
+import LegalNote from '@/components/LegalNote';
 
 export const metadata: Metadata = {
-  title: 'FD Calculator – Fixed Deposit Maturity | Fincado',
+  title: 'FD Calculator – Fixed Deposit Maturity Calculator | Fincado',
   description:
-    'Free FD Calculator to calculate fixed deposit maturity value and interest.',
+    'FD Calculator for India: compute maturity amount, gross interest, tax impact, and post-tax payout for various compounding frequencies (monthly, quarterly, annually).',
 };
 
-export default function FDPage() {
+export default function FDCalculatorPage() {
   return (
-    <CalculatorLayout>
-      <h1>FD Calculator – Calculate Fixed Deposit Maturity Instantly</h1>
+    <main
+      style={{
+        maxWidth: 1180,
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: '1fr 300px',
+        gap: 16,
+      }}
+    >
+      <div style={{ minWidth: 0 }}>
+        <h1>FD Calculator — Compute Maturity Amount & Post-tax Payout</h1>
 
-      <p style={{ maxWidth: 700 }}>
-        Estimate your FD maturity value, interest earned and total return.
-      </p>
-
-      <div className="ad-box">Ad will appear here (Above the fold)</div>
-
-      <FDClient />
-
-      <div className="ad-box">Ad will appear here (Mid content)</div>
-
-      <section className="article">
-        <h2>What is a Fixed Deposit?</h2>
-        <p>
-          Fixed Deposit is a low-risk deposit investment with guaranteed
-          returns.
+        <p style={{ maxWidth: 760 }}>
+          Calculate how much your Fixed Deposit (FD) will mature to, compare
+          different compounding frequencies, and estimate the tax impact based
+          on your marginal tax rate.
         </p>
-      </section>
 
-      <div className="ad-box">Ad will appear here (Before footer)</div>
-    </CalculatorLayout>
+        <div className="ad-box">Ad will appear here (Above the fold)</div>
+
+        <FDClient />
+
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (Mid content)
+        </div>
+
+        <section className="article" style={{ marginTop: 24 }}>
+          <h2>Notes for Indian investors</h2>
+          <ul>
+            <li>
+              Banks may deduct TDS on interest if interest &gt; ₹40,000 (check
+              current thresholds and exemptions). This tool shows estimated tax
+              only — consult a tax advisor.
+            </li>
+            <li>
+              Compounding frequency effect can change your effective yield
+              slightly — choose monthly/quarterly/annual as offered by the bank.
+            </li>
+            <li>
+              Premature withdrawal typically attracts a lower rate — this is not
+              modelled here (use with full-term assumptions).
+            </li>
+          </ul>
+
+          <LegalNote />
+        </section>
+
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (Before footer)
+        </div>
+      </div>
+
+      <aside className="sidebar">
+        <div className="ad-box">Sticky Sidebar Ad</div>
+        <LoanCompareWidget />
+      </aside>
+    </main>
   );
 }

@@ -1,34 +1,69 @@
 import type { Metadata } from 'next';
 import SIPClient from './SIPClient';
-import CalculatorLayout from '@/components/CalculatorLayout';
+import LegalNote from '@/components/LegalNote';
+import LoanCompareWidget from '@/components/LoanCompareWidget';
 
 export const metadata: Metadata = {
-  title: 'SIP Calculator – Mutual Fund SIP Returns | Fincado',
+  title: 'SIP Calculator – Mutual Fund SIP Calculator | Fincado',
   description:
-    'Free SIP Calculator to calculate mutual fund SIP returns and maturity.',
+    'SIP Calculator: calculate future value of monthly SIPs, total invested, estimated returns, CAGR and time to reach your financial goals. India-focused guidance included.',
 };
 
 export default function SIPPage() {
   return (
-    <CalculatorLayout>
-      <h1>SIP Calculator – Calculate Mutual Fund Returns</h1>
+    <main
+      style={{
+        maxWidth: 1180,
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: '1fr 300px',
+        gap: 16,
+      }}
+    >
+      <div style={{ minWidth: 0 }}>
+        <h1>SIP Calculator — Plan Your Monthly SIPs & Target Goals</h1>
 
-      <p style={{ maxWidth: 700 }}>
-        Calculate your SIP maturity value and total returns instantly.
-      </p>
+        <p style={{ maxWidth: 760 }}>
+          Calculate how much your monthly SIP (Systematic Investment Plan) can
+          grow to over time based on expected returns. Use the target planner to
+          find the monthly SIP required to reach a financial goal.
+        </p>
 
-      <div className="ad-box">Ad will appear here (Above the fold)</div>
+        <div className="ad-box">Ad will appear here (Above the fold)</div>
 
-      <SIPClient />
+        <SIPClient />
 
-      <div className="ad-box">Ad will appear here (Mid content)</div>
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (Mid content)
+        </div>
 
-      <section className="article">
-        <h2>What is SIP?</h2>
-        <p>SIP is a systematic investment method in mutual funds.</p>
-      </section>
+        <section className="article" style={{ marginTop: 24 }}>
+          <h2>Notes for Indian investors</h2>
+          <ul>
+            <li>
+              SIP returns are assumed as nominal annual returns. Adjust for
+              inflation if you want real returns.
+            </li>
+            <li>
+              For equity mutual funds, consider long-term capital gains tax
+              rules (as of the time of writing) when planning withdrawals—this
+              is only an estimate and not tax advice.
+            </li>
+            <li>Past returns are not indicative of future performance.</li>
+          </ul>
 
-      <div className="ad-box">Ad will appear here (Before footer)</div>
-    </CalculatorLayout>
+          <LegalNote />
+        </section>
+
+        <div className="ad-box" style={{ marginTop: 24 }}>
+          Ad will appear here (Before footer)
+        </div>
+      </div>
+
+      <aside className="sidebar">
+        <div className="ad-box">Sticky Sidebar Ad</div>
+        <LoanCompareWidget />
+      </aside>
+    </main>
   );
 }
