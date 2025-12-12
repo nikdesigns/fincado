@@ -15,6 +15,87 @@ type AmortRow = {
   balance: number;
 };
 
+/* ---------- NEW PieChart: thick donut with overlay arc ---------- */
+function PieChart({
+  principalPct,
+  interestPct,
+  size = 240,
+}: {
+  principalPct: number;
+  interestPct: number;
+  size?: number;
+}) {
+  const strokeWidth = Math.round(size * 0.18); // thick ring
+  const r = (size - strokeWidth) / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+  const circumference = 2 * Math.PI * r;
+  const interestLength = (interestPct / 100) * circumference;
+  // round the dash caps visually by using stroke-linecap="round"
+
+  return (
+    <div style={{ width: size, height: size, position: 'relative' }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="Principal vs interest"
+      >
+        {/* Base ring = principal (pale) */}
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="none"
+          stroke="#eff8e5" /* pale ring */
+          strokeWidth={strokeWidth}
+        />
+
+        {/* Interest arc overlay (drawn on top). Rotate -90deg to start at top */}
+        <g transform={`rotate(-90 ${cx} ${cy})`}>
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke="#a0e870" /* bright blue for interest */
+            strokeWidth={strokeWidth}
+            strokeDasharray={`${interestLength} ${circumference}`}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ transition: 'stroke-dasharray 400ms ease' }}
+          />
+        </g>
+
+        {/* Center hole (donut) */}
+        <circle cx={cx} cy={cy} r={r * 0.52} fill="#fff" />
+
+        {/* (Optional) tidy center label */}
+        <text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          fontWeight={800}
+          fontSize={18}
+          fill="#081225"
+        >
+          {principalPct}% / {interestPct}%
+        </text>
+        <text
+          x={cx}
+          y={cy + 16}
+          textAnchor="middle"
+          fontSize={12}
+          fill="#6b7280"
+        >
+          Principal / Interest
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 export default function EMIClient() {
   // Inputs (defaults similar to previous behavior)
   const [loanAmount, setLoanAmount] = useState<number>(500000); // ₹5 L
@@ -65,11 +146,15 @@ export default function EMIClient() {
     return rows;
   }, [loanAmount, monthlyRate, nMonths, emi]);
 
-  // Donut chart percentages
+  // Pie chart percentages
   const interestPercent = useMemo(() => {
     const tp = emi * nMonths;
     if (tp <= 0) return 0;
-    return Math.round(((totalPayment - loanAmount) / tp) * 100);
+    // guard: round in 0..100
+    return Math.max(
+      0,
+      Math.min(100, Math.round(((totalPayment - loanAmount) / tp) * 100))
+    );
   }, [totalPayment, loanAmount, emi, nMonths]);
 
   const principalPercent = Math.max(0, 100 - interestPercent);
@@ -94,7 +179,6 @@ export default function EMIClient() {
         bal
       );
       if (principalPortion <= 0) {
-        // can't progress (very low extra emi) - break
         break;
       }
       bal -= principalPortion;
@@ -124,148 +208,197 @@ export default function EMIClient() {
     <section className="card">
       <h2>Loan EMI Calculator</h2>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          // reactive — values update automatically
-        }}
-        style={{ display: 'grid', gap: 12 }}
-      >
-        <label>
-          Loan Amount (₹)
-          <input
-            id="loan"
-            type="number"
-            value={loanAmount}
-            min={0}
-            step={1000}
-            onChange={safeNumberSetter(setLoanAmount)}
-          />
-        </label>
+      {/* ===== Two-column split: left = inputs, right = chart (only these two are side-by-side) ===== */}
+      <div className="emi-split" style={{ marginTop: 18 }}>
+        {/* LEFT: inputs */}
+        <div className="emi-left">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            style={{ display: 'grid', gap: 12 }}
+          >
+            <label>
+              Loan Amount (₹)
+              <input
+                id="loan"
+                type="number"
+                value={loanAmount}
+                min={0}
+                step={1000}
+                onChange={safeNumberSetter(setLoanAmount)}
+              />
+            </label>
 
-        <label>
-          Interest Rate (% per year)
-          <input
-            id="rate"
-            type="number"
-            step="0.01"
-            value={annualRate}
-            onChange={safeNumberSetter(setAnnualRate)}
-            min={0}
-          />
-        </label>
+            <label>
+              Interest Rate (% per year)
+              <input
+                id="rate"
+                type="number"
+                step="0.01"
+                value={annualRate}
+                onChange={safeNumberSetter(setAnnualRate)}
+                min={0}
+              />
+            </label>
 
-        <label>
-          Loan Tenure (Years)
-          <input
-            id="years"
-            type="number"
-            value={tenureYears}
-            onChange={safeNumberSetter(setTenureYears)}
-            min={0.5}
-            step={0.5}
-          />
-        </label>
+            <label>
+              Loan Tenure (Years)
+              <input
+                id="years"
+                type="number"
+                value={tenureYears}
+                onChange={safeNumberSetter(setTenureYears)}
+                min={0.5}
+                step={0.5}
+              />
+            </label>
 
-        <label>
-          Monthly Income (₹) — for FOIR check
-          <input
-            id="income"
-            type="number"
-            value={monthlyIncome}
-            onChange={safeNumberSetter(setMonthlyIncome)}
-            min={0}
-          />
-        </label>
+            <label>
+              Monthly Income (₹) — for FOIR check
+              <input
+                id="income"
+                type="number"
+                value={monthlyIncome}
+                onChange={safeNumberSetter(setMonthlyIncome)}
+                min={0}
+              />
+            </label>
 
-        <label>
-          Extra EMI % (simulate paying X% more per month)
-          <input
-            id="extra"
-            type="number"
-            step="1"
-            value={extraPaymentPercent}
-            onChange={safeNumberSetter(setExtraPaymentPercent)}
-            min={0}
-            max={200}
-          />
-        </label>
+            <label>
+              Extra EMI % (simulate paying X% more per month)
+              <input
+                id="extra"
+                type="number"
+                step="1"
+                value={extraPaymentPercent}
+                onChange={safeNumberSetter(setExtraPaymentPercent)}
+                min={0}
+                max={200}
+              />
+            </label>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            className="primary-cta"
-            onClick={() => {
-              /* reactive */
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button className="primary-cta" onClick={() => {}}>
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setLoanAmount(500000);
+                  setAnnualRate(10.0);
+                  setTenureYears(5);
+                  setMonthlyIncome(40000);
+                  setExtraPaymentPercent(10);
+                }}
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* RIGHT: chart only (sparkline removed) */}
+        <aside className="emi-right" aria-hidden={false}>
+          <div
+            className="card"
+            style={{
+              textAlign: 'center',
+              paddingBottom: 12,
+              boxShadow: 'none',
+              border: 'none',
             }}
           >
-            Calculate
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              // reset to defaults
-              setLoanAmount(500000);
-              setAnnualRate(10.0);
-              setTenureYears(5);
-              setMonthlyIncome(40000);
-              setExtraPaymentPercent(10);
-            }}
-          >
-            Reset
-          </button>
-        </div>
-      </form>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <PieChart
+                principalPct={principalPercent}
+                interestPct={interestPercent}
+                size={240}
+              />
 
-      {/* RESULT CARDS */}
-      <div className="result-grid emi-summary-strip" style={{ marginTop: 16 }}>
-        <div className="result-card">
-          <p className="result-label">Monthly EMI</p>
-          <p className="result-primary" id="emi">
-            {formatINR(Math.round(emi))}
-          </p>
-        </div>
+              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#eff8e5',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                      border: '1px solid rgba(0,0,0,0.02)',
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Principal
+                    </div>
+                  </div>
+                </div>
 
-        <div className="result-card">
-          <p className="result-label">Total Interest</p>
-          <p className="result-value" id="interest">
-            {formatINR(totalInterest)}
-          </p>
-        </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#a0e870',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Interest
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div className="result-card">
-          <p className="result-label">Total Payment</p>
-          <p className="result-value" id="total">
-            {formatINR(totalPayment)}
-          </p>
+          {/* optional side ad (kept small) */}
+          <div className="ad-box" style={{ marginTop: 14 }}>
+            Ad / Bank widget
+          </div>
+        </aside>
+      </div>
+
+      {/* ===== RESULTS SECTION: full width below the split ===== */}
+      <div className="emi-results-full" style={{ marginTop: 18 }}>
+        <div className="result-grid emi-summary-strip">
+          <div className="result-card">
+            <p className="result-label">Monthly EMI</p>
+            <p className="result-primary" id="emi">
+              {formatINR(Math.round(emi))}
+            </p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Total Interest</p>
+            <p className="result-value" id="interest">
+              {formatINR(totalInterest)}
+            </p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Total Payment</p>
+            <p className="result-value" id="total">
+              {formatINR(totalPayment)}
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* DONUT CHART */}
-      <div className="card" style={{ marginTop: 18, textAlign: 'center' }}>
-        <h3>Principal vs Interest</h3>
-        <div
-          id="donut"
-          className="donut"
-          style={{
-            width: 140,
-            height: 140,
-            borderRadius: '50%',
-            margin: '8px auto',
-            background: `conic-gradient(#16a34a 0% ${principalPercent}%, #ef4444 ${principalPercent}% 100%)`,
-          }}
-        />
-        <div
-          className="donut-legend"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            marginTop: 8,
-          }}
-        >
-          <span>🟢 Principal {principalPercent}%</span>
-          <span>🔴 Interest {interestPercent}%</span>
-        </div>
-      </div>
+      {/* ... rest unchanged (eligibility, savings, bank table, amortization table) ... */}
 
       {/* ELIGIBILITY */}
       <div className="card" style={{ marginTop: 18 }}>
@@ -280,13 +413,7 @@ export default function EMIClient() {
             value={monthlyIncome}
             onChange={safeNumberSetter(setMonthlyIncome)}
           />
-          <button
-            onClick={() => {
-              // nothing required, reactive
-            }}
-          >
-            Update
-          </button>
+          <button onClick={() => {}}>Update</button>
         </div>
         <p style={{ marginTop: 12 }}>
           Estimated safe EMI (50% of income):{' '}
@@ -303,7 +430,7 @@ export default function EMIClient() {
       </div>
 
       {/* SAVINGS INSIGHT */}
-      <div className="savings-box" style={{ marginTop: 18 }}>
+      <div className="savings-box card" style={{ marginTop: 18 }}>
         <h3>Smart Savings Tip 💡</h3>
         <p>
           If you increase your EMI by <strong>{extraPaymentPercent}%</strong>,
@@ -313,13 +440,13 @@ export default function EMIClient() {
           interest.
         </p>
         <p style={{ fontSize: 13, color: '#6b7280' }}>
-          Note: This is a simplifed simulation; actual prepayment rules and
-          charges vary by lender.
+          Note: This is a simulation; actual prepayment rules and charges vary
+          by lender.
         </p>
       </div>
 
       {/* INLINE BANK COMPARISON */}
-      <div className="card" style={{ marginTop: 24 }}>
+      <div className="card" style={{ marginTop: 18 }}>
         <h3>Compare Popular Loan Offers</h3>
         <p style={{ fontSize: 13, color: '#64748b' }}>
           Last updated: {rateLastUpdated}

@@ -1,3 +1,4 @@
+// src/app/fd-calculator/FDClient.tsx
 'use client';
 import React, { useMemo, useState } from 'react';
 
@@ -16,7 +17,94 @@ const COMPOUND_OPTIONS = [
   { key: 'quarterly', label: 'Quarterly', periodsPerYear: 4 },
   { key: 'halfyearly', label: 'Half-Yearly', periodsPerYear: 2 },
   { key: 'yearly', label: 'Yearly', periodsPerYear: 1 },
-];
+] as const;
+
+/* ---------- PieChart component (thick donut with rounded arc) ---------- */
+function PieChart({
+  principalPct,
+  interestPct,
+  size = 220,
+}: {
+  principalPct: number;
+  interestPct: number;
+  size?: number;
+}) {
+  const strokeWidth = Math.max(12, Math.round(size * 0.18));
+  const r = (size - strokeWidth) / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+  const circumference = 2 * Math.PI * r;
+  const interestLength = (interestPct / 100) * circumference;
+
+  // If interestPct is 0, draw no arc; if 100, fill entire ring.
+  const dashArray =
+    interestPct <= 0
+      ? `0 ${circumference}`
+      : interestPct >= 100
+      ? `${circumference} 0`
+      : `${interestLength} ${Math.max(0, circumference - interestLength)}`;
+
+  return (
+    <div style={{ width: size, height: size, position: 'relative' }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="Principal vs interest"
+      >
+        {/* base (principal, pale) */}
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="none"
+          stroke="#f1f5f9" /* pale ring */
+          strokeWidth={strokeWidth}
+        />
+
+        {/* interest arc overlay, start at top */}
+        <g transform={`rotate(-90 ${cx} ${cy})`}>
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke="#60a5fa" /* interest color (blue) */
+            strokeWidth={strokeWidth}
+            strokeDasharray={dashArray}
+            strokeLinecap="round"
+            style={{ transition: 'stroke-dasharray 420ms ease' }}
+          />
+        </g>
+
+        {/* donut hole */}
+        <circle cx={cx} cy={cy} r={r * 0.5} fill="#fff" />
+
+        {/* center label */}
+        <text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          fontWeight={700}
+          fontSize={16}
+          fill="#081225"
+        >
+          {principalPct}% / {interestPct}%
+        </text>
+        <text
+          x={cx}
+          y={cy + 16}
+          textAnchor="middle"
+          fontSize={12}
+          fill="#6b7280"
+        >
+          Principal / Interest
+        </text>
+      </svg>
+    </div>
+  );
+}
 
 export default function FDClient() {
   const [principal, setPrincipal] = useState<number>(100000); // ₹1L
@@ -32,17 +120,13 @@ export default function FDClient() {
     COMPOUND_OPTIONS.find((c) => c.key === compoundKey) || COMPOUND_OPTIONS[1];
   const m = compound.periodsPerYear;
 
-  // Effective periods total (number of compounding periods)
   const totalPeriods = useMemo(
     () => Math.ceil((totalMonths / 12) * m),
     [totalMonths, m]
   );
 
-  // Convert annual rate to periodic rate
   const periodRate = useMemo(() => annualRate / 100 / m, [annualRate, m]);
 
-  // Maturity calculation using compound interest formula:
-  // A = P * (1 + r)^(n) where r = periodRate, n = totalPeriods
   const maturity = useMemo(() => {
     if (principal <= 0 || annualRate <= 0 || totalPeriods <= 0)
       return principal;
@@ -53,7 +137,6 @@ export default function FDClient() {
   const taxOnInterest = Math.round(grossInterest * (marginalTaxPct / 100));
   const postTaxMaturity = Math.max(0, maturity - taxOnInterest);
 
-  // Build schedule per compounding period (for preview)
   const schedule: ScheduleRow[] = useMemo(() => {
     const rows: ScheduleRow[] = [];
     let balance = principal;
@@ -69,7 +152,6 @@ export default function FDClient() {
     return rows;
   }, [principal, periodRate, totalPeriods]);
 
-  // Export CSV
   function exportCSV() {
     const header = ['Period', 'Balance', 'InterestThisPeriod'];
     const lines = [header.join(',')].concat(
@@ -91,139 +173,232 @@ export default function FDClient() {
     URL.revokeObjectURL(url);
   }
 
-  // Small setters
   const setter =
     (fn: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
       fn(e.target.value === '' ? 0 : Number(e.target.value));
+
+  // pie percentages (principal vs interest) — denominator = maturity (principal+interest)
+  const interestPct = useMemo(() => {
+    const denom = maturity > 0 ? maturity : principal;
+    const p = denom <= 0 ? 0 : Math.round((grossInterest / denom) * 100);
+    return Math.max(0, Math.min(100, p));
+  }, [grossInterest, maturity, principal]);
+
+  const principalPct = Math.max(0, 100 - interestPct);
 
   return (
     <section className="card">
       <h2>Fixed Deposit (FD) Calculator</h2>
 
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        style={{ display: 'grid', gap: 12 }}
-      >
-        <label>
-          Principal (₹)
-          <input
-            type="number"
-            value={principal}
-            onChange={setter(setPrincipal)}
-            min={0}
-            step={1000}
-          />
-        </label>
+      {/* Split: left inputs, right chart (re-using emi-split classes so your global.css works) */}
+      <div className="emi-split" style={{ marginTop: 16 }}>
+        <div className="emi-left">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            style={{ display: 'grid', gap: 12 }}
+          >
+            <label>
+              Principal (₹)
+              <input
+                type="number"
+                value={principal}
+                onChange={setter(setPrincipal)}
+                min={0}
+                step={1000}
+              />
+            </label>
 
-        <label>
-          Annual Interest Rate (%)
-          <input
-            type="number"
-            step="0.01"
-            value={annualRate}
-            onChange={setter(setAnnualRate)}
-            min={0}
-          />
-        </label>
+            <label>
+              Annual Interest Rate (%)
+              <input
+                type="number"
+                step="0.01"
+                value={annualRate}
+                onChange={setter(setAnnualRate)}
+                min={0}
+              />
+            </label>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <label style={{ flex: 1 }}>
-            Years
-            <input
-              type="number"
-              value={years}
-              onChange={setter(setYears)}
-              min={0}
-              step={1}
-            />
-          </label>
-          <label style={{ flex: 1 }}>
-            Months
-            <input
-              type="number"
-              value={months}
-              onChange={setter(setMonths)}
-              min={0}
-              max={11}
-            />
-          </label>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <label style={{ flex: 1 }}>
+                Years
+                <input
+                  type="number"
+                  value={years}
+                  onChange={setter(setYears)}
+                  min={0}
+                  step={1}
+                />
+              </label>
+              <label style={{ flex: 1 }}>
+                Months
+                <input
+                  type="number"
+                  value={months}
+                  onChange={setter(setMonths)}
+                  min={0}
+                  max={11}
+                />
+              </label>
+            </div>
+
+            <label>
+              Compounding Frequency
+              <select
+                value={compoundKey}
+                onChange={(e) => setCompoundKey(e.target.value)}
+              >
+                {COMPOUND_OPTIONS.map((c) => (
+                  <option value={c.key} key={c.key}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              Marginal Tax Rate (%) — for tax estimate
+              <input
+                type="number"
+                value={marginalTaxPct}
+                onChange={setter(setMarginalTaxPct)}
+                min={0}
+                max={40}
+              />
+            </label>
+
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <input
+                type="checkbox"
+                checked={showGrossOnly}
+                onChange={() => setShowGrossOnly(!showGrossOnly)}
+              />
+              Show gross interest only (do not subtract tax)
+            </label>
+
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button className="primary-cta">Update</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setPrincipal(100000);
+                  setAnnualRate(7.0);
+                  setYears(3);
+                  setMonths(0);
+                  setCompoundKey('quarterly');
+                  setMarginalTaxPct(20);
+                  setShowGrossOnly(false);
+                }}
+              >
+                Reset
+              </button>
+            </div>
+          </form>
         </div>
 
-        <label>
-          Compounding Frequency
-          <select
-            value={compoundKey}
-            onChange={(e) => setCompoundKey(e.target.value)}
-          >
-            {COMPOUND_OPTIONS.map((c) => (
-              <option value={c.key} key={c.key}>
-                {c.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label>
-          Marginal Tax Rate (%) — for tax estimate
-          <input
-            type="number"
-            value={marginalTaxPct}
-            onChange={setter(setMarginalTaxPct)}
-            min={0}
-            max={40}
-          />
-        </label>
-
-        <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <input
-            type="checkbox"
-            checked={showGrossOnly}
-            onChange={() => setShowGrossOnly(!showGrossOnly)}
-          />
-          Show gross interest only (do not subtract tax)
-        </label>
-
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button className="primary-cta">Update</button>
-          <button
-            type="button"
-            onClick={() => {
-              setPrincipal(100000);
-              setAnnualRate(7.0);
-              setYears(3);
-              setMonths(0);
-              setCompoundKey('quarterly');
-              setMarginalTaxPct(20);
-              setShowGrossOnly(false);
+        <aside className="emi-right" aria-hidden={false}>
+          <div
+            className="card"
+            style={{
+              textAlign: 'center',
+              paddingBottom: 12,
+              boxShadow: 'none',
+              border: 'none',
             }}
           >
-            Reset
-          </button>
-        </div>
-      </form>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <PieChart
+                principalPct={principalPct}
+                interestPct={interestPct}
+                size={220}
+              />
 
-      {/* Results */}
-      <div className="result-grid emi-summary-strip" style={{ marginTop: 12 }}>
-        <div className="result-card">
-          <p className="result-label">Maturity Amount</p>
-          <p className="result-primary">{formatINR(Math.round(maturity))}</p>
-        </div>
+              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#fff',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                      border: '1px solid rgba(0,0,0,0.05)',
+                      backgroundColor: '#fff',
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{principalPct}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Principal
+                    </div>
+                  </div>
+                </div>
 
-        <div className="result-card">
-          <p className="result-label">Gross Interest</p>
-          <p className="result-value">{formatINR(Math.round(grossInterest))}</p>
-        </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#60a5fa',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{interestPct}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Interest
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div className="result-card">
-          <p className="result-label">Estimated Tax on Interest</p>
-          <p className="result-value">{formatINR(Math.round(taxOnInterest))}</p>
-        </div>
+          <div className="ad-box" style={{ marginTop: 14 }}>
+            Ad / Bank widget
+          </div>
+        </aside>
+      </div>
 
-        <div className="result-card">
-          <p className="result-label">Post-tax Maturity</p>
-          <p className="result-value">
-            {formatINR(Math.round(showGrossOnly ? maturity : postTaxMaturity))}
-          </p>
+      {/* Results — full width below split (re-using emi-results-full class) */}
+      <div className="emi-results-full" style={{ marginTop: 16 }}>
+        <div className="result-grid emi-summary-strip">
+          <div className="result-card">
+            <p className="result-label">Maturity Amount</p>
+            <p className="result-primary">{formatINR(Math.round(maturity))}</p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Gross Interest</p>
+            <p className="result-value">
+              {formatINR(Math.round(grossInterest))}
+            </p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Estimated Tax on Interest</p>
+            <p className="result-value">
+              {formatINR(Math.round(taxOnInterest))}
+            </p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Post-tax Maturity</p>
+            <p className="result-value">
+              {formatINR(
+                Math.round(showGrossOnly ? maturity : postTaxMaturity)
+              )}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -241,7 +416,7 @@ export default function FDClient() {
           </li>
           <li style={{ color: '#64748b' }}>
             Tax estimate is a simplification. Some banks deduct TDS at source;
-            exemptions may apply (e.g., Form 15G/15H). Consult a tax advisor.
+            exemptions may apply. Consult a tax advisor.
           </li>
         </ul>
       </div>
@@ -277,7 +452,7 @@ export default function FDClient() {
           <button onClick={exportCSV}>Export Schedule CSV</button>
           <button
             onClick={() => {
-              const summary = `FD ₹${principal} @ ${annualRate}% (${
+              const summary = `FD ${formatINR(principal)} @ ${annualRate}% (${
                 compound.label
               }) for ${years}y ${months}m ⇒ Maturity ${formatINR(
                 Math.round(maturity)

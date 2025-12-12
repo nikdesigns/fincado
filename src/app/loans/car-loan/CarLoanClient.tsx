@@ -1,7 +1,7 @@
 // ./src/app/loans/car-loan/CarLoanClient.tsx
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 
 function formatINR(value: number) {
   return (
@@ -16,6 +16,92 @@ type ScheduleRow = {
   interest: number;
   balance: number;
 };
+
+/* ---------- PieChart: thick donut with rounded arc (same look as other pages) ---------- */
+function PieChart({
+  principalPct,
+  interestPct,
+  size = 220,
+}: {
+  principalPct: number;
+  interestPct: number;
+  size?: number;
+}) {
+  const strokeWidth = Math.max(12, Math.round(size * 0.18));
+  const r = (size - strokeWidth) / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+  const circumference = 2 * Math.PI * r;
+  const interestLength = (interestPct / 100) * circumference;
+
+  const dashArray =
+    interestPct <= 0
+      ? `0 ${circumference}`
+      : interestPct >= 100
+      ? `${circumference} 0`
+      : `${interestLength} ${Math.max(0, circumference - interestLength)}`;
+
+  return (
+    <div style={{ width: size, height: size, position: 'relative' }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="Principal vs interest"
+      >
+        {/* base ring = principal (pale) */}
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="none"
+          stroke="#f1f5f9"
+          strokeWidth={strokeWidth}
+        />
+
+        {/* interest arc overlay (drawn on top). Rotate -90deg to start at top */}
+        <g transform={`rotate(-90 ${cx} ${cy})`}>
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke="#a0e870"
+            strokeWidth={strokeWidth}
+            strokeDasharray={dashArray}
+            strokeLinecap="round"
+            style={{ transition: 'stroke-dasharray 420ms ease' }}
+          />
+        </g>
+
+        {/* Center hole */}
+        <circle cx={cx} cy={cy} r={r * 0.5} fill="#fff" />
+
+        {/* center labels */}
+        <text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          fontWeight={800}
+          fontSize={16}
+          fill="#081225"
+        >
+          {principalPct}% / {interestPct}%
+        </text>
+        <text
+          x={cx}
+          y={cy + 16}
+          textAnchor="middle"
+          fontSize={12}
+          fill="#6b7280"
+        >
+          Principal / Interest
+        </text>
+      </svg>
+    </div>
+  );
+}
 
 /**
  * Car loan calculator client component
@@ -48,64 +134,72 @@ export default function CarLoanClient() {
   );
 
   // EMI calculation with balloon (residual) handling:
-  // We amortize a principal such that at the end of n months the remaining balance = balloonValue.
-  // Using present value adjustment: principalAdjusted = loanPrincipal - balloon/(1+r)^n
-  // then EMI computed using standard annuity formula on principalAdjusted.
   let emi = 0;
   if (monthlyRate === 0) {
-    // zero-interest: monthly repay principal except final balloon
     const principalAdjusted = loanPrincipal - balloonValue;
-    emi = principalAdjusted / months;
+    emi = principalAdjusted > 0 ? principalAdjusted / months : 0;
   } else {
     const pow = Math.pow(1 + monthlyRate, months);
     const presentValueBalloon = balloonValue / pow;
     const principalAdjusted = loanPrincipal - presentValueBalloon;
-    if (principalAdjusted <= 0) {
-      // balloon covers most of principal => minimal EMI
-      emi = 0;
-    } else {
-      emi = (principalAdjusted * monthlyRate * pow) / (pow - 1);
-    }
+    if (principalAdjusted <= 0) emi = 0;
+    else emi = (principalAdjusted * monthlyRate * pow) / (pow - 1);
   }
 
   // Build amortization schedule:
-  const schedule: ScheduleRow[] = [];
-  let balance = loanPrincipal;
-  for (let m = 1; m <= months; m++) {
-    const interestPortion = balance * monthlyRate;
-    let principalPortion = emi - interestPortion;
-    // Guard for negative principal portion (can happen if EMI is 0)
-    if (principalPortion < 0) principalPortion = 0;
+  const schedule: ScheduleRow[] = useMemo(() => {
+    const rows: ScheduleRow[] = [];
+    let balance = loanPrincipal;
+    for (let m = 1; m <= months; m++) {
+      const interestPortion = balance * monthlyRate;
+      let principalPortion = emi - interestPortion;
+      if (principalPortion < 0) principalPortion = 0;
 
-    // If we're at final scheduled month, the visible balance after EMI should equal balloonValue
-    if (m === months) {
-      // compute what principal we need to reduce to reach balloon
-      const neededPrincipalReduction = Math.max(0, balance - balloonValue);
-      // last principal portion is the needed reduction (could be slightly different due to rounding)
-      principalPortion = neededPrincipalReduction;
-      // EMI visible to user in last row is principal + interest; final actual payment may include balloon separately
-      // We'll show EMI (regular) and the balloon separately in summary/action if balloon > 0
-      balance = Math.max(0, balance - principalPortion);
-    } else {
-      balance = Math.max(0, balance - principalPortion);
+      if (m === months) {
+        const neededPrincipalReduction = Math.max(0, balance - balloonValue);
+        principalPortion = neededPrincipalReduction;
+        balance = Math.max(0, balance - principalPortion);
+      } else {
+        balance = Math.max(0, balance - principalPortion);
+      }
+
+      rows.push({
+        month: m,
+        emi,
+        principal: principalPortion,
+        interest: interestPortion,
+        balance,
+      });
     }
-
-    schedule.push({
-      month: m,
-      emi,
-      principal: principalPortion,
-      interest: interestPortion,
-      balance,
-    });
-  }
+    return rows;
+  }, [loanPrincipal, months, monthlyRate, emi, balloonValue]);
 
   // Totals
-  const totalPrincipalPaid = schedule.reduce((s, r) => s + r.principal, 0);
-  const totalInterestPaid = schedule.reduce((s, r) => s + r.interest, 0);
-  // If balloon exists and is treated as final payment, include it in total repayment/interest calculations as needed
-  const totalRepayment =
-    totalPrincipalPaid + totalInterestPaid + (balloonValue || 0);
-  const totalCostToBuyer = totalRepayment + processingFeeAmount; // rough
+  const totalPrincipalPaid = useMemo(
+    () => schedule.reduce((s, r) => s + r.principal, 0),
+    [schedule]
+  );
+  const totalInterestPaid = useMemo(
+    () => schedule.reduce((s, r) => s + r.interest, 0),
+    [schedule]
+  );
+
+  // If balloon exists and is payable at end, include it as principal (buyer cost)
+  const totalRepayment = Math.round(
+    totalPrincipalPaid + totalInterestPaid + (balloonValue || 0)
+  );
+  const totalCostToBuyer = Math.round(totalRepayment + processingFeeAmount);
+
+  // Percentages for pie: treat balloon as principal (not interest). Denominator = totalRepayment (principal+interest+balloon)
+  const interestPercent = useMemo(() => {
+    if (totalRepayment <= 0) return 0;
+    return Math.max(
+      0,
+      Math.min(100, Math.round((totalInterestPaid / totalRepayment) * 100))
+    );
+  }, [totalInterestPaid, totalRepayment]);
+
+  const principalPercent = Math.max(0, 100 - interestPercent);
 
   // CSV export
   function exportCSV() {
@@ -165,198 +259,249 @@ export default function CarLoanClient() {
     setTimeout(() => w.print(), 300);
   }
 
+  // safe setters to avoid NaN
+  const safeNumber =
+    (setter: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
+      setter(e.target.value === '' ? 0 : Number(e.target.value));
+
   return (
     <section className="card" style={{ marginTop: 18 }}>
       <h2>Car Loan Calculator</h2>
 
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div style={{ display: 'grid', gap: 12 }}>
-          <div className="form-row">
-            <label>
-              Vehicle Price (₹)
-              <input
-                type="number"
-                value={vehiclePrice}
-                onChange={(e) => setVehiclePrice(Number(e.target.value || 0))}
-                min={0}
-                step={1000}
-                required
+      {/* ===== Two-column split: left = inputs, right = chart (only these two side-by-side) ===== */}
+      <div className="emi-split" style={{ marginTop: 12 }}>
+        {/* LEFT: inputs */}
+        <div className="emi-left">
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div style={{ display: 'grid', gap: 12 }}>
+              <div className="form-row">
+                <label>
+                  Vehicle Price (₹)
+                  <input
+                    type="number"
+                    value={vehiclePrice}
+                    onChange={safeNumber(setVehiclePrice)}
+                    min={0}
+                    step={1000}
+                    required
+                  />
+                </label>
+
+                <label>
+                  Down Payment (₹)
+                  <input
+                    type="number"
+                    value={downPayment}
+                    onChange={safeNumber(setDownPayment)}
+                    min={0}
+                    step={1000}
+                  />
+                </label>
+              </div>
+
+              <div className="form-row">
+                <label>
+                  Trade-in Value (₹)
+                  <input
+                    type="number"
+                    value={tradeInValue}
+                    onChange={safeNumber(setTradeInValue)}
+                    min={0}
+                    step={1000}
+                  />
+                </label>
+
+                <label>
+                  Balloon / Residual at end (₹)
+                  <input
+                    type="number"
+                    value={balloonValue}
+                    onChange={safeNumber(setBalloonValue)}
+                    min={0}
+                    step={1000}
+                  />
+                </label>
+              </div>
+
+              <div className="form-row">
+                <label>
+                  Interest Rate (p.a. %)
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={annualRate}
+                    onChange={safeNumber(setAnnualRate)}
+                    required
+                  />
+                </label>
+
+                <label>
+                  Tenure (Years)
+                  <input
+                    type="number"
+                    min={1}
+                    value={tenureYears}
+                    onChange={safeNumber(setTenureYears)}
+                    required
+                  />
+                </label>
+              </div>
+
+              <div className="form-row">
+                <label>
+                  Processing Fee (% of price)
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={processingFeePct}
+                    onChange={safeNumber(setProcessingFeePct)}
+                  />
+                </label>
+
+                <div
+                  style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}
+                >
+                  <button
+                    type="button"
+                    className="primary-cta"
+                    onClick={() => {
+                      /* reactive */
+                    }}
+                  >
+                    Calculate
+                  </button>
+
+                  <button
+                    type="button"
+                    className="apply-btn"
+                    onClick={() => {
+                      setVehiclePrice(1000000);
+                      setDownPayment(200000);
+                      setTradeInValue(0);
+                      setBalloonValue(0);
+                      setAnnualRate(9.5);
+                      setTenureYears(5);
+                      setProcessingFeePct(0.5);
+                    }}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* RIGHT: chart only */}
+        <aside className="emi-right" aria-hidden={false}>
+          <div
+            className="card"
+            style={{
+              textAlign: 'center',
+              paddingBottom: 12,
+              boxShadow: 'none',
+              border: 'none',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <PieChart
+                principalPct={principalPercent}
+                interestPct={interestPercent}
+                size={220}
               />
-            </label>
 
-            <label>
-              Down Payment (₹)
-              <input
-                type="number"
-                value={downPayment}
-                onChange={(e) => setDownPayment(Number(e.target.value || 0))}
-                min={0}
-                step={1000}
-              />
-            </label>
-          </div>
+              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#f1f5f9',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                      border: '1px solid rgba(0,0,0,0.02)',
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Principal
+                    </div>
+                  </div>
+                </div>
 
-          <div className="form-row">
-            <label>
-              Trade-in Value (₹)
-              <input
-                type="number"
-                value={tradeInValue}
-                onChange={(e) => setTradeInValue(Number(e.target.value || 0))}
-                min={0}
-                step={1000}
-              />
-            </label>
-
-            <label>
-              Balloon / Residual at end (₹)
-              <input
-                type="number"
-                value={balloonValue}
-                onChange={(e) => setBalloonValue(Number(e.target.value || 0))}
-                min={0}
-                step={1000}
-              />
-            </label>
-          </div>
-
-          <div className="form-row">
-            <label>
-              Interest Rate (p.a. %)
-              <input
-                type="number"
-                step="0.01"
-                value={annualRate}
-                onChange={(e) => setAnnualRate(Number(e.target.value || 0))}
-                required
-              />
-            </label>
-
-            <label>
-              Tenure (Years)
-              <input
-                type="number"
-                min={1}
-                value={tenureYears}
-                onChange={(e) => setTenureYears(Number(e.target.value || 0))}
-                required
-              />
-            </label>
-          </div>
-
-          <div className="form-row">
-            <label>
-              Processing Fee (% of price)
-              <input
-                type="number"
-                step="0.01"
-                value={processingFeePct}
-                onChange={(e) =>
-                  setProcessingFeePct(Number(e.target.value || 0))
-                }
-              />
-            </label>
-
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
-              <button
-                type="button"
-                className="primary-cta"
-                onClick={() => {
-                  // calculations are reactive — no extra action required
-                }}
-              >
-                Calculate
-              </button>
-
-              <button
-                type="button"
-                className="apply-btn"
-                onClick={() => {
-                  setVehiclePrice(1000000);
-                  setDownPayment(200000);
-                  setTradeInValue(0);
-                  setBalloonValue(0);
-                  setAnnualRate(9.5);
-                  setTenureYears(5);
-                  setProcessingFeePct(0.5);
-                }}
-              >
-                Reset
-              </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#a0e870',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Interest
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
 
-      {/* Results */}
-      <div className="result-grid" style={{ marginTop: 18 }}>
-        <div className="result-card">
-          <p className="result-label">Loan Principal</p>
-          <p className="result-primary">
-            {formatINR(Math.round(loanPrincipal))}
-          </p>
-          <p className="result-value" style={{ fontSize: 13, marginTop: 6 }}>
-            (Includes processing fee{' '}
-            {formatINR(Math.round(processingFeeAmount))})
-          </p>
-        </div>
-
-        <div className="result-card">
-          <p className="result-label">Monthly EMI (est.)</p>
-          <p className="result-primary">
-            {emi > 0 ? formatINR(Math.round(emi)) : '—'}
-          </p>
-        </div>
-
-        <div className="result-card">
-          <p className="result-label">Total Payment (incl. balloon)</p>
-          <p className="result-value">
-            {formatINR(Math.round(totalRepayment))}
-          </p>
-          <p
-            className="result-value"
-            style={{ fontSize: 13, color: '#6b7280' }}
-          >
-            Total interest ≈ {formatINR(Math.round(totalInterestPaid))}
-          </p>
-        </div>
+          <div className="ad-box" style={{ marginTop: 14 }}>
+            Ad / Bank widget
+          </div>
+        </aside>
       </div>
 
-      {/* Donut + short summary */}
-      <div
-        style={{
-          display: 'flex',
-          gap: 18,
-          marginTop: 18,
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div style={{ textAlign: 'center', flex: '0 0 140px' }}>
-          <div
-            className="donut"
-            style={{ width: 120, height: 120, borderRadius: '50%' }}
-          />
-          <div className="donut-legend" style={{ marginTop: 8 }}>
-            <span>Principal</span>
-            <span>Interest</span>
+      {/* ===== RESULTS SECTION: full width below the split ===== */}
+      <div className="emi-results-full" style={{ marginTop: 18 }}>
+        <div className="result-grid" style={{ gap: 12 }}>
+          <div className="result-card">
+            <p className="result-label">Loan Principal</p>
+            <p className="result-primary">
+              {formatINR(Math.round(loanPrincipal))}
+            </p>
+            <p className="result-value" style={{ fontSize: 13, marginTop: 6 }}>
+              (Includes processing fee{' '}
+              {formatINR(Math.round(processingFeeAmount))})
+            </p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Monthly EMI (est.)</p>
+            <p className="result-primary">
+              {emi > 0 ? formatINR(Math.round(emi)) : '—'}
+            </p>
+          </div>
+
+          <div className="result-card">
+            <p className="result-label">Total Payment (incl. balloon)</p>
+            <p className="result-value">
+              {formatINR(Math.round(totalRepayment))}
+            </p>
+            <p
+              className="result-value"
+              style={{ fontSize: 13, color: '#6b7280' }}
+            >
+              Total interest ≈ {formatINR(Math.round(totalInterestPaid))}
+            </p>
           </div>
         </div>
-
-        <div style={{ flex: 1, minWidth: 240 }}>
-          <h3 style={{ marginTop: 0 }}>Summary</h3>
-          <p style={{ margin: '6px 0' }}>
-            <strong>Vehicle:</strong> {formatINR(vehiclePrice)} •{' '}
-            <strong>Down:</strong> {formatINR(downPayment)}
-          </p>
-          <p style={{ margin: '6px 0' }}>
-            <strong>Balloon:</strong> {formatINR(balloonValue)} •{' '}
-            <strong>Tenure:</strong> {tenureYears} yrs
-          </p>
-        </div>
       </div>
 
-      {/* Amortization schedule (printable area) */}
+      {/* Repayment schedule (printable area) */}
       <div className="article" style={{ marginTop: 22 }}>
         <h2>Repayment Schedule</h2>
 

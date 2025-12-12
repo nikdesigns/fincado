@@ -1,28 +1,16 @@
 'use client';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
-function formatINR(value: number) {
-  return (
-    '₹' + Number(value).toLocaleString('en-IN', { maximumFractionDigits: 0 })
-  );
+/* Helper formatting */
+function formatINR(v: number) {
+  return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
 
-function round(value: number, digits = 0) {
-  return Number(value.toFixed(digits));
-}
-
-type ScheduleRow = {
-  month: number;
-  invested: number;
-  value: number;
-  returns: number;
-};
-
-/* PieChart declared OUTSIDE component to avoid "created during render" issues */
+/* PieChart declared outside component to avoid "created during render" issues */
 function PieChart({
   principalPct,
   interestPct,
-  size = 220,
+  size = 200,
 }: {
   principalPct: number;
   interestPct: number;
@@ -44,7 +32,6 @@ function PieChart({
         role="img"
         aria-label="Principal vs interest"
       >
-        {/* base ring = principal (pale green) */}
         <circle
           cx={cx}
           cy={cy}
@@ -53,7 +40,6 @@ function PieChart({
           stroke="#eff8e5"
           strokeWidth={strokeWidth}
         />
-        {/* interest arc overlay (website green) */}
         <g transform={`rotate(-90 ${cx} ${cy})`}>
           <circle
             cx={cx}
@@ -64,14 +50,10 @@ function PieChart({
             strokeWidth={strokeWidth}
             strokeDasharray={`${interestLength} ${circumference}`}
             strokeLinecap="round"
-            style={{ transition: 'stroke-dasharray 350ms ease' }}
+            style={{ transition: 'stroke-dasharray 400ms ease' }}
           />
         </g>
-
-        {/* center hole */}
-        <circle cx={cx} cy={cy} r={r * 0.52} fill="#fff" />
-
-        {/* center text */}
+        <circle cx={cx} cy={cy} r={r * 0.5} fill="#fff" />
         <text
           x={cx}
           y={cy - 6}
@@ -96,47 +78,61 @@ function PieChart({
   );
 }
 
-export default function SIPClient() {
+type ScheduleRow = {
+  month: number;
+  invested: number;
+  value: number;
+  returns: number;
+};
+
+export default function RDClient() {
   // Inputs
-  const [monthlySIP, setMonthlySIP] = React.useState<number>(5000);
-  const [annualReturn, setAnnualReturn] = React.useState<number>(12); // %
-  const [years, setYears] = React.useState<number>(10);
-  const [lumpSumNow, setLumpSumNow] = React.useState<number>(0);
-  const [inflationPct, setInflationPct] = React.useState<number>(6);
-  const [targetAmount, setTargetAmount] = React.useState<number>(0);
+  const [monthlyDeposit, setMonthlyDeposit] = useState<number>(5000);
+  const [annualRate, setAnnualRate] = useState<number>(6.5); // %
+  const [years, setYears] = useState<number>(5);
+  const [compounding, setCompounding] = useState<
+    'monthly' | 'quarterly' | 'yearly'
+  >('monthly');
+  const [showGrossOnly, setShowGrossOnly] = useState<boolean>(false); // placeholder for gross display
+  const printRef = useRef<HTMLDivElement | null>(null);
 
   // Derived
   const months = Math.max(1, Math.round(years * 12));
-  const monthlyRate = annualReturn / 12 / 100;
-  const inflationMonthly = inflationPct / 12 / 100;
+  const mPerYear =
+    compounding === 'monthly' ? 12 : compounding === 'quarterly' ? 4 : 1;
+  const periodRate = annualRate / 100 / mPerYear;
 
-  const futureValue = useMemo(() => {
-    if (monthlySIP <= 0 && lumpSumNow <= 0) return 0;
-    let fvSIP = 0;
-    if (monthlySIP > 0) {
-      fvSIP =
-        monthlySIP *
-        ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-        (1 + monthlyRate);
-    }
-    const fvLump = lumpSumNow * Math.pow(1 + monthlyRate, months);
-    return fvSIP + fvLump;
-  }, [monthlySIP, monthlyRate, months, lumpSumNow]);
+  // For RD (monthly deposit) we treat monthly contributions with monthly compounding.
+  // If compounding !== monthly, approximate by converting annual rate to monthly equivalent:
+  const monthlyRate = useMemo(() => {
+    if (compounding === 'monthly') return annualRate / 12 / 100;
+    // approximate monthly equivalent by (1+annual/m)^(m/12)-1 but simpler:
+    const effectiveAnnual = Math.pow(1 + periodRate, mPerYear) - 1;
+    return Math.pow(1 + effectiveAnnual, 1 / 12) - 1;
+  }, [annualRate, compounding, periodRate, mPerYear]);
 
-  const totalInvested = Math.round(monthlySIP * months + lumpSumNow);
-  const totalReturns = Math.round(Math.max(0, futureValue - totalInvested));
+  // Future value of monthly recurring deposit (monthly compounding)
+  const maturity = useMemo(() => {
+    const P = monthlyDeposit;
+    const r = monthlyRate;
+    const n = months;
+    if (P <= 0) return 0;
+    if (r === 0) return P * n;
+    // FV = P * [ ((1+r)^n - 1) / r ] * (1+r)
+    return P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+  }, [monthlyDeposit, monthlyRate, months]);
 
-  const realFutureValue = useMemo(() => {
-    if (inflationPct <= 0) return futureValue;
-    return futureValue / Math.pow(1 + inflationMonthly, months);
-  }, [futureValue, inflationMonthly, months, inflationPct]);
+  const totalInvested = Math.round(monthlyDeposit * months);
+  const totalReturns = Math.round(Math.max(0, maturity - totalInvested));
 
+  // schedule preview (monthly)
   const schedule: ScheduleRow[] = useMemo(() => {
     const rows: ScheduleRow[] = [];
-    let value = lumpSumNow;
+    let value = 0;
     for (let m = 1; m <= months; m++) {
-      value = value * (1 + monthlyRate) + monthlySIP;
-      const invested = monthlySIP * m + lumpSumNow;
+      // deposit at start of month then compound
+      value = value * (1 + monthlyRate) + monthlyDeposit;
+      const invested = monthlyDeposit * m;
       rows.push({
         month: m,
         invested: Math.round(invested),
@@ -145,28 +141,17 @@ export default function SIPClient() {
       });
     }
     return rows;
-  }, [months, monthlyRate, monthlySIP, lumpSumNow]);
+  }, [monthlyDeposit, monthlyRate, months]);
 
-  const requiredSIPForTarget = useMemo(() => {
-    if (targetAmount <= 0) return 0;
-    const factor =
-      ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-      (1 + monthlyRate);
-    const fvLump = lumpSumNow * Math.pow(1 + monthlyRate, months);
-    const needFromSIP = Math.max(0, targetAmount - fvLump);
-    if (factor <= 0) return 0;
-    return Math.ceil(needFromSIP / factor);
-  }, [targetAmount, monthlyRate, months, lumpSumNow]);
-
-  // Pie chart percentages
+  // Pie chart percentages principal vs interest
   const interestPct = useMemo(() => {
-    const tp = futureValue;
+    const tp = maturity;
     if (tp <= 0) return 0;
     return Math.max(
       0,
-      Math.min(100, Math.round(((futureValue - totalInvested) / tp) * 100))
+      Math.min(100, Math.round(((maturity - totalInvested) / tp) * 100))
     );
-  }, [futureValue, totalInvested]);
+  }, [maturity, totalInvested]);
 
   const principalPct = Math.max(0, 100 - interestPct);
 
@@ -181,21 +166,53 @@ export default function SIPClient() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'sip-schedule.csv';
+    a.download = `rd-schedule-${monthlyDeposit}-${months}m.csv`;
     a.click();
     URL.revokeObjectURL(url);
   }
 
-  // safe setter helper
+  // Print schedule
+  function handlePrint() {
+    if (!printRef.current) {
+      window.print();
+      return;
+    }
+    const printContents = printRef.current.innerHTML;
+    const w = window.open('', '_blank', 'width=900,height=700');
+    if (!w) {
+      alert('Popup blocked — allow popups to print.');
+      return;
+    }
+    w.document.write(`
+      <html>
+        <head>
+          <title>RD Schedule</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; color: #111 }
+            table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 12px }
+            th, td { padding: 8px 10px; border: 1px solid #ddd; text-align: right }
+            th { background: #f7f7f7; text-align: left }
+            caption { font-weight: 700; margin-bottom: 8px; text-align: left }
+          </style>
+        </head>
+        <body>${printContents}</body>
+      </html>
+    `);
+    w.document.close();
+    w.focus();
+    setTimeout(() => w.print(), 300);
+  }
+
+  /* safe setters */
   const setter =
     (fn: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
       fn(e.target.value === '' ? 0 : Number(e.target.value));
 
   return (
     <section className="card">
-      <h2>SIP Calculator</h2>
+      <h2>RD (Recurring Deposit) Calculator</h2>
 
-      {/* SPLIT: left = inputs, right = pie chart */}
+      {/* split: left inputs, right chart */}
       <div className="emi-split" style={{ marginTop: 18 }}>
         <div className="emi-left">
           <form
@@ -204,86 +221,71 @@ export default function SIPClient() {
           >
             <div className="form-row">
               <label>
-                Monthly SIP (₹)
+                Monthly Deposit (₹)
                 <input
                   type="number"
-                  value={monthlySIP}
-                  onChange={setter(setMonthlySIP)}
+                  value={monthlyDeposit}
+                  onChange={setter(setMonthlyDeposit)}
                   min={0}
                   step={100}
                 />
               </label>
 
               <label>
-                Expected Annual Return (%)
+                Annual Rate (%)
                 <input
                   type="number"
-                  value={annualReturn}
-                  onChange={setter(setAnnualReturn)}
-                  step="0.1"
-                  min={-100}
+                  step="0.01"
+                  value={annualRate}
+                  onChange={setter(setAnnualRate)}
+                  min={0}
                 />
               </label>
             </div>
 
             <div className="form-row">
               <label>
-                Investment Duration (Years)
+                Tenure (Years)
                 <input
                   type="number"
                   value={years}
                   onChange={setter(setYears)}
-                  min={0.1}
-                  step={0.5}
+                  min={0.25}
+                  step={0.25}
                 />
               </label>
 
               <label>
-                Existing Lump Sum (₹)
-                <input
-                  type="number"
-                  value={lumpSumNow}
-                  onChange={setter(setLumpSumNow)}
-                  min={0}
-                  step={1000}
-                />
-              </label>
-            </div>
-
-            <div className="form-row">
-              <label>
-                Inflation (% per year)
-                <input
-                  type="number"
-                  value={inflationPct}
-                  onChange={setter(setInflationPct)}
-                  step="0.1"
-                  min={0}
-                />
-              </label>
-
-              <label>
-                Target Amount (₹)
-                <input
-                  type="number"
-                  value={targetAmount}
-                  onChange={setter(setTargetAmount)}
-                  min={0}
-                />
+                Compounding
+                <select
+                  value={compounding}
+                  onChange={(e) => setCompounding(e.target.value as any)}
+                  style={{ marginTop: 6 }}
+                >
+                  <option value="monthly">Monthly</option>
+                  <option value="quarterly">Quarterly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
               </label>
             </div>
 
             <div style={{ display: 'flex', gap: 8 }}>
-              <button className="primary-cta">Update</button>
+              <button
+                className="primary-cta"
+                onClick={() => {
+                  /* reactive */
+                }}
+              >
+                Calculate
+              </button>
               <button
                 type="button"
                 onClick={() => {
-                  setMonthlySIP(5000);
-                  setAnnualReturn(12);
-                  setYears(10);
-                  setLumpSumNow(0);
-                  setInflationPct(6);
-                  setTargetAmount(0);
+                  setMonthlyDeposit(5000);
+                  setAnnualRate(6.5);
+                  setYears(5);
+                  setCompounding('monthly');
+                  setShowGrossOnly(false);
                 }}
               >
                 Reset
@@ -316,7 +318,6 @@ export default function SIPClient() {
                 interestPct={interestPct}
                 size={220}
               />
-
               <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span
@@ -350,7 +351,7 @@ export default function SIPClient() {
                   <div style={{ textAlign: 'left' }}>
                     <div style={{ fontWeight: 800 }}>{interestPct}%</div>
                     <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Returns
+                      Interest
                     </div>
                   </div>
                 </div>
@@ -364,14 +365,12 @@ export default function SIPClient() {
         </aside>
       </div>
 
-      {/* RESULTS: full width below the split */}
+      {/* results full width */}
       <div className="emi-results-full" style={{ marginTop: 18 }}>
         <div className="result-grid emi-summary-strip">
           <div className="result-card">
-            <p className="result-label">Estimated Value (Nominal)</p>
-            <p className="result-primary">
-              {formatINR(Math.round(futureValue))}
-            </p>
+            <p className="result-label">Maturity Amount</p>
+            <p className="result-primary">{formatINR(Math.round(maturity))}</p>
           </div>
 
           <div className="result-card">
@@ -380,43 +379,17 @@ export default function SIPClient() {
           </div>
 
           <div className="result-card">
-            <p className="result-label">Total Returns (Nominal)</p>
+            <p className="result-label">Total Interest</p>
             <p className="result-value">{formatINR(totalReturns)}</p>
           </div>
         </div>
       </div>
 
-      {/* Inflation-adjusted */}
-      <div className="card" style={{ marginTop: 16 }}>
-        <h3>Inflation-adjusted value</h3>
-        <p>
-          Estimated future value in today's rupees:{' '}
-          <strong>{formatINR(Math.round(realFutureValue))}</strong>
-        </p>
-        <p style={{ fontSize: 13, color: '#6b7280' }}>
-          Adjusted using the inflation rate you set; use this to gauge
-          purchasing power.
-        </p>
-      </div>
-
-      {/* Target planner */}
-      <div className="card" style={{ marginTop: 16 }}>
-        <h3>Target Planner</h3>
-        <p style={{ marginTop: 8 }}>
-          Required monthly SIP to reach{' '}
-          {targetAmount > 0 ? formatINR(targetAmount) : 'your target'} in{' '}
-          {years} years: <strong>{formatINR(requiredSIPForTarget)}</strong>
-        </p>
-        <p style={{ fontSize: 13, color: '#6b7280' }}>
-          This assumes expected annual return = {annualReturn}% and existing
-          lump sum = {formatINR(lumpSumNow)}.
-        </p>
-      </div>
-
-      {/* Schedule preview */}
+      {/* schedule & actions */}
       <div className="article" style={{ marginTop: 18 }}>
         <h2>Schedule Preview</h2>
         <div
+          ref={printRef}
           className="schedule-wrapper"
           style={{ maxHeight: 360, overflow: 'auto' }}
         >
@@ -442,27 +415,23 @@ export default function SIPClient() {
           </table>
         </div>
 
-        {schedule.length > 120 && (
-          <p style={{ marginTop: 8 }}>Showing first 120 months.</p>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
-        <button onClick={exportCSV}>Export Schedule CSV</button>
-        <button
-          onClick={() => {
-            const summary = `SIP ${formatINR(
-              monthlySIP
-            )} for ${years} years at ${annualReturn}% ⇒ ${formatINR(
-              Math.round(futureValue)
-            )} (Invested ${formatINR(totalInvested)})`;
-            navigator.clipboard?.writeText(summary);
-            alert('Summary copied to clipboard');
-          }}
-        >
-          Copy Summary
-        </button>
+        <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+          <button onClick={exportCSV}>Export Schedule CSV</button>
+          <button onClick={handlePrint}>Print Schedule</button>
+          <button
+            onClick={() => {
+              const summary = `RD ${formatINR(
+                monthlyDeposit
+              )}/mo for ${years}y @ ${annualRate}% ⇒ ${formatINR(
+                Math.round(maturity)
+              )}`;
+              navigator.clipboard?.writeText(summary);
+              alert('Summary copied to clipboard');
+            }}
+          >
+            Copy Summary
+          </button>
+        </div>
       </div>
     </section>
   );

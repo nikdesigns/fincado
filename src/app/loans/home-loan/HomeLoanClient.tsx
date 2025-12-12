@@ -1,3 +1,4 @@
+// src/app/loans/home-loan/HomeLoanClient.tsx
 'use client';
 import React, { useMemo, useState } from 'react';
 
@@ -13,6 +14,92 @@ type AmortRow = {
   balance: number;
 };
 
+/* ---------- PieChart component (thick donut with rounded arc) ---------- */
+function PieChart({
+  principalPct,
+  interestPct,
+  size = 240,
+}: {
+  principalPct: number;
+  interestPct: number;
+  size?: number;
+}) {
+  const strokeWidth = Math.max(14, Math.round(size * 0.18));
+  const r = (size - strokeWidth) / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+  const circumference = 2 * Math.PI * r;
+  const interestLength = (interestPct / 100) * circumference;
+
+  const dashArray =
+    interestPct <= 0
+      ? `0 ${circumference}`
+      : interestPct >= 100
+      ? `${circumference} 0`
+      : `${interestLength} ${Math.max(0, circumference - interestLength)}`;
+
+  return (
+    <div style={{ width: size, height: size, position: 'relative' }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="Principal vs interest"
+      >
+        {/* base ring = principal (pale) */}
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="none"
+          stroke="#f1f5f9"
+          strokeWidth={strokeWidth}
+        />
+
+        {/* interest arc overlay (drawn on top). Rotate -90deg to start at top */}
+        <g transform={`rotate(-90 ${cx} ${cy})`}>
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke="#a0e870"
+            strokeWidth={strokeWidth}
+            strokeDasharray={dashArray}
+            strokeLinecap="round"
+            style={{ transition: 'stroke-dasharray 420ms ease' }}
+          />
+        </g>
+
+        {/* Center hole */}
+        <circle cx={cx} cy={cy} r={r * 0.5} fill="#fff" />
+
+        {/* center labels */}
+        <text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          fontWeight={800}
+          fontSize={18}
+          fill="#081225"
+        >
+          {principalPct}% / {interestPct}%
+        </text>
+        <text
+          x={cx}
+          y={cy + 16}
+          textAnchor="middle"
+          fontSize={12}
+          fill="#6b7280"
+        >
+          Principal / Interest
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 export default function HomeLoanClient() {
   // Inputs
   const [propertyValue, setPropertyValue] = useState<number>(5000000); // ₹50 L
@@ -26,10 +113,9 @@ export default function HomeLoanClient() {
 
   // LTV rules (India common heuristic)
   const ltv = useMemo(() => {
-    // thresholds in INR
-    if (propertyValue <= 30_00_000) return 0.9; // <= 30L => 90%
-    if (propertyValue <= 75_00_000) return 0.8; // 30-75L => 80%
-    return 0.75; // >75L => 75%
+    if (propertyValue <= 30_00_000) return 0.9;
+    if (propertyValue <= 75_00_000) return 0.8;
+    return 0.75;
   }, [propertyValue]);
 
   // Compute loan principal desired (property - down)
@@ -89,9 +175,7 @@ export default function HomeLoanClient() {
     const first12 = schedule.slice(0, 12);
     const interestSum = first12.reduce((s, r) => s + r.interest, 0);
     const principalSum = first12.reduce((s, r) => s + r.principal, 0);
-    // Section 24 interest deduction capped at ₹2,00,000 for self-occupied property
     const section24 = Math.min(interestSum, 200000);
-    // Section 80C principal deduction upto 1.5L (combined with other 80C investments)
     const section80c = Math.min(principalSum, 150000);
     return {
       interestYear1: interestSum,
@@ -113,13 +197,12 @@ export default function HomeLoanClient() {
   const foirAllowed = monthlyIncome * 0.5;
   const affordabilityOk = monthlyEmi <= foirAllowed;
 
-  // Extra EMI / prepayment effect (approx): increase emi by X% and compute reduced tenure
+  // Extra EMI / prepayment effect (approx)
   const extraEmi = emi * (1 + extraPaymentPercent / 100);
 
   const prepaymentEffect = useMemo(() => {
     if (loanAmount <= 0 || monthlyRate <= 0)
       return { newMonths: 0, interestSaved: 0, newTotalInterest: 0 };
-    // simulate with extraEmi until balance <= 0
     let bal = loanAmount;
     let months = 0;
     let totalInterest = 0;
@@ -127,10 +210,7 @@ export default function HomeLoanClient() {
       months++;
       const interestPortion = bal * monthlyRate;
       const principalPortion = Math.min(extraEmi - interestPortion, bal);
-      if (principalPortion <= 0) {
-        // extraEMI too small to cover interest (shouldn't happen in normal ranges)
-        break;
-      }
+      if (principalPortion <= 0) break;
       bal -= principalPortion;
       totalInterest += interestPortion;
     }
@@ -150,6 +230,15 @@ export default function HomeLoanClient() {
   const totalPayment = Math.round(emi * nMonths);
   const totalInterest = Math.round(totalPayment - loanAmount);
 
+  // pie percentages (principal vs interest) — denominator = totalPayment
+  const interestPct = useMemo(() => {
+    const tp = totalPayment;
+    if (tp <= 0) return 0;
+    return Math.max(0, Math.min(100, Math.round((totalInterest / tp) * 100)));
+  }, [totalPayment, totalInterest]);
+
+  const principalPct = Math.max(0, 100 - interestPct);
+
   // small helpers for inputs that are strings
   const safeSetNumber =
     (setter: (v: number) => void) =>
@@ -162,172 +251,245 @@ export default function HomeLoanClient() {
     <section className="card">
       <h2>Home Loan Calculator (India)</h2>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          // nothing to do — all reactive
-        }}
-        style={{ display: 'grid', gap: 12 }}
-      >
-        <label>
-          Property Value (₹)
-          <input
-            id="propertyValue"
-            type="number"
-            value={propertyValue}
-            onChange={(e) => setPropertyValue(Number(e.target.value))}
-            min={0}
-            step={10000}
-          />
-        </label>
+      {/* ===== Two-column split: left = inputs, right = chart (only these two side-by-side) ===== */}
+      <div className="emi-split" style={{ marginTop: 18 }}>
+        {/* LEFT: inputs */}
+        <div className="emi-left">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            style={{ display: 'grid', gap: 12 }}
+          >
+            <label>
+              Property Value (₹)
+              <input
+                id="propertyValue"
+                type="number"
+                value={propertyValue}
+                onChange={safeSetNumber(setPropertyValue)}
+                min={0}
+                step={10000}
+              />
+            </label>
 
-        <label>
-          Down Payment (₹)
-          <input
-            id="downPayment"
-            type="number"
-            value={downPayment}
-            onChange={(e) => setDownPayment(Number(e.target.value))}
-            min={0}
-            step={10000}
-          />
-          <div style={{ fontSize: 13, color: '#6b7280' }}>
-            Min recommended down payment (to satisfy typical LTV):{' '}
-            {formatINR(minDownPaymentRequired)}
-            {loanExceedsLtv ? (
-              <span>
-                {' '}
-                — Your current down payment is too low for the LTV cap.
-              </span>
-            ) : (
-              <span> — LTV OK at {Math.round(ltv * 100)}%.</span>
-            )}
+            <label>
+              Down Payment (₹)
+              <input
+                id="downPayment"
+                type="number"
+                value={downPayment}
+                onChange={safeSetNumber(setDownPayment)}
+                min={0}
+                step={10000}
+              />
+              <div style={{ fontSize: 13, color: '#6b7280' }}>
+                Min recommended down payment (to satisfy typical LTV):{' '}
+                {formatINR(minDownPaymentRequired)}
+                {loanExceedsLtv ? (
+                  <span>
+                    {' '}
+                    — Your current down payment is too low for the LTV cap.
+                  </span>
+                ) : (
+                  <span> — LTV OK at {Math.round(ltv * 100)}%.</span>
+                )}
+              </div>
+            </label>
+
+            <label>
+              Annual Interest Rate (%)
+              <input
+                id="annualRate"
+                type="number"
+                step="0.01"
+                value={annualRate}
+                onChange={safeSetNumber(setAnnualRate)}
+                min={0}
+              />
+            </label>
+
+            <label>
+              Tenure (Years)
+              <input
+                id="tenureYears"
+                type="number"
+                value={tenureYears}
+                onChange={safeSetNumber(setTenureYears)}
+                min={1}
+              />
+            </label>
+
+            <label>
+              Processing Fee (% of loan)
+              <input
+                id="processingFee"
+                type="number"
+                step="0.1"
+                value={processingFeePercent}
+                onChange={safeSetNumber(setProcessingFeePercent)}
+                min={0}
+              />
+            </label>
+
+            <label>
+              Monthly Net Income (₹) — for FOIR check
+              <input
+                id="monthlyIncome"
+                type="number"
+                value={monthlyIncome}
+                onChange={safeSetNumber(setMonthlyIncome)}
+                min={0}
+              />
+            </label>
+
+            <label>
+              Your Marginal Tax Rate (%) — for tax savings estimate
+              <input
+                id="marginalTaxPercent"
+                type="number"
+                value={marginalTaxPercent}
+                onChange={safeSetNumber(setMarginalTaxPercent)}
+                min={0}
+                max={40}
+              />
+            </label>
+
+            <label>
+              Extra EMI % (simulate paying X% more each month)
+              <input
+                id="extraPaymentPercent"
+                type="number"
+                step="1"
+                value={extraPaymentPercent}
+                onChange={safeSetNumber(setExtraPaymentPercent)}
+                min={0}
+                max={200}
+              />
+            </label>
+
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button className="primary-cta">Update</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setPropertyValue(5000000);
+                  setDownPayment(1000000);
+                  setAnnualRate(8.5);
+                  setTenureYears(20);
+                  setProcessingFeePercent(0.5);
+                  setMonthlyIncome(60000);
+                  setMarginalTaxPercent(30);
+                  setExtraPaymentPercent(0);
+                }}
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* RIGHT: chart only */}
+        <aside className="emi-right" aria-hidden={false}>
+          <div
+            className="card"
+            style={{
+              textAlign: 'center',
+              paddingBottom: 12,
+              boxShadow: 'none',
+              border: 'none',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <PieChart
+                principalPct={principalPct}
+                interestPct={interestPct}
+                size={220}
+              />
+
+              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#f1f5f9',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                      border: '1px solid rgba(0,0,0,0.02)',
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{principalPct}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Principal
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#a0e870',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{interestPct}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Interest
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </label>
 
-        <label>
-          Annual Interest Rate (%)
-          <input
-            id="annualRate"
-            type="number"
-            step="0.01"
-            value={annualRate}
-            onChange={(e) => setAnnualRate(Number(e.target.value))}
-            min={0}
-          />
-        </label>
+          <div className="ad-box" style={{ marginTop: 14 }}>
+            Ad / Bank widget
+          </div>
+        </aside>
+      </div>
 
-        <label>
-          Tenure (Years)
-          <input
-            id="tenureYears"
-            type="number"
-            value={tenureYears}
-            onChange={(e) => setTenureYears(Number(e.target.value))}
-            min={1}
-          />
-        </label>
+      {/* ===== RESULTS: full width below split ===== */}
+      <div className="emi-results-full" style={{ marginTop: 18 }}>
+        <div className="result-grid emi-summary-strip">
+          <div className="result-card">
+            <p className="result-label">Loan Amount</p>
+            <p className="result-primary">
+              {formatINR(Math.round(loanAmount))}
+            </p>
+          </div>
 
-        <label>
-          Processing Fee (% of loan)
-          <input
-            id="processingFee"
-            type="number"
-            step="0.1"
-            value={processingFeePercent}
-            onChange={(e) => setProcessingFeePercent(Number(e.target.value))}
-            min={0}
-          />
-        </label>
+          <div className="result-card">
+            <p className="result-label">Estimated EMI / month</p>
+            <p className="result-primary" id="emi">
+              {formatINR(Math.round(emi))}
+            </p>
+          </div>
 
-        <label>
-          Monthly Net Income (₹) — for FOIR check
-          <input
-            id="monthlyIncome"
-            type="number"
-            value={monthlyIncome}
-            onChange={(e) => setMonthlyIncome(Number(e.target.value))}
-            min={0}
-          />
-        </label>
+          <div className="result-card">
+            <p className="result-label">Total Interest (approx)</p>
+            <p className="result-value">{formatINR(totalInterest)}</p>
+          </div>
 
-        <label>
-          Your Marginal Tax Rate (%) — for tax savings estimate
-          <input
-            id="marginalTaxPercent"
-            type="number"
-            value={marginalTaxPercent}
-            onChange={(e) => setMarginalTaxPercent(Number(e.target.value))}
-            min={0}
-            max={40}
-          />
-        </label>
-
-        <label>
-          Extra EMI % (simulate paying X% more each month)
-          <input
-            id="extraPaymentPercent"
-            type="number"
-            step="1"
-            value={extraPaymentPercent}
-            onChange={(e) => setExtraPaymentPercent(Number(e.target.value))}
-            min={0}
-            max={200}
-          />
-        </label>
-
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            className="primary-cta"
-            onClick={() => {
-              /* reactive form - nothing needed */
-            }}
-          >
-            Update
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              // reset to defaults
-              setPropertyValue(5000000);
-              setDownPayment(1000000);
-              setAnnualRate(8.5);
-              setTenureYears(20);
-              setProcessingFeePercent(0.5);
-              setMonthlyIncome(60000);
-              setMarginalTaxPercent(30);
-              setExtraPaymentPercent(0);
-            }}
-          >
-            Reset
-          </button>
-        </div>
-      </form>
-
-      {/* RESULTS */}
-      <div className="result-grid emi-summary-strip" style={{ marginTop: 16 }}>
-        <div className="result-card">
-          <p className="result-label">Loan Amount</p>
-          <p className="result-primary">{formatINR(Math.round(loanAmount))}</p>
-        </div>
-
-        <div className="result-card">
-          <p className="result-label">Estimated EMI / month</p>
-          <p className="result-primary" id="emi">
-            {formatINR(Math.round(emi))}
-          </p>
-        </div>
-
-        <div className="result-card">
-          <p className="result-label">Total Interest (approx)</p>
-          <p className="result-value">{formatINR(totalInterest)}</p>
-        </div>
-
-        <div className="result-card">
-          <p className="result-label">Total Payment</p>
-          <p className="result-value">
-            {formatINR(totalPayment + processingFee)}
-          </p>
+          <div className="result-card">
+            <p className="result-label">Total Payment</p>
+            <p className="result-value">
+              {formatINR(totalPayment + processingFee)}
+            </p>
+          </div>
         </div>
       </div>
 

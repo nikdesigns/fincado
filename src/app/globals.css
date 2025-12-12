@@ -495,6 +495,7 @@ textarea {
   font-size: 16px;
   border-radius: 12px;
   font-weight: 600;
+  cursor: pointer;
 }
 .apply-btn {
   background: white;
@@ -1053,6 +1054,7 @@ button {
   font-weight: 600;
   text-decoration: none;
   display: inline-flex;
+  cursor: pointer;
 }
 button:active {
   transform: translateY(1px);
@@ -1389,6 +1391,7 @@ a.button {
   padding: 12px 22px;
   border-radius: 12px;
   font-weight: 600;
+  cursor: pointer;
   letter-spacing: 0.3px;
 }
 
@@ -1727,6 +1730,7 @@ button:focus {
   border: 1px solid var(--border);
   font-weight: 500;
   text-decoration: none;
+  cursor: pointer;
 }
 
 /* hero bullets */
@@ -2763,6 +2767,365 @@ a.secondary-cta:focus,
   .image-wrap::after {
     display: none;
   }
+}
+
+/* EMI split layout: left = inputs & results, right = chart */
+.emi-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* left column will grow, right column has fixed ideal width */
+.emi-left {
+  flex: 1 1 560px; /* left takes available space, but can shrink on small screens */
+  min-width: 0;
+}
+
+/* right column: chart, keep it compact */
+.emi-right {
+  flex: 0 0 300px;
+  max-width: 340px;
+}
+
+/* make donut bigger on desktop and smaller on mobile */
+.emi-donut {
+  transition: width 0.15s ease, height 0.15s ease;
+}
+
+/* legend & compact pill look */
+.emi-legend .legend-item > div {
+  line-height: 1;
+}
+
+/* small responsive behaviour */
+@media (max-width: 980px) {
+  .emi-right {
+    flex: 0 0 280px;
+  }
+  .emi-split {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  /* stack columns on small screens */
+  .emi-split {
+    display: block;
+  }
+  .emi-left,
+  .emi-right {
+    width: 100%;
+    flex: none;
+    max-width: 100%;
+  }
+  .emi-right {
+    margin-top: 16px;
+  }
+  .emi-donut {
+    width: 160px !important;
+    height: 160px !important;
+    margin: 12px auto;
+  }
+}
+
+/* EMI split layout: left = inputs & results, right = chart (with SVG chart) */
+.emi-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* left column will grow, right column has fixed ideal width */
+.emi-left {
+  flex: 1 1 560px;
+  min-width: 0;
+}
+
+/* right column: chart, keep it compact */
+.emi-right {
+  flex: 0 0 340px;
+  max-width: 360px;
+}
+
+/* Ensure donut & svg scale nicely */
+.emi-donut {
+  transition: width 0.15s ease, height 0.15s ease;
+}
+
+/* smaller chart area box so svg fits neatly */
+.emi-right .card {
+  padding: 16px;
+}
+
+/* responsive breakpoints */
+@media (max-width: 980px) {
+  .emi-right {
+    flex: 0 0 300px;
+  }
+  .emi-split {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  /* stack columns on small screens */
+  .emi-split {
+    display: block;
+  }
+  .emi-left,
+  .emi-right {
+    width: 100%;
+    flex: none;
+    max-width: 100%;
+  }
+  .emi-right {
+    margin-top: 16px;
+  }
+  .emi-donut {
+    width: 140px !important;
+    height: 140px !important;
+    margin: 8px auto;
+  }
+}
+
+/* ---------- EMI: fixed two-column split for inputs + chart ---------- */
+/* Parent that holds both columns */
+.emi-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  /* prefer two columns on desktop, but allow wrapping on narrow screens */
+  flex-wrap: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Left column: inputs + result cards. Flexible and allowed to shrink. */
+.emi-left {
+  flex: 1 1 0; /* grow, shrink, base 0 so it uses remaining space */
+  min-width: 0; /* IMPORTANT: allows children to truncate instead of forcing overflow */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure cards inside left column use full width */
+.emi-left > .card,
+.emi-left form,
+.emi-left .result-grid,
+.emi-left .article {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Right column: chart. Fixed comfortable width so it doesn't push layout */
+.emi-right {
+  flex: 0 0 340px; /* fixed ideal width */
+  max-width: 360px;
+  min-width: 220px; /* avoid shrinking too small on medium screens */
+  box-sizing: border-box;
+}
+
+/* Make sure the right column card fills the column */
+.emi-right .card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+}
+
+/* Make the SVG/chart responsive (fills available width inside card) */
+.emi-right svg,
+.emi-right #donut,
+.emi-right .donut {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 220px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tweak result grid inside left column so it wraps nicely on small widths */
+.emi-left .result-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Responsive: stack columns on narrow screens */
+@media (max-width: 980px) {
+  .emi-split {
+    flex-wrap: wrap; /* allow stacking */
+  }
+  .emi-right {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-top: 14px;
+  }
+  .emi-left {
+    flex: 1 1 100%;
+  }
+}
+
+/* Extra safety: avoid inputs or tables forcing the right column down */
+.emi-left input,
+.emi-left table,
+.emi-left .rate-table,
+.emi-left .schedule-wrapper {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* If you still see stacking, try reducing the right column ideal width slightly */
+@media (min-width: 1200px) {
+  /* optional: keep a slightly larger right panel on wide screens */
+  .emi-right {
+    flex: 0 0 360px;
+    max-width: 380px;
+  }
+}
+/* EMI pie/chart and full-width results adjustments */
+
+/* Full-width results area (spans container above the split) */
+.emi-results-full {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+}
+
+/* Keep the split layout for inputs + chart */
+.emi-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+.emi-left {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.emi-right {
+  flex: 0 0 340px;
+  max-width: 360px;
+  min-width: 220px;
+  box-sizing: border-box;
+}
+
+/* Ensure the pie svg scales */
+.emi-right svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Tighten spacing on the right column's card */
+.emi-right .card {
+  padding: 14px;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 980px) {
+  .emi-split {
+    flex-wrap: wrap;
+  }
+  .emi-right {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-top: 14px;
+  }
+  .emi-left {
+    flex: 1 1 100%;
+  }
+}
+
+/* small safety: ensure result grid uses full available width */
+.emi-results-full .result-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* EMI layout: inputs + chart side-by-side (only those two) */
+.emi-split {
+  display: grid;
+  grid-template-columns: 1fr 340px; /* inputs flexible, chart fixed-ish */
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Left column (inputs) */
+.emi-left {
+  min-width: 0; /* allow inputs to shrink inside grid */
+}
+
+/* Right column (chart) */
+.emi-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 260px;
+}
+
+/* make chart card visually attached but not shadowed (you used inline style to remove boxShadow/border) */
+.emi-right .card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Full-width results card that sits below the split */
+.emi-results-full {
+  width: 100%;
+  margin-top: 18px;
+}
+
+/* Ensure the result grid stretches and cards are full-width inside it */
+.emi-results-full .emi-summary-strip,
+.emi-results-full .result-grid {
+  max-width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Responsive: on small screens stack chart under inputs */
+@media (max-width: 900px) {
+  .emi-split {
+    grid-template-columns: 1fr; /* single column */
+    gap: 18px;
+  }
+  .emi-right {
+    order: 2;
+    align-items: center;
+  }
+  .emi-left {
+    order: 1;
+  }
+
+  /* make result grid stack vertically on narrow screens */
+  .emi-results-full .result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small visual tweak for the legend chips under the chart */
+.emi-right .legend-chip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: #374151;
+}
+.emi-right .legend-chip .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+  flex: 0 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 /* End of file */
