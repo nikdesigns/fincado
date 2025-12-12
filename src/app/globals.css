@@ -998,6 +998,7 @@ form label {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
+  align-items: end;
 }
 @media (max-width: 1000px) {
   .form-row {
