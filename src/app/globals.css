@@ -993,6 +993,7 @@ form label {
   margin-bottom: 8px;
   font-weight: 600;
   color: #111827;
+  font-size: 1.5vmin;
 }
 .form-row {
   display: grid;

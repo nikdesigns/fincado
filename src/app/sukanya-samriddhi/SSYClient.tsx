@@ -1,8 +1,8 @@
-// src/app/ssy-calculator/SSYClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
 
+// Utility function remains outside the main component for simplicity
 function formatINR(v: number) {
   return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
@@ -151,6 +151,8 @@ export default function SSYClient() {
         }
       }
 
+      // NOTE: Using monthly rate on current balance.
+      // This is a simplification of the SSY scheme which officially compounds annually.
       const interestThisMonth = balance * monthlyRate;
       balance += interestThisMonth;
 
@@ -243,280 +245,703 @@ export default function SSYClient() {
       fn(e.target.value === '' ? 0 : Number(e.target.value));
 
   return (
-    <section className="card">
-      <h2>Sukanya Samriddhi Yojana (SSY) Calculator</h2>
+    <section className="article">
+      <div className="card">
+        <h1>🇮🇳 Sukanya Samriddhi Yojana (SSY) Calculator</h1>
 
-      {/* Two-column split: left = inputs, right = donut chart */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 320px',
-          gap: 12,
-          alignItems: 'start',
-          marginTop: 14,
-        }}
-      >
-        <div>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            style={{ display: 'grid', gap: 12 }}
-          >
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-              }}
-            >
-              <label>
-                Girl&apos;s current age (years)
-                <input
-                  type="number"
-                  min={0}
-                  max={20}
-                  value={currentAge}
-                  onChange={setter(setCurrentAge)}
-                />
-              </label>
-
-              <label>
-                Deposit mode
-                <select
-                  value={depositMode}
-                  onChange={(e) =>
-                    setDepositMode(e.target.value as 'monthly' | 'yearly')
-                  }
-                >
-                  <option value="monthly">Monthly</option>
-                  <option value="yearly">Yearly</option>
-                </select>
-              </label>
-            </div>
-
-            {depositMode === 'monthly' ? (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 12,
-                  alignItems: 'end',
-                }}
-              >
-                <label>
-                  Monthly deposit (₹)
-                  <input
-                    type="number"
-                    min={0}
-                    step={100}
-                    value={monthlyDeposit}
-                    onChange={setter(setMonthlyDeposit)}
-                  />
-                </label>
-
-                <label>
-                  Years you will deposit (max 15)
-                  <input
-                    type="number"
-                    min={0}
-                    max={15}
-                    value={yearsToDeposit}
-                    onChange={setter(setYearsToDeposit)}
-                  />
-                </label>
-              </div>
-            ) : (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 12,
-                  alignItems: 'end',
-                }}
-              >
-                <label>
-                  Yearly deposit (₹)
-                  <input
-                    type="number"
-                    min={0}
-                    step={1000}
-                    value={yearlyDeposit}
-                    onChange={setter(setYearlyDeposit)}
-                  />
-                </label>
-
-                <label>
-                  Years you will deposit (max 15)
-                  <input
-                    type="number"
-                    min={0}
-                    max={15}
-                    value={yearsToDeposit}
-                    onChange={setter(setYearsToDeposit)}
-                  />
-                </label>
-              </div>
-            )}
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-              }}
-            >
-              <label>
-                Expected annual interest rate (%)
-                <input
-                  type="number"
-                  step="0.01"
-                  value={annualRate}
-                  onChange={setter(setAnnualRate)}
-                />
-              </label>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <button className="primary-cta">Update</button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCurrentAge(5);
-                  setDepositMode('monthly');
-                  setMonthlyDeposit(2500);
-                  setYearlyDeposit(30000);
-                  setYearsToDeposit(15);
-                  setAnnualRate(8.0);
-                }}
-              >
-                Reset
-              </button>
-            </div>
-          </form>
-        </div>
-
-        {/* RIGHT: Donut chart */}
-        <aside
-          aria-hidden={false}
+        {/* Two-column split: left = inputs, right = donut chart */}
+        <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
+            display: 'grid',
+            gridTemplateColumns: '1fr 320px',
+            gap: 12,
+            alignItems: 'start',
+            marginTop: 14,
           }}
         >
-          <div
-            className="card"
+          <div>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              style={{ display: 'grid', gap: 12 }}
+            >
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 12,
+                  alignItems: 'end',
+                }}
+              >
+                <label>
+                  Girl&apos;s current age (years)
+                  <input
+                    type="number"
+                    min={0}
+                    max={20}
+                    value={currentAge}
+                    onChange={setter(setCurrentAge)}
+                  />
+                </label>
+
+                <label>
+                  Deposit mode
+                  <select
+                    value={depositMode}
+                    onChange={(e) =>
+                      setDepositMode(e.target.value as 'monthly' | 'yearly')
+                    }
+                  >
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </label>
+              </div>
+
+              {depositMode === 'monthly' ? (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 12,
+                    alignItems: 'end',
+                  }}
+                >
+                  <label>
+                    Monthly deposit (₹)
+                    <input
+                      type="number"
+                      min={0}
+                      step={100}
+                      value={monthlyDeposit}
+                      onChange={setter(setMonthlyDeposit)}
+                    />
+                  </label>
+
+                  <label>
+                    Years you will deposit (max 15)
+                    <input
+                      type="number"
+                      min={0}
+                      max={15}
+                      value={yearsToDeposit}
+                      onChange={setter(setYearsToDeposit)}
+                    />
+                  </label>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 12,
+                    alignItems: 'end',
+                  }}
+                >
+                  <label>
+                    Yearly deposit (₹)
+                    <input
+                      type="number"
+                      min={0}
+                      step={1000}
+                      value={yearlyDeposit}
+                      onChange={setter(setYearlyDeposit)}
+                    />
+                  </label>
+
+                  <label>
+                    Years you will deposit (max 15)
+                    <input
+                      type="number"
+                      min={0}
+                      max={15}
+                      value={yearsToDeposit}
+                      onChange={setter(setYearsToDeposit)}
+                    />
+                  </label>
+                </div>
+              )}
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 12,
+                }}
+              >
+                <label>
+                  Expected annual interest rate (%)
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={annualRate}
+                    onChange={setter(setAnnualRate)}
+                  />
+                </label>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <button className="primary-cta">Calculate</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentAge(5);
+                    setDepositMode('monthly');
+                    setMonthlyDeposit(2500);
+                    setYearlyDeposit(30000);
+                    setYearsToDeposit(15);
+                    setAnnualRate(8.2);
+                  }}
+                >
+                  Reset to Default
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* RIGHT: Donut chart */}
+          <aside
+            aria-hidden={false}
             style={{
-              textAlign: 'center',
-              padding: 12,
-              boxShadow: 'none',
-              border: 'none',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
             }}
           >
-            <Donut
-              valuePercent={interestPercent}
-              size={220}
-              innerLabel={`${principalPercent}%`}
-              outerLabel={`Principal / Interest`}
-            />
             <div
+              className="card"
               style={{
-                display: 'flex',
-                gap: 18,
-                justifyContent: 'center',
-                marginTop: 12,
+                textAlign: 'center',
+                padding: 12,
+                boxShadow: 'none',
+                border: 'none',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span
-                  style={{
-                    width: 14,
-                    height: 14,
-                    background: '#eff8e5',
-                    display: 'inline-block',
-                    borderRadius: 6,
-                    border: '1px solid rgba(0,0,0,0.03)',
-                  }}
-                />
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
-                  <div style={{ fontSize: 12, color: '#6b7280' }}>
-                    Principal
+              <Donut
+                valuePercent={interestPercent}
+                size={220}
+                innerLabel={`${interestPercent}%`}
+                outerLabel={`Interest Portion`}
+              />
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 18,
+                  justifyContent: 'center',
+                  marginTop: 12,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#eff8e5',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                      border: '1px solid rgba(0,0,0,0.03)',
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Principal
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      background: '#16a34a',
+                      display: 'inline-block',
+                      borderRadius: 6,
+                      border: '1px solid rgba(0,0,0,0.03)',
+                    }}
+                  />
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      Interest
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span
-                  style={{
-                    width: 14,
-                    height: 14,
-                    background: '#16a34a',
-                    display: 'inline-block',
-                    borderRadius: 6,
-                  }}
-                />
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
-                  <div style={{ fontSize: 12, color: '#6b7280' }}>Interest</div>
-                </div>
+              <div style={{ marginTop: 10, fontSize: 13, color: '#6b7280' }}>
+                <p>
+                  **Total Principal**:{' '}
+                  <strong>{formatINR(totalDeposited)}</strong>
+                </p>
+                <p>
+                  **Estimated Interest**:{' '}
+                  <strong>{formatINR(interestAmount)}</strong>
+                </p>
+                <p style={{ fontSize: 16, color: '#081225' }}>
+                  **Estimated Maturity**:{' '}
+                  <strong>{formatINR(maturityAmount)}</strong>
+                </p>
               </div>
             </div>
+          </aside>
+        </div>
 
-            <div style={{ marginTop: 10, fontSize: 13, color: '#6b7280' }}>
-              Maturity: <strong>{formatINR(maturityAmount)}</strong>
-              <div>
-                Deposited: <strong>{formatINR(totalDeposited)}</strong>
-              </div>
-            </div>
+        {/* Results: full width (below split) */}
+        <div
+          className="result-grid emi-summary-strip"
+          style={{ marginTop: 16 }}
+        >
+          <div className="result-card">
+            <p className="result-label">Months until maturity (to age 21)</p>
+            <p className="result-primary">{monthsUntilMaturity}</p>
           </div>
-        </aside>
-      </div>
 
-      {/* Results: full width (below split) */}
-      <div className="result-grid emi-summary-strip" style={{ marginTop: 16 }}>
-        <div className="result-card">
-          <p className="result-label">Months until maturity (to age 21)</p>
-          <p className="result-primary">{monthsUntilMaturity}</p>
-        </div>
+          <div className="result-card">
+            <p className="result-label">Months you will deposit</p>
+            <p className="result-primary">{monthsToDeposit}</p>
+          </div>
 
-        <div className="result-card">
-          <p className="result-label">Months you will deposit</p>
-          <p className="result-primary">{monthsToDeposit}</p>
-        </div>
+          <div className="result-card">
+            <p className="result-label">Total deposited (approx)</p>
+            <p className="result-value">{formatINR(totalDeposited)}</p>
+          </div>
 
-        <div className="result-card">
-          <p className="result-label">Total deposited (approx)</p>
-          <p className="result-value">{formatINR(totalDeposited)}</p>
-        </div>
-
-        <div className="result-card">
-          <p className="result-label">Estimated maturity amount</p>
-          <p className="result-value">{formatINR(maturityAmount)}</p>
+          <div className="result-card">
+            <p className="result-label">Estimated maturity amount</p>
+            <p className="result-value">{formatINR(maturityAmount)}</p>
+          </div>
         </div>
       </div>
 
       {/* Quick notes */}
       <div className="card" style={{ marginTop: 12 }}>
-        <h3>Notes</h3>
+        <h3>Notes on Calculation</h3>
         <ul>
           <li>
-            Calculator simulates month-by-month growth using the interest rate
-            you set.
+            This calculator simulates month-by-month growth using the interest
+            rate you set.
           </li>
           <li>
-            Deposits cannot continue beyond maturity (age 21). Deposit window is
-            capped at the years you choose (max 15).
+            Deposits cannot continue beyond maturity (age 21). The deposit
+            window is capped at the lesser of the years you choose (max 15) or
+            the period until the girl reaches age 21.
           </li>
           <li>
-            For yearly deposits, deposit assumed at the start of each year for
-            simplicity.
+            For yearly deposits, the deposit is assumed at the start of each
+            year for simplicity.
+          </li>
+          <li>
+            **Important**: The actual SSY interest is compounded annually
+            (yearly). This calculator uses **monthly compounding** for general
+            calculation purposes, which may result in a slightly higher estimate
+            than the official scheme.
           </li>
         </ul>
       </div>
 
-      {/* Yearly snapshot / Export with fixed height scrollable table */}
-      <div className="article" style={{ marginTop: 12 }}>
-        <h2>Yearly snapshot / Export</h2>
+      {/* --- SEO Content Starts Here --- */}
+      <div className="content-for-seo" style={{ marginTop: 20 }}>
+        {/* 1. Brief about the program */}
+        <section>
+          <h2 id="about-ssy">🌟 What is Sukanya Samriddhi Yojana (SSY)?</h2>
+          <p>
+            The **Sukanya Samriddhi Yojana (SSY)** is a small savings scheme
+            launched by the Government of India as part of the **'Beti Bachao,
+            Beti Padhao'** campaign. It is a dedicated, tax-free investment
+            program designed to encourage parents to build a significant corpus
+            for their daughter's future education and marriage expenses. It
+            offers one of the highest interest rates among the government's
+            small savings schemes and is a highly secure investment option.
+          </p>
+          <p>
+            The scheme currently offers an interest rate set quarterly by the
+            government, compounded annually, and provides exclusive **Triple EEE
+            tax benefits** (Exempt-Exempt-Exempt).
+          </p>
+        </section>
 
+        {/* 2. Who can use this */}
+        <section>
+          <h2 id="who-can-use">🎯 Who Can Open an SSY Account?</h2>
+          <p>
+            The SSY scheme is specifically designed for the benefit of a girl
+            child.
+          </p>
+          <ul>
+            <li>
+              **Guardian/Parent:** An SSY account must be opened by the natural
+              or legal guardian of the girl child.
+            </li>
+            <li>
+              **Girl Child Age:** The account can be opened anytime from the
+              birth of the girl child until she attains the age of **10 years**.
+            </li>
+            <li>
+              **Number of Accounts:** Only one account is allowed per girl
+              child, and a maximum of two accounts are permitted per family (for
+              two daughters). Exceptions are made for twins/triplets born in the
+              second or subsequent birth order.
+            </li>
+            <li>**Residency:** The girl child must be an Indian resident.</li>
+          </ul>
+        </section>
+
+        {/* 3. How can SSY Calculator help you? */}
+        <section>
+          <h2 id="how-ssy-helps">💡 How Can This SSY Calculator Help You?</h2>
+          <p>
+            Our online **Sukanya Samriddhi Yojana Calculator** is an essential
+            tool for financial planning, allowing you to quickly estimate the
+            maturity value of your investment.
+          </p>
+          <ul>
+            <li>
+              **Goal Setting:** Estimate the final corpus your daughter will
+              receive at age 21 to set realistic savings goals.
+            </li>
+            <li>
+              **Contribution Planning:** Easily compare the outcome of monthly
+              vs. yearly contributions, and adjust the amount to see its impact
+              on the maturity value.
+            </li>
+            <li>
+              **Interest Projection:** See how compounding interest works over
+              the long 21-year tenure of the scheme.{' '}
+            </li>
+            <li>
+              **Transparency:** Get a year-by-year and month-by-month schedule
+              of deposits, interest earned, and balance to track your investment
+              growth.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4. How does SSY work? (The scheme's working and the calculator's calculation) - FIXED SYNTAX */}
+        <section>
+          <h2 id="how-ssy-works">
+            ⚙️ How Does the Sukanya Samriddhi Yojana (SSY) Scheme Work and How
+            is the Maturity Calculated?
+          </h2>
+
+          <h3>SSY Scheme Mechanism</h3>
+          <p>
+            The scheme runs for 21 years from the date of account opening or
+            until the marriage of the girl child after she turns 18. Deposits
+            are required for the first 15 years only. The calculation is based
+            on the following principles:
+          </p>
+          <ol>
+            <li>
+              **Interest Calculation:** Interest is calculated monthly on the
+              lowest balance between the 5th day and the end of the month.
+            </li>
+            <li>
+              **Compounding:** The calculated interest is compounded
+              **annually** (at the end of the financial year).
+            </li>
+            <li>**Deposit Period:** 15 years maximum.</li>
+            <li>**Lock-in/Maturity Period:** 21 years.</li>
+          </ol>
+
+          <h3>Understanding the Calculator Formula</h3>
+          <p>
+            This SSY calculator performs a **month-by-month iterative
+            simulation** to provide the detailed schedule and final maturity
+            amount.
+          </p>
+
+          <h4>The Core Formula (Future Value of an Annuity):</h4>
+          <p>
+            The theoretical maturity value (FV) for a recurring deposit scheme
+            like SSY is often based on the Future Value of an Annuity formula.
+            Using D (periodic deposit), i (rate per period), and n (total
+            periods):
+          </p>
+          <div
+            style={{
+              backgroundColor: '#f9fafb',
+              padding: '15px',
+              borderRadius: '6px',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              fontSize: '1.1em',
+              overflowX: 'auto',
+            }}
+          >
+            FV = D &times; [((1 + i)<sup>n</sup> - 1) / i] &times; (1 + i)
+          </div>
+          <p>Where:</p>
+          <ul>
+            <li>**FV** = Future Value (Maturity Amount)</li>
+            <li>**D** = Periodic Deposit (Monthly or Yearly)</li>
+            <li>
+              **i** = Interest rate per period (e.g., i = r<sub>annual</sub>/12
+              for monthly compounding simulation)
+            </li>
+            <li>
+              **n** = Number of periods (Total number of deposits, n = 15
+              &times; 12 months)
+            </li>
+            <li>
+              Note: This formula provides an estimate, while the calculator uses
+              an iterative loop for detailed month-by-month tracking.
+            </li>
+          </ul>
+
+          <h4>The Calculator's Iterative Approach:</h4>
+          <p>
+            Your calculator code performs a **precise month-by-month
+            simulation** where the balance is updated, and interest is
+            calculated based on the running balance.
+          </p>
+          <p>For each month (**m**), the simulation follows this logic:</p>
+          <ol>
+            <li>
+              **Balance Update:** New deposit is added to the previous month's
+              balance:
+              <div
+                style={{
+                  fontFamily: 'monospace',
+                  backgroundColor: '#eef2ff',
+                  padding: '8px',
+                  margin: '5px 0',
+                  borderRadius: '4px',
+                }}
+              >
+                **Balance<sub>m</sub>** = Balance<sub>m-1</sub> + Deposit
+                <sub>m</sub>
+              </div>
+            </li>
+            <li>
+              **Interest Calculation:** Monthly interest is applied to the new
+              balance:
+              <div
+                style={{
+                  fontFamily: 'monospace',
+                  backgroundColor: '#eef2ff',
+                  padding: '8px',
+                  margin: '5px 0',
+                  borderRadius: '4px',
+                }}
+              >
+                **Interest<sub>m</sub>** = Balance<sub>m</sub> &times; (r
+                <sub>annual</sub> / 1200)
+              </div>
+            </li>
+            <li>
+              **Final Balance:** Interest is added to the balance:
+              <div
+                style={{
+                  fontFamily: 'monospace',
+                  backgroundColor: '#eef2ff',
+                  padding: '8px',
+                  margin: '5px 0',
+                  borderRadius: '4px',
+                }}
+              >
+                **Balance<sub>Final</sub>** = Balance<sub>m</sub> + Interest
+                <sub>m</sub>
+              </div>
+            </li>
+          </ol>
+          <p>
+            This process continues for the entire duration (up to 21 years or
+            252 months) and provides the detailed schedule visible in the tables
+            below.
+          </p>
+        </section>
+
+        {/* 5. Advantage */}
+        <section>
+          <h2 id="ssy-advantages">✅ Key Advantages of Investing in SSY</h2>
+          <p>
+            The SSY scheme is one of the most attractive investment options for
+            a girl child due to its numerous benefits:
+          </p>
+          <div className="advantage-grid">
+            <div className="advantage-card">
+              <h3>Triple Tax Benefits (EEE)</h3>
+              <p>
+                Contributions, interest earned, and the maturity amount are all
+                exempt from tax under **Section 80C** of the Income Tax Act.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>High Interest Rate</h3>
+              <p>
+                It typically offers a higher interest rate compared to other
+                fixed deposits and small savings schemes.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Sovereign Guarantee</h3>
+              <p>
+                As a government-backed scheme, your investment is completely
+                safe and secure.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Annual Compounding</h3>
+              <p>
+                Interest is compounded annually, allowing your savings to grow
+                exponentially over the long 21-year term.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. FAQ's - REVISED FOR ELEGANCE AND PROFESSIONALISM */}
+        <section>
+          <h2 id="ssy-faqs">❓ Frequently Asked Questions (FAQs) about SSY</h2>
+          <div
+            className="faqs-accordion"
+            style={{
+              display: 'grid',
+              gap: '10px',
+            }}
+          >
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937', // Darker text for professionalism
+                }}
+              >
+                What is the current interest rate for SSY?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                The SSY interest rate is reviewed and announced **quarterly** by
+                the Government of India, ensuring it remains competitive. You
+                should check the official notifications from the Ministry of
+                Finance for the exact current rate applicable for the current
+                quarter.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is the maturity period of the SSY account?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                The SSY account matures after **21 years** from the date of
+                opening. Alternatively, it can be prematurely closed upon the
+                marriage of the girl child after she turns 18, subject to
+                certain conditions.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                Is it mandatory to deposit for the full 21 years?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                No. Contributions are only mandatory for the **first 15 years**
+                from the date of account opening. The account balance continues
+                to earn the prevailing interest rate for the remaining 6 years
+                until the final maturity at 21 years.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is the penalty if I miss the minimum yearly deposit?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                If the account is not credited with the minimum annual deposit
+                (₹250) in a financial year, the account becomes defaulted. It
+                can be regularized by paying a penalty of **₹50** along with the
+                minimum deposit of ₹250 for each defaulted year.
+              </p>
+            </details>
+          </div>
+        </section>
+      </div>
+
+      {/* Yearly snapshot / Export with fixed height scrollable table */}
+      <div className="article" style={{ marginTop: 24 }}>
+        <h2>📊 Yearly Snapshot / Export</h2>
+
+        {/* ... Rest of the original code for tables and export remains here ... */}
         {yearlyRows.length === 0 ? (
           <div style={{ fontSize: 13, color: '#6b7280' }}>
             No yearly data to show — check that the girl&apos;s age and deposit
@@ -589,7 +1014,7 @@ export default function SSYClient() {
 
       {/* Monthly schedule preview (fixed height scrollable) */}
       <div className="article" style={{ marginTop: 16 }}>
-        <h2>Monthly schedule preview (first 60 months)</h2>
+        <h2>🗓️ Monthly Schedule Preview (First 60 Months)</h2>
         <div
           className="schedule-wrapper"
           style={{ maxHeight: 360, overflow: 'auto' }}
@@ -616,7 +1041,9 @@ export default function SSYClient() {
           </table>
         </div>
         {schedule.length > 60 && (
-          <p style={{ marginTop: 8 }}>Showing first 60 months.</p>
+          <p style={{ marginTop: 8 }}>
+            Showing first 60 months out of {schedule.length} total months.
+          </p>
         )}
       </div>
     </section>
