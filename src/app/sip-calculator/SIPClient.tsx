@@ -200,7 +200,7 @@ export default function SIPClient() {
         <div className="emi-left">
           <form
             onSubmit={(e) => e.preventDefault()}
-            style={{ display: 'grid', gap: 12 }}
+            style={{ display: 'grid', gap: 12, alignItems: 'end' }}
           >
             <div className="form-row">
               <label>
@@ -390,7 +390,7 @@ export default function SIPClient() {
       <div className="card" style={{ marginTop: 16 }}>
         <h3>Inflation-adjusted value</h3>
         <p>
-          Estimated future value in today's rupees:{' '}
+          Estimated future value in today&apos;s rupees:{' '}
           <strong>{formatINR(Math.round(realFutureValue))}</strong>
         </p>
         <p style={{ fontSize: 13, color: '#6b7280' }}>
