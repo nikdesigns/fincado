@@ -98,8 +98,8 @@ export default function RetirementPage() {
               </p>
 
               <p>
-                It is not just about saving; it's about investing wisely to beat
-                inflation so that your corpus lasts as long as you do.
+                It is not just about saving; it&apos;s about investing wisely to
+                beat inflation so that your corpus lasts as long as you do.
               </p>
 
               {/* 2. Key Challenges */}
@@ -108,8 +108,9 @@ export default function RetirementPage() {
                 <div className="advantage-card">
                   <h4>Inflation Risk</h4>
                   <p>
-                    The "Silent Killer". ₹1 Lakh today will buy much less 20
-                    years from now. Your corpus must grow faster than inflation.
+                    The &quot;Silent Killer&quot;. ₹1 Lakh today will buy much
+                    less 20 years from now. Your corpus must grow faster than
+                    inflation.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -127,7 +128,7 @@ export default function RetirementPage() {
               <ul>
                 <li>
                   <strong>Target Setting:</strong> It calculates the precise
-                  "Magic Number" (Corpus) you need at age 60.
+                  &quot;Magic Number&quot; (Corpus) you need at age 60.
                 </li>
                 <li>
                   <strong>Shortfall Analysis:</strong> It compares your target

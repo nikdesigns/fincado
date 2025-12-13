@@ -12,7 +12,7 @@ const LAST_UPDATED = 'January 2025';
 const SUPPORT_EMAIL = 'support@fincado.com';
 const JURISDICTION_CITY = 'Mumbai';
 
-export default function DisclaimerPage(): JSX.Element {
+export default function DisclaimerPage() {
   return (
     <main className="terms-root">
       <div className="terms-hero">

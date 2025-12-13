@@ -92,8 +92,8 @@ export default function MutualFundPage() {
               {/* 1. What is Asset Allocation? */}
               <h2>Why Asset Allocation Matters?</h2>
               <p>
-                Investing isn't just about picking the "best" stock. It's about
-                building a balanced portfolio.
+                Investing isn&apos;t just about picking the &quot;best&quot;
+                stock. It&apos;s about building a balanced portfolio.
                 <strong>Asset Allocation</strong> is the practice of spreading
                 your investments across different asset classes (Equity, Debt,
                 Gold) to minimize risk.
@@ -136,7 +136,8 @@ export default function MutualFundPage() {
                   <h4>Inflation Reality</h4>
                   <p>
                     A ₹1 Crore corpus in 20 years might only be worth ₹30 Lakhs
-                    in today's money. We show you the "Real Value".
+                    in today&apos;s money. We show you the &quot;Real
+                    Value&quot;.
                   </p>
                 </div>
                 <div className="advantage-card">

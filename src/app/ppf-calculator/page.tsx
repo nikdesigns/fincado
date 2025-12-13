@@ -238,9 +238,9 @@ export default function PPFPage() {
                 <details>
                   <summary>What happens if I miss a yearly deposit?</summary>
                   <p>
-                    The account becomes "inactive". To reactivate it, you must
-                    pay a penalty of ₹50 for each year of default along with the
-                    minimum subscription of ₹500 per year.
+                    The account becomes &quot;inactive&quot;. To reactivate it,
+                    you must pay a penalty of ₹50 for each year of default along
+                    with the minimum subscription of ₹500 per year.
                   </p>
                 </details>
                 <details>

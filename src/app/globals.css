@@ -18,7 +18,7 @@
   /* UI Colors */
   --color-bg-soft: #fafafa;
   --color-bg-white: #ffffff;
-  --color-text-main: #122b08;
+  --color-text-main: #090909;
   --color-text-muted: #616161;
   --color-border: #e2e8f0;
   --color-success-bg: #f0fdf4;
@@ -87,7 +87,7 @@ a {
   transition: color 0.2s;
 }
 a:hover {
-  color: var(--color-bg-soft);
+  color: var(--color-brand-green);
 }
 ul,
 ol {
@@ -178,10 +178,12 @@ strong {
   background: #ffffff;
   color: var(--color-text-main);
   border: 1px solid var(--color-border);
+  margin-left: 20px;
 }
 .secondary-cta:hover {
-  background: #f1f5f9;
+  background: #f2fce9;
   border-color: #cbd5e1;
+  color: var(--color-text-main);
 }
 
 input[type='text'],
@@ -526,8 +528,8 @@ input[type='range']::-webkit-slider-thumb:hover {
 }
 .nav-item:hover,
 .nav-item.active {
-  background: var(--color-bg-soft);
-  color: var(--color-action-cta);
+  background: #f2fce9;
+  color: var(--color-text-main);
 }
 .nav-dropdown-wrap {
   position: relative;

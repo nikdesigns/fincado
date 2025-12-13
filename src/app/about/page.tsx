@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Learn about Fincado — India’s modern personal finance platform offering calculators, financial guides, analysis, and money tools to help users make smarter decisions.',
 };
 
-export default function AboutPage(): JSX.Element {
+export default function AboutPage() {
   return (
     <main className="terms-root">
       <div className="terms-hero">

@@ -71,7 +71,7 @@ export default function EPFPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
-          <h1>Employees' Provident Fund (EPF) Calculator</h1>
+          <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>
           <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
             Your EPF is your biggest retirement asset. Calculate the exact
             breakdown of employee vs employer contributions and total interest
@@ -91,9 +91,9 @@ export default function EPFPage() {
             {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
               {/* 1. What is EPF? */}
-              <h2>What is the Employees' Provident Fund (EPF)?</h2>
+              <h2>What is the Employees&apos; Provident Fund (EPF)?</h2>
               <p>
-                The **Employees' Provident Fund (EPF)** is a mandatory
+                The **Employees&apos; Provident Fund (EPF)** is a mandatory
                 retirement savings scheme managed by the EPFO for salaried
                 employees. It helps build a retirement corpus through regular
                 monthly contributions from both the employee and the employer.

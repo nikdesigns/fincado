@@ -149,8 +149,8 @@ export default function SIPPage() {
                 <div className="advantage-card">
                   <h4>Check Inflation Impact</h4>
                   <p>
-                    Understand the "Real Value" of your returns. ₹10 Lakhs today
-                    will not buy the same things 10 years from now.
+                    Understand the &quot;Real Value&quot; of your returns. ₹10
+                    Lakhs today will not buy the same things 10 years from now.
                   </p>
                 </div>
               </div>
@@ -159,8 +159,8 @@ export default function SIPPage() {
               <h3>SIP Calculation Formula</h3>
               <p>
                 The calculator uses the standard Future Value of Annuity
-                formula. SIPs are typically calculated as an "Annuity Due"
-                because payments are made at the start of the period.
+                formula. SIPs are typically calculated as an &quot;Annuity
+                Due&quot; because payments are made at the start of the period.
               </p>
               <div
                 style={{

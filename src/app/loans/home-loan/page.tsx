@@ -146,7 +146,7 @@ export default function HomeLoanPage() {
                   <h4>Budget Accurately</h4>
                   <p>
                     Know exactly how much you need to pay every month so you
-                    don't overstretch your finances.
+                    don&apos;t overstretch your finances.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -324,9 +324,9 @@ export default function HomeLoanPage() {
                 <details>
                   <summary>Can I get a loan for land purchase?</summary>
                   <p>
-                    Yes, "Plot Loans" are available for buying residential land,
-                    but tax benefits are only applicable if you construct a
-                    house on it within 3 years.
+                    Yes, &quot;Plot Loans&quot; are available for buying
+                    residential land, but tax benefits are only applicable if
+                    you construct a house on it within 3 years.
                   </p>
                 </details>
               </div>

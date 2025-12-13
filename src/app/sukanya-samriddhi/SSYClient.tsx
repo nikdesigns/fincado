@@ -113,7 +113,7 @@ export default function SSYClient() {
         <div className="calc-inputs">
           {/* 1. Girl's Age */}
           <div className="input-group">
-            <label>Girl's Current Age (Years)</label>
+            <label>Girl&apos;s Current Age (Years)</label>
             <div className="input-wrapper">
               <input
                 type="number"

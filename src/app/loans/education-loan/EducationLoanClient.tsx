@@ -144,6 +144,7 @@ export default function EducationLoanClient() {
 
   const printPage = () => window.print();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const safeSet = (setter: any) => (e: any) =>
     setter(Number(e.target.value) || 0);
 
@@ -262,24 +263,13 @@ export default function EducationLoanClient() {
         </div>
 
         {/* Visuals */}
-        <div
-          className="calc-visuals"
-          style={{
-            background: '#f8fafc',
-            borderRadius: 16,
-            padding: 24,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        >
+        <div className="calc-visuals">
           <PieChart
             principalPct={calculations.principalPct}
             interestPct={calculations.interestPct}
             size={200}
           />
-          <div style={{ marginTop: 24, width: '100%' }}>
+          <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Monthly EMI

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { banks } from '@/lib/banks';
 import type { Metadata } from 'next';
 import EMIClient from '../../emi-calculator/EMIClient';
@@ -10,20 +11,27 @@ export function generateStaticParams() {
 
 export const dynamic = 'force-static';
 
+/** ✅ SAFE helper — never throws */
+function formatBank(bank?: string): string {
+  if (!bank) return 'Bank';
+  return decodeURIComponent(bank).toUpperCase();
+}
+
 export function generateMetadata({
   params,
 }: {
-  params: { bank: string };
+  params: { bank?: string };
 }): Metadata {
-  const bankName = params.bank.toUpperCase();
+  const bankName = formatBank(params?.bank);
+
   return {
     title: `${bankName} EMI Calculator | Fincado`,
     description: `Calculate EMI for ${bankName} home loan, car loan and personal loan instantly.`,
   };
 }
 
-export default function BankEMIPage({ params }: { params: { bank: string } }) {
-  const bankName = params.bank.toUpperCase();
+export default function BankEMIPage({ params }: { params: { bank?: string } }) {
+  const bankName = formatBank(params?.bank);
 
   return (
     <main style={{ maxWidth: 1100, margin: '0 auto' }}>

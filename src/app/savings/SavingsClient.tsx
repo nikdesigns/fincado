@@ -525,7 +525,7 @@ export default function SavingsClient() {
           Inflation-Adjusted Value
         </h3>
         <p>
-          Estimated future value in **today's rupees**:{' '}
+          Estimated future value in **today&apos;s rupees**:{' '}
           <strong style={{ color: '#047857' }}>
             {formatINR(Math.round(realFutureValue))}
           </strong>
@@ -657,8 +657,8 @@ export default function SavingsClient() {
             </li>
             <li>
               **Inflation Reality Check:** Calculates the true value of your
-              future savings in today's money (Real Value), crucial for setting
-              realistic goals.
+              future savings in today&apos;s money (Real Value), crucial for
+              setting realistic goals.
             </li>
             <li>
               **Targeted Monthly Requirement:** Quickly determines the precise

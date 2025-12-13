@@ -146,8 +146,9 @@ export default function FDPage() {
                 <div className="advantage-card">
                   <h4>Tax Estimation</h4>
                   <p>
-                    See your "Real Returns". Input your tax slab (e.g., 20% or
-                    30%) to see how much money actually lands in your pocket.
+                    See your &quot;Real Returns&quot;. Input your tax slab
+                    (e.g., 20% or 30%) to see how much money actually lands in
+                    your pocket.
                   </p>
                 </div>
                 <div className="advantage-card">

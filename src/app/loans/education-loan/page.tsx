@@ -118,9 +118,9 @@ export default function EducationLoanPage() {
               <h3>How This Calculator Helps with Moratorium Planning</h3>
               <p>
                 Most calculators fail to account for the interest that
-                accumulates while you are studying. Fincado's tool adds this
-                "Moratorium Interest" to your principal so you can see your{' '}
-                <strong>True EMI</strong>.
+                accumulates while you are studying. Fincado&apos;s tool adds
+                this &quot;Moratorium Interest&quot; to your principal so you
+                can see your <strong>True EMI</strong>.
               </p>
               <div
                 style={{
@@ -131,9 +131,9 @@ export default function EducationLoanPage() {
                   color: '#856404',
                 }}
               >
-                <strong>Interest Trap:</strong> If you don't pay interest during
-                the course, it gets added to your loan (Capitalization), meaning
-                you pay interest on interest later!
+                <strong>Interest Trap:</strong> If you don&apos;t pay interest
+                during the course, it gets added to your loan (Capitalization),
+                meaning you pay interest on interest later!
               </div>
 
               {/* 4. FORMULA */}
@@ -167,8 +167,8 @@ export default function EducationLoanPage() {
                 <div className="advantage-card">
                   <h4>Build Credit Score</h4>
                   <p>
-                    It's often the first loan for a student. Repaying it on time
-                    builds a solid CIBIL score for future life.
+                    It&apos;s often the first loan for a student. Repaying it on
+                    time builds a solid CIBIL score for future life.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -211,7 +211,7 @@ export default function EducationLoanPage() {
               <div className="faqs-accordion">
                 <details open>
                   <summary>
-                    What happens if I don't pay interest during the course?
+                    What happens if I don&apos;t pay interest during the course?
                   </summary>
                   <p>
                     The interest accumulates and is added to your principal

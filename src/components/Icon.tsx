@@ -1,4 +1,3 @@
-// src/components/Icon.tsx
 import React from 'react';
 
 export type IconName =
@@ -25,7 +24,7 @@ type IconProps = {
 };
 
 export default function Icon({ name, className = '' }: IconProps) {
-  const icons: Record<IconName, JSX.Element> = {
+  const icons: Record<IconName, React.ReactNode> = {
     emi: (
       <svg
         viewBox="0 0 24 24"
@@ -40,6 +39,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     sip: (
       <svg
         viewBox="0 0 24 24"
@@ -54,6 +54,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     fd: (
       <svg
         viewBox="0 0 24 24"
@@ -68,6 +69,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     rd: (
       <svg
         viewBox="0 0 24 24"
@@ -82,6 +84,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     homeLoan: (
       <svg
         viewBox="0 0 24 24"
@@ -96,6 +99,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     personalLoan: (
       <svg
         viewBox="0 0 24 24"
@@ -110,6 +114,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     carLoan: (
       <svg
         viewBox="0 0 24 24"
@@ -124,6 +129,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     educationLoan: (
       <svg
         viewBox="0 0 24 24"
@@ -141,13 +147,9 @@ export default function Icon({ name, className = '' }: IconProps) {
           strokeLinejoin="round"
           d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
         />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-        />
       </svg>
     ),
+
     creditScore: (
       <svg
         viewBox="0 0 24 24"
@@ -162,6 +164,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     investing: (
       <svg
         viewBox="0 0 24 24"
@@ -176,6 +179,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     saving: (
       <svg
         viewBox="0 0 24 24"
@@ -190,6 +194,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     retirement: (
       <svg
         viewBox="0 0 24 24"
@@ -204,6 +209,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     tax: (
       <svg
         viewBox="0 0 24 24"
@@ -218,6 +224,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     epf: (
       <svg
         viewBox="0 0 24 24"
@@ -232,6 +239,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     ppf: (
       <svg
         viewBox="0 0 24 24"
@@ -246,6 +254,7 @@ export default function Icon({ name, className = '' }: IconProps) {
         />
       </svg>
     ),
+
     fire: (
       <svg
         viewBox="0 0 24 24"
@@ -267,5 +276,5 @@ export default function Icon({ name, className = '' }: IconProps) {
     ),
   };
 
-  return <div className={className}>{icons[name] || icons['emi']}</div>;
+  return <div className={className}>{icons[name] ?? icons.emi}</div>;
 }

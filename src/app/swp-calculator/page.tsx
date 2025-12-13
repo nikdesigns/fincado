@@ -116,7 +116,7 @@ export default function SWPPage() {
                 </li>
                 <li>
                   <strong>Goal Seekers:</strong> Those who need regular cash
-                  flow for specific expenses (e.g., child's hostel fees).
+                  flow for specific expenses (e.g., child&apos;s hostel fees).
                 </li>
               </ul>
               {/* 3. Planning Help */}

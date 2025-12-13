@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { cities } from '@/lib/cities';
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
@@ -10,20 +11,27 @@ export function generateStaticParams() {
 
 export const dynamic = 'force-static';
 
+/** ✅ helper — NEVER throws */
+function formatCity(city?: string): string {
+  if (!city) return 'India';
+  return decodeURIComponent(city).replace(/-/g, ' ');
+}
+
 export function generateMetadata({
   params,
 }: {
-  params: { city: string };
+  params: { city?: string };
 }): Metadata {
-  const cityName = params.city.replace('-', ' ');
+  const cityName = formatCity(params?.city);
+
   return {
     title: `EMI Calculator in ${cityName} | Fincado`,
     description: `Free EMI Calculator for users in ${cityName}. Calculate loan EMI, interest and total repayment instantly.`,
   };
 }
 
-export default function CityEMIPage({ params }: { params: { city: string } }) {
-  const cityName = params.city.replace('-', ' ');
+export default function CityEMIPage({ params }: { params: { city?: string } }) {
+  const cityName = formatCity(params?.city);
 
   return (
     <main style={{ maxWidth: 1100, margin: '0 auto' }}>

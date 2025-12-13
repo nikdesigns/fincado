@@ -72,9 +72,9 @@ export default function SSYPage() {
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>
           <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Secure your daughter's future with India's highest-return small
-            savings scheme. Calculate the tax-free maturity amount for education
-            or marriage.
+            Secure your daughter&apos;s future with India&apos;s highest-return
+            small savings scheme. Calculate the tax-free maturity amount for
+            education or marriage.
           </p>
         </header>
 
@@ -187,7 +187,7 @@ export default function SSYPage() {
                 </li>
                 <li>
                   <strong>Lock-in Period:</strong> Ensures disciplined savings
-                  for the specific goal of the girl child's future.
+                  for the specific goal of the girl child&apos;s future.
                 </li>
               </ul>
             </article>
@@ -220,7 +220,7 @@ export default function SSYPage() {
                 </details>
                 <details>
                   <summary>
-                    Can I withdraw money for my daughter's education?
+                    Can I withdraw money for my daughter&apos;s education?
                   </summary>
                   <p>
                     Yes. Partial withdrawal of up to 50% of the balance is

@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-// src/app/page.tsx
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import Icon, { IconName } from '@/components/Icon';
@@ -8,24 +7,25 @@ import HeroWithStats from '@/components/HeroWithStats';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Fincado — India’s #1 Financial Calculators (EMI, SIP, PPF & Tax)',
+  title: 'Fincado – India’s #1 Financial Calculators (EMI, SIP, PPF & Tax)',
   description:
-    'Plan your financial future with Fincado. Free tools for Home Loan EMI, SIP Returns, FD Interest, EPF, PPF, GST and Retirement Planning. Accurate & Updated for 2025.',
+    'Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, FD Interest, EPF, PPF, GST, and Retirement Planning. Updated for 2025.',
   keywords: [
+    'Financial Calculators India',
     'EMI Calculator',
-    'SIP Calculator India',
+    'SIP Calculator',
     'Home Loan Interest Rates',
-    'FD Calculator',
-    'PPF Calculator',
-    'EPF Calculator',
-    'GST Calculator',
-    'Retirement Planning India',
+    'FD vs SIP',
+    'Retirement Planning',
+    'Tax Saving Calculator',
+    'Investment Planner',
+    'Fincado',
   ],
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: 'https://www.fincado.com',
-    title: 'Fincado — Master Your Money',
+    title: 'Fincado – Master Your Money',
     description:
       'The most comprehensive financial toolkit for Indian investors.',
     siteName: 'Fincado',
@@ -75,6 +75,14 @@ export default function Home(): JSX.Element {
                   text: 'Fincado SIP calculators use standard compound interest formulas (monthly compounding) to provide highly accurate estimates of your mutual fund returns.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'Do I need to login to use Fincado?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'No. All calculators on Fincado are 100% free and do not require any login or personal information.',
+                },
+              },
             ],
           }),
         }}
@@ -104,10 +112,10 @@ export default function Home(): JSX.Element {
 
               <div className="hero-cta-row">
                 <a href="/emi-calculator" className="primary-cta">
-                  Start with EMI Calculator
+                  Check Loan EMI
                 </a>
                 <a href="/sip-calculator" className="secondary-cta">
-                  Plan Your SIP
+                  Start SIP
                 </a>
               </div>
 
@@ -336,6 +344,99 @@ export default function Home(): JSX.Element {
             />
           </div>
         </section>
+
+        {/* --- RICH SEO CONTENT (NEW: Boosts Ranking) --- */}
+        <article
+          className="article content-for-seo container-inner"
+          style={{ marginTop: 60, marginBottom: 60 }}
+        >
+          <h2>Your All-In-One Financial Planning Platform</h2>
+          <p>
+            Financial freedom isn&apos;t a dream; it&apos;s a calculation.
+            Whether you are a fresh graduate starting your first job, a parent
+            planning for your child&apos;s education, or someone nearing
+            retirement, <strong>Fincado</strong> provides the mathematical
+            clarity you need to make the right choices.
+          </p>
+
+          <h3>Why Use Online Financial Calculators?</h3>
+          <p>
+            Manual calculations are prone to errors, especially when dealing
+            with compound interest, tax slabs, and inflation. Our calculators
+            offer:
+          </p>
+          <ul>
+            <li>
+              <strong>Precision:</strong> We use bank-grade formulas used by
+              institutions like SBI, HDFC, and ICICI.
+            </li>
+            <li>
+              <strong>Speed:</strong> Get answers in milliseconds—no complex
+              Excel sheets required.
+            </li>
+            <li>
+              <strong>Visualization:</strong> Our interactive charts help you
+              &quot;see&quot; your money grow or your debt reduce.
+            </li>
+          </ul>
+
+          <h3>Core Pillars of Personal Finance</h3>
+          <div className="advantage-grid">
+            <div className="advantage-card">
+              <h4>Debt Management</h4>
+              <p>
+                Use our <strong>EMI Calculators</strong> to keep your
+                Debt-to-Income ratio below 40%. Smartly plan prepayments to
+                become debt-free faster.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h4>Wealth Creation</h4>
+              <p>
+                Start a <strong>SIP</strong> today. Even ₹500/month compounded
+                at 12% over 30 years can create a significant corpus.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h4>Tax Saving</h4>
+              <p>
+                Maximize Section 80C limits with <strong>PPF</strong>,{' '}
+                <strong>EPF</strong>, and ELSS funds. Don&apos;t let taxes eat
+                into your retirement nest egg.
+              </p>
+            </div>
+          </div>
+
+          <h3>Frequently Asked Questions</h3>
+          <div className="faqs-accordion">
+            <details>
+              <summary>
+                Are these calculators accurate for Indian banks?
+              </summary>
+              <p>
+                Yes. All our tools (EMI, FD, RD) are calibrated for the Indian
+                banking system, including quarterly compounding for FDs and
+                reducing balance method for Loans.
+              </p>
+            </details>
+            <details>
+              <summary>How can I save tax on my salary?</summary>
+              <p>
+                You can use our EPF and PPF calculators to plan your Section 80C
+                investments (Limit: ₹1.5 Lakh). Additionally, Home Loan interest
+                (Section 24b) and NPS (Section 80CCD) offer further deductions.
+              </p>
+            </details>
+            <details>
+              <summary>What is the best way to become a Crorepati?</summary>
+              <p>
+                Consistent investing. Use the SIP Calculator to see how a
+                ₹15,000 monthly investment at 12% return makes you a Crorepati
+                in 15 years.
+              </p>
+            </details>
+          </div>
+        </article>
 
         {/* --- FINAL CTA --- */}
         <section className="final-cta">

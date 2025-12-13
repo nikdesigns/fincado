@@ -100,7 +100,7 @@ export default function APYPage() {
               <p>
                 It offers a minimum guaranteed pension ranging from ₹1,000 to
                 ₹5,000 per month starting at age 60, depending on the
-                subscriber's contribution.
+                subscriber&apos;s contribution.
               </p>
 
               {/* 2. Who is Eligible? */}
@@ -193,7 +193,7 @@ export default function APYPage() {
                 </li>
                 <li>
                   <strong>Spouse Benefit:</strong> The same pension is paid to
-                  the spouse after the subscriber's death.
+                  the spouse after the subscriber&apos;s death.
                 </li>
                 <li>
                   <strong>Corpus to Nominee:</strong> After the death of both

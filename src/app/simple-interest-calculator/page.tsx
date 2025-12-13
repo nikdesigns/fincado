@@ -121,8 +121,9 @@ export default function SimpleInterestPage() {
                 <div className="advantage-card">
                   <h4>Quick Estimates</h4>
                   <p>
-                    Rapidly calculate the cost of "Flat Rate" loans often
-                    advertised by car dealerships or personal loan lenders.
+                    Rapidly calculate the cost of &quot;Flat Rate&quot; loans
+                    often advertised by car dealerships or personal loan
+                    lenders.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -213,9 +214,9 @@ export default function SimpleInterestPage() {
                 <details>
                   <summary>Is Simple Interest better for borrowers?</summary>
                   <p>
-                    Generally, yes. Since interest doesn't compound on unpaid
-                    interest, the total amount payable is usually lower than
-                    compound interest loans over the same period.
+                    Generally, yes. Since interest doesn&apos;t compound on
+                    unpaid interest, the total amount payable is usually lower
+                    than compound interest loans over the same period.
                   </p>
                 </details>
               </div>

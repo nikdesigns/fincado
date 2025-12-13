@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const LAST_UPDATED = 'January 2025';
 
-export default function CookiePolicyPage(): JSX.Element {
+export default function CookiePolicyPage() {
   return (
     <main className="terms-root">
       <div className="terms-hero">

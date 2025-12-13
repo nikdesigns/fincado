@@ -177,7 +177,7 @@ export default function APYClient() {
             <div className="input-wrapper">
               <select
                 value={frequency}
-                onChange={(e) => setFrequency(e.target.value as any)}
+                onChange={(e) => setFrequency(e.target.value as never)}
                 style={{
                   width: '100%',
                   background: 'transparent',

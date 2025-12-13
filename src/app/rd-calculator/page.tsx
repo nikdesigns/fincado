@@ -257,8 +257,8 @@ export default function RDPage() {
                   </summary>
                   <p>
                     No. In a standard RD, the amount is fixed. However, some
-                    banks offer "iWish" or "Flexi RD" products where you can
-                    vary the deposit amount.
+                    banks offer &quot;iWish&quot; or &quot;Flexi RD&quot;
+                    products where you can vary the deposit amount.
                   </p>
                 </details>
                 <details>

@@ -1,28 +1,17 @@
-'use client';
+import { Suspense } from 'react';
+import OutClient from './OutClient';
 
-import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+export const dynamic = 'force-static';
 
-export default function OutRedirect() {
-  const params = useSearchParams();
-  const target = params.get('to') || '/';
+export default function OutPage() {
+  return (
+    <Suspense fallback={<RedirectFallback />}>
+      <OutClient />
+    </Suspense>
+  );
+}
 
-  useEffect(() => {
-    // ✅ GA4 outbound tracking (future safe)
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'outbound_click', {
-        destination: target,
-      });
-    }
-
-    // ✅ Redirect after small delay for tracking
-    const timer = setTimeout(() => {
-      window.location.href = target;
-    }, 400);
-
-    return () => clearTimeout(timer);
-  }, [target]);
-
+function RedirectFallback() {
   return (
     <main style={{ padding: '80px 20px', textAlign: 'center' }}>
       <h1>Redirecting…</h1>

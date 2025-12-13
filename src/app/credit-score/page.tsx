@@ -112,7 +112,7 @@ export default function CreditScorePage() {
                   <h4>Utilization (30%)</h4>
                   <p>
                     How much of your limit you use. High utilization ({'>'}30%)
-                    signals "credit hunger" and risk.
+                    signals &quot;credit hunger&quot; and risk.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -136,8 +136,8 @@ export default function CreditScorePage() {
                   today.
                 </li>
                 <li>
-                  <strong>Action Plan:</strong> Prioritized steps (e.g., "Stop
-                  applying for new cards") to fix your score.
+                  <strong>Action Plan:</strong> Prioritized steps (e.g.,
+                  &quot;Stop applying for new cards&quot;) to fix your score.
                 </li>
               </ul>
               {/* 4. Strategy */}
@@ -152,8 +152,8 @@ export default function CreditScorePage() {
                   limit (without spending more) lowers your utilization ratio.
                 </li>
                 <li>
-                  <strong>Don't Close Old Cards:</strong> The age of your oldest
-                  account (Credit History Length) boosts your score (15%
+                  <strong>Don&apos;t Close Old Cards:</strong> The age of your
+                  oldest account (Credit History Length) boosts your score (15%
                   weight).
                 </li>
               </ul>
@@ -185,11 +185,11 @@ export default function CreditScorePage() {
                   </p>
                 </details>
                 <details>
-                  <summary>Is a "Settled" status bad?</summary>
+                  <summary>Is a &quot;Settled&quot; status bad?</summary>
                   <p>
-                    Yes. "Settled" means you paid less than the full amount
-                    owed. It is a negative mark. Always aim for "Closed" status
-                    by paying in full.
+                    Yes. &quot;Settled&quot; means you paid less than the full
+                    amount owed. It is a negative mark. Always aim for
+                    &quot;Closed&quot; status by paying in full.
                   </p>
                 </details>
                 <details>

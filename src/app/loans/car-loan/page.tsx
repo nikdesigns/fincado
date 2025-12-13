@@ -249,8 +249,8 @@ export default function CarLoanPage() {
                     What is Hypothecation and how do I remove it?
                   </summary>
                   <p>
-                    Hypothecation is the lender's lien on your car. Once you
-                    repay the loan, the bank issues a NOC (No Objection
+                    Hypothecation is the lender&apos;s lien on your car. Once
+                    you repay the loan, the bank issues a NOC (No Objection
                     Certificate). You must submit this NOC to the RTO to remove
                     the hypothecation from your RC (Registration Certificate).
                   </p>
@@ -276,10 +276,10 @@ export default function CarLoanPage() {
                 <details>
                   <summary>Is insurance included in the loan amount?</summary>
                   <p>
-                    Banks usually fund 85-90% of the "On-Road Price" which
-                    includes insurance and registration. However, some schemes
-                    only fund the "Ex-Showroom Price," requiring you to pay for
-                    insurance out of pocket.
+                    Banks usually fund 85-90% of the &quot;On-Road Price&quot;
+                    which includes insurance and registration. However, some
+                    schemes only fund the &quot;Ex-Showroom Price,&quot;
+                    requiring you to pay for insurance out of pocket.
                   </p>
                 </details>
                 <details>

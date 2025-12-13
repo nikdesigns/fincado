@@ -95,8 +95,8 @@ export default function PersonalLoanPage() {
                 to a specific purpose.
               </p>
               <p>
-                Because it is "unsecured," you do not need to pledge any
-                collateral (like property or gold). The approval is based
+                Because it is &quot;unsecured,&quot; you do not need to pledge
+                any collateral (like property or gold). The approval is based
                 primarily on your creditworthiness, income stability, and
                 repayment capacity.
               </p>
@@ -213,7 +213,7 @@ export default function PersonalLoanPage() {
               <ul>
                 <li>
                   <strong>No Collateral Required:</strong> Your assets remain
-                  safe; you don't need to mortgage your home.
+                  safe; you don&apos;t need to mortgage your home.
                 </li>
                 <li>
                   <strong>Quick Disbursal:</strong> Funds are often credited
@@ -294,9 +294,9 @@ export default function PersonalLoanPage() {
                     Will applying for a personal loan affect my credit score?
                   </summary>
                   <p>
-                    Applying triggers a "hard inquiry" which may dip your score
-                    slightly. However, timely repayment will boost your score
-                    significantly.
+                    Applying triggers a &quot;hard inquiry&quot; which may dip
+                    your score slightly. However, timely repayment will boost
+                    your score significantly.
                   </p>
                 </details>
               </div>

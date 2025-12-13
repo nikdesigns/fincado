@@ -13,7 +13,7 @@ const SUPPORT_EMAIL = 'support@fincado.com';
 const PHONE = ''; // optional: add phone if you have one
 const OFFICE_CITY = 'Mumbai';
 
-export default function ContactPage(): JSX.Element {
+export default function ContactPage() {
   return (
     <main className="terms-root">
       <div className="terms-hero">

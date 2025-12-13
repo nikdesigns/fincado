@@ -118,7 +118,7 @@ export default function EMIPage() {
               <h3>Factors Affecting Loan Eligibility</h3>
               <p>
                 While specific criteria vary by loan type (Home vs Personal),
-                lenders generally look at the "3 Cs" of credit:
+                lenders generally look at the &quot;3 Cs&quot; of credit:
               </p>
               <ul>
                 <li>
@@ -154,8 +154,8 @@ export default function EMIPage() {
                 <div className="advantage-card">
                   <h4>Save on Interest</h4>
                   <p>
-                    Experiment with different tenures to find the "sweet spot"
-                    where EMI is affordable and interest is low.
+                    Experiment with different tenures to find the &quot;sweet
+                    spot&quot; where EMI is affordable and interest is low.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -218,7 +218,7 @@ export default function EMIPage() {
                 </li>
               </ul>
 
-              <h3>How to Use Fincado's EMI Calculator?</h3>
+              <h3>How to Use Fincado&apos;s EMI Calculator?</h3>
               <ol>
                 <li>
                   <strong>Enter Loan Amount:</strong> Input the principal amount
@@ -288,9 +288,9 @@ export default function EMIPage() {
                     Does checking my EMI affect my credit score?
                   </summary>
                   <p>
-                    No. Using an online EMI calculator is a "soft inquiry" or
-                    just a tool usage. It does not impact your CIBIL or credit
-                    score in any way.
+                    No. Using an online EMI calculator is a &quot;soft
+                    inquiry&quot; or just a tool usage. It does not impact your
+                    CIBIL or credit score in any way.
                   </p>
                 </details>
                 <details>

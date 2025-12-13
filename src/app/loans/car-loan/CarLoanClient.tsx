@@ -134,6 +134,7 @@ export default function CarLoanClient() {
 
   const printPage = () => window.print();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const safeSet = (setter: any) => (e: any) =>
     setter(Number(e.target.value) || 0);
 

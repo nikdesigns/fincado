@@ -93,8 +93,8 @@ export default function GSTPage() {
               <p>
                 **GST** is a destination-based indirect tax levied on the supply
                 of goods and services. It has replaced multiple indirect taxes
-                like VAT, Service Tax, and Excise Duty, creating a "One Nation,
-                One Tax" system.
+                like VAT, Service Tax, and Excise Duty, creating a &quot;One
+                Nation, One Tax&quot; system.
               </p>
 
               {/* 2. Key Components */}
