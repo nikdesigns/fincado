@@ -38,10 +38,10 @@ export default function EPFPage() {
         <section className="article">
           <h2>About EPF</h2>
           <p>
-            EPF (Employees' Provident Fund) is a retirement savings scheme where
-            both employee and employer contribute a percentage of basic salary +
-            dearness allowance. EPF interest is declared by the Government and
-            compounds annually.
+            EPF (Employees&apos; Provident Fund) is a retirement savings scheme
+            where both employee and employer contribute a percentage of basic
+            salary + dearness allowance. EPF interest is declared by the
+            Government and compounds annually.
           </p>
 
           <LegalNote />
