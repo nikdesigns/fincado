@@ -1,61 +1,87 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // src/app/page.tsx
 import type { Metadata } from 'next';
-import Icon from '@/components/Icon';
-import AdSlot from '@/components/AdSlot'; // existing Ad component
-import React from 'react';
+import React, { JSX } from 'react';
+import Icon, { IconName } from '@/components/Icon';
+import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
 
+// --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Fincado — Smart Financial Calculators & Loan Tools for India',
+  title: 'Fincado — India’s #1 Financial Calculators (EMI, SIP, PPF & Tax)',
   description:
-    'Plan EMI, SIP, FD, Savings and loans with India-focused calculators and guides. Free, accurate tools to compare rates, calculate EMI and check credit score.',
+    'Plan your financial future with Fincado. Free tools for Home Loan EMI, SIP Returns, FD Interest, EPF, PPF, GST and Retirement Planning. Accurate & Updated for 2025.',
+  keywords: [
+    'EMI Calculator',
+    'SIP Calculator India',
+    'Home Loan Interest Rates',
+    'FD Calculator',
+    'PPF Calculator',
+    'EPF Calculator',
+    'GST Calculator',
+    'Retirement Planning India',
+  ],
   openGraph: {
-    title: 'Fincado — Smart Financial Calculators & Loan Tools for India',
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://www.fincado.com',
+    title: 'Fincado — Master Your Money',
     description:
-      'Plan EMI, SIP, FD, Savings and loans with India-focused calculators and guides. Free, accurate tools to compare rates, calculate EMI and check credit score.',
-    url: 'https://www.yourdomain.com',
+      'The most comprehensive financial toolkit for Indian investors.',
+    siteName: 'Fincado',
   },
 };
 
 export default function Home(): JSX.Element {
-  const year = new Date().getFullYear();
-
   return (
     <>
-      {/* JSON-LD: Organization + WebSite */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Fincado',
-            url: 'https://www.yourdomain.com',
-            logo: 'https://www.yourdomain.com/logo.png',
-            sameAs: [],
-          }),
-        }}
-      />
+      {/* --- STRUCTURED DATA (JSON-LD) --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            url: 'https://www.yourdomain.com',
             name: 'Fincado',
+            url: 'https://www.fincado.com',
             potentialAction: {
               '@type': 'SearchAction',
-              target:
-                'https://www.yourdomain.com/search?q={search_term_string}',
+              target: 'https://www.fincado.com/search?q={search_term_string}',
               'query-input': 'required name=search_term_string',
             },
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'Which calculator is best for loan planning?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'The EMI Calculator is the best tool to plan your loans. It helps you calculate monthly installments based on principal, tenure, and interest rate.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How accurate are the SIP calculators?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Fincado SIP calculators use standard compound interest formulas (monthly compounding) to provide highly accurate estimates of your mutual fund returns.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
-      <main className="container home-hero-wrap" id="content">
-        {/* HERO */}
+      <main className="container home-hero-wrap" id="main-content">
+        {/* --- HERO SECTION --- */}
         <section
           className="home-hero hero-elevated"
           aria-labelledby="hero-title"
@@ -63,253 +89,310 @@ export default function Home(): JSX.Element {
           <div className="hero-grid">
             <div className="hero-content">
               <h1 id="hero-title">
-                Smart Financial Calculators & Loan Tools for India
+                <span style={{ color: 'var(--color-brand-green)' }}>
+                  Master Your Money
+                </span>{' '}
+                <br />
+                with India’s Best Financial Tools
               </h1>
 
               <p className="hero-sub">
-                Accurate, India-focused EMI, SIP, FD & Savings tools — built for
-                Indian taxes, loan rules and realistic planning. Free to use —
-                no signup required.
+                Make smarter decisions with 20+ free, bank-grade calculators for
+                Loans, Investments, Taxes, and Retirement.
+                <strong> No login required.</strong>
               </p>
 
               <div className="hero-cta-row">
-                <a href="/emi-calculator" className="primary-cta" role="button">
-                  Calculate EMI
+                <a href="/emi-calculator" className="primary-cta">
+                  Start with EMI Calculator
                 </a>
-
-                <a href="/credit-score" className="secondary-cta" role="button">
-                  Check Credit Score
+                <a href="/sip-calculator" className="secondary-cta">
+                  Plan Your SIP
                 </a>
               </div>
 
-              <ul className="hero-bullets" aria-hidden>
-                <li>✅ No signup</li>
-                <li>✅ Bank-grade accuracy</li>
-                <li>✅ 100% free</li>
-              </ul>
-
-              {/* ABOVE-THE-FOLD AD (native to hero but non-intrusive) */}
-              <div className="hero-ad">
-                <AdSlot id="home-hero-abovefold" type="banner" />
+              <div style={{ marginTop: 24, minHeight: 90 }} className="hero-ad">
+                <AdSlot id="home-hero-leaderboard" type="banner" />
               </div>
             </div>
 
-            {/* HERO STATS & AD (right column) */}
-            <aside className="hero-visual" aria-hidden>
+            <aside className="hero-visual">
               <div className="hero-stats">
                 <div className="stat-card">
-                  <div className="stat-value">₹12,450</div>
-                  <div className="stat-label">Monthly EMI (sample)</div>
+                  <span className="stat-value">₹12,450</span>
+                  <span className="stat-label">Monthly EMI</span>
                 </div>
-
                 <div className="stat-card">
-                  <div className="stat-value">₹6.8L</div>
-                  <div className="stat-label">Total Interest Saved</div>
+                  <span className="stat-value">₹25.4L</span>
+                  <span className="stat-label">SIP Corpus</span>
                 </div>
               </div>
-
               <div className="hero-side-ad">
-                <AdSlot id="home-hero-side" type="box" />
+                <AdSlot id="home-hero-sidebar" type="box" />
               </div>
             </aside>
           </div>
         </section>
 
-        {/* TOOLS — high RPM placement next */}
-        <section className="tools-section" aria-label="Most used calculators">
+        {/* --- 1. MOST POPULAR TOOLS --- */}
+        <section className="tools-section">
           <div className="tools-header container-inner">
             <div>
-              <h2>Most Used Tools</h2>
+              <h2>Essential Financial Tools</h2>
               <p className="tools-sub">
-                Quick links to the calculators people use the most.
+                Everyday calculators used by millions of Indians.
               </p>
             </div>
-
-            <div className="tools-cta">
-              <a
-                href="/tools"
-                className="secondary-cta"
-                aria-label="See all tools"
-              >
-                See all tools
-              </a>
-            </div>
+            <a href="/calculators" className="secondary-cta">
+              View All
+            </a>
           </div>
 
-          <div className="tools-grid container-inner" role="list">
-            <a
-              role="listitem"
+          <div className="tools-grid container-inner">
+            <ToolCard
               href="/emi-calculator"
-              className="tool-tile"
-              aria-label="EMI Calculator — Plan your loan instantly"
-              tabIndex={0}
-            >
-              <div className="tool-icon-wrap">
-                <div className="tool-icon-circle">
-                  <Icon name="emi" className="tool-icon-svg" />
-                </div>
-              </div>
-              <h3 className="tool-title">EMI Calculator</h3>
-              <p className="tool-desc">Plan your loan instantly</p>
-            </a>
-
-            <a
-              role="listitem"
-              href="/loans/home-loan"
-              className="tool-tile"
-              aria-label="Home Loan — Lowest rates & EMI planning"
-              tabIndex={0}
-            >
-              <div className="tool-icon-wrap">
-                <div className="tool-icon-circle">
-                  <Icon name="homeLoan" className="tool-icon-svg" />
-                </div>
-              </div>
-              <h3 className="tool-title">Home Loan</h3>
-              <p className="tool-desc">Lowest rates & EMI planning</p>
-            </a>
-
-            <a
-              role="listitem"
+              icon="emi"
+              title="EMI Calculator"
+              desc="Calculate Loan EMI & Interest"
+            />
+            <ToolCard
               href="/sip-calculator"
-              className="tool-tile"
-              aria-label="SIP Calculator — Grow your wealth with SIP"
-              tabIndex={0}
-            >
-              <div className="tool-icon-wrap">
-                <div className="tool-icon-circle">
-                  <Icon name="sip" className="tool-icon-svg" />
-                </div>
-              </div>
-              <h3 className="tool-title">SIP Calculator</h3>
-              <p className="tool-desc">Grow your wealth with SIP</p>
-            </a>
-
-            <a
-              role="listitem"
-              href="/fd-calculator"
-              className="tool-tile"
-              aria-label="FD Calculator — Safe returns with compounding"
-              tabIndex={0}
-            >
-              <div className="tool-icon-wrap">
-                <div className="tool-icon-circle">
-                  <Icon name="fd" className="tool-icon-svg" />
-                </div>
-              </div>
-              <h3 className="tool-title">FD Calculator</h3>
-              <p className="tool-desc">Safe returns with compounding</p>
-            </a>
-
-            <a
-              role="listitem"
-              href="/savings"
-              className="tool-tile"
-              aria-label="Savings Planner — Build your emergency fund"
-              tabIndex={0}
-            >
-              <div className="tool-icon-wrap">
-                <div className="tool-icon-circle">
-                  <Icon name="saving" className="tool-icon-svg" />
-                </div>
-              </div>
-              <h3 className="tool-title">Savings Planner</h3>
-              <p className="tool-desc">Build your emergency fund</p>
-            </a>
-
-            <a
-              role="listitem"
+              icon="sip"
+              title="SIP Calculator"
+              desc="Estimate Mutual Fund Returns"
+            />
+            <ToolCard
               href="/credit-score"
-              className="tool-tile"
-              aria-label="Credit Score — Check your CIBIL & eligibility"
-              tabIndex={0}
-            >
-              <div className="tool-icon-wrap">
-                <div className="tool-icon-circle">
-                  <Icon name="creditScore" className="tool-icon-svg" />
-                </div>
-              </div>
-              <h3 className="tool-title">Credit Score</h3>
-              <p className="tool-desc">Check your CIBIL & eligibility</p>
-            </a>
+              icon="creditScore"
+              title="Credit Score"
+              desc="Check Loan Eligibility"
+            />
+            <ToolCard
+              href="/gst-calculator"
+              icon="tax"
+              title="GST Calculator"
+              desc="Calculate Inclusive/Exclusive Tax"
+            />
           </div>
         </section>
 
-        {/* Inline ad to increase RPM between content blocks — SEO friendly placement */}
+        {/* --- AD BREAK (High RPM) --- */}
         <div className="midpage-ad">
-          <AdSlot id="home-mid-ad" type="leaderboard" />
+          <AdSlot id="home-mid-1" type="leaderboard" />
         </div>
 
-        {/* Trust Strip — compact */}
+        {/* --- 2. LOAN PLANNING SECTION --- */}
+        <section className="tools-section">
+          <div className="tools-header container-inner">
+            <div>
+              <h2>Loan & Debt Planning</h2>
+              <p className="tools-sub">
+                Compare rates and plan your repayment strategy.
+              </p>
+            </div>
+          </div>
+          <div className="tools-grid container-inner">
+            <ToolCard
+              href="/loans/home-loan"
+              icon="homeLoan"
+              title="Home Loan EMI"
+              desc="Check Affordability & Tax Benefits"
+            />
+            <ToolCard
+              href="/loans/personal-loan"
+              icon="personalLoan"
+              title="Personal Loan"
+              desc="Compare Interest Rates"
+            />
+            <ToolCard
+              href="/loans/car-loan"
+              icon="carLoan"
+              title="Car Loan EMI"
+              desc="Plan your dream car purchase"
+            />
+            <ToolCard
+              href="/loans/education-loan"
+              icon="educationLoan"
+              title="Education Loan"
+              desc="Calculate moratorium interest"
+            />
+          </div>
+        </section>
 
+        {/* --- TRUST BANNER --- */}
         <HeroWithStats
           imageSrc="/images/family.png"
-          imageAlt="Parent with child"
-          eyebrow="Fincado Trust"
-          title="Helping you understand your money with simple tools, transparent insights and smarter financial planning"
+          imageAlt="Indian family financial planning"
+          eyebrow="Trusted by Indians"
+          title="Helping you build wealth with transparency and precision."
           stats={[
-            { value: '49', label: 'Years in personal finance' },
-            { value: '50+', label: 'In-house financial experts' },
-            { value: '200+', label: 'Money tools & calculators' },
+            { value: '20+', label: 'Smart Calculators' },
+            { value: '100%', label: 'Free & Unbiased' },
+            { value: '4.9/5', label: 'User Rating' },
           ]}
         />
 
-        {/* FEATURED GUIDES — internal linking & content discoverability */}
-        <section className="featured-guides">
-          <h2>Featured Finance Guides</h2>
-          <p className="tools-sub">
-            Short expert guides to help you make smarter money decisions.
-          </p>
-
-          <div className="guide-grid">
-            <a
-              href="/guides/home-loan-for-first-time-buyers"
-              className="home-guide-card"
-            >
-              <h3>Home Loan Guide for First-Time Buyers</h3>
-              <p>
-                Everything you need before applying for your first home loan.
+        {/* --- 3. INVESTMENT & WEALTH --- */}
+        <section className="tools-section">
+          <div className="tools-header container-inner">
+            <div>
+              <h2>Grow Your Wealth</h2>
+              <p className="tools-sub">
+                Maximize returns on your savings and investments.
               </p>
-            </a>
-
-            <a href="/guides/sip-vs-fd" className="home-guide-card">
-              <h3>SIP vs FD — Which Is Better?</h3>
-              <p>Compare returns, risk and tax for smarter choices.</p>
-            </a>
-
-            <a
-              href="/guides/how-credit-score-affects-loans"
-              className="home-guide-card"
-            >
-              <h3>How Credit Score Affects Your Loan</h3>
-              <p>Learn how your CIBIL impacts rates and approvals.</p>
-            </a>
+            </div>
+          </div>
+          <div className="tools-grid container-inner">
+            <ToolCard
+              href="/fd-calculator"
+              icon="fd"
+              title="FD Calculator"
+              desc="Fixed Deposit Maturity Value"
+            />
+            <ToolCard
+              href="/rd-calculator"
+              icon="rd"
+              title="RD Calculator"
+              desc="Recurring Deposit Returns"
+            />
+            <ToolCard
+              href="/lumpsum-calculator"
+              icon="investing"
+              title="Lumpsum Calculator"
+              desc="One-time investment returns"
+            />
+            <ToolCard
+              href="/swp-calculator"
+              icon="saving"
+              title="SWP Calculator"
+              desc="Systematic Withdrawal Plan"
+            />
           </div>
         </section>
 
-        {/* FINAL CTA — sticky footer has its own CTA too */}
-        <section
-          className="final-cta compact-cta"
-          aria-labelledby="final-cta-title"
-        >
-          <div className="final-cta-inner">
-            <h2 id="final-cta-title">Ready to plan your finances smarter?</h2>
-            <p>
-              Use India-specific calculators & expert guides before making any
-              financial decision.
-            </p>
+        {/* --- AD BREAK --- */}
+        <div className="midpage-ad">
+          <AdSlot id="home-mid-2" type="leaderboard" />
+        </div>
 
+        {/* --- 4. RETIREMENT & TAX --- */}
+        <section className="tools-section">
+          <div className="tools-header container-inner">
+            <div>
+              <h2>Retirement & Tax Planning</h2>
+              <p className="tools-sub">
+                Secure your future with government-backed schemes.
+              </p>
+            </div>
+          </div>
+          <div className="tools-grid container-inner">
+            <ToolCard
+              href="/retirement-calculator"
+              icon="retirement"
+              title="Retirement Planner"
+              desc="How much corpus do you need?"
+            />
+            <ToolCard
+              href="/ppf-calculator"
+              icon="ppf"
+              title="PPF Calculator"
+              desc="Public Provident Fund Returns"
+            />
+            <ToolCard
+              href="/epf-calculator"
+              icon="epf"
+              title="EPF Calculator"
+              desc="Employee Provident Fund Corpus"
+            />
+            <ToolCard
+              href="/fire-calculator"
+              icon="fire"
+              title="FIRE Calculator"
+              desc="Financial Independence Retire Early"
+            />
+          </div>
+        </section>
+
+        {/* --- FEATURED GUIDES --- */}
+        <section className="featured-guides">
+          <div className="tools-header container-inner">
+            <h2>Financial Wisdom</h2>
+          </div>
+          <div className="guide-grid container-inner">
+            <GuideCard
+              href="/guides/home-loan-for-first-time-buyers"
+              title="Home Loan Guide 2025"
+              desc="Step-by-step guide for first-time homebuyers."
+            />
+            <GuideCard
+              href="/guides/sip-vs-fd"
+              title="SIP vs FD: Better Choice?"
+              desc="Analysis of risk, returns, and taxation."
+            />
+            <GuideCard
+              href="/guides/how-credit-score-affects-loans"
+              title="Boost Your Credit Score"
+              desc="7 proven ways to increase your CIBIL score above 750."
+            />
+          </div>
+        </section>
+
+        {/* --- FINAL CTA --- */}
+        <section className="final-cta">
+          <div className="final-cta-inner">
+            <h2>Ready to take control?</h2>
+            <p>Join thousands of smart investors using Fincado daily.</p>
             <div className="final-cta-row">
               <a href="/emi-calculator" className="primary-cta">
-                Start with EMI Calculator
+                Calculate EMI
               </a>
-              <a href="/guides" className="secondary-cta">
-                Read Guides
+              <a href="/sip-calculator" className="secondary-cta">
+                Plan Investment
               </a>
             </div>
           </div>
         </section>
       </main>
     </>
+  );
+}
+
+// --- SUB-COMPONENTS ---
+function ToolCard({
+  href,
+  icon,
+  title,
+  desc,
+}: {
+  href: string;
+  icon: IconName;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <a href={href} className="tool-tile">
+      <div className="tool-icon-wrap">
+        <Icon name={icon} className="tool-icon-svg" />
+      </div>
+      <h3 className="tool-title">{title}</h3>
+      <p className="tool-desc">{desc}</p>
+    </a>
+  );
+}
+
+function GuideCard({
+  href,
+  title,
+  desc,
+}: {
+  href: string;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <a href={href} className="home-guide-card">
+      <h3>{title}</h3>
+      <p>{desc}</p>
+    </a>
   );
 }

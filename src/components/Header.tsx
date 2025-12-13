@@ -4,128 +4,209 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
+// --- CONFIGURATION: ALL CALCULATORS FROM REPO ---
+const CALCULATOR_MENU = [
+  {
+    category: 'Loans',
+    items: [
+      { label: 'EMI Calculator', href: '/emi-calculator' },
+      { label: 'Home Loan', href: '/loans/home-loan' },
+      { label: 'Car Loan', href: '/loans/car-loan' },
+      { label: 'Personal Loan', href: '/loans/personal-loan' },
+      { label: 'Education Loan', href: '/loans/education-loan' },
+    ],
+  },
+  {
+    category: 'Investment',
+    items: [
+      { label: 'SIP Calculator', href: '/sip-calculator' },
+      { label: 'FD Calculator', href: '/fd-calculator' },
+      { label: 'RD Calculator', href: '/rd-calculator' },
+      { label: 'PPF Calculator', href: '/ppf-calculator' },
+      { label: 'Lumpsum', href: '/lumpsum-calculator' },
+      { label: 'SWP Calculator', href: '/swp-calculator' },
+      { label: 'SSY (Sukanya)', href: '/sukanya-samriddhi' },
+      { label: 'Mutual Funds', href: '/mutual-funds' },
+    ],
+  },
+  {
+    category: 'Retirement',
+    items: [
+      { label: 'Retirement Planner', href: '/retirement-calculator' },
+      { label: 'EPF Calculator', href: '/epf-calculator' },
+      { label: 'APY Calculator', href: '/apy-calculator' },
+      { label: 'FIRE Calculator', href: '/fire-calculator' },
+    ],
+  },
+  {
+    category: 'Tools & Tax',
+    items: [
+      { label: 'Credit Score', href: '/credit-score' },
+      { label: 'GST Calculator', href: '/gst-calculator' },
+      { label: 'Simple Interest', href: '/simple-interest-calculator' },
+      { label: 'All Calculators', href: '/calculators', bold: true },
+    ],
+  },
+];
+
 export default function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
-  const megaRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const megaTimer = useRef<NodeJS.Timeout | null>(null);
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + '/');
-
-  // ✅ Close dropdown on outside click
+  // Scroll Effect
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (megaRef.current && !megaRef.current.contains(event.target as Node)) {
-        setMegaOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menus on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setMegaMenuOpen(false);
+  }, [pathname]);
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href);
+
+  // Desktop Hover Logic
+  const handleMouseEnter = () => {
+    if (window.innerWidth > 1024) {
+      if (megaTimer.current) clearTimeout(megaTimer.current);
+      setMegaMenuOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth > 1024) {
+      megaTimer.current = setTimeout(() => setMegaMenuOpen(false), 200);
+    }
+  };
+
   return (
-    <div>
-      {' '}
-      {/* ✅ SINGLE STABLE ROOT FIXES CHILDREN ERROR */}
-      {/* ✅ NAVBAR */}
-      <header className="site-header">
-        <div className="nav-wrap">
+    <>
+      <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="container nav-container">
           {/* LOGO */}
-          <Link href="/" className="logo">
+          <Link href="/" className="nav-logo">
             Fincado
           </Link>
 
-          {/* HAMBURGER */}
-          <button
-            className="hamburger"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle Menu"
-          >
-            ☰
-          </button>
-
-          {/* NAV LINKS */}
-          <nav className={`nav-links ${open ? 'open' : ''}`}>
-            <Link href="/" className={isActive('/') ? 'active' : ''}>
+          {/* DESKTOP NAV */}
+          <nav className="desktop-nav">
+            <Link
+              href="/"
+              className={`nav-item ${isActive('/') ? 'active' : ''}`}
+            >
               Home
             </Link>
 
-            <Link
-              href="/emi-calculator"
-              className={isActive('/emi-calculator') ? 'active' : ''}
+            {/* MEGA MENU TRIGGER */}
+            <div
+              className="nav-dropdown-wrap"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
-              EMI
-            </Link>
-
-            <Link
-              href="/sip-calculator"
-              className={isActive('/sip-calculator') ? 'active' : ''}
-            >
-              SIP
-            </Link>
-
-            <Link
-              href="/fd-calculator"
-              className={isActive('/fd-calculator') ? 'active' : ''}
-            >
-              FD
-            </Link>
-
-            {/* LOANS DROPDOWN */}
-            <div className="mega-wrap" ref={megaRef}>
               <button
-                type="button"
-                className={`mega-btn ${isActive('/loans') ? 'active' : ''}`}
-                onClick={() => setMegaOpen(!megaOpen)}
+                className={`nav-item dropdown-trigger ${
+                  megaMenuOpen ? 'active' : ''
+                }`}
+                onClick={() => setMegaMenuOpen(!megaMenuOpen)}
+                aria-expanded={megaMenuOpen}
               >
-                Loans ▾
+                Calculators ▾
               </button>
 
-              {megaOpen && (
-                <div className="mega-menu">
-                  <Link href="/loans/home-loan">Home Loan</Link>
-                  <Link href="/loans/personal-loan">Personal Loan</Link>
-                  <Link href="/loans/car-loan">Car Loan</Link>
-                  <Link href="/loans/education-loan">Education Loan</Link>
+              {/* MEGA MENU DROPDOWN */}
+              <div className={`mega-menu ${megaMenuOpen ? 'show' : ''}`}>
+                <div className="mega-grid">
+                  {CALCULATOR_MENU.map((section) => (
+                    <div key={section.category} className="mega-col">
+                      <h4 className="mega-heading">{section.category}</h4>
+                      <ul className="mega-list">
+                        {section.items.map((item) => (
+                          <li key={item.href}>
+                            <Link
+                              href={item.href}
+                              className={`mega-link ${
+                                item.bold ? 'mega-link-bold' : ''
+                              }`}
+                            >
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              )}
+              </div>
             </div>
 
-            {/* CONTACT */}
             <Link
-              href="/contact"
-              className={`nav-cta ${isActive('/contact') ? 'active' : ''}`}
+              href="/guides"
+              className={`nav-item ${isActive('/guides') ? 'active' : ''}`}
             >
-              Contact
+              Guides
             </Link>
           </nav>
-        </div>
-      </header>
-      {/* ✅ BREADCRUMB (HIDDEN ON HOMEPAGE) */}
-      {pathname !== '/' && (
-        <div className="breadcrumb">
-          <div className="breadcrumb-inner">
-            <Link href="/">Home</Link>
 
-            {pathname
-              .split('/')
-              .filter(Boolean)
-              .map((part, i, arr) => {
-                const href = '/' + arr.slice(0, i + 1).join('/');
-                return (
-                  <span key={href}>
-                    {' '}
-                    ›{' '}
-                    <Link href={href}>
-                      {part.replace(/-/g, ' ').toUpperCase()}
-                    </Link>
-                  </span>
-                );
-              })}
+          {/* CTA & MOBILE TOGGLE */}
+          <div className="nav-actions">
+            <Link href="/credit-score" className="nav-btn desktop-only">
+              Check Credit Score
+            </Link>
+            <button
+              className="mobile-toggle"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? '✕' : '☰'}
+            </button>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* MOBILE MENU (Slide Down) */}
+        <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+          <div className="mobile-links">
+            <Link href="/" className="mobile-link">
+              Home
+            </Link>
+
+            {CALCULATOR_MENU.map((section) => (
+              <div key={section.category}>
+                <div className="mobile-divider">{section.category}</div>
+                {section.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="mobile-sublink"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+
+            <div className="mobile-divider">Resources</div>
+            <Link href="/guides" className="mobile-link">
+              Guides
+            </Link>
+            <Link href="/contact" className="mobile-link">
+              Contact
+            </Link>
+
+            <div style={{ marginTop: 12 }}>
+              <Link href="/credit-score" className="mobile-btn">
+                Check Credit Score
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
   );
 }
