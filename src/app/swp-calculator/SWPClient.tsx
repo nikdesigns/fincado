@@ -79,16 +79,6 @@ function PieChart({
 
 /**
  * SWP (Systematic Withdrawal Plan) Client
- *
- * Assumptions:
- * - User starts with an initial corpus (lump sum).
- * - They withdraw a fixed amount at regular intervals (monthly).
- * - Remaining corpus continues to grow at expected annual return (compounded monthly).
- *
- * Outputs:
- * - How long the corpus lasts (months / years)
- * - Projected remaining corpus after given withdrawal horizon (if set)
- * - Schedule preview, CSV export, copy summary
  */
 export default function SWPClient() {
   // Inputs
@@ -120,14 +110,9 @@ export default function SWPClient() {
       const interest = bal * monthlyRate;
       bal += interest;
 
-      let currentWithdrawal = monthlyWithdrawal;
+      const currentWithdrawal = monthlyWithdrawal;
 
-      // 2. Adjust withdrawal for inflation (if inflation is enabled and applied to withdrawal)
-      // NOTE: For simplicity and to match the original code's fixed monthlyWithdrawal logic,
-      // we are currently ignoring the 'inflationPct' state. If inflation were implemented,
-      // the calculation for `currentWithdrawal` would need to be updated here.
-
-      // 3. Perform withdrawal only after the delay
+      // 2. Perform withdrawal only after the delay
       if (m <= startMonthOffset) {
         rows.push({
           month: m,
@@ -138,7 +123,7 @@ export default function SWPClient() {
         continue;
       }
 
-      // 4. Withdraw fixed amount (but not more than balance)
+      // 3. Withdraw fixed amount (but not more than balance)
       const withdrawal = Math.min(currentWithdrawal, bal);
       bal = Math.max(0, bal - withdrawal);
 
@@ -149,7 +134,7 @@ export default function SWPClient() {
         interest: Math.round(interest),
       });
 
-      // 5. if corpus exhausted, stop
+      // 4. if corpus exhausted, stop
       if (bal <= 0) {
         break;
       }
@@ -397,33 +382,144 @@ export default function SWPClient() {
           </aside>
         </div>
 
-        {/* Results: full width */}
-        <div className="emi-results-full" style={{ marginTop: 18 }}>
-          <div className="result-grid emi-summary-strip">
-            <div className="result-card">
-              <p className="result-label">
-                Months until corpus exhaustion (simulated)
+        {/* Results: full width - REFINED STYLING */}
+        <div className="emi-results-full" style={{ marginTop: 24 }}>
+          <div
+            className="result-grid emi-summary-strip"
+            style={{
+              backgroundColor: '#f0fff4', // Pale green background
+              padding: '16px',
+              borderRadius: '10px',
+              border: '1px solid #d1fae5', // Light border
+            }}
+          >
+            {/* Primary Result: Projected Remaining Corpus */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+                boxShadow:
+                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Remaining">
+                  🌱
+                </span>{' '}
+                Projected Remaining Corpus
               </p>
-              <p className="result-primary">{monthsUntilExhaustion}</p>
+              <p
+                className="result-primary"
+                style={{
+                  fontSize: '24px',
+                  fontWeight: 800,
+                  color: '#047857',
+                }}
+              >
+                {formatINR(Math.round(pieReferenceBalance || 0))}
+              </p>
               <p
                 className="result-value"
-                style={{ fontSize: 13, color: '#6b7280' }}
+                style={{ fontSize: 13, color: '#6b7280', marginTop: '4px' }}
+              >
+                After {withdrawalYears} years
+              </p>
+            </div>
+
+            {/* Secondary Result: Months Until Exhaustion */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Time">
+                  ⏳
+                </span>{' '}
+                Months Until Exhaustion
+              </p>
+              <p
+                className="result-primary"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {monthsUntilExhaustion}
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: 13, color: '#6b7280', marginTop: '4px' }}
               >
                 ≈ {yearsUntilExhaustion} years
               </p>
             </div>
 
-            <div className="result-card">
-              <p className="result-label">Total Withdrawn (so far)</p>
-              <p className="result-value">
+            {/* Secondary Result: Total Withdrawn */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Withdrawn">
+                  💸
+                </span>{' '}
+                Total Withdrawn
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
                 {formatINR(Math.round(totalWithdrawn))}
               </p>
             </div>
 
-            <div className="result-card">
-              <p className="result-label">Projected Remaining Corpus</p>
-              <p className="result-primary">
-                {formatINR(Math.round(pieReferenceBalance || 0))}
+            {/* Tertiary Result: Total Interest Earned */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Interest">
+                  📈
+                </span>{' '}
+                Total Interest Earned
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#059669' }}
+              >
+                {formatINR(Math.round(totalInterestEarned))}
               </p>
             </div>
           </div>
@@ -523,12 +619,12 @@ export default function SWPClient() {
             until exhaustion).
           </p>
 
-          <h4>The Calculator's Iterative Approach:</h4>
+          <h4>The Calculator&apos;s Iterative Approach:</h4>
           <p>For each month (**m**), the simulation follows this logic:</p>
           <ol>
             <li>
               **Interest Calculation:** The monthly interest is calculated on
-              the previous month's balance, based on the annual return (r
+              the previous month&apos;s balance, based on the annual return (r
               <sub>annual</sub>):
               <div
                 style={{
@@ -723,7 +819,7 @@ export default function SWPClient() {
                   color: '#1f2937',
                 }}
               >
-                What is the "4% Rule" and how does it relate to SWP?
+                What is the &quot;4% Rule&ldquo; and how does it relate to SWP?
               </summary>
               <p
                 style={{

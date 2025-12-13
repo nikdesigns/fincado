@@ -67,7 +67,7 @@ function PieChart({
             cy={cy}
             r={r}
             fill="none"
-            stroke="#a0e870"
+            stroke="#16a34a" /* Consistent site green */
             strokeWidth={strokeWidth}
             strokeDasharray={dashArray}
             strokeLinecap="round"
@@ -105,8 +105,6 @@ function PieChart({
 
 /**
  * Car loan calculator client component
- * - supports downpayment, trade-in, balloon/residual, processing fee
- * - CSV export + printable schedule (buttons below table)
  */
 export default function CarLoanClient() {
   // Inputs (defaults chosen to typical values)
@@ -188,16 +186,18 @@ export default function CarLoanClient() {
   const totalRepayment = Math.round(
     totalPrincipalPaid + totalInterestPaid + (balloonValue || 0)
   );
-  const totalCostToBuyer = Math.round(totalRepayment + processingFeeAmount);
+  // Total cost to buyer is the loan repayment + processing fee (already included in loanPrincipal) + downpayment + trade-in
 
-  // Percentages for pie: treat balloon as principal (not interest). Denominator = totalRepayment (principal+interest+balloon)
+  // Percentages for pie: interest vs (principal + interest)
+  const denominatorForPie = Math.round(totalPrincipalPaid + totalInterestPaid);
+
   const interestPercent = useMemo(() => {
-    if (totalRepayment <= 0) return 0;
+    if (denominatorForPie <= 0) return 0;
     return Math.max(
       0,
-      Math.min(100, Math.round((totalInterestPaid / totalRepayment) * 100))
+      Math.min(100, Math.round((totalInterestPaid / denominatorForPie) * 100))
     );
-  }, [totalInterestPaid, totalRepayment]);
+  }, [totalInterestPaid, denominatorForPie]);
 
   const principalPercent = Math.max(0, 100 - interestPercent);
 
@@ -265,99 +265,100 @@ export default function CarLoanClient() {
       setter(e.target.value === '' ? 0 : Number(e.target.value));
 
   return (
-    <section className="card" style={{ marginTop: 18 }}>
-      <h2>Car Loan Calculator</h2>
+    <section className="article">
+      <div>
+        <h1>🚗 Comprehensive Car Loan EMI Calculator</h1>
 
-      {/* ===== Two-column split: left = inputs, right = chart (only these two side-by-side) ===== */}
-      <div className="emi-split" style={{ marginTop: 12 }}>
-        {/* LEFT: inputs */}
-        <div className="emi-left">
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div style={{ display: 'grid', gap: 12 }}>
-              <div className="form-row">
-                <label>
-                  Vehicle Price (₹)
-                  <input
-                    type="number"
-                    value={vehiclePrice}
-                    onChange={safeNumber(setVehiclePrice)}
-                    min={0}
-                    step={1000}
-                    required
-                  />
-                </label>
+        {/* ===== Two-column split: left = inputs, right = chart (only these two side-by-side) ===== */}
+        <div className="emi-split" style={{ marginTop: 12 }}>
+          {/* LEFT: inputs */}
+          <div className="emi-left">
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div style={{ display: 'grid', gap: 12 }}>
+                <div className="form-row">
+                  <label>
+                    Vehicle Price (₹)
+                    <input
+                      type="number"
+                      value={vehiclePrice}
+                      onChange={safeNumber(setVehiclePrice)}
+                      min={0}
+                      step={1000}
+                      required
+                    />
+                  </label>
 
-                <label>
-                  Down Payment (₹)
-                  <input
-                    type="number"
-                    value={downPayment}
-                    onChange={safeNumber(setDownPayment)}
-                    min={0}
-                    step={1000}
-                  />
-                </label>
-              </div>
+                  <label>
+                    Down Payment (₹)
+                    <input
+                      type="number"
+                      value={downPayment}
+                      onChange={safeNumber(setDownPayment)}
+                      min={0}
+                      step={1000}
+                    />
+                  </label>
+                </div>
 
-              <div className="form-row">
-                <label>
-                  Trade-in Value (₹)
-                  <input
-                    type="number"
-                    value={tradeInValue}
-                    onChange={safeNumber(setTradeInValue)}
-                    min={0}
-                    step={1000}
-                  />
-                </label>
+                <div className="form-row">
+                  <label>
+                    Trade-in Value (₹)
+                    <input
+                      type="number"
+                      value={tradeInValue}
+                      onChange={safeNumber(setTradeInValue)}
+                      min={0}
+                      step={1000}
+                    />
+                  </label>
 
-                <label>
-                  Balloon / Residual at end (₹)
-                  <input
-                    type="number"
-                    value={balloonValue}
-                    onChange={safeNumber(setBalloonValue)}
-                    min={0}
-                    step={1000}
-                  />
-                </label>
-              </div>
+                  <label>
+                    Balloon / Residual at end (₹)
+                    <input
+                      type="number"
+                      value={balloonValue}
+                      onChange={safeNumber(setBalloonValue)}
+                      min={0}
+                      step={1000}
+                    />
+                  </label>
+                </div>
 
-              <div className="form-row">
-                <label>
-                  Interest Rate (p.a. %)
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={annualRate}
-                    onChange={safeNumber(setAnnualRate)}
-                    required
-                  />
-                </label>
+                <div className="form-row">
+                  <label>
+                    Interest Rate (p.a. %)
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={annualRate}
+                      onChange={safeNumber(setAnnualRate)}
+                      required
+                    />
+                  </label>
 
-                <label>
-                  Tenure (Years)
-                  <input
-                    type="number"
-                    min={1}
-                    value={tenureYears}
-                    onChange={safeNumber(setTenureYears)}
-                    required
-                  />
-                </label>
-              </div>
+                  <label>
+                    Tenure (Years)
+                    <input
+                      type="number"
+                      min={1}
+                      value={tenureYears}
+                      onChange={safeNumber(setTenureYears)}
+                      required
+                    />
+                  </label>
+                </div>
 
-              <div className="form-row">
-                <label>
-                  Processing Fee (% of price)
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={processingFeePct}
-                    onChange={safeNumber(setProcessingFeePct)}
-                  />
-                </label>
-
+                <div className="form-row">
+                  <label>
+                    Processing Fee (% of price)
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={processingFeePct}
+                      onChange={safeNumber(setProcessingFeePct)}
+                    />
+                  </label>
+                </div>
                 <div
                   style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}
                 >
@@ -388,117 +389,498 @@ export default function CarLoanClient() {
                   </button>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
 
-        {/* RIGHT: chart only */}
-        <aside className="emi-right" aria-hidden={false}>
-          <div
-            className="card"
-            style={{
-              textAlign: 'center',
-              paddingBottom: 12,
-              boxShadow: 'none',
-              border: 'none',
-            }}
-          >
+          {/* RIGHT: chart only */}
+          <aside className="emi-right" aria-hidden={false}>
             <div
+              className="card"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                justifyContent: 'center',
-                flexDirection: 'column',
+                textAlign: 'center',
+                paddingBottom: 12,
+                boxShadow: 'none',
+                border: 'none',
               }}
             >
-              <PieChart
-                principalPct={principalPercent}
-                interestPct={interestPercent}
-                size={220}
-              />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <PieChart
+                  principalPct={principalPercent}
+                  interestPct={interestPercent}
+                  size={220}
+                />
 
-              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    style={{
-                      width: 14,
-                      height: 14,
-                      background: '#f1f5f9',
-                      display: 'inline-block',
-                      borderRadius: 6,
-                      border: '1px solid rgba(0,0,0,0.02)',
-                    }}
-                  />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Principal
+                <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        width: 14,
+                        height: 14,
+                        background: '#f1f5f9',
+                        display: 'inline-block',
+                        borderRadius: 6,
+                        border: '1px solid rgba(0,0,0,0.02)',
+                      }}
+                    />
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
+                      <div style={{ fontSize: 12, color: '#6b7280' }}>
+                        Principal
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    style={{
-                      width: 14,
-                      height: 14,
-                      background: '#a0e870',
-                      display: 'inline-block',
-                      borderRadius: 6,
-                    }}
-                  />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Interest
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        width: 14,
+                        height: 14,
+                        background: '#16a34a',
+                        display: 'inline-block',
+                        borderRadius: 6,
+                      }}
+                    />
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
+                      <div style={{ fontSize: 12, color: '#6b7280' }}>
+                        Interest
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="ad-box" style={{ marginTop: 14 }}>
-            Ad / Bank widget
-          </div>
-        </aside>
-      </div>
+            <div className="ad-box" style={{ marginTop: 14 }}>
+              Ad / Bank widget
+            </div>
+          </aside>
+        </div>
 
-      {/* ===== RESULTS SECTION: full width below the split ===== */}
-      <div className="emi-results-full" style={{ marginTop: 18 }}>
-        <div className="result-grid" style={{ gap: 12 }}>
-          <div className="result-card">
-            <p className="result-label">Loan Principal</p>
-            <p className="result-primary">
-              {formatINR(Math.round(loanPrincipal))}
-            </p>
-            <p className="result-value" style={{ fontSize: 13, marginTop: 6 }}>
-              (Includes processing fee{' '}
-              {formatINR(Math.round(processingFeeAmount))})
-            </p>
-          </div>
-
-          <div className="result-card">
-            <p className="result-label">Monthly EMI (est.)</p>
-            <p className="result-primary">
-              {emi > 0 ? formatINR(Math.round(emi)) : '—'}
-            </p>
-          </div>
-
-          <div className="result-card">
-            <p className="result-label">Total Payment (incl. balloon)</p>
-            <p className="result-value">
-              {formatINR(Math.round(totalRepayment))}
-            </p>
-            <p
-              className="result-value"
-              style={{ fontSize: 13, color: '#6b7280' }}
+        {/* ===== RESULTS SECTION: full width below the split - REFINED STYLES ===== */}
+        <div className="emi-results-full" style={{ marginTop: 24 }}>
+          <div
+            className="result-grid emi-summary-strip"
+            style={{
+              backgroundColor: '#f0fff4', // Pale green background
+              padding: '16px',
+              borderRadius: '10px',
+              border: '1px solid #d1fae5', // Light border
+            }}
+          >
+            {/* Primary Result: Monthly EMI */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+                boxShadow:
+                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+              }}
             >
-              Total interest ≈ {formatINR(Math.round(totalInterestPaid))}
-            </p>
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Monthly Payment">
+                  📅
+                </span>{' '}
+                Monthly EMI (Est.)
+              </p>
+              <p
+                className="result-primary"
+                style={{
+                  fontSize: '24px',
+                  fontWeight: 800,
+                  color: '#047857',
+                }}
+              >
+                {emi > 0 ? formatINR(Math.round(emi)) : '—'}
+              </p>
+            </div>
+
+            {/* Secondary Result: Loan Principal */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Principal">
+                  🏦
+                </span>{' '}
+                Loan Principal
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {formatINR(Math.round(loanPrincipal))}
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: 13, marginTop: 4, color: '#6b7280' }}
+              >
+                (Incl. fee: {formatINR(Math.round(processingFeeAmount))})
+              </p>
+            </div>
+
+            {/* Secondary Result: Total Interest Paid */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Interest">
+                  📈
+                </span>{' '}
+                Total Interest Paid
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#059669' }}
+              >
+                {formatINR(Math.round(totalInterestPaid))}
+              </p>
+            </div>
+
+            {/* Secondary Result: Total Cost of Loan */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Total Cost">
+                  🏷️
+                </span>{' '}
+                Total Repayment
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {formatINR(Math.round(totalRepayment))}
+              </p>
+              {balloonValue > 0 && (
+                <p
+                  className="result-value"
+                  style={{ fontSize: 13, marginTop: 4, color: '#6b7280' }}
+                >
+                  (Includes balloon: {formatINR(balloonValue)})
+                </p>
+              )}
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* --- SEO Content Starts Here --- */}
+      <div className="content-for-seo" style={{ marginTop: 20 }}>
+        {/* 1. Brief about the program */}
+        <section>
+          <h2 id="about-car-loan">🌟 What is a Car Loan?</h2>
+          <p>
+            A **Car Loan** is a secured loan provided by financial institutions
+            to fund the purchase of a new or used vehicle. The vehicle itself
+            acts as collateral. Car loans typically require a down payment and
+            are repaid through fixed monthly installments, known as Equated
+            Monthly Installments (EMIs), over a fixed tenure (usually 1 to 7
+            years).
+          </p>
+          <p>
+            This calculator helps you understand your monthly repayment burden
+            and the total interest cost for your specific vehicle price, down
+            payment, trade-in value, and interest rate.
+          </p>
+        </section>
+
+        {/* 2. Who can use this */}
+        <section>
+          <h2 id="who-can-use">🎯 Who is Eligible for a Car Loan?</h2>
+          <p>
+            Eligibility criteria for a car loan are primarily based on the
+            borrower&apos;s stability and income:
+          </p>
+          <ul>
+            <li>**Age:** Typically between 21 and 65 years.</li>
+            <li>
+              **Income:** Salaried individuals, self-employed professionals, and
+              business owners with a minimum annual income (varying by lender).
+            </li>
+            <li>
+              **Credit Score:** A good credit score (CIBIL score above 750) is
+              crucial for securing the best interest rates.
+            </li>
+            <li>**Residency:** Must be a resident of India.</li>
+          </ul>
+        </section>
+
+        {/* 3. How can the Car Loan Calculator help you? */}
+        <section>
+          <h2 id="how-car-loan-helps">
+            💡 How Can This Car Loan EMI Calculator Help You?
+          </h2>
+          <p>
+            Using a car loan calculator is essential for pre-purchase financial
+            planning:
+          </p>
+          <ul>
+            <li>
+              **Budgeting the EMI:** Instantly calculate the exact monthly EMI
+              to ensure it fits within your budget.
+            </li>
+            <li>
+              **Total Cost Analysis:** Determine the total interest outflow over
+              the loan tenure, helping you compare different loan offers.
+            </li>
+            <li>
+              **Tenure Optimization:** Analyze the trade-off between a longer
+              tenure (lower EMI, higher total interest) and a shorter tenure
+              (higher EMI, lower total interest).
+            </li>
+            <li>
+              **Down Payment Strategy:** See how increasing your down payment or
+              trade-in value instantly reduces your loan principal and total
+              interest burden.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4. How does the Car Loan EMI calculation work? */}
+        <section>
+          <h2 id="how-car-loan-works">⚙️ Car Loan EMI Calculation Logic</h2>
+
+          <h3>The EMI Formula (General Annuity)</h3>
+          <p>
+            The monthly Equated Monthly Installment (EMI) for a standard
+            amortizing loan is calculated using the following formula. This
+            calculation determines the fixed monthly amount required to fully
+            repay the principal (P) and interest (I) over the tenure (N).
+          </p>
+          <div
+            style={{
+              backgroundColor: '#f9fafb',
+              padding: '15px',
+              borderRadius: '6px',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              fontSize: '1.1em',
+              overflowX: 'auto',
+            }}
+          >
+            EMI = P &times; [r &times; (1 + r)<sup>n</sup> / ((1 + r)
+            <sup>n</sup> - 1)]
+          </div>
+          <p>Where:</p>
+          <ul>
+            <li>**P** = Loan Principal amount (Loan Amount)</li>
+            <li>**r** = Monthly interest rate (Annual Rate / 1200)</li>
+            <li>**n** = Loan tenure in months</li>
+          </ul>
+
+          <h3>Handling Balloon Payments</h3>
+          <p>
+            This calculator supports **Balloon/Residual Payments**, which means
+            a large lump sum is paid at the very end of the tenure. When a
+            balloon payment exists, the EMI is calculated only to amortize the
+            principal *minus* the present value of the balloon amount. The final
+            principal payment in the schedule equals the remaining balance plus
+            the balloon amount.
+          </p>
+        </section>
+
+        {/* 5. Advantage */}
+        <section>
+          <h2 id="car-loan-advantages">✅ Advantages of Taking a Car Loan</h2>
+          <p>A car loan offers financial flexibility and access to mobility:</p>
+          <div className="advantage-grid">
+            <div className="advantage-card">
+              <h3>Immediate Mobility</h3>
+              <p>
+                Allows you to acquire the vehicle immediately without having to
+                save the entire cost upfront.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Preserve Capital</h3>
+              <p>
+                You can keep your savings or emergency fund intact for
+                higher-yield investments or unexpected needs.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Fixed Budgeting</h3>
+              <p>
+                Fixed EMIs simplify monthly budgeting, allowing for consistent
+                financial planning throughout the loan period.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Credit Building</h3>
+              <p>
+                Consistent, timely EMI payments help improve your credit score,
+                which is beneficial for future, larger loans (like home loans).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. FAQ's */}
+        <section>
+          <h2 id="car-loan-faqs">❓ Frequently Asked Questions (FAQs)</h2>
+          <div
+            className="faqs-accordion"
+            style={{
+              display: 'grid',
+              gap: '10px',
+            }}
+          >
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is Amortization in a Car Loan?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                Amortization is the process of gradually paying off a loan
+                principal over time. In a car loan, early EMIs primarily cover
+                the interest, while later EMIs are weighted heavily toward
+                repaying the principal. The schedule shows this process
+                month-by-month.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                Is it better to take a longer or shorter loan tenure?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                A **shorter tenure** results in a lower total interest paid and
+                faster debt freedom, but the monthly EMI is higher. A **longer
+                tenure** means a lower EMI but a significantly higher total
+                interest cost. The choice depends entirely on your monthly
+                budget comfort level versus the desire to minimize interest
+                outflow.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is the benefit of a Balloon Payment?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                A Balloon Payment reduces your **monthly EMI significantly**
+                because a large portion of the principal is deferred until the
+                final payment. This can make expensive vehicles more affordable
+                on a monthly basis, but requires you to plan for the large
+                lump-sum payment at the end of the loan term.
+              </p>
+            </details>
+          </div>
+        </section>
       </div>
 
       {/* Repayment schedule (printable area) */}
@@ -508,9 +890,12 @@ export default function CarLoanClient() {
         <div
           ref={printRef}
           className="schedule-wrapper"
-          style={{ marginTop: 12 }}
+          style={{ marginTop: 12, overflowX: 'auto' }}
         >
-          <table className="rate-table" style={{ width: '100%' }}>
+          <table
+            className="rate-table"
+            style={{ width: '100%', minWidth: '600px' }}
+          >
             <caption>
               Loan: {formatINR(loanPrincipal)} • Rate: {annualRate}% p.a. •
               Tenure: {tenureYears} years

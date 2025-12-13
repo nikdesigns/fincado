@@ -1,4 +1,3 @@
-// ./src/app/loans/education-loan/EducationLoanClient.tsx
 'use client';
 
 import React, { useMemo, useRef, useState } from 'react';
@@ -64,7 +63,7 @@ function PieChart({
             cy={cy}
             r={r}
             fill="none"
-            stroke="#a0e870"
+            stroke="#16a34a" // Standard site green
             strokeWidth={strokeWidth}
             strokeDasharray={dashArray}
             strokeLinecap="round"
@@ -126,7 +125,7 @@ export default function EducationLoanClient() {
     moratoriumAccruedInterest,
     moratoriumInterestPaid,
   } = useMemo(() => {
-    let principal = loanAmount;
+    const principal = loanAmount;
     let accrued = 0;
     let interestPaid = 0;
 
@@ -290,112 +289,113 @@ export default function EducationLoanClient() {
   }
 
   return (
-    <section className="card" style={{ marginTop: 18 }}>
-      <h2>Education Loan Calculator</h2>
+    <section className="article">
+      <div>
+        <h1>🎓 Education Loan EMI Calculator</h1>
 
-      {/* split: inputs left, pie chart right */}
-      <div className="emi-split" style={{ marginTop: 12 }}>
-        <div className="emi-left">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            style={{ display: 'grid', gap: 12 }}
-          >
-            <label>
-              Loan Amount (₹)
-              <input
-                id="loanAmount"
-                type="number"
-                value={loanAmount}
-                onChange={setNumber(setLoanAmount)}
-                required
-              />
-            </label>
-
-            <label>
-              Interest Rate (p.a. %)
-              <input
-                id="annualRate"
-                type="number"
-                step="0.01"
-                value={annualRate}
-                onChange={setNumber(setAnnualRate)}
-                required
-              />
-            </label>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-              }}
+        {/* split: inputs left, pie chart right */}
+        <div className="emi-split" style={{ marginTop: 12 }}>
+          <div className="emi-left">
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              style={{ display: 'grid', gap: 12 }}
             >
               <label>
-                Moratorium months
+                Loan Amount (₹)
                 <input
-                  id="moratoriumMonths"
+                  id="loanAmount"
                   type="number"
-                  min={0}
-                  value={moratoriumMonths}
-                  onChange={(e) =>
-                    setMoratoriumMonths(
-                      Math.max(0, Number(e.target.value || 0))
-                    )
-                  }
+                  value={loanAmount}
+                  onChange={setNumber(setLoanAmount)}
+                  required
                 />
               </label>
 
               <label>
-                Repayment years
+                Interest Rate (p.a. %)
                 <input
-                  id="repayYears"
-                  type="number"
-                  min={1}
-                  value={repayYears}
-                  onChange={(e) =>
-                    setRepayYears(Math.max(1, Number(e.target.value || 0)))
-                  }
-                />
-              </label>
-            </div>
-
-            <label>
-              Moratorium mode
-              <select
-                value={moratoriumMode}
-                onChange={(e) => setMoratoriumMode(e.target.value as any)}
-                style={{ marginTop: 6 }}
-              >
-                <option value="capitalise">
-                  Capitalise unpaid interest (adds to principal)
-                </option>
-                <option value="interest-only">
-                  Interest-only (you pay interest during moratorium)
-                </option>
-                <option value="no-pay">
-                  No-pay (interest accrues and is capitalised)
-                </option>
-              </select>
-            </label>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-              }}
-            >
-              <label>
-                Processing Fee (%)
-                <input
-                  id="processingFeePct"
+                  id="annualRate"
                   type="number"
                   step="0.01"
-                  value={processingFeePct}
-                  onChange={setNumber(setProcessingFeePct)}
+                  value={annualRate}
+                  onChange={setNumber(setAnnualRate)}
+                  required
                 />
               </label>
 
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 12,
+                }}
+              >
+                <label>
+                  Moratorium months
+                  <input
+                    id="moratoriumMonths"
+                    type="number"
+                    min={0}
+                    value={moratoriumMonths}
+                    onChange={(e) =>
+                      setMoratoriumMonths(
+                        Math.max(0, Number(e.target.value || 0))
+                      )
+                    }
+                  />
+                </label>
+
+                <label>
+                  Repayment years
+                  <input
+                    id="repayYears"
+                    type="number"
+                    min={1}
+                    value={repayYears}
+                    onChange={(e) =>
+                      setRepayYears(Math.max(1, Number(e.target.value || 0)))
+                    }
+                  />
+                </label>
+              </div>
+
+              <label>
+                Moratorium mode
+                <select
+                  value={moratoriumMode}
+                  onChange={(e) => setMoratoriumMode(e.target.value as never)}
+                  style={{ marginTop: 6 }}
+                >
+                  <option value="capitalise">
+                    Capitalise unpaid interest (adds to principal)
+                  </option>
+                  <option value="interest-only">
+                    Interest-only (you pay interest during moratorium)
+                  </option>
+                  <option value="no-pay">
+                    No-pay (interest accrues and is capitalised)
+                  </option>
+                </select>
+              </label>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 12,
+                }}
+              >
+                <label>
+                  Processing Fee (%)
+                  <input
+                    id="processingFeePct"
+                    type="number"
+                    step="0.01"
+                    value={processingFeePct}
+                    onChange={setNumber(setProcessingFeePct)}
+                  />
+                </label>
+              </div>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
                 <button
                   className="primary-cta"
@@ -421,124 +421,546 @@ export default function EducationLoanClient() {
                   Reset
                 </button>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
 
-        <aside className="emi-right" aria-hidden={false}>
-          <div
-            className="card"
-            style={{
-              textAlign: 'center',
-              paddingBottom: 12,
-              boxShadow: 'none',
-              border: 'none',
-            }}
-          >
+          <aside className="emi-right" aria-hidden={false}>
             <div
+              className="card"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                justifyContent: 'center',
-                flexDirection: 'column',
+                textAlign: 'center',
+                paddingBottom: 12,
+                boxShadow: 'none',
+                border: 'none',
               }}
             >
-              <PieChart
-                principalPct={principalPct}
-                interestPct={interestPct}
-                size={220}
-              />
-              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    style={{
-                      width: 14,
-                      height: 14,
-                      background: '#f1f5f9',
-                      display: 'inline-block',
-                      borderRadius: 6,
-                      border: '1px solid rgba(0,0,0,0.02)',
-                    }}
-                  />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800 }}>{principalPct}%</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Principal
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <PieChart
+                  principalPct={principalPct}
+                  interestPct={interestPct}
+                  size={220}
+                />
+                <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        width: 14,
+                        height: 14,
+                        background: '#f1f5f9',
+                        display: 'inline-block',
+                        borderRadius: 6,
+                        border: '1px solid rgba(0,0,0,0.02)',
+                      }}
+                    />
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 800 }}>{principalPct}%</div>
+                      <div style={{ fontSize: 12, color: '#6b7280' }}>
+                        Principal
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    style={{
-                      width: 14,
-                      height: 14,
-                      background: '#a0e870',
-                      display: 'inline-block',
-                      borderRadius: 6,
-                    }}
-                  />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800 }}>{interestPct}%</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Interest
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        width: 14,
+                        height: 14,
+                        background: '#16a34a', // Standard site green
+                        display: 'inline-block',
+                        borderRadius: 6,
+                      }}
+                    />
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 800 }}>{interestPct}%</div>
+                      <div style={{ fontSize: 12, color: '#6b7280' }}>
+                        Interest
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="ad-box" style={{ marginTop: 14 }}>
-            Ad / Bank widget
-          </div>
-        </aside>
-      </div>
+            <div className="ad-box" style={{ marginTop: 14 }}>
+              Ad / Bank widget
+            </div>
+          </aside>
+        </div>
 
-      {/* results full width below split */}
-      <div className="emi-results-full" style={{ marginTop: 18 }}>
-        <div className="result-grid emi-summary-strip">
-          <div className="result-card">
-            <p className="result-label">Principal (after moratorium)</p>
-            <p className="result-primary">
-              {formatINR(Math.round(principalAfterMoratorium))}
-            </p>
-          </div>
+        {/* results full width below split - REFINED STYLING */}
+        <div className="emi-results-full" style={{ marginTop: 24 }}>
+          <div
+            className="result-grid emi-summary-strip"
+            style={{
+              backgroundColor: '#f0fff4', // Pale green background
+              padding: '16px',
+              borderRadius: '10px',
+              border: '1px solid #d1fae5', // Light border
+            }}
+          >
+            {/* Primary Result: Monthly EMI */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+                boxShadow:
+                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Monthly Payment">
+                  📅
+                </span>{' '}
+                Monthly EMI (Post-Moratorium)
+              </p>
+              <p
+                className="result-primary"
+                style={{
+                  fontSize: '24px',
+                  fontWeight: 800,
+                  color: '#047857',
+                }}
+              >
+                {formatINR(Math.round(emi))}
+              </p>
+            </div>
 
-          <div className="result-card">
-            <p className="result-label">Monthly EMI</p>
-            <p className="result-primary">{formatINR(Math.round(emi))}</p>
-          </div>
+            {/* Secondary Result: Adjusted Principal */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Loan Principal">
+                  🏦
+                </span>{' '}
+                Principal After Moratorium
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {formatINR(Math.round(principalAfterMoratorium))}
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: 13, marginTop: 4, color: '#6b7280' }}
+              >
+                (Original loan: {formatINR(loanAmount)})
+              </p>
+            </div>
 
-          <div className="result-card">
-            <p className="result-label">Total Estimated Interest</p>
-            <p className="result-value">
-              {formatINR(Math.max(0, Math.round(totalInterest)))}
-            </p>
+            {/* Secondary Result: Total Estimated Interest */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Total Interest">
+                  📈
+                </span>{' '}
+                Total Estimated Interest
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#059669' }}
+              >
+                {formatINR(Math.max(0, Math.round(totalInterest)))}
+              </p>
+            </div>
+
+            {/* Secondary Result: Total Repayment */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Total Repayment">
+                  💵
+                </span>{' '}
+                Total Repayment
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {formatINR(totalRepayment)}
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: 13, marginTop: 4, color: '#6b7280' }}
+              >
+                (Moratorium paid:{' '}
+                {formatINR(Math.round(moratoriumInterestPaid))})
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* compact summary card (keeps flow consistent with other calculators) */}
+      {/* Summary of Moratorium and Processing Fee */}
       <div className="card" style={{ marginTop: 18 }}>
-        <h3>Summary</h3>
+        <h3>Moratorium & Fee Breakdown</h3>
         <p style={{ margin: '6px 0' }}>
-          <strong>Moratorium mode:</strong>{' '}
+          <strong>Moratorium period:</strong> {moratoriumMonths} months. Mode:{' '}
           {moratoriumMode === 'capitalise'
-            ? 'Capitalise unpaid interest'
+            ? 'Interest is Capitalized'
             : moratoriumMode === 'interest-only'
             ? 'Interest-only payments'
-            : 'No-pay (interest accrues)'}
+            : 'Interest accrues (No-pay)'}
         </p>
         <p style={{ margin: '6px 0' }}>
-          <strong>Moratorium accrued interest (informal):</strong>{' '}
+          <strong>Interest Capitalized/Paid:</strong>{' '}
           {moratoriumMode === 'interest-only'
-            ? formatINR(Math.round(moratoriumInterestPaid))
-            : formatINR(Math.round(moratoriumAccruedInterest))}
+            ? formatINR(Math.round(moratoriumInterestPaid)) + ' (Paid by you)'
+            : formatINR(Math.round(moratoriumAccruedInterest)) +
+              ' (Added to principal)'}
         </p>
         <p style={{ margin: '6px 0' }}>
-          <strong>Repayment months:</strong> {repaymentMonths}
+          <strong>Processing Fee:</strong> {processingFeePct}% or{' '}
+          {formatINR(processingFeeAmount)}
         </p>
+      </div>
+
+      {/* --- SEO Content Starts Here --- */}
+      <div className="content-for-seo" style={{ marginTop: 20 }}>
+        {/* 1. Brief about the program */}
+        <section>
+          <h2 id="about-edu-loan">🌟 What is an Education Loan?</h2>
+          <p>
+            An **Education Loan** is a financial facility offered by banks and
+            non-banking financial companies (NBFCs) to help students fund their
+            higher education, both domestically and abroad. These loans cover
+            major expenses including tuition fees, accommodation, books, and
+            sometimes travel costs.
+          </p>
+          <p>
+            A key feature is the **moratorium period**—a repayment holiday
+            typically granted for the duration of the course plus a few months
+            afterward, recognizing that the student will only start earning
+            after graduation. This calculator is vital for navigating the cost
+            implications of that moratorium.
+          </p>
+        </section>
+
+        {/* 2. Who can use this */}
+        <section>
+          <h2 id="who-can-use">🎯 Who is Eligible and Who Can Repay?</h2>
+          <p>
+            Education loans are generally available to Indian residents who have
+            secured admission to a recognized course.
+          </p>
+          <ul>
+            <li>**Applicant:** The student is the primary borrower.</li>
+            <li>
+              **Co-Applicant/Guarantor:** A parent or guardian is usually
+              mandatory as a co-borrower to secure the loan, especially for
+              loans above a certain limit (e.g., ₹4 Lakh).
+            </li>
+            <li>
+              **Age:** Typically requires the student to be between 16 and 35
+              years old at the time of loan application.
+            </li>
+            <li>
+              **Security/Collateral:** Loans above a limit (e.g., ₹7.5 Lakh)
+              often require tangible collateral (house, property, FDs).
+            </li>
+          </ul>
+        </section>
+
+        {/* 3. How can the Education Loan Calculator help you? */}
+        <section>
+          <h2 id="how-edu-loan-helps">
+            💡 How This Calculator Helps with Moratorium Planning
+          </h2>
+          <p>
+            The major financial decision in an education loan revolves around
+            the moratorium period and the subsequent EMI. This calculator
+            empowers you to:
+          </p>
+          <ul>
+            <li>
+              **Calculate Adjusted Principal:** Determine the exact principal
+              amount that accrues after the moratorium, depending on whether you
+              paid interest or let it capitalize.
+            </li>
+            <li>
+              **Find the True EMI:** Calculate the precise EMI required during
+              the repayment phase based on the inflated principal
+              (capitalization).
+            </li>
+            <li>
+              **Compare Moratorium Modes:** Visualize the difference in your
+              final EMI and total interest paid if you choose
+              &apos;Interest-Only&apos; payments versus &apos;Capitalizing&apos;
+              the interest.{' '}
+            </li>
+            <li>
+              **Total Cost Analysis:** Quickly understand the final interest
+              burden over the entire loan lifecycle.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4. How does the Education Loan EMI calculation work? */}
+        <section>
+          <h2 id="how-edu-loan-works">
+            ⚙️ EMI Calculation with Moratorium Interest
+          </h2>
+
+          <h3>Step 1: Moratorium Interest Calculation</h3>
+          <p>
+            During the moratorium (N<sub>m</sub> months), interest accrues on
+            the outstanding loan amount ($P_0$) monthly.
+          </p>
+          <p>
+            **If Capitalized (or No-Pay):** The interest is added to the
+            principal monthly. The new principal after moratorium ($P_f$) is:
+          </p>
+          <div
+            style={{
+              fontFamily: 'monospace',
+              backgroundColor: '#eef2ff',
+              padding: '8px',
+              margin: '5px 0',
+              borderRadius: '4px',
+            }}
+          >
+            P<sub>f</sub> = P<sub>0</sub> &times; (1 + r)
+            <sup>
+              N<sub>m</sub>
+            </sup>
+          </div>
+          <p>
+            **If Interest-Only:** Interest is paid monthly and does not
+            capitalize. $P_f$ remains $P_0$.
+          </p>
+
+          <h3>Step 2: Post-Moratorium EMI Calculation</h3>
+          <p>
+            The final EMI is calculated based on the resulting principal ($P_f$)
+            and the repayment tenure ($N$ months), using the standard annuity
+            EMI formula:
+          </p>
+          <div
+            style={{
+              backgroundColor: '#f9fafb',
+              padding: '15px',
+              borderRadius: '6px',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              fontSize: '1.1em',
+              overflowX: 'auto',
+            }}
+          >
+            EMI = P<sub>f</sub> &times; [r &times; (1 + r)<sup>N</sup> / ((1 +
+            r)<sup>N</sup> - 1)]
+          </div>
+          <p>
+            Where **r** is the monthly interest rate, and **N** is the repayment
+            tenure in months.
+          </p>
+        </section>
+
+        {/* 5. Advantage */}
+        <section>
+          <h2 id="edu-loan-advantages">
+            ✅ Key Advantages of an Education Loan
+          </h2>
+          <p>
+            Education loans are structured to maximize student benefit and
+            parental support:
+          </p>
+          <div className="advantage-grid">
+            <div className="advantage-card">
+              <h3>Income Tax Deduction (80E)</h3>
+              <p>
+                The entire interest paid on the education loan is fully
+                deductible from taxable income under **Section 80E** of the
+                Income Tax Act.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Moratorium Benefit</h3>
+              <p>
+                The repayment holiday allows the student to focus entirely on
+                studies and find a job before starting the EMI burden.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Covering Comprehensive Costs</h3>
+              <p>
+                Loans cover not just fees but also living expenses, equipment,
+                and sometimes caution money and travel costs.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>No Collateral for Small Loans</h3>
+              <p>
+                Loans up to a certain threshold (e.g., ₹4 Lakh or ₹7.5 Lakh,
+                varying by bank) often do not require physical collateral.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. FAQ's */}
+        <section>
+          <h2 id="edu-loan-faqs">❓ Frequently Asked Questions (FAQs)</h2>
+          <div
+            className="faqs-accordion"
+            style={{
+              display: 'grid',
+              gap: '10px',
+            }}
+          >
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                Is paying interest during the moratorium mandatory?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                No, it is usually optional (Moratorium mode is
+                &apos;No-pay&apos; or &apos;Capitalise&apos; by default).
+                However, paying interest during this period (Interest-Only mode)
+                is highly recommended as it significantly reduces the overall
+                principal and saves on total interest paid over the long term.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is the maximum loan repayment period?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                While the typical repayment tenure is 5-7 years, many banks
+                allow repayment periods up to **10 or 15 years** after the
+                moratorium period ends. A longer term lowers your EMI but
+                increases the total interest cost.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                Is there a tax deduction limit under Section 80E?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                No. Unlike Section 80C, which has a limit on the principal
+                repayment, **Section 80E allows the entire interest paid** on
+                the education loan in a financial year to be claimed as a
+                deduction, without any upper limit.
+              </p>
+            </details>
+          </div>
+        </section>
       </div>
 
       {/* Amortization schedule */}
@@ -547,9 +969,12 @@ export default function EducationLoanClient() {
         <div
           ref={printRef}
           className="schedule-wrapper"
-          style={{ marginTop: 12 }}
+          style={{ marginTop: 12, overflowX: 'auto' }}
         >
-          <table className="rate-table" style={{ width: '100%' }}>
+          <table
+            className="rate-table"
+            style={{ width: '100%', minWidth: '600px' }}
+          >
             <caption>
               Loan: {formatINR(loanAmount)} • Rate: {annualRate}% p.a. •
               Moratorium: {moratoriumMonths} months ({moratoriumMode})

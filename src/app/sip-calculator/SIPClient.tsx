@@ -7,11 +7,6 @@ function formatINR(value: number) {
   );
 }
 
-// Function round not used in final calculation, kept for completeness
-function round(value: number, digits = 0) {
-  return Number(value.toFixed(digits));
-}
-
 type ScheduleRow = {
   month: number;
   invested: number;
@@ -203,7 +198,7 @@ export default function SIPClient() {
 
   return (
     <section className="article">
-      <div className="card">
+      <div>
         <h1>📈 Systematic Investment Plan (SIP) Calculator</h1>
 
         {/* SPLIT: left = inputs, right = pie chart */}
@@ -563,7 +558,7 @@ export default function SIPClient() {
             </li>
             <li>
               **Long-Term Goal Seekers:** People planning for retirement,
-              children's education, or buying a house, where the investment
+              children&apos;s education, or buying a house, where the investment
               horizon is 5 years or more.
             </li>
             <li>
@@ -599,7 +594,7 @@ export default function SIPClient() {
             </li>
             <li>
               **Inflation Adjustment:** Shows the real value of your future
-              wealth in today's terms, ensuring your goals are realistic.
+              wealth in today&apos;s terms, ensuring your goals are realistic.
             </li>
           </ul>
         </section>
@@ -779,7 +774,7 @@ export default function SIPClient() {
                 informing the Asset Management Company (AMC) or through your
                 investment platform. There are typically no penalties for
                 stopping an SIP, although you may incur exit load fees if you
-                redeem the units before the fund's specific lock-in period.
+                redeem the units before the fund&apos;s specific lock-in period.
               </p>
             </details>
             <details
@@ -812,7 +807,7 @@ export default function SIPClient() {
                 A **Lump Sum** is a one-time, large investment. An **SIP**
                 involves smaller, regular investments over a long period. SIP
                 helps mitigate market timing risk, whereas Lump Sum relies on
-                your conviction about the market's immediate upward trend.
+                your conviction about the market&apos;s immediate upward trend.
               </p>
             </details>
           </div>

@@ -357,7 +357,6 @@ export default function PPFClient() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: 12,
-                  alignItems: 'end',
                 }}
               >
                 <label>

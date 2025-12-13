@@ -30,8 +30,6 @@ function Donut({
   // site green and complementary shade
   const principalColor = '#eff8e5'; // pale background for principal
   const interestColor = '#16a34a'; // site green
-  // small accent for edge
-  const accent = '#8bd16b';
 
   return (
     <div style={{ width: size, height: size, position: 'relative' }}>
@@ -246,7 +244,7 @@ export default function SSYClient() {
 
   return (
     <section className="article">
-      <div className="card">
+      <div>
         <h1>🇮🇳 Sukanya Samriddhi Yojana (SSY) Calculator</h1>
 
         {/* Two-column split: left = inputs, right = donut chart */}
@@ -486,29 +484,134 @@ export default function SSYClient() {
           </aside>
         </div>
 
-        {/* Results: full width (below split) */}
-        <div
-          className="result-grid emi-summary-strip"
-          style={{ marginTop: 16 }}
-        >
-          <div className="result-card">
-            <p className="result-label">Months until maturity (to age 21)</p>
-            <p className="result-primary">{monthsUntilMaturity}</p>
-          </div>
+        {/* Results: full width (below split) - REFINED FOR PROFESSIONALISM */}
+        <div className="emi-results-full" style={{ marginTop: 24 }}>
+          <div
+            className="result-grid emi-summary-strip"
+            style={{
+              backgroundColor: '#f0fff4', // Pale green background
+              padding: '16px',
+              borderRadius: '10px',
+              border: '1px solid #d1fae5', // Light border
+            }}
+          >
+            {/* Primary Result: Estimated Maturity Amount */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+                boxShadow:
+                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Maturity">
+                  💰
+                </span>{' '}
+                Estimated Maturity Amount
+              </p>
+              <p
+                className="result-primary"
+                style={{
+                  fontSize: '24px',
+                  fontWeight: 800,
+                  color: '#047857',
+                }}
+              >
+                {formatINR(maturityAmount)}
+              </p>
+            </div>
 
-          <div className="result-card">
-            <p className="result-label">Months you will deposit</p>
-            <p className="result-primary">{monthsToDeposit}</p>
-          </div>
+            {/* Secondary Result: Months Until Maturity */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Time">
+                  ⏳
+                </span>{' '}
+                Months Until Maturity (Age 21)
+              </p>
+              <p
+                className="result-primary"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {monthsUntilMaturity}
+              </p>
+            </div>
 
-          <div className="result-card">
-            <p className="result-label">Total deposited (approx)</p>
-            <p className="result-value">{formatINR(totalDeposited)}</p>
-          </div>
+            {/* Secondary Result: Total Deposited */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Deposit">
+                  📥
+                </span>{' '}
+                Total Deposited (Approx)
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+              >
+                {formatINR(totalDeposited)}
+              </p>
+            </div>
 
-          <div className="result-card">
-            <p className="result-label">Estimated maturity amount</p>
-            <p className="result-value">{formatINR(maturityAmount)}</p>
+            {/* Secondary Result: Interest Earned */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Interest">
+                  📈
+                </span>{' '}
+                Total Interest Earned
+              </p>
+              <p
+                className="result-value"
+                style={{ fontSize: '20px', fontWeight: 700, color: '#059669' }}
+              >
+                {formatINR(interestAmount)}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -546,12 +649,13 @@ export default function SSYClient() {
           <h2 id="about-ssy">🌟 What is Sukanya Samriddhi Yojana (SSY)?</h2>
           <p>
             The **Sukanya Samriddhi Yojana (SSY)** is a small savings scheme
-            launched by the Government of India as part of the **'Beti Bachao,
-            Beti Padhao'** campaign. It is a dedicated, tax-free investment
-            program designed to encourage parents to build a significant corpus
-            for their daughter's future education and marriage expenses. It
-            offers one of the highest interest rates among the government's
-            small savings schemes and is a highly secure investment option.
+            launched by the Government of India as part of the **&apos;Beti
+            Bachao, Beti Padhao&apos;** campaign. It is a dedicated, tax-free
+            investment program designed to encourage parents to build a
+            significant corpus for their daughter&apos;s future education and
+            marriage expenses. It offers one of the highest interest rates among
+            the government&apos;s small savings schemes and is a highly secure
+            investment option.
           </p>
           <p>
             The scheme currently offers an interest rate set quarterly by the
@@ -606,7 +710,7 @@ export default function SSYClient() {
             </li>
             <li>
               **Interest Projection:** See how compounding interest works over
-              the long 21-year tenure of the scheme.{' '}
+              the long 21-year tenure of the scheme.
             </li>
             <li>
               **Transparency:** Get a year-by-year and month-by-month schedule
@@ -688,7 +792,7 @@ export default function SSYClient() {
             </li>
           </ul>
 
-          <h4>The Calculator's Iterative Approach:</h4>
+          <h4>The Calculator&apos;s Iterative Approach:</h4>
           <p>
             Your calculator code performs a **precise month-by-month
             simulation** where the balance is updated, and interest is
@@ -697,8 +801,8 @@ export default function SSYClient() {
           <p>For each month (**m**), the simulation follows this logic:</p>
           <ol>
             <li>
-              **Balance Update:** New deposit is added to the previous month's
-              balance:
+              **Balance Update:** New deposit is added to the previous
+              month&apos;s balance:
               <div
                 style={{
                   fontFamily: 'monospace',

@@ -1,7 +1,5 @@
-// src/app/emi-calculator/EMIClient.tsx
 'use client';
 import React, { useMemo, useState } from 'react';
-import { loanRates, rateLastUpdated } from '@/lib/manualLoanRates';
 
 function formatINR(value: number) {
   return '₹' + value.toLocaleString('en-IN', { maximumFractionDigits: 0 });
@@ -15,7 +13,7 @@ type AmortRow = {
   balance: number;
 };
 
-/* ---------- NEW PieChart: thick donut with overlay arc ---------- */
+/* ---------- PieChart: thick donut with overlay arc ---------- */
 function PieChart({
   principalPct,
   interestPct,
@@ -59,7 +57,7 @@ function PieChart({
             cy={cy}
             r={r}
             fill="none"
-            stroke="#a0e870" /* bright blue for interest */
+            stroke="#16a34a" /* site green for interest */
             strokeWidth={strokeWidth}
             strokeDasharray={`${interestLength} ${circumference}`}
             strokeLinecap="round"
@@ -71,7 +69,7 @@ function PieChart({
         {/* Center hole (donut) */}
         <circle cx={cx} cy={cy} r={r * 0.52} fill="#fff" />
 
-        {/* (Optional) tidy center label */}
+        {/* tidy center label */}
         <text
           x={cx}
           y={cy - 6}
@@ -161,7 +159,8 @@ export default function EMIClient() {
 
   // Affordability (FOIR) - safe rule 50%
   const foirAllowed = Math.round(monthlyIncome * 0.5);
-  const affordabilityOk = Math.round(emi) <= foirAllowed;
+  const monthlyEmi = Math.round(emi);
+  const affordabilityOk = monthlyEmi <= foirAllowed;
 
   // Savings by paying extra EMI % (simulate paying extraPaymentPercent% more every month)
   const prepaymentEffect = useMemo(() => {
@@ -205,288 +204,585 @@ export default function EMIClient() {
     };
 
   return (
-    <section className="card">
-      <h2>Loan EMI Calculator</h2>
+    <section className="article">
+      <div>
+        <h1>📊 Loan EMI Calculator (Equated Monthly Installment)</h1>
 
-      {/* ===== Two-column split: left = inputs, right = chart (only these two are side-by-side) ===== */}
-      <div className="emi-split" style={{ marginTop: 18 }}>
-        {/* LEFT: inputs */}
-        <div className="emi-left">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-            style={{ display: 'grid', gap: 12 }}
-          >
-            <label>
-              Loan Amount (₹)
-              <input
-                id="loan"
-                type="number"
-                value={loanAmount}
-                min={0}
-                step={1000}
-                onChange={safeNumberSetter(setLoanAmount)}
-              />
-            </label>
+        {/* ===== Two-column split: left = inputs, right = chart ===== */}
+        <div className="emi-split" style={{ marginTop: 18 }}>
+          {/* LEFT: inputs */}
+          <div className="emi-left">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              style={{ display: 'grid', gap: 12 }}
+            >
+              <label>
+                Loan Amount (₹)
+                <input
+                  id="loan"
+                  type="number"
+                  value={loanAmount}
+                  min={0}
+                  step={1000}
+                  onChange={safeNumberSetter(setLoanAmount)}
+                />
+              </label>
 
-            <label>
-              Interest Rate (% per year)
-              <input
-                id="rate"
-                type="number"
-                step="0.01"
-                value={annualRate}
-                onChange={safeNumberSetter(setAnnualRate)}
-                min={0}
-              />
-            </label>
+              <label>
+                Interest Rate (% per year)
+                <input
+                  id="rate"
+                  type="number"
+                  step="0.01"
+                  value={annualRate}
+                  onChange={safeNumberSetter(setAnnualRate)}
+                  min={0}
+                />
+              </label>
 
-            <label>
-              Loan Tenure (Years)
-              <input
-                id="years"
-                type="number"
-                value={tenureYears}
-                onChange={safeNumberSetter(setTenureYears)}
-                min={0.5}
-                step={0.5}
-              />
-            </label>
+              <label>
+                Loan Tenure (Years)
+                <input
+                  id="years"
+                  type="number"
+                  value={tenureYears}
+                  onChange={safeNumberSetter(setTenureYears)}
+                  min={0.5}
+                  step={0.5}
+                />
+              </label>
 
-            <label>
-              Monthly Income (₹) — for FOIR check
-              <input
-                id="income"
-                type="number"
-                value={monthlyIncome}
-                onChange={safeNumberSetter(setMonthlyIncome)}
-                min={0}
-              />
-            </label>
+              <label>
+                Monthly Income (₹) — for FOIR check
+                <input
+                  id="income"
+                  type="number"
+                  value={monthlyIncome}
+                  onChange={safeNumberSetter(setMonthlyIncome)}
+                  min={0}
+                />
+              </label>
 
-            <label>
-              Extra EMI % (simulate paying X% more per month)
-              <input
-                id="extra"
-                type="number"
-                step="1"
-                value={extraPaymentPercent}
-                onChange={safeNumberSetter(setExtraPaymentPercent)}
-                min={0}
-                max={200}
-              />
-            </label>
+              <label>
+                Extra EMI % (simulate paying X% more per month)
+                <input
+                  id="extra"
+                  type="number"
+                  step="1"
+                  value={extraPaymentPercent}
+                  onChange={safeNumberSetter(setExtraPaymentPercent)}
+                  min={0}
+                  max={200}
+                />
+              </label>
 
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button className="primary-cta" onClick={() => {}}>
-                Calculate
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setLoanAmount(500000);
-                  setAnnualRate(10.0);
-                  setTenureYears(5);
-                  setMonthlyIncome(40000);
-                  setExtraPaymentPercent(10);
-                }}
-              >
-                Reset
-              </button>
-            </div>
-          </form>
-        </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="primary-cta" onClick={() => {}}>
+                  Calculate
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLoanAmount(500000);
+                    setAnnualRate(10.0);
+                    setTenureYears(5);
+                    setMonthlyIncome(40000);
+                    setExtraPaymentPercent(10);
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
 
-        {/* RIGHT: chart only (sparkline removed) */}
-        <aside className="emi-right" aria-hidden={false}>
-          <div
-            className="card"
-            style={{
-              textAlign: 'center',
-              paddingBottom: 12,
-              boxShadow: 'none',
-              border: 'none',
-            }}
-          >
+          {/* RIGHT: chart only */}
+          <aside className="emi-right" aria-hidden={false}>
             <div
+              className="card"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                justifyContent: 'center',
-                flexDirection: 'column',
+                textAlign: 'center',
+                paddingBottom: 12,
+                boxShadow: 'none',
+                border: 'none',
               }}
             >
-              <PieChart
-                principalPct={principalPercent}
-                interestPct={interestPercent}
-                size={240}
-              />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <PieChart
+                  principalPct={principalPercent}
+                  interestPct={interestPercent}
+                  size={240}
+                />
 
-              <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    style={{
-                      width: 14,
-                      height: 14,
-                      background: '#eff8e5',
-                      display: 'inline-block',
-                      borderRadius: 6,
-                      border: '1px solid rgba(0,0,0,0.02)',
-                    }}
-                  />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Principal
+                <div style={{ display: 'flex', gap: 18, marginTop: 12 }}>
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        width: 14,
+                        height: 14,
+                        background: '#eff8e5',
+                        display: 'inline-block',
+                        borderRadius: 6,
+                        border: '1px solid rgba(0,0,0,0.02)',
+                      }}
+                    />
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 800 }}>{principalPercent}%</div>
+                      <div style={{ fontSize: 12, color: '#6b7280' }}>
+                        Principal
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    style={{
-                      width: 14,
-                      height: 14,
-                      background: '#a0e870',
-                      display: 'inline-block',
-                      borderRadius: 6,
-                    }}
-                  />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>
-                      Interest
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        width: 14,
+                        height: 14,
+                        background: '#16a34a', // Standard site green
+                        display: 'inline-block',
+                        borderRadius: 6,
+                      }}
+                    />
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 800 }}>{interestPercent}%</div>
+                      <div style={{ fontSize: 12, color: '#6b7280' }}>
+                        Interest
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* optional side ad (kept small) */}
-          <div className="ad-box" style={{ marginTop: 14 }}>
-            Ad / Bank widget
-          </div>
-        </aside>
+            {/* optional side ad (kept small) */}
+            <div className="ad-box" style={{ marginTop: 14 }}>
+              Ad / Bank widget
+            </div>
+          </aside>
+        </div>
       </div>
 
-      {/* ===== RESULTS SECTION: full width below the split ===== */}
-      <div className="emi-results-full" style={{ marginTop: 18 }}>
-        <div className="result-grid emi-summary-strip">
-          <div className="result-card">
-            <p className="result-label">Monthly EMI</p>
-            <p className="result-primary" id="emi">
-              {formatINR(Math.round(emi))}
+      {/* ===== RESULTS SECTION: full width below the split (REFINED STYLING) ===== */}
+      <div className="emi-results-full" style={{ marginTop: 24 }}>
+        <div
+          className="result-grid emi-summary-strip"
+          style={{
+            backgroundColor: '#f0fff4', // Pale green background
+            padding: '16px',
+            borderRadius: '10px',
+            border: '1px solid #d1fae5', // Light border
+          }}
+        >
+          {/* Primary Result: Monthly EMI */}
+          <div
+            className="result-card"
+            style={{
+              padding: '10px',
+              border: 'none',
+              textAlign: 'center',
+              backgroundColor: '#ffffff',
+              borderRadius: '8px',
+              boxShadow:
+                '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+            }}
+          >
+            <p
+              className="result-label"
+              style={{ fontSize: '14px', color: '#6b7280' }}
+            >
+              <span role="img" aria-label="Monthly Payment">
+                📅
+              </span>{' '}
+              Monthly EMI
+            </p>
+            <p
+              className="result-primary"
+              style={{
+                fontSize: '24px',
+                fontWeight: 800,
+                color: '#047857',
+              }}
+            >
+              {formatINR(monthlyEmi)}
             </p>
           </div>
 
-          <div className="result-card">
-            <p className="result-label">Total Interest</p>
-            <p className="result-value" id="interest">
+          {/* Secondary Result: Loan Amount */}
+          <div
+            className="result-card"
+            style={{
+              padding: '10px',
+              border: 'none',
+              textAlign: 'center',
+              backgroundColor: '#ffffff',
+              borderRadius: '8px',
+            }}
+          >
+            <p
+              className="result-label"
+              style={{ fontSize: '14px', color: '#6b7280' }}
+            >
+              <span role="img" aria-label="Loan Principal">
+                🏦
+              </span>{' '}
+              Loan Amount
+            </p>
+            <p
+              className="result-value"
+              style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+            >
+              {formatINR(loanAmount)}
+            </p>
+          </div>
+
+          {/* Secondary Result: Total Interest */}
+          <div
+            className="result-card"
+            style={{
+              padding: '10px',
+              border: 'none',
+              textAlign: 'center',
+              backgroundColor: '#ffffff',
+              borderRadius: '8px',
+            }}
+          >
+            <p
+              className="result-label"
+              style={{ fontSize: '14px', color: '#6b7280' }}
+            >
+              <span role="img" aria-label="Interest">
+                📈
+              </span>{' '}
+              Total Interest
+            </p>
+            <p
+              className="result-value"
+              style={{ fontSize: '20px', fontWeight: 700, color: '#059669' }}
+            >
               {formatINR(totalInterest)}
             </p>
           </div>
 
-          <div className="result-card">
-            <p className="result-label">Total Payment</p>
-            <p className="result-value" id="total">
+          {/* Secondary Result: Total Payment */}
+          <div
+            className="result-card"
+            style={{
+              padding: '10px',
+              border: 'none',
+              textAlign: 'center',
+              backgroundColor: '#ffffff',
+              borderRadius: '8px',
+            }}
+          >
+            <p
+              className="result-label"
+              style={{ fontSize: '14px', color: '#6b7280' }}
+            >
+              <span role="img" aria-label="Total Cost">
+                🏷️
+              </span>{' '}
+              Total Repayment
+            </p>
+            <p
+              className="result-value"
+              style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
+            >
               {formatINR(totalPayment)}
             </p>
           </div>
         </div>
       </div>
 
-      {/* ... rest unchanged (eligibility, savings, bank table, amortization table) ... */}
-
-      {/* ELIGIBILITY */}
+      {/* LTV and Affordability Card */}
       <div className="card" style={{ marginTop: 18 }}>
-        <h3>Check Your Loan Eligibility</h3>
-        <p style={{ marginBottom: 8 }}>
-          Enter monthly income to estimate safe EMI.
-        </p>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <input
-            id="incomeInline"
-            type="number"
-            value={monthlyIncome}
-            onChange={safeNumberSetter(setMonthlyIncome)}
-          />
-          <button onClick={() => {}}>Update</button>
+        <h3>
+          <span role="img" aria-label="Affordability">
+            ⚖️
+          </span>{' '}
+          Affordability Check
+        </h3>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '16px',
+            marginTop: '12px',
+          }}
+        >
+          <div>
+            <h4>Debt-to-Income Ratio (FOIR)</h4>
+            <p>Your Monthly EMI: **{formatINR(monthlyEmi)}**</p>
+            <p>
+              Recommended Max EMI (50% of income): **{formatINR(foirAllowed)}**
+            </p>
+            {affordabilityOk ? (
+              <p style={{ color: 'green', fontWeight: 600 }}>
+                ✅ EMI is within safe affordability limits.
+              </p>
+            ) : (
+              <p style={{ color: 'crimson', fontWeight: 600 }}>
+                🛑 FOIR exceeded. Consider reducing the loan amount or
+                increasing tenure.
+              </p>
+            )}
+          </div>
+          <div>
+            <h4>Prepayment Simulation ({extraPaymentPercent}% Extra)</h4>
+            <p>
+              New approximate tenure: **
+              {(prepaymentEffect.newMonths / 12).toFixed(1)} years** (
+              {prepaymentEffect.newMonths} months)
+            </p>
+            <p>
+              Interest saved:{' '}
+              <strong style={{ color: '#047857' }}>
+                {formatINR(prepaymentEffect.interestSaved)}
+              </strong>
+            </p>
+            <p style={{ fontSize: 13, color: '#6b7280', marginTop: 4 }}>
+              Making extra payments reduces interest dramatically.
+            </p>
+          </div>
         </div>
-        <p style={{ marginTop: 12 }}>
-          Estimated safe EMI (50% of income):{' '}
-          <strong>{formatINR(foirAllowed)}</strong>
-        </p>
-        <p>
-          Your EMI: <strong>{formatINR(Math.round(emi))}</strong> —{' '}
-          {affordabilityOk ? (
-            <span style={{ color: 'green' }}>Looks affordable</span>
-          ) : (
-            <span style={{ color: 'crimson' }}>May be unaffordable</span>
-          )}
-        </p>
       </div>
 
-      {/* SAVINGS INSIGHT */}
-      <div className="savings-box card" style={{ marginTop: 18 }}>
-        <h3>Smart Savings Tip 💡</h3>
-        <p>
-          If you increase your EMI by <strong>{extraPaymentPercent}%</strong>,
-          new tenure ≈ <strong>{prepaymentEffect.newMonths}</strong> months (
-          {(prepaymentEffect.newMonths / 12).toFixed(1)} years), saving approx.{' '}
-          <strong>{formatINR(prepaymentEffect.interestSaved)}</strong> in
-          interest.
-        </p>
-        <p style={{ fontSize: 13, color: '#6b7280' }}>
-          Note: This is a simulation; actual prepayment rules and charges vary
-          by lender.
-        </p>
-      </div>
+      {/* --- SEO Content Starts Here --- */}
+      <div className="content-for-seo" style={{ marginTop: 20 }}>
+        {/* 1. Brief about the program */}
+        <section>
+          <h2 id="about-emi">
+            🌟 What is an Equated Monthly Installment (EMI)?
+          </h2>
+          <p>
+            An **Equated Monthly Installment (EMI)** is a fixed payment amount
+            made by a borrower to a lender at a specified date each month. It
+            consists of two components: the **principal** amount and the
+            **interest** charge.
+          </p>
+          <p>
+            EMIs ensure that the loan is fully repaid over a fixed time period
+            (tenure). This calculator provides the exact EMI and the total
+            interest burden for any common loan type (Home, Car, Personal) based
+            on your inputs.
+          </p>
+        </section>
 
-      {/* INLINE BANK COMPARISON */}
-      <div className="card" style={{ marginTop: 18 }}>
-        <h3>Compare Popular Loan Offers</h3>
-        <p style={{ fontSize: 13, color: '#64748b' }}>
-          Last updated: {rateLastUpdated}
-        </p>
-        <div style={{ overflowX: 'auto' }}>
-          <table className="rate-table">
-            <thead>
-              <tr>
-                <th>Bank</th>
-                <th>Interest Rate</th>
-                <th>Processing Fee</th>
-                <th>Apply</th>
-              </tr>
-            </thead>
-            <tbody>
-              {loanRates.map((bank) => (
-                <tr key={bank.bank}>
-                  <td>{bank.bank}</td>
-                  <td>{bank.rate}</td>
-                  <td>{bank.fee}</td>
-                  <td>
-                    <a
-                      href={`/out?to=${encodeURIComponent(
-                        bank.applyLink || 'https://example.com'
-                      )}`}
-                      className="apply-btn table-apply-btn"
-                    >
-                      Apply
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {/* 2. Who can use this */}
+        <section>
+          <h2 id="who-can-use">🎯 Who Needs an EMI Calculator?</h2>
+          <p>
+            The EMI calculator is a universal tool for financial planning, used
+            by:
+          </p>
+          <ul>
+            <li>
+              **Prospective Borrowers:** To check affordability and budget for
+              monthly loan payments before applying.
+            </li>
+            <li>
+              **Loan Comparison Shoppers:** To compare the total interest cost
+              of different loan products (e.g., a short, high-rate personal loan
+              vs. a long, low-rate home loan).
+            </li>
+            <li>
+              **Financial Planners:** To determine the maximum loan amount
+              affordable within a defined income limit (FOIR).
+            </li>
+          </ul>
+        </section>
 
-        <p style={{ marginTop: 12, fontSize: 13, color: '#64748b' }}>
-          Rates shown are indicative and may change without notice. Final rate
-          depends on credit score, income, tenure, and city.
-        </p>
+        {/* 3. How can the EMI Calculator help you? */}
+        <section>
+          <h2 id="how-emi-helps">💡 How This Calculator Optimizes Your Loan</h2>
+          <p>
+            This comprehensive tool helps you analyze three critical aspects of
+            loan repayment:
+          </p>
+          <ul>
+            <li>
+              **Budgeting:** Calculates the fixed monthly commitment required.
+            </li>
+            <li>
+              **Cost Analysis:** Shows the total interest paid, which often far
+              exceeds the original loan principal.
+            </li>
+            <li>
+              **Prepayment Strategy:** Quantifies the savings achieved by paying
+              slightly more than the required EMI, shortening the tenure
+              dramatically.
+            </li>
+            <li>
+              **Affordability Check:** Determines if the EMI poses a risk to
+              your household budget (FOIR check).
+            </li>
+          </ul>
+        </section>
+
+        {/* 4. How does the EMI calculation work? */}
+        <section>
+          <h2 id="how-emi-works">⚙️ EMI Calculation Logic and Amortization</h2>
+
+          <h3>The Core EMI Formula</h3>
+          <p>
+            The EMI calculation is based on the general annuity formula for
+            loans. The fixed monthly payment (EMI) required to repay a loan is
+            calculated using the principal loan amount ($P$), the monthly
+            interest rate ($r$), and the tenure in months ($n$).
+          </p>
+          <div
+            style={{
+              backgroundColor: '#f9fafb',
+              padding: '15px',
+              borderRadius: '6px',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              fontSize: '1.1em',
+              overflowX: 'auto',
+            }}
+          >
+            EMI = P &times; [r &times; (1 + r)<sup>n</sup> / ((1 + r)
+            <sup>n</sup> - 1)]
+          </div>
+
+          <h3>Amortization Schedule</h3>
+          <p>
+            The loan schedule tracks how the EMI is split each month. In the
+            initial years, the majority of the EMI goes towards **Interest**, as
+            the principal outstanding is highest. Over time, the interest
+            component decreases, and the **Principal** component increases.
+          </p>
+        </section>
+
+        {/* 5. Advantage */}
+        <section>
+          <h2 id="emi-advantages">✅ Key Advantages of Using EMIs</h2>
+          <p>EMIs offer structure and predictability to debt management:</p>
+          <div className="advantage-grid">
+            <div className="advantage-card">
+              <h3>Fixed Repayment</h3>
+              <p>
+                The payment amount remains constant throughout the tenure,
+                simplifying monthly financial planning and budgeting.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Structured Debt Freedom</h3>
+              <p>
+                Guarantees that the debt will be fully cleared by the end of the
+                specified loan term.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Trackable Progress</h3>
+              <p>
+                The amortization schedule clearly shows the monthly reduction in
+                the loan principal and total interest paid.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Access to Capital</h3>
+              <p>
+                Provides access to large funds (for housing, education) that
+                would otherwise be impossible to acquire instantly.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. FAQ's */}
+        <section>
+          <h2 id="emi-faqs">❓ Frequently Asked Questions (FAQs)</h2>
+          <div
+            className="faqs-accordion"
+            style={{
+              display: 'grid',
+              gap: '10px',
+            }}
+          >
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                Does the interest rate change during the tenure?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                It depends on the loan type: fixed-rate loans lock in the
+                interest rate for the entire tenure, while floating-rate loans
+                (common for home loans) are tied to a market benchmark and the
+                rate (and thus the EMI or tenure) will change over time.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is the ideal loan tenure?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                The ideal tenure balances monthly affordability (shorter tenure
+                means higher EMI) against the total cost (longer tenure means
+                significantly higher total interest). Experts recommend choosing
+                the shortest tenure you can comfortably afford, ideally keeping
+                your FOIR below 40% to 50%.
+              </p>
+            </details>
+          </div>
+        </section>
       </div>
 
       {/* AMORTIZATION TABLE */}
@@ -519,6 +815,12 @@ export default function EMIClient() {
             </tbody>
           </table>
         </div>
+
+        {schedule.length > 120 && (
+          <p style={{ marginTop: 8 }}>
+            Showing first 120 months. Full schedule available via export.
+          </p>
+        )}
       </div>
     </section>
   );

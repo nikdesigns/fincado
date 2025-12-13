@@ -174,196 +174,300 @@ export default function CreditScoreClient() {
   }, [scoreEstimate]);
 
   return (
-    <section className="card">
-      <h2>Credit Score Estimator & Action Planner</h2>
+    <section className="article">
+      <div className="card">
+        <h1>🔍 Credit Score Estimator & Action Planner</h1>
 
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        style={{ display: 'grid', gap: 12 }}
-      >
-        <div
-          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          style={{ display: 'grid', gap: 12, marginTop: '16px' }}
         >
-          <label>
-            On-time payments (%) — last 24 months
-            <input
-              type="number"
-              min={0}
-              max={100}
-              value={onTimePaymentsPct}
-              onChange={(e) =>
-                setOnTimePaymentsPct(Number(e.target.value || 0))
-              }
-            />
-          </label>
+          <div
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+          >
+            <label>
+              On-time payments (%) — last 24 months
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={onTimePaymentsPct}
+                onChange={(e) =>
+                  setOnTimePaymentsPct(Number(e.target.value || 0))
+                }
+              />
+            </label>
 
-          <label>
-            Credit utilization (%) — total across cards
-            <input
-              type="number"
-              min={0}
-              max={100}
-              value={creditUtilizationPct}
-              onChange={(e) =>
-                setCreditUtilizationPct(Number(e.target.value || 0))
-              }
-            />
-          </label>
-        </div>
+            <label>
+              Credit utilization (%) — total across cards
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={creditUtilizationPct}
+                onChange={(e) =>
+                  setCreditUtilizationPct(Number(e.target.value || 0))
+                }
+              />
+            </label>
+          </div>
 
-        <div
-          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
-        >
-          <label>
-            Total card limit (₹)
-            <input
-              type="number"
-              min={0}
-              value={totalCardLimit}
-              onChange={(e) => setTotalCardLimit(Number(e.target.value || 0))}
-            />
-          </label>
+          <div
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+          >
+            <label>
+              Total card limit (₹)
+              <input
+                type="number"
+                min={0}
+                value={totalCardLimit}
+                onChange={(e) => setTotalCardLimit(Number(e.target.value || 0))}
+              />
+            </label>
 
-          <label>
-            Current card balance (auto)
-            <input
-              type="text"
-              readOnly
-              value={`₹${formatNumber(currentBalance)}`}
-            />
-          </label>
-        </div>
+            <label>
+              Current card balance (auto)
+              <input
+                type="text"
+                readOnly
+                value={`₹${formatNumber(currentBalance)}`}
+              />
+            </label>
+          </div>
 
-        <div
-          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
-        >
-          <label>
-            Number of active credit accounts
-            <input
-              type="number"
-              min={0}
-              value={numActiveCreditAccounts}
-              onChange={(e) =>
-                setNumActiveCreditAccounts(Number(e.target.value || 0))
-              }
-            />
-          </label>
+          <div
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+          >
+            <label>
+              Number of active credit accounts
+              <input
+                type="number"
+                min={0}
+                value={numActiveCreditAccounts}
+                onChange={(e) =>
+                  setNumActiveCreditAccounts(Number(e.target.value || 0))
+                }
+              />
+            </label>
 
-          <label>
-            Average account age (years)
-            <input
-              type="number"
-              min={0}
-              step="0.5"
-              value={avgAccountAgeYears}
-              onChange={(e) =>
-                setAvgAccountAgeYears(Number(e.target.value || 0))
-              }
-            />
-          </label>
-        </div>
+            <label>
+              Average account age (years)
+              <input
+                type="number"
+                min={0}
+                step="0.5"
+                value={avgAccountAgeYears}
+                onChange={(e) =>
+                  setAvgAccountAgeYears(Number(e.target.value || 0))
+                }
+              />
+            </label>
+          </div>
 
-        <div
-          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
-        >
-          <label>
-            Recent enquiries (last 12 months)
-            <input
-              type="number"
-              min={0}
-              value={numRecentEnquiries}
-              onChange={(e) =>
-                setNumRecentEnquiries(Number(e.target.value || 0))
-              }
-            />
-          </label>
+          <div
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+          >
+            <label>
+              Recent enquiries (last 12 months)
+              <input
+                type="number"
+                min={0}
+                value={numRecentEnquiries}
+                onChange={(e) =>
+                  setNumRecentEnquiries(Number(e.target.value || 0))
+                }
+              />
+            </label>
 
-          <label>
-            % installment (EMI) loans vs cards
-            <input
-              type="number"
-              min={0}
-              max={100}
-              value={percentInstallmentLoans}
-              onChange={(e) =>
-                setPercentInstallmentLoans(Number(e.target.value || 0))
-              }
-            />
-          </label>
-        </div>
+            <label>
+              % installment (EMI) loans vs cards
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={percentInstallmentLoans}
+                onChange={(e) =>
+                  setPercentInstallmentLoans(Number(e.target.value || 0))
+                }
+              />
+            </label>
+          </div>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <input
-              type="checkbox"
-              checked={hasDefaults}
-              onChange={(e) => setHasDefaults(e.target.checked)}
-            />
-            I have had defaults / missed payments
-          </label>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <input
+                type="checkbox"
+                checked={hasDefaults}
+                onChange={(e) => setHasDefaults(e.target.checked)}
+              />
+              I have had defaults / missed payments
+            </label>
 
-          <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <input
-              type="checkbox"
-              checked={hasSettlements}
-              onChange={(e) => setHasSettlements(e.target.checked)}
-            />
-            I have settled accounts (partial/settlement)
-          </label>
-        </div>
-      </form>
+            <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <input
+                type="checkbox"
+                checked={hasSettlements}
+                onChange={(e) => setHasSettlements(e.target.checked)}
+              />
+              I have settled accounts (partial/settlement)
+            </label>
+          </div>
+        </form>
 
-      {/* Estimated Score */}
-      <div className="result-grid emi-summary-strip" style={{ marginTop: 12 }}>
-        <div className="result-card">
-          <p className="result-label">Estimated Credit Score</p>
-          <p className="result-primary" style={{ fontSize: 28 }}>
-            {scoreEstimate}
-          </p>
-          <p style={{ marginTop: 8 }}>{scoreBand}</p>
-        </div>
+        {/* Estimated Score Results - REFINED STYLING */}
+        <div className="emi-results-full" style={{ marginTop: 24 }}>
+          <div
+            className="result-grid emi-summary-strip"
+            style={{
+              backgroundColor: '#e0f2fe', // Pale blue background
+              padding: '16px',
+              borderRadius: '10px',
+              border: '1px solid #93c5fd', // Light blue border
+            }}
+          >
+            {/* Primary Result: Estimated Credit Score */}
+            <div
+              className="result-card"
+              style={{
+                padding: '10px',
+                border: 'none',
+                textAlign: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+                boxShadow:
+                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Score">
+                  ⭐
+                </span>{' '}
+                Estimated Credit Score
+              </p>
+              <p
+                className="result-primary"
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: scoreEstimate >= 700 ? '#047857' : '#f59e0b',
+                }}
+              >
+                {scoreEstimate}
+              </p>
+              <p style={{ marginTop: 4, fontWeight: 600 }}>{scoreBand}</p>
+            </div>
 
-        <div className="result-card">
-          <p className="result-label">Key Drivers (approx contribution)</p>
-          <ul>
-            <li>Payment history: {breakdown.payment} pts</li>
-            <li>Utilisation: {breakdown.util} pts</li>
-            <li>Length of history: {breakdown.length} pts</li>
-            <li>Credit mix: {breakdown.mix} pts</li>
-            <li>Enquiries: {breakdown.enquiries} pts</li>
-            <li>Accounts bonus: {breakdown.accountsBonus} pts</li>
-            {breakdown.defaults ? (
-              <li>Defaults penalty: {breakdown.defaults} pts</li>
-            ) : null}
-            {breakdown.settlements ? (
-              <li>Settlements penalty: {breakdown.settlements} pts</li>
-            ) : null}
-          </ul>
-        </div>
+            {/* Breakdown */}
+            <div
+              className="result-card"
+              style={{
+                gridColumn: 'span 2',
+                padding: '10px',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Key Drivers">
+                  🔑
+                </span>{' '}
+                Key Drivers (Approximate Impact)
+              </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '8px',
+                  marginTop: '8px',
+                  fontSize: '14px',
+                }}
+              >
+                <div style={{ fontWeight: 600 }}>
+                  <p style={{ color: '#10b981' }}>
+                    Payment History: +{breakdown.payment} pts
+                  </p>
+                  <p style={{ color: '#10b981' }}>
+                    Utilization: +{breakdown.util} pts
+                  </p>
+                  <p style={{ color: '#10b981' }}>
+                    Length of History: +{breakdown.length} pts
+                  </p>
+                </div>
+                <div style={{ fontWeight: 600 }}>
+                  <p style={{ color: '#10b981' }}>
+                    Credit Mix: +{breakdown.mix} pts
+                  </p>
+                  <p
+                    style={{
+                      color: breakdown.enquiries < 0 ? 'crimson' : '#10b981',
+                    }}
+                  >
+                    Enquiries/New Credit: {breakdown.enquiries} pts
+                  </p>
+                  {breakdown.defaults !== 0 && (
+                    <p style={{ color: 'crimson' }}>
+                      Defaults Penalty: {breakdown.defaults} pts
+                    </p>
+                  )}
+                  {breakdown.settlements !== 0 && (
+                    <p style={{ color: 'crimson' }}>
+                      Settlements Penalty: {breakdown.settlements} pts
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
 
-        <div className="result-card">
-          <p className="result-label">Affirmations</p>
-          <p style={{ fontSize: 14 }}>
-            On-time payments and low utilization are the fastest ways to improve
-            score.
-          </p>
-          <ol style={{ marginTop: 8 }}>
-            <li>Keep credit utilisation &lt; 30% (ideally &lt; 20%).</li>
-            <li>Pay all EMI & card dues on time — automate if possible.</li>
-            <li>Avoid multiple new loan applications within 6–12 months.</li>
-            <li>Keep oldest accounts open to preserve length of history.</li>
-          </ol>
+            {/* Affirmations / Quick Wins */}
+            <div
+              className="result-card"
+              style={{
+                gridColumn: 'span 3',
+                padding: '10px',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                className="result-label"
+                style={{ fontSize: '14px', color: '#6b7280' }}
+              >
+                <span role="img" aria-label="Tips">
+                  ✅
+                </span>{' '}
+                Quick Improvement Tips
+              </p>
+              <ol style={{ marginTop: 8, paddingLeft: 20 }}>
+                <li>Keep utilization &lt; 30% (ideally &lt; 20%).</li>
+                <li>Pay all dues on time — use auto-debit.</li>
+                <li>
+                  Avoid multiple new loan applications (hard enquiries) within 6
+                  months.
+                </li>
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* What-if paydown */}
       <div className="card" style={{ marginTop: 16 }}>
-        <h3>What-if: Pay down credit card balances</h3>
-        <p>
-          Current balance: <strong>₹{formatNumber(currentBalance)}</strong> —
-          new balance after paydown:{' '}
-          <strong>₹{formatNumber(newBalance)}</strong> ({newUtilPct}%
-          utilisation)
+        <h3>
+          <span role="img" aria-label="What If">
+            🤔
+          </span>{' '}
+          What-if: Pay Down Utilization
+        </h3>
+        <p style={{ marginBottom: '10px' }}>
+          Current balance: **₹{formatNumber(currentBalance)}** (at{' '}
+          {creditUtilizationPct}% Util.). New balance after paydown: **₹
+          {formatNumber(newBalance)}** ({newUtilPct}% Util.)
         </p>
 
         <div
@@ -399,12 +503,296 @@ export default function CreditScoreClient() {
           pts
         </p>
         <p style={{ fontSize: 13, color: '#6b7280' }}>
-          This delta only reflects utilization component change. Full score
-          change may differ and takes time to reflect in bureau reports.
+          This change reflects the utilization component only. Reducing
+          utilization is the fastest way to boost your score.
         </p>
       </div>
 
-      {/* Action checklist with priorities */}
+      {/* --- SEO Content Starts Here --- */}
+      <div className="content-for-seo" style={{ marginTop: 20 }}>
+        {/* 1. Brief about the program */}
+        <section>
+          <h2 id="about-score">🌟 What is a Credit Score (CIBIL/Experian)?</h2>
+          <p>
+            A **Credit Score** is a three-digit number (ranging from 300 to 900
+            in India) used by lenders to assess your creditworthiness. It
+            summarizes your credit history, including repayment behavior and
+            debt levels. A higher score indicates a lower risk to the lender,
+            resulting in better interest rates and easier loan approval.
+          </p>
+          <p>
+            In India, the most popular credit bureaus are CIBIL, Experian, and
+            Equifax. This tool provides an estimate based on commonly accepted
+            industry factors.
+          </p>
+        </section>
+
+        {/* 2. Who can use this */}
+        <section>
+          <h2 id="who-can-use">🎯 Who Should Use This Estimator?</h2>
+          <p>
+            This calculator is essential for anyone planning a major financial
+            application:
+          </p>
+          <ul>
+            <li>
+              **Future Loan Applicants:** To estimate their score before
+              applying for a Home Loan, Car Loan, or Personal Loan.
+            </li>
+            <li>
+              **Credit Card Users:** To monitor the impact of their spending
+              habits (utilization) on their financial profile.
+            </li>
+            <li>
+              **Individuals Improving Score:** To quantify the estimated point
+              gain from fixing defaults or paying down debt.
+            </li>
+          </ul>
+        </section>
+
+        {/* 3. How can the Score Planner help you? */}
+        <section>
+          <h2 id="how-score-helps">💡 How This Score Planner Helps You</h2>
+          <p>
+            The planner gives you control over the levers that influence your
+            score:
+          </p>
+          <ul>
+            <li>
+              **Factor Breakdown:** Shows which components (e.g., payment
+              history, length of credit) are helping or hurting your score.
+            </li>
+            <li>
+              **Actionable Advice:** Provides a prioritized checklist of steps
+              needed to move into a &apos;Good&apos; or &apos;Excellent&apos;
+              score band.
+            </li>
+            <li>
+              **What-if Scenario:** The paydown tool directly links reducing
+              credit card debt to a potential score increase, motivating
+              immediate action.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4. How the score is estimated (Formula/Logic) */}
+        <section>
+          <h2 id="how-score-works">
+            ⚙️ Credit Score Estimation Logic (Key Factors)
+          </h2>
+
+          <p>
+            Although the exact formulas are proprietary, credit scores are
+            primarily based on these five weighted categories (approximated
+            based on CIBIL guidance):
+          </p>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '16px',
+            }}
+          >
+            <div>
+              <h4>Primary Factors (Highest Impact)</h4>
+              <ul>
+                <li>
+                  **Payment History (Approx. 35%):** Timeliness of past loan and
+                  card payments. *Impact in tool: +{breakdown.payment} pts*
+                </li>
+                <li>
+                  **Credit Utilization (Approx. 30%):** The percentage of your
+                  total available credit limit that you are currently using.
+                  Keep this low (&lt;30%). *Impact in tool: +{breakdown.util}{' '}
+                  pts*
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>Secondary Factors (Moderate Impact)</h4>
+              <ul>
+                <li>
+                  **Length of Credit History (Approx. 15%):** How long your
+                  oldest and newest accounts have been open.
+                </li>
+                <li>
+                  **Credit Mix (Approx. 10%):** Having a healthy mix of secured
+                  loans (home/auto) and unsecured loans (credit cards).
+                </li>
+                <li>
+                  **New Credit/Enquiries (Approx. 10%):** Numerous loan
+                  enquiries in a short time can signal higher risk.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <h4 style={{ marginTop: 12 }}>Scoring Calculation Basis</h4>
+          <p>
+            The calculator begins with a base score of 300 and adds points based
+            on favorable factors (e.g., low utilization, long history) and
+            subtracts heavy penalties for negative marks (defaults/settlements).
+            The final score is clamped between 300 and 900.
+          </p>
+        </section>
+
+        {/* 5. Advantage */}
+        <section>
+          <h2 id="score-advantages">
+            ✅ Advantages of a High Credit Score (750+)
+          </h2>
+          <p>
+            A good credit score is your passport to cheaper borrowing and better
+            financial terms:
+          </p>
+          <div className="advantage-grid">
+            <div className="advantage-card">
+              <h3>Lower Interest Rates</h3>
+              <p>
+                Lenders offer the lowest available interest rates on home loans,
+                car loans, and personal loans to borrowers with high scores
+                (750+).
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Faster Loan Approval</h3>
+              <p>
+                High scores often lead to quicker processing times and less
+                scrutiny during the underwriting process.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Higher Loan Amounts</h3>
+              <p>
+                Banks are willing to sanction larger loan amounts and higher
+                credit card limits to trustworthy borrowers.
+              </p>
+            </div>
+            <div className="advantage-card">
+              <h3>Better Negotiation Power</h3>
+              <p>
+                A strong score gives you leverage to negotiate lower processing
+                fees and more favorable repayment terms.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. FAQ's */}
+        <section>
+          <h2 id="score-faqs">❓ Frequently Asked Questions (FAQs)</h2>
+          <div
+            className="faqs-accordion"
+            style={{
+              display: 'grid',
+              gap: '10px',
+            }}
+          >
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                What is Credit Utilization and what is the ideal limit?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                Credit Utilization is the ratio of your outstanding credit card
+                balance to your total available credit limit. The ideal
+                utilization rate is **below 30%**, and keeping it below **20%**
+                is often required for an excellent score.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                How do &apos;hard enquiries&apos; affect my score?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                A &apos;hard enquiry&apos; occurs when you formally apply for a
+                new loan or credit card. Too many hard enquiries (more than 3-4)
+                in a short period (6–12 months) suggest financial distress to
+                lenders and can temporarily lower your score.
+              </p>
+            </details>
+            <details
+              style={{
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                padding: '0 15px',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <summary
+                style={{
+                  fontWeight: 600,
+                  padding: '15px 0',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  color: '#1f2937',
+                }}
+              >
+                If I pay off a loan, should I close the account?
+              </summary>
+              <p
+                style={{
+                  padding: '10px 0 15px 0',
+                  borderTop: '1px dashed #e5e7eb',
+                  margin: 0,
+                  color: '#6b7280',
+                }}
+              >
+                It is generally advised to keep your oldest, well-managed
+                accounts (like credit cards) open, even if unused. Closing them
+                reduces your total available credit (increasing utilization) and
+                shortens the length of your credit history, both of which can
+                negatively impact your score.
+              </p>
+            </details>
+          </div>
+        </section>
+      </div>
+
+      {/* Action checklist with priorities (moved to be full width at the bottom) */}
       <div className="card" style={{ marginTop: 16 }}>
         <h3>Action Plan (prioritised)</h3>
         <ol>
@@ -429,25 +817,6 @@ export default function CreditScoreClient() {
             installment loans and 1–3 cards is healthy.
           </li>
         </ol>
-      </div>
-
-      {/* Small FAQ / Notes */}
-      <div className="article" style={{ marginTop: 16 }}>
-        <h2>FAQ & Notes</h2>
-        <dl>
-          <dt>How long to see score improvement?</dt>
-          <dd>
-            Minor changes (utilisation) may reflect in 1–2 billing cycles; major
-            changes (fixing defaults) can take months after lenders update
-            bureau.
-          </dd>
-
-          <dt>Is this the official CIBIL score?</dt>
-          <dd>
-            No — this is an estimator to show levers you can control. For the
-            official score, request your report from CIBIL/Experian/Equifax.
-          </dd>
-        </dl>
       </div>
     </section>
   );

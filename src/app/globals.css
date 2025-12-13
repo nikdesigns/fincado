@@ -2272,11 +2272,6 @@ a.secondary-cta:focus,
   }
 }
 
-/* Optional: add small separators between items when viewed on wide screens */
-.trust-item + .trust-item {
-  /* keep subtle; remove if you prefer even tiles */
-}
-
 /* Accessibility: focus outline for keyboard users */
 .trust-item:focus {
   outline: 3px solid rgba(16, 185, 129, 0.1);
@@ -3130,4 +3125,86 @@ a.secondary-cta:focus,
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
+/* FinancialNavWidget.css */
+
+/* --- Base Widget Container --- */
+.financial-nav-widget {
+  /* Ensures the widget aligns nicely in the sidebar */
+  width: 100%;
+  font-family: Arial, sans-serif;
+  color: #1f2937; /* Dark text for readability */
+}
+
+/* --- Individual Sections (Key Tools / Guides) --- */
+.nav-section {
+  padding: 16px 0;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb; /* Light border */
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle lift */
+  overflow: hidden; /* Contains the list borders */
+}
+
+/* --- Header Styling --- */
+.widget-header {
+  margin: 0 16px 10px 16px;
+  padding-bottom: 8px;
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  color: #4b5563; /* Subtle grey for header text */
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+}
+
+/* Highlight the calculator section header color */
+.calculator-section .widget-header {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* --- List & Link Styling --- */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* --- Sleek Minimal Hover Effect --- */
+.nav-link:hover {
+  background-color: #f7f8f9; /* Very light subtle background */
+  color: #047857; /* Highlight link text */
+  /* Optional: Add a light shadow on hover for a 'lifted' feel */
+  box-shadow: inset 3px 0 0 0 #047857; /* Sleek vertical line indicator */
+}
+
+.nav-icon {
+  margin-right: 12px;
+  color: #6b7280; /* Neutral grey icons by default */
+  font-size: 1.1rem;
+  width: 20px; /* Fix width for alignment */
+  text-align: center;
+  transition: color 0.2s;
+}
+
+/* Change icon color on link hover */
+.nav-link:hover .nav-icon {
+  color: #047857; /* Match hover text color */
+}
+
+/* Remove bottom border on last item in the list */
+.nav-list li:last-child a {
+  border-bottom: none;
+}
 /* End of file */
