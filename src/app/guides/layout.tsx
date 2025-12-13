@@ -1,10 +1,14 @@
+// src/app/guides/layout.tsx
 'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+// NOTE: articles.json path assumed to be correct for data lookup
 import articles from '@/data/articles.json';
-import RelatedTopicsSidebar from '@/components/RelatedTopicsSidebar';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
+// Assuming components like LegalNote and FinancialNavWidget might also be available/used here
 
+// Type declaration needed for accessing JSON data
 type Article = {
   slug: string;
   title: string;
@@ -17,9 +21,14 @@ export default function GuidesLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const slug = pathname.split('/').pop();
+  // Robust slug extraction: filters out empty strings from the path array
+  const slug = pathname.split('/').filter(Boolean).pop();
 
-  const article = (articles as Article[]).find((a) => a.slug === slug);
+  // Find article data only if a specific slug is present (not on /guides/ root)
+  // Casting articles to Article[] to ensure type safety in the find function
+  const article = slug
+    ? (articles as Article[]).find((a) => a.slug === slug)
+    : undefined;
 
   return (
     <main
@@ -40,29 +49,60 @@ export default function GuidesLayout({
         {/* ✅ TOP AD */}
         <div className="ad-box">Advertisement</div>
 
-        {/* ✅ POPULAR CALCULATORS (KEPT AS IS) */}
-        <div className="card" style={{ marginTop: 24 }}>
-          <h3>Popular Calculators</h3>
-          <ul>
-            <li>
-              <Link href="/emi-calculator">EMI Calculator</Link>
+        {/* ✅ POPULAR CALCULATORS (Styled to look like FinancialNavWidget) */}
+        <div
+          className="nav-section calculator-section"
+          style={{ marginTop: 24 }}
+        >
+          <h3 className="widget-header">Popular Tools</h3>
+          <ul
+            className="nav-list"
+            style={{ listStyle: 'none', padding: 0, margin: 0 }}
+          >
+            <li style={{ borderBottom: '1px solid #f3f4f6' }}>
+              <Link
+                href="/emi-calculator"
+                className="nav-link"
+                style={{ padding: '10px 16px' }}
+              >
+                EMI Calculator
+              </Link>
+            </li>
+            <li style={{ borderBottom: '1px solid #f3f4f6' }}>
+              <Link
+                href="/sip-calculator"
+                className="nav-link"
+                style={{ padding: '10px 16px' }}
+              >
+                SIP Calculator
+              </Link>
+            </li>
+            <li style={{ borderBottom: '1px solid #f3f4f6' }}>
+              <Link
+                href="/fd-calculator"
+                className="nav-link"
+                style={{ padding: '10px 16px' }}
+              >
+                FD Calculator
+              </Link>
             </li>
             <li>
-              <Link href="/sip-calculator">SIP Calculator</Link>
-            </li>
-            <li>
-              <Link href="/fd-calculator">FD Calculator</Link>
+              <Link
+                href="/retirement-calculator"
+                className="nav-link"
+                style={{ padding: '10px 16px' }}
+              >
+                Retirement Planner
+              </Link>
             </li>
           </ul>
         </div>
 
-        {/* ✅ ✅ ✅ RELATED TOPICS (REPLACES CREDIT & LOANS) */}
+        {/* ✅ RELATED TOPICS (Only appears if article data is found) */}
         {article && (
           <div style={{ marginTop: 24 }}>
-            <RelatedTopicsSidebar
-              currentSlug={article.slug}
-              category={article.category}
-            />
+            {/* The RelatedTopicsSidebar component must be a client component */}
+            <FinancialNavWidget />
           </div>
         )}
       </aside>

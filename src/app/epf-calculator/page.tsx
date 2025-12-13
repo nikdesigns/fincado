@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import EPFClient from './EPFClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'EPF Calculator – Employee Provident Fund Calculator | Fincado',
@@ -52,7 +52,7 @@ export default function EPFPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <FinancialNavWidget />
       </aside>
     </main>
   );

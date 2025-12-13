@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import CreditScoreClient from './CreditScoreClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
+import CreditScoreClient from './CreditScoreClient';
 
 export const metadata: Metadata = {
   title: 'Credit Score Checker & Planner – Improve CIBIL | Fincado',
@@ -62,7 +62,8 @@ export default function CreditScorePage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        {/* This widget helps monetize the high-intent finance traffic */}
+        <FinancialNavWidget />
       </aside>
     </main>
   );

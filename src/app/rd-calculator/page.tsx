@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import RDClient from './RDClient';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'RD Calculator – Recurring Deposit Calculator | Fincado',
@@ -62,7 +63,7 @@ export default function RDPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        {/* optionally include loan compare / other widgets */}
+        <FinancialNavWidget />
       </aside>
     </main>
   );

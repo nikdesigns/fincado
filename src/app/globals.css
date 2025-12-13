@@ -951,6 +951,7 @@ textarea {
   padding: 12px;
   border-bottom: 1px solid #eaeaea;
   color: #333;
+  text-align: left;
 }
 .article table tr:last-child td {
   border-bottom: none;
@@ -3186,7 +3187,6 @@ a.secondary-cta:focus,
   background-color: #f7f8f9; /* Very light subtle background */
   color: #047857; /* Highlight link text */
   /* Optional: Add a light shadow on hover for a 'lifted' feel */
-  box-shadow: inset 3px 0 0 0 #047857; /* Sleek vertical line indicator */
 }
 
 .nav-icon {
@@ -3206,5 +3206,472 @@ a.secondary-cta:focus,
 /* Remove bottom border on last item in the list */
 .nav-list li:last-child a {
   border-bottom: none;
+}
+
+/* =========================================================================
+   GLOBAL CSS: Fincado - Sleek, Minimal, Professional Theme Revision
+   - Focus: Subtle typography, soft shadows, and clean lines.
+   - Base Font: Rubik (from your original file)
+   ========================================================================= */
+
+:root {
+  /* --- Color Palette --- */
+  --color-brand-green: #1a6f05; /* Deep Green for accents/icons */
+  --color-brand-light: #a0e870; /* Original Primary Light Green */
+  --color-action-cta: #047857; /* Primary action/success color (Teal/Dark Green) */
+  --color-secondary-blue: #1d4ed8; /* Strong Blue for metric contrast */
+
+  --color-background-soft: #f9fafb; /* Lighter than original #fafafa */
+  --color-card-white: #ffffff;
+  --color-text-dark: #1f2937; /* Darker text for better contrast */
+  --color-text-subtle: #6b7280; /* Muted grey for descriptions */
+  --color-border-light: #e5e7eb;
+  --color-link: #047857;
+
+  /* --- Typography & Radius --- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --radius-xl: 12px;
+  --radius-lg: 8px;
+  --container-max: 1200px;
+}
+
+/* Reset & base */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+body {
+  font-family: 'Rubik', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--color-background-soft);
+  color: var(--color-text-dark);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Typography Scaling (Reduced Boldness & Size) --- */
+h1 {
+  font-size: clamp(30px, 4vw, 40px); /* Slightly smaller max size */
+  line-height: 1.15;
+  font-weight: var(--font-weight-semibold); /* Reduced from 600 */
+  margin: 0;
+  color: #0b1720;
+}
+h2 {
+  font-size: clamp(22px, 3.2vw, 28px); /* Reduced max size */
+  line-height: 1.3;
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--color-text-dark);
+}
+h3 {
+  font-size: 18px; /* Slightly smaller */
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--color-text-dark);
+}
+p,
+ul,
+ol,
+dl {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text-subtle);
+}
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Card & Article Structure --- */
+.card {
+  background: var(--color-card-white);
+  border-radius: var(--radius-xl);
+  padding: 24px; /* Slightly reduced padding */
+  border: 1px solid var(--color-border-light);
+  /* Softer Shadow: less depth, more spread */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: 0.2s ease;
+  margin-bottom: 24px;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+.article {
+  /* Apply card style to article content area too */
+  background: white;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* --- Layouts --- */
+.emi-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Stacks nicely on mobile */
+}
+
+@media (min-width: 768px) {
+  .emi-split {
+    /* Use flexible column sizing on desktop */
+    display: grid;
+    grid-template-columns: minmax(350px, 1fr) 300px;
+    gap: 30px;
+  }
+}
+
+/* --- Form Elements --- */
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-dark);
+}
+input[type='number'],
+input[type='text'],
+select {
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: var(--radius-lg);
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  color: var(--color-text-dark);
+}
+input:focus,
+select:focus {
+  border-color: var(--color-action-cta);
+  box-shadow: 0 0 0 2px rgba(4, 120, 87, 0.1);
+}
+
+/* --- Buttons (Sleek & Minimal) --- */
+button,
+.primary-cta {
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  font-size: 16px;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  letter-spacing: 0.2px;
+}
+
+/* Primary CTA */
+.primary-cta {
+  background-color: var(--color-action-cta);
+  color: #fff;
+  border: 1px solid var(--color-action-cta);
+  box-shadow: 0 4px 8px rgba(4, 120, 87, 0.3); /* Subtle depth */
+}
+
+.primary-cta:hover {
+  background-color: #035a42;
+  box-shadow: 0 6px 12px rgba(4, 120, 87, 0.4);
+}
+
+/* Secondary Button (Reset, Print, etc.) */
+button:not(.primary-cta),
+.apply-btn {
+  background-color: #f7f8f9;
+  color: var(--color-text-dark);
+  border: 1px solid var(--color-border-light);
+  font-weight: var(--font-weight-medium);
+}
+
+button:not(.primary-cta):hover,
+.apply-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Anchor CTAs (ensure consistency) */
+a.primary-cta,
+a.apply-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Results Section Styling --- */
+
+/* Result grid container - Use success background color */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  background-color: var(
+    --color-success-bg
+  ); /* Use the pale background from the client components */
+  padding: 18px;
+  border-radius: var(--radius-xl);
+  border: 1px solid #d1fae5;
+  margin-top: 24px;
+}
+
+/* Individual result card */
+.result-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.result-label {
+  font-size: 13px;
+  color: var(--color-text-subtle);
+  margin-bottom: 4px;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Primary focus metric (e.g., Target Corpus, Monthly EMI) */
+.result-primary {
+  font-size: 1.8rem; /* 28.8px */
+  font-weight: var(--font-weight-bold);
+  color: var(
+    --color-secondary-blue
+  ); /* Use secondary color for primary metric */
+}
+/* Ensure success/profit metrics use the brand success color */
+.result-card strong[style*='color: #059669'],
+.result-card p[style*='color: #059669'] {
+  color: var(--color-action-cta) !important;
+}
+/* Ensure secondary metric text is dark */
+.result-value {
+  font-size: 1.25rem; /* 20px */
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+}
+/* Ensure crimson text (for losses/tax) is correctly styled */
+.result-card strong[style*='color: #dc2626'],
+.result-card p[style*='color: #dc2626'] {
+  color: #dc2626 !important;
+}
+
+/* --- Table Styling (Amortization/Rates) --- */
+.rate-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.rate-table th,
+.rate-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  text-align: right;
+}
+.rate-table th {
+  background: #f7f9fb;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+  text-align: left;
+}
+.schedule-wrapper {
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-height: 400px;
+}
+.schedule-wrapper thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f7f9fb;
+}
+.rate-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* --- SEO Content Structure (Article Sections) --- */
+.content-for-seo h2 {
+  margin-top: 36px;
+  margin-bottom: 16px;
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-semibold);
+}
+.content-for-seo h3 {
+  margin-top: 24px;
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary-blue);
+}
+.content-for-seo ul {
+  color: var(--color-text-subtle);
+}
+.content-for-seo ul strong {
+  color: var(--color-text-dark);
+}
+
+/* Advantage Grid Styling (used in SEO content) */
+.advantage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.advantage-card {
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid #d1d5db;
+  background-color: #fcfcfc;
+  transition: all 0.2s;
+}
+.advantage-card h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-action-cta);
+}
+.advantage-card p {
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+/* FAQ Accordion Styling (Sleek/Minimal) */
+.faqs-accordion details {
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-card-white);
+  transition: all 0.2s;
+}
+.faqs-accordion summary {
+  font-weight: var(--font-weight-semibold);
+  padding: 16px 20px;
+  cursor: pointer;
+  outline: none;
+  color: var(--color-text-dark);
+  font-size: 15px;
+}
+.faqs-accordion details[open] {
+  background-color: #f5faff;
+  border-color: #bbdefb;
+}
+.faqs-accordion details p {
+  padding: 10px 20px 16px;
+  margin: 0;
+  border-top: 1px solid #eef2f6;
+  font-size: 14px;
+  color: var(--color-text-subtle);
+}
+
+/* --- Sidebar Styling (from FinancialNavWidget.css) --- */
+.sidebar {
+  position: sticky;
+  top: 50px;
+  align-self: flex-start;
+}
+
+.financial-nav-widget .nav-section {
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.financial-nav-widget .widget-header {
+  font-size: 16px;
+  color: var(--color-text-dark);
+  padding: 0 0 8px 0;
+  margin: 0 0 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+}
+.financial-nav-widget .calculator-section .widget-header {
+  color: var(--color-action-cta);
+}
+
+.financial-nav-widget .nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.financial-nav-widget .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #374151;
+  font-size: 15px;
+  font-weight: var(--font-weight-medium);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.financial-nav-widget .nav-link:hover {
+  background-color: #f7f9fb;
+  color: var(--color-action-cta);
+}
+
+.financial-nav-widget .nav-icon {
+  margin-right: 12px;
+  color: #6b7280;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.financial-nav-widget .nav-link:hover .nav-icon {
+  color: var(--color-action-cta);
+}
+
+/* =========================================================================
+   END OF FILE
+   ========================================================================= */
+
+/* --- Custom Helper Classes (Keep for component structure integrity) --- */
+
+.hero-card,
+.tool-tile {
+  /* Ensure styles from original file that are used for basic spacing remain */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+}
+
+/* Hero & General Layout Helpers (Minimal) */
+main {
+  padding: 24px;
+}
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+}
+@media (max-width: 1000px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .emi-results-full .result-grid {
+    grid-template-columns: 1fr;
+  }
 }
 /* End of file */

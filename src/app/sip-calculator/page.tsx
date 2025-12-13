@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import SIPClient from './SIPClient';
 import LegalNote from '@/components/LegalNote';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'SIP Calculator – Mutual Fund SIP Calculator | Fincado',
@@ -62,7 +62,7 @@ export default function SIPPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <FinancialNavWidget />
       </aside>
     </main>
   );

@@ -748,14 +748,7 @@ export default function SWPClient() {
               >
                 Is the SWP withdrawal amount fixed?
               </summary>
-              <p
-                style={{
-                  padding: '10px 0 15px 0',
-                  borderTop: '1px dashed #e5e7eb',
-                  margin: 0,
-                  color: '#6b7280',
-                }}
-              >
+              <p>
                 Yes, in a basic SWP, the cash amount withdrawn (or the number of
                 units) is fixed. You can, however, periodically step up the
                 withdrawal amount to counter inflation, which would require
@@ -781,26 +774,18 @@ export default function SWPClient() {
               >
                 How is an SWP taxed in India?
               </summary>
-              <p
-                style={{
-                  padding: '10px 0 15px 0',
-                  borderTop: '1px dashed #e5e7eb',
-                  margin: 0,
-                  color: '#6b7280',
-                }}
-              >
-                Taxation depends on the type of fund:
-                <ul>
-                  <li>
-                    **Equity Funds (held &gt; 1 year):** Taxed as Long-Term
-                    Capital Gains (LTCG) at 10% (on gains over ₹1 lakh).
-                  </li>
-                  <li>
-                    **Debt Funds (held &gt; 3 years):** Taxed as LTCG with
-                    indexation benefits, making them highly tax-efficient.
-                  </li>
-                </ul>
-              </p>
+              <p>Taxation depends on the type of fund:</p>
+
+              <ul>
+                <li>
+                  <strong>Equity Funds (held &gt; 1 year):</strong> Taxed as
+                  Long-Term Capital Gains (LTCG) at 10% (on gains over ₹1 lakh).
+                </li>
+                <li>
+                  <strong>Debt Funds (held &gt; 3 years):</strong> Taxed as LTCG
+                  with indexation benefits, making them highly tax-efficient.
+                </li>
+              </ul>
             </details>
             <details
               style={{
@@ -821,14 +806,7 @@ export default function SWPClient() {
               >
                 What is the &quot;4% Rule&ldquo; and how does it relate to SWP?
               </summary>
-              <p
-                style={{
-                  padding: '10px 0 15px 0',
-                  borderTop: '1px dashed #e5e7eb',
-                  margin: 0,
-                  color: '#6b7280',
-                }}
-              >
+              <p>
                 The 4% Rule is a guideline suggesting you can safely withdraw 4%
                 of your initial corpus (adjusted for inflation each year) for 30
                 years without exhausting the fund. This rule is a foundational
@@ -855,14 +833,7 @@ export default function SWPClient() {
               >
                 Is SWP safer than a Fixed Deposit (FD)?
               </summary>
-              <p
-                style={{
-                  padding: '10px 0 15px 0',
-                  borderTop: '1px dashed #e5e7eb',
-                  margin: 0,
-                  color: '#6b7280',
-                }}
-              >
+              <p>
                 An FD provides capital protection and guaranteed returns, making
                 it safer in terms of principal. SWPs carry market risk. However,
                 SWPs offer the potential to outpace inflation and maintain the

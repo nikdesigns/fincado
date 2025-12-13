@@ -175,7 +175,7 @@ export default function CreditScoreClient() {
 
   return (
     <section className="article">
-      <div className="card">
+      <div>
         <h1>🔍 Credit Score Estimator & Action Planner</h1>
 
         <form

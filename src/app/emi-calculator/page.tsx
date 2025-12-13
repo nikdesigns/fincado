@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import EMIClient from './EMIClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'EMI Calculator – Calculate Loan EMI Online | Fincado',
@@ -70,7 +70,7 @@ export default function EMIPage() {
       {/* ✅ STICKY SIDEBAR */}
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <FinancialNavWidget />
       </aside>
     </main>
   );

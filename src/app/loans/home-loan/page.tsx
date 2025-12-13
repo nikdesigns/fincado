@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import HomeLoanClient from './HomeLoanClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
+
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
+import HomeLoanClient from './HomeLoanClient';
 
 export const metadata: Metadata = {
   title:
@@ -72,7 +73,7 @@ export default function HomeLoanCalculatorPage() {
       {/* RIGHT SIDEBAR */}
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <FinancialNavWidget />
       </aside>
     </main>
   );

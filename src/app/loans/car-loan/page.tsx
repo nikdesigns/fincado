@@ -1,6 +1,7 @@
 // ./src/app/loans/car-loan/page.tsx
 import type { Metadata } from 'next';
 import CarLoanClient from './CarLoanClient';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'Car Loan Calculator – Calculate Car Loan EMI | Fincado',
@@ -80,30 +81,14 @@ export default function CarLoanPage() {
 
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="ad-box" style={{ position: 'sticky', top: 20 }}>
-          Sticky Sidebar Ad
-        </div>
-
-        <div className="side-card" style={{ marginTop: 24 }}>
-          <h3>Quick Tools</h3>
-          <ul className="side-links">
-            <li>
-              <a href="/emi-calculator">EMI Calculator</a>
-            </li>
-            <li>
-              <a href="/loans/personal-loan">Personal Loan</a>
-            </li>
-            <li>
-              <a href="/loans/home-loan">Home Loan</a>
-            </li>
-          </ul>
-        </div>
+        <div className="ad-box">Sticky Sidebar Ad</div>
+        {/* This widget helps monetize the high-intent finance traffic */}
+        <FinancialNavWidget />
       </aside>
 
       {/* Structured data script */}
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     </main>

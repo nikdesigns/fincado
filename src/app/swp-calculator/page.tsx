@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import SWPClient from './SWPClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'SWP Calculator – Systematic Withdrawal Plan | Fincado',
@@ -51,7 +51,7 @@ export default function SWPPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <FinancialNavWidget />
       </aside>
 
       {/* JSON-LD FAQ for SEO */}

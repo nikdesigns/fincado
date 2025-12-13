@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import InvestingClient from './InvestingClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title:
@@ -65,7 +65,8 @@ export default function InvestingPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        {/* This widget helps monetize the high-intent finance traffic */}
+        <FinancialNavWidget />
       </aside>
     </main>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import FDClient from './FDClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
 
 export const metadata: Metadata = {
   title: 'FD Calculator – Fixed Deposit Maturity Calculator | Fincado',
@@ -65,7 +65,7 @@ export default function FDCalculatorPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <FinancialNavWidget />
       </aside>
     </main>
   );
