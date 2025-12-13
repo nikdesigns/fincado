@@ -1,69 +1,277 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import SIPClient from './SIPClient';
-import LegalNote from '@/components/LegalNote';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
+import AdSlot from '@/components/AdSlot';
+import HeroWithStats from '@/components/HeroWithStats';
 
+// 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'SIP Calculator – Mutual Fund SIP Calculator | Fincado',
+  title: 'SIP Calculator – Calculate Mutual Fund Returns & Growth',
   description:
-    'SIP Calculator: calculate future value of monthly SIPs, total invested, estimated returns, CAGR and time to reach your financial goals. India-focused guidance included.',
+    'Calculate the future value of your monthly SIPs with our Mutual Fund SIP Calculator. Check returns, CAGR, and plan for financial goals like retirement or education.',
+  keywords: [
+    'SIP Calculator',
+    'Mutual Fund Calculator',
+    'Systematic Investment Plan',
+    'SIP Return Calculator',
+    'Investment Planner India',
+    'CAGR Calculator',
+  ],
+  openGraph: {
+    title: 'SIP Calculator – The Power of Compounding',
+    description:
+      'Visualize how small monthly investments grow into a large corpus over time.',
+    url: 'https://www.fincado.com/sip-calculator',
+    type: 'website',
+  },
 };
 
 export default function SIPPage() {
   return (
-    <main
-      style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 300px',
-        gap: 16,
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        <h1>SIP Calculator — Plan Your Monthly SIPs & Target Goals</h1>
+    <>
+      {/* 2. SCHEMA MARKUP */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What is Rupee Cost Averaging?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Rupee Cost Averaging is a strategy where you invest a fixed amount regularly. You buy more units when markets are low and fewer when markets are high, averaging out the cost of your investment over time.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I change my SIP amount later?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, most "Step-up SIP" options allow you to increase your investment amount annually. Alternatively, you can start a fresh SIP with a new amount.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Are SIP returns taxable?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes. For Equity funds, gains withdrawn before 1 year are taxed at 15% (STCG). Gains above ₹1 Lakh withdrawn after 1 year are taxed at 10% (LTCG).',
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
-        <p style={{ maxWidth: 760 }}>
-          Calculate how much your monthly SIP (Systematic Investment Plan) can
-          grow to over time based on expected returns. Use the target planner to
-          find the monthly SIP required to reach a financial goal.
-        </p>
+      <main className="container" style={{ padding: '40px 20px' }}>
+        {/* Header - Hidden in Print */}
+        <header style={{ marginBottom: 40 }} className="no-print">
+          <h1>SIP Calculator — Plan Your Wealth Creation</h1>
+          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
+            See the magic of compounding. Calculate how your small monthly
+            investments grow over time and plan for your dream goals.
+            <strong> Accurate. Free. No Login Required.</strong>
+          </p>
+        </header>
 
-        <div className="ad-box">Ad will appear here (Above the fold)</div>
+        <div className="layout-grid">
+          <div className="main-content">
+            {/* CALCULATOR APP */}
+            <SIPClient />
 
-        <SIPClient />
+            <div style={{ margin: '40px 0' }} className="no-print">
+              <AdSlot id="sip-mid-content" type="leaderboard" />
+            </div>
 
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Mid content)
+            {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
+            <article className="article content-for-seo no-print">
+              {/* 1. What is SIP? (Adapted from Education Loan) */}
+              <h2>What is a Systematic Investment Plan (SIP)?</h2>
+              <p>
+                A <strong>SIP</strong> is a disciplined way of investing money
+                in mutual funds. Instead of a lump sum, you invest a fixed
+                amount at regular intervals (monthly or quarterly).
+              </p>
+              <p>
+                It is similar to a Recurring Deposit (RD) but invests in
+                market-linked instruments (Equity/Debt) to generate potentially
+                higher returns over the long term. It relies on the power of
+                compounding to grow your wealth.
+              </p>
+
+              {/* 2. Who is Eligible? (Adapted to 'Who Can Invest') */}
+              <h3>Who Can Invest in SIP?</h3>
+              <p>
+                Unlike loans, there are no strict eligibility criteria based on
+                income or credit score. Any individual can start a SIP if they
+                meet these basic requirements:
+              </p>
+              <ul>
+                <li>
+                  <strong>KYC Compliant:</strong> You must have a PAN Card and
+                  be KYC verified.
+                </li>
+                <li>
+                  <strong>Bank Account:</strong> An active savings account is
+                  needed for auto-debit mandates.
+                </li>
+                <li>
+                  <strong>Minimum Age:</strong> Anyone above 18 years can
+                  invest. Parents can also invest in the name of a minor.
+                </li>
+              </ul>
+
+              {/* 3. Calculator Help (Adapted from Moratorium Planning) */}
+              <h3>How This Calculator Helps Your Wealth Planning</h3>
+              <p>
+                Investing without a target is like driving without a
+                destination. This calculator helps you:
+              </p>
+              <div className="advantage-grid">
+                <div className="advantage-card">
+                  <h4>Visualize Growth</h4>
+                  <p>
+                    See how a small ₹5,000 monthly investment can grow into
+                    Crores over 20-30 years due to compounding.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Goal Mapping</h4>
+                  <p>
+                    Reverse calculate: Input your target corpus (e.g., ₹1 Crore
+                    for retirement) to find out the monthly SIP required today.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Check Inflation Impact</h4>
+                  <p>
+                    Understand the "Real Value" of your returns. ₹10 Lakhs today
+                    will not buy the same things 10 years from now.
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. Formula (Adapted from EMI Calculation) */}
+              <h3>SIP Calculation Formula</h3>
+              <p>
+                The calculator uses the standard Future Value of Annuity
+                formula. SIPs are typically calculated as an "Annuity Due"
+                because payments are made at the start of the period.
+              </p>
+              <div
+                style={{
+                  background: '#f1f5f9',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  fontFamily: 'monospace',
+                  marginBottom: '20px',
+                  border: '1px solid #e2e8f0',
+                  textAlign: 'center',
+                  fontWeight: 600,
+                }}
+              >
+                FV = P × [ (1 + i)ⁿ - 1 ] / i × (1 + i)
+              </div>
+              <ul style={{ fontSize: '14px' }}>
+                <li>
+                  <strong>FV</strong> = Future Value (Maturity Amount)
+                </li>
+                <li>
+                  <strong>P</strong> = Monthly SIP Amount
+                </li>
+                <li>
+                  <strong>i</strong> = Monthly Interest Rate (Annual Rate / 12 /
+                  100)
+                </li>
+                <li>
+                  <strong>n</strong> = Total number of months
+                </li>
+              </ul>
+
+              {/* 5. Key Advantages */}
+              <h3>Key Advantages of SIP</h3>
+              <ul>
+                <li>
+                  <strong>Rupee Cost Averaging:</strong> You buy more units when
+                  the market is low and fewer when high, automatically averaging
+                  your purchase cost.
+                </li>
+                <li>
+                  <strong>Disciplined Savings:</strong> Auto-debit ensures you
+                  save first and spend later.
+                </li>
+                <li>
+                  <strong>Flexibility:</strong> You can pause, stop, or increase
+                  (step-up) your investment amount anytime.
+                </li>
+                <li>
+                  <strong>Power of Compounding:</strong> Returns earned on your
+                  returns accelerate wealth creation over time.
+                </li>
+              </ul>
+            </article>
+
+            {/* Smart Planning Section */}
+            <div className="no-print">
+              <HeroWithStats
+                eyebrow="Smart Investing"
+                title="SIP Success Mantras"
+                stats={[
+                  { value: 'Start Early', label: 'To maximize compounding' },
+                  { value: 'Step Up', label: 'Increase SIP by 10% yearly' },
+                  { value: 'Long Term', label: 'Stay invested for 7+ years' },
+                ]}
+              />
+            </div>
+
+            {/* FAQs */}
+            <section className="article no-print">
+              <h2>Frequently Asked Questions (FAQs)</h2>
+              <div className="faqs-accordion">
+                <details open>
+                  <summary>Can I withdraw my SIP money anytime?</summary>
+                  <p>
+                    Yes, for open-ended mutual funds, you can withdraw anytime.
+                    However, <strong>ELSS (Tax Saving)</strong> funds have a
+                    3-year lock-in period.
+                  </p>
+                </details>
+                <details>
+                  <summary>
+                    What happens if I miss a monthly installment?
+                  </summary>
+                  <p>
+                    Nothing major. The bank may charge a small penalty for
+                    insufficient funds (NACH bounce), but your SIP will not be
+                    cancelled. It will continue from the next month.
+                  </p>
+                </details>
+                <details>
+                  <summary>Which date is best for SIP?</summary>
+                  <p>
+                    Historically, the date of the month has negligible impact on
+                    long-term returns. It is best to choose a date shortly after
+                    your salary credit date (e.g., 5th or 7th) to ensure
+                    discipline.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar */}
+          <aside className="sidebar no-print">
+            <FinancialNavWidget />
+            <div style={{ marginTop: 24 }}>
+              <AdSlot id="sip-sidebar" type="box" />
+            </div>
+          </aside>
         </div>
-
-        <section className="article" style={{ marginTop: 24 }}>
-          <h2>Notes for Indian investors</h2>
-          <ul>
-            <li>
-              SIP returns are assumed as nominal annual returns. Adjust for
-              inflation if you want real returns.
-            </li>
-            <li>
-              For equity mutual funds, consider long-term capital gains tax
-              rules (as of the time of writing) when planning withdrawals—this
-              is only an estimate and not tax advice.
-            </li>
-            <li>Past returns are not indicative of future performance.</li>
-          </ul>
-
-          <LegalNote />
-        </section>
-
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Before footer)
-        </div>
-      </div>
-
-      <aside className="sidebar">
-        <div className="ad-box">Sticky Sidebar Ad</div>
-        <FinancialNavWidget />
-      </aside>
-    </main>
+      </main>
+    </>
   );
 }

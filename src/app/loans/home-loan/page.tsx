@@ -93,97 +93,84 @@ export default function HomeLoanPage() {
 
             {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
             <article className="article content-for-seo no-print">
-              {/* SECTION 1: HOW IT HELPS */}
-              <h2>How This Calculator Helps You</h2>
+              {/* 1. What is a Home Loan? (New Section) */}
+              <h2>What is a Home Loan?</h2>
+              <p>
+                A Home Loan is a secured loan provided by financial institutions
+                to help you purchase, construct, or renovate a residential
+                property. The property itself acts as{' '}
+                <strong>collateral</strong> for the loan.
+              </p>
+              <p>
+                Because it is a high-value loan secured by real estate, it comes
+                with long repayment tenures (up to 30 years) and relatively
+                lower interest rates compared to personal or car loans.
+              </p>
+
+              {/* 2. Who is Eligible? (New Section) */}
+              <h3>Who is Eligible?</h3>
+              <p>
+                Banks evaluate your repayment capacity and the legal status of
+                the property. Common eligibility criteria include:
+              </p>
+              <ul>
+                <li>
+                  <strong>Applicant Type:</strong> Resident Indians and NRIs
+                  (Non-Resident Indians).
+                </li>
+                <li>
+                  <strong>Age:</strong> 21 to 70 years (loan must be closed by
+                  retirement age).
+                </li>
+                <li>
+                  <strong>Credit Score:</strong> A CIBIL score of{' '}
+                  <strong>750+</strong> is crucial for getting the best ROI
+                  (Rate of Interest).
+                </li>
+                <li>
+                  <strong>Income Stability:</strong> At least 2 years of work
+                  experience for salaried and 3 years of business continuity for
+                  self-employed individuals.
+                </li>
+              </ul>
+
+              {/* 3. Calculator Help */}
+              <h3>How This Calculator Helps Your Planning</h3>
               <p>
                 Buying a home is a long-term financial commitment. A slight
                 change in interest rates or tenure can cost you lakhs. This tool
                 is designed to help you:
               </p>
-              <ul>
-                <li>
-                  <strong>Budget Accurately:</strong> Know exactly how much you
-                  need to pay every month so you don't overstretch your
-                  finances.
-                </li>
-                <li>
-                  <strong>Save Interest:</strong> Experiment with different
-                  tenures to see how you can save 20-30% on total interest
-                  payouts.
-                </li>
-                <li>
-                  <strong>Check Affordability:</strong> Ensure your EMI does not
-                  exceed 40-50% of your monthly take-home income.
-                </li>
-                <li>
-                  <strong>Tax Planning:</strong> Estimate your deductions under
-                  Section 80C and 24(b) to lower your tax liability.
-                </li>
-              </ul>
-
-              {/* SECTION 2: HOW TO USE */}
-              <h3>How to Use Fincado's Home Loan Calculator?</h3>
-              <p>
-                Using our tool is simple and instant. Just follow these three
-                steps:
-              </p>
-              <ol>
-                <li>
-                  <strong>Enter Loan Amount:</strong> Input the total amount you
-                  wish to borrow from the bank.
-                </li>
-                <li>
-                  <strong>Set Interest Rate:</strong> Enter the current interest
-                  rate offered by your bank (e.g., 8.5% for SBI/HDFC).
-                </li>
-                <li>
-                  <strong>Choose Tenure:</strong> Select the number of years you
-                  want to repay the loan.
-                </li>
-              </ol>
-              <p>
-                Once entered, the calculator immediately shows your{' '}
-                <strong>Monthly EMI</strong>, <strong>Total Interest</strong>,
-                and a year-wise <strong>Amortization Schedule</strong>.
-              </p>
-
-              {/* SECTION 3: ADVANTAGES */}
-              <h3>Advantages of Using an Online Calculator</h3>
               <div className="advantage-grid">
                 <div className="advantage-card">
-                  <h4>⚡ Instant Results</h4>
+                  <h4>Budget Accurately</h4>
                   <p>
-                    No manual calculations or complex formulas. Get 100%
-                    accurate results in milliseconds.
+                    Know exactly how much you need to pay every month so you
+                    don't overstretch your finances.
                   </p>
                 </div>
                 <div className="advantage-card">
-                  <h4>📊 Visual Breakdown</h4>
+                  <h4>Save Interest</h4>
                   <p>
-                    See exactly how much of your money goes to Principal vs
-                    Interest with our interactive charts.
+                    Experiment with different tenures to see how you can save
+                    20-30% on total interest payouts.
                   </p>
                 </div>
                 <div className="advantage-card">
-                  <h4>🛡️ Comparisons</h4>
+                  <h4>Tax Planning</h4>
                   <p>
-                    Compare different loan offers side-by-side to find the
-                    cheapest option for your needs.
+                    Estimate your deductions under Section 80C and 24(b) to
+                    lower your tax liability significantly.
                   </p>
                 </div>
               </div>
 
-              <hr
-                style={{
-                  margin: '32px 0',
-                  border: 'none',
-                  borderTop: '1px solid #e2e8f0',
-                }}
-              />
-
-              {/* SECTION 4: FORMULA & MATH */}
+              {/* 4. Formula */}
               <h3>Home Loan Formula</h3>
-              <p>We use the standard formula used by all Indian banks:</p>
+              <p>
+                We use the standard reducing balance formula used by all Indian
+                banks:
+              </p>
               <div
                 style={{
                   background: '#f1f5f9',
@@ -211,7 +198,29 @@ export default function HomeLoanPage() {
                 </li>
               </ul>
 
-              {/* SECTION 5: TAX BENEFITS (High Ranking Keywords) */}
+              {/* 5. Key Advantages (New Section) */}
+              <h3>Key Advantages of a Home Loan</h3>
+              <ul>
+                <li>
+                  <strong>Tax Savings:</strong> The biggest advantage. You save
+                  tax on both principal repayment (Sec 80C) and interest payment
+                  (Sec 24).
+                </li>
+                <li>
+                  <strong>Long Tenure:</strong> Repayment can be spread over
+                  20-30 years, reducing the monthly burden.
+                </li>
+                <li>
+                  <strong>Capital Appreciation:</strong> While you pay interest,
+                  the value of your property typically appreciates over time.
+                </li>
+                <li>
+                  <strong>Balance Transfer:</strong> If interest rates drop, you
+                  can transfer your loan to another bank for a lower rate.
+                </li>
+              </ul>
+
+              {/* 6. Tax Benefits Table */}
               <h3>Home Loan Tax Benefits (FY 2024-25)</h3>
               <p>
                 Home owners can claim significant tax deductions to reduce their
@@ -310,6 +319,14 @@ export default function HomeLoanPage() {
                   <p>
                     Try to keep it between 15-20 years. Increasing it to 30
                     years drastically increases the interest burden.
+                  </p>
+                </details>
+                <details>
+                  <summary>Can I get a loan for land purchase?</summary>
+                  <p>
+                    Yes, "Plot Loans" are available for buying residential land,
+                    but tax benefits are only applicable if you construct a
+                    house on it within 3 years.
                   </p>
                 </details>
               </div>

@@ -9,17 +9,17 @@
 
 :root {
   /* Brand Colors */
-  --color-brand-green: #1a6f05;
+  --color-brand-green: #489719;
   --color-brand-light: #a0e870;
-  --color-action-cta: #047857; /* Deep Teal */
-  --color-action-hover: #035a42;
+  --color-action-cta: #60be24; /* Deep Teal */
+  --color-action-hover: #489719;
   --color-secondary-blue: #1d4ed8;
 
   /* UI Colors */
-  --color-bg-soft: #f8fafc;
+  --color-bg-soft: #fafafa;
   --color-bg-white: #ffffff;
-  --color-text-main: #0f172a;
-  --color-text-muted: #64748b;
+  --color-text-main: #122b08;
+  --color-text-muted: #616161;
   --color-border: #e2e8f0;
   --color-success-bg: #f0fdf4;
 
@@ -58,7 +58,7 @@ h4,
 h5 {
   margin: 0;
   font-weight: 500;
-  color: #0b1720;
+  color: #122b08;
   line-height: 1.2;
 }
 h1 {
@@ -87,7 +87,7 @@ a {
   transition: color 0.2s;
 }
 a:hover {
-  color: var(--color-brand-green);
+  color: var(--color-bg-soft);
 }
 ul,
 ol {
@@ -97,6 +97,10 @@ ol {
 }
 li {
   margin-bottom: 8px;
+}
+
+strong {
+  font-weight: 600; /* Replace 'value' with a keyword or number */
 }
 
 /* =========================================
@@ -402,7 +406,7 @@ input[type='range']::-webkit-slider-thumb:hover {
 .rate-table th {
   position: sticky;
   top: 0;
-  background: #f1f5f9;
+  background: #f2fce9;
   text-align: left;
   padding: 12px 16px;
   font-weight: 500;
@@ -583,8 +587,8 @@ input[type='range']::-webkit-slider-thumb:hover {
   color: var(--color-action-cta);
 }
 .nav-btn {
-  background: #0f172a;
-  color: white;
+  background: #80d843;
+  color: #0e0e11;
   padding: 10px 18px;
   border-radius: 8px;
   font-size: 14px;

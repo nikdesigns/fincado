@@ -1,72 +1,281 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import FDClient from './FDClient';
-import LegalNote from '@/components/LegalNote';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
+import AdSlot from '@/components/AdSlot';
+import HeroWithStats from '@/components/HeroWithStats';
 
+// 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'FD Calculator – Fixed Deposit Maturity Calculator | Fincado',
+  title: 'FD Calculator – Fixed Deposit Interest & Maturity Value',
   description:
-    'FD Calculator for India: compute maturity amount, gross interest, tax impact, and post-tax payout for various compounding frequencies (monthly, quarterly, annually).',
+    'Calculate the maturity amount of your Fixed Deposit (FD) with our accurate FD Calculator. Compare interest rates, check quarterly compounding returns, and estimate tax deductions.',
+  keywords: [
+    'FD Calculator',
+    'Fixed Deposit Calculator',
+    'FD Interest Rates',
+    'Term Deposit Calculator',
+    'Bank FD Rates India',
+    'FD Maturity Calculator',
+    'Quarterly Compounding Calculator',
+  ],
+  openGraph: {
+    title: 'FD Calculator – Secure Your Savings',
+    description:
+      'Free tool to calculate FD maturity amount, total interest, and effective yield.',
+    url: 'https://www.fincado.com/fd-calculator',
+    type: 'website',
+  },
 };
 
-export default function FDCalculatorPage() {
+export default function FDPage() {
   return (
-    <main
-      style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 300px',
-        gap: 16,
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        <h1>FD Calculator — Compute Maturity Amount & Post-tax Payout</h1>
+    <>
+      {/* 2. SCHEMA MARKUP FOR FAQ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How is FD interest calculated?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'FD interest is calculated using the compound interest formula: A = P * (1 + r/n)^(n*t). In India, most banks compound interest quarterly (n=4).',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is FD interest taxable?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes. Interest earned on Fixed Deposits is fully taxable as per your income tax slab. Banks deduct 10% TDS if the interest exceeds ₹40,000 in a financial year (₹50,000 for senior citizens).',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I withdraw my FD before maturity?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, most FDs allow premature withdrawal, but banks typically charge a penalty of 0.5% to 1% on the interest rate. Tax Saver FDs (5 years) cannot be withdrawn early.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
-        <p style={{ maxWidth: 760 }}>
-          Calculate how much your Fixed Deposit (FD) will mature to, compare
-          different compounding frequencies, and estimate the tax impact based
-          on your marginal tax rate.
-        </p>
+      <main className="container" style={{ padding: '40px 20px' }}>
+        {/* Header - Hidden in Print */}
+        <header style={{ marginBottom: 40 }} className="no-print">
+          <h1>Fixed Deposit (FD) Calculator</h1>
+          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
+            Secure your future with guaranteed returns. Calculate accurate FD
+            maturity values with options for <strong>Tax Deductions</strong> and{' '}
+            <strong>Quarterly Compounding</strong>.
+          </p>
+        </header>
 
-        <div className="ad-box">Ad will appear here (Above the fold)</div>
+        <div className="layout-grid">
+          <div className="main-content">
+            {/* CALCULATOR APP */}
+            <FDClient />
 
-        <FDClient />
+            <div style={{ margin: '40px 0' }} className="no-print">
+              <AdSlot id="fd-mid-content" type="leaderboard" />
+            </div>
 
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Mid content)
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="article content-for-seo no-print">
+              {/* 1. What is an FD? */}
+              <h2>What is a Fixed Deposit (FD)?</h2>
+              <p>
+                A <strong>Fixed Deposit (FD)</strong> is a financial instrument
+                offered by banks and NBFCs where you deposit a lump sum amount
+                for a fixed tenure at a pre-determined interest rate.
+              </p>
+              <p>
+                FDs are one of the most popular investment options in India due
+                to their <strong>safety</strong>
+                and <strong>guaranteed returns</strong>, which are unaffected by
+                market fluctuations.
+              </p>
+
+              {/* 2. Who is Eligible? */}
+              <h3>Who is Eligible to Open an FD?</h3>
+              <p>
+                Almost any investor category can open an FD in India. Common
+                eligibility includes:
+              </p>
+              <ul>
+                <li>
+                  <strong>Resident Individuals:</strong> Any individual,
+                  including minors (with guardians).
+                </li>
+                <li>
+                  <strong>Senior Citizens:</strong> Eligible for higher interest
+                  rates (usually 0.50% extra).
+                </li>
+                <li>
+                  <strong>NRIs:</strong> Can open NRE (repatriable) or NRO
+                  (non-repatriable) Fixed Deposits.
+                </li>
+                <li>
+                  <strong>Organizations:</strong> HUFs, Partnership Firms,
+                  Trusts, and Companies.
+                </li>
+              </ul>
+
+              {/* 3. Planning Help */}
+              <h3>How This Calculator Helps Your Planning</h3>
+              <p>
+                Manual calculation of compound interest can be tricky. This
+                calculator helps you:
+              </p>
+              <div className="advantage-grid">
+                <div className="advantage-card">
+                  <h4>Exact Compounding</h4>
+                  <p>
+                    Most Indian banks compound interest quarterly. This tool
+                    uses the exact formula to give you precise maturity figures.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Tax Estimation</h4>
+                  <p>
+                    See your "Real Returns". Input your tax slab (e.g., 20% or
+                    30%) to see how much money actually lands in your pocket.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Compare Tenures</h4>
+                  <p>
+                    Quickly check if locking your money for 5 years yields
+                    significantly more than renewing it every year.
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. Formula */}
+              <h3>FD Interest Calculation Formula</h3>
+              <p>
+                The maturity value is calculated using the Compound Interest
+                formula. For most bank FDs, interest is compounded quarterly
+                (every 3 months).
+              </p>
+              <div
+                style={{
+                  background: '#f1f5f9',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  fontFamily: 'monospace',
+                  marginBottom: '20px',
+                  border: '1px solid #e2e8f0',
+                  textAlign: 'center',
+                  fontWeight: 600,
+                }}
+              >
+                A = P × (1 + r/n) ^ (n × t)
+              </div>
+              <ul style={{ fontSize: '14px' }}>
+                <li>
+                  <strong>A</strong> = Maturity Amount
+                </li>
+                <li>
+                  <strong>P</strong> = Principal Amount
+                </li>
+                <li>
+                  <strong>r</strong> = Rate of Interest (decimal)
+                </li>
+                <li>
+                  <strong>n</strong> = Compounding Frequency (4 for Quarterly)
+                </li>
+                <li>
+                  <strong>t</strong> = Tenure in years
+                </li>
+              </ul>
+
+              {/* 5. Key Advantages */}
+              <h3>Key Advantages of Fixed Deposits</h3>
+              <ul>
+                <li>
+                  <strong>Capital Safety:</strong> FDs up to ₹5 Lakh per bank
+                  are insured by DICGC (RBI subsidiary).
+                </li>
+                <li>
+                  <strong>Liquidity:</strong> You can break your FD prematurely
+                  (with a small penalty) or take an overdraft loan against it.
+                </li>
+                <li>
+                  <strong>Tax Saving:</strong> 5-Year Tax Saver FDs allow
+                  deductions under Section 80C (up to ₹1.5 Lakh).
+                </li>
+                <li>
+                  <strong>Regular Income:</strong> You can choose non-cumulative
+                  FDs to get monthly or quarterly interest payouts.
+                </li>
+              </ul>
+            </article>
+
+            {/* Smart Planning Stats */}
+            <div className="no-print">
+              <HeroWithStats
+                eyebrow="Safe Investing"
+                title="FD Investment Hacks"
+                stats={[
+                  { value: 'Laddering', label: 'Split FDs for liquidity' },
+                  { value: 'Form 15G/H', label: 'Submit to avoid TDS' },
+                  { value: '+0.50%', label: 'Extra for Senior Citizens' },
+                ]}
+              />
+            </div>
+
+            {/* FAQs */}
+            <section className="article no-print">
+              <h2>Frequently Asked Questions (FAQs)</h2>
+              <div className="faqs-accordion">
+                <details open>
+                  <summary>Is interest on FD taxable?</summary>
+                  <p>
+                    Yes. The interest is added to your total income and taxed as
+                    per your slab. Banks deduct 10% TDS if interest `{'>'}`
+                    ₹40,000 (₹50,000 for seniors).
+                  </p>
+                </details>
+
+                <details>
+                  <summary>Can I withdraw my FD before maturity?</summary>
+                  <p>
+                    Yes, most FDs allow premature withdrawal, but banks
+                    typically charge a penalty of 0.5% to 1% on the interest
+                    rate. Tax Saver FDs (5 years) cannot be withdrawn early.
+                  </p>
+                </details>
+                <details>
+                  <summary>What is Cumulative vs Non-Cumulative FD?</summary>
+                  <p>
+                    <strong>Cumulative:</strong> Interest is reinvested and paid
+                    at maturity (Power of Compounding). <br />
+                    <strong>Non-Cumulative:</strong> Interest is paid out
+                    monthly, quarterly, or yearly (Good for regular income).
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar */}
+          <aside className="sidebar no-print">
+            <FinancialNavWidget />
+            <div style={{ marginTop: 24 }}>
+              <AdSlot id="fd-sidebar" type="box" />
+            </div>
+          </aside>
         </div>
-
-        <section className="article" style={{ marginTop: 24 }}>
-          <h2>Notes for Indian investors</h2>
-          <ul>
-            <li>
-              Banks may deduct TDS on interest if interest &gt; ₹40,000 (check
-              current thresholds and exemptions). This tool shows estimated tax
-              only — consult a tax advisor.
-            </li>
-            <li>
-              Compounding frequency effect can change your effective yield
-              slightly — choose monthly/quarterly/annual as offered by the bank.
-            </li>
-            <li>
-              Premature withdrawal typically attracts a lower rate — this is not
-              modelled here (use with full-term assumptions).
-            </li>
-          </ul>
-
-          <LegalNote />
-        </section>
-
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Before footer)
-        </div>
-      </div>
-
-      <aside className="sidebar">
-        <div className="ad-box">Sticky Sidebar Ad</div>
-        <FinancialNavWidget />
-      </aside>
-    </main>
+      </main>
+    </>
   );
 }

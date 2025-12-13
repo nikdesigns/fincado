@@ -42,7 +42,7 @@ export default function PieChart({
           cy={cy}
           r={r}
           fill="none"
-          stroke="#eff8e5"
+          stroke="#f2fce9"
           strokeWidth={strokeWidth}
         />
 
@@ -54,7 +54,7 @@ export default function PieChart({
             cy={cy}
             r={r}
             fill="none"
-            stroke="#16a34a"
+            stroke="#a1e76f"
             strokeWidth={strokeWidth}
             strokeDasharray={`${interestLength} ${circumference}`}
             strokeLinecap="round"

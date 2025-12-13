@@ -1,598 +1,396 @@
-// src/app/fire-calculator/FIRECalculatorClient.tsx
 'use client';
-import React, { useMemo, useState } from 'react';
 
-function formatINR(v: number) {
-  return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 });
-}
+import React, { useMemo, useState } from 'react';
+import PieChart from '@/components/PieChart';
+
+// Helper: Format Currency
+const formatINR = (val: number) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(val);
 
 export default function FIRECalculatorClient() {
-  // --- Core Inputs ---
+  // --- STATE ---
   const [currentAge, setCurrentAge] = useState<number>(30);
-  const [targetRetirementAge, setTargetRetirementAge] = useState<number>(45); // Early retirement focus
+  const [targetRetirementAge, setTargetRetirementAge] = useState<number>(45);
   const [currentAnnualExpense, setCurrentAnnualExpense] =
-    useState<number>(1000000); // ₹10 Lakhs/year
-  const [currentCorpus, setCurrentCorpus] = useState<number>(2000000); // ₹20 Lakhs saved
+    useState<number>(1000000);
+  const [currentCorpus, setCurrentCorpus] = useState<number>(2000000);
 
-  // --- Assumption Inputs ---
-  const [preRetireReturn, setPreRetireReturn] = useState<number>(12); // Expected return pre-retirement
-  const [inflationPct, setInflationPct] = useState<number>(6); // Expected long-term inflation
-  const [safeWithdrawalRate, setSafeWithdrawalRate] = useState<number>(3.5); // SWR for India (3% to 3.5% recommended)
+  const [preRetireReturn, setPreRetireReturn] = useState<number>(12);
+  const [inflationPct, setInflationPct] = useState<number>(6);
+  const [safeWithdrawalRate, setSafeWithdrawalRate] = useState<number>(3.5);
 
-  // Derived Timing Variables
-  const yearsToFIRE = Math.max(1, targetRetirementAge - currentAge);
-  const monthsToFIRE = yearsToFIRE * 12;
+  // --- HELPER: Background for Range Sliders ---
+  const getRangeBackground = (val: number, min: number, max: number) => {
+    const percentage = ((val - min) / (max - min)) * 100;
+    // Orange/Flame theme for FIRE
+    return `linear-gradient(to right, #f97316 0%, #f97316 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+  };
 
-  // Monthly Rates
-  const monthlyRatePre = preRetireReturn / 12 / 100;
-  const monthlyInflation = inflationPct / 12 / 100;
+  // --- CALCULATIONS ---
+  const results = useMemo(() => {
+    const yearsToFIRE = Math.max(1, targetRetirementAge - currentAge);
+    const monthsToFIRE = yearsToFIRE * 12;
+    const monthlyRatePre = preRetireReturn / 12 / 100;
 
-  // --- Step 1: Calculate Expense at Retirement (Future Expense) ---
-  const annualExpenseAtFIRE = useMemo(() => {
-    if (inflationPct === 0) return currentAnnualExpense;
-    // FV = PV * (1 + r)^t
-    const futureExpense =
-      currentAnnualExpense * Math.pow(1 + inflationPct / 100, yearsToFIRE);
-    return Math.round(futureExpense);
-  }, [currentAnnualExpense, inflationPct, yearsToFIRE]);
+    // 1. Future Expense at FIRE Age
+    const annualExpenseAtFIRE = Math.round(
+      currentAnnualExpense * Math.pow(1 + inflationPct / 100, yearsToFIRE)
+    );
 
-  // --- Step 2: Calculate the FIRE Number (Corpus Required) ---
-  const fireNumberCorpus = useMemo(() => {
-    if (safeWithdrawalRate <= 0) return 0;
-    // FIRE Corpus = Future Annual Expense / Safe Withdrawal Rate (SWR)
-    // Multiplier = 100 / SWR (e.g., 3.5% SWR = 28.57x annual expense)
+    // 2. FIRE Number (Corpus Required)
+    // Formula: Expense / SWR (e.g. Expense / 0.04)
     const multiplier = 100 / safeWithdrawalRate;
-    const fireCorpus = annualExpenseAtFIRE * multiplier;
-    return Math.round(fireCorpus);
-  }, [annualExpenseAtFIRE, safeWithdrawalRate]);
+    const fireNumberCorpus = Math.round(annualExpenseAtFIRE * multiplier);
 
-  // --- Step 3: Calculate Future Value of Current Corpus ---
-  const futureValueOfCurrentCorpus = useMemo(() => {
-    if (monthlyRatePre === 0) return currentCorpus;
-    // FV = P * (1 + r/12)^n
-    const futureValue =
-      currentCorpus * Math.pow(1 + monthlyRatePre, monthsToFIRE);
-    return Math.round(futureValue);
-  }, [currentCorpus, monthlyRatePre, monthsToFIRE]);
+    // 3. Future Value of Current Corpus
+    // FV = P * (1+r)^n
+    const futureValueOfCurrentCorpus = Math.round(
+      currentCorpus * Math.pow(1 + monthlyRatePre, monthsToFIRE)
+    );
 
-  // --- Step 4: Calculate Required Shortfall & Monthly SIP to Bridge the Gap ---
-  const requiredShortfall = Math.max(
-    0,
-    fireNumberCorpus - futureValueOfCurrentCorpus
-  );
+    // 4. Shortfall & Required SIP
+    const requiredShortfall = Math.max(
+      0,
+      fireNumberCorpus - futureValueOfCurrentCorpus
+    );
+    let requiredMonthlySIP = 0;
 
-  const requiredMonthlySIP = useMemo(() => {
-    if (requiredShortfall <= 0 || monthsToFIRE <= 0) return 0;
+    if (requiredShortfall > 0) {
+      if (monthlyRatePre === 0) {
+        requiredMonthlySIP = Math.round(requiredShortfall / monthsToFIRE);
+      } else {
+        // SIP = FV / [ ((1+r)^n - 1)/r * (1+r) ]
+        const annuityFactor =
+          ((Math.pow(1 + monthlyRatePre, monthsToFIRE) - 1) / monthlyRatePre) *
+          (1 + monthlyRatePre);
+        requiredMonthlySIP = Math.round(requiredShortfall / annuityFactor);
+      }
+    }
 
-    const FV = requiredShortfall;
-    const r = monthlyRatePre;
-    const n = monthsToFIRE;
+    // 5. Pie Chart Data (Progress)
+    // "Achieved" = Future Value of Current Corpus
+    // "Gap" = Shortfall to reach FIRE Number
+    // Cap achieved at 100% if they are already FI
+    const achievedPct =
+      fireNumberCorpus > 0
+        ? Math.min(
+            100,
+            Math.round((futureValueOfCurrentCorpus / fireNumberCorpus) * 100)
+          )
+        : 0;
+    const gapPct = 100 - achievedPct;
 
-    if (r === 0) return Math.round(FV / n);
+    return {
+      annualExpenseAtFIRE,
+      fireNumberCorpus,
+      futureValueOfCurrentCorpus,
+      requiredShortfall,
+      requiredMonthlySIP,
+      yearsToFIRE,
+      multiplier: multiplier.toFixed(1),
+      achievedPct,
+      gapPct,
+    };
+  }, [
+    currentAge,
+    targetRetirementAge,
+    currentAnnualExpense,
+    currentCorpus,
+    preRetireReturn,
+    inflationPct,
+    safeWithdrawalRate,
+  ]);
 
-    // Reverse FV of Annuity Due formula (payments at start of month)
-    const annuityFactor = ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+  // --- ACTIONS ---
+  const handleReset = () => {
+    setCurrentAge(30);
+    setTargetRetirementAge(45);
+    setCurrentAnnualExpense(1000000);
+    setCurrentCorpus(2000000);
+    setPreRetireReturn(12);
+    setInflationPct(6);
+    setSafeWithdrawalRate(3.5);
+  };
 
-    return Math.round(FV / annuityFactor);
-  }, [requiredShortfall, monthlyRatePre, monthsToFIRE]);
+  const handleCopy = () => {
+    const summary = `My FIRE Number is ${formatINR(
+      results.fireNumberCorpus
+    )} (Age ${targetRetirementAge}). I need to save ${formatINR(
+      results.requiredMonthlySIP
+    )}/mo.`;
+    navigator.clipboard.writeText(summary);
+    alert('Summary copied to clipboard!');
+  };
 
-  // Helper setter
-  const setter =
-    (fn: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
-      fn(e.target.value === '' ? 0 : Number(e.target.value));
-
-  // Helper to describe the SWR/Multiplier
-  const multiplierText = (100 / safeWithdrawalRate).toFixed(2);
+  // Safe Setter
+  const numSetter =
+    (setter: React.Dispatch<React.SetStateAction<number>>) =>
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setter(Number(e.target.value) || 0);
 
   return (
-    <section className="article">
-      <div>
-        <h1>🔥 Financial Independence, Retire Early (FIRE) Calculator</h1>
+    <div className="card calculator-card">
+      <div className="calc-grid">
+        {/* --- LEFT: INPUTS --- */}
+        <div className="calc-inputs">
+          {/* Ages */}
+          <div style={{ display: 'flex', gap: 16 }}>
+            <div className="input-group" style={{ flex: 1 }}>
+              <label>Current Age</label>
+              <div className="input-wrapper">
+                <input
+                  type="number"
+                  value={currentAge}
+                  onChange={numSetter(setCurrentAge)}
+                  min={18}
+                  max={targetRetirementAge - 1}
+                />
+              </div>
+            </div>
+            <div className="input-group" style={{ flex: 1 }}>
+              <label>FIRE Age</label>
+              <div className="input-wrapper">
+                <input
+                  type="number"
+                  value={targetRetirementAge}
+                  onChange={numSetter(setTargetRetirementAge)}
+                  min={currentAge + 1}
+                  max={100}
+                />
+              </div>
+            </div>
+          </div>
 
-        {/* INPUTS AND CHART SPLIT */}
-        <div className="emi-split" style={{ marginTop: 18 }}>
-          <div className="emi-left">
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              style={{ display: 'grid', gap: 12 }}
+          {/* Finances */}
+          <div className="input-group">
+            <label>Current Annual Expense (₹)</label>
+            <div className="input-wrapper">
+              <input
+                type="number"
+                value={currentAnnualExpense}
+                onChange={numSetter(setCurrentAnnualExpense)}
+              />
+            </div>
+            <input
+              type="range"
+              min="300000"
+              max="5000000"
+              step="50000"
+              value={currentAnnualExpense}
+              onChange={numSetter(setCurrentAnnualExpense)}
+              style={{
+                background: getRangeBackground(
+                  currentAnnualExpense,
+                  300000,
+                  5000000
+                ),
+              }}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Current Savings / Corpus (₹)</label>
+            <div className="input-wrapper">
+              <input
+                type="number"
+                value={currentCorpus}
+                onChange={numSetter(setCurrentCorpus)}
+              />
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="20000000"
+              step="100000"
+              value={currentCorpus}
+              onChange={numSetter(setCurrentCorpus)}
+              style={{
+                background: getRangeBackground(currentCorpus, 0, 20000000),
+              }}
+            />
+          </div>
+
+          {/* Advanced Assumptions */}
+          <details open className="advanced-options" style={{ marginTop: 16 }}>
+            <summary
+              style={{
+                cursor: 'pointer',
+                color: 'var(--color-text-muted)',
+                fontWeight: 500,
+              }}
             >
-              <div className="form-row">
-                <label>
-                  Current Age
-                  <input
-                    type="number"
-                    value={currentAge}
-                    onChange={setter(setCurrentAge)}
-                    min={18}
-                  />
-                </label>
-
-                <label>
-                  Target FIRE Age
-                  <input
-                    type="number"
-                    value={targetRetirementAge}
-                    onChange={setter(setTargetRetirementAge)}
-                    min={currentAge + 1}
-                  />
-                </label>
-              </div>
-
-              <label>
-                Current Annual Expenses (₹)
+              Advanced Assumptions (SWR, Inflation)
+            </summary>
+            <div
+              style={{
+                marginTop: 16,
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 16,
+              }}
+            >
+              <div className="input-group">
+                <label>Inflation (%)</label>
                 <input
+                  className="input-small"
                   type="number"
-                  value={currentAnnualExpense}
-                  onChange={setter(setCurrentAnnualExpense)}
-                  min={1000}
-                  step={10000}
+                  value={inflationPct}
+                  onChange={numSetter(setInflationPct)}
+                  step="0.1"
                 />
-              </label>
-
-              <label>
-                Current FIRE Corpus / Savings (₹)
-                <input
-                  type="number"
-                  value={currentCorpus}
-                  onChange={setter(setCurrentCorpus)}
-                  min={0}
-                  step={10000}
-                />
-              </label>
-
-              <div className="form-row">
-                <label>
-                  Expected Inflation (% p.a.)
-                  <input
-                    type="number"
-                    value={inflationPct}
-                    onChange={setter(setInflationPct)}
-                    min={0}
-                    step={0.1}
-                  />
-                </label>
-
-                <label>
-                  Expected Return (Pre-FIRE) % p.a.
-                  <input
-                    type="number"
-                    value={preRetireReturn}
-                    onChange={setter(setPreRetireReturn)}
-                    min={0}
-                    step={0.1}
-                  />
-                </label>
               </div>
-
-              <label>
-                Safe Withdrawal Rate (SWR) % p.a.
+              <div className="input-group">
+                <label>Return Rate (%)</label>
                 <input
+                  className="input-small"
+                  type="number"
+                  value={preRetireReturn}
+                  onChange={numSetter(setPreRetireReturn)}
+                  step="0.1"
+                />
+              </div>
+              <div className="input-group" style={{ gridColumn: 'span 2' }}>
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <label>Safe Withdrawal Rate (%)</label>
+                  <span style={{ fontSize: 11, color: '#666' }}>
+                    Multiplier: {results.multiplier}x
+                  </span>
+                </div>
+                <input
+                  className="input-small"
                   type="number"
                   value={safeWithdrawalRate}
-                  onChange={setter(setSafeWithdrawalRate)}
-                  min={1}
-                  step={0.1}
+                  onChange={numSetter(setSafeWithdrawalRate)}
+                  step="0.1"
+                  min={2}
+                  max={6}
                 />
-                <p style={{ fontSize: 13, color: '#6b7280', marginTop: 4 }}>
-                  *Recommended SWR for India is 3.0% - 3.5% (Multiplier:{' '}
-                  {multiplierText}x)
-                </p>
-              </label>
-
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button className="primary-cta">Calculate FIRE</button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCurrentAge(30);
-                    setTargetRetirementAge(45);
-                    setCurrentAnnualExpense(1000000);
-                    setCurrentCorpus(2000000);
-                    setPreRetireReturn(12);
-                    setInflationPct(6);
-                    setSafeWithdrawalRate(3.5);
-                  }}
-                >
-                  Reset
-                </button>
+                <div style={{ fontSize: 11, color: '#666', marginTop: 4 }}>
+                  Recommended for India: 3.0% - 3.5%
+                </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </details>
 
-          <aside
-            className="emi-right"
-            aria-hidden={false}
+          <button
+            type="button"
+            onClick={handleReset}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              marginTop: 10,
+              background: 'none',
+              border: 'none',
+              textDecoration: 'underline',
+              color: '#666',
+              cursor: 'pointer',
+              fontSize: 13,
             }}
           >
+            Reset Defaults
+          </button>
+        </div>
+
+        {/* --- RIGHT: VISUALS --- */}
+        <div className="calc-visuals">
+          <PieChart
+            principalPct={results.achievedPct} // Represents "Achieved" via current savings
+            interestPct={results.gapPct} // Represents "Gap" to fill
+            size={200}
+          />
+
+          <div style={{ marginTop: 24, width: '100%' }}>
+            {/* Main Result: FIRE Number */}
+            <div style={{ marginBottom: 12, textAlign: 'center' }}>
+              <span style={{ fontSize: 13, color: '#64748b' }}>
+                Your FIRE Number
+              </span>
+              <div style={{ fontSize: 28, fontWeight: 800, color: '#f97316' }}>
+                {formatINR(results.fireNumberCorpus)}
+              </div>
+            </div>
+
+            {/* Main Result: SIP Required */}
             <div
-              className="retirement-action-box"
               style={{
+                marginBottom: 16,
+                padding: 12,
+                background: '#fff7ed',
+                borderRadius: 8,
+                border: '1px solid #fed7aa',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: 12, color: '#c2410c', fontWeight: 600 }}>
+                Monthly Savings Needed
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: '#ea580c' }}>
+                {formatINR(results.requiredMonthlySIP)}
+                <span style={{ fontSize: 14 }}>/mo</span>
+              </div>
+            </div>
+
+            {/* Grid Breakdown */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 12,
+                fontSize: 12,
+                textAlign: 'left',
+              }}
+            >
+              <div
+                style={{
+                  padding: 8,
+                  background: '#fff',
+                  borderRadius: 6,
+                  border: '1px solid #e2e8f0',
+                }}
+              >
+                <div style={{ color: '#64748b' }}>Future Annual Exp.</div>
+                <div style={{ fontWeight: 600, color: '#dc2626' }}>
+                  {formatINR(results.annualExpenseAtFIRE)}
+                </div>
+              </div>
+              <div
+                style={{
+                  padding: 8,
+                  background: '#fff',
+                  borderRadius: 6,
+                  border: '1px solid #e2e8f0',
+                }}
+              >
+                <div style={{ color: '#64748b' }}>Current Corpus FV</div>
+                <div style={{ fontWeight: 600, color: '#16a34a' }}>
+                  {formatINR(results.futureValueOfCurrentCorpus)}
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={handleCopy}
+              style={{
+                marginTop: 16,
                 width: '100%',
-                maxWidth: '300px',
-                padding: '20px',
-                borderRadius: '8px',
-                backgroundColor: '#fff',
-                border: '2px solid #dc2626' /* Action color */,
-                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-                textAlign: 'center',
-              }}
-            >
-              <h3
-                style={{
-                  margin: '0 0 10px',
-                  fontSize: '18px',
-                  color: '#dc2626',
-                }}
-              >
-                Years to Financial Freedom
-              </h3>
-              <p
-                style={{
-                  margin: '0 0 15px',
-                  fontSize: '60px',
-                  fontWeight: 800,
-                  color: '#1f2937',
-                }}
-              >
-                {yearsToFIRE}
-              </p>
-              <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
-                years remaining until age {targetRetirementAge}
-              </p>
-            </div>
-          </aside>
-        </div>
-
-        {/* RESULTS: full width below split - REFINED STYLING */}
-        <div className="emi-results-full" style={{ marginTop: 24 }}>
-          <div
-            className="result-grid emi-summary-strip"
-            style={{
-              backgroundColor: '#f0fff4', // Pale green background
-              padding: '16px',
-              borderRadius: '10px',
-              border: '1px solid #d1fae5', // Light border
-            }}
-          >
-            {/* Primary Result: FIRE Number */}
-            <div
-              className="result-card"
-              style={{
                 padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-                boxShadow:
-                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
+                background: '#fff7ed',
+                color: '#c2410c',
+                border: '1px solid #fed7aa',
+                borderRadius: 6,
+                fontWeight: 600,
+                cursor: 'pointer',
               }}
             >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="Goal">
-                  🎯
-                </span>{' '}
-                Your Estimated FIRE Number
-              </p>
-              <p
-                className="result-primary"
-                style={{
-                  fontSize: '28px',
-                  fontWeight: 800,
-                  color: '#047857', // Primary success color
-                }}
-              >
-                {formatINR(fireNumberCorpus)}
-              </p>
-              <p style={{ fontSize: 13, color: '#6b7280', marginTop: '4px' }}>
-                (Annual Expense &times; {multiplierText})
-              </p>
-            </div>
-
-            {/* Secondary Result: Future Annual Expense */}
-            <div
-              className="result-card"
-              style={{
-                padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-              }}
-            >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="Expense">
-                  💸
-                </span>{' '}
-                Annual Expense at FIRE Age
-              </p>
-              <p
-                className="result-value"
-                style={{ fontSize: '20px', fontWeight: 700, color: '#dc2626' }}
-              >
-                {formatINR(annualExpenseAtFIRE)}
-              </p>
-              <p style={{ fontSize: 13, color: '#6b7280', marginTop: '4px' }}>
-                (Inflated by {inflationPct}% over {yearsToFIRE} yrs)
-              </p>
-            </div>
-
-            {/* Secondary Result: Required Monthly SIP */}
-            <div
-              className="result-card"
-              style={{
-                padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-              }}
-            >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="SIP">
-                  🚀
-                </span>{' '}
-                Required Monthly SIP
-              </p>
-              <p
-                className="result-value"
-                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
-              >
-                {formatINR(requiredMonthlySIP)}
-              </p>
-              <p style={{ fontSize: 13, color: '#6b7280', marginTop: '4px' }}>
-                (To cover shortfall of {formatINR(requiredShortfall)})
-              </p>
-            </div>
-
-            {/* Secondary Result: Future Value of Current Corpus */}
-            <div
-              className="result-card"
-              style={{
-                padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-              }}
-            >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="Savings">
-                  🏦
-                </span>{' '}
-                Projected Corpus from Current Savings
-              </p>
-              <p
-                className="result-value"
-                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
-              >
-                {formatINR(futureValueOfCurrentCorpus)}
-              </p>
-            </div>
+              Copy Plan
+            </button>
           </div>
         </div>
       </div>
-
-      {/* --- SEO Content Starts Here --- */}
-      <div className="content-for-seo" style={{ marginTop: 20 }}>
-        {/* 1. Brief about the program */}
-        <section>
-          <h2 id="about-fire">
-            🔥 What is Financial Independence, Retire Early (FIRE)?
-          </h2>
-          <p>
-            **FIRE** is a financial movement dedicated to achieving **Financial
-            Independence** and having the option to **Retire Early**. The core
-            idea is to aggressively save and invest a substantial portion of
-            income—often 50% to 70%—to build a large investment **corpus (the
-            FIRE Number)** sufficient to cover all annual living expenses
-            indefinitely, typically by generating passive income.
-          </p>
-          <p>
-            The benchmark for the **FIRE Number** is often based on the **4%
-            Rule**, requiring 25 to 33 times your estimated annual expenses at
-            retirement. [Image illustrating the FIRE Number Multiplier]
-          </p>
-        </section>
-
-        {/* 2. Key Challenges */}
-        <section>
-          <h2 id="fire-india">🎯 The FIRE Number & The Indian Context</h2>
-          <p>
-            The traditional 4% Rule (25x annual expense) was derived from US
-            market data. Due to **higher structural inflation** in India and
-            higher market volatility, a more conservative approach is often
-            needed:
-          </p>
-          <ul>
-            <li>
-              **Safe Withdrawal Rate (SWR):** Many Indian financial planners
-              recommend a starting SWR of **3.0% to 3.5%** instead of 4%.
-            </li>
-            <li>
-              **Required Corpus Multiplier:** This translates to a required
-              corpus of **28x to 33x** your future annual expenses.
-            </li>
-            <li>
-              **Longevity:** Retiring at 45 means your corpus must last 40+
-              years, demanding careful planning.
-            </li>
-          </ul>
-        </section>
-
-        {/* 3. How the Calculator works */}
-        <section>
-          <h2 id="how-calculation-works">
-            ⚙️ FIRE Calculation Logic and Key Steps
-          </h2>
-          <p>The calculator uses a three-stage financial model:</p>
-          <ol>
-            <li>
-              **Future Expense Projection:** Your current expense is inflated by
-              the expected rate of inflation ({inflationPct}%) over the **
-              {yearsToFIRE} years** until your FIRE date.
-            </li>
-            <li>
-              **FIRE Number Calculation:** The inflated future expense is
-              multiplied by your chosen multiplier (100 / SWR) to determine the
-              corpus required for perpetual withdrawal.
-            </li>
-            <li>
-              **SIP Gap Analysis:** The calculator finds the difference
-              (shortfall) between the projected value of your existing savings
-              and your required FIRE Number, and calculates the monthly SIP
-              needed to cover that exact shortfall.
-            </li>
-          </ol>
-          [Image of FIRE planning cash flow model]
-        </section>
-
-        {/* 4. Actionable Steps */}
-        <section>
-          <h2 id="actions">📈 Strategy for Accelerating Your FIRE Journey</h2>
-          <p>
-            The fastest way to lower your time to financial independence is by
-            managing these three levers:
-          </p>
-
-          <div className="advantage-grid">
-            <div className="advantage-card">
-              <h3>Maximize Savings Rate</h3>
-              <p>
-                The **Savings Rate** (Savings / Net Income) is the most powerful
-                variable. Aim for 50-70% to dramatically reduce the time needed
-                to reach your FIRE Number.
-              </p>
-            </div>
-            <div className="advantage-card">
-              <h3>Optimize SWR</h3>
-              <p>
-                A small increase in your **investment returns** or a small
-                reduction in your **safe withdrawal rate** can shave years off
-                your timeline.
-              </p>
-            </div>
-            <div className="advantage-card">
-              <h3>Minimize Lifestyle Inflation</h3>
-              <p>
-                Control **lifestyle creep**. Keeping your core annual expenses
-                low directly reduces your final required FIRE Number, making the
-                goal easier to achieve.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 5. FAQ's */}
-        <section>
-          <h2 id="fire-faqs">❓ Frequently Asked Questions (FAQs)</h2>
-          <div
-            className="faqs-accordion"
-            style={{
-              display: 'grid',
-              gap: '10px',
-            }}
-          >
-            <details
-              style={{
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                padding: '0 15px',
-                backgroundColor: '#ffffff',
-              }}
-            >
-              <summary
-                style={{
-                  fontWeight: 600,
-                  padding: '15px 0',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  color: '#1f2937',
-                }}
-              >
-                Why is the Safe Withdrawal Rate lower for India?
-              </summary>
-              <p
-                style={{
-                  padding: '10px 0 15px 0',
-                  borderTop: '1px dashed #e5e7eb',
-                  margin: 0,
-                  color: '#6b7280',
-                }}
-              >
-                The SWR is lower because India has historically faced higher
-                inflation (6%+), which erodes the corpus faster, and higher
-                market volatility compared to the US data used to derive the
-                original 4% rule. A 3% to 3.5% SWR is generally safer here.
-              </p>
-            </details>
-            <details
-              style={{
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                padding: '0 15px',
-                backgroundColor: '#ffffff',
-              }}
-            >
-              <summary
-                style={{
-                  fontWeight: 600,
-                  padding: '15px 0',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  color: '#1f2937',
-                }}
-              >
-                Does this calculator account for taxes?
-              </summary>
-              <p
-                style={{
-                  padding: '10px 0 15px 0',
-                  borderTop: '1px dashed #e5e7eb',
-                  margin: 0,
-                  color: '#6b7280',
-                }}
-              >
-                This calculator provides a **gross** estimate. A true FIRE plan
-                must account for taxes on long-term capital gains (LTCG) and
-                dividends, which reduce your real return. It is advised to
-                assume a lower **net** return rate in the input to be more
-                conservative.
-              </p>
-            </details>
-          </div>
-        </section>
-      </div>
-
-      <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-        <button
-          className="primary-cta"
-          onClick={() => {
-            const summary = `FIRE Plan: Goal ${targetRetirementAge}, Target Corpus ${formatINR(
-              fireNumberCorpus
-            )}, Required SIP: ${formatINR(requiredMonthlySIP)}/mo.`;
-            navigator.clipboard?.writeText(summary);
-            alert('Summary copied to clipboard');
-          }}
-        >
-          Copy Summary
-        </button>
-      </div>
-    </section>
+    </div>
   );
 }

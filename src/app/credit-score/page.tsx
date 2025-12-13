@@ -1,70 +1,217 @@
 import type { Metadata } from 'next';
-import LegalNote from '@/components/LegalNote';
-import FinancialNavWidget from '@/components/FinancialNavWidget';
+import React from 'react';
 import CreditScoreClient from './CreditScoreClient';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
+import AdSlot from '@/components/AdSlot';
+import HeroWithStats from '@/components/HeroWithStats';
 
+// 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'Credit Score Checker & Planner – Improve CIBIL | Fincado',
+  title: 'Credit Score Estimator – Check & Improve Your CIBIL Score',
   description:
-    'Estimate and improve your CIBIL credit score with an interactive planner. Learn how payment history, credit utilisation, credit mix and enquiries impact your score in India.',
+    'Estimate your Credit Score based on utilization, payment history, and credit mix. Get actionable tips to improve your CIBIL/Experian score.',
+  keywords: [
+    'Credit Score Calculator',
+    'CIBIL Score Estimator',
+    'Check Credit Score',
+    'Improve CIBIL Score',
+    'Credit Utilization Calculator',
+    'Loan Approval Chances',
+  ],
+  openGraph: {
+    title: 'Credit Score Estimator – Boost Your Eligibility',
+    description:
+      'Free tool to estimate your credit score and simulate the impact of paying down debt.',
+    url: 'https://www.fincado.com/credit-score-calculator',
+    type: 'website',
+  },
 };
 
 export default function CreditScorePage() {
   return (
-    <main
-      style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 300px',
-        gap: 16,
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        <h1>Credit Score Planner — Estimate & Improve Your CIBIL</h1>
+    <>
+      {/* 2. SCHEMA MARKUP */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What is a good CIBIL score?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'A score of 750 or above is generally considered good and can help you get loans at lower interest rates. 800+ is excellent.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How does credit utilization affect score?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Credit utilization (credit used / total limit) has a high impact (approx 30%). Keeping it below 30% is ideal for a healthy score.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Do checking my own score lower it?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'No. Checking your own score is a "soft enquiry" and does not impact your credit score. Only "hard enquiries" by lenders affect it.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
-        <p style={{ maxWidth: 760 }}>
-          This interactive tool estimates your likely credit score range
-          (CIBIL-style) and shows practical steps to improve it. Use the what-if
-          sliders to see how lowering credit utilisation, fixing overdue
-          payments, or reducing enquiries might increase your score.
-        </p>
-
-        <div className="ad-box">Ad will appear here (Above the fold)</div>
-
-        <CreditScoreClient />
-
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Mid content)
-        </div>
-
-        <section className="article" style={{ marginTop: 24 }}>
-          <h2>About Credit Scores (India)</h2>
-          <p>
-            Credit bureaus (CIBIL, Experian, Equifax) produce a score typically
-            between 300–900. Higher is better. Lenders use the score plus
-            detailed report to make lending decisions.
+      <main className="container" style={{ padding: '40px 20px' }}>
+        {/* Header */}
+        <header style={{ marginBottom: 40 }} className="no-print">
+          <h1>Credit Score Estimator</h1>
+          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
+            Understand the factors hurting your score. Simulate how paying down
+            credit card debt can boost your <strong>Credit Score</strong>{' '}
+            instantly.
           </p>
-          <ul>
-            <li>Excellent: 800–900</li>
-            <li>Good: 700–799</li>
-            <li>Fair: 650–699</li>
-            <li>Poor: &lt;650</li>
-          </ul>
+        </header>
 
-          <LegalNote />
-        </section>
+        <div className="layout-grid">
+          <div className="main-content">
+            {/* CALCULATOR APP */}
+            <CreditScoreClient />
 
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Before footer)
+            <div style={{ margin: '40px 0' }} className="no-print">
+              <AdSlot id="credit-mid-content" type="leaderboard" />
+            </div>
+
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="article content-for-seo no-print">
+              {/* 1. What is Credit Score? */}
+              <h2>What determines your Credit Score?</h2>
+              <p>
+                Your Credit Score (like CIBIL, Experian) is a 3-digit number
+                (300-900) that summarizes your creditworthiness. It is
+                calculated based on your past behavior with loans and credit
+                cards.
+              </p>
+              [Image of credit score factors pie chart]
+              {/* 2. Key Factors */}
+              <h3>The 5 Pillars of Credit Scoring</h3>
+              <div className="advantage-grid">
+                <div className="advantage-card">
+                  <h4>Payment History (35%)</h4>
+                  <p>
+                    The most critical factor. Even a single missed or late
+                    payment can drop your score significantly.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Utilization (30%)</h4>
+                  <p>
+                    How much of your limit you use. High utilization ({'>'}30%)
+                    signals "credit hunger" and risk.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Credit Mix (10%)</h4>
+                  <p>
+                    A healthy mix of secured (Home/Auto) and unsecured
+                    (Personal/Card) loans is preferred over just unsecured debt.
+                  </p>
+                </div>
+              </div>
+              {/* 3. Planning Help */}
+              <h3>How This Estimator Helps You</h3>
+              <ul>
+                <li>
+                  <strong>Score Breakdown:</strong> See exactly how many points
+                  you are losing due to high utilization or inquiries.
+                </li>
+                <li>
+                  <strong>What-If Simulation:</strong> The tool calculates the
+                  potential score boost if you pay down ₹50,000 of card debt
+                  today.
+                </li>
+                <li>
+                  <strong>Action Plan:</strong> Prioritized steps (e.g., "Stop
+                  applying for new cards") to fix your score.
+                </li>
+              </ul>
+              {/* 4. Strategy */}
+              <h3>Steps to Improve Score (750+)</h3>
+              <ul>
+                <li>
+                  <strong>Automate Payments:</strong> Set up auto-debit for
+                  minimum dues to avoid late marks.
+                </li>
+                <li>
+                  <strong>Increase Limit:</strong> Requesting a higher credit
+                  limit (without spending more) lowers your utilization ratio.
+                </li>
+                <li>
+                  <strong>Don't Close Old Cards:</strong> The age of your oldest
+                  account (Credit History Length) boosts your score (15%
+                  weight).
+                </li>
+              </ul>
+            </article>
+
+            {/* Smart Planning Stats */}
+            <div className="no-print">
+              <HeroWithStats
+                eyebrow="Financial Health"
+                title="Credit Score Goals"
+                stats={[
+                  { value: '750+', label: 'Target Score for Best Rates' },
+                  { value: '< 30%', label: 'Ideal Utilization Ratio' },
+                  { value: '0', label: 'Late Payments Allowed' },
+                ]}
+              />
+            </div>
+
+            {/* FAQs */}
+            <section className="article no-print">
+              <h2>Frequently Asked Questions (FAQs)</h2>
+              <div className="faqs-accordion">
+                <details open>
+                  <summary>How long does a default stay on my report?</summary>
+                  <p>
+                    Negative information like defaults or settlements can stay
+                    on your credit report for up to 7 years, though their impact
+                    diminishes over time.
+                  </p>
+                </details>
+                <details>
+                  <summary>Is a "Settled" status bad?</summary>
+                  <p>
+                    Yes. "Settled" means you paid less than the full amount
+                    owed. It is a negative mark. Always aim for "Closed" status
+                    by paying in full.
+                  </p>
+                </details>
+                <details>
+                  <summary>How often is my score updated?</summary>
+                  <p>
+                    Lenders typically report data to bureaus every 30-45 days.
+                    Your score updates whenever new data is received.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar */}
+          <aside className="sidebar no-print">
+            <FinancialNavWidget />
+            <div style={{ marginTop: 24 }}>
+              <AdSlot id="credit-sidebar" type="box" />
+            </div>
+          </aside>
         </div>
-      </div>
-
-      <aside className="sidebar">
-        <div className="ad-box">Sticky Sidebar Ad</div>
-        {/* This widget helps monetize the high-intent finance traffic */}
-        <FinancialNavWidget />
-      </aside>
-    </main>
+      </main>
+    </>
   );
 }

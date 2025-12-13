@@ -1,91 +1,252 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import GSTClient from './GSTClient';
-import LegalNote from '@/components/LegalNote'; // Assuming these placeholders are correct
 import FinancialNavWidget from '@/components/FinancialNavWidget';
+import AdSlot from '@/components/AdSlot';
+import HeroWithStats from '@/components/HeroWithStats';
 
-// --- 1. SEO METADATA ---
+// 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'GST Calculator India | Calculate Net Price, Gross Price, & Tax Split',
+  title: 'GST Calculator – Calculate GST Online (Add/Remove Tax)',
   description:
-    'Use our free GST calculator to instantly add or remove GST from any price. Get the exact GST amount, Net Price, Gross Price, and the CGST/SGST split for all major tax slabs.',
+    'Calculate GST amount easily. Add GST to net price or remove GST from gross price. Check 5%, 12%, 18%, 28% tax slabs instantly.',
   keywords: [
-    'GST calculator',
-    'GST rate calculation',
-    'add GST to price',
-    'remove GST from price',
-    'CGST SGST calculator',
-    'Net price calculation',
+    'GST Calculator',
+    'GST Calculation Formula',
+    'Reverse GST Calculator',
+    'Calculate GST on Amount',
+    'Goods and Services Tax India',
+    'GST Invoice Calculator',
   ],
   openGraph: {
-    title: 'GST Calculator India | Net & Gross Price',
-    description: 'Calculate GST for all slabs instantly and accurately.',
-    url: 'https://yourwebsite.com/gst-calculator',
+    title: 'GST Calculator – Instant Tax Computation',
+    description:
+      'Free tool for businesses and consumers to calculate GST inclusive/exclusive prices.',
+    url: 'https://www.fincado.com/gst-calculator',
     type: 'website',
   },
 };
 
-// --- 2. PAGE COMPONENT (Server Component) ---
-export default function GSTCalculatorPage() {
+export default function GSTPage() {
   return (
-    <main
-      style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 300px',
-        gap: 16,
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        <h1>GST Calculator — Add or Remove Tax from Price</h1>
+    <>
+      {/* 2. SCHEMA MARKUP */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How to calculate GST?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'To add GST: Gross Price = Net Price × (1 + GST Rate). To remove GST: Net Price = Gross Price / (1 + GST Rate).',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What are the GST slabs?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'The primary GST slabs in India are 5%, 12%, 18%, and 28%. Essential items are often exempt (0%), while luxury goods attract higher rates plus cess.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What is Reverse Charge Mechanism (RCM)?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Under RCM, the liability to pay GST falls on the recipient of goods/services instead of the supplier. This applies to specific goods and unregistered dealers.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
-        <p style={{ maxWidth: 760 }}>
-          The Goods and Services Tax (GST) Calculator simplifies tax compliance
-          by allowing you to quickly determine the final sale price (Gross
-          Price) or the base cost (Net Price) for any product based on the
-          prevailing GST slab.
-        </p>
+      <main className="container" style={{ padding: '40px 20px' }}>
+        {/* Header */}
+        <header style={{ marginBottom: 40 }} className="no-print">
+          <h1>GST Calculator (Goods and Services Tax)</h1>
+          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
+            Instantly calculate **GST Inclusive** and **Exclusive** prices.
+            Ideal for generating invoices, verifying bills, and tax compliance.
+          </p>
+        </header>
 
-        <div className="ad-box">Ad will appear here (Above the fold)</div>
+        <div className="layout-grid">
+          <div className="main-content">
+            {/* CALCULATOR APP */}
+            <GSTClient />
 
-        {/* The GSTClient component contains the calculator interface and all the SEO-rich content/FAQs */}
-        <GSTClient />
+            <div style={{ margin: '40px 0' }} className="no-print">
+              <AdSlot id="gst-mid-content" type="leaderboard" />
+            </div>
 
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Mid content)
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="article content-for-seo no-print">
+              {/* 1. What is GST? */}
+              <h2>Understanding GST (Goods and Services Tax)</h2>
+              <p>
+                **GST** is a destination-based indirect tax levied on the supply
+                of goods and services. It has replaced multiple indirect taxes
+                like VAT, Service Tax, and Excise Duty, creating a "One Nation,
+                One Tax" system.
+              </p>
+
+              {/* 2. Key Components */}
+              <h3>Components of GST</h3>
+              <ul>
+                <li>
+                  <strong>CGST (Central GST):</strong> Collected by the Central
+                  Government on intra-state sales.
+                </li>
+                <li>
+                  <strong>SGST (State GST):</strong> Collected by the State
+                  Government on intra-state sales.
+                </li>
+                <li>
+                  <strong>IGST (Integrated GST):</strong> Collected by the
+                  Central Government on inter-state sales and imports.
+                </li>
+              </ul>
+
+              {/* 3. Planning Help */}
+              <h3>Why Use This Calculator?</h3>
+              <div className="advantage-grid">
+                <div className="advantage-card">
+                  <h4>Reverse Calculation</h4>
+                  <p>
+                    Easily find the base price of a product sold at MRP (Gross
+                    Price) by removing the tax component.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Invoice Accuracy</h4>
+                  <p>
+                    Avoid billing errors by calculating precise CGST and SGST
+                    splits for your invoices.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Budgeting</h4>
+                  <p>
+                    Consumers can estimate the final price of big-ticket items
+                    like cars or electronics before purchase.
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. Formula */}
+              <h3>GST Calculation Formulas</h3>
+
+              <h4>1. Adding GST (Exclusive Price to Inclusive)</h4>
+              <div
+                style={{
+                  background: '#f1f5f9',
+                  padding: '12px',
+                  borderRadius: '6px',
+                  fontFamily: 'monospace',
+                  marginBottom: '16px',
+                  border: '1px solid #e2e8f0',
+                }}
+              >
+                GST Amount = (Base Price × Rate) / 100 <br />
+                Total Price = Base Price + GST Amount
+              </div>
+
+              <h4>2. Removing GST (Inclusive Price to Exclusive)</h4>
+              <div
+                style={{
+                  background: '#f1f5f9',
+                  padding: '12px',
+                  borderRadius: '6px',
+                  fontFamily: 'monospace',
+                  marginBottom: '16px',
+                  border: '1px solid #e2e8f0',
+                }}
+              >
+                Base Price = Total Price / (1 + Rate/100) <br />
+                GST Amount = Total Price - Base Price
+              </div>
+
+              {/* 5. Key Advantages */}
+              <h3>Benefits of GST System</h3>
+              <ul>
+                <li>
+                  <strong>Eliminates Cascading Effect:</strong> Tax on tax is
+                  removed via Input Tax Credit (ITC).
+                </li>
+                <li>
+                  <strong>Higher Threshold:</strong> Small businesses with
+                  turnover up to ₹40 Lakhs are exempt (for goods).
+                </li>
+                <li>
+                  <strong>Composition Scheme:</strong> Simplified compliance for
+                  small businesses with turnover up to ₹1.5 Crore.
+                </li>
+              </ul>
+            </article>
+
+            {/* Smart Planning Stats */}
+            <div className="no-print">
+              <HeroWithStats
+                eyebrow="Tax Compliance"
+                title="GST Quick Facts"
+                stats={[
+                  { value: '18%', label: 'Standard Service Rate' },
+                  { value: 'IGST', label: 'For Inter-State Sales' },
+                  { value: 'ITC', label: 'Input Tax Credit' },
+                ]}
+              />
+            </div>
+
+            {/* FAQs */}
+            <section className="article no-print">
+              <h2>Frequently Asked Questions (FAQs)</h2>
+              <div className="faqs-accordion">
+                <details open>
+                  <summary>Who needs to register for GST?</summary>
+                  <p>
+                    Businesses with an annual turnover exceeding ₹40 Lakhs (₹20
+                    Lakhs for services) must register. E-commerce sellers and
+                    inter-state suppliers must register mandatorily regardless
+                    of turnover.
+                  </p>
+                </details>
+                <details>
+                  <summary>What is HSN/SAC Code?</summary>
+                  <p>
+                    <strong>HSN</strong> (Harmonized System of Nomenclature) is
+                    for goods, and <strong>SAC</strong> (Services Accounting
+                    Code) is for services. These codes classify items to
+                    determine the applicable tax rate.
+                  </p>
+                </details>
+                <details>
+                  <summary>Is there GST on exports?</summary>
+                  <p>
+                    Exports are generally treated as zero-rated supplies.
+                    Exporters can either pay IGST and claim a refund or export
+                    under a Bond/Letter of Undertaking (LUT) without paying tax.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar */}
+          <aside className="sidebar no-print">
+            <FinancialNavWidget />
+            <div style={{ marginTop: 24 }}>
+              <AdSlot id="gst-sidebar" type="box" />
+            </div>
+          </aside>
         </div>
-
-        <section className="article" style={{ marginTop: 24 }}>
-          <h2>Key GST Notes for Compliance</h2>
-          <ul>
-            <li>
-              GST operates on the **Input Tax Credit (ITC)** principle, allowing
-              businesses to offset tax paid on inputs against output liability.
-            </li>
-            <li>
-              The total GST amount is divided equally into **CGST (Central)**
-              and **SGST (State)** for intra-state sales, or charged as **IGST
-              (Integrated)** for inter-state sales.
-            </li>
-            <li>
-              Tax calculation must be accurate to avoid penalties and streamline
-              filing of returns (GSTR-1, GSTR-3B).
-            </li>
-          </ul>
-
-          <LegalNote />
-        </section>
-
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          Ad will appear here (Before footer)
-        </div>
-      </div>
-
-      <aside className="sidebar">
-        <div className="ad-box">Sticky Sidebar Ad</div>
-        {/* This widget helps monetize the high-intent finance traffic */}
-        <FinancialNavWidget />
-      </aside>
-    </main>
+      </main>
+    </>
   );
 }

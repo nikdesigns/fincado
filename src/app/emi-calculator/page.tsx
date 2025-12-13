@@ -92,35 +92,133 @@ export default function EMIPage() {
 
             {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
             <article className="article content-for-seo no-print">
-              {/* SECTION 1: HOW IT HELPS */}
-              <h2>How This EMI Calculator Helps You</h2>
+              {/* 1. What is an EMI? (New Section) */}
+              <h2>What is an EMI?</h2>
+              <p>
+                <strong>EMI (Equated Monthly Installment)</strong> is the fixed
+                amount of money you pay to a bank or lender every month to repay
+                a loan.
+              </p>
+              <p>
+                It consists of two components:
+                <br />
+                <strong>1. Principal:</strong> The portion that repays the
+                original loan amount.
+                <br />
+                <strong>2. Interest:</strong> The cost charged by the bank for
+                borrowing the money.
+              </p>
+              <p>
+                In the early years of your loan, a larger portion of your EMI
+                goes towards interest. As the tenure progresses, the principal
+                component increases.
+              </p>
+
+              {/* 2. General Eligibility (New Section) */}
+              <h3>Factors Affecting Loan Eligibility</h3>
+              <p>
+                While specific criteria vary by loan type (Home vs Personal),
+                lenders generally look at the "3 Cs" of credit:
+              </p>
+              <ul>
+                <li>
+                  <strong>Credit Score (Character):</strong> A CIBIL score of
+                  750+ indicates you are a responsible borrower.
+                </li>
+                <li>
+                  <strong>Income (Capacity):</strong> Lenders check your FOIR
+                  (Fixed Obligation to Income Ratio). Usually, your total EMIs
+                  should not exceed 50% of your net monthly income.
+                </li>
+                <li>
+                  <strong>Collateral:</strong> For secured loans (Home/Car), the
+                  value of the asset plays a huge role in approval.
+                </li>
+              </ul>
+
+              {/* 3. How it Helps */}
+              <h3>How This EMI Calculator Helps You</h3>
               <p>
                 Whether you are planning for a dream home, a new car, or a
                 personal expense, knowing your EMI in advance is crucial. This
                 tool helps you:
               </p>
-              <ul>
+              <div className="advantage-grid">
+                <div className="advantage-card">
+                  <h4>Budget Better</h4>
+                  <p>
+                    Know exactly how much needs to be set aside from your
+                    monthly income before you apply.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Save on Interest</h4>
+                  <p>
+                    Experiment with different tenures to find the "sweet spot"
+                    where EMI is affordable and interest is low.
+                  </p>
+                </div>
+                <div className="advantage-card">
+                  <h4>Compare Loans</h4>
+                  <p>
+                    Quickly switch interest rates to compare offers from HDFC,
+                    SBI, ICICI, and other banks.
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. Formula */}
+              <h3>The EMI Calculation Formula</h3>
+              <p>
+                The mathematical formula for calculating EMI is standard across
+                all banks:
+              </p>
+              <div
+                style={{
+                  background: '#f1f5f9',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  fontFamily: 'monospace',
+                  marginBottom: '20px',
+                  border: '1px solid #e2e8f0',
+                  textAlign: 'center',
+                  fontWeight: 600,
+                }}
+              >
+                EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
+              </div>
+              <ul style={{ fontSize: '14px' }}>
                 <li>
-                  <strong>Budget Better:</strong> Know exactly how much needs to
-                  be set aside from your monthly income.
+                  <strong>P</strong> = Principal Loan Amount
                 </li>
                 <li>
-                  <strong>Save on Interest:</strong> Experiment with different
-                  tenures to find the "sweet spot" where EMI is affordable and
-                  interest is low.
+                  <strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷
+                  100)
                 </li>
                 <li>
-                  <strong>Compare Loans:</strong> Quickly switch interest rates
-                  to compare offers from HDFC, SBI, ICICI, and other banks.
+                  <strong>N</strong> = Loan Tenure in Months
                 </li>
               </ul>
 
-              {/* SECTION 2: HOW TO USE */}
+              {/* 5. Key Advantages (New Section) */}
+              <h3>Key Advantages of Planned EMI Repayment</h3>
+              <ul>
+                <li>
+                  <strong>Financial Discipline:</strong> Fixed monthly payments
+                  help you budget your expenses effectively.
+                </li>
+                <li>
+                  <strong>Credit Score Boost:</strong> Paying EMIs on time is
+                  the fastest way to improve your CIBIL score.
+                </li>
+                <li>
+                  <strong>No Large Burden:</strong> Instead of paying a lump
+                  sum, you break the cost down into manageable chunks over
+                  years.
+                </li>
+              </ul>
+
               <h3>How to Use Fincado's EMI Calculator?</h3>
-              <p>
-                Our tool is designed for speed and accuracy. Just follow these
-                steps:
-              </p>
               <ol>
                 <li>
                   <strong>Enter Loan Amount:</strong> Input the principal amount
@@ -137,89 +235,9 @@ export default function EMIPage() {
               </ol>
               <p>
                 The calculator will instantly show your{' '}
-                <strong>Monthly EMI</strong>,{' '}
+                <strong>Monthly EMI</strong>,
                 <strong>Total Interest Payable</strong>, and the{' '}
                 <strong>Total Payment</strong> amount.
-              </p>
-
-              {/* SECTION 3: ADVANTAGES */}
-              <h3>Advantages of Using an Online Calculator</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>⚡ Instant & Accurate</h4>
-                  <p>
-                    Eliminate manual calculation errors. Get precise figures
-                    down to the last rupee instantly.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>📊 Visual Breakdown</h4>
-                  <p>
-                    Our interactive charts show you exactly how much of your
-                    money goes towards the Principal vs Interest.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>🛡️ Future Planning</h4>
-                  <p>
-                    Download the Amortization Schedule to plan your prepayments
-                    and become debt-free faster.
-                  </p>
-                </div>
-              </div>
-
-              <hr
-                style={{
-                  margin: '32px 0',
-                  border: 'none',
-                  borderTop: '1px solid #e2e8f0',
-                }}
-              />
-
-              {/* SECTION 4: FORMULA & MATH */}
-              <h3>The EMI Calculation Formula</h3>
-              <p>
-                Whether it's a Home Loan, Car Loan, or Personal Loan, the math
-                remains the same. Manual calculation is difficult because of the
-                compounding interest factor.
-              </p>
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ - 1)
-              </div>
-              <ul style={{ fontSize: '14px' }}>
-                <li>
-                  <strong>P</strong> = Principal Loan Amount
-                </li>
-                <li>
-                  <strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷
-                  100)
-                </li>
-                <li>
-                  <strong>n</strong> = Loan Tenure in Months
-                </li>
-              </ul>
-
-              <h3>Factors That Affect Your Loan EMI</h3>
-              <p>
-                <strong>Loan Amount:</strong> The higher the principal, the
-                higher the EMI.
-                <br />
-                <strong>Interest Rate:</strong> A floating rate changes with
-                market trends, while a fixed rate stays the same.
-                <br />
-                <strong>Loan Tenure:</strong> Longer tenure means lower EMI, but
-                higher total interest cost.
               </p>
             </article>
 
@@ -281,8 +299,7 @@ export default function EMIPage() {
                     Yes! Most banks allow part-prepayments. When you prepay, the
                     amount is deducted directly from your{' '}
                     <strong>Principal</strong>. You can then choose to either
-                    reduce your EMI or reduce your Tenure (reducing tenure saves
-                    more money).
+                    reduce your EMI or reduce your Tenure.
                   </p>
                 </details>
               </div>
