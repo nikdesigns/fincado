@@ -43,6 +43,7 @@ const CALCULATOR_MENU = [
     items: [
       { label: 'Credit Score', href: '/credit-score' },
       { label: 'GST Calculator', href: '/gst-calculator' },
+      { label: 'Inflation', href: '/inflation-calculator' }, // ✅ Added Here
       { label: 'Simple Interest', href: '/simple-interest-calculator' },
       { label: 'All Calculators', href: '/calculators', bold: true },
     ],

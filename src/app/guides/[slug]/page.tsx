@@ -1,189 +1,204 @@
-import articles from '@/data/articles.json';
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import WikiText from '@/components/WikiText';
 import AdSlot from '@/components/AdSlot';
+import articles from '@/data/articles.json';
+import { getRelatedGuides } from '@/lib/relatedGuides';
 
-/* -------------------------
-   Types
---------------------------*/
+/* ---------------- TYPES ---------------- */
+
 type Article = {
   slug: string;
   title: string;
   category: string;
   seoTitle: string;
   metaDescription: string;
-  content: string; // HTML
+  content: string;
+  published: string;
 };
 
-/* -------------------------
-   Static params
---------------------------*/
-export async function generateStaticParams() {
-  return (articles as Article[]).map((article) => ({
-    slug: article.slug,
-  }));
-}
+type Props = {
+  params: { slug: string };
+};
 
-/* -------------------------
-   Auto internal links (RESTORED)
---------------------------*/
-function autoLinkContent(html: string) {
-  const links: Record<string, string> = {
-    'EMI Calculator': '/emi-calculator',
-    'SIP Calculator': '/sip-calculator',
-    'FD Calculator': '/fd-calculator',
-    'Personal Loan': '/loans/personal-loan',
-    'Home Loan': '/loans/home-loan',
-    'Credit Score': '/credit-score',
-    Investing: '/investing',
-    Savings: '/savings',
-  };
+/* ---------------- METADATA ---------------- */
 
-  let updated = html;
+export function generateMetadata({ params }: Props): Metadata {
+  const article = (articles as Article[]).find((a) => a.slug === params.slug);
 
-  Object.entries(links).forEach(([text, url]) => {
-    const regex = new RegExp(`\\b${text}\\b`, 'g');
-    updated = updated.replace(
-      regex,
-      `<a href="${url}" class="auto-link">${text}</a>`
-    );
-  });
-
-  return updated;
-}
-
-/* -------------------------
-   FAQ Extractor
---------------------------*/
-function extractFAQs(html: string) {
-  const faqs: { question: string; answer: string }[] = [];
-  const h3Regex = /<h3[^>]*>(.*?)<\/h3>/gi;
-  let match: RegExpExecArray | null;
-
-  while ((match = h3Regex.exec(html))) {
-    const q = match[1].trim();
-    const rest = html.slice(h3Regex.lastIndex);
-    const pMatch = /^([\s\S]*?)<p[^>]*>([\s\S]*?)<\/p>/i.exec(rest);
-    if (pMatch) {
-      const answerText = pMatch[2].replace(/<[^>]+>/g, '').trim();
-      if (answerText.length > 0) {
-        faqs.push({
-          question: q.replace(/<[^>]+>/g, '').trim(),
-          answer: answerText,
-        });
-      }
-    }
-  }
-
-  return faqs;
-}
-
-/* -------------------------
-   Metadata
---------------------------*/
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
-
-  if (!article) return { title: 'Article Not Found' };
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const url = `${siteUrl}/guides/${article.slug}`;
+  if (!article) return {};
 
   return {
-    title: article.seoTitle,
+    title: article.seoTitle || article.title,
     description: article.metaDescription,
-    alternates: { canonical: url },
     openGraph: {
-      title: article.seoTitle,
+      title: article.title,
       description: article.metaDescription,
-      url,
-      siteName: 'Fincado',
       type: 'article',
-    },
-    twitter: {
-      card: 'summary',
-      title: article.seoTitle,
-      description: article.metaDescription,
+      url: `https://www.fincado.com/guides/${article.slug}`,
+      publishedTime: article.published,
     },
   };
 }
 
-/* -------------------------
-   Page Component
---------------------------*/
-export default async function ArticlePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
-  if (!article) return notFound();
+/* ---------------- PAGE ---------------- */
 
-  const parts = article.content.split('<!-- AD -->');
-  const faqs = extractFAQs(article.content);
+export default function GuidePost({ params }: Props) {
+  const article = (articles as Article[]).find((a) => a.slug === params.slug);
+
+  if (!article) notFound();
+
+  const related = getRelatedGuides(article.slug, article.category);
+
+  /* -------- JSON-LD STRUCTURED DATA -------- */
+
+  const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.metaDescription,
+    datePublished: article.published,
+    dateModified: article.published,
+    articleSection: article.category,
+    author: {
+      '@type': 'Organization',
+      name: 'Fincado',
+      url: 'https://www.fincado.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Fincado',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.fincado.com/logo.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.fincado.com/guides/${article.slug}`,
+    },
+  };
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.fincado.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Guides',
+        item: 'https://www.fincado.com/guides',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: `https://www.fincado.com/guides/${article.slug}`,
+      },
+    ],
+  };
 
   return (
-    <main className="container">
-      <article className="article">
-        {parts.map((part, index) => (
-          <div key={index} style={{ marginBottom: 16 }}>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: autoLinkContent(part),
-              }}
-            />
+    <article className="article">
+      {/* ✅ STRUCTURED DATA (STATIC SAFE) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
 
-            {index !== parts.length - 1 && (
-              <div style={{ margin: '40px 0' }}>
-                <AdSlot label="In-Article Ad" />
-              </div>
-            )}
-          </div>
-        ))}
-
-        <div style={{ marginTop: 48 }}>
-          <AdSlot label="End of Article Ad" />
+      {/* ---------------- HEADER ---------------- */}
+      <header
+        style={{
+          marginBottom: 32,
+          borderBottom: '1px solid #e2e8f0',
+          paddingBottom: 24,
+        }}
+      >
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: 'var(--color-brand-green)',
+            textTransform: 'uppercase',
+            marginBottom: 12,
+          }}
+        >
+          {article.category}
         </div>
 
-        {/* ✅ JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Article',
-              headline: article.title,
-              description: article.metaDescription,
-            }),
+        <h1
+          style={{
+            fontSize: 'clamp(28px, 4vw, 42px)',
+            lineHeight: 1.2,
+            marginBottom: 16,
           }}
-        />
+        >
+          {article.title}
+        </h1>
 
-        {faqs.length > 0 && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'FAQPage',
-                mainEntity: faqs.map((f) => ({
-                  '@type': 'Question',
-                  name: f.question,
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: f.answer,
-                  },
-                })),
-              }),
-            }}
-          />
-        )}
-      </article>
-    </main>
+        <p
+          style={{
+            fontSize: 18,
+            color: 'var(--color-text-muted)',
+            lineHeight: 1.6,
+          }}
+        >
+          {article.metaDescription}
+        </p>
+      </header>
+
+      {/* ---------------- TOP AD ---------------- */}
+      <div className="no-print" style={{ marginBottom: 32 }}>
+        <AdSlot id={`guide-top-${article.slug}`} type="leaderboard" />
+      </div>
+
+      {/* ---------------- CONTENT ---------------- */}
+      <WikiText content={article.content} className="guide-body" />
+
+      {/* ---------------- RELATED GUIDES ---------------- */}
+      {related.length > 0 && (
+        <section style={{ marginTop: 64 }}>
+          <h3 style={{ marginBottom: 16 }}>Related Guides</h3>
+          <ul style={{ paddingLeft: 18 }}>
+            {related.map((g) => (
+              <li key={g.slug} style={{ marginBottom: 8 }}>
+                <Link href={`/guides/${g.slug}`}>{g.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* ---------------- BOTTOM AD ---------------- */}
+      <div
+        className="no-print"
+        style={{
+          marginTop: 48,
+          paddingTop: 24,
+          borderTop: '1px solid #e2e8f0',
+        }}
+      >
+        <AdSlot id={`guide-bottom-${article.slug}`} type="leaderboard" />
+      </div>
+    </article>
   );
+}
+
+/* ---------------- STATIC PATHS ---------------- */
+
+export function generateStaticParams() {
+  return (articles as Article[]).map((a) => ({
+    slug: a.slug,
+  }));
 }

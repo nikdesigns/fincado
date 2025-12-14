@@ -1,61 +1,88 @@
 import type { Metadata } from 'next';
+import React from 'react';
+import AdSlot from '@/components/AdSlot';
+import { Suspense } from 'react';
 import GuidesGrid from './GuidesGrid';
-import LegalNote from '@/components/LegalNote';
-import FinancialNavWidget from '@/components/FinancialNavWidget';
+import articles from '@/data/articles.json';
 
-// --- 1. SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Financial Guides, Articles & Resources | Fincado',
+  title: 'Financial Guides & Wisdom – Fincado',
   description:
-    'Find expert guides on credit scores, tax saving schemes (80C), home loans, SIP vs FD, and retirement planning. All articles are tailored for Indian investors.',
-  keywords: [
-    'financial guides',
-    'tax planning articles',
-    'credit score guide',
-    'SIP vs FD explained',
-    'investment strategy India',
-  ],
-  openGraph: {
-    title: 'Expert Financial Guides & Articles',
-    description:
-      'Deep-dive resources on every major financial topic for smart investing.',
-    url: 'https://yourwebsite.com/guides',
-    type: 'website',
-  },
+    'Expert guides on Home Loans, SIPs, Credit Scores, and Tax Planning. Master your personal finance with our in-depth tutorials.',
 };
 
-// --- 2. PAGE COMPONENT (Server Component) ---
-export default function GuidesIndexPage() {
+export default function GuidesPage() {
+  // ✅ HARDEN JSON IMPORT
+  const safeArticles = Array.isArray(articles) ? articles : [];
+
   return (
-    <main
-      style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        gap: 16,
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        {/* Client Component renders the guides */}
-        <GuidesGrid />
+    <main className="container" style={{ paddingBottom: 80 }}>
+      {/* --- HERO SECTION --- */}
+      <section
+        style={{
+          position: 'relative',
+          padding: '80px 24px 40px',
+          textAlign: 'center',
+          background:
+            'radial-gradient(circle at 50% 0%, rgba(72, 151, 25, 0.08) 0%, rgba(255,255,255,0) 70%)',
+          marginBottom: 40,
+        }}
+      >
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              padding: '6px 14px',
+              background: 'var(--color-success-bg)',
+              color: 'var(--color-brand-green)',
+              fontSize: '12px',
+              fontWeight: 600,
+              borderRadius: '100px',
+              marginBottom: 16,
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              border: '1px solid #dcfce7',
+            }}
+          >
+            Fincado Academy
+          </span>
 
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          AdSense Slot: Mid Content Banner
-        </div>
+          <h1
+            style={{
+              fontSize: 'clamp(32px, 5vw, 48px)',
+              fontWeight: 800,
+              marginBottom: 16,
+            }}
+          >
+            Financial Wisdom,
+            <br />
+            <span style={{ color: 'var(--color-brand-green)' }}>
+              Simplified.
+            </span>
+          </h1>
 
-        <section className="article" style={{ marginTop: 24 }}>
-          <h2>Resource Integrity and Disclaimer</h2>
-          <p>
-            All guides and articles are based on prevailing financial rules and
-            taxation as per the Government of India, but should not be taken as
-            legal or financial advice. We recommend consulting a licensed
-            professional for personalized planning.
+          <p style={{ fontSize: 18, color: 'var(--color-text-muted)' }}>
+            Clear, actionable guides to help you navigate loans, investments,
+            and tax planning without jargon.
           </p>
-          <LegalNote />
-        </section>
-
-        <div className="ad-box" style={{ marginTop: 24 }}>
-          AdSense Slot: Before Footer
         </div>
+      </section>
+
+      <div className="layout-grid">
+        <div className="main-content">
+          {/* ✅ PASS SAFE DATA */}
+          <Suspense fallback={null}>
+            <GuidesGrid allArticles={safeArticles} />
+          </Suspense>
+
+          <div style={{ marginTop: 60 }}>
+            <AdSlot id="guides-bottom" type="leaderboard" />
+          </div>
+        </div>
+
+        <aside className="sidebar">
+          <AdSlot id="guides-sidebar" type="box" />
+        </aside>
       </div>
     </main>
   );

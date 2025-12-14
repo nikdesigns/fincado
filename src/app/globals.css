@@ -209,6 +209,7 @@ option:checked::checkmark {
 .primary-cta:hover {
   background: var(--color-action-hover);
   transform: translateY(-1px);
+  color: #ffffff;
 }
 
 .secondary-cta {
@@ -781,13 +782,14 @@ input[type='range']::-webkit-slider-thumb:hover {
 .tool-icon-wrap {
   width: 64px;
   height: 64px;
-  background: var(--color-success-bg);
+  background: #c6f2a4;
+  border: 1px solid #a1e76f;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  color: var(--color-action-cta);
+  color: #2f5c18;
 }
 .tool-icon-svg {
   width: 32px;
@@ -976,7 +978,7 @@ input[type='range']::-webkit-slider-thumb:hover {
   }
 }
 .final-cta {
-  background: linear-gradient(135deg, #064e3b, #065f46);
+  background: #2a4e19;
   color: #fff;
   border-radius: 20px;
   padding: 60px 20px;
@@ -1208,4 +1210,180 @@ input[type='range']::-webkit-slider-thumb:hover {
   background-color: var(--color-success-bg);
   border-bottom: 1px solid var(--color-action-cta);
   color: var(--color-brand-green);
+}
+
+/* =========================================
+   HERO STATS BLOCK (Custom)
+   ========================================= */
+.hero-stats-block {
+  padding: 60px 0;
+  background-color: var(--color-bg-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hero-stats-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero-stats-inner {
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+  }
+}
+
+/* --- Left Side: Image --- */
+.hero-left {
+  flex: 1;
+  width: 100%;
+}
+
+.image-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* Aspect Ratio */
+  background-color: var(--color-bg-soft);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Right Side: Content --- */
+.hero-right {
+  flex: 1;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-brand-green);
+  margin-bottom: 12px;
+  display: inline-block;
+  background: var(--color-success-bg);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.hero-stats-title {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 700;
+  color: #0b1720; /* Dark heading color from your palette */
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+
+/* --- Grid Stats --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.stat-item {
+  background: var(--color-bg-soft);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border-color: #d1fae5; /* Light green accent on hover */
+}
+
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-action-cta);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ... existing styles ... */
+
+/* =========================================
+   11. GUIDE ARTICLE STYLES (Added)
+   ========================================= */
+.guide-body h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
+.guide-body h3 {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-size: 22px;
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
+.guide-body p {
+  margin-bottom: 20px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #374151; /* Gray-700 */
+}
+
+.guide-body ul,
+.guide-body ol {
+  margin-bottom: 24px;
+  padding-left: 24px;
+  color: #374151;
+}
+
+.guide-body li {
+  margin-bottom: 10px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* WikiText Link Styles inside Guides */
+.guide-body a {
+  color: var(--color-action-cta);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-action-cta);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.guide-body a:hover {
+  background-color: var(--color-success-bg);
+  color: var(--color-brand-green);
+  border-bottom-style: solid;
 }

@@ -4,7 +4,6 @@ import React from 'react';
 import EMIClient from './EMIClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
@@ -266,19 +265,6 @@ export default function EMIPage() {
                 <strong>Total Payment</strong> amount.
               </p>
             </article>
-
-            {/* Smart Planning Section */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Savings"
-                title="How to Save Interest on Loans?"
-                stats={[
-                  { value: '1 extra', label: 'EMI/year saves 3-4 years' },
-                  { value: '5%', label: 'Annual hike clears loan fast' },
-                  { value: 'Short', label: 'Tenure = Low Interest' },
-                ]}
-              />
-            </div>
 
             {/* EXPANDED FAQ SECTION */}
             <section className="article no-print">

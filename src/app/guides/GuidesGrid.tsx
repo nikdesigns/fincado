@@ -1,80 +1,45 @@
-// src/app/guides/GuidesGrid.tsx
 'use client';
-import React from 'react';
+
+import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
+import WikiText from '@/components/WikiText';
 import {
   FaBookOpen,
-  FaShieldAlt,
   FaHome,
-  FaCreditCard,
   FaBalanceScale,
   FaMoneyBillWave,
+  FaCreditCard,
+  FaCalculator,
 } from 'react-icons/fa';
 
-// --- Placeholder Data based on uploaded files and common topics ---
-const GUIDE_DATA = [
-  {
-    title: 'Home Loan for First-Time Buyers',
-    slug: 'home-loan-for-first-time-buyers',
-    category: 'Loans & Mortgages',
-    icon: <FaHome style={{ color: '#1d4ed8' }} />,
-    desc: 'A step-by-step guide covering LTV, tax benefits, eligibility, and the EMI process for new homeowners.',
-    date: '2025-09-10',
-  },
-  {
-    title: 'How Your Credit Score Affects Loan Approvals',
-    slug: 'how-credit-score-affects-loans',
-    category: 'Credit & Eligibility',
-    icon: <FaCreditCard style={{ color: '#dc2626' }} />,
-    desc: 'Deep dive into CIBIL score factors, the impact of utilization, and strategies for rapid score improvement.',
-    date: '2025-08-20',
-  },
-  {
-    title: 'SIP vs. FD: Which is the Better Long-Term Investment?',
-    slug: 'sip-vs-fd',
-    category: 'Investment Strategy',
-    icon: <FaBalanceScale style={{ color: '#047857' }} />,
-    desc: 'Comparative analysis of systematic investing (SIP) and capital preservation (FD) strategies for different goals.',
-    date: '2025-07-15',
-  },
-  {
-    title: 'The Ultimate Guide to Tax Saving Schemes (80C)',
-    slug: 'top-tax-saving-schemes',
-    category: 'Tax Planning',
-    icon: <FaMoneyBillWave style={{ color: '#f59e0b' }} />,
-    desc: 'Everything you need to know about Section 80C deductions: PPF, ELSS, FD, and NPS.',
-    date: '2025-06-01',
-  },
-  {
-    title: 'SWP vs. SIP: Planning Your Retirement Income Stream',
-    slug: 'swp-vs-sip',
-    category: 'Retirement & Income',
-    icon: <FaBookOpen style={{ color: '#60a5fa' }} />,
-    desc: 'Transitioning from accumulation (SIP) to distribution (SWP) for a secure post-retirement income.',
-    date: '2025-05-25',
-  },
+/* ---------------- TYPES ---------------- */
 
-  // Add a placeholder for a general guide not directly from the list
-  {
-    title: 'Understanding GST Compliance for Small Businesses',
-    slug: 'understanding-gst-compliance',
-    category: 'Tax Planning',
-    icon: <FaShieldAlt style={{ color: '#1f2937' }} />,
-    desc: 'A checklist of invoicing, return filing (GSTR-3B), and ITC requirements to avoid penalties.',
-    date: '2025-10-01',
-  },
-];
+type Article = {
+  slug: string;
+  title: string;
+  category: string;
+  metaDescription: string;
+  published: string;
+};
 
-// Helper to group data by category
-const groupedGuides = GUIDE_DATA.reduce((acc, guide) => {
-  if (!acc[guide.category]) {
-    acc[guide.category] = [];
-  }
-  acc[guide.category].push(guide);
-  return acc;
-}, {} as Record<string, typeof GUIDE_DATA>);
+/* ---------------- HELPERS ---------------- */
 
-// Helper to render the date nicely
+// Icon per category
+const getCategoryIcon = (cat: string) => {
+  const c = cat.toLowerCase();
+
+  if (c.includes('loan')) return <FaHome color="#1d4ed8" />;
+  if (c.includes('invest')) return <FaBalanceScale color="#047857" />;
+  if (c.includes('tax')) return <FaMoneyBillWave color="#f59e0b" />;
+  if (c.includes('credit')) return <FaCreditCard color="#dc2626" />;
+  if (c.includes('calc')) return <FaCalculator color="#6366f1" />;
+
+  return <FaBookOpen color="#64748b" />;
+};
+
+// Date formatter (STATIC SAFE)
 const formatDate = (dateString: string) => {
+  if (!dateString) return '';
   return new Date(dateString).toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'short',
@@ -82,112 +47,215 @@ const formatDate = (dateString: string) => {
   });
 };
 
-// Component to render individual guide tiles
-const GuideTile = ({ guide }: { guide: (typeof GUIDE_DATA)[0] }) => (
-  <a
-    href={`/guides/${guide.slug}`}
-    className="guide-tile"
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      padding: '20px',
-      border: '1px solid var(--color-border-light)',
-      borderRadius: 'var(--radius-xl)',
-      backgroundColor: 'var(--color-card-white)',
-      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.05)',
-      transition: 'transform 0.2s, box-shadow 0.2s',
-      textDecoration: 'none',
-      color: 'inherit',
-      minHeight: '180px',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        marginBottom: '8px',
-      }}
-    >
-      <span style={{ fontSize: '20px' }}>{guide.icon}</span>
-      <h3
+/* ---------------- COMPONENT ---------------- */
+
+export default function GuidesGrid({
+  allArticles = [],
+}: {
+  allArticles: Article[];
+}) {
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  /* -------- UNIQUE CATEGORIES -------- */
+
+  const categories = useMemo(() => {
+    if (!Array.isArray(allArticles)) return ['All'];
+
+    const unique = new Set(
+      allArticles
+        .map((a) => a.category)
+        .filter(Boolean)
+        .map((c) => c.toLowerCase())
+    );
+
+    return ['All', ...Array.from(unique)];
+  }, [allArticles]);
+
+  /* -------- FILTERED ARTICLES -------- */
+
+  const filteredArticles = useMemo(() => {
+    if (!Array.isArray(allArticles)) return [];
+
+    if (activeCategory === 'All') return allArticles;
+
+    return allArticles.filter(
+      (a) =>
+        a.category && a.category.toLowerCase() === activeCategory.toLowerCase()
+    );
+  }, [activeCategory, allArticles]);
+
+  /* ---------------- RENDER ---------------- */
+
+  return (
+    <div>
+      {/* ---------- CATEGORY PILLS ---------- */}
+      <div
+        className="no-scrollbar"
         style={{
-          margin: 0,
-          fontSize: '18px',
-          fontWeight: 'var(--font-weight-semibold)',
-          color: 'var(--color-text-dark)',
+          display: 'flex',
+          gap: 12,
+          overflowX: 'auto',
+          paddingBottom: 24,
+          marginBottom: 16,
+          flexWrap: 'wrap',
         }}
       >
-        {guide.title}
-      </h3>
-    </div>
-
-    <p
-      style={{
-        fontSize: '14px',
-        color: 'var(--color-text-subtle)',
-        flexGrow: 1,
-      }}
-    >
-      {guide.desc}
-    </p>
-
-    <div
-      style={{
-        fontSize: '12px',
-        color: '#9ca3af',
-        borderTop: '1px solid #f3f4f6',
-        paddingTop: '10px',
-        marginTop: '10px',
-      }}
-    >
-      {formatDate(guide.date)} &bull; {guide.category}
-    </div>
-  </a>
-);
-
-export default function GuidesGrid() {
-  return (
-    <div className="guide-hub-page article">
-      <h1>Expert Financial Guides & Resources</h1>
-      <p className="tools-sub">
-        Browse deep-dive articles on loans, investment strategies, tax planning,
-        and credit management, tailored for the Indian financial context.
-      </p>
-
-      <div className="ad-box" style={{ marginTop: '20px' }}>
-        AdSense Leaderboard Slot
-      </div>
-
-      {Object.entries(groupedGuides).map(([category, guides]) => (
-        <section key={category} className="guides-section">
-          <div className="tools-header" style={{ marginTop: '40px' }}>
-            <h2 style={{ fontSize: '22px' }}>{category}</h2>
-          </div>
-
-          <div
-            className="guide-grid"
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '24px',
-              marginTop: '16px',
+              padding: '8px 20px',
+              borderRadius: '999px',
+              border:
+                activeCategory === cat
+                  ? '1px solid var(--color-action-cta)'
+                  : '1px solid var(--color-border)',
+              background:
+                activeCategory === cat ? 'var(--color-action-cta)' : '#fff',
+              color:
+                activeCategory === cat ? '#fff' : 'var(--color-text-muted)',
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              textTransform: 'capitalize',
             }}
           >
-            {guides.map((guide) => (
-              <GuideTile key={guide.slug} guide={guide} />
-            ))}
-          </div>
-        </section>
-      ))}
+            {cat === 'All' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </button>
+        ))}
+      </div>
 
+      {/* ---------- EMPTY STATE ---------- */}
+      {filteredArticles.length === 0 && (
+        <p style={{ color: '#64748b', fontSize: 14 }}>
+          No guides match your selection.
+        </p>
+      )}
+
+      {/* ---------- GUIDES GRID ---------- */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gap: 24,
+        }}
+      >
+        {filteredArticles.map((guide) => (
+          <Link
+            key={guide.slug}
+            href={`/guides/${guide.slug}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <article
+              className="guide-card"
+              style={{
+                background: '#fff',
+                border: '1px solid var(--color-border)',
+                borderRadius: 16,
+                padding: 24,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                transition:
+                  'transform 0.2s, box-shadow 0.2s, border-color 0.2s',
+              }}
+            >
+              {/* HEADER */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  marginBottom: 12,
+                }}
+              >
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 10,
+                    background: 'var(--color-bg-soft)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 18,
+                  }}
+                >
+                  {getCategoryIcon(guide.category)}
+                </div>
+
+                <span
+                  style={{
+                    fontSize: 11,
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-muted)',
+                    fontWeight: 600,
+                    letterSpacing: 0.5,
+                  }}
+                >
+                  {guide.category}
+                </span>
+              </div>
+
+              {/* TITLE */}
+              <h3
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  marginBottom: 12,
+                  lineHeight: 1.4,
+                }}
+              >
+                {guide.title}
+              </h3>
+
+              {/* DESCRIPTION */}
+              <div style={{ flexGrow: 1, marginBottom: 16 }}>
+                <WikiText
+                  content={guide.metaDescription}
+                  className="text-sm text-gray-500"
+                />
+              </div>
+
+              {/* FOOTER */}
+              <div
+                style={{
+                  paddingTop: 16,
+                  borderTop: '1px solid var(--color-bg-soft)',
+                  fontSize: 12,
+                  color: '#94a3b8',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <span>{formatDate(guide.published)}</span>
+                <span
+                  style={{
+                    color: 'var(--color-brand-green)',
+                    fontWeight: 500,
+                  }}
+                >
+                  Read Guide →
+                </span>
+              </div>
+            </article>
+          </Link>
+        ))}
+      </div>
+
+      {/* ---------- HOVER EFFECT ---------- */}
       <style jsx global>{`
-        /* Simple hover effect for the tiles */
-        .guide-tile:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);
-          border-color: rgba(4, 120, 87, 0.2); /* Highlight border on hover */
+        .guide-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+          border-color: var(--color-brand-light);
+        }
+        .guide-card .wiki-content a {
+          color: var(--color-brand-green);
+          border-bottom: 1px dotted var(--color-brand-green);
         }
       `}</style>
     </div>

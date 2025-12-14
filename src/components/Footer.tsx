@@ -100,6 +100,9 @@ export default function Footer() {
           <h4>Planning & Tax</h4>
           <ul>
             <li>
+              <Link href="/inflation-calculator">Inflation Calculator</Link>
+            </li>
+            <li>
               <Link href="/retirement-calculator">Retirement Plan</Link>
             </li>
             <li>
