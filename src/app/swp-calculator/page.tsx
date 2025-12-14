@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Retirement Income Calculator',
     'SWP Return Calculator',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/swp-calculator',
+  },
   openGraph: {
     title: 'SWP Calculator – Regular Income Generator',
     description:
@@ -70,6 +74,16 @@ export default function SWPPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'SWP Calculator',
+              url: 'https://www.fincado.com/swp-calculator',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>SWP Calculator — Systematic Withdrawal Plan</h1>

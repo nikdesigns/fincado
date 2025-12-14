@@ -1,11 +1,10 @@
 // src/app/calculators/CalculatorsGrid.tsx
 'use client';
 import React, { useMemo } from 'react';
-// Note: Assuming paths are relative to the root or configured in tsconfig.
-// For demonstration, the data is inline.
 
-// Comprehensive list of all calculators created/referenced
+// Comprehensive list of all calculators
 const ALL_CALCULATORS = [
+  // --- LOANS ---
   {
     title: 'Home Loan EMI',
     path: '/loans/home-loan',
@@ -42,6 +41,7 @@ const ALL_CALCULATORS = [
     desc: 'Universal loan calculator for any principal, rate, and tenure.',
   },
 
+  // --- INVESTMENT ---
   {
     title: 'SIP Planner',
     path: '/sip-calculator',
@@ -85,6 +85,7 @@ const ALL_CALCULATORS = [
     desc: 'Analyze portfolio value based on Equity, Debt, and Gold allocation.',
   },
 
+  // --- RETIREMENT ---
   {
     title: 'Retirement Planner',
     path: '/retirement-calculator',
@@ -114,6 +115,14 @@ const ALL_CALCULATORS = [
     desc: 'Calculate your FIRE number (28x+ expense) for early retirement planning.',
   },
 
+  // --- TOOLS & TAX ---
+  {
+    title: 'Inflation Calculator', // ✅ ADDED HERE
+    path: '/inflation-calculator',
+    category: 'Tools & Tax',
+    icon: '📉',
+    desc: 'Calculate the future value of money and see how inflation erodes purchasing power.',
+  },
   {
     title: 'Credit Score Estimator',
     path: '/credit-score',
@@ -157,7 +166,6 @@ export default function CalculatorsGrid() {
     >
       <div className="tool-icon-wrap">
         <div className="tool-icon-circle">
-          {/* Using the icon string directly, styled by global CSS */}
           <span className="tool-icon-svg" style={{ fontSize: '28px' }}>
             {calc.icon}
           </span>
@@ -186,7 +194,6 @@ export default function CalculatorsGrid() {
           <div className="tools-header">
             <h2>{category}</h2>
           </div>
-          {/* tools-grid is defined in your global.css to handle the responsive layout */}
           <div className="tools-grid">
             {calculators.map(renderCalculatorTile)}
           </div>

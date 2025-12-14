@@ -6,6 +6,7 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import PPFClient from './PPFClient';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
     'PPF Maturity Calculator',
     'Post Office PPF',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/ppf-calculator',
+  },
   openGraph: {
     title: 'PPF Calculator – Tax-Free Wealth Builder',
     description:
@@ -71,6 +75,16 @@ export default function PPFPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'PPF Calculator',
+              url: 'https://www.fincado.com/ppf-calculator',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>PPF Calculator — Public Provident Fund</h1>

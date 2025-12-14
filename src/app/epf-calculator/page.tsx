@@ -6,26 +6,29 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'EPF Calculator – Calculate Provident Fund Balance & Interest',
+  title: 'FIRE Calculator – Financial Independence Retire Early Planning',
   description:
-    'Check your EPF maturity amount online. Calculate employee & employer contribution, annual interest, and total retirement corpus with our EPF Calculator.',
+    'Calculate your FIRE Number with our advanced FIRE Calculator. Estimate target corpus based on SWR (Safe Withdrawal Rate), inflation, and lifestyle expenses.',
   keywords: [
-    'EPF Calculator',
-    'PF Calculator',
-    'Provident Fund Calculator',
-    'EPF Interest Rate',
-    'Employee Provident Fund',
-    'Retirement Corpus Calculator',
-    'UAN Member Portal',
+    'FIRE Calculator',
+    'Financial Independence Retire Early',
+    'FIRE Number Calculator',
+    'Early Retirement Calculator',
+    'F.I.R.E Movement',
+    'Retirement Corpus Calculator India',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/fire-calculator',
+  },
   openGraph: {
-    title: 'EPF Calculator – Track Your Retirement Savings',
+    title: 'FIRE Calculator – Plan Your Early Retirement',
     description:
-      'Free tool to estimate your EPF balance at retirement with current interest rates.',
-    url: 'https://www.fincado.com/epf-calculator',
+      'Free tool to calculate your financial freedom number and required monthly savings.',
+    url: 'https://www.fincado.com/fire-calculator',
     type: 'website',
   },
 };
@@ -46,7 +49,7 @@ export default function EPFPage() {
                 name: 'How is EPF interest calculated?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'EPF interest is calculated monthly on the running balance but credited annually at the end of the financial year (March 31st). The current rate is 8.25% (FY 2023-24).',
+                  text: 'The EPF interest rate is notified by the government every year and is currently around 8%+, credited annually.',
                 },
               },
               {
@@ -71,6 +74,16 @@ export default function EPFPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'EPF Calculator',
+              url: 'https://www.fincado.com/epf-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>

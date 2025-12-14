@@ -6,6 +6,7 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import InflationClient from './InflationClient';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 /* ================= SEO METADATA ================= */
 export const metadata: Metadata = {
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
     'Cost of Living Calculator',
     'Inflation Planning',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/inflation-calculator',
+  },
   openGraph: {
     title: 'Inflation Calculator – Know the Real Value of Money',
     description:
@@ -65,12 +69,30 @@ export default function InflationPage() {
                   text: 'If your savings grow slower than inflation, your real purchasing power declines even though the balance increases.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'How do you calculate inflation-adjusted value?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Inflation-adjusted value is calculated by dividing the future amount by (1 + inflation rate)^years to get its value in today’s terms.',
+                },
+              },
             ],
           }),
         }}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Inflation Calculator',
+              url: 'https://www.fincado.com/inflation-calculator',
+            },
+          ]}
+        />
         {/* ================= HEADER ================= */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Inflation Calculator – Know the Future Value of Your Money</h1>

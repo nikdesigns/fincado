@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Financial Freedom Calculator',
     'Retirement Planning India',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/retirement-calculator',
+  },
   openGraph: {
     title: 'Retirement Calculator – Secure Your Golden Years',
     description:
@@ -70,6 +74,16 @@ export default function RetirementPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Retirement Calculator',
+              url: 'https://www.fincado.com/retirement-calculator',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Retirement Corpus Calculator</h1>
@@ -97,7 +111,7 @@ export default function RetirementPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is Retirement Planning? */}
               <h2>What is Retirement Planning?</h2>
-              [Image of retirement timeline infographic]
+              {/* [Image of retirement timeline infographic] */}
               <WikiText
                 content={`
                   <p>

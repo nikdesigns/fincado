@@ -194,6 +194,17 @@ export default function InflationClient() {
           </div>
         </div>
       </div>
+      <p
+        style={{
+          fontSize: 12,
+          color: '#475569',
+          paddingLeft: 20,
+          marginTop: 10,
+        }}
+      >
+        *Inflation rates used are indicative averages. Actual inflation may vary
+        by category and time period.
+      </p>
     </div>
   );
 }

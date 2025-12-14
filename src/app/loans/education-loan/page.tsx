@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Education Loan Eligibility',
     'Study Loan Interest Rate',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/loans/education-loan',
+  },
   openGraph: {
     title: 'Education Loan Calculator – Plan Your Future',
     description: 'Accurate Student Loan EMI Calculator with Moratorium logic.',
@@ -68,6 +72,17 @@ export default function EducationLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        {/* ✅ BREADCRUMB JSON-LD */}
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Loans', url: 'https://www.fincado.com/loans' },
+            {
+              name: 'Education Loan EMI Calculator',
+              url: 'https://www.fincado.com/loans/education-loan',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Education Loan EMI Calculator</h1>

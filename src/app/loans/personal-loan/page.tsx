@@ -7,6 +7,7 @@ import AdSlot from '@/components/AdSlot';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'Personal Loan EMI Calculator – Check Eligibility & Interest',
@@ -19,6 +20,9 @@ export const metadata: Metadata = {
     'Loan Eligibility',
     'Prepayment Calculator',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/loans/personal-loan',
+  },
   openGraph: {
     title: 'Personal Loan EMI Calculator – Plan Your Finances',
     description:
@@ -68,6 +72,17 @@ export default function PersonalLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        {/* ---------- BREADCRUMB ---------- */}
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Loans', url: 'https://www.fincado.com/loans' },
+            {
+              name: 'Personal Loan EMI Calculator',
+              url: 'https://www.fincado.com/loans/personal-loan',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Personal Loan EMI Calculator</h1>

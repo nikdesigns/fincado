@@ -547,7 +547,13 @@ export default function MutualFundsClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Estimated Portfolio Value
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#4f46e5' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(results.totalFutureValue)}
               </div>
               <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>

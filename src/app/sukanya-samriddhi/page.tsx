@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Post Office SSY',
     'Tax Free Savings Scheme',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/ssy-calculator',
+  },
   openGraph: {
     title: "SSY Calculator – Secure Your Daughter's Future",
     description:
@@ -70,6 +74,16 @@ export default function SSYPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'SSY Calculator',
+              url: 'https://www.fincado.com/ssy-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>

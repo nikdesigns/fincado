@@ -323,6 +323,17 @@ export default function GSTClient() {
           </div>
         </div>
       </div>
+      <p
+        style={{
+          fontSize: 12,
+          color: '#475569',
+          paddingLeft: 20,
+          marginTop: 10,
+        }}
+      >
+        *This calculator is for informational purposes only. For filing GST
+        returns or compliance decisions, consult a tax professional.
+      </p>
     </div>
   );
 }

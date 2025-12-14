@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'One Time Investment Plan',
     'Wealth Calculator',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/lumpsum-calculator',
+  },
   openGraph: {
     title: 'Lumpsum Calculator – Watch Your Wealth Grow',
     description:
@@ -70,6 +74,16 @@ export default function LumpsumPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Lumpsum Calculator',
+              url: 'https://www.fincado.com/lumpsum-calculator',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Lumpsum Calculator — One-Time Investment</h1>

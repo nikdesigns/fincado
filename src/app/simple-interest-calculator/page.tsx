@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Investment Return Calculator',
     'Math Calculator',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/simple-interest-calculator',
+  },
   openGraph: {
     title: 'Simple Interest Calculator – Fast & Accurate',
     description:
@@ -64,12 +68,30 @@ export default function SimpleInterestPage() {
                   text: 'It is often used for short-term loans, car loans (flat rate), and certain types of bonds where interest does not compound.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'How do you calculate simple interest monthly?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'To calculate simple interest monthly, convert months into years by dividing by 12, then apply the formula SI = (P × R × T) / 100.',
+                },
+              },
             ],
           }),
         }}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Simple Interest Calculator',
+              url: 'https://www.fincado.com/simple-interest-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Simple Interest Calculator</h1>
@@ -191,7 +213,7 @@ export default function SimpleInterestPage() {
               <WikiText
                 content={`
                   <p>
-                    While Simple Interest grows linearly (e.g., earning $10 every
+                    While Simple Interest grows linearly (e.g., earning ₹10 every
                     year), Compound Interest grows exponentially (earning interest
                     on interest).
                   </p>

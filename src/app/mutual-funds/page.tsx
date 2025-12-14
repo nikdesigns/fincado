@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Investment Planner India',
     'Inflation Adjusted Returns',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/mutual-fund-calculator',
+  },
   openGraph: {
     title: 'Mutual Fund Calculator – Optimize Your Portfolio',
     description:
@@ -70,6 +74,16 @@ export default function MutualFundPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Mutual Fund Calculator',
+              url: 'https://www.fincado.com/mutual-fund-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Mutual Fund Portfolio Planner</h1>

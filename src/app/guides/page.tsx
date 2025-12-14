@@ -3,113 +3,277 @@ import React from 'react';
 import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
 import GuidesGrid from './GuidesGrid';
-import { getPopularGuides } from '@/lib/popularGuides';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 
+// --- SEO METADATA ---
 export const metadata: Metadata = {
   title: 'Financial Guides & Wisdom – Fincado',
   description:
-    'Expert guides on Loans, SIPs, Credit Scores, and Tax Planning. Learn personal finance the smart way.',
+    'Expert guides on Loans, SIPs, Credit Scores, and Tax Planning. Learn personal finance the smart way with Fincado Academy.',
+  alternates: {
+    canonical: 'https://www.fincado.com/guides',
+  },
+  openGraph: {
+    title: 'Financial Guides & Wisdom – Fincado',
+    description:
+      'Expert guides on Loans, SIPs, Credit Scores, and Tax Planning.',
+    url: 'https://www.fincado.com/guides',
+    type: 'website',
+  },
 };
 
 export default function GuidesPage() {
-  const popularGuides = getPopularGuides(5);
+  // Get 4 popular guides (using static data slice for performance/safety)
+  const popularGuides = articles ? articles.slice(0, 4) : [];
 
   return (
-    <main className="container" style={{ paddingBottom: 80 }}>
-      {/* ---------- HERO ---------- */}
-      <section
-        style={{
-          padding: '80px 24px 40px',
-          textAlign: 'center',
-          marginBottom: 40,
-          background:
-            'radial-gradient(circle at 50% 0%, rgba(72,151,25,0.08), transparent 70%)',
-        }}
-      >
-        <h1
+    <main
+      style={{
+        maxWidth: 1180,
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: '1fr 300px', // Matches /calculators layout
+        gap: 24,
+        padding: '20px',
+      }}
+      className="container"
+    >
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.fincado.com' },
+          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+        ]}
+      />
+
+      {/* --- LEFT COLUMN: CONTENT --- */}
+      <div style={{ minWidth: 0 }}>
+        {/* Top Ad */}
+        <div style={{ marginBottom: 24 }} className="no-print">
+          <AdSlot id="guides-top-leaderboard" type="leaderboard" />
+        </div>
+
+        {/* Hero Section (Contained) */}
+        <section
           style={{
-            fontSize: 'clamp(32px, 5vw, 48px)',
-            fontWeight: 800,
-            marginBottom: 12,
+            padding: '48px 32px',
+            textAlign: 'center',
+            marginBottom: 32,
+            background:
+              'radial-gradient(circle at 50% 0%, rgba(72, 151, 25, 0.1) 0%, rgba(255,255,255,0) 80%)',
+            borderRadius: '20px',
+            border: '1px solid var(--color-border)',
           }}
         >
-          Financial Wisdom,
-          <br />
-          <span style={{ color: 'var(--color-brand-green)' }}>Simplified.</span>
-        </h1>
-        <p
-          style={{
-            fontSize: 18,
-            color: 'var(--color-text-muted)',
-            maxWidth: 680,
-            margin: '0 auto',
-          }}
-        >
-          Actionable finance guides on loans, investments, and taxes — written
-          for India.
-        </p>
-      </section>
+          <span
+            style={{
+              display: 'inline-block',
+              padding: '6px 14px',
+              background: 'var(--color-success-bg)',
+              color: 'var(--color-brand-green)',
+              fontSize: '12px',
+              fontWeight: 600,
+              borderRadius: '100px',
+              marginBottom: 16,
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              border: '1px solid #dcfce7',
+            }}
+          >
+            Fincado Academy
+          </span>
+          <h1
+            style={{
+              fontSize: 'clamp(32px, 5vw, 42px)',
+              fontWeight: 800,
+              marginBottom: 16,
+              color: 'var(--color-text-main)',
+              lineHeight: 1.1,
+            }}
+          >
+            Financial Wisdom,{' '}
+            <span style={{ color: 'var(--color-brand-green)' }}>
+              Simplified.
+            </span>
+          </h1>
+          <p
+            style={{
+              fontSize: 18,
+              color: 'var(--color-text-muted)',
+              maxWidth: 600,
+              margin: '0 auto',
+              lineHeight: 1.6,
+            }}
+          >
+            Actionable finance guides on loans, investments, and taxes — written
+            for India.
+          </p>
+        </section>
 
-      {/* ---------- POPULAR GUIDES ---------- */}
-      <section style={{ marginBottom: 56 }}>
-        <h2 style={{ marginBottom: 16 }}>Popular Guides</h2>
+        {/* Popular Guides (Horizontal Cards) */}
+        <section style={{ marginBottom: 48 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              marginBottom: 16,
+            }}
+          >
+            <span style={{ fontSize: 20 }}>🔥</span>
+            <h2 style={{ fontSize: 20, margin: 0, fontWeight: 700 }}>
+              Trending Now
+            </h2>
+          </div>
 
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+              gap: 16,
+            }}
+          >
+            {popularGuides.map((g) => (
+              <Link
+                key={g.slug}
+                href={`/guides/${g.slug}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 12,
+                  padding: 20,
+                  background: '#fff',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+                className="guide-mini-card"
+              >
+                <div>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--color-text-muted)',
+                      textTransform: 'uppercase',
+                      fontWeight: 600,
+                      display: 'block',
+                      marginBottom: 8,
+                    }}
+                  >
+                    {g.category}
+                  </span>
+                  <strong
+                    style={{
+                      display: 'block',
+                      fontSize: 15,
+                      lineHeight: 1.4,
+                      color: 'var(--color-text-main)',
+                    }}
+                  >
+                    {g.title}
+                  </strong>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Main Guides Grid (Client Component) */}
+        <div id="all-guides">
+          <GuidesGrid allArticles={articles || []} />
+        </div>
+
+        {/* Mid Content Ad */}
+        <div style={{ margin: '40px 0' }} className="no-print">
+          <AdSlot id="guides-mid-leaderboard" type="leaderboard" />
+        </div>
+
+        {/* SEO / Editorial Section */}
+        <section className="article" style={{ marginTop: 24 }}>
+          <h2>Why Financial Literacy Matters?</h2>
+          <p>
+            Making informed financial decisions is crucial in today&apos;s
+            complex economic environment. Whether you are planning to take a{' '}
+            <Link href="/loans/home-loan">Home Loan</Link> or starting a{' '}
+            <Link href="/sip-calculator">SIP investment</Link>, understanding
+            the underlying math can save you lakhs in interest and help you grow
+            your wealth faster.
+          </p>
+          <p>
+            Our guides are designed to break down complex banking terms (like
+            Repo Rate, LTV, FOIR) into simple, actionable English.
+          </p>
+        </section>
+
+        {/* Bottom Ad */}
+        <div style={{ marginTop: 24 }} className="no-print">
+          <AdSlot id="guides-bottom-leaderboard" type="leaderboard" />
+        </div>
+      </div>
+
+      {/* --- RIGHT COLUMN: SIDEBAR --- */}
+      <aside className="sidebar">
+        {/* Sticky Ad Box */}
+        <div style={{ marginBottom: 24 }}>
+          <AdSlot id="guides-sidebar-sticky" type="box" />
+        </div>
+
+        {/* Navigation Widget (Calculators List) */}
+        <FinancialNavWidget />
+
+        {/* Newsletter / Promo Box */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: 20,
+            marginTop: 24,
+            padding: 24,
+            background: 'var(--color-bg-soft)',
+            borderRadius: 16,
+            textAlign: 'center',
+            border: '1px solid var(--color-border)',
           }}
         >
-          {popularGuides.map((g) => (
-            <Link
-              key={g.slug}
-              href={`/guides/${g.slug}`}
-              style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                border: '1px solid var(--color-border)',
-                borderRadius: 14,
-                padding: 20,
-                background: '#fff',
-                transition: 'box-shadow 0.2s',
-              }}
-            >
-              <strong style={{ display: 'block', marginBottom: 6 }}>
-                {g.title}
-              </strong>
-              <span
-                style={{
-                  fontSize: 12,
-                  color: 'var(--color-text-muted)',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {g.category}
-              </span>
-            </Link>
-          ))}
+          <div style={{ fontSize: 32, marginBottom: 12 }}>💡</div>
+          <h3 style={{ fontSize: 16, marginBottom: 8 }}>Have a Question?</h3>
+          <p
+            style={{
+              fontSize: 13,
+              color: 'var(--color-text-muted)',
+              marginBottom: 16,
+            }}
+          >
+            Check our calculators to get precise answers for your EMI and
+            Investment queries.
+          </p>
+          <Link
+            href="/calculators"
+            style={{
+              display: 'inline-block',
+              padding: '10px 20px',
+              background: 'white',
+              border: '1px solid var(--color-border)',
+              borderRadius: 8,
+              fontSize: 13,
+              fontWeight: 600,
+              color: 'var(--color-text-main)',
+              textDecoration: 'none',
+            }}
+          >
+            View All Tools
+          </Link>
         </div>
-      </section>
+      </aside>
 
-      {/* ---------- MAIN GRID ---------- */}
-      <div className="layout-grid">
-        <div className="main-content">
-          <GuidesGrid allArticles={articles || []} />
-
-          <div style={{ marginTop: 60 }}>
-            <AdSlot id="guides-bottom" type="leaderboard" />
-          </div>
-        </div>
-
-        {/* ---------- SIDEBAR ---------- */}
-        <aside className="sidebar">
-          <div className="ad-box" style={{ minHeight: 600 }}>
-            <AdSlot id="guides-sidebar" type="box" />
-          </div>
-        </aside>
-      </div>
+      {/* Local Styles for Mini Cards */}
+      <style>{`
+        .guide-mini-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+          border-color: var(--color-brand-light) !important;
+        }
+      `}</style>
     </main>
   );
 }

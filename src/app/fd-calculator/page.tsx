@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
     'FD Maturity Calculator',
     'Quarterly Compounding Calculator',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/fd-calculator',
+  },
   openGraph: {
     title: 'FD Calculator – Secure Your Savings',
     description:
@@ -71,6 +75,16 @@ export default function FDPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'FD Calculator',
+              url: 'https://www.fincado.com/fd-calculator',
+            },
+          ]}
+        />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Fixed Deposit (FD) Calculator</h1>

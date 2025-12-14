@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Credit Utilization Calculator',
     'Loan Approval Chances',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/credit-score-calculator',
+  },
   openGraph: {
     title: 'Credit Score Estimator – Boost Your Eligibility',
     description:
@@ -70,6 +74,16 @@ export default function CreditScorePage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Credit Score Calculator',
+              url: 'https://www.fincado.com/credit-score',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Credit Score Estimator</h1>
@@ -107,7 +121,7 @@ export default function CreditScorePage() {
                   </p>
                 `}
               />
-              [Image of credit score factors pie chart]
+              {/* [Image of credit score factors pie chart] */}
               {/* 2. Key Factors */}
               <h3>The 5 Pillars of Credit Scoring</h3>
               <div className="advantage-grid">

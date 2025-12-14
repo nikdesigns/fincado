@@ -2,9 +2,6 @@
 
 import React, { useMemo, useState } from 'react';
 
-// Helper: Format Number
-const formatNumber = (n: number) => n.toLocaleString('en-IN');
-
 export default function CreditScoreClient() {
   // --- STATE ---
   const [onTimePaymentsPct, setOnTimePaymentsPct] = useState<number>(95);
@@ -439,6 +436,17 @@ export default function CreditScoreClient() {
           </div>
         </div>
       </div>
+      <p
+        style={{
+          fontSize: 12,
+          color: '#475569',
+          paddingLeft: 20,
+          marginTop: 10,
+        }}
+      >
+        *This is an estimated score for educational purposes. Actual CIBIL or
+        Experian scores may vary.
+      </p>
     </div>
   );
 }

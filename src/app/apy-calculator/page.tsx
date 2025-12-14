@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Government Pension Scheme',
     'APY Contribution Chart',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/apy-calculator',
+  },
   openGraph: {
     title: 'APY Calculator – Guaranteed Pension for Life',
     description:
@@ -64,12 +68,35 @@ export default function APYPage() {
                   text: 'No. Effective from October 1, 2022, any citizen who is or has been an income tax payer is not eligible to join APY.',
                 },
               },
+
+              {
+                '@type': 'Question',
+                name: 'Can I exit Atal Pension Yojana before age 60?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, premature exit from APY is allowed only in exceptional circumstances such as terminal illness or death. In normal cases, exit before age 60 is discouraged and the subscriber receives only their contribution along with interest earned.',
+                },
+              },
             ],
           }),
         }}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Retirement',
+              url: 'https://www.fincado.com/retirement-calculator',
+            },
+            {
+              name: 'FIRE Calculator',
+              url: 'https://www.fincado.com/fire-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Atal Pension Yojana (APY) Calculator</h1>
@@ -227,8 +254,7 @@ export default function APYPage() {
                       Lakhs) is returned to the nominee.
                     </li>
                     <li>
-                      <strong>Tax Benefit:</strong> Contributions are eligible for
-                      tax deduction under <strong>Section 80CCD(1)</strong>.
+                      <strong>Tax Benefit:</strong> Contributions are eligible for tax deduction under Section 80CCD(1),<strong>subject to overall limits under Section 80C.</strong>.
                     </li>
                   </ul>
                 `}

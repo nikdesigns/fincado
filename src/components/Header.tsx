@@ -70,8 +70,10 @@ export default function Header() {
     setMegaMenuOpen(false);
   }, [pathname]);
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href);
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   // Desktop Hover Logic
   const handleMouseEnter = () => {

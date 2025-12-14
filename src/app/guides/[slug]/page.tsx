@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import WikiText from '@/components/WikiText';
 import AdSlot from '@/components/AdSlot';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
 
@@ -25,19 +26,16 @@ type Props = {
 /* ---------------- METADATA ---------------- */
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
+  const article = (articles as Article[]).find((a) => a.slug === params.slug);
 
   if (!article) return {};
 
-  const canonical = `https://fincado.com/guides/${article.slug}`;
+  const canonical = `https://www.fincado.com/guides/${article.slug}`;
 
   return {
     title: article.seoTitle || article.title,
     description: article.metaDescription,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title: article.title,
       description: article.metaDescription,
@@ -56,8 +54,6 @@ export default function GuidePost({ params }: Props) {
   if (!article) notFound();
 
   const related = getRelatedGuides(article.slug, article.category);
-
-  /* -------- JSON-LD STRUCTURED DATA -------- */
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -86,41 +82,24 @@ export default function GuidePost({ params }: Props) {
     },
   };
 
-  const breadcrumbLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://www.fincado.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Guides',
-        item: 'https://www.fincado.com/guides',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: article.title,
-        item: `https://www.fincado.com/guides/${article.slug}`,
-      },
-    ],
-  };
-
   return (
     <article className="article">
-      {/* ✅ STRUCTURED DATA (STATIC SAFE) */}
+      {/* ✅ Breadcrumbs (single source of truth) */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.fincado.com' },
+          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          {
+            name: article.title,
+            url: `https://www.fincado.com/guides/${article.slug}`,
+          },
+        ]}
+      />
+
+      {/* ✅ Article schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
       {/* ---------------- HEADER ---------------- */}

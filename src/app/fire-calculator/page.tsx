@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -64,12 +65,30 @@ export default function FIREPage() {
                   text: 'Due to higher inflation in India, a withdrawal rate of 3% to 3.5% (approx 30x-33x expenses) is often considered safer than the standard 4% rule.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'How long does it take to achieve FIRE?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'The time required to achieve FIRE depends on your savings rate, investment returns, and expenses. For example, saving 50% of income can allow FIRE in 15–17 years, while saving 70% can reduce it to under 10 years.',
+                },
+              },
             ],
           }),
         }}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'Fire Calculator',
+              url: 'https://www.fincado.com/fire-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>FIRE Calculator (Financial Independence, Retire Early)</h1>
@@ -100,6 +119,10 @@ export default function FIREPage() {
 
               <WikiText
                 content={`
+                  <p>
+                  The core metric in FIRE planning is the <strong>FIRE Number</strong>, which represents the
+                  exact corpus required to permanently replace active income.
+                  </p>
                   <p>
                     <strong>FIRE (Financial Independence, Retire Early)</strong> is a lifestyle
                     movement with the goal of gaining financial freedom at a young
@@ -140,6 +163,11 @@ export default function FIREPage() {
               <h3>How This Calculator Helps You</h3>
               <WikiText
                 content={`
+                  <p>
+                    FIRE planning works best when combined with tools like a
+                    <strong>Retirement Calculator</strong>, <strong>SWP Calculator</strong>, and
+                    <strong>Mutual Fund Portfolio Planner</strong>.
+                  </p>
                   <p>
                     Achieving FIRE requires math, not just intent. This tool bridges the gap
                     between your current savings and your freedom date.

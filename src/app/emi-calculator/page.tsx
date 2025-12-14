@@ -7,8 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA ---------------- */
+
 export const metadata: Metadata = {
   title: 'EMI Calculator – Calculate Home, Car & Personal Loan EMI',
   description:
@@ -16,12 +18,11 @@ export const metadata: Metadata = {
   keywords: [
     'EMI Calculator',
     'Loan EMI Calculator',
-    'Home Loan Interest Calculator',
-    'Personal Loan EMI',
+    'Home Loan EMI',
     'Car Loan EMI',
+    'Personal Loan EMI',
     'Reduce Loan Interest',
     'Amortization Schedule',
-    'Loan Prepayment Calculator',
   ],
   openGraph: {
     title: 'EMI Calculator – Plan Your Loan Repayment',
@@ -32,10 +33,24 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function EMIPage() {
   return (
     <>
-      {/* 2. SCHEMA MARKUP */}
+      {/* --------- BREADCRUMB STRUCTURED DATA --------- */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.fincado.com' },
+          { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+          {
+            name: 'EMI Calculator',
+            url: 'https://www.fincado.com/emi-calculator',
+          },
+        ]}
+      />
+
+      {/* --------- FAQ SCHEMA --------- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -48,7 +63,7 @@ export default function EMIPage() {
                 name: 'How is EMI calculated?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'EMI is calculated using the formula EMI = [P x R x (1+R)^N]/[(1+R)^N-1], where P is Principal, R is monthly interest rate, and N is tenure in months.',
+                  text: 'EMI is calculated using the formula EMI = [P × R × (1+R)^N] / [(1+R)^N − 1], where P is principal, R is monthly interest rate, and N is tenure in months.',
                 },
               },
               {
@@ -56,15 +71,15 @@ export default function EMIPage() {
                 name: 'How can I reduce my loan EMI?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'You can reduce your EMI by making a higher down payment, choosing a longer tenure, negotiating a lower interest rate, or opting for a loan balance transfer.',
+                  text: 'You can reduce EMI by increasing down payment, choosing longer tenure, negotiating interest rate, or making prepayments.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'Does tenure affect my total interest?',
+                name: 'Does tenure affect total interest?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes. A longer tenure reduces your monthly EMI but significantly increases the total interest payout over the loan term.',
+                  text: 'Yes. Longer tenure lowers EMI but significantly increases total interest paid over the loan term.',
                 },
               },
             ],
@@ -72,256 +87,128 @@ export default function EMIPage() {
         }}
       />
 
+      {/* --------- CALCULATOR SCHEMA --------- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'EMI Calculator',
+            applicationCategory: 'FinanceApplication',
+            operatingSystem: 'Web',
+            url: 'https://www.fincado.com/emi-calculator',
+            description:
+              'Calculate EMI for home loan, car loan, and personal loan with interest breakdown and amortization schedule.',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'INR',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Fincado',
+              url: 'https://www.fincado.com',
+            },
+          }),
+        }}
+      />
+
+      {/* --------- PAGE CONTENT --------- */}
       <main className="container" style={{ padding: '40px 20px' }}>
-        {/* Header - Hidden in Print */}
+        {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>EMI Calculator – Plan Your Loan Smartly</h1>
-          {/* Using WikiText for description to auto-link terms */}
           <WikiText
             content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Instantly calculate your monthly EMI, visualize total interest
-              costs, and download your repayment schedule.
-              <strong> Accurate. Free. No Login Required.</strong>
-            </p>
-          `}
+              <p style="max-width: 700px; color: var(--color-text-muted);">
+                Instantly calculate your monthly EMI, visualize total interest costs,
+                and download your repayment schedule.
+                <strong> Accurate. Free. No Login Required.</strong>
+              </p>
+            `}
           />
         </header>
 
         <div className="layout-grid">
+          {/* -------- MAIN CONTENT -------- */}
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <EMIClient />
 
-            {/* LIVE RATES */}
             <LiveRateTable type="personalLoan" />
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            <div className="no-print" style={{ margin: '40px 0' }}>
               <AdSlot id="emi-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
+            {/* -------- SEO CONTENT -------- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is an EMI? */}
               <h2>What is an EMI?</h2>
-
               <WikiText
                 content={`
                   <p>
-                    <strong>EMI (Equated Monthly Installment)</strong> is the fixed
-                    amount of money you pay to a bank or lender every month to repay
-                    a loan.
-                  </p>
-                  <p>
-                    It consists of two components:
-                    <br />
-                    <strong>1. Principal:</strong> The portion that repays the
-                    original loan amount.
-                    <br />
-                    <strong>2. Interest:</strong> The cost charged by the bank for
-                    borrowing the money.
-                  </p>
-                  <p>
-                    In the early years of your loan, a larger portion of your EMI
-                    goes towards interest. As the tenure progresses, the principal
-                    component increases.
+                    <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly
+                    amount paid towards loan repayment, consisting of principal and interest.
                   </p>
                 `}
               />
 
-              {/* 2. General Eligibility */}
-              <h3>Factors Affecting Loan Eligibility</h3>
+              <h3>How This EMI Calculator Helps</h3>
               <WikiText
                 content={`
                   <p>
-                    While specific criteria vary by loan type (Home vs Personal),
-                    lenders generally look at the "3 Cs" of credit:
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>Credit Score (Character):</strong> A CIBIL score of
-                      750+ indicates you are a responsible borrower.
-                    </li>
-                    <li>
-                      <strong>Income (Capacity):</strong> Lenders check your FOIR
-                      (Fixed Obligation to Income Ratio). Usually, your total EMIs
-                      should not exceed 50% of your net monthly income.
-                    </li>
-                    <li>
-                      <strong>Collateral:</strong> For secured loans (Home/Car), the
-                      value of the asset plays a huge role in approval.
-                    </li>
-                  </ul>
-                `}
-              />
-
-              {/* 3. How it Helps */}
-              <h3>How This EMI Calculator Helps You</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Whether you are planning for a dream home, a new car, or a
-                    personal expense, knowing your EMI in advance is crucial. This
-                    tool helps you budget better and save on interest.
+                    This calculator helps you budget better, compare loan offers,
+                    and reduce total interest through informed planning.
                   </p>
                 `}
               />
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Budget Better</h4>
-                  <p>
-                    Know exactly how much needs to be set aside from your
-                    monthly income before you apply.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Save on Interest</h4>
-                  <p>
-                    Experiment with different tenures to find the &quot;sweet
-                    spot&quot; where EMI is affordable and interest is low.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Compare Loans</h4>
-                  <p>
-                    Quickly switch interest rates to compare offers from HDFC,
-                    SBI, ICICI, and other banks.
-                  </p>
-                </div>
-              </div>
-
-              {/* 4. Formula */}
-              <h3>The EMI Calculation Formula</h3>
-              <p>
-                The mathematical formula for calculating EMI is standard across
-                all banks:
-              </p>
+              <h3>The EMI Formula</h3>
               <div
                 style={{
-                  background: 'transparent',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
                   border: '1px solid #e2e8f0',
+                  padding: 16,
+                  borderRadius: 8,
                   textAlign: 'center',
+                  fontFamily: 'monospace',
                   fontWeight: 600,
                 }}
               >
-                EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
+                EMI = [P × R × (1+R)<sup>N</sup>] / [(1+R)<sup>N</sup> − 1]
               </div>
-              <WikiText
-                content={`
-                <ul style="font-size: 14px;">
-                  <li><strong>P</strong> = Principal Loan Amount</li>
-                  <li><strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
-                  <li><strong>N</strong> = Loan Tenure in Months</li>
-                </ul>
-              `}
-              />
 
-              {/* 5. Key Advantages */}
-              <h3>Key Advantages of Planned EMI Repayment</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Financial Discipline:</strong> Fixed monthly payments
-                      help you budget your expenses effectively.
-                    </li>
-                    <li>
-                      <strong>Credit Score Boost:</strong> Paying EMIs on time is
-                      the fastest way to improve your CIBIL score.
-                    </li>
-                    <li>
-                      <strong>No Large Burden:</strong> Instead of paying a lump
-                      sum, you break the cost down into manageable chunks over
-                      years.
-                    </li>
-                  </ul>
-                `}
-              />
-
-              <h3>How to Use Fincado&apos;s EMI Calculator?</h3>
-              <ol>
+              <h3>Related Loan Calculators</h3>
+              <ul>
                 <li>
-                  <strong>Enter Loan Amount:</strong> Input the principal amount
-                  you wish to borrow.
+                  <a href="/home-loan-calculator">Home Loan EMI Calculator</a>
                 </li>
                 <li>
-                  <strong>Set Interest Rate:</strong> Enter the annual interest
-                  rate offered by the lender.
+                  <a href="/car-loan-calculator">Car Loan EMI Calculator</a>
                 </li>
                 <li>
-                  <strong>Choose Tenure:</strong> Select the duration (years)
-                  for repayment.
+                  <a href="/personal-loan-calculator">
+                    Personal Loan EMI Calculator
+                  </a>
                 </li>
-              </ol>
-              <p>
-                The calculator will instantly show your{' '}
-                <strong>Monthly EMI</strong>,
-                <strong>Total Interest Payable</strong>, and the{' '}
-                <strong>Total Payment</strong> amount.
-              </p>
+              </ul>
             </article>
 
-            {/* EXPANDED FAQ SECTION */}
+            {/* -------- FAQ UI -------- */}
             <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>How does a loan amortization schedule work?</summary>
-                  <p>
-                    An amortization schedule is a table giving the details of
-                    the amount of principal and interest component for every
-                    EMI. In the initial years, a large portion of your EMI goes
-                    towards interest. As the loan matures, the principal
-                    component increases.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Floating vs. Fixed Interest Rate: Which is better?
-                  </summary>
-                  <p>
-                    <strong>Floating Rate:</strong> Linked to the market (Repo
-                    Rate). Generally cheaper but can fluctuate. Best for
-                    long-term loans like Home Loans.
-                    <br />
-                    <br />
-                    <strong>Fixed Rate:</strong> Constant EMI throughout the
-                    tenure. Offers peace of mind but usually comes at a slightly
-                    higher interest rate (1-2% higher).
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Does checking my EMI affect my credit score?
-                  </summary>
-                  <p>
-                    No. Using an online EMI calculator is a &quot;soft
-                    inquiry&quot; or just a tool usage. It does not impact your
-                    CIBIL or credit score in any way.
-                  </p>
-                </details>
-                <details>
-                  <summary>Can I prepay my loan to reduce EMI?</summary>
-                  <p>
-                    Yes! Most banks allow part-prepayments. When you prepay, the
-                    amount is deducted directly from your{' '}
-                    <strong>Principal</strong>. You can then choose to either
-                    reduce your EMI or reduce your Tenure.
-                  </p>
-                </details>
-              </div>
+              <h2>Frequently Asked Questions</h2>
+              <details open>
+                <summary>Does EMI affect credit score?</summary>
+                <p>
+                  No. Checking EMI using a calculator is a soft activity and
+                  does not impact your credit score.
+                </p>
+              </details>
             </section>
 
-            {/* ✅ AUTHOR BIO */}
             <AuthorBio />
           </div>
 
-          {/* SIDEBAR */}
+          {/* -------- SIDEBAR -------- */}
           <aside className="sidebar no-print">
             <FinancialNavWidget />
             <div style={{ marginTop: 24 }}>

@@ -6,6 +6,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
     'Goods and Services Tax India',
     'GST Invoice Calculator',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/gst-calculator',
+  },
   openGraph: {
     title: 'GST Calculator – Instant Tax Computation',
     description:
@@ -64,12 +68,30 @@ export default function GSTPage() {
                   text: 'Under RCM, the liability to pay GST falls on the recipient of goods/services instead of the supplier. This applies to specific goods and unregistered dealers.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'How to calculate reverse GST?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Reverse GST is calculated by dividing the gross price by (1 + GST rate). Example: Net Price = Gross Price / 1.18 for 18% GST.',
+                },
+              },
             ],
           }),
         }}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', url: 'https://www.fincado.com' },
+            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            {
+              name: 'GST Calculator',
+              url: 'https://www.fincado.com/gst-calculator',
+            },
+          ]}
+        />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>GST Calculator (Goods and Services Tax)</h1>
