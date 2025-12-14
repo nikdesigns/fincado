@@ -1,26 +1,27 @@
 [
-  {
-    "keyword": "EMI Calculator",
-    "url": "/emi-calculator"
-  },
-  {
-    "keyword": "Personal Loan",
-    "url": "/category/loans"
-  },
-  {
-    "keyword": "Home Loan",
-    "url": "/city/home-loan-delhi"
-  },
-  {
-    "keyword": "SIP",
-    "url": "/sip-calculator"
-  },
-  {
-    "keyword": "FD",
-    "url": "/fd-calculator"
-  },
-  {
-    "keyword": "Credit Score",
-    "url": "/credit-score"
-  }
+  { "keyword": "EMI Calculator", "url": "/emi-calculator" },
+  { "keyword": "SIP Calculator", "url": "/sip-calculator" },
+  { "keyword": "FD Calculator", "url": "/fd-calculator" },
+  { "keyword": "RD Calculator", "url": "/rd-calculator" },
+  { "keyword": "PPF Calculator", "url": "/ppf-calculator" },
+  { "keyword": "EPF Calculator", "url": "/epf-calculator" },
+  { "keyword": "Home Loan", "url": "/loans/home-loan" },
+  { "keyword": "Personal Loan", "url": "/loans/personal-loan" },
+  { "keyword": "Car Loan", "url": "/loans/car-loan" },
+  { "keyword": "Education Loan", "url": "/loans/education-loan" },
+  { "keyword": "Credit Score", "url": "/credit-score" },
+  { "keyword": "CIBIL Score", "url": "/credit-score" },
+  { "keyword": "GST Calculator", "url": "/gst-calculator" },
+  { "keyword": "Simple Interest", "url": "/simple-interest-calculator" },
+  { "keyword": "Retirement Planner", "url": "/retirement-calculator" },
+  { "keyword": "FIRE Calculator", "url": "/fire-calculator" },
+  { "keyword": "Lumpsum", "url": "/lumpsum-calculator" },
+  { "keyword": "SWP", "url": "/swp-calculator" },
+  { "keyword": "Sukanya Samriddhi", "url": "/sukanya-samriddhi" },
+  { "keyword": "SSY", "url": "/sukanya-samriddhi" },
+  { "keyword": "Mutual Funds", "url": "/mutual-funds" },
+  { "keyword": "APY", "url": "/apy-calculator" },
+  { "keyword": "Atal Pension Yojana", "url": "/apy-calculator" },
+  { "keyword": "Gratuity", "url": "/gratuity-calculator" },
+  { "keyword": "Inflation", "url": "/inflation-calculator" }
 ]

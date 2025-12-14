@@ -5,8 +5,11 @@ import HomeLoanClient from './HomeLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import LiveRateTable from '@/components/LiveRateTable';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
-// 1. SEO METADATA (High-Volume Keywords)
+// 1. SEO METADATA
 export const metadata: Metadata = {
   title: 'Home Loan EMI Calculator 2025 – Check Eligibility & Tax Benefits',
   description:
@@ -75,11 +78,15 @@ export default function HomeLoanPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Home Loan EMI Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Plan your dream home with our bank-grade accurate calculator. Check
-            monthly installments, total interest cost, and tax savings
-            instantly.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Plan your dream home with our bank-grade accurate calculator. Check
+              monthly installments, total interest cost, and tax savings
+              instantly.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -87,60 +94,75 @@ export default function HomeLoanPage() {
             {/* CALCULATOR APP */}
             <HomeLoanClient />
 
+            {/* LIVE RATES */}
+            <LiveRateTable type="homeLoan" />
+
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="home-loan-mid" type="leaderboard" />
             </div>
 
             {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is a Home Loan? (New Section) */}
+              {/* 1. What is a Home Loan? */}
               <h2>What is a Home Loan?</h2>
-              <p>
-                A Home Loan is a secured loan provided by financial institutions
-                to help you purchase, construct, or renovate a residential
-                property. The property itself acts as{' '}
-                <strong>collateral</strong> for the loan.
-              </p>
-              <p>
-                Because it is a high-value loan secured by real estate, it comes
-                with long repayment tenures (up to 30 years) and relatively
-                lower interest rates compared to personal or car loans.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    A <strong>Home Loan</strong> is a secured loan provided by financial institutions
+                    to help you purchase, construct, or renovate a residential
+                    property. The property itself acts as <strong>collateral</strong> for the loan.
+                  </p>
+                  <p>
+                    Because it is a high-value loan secured by real estate, it comes
+                    with long repayment tenures (up to 30 years) and relatively
+                    lower interest rates compared to personal or car loans.
+                  </p>
+                `}
+              />
 
-              {/* 2. Who is Eligible? (New Section) */}
+              {/* 2. Who is Eligible? */}
               <h3>Who is Eligible?</h3>
-              <p>
-                Banks evaluate your repayment capacity and the legal status of
-                the property. Common eligibility criteria include:
-              </p>
-              <ul>
-                <li>
-                  <strong>Applicant Type:</strong> Resident Indians and NRIs
-                  (Non-Resident Indians).
-                </li>
-                <li>
-                  <strong>Age:</strong> 21 to 70 years (loan must be closed by
-                  retirement age).
-                </li>
-                <li>
-                  <strong>Credit Score:</strong> A CIBIL score of{' '}
-                  <strong>750+</strong> is crucial for getting the best ROI
-                  (Rate of Interest).
-                </li>
-                <li>
-                  <strong>Income Stability:</strong> At least 2 years of work
-                  experience for salaried and 3 years of business continuity for
-                  self-employed individuals.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <p>
+                    Banks evaluate your repayment capacity and the legal status of
+                    the property. Common eligibility criteria include:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Applicant Type:</strong> Resident Indians and NRIs
+                      (Non-Resident Indians).
+                    </li>
+                    <li>
+                      <strong>Age:</strong> 21 to 70 years (loan must be closed by
+                      retirement age).
+                    </li>
+                    <li>
+                      <strong>Credit Score:</strong> A CIBIL score of
+                      <strong>750+</strong> is crucial for getting the best ROI
+                      (Rate of Interest).
+                    </li>
+                    <li>
+                      <strong>Income Stability:</strong> At least 2 years of work
+                      experience for salaried and 3 years of business continuity for
+                      self-employed individuals.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. Calculator Help */}
               <h3>How This Calculator Helps Your Planning</h3>
-              <p>
-                Buying a home is a long-term financial commitment. A slight
-                change in interest rates or tenure can cost you lakhs. This tool
-                is designed to help you:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Buying a home is a long-term financial commitment. A slight
+                    change in interest rates or tenure can cost you lakhs. This tool
+                    is designed to help you budget accurately and plan your tax savings.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Budget Accurately</h4>
@@ -185,40 +207,41 @@ export default function HomeLoanPage() {
               >
                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
               </div>
-              <ul>
-                <li>
-                  <strong>P</strong> = Loan Amount (Principal)
-                </li>
-                <li>
-                  <strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 /
-                  100)
-                </li>
-                <li>
-                  <strong>N</strong> = Loan Tenure in Months
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li><strong>P</strong> = Loan Amount (Principal)</li>
+                  <li><strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
+                  <li><strong>N</strong> = Loan Tenure in Months</li>
+                </ul>
+              `}
+              />
 
-              {/* 5. Key Advantages (New Section) */}
+              {/* 5. Key Advantages */}
               <h3>Key Advantages of a Home Loan</h3>
-              <ul>
-                <li>
-                  <strong>Tax Savings:</strong> The biggest advantage. You save
-                  tax on both principal repayment (Sec 80C) and interest payment
-                  (Sec 24).
-                </li>
-                <li>
-                  <strong>Long Tenure:</strong> Repayment can be spread over
-                  20-30 years, reducing the monthly burden.
-                </li>
-                <li>
-                  <strong>Capital Appreciation:</strong> While you pay interest,
-                  the value of your property typically appreciates over time.
-                </li>
-                <li>
-                  <strong>Balance Transfer:</strong> If interest rates drop, you
-                  can transfer your loan to another bank for a lower rate.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Tax Savings:</strong> The biggest advantage. You save
+                      tax on both principal repayment (Sec 80C) and interest payment
+                      (Sec 24).
+                    </li>
+                    <li>
+                      <strong>Long Tenure:</strong> Repayment can be spread over
+                      20-30 years, reducing the monthly burden.
+                    </li>
+                    <li>
+                      <strong>Capital Appreciation:</strong> While you pay interest,
+                      the value of your property typically appreciates over time.
+                    </li>
+                    <li>
+                      <strong>Balance Transfer:</strong> If interest rates drop, you
+                      can transfer your loan to another bank for a lower rate.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 6. Tax Benefits Table */}
               <h3>Home Loan Tax Benefits (FY 2024-25)</h3>
@@ -270,16 +293,20 @@ export default function HomeLoanPage() {
               </div>
 
               <h3>Factors Affecting Your Home Loan</h3>
-              <p>
-                <strong>LTV Ratio:</strong> Banks fund 75-90% of the property
-                value. A higher down payment reduces your EMI.
-                <br />
-                <strong>Credit Score:</strong> A score of 750+ can reduce your
-                interest rate by 0.5% - 1.0%.
-                <br />
-                <strong>Repo Rate:</strong> Most home loans are floating rate
-                (RLLR). If the RBI Repo Rate goes up, your EMI increases.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    <strong>LTV Ratio:</strong> Banks fund 75-90% of the property
+                    value. A higher down payment reduces your EMI.
+                    <br />
+                    <strong>Credit Score:</strong> A score of 750+ can reduce your
+                    interest rate by 0.5% - 1.0%.
+                    <br />
+                    <strong>Repo Rate:</strong> Most home loans are floating rate
+                    (RLLR). If the RBI Repo Rate goes up, your EMI increases.
+                  </p>
+                `}
+              />
             </article>
 
             {/* Smart Planning Section */}
@@ -331,6 +358,9 @@ export default function HomeLoanPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

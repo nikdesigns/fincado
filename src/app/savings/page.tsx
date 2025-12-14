@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import SavingsClient from './SavingsClient';
-import LoanCompareWidget from '@/components/LoanCompareWidget';
 import LegalNote from '@/components/LegalNote';
+import SavingsClient from './SavingsClient';
+import LoanComparison from '@/components/LoanComparison';
 
 export const metadata: Metadata = {
   title: 'Savings Calculator – Monthly Savings & Goal Planner | Fincado',
@@ -64,7 +64,7 @@ export default function SavingsCalculatorPage() {
 
       <aside className="sidebar">
         <div className="ad-box">Sticky Sidebar Ad</div>
-        <LoanCompareWidget />
+        <LoanComparison />
       </aside>
     </main>
   );

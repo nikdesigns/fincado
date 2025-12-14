@@ -11,7 +11,7 @@
   /* Brand Colors */
   --color-brand-green: #489719;
   --color-brand-light: #a0e870;
-  --color-action-cta: #60be24; /* Deep Teal */
+  --color-action-cta: #030302; /* Deep Teal */
   --color-action-hover: #489719;
   --color-secondary-blue: #1d4ed8;
 
@@ -1144,4 +1144,33 @@ input[type='range']::-webkit-slider-thumb:hover {
     padding: 10px;
     margin-bottom: 20px;
   }
+}
+
+/* Bank Logo Fallback */
+.bank-avatar {
+  width: 32px;
+  height: 32px;
+  background: #e2e8f0;
+  color: #475569;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Auto-Generated Wiki Links */
+.auto-link {
+  color: var(--color-action-cta);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-action-cta);
+  transition: all 0.2s ease;
+}
+
+.auto-link:hover {
+  background-color: var(--color-success-bg);
+  border-bottom: 1px solid var(--color-action-cta);
+  color: var(--color-brand-green);
 }

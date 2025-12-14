@@ -1,9 +1,12 @@
+// src/app/sip-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import SIPClient from './SIPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function SIPPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>SIP Calculator — Plan Your Wealth Creation</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            See the magic of compounding. Calculate how your small monthly
-            investments grow over time and plan for your dream goals.
-            <strong> Accurate. Free. No Login Required.</strong>
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              See the magic of compounding. Calculate how your small monthly
+              investments grow over time and plan for your dream goals.
+              <strong> Accurate. Free. No Login Required.</strong>
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -89,48 +96,63 @@ export default function SIPPage() {
 
             {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is SIP? (Adapted from Education Loan) */}
+              {/* 1. What is SIP? */}
               <h2>What is a Systematic Investment Plan (SIP)?</h2>
-              <p>
-                A <strong>SIP</strong> is a disciplined way of investing money
-                in mutual funds. Instead of a lump sum, you invest a fixed
-                amount at regular intervals (monthly or quarterly).
-              </p>
-              <p>
-                It is similar to a Recurring Deposit (RD) but invests in
-                market-linked instruments (Equity/Debt) to generate potentially
-                higher returns over the long term. It relies on the power of
-                compounding to grow your wealth.
-              </p>
 
-              {/* 2. Who is Eligible? (Adapted to 'Who Can Invest') */}
+              <WikiText
+                content={`
+                  <p>
+                    A <strong>SIP (Systematic Investment Plan)</strong> is a disciplined way of investing money
+                    in <strong>Mutual Funds</strong>. Instead of a lump sum, you invest a fixed
+                    amount at regular intervals (monthly or quarterly).
+                  </p>
+                  <p>
+                    It is similar to a <strong>Recurring Deposit (RD)</strong> but invests in
+                    market-linked instruments (Equity/Debt) to generate potentially
+                    higher returns over the long term. It relies on the power of
+                    <strong>Compounding</strong> to grow your wealth.
+                  </p>
+                `}
+              />
+
+              {/* 2. Who Can Invest? */}
               <h3>Who Can Invest in SIP?</h3>
-              <p>
-                Unlike loans, there are no strict eligibility criteria based on
-                income or credit score. Any individual can start a SIP if they
-                meet these basic requirements:
-              </p>
-              <ul>
-                <li>
-                  <strong>KYC Compliant:</strong> You must have a PAN Card and
-                  be KYC verified.
-                </li>
-                <li>
-                  <strong>Bank Account:</strong> An active savings account is
-                  needed for auto-debit mandates.
-                </li>
-                <li>
-                  <strong>Minimum Age:</strong> Anyone above 18 years can
-                  invest. Parents can also invest in the name of a minor.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <p>
+                    Unlike loans, there are no strict eligibility criteria based on
+                    income or credit score. Any individual can start a SIP if they
+                    meet these basic requirements:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>KYC Compliant:</strong> You must have a PAN Card and
+                      be KYC verified.
+                    </li>
+                    <li>
+                      <strong>Bank Account:</strong> An active savings account is
+                      needed for auto-debit mandates.
+                    </li>
+                    <li>
+                      <strong>Minimum Age:</strong> Anyone above 18 years can
+                      invest. Parents can also invest in the name of a minor.
+                    </li>
+                  </ul>
+                `}
+              />
 
-              {/* 3. Calculator Help (Adapted from Moratorium Planning) */}
+              {/* 3. Calculator Help */}
               <h3>How This Calculator Helps Your Wealth Planning</h3>
-              <p>
-                Investing without a target is like driving without a
-                destination. This calculator helps you:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Investing without a target is like driving without a
+                    destination. This calculator helps you Visualize Growth and check the
+                    impact of <strong>Inflation</strong>.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Visualize Growth</h4>
@@ -155,13 +177,18 @@ export default function SIPPage() {
                 </div>
               </div>
 
-              {/* 4. Formula (Adapted from EMI Calculation) */}
+              {/* 4. Formula */}
               <h3>SIP Calculation Formula</h3>
-              <p>
-                The calculator uses the standard Future Value of Annuity
-                formula. SIPs are typically calculated as an &quot;Annuity
-                Due&quot; because payments are made at the start of the period.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    The calculator uses the standard Future Value of Annuity
+                    formula. SIPs are typically calculated as an "Annuity
+                    Due" because payments are made at the start of the period.
+                  </p>
+                `}
+              />
+
               <div
                 style={{
                   background: '#f1f5f9',
@@ -176,43 +203,52 @@ export default function SIPPage() {
               >
                 FV = P × [ (1 + i)ⁿ - 1 ] / i × (1 + i)
               </div>
-              <ul style={{ fontSize: '14px' }}>
-                <li>
-                  <strong>FV</strong> = Future Value (Maturity Amount)
-                </li>
-                <li>
-                  <strong>P</strong> = Monthly SIP Amount
-                </li>
-                <li>
-                  <strong>i</strong> = Monthly Interest Rate (Annual Rate / 12 /
-                  100)
-                </li>
-                <li>
-                  <strong>n</strong> = Total number of months
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li>
+                    <strong>FV</strong> = Future Value (Maturity Amount)
+                  </li>
+                  <li>
+                    <strong>P</strong> = Monthly SIP Amount
+                  </li>
+                  <li>
+                    <strong>i</strong> = Monthly Interest Rate (Annual Rate / 12 /
+                    100)
+                  </li>
+                  <li>
+                    <strong>n</strong> = Total number of months
+                  </li>
+                </ul>
+              `}
+              />
 
               {/* 5. Key Advantages */}
               <h3>Key Advantages of SIP</h3>
-              <ul>
-                <li>
-                  <strong>Rupee Cost Averaging:</strong> You buy more units when
-                  the market is low and fewer when high, automatically averaging
-                  your purchase cost.
-                </li>
-                <li>
-                  <strong>Disciplined Savings:</strong> Auto-debit ensures you
-                  save first and spend later.
-                </li>
-                <li>
-                  <strong>Flexibility:</strong> You can pause, stop, or increase
-                  (step-up) your investment amount anytime.
-                </li>
-                <li>
-                  <strong>Power of Compounding:</strong> Returns earned on your
-                  returns accelerate wealth creation over time.
-                </li>
-              </ul>
+
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Rupee Cost Averaging:</strong> You buy more units when
+                      the market is low and fewer when high, automatically averaging
+                      your purchase cost.
+                    </li>
+                    <li>
+                      <strong>Disciplined Savings:</strong> Auto-debit ensures you
+                      save first and spend later.
+                    </li>
+                    <li>
+                      <strong>Flexibility:</strong> You can pause, stop, or increase
+                      (step-up) your investment amount anytime.
+                    </li>
+                    <li>
+                      <strong>Power of Compounding:</strong> Returns earned on your
+                      returns accelerate wealth creation over time.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Section */}
@@ -261,6 +297,9 @@ export default function SIPPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

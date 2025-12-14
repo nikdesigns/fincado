@@ -1,9 +1,12 @@
+// src/app/apy-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import APYClient from './APYClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function APYPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Atal Pension Yojana (APY) Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Secure your old age with a guaranteed government pension. Calculate
-            your monthly contribution based on your age and desired pension
-            amount.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Secure your old age with a guaranteed government pension. Calculate
+              your monthly contribution based on your age and desired pension
+              amount.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,12 +98,12 @@ export default function APYPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is APY? */}
               <h2>What is Atal Pension Yojana (APY)?</h2>
-              <p>
-                **Atal Pension Yojana (APY)** is a social security scheme
-                launched by the Government of India to provide a defined pension
-                to workers in the unorganized sector.
-              </p>
 
+              <p>
+                <strong>Atal Pension Yojana (APY)</strong> is a social security
+                scheme launched by the Government of India to provide a defined
+                pension to workers in the unorganized sector.
+              </p>
               <p>
                 It offers a minimum guaranteed pension ranging from ₹1,000 to
                 ₹5,000 per month starting at age 60, depending on the
@@ -105,25 +112,38 @@ export default function APYPage() {
 
               {/* 2. Who is Eligible? */}
               <h3>Who Can Subscribe to APY?</h3>
-              <ul>
-                <li>
-                  <strong>Age:</strong> Must be between 18 and 40 years.
-                </li>
-                <li>
-                  <strong>Citizenship:</strong> Must be an Indian citizen.
-                </li>
-                <li>
-                  <strong>Bank Account:</strong> Must have a valid savings bank
-                  account or post office savings account.
-                </li>
-                <li>
-                  <strong>Tax Status:</strong> Should NOT be an income tax payer
-                  (as of Oct 1, 2022).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Age:</strong> Must be between 18 and 40 years.
+                    </li>
+                    <li>
+                      <strong>Citizenship:</strong> Must be an Indian citizen.
+                    </li>
+                    <li>
+                      <strong>Bank Account:</strong> Must have a valid savings bank
+                      account or post office savings account.
+                    </li>
+                    <li>
+                      <strong>Tax Status:</strong> Should NOT be an income tax payer
+                      (as of Oct 1, 2022).
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
+              <WikiText
+                content={`
+                  <p>
+                    APY contributions depend heavily on your entry age. The earlier you join,
+                    the lower your monthly outflow.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Contribution Check</h4>
@@ -150,24 +170,29 @@ export default function APYPage() {
 
               {/* 4. Formula/Logic */}
               <h3>How APY Contributions are Determined</h3>
-              <p>
-                APY is a **Defined Benefit** scheme. The contribution amounts
-                are fixed actuarially based on:
-              </p>
-              <ul>
-                <li>
-                  <strong>Entry Age:</strong> Younger applicants pay less
-                  because their money compounds for longer.
-                </li>
-                <li>
-                  <strong>Pension Slab:</strong> Higher pension (e.g., ₹5,000)
-                  requires higher contribution.
-                </li>
-                <li>
-                  <strong>Frequency:</strong> You can pay Monthly, Quarterly, or
-                  Half-Yearly.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <p>
+                    APY is a <strong>Defined Benefit</strong> scheme. The contribution amounts
+                    are fixed actuarially based on:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Entry Age:</strong> Younger applicants pay less
+                      because their money compounds for longer.
+                    </li>
+                    <li>
+                      <strong>Pension Slab:</strong> Higher pension (e.g., ₹5,000)
+                      requires higher contribution.
+                    </li>
+                    <li>
+                      <strong>Frequency:</strong> You can pay Monthly, Quarterly, or
+                      Half-Yearly.
+                    </li>
+                  </ul>
+                `}
+              />
+
               <div
                 style={{
                   background: '#f1f5f9',
@@ -185,26 +210,30 @@ export default function APYPage() {
 
               {/* 5. Key Advantages */}
               <h3>Benefits of APY</h3>
-              <ul>
-                <li>
-                  <strong>Guaranteed Pension:</strong> The government guarantees
-                  the pension amount. If actual returns are lower, the
-                  government bridges the gap.
-                </li>
-                <li>
-                  <strong>Spouse Benefit:</strong> The same pension is paid to
-                  the spouse after the subscriber&apos;s death.
-                </li>
-                <li>
-                  <strong>Corpus to Nominee:</strong> After the death of both
-                  subscriber and spouse, the accumulated corpus (up to ₹8.5
-                  Lakhs) is returned to the nominee.
-                </li>
-                <li>
-                  <strong>Tax Benefit:</strong> Contributions are eligible for
-                  tax deduction under Section 80CCD(1).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Guaranteed Pension:</strong> The government guarantees
+                      the pension amount. If actual returns are lower, the
+                      government bridges the gap.
+                    </li>
+                    <li>
+                      <strong>Spouse Benefit:</strong> The same pension is paid to
+                      the spouse after the subscriber's death.
+                    </li>
+                    <li>
+                      <strong>Corpus to Nominee:</strong> After the death of both
+                      subscriber and spouse, the accumulated corpus (up to ₹8.5
+                      Lakhs) is returned to the nominee.
+                    </li>
+                    <li>
+                      <strong>Tax Benefit:</strong> Contributions are eligible for
+                      tax deduction under <strong>Section 80CCD(1)</strong>.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -252,6 +281,9 @@ export default function APYPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

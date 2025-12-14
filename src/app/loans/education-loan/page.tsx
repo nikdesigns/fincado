@@ -1,9 +1,12 @@
+// src/app/loans/education-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import EducationLoanClient from './EducationLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -66,13 +69,18 @@ export default function EducationLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Education Loan EMI Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Plan your higher studies smartly. Calculate EMI including the{' '}
-            <strong>Moratorium Period</strong> and estimate{' '}
-            <strong>Section 80E</strong> tax savings.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Plan your higher studies smartly. Calculate EMI including the
+              <strong>Moratorium Period</strong> and estimate
+              <strong>Section 80E</strong> tax savings.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -88,53 +96,58 @@ export default function EducationLoanPage() {
             <article className="article content-for-seo no-print">
               {/* 1. WHAT IS IT */}
               <h2>What is an Education Loan?</h2>
-              <p>
-                An Education Loan provides financial support to students
-                pursuing higher education in India or abroad. It covers tuition
-                fees, hostel charges, exam fees, and even laptop purchases.
-                Unlike personal loans, these come with a{' '}
-                <strong>Moratorium Period</strong> (repayment holiday).
-              </p>
+
+              <WikiText
+                content={`
+                  <p>
+                    An <strong>Education Loan</strong> provides financial support to students
+                    pursuing higher education in India or abroad. It covers tuition
+                    fees, hostel charges, exam fees, and even laptop purchases.
+                    Unlike personal loans, these come with a
+                    <strong>Moratorium Period</strong> (repayment holiday).
+                  </p>
+                `}
+              />
 
               {/* 2. ELIGIBILITY */}
               <h3>Who is Eligible and Who Can Repay?</h3>
-              <ul>
-                <li>
-                  <strong>Student:</strong> Must be an Indian citizen, aged
-                  18-35, with confirmed admission in a recognized institute.
-                </li>
-                <li>
-                  <strong>Co-Applicant:</strong> A parent, guardian, or spouse
-                  with a stable income is mandatory to act as a guarantor.
-                </li>
-                <li>
-                  <strong>Repayment:</strong> The student is the primary
-                  borrower, but the co-applicant pays the simple interest during
-                  the course to save money.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Student:</strong> Must be an Indian citizen, aged
+                      18-35, with confirmed admission in a recognized institute.
+                    </li>
+                    <li>
+                      <strong>Co-Applicant:</strong> A parent, guardian, or spouse
+                      with a stable income is mandatory to act as a guarantor.
+                    </li>
+                    <li>
+                      <strong>Repayment:</strong> The student is the primary
+                      borrower, but the co-applicant pays the simple interest during
+                      the course to save money.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. MORATORIUM PLANNING (Crucial for Ranking) */}
               <h3>How This Calculator Helps with Moratorium Planning</h3>
-              <p>
-                Most calculators fail to account for the interest that
-                accumulates while you are studying. Fincado&apos;s tool adds
-                this &quot;Moratorium Interest&quot; to your principal so you
-                can see your <strong>True EMI</strong>.
-              </p>
-              <div
-                style={{
-                  background: '#fff3cd',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  border: '1px solid #ffeeba',
-                  color: '#856404',
-                }}
-              >
-                <strong>Interest Trap:</strong> If you don&apos;t pay interest
-                during the course, it gets added to your loan (Capitalization),
-                meaning you pay interest on interest later!
-              </div>
+              <WikiText
+                content={`
+                  <p>
+                    Most calculators fail to account for the interest that
+                    accumulates while you are studying. Fincado's tool adds
+                    this "Moratorium Interest" to your principal so you
+                    can see your <strong>True EMI</strong>.
+                  </p>
+                  <div style="background: #fff3cd; padding: 16px; border-radius: 8px; border: 1px solid #ffeeba; color: #856404;">
+                    <strong>Interest Trap:</strong> If you don't pay interest
+                    during the course, it gets added to your loan (Capitalization),
+                    meaning you pay interest on interest later!
+                  </div>
+                `}
+              />
 
               {/* 4. FORMULA */}
               <h3>EMI Calculation with Moratorium Interest</h3>
@@ -156,10 +169,14 @@ export default function EducationLoanPage() {
               >
                 EMI = [(P + Accrued Interest) x R x (1+R)^N] / [(1+R)^N-1]
               </div>
-              <p>
-                Where <em>Accrued Interest</em> = Loan Amount × Rate × Course
-                Duration.
-              </p>
+              <WikiText
+                content={`
+                <p>
+                  Where <em>Accrued Interest</em> = Loan Amount × Rate × Course
+                  Duration.
+                </p>
+              `}
+              />
 
               {/* 5. ADVANTAGES */}
               <h3>Key Advantages of an Education Loan</h3>
@@ -237,6 +254,9 @@ export default function EducationLoanPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">

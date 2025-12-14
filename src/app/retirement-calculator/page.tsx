@@ -1,9 +1,12 @@
+// src/app/retirement-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import RetirementCalculatorClient from './RetirementCalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function RetirementPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Retirement Corpus Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Find out exactly how much you need to save today to maintain your
-            lifestyle tomorrow. Account for <strong>inflation</strong> and{' '}
-            <strong>longevity</strong>.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Find out exactly how much you need to save today to maintain your
+              lifestyle tomorrow. Account for <strong>Inflation</strong> and
+              <strong>Longevity</strong>.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,17 +98,20 @@ export default function RetirementPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is Retirement Planning? */}
               <h2>What is Retirement Planning?</h2>
-              <p>
-                **Retirement Planning** is the process of estimating your future
-                income needs and setting aside enough capital today to meet
-                those needs when you stop working.
-              </p>
-
-              <p>
-                It is not just about saving; it&apos;s about investing wisely to
-                beat inflation so that your corpus lasts as long as you do.
-              </p>
-
+              [Image of retirement timeline infographic]
+              <WikiText
+                content={`
+                  <p>
+                    <strong>Retirement Planning</strong> is the process of estimating your future
+                    income needs and setting aside enough capital today to meet
+                    those needs when you stop working.
+                  </p>
+                  <p>
+                    It is not just about saving; it's about investing wisely to
+                    beat <strong>Inflation</strong> so that your corpus lasts as long as you do.
+                  </p>
+                `}
+              />
               {/* 2. Key Challenges */}
               <h3>The Two Biggest Risks in Retirement</h3>
               <div className="advantage-grid">
@@ -122,40 +132,46 @@ export default function RetirementPage() {
                   </p>
                 </div>
               </div>
-
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps You</h3>
-              <ul>
-                <li>
-                  <strong>Target Setting:</strong> It calculates the precise
-                  &quot;Magic Number&quot; (Corpus) you need at age 60.
-                </li>
-                <li>
-                  <strong>Shortfall Analysis:</strong> It compares your target
-                  with your current savings to show the gap.
-                </li>
-                <li>
-                  <strong>Action Plan:</strong> It tells you the monthly SIP
-                  required starting TODAY to bridge that gap.
-                </li>
-              </ul>
-
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Target Setting:</strong> It calculates the precise
+                      "Magic Number" (Corpus) you need at age 60.
+                    </li>
+                    <li>
+                      <strong>Shortfall Analysis:</strong> It compares your target
+                      with your current savings to show the gap.
+                    </li>
+                    <li>
+                      <strong>Action Plan:</strong> It tells you the monthly <strong>SIP</strong>
+                      required starting TODAY to bridge that gap.
+                    </li>
+                  </ul>
+                `}
+              />
               {/* 4. Strategy */}
               <h3>Recommended Asset Allocation by Age</h3>
-              <ul>
-                <li>
-                  <strong>Young (20s-30s):</strong> High Equity (70-80%). Focus
-                  on aggressive growth.
-                </li>
-                <li>
-                  <strong>Mid-Career (40s):</strong> Balanced (50-60% Equity).
-                  Start securing gains.
-                </li>
-                <li>
-                  <strong>Near Retirement (50s):</strong> Conservative (30-40%
-                  Equity). Focus on capital preservation.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Young (20s-30s):</strong> High <strong>Equity</strong> (70-80%). Focus
+                      on aggressive growth.
+                    </li>
+                    <li>
+                      <strong>Mid-Career (40s):</strong> Balanced (50-60% Equity).
+                      Start securing gains.
+                    </li>
+                    <li>
+                      <strong>Near Retirement (50s):</strong> Conservative (30-40%
+                      Equity). Focus on capital preservation.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -189,9 +205,10 @@ export default function RetirementPage() {
                 <details>
                   <summary>Where should I invest for retirement?</summary>
                   <p>
-                    A mix of EPF (Employee Provident Fund), PPF, NPS (National
-                    Pension System), and Equity Mutual Funds is recommended for
-                    a balanced Indian portfolio.
+                    A mix of <strong>EPF</strong> (Employee Provident Fund),{' '}
+                    <strong>PPF</strong>, <strong>NPS</strong> (National Pension
+                    System), and Equity Mutual Funds is recommended for a
+                    balanced Indian portfolio.
                   </p>
                 </details>
                 <details>
@@ -204,6 +221,9 @@ export default function RetirementPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

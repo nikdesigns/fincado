@@ -1,9 +1,12 @@
+// src/app/simple-interest-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import SICalculatorClient from './SICalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function SimpleInterestPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Simple Interest Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Calculate the interest earned or paid on a principal amount. The
-            quickest way to determine returns without the complexity of
-            compounding.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Calculate the interest earned or paid on a principal amount. The
+              quickest way to determine returns without the complexity of
+              <strong>Compounding</strong>.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,32 +98,51 @@ export default function SimpleInterestPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is SI? */}
               <h2>What is Simple Interest?</h2>
-              <p>
-                **Simple Interest (SI)** is a method of calculating the interest
-                charge on a loan or the interest income on an investment. Unlike
-                compound interest, SI is determined strictly by the original
-                contribution (Principal), the daily/annual interest rate, and
-                the duration of the loan.
-              </p>
-              [Image of simple vs compound interest graph]
+
+              <WikiText
+                content={`
+                  <p>
+                    <strong>Simple Interest (SI)</strong> is a method of calculating the interest
+                    charge on a <strong>Loan</strong> or the interest income on an investment. Unlike
+                    <strong>Compound Interest</strong>, SI is determined strictly by the original
+                    contribution (Principal), the daily/annual interest rate, and
+                    the duration of the loan.
+                  </p>
+                `}
+              />
+
               {/* 2. Key Concepts */}
               <h3>Core Components</h3>
-              <ul>
-                <li>
-                  <strong>Principal (P):</strong> The initial amount of money
-                  borrowed or invested.
-                </li>
-                <li>
-                  <strong>Rate (R):</strong> The annual percentage rate (APR) of
-                  interest.
-                </li>
-                <li>
-                  <strong>Time (T):</strong> The duration for which the money is
-                  borrowed or invested, usually expressed in years.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Principal (P):</strong> The initial amount of money
+                      borrowed or invested.
+                    </li>
+                    <li>
+                      <strong>Rate (R):</strong> The annual percentage rate (APR) of
+                      interest.
+                    </li>
+                    <li>
+                      <strong>Time (T):</strong> The duration for which the money is
+                      borrowed or invested, usually expressed in years.
+                    </li>
+                  </ul>
+                `}
+              />
+
               {/* 3. Planning Help */}
               <h3>Why Use This Calculator?</h3>
+              <WikiText
+                content={`
+                  <p>
+                    Calculating linear returns is often needed for quick estimates
+                    on flat-rate loans or friend-and-family lending.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Quick Estimates</h4>
@@ -141,6 +167,7 @@ export default function SimpleInterestPage() {
                   </p>
                 </div>
               </div>
+
               {/* 4. Formula */}
               <h3>Simple Interest Formula</h3>
               <p>The calculation is straightforward and linear:</p>
@@ -159,23 +186,28 @@ export default function SimpleInterestPage() {
                 SI = (P × R × T) / 100 <br />
                 Total Amount = P + SI
               </div>
+
               {/* 5. SI vs CI */}
               <h3>Simple vs. Compound Interest</h3>
-              <p>
-                While Simple Interest grows linearly (e.g., earning $10 every
-                year), Compound Interest grows exponentially (earning interest
-                on interest).
-              </p>
-              <ul>
-                <li>
-                  <strong>Short Term:</strong> For very short durations, the
-                  difference is negligible.
-                </li>
-                <li>
-                  <strong>Long Term:</strong> Over many years, Compound Interest
-                  significantly outperforms Simple Interest.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <p>
+                    While Simple Interest grows linearly (e.g., earning $10 every
+                    year), Compound Interest grows exponentially (earning interest
+                    on interest).
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Short Term:</strong> For very short durations, the
+                      difference is negligible.
+                    </li>
+                    <li>
+                      <strong>Long Term:</strong> Over many years, Compound Interest
+                      significantly outperforms Simple Interest.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -221,6 +253,9 @@ export default function SimpleInterestPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

@@ -5,6 +5,9 @@ import PersonalLoanClient from './PersonalLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import LiveRateTable from '@/components/LiveRateTable';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 export const metadata: Metadata = {
   title: 'Personal Loan EMI Calculator – Check Eligibility & Interest',
@@ -69,16 +72,23 @@ export default function PersonalLoanPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Personal Loan EMI Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Plan your expenses smartly. Calculate accurate EMIs for weddings,
-            travel, or medical emergencies instantly.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Plan your expenses smartly. Calculate accurate EMIs for weddings,
+              travel, or medical emergencies instantly.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             {/* CALCULATOR APP */}
             <PersonalLoanClient />
+
+            {/* ✅ ADD LIVE RATES HERE */}
+            <LiveRateTable type="personalLoan" />
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="personal-loan-mid" type="leaderboard" />
@@ -88,69 +98,84 @@ export default function PersonalLoanPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is a Personal Loan? */}
               <h2>What is a Personal Loan?</h2>
-              <p>
-                A Personal Loan is an <strong>unsecured form of credit</strong>{' '}
-                provided by financial institutions to help you meet immediate
-                financial needs. Unlike home or car loans, it is not restricted
-                to a specific purpose.
-              </p>
-              <p>
-                Because it is &quot;unsecured,&quot; you do not need to pledge
-                any collateral (like property or gold). The approval is based
-                primarily on your creditworthiness, income stability, and
-                repayment capacity.
-              </p>
+
+              <WikiText
+                content={`
+                  <p>
+                    A <strong>Personal Loan</strong> is an <strong>unsecured form of credit</strong>
+                    provided by financial institutions to help you meet immediate
+                    financial needs. Unlike home or car loans, it is not restricted
+                    to a specific purpose.
+                  </p>
+                  <p>
+                    Because it is "unsecured," you do not need to pledge
+                    any <strong>collateral</strong> (like property or gold). The approval is based
+                    primarily on your <strong>Credit Score</strong>, income stability, and
+                    repayment capacity.
+                  </p>
+                `}
+              />
 
               {/* 2. Who is Eligible? */}
               <h3>Who is Eligible?</h3>
-              <p>
-                Eligibility criteria ensure that the borrower has the capacity
-                to repay the loan on time. While specific requirements vary by
-                lender, the general parameters include:
-              </p>
-              <ul>
-                <li>
-                  <strong>Employment Type:</strong>
+
+              <WikiText
+                content={`
+                  <p>
+                    Eligibility criteria ensure that the borrower has the capacity
+                    to repay the loan on time. While specific requirements vary by
+                    lender, the general parameters include:
+                  </p>
                   <ul>
                     <li>
-                      <em>Salaried:</em> Employees of private limited companies,
-                      PSUs, or government bodies.
+                      <strong>Employment Type:</strong>
+                      <ul>
+                        <li>
+                          <em>Salaried:</em> Employees of private limited companies,
+                          PSUs, or government bodies.
+                        </li>
+                        <li>
+                          <em>Self-Employed:</em> Doctors, CAs, and business owners
+                          with income proof.
+                        </li>
+                      </ul>
                     </li>
                     <li>
-                      <em>Self-Employed:</em> Doctors, CAs, and business owners
-                      with income proof.
+                      <strong>Age:</strong> Typically between 21 and 60 years.
+                    </li>
+                    <li>
+                      <strong>Credit Score:</strong> A CIBIL score of
+                      <strong>750 or above</strong> is preferred.
+                    </li>
+                    <li>
+                      <strong>Income:</strong> Minimum monthly net income (e.g.,
+                      ₹25,000, varying by city).
+                    </li>
+                    <li>
+                      <strong>Experience:</strong> Min 2 years total work
+                      experience, with 1 year at the current employer.
                     </li>
                   </ul>
-                </li>
-                <li>
-                  <strong>Age:</strong> Typically between 21 and 60 years.
-                </li>
-                <li>
-                  <strong>Credit Score:</strong> A CIBIL score of{' '}
-                  <strong>750 or above</strong> is preferred.
-                </li>
-                <li>
-                  <strong>Income:</strong> Minimum monthly net income (e.g.,
-                  ₹25,000, varying by city).
-                </li>
-                <li>
-                  <strong>Experience:</strong> Min 2 years total work
-                  experience, with 1 year at the current employer.
-                </li>
-              </ul>
+                `}
+              />
 
-              {/* 3. Calculator Help (Adapted from Moratorium Planning) */}
+              {/* 3. Calculator Help */}
               <h3>How This Calculator Helps Your Financial Planning</h3>
-              <p>
-                <em>
-                  Note: Unlike education loans, personal loans usually do not
-                  have a moratorium period; EMIs start immediately.
-                </em>
-              </p>
-              <p>
-                Using a Personal Loan EMI Calculator is a crucial first step
-                before applying. It empowers you to:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    <em>
+                      Note: Unlike education loans, personal loans usually do not
+                      have a moratorium period; EMIs start immediately.
+                    </em>
+                  </p>
+                  <p>
+                    Using a <strong>Personal Loan EMI Calculator</strong> is a crucial first step
+                    before applying. It empowers you to verify your affordability.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Assess Affordability</h4>
@@ -195,44 +220,52 @@ export default function PersonalLoanPage() {
               >
                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
               </div>
-              <ul>
-                <li>
-                  <strong>P</strong> = Loan Amount (Principal)
-                </li>
-                <li>
-                  <strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 /
-                  100)
-                </li>
-                <li>
-                  <strong>N</strong> = Tenure in Months
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li>
+                    <strong>P</strong> = Loan Amount (Principal)
+                  </li>
+                  <li>
+                    <strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 /
+                    100)
+                  </li>
+                  <li>
+                    <strong>N</strong> = Tenure in Months
+                  </li>
+                </ul>
+              `}
+              />
 
               {/* 5. Key Advantages */}
               <h3>Key Advantages of a Personal Loan</h3>
-              <ul>
-                <li>
-                  <strong>No Collateral Required:</strong> Your assets remain
-                  safe; you don&apos;t need to mortgage your home.
-                </li>
-                <li>
-                  <strong>Quick Disbursal:</strong> Funds are often credited
-                  within 24–48 hours (or instantly for pre-approved customers).
-                </li>
-                <li>
-                  <strong>Flexible End-Use:</strong> You have complete freedom
-                  to use the funds for weddings, travel, medical needs, or
-                  renovations.
-                </li>
-                <li>
-                  <strong>Fixed Interest Rates:</strong> EMIs remain constant
-                  throughout the tenure, making budgeting easier.
-                </li>
-                <li>
-                  <strong>Minimal Documentation:</strong> The process is often
-                  paperless for existing bank customers.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>No Collateral Required:</strong> Your assets remain
+                      safe; you don't need to mortgage your home.
+                    </li>
+                    <li>
+                      <strong>Quick Disbursal:</strong> Funds are often credited
+                      within 24–48 hours (or instantly for pre-approved customers).
+                    </li>
+                    <li>
+                      <strong>Flexible End-Use:</strong> You have complete freedom
+                      to use the funds for weddings, travel, medical needs, or
+                      renovations.
+                    </li>
+                    <li>
+                      <strong>Fixed Interest Rates:</strong> EMIs remain constant
+                      throughout the tenure, making budgeting easier.
+                    </li>
+                    <li>
+                      <strong>Minimal Documentation:</strong> The process is often
+                      paperless for existing bank customers.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning */}
@@ -301,6 +334,9 @@ export default function PersonalLoanPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

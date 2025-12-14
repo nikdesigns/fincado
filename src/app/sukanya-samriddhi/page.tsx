@@ -1,9 +1,12 @@
+// src/app/ssy-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import SSYClient from './SSYClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function SSYPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Secure your daughter&apos;s future with India&apos;s highest-return
-            small savings scheme. Calculate the tax-free maturity amount for
-            education or marriage.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Secure your daughter&apos;s future with India&apos;s highest-return
+              small savings scheme. Calculate the tax-free maturity amount for
+              education or marriage.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,39 +98,54 @@ export default function SSYPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is SSY? */}
               <h2>What is Sukanya Samriddhi Yojana (SSY)?</h2>
-              <p>
-                **Sukanya Samriddhi Yojana (SSY)** is a government-backed
-                savings scheme launched as part of the *Beti Bachao, Beti
-                Padhao* campaign. It is designed exclusively for the girl child
-                to build a corpus for her higher education and marriage
-                expenses.
-              </p>
-              [Image of girl child education savings concept]
+
+              <WikiText
+                content={`
+                  <p>
+                    <strong>Sukanya Samriddhi Yojana (SSY)</strong> is a government-backed
+                    savings scheme launched as part of the <em>Beti Bachao, Beti
+                    Padhao</em> campaign. It is designed exclusively for the girl child
+                    to build a corpus for her higher education and marriage
+                    expenses.
+                  </p>
+                `}
+              />
+
               {/* 2. Who is Eligible? */}
               <h3>Who Can Open an SSY Account?</h3>
-              <ul>
-                <li>
-                  <strong>Girl Child:</strong> A parent or legal guardian can
-                  open an account in the name of a girl child below the age of
-                  10 years.
-                </li>
-                <li>
-                  <strong>Limit:</strong> Only one account per girl child.
-                  Maximum two accounts per family (exception for
-                  twins/triplets).
-                </li>
-                <li>
-                  <strong>Residency:</strong> The girl child must be an Indian
-                  resident.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Girl Child:</strong> A parent or legal guardian can
+                      open an account in the name of a girl child below the age of
+                      10 years.
+                    </li>
+                    <li>
+                      <strong>Limit:</strong> Only one account per girl child.
+                      Maximum two accounts per family (exception for
+                      twins/triplets).
+                    </li>
+                    <li>
+                      <strong>Residency:</strong> The girl child must be an Indian
+                      resident.
+                    </li>
+                  </ul>
+                `}
+              />
+
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
-              <p>
-                Since SSY involves a long 21-year tenure with changing deposit
-                rules (15 years deposit, 6 years earning interest), manual
-                calculation is complex.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Since SSY involves a long 21-year tenure with changing deposit
+                    rules (15 years deposit, 6 years earning interest), manual
+                    calculation is complex.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Maturity Estimate</h4>
@@ -147,6 +169,7 @@ export default function SSYPage() {
                   </p>
                 </div>
               </div>
+
               {/* 4. Formula */}
               <h3>SSY Interest Calculation Logic</h3>
               <p>
@@ -168,28 +191,37 @@ export default function SSYPage() {
               >
                 A = P(1 + r/n)^(nt)
               </div>
-              <p style={{ fontSize: '14px', color: '#666' }}>
-                <em>
-                  *Applied annually. Deposits are made for 15 years, maturity is
-                  at 21 years.
-                </em>
-              </p>
+              <WikiText
+                content={`
+                <p style="font-size: 14px; color: #666;">
+                  <em>
+                    *Applied annually. Deposits are made for 15 years, maturity is
+                    at 21 years.
+                  </em>
+                </p>
+              `}
+              />
+
               {/* 5. Key Advantages */}
               <h3>Key Advantages of SSY</h3>
-              <ul>
-                <li>
-                  <strong>Highest Interest Rate:</strong> SSY typically offers
-                  higher returns than PPF and FDs.
-                </li>
-                <li>
-                  <strong>Triple EEE Tax Benefit:</strong> Tax deduction on
-                  investment (80C), tax-free interest, and tax-free maturity.
-                </li>
-                <li>
-                  <strong>Lock-in Period:</strong> Ensures disciplined savings
-                  for the specific goal of the girl child&apos;s future.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Highest Interest Rate:</strong> SSY typically offers
+                      higher returns than <strong>PPF</strong> and <strong>FDs</strong>.
+                    </li>
+                    <li>
+                      <strong>Triple EEE Tax Benefit:</strong> Tax deduction on
+                      investment (80C), tax-free interest, and tax-free maturity.
+                    </li>
+                    <li>
+                      <strong>Lock-in Period:</strong> Ensures disciplined savings
+                      for the specific goal of the girl child's future.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -237,6 +269,9 @@ export default function SSYPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

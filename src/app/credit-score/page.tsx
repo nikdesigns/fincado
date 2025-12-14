@@ -1,9 +1,12 @@
+// src/app/credit-score-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import CreditScoreClient from './CreditScoreClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function CreditScorePage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Credit Score Estimator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Understand the factors hurting your score. Simulate how paying down
-            credit card debt can boost your <strong>Credit Score</strong>{' '}
-            instantly.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Understand the factors hurting your score. Simulate how paying down
+              credit card debt can boost your <strong>Credit Score</strong>
+              instantly.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,12 +98,16 @@ export default function CreditScorePage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is Credit Score? */}
               <h2>What determines your Credit Score?</h2>
-              <p>
-                Your Credit Score (like CIBIL, Experian) is a 3-digit number
-                (300-900) that summarizes your creditworthiness. It is
-                calculated based on your past behavior with loans and credit
-                cards.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Your <strong>Credit Score</strong> (like <strong>CIBIL Score</strong>, Experian) is a 3-digit number
+                    (300-900) that summarizes your creditworthiness. It is
+                    calculated based on your past behavior with loans and credit
+                    cards.
+                  </p>
+                `}
+              />
               [Image of credit score factors pie chart]
               {/* 2. Key Factors */}
               <h3>The 5 Pillars of Credit Scoring</h3>
@@ -125,38 +136,46 @@ export default function CreditScorePage() {
               </div>
               {/* 3. Planning Help */}
               <h3>How This Estimator Helps You</h3>
-              <ul>
-                <li>
-                  <strong>Score Breakdown:</strong> See exactly how many points
-                  you are losing due to high utilization or inquiries.
-                </li>
-                <li>
-                  <strong>What-If Simulation:</strong> The tool calculates the
-                  potential score boost if you pay down ₹50,000 of card debt
-                  today.
-                </li>
-                <li>
-                  <strong>Action Plan:</strong> Prioritized steps (e.g.,
-                  &quot;Stop applying for new cards&quot;) to fix your score.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Score Breakdown:</strong> See exactly how many points
+                      you are losing due to high utilization or inquiries.
+                    </li>
+                    <li>
+                      <strong>What-If Simulation:</strong> The tool calculates the
+                      potential score boost if you pay down ₹50,000 of card debt
+                      today.
+                    </li>
+                    <li>
+                      <strong>Action Plan:</strong> Prioritized steps (e.g.,
+                      "Stop applying for new cards") to fix your score.
+                    </li>
+                  </ul>
+                `}
+              />
               {/* 4. Strategy */}
               <h3>Steps to Improve Score (750+)</h3>
-              <ul>
-                <li>
-                  <strong>Automate Payments:</strong> Set up auto-debit for
-                  minimum dues to avoid late marks.
-                </li>
-                <li>
-                  <strong>Increase Limit:</strong> Requesting a higher credit
-                  limit (without spending more) lowers your utilization ratio.
-                </li>
-                <li>
-                  <strong>Don&apos;t Close Old Cards:</strong> The age of your
-                  oldest account (Credit History Length) boosts your score (15%
-                  weight).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Automate Payments:</strong> Set up auto-debit for
+                      minimum dues to avoid late marks.
+                    </li>
+                    <li>
+                      <strong>Increase Limit:</strong> Requesting a higher credit
+                      limit (without spending more) lowers your utilization ratio.
+                    </li>
+                    <li>
+                      <strong>Don't Close Old Cards:</strong> The age of your
+                      oldest account (Credit History Length) boosts your score (15%
+                      weight).
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -201,6 +220,9 @@ export default function CreditScorePage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

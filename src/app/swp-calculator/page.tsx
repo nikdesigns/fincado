@@ -1,9 +1,12 @@
+// src/app/swp-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import SWPClient from './SWPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function SWPPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>SWP Calculator — Systematic Withdrawal Plan</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Turn your investments into a steady monthly salary. Calculate
-            accurate withdrawals and see how long your retirement corpus will
-            last.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Turn your investments into a steady monthly salary. Calculate
+              accurate withdrawals and see how long your retirement corpus will
+              last.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,36 +98,55 @@ export default function SWPPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is SWP? */}
               <h2>What is a Systematic Withdrawal Plan (SWP)?</h2>
-              <p>
-                A **Systematic Withdrawal Plan (SWP)** allows investors to
-                withdraw a specific sum of money from their mutual fund
-                investments at regular intervals (monthly, quarterly, or
-                annually).
-              </p>
-              <p>
-                It is essentially the reverse of an SIP. While SIP is for wealth
-                accumulation, SWP is for wealth distribution, making it ideal
-                for retirees looking for a regular pension-like income.
-              </p>
-              [Image of SWP flow diagram]
+
+              <WikiText
+                content={`
+                  <p>
+                    A <strong>Systematic Withdrawal Plan (SWP)</strong> allows investors to
+                    withdraw a specific sum of money from their <strong>Mutual Fund</strong>
+                    investments at regular intervals (monthly, quarterly, or
+                    annually).
+                  </p>
+                  <p>
+                    It is essentially the reverse of an <strong>SIP</strong>. While SIP is for wealth
+                    accumulation, SWP is for wealth distribution, making it ideal
+                    for retirees looking for a regular pension-like income.
+                  </p>
+                `}
+              />
+
               {/* 2. Who is Eligible? */}
               <h3>Who Should Opt for SWP?</h3>
-              <ul>
-                <li>
-                  <strong>Retirees:</strong> To generate a steady monthly income
-                  from their retirement corpus.
-                </li>
-                <li>
-                  <strong>High Tax Bracket Investors:</strong> SWP from Debt
-                  Funds is more tax-efficient than FD interest.
-                </li>
-                <li>
-                  <strong>Goal Seekers:</strong> Those who need regular cash
-                  flow for specific expenses (e.g., child&apos;s hostel fees).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Retirees:</strong> To generate a steady monthly income
+                      from their retirement corpus.
+                    </li>
+                    <li>
+                      <strong>High Tax Bracket Investors:</strong> SWP from <strong>Debt
+                      Funds</strong> is more tax-efficient than <strong>Fixed Deposit</strong> interest.
+                    </li>
+                    <li>
+                      <strong>Goal Seekers:</strong> Those who need regular cash
+                      flow for specific expenses (e.g., child's hostel fees).
+                    </li>
+                  </ul>
+                `}
+              />
+
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
+              <WikiText
+                content={`
+                  <p>
+                    Managing withdrawals is tricky. If you withdraw too much, you run out of money too soon.
+                    This calculator helps you find the balance.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Corpus Longevity</h4>
@@ -144,10 +170,11 @@ export default function SWPPage() {
                   </p>
                 </div>
               </div>
+
               {/* 4. Formula */}
               <h3>SWP Calculation Logic</h3>
               <p>
-                The calculator simulates your investment month-by-month. 1.
+                The calculator simulates your investment month-by-month: 1.
                 Interest is added to the balance based on annual return. 2. The
                 fixed withdrawal amount is deducted. 3. The new balance is
                 carried forward to the next month.
@@ -166,29 +193,38 @@ export default function SWPPage() {
               >
                 Bal(m) = [Bal(m-1) + Interest] - Withdrawal
               </div>
-              <p style={{ fontSize: '14px', color: '#666' }}>
-                <em>
-                  *If returns are higher than withdrawals, the balance grows. If
-                  lower, the balance depletes.
-                </em>
-              </p>
+              <WikiText
+                content={`
+                <p style="font-size: 14px; color: #666;">
+                  <em>
+                    *If returns are higher than withdrawals, the balance grows. If
+                    lower, the balance depletes.
+                  </em>
+                </p>
+              `}
+              />
+
               {/* 5. Key Advantages */}
               <h3>Key Advantages of SWP</h3>
-              <ul>
-                <li>
-                  <strong>Tax Efficiency:</strong> Only the capital gains
-                  portion of the withdrawal is taxed, not the principal.
-                </li>
-                <li>
-                  <strong>Flexibility:</strong> You can change the withdrawal
-                  amount, frequency, or stop it anytime.
-                </li>
-                <li>
-                  <strong>Rupee Cost Averaging:</strong> When markets are high,
-                  fewer units are sold to meet your cash needs. When low, more
-                  units are sold.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Tax Efficiency:</strong> Only the capital gains
+                      portion of the withdrawal is taxed, not the principal.
+                    </li>
+                    <li>
+                      <strong>Flexibility:</strong> You can change the withdrawal
+                      amount, frequency, or stop it anytime.
+                    </li>
+                    <li>
+                      <strong>Rupee Cost Averaging:</strong> When markets are high,
+                      fewer units are sold to meet your cash needs. When low, more
+                      units are sold.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -235,6 +271,9 @@ export default function SWPPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

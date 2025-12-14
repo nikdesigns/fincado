@@ -1,9 +1,12 @@
+// src/app/ppf-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
-import PPFClient from './PPFClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
+import PPFClient from './PPFClient';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -72,10 +75,14 @@ export default function PPFPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>PPF Calculator — Public Provident Fund</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Build a tax-free retirement corpus. Calculate your PPF maturity
-            value and see the power of compounding over 15 years.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Build a tax-free retirement corpus. Calculate your PPF maturity
+              value and see the power of compounding over 15 years.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,38 +98,52 @@ export default function PPFPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is PPF? */}
               <h2>What is the Public Provident Fund (PPF)?</h2>
-              <p>
-                The <strong>Public Provident Fund (PPF)</strong> is a long-term
-                savings scheme backed by the Government of India. It was
-                introduced to mobilize small savings and provide retirement
-                security to self-employed individuals and workers in the
-                unorganized sector.
-              </p>
+
+              <WikiText
+                content={`
+                  <p>
+                    The <strong>Public Provident Fund (PPF)</strong> is a long-term
+                    savings scheme backed by the Government of India. It was
+                    introduced to mobilize small savings and provide retirement
+                    security to self-employed individuals and workers in the
+                    unorganized sector.
+                  </p>
+                `}
+              />
 
               {/* 2. Who is Eligible? */}
               <h3>Who Can Open a PPF Account?</h3>
-              <ul>
-                <li>
-                  <strong>Resident Indians:</strong> Any individual can open a
-                  PPF account in their own name.
-                </li>
-                <li>
-                  <strong>Minors:</strong> Parents or guardians can open an
-                  account on behalf of a minor child.
-                </li>
-                <li>
-                  <strong>Not Allowed:</strong> NRIs (Non-Resident Indians) and
-                  HUFs (Hindu Undivided Families) are not eligible to open new
-                  PPF accounts.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Resident Individuals:</strong> Any individual can open a
+                      PPF account in their own name.
+                    </li>
+                    <li>
+                      <strong>Minors:</strong> Parents or guardians can open an
+                      account on behalf of a minor child.
+                    </li>
+                    <li>
+                      <strong>Not Allowed:</strong> <strong>NRIs</strong> (Non-Resident Indians) and
+                      <strong>HUFs</strong> (Hindu Undivided Families) are not eligible to open new
+                      PPF accounts.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
-              <p>
-                PPF is a 15-year commitment. This calculator helps you visualize
-                the long-term impact of your savings:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    PPF is a 15-year commitment. This calculator helps you visualize
+                    the long-term impact of your savings:
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Tax Planning</h4>
@@ -149,11 +170,16 @@ export default function PPFPage() {
 
               {/* 4. Formula */}
               <h3>PPF Interest Calculation Formula</h3>
-              <p>
-                Interest on PPF is calculated on the lowest balance between the
-                5th and the last day of every month. However, the interest is
-                compounded annually and credited on March 31st.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Interest on PPF is calculated on the lowest balance between the
+                    5th and the last day of every month. However, the interest is
+                    compounded annually and credited on March 31st.
+                  </p>
+                `}
+              />
+
               <div
                 style={{
                   background: '#f1f5f9',
@@ -166,45 +192,53 @@ export default function PPFPage() {
                   fontWeight: 600,
                 }}
               >
-                {/* Fixed the line below to render as plain text */}F = P × [((1
-                + i)^n - 1) / i]
+                F = P × [((1 + i)^n - 1) / i]
               </div>
-              <ul style={{ fontSize: '14px' }}>
-                <li>
-                  <strong>F</strong> = Maturity Amount
-                </li>
-                <li>
-                  <strong>P</strong> = Annual Installment
-                </li>
-                <li>
-                  <strong>n</strong> = Tenure in Years
-                </li>
-                <li>
-                  <strong>i</strong> = Interest Rate / 100
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li>
+                    <strong>F</strong> = Maturity Amount
+                  </li>
+                  <li>
+                    <strong>P</strong> = Annual Installment
+                  </li>
+                  <li>
+                    <strong>n</strong> = Tenure in Years
+                  </li>
+                  <li>
+                    <strong>i</strong> = Interest Rate / 100
+                  </li>
+                </ul>
+              `}
+              />
 
               {/* 5. Key Advantages */}
               <h3>Key Advantages of PPF</h3>
-              <ul>
-                <li>
-                  <strong>EEE Tax Status:</strong> Investment is tax-deductible,
-                  interest is tax-free, and maturity amount is tax-free.
-                </li>
-                <li>
-                  <strong>Sovereign Guarantee:</strong> Being government-backed,
-                  your capital and returns are 100% safe.
-                </li>
-                <li>
-                  <strong>Loan Facility:</strong> You can take a loan against
-                  your PPF balance from the 3rd to the 6th financial year.
-                </li>
-                <li>
-                  <strong>Protection from Attachment:</strong> A PPF account
-                  cannot be attached by a court decree to pay off
-                  debts/liabilities.
-                </li>
-              </ul>
+
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>EEE Tax Status:</strong> Investment is tax-deductible,
+                      interest is tax-free, and maturity amount is tax-free.
+                    </li>
+                    <li>
+                      <strong>Sovereign Guarantee:</strong> Being government-backed,
+                      your capital and returns are 100% safe.
+                    </li>
+                    <li>
+                      <strong>Loan Facility:</strong> You can take a loan against
+                      your PPF balance from the 3rd to the 6th financial year.
+                    </li>
+                    <li>
+                      <strong>Protection from Attachment:</strong> A PPF account
+                      cannot be attached by a court decree to pay off
+                      debts/liabilities.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -253,6 +287,9 @@ export default function PPFPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

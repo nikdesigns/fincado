@@ -1,9 +1,12 @@
+// src/app/gst-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import GSTClient from './GSTClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,10 +74,14 @@ export default function GSTPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>GST Calculator (Goods and Services Tax)</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Instantly calculate **GST Inclusive** and **Exclusive** prices.
-            Ideal for generating invoices, verifying bills, and tax compliance.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Instantly calculate <strong>GST Inclusive</strong> and <strong>Exclusive</strong> prices.
+              Ideal for generating invoices, verifying bills, and tax compliance.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -90,32 +97,49 @@ export default function GSTPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is GST? */}
               <h2>Understanding GST (Goods and Services Tax)</h2>
-              <p>
-                **GST** is a destination-based indirect tax levied on the supply
-                of goods and services. It has replaced multiple indirect taxes
-                like VAT, Service Tax, and Excise Duty, creating a &quot;One
-                Nation, One Tax&quot; system.
-              </p>
+
+              <WikiText
+                content={`
+                  <p>
+                    <strong>GST (Goods and Services Tax)</strong> is a destination-based indirect tax levied on the supply
+                    of goods and services. It has replaced multiple indirect taxes
+                    like VAT, Service Tax, and Excise Duty, creating a "One
+                    Nation, One Tax" system.
+                  </p>
+                `}
+              />
 
               {/* 2. Key Components */}
               <h3>Components of GST</h3>
-              <ul>
-                <li>
-                  <strong>CGST (Central GST):</strong> Collected by the Central
-                  Government on intra-state sales.
-                </li>
-                <li>
-                  <strong>SGST (State GST):</strong> Collected by the State
-                  Government on intra-state sales.
-                </li>
-                <li>
-                  <strong>IGST (Integrated GST):</strong> Collected by the
-                  Central Government on inter-state sales and imports.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>CGST (Central GST):</strong> Collected by the Central
+                      Government on intra-state sales.
+                    </li>
+                    <li>
+                      <strong>SGST (State GST):</strong> Collected by the State
+                      Government on intra-state sales.
+                    </li>
+                    <li>
+                      <strong>IGST (Integrated GST):</strong> Collected by the
+                      Central Government on inter-state sales and imports.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. Planning Help */}
               <h3>Why Use This Calculator?</h3>
+              <WikiText
+                content={`
+                  <p>
+                    Manual calculations can lead to billing errors. This tool helps ensure <strong>Invoice</strong> accuracy.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Reverse Calculation</h4>
@@ -175,20 +199,24 @@ export default function GSTPage() {
 
               {/* 5. Key Advantages */}
               <h3>Benefits of GST System</h3>
-              <ul>
-                <li>
-                  <strong>Eliminates Cascading Effect:</strong> Tax on tax is
-                  removed via Input Tax Credit (ITC).
-                </li>
-                <li>
-                  <strong>Higher Threshold:</strong> Small businesses with
-                  turnover up to ₹40 Lakhs are exempt (for goods).
-                </li>
-                <li>
-                  <strong>Composition Scheme:</strong> Simplified compliance for
-                  small businesses with turnover up to ₹1.5 Crore.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Eliminates Cascading Effect:</strong> Tax on tax is
+                      removed via <strong>Input Tax Credit</strong> (ITC).
+                    </li>
+                    <li>
+                      <strong>Higher Threshold:</strong> Small businesses with
+                      turnover up to ₹40 Lakhs are exempt (for goods).
+                    </li>
+                    <li>
+                      <strong>Composition Scheme:</strong> Simplified compliance for
+                      small businesses with turnover up to ₹1.5 Crore.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -236,6 +264,9 @@ export default function GSTPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

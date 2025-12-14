@@ -1,10 +1,13 @@
 // src/app/loans/car-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
-import CarLoanClient from './CarLoanClient'; // Assumed component name
+import CarLoanClient from './CarLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import LiveRateTable from '@/components/LiveRateTable';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 export const metadata: Metadata = {
   title: 'Car Loan EMI Calculator – Check Interest & Down Payment',
@@ -69,16 +72,23 @@ export default function CarLoanPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Car Loan EMI Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Drive home your dream car with confidence. Calculate accurate EMIs,
-            optimize your down payment, and compare interest rates instantly.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Drive home your dream car with confidence. Calculate accurate EMIs,
+              optimize your down payment, and compare interest rates instantly.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             {/* CALCULATOR APP */}
             <CarLoanClient />
+
+            {/* ✅ ADD LIVE RATES HERE */}
+            <LiveRateTable type="carLoan" />
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="car-loan-mid" type="leaderboard" />
@@ -88,58 +98,72 @@ export default function CarLoanPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is a Car Loan? */}
               <h2>What is a Car Loan?</h2>
-              <p>
-                A Car Loan is a <strong>secured loan</strong> provided by banks
-                and NBFCs to purchase a new or used vehicle. The vehicle itself
-                serves as collateral for the loan. This arrangement is known as{' '}
-                <strong>Hypothecation</strong>.
-              </p>
-              <p>
-                Since the loan is secured against the car, interest rates are
-                typically lower (8.5% - 11%) compared to unsecured personal
-                loans. The lender retains the original registration papers (or a
-                lien on the RC) until the loan is fully repaid.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    A <strong>Car Loan</strong> is a <strong>secured loan</strong> provided by banks
+                    and NBFCs to purchase a new or used vehicle. The vehicle itself
+                    serves as collateral for the loan. This arrangement is known as
+                    <strong>Hypothecation</strong>.
+                  </p>
+                  <p>
+                    Since the loan is secured against the car, interest rates are
+                    typically lower (8.5% - 11%) compared to unsecured personal
+                    loans. The lender retains the original registration papers (or a
+                    lien on the RC) until the loan is fully repaid.
+                  </p>
+                `}
+              />
 
               {/* 2. Who is Eligible? */}
               <h3>Who is Eligible?</h3>
-              <p>
-                Car loan eligibility is generally more relaxed than personal
-                loans because the asset backs the loan. Common criteria include:
-              </p>
-              <ul>
-                <li>
-                  <strong>Age:</strong> 21 to 65 years (at loan maturity).
-                </li>
-                <li>
-                  <strong>Employment:</strong>
+              <WikiText
+                content={`
+                  <p>
+                    Car loan eligibility is generally more relaxed than personal
+                    loans because the asset backs the loan. Common criteria include:
+                  </p>
                   <ul>
                     <li>
-                      <em>Salaried:</em> Minimum annual income of ₹3 Lakhs.
+                      <strong>Age:</strong> 21 to 65 years (at loan maturity).
                     </li>
                     <li>
-                      <em>Self-Employed:</em> Business vintage of 2+ years and
-                      ITR proofs.
+                      <strong>Employment:</strong>
+                      <ul>
+                        <li>
+                          <em>Salaried:</em> Minimum annual income of ₹3 Lakhs.
+                        </li>
+                        <li>
+                          <em>Self-Employed:</em> Business vintage of 2+ years and
+                          ITR proofs.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Credit Score:</strong> A CIBIL score of
+                      <strong>750+</strong> secures the best rates. However, scores
+                      of 700-750 are often approved with slightly higher rates.
+                    </li>
+                    <li>
+                      <strong>Residence:</strong> Stability of residence (at least 1
+                      year at current address) is often checked.
                     </li>
                   </ul>
-                </li>
-                <li>
-                  <strong>Credit Score:</strong> A CIBIL score of{' '}
-                  <strong>750+</strong> secures the best rates. However, scores
-                  of 700-750 are often approved with slightly higher rates.
-                </li>
-                <li>
-                  <strong>Residence:</strong> Stability of residence (at least 1
-                  year at current address) is often checked.
-                </li>
-              </ul>
+                `}
+              />
 
               {/* 3. Calculator Help */}
               <h3>How This Calculator Helps Your Purchase Planning</h3>
-              <p>
-                Buying a car involves more than just the sticker price. Using
-                this calculator helps you plan:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Buying a car involves more than just the sticker price. Using
+                    this calculator helps you plan your down payment and tenure
+                    to keep your monthly budget intact.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Down Payment Strategy</h4>
@@ -187,44 +211,52 @@ export default function CarLoanPage() {
               >
                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
               </div>
-              <ul>
-                <li>
-                  <strong>P</strong> = Loan Amount (After subtracting Down
-                  Payment)
-                </li>
-                <li>
-                  <strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 /
-                  100)
-                </li>
-                <li>
-                  <strong>N</strong> = Tenure in Months
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li>
+                    <strong>P</strong> = Loan Amount (After subtracting Down
+                    Payment)
+                  </li>
+                  <li>
+                    <strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 /
+                    100)
+                  </li>
+                  <li>
+                    <strong>N</strong> = Tenure in Months
+                  </li>
+                </ul>
+              `}
+              />
 
               {/* 5. Key Advantages */}
               <h3>Key Advantages of a Car Loan</h3>
-              <ul>
-                <li>
-                  <strong>High LTV (Loan to Value):</strong> Lenders often
-                  finance up to 90% or even 100% of the On-Road price for
-                  eligible customers.
-                </li>
-                <li>
-                  <strong>Credit Builder:</strong> Being a secured loan, it is
-                  easier to get approved. Timely payments are a great way to
-                  build a high CIBIL score.
-                </li>
-                <li>
-                  <strong>Tax Benefits (Business Use):</strong> If you use the
-                  car for business purposes, you can claim tax deductions on the
-                  interest paid and vehicle depreciation. (Note: Not applicable
-                  for salaried individuals).
-                </li>
-                <li>
-                  <strong>Pre-Approved Offers:</strong> Existing bank customers
-                  often get instant disbursement with zero documentation.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>High LTV (Loan to Value):</strong> Lenders often
+                      finance up to 90% or even 100% of the On-Road price for
+                      eligible customers.
+                    </li>
+                    <li>
+                      <strong>Credit Builder:</strong> Being a secured loan, it is
+                      easier to get approved. Timely payments are a great way to
+                      build a high CIBIL score.
+                    </li>
+                    <li>
+                      <strong>Tax Benefits (Business Use):</strong> If you use the
+                      car for business purposes, you can claim tax deductions on the
+                      interest paid and vehicle depreciation. (Note: Not applicable
+                      for salaried individuals).
+                    </li>
+                    <li>
+                      <strong>Pre-Approved Offers:</strong> Existing bank customers
+                      often get instant disbursement with zero documentation.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning */}
@@ -294,6 +326,9 @@ export default function CarLoanPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

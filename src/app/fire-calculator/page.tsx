@@ -1,9 +1,12 @@
+// src/app/fire-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import FIRECalculatorClient from './FIRECalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function FIREPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>FIRE Calculator (Financial Independence, Retire Early)</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Stop working for money and let your money work for you. Calculate
-            your <strong>Financial Freedom Number</strong> and the exact savings
-            rate needed to retire early.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Stop working for money and let your money work for you. Calculate
+              your <strong>Financial Freedom Number</strong> and the exact savings
+              rate needed to retire early.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,39 +98,56 @@ export default function FIREPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is FIRE? */}
               <h2>What is the FIRE Movement?</h2>
-              <p>
-                **FIRE (Financial Independence, Retire Early)** is a lifestyle
-                movement with the goal of gaining financial freedom at a young
-                age (often in the 30s or 40s) rather than the traditional
-                retirement age of 60.
-              </p>
 
-              <p>
-                The core principle is aggressive saving (50-70% of income) and
-                low-cost investing to build a corpus that generates enough
-                passive income to cover living expenses forever.
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    <strong>FIRE (Financial Independence, Retire Early)</strong> is a lifestyle
+                    movement with the goal of gaining financial freedom at a young
+                    age (often in the 30s or 40s) rather than the traditional
+                    retirement age of 60.
+                  </p>
+                  <p>
+                    The core principle is aggressive saving (50-70% of income) and
+                    low-cost investing to build a <strong>Corpus</strong> that generates enough
+                    passive income to cover living expenses forever.
+                  </p>
+                `}
+              />
 
               {/* 2. Key Concepts */}
               <h3>Core Concepts of FIRE</h3>
-              <ul>
-                <li>
-                  <strong>FIRE Number:</strong> The target corpus amount.
-                  Formula: <em>Annual Expenses × 25 (or 30)</em>.
-                </li>
-                <li>
-                  <strong>Safe Withdrawal Rate (SWR):</strong> The percentage of
-                  your corpus you can withdraw annually without running out of
-                  money (typically 4%).
-                </li>
-                <li>
-                  <strong>Rule of 25:</strong> Based on the 4% SWR, you need 25
-                  times your annual expenses invested to retire.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>FIRE Number:</strong> The target corpus amount.
+                      Formula: <em>Annual Expenses × 25 (or 30)</em>.
+                    </li>
+                    <li>
+                      <strong>Safe Withdrawal Rate (SWR):</strong> The percentage of
+                      your corpus you can withdraw annually without running out of
+                      money (typically 4%).
+                    </li>
+                    <li>
+                      <strong>Rule of 25:</strong> Based on the 4% SWR, you need 25
+                      times your annual expenses invested to retire.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps You</h3>
+              <WikiText
+                content={`
+                  <p>
+                    Achieving FIRE requires math, not just intent. This tool bridges the gap
+                    between your current savings and your freedom date.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Reality Check</h4>
@@ -150,38 +174,47 @@ export default function FIREPage() {
 
               {/* 4. Strategy */}
               <h3>Types of FIRE</h3>
-              <ul>
-                <li>
-                  <strong>Lean FIRE:</strong> Retiring on a very strict,
-                  low-budget lifestyle (Corpus &lt; 20x expenses).
-                </li>
-                <li>
-                  <strong>Fat FIRE:</strong> Retiring with a lavish lifestyle
-                  and a large buffer (Corpus &gt; 30x expenses).
-                </li>
-                <li>
-                  <strong>Barista FIRE:</strong> Retiring from the main
-                  corporate job but working a low-stress part-time job for
-                  benefits/income.
-                </li>
-              </ul>
+
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Lean FIRE:</strong> Retiring on a very strict,
+                      low-budget lifestyle (Corpus &lt; 20x expenses).
+                    </li>
+                    <li>
+                      <strong>Fat FIRE:</strong> Retiring with a lavish lifestyle
+                      and a large buffer (Corpus &gt; 30x expenses).
+                    </li>
+                    <li>
+                      <strong>Barista FIRE:</strong> Retiring from the main
+                      corporate job but working a low-stress part-time job for
+                      benefits/income.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 5. Key Advantages */}
               <h3>Why Pursue FIRE?</h3>
-              <ul>
-                <li>
-                  <strong>Freedom of Time:</strong> You gain complete control
-                  over your schedule.
-                </li>
-                <li>
-                  <strong>Reduced Stress:</strong> Financial security eliminates
-                  anxiety about job loss or economic downturns.
-                </li>
-                <li>
-                  <strong>Passion Projects:</strong> You can pursue work that is
-                  meaningful to you, regardless of the pay.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Freedom of Time:</strong> You gain complete control
+                      over your schedule.
+                    </li>
+                    <li>
+                      <strong>Reduced Stress:</strong> Financial security eliminates
+                      anxiety about job loss or economic downturns.
+                    </li>
+                    <li>
+                      <strong>Passion Projects:</strong> You can pursue work that is
+                      meaningful to you, regardless of the pay.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -229,6 +262,9 @@ export default function FIREPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

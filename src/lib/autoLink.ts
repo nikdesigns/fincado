@@ -1,42 +1,46 @@
-// simple, robust auto-linker that does not clobber existing <a> tags
-export function autoLinkContent(html: string) {
-  const links: Record<string, string> = {
-    'EMI Calculator': '/emi-calculator',
-    'SIP Calculator': '/sip-calculator',
-    'FD Calculator': '/fd-calculator',
-    'Personal Loan': '/loans/personal-loan',
-    'Home Loan': '/loans/home-loan',
-    'Credit Score': '/credit-score',
-    Investing: '/investing',
-    Savings: '/savings',
-  };
+import linksData from '@/data/internalLinks.json';
 
-  // Split by <a to avoid modifying anchor contents
-  const parts = html.split(/(<a\b[^>]*>[\s\S]*?<\/a>)/gi);
-  const out = parts
-    .map((segment) => {
-      // If this segment is an anchor tag, leave untouched
-      if (segment.startsWith('<a') && segment.includes('</a>')) return segment;
+type LinkItem = {
+  keyword: string;
+  url: string;
+};
 
-      // Otherwise replace matches
-      let updated = segment;
+// Sort by length (longest first) to prevent partial replacement issues
+const SORTED_LINKS = (linksData as LinkItem[]).sort(
+  (a, b) => b.keyword.length - a.keyword.length
+);
 
-      Object.entries(links).forEach(([text, url]) => {
-        // word boundary match, global
-        const regex = new RegExp(`\\b${escapeRegExp(text)}\\b`, 'g');
-        updated = updated.replace(
+export function autoLinkContent(html: string): string {
+  if (!html) return '';
+
+  // 1. Protect existing tags (don't link inside <a href="...">...</a> or other tags)
+  // We split by HTML tags to isolate text nodes
+  const parts = html.split(/(<[^>]+>)/g);
+
+  return parts
+    .map((part) => {
+      // If it's a tag, return as is
+      if (part.startsWith('<')) return part;
+
+      // Process text content
+      let processedPart = part;
+
+      SORTED_LINKS.forEach(({ keyword, url }) => {
+        // Match whole word, case insensitive
+        const regex = new RegExp(`\\b(${escapeRegExp(keyword)})\\b`, 'gi');
+
+        // Replace with link, keeping original casing
+        processedPart = processedPart.replace(
           regex,
-          `<a href="${url}" class="auto-link">${text}</a>`
+          `<a href="${url}" class="auto-link" title="Calculate ${keyword}">$1</a>`
         );
       });
 
-      return updated;
+      return processedPart;
     })
     .join('');
-
-  return out;
 }
 
-function escapeRegExp(s: string) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

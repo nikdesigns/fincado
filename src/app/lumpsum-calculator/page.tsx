@@ -1,9 +1,12 @@
+// src/app/lumpsum-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import LumpsumClient from './LumpsumClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,10 +74,14 @@ export default function LumpsumPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Lumpsum Calculator — One-Time Investment</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Invest once, grow forever. Calculate the future value of your lump
-            sum investment and visualize the power of compounding.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Invest once, grow forever. Calculate the future value of your lump
+              sum investment and visualize the power of compounding.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -90,40 +97,55 @@ export default function LumpsumPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is Lumpsum? */}
               <h2>What is a Lumpsum Investment?</h2>
-              <p>
-                A <strong>Lumpsum Investment</strong> involves depositing a
-                significant sum of money in a single transaction rather than
-                smaller recurring payments. This method is popular for Mutual
-                Funds, Fixed Deposits, and stocks.
-              </p>
-              <p>
-                The primary advantage is that the entire capital starts earning
-                returns from Day 1, maximizing the compounding effect over long
-                durations.
-              </p>
-              [Image of compounding growth curve]
+
+              <WikiText
+                content={`
+                  <p>
+                    A <strong>Lumpsum Investment</strong> involves depositing a
+                    significant sum of money in a single transaction rather than
+                    smaller recurring payments. This method is popular for <strong>Mutual
+                    Funds</strong>, <strong>Fixed Deposits</strong>, and stocks.
+                  </p>
+                  <p>
+                    The primary advantage is that the entire capital starts earning
+                    returns from Day 1, maximizing the <strong>Compounding</strong> effect over long
+                    durations.
+                  </p>
+                `}
+              />
+
               {/* 2. Who is Eligible? */}
               <h3>Who Should Choose Lumpsum Investing?</h3>
-              <ul>
-                <li>
-                  <strong>Windfall Gainers:</strong> Individuals who receive a
-                  bonus, inheritance, or property sale proceeds.
-                </li>
-                <li>
-                  <strong>Market Timers:</strong> Investors looking to enter
-                  when the market has corrected significantly.
-                </li>
-                <li>
-                  <strong>Retirees:</strong> Investing retirement corpus into
-                  monthly income plans (SWP).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Windfall Gainers:</strong> Individuals who receive a
+                      bonus, inheritance, or property sale proceeds.
+                    </li>
+                    <li>
+                      <strong>Market Timers:</strong> Investors looking to enter
+                      when the market has corrected significantly.
+                    </li>
+                    <li>
+                      <strong>Retirees:</strong> Investing retirement corpus into
+                      monthly income plans (SWP).
+                    </li>
+                  </ul>
+                `}
+              />
+
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
-              <p>
-                Seeing the end value of a large investment helps in decision
-                making. This tool assists you to:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Seeing the end value of a large investment helps in decision
+                    making. This tool assists you to visualize exponential growth.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Compare Tenures</h4>
@@ -147,6 +169,7 @@ export default function LumpsumPage() {
                   </p>
                 </div>
               </div>
+
               {/* 4. Formula */}
               <h3>Lumpsum Calculation Formula</h3>
               <p>
@@ -167,39 +190,48 @@ export default function LumpsumPage() {
               >
                 FV = P × (1 + r/n) ^ (n × t)
               </div>
-              <ul style={{ fontSize: '14px' }}>
-                <li>
-                  <strong>FV</strong> = Future Value
-                </li>
-                <li>
-                  <strong>P</strong> = Principal Investment
-                </li>
-                <li>
-                  <strong>r</strong> = Annual Interest Rate (decimal)
-                </li>
-                <li>
-                  <strong>n</strong> = Compounding Frequency per year
-                </li>
-                <li>
-                  <strong>t</strong> = Time in years
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li>
+                    <strong>FV</strong> = Future Value
+                  </li>
+                  <li>
+                    <strong>P</strong> = Principal Investment
+                  </li>
+                  <li>
+                    <strong>r</strong> = Annual Interest Rate (decimal)
+                  </li>
+                  <li>
+                    <strong>n</strong> = Compounding Frequency per year
+                  </li>
+                  <li>
+                    <strong>t</strong> = Time in years
+                  </li>
+                </ul>
+              `}
+              />
+
               {/* 5. Key Advantages */}
               <h3>Key Advantages of Lumpsum Investment</h3>
-              <ul>
-                <li>
-                  <strong>Instant Exposure:</strong> Your entire capital gets
-                  exposure to asset growth immediately.
-                </li>
-                <li>
-                  <strong>Convenience:</strong> A one-time transaction means no
-                  need to track monthly debit dates.
-                </li>
-                <li>
-                  <strong>Ideal for Debt:</strong> Lumpsum works exceptionally
-                  well for Debt Funds and FDs where volatility is low.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Instant Exposure:</strong> Your entire capital gets
+                      exposure to asset growth immediately.
+                    </li>
+                    <li>
+                      <strong>Convenience:</strong> A one-time transaction means no
+                      need to track monthly debit dates.
+                    </li>
+                    <li>
+                      <strong>Ideal for Debt:</strong> Lumpsum works exceptionally
+                      well for Debt Funds and FDs where volatility is low.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -247,6 +279,9 @@ export default function LumpsumPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

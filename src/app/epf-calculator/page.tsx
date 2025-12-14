@@ -1,9 +1,12 @@
+// src/app/epf-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import EPFClient from './EPFClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -72,11 +75,15 @@ export default function EPFPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Your EPF is your biggest retirement asset. Calculate the exact
-            breakdown of employee vs employer contributions and total interest
-            earned over your career.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Your EPF is your biggest retirement asset. Calculate the exact
+              breakdown of employee vs employer contributions and total interest
+              earned over your career.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -92,28 +99,47 @@ export default function EPFPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is EPF? */}
               <h2>What is the Employees&apos; Provident Fund (EPF)?</h2>
-              <p>
-                The **Employees&apos; Provident Fund (EPF)** is a mandatory
-                retirement savings scheme managed by the EPFO for salaried
-                employees. It helps build a retirement corpus through regular
-                monthly contributions from both the employee and the employer.
-              </p>
-              [Image of EPF contribution split chart]
+
+              <WikiText
+                content={`
+                  <p>
+                    The <strong>Employees' Provident Fund (EPF)</strong> is a mandatory
+                    retirement savings scheme managed by the <strong>EPFO</strong> for salaried
+                    employees. It helps build a retirement corpus through regular
+                    monthly contributions from both the employee and the employer.
+                  </p>
+                `}
+              />
+
               {/* 2. Who Contributes? */}
               <h3>Understanding the Contribution Split</h3>
-              <ul>
-                <li>
-                  <strong>Employee Share:</strong> 12% of (Basic Salary + DA).
-                  Entire amount goes to EPF.
-                </li>
-                <li>
-                  <strong>Employer Share:</strong> 12% of (Basic Salary + DA).
-                  <br />- **3.67%** goes to EPF.
-                  <br />- **8.33%** goes to EPS (Pension Scheme).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Employee Share:</strong> 12% of (Basic Salary + DA).
+                      Entire amount goes to EPF.
+                    </li>
+                    <li>
+                      <strong>Employer Share:</strong> 12% of (Basic Salary + DA).
+                      <br />- <strong>3.67%</strong> goes to EPF.
+                      <br />- <strong>8.33%</strong> goes to <strong>EPS</strong> (Pension Scheme).
+                    </li>
+                  </ul>
+                `}
+              />
+
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps You</h3>
+              <WikiText
+                content={`
+                  <p>
+                    Managing long-term contributions is complex. This tool helps visualize
+                    the compounding effect over 20-30 years.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Corpus Projection</h4>
@@ -137,6 +163,7 @@ export default function EPFPage() {
                   </p>
                 </div>
               </div>
+
               {/* 4. Formula */}
               <h3>EPF Interest Calculation Logic</h3>
               <p>Interest is calculated on the monthly running balance.</p>
@@ -154,29 +181,38 @@ export default function EPFPage() {
               >
                 Monthly Interest = (Opening Bal + Contribution) × Rate% / 12
               </div>
-              <p style={{ fontSize: '14px', color: '#666' }}>
-                <em>
-                  *Interest is accumulated monthly but credited to the account
-                  only at the end of the financial year.
-                </em>
-              </p>
+              <WikiText
+                content={`
+                <p style="font-size: 14px; color: #666;">
+                  <em>
+                    *Interest is accumulated monthly but credited to the account
+                    only at the end of the financial year.
+                  </em>
+                </p>
+              `}
+              />
+
               {/* 5. Key Advantages */}
               <h3>Key Benefits of EPF</h3>
-              <ul>
-                <li>
-                  <strong>Sovereign Guarantee:</strong> One of the safest debt
-                  instruments in India.
-                </li>
-                <li>
-                  <strong>Tax Benefits:</strong> Contributions qualify for
-                  Section 80C. Interest and Maturity are tax-free (subject to
-                  limits).
-                </li>
-                <li>
-                  <strong>Insurance (EDLI):</strong> EPF members get free life
-                  insurance cover up to ₹7 Lakhs.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Sovereign Guarantee:</strong> One of the safest debt
+                      instruments in India.
+                    </li>
+                    <li>
+                      <strong>Tax Benefits:</strong> Contributions qualify for
+                      <strong>Section 80C</strong>. Interest and Maturity are tax-free (subject to
+                      limits).
+                    </li>
+                    <li>
+                      <strong>Insurance (EDLI):</strong> EPF members get free life
+                      insurance cover up to ₹7 Lakhs.
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -223,6 +259,9 @@ export default function EPFPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}

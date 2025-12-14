@@ -5,8 +5,11 @@ import EMIClient from './EMIClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import LiveRateTable from '@/components/LiveRateTable';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
-// 1. SEO METADATA (High-Volume Keywords)
+// 1. SEO METADATA
 export const metadata: Metadata = {
   title: 'EMI Calculator – Calculate Home, Car & Personal Loan EMI',
   description:
@@ -74,11 +77,16 @@ export default function EMIPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>EMI Calculator – Plan Your Loan Smartly</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Instantly calculate your monthly EMI, visualize total interest
-            costs, and download your repayment schedule.
-            <strong> Accurate. Free. No Login Required.</strong>
-          </p>
+          {/* Using WikiText for description to auto-link terms */}
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Instantly calculate your monthly EMI, visualize total interest
+              costs, and download your repayment schedule.
+              <strong> Accurate. Free. No Login Required.</strong>
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -86,63 +94,80 @@ export default function EMIPage() {
             {/* CALCULATOR APP */}
             <EMIClient />
 
+            {/* LIVE RATES */}
+            <LiveRateTable type="personalLoan" />
+
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="emi-mid-content" type="leaderboard" />
             </div>
 
             {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is an EMI? (New Section) */}
+              {/* 1. What is an EMI? */}
               <h2>What is an EMI?</h2>
-              <p>
-                <strong>EMI (Equated Monthly Installment)</strong> is the fixed
-                amount of money you pay to a bank or lender every month to repay
-                a loan.
-              </p>
-              <p>
-                It consists of two components:
-                <br />
-                <strong>1. Principal:</strong> The portion that repays the
-                original loan amount.
-                <br />
-                <strong>2. Interest:</strong> The cost charged by the bank for
-                borrowing the money.
-              </p>
-              <p>
-                In the early years of your loan, a larger portion of your EMI
-                goes towards interest. As the tenure progresses, the principal
-                component increases.
-              </p>
 
-              {/* 2. General Eligibility (New Section) */}
+              <WikiText
+                content={`
+                  <p>
+                    <strong>EMI (Equated Monthly Installment)</strong> is the fixed
+                    amount of money you pay to a bank or lender every month to repay
+                    a loan.
+                  </p>
+                  <p>
+                    It consists of two components:
+                    <br />
+                    <strong>1. Principal:</strong> The portion that repays the
+                    original loan amount.
+                    <br />
+                    <strong>2. Interest:</strong> The cost charged by the bank for
+                    borrowing the money.
+                  </p>
+                  <p>
+                    In the early years of your loan, a larger portion of your EMI
+                    goes towards interest. As the tenure progresses, the principal
+                    component increases.
+                  </p>
+                `}
+              />
+
+              {/* 2. General Eligibility */}
               <h3>Factors Affecting Loan Eligibility</h3>
-              <p>
-                While specific criteria vary by loan type (Home vs Personal),
-                lenders generally look at the &quot;3 Cs&quot; of credit:
-              </p>
-              <ul>
-                <li>
-                  <strong>Credit Score (Character):</strong> A CIBIL score of
-                  750+ indicates you are a responsible borrower.
-                </li>
-                <li>
-                  <strong>Income (Capacity):</strong> Lenders check your FOIR
-                  (Fixed Obligation to Income Ratio). Usually, your total EMIs
-                  should not exceed 50% of your net monthly income.
-                </li>
-                <li>
-                  <strong>Collateral:</strong> For secured loans (Home/Car), the
-                  value of the asset plays a huge role in approval.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <p>
+                    While specific criteria vary by loan type (Home vs Personal),
+                    lenders generally look at the "3 Cs" of credit:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Credit Score (Character):</strong> A CIBIL score of
+                      750+ indicates you are a responsible borrower.
+                    </li>
+                    <li>
+                      <strong>Income (Capacity):</strong> Lenders check your FOIR
+                      (Fixed Obligation to Income Ratio). Usually, your total EMIs
+                      should not exceed 50% of your net monthly income.
+                    </li>
+                    <li>
+                      <strong>Collateral:</strong> For secured loans (Home/Car), the
+                      value of the asset plays a huge role in approval.
+                    </li>
+                  </ul>
+                `}
+              />
 
               {/* 3. How it Helps */}
               <h3>How This EMI Calculator Helps You</h3>
-              <p>
-                Whether you are planning for a dream home, a new car, or a
-                personal expense, knowing your EMI in advance is crucial. This
-                tool helps you:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Whether you are planning for a dream home, a new car, or a
+                    personal expense, knowing your EMI in advance is crucial. This
+                    tool helps you budget better and save on interest.
+                  </p>
+                `}
+              />
+
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Budget Better</h4>
@@ -187,36 +212,37 @@ export default function EMIPage() {
               >
                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
               </div>
-              <ul style={{ fontSize: '14px' }}>
-                <li>
-                  <strong>P</strong> = Principal Loan Amount
-                </li>
-                <li>
-                  <strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷
-                  100)
-                </li>
-                <li>
-                  <strong>N</strong> = Loan Tenure in Months
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                <ul style="font-size: 14px;">
+                  <li><strong>P</strong> = Principal Loan Amount</li>
+                  <li><strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
+                  <li><strong>N</strong> = Loan Tenure in Months</li>
+                </ul>
+              `}
+              />
 
-              {/* 5. Key Advantages (New Section) */}
+              {/* 5. Key Advantages */}
               <h3>Key Advantages of Planned EMI Repayment</h3>
-              <ul>
-                <li>
-                  <strong>Financial Discipline:</strong> Fixed monthly payments
-                  help you budget your expenses effectively.
-                </li>
-                <li>
-                  <strong>Credit Score Boost:</strong> Paying EMIs on time is
-                  the fastest way to improve your CIBIL score.
-                </li>
-                <li>
-                  <strong>No Large Burden:</strong> Instead of paying a lump
-                  sum, you break the cost down into manageable chunks over
-                  years.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Financial Discipline:</strong> Fixed monthly payments
+                      help you budget your expenses effectively.
+                    </li>
+                    <li>
+                      <strong>Credit Score Boost:</strong> Paying EMIs on time is
+                      the fastest way to improve your CIBIL score.
+                    </li>
+                    <li>
+                      <strong>No Large Burden:</strong> Instead of paying a lump
+                      sum, you break the cost down into manageable chunks over
+                      years.
+                    </li>
+                  </ul>
+                `}
+              />
 
               <h3>How to Use Fincado&apos;s EMI Calculator?</h3>
               <ol>
@@ -304,6 +330,9 @@ export default function EMIPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ AUTHOR BIO */}
+            <AuthorBio />
           </div>
 
           {/* SIDEBAR */}

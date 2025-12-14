@@ -1,9 +1,12 @@
+// src/app/mutual-fund-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 import MutualFundsClient from './MutualFundsClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import HeroWithStats from '@/components/HeroWithStats';
+import AuthorBio from '@/components/AuthorBio';
+import WikiText from '@/components/WikiText';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -71,11 +74,15 @@ export default function MutualFundPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Mutual Fund Portfolio Planner</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Design your perfect portfolio. Simulate returns across{' '}
-            <strong>Equity, Debt, and Gold</strong>
-            allocations and see the real value of your wealth after inflation.
-          </p>
+          <WikiText
+            content={`
+            <p style="max-width: 700px; color: var(--color-text-muted);">
+              Design your perfect portfolio. Simulate returns across
+              <strong>Equity</strong>, <strong>Debt</strong>, and <strong>Gold</strong>
+              allocations and see the real value of your wealth after inflation.
+            </p>
+          `}
+          />
         </header>
 
         <div className="layout-grid">
@@ -91,38 +98,49 @@ export default function MutualFundPage() {
             <article className="article content-for-seo no-print">
               {/* 1. What is Asset Allocation? */}
               <h2>Why Asset Allocation Matters?</h2>
-              <p>
-                Investing isn&apos;t just about picking the &quot;best&quot;
-                stock. It&apos;s about building a balanced portfolio.
-                <strong>Asset Allocation</strong> is the practice of spreading
-                your investments across different asset classes (Equity, Debt,
-                Gold) to minimize risk.
-              </p>
-              [Image of asset allocation pie chart]
+              <WikiText
+                content={`
+                  <p>
+                    Investing isn't just about picking the "best"
+                    stock. It's about building a balanced portfolio.
+                    <strong>Asset Allocation</strong> is the practice of spreading
+                    your investments across different asset classes (<strong>Equity</strong>, <strong>Debt</strong>,
+                    <strong>Gold</strong>) to minimize risk.
+                  </p>
+                `}
+              />
               {/* 2. Strategy */}
               <h3>Strategies for Every Investor</h3>
-              <ul>
-                <li>
-                  <strong>Aggressive (Growth):</strong> High Equity exposure
-                  (&gt;70%) for long-term goals (&gt;10 years). Suitable for
-                  young investors with high risk appetite.
-                </li>
-                <li>
-                  <strong>Balanced (Moderate):</strong> A mix of Equity (50-60%)
-                  and Debt (40-50%) to balance growth with stability.
-                </li>
-                <li>
-                  <strong>Conservative (Safety):</strong> High Debt exposure
-                  (&gt;70%) to protect capital. Ideal for retirees or short-term
-                  goals.
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Aggressive (Growth):</strong> High Equity exposure
+                      (>70%) for long-term goals (>10 years). Suitable for
+                      young investors with high risk appetite.
+                    </li>
+                    <li>
+                      <strong>Balanced (Moderate):</strong> A mix of Equity (50-60%)
+                      and Debt (40-50%) to balance growth with stability.
+                    </li>
+                    <li>
+                      <strong>Conservative (Safety):</strong> High Debt exposure
+                      (>70%) to protect capital. Ideal for retirees or short-term
+                      goals.
+                    </li>
+                  </ul>
+                `}
+              />
               {/* 3. Planning Help */}
               <h3>How This Calculator Helps You</h3>
-              <p>
-                Unlike basic SIP calculators, this tool lets you model a
-                **complete portfolio**:
-              </p>
+              <WikiText
+                content={`
+                  <p>
+                    Unlike basic <strong>SIP Calculators</strong>, this tool lets you model a
+                    <strong>complete portfolio</strong>:
+                  </p>
+                `}
+              />
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Blended Returns</h4>
@@ -168,26 +186,34 @@ export default function MutualFundPage() {
               >
                 Portfolio FV = Σ (FV of Asset Class_i)
               </div>
-              <p>
-                Where FV is calculated using standard SIP (Annuity Due) and
-                Lumpsum (Compound Interest) formulas.
-              </p>
+              <WikiText
+                content={`
+                <p>
+                  Where FV is calculated using standard <strong>SIP</strong> (Annuity Due) and
+                  <strong>Lumpsum</strong> (Compound Interest) formulas.
+                </p>
+              `}
+              />
               {/* 5. Key Advantages */}
               <h3>Benefits of Mutual Funds</h3>
-              <ul>
-                <li>
-                  <strong>Professional Management:</strong> Fund managers handle
-                  the research and trading decisions.
-                </li>
-                <li>
-                  <strong>Diversification:</strong> A single fund invests in
-                  30-50 stocks, reducing company-specific risk.
-                </li>
-                <li>
-                  <strong>Liquidity:</strong> Open-ended funds allow you to
-                  withdraw money anytime (T+1 to T+3 days).
-                </li>
-              </ul>
+              <WikiText
+                content={`
+                  <ul>
+                    <li>
+                      <strong>Professional Management:</strong> Fund managers handle
+                      the research and trading decisions.
+                    </li>
+                    <li>
+                      <strong>Diversification:</strong> A single fund invests in
+                      30-50 stocks, reducing company-specific risk.
+                    </li>
+                    <li>
+                      <strong>Liquidity:</strong> Open-ended funds allow you to
+                      withdraw money anytime (T+1 to T+3 days).
+                    </li>
+                  </ul>
+                `}
+              />
             </article>
 
             {/* Smart Planning Stats */}
@@ -234,6 +260,9 @@ export default function MutualFundPage() {
                 </details>
               </div>
             </section>
+
+            {/* ✅ ADD AUTHOR BIO HERE */}
+            <AuthorBio />
           </div>
 
           {/* Sidebar */}
