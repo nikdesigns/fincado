@@ -24,7 +24,7 @@ export default function SIPClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Green theme for Wealth/SIP
-    return `linear-gradient(to right, var(--color-action-cta) 0%, var(--color-action-cta) ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- LOGIC: Calculations ---
@@ -247,7 +247,7 @@ export default function SIPClient() {
                 style={{
                   fontSize: 28,
                   fontWeight: 800,
-                  color: '#10b981', // Green for SIP Wealth
+                  color: 'var(--color-brand-green)', // Green for SIP Wealth
                 }}
               >
                 {formatINR(calculations.futureValue)}
@@ -286,7 +286,9 @@ export default function SIPClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>Returns</div>
-                <div style={{ fontWeight: 600, color: '#10b981' }}>
+                <div
+                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
+                >
                   +{formatINR(calculations.totalReturns)}
                 </div>
               </div>

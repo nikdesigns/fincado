@@ -20,7 +20,7 @@ export default function GSTClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Blue theme for Tax
-    return `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -59,16 +59,6 @@ export default function GSTClient() {
     setAmount(10000);
     setGstRate(18);
     setMode('add');
-  };
-
-  const handleCopy = () => {
-    const summary = `GST Calc: Net ${formatINR(
-      results.netPrice
-    )} + GST ${formatINR(results.gstAmount)} (${gstRate}%) = Gross ${formatINR(
-      results.grossPrice
-    )}`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -236,7 +226,13 @@ export default function GSTClient() {
             <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>
               {mode === 'add' ? 'Final Gross Price' : 'Calculated Net Price'}
             </div>
-            <div style={{ fontSize: 32, fontWeight: 800, color: '#3b82f6' }}>
+            <div
+              style={{
+                fontSize: 32,
+                fontWeight: 800,
+                color: 'var(--color-brand-green)',
+              }}
+            >
               {formatINR(
                 mode === 'add' ? results.grossPrice : results.netPrice
               )}
@@ -324,23 +320,6 @@ export default function GSTClient() {
                 <span>{formatINR(results.sgst)}</span>
               </div>
             </div>
-
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#eff6ff',
-                color: '#1d4ed8',
-                border: '1px solid #bfdbfe',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Summary
-            </button>
           </div>
         </div>
       </div>

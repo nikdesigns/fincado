@@ -27,7 +27,7 @@ export default function RDClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Purple/Indigo theme for RD
-    return `linear-gradient(to right, var(--color-action-cta) 0%, var(--color-action-cta) ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- ACTIONS ---
@@ -279,7 +279,7 @@ export default function RDClient() {
                 style={{
                   fontSize: 28,
                   fontWeight: 800,
-                  color: 'var(--color-brand-blue, #6366f1)', // Indigo for RD
+                  color: 'var(--color-brand-green, #6366f1)', // Indigo for RD
                 }}
               >
                 {formatINR(results.maturity)}
@@ -325,7 +325,7 @@ export default function RDClient() {
                 <div
                   style={{
                     fontWeight: 600,
-                    color: 'var(--color-brand-blue, #6366f1)',
+                    color: 'var(--color-brand-green, #6366f1)',
                   }}
                 >
                   +{formatINR(results.interest)}

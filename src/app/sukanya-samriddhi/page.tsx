@@ -179,7 +179,7 @@ export default function SSYPage() {
               </p>
               <div
                 style={{
-                  background: '#f1f5f9',
+                  background: 'transparent',
                   padding: '16px',
                   borderRadius: '8px',
                   fontFamily: 'monospace',

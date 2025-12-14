@@ -27,7 +27,7 @@ export default function FIRECalculatorClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Orange/Flame theme for FIRE
-    return `linear-gradient(to right, #f97316 0%, #f97316 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -114,16 +114,6 @@ export default function FIRECalculatorClient() {
     setPreRetireReturn(12);
     setInflationPct(6);
     setSafeWithdrawalRate(3.5);
-  };
-
-  const handleCopy = () => {
-    const summary = `My FIRE Number is ${formatINR(
-      results.fireNumberCorpus
-    )} (Age ${targetRetirementAge}). I need to save ${formatINR(
-      results.requiredMonthlySIP
-    )}/mo.`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -309,7 +299,13 @@ export default function FIRECalculatorClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Your FIRE Number
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#f97316' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(results.fireNumberCorpus)}
               </div>
             </div>
@@ -371,23 +367,6 @@ export default function FIRECalculatorClient() {
                 </div>
               </div>
             </div>
-
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#fff7ed',
-                color: '#c2410c',
-                border: '1px solid #fed7aa',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Plan
-            </button>
           </div>
         </div>
       </div>

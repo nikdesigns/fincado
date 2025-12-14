@@ -26,7 +26,7 @@ export default function SSYClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Pink/Rose theme for SSY
-    return `linear-gradient(to right, #ec4899 0%, #ec4899 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATION LOGIC ---
@@ -254,7 +254,13 @@ export default function SSYClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Maturity Value (Tax Free)
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#db2777' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(results.maturityAmount)}
               </div>
               <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
@@ -299,7 +305,9 @@ export default function SSYClient() {
                 <div style={{ color: '#64748b', fontSize: 12 }}>
                   Total Interest
                 </div>
-                <div style={{ fontWeight: 600, color: '#db2777' }}>
+                <div
+                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
+                >
                   +{formatINR(results.totalInterest)}
                 </div>
               </div>

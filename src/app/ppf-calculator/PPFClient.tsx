@@ -26,7 +26,7 @@ export default function PPFClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Orange theme for PPF (Govt/Post Office feel)
-    return `linear-gradient(to right, #f97316 0%, #f97316 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -294,7 +294,13 @@ export default function PPFClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Maturity Value (Tax Free)
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#f97316' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(maturityRounded)}
               </div>
             </div>
@@ -335,7 +341,9 @@ export default function PPFClient() {
                 <div style={{ color: '#64748b', fontSize: 12 }}>
                   Total Interest
                 </div>
-                <div style={{ fontWeight: 600, color: '#f97316' }}>
+                <div
+                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
+                >
                   +{formatINR(totalInterest)}
                 </div>
               </div>

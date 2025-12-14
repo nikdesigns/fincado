@@ -14,6 +14,8 @@
   --color-action-cta: #030302; /* Deep Teal */
   --color-action-hover: #489719;
   --color-secondary-blue: #1d4ed8;
+  --color-slider-light: #80d843;
+  --color-slider-grey: #ececec;
 
   /* UI Colors */
   --color-bg-soft: #fafafa;
@@ -100,7 +102,42 @@ li {
 }
 
 strong {
-  font-weight: 600; /* Replace 'value' with a keyword or number */
+  color: #4c4c4c;
+  font-weight: 500; /* Replace 'value' with a keyword or number */
+}
+
+select,
+::picker(select) {
+  appearance: base-select; /* Opts in to customizable styling */
+}
+
+select {
+  /* Style the closed select button (font, border, background, etc.) */
+  padding: 10px;
+  border: 1px solid #d1d5db !important;
+  background: transparent;
+}
+
+::picker(select) {
+  /* Style the opened dropdown listbox (options container) */
+  border-radius: 8px;
+}
+
+option {
+  /* Style individual options */
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+option:hover,
+option:focus {
+  background: var(--color-slider-grey); /* Example hover effect */
+}
+
+option:checked::checkmark {
+  /* Style the checkmark for the selected option */
+  content: '✅';
 }
 
 /* =========================================
@@ -235,14 +272,12 @@ input[type='range']::-webkit-slider-runnable-track {
   border-radius: 4px;
 }
 input[type='range']::-webkit-slider-thumb {
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
-  background: var(--color-action-cta);
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 1px #e2e8f0, 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: var(--color-slider-grey);
   -webkit-appearance: none;
-  margin-top: -7px;
+  margin-top: -9px;
   transition: transform 0.1s;
 }
 input[type='range']::-webkit-slider-thumb:hover {
@@ -339,7 +374,7 @@ input[type='range']::-webkit-slider-thumb:hover {
   margin: 24px 0;
 }
 .advantage-card {
-  background: #f8fafc;
+  background: transparent;
   padding: 16px;
   border-radius: 12px;
   border: 1px solid #e2e8f0;

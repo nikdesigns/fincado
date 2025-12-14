@@ -31,7 +31,7 @@ export default function CreditScoreClient() {
     color = '#2563eb'
   ) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, ${color} 0%, ${color} ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS: Score Estimate ---

@@ -52,7 +52,7 @@ export default function APYClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Orange/Red theme for Government Scheme
-    return `linear-gradient(to right, #ea580c 0%, #ea580c ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -104,14 +104,6 @@ export default function APYClient() {
     setJoiningAge(25);
     setDesiredPension(5000);
     setFrequency('Monthly');
-  };
-
-  const handleCopy = () => {
-    const summary = `APY Plan: Age ${joiningAge}, Pension ${formatINR(
-      desiredPension
-    )}. Pay ${formatINR(results.periodicContribution)}/${frequency}.`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -254,7 +246,13 @@ export default function APYClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 You Need To Pay
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#ea580c' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(results.periodicContribution)}
                 <span
                   style={{ fontSize: 16, fontWeight: 500, color: '#64748b' }}
@@ -324,23 +322,6 @@ export default function APYClient() {
                 (For you & your spouse)
               </div>
             </div>
-
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#fff7ed',
-                color: '#c2410c',
-                border: '1px solid #fed7aa',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Plan
-            </button>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ export default function LumpsumClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Blue/Indigo theme for Lumpsum
-    return `linear-gradient(to right, var(--color-action-cta) 0%, var(--color-action-cta) ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -52,16 +52,6 @@ export default function LumpsumClient() {
     setAnnualRate(12);
     setTimeYears(10);
     setCompoundingFrequency(1);
-  };
-
-  const handleCopy = () => {
-    const summary = `Lumpsum Invested: ${formatINR(
-      principal
-    )} @ ${annualRate}% for ${timeYears} years.\nMaturity: ${formatINR(
-      futureValue
-    )}`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -197,7 +187,13 @@ export default function LumpsumClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Estimated Future Value
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#1d4ed8' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(futureValue)}
               </div>
             </div>
@@ -241,24 +237,6 @@ export default function LumpsumClient() {
                 </div>
               </div>
             </div>
-
-            {/* Copy Button */}
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#eff6ff',
-                color: '#1d4ed8',
-                border: '1px solid #bfdbfe',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Summary
-            </button>
           </div>
         </div>
       </div>

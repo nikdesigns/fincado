@@ -25,7 +25,7 @@ export default function RetirementCalculatorClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Purple theme for Retirement
-    return `linear-gradient(to right, #9333ea 0%, #9333ea ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -115,14 +115,6 @@ export default function RetirementCalculatorClient() {
     setInflationPct(6);
     setPreRetireReturn(12);
     setPostRetireReturn(8);
-  };
-
-  const handleCopy = () => {
-    const summary = `Retirement Goal: Age ${retirementAge}, Corpus ${formatINR(
-      results.targetCorpus
-    )}. Shortfall SIP: ${formatINR(results.requiredSIP)}/mo.`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -292,7 +284,13 @@ export default function RetirementCalculatorClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Target Retirement Corpus
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#9333ea' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(results.targetCorpus)}
               </div>
             </div>
@@ -354,23 +352,6 @@ export default function RetirementCalculatorClient() {
                 </div>
               </div>
             </div>
-
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#faf5ff',
-                color: '#7e22ce',
-                border: '1px solid #e9d5ff',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Plan
-            </button>
           </div>
         </div>
       </div>

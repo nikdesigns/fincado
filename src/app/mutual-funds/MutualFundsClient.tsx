@@ -302,9 +302,11 @@ export default function MutualFundsClient() {
               value={years}
               onChange={numSetter(setYears)}
               style={{
-                background: `linear-gradient(to right, #4f46e5 0%, #4f46e5 ${
+                background: `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${
                   (years / 40) * 100
-                }%, #e2e8f0 ${(years / 40) * 100}%, #e2e8f0 100%)`,
+                }%, var(--color-slider-grey) ${
+                  (years / 40) * 100
+                }%, var(--color-slider-grey) 100%)`,
               }}
             />
           </div>

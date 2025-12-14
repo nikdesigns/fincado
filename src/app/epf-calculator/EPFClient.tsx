@@ -26,7 +26,7 @@ export default function EPFClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Blue/Teal theme for EPF
-    return `linear-gradient(to right, #0891b2 0%, #0891b2 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -277,7 +277,13 @@ export default function EPFClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Estimated EPF Corpus
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#0891b2' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(calculation.maturityAmount)}
               </div>
             </div>
@@ -332,7 +338,13 @@ export default function EPFClient() {
               <div style={{ color: '#64748b', fontSize: 13 }}>
                 Total Interest Earned
               </div>
-              <div style={{ fontWeight: 600, color: '#0891b2', fontSize: 16 }}>
+              <div
+                style={{
+                  fontWeight: 600,
+                  color: 'var(--color-brand-green)',
+                  fontSize: 16,
+                }}
+              >
                 +{formatINR(calculation.totalInterest)}
               </div>
             </div>

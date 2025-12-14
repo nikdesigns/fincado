@@ -22,7 +22,7 @@ export default function SWPClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Teal theme for SWP (Income flow)
-    return `linear-gradient(to right, #0d9488 0%, #0d9488 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS (Simulation Logic) ---
@@ -76,16 +76,6 @@ export default function SWPClient() {
     setMonthlyWithdrawal(10000);
     setAnnualRate(8);
     setYears(10);
-  };
-
-  const handleCopy = () => {
-    const summary = `SWP of ${formatINR(monthlyWithdrawal)}/mo from ${formatINR(
-      initialCorpus
-    )} @ ${annualRate}% for ${years} years.\nFinal Balance: ${formatINR(
-      results.finalBalance
-    )}`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -225,7 +215,13 @@ export default function SWPClient() {
               <span style={{ fontSize: 13, color: '#64748b' }}>
                 Projected Remaining Value
               </span>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#0d9488' }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: 'var(--color-brand-green)',
+                }}
+              >
                 {formatINR(results.finalBalance)}
               </div>
             </div>
@@ -266,7 +262,9 @@ export default function SWPClient() {
                 <div style={{ color: '#64748b', fontSize: 12 }}>
                   Total Withdrawn
                 </div>
-                <div style={{ fontWeight: 600, color: '#0d9488' }}>
+                <div
+                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
+                >
                   {formatINR(results.totalWithdrawn)}
                 </div>
               </div>
@@ -289,24 +287,6 @@ export default function SWPClient() {
                 lowering withdrawal amount.
               </div>
             )}
-
-            {/* Copy Button */}
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#f0fdfa',
-                color: '#0f766e',
-                border: '1px solid #ccfbf1',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Summary
-            </button>
           </div>
         </div>
       </div>

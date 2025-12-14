@@ -21,7 +21,7 @@ export default function SICalculatorClient() {
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     // Green theme for Basic Money tools
-    return `linear-gradient(to right, #16a34a 0%, #16a34a ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
+    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATIONS ---
@@ -50,16 +50,6 @@ export default function SICalculatorClient() {
     setPrincipal(50000);
     setAnnualRate(8);
     setTimeYears(5);
-  };
-
-  const handleCopy = () => {
-    const summary = `SI Calculation: Principal ${formatINR(
-      principal
-    )} @ ${annualRate}% for ${timeYears} years. Interest: ${formatINR(
-      results.interestAmount
-    )}. Total: ${formatINR(results.maturityAmount)}`;
-    navigator.clipboard.writeText(summary);
-    alert('Summary copied to clipboard!');
   };
 
   // Safe Setter
@@ -211,23 +201,6 @@ export default function SICalculatorClient() {
                 </div>
               </div>
             </div>
-
-            <button
-              onClick={handleCopy}
-              style={{
-                marginTop: 16,
-                width: '100%',
-                padding: '10px',
-                background: '#f0fdf4',
-                color: '#15803d',
-                border: '1px solid #bbf7d0',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Copy Summary
-            </button>
           </div>
         </div>
       </div>
