@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "ts-node src/scripts/generate-sitemap.ts",
+    "prebuild": "node src/scripts/process-wiki.js && node src/scripts/generate-sitemap.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

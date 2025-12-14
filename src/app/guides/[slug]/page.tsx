@@ -24,19 +24,25 @@ type Props = {
 
 /* ---------------- METADATA ---------------- */
 
-export function generateMetadata({ params }: Props): Metadata {
-  const article = (articles as Article[]).find((a) => a.slug === params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const article = (articles as Article[]).find((a) => a.slug === slug);
 
   if (!article) return {};
+
+  const canonical = `https://fincado.com/guides/${article.slug}`;
 
   return {
     title: article.seoTitle || article.title,
     description: article.metaDescription,
+    alternates: {
+      canonical,
+    },
     openGraph: {
       title: article.title,
       description: article.metaDescription,
       type: 'article',
-      url: `https://www.fincado.com/guides/${article.slug}`,
+      url: canonical,
       publishedTime: article.published,
     },
   };

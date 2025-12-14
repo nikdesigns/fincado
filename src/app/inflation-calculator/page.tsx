@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import React from 'react';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import InflationClient from './InflationClient';
@@ -188,19 +187,6 @@ export default function InflationPage() {
                 </li>
               </ul>
             </article>
-
-            {/* STATS */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Inflation Insight"
-                title="Why Beating Inflation Matters"
-                stats={[
-                  { value: '6%', label: 'Avg Inflation (India)' },
-                  { value: '12 yrs', label: 'Money Value Halves' },
-                  { value: 'Equity', label: 'Best Long-Term Hedge' },
-                ]}
-              />
-            </div>
 
             <AuthorBio />
           </div>

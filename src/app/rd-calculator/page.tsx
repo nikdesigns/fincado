@@ -4,7 +4,6 @@ import React from 'react';
 import RDClient from './RDClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -253,19 +252,6 @@ export default function RDPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Savings"
-                title="RD Success Facts"
-                stats={[
-                  { value: 'Min ₹500', label: 'To Start an RD' },
-                  { value: 'Quarterly', label: 'Compounding Frequency' },
-                  { value: 'Taxable', label: 'Interest Income' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

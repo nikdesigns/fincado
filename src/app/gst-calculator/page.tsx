@@ -4,7 +4,6 @@ import React from 'react';
 import GSTClient from './GSTClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -218,19 +217,6 @@ export default function GSTPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Tax Compliance"
-                title="GST Quick Facts"
-                stats={[
-                  { value: '18%', label: 'Standard Service Rate' },
-                  { value: 'IGST', label: 'For Inter-State Sales' },
-                  { value: 'ITC', label: 'Input Tax Credit' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

@@ -4,7 +4,6 @@ import React from 'react';
 import EPFClient from './EPFClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -214,19 +213,6 @@ export default function EPFPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Retirement Security"
-                title="EPF Highlights"
-                stats={[
-                  { value: '8.25%', label: 'Current Interest Rate' },
-                  { value: 'EEE', label: 'Tax Status' },
-                  { value: 'Age 58', label: 'Retirement Age' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

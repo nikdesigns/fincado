@@ -4,7 +4,6 @@ import React from 'react';
 import CarLoanClient from './CarLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
@@ -258,19 +257,6 @@ export default function CarLoanPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Auto Financing"
-                title="Car Loan Insights"
-                stats={[
-                  { value: '8.75%', label: 'Starting Interest Rate' },
-                  { value: '5-7 yrs', label: 'Max Tenure' },
-                  { value: '90%', label: 'Max On-Road Funding' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

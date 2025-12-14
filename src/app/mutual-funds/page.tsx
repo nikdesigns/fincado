@@ -4,7 +4,6 @@ import React from 'react';
 import MutualFundsClient from './MutualFundsClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -215,19 +214,6 @@ export default function MutualFundPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Investing"
-                title="Portfolio Tips"
-                stats={[
-                  { value: '100-Age', label: 'Rule for Equity %' },
-                  { value: 'Rebalance', label: 'Yearly Portfolio Review' },
-                  { value: 'Inflation', label: 'Silent Wealth Killer' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

@@ -4,7 +4,6 @@ import React from 'react';
 import LumpsumClient from './LumpsumClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -233,22 +232,6 @@ export default function LumpsumPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Investing"
-                title="Lumpsum Success Tips"
-                stats={[
-                  { value: 'Buy Low', label: 'Invest during market dips' },
-                  { value: 'Hold Long', label: 'Let compounding work' },
-                  {
-                    value: 'Diversify',
-                    label: 'Split large sums across assets',
-                  },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

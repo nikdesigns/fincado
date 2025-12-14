@@ -4,7 +4,6 @@ import React from 'react';
 import SWPClient from './SWPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -226,19 +225,6 @@ export default function SWPPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Retirement"
-                title="SWP Success Tips"
-                stats={[
-                  { value: '< 6%', label: 'Ideal Withdrawal Rate' },
-                  { value: 'Debt Fund', label: 'Best for Stability' },
-                  { value: 'Step Up', label: 'Increase payout yearly' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

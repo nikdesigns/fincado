@@ -4,7 +4,6 @@ import React from 'react';
 import PersonalLoanClient from './PersonalLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
@@ -267,19 +266,6 @@ export default function PersonalLoanPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Borrowing"
-                title="Personal Loan Hacks"
-                stats={[
-                  { value: '10.5%', label: 'Target Interest Rate' },
-                  { value: '3 yrs', label: 'Ideal Loan Tenure' },
-                  { value: 'Zero', label: 'Negotiate Processing Fee' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

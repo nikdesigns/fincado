@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import Icon, { IconName } from '@/components/Icon';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -495,19 +494,6 @@ export default function Home(): JSX.Element {
             />
           </div>
         </section>
-
-        {/* --- TRUST BANNER --- */}
-        <HeroWithStats
-          imageSrc="/images/family.png"
-          imageAlt="Indian family financial planning"
-          eyebrow="Trusted by Indians"
-          title="Helping you build wealth with transparency and precision."
-          stats={[
-            { value: '20+', label: 'Smart Calculators' },
-            { value: '100%', label: 'Free & Unbiased' },
-            { value: '4.9/5', label: 'User Rating' },
-          ]}
-        />
 
         {/* --- 3. INVESTMENT & WEALTH --- */}
         <section className="tools-section">

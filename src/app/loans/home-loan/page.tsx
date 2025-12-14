@@ -4,7 +4,6 @@ import React from 'react';
 import HomeLoanClient from './HomeLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
@@ -308,19 +307,6 @@ export default function HomeLoanPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Section */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Save Interest"
-                title="Smart Home Loan Tips"
-                stats={[
-                  { value: '1 extra', label: 'EMI/year saves 3 years' },
-                  { value: '5%', label: 'Annual hike clears loan fast' },
-                  { value: 'Max', label: 'Avail Joint Loan Benefits' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

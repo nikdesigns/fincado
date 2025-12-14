@@ -4,7 +4,6 @@ import React from 'react';
 import SIPClient from './SIPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -250,19 +249,6 @@ export default function SIPPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Section */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Smart Investing"
-                title="SIP Success Mantras"
-                stats={[
-                  { value: 'Start Early', label: 'To maximize compounding' },
-                  { value: 'Step Up', label: 'Increase SIP by 10% yearly' },
-                  { value: 'Long Term', label: 'Stay invested for 7+ years' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

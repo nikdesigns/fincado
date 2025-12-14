@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import React from 'react';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import PPFClient from './PPFClient';
@@ -240,19 +239,6 @@ export default function PPFPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Safe Investing"
-                title="PPF Quick Facts"
-                stats={[
-                  { value: '15 Years', label: 'Lock-in Period' },
-                  { value: '₹1.5 L', label: 'Max Annual Investment' },
-                  { value: 'Tax Free', label: 'Interest & Maturity' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

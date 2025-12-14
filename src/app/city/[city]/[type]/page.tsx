@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import cities from '@/data/cities.json';
-import LoanCompareWidget from '@/components/LoanCompareWidget'; // ✅ if exists
 
 type City = { slug: string; name: string };
 
@@ -66,9 +65,6 @@ export default async function CityLoanPage({
         <div className="ad-box">
           <p>Ad will appear here (Above the fold)</p>
         </div>
-
-        {/* ✅ MAIN CONVERSION WIDGET */}
-        <LoanCompareWidget />
 
         {/* ✅ MID CONTENT ADS */}
         <div className="ad-box">

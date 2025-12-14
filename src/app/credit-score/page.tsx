@@ -4,7 +4,6 @@ import React from 'react';
 import CreditScoreClient from './CreditScoreClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -177,19 +176,6 @@ export default function CreditScorePage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Financial Health"
-                title="Credit Score Goals"
-                stats={[
-                  { value: '750+', label: 'Target Score for Best Rates' },
-                  { value: '< 30%', label: 'Ideal Utilization Ratio' },
-                  { value: '0', label: 'Late Payments Allowed' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

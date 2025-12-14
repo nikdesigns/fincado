@@ -4,7 +4,6 @@ import React from 'react';
 import SSYClient from './SSYClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -223,19 +222,6 @@ export default function SSYPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Government Scheme"
-                title="SSY Quick Facts"
-                stats={[
-                  { value: '8.2%', label: 'Current Interest Rate' },
-                  { value: '21 Yrs', label: 'Maturity Period' },
-                  { value: 'Tax Free', label: 'Returns & Maturity' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

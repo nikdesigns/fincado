@@ -4,7 +4,6 @@ import React from 'react';
 import SICalculatorClient from './SICalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -209,19 +208,6 @@ export default function SimpleInterestPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Financial Basics"
-                title="Interest Facts"
-                stats={[
-                  { value: 'Linear', label: 'Growth Pattern' },
-                  { value: 'Principal', label: 'Calculation Basis' },
-                  { value: 'Fixed', label: 'Return Amount' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

@@ -4,7 +4,6 @@ import React from 'react';
 import APYClient from './APYClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -235,19 +234,6 @@ export default function APYPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Social Security"
-                title="APY Quick Facts"
-                stats={[
-                  { value: '18-40', label: 'Entry Age' },
-                  { value: '₹5,000', label: 'Max Monthly Pension' },
-                  { value: 'Govt', label: 'Backed Guarantee' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

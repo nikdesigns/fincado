@@ -4,7 +4,6 @@ import React from 'react';
 import FIRECalculatorClient from './FIRECalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -216,19 +215,6 @@ export default function FIREPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Financial Freedom"
-                title="FIRE Rules of Thumb"
-                stats={[
-                  { value: '25X', label: 'Minimum Corpus Multiplier' },
-                  { value: '4%', label: 'Standard Safe Withdrawal Rate' },
-                  { value: '50%', label: 'Target Savings Rate' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

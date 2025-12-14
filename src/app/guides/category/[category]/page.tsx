@@ -5,6 +5,8 @@ import WikiText from '@/components/WikiText';
 import AdSlot from '@/components/AdSlot';
 import articles from '@/data/articles.json';
 
+const SITE_URL = 'https://fincado.com';
+
 /* ---------------- TYPES ---------------- */
 
 type Article = {
@@ -12,7 +14,6 @@ type Article = {
   title: string;
   category: string;
   metaDescription: string;
-  published: string;
 };
 
 type Props = {
@@ -21,10 +22,13 @@ type Props = {
 
 /* ---------------- HELPERS ---------------- */
 
-const normalize = (s: string) => s.toLowerCase().replace(/[-_]/g, ' ').trim();
+const normalize = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 
-const formatCategory = (cat: string) =>
-  cat.charAt(0).toUpperCase() + cat.slice(1);
+const formatCategory = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* ---------------- METADATA ---------------- */
 
@@ -32,16 +36,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
   const normalized = normalize(category);
 
+  const canonical = `${SITE_URL}/guides/category/${normalized}`;
+
   return {
     title: `${formatCategory(normalized)} Guides | Fincado`,
     description: `Expert ${formatCategory(
       normalized
     )} guides to help you make smarter financial decisions.`,
+    alternates: {
+      canonical,
+    },
     openGraph: {
-      title: `${formatCategory(normalized)} Guides – Fincado`,
-      description: `In-depth ${formatCategory(
-        normalized
-      )} guides written for Indian users.`,
+      title: `${formatCategory(normalized)} Guides`,
+      url: canonical,
     },
   };
 }
@@ -60,21 +67,18 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <main className="container" style={{ paddingBottom: 80 }}>
-      {/* HEADER */}
       <header style={{ marginBottom: 40 }}>
         <h1>{formatCategory(normalized)} Guides</h1>
         <p style={{ color: 'var(--color-text-muted)', maxWidth: 680 }}>
-          Learn everything about {formatCategory(normalized)} with step-by-step,
-          beginner-friendly guides written for Indian users.
+          Learn everything about {formatCategory(normalized)} with step-by-step
+          guides written for Indian users.
         </p>
       </header>
 
-      {/* TOP AD */}
       <div className="no-print" style={{ marginBottom: 32 }}>
         <AdSlot id={`guides-category-${normalized}-top`} type="leaderboard" />
       </div>
 
-      {/* GUIDES GRID */}
       <div
         style={{
           display: 'grid',
@@ -95,7 +99,7 @@ export default async function CategoryPage({ params }: Props) {
               padding: 20,
             }}
           >
-            <h3 style={{ marginBottom: 8 }}>{g.title}</h3>
+            <h3>{g.title}</h3>
             <WikiText
               content={g.metaDescription}
               className="text-sm text-gray-500"
@@ -104,7 +108,6 @@ export default async function CategoryPage({ params }: Props) {
         ))}
       </div>
 
-      {/* BOTTOM AD */}
       <div
         className="no-print"
         style={{

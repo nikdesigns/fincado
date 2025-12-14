@@ -4,7 +4,6 @@ import React from 'react';
 import FDClient from './FDClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -249,19 +248,6 @@ export default function FDPage() {
                 `}
               />
             </article>
-
-            {/* Smart Planning Stats */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Safe Investing"
-                title="FD Investment Hacks"
-                stats={[
-                  { value: 'Laddering', label: 'Split FDs for liquidity' },
-                  { value: 'Form 15G/H', label: 'Submit to avoid TDS' },
-                  { value: '+0.50%', label: 'Extra for Senior Citizens' },
-                ]}
-              />
-            </div>
 
             {/* FAQs */}
             <section className="article no-print">

@@ -4,7 +4,6 @@ import React from 'react';
 import EducationLoanClient from './EducationLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import HeroWithStats from '@/components/HeroWithStats';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 
@@ -205,22 +204,6 @@ export default function EducationLoanPage() {
                 </div>
               </div>
             </article>
-
-            {/* Smart Planning */}
-            <div className="no-print">
-              <HeroWithStats
-                eyebrow="Save Money"
-                title="Education Loan Hacks"
-                stats={[
-                  {
-                    value: '1%',
-                    label: 'Concession for paying interest early',
-                  },
-                  { value: '8 yrs', label: 'Max Tax Benefit Duration' },
-                  { value: '0.5%', label: 'Discount for Girl Students' },
-                ]}
-              />
-            </div>
 
             {/* 6. FAQs */}
             <section className="article no-print">

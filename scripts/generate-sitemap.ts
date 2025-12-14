@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import articles from '../data/articles.json';
+import articles from '../src/data/articles.json';
 
 const SITE = 'https://www.fincado.com';
 const OUT = path.join(process.cwd(), 'public', 'sitemap-guides.xml');
