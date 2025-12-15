@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     'Tax Saving Calculator',
     'Fincado',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
@@ -47,6 +50,22 @@ export default function Home(): JSX.Element {
               target: 'https://www.fincado.com/search?q={search_term_string}',
               'query-input': 'required name=search_term_string',
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Fincado',
+            url: 'https://www.fincado.com',
+            logo: 'https://www.fincado.com/logo.png',
+            sameAs: [
+              'https://www.linkedin.com/company/fincado',
+              'https://twitter.com/fincado',
+            ],
           }),
         }}
       />

@@ -110,6 +110,11 @@ export default function EMIPage() {
               name: 'Fincado',
               url: 'https://www.fincado.com',
             },
+            // ✅ EEAT: Explicit creator entity
+            creator: {
+              '@type': 'Organization',
+              name: 'Fincado',
+            },
           }),
         }}
       />
@@ -149,6 +154,8 @@ export default function EMIPage() {
                   <p>
                     <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly
                     amount paid towards loan repayment, consisting of principal and interest.
+                    Indian banks calculate EMI using the <strong>reducing balance method</strong>,
+                    where interest is charged only on the outstanding principal.
                   </p>
                 `}
               />
@@ -159,6 +166,8 @@ export default function EMIPage() {
                   <p>
                     This calculator helps you budget better, compare loan offers,
                     and reduce total interest through informed planning.
+                    Most borrowers underestimate how much interest accumulates
+                    over long tenures until they see the amortization table.
                   </p>
                 `}
               />
@@ -176,6 +185,20 @@ export default function EMIPage() {
               >
                 EMI = [P × R × (1+R)<sup>N</sup>] / [(1+R)<sup>N</sup> − 1]
               </div>
+
+              {/* ✅ EEAT: Publisher transparency */}
+              <p style={{ marginTop: 16 }}>
+                This EMI calculator is maintained by <strong>Fincado</strong>, a
+                financial tools platform focused on accuracy and transparency
+                for Indian borrowers.
+              </p>
+
+              {/* ✅ EEAT: Non-advice disclaimer */}
+              <p style={{ fontSize: 13, color: '#64748b', marginTop: 8 }}>
+                Disclaimer: Results shown are estimates. Actual EMI may vary
+                based on lender policies, processing fees, and interest rate
+                changes.
+              </p>
 
               <h3>Related Loan Calculators</h3>
               <ul>

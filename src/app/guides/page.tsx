@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default function GuidesPage() {
-  // Get 4 popular guides (using static data slice for performance/safety)
+  // Get 4 popular guides for the "Trending" section
   const popularGuides = articles ? articles.slice(0, 4) : [];
 
   return (
@@ -182,6 +182,7 @@ export default function GuidesPage() {
         </section>
 
         {/* Main Guides Grid (Client Component) */}
+        {/* We pass the articles data prop to prevent undefined errors */}
         <div id="all-guides">
           <GuidesGrid allArticles={articles || []} />
         </div>

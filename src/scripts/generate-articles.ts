@@ -33,7 +33,7 @@ const topics = [
   },
 ];
 
-/* ✅ MOCK AI CONTENT (FOR NOW — LATER WE AUTO-INJECT GPT) */
+/* ✅ MOCK AI CONTENT (DISABLED FOR NOW) */
 function generateMockContent(topic: string, keyword: string): string {
   return `
 <h2>What is ${keyword}?</h2>
@@ -109,4 +109,11 @@ function generateArticles() {
   console.log('✅ SEO Articles Generated Successfully');
 }
 
-generateArticles();
+/* 🚫 SAFETY SWITCH — DISABLED BY DEFAULT */
+if (process.env.GENERATE_ARTICLES === 'true') {
+  generateArticles();
+} else {
+  console.log(
+    '⚠️ Article generation is disabled. Set GENERATE_ARTICLES=true to enable.'
+  );
+}
