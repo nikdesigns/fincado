@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
@@ -41,6 +42,7 @@ export default function EmiGuidePage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Article',
+            inLanguage: 'en-IN',
             '@id':
               'https://www.fincado.com/guides/emi-calculator-guide#article',
             headline:
@@ -75,6 +77,7 @@ export default function EmiGuidePage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
+            inLanguage: 'en-IN',
             mainEntityOfPage: {
               '@type': 'WebPage',
               '@id': 'https://www.fincado.com/guides/emi-calculator-guide',
@@ -303,6 +306,15 @@ export default function EmiGuidePage() {
 </ul>
 `}
       />
+      <div className="guide-image-wrap">
+        <Image
+          src="/images/guides/emi/emi-formula-breakdown.webp"
+          alt="EMI formula breakdown showing principal, interest rate and tenure"
+          width={1200}
+          height={600}
+          priority
+        />
+      </div>
 
       <div className="example-box">
         <h3>💡 Practical Example</h3>
@@ -483,7 +495,15 @@ export default function EmiGuidePage() {
       <WikiText
         content={`For a ₹50 lakh home loan at 8.5%, the choice of tenure dramatically changes your interest outgo.`}
       />
-
+      <div className="guide-image-wrap">
+        <Image
+          src="/images/guides/emi/emi-tenure-vs-interest.webp"
+          alt="Graph showing how longer loan tenure increases total interest cost"
+          width={1200}
+          height={600}
+          className="guide-image"
+        />
+      </div>
       <div className="table-responsive">
         <table className="data-table">
           <thead>
@@ -630,6 +650,16 @@ export default function EmiGuidePage() {
         <strong>Example: ₹40 Lakh, 20-Year Home Loan @ 8.5%</strong>
       </p>
 
+      <div className="guide-image-wrap">
+        <Image
+          src="/images/guides/emi/emi-prepayment-savings.webp"
+          alt="Chart showing interest savings from regular EMI prepayment"
+          width={1200}
+          height={600}
+          className="guide-image"
+        />
+      </div>
+
       <div className="strategy-grid">
         <div className="strategy-card">
           <h4>Strategy 1: Prepay ₹1 Lakh/Year</h4>
@@ -675,7 +705,9 @@ export default function EmiGuidePage() {
       <div className="myth-container">
         <div className="myth-card">
           <div className="myth-header">Myth 1</div>
-          <p className="myth-title">"EMI Amount Stays the Same Forever"</p>
+          <p className="myth-title">
+            &quot;EMI Amount Stays the Same Forever&quot;
+          </p>
           <div className="reality-box">
             <strong>Reality:</strong> With floating rates, your EMI or tenure
             can change periodically based on RBI repo rate adjustments.
@@ -685,7 +717,7 @@ export default function EmiGuidePage() {
         <div className="myth-card">
           <div className="myth-header">Myth 2</div>
           <p className="myth-title">
-            "Prepaying Reduces Monthly EMI Automatically"
+            &quot;Prepaying Reduces Monthly EMI Automatically&quot;
           </p>
           <div className="reality-box">
             <strong>Reality:</strong> You must choose whether to reduce EMI or
@@ -696,7 +728,9 @@ export default function EmiGuidePage() {
 
         <div className="myth-card">
           <div className="myth-header">Myth 3</div>
-          <p className="myth-title">"Processing Fees Are Non-Negotiable"</p>
+          <p className="myth-title">
+            &quot;Processing Fees Are Non-Negotiable&quot;
+          </p>
           <div className="reality-box">
             <strong>Reality:</strong> During festive seasons or special
             campaigns, banks may waive 50%–100% of processing fees for eligible
@@ -706,7 +740,9 @@ export default function EmiGuidePage() {
 
         <div className="myth-card">
           <div className="myth-header">Myth 4</div>
-          <p className="myth-title">"All EMI Payment Goes to Principal"</p>
+          <p className="myth-title">
+            &quot;All EMI Payment Goes to Principal&quot;
+          </p>
           <div className="reality-box">
             <strong>Reality:</strong> In the early years of a loan, roughly
             70–80% of each EMI goes toward interest. Principal repayment
@@ -716,7 +752,9 @@ export default function EmiGuidePage() {
 
         <div className="myth-card">
           <div className="myth-header">Myth 5</div>
-          <p className="myth-title">"Taking Maximum Tenure Is Always Best"</p>
+          <p className="myth-title">
+            &quot;Taking Maximum Tenure Is Always Best&quot;
+          </p>
           <div className="reality-box">
             <strong>Reality:</strong> A longer tenure only makes sense if you
             invest the EMI difference consistently at higher returns (typically
@@ -726,7 +764,9 @@ export default function EmiGuidePage() {
 
         <div className="myth-card">
           <div className="myth-header">Myth 6</div>
-          <p className="myth-title">"EMI Will Stop If I Lose My Job"</p>
+          <p className="myth-title">
+            &quot;EMI Will Stop If I Lose My Job&quot;
+          </p>
           <div className="reality-box">
             <strong>Reality:</strong> EMIs remain payable. Missing payments
             severely damages your credit score. Instead, immediately approach
@@ -739,6 +779,15 @@ export default function EmiGuidePage() {
 
       {/* --- CREDIT SCORE --- */}
       <h2 id="credit-score">EMI Impact on Credit Score</h2>
+      <div className="guide-image-wrap">
+        <Image
+          src="/images/guides/emi/emi-cibil-score-ranges.webp"
+          alt="CIBIL score ranges from poor to excellent with color indicators"
+          width={1200}
+          height={500}
+          className="guide-image"
+        />
+      </div>
 
       <div className="table-responsive">
         <table className="data-table">
@@ -910,7 +959,7 @@ export default function EmiGuidePage() {
       <div className="alt-options-box">
         <h3 style={{ marginTop: 0 }}>Alternative Options If EMI Is Rejected</h3>
         <p style={{ marginBottom: 0 }}>
-          Don't lose hope. Try these strategies to get approved:
+          Don&apos;t lose hope. Try these strategies to get approved:
         </p>
         <ul className="alt-options-list">
           <li>

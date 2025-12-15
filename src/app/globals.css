@@ -255,6 +255,7 @@ label {
    ========================================= */
 input[type='range'] {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   background: transparent;
   margin-top: 12px;
@@ -1933,7 +1934,7 @@ input[type='range']::-webkit-slider-thumb:hover {
 
 .toc-list li a {
   text-decoration: none;
-  color: var(--color-brand-green); /* Link color */
+  color: var(--color-action-cta); /* Link color */
   font-weight: 500;
   font-size: 15px;
   display: flex;
@@ -1953,4 +1954,18 @@ input[type='range']::-webkit-slider-thumb:hover {
   color: #cbd5e1;
   font-size: 20px;
   line-height: 0;
+}
+
+/* Constrain guide images inside content column */
+.guide-image-wrap {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.guide-image-wrap img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
