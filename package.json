@@ -13,6 +13,7 @@
     "fs": "^0.0.1-security",
     "katex": "^0.16.27",
     "next": "16.0.7",
+    "nextjs-toploader": "^3.9.17",
     "path": "^0.12.7",
     "react": "19.2.0",
     "react-dom": "19.2.0",

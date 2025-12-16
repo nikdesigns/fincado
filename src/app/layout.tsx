@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Rubik } from 'next/font/google';
 import Script from 'next/script';
+import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
 
 const rubik = Rubik({
@@ -55,6 +56,18 @@ export default function RootLayout({
         {/* <meta name="google-site-verification" content="YOUR_SEARCH_CONSOLE_CODE" /> */}
       </head>
       <body>
+        {/* ✅ ADDS THE LOADING BAR */}
+        <NextTopLoader
+          color="#80d843"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false} // Spinner is usually annoying, bar is enough
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #16a34a,0 0 5px #16a34a"
+        />
         {/* 1. ✅ Google AdSense (Updated to Next/Script) */}
         <Script
           async
