@@ -51,16 +51,16 @@ export default function RootLayout({
   return (
     <html lang="en-IN" className={rubik.className}>
       <head>
-        {/* Placeholder for Google Search Console (Get this from GSC settings if you have it) */}
+        <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
         {/* <meta name="google-site-verification" content="YOUR_SEARCH_CONSOLE_CODE" /> */}
       </head>
       <body>
-        {/* 1. Google AdSense (Keep your existing client ID here) */}
+        {/* 1. ✅ Google AdSense (Updated to Next/Script) */}
         <Script
-          id="adsbygoogle-init"
-          strategy="lazyOnload"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6648091987919638"
           crossOrigin="anonymous"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          strategy="afterInteractive"
         />
 
         {/* 2. ✅ Google Analytics 4 (Your ID: G-KQJ4P0CM5Q) */}
