@@ -1,34 +1,33 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
-import cities from '@/data/cities.json'; // ✅ CORRECT IMPORT (Points to the JSON data)
+import cities from '@/data/cities.json';
+import AdSlot from '@/components/AdSlot';
+import FinancialNavWidget from '@/components/FinancialNavWidget'; // ✅ Import the sidebar widget
 
 export async function generateStaticParams() {
-  // Now 'city' is an object { slug: string, name: string }
   return cities.map((city) => ({
-    city: city.slug, // ✅ Works because it comes from the JSON file
+    city: city.slug,
   }));
 }
 
 export const dynamic = 'force-static';
 
-/** ✅ Helper to format city names */
 function formatCity(citySlug?: string): string {
   if (!citySlug) return 'India';
-
-  // Find the city name from our data, or fallback to formatting the slug
   const foundCity = cities.find((c) => c.slug === citySlug);
   return foundCity
     ? foundCity.name
     : decodeURIComponent(citySlug).replace(/-/g, ' ');
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { city?: string };
-}): Metadata {
-  const cityName = formatCity(params?.city);
+  params: Promise<{ city: string }>;
+}): Promise<Metadata> {
+  const { city } = await params;
+  const cityName = formatCity(city);
 
   return {
     title: `EMI Calculator in ${cityName} | Fincado`,
@@ -36,53 +35,72 @@ export function generateMetadata({
   };
 }
 
-export default function CityEMIPage({ params }: { params: { city?: string } }) {
-  const cityName = formatCity(params?.city);
+export default async function CityEMIPage({
+  params,
+}: {
+  params: Promise<{ city: string }>;
+}) {
+  const { city } = await params;
+  const cityName = formatCity(city);
 
   return (
-    <main style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
-      <h1>EMI Calculator in {cityName}</h1>
-
-      <p>
-        Use our free EMI Calculator in {cityName} to calculate your home loan,
-        car loan, or personal loan EMI instantly.
-      </p>
-
-      <div className="ad-box">Ad will appear here</div>
-
-      <EMIClient />
-
-      <section className="article" style={{ marginTop: 40 }}>
-        <h2>Why Use EMI Calculator in {cityName}?</h2>
-        <p>
-          Many banks and financial institutions in {cityName} offer different
-          interest rates. Using a location-based EMI calculator helps you
-          estimate EMIs more accurately.
+    // ✅ Updated to use 'container' class for consistent width
+    <main className="container" style={{ padding: '40px 20px' }}>
+      <header style={{ marginBottom: 40 }}>
+        <h1>EMI Calculator in {cityName}</h1>
+        <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
+          Use our free EMI Calculator in {cityName} to calculate your home loan,
+          car loan, or personal loan EMI instantly.
         </p>
+      </header>
 
-        <h2>Loan Options Available in {cityName}</h2>
-        <ul>
-          <li>Home Loans</li>
-          <li>Car Loans</li>
-          <li>Personal Loans</li>
-        </ul>
+      {/* ✅ Added Grid Layout to support Sidebar */}
+      <div className="layout-grid">
+        {/* -------- MAIN CONTENT -------- */}
+        <div className="main-content">
+          <AdSlot type="leaderboard" label="Top Ad Slot" />
 
-        <h2>Related Tools</h2>
-        <ul>
-          <li>
-            <a href="/emi-calculator">Main EMI Calculator</a>
-          </li>
-          <li>
-            <a href="/loans">Loan Calculators</a>
-          </li>
-          <li>
-            <a href="/sip-calculator">SIP Calculator</a>
-          </li>
-        </ul>
-      </section>
+          <EMIClient />
 
-      <div className="ad-box" style={{ marginTop: 20 }}>
-        Ad will appear here
+          <section className="article" style={{ marginTop: 40 }}>
+            <h2>Why Use EMI Calculator in {cityName}?</h2>
+            <p>
+              Many banks and financial institutions in {cityName} offer
+              different interest rates. Using a location-based EMI calculator
+              helps you estimate EMIs more accurately.
+            </p>
+
+            <h2>Loan Options Available in {cityName}</h2>
+            <ul>
+              <li>Home Loans</li>
+              <li>Car Loans</li>
+              <li>Personal Loans</li>
+            </ul>
+
+            <h2>Related Tools</h2>
+            <ul>
+              <li>
+                <a href="/emi-calculator">Main EMI Calculator</a>
+              </li>
+              <li>
+                <a href="/loans">Loan Calculators</a>
+              </li>
+              <li>
+                <a href="/sip-calculator">SIP Calculator</a>
+              </li>
+            </ul>
+          </section>
+
+          <AdSlot type="rectangle" label="Bottom Ad Slot" />
+        </div>
+
+        {/* -------- SIDEBAR -------- */}
+        <aside className="sidebar no-print">
+          <div style={{ marginBottom: 24 }}>
+            <AdSlot id="emi-sidebar" type="box" />
+          </div>
+          <FinancialNavWidget />
+        </aside>
       </div>
     </main>
   );

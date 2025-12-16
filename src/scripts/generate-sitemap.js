@@ -30,9 +30,11 @@ const staticPages = [
 // Guide pages
 const guidePages = articles.map((a) => `/guides/${a.slug}`);
 
-// Category pages
+// ✅ FIX: Use encodeURIComponent to handle "&" and spaces
 const categoryPages = Array.from(
-  new Set(articles.map((a) => `/guides/category/${a.category}`))
+  new Set(
+    articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}`)
+  )
 );
 
 // City pages (optional)
