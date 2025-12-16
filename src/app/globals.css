@@ -1969,3 +1969,15 @@ input[type='range']::-webkit-slider-thumb:hover {
   display: block;
   margin: 0 auto;
 }
+
+.guide-image-wrap {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.guide-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 12px;
+}

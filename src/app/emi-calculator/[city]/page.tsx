@@ -3,9 +3,13 @@ import { cities } from '@/lib/cities';
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
 
-export function generateStaticParams() {
-  return cities.map((city) => ({
-    city: city.toLowerCase(),
+export async function generateStaticParams() {
+  const categories = Array.from(
+    new Set((articles as Article[]).map((a) => a.category))
+  );
+
+  return categories.map((category) => ({
+    category,
   }));
 }
 

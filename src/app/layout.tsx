@@ -1,7 +1,7 @@
 import './globals.css';
 import React from 'react';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer'; // ✅ Import the new Footer
+import Footer from '@/components/Footer';
 import { Rubik } from 'next/font/google';
 import Script from 'next/script';
 import type { Metadata, Viewport } from 'next';
@@ -50,8 +50,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-IN" className={rubik.className}>
+      <head>
+        {/* Placeholder for Google Search Console (Get this from GSC settings if you have it) */}
+        {/* <meta name="google-site-verification" content="YOUR_SEARCH_CONSOLE_CODE" /> */}
+      </head>
       <body>
-        {/* Google AdSense (Lazy Load) */}
+        {/* 1. Google AdSense (Keep your existing client ID here) */}
         <Script
           id="adsbygoogle-init"
           strategy="lazyOnload"
@@ -59,21 +63,31 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
         />
 
+        {/* 2. ✅ Google Analytics 4 (Your ID: G-KQJ4P0CM5Q) */}
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
+        />
+        <Script id="google-analytics-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KQJ4P0CM5Q', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+
         {/* Global Header */}
         <Header />
 
         {/* Main Content Area */}
         <div style={{ minHeight: '80vh' }}>{children}</div>
 
-        {/* ✅ NEW POWER FOOTER */}
+        {/* Footer */}
         <Footer />
-
-        {/* Sticky Mobile Ad Bar */}
-        <div className="mobile-ad-bar">
-          <a href="/loans/personal-loan" className="mobile-ad-btn">
-            🔥 View Instant Loan Offers
-          </a>
-        </div>
       </body>
     </html>
   );
