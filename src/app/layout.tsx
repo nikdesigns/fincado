@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={rubik.className}>
+    <html lang="en-IN" className={rubik.className}>
       <body>
         {/* Google AdSense (Lazy Load) */}
         <Script
