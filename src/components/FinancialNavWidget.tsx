@@ -1,31 +1,41 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 
 type NavItem = {
   href: string;
   label: string;
+  isNew?: boolean;
 };
 
+// ✅ Updated List: Matches your actual calculator pages
 const TOP_CALCULATORS: NavItem[] = [
+  { href: '/sip-calculator', label: 'SIP Calculator' },
   { href: '/emi-calculator', label: 'EMI Calculator' },
-  { href: '/sip-calculator', label: 'SIP Planner' },
-  { href: '/loans/home-loan', label: 'Home Loan EMI' },
-  { href: '/fd-calculator', label: 'Fixed Deposit (FD)' },
-  { href: '/credit-score', label: 'Check Credit Score' },
+  { href: '/ppf-calculator', label: 'PPF Calculator' },
+  { href: '/gst-calculator', label: 'GST Calculator' },
+  { href: '/fd-calculator', label: 'FD Calculator' },
+  { href: '/credit-score', label: 'Check Credit Score', isNew: true },
 ];
 
+// ✅ Updated List: Matches your new articles.json slugs
 const POPULAR_GUIDES: NavItem[] = [
   {
-    href: '/guides/home-loan-for-first-time-buyers',
-    label: 'Home Loan Guide for Beginners',
-  },
-  {
-    href: '/guides/how-credit-score-affects-loans',
-    label: 'How Credit Score Impacts Loans',
-  },
-  {
     href: '/guides/sip-vs-fd',
-    label: 'SIP vs FD: Better Investment?',
+    label: 'SIP vs FD: Which is Better?',
+  },
+  {
+    href: '/guides/home-loan-first-time-buyers',
+    label: 'Home Loan Guide 2025',
+  },
+  {
+    href: '/guides/how-credit-score-works-india',
+    label: 'How CIBIL Score Works',
+  },
+  {
+    href: '/guides/retirement-planning-india',
+    label: 'Retirement Planning 101',
   },
 ];
 
@@ -54,30 +64,36 @@ export default function FinancialNavWidget() {
             marginBottom: 16,
           }}
         >
-          Key Tools
+          Popular Tools
         </h3>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {TOP_CALCULATORS.map((item) => (
-            <li key={item.href} style={{ marginBottom: 4 }}>
-              <Link
-                href={item.href}
-                className="nav-link-item"
-                style={{
-                  display: 'block',
-                  padding: '10px 12px',
-                  borderRadius: 8,
-                  textDecoration: 'none',
-                  color: 'var(--color-text-main)',
-                  fontWeight: 500,
-                  fontSize: 15,
-                  transition: 'all 0.2s',
-                }}
-              >
-                {item.label}
+            <li key={item.href} style={{ marginBottom: 6 }}>
+              <Link href={item.href} className="nav-link-item">
+                <span>{item.label}</span>
+                {item.isNew && <span className="badge-new">NEW</span>}
               </Link>
             </li>
           ))}
         </ul>
+
+        {/* 'View All' Link */}
+        <div style={{ marginTop: 14, textAlign: 'center' }}>
+          <Link
+            href="/calculators"
+            style={{
+              fontSize: 13,
+              color: 'var(--color-brand-green)',
+              fontWeight: 600,
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
+            View All Calculators &rarr;
+          </Link>
+        </div>
       </section>
 
       {/* --- DIVIDER --- */}
@@ -90,7 +106,7 @@ export default function FinancialNavWidget() {
       />
 
       {/* --- SECTION 2: GUIDES --- */}
-      <section style={{ padding: '10px 20px 24px' }}>
+      <section style={{ padding: '16px 20px 24px' }}>
         <h3
           style={{
             fontSize: 12,
@@ -99,7 +115,7 @@ export default function FinancialNavWidget() {
             fontWeight: 700,
             letterSpacing: '0.5px',
             marginBottom: 16,
-            marginTop: 12,
+            marginTop: 8,
           }}
         >
           Must Read
@@ -107,36 +123,61 @@ export default function FinancialNavWidget() {
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {POPULAR_GUIDES.map((item) => (
             <li key={item.href} style={{ marginBottom: 12 }}>
-              <Link
-                href={item.href}
-                style={{
-                  display: 'block',
-                  textDecoration: 'none',
-                  color: 'var(--color-text-main)',
-                  fontSize: 14,
-                  fontWeight: 500,
-                  lineHeight: 1.4,
-                }}
-              >
-                <span className="guide-link-text">{item.label}</span>
+              <Link href={item.href} className="guide-link">
+                {item.label}
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      {/* Hover Styles */}
-      <style>{`
+      {/* --- STYLES --- */}
+      <style jsx>{`
+        /* Link Item Styling */
+        .nav-link-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 12px;
+          border-radius: 8px;
+          text-decoration: none;
+          color: var(--color-text-main);
+          font-weight: 500;
+          font-size: 15px;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          background: transparent;
+        }
+
+        /* Hover Effect: Slide & Color */
         .nav-link-item:hover {
           background: var(--color-success-bg);
-          color: var(--color-action-cta) !important;
-          padding-left: 16px !important; /* Subtle slide effect */
+          color: var(--color-brand-green);
+          padding-left: 16px;
         }
-        .guide-link-text {
-          position: relative;
+
+        /* New Badge */
+        .badge-new {
+          font-size: 9px;
+          background: #ef4444; /* Red for attention */
+          color: white;
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+        }
+
+        /* Guide Link Styling */
+        .guide-link {
+          display: block;
+          text-decoration: none;
+          color: var(--color-text-main);
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.4;
           transition: color 0.2s;
         }
-        .guide-link-text:hover {
+
+        .guide-link:hover {
           color: var(--color-brand-green);
           text-decoration: underline;
           text-decoration-color: var(--color-brand-light);

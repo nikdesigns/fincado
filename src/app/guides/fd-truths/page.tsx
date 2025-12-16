@@ -167,7 +167,8 @@ export default function FdGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          Fixed Deposit Guide (FD Truths): The Real Story Behind "Safe" Returns
+          Fixed Deposit Guide (FD Truths): The Real Story Behind
+          &quot;Safe&quot; Returns
         </h1>
         <div
           style={{
@@ -308,9 +309,9 @@ export default function FdGuidePage() {
       {/* --- FD VS INFLATION --- */}
       <h2 id="fd-vs-inflation">FD vs Inflation</h2>
       <p>
-        FDs feel "safe" because the number in your bank account always goes up.
-        The hidden danger is that <strong>purchasing power</strong> may actually
-        be going down.
+        FDs feel &quot;safe&quot; because the number in your bank account always
+        goes up. The hidden danger is that <strong>purchasing power</strong> may
+        actually be going down.
       </p>
 
       {/* Image of Real vs Nominal Return Graph */}
@@ -363,9 +364,9 @@ export default function FdGuidePage() {
       </p>
       <p>
         Over long periods (10–20 years), this effect becomes massive. Prices of
-        essentials rise faster than many FD rates. You may feel "rich" because
-        your FD is larger, but it buys less than what a smaller amount could buy
-        today.
+        essentials rise faster than many FD rates. You may feel &quot;rich&quot;
+        because your FD is larger, but it buys less than what a smaller amount
+        could buy today.
       </p>
 
       <div className="callout-box warning-box">
@@ -393,8 +394,8 @@ export default function FdGuidePage() {
       <ul>
         <li>
           Interest earned on FDs is added to your{' '}
-          <strong>total taxable income</strong> under "Income from Other
-          Sources".
+          <strong>total taxable income</strong> under &quot;Income from Other
+          Sources&quot;.
         </li>
         <li>
           It is taxed at your <strong>slab rate</strong> (5%, 10%, 20%, 30% +
@@ -471,8 +472,8 @@ export default function FdGuidePage() {
       </div>
 
       <p>
-        So a "7% FD" at 30% tax slab and 6% inflation is actually giving you{' '}
-        <strong>negative real returns</strong>.
+        So a &quot;7% FD&quot; at 30% tax slab and 6% inflation is actually
+        giving you <strong>negative real returns</strong>.
       </p>
 
       {/* 💰 AD SLOT 4 */}
@@ -558,7 +559,7 @@ export default function FdGuidePage() {
         <h3>3. Retirees needing stable income</h3>
         <p>
           FDs offer regular payouts and can be laddered to manage interest rate
-          risk. They form a core "income bucket".
+          risk. They form a core &quot;income bucket&quot;.
         </p>
 
         <h3>4. Diversification</h3>

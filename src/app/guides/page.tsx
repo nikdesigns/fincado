@@ -5,9 +5,21 @@ import AdSlot from '@/components/AdSlot';
 import GuidesGrid from './GuidesGrid';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import articles from '@/data/articles.json';
+import articlesData from '@/data/articles.json';
 
-// --- SEO METADATA ---
+// --- TYPE DEFINITION ---
+type Article = {
+  slug: string;
+  title: string;
+  category: string;
+  metaDescription: string;
+  published: string;
+};
+
+// --- DATA PREPARATION ---
+// Cast JSON data to Article type to fix TypeScript errors
+const articles = articlesData as Article[];
+
 export const metadata: Metadata = {
   title: 'Financial Guides & Wisdom – Fincado',
   description:
@@ -25,8 +37,8 @@ export const metadata: Metadata = {
 };
 
 export default function GuidesPage() {
-  // Get 4 popular guides for the "Trending" section
-  const popularGuides = articles ? articles.slice(0, 4) : [];
+  // Top 4 articles for the "Trending" section
+  const popularGuides = articles.slice(0, 4);
 
   return (
     <main
@@ -34,7 +46,7 @@ export default function GuidesPage() {
         maxWidth: 1180,
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: '1fr 300px', // Matches /calculators layout
+        gridTemplateColumns: '1fr 300px',
         gap: 24,
         padding: '20px',
       }}
@@ -54,7 +66,7 @@ export default function GuidesPage() {
           <AdSlot id="guides-top-leaderboard" type="leaderboard" />
         </div>
 
-        {/* Hero Section (Contained) */}
+        {/* Hero Section */}
         <section
           style={{
             padding: '48px 32px',
@@ -111,7 +123,7 @@ export default function GuidesPage() {
           </p>
         </section>
 
-        {/* Popular Guides (Horizontal Cards) */}
+        {/* Trending Guides Section */}
         <section style={{ marginBottom: 48 }}>
           <div
             style={{
@@ -181,18 +193,17 @@ export default function GuidesPage() {
           </div>
         </section>
 
-        {/* Main Guides Grid (Client Component) */}
-        {/* We pass the articles data prop to prevent undefined errors */}
+        {/* Main Guides Grid - Shows ALL articles */}
         <div id="all-guides">
-          <GuidesGrid allArticles={articles || []} />
+          <GuidesGrid allArticles={articles} />
         </div>
 
-        {/* Mid Content Ad */}
+        {/* Mid Ad */}
         <div style={{ margin: '40px 0' }} className="no-print">
           <AdSlot id="guides-mid-leaderboard" type="leaderboard" />
         </div>
 
-        {/* SEO / Editorial Section */}
+        {/* SEO Text */}
         <section className="article" style={{ marginTop: 24 }}>
           <h2>Why Financial Literacy Matters?</h2>
           <p>
@@ -203,71 +214,17 @@ export default function GuidesPage() {
             the underlying math can save you lakhs in interest and help you grow
             your wealth faster.
           </p>
-          <p>
-            Our guides are designed to break down complex banking terms (like
-            Repo Rate, LTV, FOIR) into simple, actionable English.
-          </p>
         </section>
-
-        {/* Bottom Ad */}
-        <div style={{ marginTop: 24 }} className="no-print">
-          <AdSlot id="guides-bottom-leaderboard" type="leaderboard" />
-        </div>
       </div>
 
       {/* --- RIGHT COLUMN: SIDEBAR --- */}
       <aside className="sidebar">
-        {/* Sticky Ad Box */}
         <div style={{ marginBottom: 24 }}>
           <AdSlot id="guides-sidebar-sticky" type="box" />
         </div>
-
-        {/* Navigation Widget (Calculators List) */}
         <FinancialNavWidget />
-
-        {/* Newsletter / Promo Box */}
-        <div
-          style={{
-            marginTop: 24,
-            padding: 24,
-            background: 'var(--color-bg-soft)',
-            borderRadius: 16,
-            textAlign: 'center',
-            border: '1px solid var(--color-border)',
-          }}
-        >
-          <div style={{ fontSize: 32, marginBottom: 12 }}>💡</div>
-          <h3 style={{ fontSize: 16, marginBottom: 8 }}>Have a Question?</h3>
-          <p
-            style={{
-              fontSize: 13,
-              color: 'var(--color-text-muted)',
-              marginBottom: 16,
-            }}
-          >
-            Check our calculators to get precise answers for your EMI and
-            Investment queries.
-          </p>
-          <Link
-            href="/calculators"
-            style={{
-              display: 'inline-block',
-              padding: '10px 20px',
-              background: 'white',
-              border: '1px solid var(--color-border)',
-              borderRadius: 8,
-              fontSize: 13,
-              fontWeight: 600,
-              color: 'var(--color-text-main)',
-              textDecoration: 'none',
-            }}
-          >
-            View All Tools
-          </Link>
-        </div>
       </aside>
 
-      {/* Local Styles for Mini Cards */}
       <style>{`
         .guide-mini-card:hover {
           transform: translateY(-3px);

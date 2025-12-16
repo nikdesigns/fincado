@@ -43,7 +43,7 @@ const CALCULATOR_MENU = [
     items: [
       { label: 'Credit Score', href: '/credit-score' },
       { label: 'GST Calculator', href: '/gst-calculator' },
-      { label: 'Inflation', href: '/inflation-calculator' }, // ✅ Added Here
+      { label: 'Inflation', href: '/inflation-calculator' },
       { label: 'Simple Interest', href: '/simple-interest-calculator' },
       { label: 'All Calculators', href: '/calculators', bold: true },
     ],
@@ -66,8 +66,11 @@ export default function Header() {
 
   // Close menus on route change
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setMegaMenuOpen(false);
+    const timer = setTimeout(() => {
+      setMobileMenuOpen(false);
+      setMegaMenuOpen(false);
+    }, 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   const isActive = (href: string) => {
@@ -159,8 +162,9 @@ export default function Header() {
 
           {/* CTA & MOBILE TOGGLE */}
           <div className="nav-actions">
-            <Link href="/credit-score" className="nav-btn desktop-only">
-              Check Credit Score
+            {/* ✅ CHANGED TO EMI CALCULATOR */}
+            <Link href="/emi-calculator" className="nav-btn desktop-only">
+              EMI Calculator
             </Link>
             <button
               className="mobile-toggle"
@@ -203,8 +207,9 @@ export default function Header() {
             </Link>
 
             <div style={{ marginTop: 12 }}>
-              <Link href="/credit-score" className="mobile-btn">
-                Check Credit Score
+              {/* ✅ CHANGED TO EMI CALCULATOR */}
+              <Link href="/emi-calculator" className="mobile-btn">
+                EMI Calculator
               </Link>
             </div>
           </div>

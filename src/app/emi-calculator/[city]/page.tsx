@@ -1,24 +1,26 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { cities } from '@/lib/cities';
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
+import cities from '@/data/cities.json'; // ✅ CORRECT IMPORT (Points to the JSON data)
 
 export async function generateStaticParams() {
-  const categories = Array.from(
-    new Set((articles as Article[]).map((a) => a.category))
-  );
-
-  return categories.map((category) => ({
-    category,
+  // Now 'city' is an object { slug: string, name: string }
+  return cities.map((city) => ({
+    city: city.slug, // ✅ Works because it comes from the JSON file
   }));
 }
 
 export const dynamic = 'force-static';
 
-/** ✅ helper — NEVER throws */
-function formatCity(city?: string): string {
-  if (!city) return 'India';
-  return decodeURIComponent(city).replace(/-/g, ' ');
+/** ✅ Helper to format city names */
+function formatCity(citySlug?: string): string {
+  if (!citySlug) return 'India';
+
+  // Find the city name from our data, or fallback to formatting the slug
+  const foundCity = cities.find((c) => c.slug === citySlug);
+  return foundCity
+    ? foundCity.name
+    : decodeURIComponent(citySlug).replace(/-/g, ' ');
 }
 
 export function generateMetadata({
@@ -38,7 +40,7 @@ export default function CityEMIPage({ params }: { params: { city?: string } }) {
   const cityName = formatCity(params?.city);
 
   return (
-    <main style={{ maxWidth: 1100, margin: '0 auto' }}>
+    <main style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
       <h1>EMI Calculator in {cityName}</h1>
 
       <p>
@@ -50,7 +52,7 @@ export default function CityEMIPage({ params }: { params: { city?: string } }) {
 
       <EMIClient />
 
-      <section className="article">
+      <section className="article" style={{ marginTop: 40 }}>
         <h2>Why Use EMI Calculator in {cityName}?</h2>
         <p>
           Many banks and financial institutions in {cityName} offer different
@@ -79,7 +81,9 @@ export default function CityEMIPage({ params }: { params: { city?: string } }) {
         </ul>
       </section>
 
-      <div className="ad-box">Ad will appear here</div>
+      <div className="ad-box" style={{ marginTop: 20 }}>
+        Ad will appear here
+      </div>
     </main>
   );
 }

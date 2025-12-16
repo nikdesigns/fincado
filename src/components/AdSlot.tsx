@@ -1,6 +1,13 @@
 'use client';
 
-type AdType = 'leaderboard' | 'banner' | 'box' | 'in-article';
+// ✅ Added 'square' to the supported Ad Types
+type AdType =
+  | 'leaderboard'
+  | 'banner'
+  | 'box'
+  | 'in-article'
+  | 'rectangle'
+  | 'square';
 
 type AdSlotProps = {
   id?: string;
@@ -13,11 +20,14 @@ type AdSlotProps = {
  * Used across Fincado pages
  */
 export default function AdSlot({ id, type, label }: AdSlotProps) {
+  // ✅ Added dimensions for 'square'
   const minHeightMap: Record<AdType, number> = {
     leaderboard: 90,
     banner: 90,
     box: 250,
     'in-article': 280,
+    rectangle: 250,
+    square: 250, // Added 250px height for square ads
   };
 
   return (
