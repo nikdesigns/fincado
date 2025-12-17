@@ -14,7 +14,7 @@ const cities = fs.existsSync(CITIES_PATH)
   ? JSON.parse(fs.readFileSync(CITIES_PATH, 'utf8'))
   : [];
 
-// ✅ FIX 1: Add trailing slashes to static pages
+// Static pages (with trailing slash)
 const staticPages = [
   '/',
   '/guides/',
@@ -24,16 +24,17 @@ const staticPages = [
   '/credit-score/',
 ];
 
-// ✅ FIX 2: Add trailing slash to dynamic pages
+// Guide pages
 const guidePages = articles.map((a) => `/guides/${a.slug}/`);
 
-// ✅ FIX 3: Add trailing slash + Encode URI (Clean version)
+// Category pages (Encoded)
 const categoryPages = Array.from(
   new Set(
     articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}/`)
   )
 );
 
+// City pages
 const cityPages = cities.map((c) => `/emi-calculator/${c.slug}/`);
 
 const allPages = [
