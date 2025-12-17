@@ -8,6 +8,8 @@ import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 export const metadata: Metadata = {
   title: 'Personal Loan EMI Calculator – Check Eligibility & Interest',
@@ -35,6 +37,11 @@ export const metadata: Metadata = {
 export default function PersonalLoanPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Personal Loan EMI Calculator"
+        description="Check your personal loan EMI. Compare interest rates and repayment terms from top banks."
+        url="https://www.fincado.com/loans/personal-loan"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -86,6 +93,7 @@ export default function PersonalLoanPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Personal Loan EMI Calculator</h1>
+          <ShareTools title="Personal Loan EMI Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -342,10 +350,10 @@ export default function PersonalLoanPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="personal-loan-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

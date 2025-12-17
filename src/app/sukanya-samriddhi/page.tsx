@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +38,11 @@ export const metadata: Metadata = {
 export default function SSYPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Sukanya Samriddhi Yojana Calculator"
+        description="Calculate the maturity amount for your daughter's SSY account based on current government interest rates."
+        url="https://www.fincado.com/sukanya-samriddhi"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -87,6 +94,7 @@ export default function SSYPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>
+          <ShareTools title="Sukanya Samriddhi Yojana (SSY) Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -276,10 +284,10 @@ export default function SSYPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="ssy-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

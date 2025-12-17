@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +38,11 @@ export const metadata: Metadata = {
 export default function EPFPage() {
   return (
     <>
+      <CalculatorSchema
+        name="EPF Calculator"
+        description="Calculate your Employee Provident Fund (EPF) corpus at retirement including employer contributions and interest."
+        url="https://www.fincado.com/epf-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -87,6 +94,7 @@ export default function EPFPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>
+          <ShareTools title="Employees' Provident Fund (EPF) Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -265,10 +273,10 @@ export default function EPFPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="epf-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

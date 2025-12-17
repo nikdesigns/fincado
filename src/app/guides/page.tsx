@@ -219,7 +219,7 @@ export default function GuidesPage() {
 
       {/* --- RIGHT COLUMN: SIDEBAR --- */}
       <aside className="sidebar">
-        <div style={{ marginBottom: 24 }}>
+        <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
           <AdSlot id="guides-sidebar-sticky" type="box" />
         </div>
         <FinancialNavWidget />

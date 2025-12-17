@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -33,6 +35,11 @@ export const metadata: Metadata = {
 export default function FIREPage() {
   return (
     <>
+      <CalculatorSchema
+        name="FIRE Calculator"
+        description="Financial Independence, Retire Early (FIRE) calculator. Find out your 'Freedom Number' and when you can stop working."
+        url="https://www.fincado.com/fire-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -92,6 +99,7 @@ export default function FIREPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>FIRE Calculator (Financial Independence, Retire Early)</h1>
+          <ShareTools title="FIRE Calculator (Financial Independence, Retire Early)" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -283,10 +291,10 @@ export default function FIREPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="fire-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

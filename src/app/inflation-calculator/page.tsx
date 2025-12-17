@@ -7,6 +7,10 @@ import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import InflationClient from './InflationClient';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 /* ================= SEO METADATA ================= */
 export const metadata: Metadata = {
@@ -37,6 +41,11 @@ export const metadata: Metadata = {
 export default function InflationPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Inflation Calculator"
+        description="Calculate how inflation erodes purchasing power and estimate the future cost of goods and services."
+        url="https://www.fincado.com/inflation-calculator"
+      />
       {/* ================= SCHEMA ================= */}
       <script
         type="application/ld+json"
@@ -96,6 +105,7 @@ export default function InflationPage() {
         {/* ================= HEADER ================= */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Inflation Calculator – Know the Future Value of Your Money</h1>
+          <ShareTools title="Inflation Calculator – Know the Future Value of Your Money" />
           <WikiText
             content={`
               <p style="max-width: 720px; color: var(--color-text-muted);">
@@ -134,20 +144,22 @@ export default function InflationPage() {
               </p>
 
               <h3>Inflation Formula</h3>
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                Future Value = Present Value × (1 + Inflation Rate)
-                <sup>Years</sup>
+              <p>To calculate the future cost of an item based on inflation:</p>
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="FV = PV \times (1 + r)^n" />
               </div>
+
+              <WikiText
+                content={`
+  <ul>
+    <li><strong>FV</strong> = Future Value (Cost in future)</li>
+    <li><strong>PV</strong> = Present Value (Current Cost)</li>
+    <li><strong>r</strong> = Annual Inflation Rate</li>
+    <li><strong>n</strong> = Number of Years</li>
+  </ul>
+`}
+              />
 
               <h2>Why Inflation Matters in India</h2>
               <ul>
@@ -215,10 +227,10 @@ export default function InflationPage() {
 
           {/* ================= SIDEBAR ================= */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="inflation-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

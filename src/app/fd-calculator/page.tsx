@@ -7,6 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -37,6 +41,11 @@ export const metadata: Metadata = {
 export default function FDPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Fixed Deposit (FD) Calculator"
+        description="Calculate the maturity amount and interest earned on your Fixed Deposits (FD) for all Indian banks."
+        url="https://www.fincado.com/fd-calculator"
+      />
       {/* 2. SCHEMA MARKUP FOR FAQ */}
       <script
         type="application/ld+json"
@@ -88,6 +97,7 @@ export default function FDPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Fixed Deposit (FD) Calculator</h1>
+          <ShareTools title="Fixed Deposit (FD) Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -195,46 +205,23 @@ export default function FDPage() {
               </div>
 
               {/* 4. Formula */}
-              <h3>FD Interest Calculation Formula</h3>
-              <p>
-                The maturity value is calculated using the Compound Interest
-                formula. For most bank FDs, interest is compounded quarterly
-                (every 3 months).
-              </p>
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                A = P × (1 + r/n) ^ (n × t)
+              <h3>FD Maturity Formula</h3>
+              <p>For Compound Interest FDs (Reinvestment), the formula is:</p>
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="A = P \left(1 + \frac{r}{n}\right)^{n \times t}" />
               </div>
+
               <WikiText
                 content={`
-                <ul style="font-size: 14px;">
-                  <li>
-                    <strong>A</strong> = Maturity Amount
-                  </li>
-                  <li>
-                    <strong>P</strong> = Principal Amount
-                  </li>
-                  <li>
-                    <strong>r</strong> = Rate of Interest (decimal)
-                  </li>
-                  <li>
-                    <strong>n</strong> = Compounding Frequency (4 for Quarterly)
-                  </li>
-                  <li>
-                    <strong>t</strong> = Tenure in years
-                  </li>
-                </ul>
-              `}
+  <ul>
+    <li><strong>A</strong> = Maturity Amount</li>
+    <li><strong>P</strong> = Principal Investment</li>
+    <li><strong>r</strong> = Rate of Interest (in decimals)</li>
+    <li><strong>n</strong> = Compounding Frequency (4 for Quarterly)</li>
+    <li><strong>t</strong> = Time in Years</li>
+  </ul>
+`}
               />
 
               {/* 5. Key Advantages */}
@@ -302,10 +289,10 @@ export default function FDPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="fd-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

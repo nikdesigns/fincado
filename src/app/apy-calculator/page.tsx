@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +38,11 @@ export const metadata: Metadata = {
 export default function APYPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Atal Pension Yojana (APY) Calculator"
+        description="Calculate the monthly contribution required to get a guaranteed pension of ₹1000 to ₹5000 under the APY scheme."
+        url="https://www.fincado.com/apy-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -100,6 +107,7 @@ export default function APYPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Atal Pension Yojana (APY) Calculator</h1>
+          <ShareTools title="Atal Pension Yojana (APY) Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -300,10 +308,10 @@ export default function APYPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="apy-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

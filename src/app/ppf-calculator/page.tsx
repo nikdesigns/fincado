@@ -7,6 +7,10 @@ import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import PPFClient from './PPFClient';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -37,6 +41,11 @@ export const metadata: Metadata = {
 export default function PPFPage() {
   return (
     <>
+      <CalculatorSchema
+        name="PPF Calculator"
+        description="Calculate Public Provident Fund (PPF) maturity amount, interest earned, and tax-free returns over 15 years."
+        url="https://www.fincado.com/ppf-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -88,6 +97,7 @@ export default function PPFPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>PPF Calculator — Public Provident Fund</h1>
+          <ShareTools title="PPF Calculator — Public Provident Fund" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -182,48 +192,25 @@ export default function PPFPage() {
               </div>
 
               {/* 4. Formula */}
-              <h3>PPF Interest Calculation Formula</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Interest on PPF is calculated on the lowest balance between the
-                    5th and the last day of every month. However, the interest is
-                    compounded annually and credited on March 31st.
-                  </p>
-                `}
-              />
+              <h3>PPF Calculation Formula</h3>
+              <p>
+                Since PPF is compounded annually, the formula is similar to an
+                Annuity:
+              </p>
 
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                F = P × [((1 + i)^n - 1) / i]
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="A = P \times \left[ \frac{(1 + i)^n - 1}{i} \right] \times (1 + i)" />
               </div>
+
               <WikiText
                 content={`
-                <ul style="font-size: 14px;">
-                  <li>
-                    <strong>F</strong> = Maturity Amount
-                  </li>
-                  <li>
-                    <strong>P</strong> = Annual Installment
-                  </li>
-                  <li>
-                    <strong>n</strong> = Tenure in Years
-                  </li>
-                  <li>
-                    <strong>i</strong> = Interest Rate / 100
-                  </li>
-                </ul>
-              `}
+  <ul>
+    <li><strong>A</strong> = Maturity Amount</li>
+    <li><strong>P</strong> = Annual Installment</li>
+    <li><strong>i</strong> = Annual Interest Rate (in decimals)</li>
+    <li><strong>n</strong> = Number of Years (15 to 50)</li>
+  </ul>
+`}
               />
 
               {/* 5. Key Advantages */}
@@ -294,10 +281,10 @@ export default function PPFPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="ppf-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

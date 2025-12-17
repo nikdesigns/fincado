@@ -9,6 +9,8 @@ import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -43,6 +45,11 @@ export const metadata: Metadata = {
 export default function HomeLoanPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Home Loan EMI Calculator"
+        description="Calculate home loan EMI, total interest payable, and amortization schedule with prepayment options."
+        url="https://www.fincado.com/loans/home-loan"
+      />
       {/* --------- BREADCRUMB STRUCTURED DATA --------- */}
       <BreadcrumbJsonLd
         items={[
@@ -124,6 +131,7 @@ export default function HomeLoanPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Home Loan EMI Calculator</h1>
+          <ShareTools title="Home Loan EMI Calculator" />
           <WikiText
             content={`
               <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -200,10 +208,10 @@ export default function HomeLoanPage() {
 
           {/* -------- SIDEBAR -------- */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="home-loan-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

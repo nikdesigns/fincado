@@ -9,6 +9,8 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import 'katex/dist/katex.min.css'; // Import CSS for math
 import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -38,6 +40,11 @@ export const metadata: Metadata = {
 export default function SIPPage() {
   return (
     <>
+      <CalculatorSchema
+        name="SIP Calculator India"
+        description="Free SIP Calculator to estimate returns on your Systematic Investment Plan (SIP) with inflation adjustment."
+        url="https://www.fincado.com/sip-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -89,6 +96,7 @@ export default function SIPPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>SIP Calculator — Plan Your Wealth Creation</h1>
+          <ShareTools title="SIP Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -102,8 +110,6 @@ export default function SIPPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
-            <SIPClient />
             {/* CALCULATOR APP */}
             <SIPClient />
 

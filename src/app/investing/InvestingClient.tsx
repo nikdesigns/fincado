@@ -1,10 +1,12 @@
 'use client';
 import React, { useMemo, useState } from 'react';
 
+// --- Utility: Format Currency ---
 function formatINR(v: number) {
   return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
 
+// --- Constants ---
 const DEFAULT_ASSET_RETURNS = {
   equity: 12,
   debt: 7,
@@ -12,15 +14,9 @@ const DEFAULT_ASSET_RETURNS = {
   cash: 4,
 };
 
-type ScheduleRow = {
-  month: number;
-  invested: number;
-  value: number;
-  returns: number;
-};
-
-// ----------------- PieChart declared at top-level (outside component) -----------------
 type PieSlice = { color: string; pct: number };
+
+// --- Sub-Component: Pie Chart ---
 function PieChart({
   slices,
   size = 220,
@@ -34,7 +30,6 @@ function PieChart({
   const cy = size / 2;
   const circumference = 2 * Math.PI * r;
 
-  // build dasharray segments in order
   let offset = 0;
   const segments = slices.map((s) => {
     const len = (s.pct / 100) * circumference;
@@ -45,7 +40,14 @@ function PieChart({
   });
 
   return (
-    <div style={{ width: size, height: size, position: 'relative' }}>
+    <div
+      style={{
+        width: size,
+        height: size,
+        position: 'relative',
+        margin: '0 auto',
+      }}
+    >
       <svg
         width={size}
         height={size}
@@ -58,7 +60,7 @@ function PieChart({
           cy={cy}
           r={r}
           fill="none"
-          stroke="#f3f4f6"
+          stroke="#f1f5f9"
           strokeWidth={strokeWidth}
         />
         <g transform={`rotate(-90 ${cx} ${cy})`}>
@@ -90,36 +92,40 @@ function PieChart({
           y={cy - 6}
           textAnchor="middle"
           fontWeight={700}
-          fontSize={16}
-          fill="#081225"
+          fontSize={18}
+          fill="#0f172a"
         >
-          {/* Note: This is an approximation/placeholder for the main asset share */}
           {slices.length > 0 ? `${Math.round(slices[0].pct)}%` : '—'}
         </text>
         <text
           x={cx}
           y={cy + 16}
           textAnchor="middle"
-          fontSize={11}
-          fill="#6b7280"
+          fontSize={12}
+          fill="#64748b"
         >
-          Allocation (FV share)
+          Equity
         </text>
       </svg>
     </div>
   );
 }
-// ----------------- end PieChart -----------------
 
+// --- Main Component ---
 export default function InvestingClient() {
-  // Inputs
+  // --- State ---
   const [monthlySIP, setMonthlySIP] = useState<number>(5000);
-  const [lumpSum, setLumpSum] = useState<number>(0);
+  const [lumpSum, setLumpSum] = useState<number>(50000);
   const [years, setYears] = useState<number>(10);
+  const [inflationPct, setInflationPct] = useState<number>(6);
+
+  // Asset Mix (0-100)
   const [assetEquityPct, setAssetEquityPct] = useState<number>(60);
   const [assetDebtPct, setAssetDebtPct] = useState<number>(30);
   const [assetGoldPct, setAssetGoldPct] = useState<number>(5);
   const [assetCashPct, setAssetCashPct] = useState<number>(5);
+
+  // Return Assumptions
   const [equityReturn, setEquityReturn] = useState<number>(
     DEFAULT_ASSET_RETURNS.equity
   );
@@ -132,16 +138,11 @@ export default function InvestingClient() {
   const [cashReturn, setCashReturn] = useState<number>(
     DEFAULT_ASSET_RETURNS.cash
   );
-  const [inflationPct, setInflationPct] = useState<number>(6);
 
-  // derived
+  // --- Derived Calculations ---
   const months = Math.max(1, Math.round(Math.max(0.1, years) * 12));
-  const monthlyRateEquity = equityReturn / 12 / 100;
-  const monthlyRateDebt = debtReturn / 12 / 100;
-  const monthlyRateGold = goldReturn / 12 / 100;
-  const monthlyRateCash = cashReturn / 12 / 100;
 
-  // normalize allocation
+  // Normalize allocation to ensure it sums to 1 (100%)
   const rawTotalAlloc =
     Math.max(0, assetEquityPct) +
     Math.max(0, assetDebtPct) +
@@ -159,53 +160,50 @@ export default function InvestingClient() {
     };
   }, [assetEquityPct, assetDebtPct, assetGoldPct, assetCashPct, rawTotalAlloc]);
 
-  function futureValueSIP(
-    monthly: number,
-    monthlyRate: number,
-    monthsLocal: number
+  // Future Value Logic
+  function calculateFV(
+    p: number,
+    r: number,
+    n: number,
+    type: 'sip' | 'lumpsum'
   ) {
-    if (monthly <= 0) return 0;
-    if (monthlyRate === 0) return monthly * monthsLocal;
-    return (
-      monthly *
-      ((Math.pow(1 + monthlyRate, monthsLocal) - 1) / monthlyRate) *
-      (1 + monthlyRate)
-    );
-  }
-  function futureValueLumpsum(
-    lumpsum: number,
-    monthlyRate: number,
-    monthsLocal: number
-  ) {
-    if (lumpsum <= 0) return 0;
-    if (monthlyRate === 0) return lumpsum;
-    return lumpsum * Math.pow(1 + monthlyRate, monthsLocal);
+    if (p <= 0) return 0;
+    const monthlyRate = r / 12 / 100;
+    if (monthlyRate === 0) return p * (type === 'sip' ? n : 1);
+
+    if (type === 'lumpsum') {
+      return p * Math.pow(1 + monthlyRate, n);
+    } else {
+      // SIP Formula (Annuity Due)
+      return (
+        p *
+        ((Math.pow(1 + monthlyRate, n) - 1) / monthlyRate) *
+        (1 + monthlyRate)
+      );
+    }
   }
 
-  // per-asset future values
   const perAssetFuture = useMemo(() => {
-    const equity =
-      futureValueSIP(monthlySIP * alloc.equity, monthlyRateEquity, months) +
-      futureValueLumpsum(lumpSum * alloc.equity, monthlyRateEquity, months);
-    const debt =
-      futureValueSIP(monthlySIP * alloc.debt, monthlyRateDebt, months) +
-      futureValueLumpsum(lumpSum * alloc.debt, monthlyRateDebt, months);
-    const gold =
-      futureValueSIP(monthlySIP * alloc.gold, monthlyRateGold, months) +
-      futureValueLumpsum(lumpSum * alloc.gold, monthlyRateGold, months);
-    const cash =
-      futureValueSIP(monthlySIP * alloc.cash, monthlyRateCash, months) +
-      futureValueLumpsum(lumpSum * alloc.cash, monthlyRateCash, months);
-    const total = equity + debt + gold + cash;
-    return { equity, debt, gold, cash, total: Math.max(0, total) };
+    const calc = (ratio: number, rate: number) => {
+      const sipPart = calculateFV(monthlySIP * ratio, rate, months, 'sip');
+      const lumpPart = calculateFV(lumpSum * ratio, rate, months, 'lumpsum');
+      return sipPart + lumpPart;
+    };
+
+    const equity = calc(alloc.equity, equityReturn);
+    const debt = calc(alloc.debt, debtReturn);
+    const gold = calc(alloc.gold, goldReturn);
+    const cash = calc(alloc.cash, cashReturn);
+
+    return { equity, debt, gold, cash, total: equity + debt + gold + cash };
   }, [
     monthlySIP,
     lumpSum,
     alloc,
-    monthlyRateEquity,
-    monthlyRateDebt,
-    monthlyRateGold,
-    monthlyRateCash,
+    equityReturn,
+    debtReturn,
+    goldReturn,
+    cashReturn,
     months,
   ]);
 
@@ -213,92 +211,32 @@ export default function InvestingClient() {
   const totalFuture = Math.round(perAssetFuture.total);
   const totalReturns = Math.max(0, totalFuture - totalInvested);
 
-  // schedule preview (monthly blended)
-  const schedule: ScheduleRow[] = useMemo(() => {
-    const rows: ScheduleRow[] = [];
-    let vEquity = lumpSum * alloc.equity;
-    let vDebt = lumpSum * alloc.debt;
-    let vGold = lumpSum * alloc.gold;
-    let vCash = lumpSum * alloc.cash;
-
-    for (let m = 1; m <= months; m++) {
-      vEquity = vEquity * (1 + monthlyRateEquity) + monthlySIP * alloc.equity;
-      vDebt = vDebt * (1 + monthlyRateDebt) + monthlySIP * alloc.debt;
-      vGold = vGold * (1 + monthlyRateGold) + monthlySIP * alloc.gold;
-      vCash = vCash * (1 + monthlyRateCash) + monthlySIP * alloc.cash;
-
-      // FIX: Use vEquity instead of vEq
-      const totalValue = vEquity + vDebt + vGold + vCash;
-
-      const invested = monthlySIP * m + lumpSum;
-      rows.push({
-        month: m,
-        invested: Math.round(invested),
-        value: Math.round(totalValue),
-        returns: Math.round(totalValue - invested),
-      });
-    }
-    return rows;
-  }, [
-    months,
-    lumpSum,
-    monthlySIP,
-    alloc.equity,
-    alloc.debt,
-    alloc.gold,
-    alloc.cash,
-    monthlyRateEquity,
-    monthlyRateDebt,
-    monthlyRateGold,
-    monthlyRateCash,
-  ]);
-
-  // pie percentages from per-asset future value (guard zeros)
+  // Pie Chart Data
   const pie = useMemo(() => {
     const t = perAssetFuture.total || 1;
-    const e = Math.round((perAssetFuture.equity / t) * 100);
-    const d = Math.round((perAssetFuture.debt / t) * 100);
-    const g = Math.round((perAssetFuture.gold / t) * 100);
-
     return {
-      equityPct: e,
-      debtPct: d,
-      goldPct: g,
-      cashPct: Math.max(0, 100 - (e + d + g)),
+      equityPct: Math.round((perAssetFuture.equity / t) * 100),
+      debtPct: Math.round((perAssetFuture.debt / t) * 100),
+      goldPct: Math.round((perAssetFuture.gold / t) * 100),
+      cashPct: Math.round((perAssetFuture.cash / t) * 100), // Approximate remainder
     };
   }, [perAssetFuture]);
 
-  const approxBlendedAnnualReturn = useMemo(() => {
-    const weighted =
+  // Blended Return
+  const blendedReturn = Number(
+    (
       alloc.equity * equityReturn +
       alloc.debt * debtReturn +
       alloc.gold * goldReturn +
-      alloc.cash * cashReturn;
-    return Number(weighted.toFixed(2));
-  }, [alloc, equityReturn, debtReturn, goldReturn, cashReturn]);
+      alloc.cash * cashReturn
+    ).toFixed(2)
+  );
 
-  // CSV export
-  function exportCSV() {
-    const header = ['Month', 'Invested', 'Value', 'Returns'];
-    const lines = [header.join(',')].concat(
-      schedule.map((r) => [r.month, r.invested, r.value, r.returns].join(','))
-    );
-    const csv = lines.join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'investing-schedule.csv';
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  // small setter helper
+  // --- Helpers ---
   const setter =
     (fn: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
       fn(e.target.value === '' ? 0 : Number(e.target.value));
 
-  // quick preset allocations
   const applyPreset = (name: 'conservative' | 'balanced' | 'growth') => {
     if (name === 'conservative') {
       setAssetEquityPct(30);
@@ -319,781 +257,428 @@ export default function InvestingClient() {
   };
 
   return (
-    <section className="article">
-      <div>
-        <h1>📈 Multi-Asset Portfolio Planner</h1>
-
-        {/* SPLIT: inputs left, pie chart right */}
-        <div
-          className="emi-split" /* Use emi-split for standard two-column grid */
-          style={{
-            marginTop: 18,
-            display: 'grid',
-            gridTemplateColumns: '1fr 320px' /* Enforce two columns */,
-            gap: 16,
-            alignItems: 'flex-start',
-          }}
-        >
-          <div
-            className="emi-left"
-            style={{ minWidth: 320 }} /* Allow form to take available space */
-          >
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              style={{ display: 'grid', gap: 12 }}
+    <div
+      className="calculator-card"
+      style={{ boxShadow: 'none', padding: 0, border: 'none' }}
+    >
+      {/* ✅ 1. Standard Calculator Grid Layout */}
+      <div className="calc-grid">
+        {/* --- LEFT: INPUTS --- */}
+        <div className="calc-inputs">
+          {/* Section 1: Money & Time */}
+          <div className="input-group">
+            <h3
+              style={{
+                fontSize: '16px',
+                marginBottom: '16px',
+                color: '#1e293b',
+              }}
             >
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 12,
-                }}
-              >
-                <label>
-                  Monthly SIP (₹)
-                  <input
-                    type="number"
-                    value={monthlySIP}
-                    onChange={setter(setMonthlySIP)}
-                    min={0}
-                  />
-                </label>
-                <label>
-                  Lumpsum Now (₹)
-                  <input
-                    type="number"
-                    value={lumpSum}
-                    onChange={setter(setLumpSum)}
-                    min={0}
-                  />
-                </label>
-              </div>
-
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 12,
-                }}
-              >
-                <label>
-                  Horizon (Years)
-                  <input
-                    type="number"
-                    value={years}
-                    onChange={setter(setYears)}
-                    min={0.5}
-                    step={0.5}
-                  />
-                </label>
-                <label>
-                  Inflation (% p.a.)
-                  <input
-                    type="number"
-                    value={inflationPct}
-                    onChange={setter(setInflationPct)}
-                    min={0}
-                    step={0.1}
-                  />
-                </label>
-              </div>
-
+              Investment Details
+            </h3>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '20px',
+              }}
+            >
               <div>
-                <strong>Allocation % (will be normalized)</strong>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: 8,
-                    marginTop: 8,
-                  }}
-                >
-                  <label>
-                    Equity %
-                    <input
-                      type="number"
-                      value={assetEquityPct}
-                      onChange={setter(setAssetEquityPct)}
-                      min={0}
-                      max={100}
-                    />
-                  </label>
-                  <label>
-                    Debt %
-                    <input
-                      type="number"
-                      value={assetDebtPct}
-                      onChange={setter(setAssetDebtPct)}
-                      min={0}
-                      max={100}
-                    />
-                  </label>
-                  <label>
-                    Gold %
-                    <input
-                      type="number"
-                      value={assetGoldPct}
-                      onChange={setter(setAssetGoldPct)}
-                      min={0}
-                      max={100}
-                    />
-                  </label>
-                  <label>
-                    Cash %
-                    <input
-                      type="number"
-                      value={assetCashPct}
-                      onChange={setter(setAssetCashPct)}
-                      min={0}
-                      max={100}
-                    />
-                  </label>
-                </div>
-                <div style={{ fontSize: 13, color: '#6b7280', marginTop: 8 }}>
-                  Raw allocation sum:{' '}
-                  <strong>{Math.round(rawTotalAlloc)}%</strong> — values will be
-                  normalized for calculation.
-                </div>
+                <label>Monthly SIP (₹)</label>
+                <input
+                  type="number"
+                  value={monthlySIP}
+                  onChange={setter(setMonthlySIP)}
+                />
               </div>
-
-              {/* Returns Inputs */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 12,
-                }}
-              >
-                <label>
-                  Equity Return (% p.a.)
-                  <input
-                    type="number"
-                    value={equityReturn}
-                    onChange={setter(setEquityReturn)}
-                    step={0.1}
-                  />
-                </label>
-                <label>
-                  Debt Return (% p.a.)
-                  <input
-                    type="number"
-                    value={debtReturn}
-                    onChange={setter(setDebtReturn)}
-                    step={0.1}
-                  />
-                </label>
+              <div>
+                <label>Lumpsum (₹)</label>
+                <input
+                  type="number"
+                  value={lumpSum}
+                  onChange={setter(setLumpSum)}
+                />
               </div>
-
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 12,
-                }}
-              >
-                <label>
-                  Gold Return (% p.a.)
-                  <input
-                    type="number"
-                    value={goldReturn}
-                    onChange={setter(setGoldReturn)}
-                    step={0.1}
-                  />
-                </label>
-                <label>
-                  Cash Return (% p.a.)
-                  <input
-                    type="number"
-                    value={cashReturn}
-                    onChange={setter(setCashReturn)}
-                    step={0.1}
-                  />
-                </label>
+              <div>
+                <label>Period (Years)</label>
+                <input
+                  type="number"
+                  value={years}
+                  onChange={setter(setYears)}
+                  step={0.5}
+                />
               </div>
-
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button className="primary-cta">Update</button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMonthlySIP(5000);
-                    setLumpSum(0);
-                    setYears(10);
-                    setAssetEquityPct(60);
-                    setAssetDebtPct(30);
-                    setAssetGoldPct(5);
-                    setAssetCashPct(5);
-                    setEquityReturn(DEFAULT_ASSET_RETURNS.equity);
-                    setDebtReturn(DEFAULT_ASSET_RETURNS.debt);
-                    setGoldReturn(DEFAULT_ASSET_RETURNS.gold);
-                    setCashReturn(DEFAULT_ASSET_RETURNS.cash);
-                    setInflationPct(6);
-                  }}
-                >
-                  Reset
-                </button>
+              <div>
+                <label>Inflation (%)</label>
+                <input
+                  type="number"
+                  value={inflationPct}
+                  onChange={setter(setInflationPct)}
+                  step={0.1}
+                />
               </div>
-            </form>
+            </div>
           </div>
 
-          {/* RIGHT: PIE CHART & LEGEND */}
-          <aside className="emi-right" style={{ flex: '0 0 320px' }}>
-            <div
-              className="card"
-              style={{ textAlign: 'center', padding: 16, boxShadow: 'none' }}
-            >
-              {/* palette: site green + complementary shades */}
-              <PieChart
-                slices={[
-                  {
-                    color: '#16a34a', // Equity
-                    pct: pie.equityPct,
-                  },
-                  {
-                    color: '#4ade80', // Debt
-                    pct: pie.debtPct,
-                  },
-                  {
-                    color: '#f59e0b', // Gold
-                    pct: pie.goldPct,
-                  },
-                  {
-                    color: '#94a3b8', // Cash
-                    pct: pie.cashPct,
-                  },
-                ]}
-                size={220}
-              />
+          <hr
+            style={{
+              margin: '24px 0',
+              border: 'none',
+              borderTop: '1px solid #e2e8f0',
+            }}
+          />
 
-              {/* legend - styled for clarity */}
+          {/* Section 2: Allocation */}
+          <div className="input-group">
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '16px',
+              }}
+            >
+              <h3 style={{ fontSize: '16px', margin: 0, color: '#1e293b' }}>
+                Asset Allocation
+              </h3>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  type="button"
+                  onClick={() => applyPreset('conservative')}
+                  style={{
+                    fontSize: '11px',
+                    padding: '4px 8px',
+                    borderRadius: '12px',
+                    border: '1px solid #cbd5e1',
+                    background: '#fff',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Safe
+                </button>
+                <button
+                  type="button"
+                  onClick={() => applyPreset('balanced')}
+                  style={{
+                    fontSize: '11px',
+                    padding: '4px 8px',
+                    borderRadius: '12px',
+                    border: '1px solid #cbd5e1',
+                    background: '#fff',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Balanced
+                </button>
+                <button
+                  type="button"
+                  onClick={() => applyPreset('growth')}
+                  style={{
+                    fontSize: '11px',
+                    padding: '4px 8px',
+                    borderRadius: '12px',
+                    border: '1px solid #cbd5e1',
+                    background: '#fff',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Aggressive
+                </button>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '20px',
+              }}
+            >
+              <div>
+                <label>Equity %</label>
+                <input
+                  type="number"
+                  value={assetEquityPct}
+                  onChange={setter(setAssetEquityPct)}
+                />
+              </div>
+              <div>
+                <label>Debt %</label>
+                <input
+                  type="number"
+                  value={assetDebtPct}
+                  onChange={setter(setAssetDebtPct)}
+                />
+              </div>
+              <div>
+                <label>Gold %</label>
+                <input
+                  type="number"
+                  value={assetGoldPct}
+                  onChange={setter(setAssetGoldPct)}
+                />
+              </div>
+              <div>
+                <label>Cash %</label>
+                <input
+                  type="number"
+                  value={assetCashPct}
+                  onChange={setter(setAssetCashPct)}
+                />
+              </div>
+            </div>
+
+            {/* Rate Assumptions (Compact) */}
+            <div
+              style={{
+                marginTop: '20px',
+                background: '#f8fafc',
+                padding: '12px',
+                borderRadius: '8px',
+              }}
+            >
+              <p
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  marginBottom: '8px',
+                  color: '#64748b',
+                }}
+              >
+                EXPECTED RETURNS (P.A.)
+              </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '10px',
+                }}
+              >
+                <input
+                  type="number"
+                  value={equityReturn}
+                  onChange={setter(setEquityReturn)}
+                  style={{ fontSize: '13px', padding: '8px' }}
+                  title="Equity Return"
+                />
+                <input
+                  type="number"
+                  value={debtReturn}
+                  onChange={setter(setDebtReturn)}
+                  style={{ fontSize: '13px', padding: '8px' }}
+                  title="Debt Return"
+                />
+                <input
+                  type="number"
+                  value={goldReturn}
+                  onChange={setter(setGoldReturn)}
+                  style={{ fontSize: '13px', padding: '8px' }}
+                  title="Gold Return"
+                />
+                <input
+                  type="number"
+                  value={cashReturn}
+                  onChange={setter(setCashReturn)}
+                  style={{ fontSize: '13px', padding: '8px' }}
+                  title="Cash Return"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* --- RIGHT: CHART --- */}
+        <div className="calc-visuals" style={{ textAlign: 'center' }}>
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: '16px',
+              padding: '24px',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <PieChart
+              slices={[
+                { color: '#16a34a', pct: pie.equityPct },
+                { color: '#60a5fa', pct: pie.debtPct },
+                { color: '#f59e0b', pct: pie.goldPct },
+                { color: '#94a3b8', pct: pie.cashPct },
+              ]}
+            />
+
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '12px',
+                justifyContent: 'center',
+                marginTop: '24px',
+              }}
+            >
               <div
                 style={{
                   display: 'flex',
-                  gap: 12,
-                  justifyContent: 'center',
-                  marginTop: 16,
-                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
                 }}
               >
-                {[
-                  { label: 'Equity', color: '#16a34a', pct: pie.equityPct },
-                  { label: 'Debt', color: '#4ade80', pct: pie.debtPct },
-                  { label: 'Gold', color: '#f59e0b', pct: pie.goldPct },
-                  { label: 'Cash', color: '#94a3b8', pct: pie.cashPct },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    style={{
-                      display: 'flex',
-                      gap: 8,
-                      alignItems: 'center',
-                      minWidth: 88,
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: 12,
-                        height: 12,
-                        background: item.color,
-                        display: 'inline-block',
-                        borderRadius: 4,
-                      }}
-                    />
-                    <div style={{ textAlign: 'left' }}>
-                      <div style={{ fontWeight: 700 }}>{item.pct}%</div>
-                      <div style={{ fontSize: 12, color: '#6b7280' }}>
-                        {item.label}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: '#16a34a',
+                  }}
+                ></span>{' '}
+                Equity
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                }}
+              >
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: '#60a5fa',
+                  }}
+                ></span>{' '}
+                Debt
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                }}
+              >
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: '#f59e0b',
+                  }}
+                ></span>{' '}
+                Gold
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                }}
+              >
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: '#94a3b8',
+                  }}
+                ></span>{' '}
+                Cash
               </div>
             </div>
 
-            <div className="ad-box" style={{ marginTop: 12 }}>
-              Ad / widget
+            <div
+              style={{
+                marginTop: '24px',
+                paddingTop: '16px',
+                borderTop: '1px dashed #e2e8f0',
+              }}
+            >
+              <div style={{ fontSize: '13px', color: '#64748b' }}>
+                Blended Annual Return
+              </div>
+              <div
+                style={{ fontSize: '24px', fontWeight: 700, color: '#0f172a' }}
+              >
+                {blendedReturn}%
+              </div>
             </div>
-          </aside>
+          </div>
+        </div>
+      </div>
+
+      {/* ✅ 2. Standard Results Grid (Matches other calculators) */}
+      <div className="result-grid" style={{ marginTop: '40px' }}>
+        <div className="result-card">
+          <span className="result-label">Invested Amount</span>
+          <span className="result-value">{formatINR(totalInvested)}</span>
         </div>
 
-        {/* Full width results below split - REFINED STYLING */}
-        <div className="emi-results-full" style={{ marginTop: 24 }}>
-          <div
-            className="result-grid emi-summary-strip"
-            style={{
-              backgroundColor: '#f0fff4', // Pale green background
-              padding: '16px',
-              borderRadius: '10px',
-              border: '1px solid #d1fae5', // Light border
-            }}
+        <div className="result-card highlight">
+          <span className="result-label">Total Portfolio Value</span>
+          <span className="result-primary">{formatINR(totalFuture)}</span>
+        </div>
+
+        <div className="result-card">
+          <span className="result-label">Total Gain</span>
+          <span
+            className="result-value"
+            style={{ color: 'var(--color-brand-green)' }}
           >
-            {/* Primary Result: Estimated Portfolio Value */}
-            <div
-              className="result-card"
-              style={{
-                padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-                boxShadow:
-                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Lifted shadow
-              }}
-            >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="Portfolio">
-                  🚀
-                </span>{' '}
-                Estimated Portfolio Value
-              </p>
-              <p
-                className="result-primary"
-                style={{
-                  fontSize: '24px',
-                  fontWeight: 800,
-                  color: '#047857',
-                }}
-              >
-                {formatINR(totalFuture)}
-              </p>
-            </div>
-
-            {/* Secondary Result: Total Invested */}
-            <div
-              className="result-card"
-              style={{
-                padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-              }}
-            >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="Invested">
-                  📥
-                </span>{' '}
-                Total Invested (Principal)
-              </p>
-              <p
-                className="result-value"
-                style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}
-              >
-                {formatINR(totalInvested)}
-              </p>
-            </div>
-
-            {/* Secondary Result: Estimated Returns */}
-            <div
-              className="result-card"
-              style={{
-                padding: '10px',
-                border: 'none',
-                textAlign: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-              }}
-            >
-              <p
-                className="result-label"
-                style={{ fontSize: '14px', color: '#6b7280' }}
-              >
-                <span role="img" aria-label="Returns">
-                  📈
-                </span>{' '}
-                Estimated Returns (Profit)
-              </p>
-              <p
-                className="result-value"
-                style={{ fontSize: '20px', fontWeight: 700, color: '#059669' }}
-              >
-                {formatINR(totalReturns)}
-              </p>
-            </div>
-          </div>
+            {formatINR(totalReturns)}
+          </span>
         </div>
+      </div>
 
-        <div className="card" style={{ marginTop: 16 }}>
-          <h3>
-            <span role="img" aria-label="Strategy">
-              💡
-            </span>{' '}
-            Strategy & Blended Return
-          </h3>
-          <p style={{ margin: '6px 0' }}>
-            **Blended Annual Return:**{' '}
-            <strong style={{ color: '#1f2937', fontSize: '1.1em' }}>
-              {approxBlendedAnnualReturn}%
-            </strong>
-          </p>
-          <p style={{ margin: '6px 0' }}>
-            **Risk Assessment:**{' '}
-            <strong style={{ fontWeight: 700 }}>
-              {alloc.equity * 100 >= 70
-                ? 'High Risk/High Growth Potential'
-                : alloc.equity * 100 >= 50
-                ? 'Moderate-High Risk/Balanced Growth'
-                : alloc.equity * 100 >= 30
-                ? 'Moderate Risk/Conservative Mix'
-                : 'Low Risk/Conservative Allocation'}
-            </strong>
-          </p>
-          <p style={{ fontSize: 13, color: '#6b7280', marginTop: 8 }}>
-            Advice:{' '}
-            {years >= 15
-              ? 'Long horizon — consider higher equity allocation (60-80%) for maximum compounding growth.'
-              : years >= 7
-              ? 'Medium-long horizon — balanced allocation (50-65% equity) is common.'
-              : years >= 3
-              ? 'Medium horizon — consider 40-60% equity, blend with debt.'
-              : 'Short horizon — favour safer instruments (debt/cash) to preserve capital.'}
-          </p>
-
-          <div style={{ marginTop: '16px' }}>
-            <strong>Allocation Presets</strong>
-            <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-              <button type="button" onClick={() => applyPreset('conservative')}>
-                Conservative (30% Equity)
-              </button>
-              <button type="button" onClick={() => applyPreset('balanced')}>
-                Balanced (50% Equity)
-              </button>
-              <button type="button" onClick={() => applyPreset('growth')}>
-                Growth (70% Equity)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* allocation table */}
-        <div className="card" style={{ marginTop: 12 }}>
-          <h3>Allocation Breakdown (Estimated Future Value)</h3>
+      {/* Breakdown Table */}
+      <div style={{ marginTop: '40px' }}>
+        <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+          Projected Asset Breakdown
+        </h3>
+        <div className="schedule-wrapper">
           <table className="rate-table">
             <thead>
               <tr>
-                <th>Asset</th>
-                <th>Allocation %</th>
-                <th>Est. Value</th>
+                <th>Asset Class</th>
+                <th>Allocation</th>
+                <th>Future Value</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Equity</td>
+                <td style={{ fontWeight: 500 }}>Equity (Stocks)</td>
                 <td>{Math.round(alloc.equity * 100)}%</td>
-                <td>{formatINR(Math.round(perAssetFuture.equity))}</td>
+                <td style={{ fontWeight: 600 }}>
+                  {formatINR(Math.round(perAssetFuture.equity))}
+                </td>
               </tr>
               <tr>
-                <td>Debt</td>
+                <td style={{ fontWeight: 500 }}>Debt (Bonds/FD)</td>
                 <td>{Math.round(alloc.debt * 100)}%</td>
-                <td>{formatINR(Math.round(perAssetFuture.debt))}</td>
+                <td style={{ fontWeight: 600 }}>
+                  {formatINR(Math.round(perAssetFuture.debt))}
+                </td>
               </tr>
               <tr>
-                <td>Gold</td>
+                <td style={{ fontWeight: 500 }}>Gold</td>
                 <td>{Math.round(alloc.gold * 100)}%</td>
-                <td>{formatINR(Math.round(perAssetFuture.gold))}</td>
+                <td style={{ fontWeight: 600 }}>
+                  {formatINR(Math.round(perAssetFuture.gold))}
+                </td>
               </tr>
               <tr>
-                <td>Cash</td>
+                <td style={{ fontWeight: 500 }}>Cash / Liquid</td>
                 <td>{Math.round(alloc.cash * 100)}%</td>
-                <td>{formatINR(Math.round(perAssetFuture.cash))}</td>
+                <td style={{ fontWeight: 600 }}>
+                  {formatINR(Math.round(perAssetFuture.cash))}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-
-        {/* --- SEO Content Starts Here --- */}
-        <div className="content-for-seo" style={{ marginTop: 20 }}>
-          {/* 1. Brief about the program */}
-          <section>
-            <h2 id="about-multi-asset">🌟 What is Multi-Asset Investing?</h2>
-            <p>
-              Multi-asset investing involves spreading capital across different,
-              non-correlated assets—like stocks (Equity), bonds (Debt),
-              commodities (Gold), and cash—to mitigate risk and capture returns
-              from various market cycles. This approach aims to create a
-              smoother, more predictable wealth curve than single-asset
-              investing.
-            </p>
-            <p>
-              This planner helps model the outcome of disciplined SIP and
-              lump-sum investments within a diversified portfolio structure.
-            </p>
-          </section>
-
-          {/* 2. Who can use this */}
-          <section>
-            <h2 id="who-can-use">
-              🎯 Who Needs a Multi-Asset Investment Strategy?
-            </h2>
-            <p>
-              Anyone planning for substantial future goals (e.g., retirement,
-              children&apos;s college fund) should use a multi-asset strategy:
-            </p>
-            <ul>
-              <li>
-                **Risk-Averse Investors:** Use Debt/Cash to buffer against
-                Equity market downturns.
-              </li>
-              <li>
-                **Mid-Career Individuals:** Use a Balanced strategy (50-60%
-                Equity) to achieve growth while protecting principal.
-              </li>
-              <li>
-                **Pre-Retirees:** Shift allocation towards Debt/Cash to reduce
-                volatility as they approach their financial goals.
-              </li>
-            </ul>
-          </section>
-
-          {/* 3. How can the Calculator help you? */}
-          <section>
-            <h2 id="how-calculator-helps">
-              💡 How This Planner Optimizes Your Portfolio
-            </h2>
-            <p>
-              The calculator provides critical insights into how diversification
-              works over time:
-            </p>
-            <ul>
-              <li>
-                **Risk/Reward Balance:** Instantly visualizes the weighted
-                return and risk profile based on your asset mix.
-              </li>
-              <li>
-                **Scenario Planning:** Allows adjustment of expected returns to
-                stress-test the portfolio (e.g., what if Equity returns only
-                8%?).
-              </li>
-              <li>
-                **Discipline & Automation:** Models the combined effect of
-                monthly SIPs and lump-sum capital, emphasizing disciplined
-                investment.
-              </li>
-            </ul>
-          </section>
-
-          {/* 4. How does the calculation work? */}
-          <section>
-            <h2 id="how-calculation-works">
-              ⚙️ Calculation Logic and Compounding
-            </h2>
-
-            <h3>Future Value Calculation</h3>
-            <p>
-              The portfolio&apos;s total future value is the sum of the future
-              values of each asset class. For each asset, the contribution (SIP
-              and lump-sum) is calculated separately based on its individual
-              expected rate of return, compounding monthly.
-            </p>
-            <p>
-              The formula used for the **SIP component** (Annuity Due) of each
-              asset is:
-            </p>
-            <div
-              style={{
-                backgroundColor: '#f9fafb',
-                padding: '15px',
-                borderRadius: '6px',
-                border: '1px solid #e5e7eb',
-                textAlign: 'center',
-                fontSize: '1.1em',
-                overflowX: 'auto',
-              }}
-            >
-              FV = P &times; {`[((1 + r)^n - 1) / r]`} &times; (1 + r)
-            </div>
-            <p>
-              Where P is the monthly SIP allocated to that asset, r is the
-              monthly return rate, and n is the tenure in months.
-            </p>
-
-            <h3>Blended Return</h3>
-            <p>
-              The **Blended Annual Return** shown above is a weighted average
-              calculated using your input allocation percentages and the
-              expected return rates for each asset class.
-            </p>
-          </section>
-
-          {/* 5. Advantage */}
-          <section>
-            <h2 id="multi-asset-advantages">
-              ✅ Key Advantages of Multi-Asset Strategy
-            </h2>
-            <p>
-              This method offers distinct advantages in managing long-term
-              wealth:
-            </p>
-            <div className="advantage-grid">
-              <div className="advantage-card">
-                <h3>Non-Correlation</h3>
-                <p>
-                  When the stock market (Equity) falls, bonds (Debt) or Gold
-                  often rise, smoothing out your portfolio&apos;s returns.
-                </p>
-              </div>
-              <div className="advantage-card">
-                <h3>Rebalancing Opportunity</h3>
-                <p>
-                  It creates automatic opportunities to &quot;sell high and buy
-                  low&quot; by rebalancing the portfolio back to target
-                  allocations annually.
-                </p>
-              </div>
-              <div className="advantage-card">
-                <h3>Goal Alignment</h3>
-                <p>
-                  The asset mix can be tailored precisely to the time horizon of
-                  the goal (e.g., higher Debt for short-term goals).
-                </p>
-              </div>
-              <div className="advantage-card">
-                <h3>Inflation Protection</h3>
-                <p>
-                  Holding Gold and Equity provides long-term protection against
-                  the erosion of purchasing power caused by inflation.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* 6. FAQ's */}
-          <section>
-            <h2 id="multi-asset-faqs">❓ Frequently Asked Questions (FAQs)</h2>
-            <div
-              className="faqs-accordion"
-              style={{
-                display: 'grid',
-                gap: '10px',
-              }}
-            >
-              <details
-                style={{
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px',
-                  padding: '0 15px',
-                  backgroundColor: '#ffffff',
-                }}
-              >
-                <summary
-                  style={{
-                    fontWeight: 600,
-                    padding: '15px 0',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    color: '#1f2937',
-                  }}
-                >
-                  What is the difference between this planner and a simple SIP
-                  calculator?
-                </summary>
-                <p
-                  style={{
-                    padding: '10px 0 15px 0',
-                    borderTop: '1px dashed #e5e7eb',
-                    margin: 0,
-                    color: '#6b7280',
-                  }}
-                >
-                  A simple SIP calculator assumes one uniform rate of return for
-                  the entire investment. This planner segments your
-                  contributions by asset class and applies the specific return
-                  rate for Equity, Debt, Gold, and Cash, providing a much more
-                  realistic, blended view of your portfolio&apos;s future value.
-                </p>
-              </details>
-              <details
-                style={{
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px',
-                  padding: '0 15px',
-                  backgroundColor: '#ffffff',
-                }}
-              >
-                <summary
-                  style={{
-                    fontWeight: 600,
-                    padding: '15px 0',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    color: '#1f2937',
-                  }}
-                >
-                  Should I change my asset allocation as I age?
-                </summary>
-                <p
-                  style={{
-                    padding: '10px 0 15px 0',
-                    borderTop: '1px dashed #e5e7eb',
-                    margin: 0,
-                    color: '#6b7280',
-                  }}
-                >
-                  Yes. This is called **risk mitigation**. As you get closer to
-                  your goal (e.g., retirement), you should gradually shift your
-                  portfolio from higher-risk assets (Equity) to lower-risk
-                  assets (Debt/Cash) to protect the accumulated corpus from
-                  sudden market crashes.
-                </p>
-              </details>
-            </div>
-          </section>
-        </div>
-
-        <div className="article" style={{ marginTop: 12 }}>
-          <h2>Schedule Preview (first 120 months)</h2>
-          <div
-            className="schedule-wrapper"
-            style={{ maxHeight: 360, overflow: 'auto' }}
-          >
-            <table className="rate-table">
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Invested</th>
-                  <th>Value</th>
-                  <th>Returns</th>
-                </tr>
-              </thead>
-              <tbody>
-                {schedule.slice(0, 120).map((r) => (
-                  <tr key={r.month}>
-                    <td>{r.month}</td>
-                    <td>{formatINR(r.invested)}</td>
-                    <td>{formatINR(r.value)}</td>
-                    <td>{formatINR(r.returns)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-            <button onClick={exportCSV}>Export Schedule CSV</button>
-            <button
-              onClick={() => {
-                const summary = `SIP ${formatINR(
-                  monthlySIP
-                )}/mo + Lump ${formatINR(
-                  lumpSum
-                )} for ${years}y @ blended ${approxBlendedAnnualReturn}% ⇒ ${formatINR(
-                  totalFuture
-                )}`;
-                navigator.clipboard?.writeText(summary);
-                alert('Summary copied to clipboard');
-              }}
-            >
-              Copy Summary
-            </button>
-          </div>
-        </div>
       </div>
-    </section>
+    </div>
   );
 }

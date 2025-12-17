@@ -7,6 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +40,11 @@ export const metadata: Metadata = {
 export default function RetirementPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Retirement Corpus Calculator"
+        description="Estimate how much money you need to retire in India. Adjust for inflation and life expectancy."
+        url="https://www.fincado.com/retirement-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -87,6 +96,7 @@ export default function RetirementPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Retirement Corpus Calculator</h1>
+          <ShareTools title="Retirement Corpus Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -109,6 +119,27 @@ export default function RetirementPage() {
 
             {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
+              {/* Formula */}
+              <h3>Retirement Corpus Formula</h3>
+              <p>
+                The corpus required is calculated by estimating your future
+                monthly expenses (adjusted for inflation) and the corpus needed
+                to sustain that via SWP.
+              </p>
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="Exp_{future} = Exp_{current} \times (1 + r_{inf})^n" />
+              </div>
+
+              <WikiText
+                content={`
+  <ul>
+    <li><strong>Exp</strong> = Monthly Expenses</li>
+    <li><strong>r_inf</strong> = Inflation Rate</li>
+    <li><strong>n</strong> = Years until Retirement</li>
+  </ul>
+`}
+              />
               {/* 1. What is Retirement Planning? */}
               <h2>What is Retirement Planning?</h2>
               {/* [Image of retirement timeline infographic] */}
@@ -228,10 +259,10 @@ export default function RetirementPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="retire-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

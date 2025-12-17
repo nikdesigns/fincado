@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -35,6 +37,11 @@ export const metadata: Metadata = {
 export default function EducationLoanPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Education Loan EMI Calculator"
+        description="Calculate EMI for student loans. Account for moratorium periods and repayment holidays."
+        url="https://www.fincado.com/loans/education-loan"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -86,6 +93,7 @@ export default function EducationLoanPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Education Loan EMI Calculator</h1>
+          <ShareTools title="Education Loan EMI Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -258,10 +266,10 @@ export default function EducationLoanPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="edu-loan-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

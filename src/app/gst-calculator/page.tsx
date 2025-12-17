@@ -7,6 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +40,11 @@ export const metadata: Metadata = {
 export default function GSTPage() {
   return (
     <>
+      <CalculatorSchema
+        name="GST Calculator India"
+        description="Calculate GST (Goods and Services Tax) inclusive and exclusive amounts instantly. Supports 5%, 12%, 18%, and 28% slabs."
+        url="https://www.fincado.com/gst-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -95,6 +104,7 @@ export default function GSTPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>GST Calculator (Goods and Services Tax)</h1>
+          <ShareTools title="GST Calculator (Goods and Services Tax)" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -186,37 +196,23 @@ export default function GSTPage() {
               </div>
 
               {/* 4. Formula */}
-              <h3>GST Calculation Formulas</h3>
+              <h3>GST Calculation Formula</h3>
+              <p>For calculating the tax amount on a base price:</p>
 
-              <h4>1. Adding GST (Exclusive Price to Inclusive)</h4>
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '12px',
-                  borderRadius: '6px',
-                  fontFamily: 'monospace',
-                  marginBottom: '16px',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                GST Amount = (Base Price × Rate) / 100 <br />
-                Total Price = Base Price + GST Amount
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="GST = \text{Base Price} \times \frac{R}{100}" />
               </div>
 
-              <h4>2. Removing GST (Inclusive Price to Exclusive)</h4>
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '12px',
-                  borderRadius: '6px',
-                  fontFamily: 'monospace',
-                  marginBottom: '16px',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                Base Price = Total Price / (1 + Rate/100) <br />
-                GST Amount = Total Price - Base Price
-              </div>
+              <WikiText
+                content={`
+  <ul>
+    <li><strong>GST</strong> = Tax Amount</li>
+    <li><strong>R</strong> = GST Rate (5%, 12%, 18%, 28%)</li>
+  </ul>
+  <p>To calculate the <strong>Total Amount</strong>:</p>
+  <p>Total = Base Price + GST Amount</p>
+`}
+              />
 
               {/* 5. Key Advantages */}
               <h3>Benefits of GST System</h3>
@@ -279,10 +275,10 @@ export default function GSTPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="gst-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

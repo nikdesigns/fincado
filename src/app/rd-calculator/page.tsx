@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -37,6 +39,11 @@ export const metadata: Metadata = {
 export default function RDPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Recurring Deposit (RD) Calculator"
+        description="Calculate the maturity value of your Recurring Deposits with quarterly compounding interest."
+        url="https://www.fincado.com/rd-calculator"
+      />
       {/* 2. SCHEMA MARKUP FOR FAQ */}
       <script
         type="application/ld+json"
@@ -88,6 +95,7 @@ export default function RDPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Recurring Deposit (RD) Calculator</h1>
+          <ShareTools title="Recurring Deposit (RD) Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -305,10 +313,10 @@ export default function RDPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="rd-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

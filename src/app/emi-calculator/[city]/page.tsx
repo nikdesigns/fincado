@@ -7,6 +7,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added Rate Table
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'; // ✅ Added Breadcrumbs
 import WikiText from '@/components/WikiText'; // ✅ Added for better formatting
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   return cities.map((city) => ({
@@ -180,6 +181,61 @@ export default async function CityEMIPage({
                 </p>
               </div>
             </section>
+            {/* ✅ NEW: Nearby/Popular Cities Section */}
+            <div
+              style={{
+                marginTop: 48,
+                borderTop: '1px solid #e2e8f0',
+                paddingTop: 32,
+              }}
+            >
+              <h3 style={{ fontSize: '20px', marginBottom: '20px' }}>
+                Explore Other Cities
+              </h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                {[
+                  'Mumbai',
+                  'Delhi',
+                  'Bangalore',
+                  'Pune',
+                  'Hyderabad',
+                  'Chennai',
+                  'Ahmedabad',
+                  'Jaipur',
+                ].map((city) => (
+                  <Link
+                    key={city}
+                    href={`/emi-calculator/${city.toLowerCase()}`}
+                    style={{
+                      padding: '8px 16px',
+                      background: '#f8fafc',
+                      borderRadius: '20px',
+                      fontSize: '14px',
+                      color: '#334155',
+                      textDecoration: 'none',
+                      border: '1px solid #e2e8f0',
+                    }}
+                  >
+                    {city}
+                  </Link>
+                ))}
+                <Link
+                  href="/emi-calculator"
+                  style={{
+                    padding: '8px 16px',
+                    background: '#fff',
+                    borderRadius: '20px',
+                    fontSize: '14px',
+                    color: 'var(--color-brand-green)',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    border: '1px solid var(--color-brand-green)',
+                  }}
+                >
+                  View All Cities →
+                </Link>
+              </div>
+            </div>
 
             <AdSlot type="rectangle" label="City Bottom Ad" />
           </div>

@@ -136,10 +136,9 @@ export default function CalculatorsPage() {
 
         {/* -------- SIDEBAR -------- */}
         <aside className="sidebar">
-          <div className="no-print" style={{ marginBottom: 24 }}>
+          <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
             <AdSlot id="calc-hub-sidebar" type="box" />
           </div>
-
           <FinancialNavWidget />
         </aside>
       </main>

@@ -10,6 +10,8 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import 'katex/dist/katex.min.css'; // Import CSS for math
 import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -51,7 +53,12 @@ export default function EMIPage() {
           },
         ]}
       />
-
+      {/* Software Schema */}
+      <CalculatorSchema
+        name="Loan EMI Calculator"
+        description="Calculate EMI for Home Loan, Car Loan, and Personal Loan. Check monthly repayment schedule and total interest."
+        url="https://www.fincado.com/emi-calculator"
+      />
       {/* --------- FAQ SCHEMA --------- */}
       <script
         type="application/ld+json"
@@ -126,6 +133,7 @@ export default function EMIPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>EMI Calculator – Plan Your Loan Smartly</h1>
+          <ShareTools title="EMI Calculator" />
           <WikiText
             content={`
               <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -174,19 +182,26 @@ export default function EMIPage() {
                 `}
               />
 
-              <h3>The EMI Formula</h3>
-              <div
-                style={{
-                  border: '1px solid #e2e8f0',
-                  padding: 16,
-                  borderRadius: 8,
-                  textAlign: 'center',
-                  fontFamily: 'monospace',
-                  fontWeight: 600,
-                }}
-              >
-                EMI = [P × R × (1+R)<sup>N</sup>] / [(1+R)<sup>N</sup> − 1]
+              <h3>EMI Calculation Formula</h3>
+              <p>
+                The formula used to calculate the Equated Monthly Installment
+                (EMI) is:
+              </p>
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
               </div>
+
+              <WikiText
+                content={`
+  <ul>
+    <li><strong>E</strong> = EMI Amount</li>
+    <li><strong>P</strong> = Principal Loan Amount</li>
+    <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
+    <li><strong>n</strong> = Loan Tenure in Months</li>
+  </ul>
+`}
+              />
 
               {/* ✅ EEAT: Publisher transparency */}
               <p style={{ marginTop: 16 }}>
@@ -235,10 +250,10 @@ export default function EMIPage() {
 
           {/* -------- SIDEBAR -------- */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="emi-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

@@ -7,6 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +40,11 @@ export const metadata: Metadata = {
 export default function LumpsumPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Lumpsum Investment Calculator"
+        description="Estimate the future value of your one-time mutual fund investment using compound interest."
+        url="https://www.fincado.com/lumpsum-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -87,6 +96,7 @@ export default function LumpsumPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Lumpsum Calculator — One-Time Investment</h1>
+          <ShareTools title="Lumpsum Calculator — One-Time Investment" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -186,43 +196,23 @@ export default function LumpsumPage() {
               {/* 4. Formula */}
               <h3>Lumpsum Calculation Formula</h3>
               <p>
-                The future value is calculated using the standard Compound
-                Interest formula:
+                This calculator uses the compound interest formula to estimate
+                future value:
               </p>
-              <div
-                style={{
-                  background: 'transparent',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                FV = P × (1 + r/n) ^ (n × t)
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="FV = P (1 + r)^n" />
               </div>
+
               <WikiText
                 content={`
-                <ul style="font-size: 14px;">
-                  <li>
-                    <strong>FV</strong> = Future Value
-                  </li>
-                  <li>
-                    <strong>P</strong> = Principal Investment
-                  </li>
-                  <li>
-                    <strong>r</strong> = Annual Interest Rate (decimal)
-                  </li>
-                  <li>
-                    <strong>n</strong> = Compounding Frequency per year
-                  </li>
-                  <li>
-                    <strong>t</strong> = Time in years
-                  </li>
-                </ul>
-              `}
+  <ul>
+    <li><strong>FV</strong> = Future Value</li>
+    <li><strong>P</strong> = Present Investment Amount</li>
+    <li><strong>r</strong> = Annual Rate of Return (in decimals)</li>
+    <li><strong>n</strong> = Time Period in Years</li>
+  </ul>
+`}
               />
 
               {/* 5. Key Advantages */}
@@ -283,10 +273,10 @@ export default function LumpsumPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="lumpsum-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

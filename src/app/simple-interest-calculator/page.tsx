@@ -7,6 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +40,11 @@ export const metadata: Metadata = {
 export default function SimpleInterestPage() {
   return (
     <>
+      <CalculatorSchema
+        name="Simple Interest Calculator"
+        description="Quickly calculate simple interest and total repayment amount for personal loans or informal lending."
+        url="https://www.fincado.com/simple-interest-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -95,6 +104,7 @@ export default function SimpleInterestPage() {
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Simple Interest Calculator</h1>
+          <ShareTools title="Simple Interest Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -191,22 +201,25 @@ export default function SimpleInterestPage() {
 
               {/* 4. Formula */}
               <h3>Simple Interest Formula</h3>
-              <p>The calculation is straightforward and linear:</p>
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                SI = (P × R × T) / 100 <br />
-                Total Amount = P + SI
+              <p>
+                The standard formula for calculating simple interest without
+                compounding is:
+              </p>
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="SI = \frac{P \times R \times T}{100}" />
               </div>
+
+              <WikiText
+                content={`
+  <ul>
+    <li><strong>SI</strong> = Simple Interest Generated</li>
+    <li><strong>P</strong> = Principal Amount</li>
+    <li><strong>R</strong> = Rate of Interest per Annum</li>
+    <li><strong>T</strong> = Time Period in Years</li>
+  </ul>
+`}
+              />
 
               {/* 5. SI vs CI */}
               <h3>Simple vs. Compound Interest</h3>
@@ -268,10 +281,10 @@ export default function SimpleInterestPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="si-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

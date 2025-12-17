@@ -7,6 +7,10 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -36,6 +40,11 @@ export const metadata: Metadata = {
 export default function SWPPage() {
   return (
     <>
+      <CalculatorSchema
+        name="SWP Calculator"
+        description="Plan your systematic withdrawals from mutual funds. Calculate how long your corpus will last with monthly payouts."
+        url="https://www.fincado.com/swp-calculator"
+      />
       {/* 2. SCHEMA MARKUP */}
       <script
         type="application/ld+json"
@@ -87,6 +96,7 @@ export default function SWPPage() {
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>SWP Calculator — Systematic Withdrawal Plan</h1>
+          <ShareTools title="SWP Calculator — Systematic Withdrawal Plan" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -187,34 +197,24 @@ export default function SWPPage() {
               {/* 4. Formula */}
               <h3>SWP Calculation Logic</h3>
               <p>
-                The calculator simulates your investment month-by-month: 1.
-                Interest is added to the balance based on annual return. 2. The
-                fixed withdrawal amount is deducted. 3. The new balance is
-                carried forward to the next month.
+                The remaining balance after withdrawals is calculated using the
+                annuity withdrawal formula:
               </p>
-              <div
-                style={{
-                  background: 'transparent',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                Bal(m) = [Bal(m-1) + Interest] - Withdrawal
+
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="Bal = P(1+i)^n - W \times \frac{(1+i)^n - 1}{i}" />
               </div>
+
               <WikiText
                 content={`
-                <p style="font-size: 14px; color: #666;">
-                  <em>
-                    *If returns are higher than withdrawals, the balance grows. If
-                    lower, the balance depletes.
-                  </em>
-                </p>
-              `}
+  <ul>
+    <li><strong>Bal</strong> = Final Balance</li>
+    <li><strong>P</strong> = Initial Lumpsum Investment</li>
+    <li><strong>W</strong> = Monthly Withdrawal Amount</li>
+    <li><strong>i</strong> = Monthly Interest Rate</li>
+    <li><strong>n</strong> = Total Months</li>
+  </ul>
+`}
               />
 
               {/* 5. Key Advantages */}
@@ -278,10 +278,10 @@ export default function SWPPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="swp-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>

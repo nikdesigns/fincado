@@ -34,7 +34,7 @@ export default function GuidesLayout({
         {/* RIGHT: Sidebar (For Articles) */}
         <aside className="sidebar">
           {/* Ad Slot */}
-          <div style={{ marginBottom: 24 }}>
+          <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
             <AdSlot id="article-sidebar-top" type="box" />
           </div>
 
