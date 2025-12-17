@@ -86,6 +86,7 @@ export default function WikiText({
     <div
       className={`wiki-content ${className}`}
       dangerouslySetInnerHTML={{ __html: linkedContent }}
+      suppressHydrationWarning={true}
     />
   );
 }

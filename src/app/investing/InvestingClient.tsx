@@ -259,7 +259,7 @@ export default function InvestingClient() {
   return (
     <div
       className="calculator-card"
-      style={{ boxShadow: 'none', padding: 0, border: 'none' }}
+      style={{ boxShadow: 'none', padding: 20, border: 'none' }}
     >
       {/* ✅ 1. Standard Calculator Grid Layout */}
       <div className="calc-grid">
