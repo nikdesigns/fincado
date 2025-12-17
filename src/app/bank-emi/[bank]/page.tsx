@@ -92,10 +92,10 @@ export default function BankEMIPage({ params }: { params: { bank?: string } }) {
 
         {/* Sidebar (High Revenue Spot) */}
         <aside className="sidebar no-print">
-          <FinancialNavWidget />
-          <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
+          <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
             <AdSlot id={`bank-sidebar-${params?.bank}`} type="box" />
           </div>
+          <FinancialNavWidget />
         </aside>
       </div>
     </main>

@@ -119,7 +119,9 @@ export default function Home(): JSX.Element {
               top: '-20%',
               right: '-10%',
               width: '600px',
+              maxWidth: '80vw', // ✅ Fix: Limits width to 80% of viewport on mobile
               height: '600px',
+              maxHeight: '80vw', // ✅ Fix: Keeps it proportional
               background:
                 'radial-gradient(circle, rgba(5, 150, 105, 0.08) 0%, rgba(255,255,255,0) 70%)',
               zIndex: 0,

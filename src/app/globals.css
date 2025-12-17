@@ -1981,3 +1981,72 @@ input[type='range']::-webkit-slider-thumb:hover {
   max-width: 100%;
   border-radius: 12px;
 }
+
+/* Mobile-only suggestions */
+.mobile-only-suggestions {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .mobile-only-suggestions {
+    display: none; /* Hide on desktop since sidebar exists */
+  }
+}
+/* Add this to src/app/globals.css */
+
+@media (max-width: 1024px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+/* =========================================
+   MOBILE FOOTER FIXES
+   ========================================= */
+
+/* Tablet View (2 Columns) */
+@media (max-width: 1024px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr; /* 2 columns instead of 5 */
+    gap: 32px;
+  }
+
+  /* Make the Brand/Logo section take full width on top */
+  .footer-brand {
+    grid-column: span 2;
+    padding-right: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 24px;
+  }
+}
+
+/* Mobile View (1 Column - Stacked) */
+@media (max-width: 640px) {
+  .footer-inner {
+    display: flex;
+    flex-direction: column; /* Stack everything vertically */
+    gap: 40px;
+    text-align: center; /* Center align text for better look */
+  }
+
+  .footer-brand {
+    grid-column: auto;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .footer-social {
+    justify-content: center; /* Center social icons */
+  }
+
+  /* Add spacing between links on mobile so they are easier to tap */
+  .footer-col li {
+    margin-bottom: 16px;
+  }
+
+  .footer-col h4 {
+    font-size: 16px;
+    color: var(--color-brand-green); /* Highlight headers */
+    margin-bottom: 16px;
+  }
+}

@@ -7,6 +7,8 @@ import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import 'katex/dist/katex.min.css'; // Import CSS for math
+import { BlockMath } from 'react-katex'; // Component for block formulas
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -102,6 +104,86 @@ export default function SIPPage() {
           <div className="main-content">
             {/* CALCULATOR APP */}
             <SIPClient />
+            {/* CALCULATOR APP */}
+            <SIPClient />
+
+            {/* ✅ NEW: Mobile-Only Related Tools (Visible only on small screens) */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                More Investment Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <a
+                  href="/step-up-sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                  }}
+                >
+                  📈 Step-up SIP
+                </a>
+                <a
+                  href="/lumpsum-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                  }}
+                >
+                  💰 Lumpsum Calc
+                </a>
+                <a
+                  href="/swp-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                  }}
+                >
+                  💸 SWP Plan
+                </a>
+                <a
+                  href="/fd-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                  }}
+                >
+                  🏦 FD Returns
+                </a>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="sip-mid-content" type="leaderboard" />
@@ -190,50 +272,31 @@ export default function SIPPage() {
                 </div>
               </div>
 
-              {/* 4. Formula */}
+              {/* 4. Formula - UPGRADED VISUALS */}
               <h3>SIP Calculation Formula</h3>
               <WikiText
                 content={`
-                  <p>
-                    The calculator uses the standard Future Value of Annuity
-                    formula. SIPs are typically calculated as an "Annuity
-                    Due" because payments are made at the start of the period.
-                  </p>
-                `}
+    <p>
+      The calculator uses the standard Future Value of Annuity formula. 
+      SIPs are calculated as an "Annuity Due" because payments are made at the start of the period.
+    </p>
+  `}
               />
 
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                FV = P × [ (1 + i)ⁿ - 1 ] / i × (1 + i)
+              {/* ✅ Replaced plain text box with Professional Math */}
+              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+                <BlockMath math="FV = P \times \frac{(1 + i)^n - 1}{i} \times (1 + i)" />
               </div>
+
               <WikiText
                 content={`
-                <ul style="font-size: 14px;">
-                  <li>
-                    <strong>FV</strong> = Future Value (Maturity Amount)
-                  </li>
-                  <li>
-                    <strong>P</strong> = Monthly SIP Amount
-                  </li>
-                  <li>
-                    <strong>i</strong> = Monthly Interest Rate (Annual Rate / 12 /
-                    100)
-                  </li>
-                  <li>
-                    <strong>n</strong> = Total number of months
-                  </li>
-                </ul>
-              `}
+  <ul style="font-size: 14px; margin-top: 16px;">
+    <li><strong>FV</strong> = Future Value</li>
+    <li><strong>P</strong> = Monthly Investment</li>
+    <li><strong>i</strong> = Monthly Rate (Annual Rate ÷ 1200)</li>
+    <li><strong>n</strong> = Total Months</li>
+  </ul>
+`}
               />
 
               {/* 5. Key Advantages */}
@@ -304,10 +367,10 @@ export default function SIPPage() {
 
           {/* Sidebar */}
           <aside className="sidebar no-print">
-            <FinancialNavWidget />
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="sip-sidebar" type="box" />
             </div>
+            <FinancialNavWidget />
           </aside>
         </div>
       </main>
