@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) return {};
 
-  const canonical = `https://www.fincado.com/guides/${article.slug}`;
+  const canonical = `https://www.fincado.com/guides/${article.slug}/`;
 
   return {
     title: article.seoTitle || article.title,
