@@ -1,151 +1,154 @@
-'use client';
-
 import React from 'react';
-import { BANK_RATES } from '@/data/live-rates'; // Importing your existing data
 
-type Props = {
-  type: 'homeLoan' | 'personalLoan' | 'carLoan';
-};
+type LoanType = 'homeLoan' | 'personalLoan' | 'carLoan' | 'educationLoan';
 
-export default function LiveRateTable({ type }: Props) {
-  // Map internal keys to display labels
-  const typeLabel = {
-    homeLoan: 'Home Loan',
-    personalLoan: 'Personal Loan',
-    carLoan: 'Car Loan',
+interface Props {
+  type?: LoanType | string;
+}
+
+const LiveRateTable = ({ type = 'homeLoan' }: Props) => {
+  // Define static data ranges (Easy to update once a year)
+  const ranges = {
+    homeLoan: {
+      title: 'Home Loan Interest Rates 2025',
+      data: [
+        {
+          category: 'Public Sector Banks',
+          rate: '8.35% — 9.50%',
+          fee: 'Low (Max ₹10k)',
+        },
+        {
+          category: 'Private Sector Banks',
+          rate: '8.75% — 10.50%',
+          fee: 'Medium (0.5% - 1%)',
+        },
+        {
+          category: 'HFCs (Housing Finance)',
+          rate: '9.00% — 11.50%',
+          fee: 'Medium (0.5% - 2%)',
+        },
+      ],
+    },
+    personalLoan: {
+      title: 'Personal Loan Interest Rates 2025',
+      data: [
+        {
+          category: 'PSU Banks (Salary Account)',
+          rate: '10.50% — 13.00%',
+          fee: '1% - 2%',
+        },
+        {
+          category: 'Private Banks',
+          rate: '10.99% — 16.00%',
+          fee: '1.5% - 3%',
+        },
+        {
+          category: 'NBFCs & Fintech Apps',
+          rate: '14.00% — 24.00%',
+          fee: '2% - 4%',
+        },
+      ],
+    },
+    carLoan: {
+      title: 'Car Loan Interest Rates 2025',
+      data: [
+        {
+          category: 'New Car (PSU Banks)',
+          rate: '8.70% — 9.20%',
+          fee: 'Zero or Low',
+        },
+        {
+          category: 'New Car (Private Banks)',
+          rate: '9.00% — 11.00%',
+          fee: '0.5% - 1%',
+        },
+        { category: 'Used Car Loans', rate: '12.00% — 18.00%', fee: '1% - 2%' },
+      ],
+    },
+    educationLoan: {
+      // Fallback for other types
+      title: 'Education Loan Rates 2025',
+      data: [
+        {
+          category: 'Public Banks (India)',
+          rate: '9.00% — 11.00%',
+          fee: 'Nil',
+        },
+        {
+          category: 'Study Abroad (Secured)',
+          rate: '10.00% — 12.50%',
+          fee: '0.5% - 1%',
+        },
+        {
+          category: 'Unsecured Loans',
+          rate: '11.50% — 14.00%',
+          fee: '1% - 2%',
+        },
+      ],
+    },
   };
 
-  const getBankName = (code: string) => {
-    const names: Record<string, string> = {
-      sbi: 'SBI (State Bank of India)',
-      hdfc: 'HDFC Bank',
-      icici: 'ICICI Bank',
-      axis: 'Axis Bank',
-      kotak: 'Kotak Mahindra',
-    };
-    return names[code] || code.toUpperCase();
-  };
-
-  const getBankLogo = (code: string) => {
-    // Simple fallback if you don't have SVGs yet
-    // You can replace these with <img src={`/banks/${code}.svg`} /> later
-    return <span className="bank-avatar">{code[0].toUpperCase()}</span>;
-  };
+  // Select data based on prop, fallback to homeLoan if type doesn't exist
+  const selected = ranges[type as keyof typeof ranges] || ranges.homeLoan;
 
   return (
-    <div
-      className="card"
-      style={{ padding: 0, overflow: 'hidden', marginTop: 40 }}
-    >
-      <div
+    <div style={{ marginTop: '24px', marginBottom: '32px' }}>
+      {/* Title Header */}
+      <h3
         style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #e2e8f0',
-          background: '#f8fafc',
+          fontSize: '16px',
+          marginBottom: '12px',
+          color: 'var(--color-text-main)',
+          fontWeight: 600,
         }}
       >
-        <h3
-          style={{
-            margin: 0,
-            fontSize: '18px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-          }}
-        >
-          📉 Current {typeLabel[type]} Interest Rates
-          <span
-            style={{
-              fontSize: '11px',
-              background: '#dcfce7',
-              color: '#166534',
-              padding: '2px 8px',
-              borderRadius: '12px',
-              border: '1px solid #bbf7d0',
-            }}
-          >
-            Live
-          </span>
-        </h3>
-        <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#64748b' }}>
-          Interest rates updated on{' '}
-          {new Date().toLocaleDateString('en-IN', {
-            month: 'long',
-            year: 'numeric',
-          })}
-        </p>
-      </div>
+        {selected.title}
+      </h3>
 
-      <div
-        className="schedule-wrapper"
-        style={{
-          maxHeight: 'none',
-          border: 'none',
-          margin: 0,
-          borderRadius: 0,
-        }}
-      >
+      {/* Table Wrapper (Uses your existing CSS class) */}
+      <div className="schedule-wrapper">
         <table className="rate-table">
           <thead>
             <tr>
-              <th style={{ paddingLeft: 24 }}>Bank</th>
-              <th>Interest Rate (p.a)</th>
-              <th>Processing Fee</th>
-              <th>Action</th>
+              <th style={{ width: '40%' }}>Lender Category</th>
+              <th style={{ width: '30%' }}>Interest Rate (p.a.)</th>
+              <th style={{ width: '30%' }}>Processing Fee</th>
             </tr>
           </thead>
           <tbody>
-            {BANK_RATES.map((bank, index) => (
+            {selected.data.map((row, index) => (
               <tr key={index}>
+                <td style={{ fontWeight: 500 }}>{row.category}</td>
                 <td
-                  style={{
-                    paddingLeft: 24,
-                    fontWeight: 600,
-                    color: '#0f172a',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                  }}
+                  style={{ color: 'var(--color-brand-green)', fontWeight: 600 }}
                 >
-                  {getBankLogo(bank.bank)}
-                  {getBankName(bank.bank)}
+                  {row.rate}
                 </td>
-                <td style={{ fontWeight: 700, color: '#16a34a' }}>
-                  {bank[type]}% Onwards
-                </td>
-                <td style={{ fontSize: '13px', color: '#64748b' }}>
-                  0.5% - 1.0%
-                </td>
-                <td>
-                  <a
-                    href={`/bank-emi/${bank.bank}`}
-                    className="secondary-cta"
-                    style={{
-                      padding: '6px 12px',
-                      fontSize: '12px',
-                      minHeight: 'auto',
-                    }}
-                  >
-                    Check EMI
-                  </a>
-                </td>
+                <td>{row.fee}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
+      {/* Disclaimer / Note */}
       <div
         style={{
-          padding: '12px 24px',
-          background: '#fff',
-          fontSize: '12px',
-          color: '#94a3b8',
-          borderTop: '1px solid #e2e8f0',
+          marginTop: '12px',
+          padding: '12px',
+          background: 'var(--color-bg-soft)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '8px',
+          fontSize: '13px',
+          color: 'var(--color-text-muted)',
         }}
       >
-        * Rates are indicative and subject to credit score and bank policy.
+        <strong>Note:</strong> Rates mentioned above are indicative market
+        ranges for borrowers with a Credit Score &gt; 750. Actual rates may vary
+        based on your profile.
       </div>
     </div>
   );
-}
+};
+
+export default LiveRateTable;

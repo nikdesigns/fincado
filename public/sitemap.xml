@@ -38,21 +38,13 @@
   </url>
 
   <url>
-<<<<<<< HEAD
     <loc>https://www.fincado.com/guides/category/Loans%20%26%20Mortgages/</loc>
-=======
-    <loc>https://www.fincado.com/guides/category/Loans%20%26%20Mortgages</loc>
->>>>>>> a818ef52ee471ac1f2a66a73f6d8d18de7e43529
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-<<<<<<< HEAD
     <loc>https://www.fincado.com/guides/category/Savings%20%26%20FD/</loc>
-=======
-    <loc>https://www.fincado.com/guides/category/Savings%20%26%20FD</loc>
->>>>>>> a818ef52ee471ac1f2a66a73f6d8d18de7e43529
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -64,21 +56,13 @@
   </url>
 
   <url>
-<<<<<<< HEAD
     <loc>https://www.fincado.com/guides/category/Credit%20Score/</loc>
-=======
-    <loc>https://www.fincado.com/guides/category/Credit%20Score</loc>
->>>>>>> a818ef52ee471ac1f2a66a73f6d8d18de7e43529
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-<<<<<<< HEAD
     <loc>https://www.fincado.com/guides/category/Financial%20Literacy/</loc>
-=======
-    <loc>https://www.fincado.com/guides/category/Financial%20Literacy</loc>
->>>>>>> a818ef52ee471ac1f2a66a73f6d8d18de7e43529
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -90,11 +74,7 @@
   </url>
 
   <url>
-<<<<<<< HEAD
     <loc>https://www.fincado.com/guides/category/Mutual%20Funds%20%26%20SIP/</loc>
-=======
-    <loc>https://www.fincado.com/guides/category/Mutual%20Funds%20%26%20SIP</loc>
->>>>>>> a818ef52ee471ac1f2a66a73f6d8d18de7e43529
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -1,8 +1,12 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
-import cities from '@/data/cities.json'; // ✅ CORRECT IMPORT (Points to the JSON data)
+import cities from '@/data/cities.json';
 import AdSlot from '@/components/AdSlot';
+import FinancialNavWidget from '@/components/FinancialNavWidget';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added Rate Table
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'; // ✅ Added Breadcrumbs
+import WikiText from '@/components/WikiText'; // ✅ Added for better formatting
 
 export async function generateStaticParams() {
   return cities.map((city) => ({
@@ -29,8 +33,8 @@ export async function generateMetadata({
   const cityName = formatCity(city);
 
   return {
-    title: `EMI Calculator in ${cityName} | Fincado`,
-    description: `Free EMI Calculator for users in ${cityName}. Calculate loan EMI, interest and total repayment instantly.`,
+    title: `EMI Calculator in ${cityName} - Check Loan Rates 2025`,
+    description: `Calculate home, car, and personal loan EMI in ${cityName}. Compare interest rates from top banks in ${cityName} and view documents required.`,
   };
 }
 
@@ -42,49 +46,153 @@ export default async function CityEMIPage({
   const { city } = await params;
   const cityName = formatCity(city);
 
+  // ✅ SEO: Dynamic FAQ Schema
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `What is the home loan interest rate in ${cityName}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Home loan interest rates in ${cityName} typically start from 8.35% p.a., depending on your credit score and the bank.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `How can I reduce my loan EMI in ${cityName}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You can reduce your EMI by making a higher down payment, choosing a longer tenure, or negotiating for a lower interest rate based on your credit score.',
+        },
+      },
+    ],
+  };
+
   return (
-    <main style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
-      <h1>EMI Calculator in {cityName}</h1>
+    <>
+      {/* ✅ 1. Inject JSON-LD Schema for FAQs */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
 
-      <p>
-        Use our free EMI Calculator in {cityName} to calculate your home loan,
-        car loan, or personal loan EMI instantly.
-      </p>
+      {/* ✅ 2. Add Breadcrumb Structure for Google */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.fincado.com' },
+          {
+            name: 'EMI Calculator',
+            url: 'https://www.fincado.com/emi-calculator',
+          },
+          {
+            name: cityName,
+            url: `https://www.fincado.com/emi-calculator/${city}`,
+          },
+        ]}
+      />
 
-      <AdSlot type="leaderboard" label="City Top Ad" />
+      <main className="container" style={{ padding: '40px 20px' }}>
+        <header style={{ marginBottom: 40 }}>
+          <h1>EMI Calculator in {cityName}</h1>
+          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
+            Calculate your Home, Car, or Personal Loan EMI instantly. Compare
+            interest rates from top banks in {cityName} and plan your repayment.
+          </p>
+        </header>
 
-      <EMIClient />
+        <div className="layout-grid">
+          {/* -------- MAIN CONTENT -------- */}
+          <div className="main-content">
+            <AdSlot type="leaderboard" label="City Top Ad" />
 
-      <section className="article" style={{ marginTop: 40 }}>
-        <h2>Why Use EMI Calculator in {cityName}?</h2>
-        <p>
-          Many banks and financial institutions in {cityName} offer different
-          interest rates. Using a location-based EMI calculator helps you
-          estimate EMIs more accurately.
-        </p>
+            <EMIClient />
 
-        <h2>Loan Options Available in {cityName}</h2>
-        <ul>
-          <li>Home Loans</li>
-          <li>Car Loans</li>
-          <li>Personal Loans</li>
-        </ul>
+            {/* ✅ 3. Added Live Rate Table to provide value */}
+            <div style={{ marginTop: 48 }}>
+              <h2>Current Home Loan Rates in {cityName}</h2>
+              <p>
+                Before applying, compare the latest interest rates offered by
+                major banks to ensure you get the best deal.
+              </p>
+              <LiveRateTable type="homeLoan" />
+            </div>
 
-        <h2>Related Tools</h2>
-        <ul>
-          <li>
-            <a href="/emi-calculator">Main EMI Calculator</a>
-          </li>
-          <li>
-            <a href="/loans">Loan Calculators</a>
-          </li>
-          <li>
-            <a href="/sip-calculator">SIP Calculator</a>
-          </li>
-        </ul>
-      </section>
+            <section className="article" style={{ marginTop: 40 }}>
+              <h2>Why Use an EMI Calculator in {cityName}?</h2>
+              <WikiText
+                content={`
+                <p>
+                  Buying a home or car in <strong>${cityName}</strong> requires careful financial planning. 
+                  Property prices and living costs vary by location, making it essential to know your exact monthly outflow.
+                </p>
+                <p>
+                  This tool helps you:
+                </p>
+                <ul>
+                  <li><strong>Budget accurately:</strong> Know exactly how much to set aside from your salary.</li>
+                  <li><strong>Compare banks:</strong> See which lender in ${cityName} offers the best deal.</li>
+                  <li><strong>Plan prepayments:</strong> Visualize how extra payments reduce your interest burden.</li>
+                </ul>
+              `}
+              />
 
-      <AdSlot type="rectangle" label="City Bottom Ad" />
-    </main>
+              <h3>Documents Required for Loans in {cityName}</h3>
+              <p>Most banks in {cityName} will ask for the following:</p>
+              <ul>
+                <li>
+                  <strong>Identity Proof:</strong> Aadhaar Card, PAN Card,
+                  Passport.
+                </li>
+                <li>
+                  <strong>Address Proof:</strong> Utility bills or Rent
+                  agreement in {cityName}.
+                </li>
+                <li>
+                  <strong>Income Proof:</strong> Last 3-6 months&apos; salary
+                  slips and bank statements.
+                </li>
+                <li>
+                  <strong>Property Documents:</strong> For home loans, past
+                  ownership deeds and municipal approval plans.
+                </li>
+              </ul>
+
+              {/* ✅ 4. Added "Pro Tip" Box for Expertise */}
+              <div
+                style={{
+                  background: '#f0fdf4',
+                  padding: '24px',
+                  borderRadius: '12px',
+                  border: '1px solid #bbf7d0',
+                  marginTop: '32px',
+                }}
+              >
+                <h4 style={{ margin: '0 0 8px 0', color: '#166534' }}>
+                  💡 Pro Tip for {cityName} Residents
+                </h4>
+                <p style={{ margin: 0, fontSize: '15px', color: '#14532d' }}>
+                  Many banks offer <strong>0.05% lower interest rates</strong>{' '}
+                  for women borrowers. If you are buying a property in{' '}
+                  {cityName}, consider co-applying with a female family member
+                  to save on interest over the long term.
+                </p>
+              </div>
+            </section>
+
+            <AdSlot type="rectangle" label="City Bottom Ad" />
+          </div>
+
+          {/* -------- SIDEBAR -------- */}
+          <aside className="sidebar no-print">
+            <FinancialNavWidget />
+            <div style={{ marginTop: 24 }}>
+              <AdSlot id="city-sidebar" type="box" />
+            </div>
+          </aside>
+        </div>
+      </main>
+    </>
   );
 }
