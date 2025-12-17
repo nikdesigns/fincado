@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "clean": "rimraf out .next",
     "prebuild": "node src/scripts/process-wiki.js && node src/scripts/generate-sitemap.js",
     "build": "next build",
     "start": "next start",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
+    "rimraf": "^6.1.2",
     "typescript": "^5"
   }
 }

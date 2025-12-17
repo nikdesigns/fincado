@@ -53,7 +53,6 @@ export default function RootLayout({
     <html lang="en-IN" className={rubik.className}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
-        {/* <meta name="google-site-verification" content="YOUR_SEARCH_CONSOLE_CODE" /> */}
       </head>
       <body>
         {/* ✅ ADDS THE LOADING BAR */}

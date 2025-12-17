@@ -27,17 +27,10 @@ const staticPages = [
 // ✅ FIX 2: Add trailing slash to dynamic pages
 const guidePages = articles.map((a) => `/guides/${a.slug}/`);
 
-<<<<<<< HEAD
-// ✅ FIX 3: Add trailing slash + Encode URI
+// ✅ FIX 3: Add trailing slash + Encode URI (Clean version)
 const categoryPages = Array.from(
   new Set(
     articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}/`)
-=======
-// ✅ FIX: Use encodeURIComponent to handle "&" and spaces
-const categoryPages = Array.from(
-  new Set(
-    articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}`)
->>>>>>> a818ef52ee471ac1f2a66a73f6d8d18de7e43529
   )
 );
 

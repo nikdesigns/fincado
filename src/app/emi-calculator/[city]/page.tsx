@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
 import cities from '@/data/cities.json'; // ✅ CORRECT IMPORT (Points to the JSON data)
+import AdSlot from '@/components/AdSlot';
 
 export async function generateStaticParams() {
   return cities.map((city) => ({
@@ -50,7 +51,7 @@ export default async function CityEMIPage({
         car loan, or personal loan EMI instantly.
       </p>
 
-      <div className="ad-box">Ad will appear here</div>
+      <AdSlot type="leaderboard" label="City Top Ad" />
 
       <EMIClient />
 
@@ -83,9 +84,7 @@ export default async function CityEMIPage({
         </ul>
       </section>
 
-      <div className="ad-box" style={{ marginTop: 20 }}>
-        Ad will appear here
-      </div>
+      <AdSlot type="rectangle" label="City Bottom Ad" />
     </main>
   );
 }
