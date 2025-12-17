@@ -2,34 +2,30 @@
 import type { Metadata } from 'next';
 import EMIClient from '../EMIClient';
 import cities from '@/data/cities.json'; // ✅ CORRECT IMPORT (Points to the JSON data)
-import AdSlot from '@/components/AdSlot'; // Ensure this is imported
 
 export async function generateStaticParams() {
-  // Now 'city' is an object { slug: string, name: string }
   return cities.map((city) => ({
-    city: city.slug, // ✅ Works because it comes from the JSON file
+    city: city.slug,
   }));
 }
 
 export const dynamic = 'force-static';
 
-/** ✅ Helper to format city names */
 function formatCity(citySlug?: string): string {
   if (!citySlug) return 'India';
-
-  // Find the city name from our data, or fallback to formatting the slug
   const foundCity = cities.find((c) => c.slug === citySlug);
   return foundCity
     ? foundCity.name
     : decodeURIComponent(citySlug).replace(/-/g, ' ');
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { city?: string };
-}): Metadata {
-  const cityName = formatCity(params?.city);
+  params: Promise<{ city: string }>;
+}): Promise<Metadata> {
+  const { city } = await params;
+  const cityName = formatCity(city);
 
   return {
     title: `EMI Calculator in ${cityName} | Fincado`,
@@ -37,8 +33,13 @@ export function generateMetadata({
   };
 }
 
-export default function CityEMIPage({ params }: { params: { city?: string } }) {
-  const cityName = formatCity(params?.city);
+export default async function CityEMIPage({
+  params,
+}: {
+  params: Promise<{ city: string }>;
+}) {
+  const { city } = await params;
+  const cityName = formatCity(city);
 
   return (
     <main style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
@@ -49,7 +50,7 @@ export default function CityEMIPage({ params }: { params: { city?: string } }) {
         car loan, or personal loan EMI instantly.
       </p>
 
-      <AdSlot type="leaderboard" label="City Top Ad" />
+      <div className="ad-box">Ad will appear here</div>
 
       <EMIClient />
 
@@ -82,7 +83,9 @@ export default function CityEMIPage({ params }: { params: { city?: string } }) {
         </ul>
       </section>
 
-      <AdSlot type="rectangle" label="City Bottom Ad" />
+      <div className="ad-box" style={{ marginTop: 20 }}>
+        Ad will appear here
+      </div>
     </main>
   );
 }
