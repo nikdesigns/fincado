@@ -1,1 +1,27 @@
-export const banks = ['SBI', 'HDFC', 'ICICI', 'Axis', 'PNB', 'Kotak'];
+export const banks = [
+  'SBI',
+  'HDFC',
+  'ICICI',
+  'Axis',
+  'Kotak',
+  'PNB',
+  'Bank of Baroda',
+  'Canara',
+  'Union Bank',
+  'IndusInd',
+  'IDFC First',
+  'Yes Bank',
+  'Bajaj Finserv', // NBFCs have huge search volume
+  'Tata Capital',
+  'Aditya Birla',
+  'Federal Bank',
+  'Indian Bank',
+  'IDBI',
+  'Bank of India',
+  'Central Bank',
+  'UCO Bank',
+  'Bandhan Bank',
+  'RBL Bank',
+  'L&T Finance',
+  'Muthoot Finance',
+];

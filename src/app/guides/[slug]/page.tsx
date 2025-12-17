@@ -20,16 +20,18 @@ type Article = {
 };
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 /* ---------------- METADATA ---------------- */
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = (articles as Article[]).find((a) => a.slug === params.slug);
+  const { slug } = await params;
+  const article = (articles as Article[]).find((a) => a.slug === slug);
 
   if (!article) return {};
 
+  // ✅ SEO Critical: Canonical must match next.config.ts trailingSlash: true
   const canonical = `https://www.fincado.com/guides/${article.slug}/`;
 
   return {
@@ -48,13 +50,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 /* ---------------- PAGE ---------------- */
 
-export default function GuidePost({ params }: Props) {
-  const article = (articles as Article[]).find((a) => a.slug === params.slug);
+export default async function GuidePost({ params }: Props) {
+  const { slug } = await params;
+  const article = (articles as Article[]).find((a) => a.slug === slug);
 
   if (!article) notFound();
 
   const related = getRelatedGuides(article.slug, article.category);
 
+  // ✅ Schema.org Structured Data
   const articleLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -78,13 +82,13 @@ export default function GuidePost({ params }: Props) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.fincado.com/guides/${article.slug}`,
+      '@id': `https://www.fincado.com/guides/${article.slug}/`,
     },
   };
 
   return (
-    <article className="article">
-      {/* ✅ Breadcrumbs (single source of truth) */}
+    <div className="container" style={{ padding: '40px 20px' }}>
+      {/* ✅ Breadcrumbs (Single Source of Truth) */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -96,93 +100,142 @@ export default function GuidePost({ params }: Props) {
         ]}
       />
 
-      {/* ✅ Article schema */}
+      {/* ✅ JSON-LD Injection */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
       />
 
-      {/* ---------------- HEADER ---------------- */}
-      <header
-        style={{
-          marginBottom: 32,
-          borderBottom: '1px solid #e2e8f0',
-          paddingBottom: 24,
-        }}
-      >
-        <div
-          style={{
-            fontSize: 13,
-            fontWeight: 600,
-            color: 'var(--color-brand-green)',
-            textTransform: 'uppercase',
-            marginBottom: 12,
-          }}
-        >
-          {article.category}
-        </div>
+      {/* ✅ Layout Grid: Article Left, Sidebar Right */}
+      <div className="layout-grid">
+        {/* -------- LEFT COLUMN: ARTICLE CONTENT -------- */}
+        <article className="article main-content">
+          <header
+            style={{
+              marginBottom: 32,
+              borderBottom: '1px solid #e2e8f0',
+              paddingBottom: 24,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--color-brand-green)',
+                textTransform: 'uppercase',
+                marginBottom: 12,
+              }}
+            >
+              {article.category}
+            </div>
 
-        <h1
-          style={{
-            fontSize: 'clamp(28px, 4vw, 42px)',
-            lineHeight: 1.2,
-            marginBottom: 16,
-          }}
-        >
-          {article.title}
-        </h1>
+            <h1
+              style={{
+                fontSize: 'clamp(28px, 4vw, 42px)',
+                lineHeight: 1.2,
+                marginBottom: 16,
+              }}
+            >
+              {article.title}
+            </h1>
 
-        <p
-          style={{
-            fontSize: 18,
-            color: 'var(--color-text-muted)',
-            lineHeight: 1.6,
-          }}
-        >
-          {article.metaDescription}
-        </p>
-      </header>
+            <p
+              style={{
+                fontSize: 18,
+                color: 'var(--color-text-muted)',
+                lineHeight: 1.6,
+              }}
+            >
+              {article.metaDescription}
+            </p>
+          </header>
 
-      {/* ---------------- TOP AD ---------------- */}
-      <div className="no-print" style={{ marginBottom: 32 }}>
-        <AdSlot id={`guide-top-${article.slug}`} type="leaderboard" />
-      </div>
+          {/* Top Ad */}
+          <div className="no-print" style={{ marginBottom: 32 }}>
+            <AdSlot id={`guide-top-${article.slug}`} type="leaderboard" />
+          </div>
 
-      {/* ---------------- CONTENT ---------------- */}
-      <WikiText content={article.content} className="guide-body" />
+          {/* Main Content Body */}
+          <WikiText content={article.content} className="guide-body" />
 
-      {/* ---------------- RELATED GUIDES ---------------- */}
-      {related.length > 0 && (
-        <section style={{ marginTop: 64 }}>
-          <h3 style={{ marginBottom: 16 }}>Related Guides</h3>
-          <ul style={{ paddingLeft: 18 }}>
-            {related.map((g) => (
-              <li key={g.slug} style={{ marginBottom: 8 }}>
-                <Link href={`/guides/${g.slug}`}>{g.title}</Link>
+          {/* Related Guides Section */}
+          {related.length > 0 && (
+            <section style={{ marginTop: 64 }}>
+              <h3 style={{ marginBottom: 16 }}>Related Guides</h3>
+              <ul style={{ paddingLeft: 18 }}>
+                {related.map((g) => (
+                  <li key={g.slug} style={{ marginBottom: 8 }}>
+                    <Link href={`/guides/${g.slug}`}>{g.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Bottom Ad */}
+          <div
+            className="no-print"
+            style={{
+              marginTop: 48,
+              paddingTop: 24,
+              borderTop: '1px solid #e2e8f0',
+            }}
+          >
+            <AdSlot id={`guide-bottom-${article.slug}`} type="leaderboard" />
+          </div>
+        </article>
+
+        {/* -------- RIGHT COLUMN: STICKY SIDEBAR -------- */}
+        <aside className="sidebar no-print">
+          {/* Navigation Widget */}
+          <div
+            style={{
+              background: '#f8fafc',
+              padding: '24px',
+              borderRadius: '12px',
+              marginBottom: '24px',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <h4 style={{ margin: '0 0 16px 0', fontSize: '16px' }}>
+              Popular Tools
+            </h4>
+            <ul
+              style={{
+                paddingLeft: '20px',
+                margin: 0,
+                fontSize: '15px',
+                lineHeight: '1.8',
+              }}
+            >
+              <li>
+                <Link href="/emi-calculator">EMI Calculator</Link>
               </li>
-            ))}
-          </ul>
-        </section>
-      )}
+              <li>
+                <Link href="/sip-calculator">SIP Calculator</Link>
+              </li>
+              <li>
+                <Link href="/fd-calculator">FD Calculator</Link>
+              </li>
+              <li>
+                <Link href="/credit-score">Check Credit Score</Link>
+              </li>
+            </ul>
+          </div>
 
-      {/* ---------------- BOTTOM AD ---------------- */}
-      <div
-        className="no-print"
-        style={{
-          marginTop: 48,
-          paddingTop: 24,
-          borderTop: '1px solid #e2e8f0',
-        }}
-      >
-        <AdSlot id={`guide-bottom-${article.slug}`} type="leaderboard" />
+          {/* 💰 Sticky Sidebar Ad (High Revenue) */}
+          <div style={{ position: 'sticky', top: '24px' }}>
+            <AdSlot id="guide-sidebar-sticky" type="box" />
+          </div>
+        </aside>
       </div>
-    </article>
+    </div>
   );
 }
 
 /* ---------------- STATIC PATHS ---------------- */
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return (articles as Article[]).map((a) => ({
     slug: a.slug,
   }));
