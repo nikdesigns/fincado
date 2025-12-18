@@ -6,6 +6,7 @@ import { Rubik } from 'next/font/google';
 import Script from 'next/script';
 import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
+import CookieBanner from '@/components/CookieBanner';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -101,6 +102,7 @@ export default function RootLayout({
 
         {/* Footer */}
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );
