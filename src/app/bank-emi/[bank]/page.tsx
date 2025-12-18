@@ -1,101 +1,114 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { banks } from '@/lib/banks';
+import { notFound } from 'next/navigation';
+import EMIClient from '@/app/emi-calculator/EMIClient';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import AdSlot from '@/components/AdSlot';
+import CalculatorSchema from '@/components/CalculatorSchema';
+import ShareTools from '@/components/ShareTools';
 import type { Metadata } from 'next';
-import EMIClient from '../../emi-calculator/EMIClient';
-import AdSlot from '@/components/AdSlot'; // ✅ Revenue
-import FinancialNavWidget from '@/components/FinancialNavWidget'; // ✅ Engagement
-import LiveRateTable from '@/components/LiveRateTable';
 
-export function generateStaticParams() {
-  return banks.map((bank) => ({
-    bank: bank.toLowerCase(),
-  }));
+export async function generateStaticParams() {
+  return banks.map((bank) => ({ bank: bank.slug }));
 }
 
-export const dynamic = 'force-static';
-
-function formatBank(bank?: string): string {
-  if (!bank) return 'Bank';
-  return decodeURIComponent(bank).toUpperCase();
-}
-
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { bank?: string };
-}): Metadata {
-  const bankName = formatBank(params?.bank);
+  params: Promise<{ bank: string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const bank = banks.find((b) => b.slug === resolvedParams.bank);
+  if (!bank) return {};
+
   return {
-    title: `${bankName} EMI Calculator 2025 - Check Interest Rates`,
-    description: `Calculate ${bankName} Home Loan, Car Loan & Personal Loan EMI instantly. Compare ${bankName} interest rates and plan your repayment.`,
+    title: `${bank.name} EMI Calculator - Check Home Loan EMI`,
+    description: `Calculate your ${bank.name} Home Loan EMI. Current interest rate: ${bank.rate}%. Get instant amortization schedule.`,
   };
 }
 
-export default function BankEMIPage({ params }: { params: { bank?: string } }) {
-  const bankName = formatBank(params?.bank);
+export default async function BankPage({
+  params,
+}: {
+  params: Promise<{ bank: string }>;
+}) {
+  const resolvedParams = await params;
+  const bank = banks.find((b) => b.slug === resolvedParams.bank);
+
+  if (!bank) notFound();
 
   return (
     <main className="container" style={{ padding: '40px 20px' }}>
-      <header style={{ marginBottom: 40 }}>
-        <h1>{bankName} EMI Calculator</h1>
-        <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-          Calculate your {bankName} loan EMI instantly. Check the latest
-          interest rates and plan your monthly budget efficiently.
-        </p>
-      </header>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.fincado.com' },
+          { name: 'Banks', url: 'https://www.fincado.com/bank-emi' },
+          {
+            name: bank.name,
+            url: `https://www.fincado.com/bank-emi/${bank.slug}`,
+          },
+        ]}
+      />
 
-      {/* ✅ Grid Layout for Higher Ad Visibility */}
+      <CalculatorSchema
+        name={`${bank.name} EMI Calculator`}
+        description={`Official style EMI calculator for ${bank.name} loans.`}
+        url={`https://www.fincado.com/bank-emi/${bank.slug}`}
+      />
+
       <div className="layout-grid">
-        {/* Main Content */}
         <div className="main-content">
-          <AdSlot type="leaderboard" label={`${bankName} Top Ad`} />
-
-          <EMIClient />
-
-          <div style={{ marginTop: 48 }}>
-            <h2>{bankName} Interest Rates 2025</h2>
-            <p>
-              Compare how {bankName} rates stack up against the market average:
+          <header style={{ marginBottom: 32 }}>
+            <h1
+              style={{
+                fontSize: '28px',
+                color: '#0f172a',
+                marginBottom: '16px',
+              }}
+            >
+              {bank.name} EMI Calculator
+            </h1>
+            <ShareTools title={`${bank.name} EMI Calculator`} />
+            <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
+              Plan your loan with <strong>{bank.name}</strong>. The current home
+              loan interest rate starts at <strong>{bank.rate}%</strong> p.a.
             </p>
-            <LiveRateTable />
+          </header>
+
+          <AdSlot type="leaderboard" />
+
+          <div style={{ marginTop: 32 }}>
+            <EMIClient defaultRate={bank.rate} />
           </div>
-
-          <section className="article" style={{ marginTop: 40 }}>
-            <h2>Why Choose {bankName} for Loans?</h2>
-            <ul>
-              <li>
-                <strong>Transparency:</strong> {bankName} is known for clear
-                documentation and no hidden charges.
-              </li>
-              <li>
-                <strong>Digital Process:</strong> Most {bankName} loans can be
-                applied for and tracked online.
-              </li>
-              <li>
-                <strong>Pre-approved Offers:</strong> Existing {bankName}{' '}
-                customers often get lower interest rates.
-              </li>
-            </ul>
-
-            <h3>Documents Required by {bankName}</h3>
-            <ul>
-              <li>KYC Documents (Aadhaar/PAN)</li>
-              <li>Last 6 months bank statement</li>
-              <li>
-                Latest Salary Slips (for salaried) or ITR (for self-employed)
-              </li>
-            </ul>
-          </section>
-
-          <AdSlot type="rectangle" label={`${bankName} Bottom Ad`} />
         </div>
 
-        {/* Sidebar (High Revenue Spot) */}
-        <aside className="sidebar no-print">
-          <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
-            <AdSlot id={`bank-sidebar-${params?.bank}`} type="box" />
+        <aside className="sidebar">
+          <div
+            style={{
+              background: '#f8fafc',
+              padding: 20,
+              borderRadius: 12,
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <h3 style={{ margin: '0 0 16px 0' }}>Other Banks</h3>
+            <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}>
+              {banks
+                .filter((b) => b.slug !== bank.slug)
+                .map((other) => (
+                  <li key={other.slug} style={{ marginBottom: 12 }}>
+                    <a
+                      href={`/bank-emi/${other.slug}`}
+                      style={{ color: '#16a34a', textDecoration: 'none' }}
+                    >
+                      {other.name} EMI Calculator
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </div>
-          <FinancialNavWidget />
+          <div style={{ marginTop: 24, position: 'sticky', top: 20 }}>
+            <AdSlot type="box" />
+          </div>
         </aside>
       </div>
     </main>

@@ -3,6 +3,20 @@
 import React, { useMemo, useState } from 'react';
 import PieChart from '@/components/PieChart';
 
+// 1. Define Label Interface
+interface LabelConfig {
+  monthlyInv: string;
+  rate: string;
+  timePeriod: string;
+  maturityValue: string;
+  invested: string;
+  returns: string;
+}
+
+interface SIPClientProps {
+  labels?: LabelConfig;
+}
+
 // Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -11,29 +25,37 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SIPClient() {
+export default function SIPClient({ labels }: SIPClientProps) {
   // --- STATE ---
   const [monthlySIP, setMonthlySIP] = useState(5000);
-  const [rate, setRate] = useState(12); // Expected Annual Return
+  const [rate, setRate] = useState(12);
   const [years, setYears] = useState(10);
-  const [lumpSum, setLumpSum] = useState(0); // Initial Investment
-  const [inflation, setInflation] = useState(6); // Inflation Rate
-  const [targetAmount, setTargetAmount] = useState(0); // For Goal Planning
+  const [lumpSum, setLumpSum] = useState(0);
+  const [inflation, setInflation] = useState(6);
+  const [targetAmount, setTargetAmount] = useState(0);
 
-  // --- HELPER: Background for Sliders ---
+  // 2. Default Labels (English)
+  const t = labels || {
+    monthlyInv: 'Monthly Investment (₹)',
+    rate: 'Expected Return (% p.a)',
+    timePeriod: 'Time Period (Years)',
+    maturityValue: 'Total Maturity Value',
+    invested: 'Invested',
+    returns: 'Returns',
+  };
+
+  // --- HELPER ---
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    // Green theme for Wealth/SIP
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
-  // --- LOGIC: Calculations ---
+  // --- LOGIC ---
   const calculations = useMemo(() => {
     const months = years * 12;
     const monthlyRate = rate / 12 / 100;
     const monthlyInflation = inflation / 12 / 100;
 
-    // 1. Future Value of SIP (Annuity Due)
     let fvSIP = 0;
     if (monthlySIP > 0) {
       if (rate === 0) {
@@ -46,20 +68,15 @@ export default function SIPClient() {
       }
     }
 
-    // 2. Future Value of Lump Sum
     const fvLump = lumpSum * Math.pow(1 + monthlyRate, months);
-
-    // Total Maturity Value
     const futureValue = Math.round(fvSIP + fvLump);
     const totalInvested = Math.round(monthlySIP * months + lumpSum);
     const totalReturns = futureValue - totalInvested;
 
-    // 3. Real Value (Inflation Adjusted)
     const realValue = Math.round(
       futureValue / Math.pow(1 + monthlyInflation, months)
     );
 
-    // 4. Target Planner (Reverse Calc)
     let requiredSIP = 0;
     if (targetAmount > 0) {
       const lumpSumGrowth = lumpSum * Math.pow(1 + monthlyRate, months);
@@ -73,7 +90,6 @@ export default function SIPClient() {
       }
     }
 
-    // Chart Data
     const investedPct =
       futureValue > 0 ? Math.round((totalInvested / futureValue) * 100) : 0;
     const returnsPct = 100 - investedPct;
@@ -97,11 +113,10 @@ export default function SIPClient() {
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT COLUMN: INPUTS --- */}
+        {/* --- INPUTS --- */}
         <div className="calc-inputs">
-          {/* Monthly SIP */}
           <div className="input-group">
-            <label>Monthly Investment (₹)</label>
+            <label>{t.monthlyInv}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -122,9 +137,8 @@ export default function SIPClient() {
             />
           </div>
 
-          {/* Expected Return */}
           <div className="input-group">
-            <label>Expected Return (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -144,9 +158,8 @@ export default function SIPClient() {
             />
           </div>
 
-          {/* Time Period */}
           <div className="input-group">
-            <label>Time Period (Years)</label>
+            <label>{t.timePeriod}</label>
             <div className="input-wrapper">
               <input type="number" value={years} onChange={safeSet(setYears)} />
             </div>
@@ -161,7 +174,7 @@ export default function SIPClient() {
             />
           </div>
 
-          {/* --- ADVANCED FIELDS (Native HTML Details/Summary for compatibility) --- */}
+          {/* Details for Advanced (Keep in English or pass extra props if needed) */}
           <details
             style={{
               marginTop: 16,
@@ -176,9 +189,8 @@ export default function SIPClient() {
                 fontWeight: 500,
               }}
             >
-              Advanced Options (Lump Sum, Goal, Inflation)
+              Advanced Options (Lump Sum, Goal)
             </summary>
-
             <div
               style={{
                 marginTop: 16,
@@ -187,7 +199,6 @@ export default function SIPClient() {
                 gap: 16,
               }}
             >
-              {/* Initial Lump Sum */}
               <div className="input-group">
                 <label>Initial Lump Sum (₹)</label>
                 <div className="input-wrapper">
@@ -198,8 +209,6 @@ export default function SIPClient() {
                   />
                 </div>
               </div>
-
-              {/* Inflation Rate */}
               <div className="input-group">
                 <label>Inflation Rate (%)</label>
                 <div className="input-wrapper">
@@ -211,8 +220,6 @@ export default function SIPClient() {
                   />
                 </div>
               </div>
-
-              {/* Target Amount */}
               <div className="input-group">
                 <label>Target Goal Amount (₹)</label>
                 <div className="input-wrapper">
@@ -220,7 +227,6 @@ export default function SIPClient() {
                     type="number"
                     value={targetAmount}
                     onChange={safeSet(setTargetAmount)}
-                    placeholder="E.g. 10000000"
                   />
                 </div>
               </div>
@@ -228,7 +234,7 @@ export default function SIPClient() {
           </details>
         </div>
 
-        {/* --- RIGHT COLUMN: VISUALS --- */}
+        {/* --- VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
             principalPct={calculations.investedPct}
@@ -236,25 +242,22 @@ export default function SIPClient() {
             size={200}
           />
 
-          {/* Inline Styles exactly matching EMIClient example */}
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
-            {/* Main Result */}
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Total Maturity Value
+                {t.maturityValue}
               </span>
               <div
                 style={{
                   fontSize: 28,
                   fontWeight: 800,
-                  color: 'var(--color-brand-green)', // Green for SIP Wealth
+                  color: 'var(--color-brand-green)',
                 }}
               >
                 {formatINR(calculations.futureValue)}
               </div>
             </div>
 
-            {/* Grid Breakdown */}
             <div
               style={{
                 display: 'grid',
@@ -272,7 +275,9 @@ export default function SIPClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Invested</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.invested}
+                </div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(calculations.totalInvested)}
                 </div>
@@ -285,7 +290,9 @@ export default function SIPClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Returns</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.returns}
+                </div>
                 <div
                   style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
                 >
@@ -294,7 +301,6 @@ export default function SIPClient() {
               </div>
             </div>
 
-            {/* Inflation Badge */}
             <div
               style={{
                 marginTop: 16,
@@ -309,31 +315,6 @@ export default function SIPClient() {
               Real Value (~{inflation}% inflation):{' '}
               <strong>{formatINR(calculations.realValue)}</strong>
             </div>
-
-            {/* Goal Planner Result */}
-            {targetAmount > 0 && (
-              <div
-                style={{
-                  marginTop: 16,
-                  padding: 12,
-                  background: '#ecfdf5',
-                  borderRadius: 8,
-                  border: '1px solid #a7f3d0',
-                }}
-              >
-                <div
-                  style={{ fontSize: 12, color: '#047857', fontWeight: 600 }}
-                >
-                  Required SIP for Goal:
-                </div>
-                <div
-                  style={{ fontSize: 20, fontWeight: 800, color: '#059669' }}
-                >
-                  {formatINR(calculations.requiredSIP)}
-                  <span style={{ fontSize: 14, fontWeight: 400 }}>/mo</span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

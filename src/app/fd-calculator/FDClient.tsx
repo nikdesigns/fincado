@@ -3,9 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import PieChart from '@/components/PieChart';
 
-// --- Types ---
 type CompoundingFreq = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
-
 const FREQUENCY_MAP: Record<CompoundingFreq, number> = {
   monthly: 12,
   quarterly: 4,
@@ -13,7 +11,21 @@ const FREQUENCY_MAP: Record<CompoundingFreq, number> = {
   yearly: 1,
 };
 
-// Helper: Format Currency
+interface LabelConfig {
+  principal: string;
+  rate: string;
+  years: string;
+  months: string;
+  freq: string;
+  maturity: string;
+  totalPrincipal: string;
+  interest: string;
+}
+
+interface FDClientProps {
+  labels?: LabelConfig;
+}
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -21,70 +33,52 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function FDClient() {
-  // --- STATE ---
-  const [principal, setPrincipal] = useState<number>(100000);
-  const [rate, setRate] = useState<number>(7.0);
-  const [years, setYears] = useState<number>(3);
-  const [months, setMonths] = useState<number>(0);
+export default function FDClient({ labels }: FDClientProps) {
+  const [principal, setPrincipal] = useState(100000);
+  const [rate, setRate] = useState(7.0);
+  const [years, setYears] = useState(3);
+  const [months, setMonths] = useState(0);
   const [frequency, setFrequency] = useState<CompoundingFreq>('quarterly');
-  const [taxRate, setTaxRate] = useState<number>(10);
-  const [showGrossOnly, setShowGrossOnly] = useState<boolean>(false);
+  const [showGrossOnly, setShowGrossOnly] = useState(false);
 
-  // --- HELPER: Background for Range Sliders ---
+  // Default English Labels
+  const t = labels || {
+    principal: 'Principal Amount (₹)',
+    rate: 'Interest Rate (% p.a)',
+    years: 'Years',
+    months: 'Months',
+    freq: 'Compounding Frequency',
+    maturity: 'Maturity Amount',
+    totalPrincipal: 'Principal',
+    interest: 'Total Interest',
+  };
+
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
-  // --- ACTIONS ---
-  const handleReset = () => {
-    setPrincipal(100000);
-    setRate(7.0);
-    setYears(3);
-    setMonths(0);
-    setFrequency('quarterly');
-    setTaxRate(10);
-    setShowGrossOnly(false);
-  };
-
-  // --- CALCULATION LOGIC ---
   const results = useMemo(() => {
     const timeInYears = years + months / 12;
     const n = FREQUENCY_MAP[frequency];
     const r = rate / 100;
-
     let maturityAmount = 0;
-    if (rate === 0) {
-      maturityAmount = principal;
-    } else {
-      maturityAmount = principal * Math.pow(1 + r / n, n * timeInYears);
-    }
+    if (rate === 0) maturityAmount = principal;
+    else maturityAmount = principal * Math.pow(1 + r / n, n * timeInYears);
 
     const totalInterest = maturityAmount - principal;
-
-    let taxDeducted = 0;
-    if (!showGrossOnly && taxRate > 0) {
-      taxDeducted = (totalInterest * taxRate) / 100;
-    }
-
-    const netInterest = totalInterest - taxDeducted;
-    const finalMaturity = principal + netInterest;
-
-    // Pie Chart Data: Principal vs Net Earnings
+    const finalMaturity = principal + totalInterest;
     const principalPct = Math.round((principal / finalMaturity) * 100);
     const interestPct = 100 - principalPct;
 
     return {
       maturity: Math.round(finalMaturity),
-      interest: Math.round(netInterest),
-      tax: Math.round(taxDeducted),
+      interest: Math.round(totalInterest),
       principalPct,
       interestPct,
     };
-  }, [principal, rate, years, months, frequency, taxRate, showGrossOnly]);
+  }, [principal, rate, years, months, frequency]);
 
-  // Safe Setter
   const numSetter =
     (setter: React.Dispatch<React.SetStateAction<number>>) =>
     (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -93,11 +87,9 @@ export default function FDClient() {
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT COLUMN: INPUTS --- */}
         <div className="calc-inputs">
-          {/* Principal */}
           <div className="input-group">
-            <label>Principal Amount (₹)</label>
+            <label>{t.principal}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -118,9 +110,8 @@ export default function FDClient() {
             />
           </div>
 
-          {/* Interest Rate */}
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -140,10 +131,9 @@ export default function FDClient() {
             />
           </div>
 
-          {/* Split Tenure (Years & Months) */}
           <div style={{ display: 'flex', gap: '16px' }}>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Years</label>
+              <label>{t.years}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -154,7 +144,7 @@ export default function FDClient() {
               </div>
             </div>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Months</label>
+              <label>{t.months}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -167,9 +157,8 @@ export default function FDClient() {
             </div>
           </div>
 
-          {/* Compounding Frequency */}
           <div className="input-group">
-            <label>Compounding Frequency</label>
+            <label>{t.freq}</label>
             <div className="input-wrapper">
               <select
                 value={frequency}
@@ -179,86 +168,28 @@ export default function FDClient() {
                 style={{
                   width: '100%',
                   border: 'none',
-                  outline: 'none',
                   background: 'transparent',
                 }}
               >
                 <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly (Standard)</option>
+                <option value="quarterly">Quarterly</option>
                 <option value="half-yearly">Half-Yearly</option>
                 <option value="yearly">Yearly</option>
               </select>
             </div>
           </div>
-
-          {/* Tax Rate */}
-          <div className="input-group">
-            <label>Tax Rate (%)</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={taxRate}
-                onChange={numSetter(setTaxRate)}
-                disabled={showGrossOnly}
-                style={{ opacity: showGrossOnly ? 0.5 : 1 }}
-              />
-            </div>
-          </div>
-
-          {/* Checkbox & Reset */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginTop: '10px',
-            }}
-          >
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={showGrossOnly}
-                onChange={(e) => setShowGrossOnly(e.target.checked)}
-              />
-              Show Gross Interest
-            </label>
-            <button
-              type="button"
-              onClick={handleReset}
-              style={{
-                background: 'none',
-                border: 'none',
-                textDecoration: 'underline',
-                color: '#666',
-                cursor: 'pointer',
-                fontSize: '13px',
-              }}
-            >
-              Reset
-            </button>
-          </div>
         </div>
 
-        {/* --- RIGHT COLUMN: VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
             principalPct={results.principalPct}
             interestPct={results.interestPct}
             size={200}
           />
-
           <div style={{ marginTop: 24, width: '100%' }}>
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Maturity Amount
+                {t.maturity}
               </span>
               <div
                 style={{
@@ -270,7 +201,6 @@ export default function FDClient() {
                 {formatINR(results.maturity)}
               </div>
             </div>
-
             <div
               style={{
                 display: 'grid',
@@ -288,7 +218,9 @@ export default function FDClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Principal</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.totalPrincipal}
+                </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(principal)}</div>
               </div>
               <div
@@ -300,7 +232,7 @@ export default function FDClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {showGrossOnly ? 'Gross Int.' : 'Net Int.'}
+                  {t.interest}
                 </div>
                 <div
                   style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
@@ -309,23 +241,6 @@ export default function FDClient() {
                 </div>
               </div>
             </div>
-
-            {/* Tax Hint */}
-            {!showGrossOnly && results.tax > 0 && (
-              <div
-                style={{
-                  marginTop: '12px',
-                  fontSize: '12px',
-                  color: '#991b1b',
-                  background: '#fef2f2',
-                  padding: '6px',
-                  borderRadius: '4px',
-                  textAlign: 'center',
-                }}
-              >
-                Tax Deducted: -{formatINR(results.tax)}
-              </div>
-            )}
           </div>
         </div>
       </div>

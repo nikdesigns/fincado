@@ -5,7 +5,21 @@ import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import PieChart from '@/components/PieChart';
 
-// Helper: Format Currency
+// 1. Define Labels
+interface LabelConfig {
+  loanAmount: string;
+  rate: string;
+  tenure: string;
+  monthlyEMI: string;
+  principal: string;
+  totalInterest: string;
+}
+
+interface EMIClientProps {
+  labels?: LabelConfig;
+  defaultRate?: number; // Keep this prop for Bank Pages
+}
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -13,34 +27,45 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function EMIClient() {
-  // --- STATE ---
-  const [amount, setAmount] = useState(5000000); // 50 Lakhs
-  const [rate, setRate] = useState(8.5); // Interest Rate %
-  const [tenure, setTenure] = useState(20); // Years
+export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
+  const [amount, setAmount] = useState(5000000);
+  // Initialize with prop if available
+  const [rate, setRate] = useState(defaultRate || 8.5);
+  const [tenure, setTenure] = useState(20);
 
-  // --- HELPER: Background for Sliders ---
+  // 2. Default English Labels
+  const t = labels || {
+    loanAmount: 'Loan Amount (₹)',
+    rate: 'Interest Rate (% p.a)',
+    tenure: 'Loan Tenure (Years)',
+    monthlyEMI: 'Monthly EMI',
+    principal: 'Principal Amount',
+    totalInterest: 'Total Interest',
+  };
+
+  // Logic to handle prop change safely during render
+  const [prevDefaultRate, setPrevDefaultRate] = useState(defaultRate);
+  if (defaultRate !== prevDefaultRate) {
+    setPrevDefaultRate(defaultRate);
+    if (defaultRate) setRate(defaultRate);
+  }
+
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
-  // --- LOGIC: Calculations ---
   const calculations = useMemo(() => {
     const r = rate / 12 / 100;
     const n = tenure * 12;
-
     let emi = 0;
     if (r === 0) {
       emi = amount / n;
     } else {
       emi = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     }
-
     const totalPayment = emi * n;
     const totalInterest = totalPayment - amount;
-
-    // Chart Data
     const principalPct = Math.round((amount / totalPayment) * 100);
     const interestPct = 100 - principalPct;
 
@@ -53,18 +78,15 @@ export default function EMIClient() {
     };
   }, [amount, rate, tenure]);
 
-  // Safe Setter
   const safeSet = (setter: any) => (e: any) =>
     setter(Number(e.target.value) || 0);
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT COLUMN: INPUTS --- */}
         <div className="calc-inputs">
-          {/* Loan Amount */}
           <div className="input-group">
-            <label>Loan Amount (₹)</label>
+            <label>{t.loanAmount}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -85,9 +107,8 @@ export default function EMIClient() {
             />
           </div>
 
-          {/* Interest Rate */}
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -107,9 +128,8 @@ export default function EMIClient() {
             />
           </div>
 
-          {/* Tenure */}
           <div className="input-group">
-            <label>Loan Tenure (Years)</label>
+            <label>{t.tenure}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -129,19 +149,16 @@ export default function EMIClient() {
           </div>
         </div>
 
-        {/* --- RIGHT COLUMN: VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
             principalPct={calculations.principalPct}
             interestPct={calculations.interestPct}
             size={200}
           />
-
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
-            {/* Main Result */}
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Monthly EMI
+                {t.monthlyEMI}
               </span>
               <div
                 style={{
@@ -153,8 +170,6 @@ export default function EMIClient() {
                 {formatINR(calculations.emi)}
               </div>
             </div>
-
-            {/* Grid Breakdown */}
             <div
               style={{
                 display: 'grid',
@@ -172,7 +187,9 @@ export default function EMIClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Principal</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.principal}
+                </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(amount)}</div>
               </div>
               <div
@@ -184,7 +201,7 @@ export default function EMIClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Interest
+                  {t.totalInterest}
                 </div>
                 <div
                   style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
@@ -192,20 +209,6 @@ export default function EMIClient() {
                   +{formatINR(calculations.totalInterest)}
                 </div>
               </div>
-            </div>
-
-            {/* SEO Internal Link */}
-            <div style={{ marginTop: 20, fontSize: 14 }}>
-              <Link
-                href="/guides/emi-calculator-guide"
-                style={{
-                  color: 'var(--color-brand-green)',
-                  fontWeight: 500,
-                  textDecoration: 'underline',
-                }}
-              >
-                Read: How to reduce your EMI burden?
-              </Link>
             </div>
           </div>
         </div>

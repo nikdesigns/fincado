@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-// --- CONFIGURATION: ALL CALCULATORS FROM REPO ---
+// ... existing CALCULATOR_MENU const ...
 const CALCULATOR_MENU = [
+  // ... your existing menu items ...
   {
     category: 'Loans',
     items: [
@@ -57,14 +58,12 @@ export default function Header() {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const megaTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Scroll Effect
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menus on route change
   useEffect(() => {
     const timer = setTimeout(() => {
       setMobileMenuOpen(false);
@@ -78,7 +77,6 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
-  // Desktop Hover Logic
   const handleMouseEnter = () => {
     if (window.innerWidth > 1024) {
       if (megaTimer.current) clearTimeout(megaTimer.current);
@@ -96,12 +94,10 @@ export default function Header() {
     <>
       <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
-          {/* LOGO */}
           <Link href="/" className="nav-logo">
             Fincado
           </Link>
 
-          {/* DESKTOP NAV */}
           <nav className="desktop-nav">
             <Link
               href="/"
@@ -110,7 +106,6 @@ export default function Header() {
               Home
             </Link>
 
-            {/* MEGA MENU TRIGGER */}
             <div
               className="nav-dropdown-wrap"
               onMouseEnter={handleMouseEnter}
@@ -121,12 +116,10 @@ export default function Header() {
                   megaMenuOpen ? 'active' : ''
                 }`}
                 onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-                aria-expanded={megaMenuOpen}
               >
                 Calculators ▾
               </button>
 
-              {/* MEGA MENU DROPDOWN */}
               <div className={`mega-menu ${megaMenuOpen ? 'show' : ''}`}>
                 <div className="mega-grid">
                   {CALCULATOR_MENU.map((section) => (
@@ -158,29 +151,43 @@ export default function Header() {
             >
               Guides
             </Link>
+
+            {/* ✅ NEW: Hindi Link */}
+            <Link
+              href="/hi"
+              className="nav-item"
+              style={{ fontWeight: 600, color: '#e11d48' }}
+            >
+              हिंदी
+            </Link>
           </nav>
 
-          {/* CTA & MOBILE TOGGLE */}
           <div className="nav-actions">
-            {/* ✅ CHANGED TO EMI CALCULATOR */}
             <Link href="/emi-calculator" className="nav-btn desktop-only">
               EMI Calculator
             </Link>
             <button
               className="mobile-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? '✕' : '☰'}
             </button>
           </div>
         </div>
 
-        {/* MOBILE MENU (Slide Down) */}
         <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
           <div className="mobile-links">
             <Link href="/" className="mobile-link">
               Home
+            </Link>
+
+            {/* ✅ NEW: Mobile Hindi Link */}
+            <Link
+              href="/hi"
+              className="mobile-link"
+              style={{ color: '#e11d48', fontWeight: 'bold' }}
+            >
+              हिंदी (Hindi Calculators)
             </Link>
 
             {CALCULATOR_MENU.map((section) => (
@@ -197,21 +204,6 @@ export default function Header() {
                 ))}
               </div>
             ))}
-
-            <div className="mobile-divider">Resources</div>
-            <Link href="/guides" className="mobile-link">
-              Guides
-            </Link>
-            <Link href="/contact" className="mobile-link">
-              Contact
-            </Link>
-
-            <div style={{ marginTop: 12 }}>
-              {/* ✅ CHANGED TO EMI CALCULATOR */}
-              <Link href="/emi-calculator" className="mobile-btn">
-                EMI Calculator
-              </Link>
-            </div>
           </div>
         </div>
       </header>

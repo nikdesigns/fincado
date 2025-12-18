@@ -1,20 +1,56 @@
 const fs = require('fs');
 const path = require('path');
 
+// -------------------------------------
+// 1. CONFIGURATION
+// -------------------------------------
 const SITE = 'https://www.fincado.com';
 
 const ARTICLES_PATH = path.join(process.cwd(), 'src', 'data', 'articles.json');
 const CITIES_PATH = path.join(process.cwd(), 'src', 'data', 'cities.json');
 const OUT = path.join(process.cwd(), 'public', 'sitemap.xml');
 
+// -------------------------------------
+// 2. DATA LOADING
+// -------------------------------------
 const articles = fs.existsSync(ARTICLES_PATH)
   ? JSON.parse(fs.readFileSync(ARTICLES_PATH, 'utf8'))
   : [];
+
 const cities = fs.existsSync(CITIES_PATH)
   ? JSON.parse(fs.readFileSync(CITIES_PATH, 'utf8'))
   : [];
 
-// ✅ UPDATED: All your static pages and calculators
+// Bank Slugs (Must match src/lib/banks.ts)
+// We hardcode them here to avoid TypeScript import issues in this Node script.
+const bankSlugs = [
+  'sbi',
+  'hdfc',
+  'icici',
+  'axis',
+  'kotak',
+  'pnb',
+  'bob',
+  'canara',
+  'union',
+  'indusind',
+  'idfc',
+  'yes',
+  'bajaj',
+  'boi',
+  'indian',
+  'central',
+  'bom',
+  'federal',
+  'tata',
+  'abc',
+];
+
+// -------------------------------------
+// 3. URL GENERATION
+// -------------------------------------
+
+// A. Static Pages (English)
 const staticPages = [
   '/',
   '/about',
@@ -39,14 +75,10 @@ const staticPages = [
   '/ppf-calculator',
   '/epf-calculator',
   '/gst-calculator',
-  '/hra-calculator',
-  '/gratuity-calculator',
   '/simple-interest-calculator',
-  '/compound-interest-calculator',
   '/inflation-calculator',
   '/lumpsum-calculator',
   '/swp-calculator',
-  '/step-up-sip-calculator',
   '/retirement-calculator',
   '/apy-calculator',
   '/sukanya-samriddhi',
@@ -56,30 +88,53 @@ const staticPages = [
   '/loans/personal-loan',
   '/loans/car-loan',
   '/loans/education-loan',
-  '/loans/gold-loan',
-  '/loans/business-loan',
-  '/loans/loan-against-property',
   '/compare-loans',
 ];
 
-// Guide pages (Dynamic)
+// B. Hindi Pages (New Expansion)
+const hindiPages = [
+  '/hi', // 👈 The New Hub
+  '/hi/sip-calculator',
+  '/hi/emi-calculator',
+  '/hi/ppf-calculator',
+  '/hi/fd-calculator',
+];
+
+// C. Guide Pages (Dynamic)
 const guidePages = articles.map((a) => `/guides/${a.slug}`);
 
-// Category pages (Dynamic)
+// D. Category Pages (Dynamic)
 const categoryPages = Array.from(
   new Set(
     articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}`)
   )
 );
 
-// City pages (Dynamic)
+// E. City EMI Pages (e.g., /emi-calculator/mumbai)
 const cityPages = cities.map((c) => `/emi-calculator/${c.slug}`);
 
+// F. Bank Pages (e.g., /bank-emi/sbi)
+const bankPages = bankSlugs.map((b) => `/bank-emi/${b}`);
+
+// G. Bank + City Pages (e.g., /bank-emi/sbi/mumbai) - Massive SEO Boost 🚀
+const bankCityPages = [];
+bankSlugs.forEach((bank) => {
+  cities.forEach((city) => {
+    bankCityPages.push(`/bank-emi/${bank}/${city.slug}`);
+  });
+});
+
+// -------------------------------------
+// 4. COMBINE & BUILD XML
+// -------------------------------------
 const allPages = [
   ...staticPages,
+  ...hindiPages,
   ...categoryPages,
   ...guidePages,
   ...cityPages,
+  ...bankPages,
+  ...bankCityPages,
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -91,13 +146,13 @@ ${allPages
     <loc>${SITE}${url}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>${url === '/' ? '1.0' : '0.8'}</priority>
   </url>
 `
   )
   .join('')}
-</urlset>
-`;
+</urlset>`;
 
+// Write to File
 fs.writeFileSync(OUT, sitemap.trim());
 console.log(`✅ Sitemap generated successfully with ${allPages.length} URLs!`);
