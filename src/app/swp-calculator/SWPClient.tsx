@@ -3,6 +3,21 @@
 import React, { useMemo, useState } from 'react';
 import PieChart from '@/components/PieChart';
 
+// 1. Labels Interface
+interface LabelConfig {
+  totalInv: string;
+  monthlyWithdrawal: string;
+  rate: string;
+  time: string;
+  remainingVal: string;
+  totalWithdrawn: string;
+  warning: string;
+}
+
+interface SWPClientProps {
+  labels?: LabelConfig;
+}
+
 // Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -11,51 +26,48 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SWPClient() {
-  // --- STATE ---
-  const [initialCorpus, setInitialCorpus] = useState<number>(1000000); // 10 Lakhs
-  const [monthlyWithdrawal, setMonthlyWithdrawal] = useState<number>(10000); // 10k/mo
-  const [annualRate, setAnnualRate] = useState<number>(8); // 8% Return
-  const [years, setYears] = useState<number>(10); // 10 Years Horizon
+export default function SWPClient({ labels }: SWPClientProps) {
+  const [initialCorpus, setInitialCorpus] = useState<number>(1000000);
+  const [monthlyWithdrawal, setMonthlyWithdrawal] = useState<number>(10000);
+  const [annualRate, setAnnualRate] = useState<number>(8);
+  const [years, setYears] = useState<number>(10);
 
-  // --- HELPER: Background for Range Sliders ---
+  // 2. Default Labels
+  const t = labels || {
+    totalInv: 'Total Investment Amount (₹)',
+    monthlyWithdrawal: 'Monthly Withdrawal (₹)',
+    rate: 'Expected Return (% p.a)',
+    time: 'Time Period (Years)',
+    remainingVal: 'Projected Remaining Value',
+    totalWithdrawn: 'Total Withdrawn',
+    warning:
+      '⚠️ Corpus exhausted within the selected period. Consider lowering withdrawal amount.',
+  };
+
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    // Teal theme for SWP (Income flow)
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
-  // --- CALCULATIONS (Simulation Logic) ---
   const results = useMemo(() => {
     const monthsHorizon = Math.round(years * 12);
     const monthlyRate = annualRate / 12 / 100;
     let balance = initialCorpus;
     let totalWithdrawn = 0;
 
-    // Simulation
     for (let m = 1; m <= monthsHorizon; m++) {
-      // 1. Add Interest
       const interest = balance * monthlyRate;
       balance += interest;
-
-      // 2. Withdraw
       const withdrawal = Math.min(monthlyWithdrawal, balance);
       balance -= withdrawal;
       totalWithdrawn += withdrawal;
-
       if (balance <= 0) {
         balance = 0;
-        break; // Corpus exhausted
+        break;
       }
     }
 
     const finalBalance = Math.round(balance);
-    const totalEarnings = Math.round(
-      finalBalance + totalWithdrawn - initialCorpus
-    );
-
-    // Pie Chart: Remaining vs Withdrawn
-    // Note: If corpus grows significantly, "Total Value" = Final Balance + Total Withdrawn
     const totalValue = finalBalance + totalWithdrawn;
     const remainingPct =
       totalValue > 0 ? Math.round((finalBalance / totalValue) * 100) : 0;
@@ -64,13 +76,11 @@ export default function SWPClient() {
     return {
       finalBalance,
       totalWithdrawn: Math.round(totalWithdrawn),
-      totalEarnings,
       remainingPct,
       withdrawnPct,
     };
   }, [initialCorpus, monthlyWithdrawal, annualRate, years]);
 
-  // --- ACTIONS ---
   const handleReset = () => {
     setInitialCorpus(1000000);
     setMonthlyWithdrawal(10000);
@@ -78,20 +88,16 @@ export default function SWPClient() {
     setYears(10);
   };
 
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const numSetter = (setter: any) => (e: any) =>
+    setter(Number(e.target.value) || 0);
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
         <div className="calc-inputs">
-          {/* 1. Initial Corpus */}
           <div className="input-group">
-            <label>Total Investment Amount (₹)</label>
+            <label>{t.totalInv}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -111,10 +117,8 @@ export default function SWPClient() {
               }}
             />
           </div>
-
-          {/* 2. Withdrawal Amount */}
           <div className="input-group">
-            <label>Monthly Withdrawal (₹)</label>
+            <label>{t.monthlyWithdrawal}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -134,10 +138,8 @@ export default function SWPClient() {
               }}
             />
           </div>
-
-          {/* 3. Expected Return */}
           <div className="input-group">
-            <label>Expected Return (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -156,10 +158,8 @@ export default function SWPClient() {
               style={{ background: getRangeBackground(annualRate, 1, 20) }}
             />
           </div>
-
-          {/* 4. Duration */}
           <div className="input-group">
-            <label>Time Period (Years)</label>
+            <label>{t.time}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -177,8 +177,6 @@ export default function SWPClient() {
               style={{ background: getRangeBackground(years, 1, 30) }}
             />
           </div>
-
-          {/* Reset */}
           <button
             type="button"
             onClick={handleReset}
@@ -196,24 +194,16 @@ export default function SWPClient() {
           </button>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
         <div className="calc-visuals">
-          {/* Pie Logic: 
-             Principal = Remaining Balance
-             Interest = Amount Withdrawn
-             (Naming adapted for visual consistency: 'remaining' vs 'withdrawn')
-          */}
           <PieChart
-            principalPct={results.remainingPct} // Shows as "Principal" color (Balance)
-            interestPct={results.withdrawnPct} // Shows as "Interest" color (Withdrawn)
+            principalPct={results.remainingPct}
+            interestPct={results.withdrawnPct}
             size={200}
           />
-
           <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Projected Remaining Value
+                {t.remainingVal}
               </span>
               <div
                 style={{
@@ -225,8 +215,6 @@ export default function SWPClient() {
                 {formatINR(results.finalBalance)}
               </div>
             </div>
-
-            {/* Grid Breakdown */}
             <div
               style={{
                 display: 'grid',
@@ -245,7 +233,7 @@ export default function SWPClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Investment
+                  {t.totalInv}
                 </div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(initialCorpus)}
@@ -260,7 +248,7 @@ export default function SWPClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Withdrawn
+                  {t.totalWithdrawn}
                 </div>
                 <div
                   style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
@@ -269,8 +257,6 @@ export default function SWPClient() {
                 </div>
               </div>
             </div>
-
-            {/* Warning if Corpus Depletes */}
             {results.finalBalance === 0 && (
               <div
                 style={{
@@ -283,8 +269,7 @@ export default function SWPClient() {
                   color: '#991b1b',
                 }}
               >
-                ⚠️ Corpus exhausted within the selected period. Consider
-                lowering withdrawal amount.
+                {t.warning}
               </div>
             )}
           </div>

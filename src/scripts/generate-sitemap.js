@@ -93,11 +93,17 @@ const staticPages = [
 
 // B. Hindi Pages (New Expansion)
 const hindiPages = [
-  '/hi', // 👈 The New Hub
+  '/hi',
   '/hi/sip-calculator',
   '/hi/emi-calculator',
   '/hi/ppf-calculator',
   '/hi/fd-calculator',
+  '/hi/sukanya-samriddhi',
+  '/hi/gst-calculator',
+  '/hi/rd-calculator',
+  '/hi/simple-interest-calculator',
+  '/hi/lumpsum-calculator', // 👈 Added
+  '/hi/swp-calculator', // 👈 Added
 ];
 
 // C. Guide Pages (Dynamic)

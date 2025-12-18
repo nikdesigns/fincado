@@ -9,6 +9,7 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -94,6 +95,7 @@ export default function RDPage() {
         />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/rd-calculator" />
           <h1>Recurring Deposit (RD) Calculator</h1>
           <ShareTools title="Recurring Deposit (RD) Calculator" />
           <WikiText

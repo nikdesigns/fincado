@@ -3,10 +3,27 @@
 import React, { useState, useMemo } from 'react';
 import PieChart from '@/components/PieChart';
 
-// --- Types ---
-// RDs in India typically only offer Quarterly Compounding
+// 1. Define Labels
+interface LabelConfig {
+  monthlyDeposit: string;
+  rate: string;
+  years: string;
+  months: string;
+  maturityAmount: string;
+  totalInv: string;
+  grossInt: string;
+  netInt: string;
+  taxDeducted: string;
+  advancedParams: string;
+  taxRate: string;
+  ignoreTax: string;
+}
 
-// --- Helper: Format Currency ---
+interface RDClientProps {
+  labels?: LabelConfig;
+}
+
+// Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -14,7 +31,7 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function RDClient() {
+export default function RDClient({ labels }: RDClientProps) {
   // --- STATE ---
   const [monthlyDeposit, setMonthlyDeposit] = useState<number>(5000);
   const [rate, setRate] = useState<number>(7.0);
@@ -23,14 +40,28 @@ export default function RDClient() {
   const [taxRate, setTaxRate] = useState<number>(10);
   const [showGrossOnly, setShowGrossOnly] = useState<boolean>(false);
 
+  // 2. Default Labels
+  const t = labels || {
+    monthlyDeposit: 'Monthly Deposit (₹)',
+    rate: 'Interest Rate (% p.a)',
+    years: 'Years',
+    months: 'Months',
+    maturityAmount: 'Maturity Amount',
+    totalInv: 'Total Investment',
+    grossInt: 'Gross Int.',
+    netInt: 'Net Int.',
+    taxDeducted: 'Tax Deducted',
+    advancedParams: 'Advanced Options (Tax)',
+    taxRate: 'Tax Rate (%)',
+    ignoreTax: 'Show Gross Interest (Ignore Tax)',
+  };
+
   // --- HELPER: Background for Range Sliders ---
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    // Purple/Indigo theme for RD
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
-  // --- ACTIONS ---
   const handleReset = () => {
     setMonthlyDeposit(5000);
     setRate(7.0);
@@ -40,27 +71,19 @@ export default function RDClient() {
     setShowGrossOnly(false);
   };
 
-  // --- CALCULATION LOGIC ---
   const results = useMemo(() => {
     const totalMonths = years * 12 + months;
     const r = rate / 100;
-    const n = 4; // Quarterly compounding is standard
+    const n = 4; // Quarterly compounding
 
     let maturityAmount = 0;
 
-    // RD CALCULATION LOOP
-    // For every installment i (from 0 to totalMonths-1):
-    // Determine how many months this specific money stays in the bank.
     if (rate === 0) {
       maturityAmount = monthlyDeposit * totalMonths;
     } else {
       for (let i = 0; i < totalMonths; i++) {
-        // The first installment stays for the full duration.
-        // The last installment stays for 1 month (or depending on bank rules, usually 1 month).
         const monthsRemaining = totalMonths - i;
-        const t = monthsRemaining / 12; // Time in years
-
-        // Compound Interest for this specific installment
+        const t = monthsRemaining / 12;
         const installmentMaturity = monthlyDeposit * Math.pow(1 + r / n, n * t);
         maturityAmount += installmentMaturity;
       }
@@ -69,16 +92,14 @@ export default function RDClient() {
     const totalInvestment = monthlyDeposit * totalMonths;
     const totalInterest = maturityAmount - totalInvestment;
 
-    // Tax Calculation
-    let taxDeducted = 0;
+    let taxCalc = 0;
     if (!showGrossOnly && taxRate > 0) {
-      taxDeducted = (totalInterest * taxRate) / 100;
+      taxCalc = (totalInterest * taxRate) / 100;
     }
 
-    const netInterest = totalInterest - taxDeducted;
+    const netInterest = totalInterest - taxCalc;
     const finalMaturity = totalInvestment + netInterest;
 
-    // Pie Chart Data
     const principalPct =
       totalInvestment > 0
         ? Math.round((totalInvestment / finalMaturity) * 100)
@@ -89,14 +110,12 @@ export default function RDClient() {
       maturity: Math.round(finalMaturity),
       investment: Math.round(totalInvestment),
       interest: Math.round(netInterest),
-      grossInterest: Math.round(totalInterest),
-      tax: Math.round(taxDeducted),
+      tax: Math.round(taxCalc),
       principalPct,
       interestPct,
     };
   }, [monthlyDeposit, rate, years, months, taxRate, showGrossOnly]);
 
-  // Safe Setter
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const numSetter = (setter: any) => (e: any) =>
     setter(Number(e.target.value) || 0);
@@ -104,11 +123,10 @@ export default function RDClient() {
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT COLUMN: INPUTS --- */}
         <div className="calc-inputs">
           {/* Monthly Deposit */}
           <div className="input-group">
-            <label>Monthly Deposit (₹)</label>
+            <label>{t.monthlyDeposit}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -129,9 +147,9 @@ export default function RDClient() {
             />
           </div>
 
-          {/* Interest Rate */}
+          {/* Rate */}
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -151,10 +169,10 @@ export default function RDClient() {
             />
           </div>
 
-          {/* Tenure (Split Years + Months) */}
+          {/* Tenure */}
           <div style={{ display: 'flex', gap: '16px' }}>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Years</label>
+              <label>{t.years}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -165,7 +183,7 @@ export default function RDClient() {
               </div>
             </div>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Months</label>
+              <label>{t.months}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -178,8 +196,8 @@ export default function RDClient() {
             </div>
           </div>
 
-          {/* Advanced Options (Tax) */}
-          <details open className="advanced-options" style={{ marginTop: 16 }}>
+          {/* Advanced Tax */}
+          <details className="advanced-options" style={{ marginTop: 16 }}>
             <summary
               style={{
                 cursor: 'pointer',
@@ -187,9 +205,8 @@ export default function RDClient() {
                 fontWeight: 500,
               }}
             >
-              Advanced Options (Tax)
+              {t.advancedParams}
             </summary>
-
             <div
               style={{
                 marginTop: 16,
@@ -198,16 +215,8 @@ export default function RDClient() {
                 gap: 16,
               }}
             >
-              {/* Tax Rate */}
               <div className="input-group">
-                <label>
-                  Tax Rate (%){' '}
-                  <span
-                    style={{ fontSize: 12, fontWeight: 400, color: '#666' }}
-                  >
-                    - TDS Estimate
-                  </span>
-                </label>
+                <label>{t.taxRate}</label>
                 <div className="input-wrapper">
                   <input
                     type="number"
@@ -218,8 +227,6 @@ export default function RDClient() {
                   />
                 </div>
               </div>
-
-              {/* Gross Checkbox */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <input
                   type="checkbox"
@@ -236,13 +243,12 @@ export default function RDClient() {
                     color: 'var(--color-text-main)',
                   }}
                 >
-                  Show Gross Interest (Ignore Tax)
+                  {t.ignoreTax}
                 </label>
               </div>
             </div>
           </details>
 
-          {/* Reset */}
           <button
             type="button"
             onClick={handleReset}
@@ -261,32 +267,27 @@ export default function RDClient() {
           </button>
         </div>
 
-        {/* --- RIGHT COLUMN: VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
             principalPct={results.principalPct}
             interestPct={results.interestPct}
             size={200}
           />
-
           <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Maturity Amount
+                {t.maturityAmount}
               </span>
               <div
                 style={{
                   fontSize: 28,
                   fontWeight: 800,
-                  color: 'var(--color-brand-green, #6366f1)', // Indigo for RD
+                  color: 'var(--color-brand-green, #6366f1)',
                 }}
               >
                 {formatINR(results.maturity)}
               </div>
             </div>
-
-            {/* Grid Breakdown */}
             <div
               style={{
                 display: 'grid',
@@ -305,7 +306,7 @@ export default function RDClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Investment
+                  {t.totalInv}
                 </div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(results.investment)}
@@ -320,7 +321,7 @@ export default function RDClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {showGrossOnly ? 'Gross Int.' : 'Net Int.'}
+                  {showGrossOnly ? t.grossInt : t.netInt}
                 </div>
                 <div
                   style={{
@@ -332,8 +333,6 @@ export default function RDClient() {
                 </div>
               </div>
             </div>
-
-            {/* Tax Note */}
             {!showGrossOnly && results.tax > 0 && (
               <div
                 style={{
@@ -346,7 +345,7 @@ export default function RDClient() {
                   color: '#991b1b',
                 }}
               >
-                Tax Deducted: <strong>-{formatINR(results.tax)}</strong>
+                {t.taxDeducted}: <strong>-{formatINR(results.tax)}</strong>
               </div>
             )}
           </div>

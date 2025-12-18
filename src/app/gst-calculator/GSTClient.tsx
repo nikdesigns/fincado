@@ -2,6 +2,25 @@
 
 import React, { useMemo, useState } from 'react';
 
+// 1. Define Labels Interface
+interface LabelConfig {
+  modeLabel: string;
+  addMode: string;
+  removeMode: string;
+  amountLabelAdd: string;
+  amountLabelRemove: string;
+  rateLabel: string;
+  resultNet: string;
+  resultGross: string;
+  resultTax: string;
+  resultBase: string;
+  taxSplit: string;
+}
+
+interface GSTClientProps {
+  labels?: LabelConfig;
+}
+
 // Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -10,16 +29,30 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function GSTClient() {
+export default function GSTClient({ labels }: GSTClientProps) {
   // --- STATE ---
   const [amount, setAmount] = useState<number>(10000); // Base or Total Amount
   const [gstRate, setGstRate] = useState<number>(18);
   const [mode, setMode] = useState<'add' | 'remove'>('add'); // 'add' = Exclusive -> Inclusive
 
+  // 2. Default Labels (English)
+  const t = labels || {
+    modeLabel: 'Calculation Mode',
+    addMode: 'Add GST (Exclusive)',
+    removeMode: 'Remove GST (Inclusive)',
+    amountLabelAdd: 'Net Price (Pre-Tax)',
+    amountLabelRemove: 'Gross Price (MRP)',
+    rateLabel: 'GST Rate (%)',
+    resultNet: 'Calculated Net Price',
+    resultGross: 'Final Gross Price',
+    resultTax: 'Total GST',
+    resultBase: 'Original Base',
+    taxSplit: 'Tax Split (Intra-State)',
+  };
+
   // --- HELPER: Background for Range Sliders ---
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    // Blue theme for Tax
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
@@ -74,7 +107,7 @@ export default function GSTClient() {
         <div className="calc-inputs">
           {/* Mode Selection */}
           <div className="input-group">
-            <label>Calculation Mode</label>
+            <label>{t.modeLabel}</label>
             <div
               className="input-wrapper"
               style={{ padding: 4, background: '#f1f5f9' }}
@@ -95,7 +128,7 @@ export default function GSTClient() {
                     cursor: 'pointer',
                   }}
                 >
-                  Add GST (Exclusive)
+                  {t.addMode}
                 </button>
                 <button
                   type="button"
@@ -112,7 +145,7 @@ export default function GSTClient() {
                     cursor: 'pointer',
                   }}
                 >
-                  Remove GST (Inclusive)
+                  {t.removeMode}
                 </button>
               </div>
             </div>
@@ -121,7 +154,7 @@ export default function GSTClient() {
           {/* Amount */}
           <div className="input-group">
             <label>
-              {mode === 'add' ? 'Net Price (Pre-Tax)' : 'Gross Price (MRP)'} (₹)
+              {mode === 'add' ? t.amountLabelAdd : t.amountLabelRemove} (₹)
             </label>
             <div className="input-wrapper">
               <input
@@ -143,7 +176,7 @@ export default function GSTClient() {
 
           {/* GST Rate */}
           <div className="input-group">
-            <label>GST Rate (%)</label>
+            <label>{t.rateLabel}</label>
             <div className="input-wrapper">
               <select
                 value={gstRate}
@@ -155,12 +188,12 @@ export default function GSTClient() {
                   outline: 'none',
                 }}
               >
-                <option value="0.25">0.25% (Rough Diamonds)</option>
-                <option value="3">3% (Gold/Silver)</option>
-                <option value="5">5% (Essentials)</option>
-                <option value="12">12% (Standard 1)</option>
-                <option value="18">18% (Standard 2 - Services)</option>
-                <option value="28">28% (Luxury/Sin Goods)</option>
+                <option value="0.25">0.25%</option>
+                <option value="3">3%</option>
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+                <option value="28">28%</option>
               </select>
             </div>
             <div
@@ -211,8 +244,6 @@ export default function GSTClient() {
 
         {/* --- RIGHT: VISUALS --- */}
         <div className="calc-visuals">
-          {/* No Pie Chart needed for GST usually, simple breakdown is clearer */}
-
           <div
             style={{
               width: '100%',
@@ -224,7 +255,7 @@ export default function GSTClient() {
             }}
           >
             <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>
-              {mode === 'add' ? 'Final Gross Price' : 'Calculated Net Price'}
+              {mode === 'add' ? t.resultGross : t.resultNet}
             </div>
             <div
               style={{
@@ -258,7 +289,7 @@ export default function GSTClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Total GST</div>
+                <div style={{ color: '#64748b' }}>{t.resultTax}</div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(results.gstAmount)}
                 </div>
@@ -271,7 +302,7 @@ export default function GSTClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Original Base</div>
+                <div style={{ color: '#64748b' }}>{t.resultBase}</div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(results.netPrice)}
                 </div>
@@ -296,7 +327,7 @@ export default function GSTClient() {
                   fontWeight: 600,
                 }}
               >
-                Tax Split (Intra-State)
+                {t.taxSplit}
               </div>
               <div
                 style={{
@@ -323,17 +354,6 @@ export default function GSTClient() {
           </div>
         </div>
       </div>
-      <p
-        style={{
-          fontSize: 12,
-          color: '#475569',
-          paddingLeft: 20,
-          marginTop: 10,
-        }}
-      >
-        *This calculator is for informational purposes only. For filing GST
-        returns or compliance decisions, consult a tax professional.
-      </p>
     </div>
   );
 }

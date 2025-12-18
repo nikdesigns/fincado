@@ -45,6 +45,44 @@ export default function HindiSidebar() {
             }}
           >
             <Link
+              href="/hi/lumpsum-calculator"
+              style={{
+                color: '#16a34a',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'block',
+              }}
+            >
+              💰 Lumpsum (एकमुश्त)
+            </Link>
+          </li>
+          <li
+            style={{
+              marginBottom: 12,
+              borderBottom: '1px dashed #cbd5e1',
+              paddingBottom: 8,
+            }}
+          >
+            <Link
+              href="/hi/swp-calculator"
+              style={{
+                color: '#16a34a',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'block',
+              }}
+            >
+              💸 SWP (पेंशन)
+            </Link>
+          </li>
+          <li
+            style={{
+              marginBottom: 12,
+              borderBottom: '1px dashed #cbd5e1',
+              paddingBottom: 8,
+            }}
+          >
+            <Link
               href="/hi/emi-calculator"
               style={{
                 color: '#16a34a',
@@ -72,10 +110,73 @@ export default function HindiSidebar() {
                 display: 'block',
               }}
             >
-              💰 PPF कैलकुलेटर
+              🏦 PPF कैलकुलेटर
             </Link>
           </li>
-          <li style={{ marginBottom: 12 }}>
+          <li
+            style={{
+              marginBottom: 12,
+              borderBottom: '1px dashed #cbd5e1',
+              paddingBottom: 8,
+            }}
+          >
+            <Link
+              href="/hi/sukanya-samriddhi"
+              style={{
+                color: '#16a34a',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'block',
+              }}
+            >
+              👧 SSY (सुकन्या)
+            </Link>
+          </li>
+          <li
+            style={{
+              marginBottom: 12,
+              borderBottom: '1px dashed #cbd5e1',
+              paddingBottom: 8,
+            }}
+          >
+            <Link
+              href="/hi/gst-calculator"
+              style={{
+                color: '#16a34a',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'block',
+              }}
+            >
+              📊 GST कैलकुलेटर
+            </Link>
+          </li>
+          <li
+            style={{
+              marginBottom: 12,
+              borderBottom: '1px dashed #cbd5e1',
+              paddingBottom: 8,
+            }}
+          >
+            <Link
+              href="/hi/rd-calculator"
+              style={{
+                color: '#16a34a',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'block',
+              }}
+            >
+              🔄 RD कैलकुलेटर
+            </Link>
+          </li>
+          <li
+            style={{
+              marginBottom: 12,
+              borderBottom: '1px dashed #cbd5e1',
+              paddingBottom: 8,
+            }}
+          >
             <Link
               href="/hi/fd-calculator"
               style={{
@@ -85,11 +186,23 @@ export default function HindiSidebar() {
                 display: 'block',
               }}
             >
-              🏦 FD कैलकुलेटर
+              📜 FD कैलकुलेटर
+            </Link>
+          </li>
+          <li style={{ marginBottom: 12 }}>
+            <Link
+              href="/hi/simple-interest-calculator"
+              style={{
+                color: '#16a34a',
+                textDecoration: 'none',
+                fontWeight: 500,
+                display: 'block',
+              }}
+            >
+              ➗ साधारण ब्याज (SI)
             </Link>
           </li>
         </ul>
-
         <div
           style={{
             marginTop: 20,
@@ -98,7 +211,7 @@ export default function HindiSidebar() {
           }}
         >
           <Link
-            href="/"
+            href="/calculators"
             style={{
               fontSize: '14px',
               color: '#64748b',
@@ -112,7 +225,6 @@ export default function HindiSidebar() {
           </Link>
         </div>
       </div>
-
       <div style={{ marginTop: 24, position: 'sticky', top: 20 }}>
         <AdSlot type="box" label="विज्ञापन (Ad)" />
       </div>

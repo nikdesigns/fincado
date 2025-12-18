@@ -3,6 +3,23 @@
 import React, { useMemo, useState } from 'react';
 import PieChart from '@/components/PieChart';
 
+// 1. Define Labels Interface
+interface LabelConfig {
+  girlAge: string;
+  depositFreq: string;
+  monthlyInv: string;
+  yearlyInv: string;
+  rate: string;
+  maturityVal: string;
+  totalInv: string;
+  totalInt: string;
+  infoText: string;
+}
+
+interface SSYClientProps {
+  labels?: LabelConfig;
+}
+
 // Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -11,31 +28,38 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SSYClient() {
+export default function SSYClient({ labels }: SSYClientProps) {
   // --- STATE ---
-  const [currentAge, setCurrentAge] = useState<number>(5); // Girl's age
+  const [currentAge, setCurrentAge] = useState<number>(5);
   const [depositMode, setDepositMode] = useState<'monthly' | 'yearly'>(
     'monthly'
   );
   const [monthlyDeposit, setMonthlyDeposit] = useState<number>(5000);
   const [yearlyDeposit, setYearlyDeposit] = useState<number>(60000);
   const [startYear] = useState<number>(new Date().getFullYear());
-  const [annualRate, setAnnualRate] = useState<number>(8.2); // Default SSY Rate
+  const [annualRate, setAnnualRate] = useState<number>(8.2);
 
-  // --- HELPER: Background for Range Sliders ---
+  // 2. Default Labels (English)
+  const t = labels || {
+    girlAge: "Girl's Current Age (Years)",
+    depositFreq: 'Deposit Frequency',
+    monthlyInv: 'Monthly Investment (₹)',
+    yearlyInv: 'Yearly Investment (₹)',
+    rate: 'Interest Rate (% p.a)',
+    maturityVal: 'Maturity Value (Tax Free)',
+    totalInv: 'Total Investment',
+    totalInt: 'Total Interest',
+    infoText: 'Account can be opened until age 10.',
+  };
+
+  // --- HELPER ---
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    // Pink/Rose theme for SSY
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
   // --- CALCULATION LOGIC ---
   const results = useMemo(() => {
-    // SSY Rules:
-    // Maturity at 21 years from opening.
-    // Deposits allowed for 15 years from opening.
-    // Rate is compounded annually.
-
     const maturityYear = 21;
     const depositPeriod = 15;
     const rate = annualRate / 100;
@@ -45,20 +69,13 @@ export default function SSYClient() {
     const annualInvestment =
       depositMode === 'monthly' ? monthlyDeposit * 12 : yearlyDeposit;
 
-    // Simulation loop for 21 years
     for (let i = 1; i <= maturityYear; i++) {
       let investmentThisYear = 0;
-
-      // Deposits only happen for first 15 years
       if (i <= depositPeriod) {
         investmentThisYear = annualInvestment;
       }
-
-      // Add investment to balance
       balance += investmentThisYear;
       totalInvested += investmentThisYear;
-
-      // Add Interest (Compounded Annually)
       const interest = balance * rate;
       balance += interest;
     }
@@ -66,7 +83,6 @@ export default function SSYClient() {
     const maturityAmount = Math.round(balance);
     const totalInterest = maturityAmount - totalInvested;
 
-    // Pie Chart Data
     const investedPct =
       maturityAmount > 0
         ? Math.round((totalInvested / maturityAmount) * 100)
@@ -91,7 +107,7 @@ export default function SSYClient() {
     startYear,
   ]);
 
-  // --- ACTIONS ---
+  // Actions
   const handleReset = () => {
     setCurrentAge(5);
     setDepositMode('monthly');
@@ -100,26 +116,23 @@ export default function SSYClient() {
     setAnnualRate(8.2);
   };
 
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const numSetter = (setter: any) => (e: any) =>
+    setter(Number(e.target.value) || 0);
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
+        {/* --- INPUTS --- */}
         <div className="calc-inputs">
-          {/* 1. Girl's Age */}
           <div className="input-group">
-            <label>Girl&apos;s Current Age (Years)</label>
+            <label>{t.girlAge}</label>
             <div className="input-wrapper">
               <input
                 type="number"
                 value={currentAge}
                 onChange={numSetter(setCurrentAge)}
-                max={10} // SSY only openable till age 10
+                max={10}
               />
             </div>
             <input
@@ -132,13 +145,12 @@ export default function SSYClient() {
               style={{ background: getRangeBackground(currentAge, 0, 10) }}
             />
             <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-              Account can be opened until age 10.
+              {t.infoText}
             </div>
           </div>
 
-          {/* 2. Deposit Mode */}
           <div className="input-group">
-            <label>Deposit Frequency</label>
+            <label>{t.depositFreq}</label>
             <div className="input-wrapper">
               <select
                 value={depositMode}
@@ -149,7 +161,6 @@ export default function SSYClient() {
                   width: '100%',
                   background: 'transparent',
                   border: 'none',
-                  outline: 'none',
                 }}
               >
                 <option value="monthly">Monthly</option>
@@ -158,12 +169,9 @@ export default function SSYClient() {
             </div>
           </div>
 
-          {/* 3. Investment Amount */}
           <div className="input-group">
             <label>
-              {depositMode === 'monthly'
-                ? 'Monthly Investment (₹)'
-                : 'Yearly Investment (₹)'}
+              {depositMode === 'monthly' ? t.monthlyInv : t.yearlyInv}
             </label>
             <div className="input-wrapper">
               <input
@@ -180,8 +188,8 @@ export default function SSYClient() {
             </div>
             <input
               type="range"
-              min={depositMode === 'monthly' ? 250 : 250}
-              max={depositMode === 'monthly' ? 12500 : 150000} // Capped at 1.5L/yr
+              min="250"
+              max={depositMode === 'monthly' ? 12500 : 150000}
               step={depositMode === 'monthly' ? 250 : 1000}
               value={depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit}
               onChange={numSetter(
@@ -195,14 +203,10 @@ export default function SSYClient() {
                 ),
               }}
             />
-            <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-              Max investment: ₹1.5 Lakh per year
-            </div>
           </div>
 
-          {/* 4. Interest Rate */}
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -222,7 +226,6 @@ export default function SSYClient() {
             />
           </div>
 
-          {/* Reset */}
           <button
             type="button"
             onClick={handleReset}
@@ -240,7 +243,7 @@ export default function SSYClient() {
           </button>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
+        {/* --- VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
             principalPct={results.investedPct}
@@ -249,10 +252,9 @@ export default function SSYClient() {
           />
 
           <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Maturity Value (Tax Free)
+                {t.maturityVal}
               </span>
               <div
                 style={{
@@ -264,12 +266,10 @@ export default function SSYClient() {
                 {formatINR(results.maturityAmount)}
               </div>
               <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
-                Matures in {results.maturityYearDate} (Age {results.maturityAge}
-                )
+                Age {results.maturityAge}: Year {results.maturityYearDate}
               </div>
             </div>
 
-            {/* Grid Breakdown */}
             <div
               style={{
                 display: 'grid',
@@ -288,7 +288,7 @@ export default function SSYClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Investment
+                  {t.totalInv}
                 </div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(results.totalInvested)}
@@ -303,7 +303,7 @@ export default function SSYClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Interest
+                  {t.totalInt}
                 </div>
                 <div
                   style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
@@ -311,22 +311,6 @@ export default function SSYClient() {
                   +{formatINR(results.totalInterest)}
                 </div>
               </div>
-            </div>
-
-            {/* Info Badge */}
-            <div
-              style={{
-                marginTop: 16,
-                padding: 8,
-                background: '#fdf2f8',
-                borderRadius: 6,
-                textAlign: 'center',
-                fontSize: 12,
-                color: '#be185d',
-              }}
-            >
-              Deposit Period: <strong>15 Years</strong> | Maturity:{' '}
-              <strong>21 Years</strong>
             </div>
           </div>
         </div>

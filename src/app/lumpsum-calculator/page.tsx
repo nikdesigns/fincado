@@ -11,6 +11,7 @@ import 'katex/dist/katex.min.css'; // Import CSS for math
 import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -95,6 +96,7 @@ export default function LumpsumPage() {
         />
         {/* Header - Hidden in Print */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/lumpsum-calculator" />
           <h1>Lumpsum Calculator — One-Time Investment</h1>
           <ShareTools title="Lumpsum Calculator — One-Time Investment" />
           <WikiText

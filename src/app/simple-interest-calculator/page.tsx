@@ -11,6 +11,7 @@ import 'katex/dist/katex.min.css'; // Import CSS for math
 import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -103,6 +104,7 @@ export default function SimpleInterestPage() {
         />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/simple-interest-calculator" />
           <h1>Simple Interest Calculator</h1>
           <ShareTools title="Simple Interest Calculator" />
           <WikiText

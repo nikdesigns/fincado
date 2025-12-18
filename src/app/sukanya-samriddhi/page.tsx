@@ -9,6 +9,7 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
@@ -93,6 +94,7 @@ export default function SSYPage() {
         />
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/sukanya-samriddhi" />
           <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>
           <ShareTools title="Sukanya Samriddhi Yojana (SSY) Calculator" />
           <WikiText

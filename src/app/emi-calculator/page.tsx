@@ -12,6 +12,7 @@ import 'katex/dist/katex.min.css'; // Import CSS for math
 import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -132,6 +133,7 @@ export default function EMIPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/emi-calculator" />
           <h1>EMI Calculator – Plan Your Loan Smartly</h1>
           <ShareTools title="EMI Calculator" />
           <WikiText

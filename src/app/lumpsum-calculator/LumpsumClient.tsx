@@ -3,6 +3,21 @@
 import React, { useMemo, useState } from 'react';
 import PieChart from '@/components/PieChart';
 
+// 1. Define Labels
+interface LabelConfig {
+  investment: string;
+  rate: string;
+  time: string;
+  frequency: string;
+  futureVal: string;
+  invested: string;
+  wealthGained: string;
+}
+
+interface LumpsumClientProps {
+  labels?: LabelConfig;
+}
+
 // Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -11,17 +26,27 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function LumpsumClient() {
+export default function LumpsumClient({ labels }: LumpsumClientProps) {
   // --- STATE ---
   const [principal, setPrincipal] = useState<number>(100000);
   const [annualRate, setAnnualRate] = useState<number>(12);
   const [timeYears, setTimeYears] = useState<number>(10);
-  const [compoundingFrequency, setCompoundingFrequency] = useState<number>(1); // Default 1 (Annual)
+  const [compoundingFrequency, setCompoundingFrequency] = useState<number>(1);
 
-  // --- HELPER: Background for Range Sliders ---
+  // 2. Default Labels
+  const t = labels || {
+    investment: 'Investment Amount (₹)',
+    rate: 'Expected Return (% p.a)',
+    time: 'Time Period (Years)',
+    frequency: 'Compounding Frequency',
+    futureVal: 'Estimated Future Value',
+    invested: 'Invested Amount',
+    wealthGained: 'Wealth Gained',
+  };
+
+  // --- HELPER ---
   const getRangeBackground = (val: number, min: number, max: number) => {
     const percentage = ((val - min) / (max - min)) * 100;
-    // Blue/Indigo theme for Lumpsum
     return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
   };
 
@@ -33,20 +58,16 @@ export default function LumpsumClient() {
     const totalPeriods = n * t;
 
     if (principal <= 0 || totalPeriods <= 0) return 0;
-
-    // Formula: P * (1 + r/n)^(nt)
     const fv = principal * Math.pow(1 + periodicRate, totalPeriods);
     return Math.round(fv);
   }, [principal, annualRate, timeYears, compoundingFrequency]);
 
   const totalReturns = Math.max(0, futureValue - principal);
 
-  // Pie Chart Data
   const principalPct =
     futureValue > 0 ? Math.round((principal / futureValue) * 100) : 0;
   const interestPct = 100 - principalPct;
 
-  // --- ACTIONS ---
   const handleReset = () => {
     setPrincipal(100000);
     setAnnualRate(12);
@@ -54,20 +75,16 @@ export default function LumpsumClient() {
     setCompoundingFrequency(1);
   };
 
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const numSetter = (setter: any) => (e: any) =>
+    setter(Number(e.target.value) || 0);
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
         <div className="calc-inputs">
-          {/* Principal */}
           <div className="input-group">
-            <label>Investment Amount (₹)</label>
+            <label>{t.investment}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -88,9 +105,8 @@ export default function LumpsumClient() {
             />
           </div>
 
-          {/* Rate */}
           <div className="input-group">
-            <label>Expected Return (% p.a)</label>
+            <label>{t.rate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -110,9 +126,8 @@ export default function LumpsumClient() {
             />
           </div>
 
-          {/* Tenure */}
           <div className="input-group">
-            <label>Time Period (Years)</label>
+            <label>{t.time}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -131,9 +146,8 @@ export default function LumpsumClient() {
             />
           </div>
 
-          {/* Compounding Frequency */}
           <div className="input-group">
-            <label>Compounding Frequency</label>
+            <label>{t.frequency}</label>
             <div className="input-wrapper">
               <select
                 value={compoundingFrequency}
@@ -155,7 +169,6 @@ export default function LumpsumClient() {
             </div>
           </div>
 
-          {/* Reset Action */}
           <button
             type="button"
             onClick={handleReset}
@@ -173,19 +186,16 @@ export default function LumpsumClient() {
           </button>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
             principalPct={principalPct}
             interestPct={interestPct}
             size={200}
           />
-
           <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Estimated Future Value
+                {t.futureVal}
               </span>
               <div
                 style={{
@@ -197,8 +207,6 @@ export default function LumpsumClient() {
                 {formatINR(futureValue)}
               </div>
             </div>
-
-            {/* Grid Breakdown */}
             <div
               style={{
                 display: 'grid',
@@ -217,7 +225,7 @@ export default function LumpsumClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Invested Amount
+                  {t.invested}
                 </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(principal)}</div>
               </div>
@@ -230,7 +238,7 @@ export default function LumpsumClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Wealth Gained
+                  {t.wealthGained}
                 </div>
                 <div style={{ fontWeight: 600, color: '#16a34a' }}>
                   +{formatINR(totalReturns)}

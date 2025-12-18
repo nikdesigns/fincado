@@ -1,15 +1,16 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import EMIClient from '../EMIClient';
 import cities from '@/data/cities.json';
 import AdSlot from '@/components/AdSlot';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added Rate Table
-import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'; // ✅ Added Breadcrumbs
-import WikiText from '@/components/WikiText'; // ✅ Added for better formatting
-import Link from 'next/link';
+import LiveRateTable from '@/components/LiveRateTable';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import { getCityData } from '@/lib/localData';
 
 export async function generateStaticParams() {
+  // Generates pages for all cities in your JSON list
   return cities.map((city) => ({
     city: city.slug,
   }));
@@ -17,25 +18,20 @@ export async function generateStaticParams() {
 
 export const dynamic = 'force-static';
 
-function formatCity(citySlug?: string): string {
-  if (!citySlug) return 'India';
-  const foundCity = cities.find((c) => c.slug === citySlug);
-  return foundCity
-    ? foundCity.name
-    : decodeURIComponent(citySlug).replace(/-/g, ' ');
-}
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ city: string }>;
 }): Promise<Metadata> {
   const { city } = await params;
-  const cityName = formatCity(city);
+  const cityData = getCityData(city); // Uses your new rich data source
 
   return {
-    title: `EMI Calculator in ${cityName} - Check Loan Rates 2025`,
-    description: `Calculate home, car, and personal loan EMI in ${cityName}. Compare interest rates from top banks in ${cityName} and view documents required.`,
+    title: `EMI Calculator in ${cityData.name} 2025: Check Rates & Eligibility`,
+    description: `Calculate Home/Car Loan EMI in ${cityData.name}. Compare rates for properties in ${cityData.areas[0]}, ${cityData.areas[1]} and check ${cityData.authority} norms.`,
+    alternates: {
+      canonical: `https://www.fincado.com/emi-calculator/${city}`,
+    },
   };
 }
 
@@ -45,41 +41,84 @@ export default async function CityEMIPage({
   params: Promise<{ city: string }>;
 }) {
   const { city } = await params;
-  const cityName = formatCity(city);
+  const cityData = getCityData(city);
 
-  // ✅ SEO: Dynamic FAQ Schema
+  // 1. FAQ Schema (Dynamic per City)
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
       {
         '@type': 'Question',
-        name: `What is the home loan interest rate in ${cityName}?`,
+        name: `What is the average home loan rate in ${cityData.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Home loan interest rates in ${cityName} typically start from 8.35% p.a., depending on your credit score and the bank.`,
+          text: `Home loan rates in ${cityData.name} typically range from 8.50% to 9.50%, depending on the lender and your credit score.`,
         },
       },
       {
         '@type': 'Question',
-        name: `How can I reduce my loan EMI in ${cityName}?`,
+        name: `Do I need ${cityData.authority} approval for a loan in ${cityData.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'You can reduce your EMI by making a higher down payment, choosing a longer tenure, or negotiating for a lower interest rate based on your credit score.',
+          text: `Yes, for home loans, banks prefer properties approved by ${cityData.authority} or local municipal bodies to ensure legal compliance.`,
         },
       },
     ],
   };
 
+  // 2. Service Schema (AreaServed) - CRITICAL FOR LOCAL SEO
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Financial Calculation',
+    provider: {
+      '@type': 'Organization',
+      name: 'Fincado',
+      url: 'https://www.fincado.com',
+      logo: 'https://www.fincado.com/logo.png',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: cityData.name,
+    },
+    description: `Professional EMI calculation and loan planning services for residents of ${
+      cityData.name
+    }, covering areas like ${cityData.areas.join(', ')}.`,
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: `Loan Services in ${cityData.name}`,
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Home Loan EMI Calculator',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Personal Loan Eligibility Check',
+          },
+        },
+      ],
+    },
+  };
+
   return (
     <>
-      {/* ✅ 1. Inject JSON-LD Schema for FAQs */}
+      {/* INJECT SCHEMAS */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
 
-      {/* ✅ 2. Add Breadcrumb Structure for Google */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -88,18 +127,69 @@ export default async function CityEMIPage({
             url: 'https://www.fincado.com/emi-calculator',
           },
           {
-            name: cityName,
+            name: cityData.name,
             url: `https://www.fincado.com/emi-calculator/${city}`,
           },
         ]}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        {/* Visible Breadcrumbs for User Navigation */}
+        <nav
+          style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}
+        >
+          <Link href="/" style={{ textDecoration: 'none', color: '#64748b' }}>
+            Home
+          </Link>
+          <span style={{ margin: '0 8px' }}>/</span>
+          <Link
+            href="/emi-calculator"
+            style={{ textDecoration: 'none', color: '#64748b' }}
+          >
+            EMI Calculator
+          </Link>
+          <span style={{ margin: '0 8px' }}>/</span>
+          <span style={{ color: '#0f172a', fontWeight: 500 }}>
+            {cityData.name}
+          </span>
+        </nav>
+
         <header style={{ marginBottom: 40 }}>
-          <h1>EMI Calculator in {cityName}</h1>
-          <p style={{ maxWidth: 700, color: 'var(--color-text-muted)' }}>
-            Calculate your Home, Car, or Personal Loan EMI instantly. Compare
-            interest rates from top banks in {cityName} and plan your repayment.
+          <span
+            className="badge-flagship"
+            style={{
+              background: '#dbeafe',
+              color: '#1e40af',
+              fontSize: '12px',
+              padding: '4px 8px',
+              borderRadius: '4px',
+            }}
+          >
+            {cityData.name} Finance Guide
+          </span>
+          <h1
+            style={{
+              fontSize: '32px',
+              marginBottom: '16px',
+              marginTop: '12px',
+              lineHeight: 1.2,
+            }}
+          >
+            EMI Calculator in {cityData.name}
+          </h1>
+          <p
+            style={{
+              maxWidth: 750,
+              color: 'var(--color-text-muted)',
+              fontSize: '18px',
+              lineHeight: 1.6,
+            }}
+          >
+            Planning to buy a vehicle or property in{' '}
+            <strong>{cityData.name}</strong>? Given that {cityData.name} is{' '}
+            {cityData.description}, careful financial planning is key. Use this
+            tool to calculate your monthly EMI specifically for the{' '}
+            {cityData.name} market.
           </p>
         </header>
 
@@ -108,59 +198,51 @@ export default async function CityEMIPage({
           <div className="main-content">
             <AdSlot type="leaderboard" label="City Top Ad" />
 
-            <EMIClient />
+            <div>
+              {/* Wrapper for clean look */}
+              <EMIClient />
+            </div>
 
-            {/* ✅ 3. Added Live Rate Table to provide value */}
             <div style={{ marginTop: 48 }}>
-              <h2>Current Home Loan Rates in {cityName}</h2>
+              <h2>Latest Interest Rates in {cityData.name}</h2>
               <p>
-                Before applying, compare the latest interest rates offered by
-                major banks to ensure you get the best deal.
+                Compare offerings from major lenders active in{' '}
+                {cityData.areas.slice(0, 3).join(', ')}:
               </p>
               <LiveRateTable type="homeLoan" />
             </div>
 
             <section className="article" style={{ marginTop: 40 }}>
-              <h2>Why Use an EMI Calculator in {cityName}?</h2>
-              <WikiText
-                content={`
-                <p>
-                  Buying a home or car in <strong>${cityName}</strong> requires careful financial planning. 
-                  Property prices and living costs vary by location, making it essential to know your exact monthly outflow.
-                </p>
-                <p>
-                  This tool helps you:
-                </p>
-                <ul>
-                  <li><strong>Budget accurately:</strong> Know exactly how much to set aside from your salary.</li>
-                  <li><strong>Compare banks:</strong> See which lender in ${cityName} offers the best deal.</li>
-                  <li><strong>Plan prepayments:</strong> Visualize how extra payments reduce your interest burden.</li>
-                </ul>
-              `}
-              />
+              <h2>Loan Eligibility for {cityData.name} Residents</h2>
+              <p>
+                To avail a loan in {cityData.name}, banks look at your income
+                stability and credit score. Since property rates here average
+                around <strong>{cityData.avgPropertyRate} per sq. ft.</strong>,
+                lenders may require a higher down payment compared to smaller
+                towns.
+              </p>
 
-              <h3>Documents Required for Loans in {cityName}</h3>
-              <p>Most banks in {cityName} will ask for the following:</p>
-              <ul>
+              <h3>Required Documents</h3>
+              <ul className="checklist">
                 <li>
-                  <strong>Identity Proof:</strong> Aadhaar Card, PAN Card,
-                  Passport.
+                  <strong>ID Proof:</strong> Aadhaar / PAN / Passport.
                 </li>
                 <li>
-                  <strong>Address Proof:</strong> Utility bills or Rent
-                  agreement in {cityName}.
+                  <strong>Address Proof:</strong> Rent Agreement (Registered in{' '}
+                  {cityData.name}) or Utility Bill.
                 </li>
                 <li>
-                  <strong>Income Proof:</strong> Last 3-6 months&apos; salary
-                  slips and bank statements.
+                  <strong>Property Docs:</strong>{' '}
+                  <strong>{cityData.authority}</strong> sanctioned plan and Sale
+                  Deed.
                 </li>
                 <li>
-                  <strong>Property Documents:</strong> For home loans, past
-                  ownership deeds and municipal approval plans.
+                  <strong>Income:</strong> Salary slips or ITR (for
+                  self-employed in {cityData.name}).
                 </li>
               </ul>
 
-              {/* ✅ 4. Added "Pro Tip" Box for Expertise */}
+              {/* UNIQUE PRO TIP */}
               <div
                 style={{
                   background: '#f0fdf4',
@@ -171,17 +253,21 @@ export default async function CityEMIPage({
                 }}
               >
                 <h4 style={{ margin: '0 0 8px 0', color: '#166534' }}>
-                  💡 Pro Tip for {cityName} Residents
+                  💡 Pro Tip for {cityData.name} Home Buyers
                 </h4>
                 <p style={{ margin: 0, fontSize: '15px', color: '#14532d' }}>
-                  Many banks offer <strong>0.05% lower interest rates</strong>{' '}
-                  for women borrowers. If you are buying a property in{' '}
-                  {cityName}, consider co-applying with a female family member
-                  to save on interest over the long term.
+                  If you are buying a property in areas like{' '}
+                  <strong>
+                    {cityData.areas[0]} or {cityData.areas[1]}
+                  </strong>
+                  , check if the project is pre-approved by major banks (APF
+                  numbers). This can speed up your loan processing by 7-10 days
+                  as legal verification is already done.
                 </p>
               </div>
             </section>
-            {/* ✅ NEW: Nearby/Popular Cities Section */}
+
+            {/* Links to Other Cities */}
             <div
               style={{
                 marginTop: 48,
@@ -193,19 +279,10 @@ export default async function CityEMIPage({
                 Explore Other Cities
               </h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                {[
-                  'Mumbai',
-                  'Delhi',
-                  'Bangalore',
-                  'Pune',
-                  'Hyderabad',
-                  'Chennai',
-                  'Ahmedabad',
-                  'Jaipur',
-                ].map((city) => (
+                {cities.slice(0, 10).map((c) => (
                   <Link
-                    key={city}
-                    href={`/emi-calculator/${city.toLowerCase()}`}
+                    key={c.slug}
+                    href={`/emi-calculator/${c.slug}`}
                     style={{
                       padding: '8px 16px',
                       background: '#f8fafc',
@@ -216,27 +293,11 @@ export default async function CityEMIPage({
                       border: '1px solid #e2e8f0',
                     }}
                   >
-                    {city}
+                    {c.name}
                   </Link>
                 ))}
-                <Link
-                  href="/emi-calculator"
-                  style={{
-                    padding: '8px 16px',
-                    background: '#fff',
-                    borderRadius: '20px',
-                    fontSize: '14px',
-                    color: 'var(--color-brand-green)',
-                    textDecoration: 'none',
-                    fontWeight: 600,
-                    border: '1px solid var(--color-brand-green)',
-                  }}
-                >
-                  View All Cities →
-                </Link>
               </div>
             </div>
-
             <AdSlot type="rectangle" label="City Bottom Ad" />
           </div>
 
