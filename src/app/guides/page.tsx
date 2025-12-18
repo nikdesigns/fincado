@@ -61,6 +61,50 @@ export default function GuidesPage() {
 
       {/* --- LEFT COLUMN: CONTENT --- */}
       <div style={{ minWidth: 0 }}>
+        {/* ✅ NEW: HINDI PROMO BANNER */}
+        <div
+          className="no-print"
+          style={{
+            marginBottom: '32px',
+            padding: '16px 24px',
+            background: 'linear-gradient(to right, #fff1f2, #fff)',
+            border: '1px solid #fecdd3',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '24px' }}>🇮🇳</span>
+            <div>
+              <strong
+                style={{ color: '#be123c', display: 'block', fontSize: '16px' }}
+              >
+                हिंदी में पढ़ना चाहते हैं?
+              </strong>
+              <span style={{ fontSize: '14px', color: '#881337' }}>
+                हमारे चुनिंदा गाइड्स अब हिंदी में भी उपलब्ध हैं।
+              </span>
+            </div>
+          </div>
+          <Link
+            href="/hi"
+            style={{
+              padding: '10px 20px',
+              background: '#e11d48',
+              color: '#fff',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: '14px',
+            }}
+          >
+            हिंदी गाइड्स देखें →
+          </Link>
+        </div>
         {/* Top Ad */}
         <div style={{ marginBottom: 24 }} className="no-print">
           <AdSlot id="guides-top-leaderboard" type="leaderboard" />
