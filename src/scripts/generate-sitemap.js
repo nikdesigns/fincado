@@ -14,28 +14,66 @@ const cities = fs.existsSync(CITIES_PATH)
   ? JSON.parse(fs.readFileSync(CITIES_PATH, 'utf8'))
   : [];
 
-// Static pages (with trailing slash)
+// ✅ UPDATED: All your static pages and calculators
 const staticPages = [
   '/',
-  '/guides/',
-  '/emi-calculator/',
-  '/sip-calculator/',
-  '/fd-calculator/',
-  '/credit-score/',
+  '/about',
+  '/contact',
+  '/terms',
+  '/privacy-policy',
+  '/disclaimer',
+  '/cookie-policy',
+  '/calculators',
+  '/guides',
+  '/credit-score',
+  '/home-loan-rates',
+  '/investing',
+  '/mutual-funds',
+  '/savings',
+  '/loans',
+  // Calculators
+  '/sip-calculator',
+  '/emi-calculator',
+  '/fd-calculator',
+  '/rd-calculator',
+  '/ppf-calculator',
+  '/epf-calculator',
+  '/gst-calculator',
+  '/hra-calculator',
+  '/gratuity-calculator',
+  '/simple-interest-calculator',
+  '/compound-interest-calculator',
+  '/inflation-calculator',
+  '/lumpsum-calculator',
+  '/swp-calculator',
+  '/step-up-sip-calculator',
+  '/retirement-calculator',
+  '/apy-calculator',
+  '/sukanya-samriddhi',
+  '/fire-calculator',
+  // Loan Pages
+  '/loans/home-loan',
+  '/loans/personal-loan',
+  '/loans/car-loan',
+  '/loans/education-loan',
+  '/loans/gold-loan',
+  '/loans/business-loan',
+  '/loans/loan-against-property',
+  '/compare-loans',
 ];
 
-// Guide pages
-const guidePages = articles.map((a) => `/guides/${a.slug}/`);
+// Guide pages (Dynamic)
+const guidePages = articles.map((a) => `/guides/${a.slug}`);
 
-// Category pages (Encoded)
+// Category pages (Dynamic)
 const categoryPages = Array.from(
   new Set(
-    articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}/`)
+    articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}`)
   )
 );
 
-// City pages
-const cityPages = cities.map((c) => `/emi-calculator/${c.slug}/`);
+// City pages (Dynamic)
+const cityPages = cities.map((c) => `/emi-calculator/${c.slug}`);
 
 const allPages = [
   ...staticPages,
@@ -51,6 +89,7 @@ ${allPages
     (url) => `
   <url>
     <loc>${SITE}${url}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -61,4 +100,4 @@ ${allPages
 `;
 
 fs.writeFileSync(OUT, sitemap.trim());
-console.log(`✅ Sitemap generated (${allPages.length} URLs)`);
+console.log(`✅ Sitemap generated successfully with ${allPages.length} URLs!`);
