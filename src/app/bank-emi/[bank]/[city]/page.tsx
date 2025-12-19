@@ -10,11 +10,13 @@ import Link from 'next/link';
 import { getCityData, getCompetitors, cityDetails } from '@/lib/localData';
 
 // ✅ 1. PREVENT DUPLICATE CONTENT
-// If a city isn't in our generateStaticParams list, return 404.
 export const dynamicParams = false;
 
-export async function generateStaticParams() {
-  const params = [];
+// ✅ 2. EXPLICITLY TYPED STATIC PARAMS (Fixes the build error)
+export async function generateStaticParams(): Promise<
+  { bank: string; city: string }[]
+> {
+  const params: { bank: string; city: string }[] = [];
   const supportedCities = Object.keys(cityDetails);
 
   for (const bank of banks) {
@@ -58,8 +60,6 @@ export default async function BankCityPage({
 }) {
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
-
-  // No need to check if city exists in list because dynamicParams=false handles it
 
   if (!bank) notFound();
 
@@ -177,6 +177,7 @@ export default async function BankCityPage({
             </p>
           </header>
 
+          {/* ✅ AdSlot with Label (Make sure AdSlot.tsx is updated too!) */}
           <AdSlot type="leaderboard" label="Sponsored Loan Offers" />
 
           <div style={{ marginTop: 32 }}>

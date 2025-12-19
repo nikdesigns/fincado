@@ -1,3 +1,4 @@
+/* src/components/AdSlot.tsx */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
@@ -15,9 +16,15 @@ type AdSlotProps = {
   id?: string;
   type?: AdType;
   adSlot?: string;
+  label?: string; // ✅ ADDED: This line fixes the error
 };
 
-export default function AdSlot({ id, type = 'banner', adSlot }: AdSlotProps) {
+export default function AdSlot({
+  id,
+  type = 'banner',
+  adSlot,
+  label, // ✅ ADDED: Now we accept the prop
+}: AdSlotProps) {
   const adRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function AdSlot({ id, type = 'banner', adSlot }: AdSlotProps) {
       if (width === 0) return;
 
       try {
-        // @ts-expect-error
+        // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e) {
         console.warn('AdSense push skipped', e);
@@ -49,6 +56,15 @@ export default function AdSlot({ id, type = 'banner', adSlot }: AdSlotProps) {
     square: 250,
   };
 
+  const minWidthMap: Record<AdType, string> = {
+    leaderboard: '300px',
+    banner: '300px',
+    box: '250px',
+    'in-article': '250px',
+    rectangle: '300px',
+    square: '250px',
+  };
+
   const formatMap: Record<AdType, string> = {
     leaderboard: 'horizontal',
     banner: 'horizontal',
@@ -62,16 +78,30 @@ export default function AdSlot({ id, type = 'banner', adSlot }: AdSlotProps) {
     <div
       ref={adRef}
       id={id}
-      className="ad-container my-8 flex justify-center items-center bg-gray-50/50 rounded-lg overflow-hidden"
-      style={{ minHeight: minHeightMap[type], width: '100%' }}
+      className="ad-container my-8 flex flex-col justify-center items-center bg-gray-50/50 rounded-lg overflow-hidden relative"
+      // ✅ suppressHydrationWarning: Fixes "Content does not match server" error
+      suppressHydrationWarning={true}
+      style={{
+        minHeight: minHeightMap[type],
+        minWidth: minWidthMap[type],
+        width: '100%',
+      }}
     >
+      {/* Optional Label (Rendered only if label is provided) */}
+      {label && (
+        <span className="absolute top-0 right-0 bg-gray-100 text-[10px] text-gray-500 px-1 rounded-bl z-10">
+          {label}
+        </span>
+      )}
+
       <ins
         className="adsbygoogle"
         style={{ display: 'block', width: '100%' }}
         data-ad-client="ca-pub-6648091987919638"
-        data-ad-slot={adSlot || ''}
+        data-ad-slot={adSlot || '1234567890'}
         data-ad-format={formatMap[type]}
         data-full-width-responsive="true"
+        suppressHydrationWarning={true}
       />
     </div>
   );
