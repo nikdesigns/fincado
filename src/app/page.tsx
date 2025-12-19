@@ -225,7 +225,7 @@ export default function Home(): JSX.Element {
                     padding: '14px 32px',
                     fontSize: '16px',
                     backgroundColor: '#80d843', // Action CTA color
-                    color: 'white',
+                    color: '#0e0e11',
                     boxShadow: '0 10px 15px -3px rgba(5, 150, 105, 0.2)',
                     borderRadius: '8px',
                     fontWeight: 600,

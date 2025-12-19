@@ -46,6 +46,7 @@ export default function CookieBanner() {
           fontSize: '14px',
           maxWidth: '600px',
           lineHeight: '1.5',
+          color: 'white',
         }}
       >
         We use cookies to personalize content and ads to provide you with a
@@ -61,7 +62,7 @@ export default function CookieBanner() {
       <button
         onClick={accept}
         style={{
-          background: '#16a34a',
+          background: '#15803d',
           color: 'white',
           border: 'none',
           padding: '8px 24px',
