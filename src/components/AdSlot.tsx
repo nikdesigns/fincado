@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 type AdType =
   | 'leaderboard'
@@ -13,25 +14,30 @@ type AdType =
 type AdSlotProps = {
   id?: string;
   type?: AdType;
-  label?: string;
-  adSlot?: string; // Optional: specific ad unit ID if you have created them manually
+  adSlot?: string;
 };
 
-export default function AdSlot({
-  id,
-  type = 'banner',
-  label,
-  adSlot,
-}: AdSlotProps) {
-  // Initialize ads after component mounts
+export default function AdSlot({ id, type = 'banner', adSlot }: AdSlotProps) {
+  const adRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error('AdSense error', err);
-    }
+    const timeout = setTimeout(() => {
+      if (!adRef.current) return;
+
+      const width = adRef.current.offsetWidth;
+
+      // 🚫 Prevent push if width is zero
+      if (width === 0) return;
+
+      try {
+        // @ts-expect-error
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.warn('AdSense push skipped', e);
+      }
+    }, 300); // ⏳ allow layout to settle
+
+    return () => clearTimeout(timeout);
   }, []);
 
   const minHeightMap: Record<AdType, number> = {
@@ -43,7 +49,6 @@ export default function AdSlot({
     square: 250,
   };
 
-  // Maps your types to standard AdSense formats
   const formatMap: Record<AdType, string> = {
     leaderboard: 'horizontal',
     banner: 'horizontal',
@@ -55,26 +60,19 @@ export default function AdSlot({
 
   return (
     <div
+      ref={adRef}
       id={id}
       className="ad-container my-8 flex justify-center items-center bg-gray-50/50 rounded-lg overflow-hidden"
-      style={{ minHeight: minHeightMap[type] }}
+      style={{ minHeight: minHeightMap[type], width: '100%' }}
     >
-      {/* Google AdSense Unit
-         client: Your ID from layout.tsx
-         slot: Optional (for manual units)
-         format: Auto/Rectangle/Horizontal
-      */}
       <ins
         className="adsbygoogle"
         style={{ display: 'block', width: '100%' }}
-        data-ad-client="ca-pub-6648091987919638" // ✅ YOUR REAL ID
-        data-ad-slot={adSlot || '1234567890'} // Replace with a generic "Auto" slot ID if you have one, or leave placeholder if relying entirely on auto-ads
+        data-ad-client="ca-pub-6648091987919638"
+        data-ad-slot={adSlot || ''}
         data-ad-format={formatMap[type]}
         data-full-width-responsive="true"
       />
-
-      {/* Label for debugging/transparency (Optional) */}
-      {/* <span className="text-[10px] text-gray-400 absolute top-0 right-0 p-1">Ad</span> */}
     </div>
   );
 }
