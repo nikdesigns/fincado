@@ -1,6 +1,8 @@
+/* src/app/city/[city]/[type]/page.tsx */
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCityData, cityDetails } from '@/lib/localData';
+import { banks } from '@/lib/banks'; // ✅ Import Banks
 import AdSlot from '@/components/AdSlot';
 
 const loanTypes: Record<string, string> = {
@@ -10,7 +12,6 @@ const loanTypes: Record<string, string> = {
   'credit-score': 'Credit Score Check',
 };
 
-// ✅ 1. RESTRICT TO RICH DATA CITIES ONLY
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -20,14 +21,10 @@ export async function generateStaticParams() {
   supportedCities.forEach((citySlug) => {
     if (citySlug !== 'default') {
       Object.keys(loanTypes).forEach((type) => {
-        params.push({
-          city: citySlug,
-          type,
-        });
+        params.push({ city: citySlug, type });
       });
     }
   });
-
   return params;
 }
 
@@ -43,8 +40,8 @@ export async function generateMetadata({
   if (!cityData || !loanName) return {};
 
   return {
-    title: `${loanName} in ${cityData.name} 2025: Rates & Agents`,
-    description: `Apply for ${loanName} in ${cityData.name}. Best interest rates for residents of ${cityData.areas[0]} & ${cityData.areas[1]}. Check eligibility now.`,
+    title: `Best ${loanName} in ${cityData.name} 2025: Compare Top Rates`,
+    description: `Compare ${loanName} interest rates in ${cityData.name} from top banks. Best offers for residents of ${cityData.areas[0]} & ${cityData.areas[1]}.`,
   };
 }
 
@@ -54,12 +51,13 @@ export default async function CityLoanPage({
   params: Promise<{ city: string; type: string }>;
 }) {
   const { city, type } = await params;
-
-  // ✅ 2. USE RICH DATA
   const cityData = getCityData(city);
   const loanName = loanTypes[type as keyof typeof loanTypes];
 
   if (!cityData || !loanName) return notFound();
+
+  // ✅ SORT BANKS BY RATE TO SHOW "BEST" OFFERS FIRST
+  const topBanks = [...banks].sort((a, b) => a.rate - b.rate).slice(0, 6);
 
   return (
     <main
@@ -67,78 +65,143 @@ export default async function CityLoanPage({
         maxWidth: 1180,
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: '1fr 320px',
+        gridTemplateColumns: '1fr 320px', // Responsive check handled in CSS usually
         gap: 20,
         padding: '32px 16px',
       }}
     >
-      {/* ✅ MAIN CONTENT */}
       <div style={{ minWidth: 0 }}>
         <h1>
-          {loanName} in {cityData.name} – Best Rates 2025
+          {loanName} in {cityData.name} – Compare Best Rates (2025)
         </h1>
 
         <p style={{ fontSize: '18px', color: '#555', lineHeight: 1.6 }}>
           Looking for a <strong>{loanName}</strong> in{' '}
-          <strong>{cityData.name}</strong>? Since {cityData.name} is{' '}
-          {cityData.description}, finding the right lender is crucial. We help
-          residents of <strong>{cityData.areas.join(', ')}</strong> compare
-          offers instantly.
+          <strong>{cityData.name}</strong>? We have analyzed offers from top
+          lenders for residents of{' '}
+          <strong>{cityData.areas.slice(0, 3).join(', ')}</strong>. Compare
+          interest rates and apply online.
         </p>
 
-        {/* TOP ADS */}
         <div style={{ margin: '24px 0' }}>
           <AdSlot type="leaderboard" label="Sponsored" />
         </div>
 
-        {/* RICH ARTICLE */}
+        {/* ✅ NEW: DATA-RICH TABLE (SEO GOLD) */}
         <section className="article">
+          <h2>
+            Top Banks for {loanName} in {cityData.name}
+          </h2>
+          <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
+            <table
+              className="rate-table"
+              style={{ width: '100%', borderCollapse: 'collapse' }}
+            >
+              <thead>
+                <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
+                  <th
+                    style={{
+                      padding: '12px',
+                      borderBottom: '2px solid #e2e8f0',
+                    }}
+                  >
+                    Bank
+                  </th>
+                  <th
+                    style={{
+                      padding: '12px',
+                      borderBottom: '2px solid #e2e8f0',
+                    }}
+                  >
+                    Interest Rate
+                  </th>
+                  <th
+                    style={{
+                      padding: '12px',
+                      borderBottom: '2px solid #e2e8f0',
+                    }}
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {topBanks.map((bank) => (
+                  <tr key={bank.slug}>
+                    <td
+                      style={{
+                        padding: '12px',
+                        borderBottom: '1px solid #e2e8f0',
+                      }}
+                    >
+                      <Link
+                        href={`/bank-emi/${bank.slug}/${city}`}
+                        style={{
+                          color: '#2563eb',
+                          fontWeight: 500,
+                          textDecoration: 'none',
+                        }}
+                      >
+                        {bank.name}
+                      </Link>
+                    </td>
+                    <td
+                      style={{
+                        padding: '12px',
+                        borderBottom: '1px solid #e2e8f0',
+                      }}
+                    >
+                      {bank.rate}% Onwards
+                    </td>
+                    <td
+                      style={{
+                        padding: '12px',
+                        borderBottom: '1px solid #e2e8f0',
+                      }}
+                    >
+                      <Link
+                        href={`/bank-emi/${bank.slug}/${city}`}
+                        style={{
+                          fontSize: '14px',
+                          color: '#16a34a',
+                          fontWeight: 'bold',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        Check EMI &rarr;
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
           <h2>
             Why Apply for {loanName} in {cityData.name}?
           </h2>
           <p>
-            With property and living costs in {cityData.name} averaging around{' '}
-            <strong>{cityData.avgPropertyRate}</strong> (for real estate),
-            financial liquidity is essential. Most banks servicing{' '}
-            {cityData.name} (Pincodes starting with{' '}
-            <strong>{cityData.pincodeStart}</strong>) offer specialized schemes
-            for local residents.
+            With property costs in {cityData.name} averaging around{' '}
+            <strong>{cityData.avgPropertyRate}</strong>, securing a low-interest
+            loan is vital. Banks servicing <strong>{cityData.name}</strong>
+            (Pincodes starting with {cityData.pincodeStart}) often provide
+            doorstep service.
           </p>
 
-          <h3>Local Eligibility</h3>
+          <h3>Local Documents Required</h3>
           <ul>
             <li>
-              <strong>Residency:</strong> Must be living in {cityData.name} or
-              suburbs.
+              <strong>ID Proof:</strong> Aadhaar / PAN.
             </li>
             <li>
-              <strong>Income:</strong> Stable income source in {cityData.name}.
+              <strong>Address Proof:</strong> Utility bill from{' '}
+              {cityData.authority} area.
             </li>
             <li>
-              <strong>Documents:</strong> Rent agreement/Utility bill from{' '}
-              {cityData.authority} area preferred.
+              <strong>Income:</strong> Salary slips from employers in{' '}
+              {cityData.name}.
             </li>
           </ul>
-
-          <div
-            style={{
-              background: '#f8fafc',
-              padding: '20px',
-              borderRadius: '8px',
-              margin: '24px 0',
-              borderLeft: '4px solid #2563eb',
-            }}
-          >
-            <strong>💡 Local Insight:</strong> For {loanName}s in{' '}
-            {cityData.name}, banks prefer applicants working in established hubs
-            like {cityData.areas[0]}.
-          </div>
-
-          <h2>Interest Rates in {cityData.name}</h2>
-          <p>
-            Current {loanName} interest rates in {cityData.name} range between
-            <strong> 8.50% to 16.99% </strong> depending on your profile.
-          </p>
 
           <h3>Related Tools</h3>
           <ul
@@ -167,7 +230,7 @@ export default async function CityLoanPage({
             </li>
             <li>
               <Link
-                href={`/emi-calculator/${city}`}
+                href="/credit-score"
                 className="btn-secondary"
                 style={{
                   textDecoration: 'none',
@@ -177,47 +240,20 @@ export default async function CityLoanPage({
                   borderRadius: '6px',
                 }}
               >
-                🏠 {cityData.name} EMI
+                📊 Check Credit Score
               </Link>
             </li>
           </ul>
         </section>
 
-        {/* BOTTOM ADS */}
         <div style={{ margin: '32px 0' }}>
           <AdSlot type="rectangle" />
         </div>
       </div>
 
-      {/* ✅ SIDEBAR */}
       <aside className="sidebar">
         <div style={{ position: 'sticky', top: '20px' }}>
           <AdSlot id="city-loan-sidebar" type="box" />
-        </div>
-
-        <div
-          className="side-card"
-          style={{
-            marginTop: 24,
-            padding: '20px',
-            background: '#fff',
-            border: '1px solid #eee',
-            borderRadius: '12px',
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Local Resources</h3>
-          <ul className="side-links" style={{ paddingLeft: '20px', margin: 0 }}>
-            <li style={{ marginBottom: '8px' }}>
-              <Link href="/home-loan-rates" style={{ color: '#444' }}>
-                Current Loan Rates
-              </Link>
-            </li>
-            <li style={{ marginBottom: '8px' }}>
-              <Link href="/credit-score" style={{ color: '#444' }}>
-                Check Credit Score
-              </Link>
-            </li>
-          </ul>
         </div>
       </aside>
     </main>
