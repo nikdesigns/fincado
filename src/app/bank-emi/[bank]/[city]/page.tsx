@@ -1,5 +1,4 @@
 import { banks } from '@/lib/banks';
-import cities from '@/data/cities.json';
 import { notFound } from 'next/navigation';
 import EMIClient from '@/app/emi-calculator/EMIClient';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -8,14 +7,22 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getCityData, getCompetitors } from '@/lib/localData';
+import { getCityData, getCompetitors, cityDetails } from '@/lib/localData';
+
+// ✅ 1. PREVENT DUPLICATE CONTENT
+// If a city isn't in our generateStaticParams list, return 404.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const params = [];
-  // Only generate for top cities/banks to optimize build time
+  const supportedCities = Object.keys(cityDetails);
+
   for (const bank of banks) {
-    for (const city of cities) {
-      params.push({ bank: bank.slug, city: city.slug });
+    for (const citySlug of supportedCities) {
+      // Filter out 'default' key if present
+      if (citySlug !== 'default') {
+        params.push({ bank: bank.slug, city: citySlug });
+      }
     }
   }
   return params;
@@ -28,17 +35,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
-  const city = cities.find((c) => c.slug === resolvedParams.city);
 
-  if (!bank || !city) return {};
+  // Note: getCityData handles fallback, but since dynamicParams=false,
+  // we know the city exists in our list.
+  const cityData = getCityData(resolvedParams.city);
 
-  const cityData = getCityData(city.slug);
+  if (!bank) return {};
 
   return {
-    title: `${bank.name} Home Loan in ${city.name} 2025: Rates & EMI`,
-    description: `Applying for ${bank.name} loan in ${city.name}? Check interest rates starting @ ${bank.rate}%, branches near ${cityData.areas[0]}, and processing fees.`,
+    title: `${bank.name} Home Loan in ${cityData.name} 2025: Rates & EMI`,
+    description: `Applying for ${bank.name} loan in ${cityData.name}? Check interest rates starting @ ${bank.rate}%, branches near ${cityData.areas[0]}, and processing fees.`,
     alternates: {
-      canonical: `https://www.fincado.com/bank-emi/${bank.slug}/${city.slug}`,
+      canonical: `https://www.fincado.com/bank-emi/${bank.slug}/${cityData.slug}`,
     },
   };
 }
@@ -50,16 +58,17 @@ export default async function BankCityPage({
 }) {
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
-  const city = cities.find((c) => c.slug === resolvedParams.city);
 
-  if (!bank || !city) notFound();
+  // No need to check if city exists in list because dynamicParams=false handles it
+
+  if (!bank) notFound();
 
   // 1. GET RICH LOCAL DATA
-  const cityData = getCityData(city.slug);
+  const cityData = getCityData(resolvedParams.city);
   const competitorSlugs = getCompetitors(bank.slug);
   const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
 
-  // 2. DEFINE SCHEMA (Must be here, after 'bank' is defined)
+  // 2. DEFINE SCHEMA
   const areaServedSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -111,16 +120,16 @@ export default async function BankCityPage({
             url: `https://www.fincado.com/bank-emi/${bank.slug}`,
           },
           {
-            name: `${city.name}`,
-            url: `https://www.fincado.com/bank-emi/${bank.slug}/${city.slug}`,
+            name: `${cityData.name}`,
+            url: `https://www.fincado.com/bank-emi/${bank.slug}/${resolvedParams.city}`,
           },
         ]}
       />
 
       <CalculatorSchema
-        name={`${bank.name} EMI Calculator ${city.name}`}
-        description={`Calculate EMI for ${bank.name} loans in ${city.name} with rates starting at ${bank.rate}%.`}
-        url={`https://www.fincado.com/bank-emi/${bank.slug}/${city.slug}`}
+        name={`${bank.name} EMI Calculator ${cityData.name}`}
+        description={`Calculate EMI for ${bank.name} loans in ${cityData.name} with rates starting at ${bank.rate}%.`}
+        url={`https://www.fincado.com/bank-emi/${bank.slug}/${resolvedParams.city}`}
       />
 
       <div className="layout-grid">
@@ -146,9 +155,9 @@ export default async function BankCityPage({
                 marginTop: '12px',
               }}
             >
-              {bank.name} Home Loan in {city.name}
+              {bank.name} Home Loan in {cityData.name}
             </h1>
-            <ShareTools title={`${bank.name} Loan in ${city.name}`} />
+            <ShareTools title={`${bank.name} Loan in ${cityData.name}`} />
 
             {/* UNIQUE INTRO */}
             <p
@@ -159,8 +168,8 @@ export default async function BankCityPage({
                 lineHeight: 1.6,
               }}
             >
-              Are you planning to buy a home in <strong>{city.name}</strong>,{' '}
-              {cityData.description}? Get accurate details on{' '}
+              Are you planning to buy a home in <strong>{cityData.name}</strong>
+              , {cityData.description}? Get accurate details on{' '}
               <strong>{bank.name}</strong> home loans, including current
               interest rates starting at <strong>{bank.rate}%</strong>, and
               check eligibility for properties near
@@ -176,10 +185,10 @@ export default async function BankCityPage({
 
           <div className="article" style={{ marginTop: 40 }}>
             <h2>
-              Why Choose {bank.name} in {city.name}?
+              Why Choose {bank.name} in {cityData.name}?
             </h2>
             <p>
-              With property rates in {city.name} averaging around{' '}
+              With property rates in {cityData.name} averaging around{' '}
               <strong>{cityData.avgPropertyRate} per sq. ft.</strong>, choosing
               the right lender is crucial. {bank.name} is a popular choice for
               residents because of:
@@ -198,18 +207,19 @@ export default async function BankCityPage({
                 .
               </li>
               <li>
-                <strong>Doorstep Service:</strong> Available across {city.name}{' '}
-                (Pincodes starting with {cityData.pincodeStart}).
+                <strong>Doorstep Service:</strong> Available across{' '}
+                {cityData.name} (Pincodes starting with {cityData.pincodeStart}
+                ).
               </li>
             </ul>
 
             {/* UNIQUE COMPARISON TABLE */}
             <h3 style={{ marginTop: '32px' }}>
-              Compare {bank.name} vs Others in {city.name}
+              Compare {bank.name} vs Others in {cityData.name}
             </h3>
             <p>
               See how {bank.name} stacks up against other lenders active in{' '}
-              {city.name}:
+              {cityData.name}:
             </p>
 
             <div style={{ overflowX: 'auto', margin: '24px 0' }}>
@@ -284,7 +294,7 @@ export default async function BankCityPage({
                         }}
                       >
                         <Link
-                          href={`/bank-emi/${comp.slug}/${city.slug}`}
+                          href={`/bank-emi/${comp.slug}/${resolvedParams.city}`}
                           style={{ color: '#2563eb', textDecoration: 'none' }}
                         >
                           {comp.name}
@@ -371,7 +381,7 @@ export default async function BankCityPage({
                 color: '#1e293b',
               }}
             >
-              Other Banks in {city.name}
+              Other Banks in {cityData.name}
             </h3>
             <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}>
               {banks
@@ -387,7 +397,7 @@ export default async function BankCityPage({
                     }}
                   >
                     <Link
-                      href={`/bank-emi/${other.slug}/${city.slug}`}
+                      href={`/bank-emi/${other.slug}/${resolvedParams.city}`}
                       style={{
                         color: '#475569',
                         textDecoration: 'none',

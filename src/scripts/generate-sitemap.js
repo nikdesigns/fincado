@@ -7,7 +7,6 @@ const path = require('path');
 const SITE = 'https://www.fincado.com';
 
 const ARTICLES_PATH = path.join(process.cwd(), 'src', 'data', 'articles.json');
-const CITIES_PATH = path.join(process.cwd(), 'src', 'data', 'cities.json');
 const OUT = path.join(process.cwd(), 'public', 'sitemap.xml');
 
 // -------------------------------------
@@ -17,12 +16,7 @@ const articles = fs.existsSync(ARTICLES_PATH)
   ? JSON.parse(fs.readFileSync(ARTICLES_PATH, 'utf8'))
   : [];
 
-const cities = fs.existsSync(CITIES_PATH)
-  ? JSON.parse(fs.readFileSync(CITIES_PATH, 'utf8'))
-  : [];
-
 // Bank Slugs (Must match src/lib/banks.ts)
-// We hardcode them here to avoid TypeScript import issues in this Node script.
 const bankSlugs = [
   'sbi',
   'hdfc',
@@ -44,6 +38,44 @@ const bankSlugs = [
   'federal',
   'tata',
   'abc',
+];
+
+// ✅ SUPPORTED CITIES (Must match keys in src/lib/localData.ts)
+// We hardcode this here because we can't import TS files in this Node script easily.
+const supportedCitySlugs = [
+  'mumbai',
+  'delhi',
+  'bangalore',
+  'chennai',
+  'hyderabad',
+  'kolkata',
+  'pune',
+  'ahmedabad',
+  'gurgaon',
+  'noida',
+  'thane',
+  'navi-mumbai',
+  'jaipur',
+  'lucknow',
+  'kanpur',
+  'chandigarh',
+  'indore',
+  'bhopal',
+  'nagpur',
+  'surat',
+  'vadodara',
+  'rajkot',
+  'visakhapatnam',
+  'coimbatore',
+  'kochi',
+  'mysore',
+  'patna',
+  'bhubaneswar',
+  'ranchi',
+  'guwahati',
+  'dehradun',
+  'ludhiana',
+  'amritsar',
 ];
 
 // -------------------------------------
@@ -94,16 +126,21 @@ const staticPages = [
 // B. Hindi Pages (New Expansion)
 const hindiPages = [
   '/hi',
+  // Calculators
   '/hi/sip-calculator',
   '/hi/emi-calculator',
   '/hi/ppf-calculator',
   '/hi/fd-calculator',
-  '/hi/sukanya-samriddhi',
-  '/hi/gst-calculator',
   '/hi/rd-calculator',
+  '/hi/gst-calculator',
+  '/hi/lumpsum-calculator',
+  '/hi/swp-calculator',
+  '/hi/sukanya-samriddhi',
   '/hi/simple-interest-calculator',
-  '/hi/lumpsum-calculator', // 👈 Added
-  '/hi/swp-calculator', // 👈 Added
+  // Guides
+  '/hi/guides/credit-score',
+  '/hi/guides/personal-loan',
+  '/hi/guides/sip-vs-fd',
 ];
 
 // C. Guide Pages (Dynamic)
@@ -116,17 +153,17 @@ const categoryPages = Array.from(
   )
 );
 
-// E. City EMI Pages (e.g., /emi-calculator/mumbai)
-const cityPages = cities.map((c) => `/emi-calculator/${c.slug}`);
+// E. City EMI Pages (Only for supported cities)
+const cityPages = supportedCitySlugs.map((slug) => `/emi-calculator/${slug}`);
 
 // F. Bank Pages (e.g., /bank-emi/sbi)
 const bankPages = bankSlugs.map((b) => `/bank-emi/${b}`);
 
-// G. Bank + City Pages (e.g., /bank-emi/sbi/mumbai) - Massive SEO Boost 🚀
+// G. Bank + City Pages (Only for supported cities)
 const bankCityPages = [];
 bankSlugs.forEach((bank) => {
-  cities.forEach((city) => {
-    bankCityPages.push(`/bank-emi/${bank}/${city.slug}`);
+  supportedCitySlugs.forEach((citySlug) => {
+    bankCityPages.push(`/bank-emi/${bank}/${citySlug}`);
   });
 });
 

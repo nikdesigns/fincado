@@ -7,16 +7,23 @@ import AdSlot from '@/components/AdSlot';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import LiveRateTable from '@/components/LiveRateTable';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import { getCityData } from '@/lib/localData';
+import { getCityData, cityDetails } from '@/lib/localData';
 
+// ✅ 1. Only build pages for cities we have rich data for
 export async function generateStaticParams() {
-  // Generates pages for all cities in your JSON list
-  return cities.map((city) => ({
-    city: city.slug,
-  }));
+  const supportedCities = Object.keys(cityDetails);
+  const params = [];
+
+  for (const slug of supportedCities) {
+    if (slug !== 'default') {
+      params.push({ city: slug });
+    }
+  }
+  return params;
 }
 
-export const dynamic = 'force-static';
+// ✅ 2. Prevent 404 Fallback pages (Kills duplicate content)
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -24,7 +31,7 @@ export async function generateMetadata({
   params: Promise<{ city: string }>;
 }): Promise<Metadata> {
   const { city } = await params;
-  const cityData = getCityData(city); // Uses your new rich data source
+  const cityData = getCityData(city);
 
   return {
     title: `EMI Calculator in ${cityData.name} 2025: Check Rates & Eligibility`,
@@ -67,7 +74,7 @@ export default async function CityEMIPage({
     ],
   };
 
-  // 2. Service Schema (AreaServed) - CRITICAL FOR LOCAL SEO
+  // 2. Service Schema (AreaServed)
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -198,8 +205,15 @@ export default async function CityEMIPage({
           <div className="main-content">
             <AdSlot type="leaderboard" label="City Top Ad" />
 
-            <div>
-              {/* Wrapper for clean look */}
+            <div
+              style={{
+                background: '#fff',
+                borderRadius: '12px',
+                padding: '8px',
+                border: '1px solid #e2e8f0',
+                marginTop: '24px',
+              }}
+            >
               <EMIClient />
             </div>
 
@@ -279,7 +293,7 @@ export default async function CityEMIPage({
                 Explore Other Cities
               </h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                {cities.slice(0, 10).map((c) => (
+                {cities.slice(0, 10).map((c: any) => (
                   <Link
                     key={c.slug}
                     href={`/emi-calculator/${c.slug}`}

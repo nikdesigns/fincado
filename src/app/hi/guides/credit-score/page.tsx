@@ -675,8 +675,7 @@ export default function HindiCreditScoreGuide() {
               </p>
               <div className="conclusion-box">
                 <p>
-                  <strong>Discipline `{'>'}` shortcuts:</strong> EMI टाइम पर
-                  भरें, यूटिलाइजेशन कम रखें और बेवजह लोन से बचें।
+                  EMI टाइम पर भरें, यूटिलाइजेशन कम रखें और बेवजह लोन से बचें।
                   <br />
                   स्कोर धीरे‑धीरे बनता है, 6–12 महीने की अच्छी आदतें किसी भी
                   मैजिक ट्रिक से ज़्यादा पावरफुल हैं। अगर आप आज से ही कंट्रोल
