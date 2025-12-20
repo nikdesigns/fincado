@@ -1,0 +1,107 @@
+# ================================
+
+# Fincado – Complete Configuration
+
+# Security, Speed, AdSense & ALL SEO Redirects
+
+# ================================
+
+# 1. ENABLE COMPRESSION (GZIP/BROTLI)
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# 2. BROWSER CACHING
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# 3. SECURITY HEADERS (Fixed for AdSense/Clarity/Perplexity)
+
+<IfModule mod_headers.c>
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "origin-when-cross-origin"
+    Header set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+
+    # CSP - The Master List
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googlesyndication.com https://*.google.com https://*.googleadservices.com https://*.doubleclick.net https://*.googletagmanager.com https://*.google-analytics.com https://adservice.google.com https://*.clarity.ms https://*.adtrafficquality.google https://gc.kis.v2.scr.kaspersky-labs.com wss://gc.kis.v2.scr.kaspersky-labs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: https://*.clarity.ms https://c.bing.com; font-src 'self' data: https://fonts.gstatic.com https://r2cdn.perplexity.ai; frame-src 'self' https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net https://*.adtrafficquality.google; connect-src 'self' https://*.google-analytics.com https://*.googletagmanager.com https://*.doubleclick.net https://*.google.com https://*.googleadservices.com https://*.adtrafficquality.google https://*.clarity.ms https://c.bing.com https://*.googlesyndication.com https://gc.kis.v2.scr.kaspersky-labs.com wss://gc.kis.v2.scr.kaspersky-labs.com; object-src 'none'; base-uri 'self';"
+
+</IfModule>
+
+# ================================
+
+# 4. SEO REDIRECTS (Fixed for Canonical Errors)
+
+# ================================
+
+RewriteEngine On
+
+# --- Calculators (Exact matches) ---
+
+Redirect 301 /home-loan-calculator /loans/home-loan/
+Redirect 301 /personal-loan-calculator /loans/personal-loan/
+Redirect 301 /car-loan-calculator /loans/car-loan/
+Redirect 301 /education-loan-calculator /loans/education-loan/
+Redirect 301 /mutual-fund-calculator /mutual-funds/
+Redirect 301 /ssy-calculator /sukanya-samriddhi/
+Redirect 301 /step-up-sip-calculator /sip-calculator/
+Redirect 301 /retirement-plan /retirement-calculator/
+Redirect 301 /credit-score-calculator /credit-score/
+Redirect 301 /income-tax-calculator /calculators/
+
+# --- FIX: The "Guides" Errors (Variations) ---
+
+# 1. Matches "home-loan-for-first-time-buyers"
+
+Redirect 301 /guides/home-loan-for-first-time-buyers /loans/home-loan/
+
+# 2. Matches "home-loan-first-time-buyers" (No "for") - THIS WAS MISSING
+
+Redirect 301 /guides/home-loan-first-time-buyers /loans/home-loan/
+
+# 3. Matches "personal-loan-interest-rates"
+
+Redirect 301 /guides/personal-loan-interest-rates /loans/personal-loan/
+
+# 4. Matches "personal-loan-interest-rates-india" (With "india") - THIS WAS MISSING
+
+Redirect 301 /guides/personal-loan-interest-rates-india /loans/personal-loan/
+
+# --- General ---
+
+Redirect 301 /privacy /privacy-policy/
+Redirect 301 /faq /faqs/
+
+# ================================
+
+# 5. STANDARD RULES (Do not touch)
+
+# ================================
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} \/$
+RewriteRule ^(.*)/$ $1/index.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.\*)$ $1.html [L]
+
+ErrorDocument 404 /404.html
