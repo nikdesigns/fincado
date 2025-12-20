@@ -1,132 +1,152 @@
 const fs = require('fs');
 const path = require('path');
 
-/* ✅ WHERE DATA IS STORED */
+/* ===== CONFIG ===== */
 const DATA_PATH = path.join(process.cwd(), 'src/data/articles.json');
+const TODAY = new Date().toISOString().split('T')[0];
 
-/* ✅ THE MASTER LIST (Optimized Slugs & Titles) */
+/* ===== MASTER TOPICS ===== */
 const topics = [
   {
     slug: 'emi-calculator-guide-2025',
-    title: 'EMI Calculator Guide 2025: Formulas & Tax Benefits',
+    title: 'EMI Calculator Guide 2025: Formulas, Examples & Smart Planning',
     keyword: 'EMI Calculator',
     category: 'Loans & Mortgages',
     metaDescription:
-      'Master your loan EMI calculation. Learn the formula, tax benefits, prepayment strategies, and new RBI guidelines.',
+      'Learn how EMI is calculated, how tenure and interest affect cost, prepayment strategies, and RBI-linked loan behaviour.',
   },
   {
-    slug: 'fd-interest-rates-guide',
-    title: 'FD Guide 2025: Interest, Tax, and Inflation Risks',
-    keyword: 'Fixed Deposit',
-    category: 'Savings & FD',
+    slug: 'sip-investment-strategies',
+    title: 'SIP Investment Guide 2025: Strategy, Returns & Tax Rules',
+    keyword: 'SIP Investment',
+    category: 'Mutual Funds & SIP',
     metaDescription:
-      'FDs are safe but losing value to inflation? Learn about FD interest calculation, taxation rules, and real vs nominal returns.',
+      'Understand SIP compounding, SIP vs lump sum, market cycles, tax rules, and long-term wealth strategies.',
   },
   {
-    slug: 'gst-explained-guide',
-    title: 'GST Guide 2025: For Individuals & Small Businesses',
-    keyword: 'GST',
-    category: 'Taxation',
-    metaDescription:
-      'Goods and Services Tax (GST) simplified. Understand slabs, Reverse Charge Mechanism (RCM), and Input Tax Credit (ITC).',
-  },
-  {
-    slug: 'home-loan-eligibility-guide',
-    title: 'Home Loan Guide 2025: Eligibility & Tax Benefits',
-    keyword: 'Home Loan',
-    category: 'Loans & Mortgages',
-    metaDescription:
-      'A complete handbook for first-time home buyers. Covers eligibility, FOIR calculation, tax benefits (80C/24B), and checklists.',
-  },
-  {
-    slug: 'cibil-score-guide-india',
+    slug: 'credit-score-guide-india',
     title: 'Credit Score Guide 2025: How CIBIL Works in India',
     keyword: 'Credit Score',
     category: 'Credit Score',
     metaDescription:
-      'Understand your CIBIL score range, factors affecting it, the 30% utilization rule, and a step-by-step plan to improve your score.',
-  },
-  {
-    slug: 'inflation-impact-guide',
-    title: 'Inflation Guide: Impact & Wealth Protection Strategies',
-    keyword: 'Inflation',
-    category: 'Financial Literacy',
-    metaDescription:
-      "Don't let inflation erode your savings. Learn the difference between Real vs Nominal returns and which assets truly beat inflation.",
-  },
-  {
-    slug: 'personal-loan-rates-guide',
-    title: 'Personal Loan Rates India 2025: Comparison Guide',
-    keyword: 'Personal Loan',
-    category: 'Loans & Mortgages',
-    metaDescription:
-      'Compare personal loan interest rates (10.5%-24%) across banks. Understand flat vs reducing balance rates and how to negotiate.',
-  },
-  {
-    slug: 'retirement-corpus-guide',
-    title: 'Retirement Planning: Strategy & Corpus Calculation',
-    keyword: 'Retirement Planning',
-    category: 'Retirement',
-    metaDescription:
-      "Don't guess your retirement number. Use our scientific approach to calculate corpus, understand inflation, and master the EPF+PPF+NPS mix.",
-  },
-  {
-    slug: 'sip-investment-strategies',
-    title: 'SIP Investment Guide 2025: Strategy & Tax Rules',
-    keyword: 'SIP Investment',
-    category: 'Mutual Funds & SIP',
-    metaDescription:
-      'Complete SIP guide covering compounding magic, SIP vs Lump Sum analysis, age-wise investment strategies, and tax rules.',
-  },
-  {
-    slug: 'sip-vs-fd-comparison',
-    title: 'SIP vs FD: Better Option in 2025? (Returns Analysis)',
-    keyword: 'SIP vs FD',
-    category: 'Investments',
-    metaDescription:
-      'The ultimate battle: SIP vs FD. We compare 10 & 20-year returns, taxation, and inflation impact.',
+      'Learn how credit scores are calculated, why 750+ matters, and a practical plan to fix low scores.',
   },
 ];
 
-/* ✅ MOCK CONTENT GENERATOR */
-function generateMockContent(topicTitle, keyword) {
+/* ===== RICH CONTENT ENGINE ===== */
+function generateRichContent(keyword) {
   return `
-<h2>What is ${keyword}?</h2>
-<p>${keyword} is an essential financial concept for Indian investors and borrowers.</p>
-<h2>Key Benefits</h2>
+<section>
+  <p>
+    <strong>${keyword}</strong> is not just a financial term — it directly affects
+    how much you pay, how quickly you build wealth, and how lenders judge your
+    financial discipline in India.
+  </p>
+</section>
+
+<h2>Why ${keyword} Matters in Real Life</h2>
+<p>
+  Most financial mistakes don’t happen due to lack of income, but due to
+  <em>misunderstanding how money behaves over time</em>.
+  ${keyword} plays a central role in this.
+</p>
+
 <ul>
-  <li>Better financial planning</li>
-  <li>Long-term wealth creation</li>
-  <li>Risk management</li>
+  <li>It determines long-term cost, not just monthly affordability</li>
+  <li>Small changes compound into large financial outcomes</li>
+  <li>Banks price risk based on behaviour, not intentions</li>
 </ul>
-<h2>Conclusion</h2>
-<p>Understanding ${keyword} is the first step towards financial freedom.</p>
+
+<h2>How It Works (Explained Simply)</h2>
+<p>
+  In India, most banks follow RBI-linked benchmarks and standardized formulas.
+  However, outcomes vary dramatically based on tenure, timing, and discipline.
+</p>
+
+<div class="callout-box">
+  <strong>Reality Check:</strong> Two people with the same income can pay vastly
+  different interest amounts for the same loan or investment.
+</div>
+
+<h3>Illustrative Example</h3>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Decision</th>
+      <th>Long-Term Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Conservative approach</td>
+      <td>Long tenure, no prepayment</td>
+      <td>Lower EMI, higher total interest</td>
+    </tr>
+    <tr>
+      <td>Optimized approach</td>
+      <td>Prepayment + tenure control</td>
+      <td>Saves years of interest</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Common Myths Indians Believe</h2>
+<ul>
+  <li><strong>“Lower EMI means cheaper loan”</strong> — Not true</li>
+  <li><strong>“Good salary guarantees best rates”</strong> — Credit history matters more</li>
+  <li><strong>“Banks automatically optimize loans”</strong> — They don’t</li>
+</ul>
+
+<h2>Expert Observations (What Most People Miss)</h2>
+<p>
+  Financial planning is less about chasing returns and more about
+  <strong>controlling leakage</strong> — unnecessary interest, taxes, penalties,
+  and inflation drag.
+</p>
+
+<div class="callout-box warning-box">
+  <strong>⚠️ Caution:</strong> Small delays, poor structuring, or emotional decisions
+  can silently cost lakhs over time.
+</div>
+
+<h2>Actionable Planning Checklist</h2>
+<ul>
+  <li>Use calculators before committing</li>
+  <li>Stress-test EMI or SIP for rate changes</li>
+  <li>Track credit behaviour quarterly</li>
+  <li>Revisit decisions annually</li>
+</ul>
+
+<h2>Final Thoughts</h2>
+<p>
+  Mastery of ${keyword} is not about complexity — it’s about
+  <strong>clarity and consistency</strong>.
+  The best financial outcomes usually come from boring, disciplined decisions
+  repeated over time.
+</p>
 `;
 }
 
-/* ✅ MAIN GENERATOR */
+/* ===== GENERATOR ===== */
 function generateArticles() {
-  const newArticles = topics.map((topic) => {
-    return {
-      slug: topic.slug,
-      title: topic.title,
-      category: topic.category,
-      seoTitle: `${topic.title} | Fincado`,
-      metaDescription: topic.metaDescription,
-      content: generateMockContent(topic.title, topic.keyword),
-      published: new Date().toISOString().split('T')[0], // YYYY-MM-DD
-    };
-  });
+  const articles = topics.map((topic) => ({
+    slug: topic.slug,
+    title: topic.title,
+    category: topic.category,
+    seoTitle: `${topic.title} | Fincado`,
+    metaDescription: topic.metaDescription,
+    content: generateRichContent(topic.keyword),
+    published: TODAY,
+    reviewed: false,
+    editorialNote:
+      'This is a draft article generated for editorial review. Verify facts, update data points, and personalize examples before publishing.',
+  }));
 
-  // Ensure directory exists
-  const dir = path.dirname(DATA_PATH);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
+  fs.mkdirSync(path.dirname(DATA_PATH), { recursive: true });
+  fs.writeFileSync(DATA_PATH, JSON.stringify(articles, null, 2));
 
-  fs.writeFileSync(DATA_PATH, JSON.stringify(newArticles, null, 2));
-  console.log(`✅ Successfully generated ${newArticles.length} SEO articles.`);
+  console.log(`✅ Generated ${articles.length} long-form editorial drafts.`);
 }
 
-// Run immediately
 generateArticles();

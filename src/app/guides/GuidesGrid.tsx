@@ -11,34 +11,24 @@ type Article = {
   title: string;
   category: string;
   metaDescription: string;
-  published: string;
+  published: string; // YYYY-MM-DD or preformatted string
 };
 
 // --- Helpers ---
 
-// 1. Map your category names to your Icon component names
+// Map category → icon
 const getCategoryIcon = (cat: string): IconName => {
-  if (!cat) return 'file'; // Default fallback
+  if (!cat) return 'file';
   const c = cat.toLowerCase();
 
-  if (c.includes('loan')) return 'homeLoan'; // Matches 'Loans & Mortgages'
-  if (c.includes('invest')) return 'sip'; // Matches 'Investment Strategy'
-  if (c.includes('tax')) return 'tax'; // Matches 'Tax Planning'
+  if (c.includes('loan')) return 'homeLoan';
+  if (c.includes('invest')) return 'sip';
+  if (c.includes('tax')) return 'tax';
   if (c.includes('credit')) return 'creditScore';
   if (c.includes('retire')) return 'retirement';
   if (c.includes('calc')) return 'emi';
 
   return 'file';
-};
-
-// 2. Format Date for India
-const formatDate = (dateString: string) => {
-  if (!dateString) return '';
-  return new Date(dateString).toLocaleDateString('en-IN', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
 };
 
 export default function GuidesGrid({
@@ -48,32 +38,25 @@ export default function GuidesGrid({
 }) {
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // ✅ CRITICAL FIX: Ensure 'articles' is always an array
-  // This prevents the "Cannot read properties of undefined (reading 'map')" error.
+  // ✅ Always safe array
   const articles = useMemo(
     () => (Array.isArray(allArticles) ? allArticles : []),
     [allArticles]
   );
 
-  // --- Logic ---
-
-  // 1. Extract Unique Categories for Filter Pills
+  // Extract unique categories
   const categories = useMemo(() => {
-    // We map over the safe 'articles' array
     const cats = new Set(articles.map((a) => a.category));
-    // Capitalize and sort if needed, here we just return unique values
     return ['All', ...Array.from(cats)];
   }, [articles]);
 
-  // 2. Filter Articles based on selection
+  // Filter logic
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'All') return articles;
     return articles.filter((a) => a.category === activeCategory);
   }, [activeCategory, articles]);
 
-  // --- Render ---
-
-  // Empty State
+  // Empty state
   if (articles.length === 0) {
     return (
       <div
@@ -90,7 +73,7 @@ export default function GuidesGrid({
 
   return (
     <div>
-      {/* --- 1. FILTER PILLS --- */}
+      {/* --- FILTER PILLS --- */}
       <div
         className="no-scrollbar"
         style={{
@@ -129,7 +112,7 @@ export default function GuidesGrid({
         ))}
       </div>
 
-      {/* --- 2. GRID OF CARDS --- */}
+      {/* --- GRID --- */}
       <div
         style={{
           display: 'grid',
@@ -157,7 +140,7 @@ export default function GuidesGrid({
                   'transform 0.2s, box-shadow 0.2s, border-color 0.2s',
               }}
             >
-              {/* Card Header: Icon + Category */}
+              {/* Header */}
               <div
                 style={{
                   display: 'flex',
@@ -183,6 +166,7 @@ export default function GuidesGrid({
                     className="w-6 h-6"
                   />
                 </div>
+
                 <div
                   style={{
                     fontSize: 11,
@@ -209,7 +193,7 @@ export default function GuidesGrid({
                 {guide.title}
               </h3>
 
-              {/* Description (WikiText auto-links content here too!) */}
+              {/* Description */}
               <div style={{ flexGrow: 1, marginBottom: 20 }}>
                 <WikiText
                   content={guide.metaDescription}
@@ -217,7 +201,7 @@ export default function GuidesGrid({
                 />
               </div>
 
-              {/* Footer: Date + Read More */}
+              {/* Footer */}
               <div
                 style={{
                   paddingTop: 16,
@@ -229,7 +213,9 @@ export default function GuidesGrid({
                   alignItems: 'center',
                 }}
               >
-                <span>{formatDate(guide.published)}</span>
+                {/* ✅ PURE STRING → HYDRATION SAFE */}
+                <span>{guide.published}</span>
+
                 <span
                   style={{
                     color: 'var(--color-brand-green)',
@@ -247,16 +233,14 @@ export default function GuidesGrid({
         ))}
       </div>
 
-      {/* --- 3. STYLES --- */}
+      {/* --- STYLES --- */}
       <style jsx global>{`
-        /* Card Hover Effect */
         .guide-card:hover {
           transform: translateY(-4px);
           box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
           border-color: var(--color-brand-light);
         }
 
-        /* Helper for Icon size if not global */
         .w-6 {
           width: 24px;
         }
@@ -264,7 +248,6 @@ export default function GuidesGrid({
           height: 24px;
         }
 
-        /* Description Line Clamping & Link Styling */
         .card-desc p {
           margin: 0;
           font-size: 14px;
@@ -275,11 +258,13 @@ export default function GuidesGrid({
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
+
         .card-desc a {
           color: var(--color-text-main);
           border-bottom: 1px dotted var(--color-brand-green);
           text-decoration: none;
         }
+
         .card-desc a:hover {
           color: var(--color-brand-green);
           background: var(--color-success-bg);

@@ -1,9 +1,7 @@
-// src/app/guides/layout.tsx
 'use client';
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 
@@ -12,36 +10,32 @@ export default function GuidesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
-  // ✅ CHECK: Are we on the main listing page?
-  const isIndexPage = pathname === '/guides' || pathname === '/guides/';
-
-  // 1. If on Main Guides Page -> Pass through (Let page.tsx handle layout/hero)
-  if (isIndexPage) {
-    return <>{children}</>;
-  }
-
-  // 2. If on Article Page -> Render with Sidebar Layout
   return (
-    <main className="container" style={{ padding: '40px 20px' }}>
-      <div className="layout-grid">
-        {/* LEFT: Article Content */}
+    <main
+      className="container"
+      style={{ padding: '40px 20px', maxWidth: 1180, margin: '0 auto' }}
+    >
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 300px',
+          gap: 24,
+        }}
+      >
+        {/* LEFT COLUMN: Main Content (Grid or Article) */}
         <div className="main-content" style={{ minWidth: 0 }}>
           {children}
         </div>
 
-        {/* RIGHT: Sidebar (For Articles) */}
-        <aside className="sidebar">
-          {/* Ad Slot */}
+        {/* RIGHT COLUMN: Unified Sidebar */}
+        <aside className="sidebar no-print">
           <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
-            <AdSlot id="article-sidebar-top" type="box" />
+            <AdSlot id="guides-sidebar-sticky" type="box" />
           </div>
 
-          {/* Navigation Widget */}
           <FinancialNavWidget />
 
-          {/* "Back to Guides" Helper */}
+          {/* Navigation Helper */}
           <div
             style={{
               marginTop: 24,
@@ -58,10 +52,9 @@ export default function GuidesLayout({
                 marginBottom: 12,
                 color: '#0f172a',
                 textTransform: 'uppercase',
-                letterSpacing: '0.5px',
               }}
             >
-              Explore More
+              Academy
             </h4>
             <Link
               href="/guides"
