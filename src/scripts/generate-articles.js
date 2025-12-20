@@ -1,31 +1,11 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
-/* ✅ ARTICLE TYPE DEFINITION */
-type Article = {
-  slug: string;
-  title: string;
-  category: string;
-  seoTitle: string;
-  metaDescription: string;
-  content: string; // HTML content
-  published: string;
-};
-
-/* ✅ TOPIC TYPE DEFINITION */
-type Topic = {
-  slug: string;
-  title: string;
-  keyword: string;
-  category: string;
-  metaDescription: string;
-};
+const fs = require('fs');
+const path = require('path');
 
 /* ✅ WHERE DATA IS STORED */
 const DATA_PATH = path.join(process.cwd(), 'src/data/articles.json');
 
 /* ✅ THE MASTER LIST (Optimized Slugs & Titles) */
-const topics: Topic[] = [
+const topics = [
   {
     slug: 'emi-calculator-guide-2025',
     title: 'EMI Calculator Guide 2025: Formulas & Tax Benefits',
@@ -108,8 +88,8 @@ const topics: Topic[] = [
   },
 ];
 
-/* ✅ MOCK CONTENT GENERATOR (FIXED TYPES) */
-function generateMockContent(topicTitle: string, keyword: string): string {
+/* ✅ MOCK CONTENT GENERATOR */
+function generateMockContent(topicTitle, keyword) {
   return `
 <h2>What is ${keyword}?</h2>
 <p>${keyword} is an essential financial concept for Indian investors and borrowers.</p>
@@ -126,7 +106,7 @@ function generateMockContent(topicTitle: string, keyword: string): string {
 
 /* ✅ MAIN GENERATOR */
 function generateArticles() {
-  const newArticles: Article[] = topics.map((topic) => {
+  const newArticles = topics.map((topic) => {
     return {
       slug: topic.slug,
       title: topic.title,
