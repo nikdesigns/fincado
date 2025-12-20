@@ -8,7 +8,8 @@
     "prebuild": "node src/scripts/process-wiki.js && node src/scripts/generate-sitemap.js",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ping": "node src/scripts/ping-indexnow.js"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
