@@ -41,7 +41,6 @@ const bankSlugs = [
 ];
 
 // ✅ SUPPORTED CITIES (Must match keys in src/lib/localData.ts)
-// We hardcode this here because we can't import TS files in this Node script easily.
 const supportedCitySlugs = [
   'mumbai',
   'delhi',
@@ -123,10 +122,9 @@ const staticPages = [
   '/compare-loans',
 ];
 
-// B. Hindi Pages (New Expansion)
+// B. Hindi Pages
 const hindiPages = [
   '/hi',
-  // Calculators
   '/hi/sip-calculator',
   '/hi/emi-calculator',
   '/hi/ppf-calculator',
@@ -137,29 +135,38 @@ const hindiPages = [
   '/hi/swp-calculator',
   '/hi/sukanya-samriddhi',
   '/hi/simple-interest-calculator',
-  // Guides
   '/hi/guides/credit-score',
   '/hi/guides/personal-loan',
   '/hi/guides/sip-vs-fd',
 ];
 
-// C. Guide Pages (Dynamic)
-const guidePages = articles.map((a) => `/guides/${a.slug}`);
+// C. Guide Pages (Dynamic with Filtering)
+// 🛑 FIX: Exclude pages that are now redirects
+const excludedSlugs = [
+  'home-loan-first-time-buyers',
+  'home-loan-for-first-time-buyers',
+  'personal-loan-interest-rates',
+  'personal-loan-interest-rates-india',
+];
 
-// D. Category Pages (Dynamic)
+const guidePages = articles
+  .filter((a) => !excludedSlugs.includes(a.slug)) // Remove redirect URLs
+  .map((a) => `/guides/${a.slug}`);
+
+// D. Category Pages
 const categoryPages = Array.from(
   new Set(
     articles.map((a) => `/guides/category/${encodeURIComponent(a.category)}`)
   )
 );
 
-// E. City EMI Pages (Only for supported cities)
+// E. City EMI Pages
 const cityPages = supportedCitySlugs.map((slug) => `/emi-calculator/${slug}`);
 
-// F. Bank Pages (e.g., /bank-emi/sbi)
+// F. Bank Pages
 const bankPages = bankSlugs.map((b) => `/bank-emi/${b}`);
 
-// G. Bank + City Pages (Only for supported cities)
+// G. Bank + City Pages
 const bankCityPages = [];
 bankSlugs.forEach((bank) => {
   supportedCitySlugs.forEach((citySlug) => {
