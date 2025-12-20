@@ -1,6 +1,7 @@
 // src/app/calculators/CalculatorsGrid.tsx
 'use client';
 import React, { useMemo } from 'react';
+import AdSlot from '@/components/AdSlot'; // ➕ Add this
 
 // Comprehensive list of all calculators
 const ALL_CALCULATORS = [
@@ -185,8 +186,8 @@ export default function CalculatorsGrid() {
         built for the Indian context with sleek, accurate performance.
       </p>
 
-      <div className="ad-box" style={{ marginTop: '20px' }}>
-        AdSense Leaderboard Slot
+      <div style={{ margin: '30px 0' }}>
+        <AdSlot id="calculators-grid-top" type="leaderboard" />
       </div>
 
       {Object.entries(groupedCalculators).map(([category, calculators]) => (
