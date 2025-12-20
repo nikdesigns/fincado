@@ -13,7 +13,7 @@ import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'SSY Calculator – Sukanya Samriddhi Yojana Interest & Maturity',
+  title: 'SSY Calculator – Sukanya Samriddhi Maturity Value',
   description:
     "Calculate the maturity amount for your daughter's Sukanya Samriddhi Yojana (SSY) account. Check interest earned, tax benefits, and yearly growth schedule.",
   keywords: [

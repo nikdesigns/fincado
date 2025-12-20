@@ -200,8 +200,7 @@ export default function CreditScoreGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          Credit Score Guide 2025: How CIBIL Score Works in India (Complete
-          Handbook)
+          Credit Score Guide 2025-26: How CIBIL Works in India
         </h1>
         <div
           style={{

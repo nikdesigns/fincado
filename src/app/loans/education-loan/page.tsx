@@ -12,7 +12,7 @@ import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'Education Loan EMI Calculator – With Moratorium & 80E Benefit',
+  title: 'Education Loan EMI Calculator – Moratorium & 80E',
   description:
     'Calculate Education Loan EMI including Moratorium period. Check eligibility, 80E tax deduction, and repayment schedule for SBI, HDFC, and Axis Bank.',
   keywords: [

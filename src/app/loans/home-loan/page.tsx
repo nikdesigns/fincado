@@ -15,7 +15,7 @@ import ShareTools from '@/components/ShareTools';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Home Loan EMI Calculator 2025 – Check Eligibility & Tax Benefits',
+  title: 'Home Loan EMI Calculator 2025 – Eligibility & Tax',
   description:
     'Calculate Home Loan EMI, total interest, and tax benefits under Section 24(b) and 80C. Check eligibility, PMAY subsidy, and amortization schedule instantly.',
   keywords: [

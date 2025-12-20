@@ -168,7 +168,7 @@ export default function PersonalLoanGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          Personal Loan Interest Rates in India 2025: Complete Comparison Guide
+          Personal Loan Rates India 2025-26: Comparison Guide
         </h1>
         <div
           style={{

@@ -169,8 +169,7 @@ export default function GstGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          GST Explained for Individuals & Small Businesses: Complete Guide With
-          Examples
+          GST Explained 2025-26: Guide for Individuals & Businesses
         </h1>
         <div
           style={{

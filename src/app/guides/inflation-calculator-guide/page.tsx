@@ -142,8 +142,7 @@ export default function InflationGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          Inflation Calculator – Why Inflation Is Dangerous and How to Protect
-          Your Wealth
+          Inflation Guide: Impact & Wealth Protection Strategies
         </h1>
         <div
           style={{

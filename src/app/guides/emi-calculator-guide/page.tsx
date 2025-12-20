@@ -186,7 +186,7 @@ export default function EmiGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          EMI Calculator – Complete Guide: Master Your Loan EMI in 2025
+          EMI Calculator Guide 2025-26: Formulas & Tax Benefits
         </h1>
         <div
           style={{

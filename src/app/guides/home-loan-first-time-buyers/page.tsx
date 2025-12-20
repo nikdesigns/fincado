@@ -138,7 +138,7 @@ export default function HomeLoanGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          Home Loan for First-Time Buyers in India: Complete Guide 2025
+          Home Loan Guide 2025-26: Eligibility & Tax Benefits
         </h1>
         <div
           style={{

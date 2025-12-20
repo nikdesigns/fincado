@@ -176,7 +176,7 @@ export default function SipVsFdGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          SIP vs FD in 2025: Returns, Tax, Risk & Wealth Comparison
+          SIP vs FD: Better Option in 2025? (Returns Analysis)
         </h1>
         <div
           style={{

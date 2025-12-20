@@ -15,7 +15,7 @@ import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'SWP Calculator – Systematic Withdrawal Plan for Monthly Income',
+  title: 'SWP Calculator – Monthly Income from Mutual Funds',
   description:
     'Calculate monthly income from your Mutual Fund investments with our SWP Calculator. Estimate capital appreciation, withdrawal tenure, and remaining corpus.',
   keywords: [

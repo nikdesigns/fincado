@@ -209,8 +209,7 @@ export default function SipGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          SIP Investment Guide 2025: Beginner to Advanced Strategy for Wealth
-          Creation
+          SIP Investment Guide 2025-26: Strategy & Tax Rules
         </h1>
         <div
           style={{

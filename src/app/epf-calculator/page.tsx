@@ -12,25 +12,24 @@ import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'FIRE Calculator – Financial Independence Retire Early Planning',
+  title: 'EPF Calculator – Calculate Corpus & Interest',
   description:
-    'Calculate your FIRE Number with our advanced FIRE Calculator. Estimate target corpus based on SWR (Safe Withdrawal Rate), inflation, and lifestyle expenses.',
+    'Calculate your Employee Provident Fund (EPF) corpus at retirement. Check employer contributions, total interest earned, and tax-free withdrawal limits.',
   keywords: [
-    'FIRE Calculator',
-    'Financial Independence Retire Early',
-    'FIRE Number Calculator',
-    'Early Retirement Calculator',
-    'F.I.R.E Movement',
-    'Retirement Corpus Calculator India',
+    'EPF Calculator',
+    'PF Calculator',
+    'Provident Fund Calculator',
+    'EPF Interest Calculator',
+    'Retirement Corpus',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/fire-calculator',
+    canonical: 'https://www.fincado.com/epf-calculator',
   },
   openGraph: {
-    title: 'FIRE Calculator – Plan Your Early Retirement',
+    title: 'EPF Calculator – Track Your Retirement Savings',
     description:
-      'Free tool to calculate your financial freedom number and required monthly savings.',
-    url: 'https://www.fincado.com/fire-calculator',
+      'Free tool to calculate your total EPF corpus including employer contribution and interest.',
+    url: 'https://www.fincado.com/epf-calculator',
     type: 'website',
   },
 };

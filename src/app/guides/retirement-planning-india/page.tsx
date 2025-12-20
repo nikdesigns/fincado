@@ -148,8 +148,7 @@ export default function RetirementPlanningGuidePage() {
       <header className="guide-header">
         <span className="badge-flagship">Essential Guide</span>
         <h1 className="guide-title">
-          Retirement Planning Guide (India): Build Your Dream Retirement Without
-          Compromising Your Lifestyle
+          Retirement Planning Guide: Strategy & Corpus Calculation
         </h1>
         <div className="guide-meta">
           <span>

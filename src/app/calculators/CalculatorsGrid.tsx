@@ -178,7 +178,7 @@ export default function CalculatorsGrid() {
 
   return (
     <div className="calculator-hub article">
-      <h1>Comprehensive Financial Calculators</h1>
+      <h2>Comprehensive Financial Calculators</h2>
       <p className="tools-sub">
         Access our full suite of professional calculators for loans,
         investments, retirement planning, and tax tools. All calculators are

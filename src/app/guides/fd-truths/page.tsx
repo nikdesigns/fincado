@@ -167,8 +167,7 @@ export default function FdGuidePage() {
             color: 'var(--color-text-main)',
           }}
         >
-          Fixed Deposit Guide (FD Truths): The Real Story Behind
-          &quot;Safe&quot; Returns
+          FD Guide 2025-26: Interest, Tax, and Inflation Risks
         </h1>
         <div
           style={{

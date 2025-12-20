@@ -12,7 +12,7 @@ import ShareTools from '@/components/ShareTools';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'FIRE Calculator – Financial Independence Retire Early Planning',
+  title: 'FIRE Calculator – Plan Early Retirementg',
   description:
     'Calculate your FIRE Number with our advanced FIRE Calculator. Estimate target corpus based on SWR (Safe Withdrawal Rate), inflation, and lifestyle expenses.',
   keywords: [

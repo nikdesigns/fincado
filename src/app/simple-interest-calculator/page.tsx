@@ -15,7 +15,7 @@ import LanguageToggle from '@/components/LanguageToggle';
 
 // 1. SEO METADATA
 export const metadata: Metadata = {
-  title: 'Simple Interest Calculator – Calculate Interest & Maturity Amount',
+  title: 'Simple Interest Calculator – Interest & Maturity',
   description:
     'Calculate simple interest easily with our free online calculator. Determine the interest earned on your principal amount over a specific period without compounding.',
   keywords: [

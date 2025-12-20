@@ -10,8 +10,7 @@ import ShareTools from '@/components/ShareTools'; // ✅ Viral Sharing
 import AuthorBio from '@/components/AuthorBio'; // ✅ E-E-A-T Authority
 
 export const metadata: Metadata = {
-  title:
-    'Investing Planner – SIP & Lumpsum Planner, Allocation & CAGR | Fincado',
+  title: 'Investing Planner – SIP, Lumpsum & Allocation Tool',
   description:
     'Investing planner for India: plan SIPs and lumpsum investments, get future value, allocation suggestions, CAGR estimate and diversification guidance.',
   keywords: [
