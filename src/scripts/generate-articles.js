@@ -1,152 +1,149 @@
 const fs = require('fs');
 const path = require('path');
 
-/* ===== CONFIG ===== */
 const DATA_PATH = path.join(process.cwd(), 'src/data/articles.json');
-const TODAY = new Date().toISOString().split('T')[0];
 
-/* ===== MASTER TOPICS ===== */
+/* ✅ SAME TOPICS YOU ALREADY PUBLISHED */
 const topics = [
   {
-    slug: 'emi-calculator-guide-2025',
-    title: 'EMI Calculator Guide 2025: Formulas, Examples & Smart Planning',
+    slug: 'emi-calculator-guide',
+    title: 'EMI Calculator – Complete Guide',
     keyword: 'EMI Calculator',
     category: 'Loans & Mortgages',
     metaDescription:
-      'Learn how EMI is calculated, how tenure and interest affect cost, prepayment strategies, and RBI-linked loan behaviour.',
+      'Understand EMI calculation, formula, tax benefits, prepayment strategies and credit score impact.',
   },
   {
-    slug: 'sip-investment-strategies',
-    title: 'SIP Investment Guide 2025: Strategy, Returns & Tax Rules',
-    keyword: 'SIP Investment',
-    category: 'Mutual Funds & SIP',
+    slug: 'fd-truths',
+    title: 'Fixed Deposit Guide: Interest, Tax & Inflation',
+    keyword: 'Fixed Deposit',
+    category: 'Savings & FD',
     metaDescription:
-      'Understand SIP compounding, SIP vs lump sum, market cycles, tax rules, and long-term wealth strategies.',
+      'Learn how FD interest works, taxation rules, and why inflation reduces real returns.',
   },
   {
-    slug: 'credit-score-guide-india',
-    title: 'Credit Score Guide 2025: How CIBIL Works in India',
+    slug: 'gst-explained',
+    title: 'GST Explained for Individuals & Small Businesses',
+    keyword: 'GST',
+    category: 'Taxation',
+    metaDescription:
+      'GST simplified: slabs, reverse charge, ITC and common mistakes.',
+  },
+  {
+    slug: 'home-loan-first-time-buyers',
+    title: 'Home Loan for First-Time Buyers (India)',
+    keyword: 'Home Loan',
+    category: 'Loans & Mortgages',
+    metaDescription:
+      'Eligibility, FOIR, down payment rules, tax benefits and mistakes to avoid.',
+  },
+  {
+    slug: 'how-credit-score-works-india',
+    title: 'Credit Score Guide (CIBIL Focus)',
     keyword: 'Credit Score',
     category: 'Credit Score',
     metaDescription:
-      'Learn how credit scores are calculated, why 750+ matters, and a practical plan to fix low scores.',
+      'CIBIL score range, factors, EMI impact and step-by-step improvement plan.',
+  },
+  {
+    slug: 'sip-investment-guide',
+    title: 'SIP Investment Guide (Beginner to Advanced)',
+    keyword: 'SIP Investment',
+    category: 'Mutual Funds & SIP',
+    metaDescription:
+      'How SIP works, compounding, tax rules, returns and common mistakes.',
+  },
+  {
+    slug: 'sip-vs-fd',
+    title: 'SIP vs FD – Which Is Better?',
+    keyword: 'SIP vs FD',
+    category: 'Investments',
+    metaDescription:
+      'Compare SIP vs FD returns, taxation and inflation-adjusted performance.',
+  },
+  {
+    slug: 'retirement-planning-india',
+    title: 'Retirement Planning Guide (India)',
+    keyword: 'Retirement Planning',
+    category: 'Retirement',
+    metaDescription:
+      'Inflation-adjusted retirement planning using EPF, PPF and NPS.',
   },
 ];
 
-/* ===== RICH CONTENT ENGINE ===== */
-function generateRichContent(keyword) {
+/* ✅ HUMAN-LIKE CONTENT ENGINE */
+function generateRichContent(title, keyword) {
   return `
 <section>
   <p>
-    <strong>${keyword}</strong> is not just a financial term — it directly affects
-    how much you pay, how quickly you build wealth, and how lenders judge your
-    financial discipline in India.
+    ${keyword} is one of the most important financial concepts for Indian households.
+    However, most people use it without fully understanding the long-term impact
+    on their money, credit score, and financial stability.
   </p>
 </section>
 
 <h2>Why ${keyword} Matters in Real Life</h2>
 <p>
-  Most financial mistakes don’t happen due to lack of income, but due to
-  <em>misunderstanding how money behaves over time</em>.
-  ${keyword} plays a central role in this.
+  Decisions related to ${keyword} directly affect your monthly cash flow,
+  long-term wealth creation, and even your eligibility for future loans.
 </p>
 
+<h2>Common Mistakes People Make</h2>
 <ul>
-  <li>It determines long-term cost, not just monthly affordability</li>
-  <li>Small changes compound into large financial outcomes</li>
-  <li>Banks price risk based on behaviour, not intentions</li>
+  <li>Relying only on headline numbers without understanding hidden costs</li>
+  <li>Ignoring inflation while planning long-term commitments</li>
+  <li>Making emotional decisions instead of data-driven ones</li>
 </ul>
 
-<h2>How It Works (Explained Simply)</h2>
+<h2>Expert Insight</h2>
 <p>
-  In India, most banks follow RBI-linked benchmarks and standardized formulas.
-  However, outcomes vary dramatically based on tenure, timing, and discipline.
+  Financial planners recommend revisiting ${keyword}-related decisions
+  at least once every year. Even small optimisations can save or earn
+  lakhs of rupees over time.
 </p>
-
-<div class="callout-box">
-  <strong>Reality Check:</strong> Two people with the same income can pay vastly
-  different interest amounts for the same loan or investment.
-</div>
-
-<h3>Illustrative Example</h3>
-<table class="data-table">
-  <thead>
-    <tr>
-      <th>Scenario</th>
-      <th>Decision</th>
-      <th>Long-Term Impact</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Conservative approach</td>
-      <td>Long tenure, no prepayment</td>
-      <td>Lower EMI, higher total interest</td>
-    </tr>
-    <tr>
-      <td>Optimized approach</td>
-      <td>Prepayment + tenure control</td>
-      <td>Saves years of interest</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>Common Myths Indians Believe</h2>
-<ul>
-  <li><strong>“Lower EMI means cheaper loan”</strong> — Not true</li>
-  <li><strong>“Good salary guarantees best rates”</strong> — Credit history matters more</li>
-  <li><strong>“Banks automatically optimize loans”</strong> — They don’t</li>
-</ul>
-
-<h2>Expert Observations (What Most People Miss)</h2>
-<p>
-  Financial planning is less about chasing returns and more about
-  <strong>controlling leakage</strong> — unnecessary interest, taxes, penalties,
-  and inflation drag.
-</p>
-
-<div class="callout-box warning-box">
-  <strong>⚠️ Caution:</strong> Small delays, poor structuring, or emotional decisions
-  can silently cost lakhs over time.
-</div>
-
-<h2>Actionable Planning Checklist</h2>
-<ul>
-  <li>Use calculators before committing</li>
-  <li>Stress-test EMI or SIP for rate changes</li>
-  <li>Track credit behaviour quarterly</li>
-  <li>Revisit decisions annually</li>
-</ul>
 
 <h2>Final Thoughts</h2>
 <p>
-  Mastery of ${keyword} is not about complexity — it’s about
-  <strong>clarity and consistency</strong>.
-  The best financial outcomes usually come from boring, disciplined decisions
-  repeated over time.
+  ${keyword} is not just a calculation or product — it is a strategy.
+  Use the right tools, understand the risks, and plan with a long-term mindset.
 </p>
 `;
 }
 
-/* ===== GENERATOR ===== */
-function generateArticles() {
-  const articles = topics.map((topic) => ({
-    slug: topic.slug,
-    title: topic.title,
-    category: topic.category,
-    seoTitle: `${topic.title} | Fincado`,
-    metaDescription: topic.metaDescription,
-    content: generateRichContent(topic.keyword),
-    published: TODAY,
-    reviewed: false,
-    editorialNote:
-      'This is a draft article generated for editorial review. Verify facts, update data points, and personalize examples before publishing.',
-  }));
+/* ✅ SAFE UPGRADE RUNNER */
+function run() {
+  let existing = [];
 
-  fs.mkdirSync(path.dirname(DATA_PATH), { recursive: true });
-  fs.writeFileSync(DATA_PATH, JSON.stringify(articles, null, 2));
+  if (fs.existsSync(DATA_PATH)) {
+    existing = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+  }
 
-  console.log(`✅ Generated ${articles.length} long-form editorial drafts.`);
+  const bySlug = new Map(existing.map((a) => [a.slug, a]));
+
+  topics.forEach((topic) => {
+    if (bySlug.has(topic.slug)) {
+      // 🔁 Upgrade existing article content only
+      const article = bySlug.get(topic.slug);
+      article.content = generateRichContent(topic.title, topic.keyword);
+      article.updated = new Date().toISOString().split('T')[0];
+    } else {
+      // ➕ Add missing article safely
+      bySlug.set(topic.slug, {
+        slug: topic.slug,
+        title: topic.title,
+        category: topic.category,
+        seoTitle: `${topic.title} | Fincado`,
+        metaDescription: topic.metaDescription,
+        content: generateRichContent(topic.title, topic.keyword),
+        published: new Date().toISOString().split('T')[0],
+      });
+    }
+  });
+
+  const finalArticles = Array.from(bySlug.values());
+
+  fs.writeFileSync(DATA_PATH, JSON.stringify(finalArticles, null, 2));
+  console.log(`✅ Safely upgraded ${topics.length} published articles`);
 }
 
-generateArticles();
+run();

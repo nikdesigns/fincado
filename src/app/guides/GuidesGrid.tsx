@@ -3,86 +3,88 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import WikiText from '@/components/WikiText';
-import Icon, { IconName } from '@/components/Icon';
 
-// --- Types ---
+/* ---------- TYPES ---------- */
 type Article = {
   slug: string;
   title: string;
   category: string;
   metaDescription: string;
-  published: string; // YYYY-MM-DD or preformatted string
+  published: string; // YYYY-MM-DD
 };
 
-// --- Helpers ---
-
-// Map category → icon
-const getCategoryIcon = (cat: string): IconName => {
-  if (!cat) return 'file';
-  const c = cat.toLowerCase();
-
-  if (c.includes('loan')) return 'homeLoan';
-  if (c.includes('invest')) return 'sip';
-  if (c.includes('tax')) return 'tax';
-  if (c.includes('credit')) return 'creditScore';
-  if (c.includes('retire')) return 'retirement';
-  if (c.includes('calc')) return 'emi';
-
-  return 'file';
+/* ---------- HYDRATION-SAFE DATE FORMAT ---------- */
+const MONTHS: Record<string, string> = {
+  '01': 'Jan',
+  '02': 'Feb',
+  '03': 'Mar',
+  '04': 'Apr',
+  '05': 'May',
+  '06': 'Jun',
+  '07': 'Jul',
+  '08': 'Aug',
+  '09': 'Sep',
+  '10': 'Oct',
+  '11': 'Nov',
+  '12': 'Dec',
 };
 
+function formatDateSafe(dateString: string) {
+  if (!dateString) return '';
+  const [year, month, day] = dateString.split('-');
+  return `${day} ${MONTHS[month]} ${year}`;
+}
+
+/* ---------- COMPONENT ---------- */
 export default function GuidesGrid({
-  allArticles,
+  allArticles = [],
 }: {
   allArticles?: Article[];
 }) {
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // ✅ Always safe array
+  /* Always safe array */
   const articles = useMemo(
     () => (Array.isArray(allArticles) ? allArticles : []),
     [allArticles]
   );
 
-  // Extract unique categories
+  /* Categories */
   const categories = useMemo(() => {
-    const cats = new Set(articles.map((a) => a.category));
-    return ['All', ...Array.from(cats)];
+    const set = new Set(articles.map((a) => a.category));
+    return ['All', ...Array.from(set)];
   }, [articles]);
 
-  // Filter logic
+  /* Filtered articles */
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'All') return articles;
     return articles.filter((a) => a.category === activeCategory);
   }, [activeCategory, articles]);
 
-  // Empty state
-  if (articles.length === 0) {
+  /* Empty state */
+  if (!articles.length) {
     return (
       <div
         style={{
           padding: 60,
           textAlign: 'center',
-          color: 'var(--color-text-muted)',
+          color: '#64748b',
         }}
       >
-        <p>No guides found. Please check back later.</p>
+        No guides available right now.
       </div>
     );
   }
 
   return (
     <div>
-      {/* --- FILTER PILLS --- */}
+      {/* ---------- FILTER PILLS ---------- */}
       <div
-        className="no-scrollbar"
         style={{
           display: 'flex',
           gap: 12,
-          overflowX: 'auto',
-          paddingBottom: 24,
-          marginBottom: 12,
           flexWrap: 'wrap',
+          marginBottom: 32,
         }}
       >
         {categories.map((cat) => (
@@ -90,21 +92,20 @@ export default function GuidesGrid({
             key={cat}
             onClick={() => setActiveCategory(cat)}
             style={{
-              padding: '8px 20px',
-              borderRadius: '50px',
+              padding: '8px 18px',
+              borderRadius: 999,
               border:
                 activeCategory === cat
-                  ? '1px solid var(--color-action-cta)'
+                  ? '1px solid var(--color-brand-green)'
                   : '1px solid var(--color-border)',
               background:
-                activeCategory === cat ? 'var(--color-action-cta)' : 'white',
+                activeCategory === cat ? 'var(--color-brand-green)' : '#fff',
               color:
-                activeCategory === cat ? 'white' : 'var(--color-text-muted)',
-              fontSize: '14px',
+                activeCategory === cat ? '#fff' : 'var(--color-text-muted)',
+              fontSize: 14,
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.2s',
-              textTransform: 'capitalize',
             }}
           >
             {cat}
@@ -112,162 +113,115 @@ export default function GuidesGrid({
         ))}
       </div>
 
-      {/* --- GRID --- */}
+      {/* ---------- GRID ---------- */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-          gap: '24px',
+          gap: 24,
         }}
       >
         {filteredArticles.map((guide) => (
           <Link
             key={guide.slug}
             href={`/guides/${guide.slug}`}
-            style={{ textDecoration: 'none', color: 'inherit' }}
+            className="guide-link"
           >
-            <div
-              className="guide-card"
-              style={{
-                background: 'white',
-                border: '1px solid var(--color-border)',
-                borderRadius: 16,
-                padding: 24,
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                transition:
-                  'transform 0.2s, box-shadow 0.2s, border-color 0.2s',
-              }}
-            >
-              {/* Header */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  marginBottom: 16,
-                }}
-              >
-                <div
-                  style={{
-                    width: 42,
-                    height: 42,
-                    borderRadius: 10,
-                    background: 'var(--color-bg-soft)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'var(--color-brand-green)',
-                  }}
-                >
-                  <Icon
-                    name={getCategoryIcon(guide.category)}
-                    className="w-6 h-6"
-                  />
-                </div>
-
-                <div
-                  style={{
-                    fontSize: 11,
-                    textTransform: 'uppercase',
-                    color: 'var(--color-text-muted)',
-                    fontWeight: 600,
-                    letterSpacing: 0.5,
-                  }}
-                >
-                  {guide.category}
-                </div>
+            <article className="guide-card">
+              {/* CATEGORY PILL */}
+              <div style={{ marginBottom: 16 }}>
+                <span className="category-pill">{guide.category}</span>
               </div>
 
-              {/* Title */}
-              <h3
-                style={{
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: 'var(--color-text-main)',
-                  marginBottom: 12,
-                  lineHeight: 1.4,
-                }}
-              >
-                {guide.title}
-              </h3>
+              {/* TITLE */}
+              <h3 className="guide-title">{guide.title}</h3>
 
-              {/* Description */}
-              <div style={{ flexGrow: 1, marginBottom: 20 }}>
-                <WikiText
-                  content={guide.metaDescription}
-                  className="card-desc"
-                />
+              {/* DESCRIPTION */}
+              <div className="guide-desc">
+                <WikiText content={guide.metaDescription} />
               </div>
 
-              {/* Footer */}
-              <div
-                style={{
-                  paddingTop: 16,
-                  borderTop: '1px solid var(--color-bg-soft)',
-                  fontSize: 12,
-                  color: '#94a3b8',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                {/* ✅ PURE STRING → HYDRATION SAFE */}
-                <span>{guide.published}</span>
-
-                <span
-                  style={{
-                    color: 'var(--color-brand-green)',
-                    fontWeight: 500,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 4,
-                  }}
-                >
-                  Read &rarr;
-                </span>
-              </div>
-            </div>
+              {/* FOOTER */}
+              <footer className="guide-footer">
+                <span>{formatDateSafe(guide.published)}</span>
+                <span className="read-more">Read →</span>
+              </footer>
+            </article>
           </Link>
         ))}
       </div>
 
-      {/* --- STYLES --- */}
+      {/* ---------- STYLES ---------- */}
       <style jsx global>{`
+        .guide-link {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        .guide-card {
+          background: #fff;
+          border: 1px solid var(--color-border);
+          border-radius: 16px;
+          padding: 24px;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
         .guide-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
           border-color: var(--color-brand-light);
         }
 
-        .w-6 {
-          width: 24px;
-        }
-        .h-6 {
-          height: 24px;
+        .category-pill {
+          display: inline-block;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: var(--color-brand-green);
+          background: var(--color-success-bg);
+          padding: 4px 12px;
+          border-radius: 999px;
+          letter-spacing: 0.5px;
         }
 
-        .card-desc p {
-          margin: 0;
+        .guide-title {
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 1.4;
+          margin-bottom: 12px;
+          color: var(--color-text-main);
+        }
+
+        .guide-desc {
+          flex-grow: 1;
           font-size: 14px;
           color: var(--color-text-muted);
-          line-height: 1.5;
+        }
+
+        .guide-desc p {
+          margin: 0;
           display: -webkit-box;
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
 
-        .card-desc a {
-          color: var(--color-text-main);
-          border-bottom: 1px dotted var(--color-brand-green);
-          text-decoration: none;
+        .guide-footer {
+          margin-top: 16px;
+          padding-top: 12px;
+          border-top: 1px solid #f1f5f9;
+          display: flex;
+          justify-content: space-between;
+          font-size: 12px;
+          color: #94a3b8;
         }
 
-        .card-desc a:hover {
+        .read-more {
           color: var(--color-brand-green);
-          background: var(--color-success-bg);
+          font-weight: 500;
         }
       `}</style>
     </div>
