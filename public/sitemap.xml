@@ -394,6 +394,13 @@
   </url>
 
   <url>
+    <loc>https://www.fincado.com/guides/category/Financial%20Literacy</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.fincado.com/guides/emi-calculator-guide-2025</loc>
     <lastmod>2025-12-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -458,6 +465,20 @@
 
   <url>
     <loc>https://www.fincado.com/guides/retirement-planning-india</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fincado.com/guides/how-credit-score-affects-loans</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.fincado.com/guides/inflation-calculator-guide</loc>
     <lastmod>2025-12-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

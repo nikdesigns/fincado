@@ -133,15 +133,16 @@ export default async function GuidePost({ params }: Props) {
             {article.title}
           </h1>
 
-          <p
+          <div
             style={{
               fontSize: 18,
               color: 'var(--color-text-muted)',
               lineHeight: 1.6,
             }}
           >
-            {article.metaDescription}
-          </p>
+            <WikiText content={article.metaDescription} />
+            {/* <WikiText content={article.content} className="guide-body" /> */}
+          </div>
         </header>
 
         <div className="no-print" style={{ marginBottom: 32 }}>

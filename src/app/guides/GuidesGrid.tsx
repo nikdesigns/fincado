@@ -122,13 +122,9 @@ export default function GuidesGrid({
         }}
       >
         {filteredArticles.map((guide) => (
-          <Link
-            key={guide.slug}
-            href={`/guides/${guide.slug}`}
-            className="guide-link"
-          >
+          <Link key={guide.slug} href={`/guides/${guide.slug}`}>
             <article className="guide-card">
-              {/* CATEGORY PILL */}
+              {/* CATEGORY */}
               <div style={{ marginBottom: 16 }}>
                 <span className="category-pill">{guide.category}</span>
               </div>
