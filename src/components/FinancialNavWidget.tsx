@@ -6,135 +6,130 @@ import Link from 'next/link';
 type NavItem = {
   href: string;
   label: string;
+  icon?: string;
   isNew?: boolean;
 };
 
-// ✅ Updated List: Matches your actual calculator pages
-const TOP_CALCULATORS: NavItem[] = [
-  { href: '/sip-calculator', label: 'SIP Calculator' },
-  { href: '/emi-calculator', label: 'EMI Calculator' },
-  { href: '/ppf-calculator', label: 'PPF Calculator' },
-  { href: '/gst-calculator', label: 'GST Calculator' },
-  { href: '/fd-calculator', label: 'FD Calculator' },
-  { href: '/credit-score', label: 'Check Credit Score', isNew: true },
+// 1. POPULAR TOOLS (Curated List)
+const TOP_TOOLS: NavItem[] = [
+  { href: '/sip-calculator', label: 'SIP Calculator', icon: '📈' },
+  { href: '/emi-calculator', label: 'EMI Calculator', icon: '🏠' },
+  {
+    href: '/sukanya-samriddhi',
+    label: 'SSY Calculator',
+    icon: '👧',
+    isNew: true,
+  },
+  { href: '/ppf-calculator', label: 'PPF Calculator', icon: '💰' },
+  { href: '/income-tax-calculator', label: 'Tax Calculator', icon: '🧾' },
+  { href: '/credit-score', label: 'Check Credit Score', icon: '🛡️' },
 ];
 
-// ✅ Updated List: Matches your new articles.json slugs
-const POPULAR_GUIDES: NavItem[] = [
+// 2. TRENDING GUIDES (Updated with your new content)
+const TRENDING_GUIDES: NavItem[] = [
   {
-    href: '/guides/sip-vs-fd',
-    label: 'SIP vs FD: Which is Better?',
+    href: '/guides/sukanya-samriddhi-yojana-guide-2025',
+    label: 'SSY Scheme 2025: Full Guide',
   },
   {
-    href: '/guides/home-loan-first-time-buyers',
-    label: 'Home Loan Guide 2025',
+    href: '/guides/elss-funds-guide-2025',
+    label: 'ELSS Funds: Save Tax (80C)',
   },
   {
-    href: '/guides/how-credit-score-works-india',
-    label: 'How CIBIL Score Works',
+    href: '/guides/sovereign-gold-bond-sgb-guide',
+    label: 'Sovereign Gold Bonds (SGB)',
   },
   {
-    href: '/guides/retirement-planning-india',
-    label: 'Retirement Planning 101',
+    href: '/guides/health-insurance-buying-guide',
+    label: 'Health Insurance Checklist',
   },
 ];
 
 export default function FinancialNavWidget() {
   return (
-    <nav
-      className="financial-nav-widget"
-      aria-label="Financial tools and guides"
-      style={{
-        background: '#fff',
-        border: '1px solid var(--color-border)',
-        borderRadius: 16,
-        overflow: 'hidden',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.02)',
-      }}
-    >
+    <nav className="financial-sidebar">
       {/* --- SECTION 1: TOOLS --- */}
-      <section style={{ padding: '20px 20px 10px' }}>
-        <h3
-          style={{
-            fontSize: 12,
-            textTransform: 'uppercase',
-            color: 'var(--color-text-muted)',
-            fontWeight: 700,
-            letterSpacing: '0.5px',
-            marginBottom: 16,
-          }}
-        >
-          Popular Tools
-        </h3>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {TOP_CALCULATORS.map((item) => (
-            <li key={item.href} style={{ marginBottom: 6 }}>
-              <Link href={item.href} className="nav-link-item">
-                <span>{item.label}</span>
+      <div className="sidebar-section">
+        <h3 className="sidebar-title">Popular Tools</h3>
+        <ul className="sidebar-list">
+          {TOP_TOOLS.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="tool-link">
+                <span
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+                >
+                  <span style={{ fontSize: '16px' }}>{item.icon}</span>
+                  {item.label}
+                </span>
                 {item.isNew && <span className="badge-new">NEW</span>}
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* 'View All' Link */}
-        <div style={{ marginTop: 14, textAlign: 'center' }}>
-          <Link
-            href="/calculators"
-            style={{
-              fontSize: 13,
-              color: 'var(--color-brand-green)',
-              fontWeight: 600,
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 4,
-            }}
-          >
-            View All Calculators &rarr;
+        {/* View All Link */}
+        <div style={{ marginTop: '12px', paddingLeft: '8px' }}>
+          <Link href="/calculators" className="view-all-link">
+            View All Calculators →
           </Link>
         </div>
-      </section>
-
-      {/* --- DIVIDER --- */}
-      <div
-        style={{
-          height: 1,
-          background: 'var(--color-bg-soft)',
-          margin: '8px 20px',
-        }}
-      />
+      </div>
 
       {/* --- SECTION 2: GUIDES --- */}
-      <section style={{ padding: '16px 20px 24px' }}>
-        <h3
-          style={{
-            fontSize: 12,
-            textTransform: 'uppercase',
-            color: 'var(--color-text-muted)',
-            fontWeight: 700,
-            letterSpacing: '0.5px',
-            marginBottom: 16,
-            marginTop: 8,
-          }}
-        >
-          Must Read
-        </h3>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {POPULAR_GUIDES.map((item) => (
-            <li key={item.href} style={{ marginBottom: 12 }}>
+      <div className="sidebar-section">
+        <h3 className="sidebar-title">Latest Guides</h3>
+        <ul className="sidebar-list">
+          {TRENDING_GUIDES.map((item) => (
+            <li key={item.href}>
               <Link href={item.href} className="guide-link">
+                <span className="guide-bullet">•</span>
                 {item.label}
               </Link>
             </li>
           ))}
         </ul>
-      </section>
+      </div>
 
       {/* --- STYLES --- */}
       <style jsx>{`
-        /* Link Item Styling */
-        .nav-link-item {
+        .financial-sidebar {
+          background: #fff;
+          border: 1px solid var(--color-border);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-section {
+          padding: 20px;
+          border-bottom: 1px solid #f1f5f9;
+        }
+
+        .sidebar-section:last-child {
+          border-bottom: none;
+        }
+
+        .sidebar-title {
+          font-size: 11px;
+          text-transform: uppercase;
+          color: #64748b;
+          font-weight: 700;
+          letter-spacing: 0.8px;
+          margin-bottom: 16px;
+        }
+
+        .sidebar-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .sidebar-list li {
+          margin-bottom: 4px;
+        }
+
+        /* Tool Link Styling */
+        .tool-link {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -143,45 +138,63 @@ export default function FinancialNavWidget() {
           text-decoration: none;
           color: var(--color-text-main);
           font-weight: 500;
-          font-size: 15px;
-          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          background: transparent;
+          font-size: 14px;
+          transition: all 0.2s ease;
         }
 
-        /* Hover Effect: Slide & Color */
-        .nav-link-item:hover {
-          background: var(--color-success-bg);
+        .tool-link:hover {
+          background: #f0fdf4; /* Light Green */
           color: var(--color-brand-green);
-          padding-left: 16px;
+          padding-left: 16px; /* Slide effect */
         }
 
-        /* New Badge */
         .badge-new {
           font-size: 9px;
-          background: #ef4444; /* Red for attention */
+          background: #ef4444;
           color: white;
           padding: 2px 6px;
           border-radius: 4px;
           font-weight: 700;
-          letter-spacing: 0.5px;
         }
 
         /* Guide Link Styling */
         .guide-link {
-          display: block;
+          display: flex;
+          align-items: start;
+          gap: 10px;
+          padding: 8px 8px;
+          border-radius: 6px;
           text-decoration: none;
-          color: var(--color-text-main);
+          color: #334155;
           font-size: 14px;
-          font-weight: 500;
-          line-height: 1.4;
-          transition: color 0.2s;
+          line-height: 1.5;
+          transition: all 0.2s;
         }
 
         .guide-link:hover {
           color: var(--color-brand-green);
+          background: #f8fafc;
+        }
+
+        .guide-bullet {
+          color: #cbd5e1;
+          font-size: 18px;
+          line-height: 1;
+        }
+
+        .guide-link:hover .guide-bullet {
+          color: var(--color-brand-green);
+        }
+
+        .view-all-link {
+          font-size: 13px;
+          color: var(--color-brand-green);
+          font-weight: 600;
+          text-decoration: none;
+        }
+
+        .view-all-link:hover {
           text-decoration: underline;
-          text-decoration-color: var(--color-brand-light);
-          text-decoration-thickness: 2px;
         }
       `}</style>
     </nav>

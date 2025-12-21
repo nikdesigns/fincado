@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
+import Link from 'next/link';
 import Icon, { IconName } from '@/components/Icon';
 import AdSlot from '@/components/AdSlot';
+import articlesData from '@/data/articles.json';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -34,6 +36,28 @@ export const metadata: Metadata = {
 };
 
 export default function Home(): JSX.Element {
+  // ✅ LOGIC: Select specific high-quality guides for Home Page
+  const featuredSlugs = [
+    'sukanya-samriddhi-yojana-guide-2025',
+    'elss-funds-guide-2025',
+    'sovereign-gold-bond-sgb-guide',
+    'health-insurance-buying-guide',
+  ];
+
+  // ✅ FIX: Filter for Slug AND Language='en' to avoid duplicates
+  const featuredGuides = articlesData.filter(
+    (a) =>
+      featuredSlugs.includes(a.slug) && (a.language === 'en' || !a.language)
+  );
+
+  // Fallback if specific slugs aren't found yet
+  const displayGuides =
+    featuredGuides.length > 0
+      ? featuredGuides
+      : articlesData
+          .filter((a) => a.language === 'en' || !a.language)
+          .slice(0, 4);
+
   return (
     <>
       {/* --- STRUCTURED DATA (JSON-LD) --- */}
@@ -69,41 +93,6 @@ export default function Home(): JSX.Element {
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Which calculator is best for loan planning?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The EMI Calculator is the best tool to plan your loans. It helps you calculate monthly installments based on principal, tenure, and interest rate.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How accurate are the SIP calculators?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Fincado SIP calculators use standard compound interest formulas (monthly compounding) to provide highly accurate estimates of your mutual fund returns.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Do I need to login to use Fincado?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. All calculators on Fincado are 100% free and do not require any login or personal information.',
-                },
-              },
-            ],
-          }),
-        }}
-      />
 
       <main className="container home-hero-wrap" id="main-content">
         {/* --- HERO SECTION --- */}
@@ -112,16 +101,16 @@ export default function Home(): JSX.Element {
           aria-labelledby="hero-title"
           style={{ position: 'relative', overflow: 'hidden' }}
         >
-          {/* Ambient Background Glow (Optional) */}
+          {/* Ambient Background Glow */}
           <div
             style={{
               position: 'absolute',
               top: '-20%',
               right: '-10%',
               width: '600px',
-              maxWidth: '80vw', // ✅ Fix: Limits width to 80% of viewport on mobile
+              maxWidth: '80vw',
               height: '600px',
-              maxHeight: '80vw', // ✅ Fix: Keeps it proportional
+              maxHeight: '80vw',
               background:
                 'radial-gradient(circle, rgba(5, 150, 105, 0.08) 0%, rgba(255,255,255,0) 70%)',
               zIndex: 0,
@@ -135,17 +124,17 @@ export default function Home(): JSX.Element {
           >
             {/* LEFT CONTENT */}
             <div className="hero-content">
-              {/* New: Trust Badge */}
+              {/* Trust Badge */}
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
                   padding: '6px 12px',
-                  background: '#ecfdf5', // Green-50 background
-                  border: '1px solid #a7f3d0', // Green-200 border
+                  background: '#ecfdf5',
+                  border: '1px solid #a7f3d0',
                   borderRadius: '100px',
-                  color: '#065f46', // Brand Green
+                  color: '#065f46',
                   fontSize: '13px',
                   fontWeight: 600,
                   marginBottom: '24px',
@@ -156,7 +145,7 @@ export default function Home(): JSX.Element {
                     width: '6px',
                     height: '6px',
                     borderRadius: '50%',
-                    background: '#059669', // Action CTA Green
+                    background: '#059669',
                   }}
                 />
                 Updated for FY 2025-26
@@ -175,7 +164,7 @@ export default function Home(): JSX.Element {
                 <span
                   style={{
                     background:
-                      'linear-gradient(135deg, #065f46 0%, #059669 100%)', // Brand to Action gradient
+                      'linear-gradient(135deg, #065f46 0%, #059669 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     display: 'inline-block',
@@ -218,13 +207,13 @@ export default function Home(): JSX.Element {
               </p>
 
               <div className="hero-cta-row" style={{ gap: '16px' }}>
-                <a
+                <Link
                   href="/emi-calculator"
                   className="primary-cta"
                   style={{
                     padding: '14px 32px',
                     fontSize: '16px',
-                    backgroundColor: '#80d843', // Action CTA color
+                    backgroundColor: '#80d843',
                     color: '#0e0e11',
                     boxShadow: '0 10px 15px -3px rgba(5, 150, 105, 0.2)',
                     borderRadius: '8px',
@@ -234,8 +223,8 @@ export default function Home(): JSX.Element {
                   }}
                 >
                   Check Loan EMI
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/sip-calculator"
                   className="secondary-cta"
                   style={{
@@ -251,7 +240,7 @@ export default function Home(): JSX.Element {
                   }}
                 >
                   Start Investing
-                </a>
+                </Link>
               </div>
 
               <div
@@ -272,14 +261,7 @@ export default function Home(): JSX.Element {
                 paddingLeft: '20px',
               }}
             >
-              <div
-                className="hero-stats"
-                style={{
-                  position: 'relative',
-                  height: '220px',
-                  marginBottom: '20px',
-                }}
-              >
+              <div className="hero-stats">
                 {/* Floating Card 1: Debt */}
                 <div
                   className="stat-card"
@@ -340,7 +322,7 @@ export default function Home(): JSX.Element {
                   </span>
                 </div>
 
-                {/* Floating Card 2: Wealth (Dominant) */}
+                {/* Floating Card 2: Wealth */}
                 <div
                   className="stat-card"
                   style={{
@@ -348,7 +330,7 @@ export default function Home(): JSX.Element {
                     top: '50px',
                     right: '20px',
                     background: 'white',
-                    border: '1px solid #d1fae5', // Light Green border
+                    border: '1px solid #d1fae5',
                     boxShadow:
                       '0 25px 50px -12px rgba(5, 150, 105, 0.15), 0 0 0 1px rgba(5, 150, 105, 0.1)',
                     transform: 'rotate(2deg)',
@@ -363,7 +345,7 @@ export default function Home(): JSX.Element {
                       position: 'absolute',
                       top: '-10px',
                       right: '20px',
-                      background: '#059669', // Action CTA Green
+                      background: '#059669',
                       color: 'white',
                       fontSize: '10px',
                       fontWeight: '700',
@@ -383,7 +365,7 @@ export default function Home(): JSX.Element {
                   >
                     <span
                       style={{
-                        background: '#d1fae5', // Light Green bg
+                        background: '#d1fae5',
                         borderRadius: '50%',
                         width: '32px',
                         height: '32px',
@@ -413,7 +395,7 @@ export default function Home(): JSX.Element {
                     style={{
                       fontSize: '36px',
                       fontWeight: 800,
-                      color: '#065f46', // Brand Green Text
+                      color: '#065f46',
                     }}
                   >
                     ₹2.54 Cr
@@ -440,9 +422,9 @@ export default function Home(): JSX.Element {
                 Everyday calculators used by millions of Indians.
               </p>
             </div>
-            <a href="/calculators" className="secondary-cta">
+            <Link href="/calculators" className="secondary-cta">
               View All
-            </a>
+            </Link>
           </div>
 
           <div className="tools-grid container-inner">
@@ -473,7 +455,7 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* --- AD BREAK (High RPM) --- */}
+        {/* --- AD BREAK --- */}
         <div className="midpage-ad">
           <AdSlot id="home-mid-1" type="leaderboard" />
         </div>
@@ -603,31 +585,147 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* --- FEATURED GUIDES --- */}
-        <section className="featured-guides">
-          <div className="tools-header container-inner">
-            <h2>Financial Wisdom</h2>
+        {/* --- FEATURED GUIDES (UPDATED ROBUST VERSION) --- */}
+        <section className="featured-guides" style={{ marginTop: 60 }}>
+          <div
+            className="tools-header container-inner"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 32,
+            }}
+          >
+            <div>
+              <h2 style={{ marginBottom: 4 }}>Financial Wisdom</h2>
+              <p style={{ color: '#64748b', fontSize: 16 }}>
+                Latest insights on Loans, Tax, and Investing.
+              </p>
+            </div>
+            <Link
+              href="/guides"
+              style={{
+                color: '#065f46',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              View All Guides <span>→</span>
+            </Link>
           </div>
-          <div className="guide-grid container-inner">
-            <GuideCard
-              href="/guides/home-loan-for-first-time-buyers"
-              title="Home Loan Guide 2025"
-              desc="Step-by-step guide for first-time homebuyers."
-            />
-            <GuideCard
-              href="/guides/sip-vs-fd"
-              title="SIP vs FD: Better Choice?"
-              desc="Analysis of risk, returns, and taxation."
-            />
-            <GuideCard
-              href="/guides/how-credit-score-affects-loans"
-              title="Boost Your Credit Score"
-              desc="7 proven ways to increase your CIBIL score above 750."
-            />
+
+          <div
+            className="guide-grid container-inner"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: 24,
+            }}
+          >
+            {displayGuides.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`/guides/${guide.slug}`}
+                style={{ textDecoration: 'none' }}
+                className="guide-hover-card"
+              >
+                <article
+                  style={{
+                    background: '#fff',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: 16,
+                    padding: 24,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <div style={{ marginBottom: 16 }}>
+                    <span
+                      style={{
+                        background: '#dcfce7',
+                        color: '#166534',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        padding: '4px 10px',
+                        borderRadius: 999,
+                        letterSpacing: '0.5px',
+                      }}
+                    >
+                      {guide.category}
+                    </span>
+                  </div>
+
+                  <h3
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 700,
+                      color: '#1e293b',
+                      marginBottom: 12,
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {guide.title}
+                  </h3>
+
+                  <p
+                    style={{
+                      fontSize: 14,
+                      color: '#64748b',
+                      lineHeight: 1.6,
+                      marginBottom: 16,
+                      flexGrow: 1,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {/* Strip HTML if any, take substring */}
+                    {guide.metaDescription
+                      .replace(/<[^>]+>/g, '')
+                      .substring(0, 120)}
+                    ...
+                  </p>
+
+                  <div
+                    style={{
+                      paddingTop: 16,
+                      borderTop: '1px solid #f1f5f9',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: 12,
+                      color: '#94a3b8',
+                      fontWeight: 500,
+                    }}
+                  >
+                    <span>
+                      {guide.published
+                        ? new Date(guide.published).toLocaleDateString(
+                            'en-IN',
+                            {
+                              month: 'short',
+                              year: 'numeric',
+                            }
+                          )
+                        : 'Guide'}
+                    </span>
+                    <span style={{ color: '#059669', fontWeight: 600 }}>
+                      Read Article
+                    </span>
+                  </div>
+                </article>
+              </Link>
+            ))}
           </div>
         </section>
 
-        {/* --- RICH SEO CONTENT (NEW: Boosts Ranking) --- */}
+        {/* --- RICH SEO CONTENT --- */}
         <article
           className="article content-for-seo container-inner"
           style={{ marginTop: 60, marginBottom: 60 }}
@@ -726,12 +824,12 @@ export default function Home(): JSX.Element {
             <h2>Ready to take control?</h2>
             <p>Join thousands of smart investors using Fincado daily.</p>
             <div className="final-cta-row">
-              <a href="/emi-calculator" className="primary-cta">
+              <Link href="/emi-calculator" className="primary-cta">
                 Calculate EMI
-              </a>
-              <a href="/sip-calculator" className="secondary-cta">
+              </Link>
+              <Link href="/sip-calculator" className="secondary-cta">
                 Plan Investment
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -753,29 +851,12 @@ function ToolCard({
   desc: string;
 }) {
   return (
-    <a href={href} className="tool-tile">
+    <Link href={href} className="tool-tile">
       <div className="tool-icon-wrap">
         <Icon name={icon} className="tool-icon-svg" />
       </div>
       <h3 className="tool-title">{title}</h3>
       <p className="tool-desc">{desc}</p>
-    </a>
-  );
-}
-
-function GuideCard({
-  href,
-  title,
-  desc,
-}: {
-  href: string;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <a href={href} className="home-guide-card">
-      <h3>{title}</h3>
-      <p>{desc}</p>
-    </a>
+    </Link>
   );
 }
