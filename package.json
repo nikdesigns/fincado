@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "clean": "rimraf out .next",
-    "prebuild": "node src/scripts/process-wiki.js && node src/scripts/generate-sitemap.js",
+    "prebuild": "node src/scripts/process-wiki.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

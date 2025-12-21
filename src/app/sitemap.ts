@@ -1,12 +1,12 @@
 import { MetadataRoute } from 'next';
 import articlesData from '@/data/articles.json';
 
+// ⚠️ REQUIRED for output: 'export'
+export const dynamic = 'force-static';
+
 // Configuration
 const BASE_URL = 'https://www.fincado.com';
 
-// -------------------------------------
-// DATA CONSTANTS (Ported from your script)
-// -------------------------------------
 const bankSlugs = [
   'sbi',
   'hdfc',
@@ -73,9 +73,6 @@ const excludedSlugs = [
   'personal-loan-interest-rates-india',
 ];
 
-// -------------------------------------
-// SITEMAP GENERATION
-// -------------------------------------
 export default function sitemap(): MetadataRoute.Sitemap {
   // 1. Static English Pages
   const staticRoutes = [
@@ -136,8 +133,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/swp-calculator',
     '/hi/sukanya-samriddhi',
     '/hi/simple-interest-calculator',
-    // Note: We removed the hardcoded guides here because
-    // they are now handled dynamically below
   ].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),
@@ -149,7 +144,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articleRoutes = articlesData
     .filter((article) => !excludedSlugs.includes(article.slug))
     .map((article) => {
-      // ✅ FIX: Check language to determine URL structure
       const isHindi = article.language === 'hi';
       const path = isHindi
         ? `/hi/guides/${article.slug}`
