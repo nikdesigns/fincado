@@ -13,12 +13,18 @@ type Article = {
   category: string;
   metaDescription: string;
   published: string;
+  language?: string;
 };
 
 const articles = articlesData as Article[];
 
 export default function GuidesPage() {
-  const popularGuides = articles.slice(0, 4);
+  // Filter for English articles
+  const englishArticles = articles.filter(
+    (article) => article.language === 'en' || !article.language
+  );
+
+  const popularGuides = englishArticles.slice(0, 4);
 
   return (
     <>
@@ -160,9 +166,9 @@ export default function GuidesPage() {
         </div>
       </section>
 
-      {/* Main Grid */}
+      {/* Main Grid: Pass filtered English articles */}
       <div id="all-guides">
-        <GuidesGrid allArticles={articles} />
+        <GuidesGrid allArticles={englishArticles} />
       </div>
 
       <style jsx global>{`

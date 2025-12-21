@@ -4,6 +4,7 @@ import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import articlesData from '@/data/articles.json';
 
 export const metadata: Metadata = {
   title: 'Fincado हिंदी – सभी फाइनेंशियल कैलकुलेटर और गाइड्स',
@@ -17,8 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-// --- DATA CONSTANTS ---
-
+// --- 1. CONSTANT: CALCULATORS (Existing) ---
 const HINDI_TOOLS = [
   {
     title: 'SIP कैलकुलेटर',
@@ -82,7 +82,8 @@ const HINDI_TOOLS = [
   },
 ];
 
-const HINDI_GUIDES = [
+// --- 2. CONSTANT: OLD STATIC ARTICLES (Restored) ---
+const STATIC_HINDI_GUIDES = [
   {
     title: 'Credit Score कैसे बढ़ाएं? (10 तरीके)',
     desc: '750+ स्कोर पाने के आसान और पक्के तरीके। 90 दिनों में सुधार देखें।',
@@ -104,6 +105,25 @@ const HINDI_GUIDES = [
 ];
 
 export default function HindiHubPage() {
+  // --- 3. MERGE LOGIC ---
+
+  // A. Get new dynamic articles from JSON (e.g., SSY, ELSS, SGB, Health)
+  const dynamicHindiArticles = articlesData
+    .filter((article) => article.language === 'hi')
+    .map((article) => ({
+      title: article.title,
+      // Strip HTML tags from description for card view
+      desc:
+        article.metaDescription.replace(/<[^>]*>?/gm, '').substring(0, 150) +
+        '...',
+      href: `/hi/guides/${article.slug}`,
+      category: article.category,
+    }));
+
+  // B. Combine Old Static + New Dynamic
+  // We put dynamic first (newest), then static.
+  const allHindiGuides = [...dynamicHindiArticles, ...STATIC_HINDI_GUIDES];
+
   return (
     <main className="container" style={{ padding: '40px 20px' }}>
       <BreadcrumbJsonLd
@@ -113,7 +133,7 @@ export default function HindiHubPage() {
         ]}
       />
 
-      {/* --- HEADER (Full Width) --- */}
+      {/* --- HEADER --- */}
       <header
         style={{
           marginBottom: 40,
@@ -147,7 +167,6 @@ export default function HindiHubPage() {
         <ShareTools title="Fincado हिंदी - फाइनेंशियल टूल्स" />
       </header>
 
-      {/* --- LAYOUT GRID (Main + Sidebar) --- */}
       <div className="layout-grid">
         {/* --- LEFT: MAIN CONTENT --- */}
         <div className="main-content">
@@ -246,12 +265,12 @@ export default function HindiHubPage() {
             </div>
           </section>
 
-          {/* AD SLOT: MID CONTENT */}
+          {/* AD SLOT */}
           <div style={{ margin: '40px 0' }}>
             <AdSlot type="leaderboard" />
           </div>
 
-          {/* SECTION 2: GUIDES */}
+          {/* SECTION 2: GUIDES (Merged Old + New) */}
           <section>
             <div
               style={{
@@ -281,7 +300,7 @@ export default function HindiHubPage() {
                 gap: '20px',
               }}
             >
-              {HINDI_GUIDES.map((guide) => (
+              {allHindiGuides.map((guide) => (
                 <Link
                   key={guide.href}
                   href={guide.href}
@@ -293,7 +312,6 @@ export default function HindiHubPage() {
                       background: '#fff',
                       border: '1px solid #e2e8f0',
                       borderRadius: '12px',
-                      // Removed the red borderLeft
                       transition: 'box-shadow 0.2s, transform 0.2s',
                     }}
                     className="hover-card"
@@ -302,7 +320,7 @@ export default function HindiHubPage() {
                       style={{
                         fontSize: '12px',
                         fontWeight: 600,
-                        color: '#16a34a', // Changed from Red to Brand Green
+                        color: '#16a34a',
                         textTransform: 'uppercase',
                         marginBottom: '8px',
                         display: 'block',
@@ -386,10 +404,7 @@ export default function HindiHubPage() {
 
         {/* --- RIGHT: SIDEBAR --- */}
         <aside className="sidebar">
-          {/* 1. Hindi Sidebar Links */}
           <HindiSidebar />
-
-          {/* 2. Sticky Ad */}
           <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
             <AdSlot id="hindi-hub-sidebar" type="box" />
           </div>

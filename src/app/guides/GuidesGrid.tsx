@@ -11,6 +11,7 @@ type Article = {
   category: string;
   metaDescription: string;
   published: string; // YYYY-MM-DD
+  language?: string;
 };
 
 /* ---------- HYDRATION-SAFE DATE FORMAT ---------- */
@@ -122,7 +123,11 @@ export default function GuidesGrid({
         }}
       >
         {filteredArticles.map((guide) => (
-          <Link key={guide.slug} href={`/guides/${guide.slug}`}>
+          // Use a unique key combining slug and language (default 'en' if missing)
+          <Link
+            key={`${guide.slug}-${guide.language || 'en'}`}
+            href={`/guides/${guide.slug}`}
+          >
             <article className="guide-card">
               {/* CATEGORY */}
               <div style={{ marginBottom: 16 }}>
