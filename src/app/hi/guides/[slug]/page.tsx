@@ -6,7 +6,7 @@ import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Imported
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Connects Internal Links
 
 /* ---------------- TYPES ---------------- */
 
@@ -18,21 +18,26 @@ type Article = {
   metaDescription: string;
   content: string;
   published: string;
+  language?: string;
 };
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-/* ---------------- METADATA ---------------- */
+/* ---------------- METADATA (SEO) ---------------- */
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
+
+  // ✅ Filter for Hindi Article
+  const article = (articles as Article[]).find(
+    (a) => a.slug === slug && a.language === 'hi'
+  );
 
   if (!article) return {};
 
-  const canonical = `https://www.fincado.com/guides/${article.slug}/`;
+  const canonical = `https://www.fincado.com/hi/guides/${article.slug}/`;
 
   return {
     title: article.seoTitle || article.title,
@@ -44,23 +49,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       url: canonical,
       publishedTime: article.published,
+      locale: 'hi_IN', // ✅ Hindi Locale
     },
   };
 }
 
-/* ---------------- PAGE ---------------- */
+/* ---------------- PAGE COMPONENT ---------------- */
 
-export default async function GuidePost({ params }: Props) {
+export default async function HindiGuidePost({ params }: Props) {
   const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
+
+  // ✅ 1. Find the Hindi Article
+  const article = (articles as Article[]).find(
+    (a) => a.slug === slug && a.language === 'hi'
+  );
 
   if (!article) notFound();
 
-  // ✅ ACTION: Process the content to inject internal links automatically
+  // ✅ 2. Inject Internal Links (Auto-Linker)
   const processedContent = autoLinkContent(article.content);
 
-  const related = getRelatedGuides(article.slug, article.category);
+  // ✅ 3. Get Related Hindi Guides
+  // (Ensure your getRelatedGuides util handles language filtering,
+  // or simply filter the result here if needed)
+  const related = getRelatedGuides(article.slug, article.category).filter(
+    (g) => g.language === 'hi'
+  );
 
+  // ✅ 4. JSON-LD Schema (Structured Data)
   const articleLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -68,6 +84,7 @@ export default async function GuidePost({ params }: Props) {
     description: article.metaDescription,
     datePublished: article.published,
     dateModified: article.published,
+    inLanguage: 'hi', // ✅ Mark as Hindi
     articleSection: article.category,
     author: {
       '@type': 'Organization',
@@ -84,7 +101,7 @@ export default async function GuidePost({ params }: Props) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.fincado.com/guides/${article.slug}/`,
+      '@id': `https://www.fincado.com/hi/guides/${article.slug}/`,
     },
   };
 
@@ -93,10 +110,10 @@ export default async function GuidePost({ params }: Props) {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi' },
           {
             name: article.title,
-            url: `https://www.fincado.com/guides/${article.slug}`,
+            url: `https://www.fincado.com/hi/guides/${article.slug}`,
           },
         ]}
       />
@@ -106,7 +123,6 @@ export default async function GuidePost({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
       />
 
-      {/* ONLY CONTENT: Grid and Sidebar are handled by layout.tsx */}
       <article className="article">
         <header
           style={{
@@ -132,6 +148,7 @@ export default async function GuidePost({ params }: Props) {
               fontSize: 'clamp(28px, 4vw, 42px)',
               lineHeight: 1.2,
               marginBottom: 16,
+              color: '#0f172a',
             }}
           >
             {article.title}
@@ -140,51 +157,80 @@ export default async function GuidePost({ params }: Props) {
           <div
             style={{
               fontSize: 18,
-              color: 'var(--color-text-muted)',
+              color: '#64748b',
               lineHeight: 1.6,
             }}
           >
-            <WikiText content={article.metaDescription} />
+            {/* Display description nicely at the top */}
+            <p>{article.metaDescription.replace(/<[^>]*>?/gm, '')}</p>
           </div>
         </header>
 
+        {/* Top Ad */}
         <div className="no-print" style={{ marginBottom: 32 }}>
-          <AdSlot id={`guide-top-${article.slug}`} type="leaderboard" />
+          <AdSlot id={`hindi-guide-top-${article.slug}`} type="leaderboard" />
         </div>
 
-        {/* ✅ Updated: Using processedContent instead of article.content */}
+        {/* Main Content (With Auto-Links) */}
         <WikiText content={processedContent} className="guide-body" />
 
+        {/* Related Posts */}
         {related.length > 0 && (
-          <section style={{ marginTop: 64 }}>
-            <h3 style={{ marginBottom: 16 }}>Related Guides</h3>
-            <ul style={{ paddingLeft: 18 }}>
+          <section
+            style={{
+              marginTop: 64,
+              paddingTop: 32,
+              borderTop: '1px solid #e2e8f0',
+            }}
+          >
+            <h3 style={{ marginBottom: 20, fontSize: 22, color: '#1e293b' }}>
+              संबंधित लेख (Related Guides)
+            </h3>
+            <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
               {related.map((g) => (
-                <li key={g.slug} style={{ marginBottom: 8 }}>
-                  <Link href={`/guides/${g.slug}`}>{g.title}</Link>
+                <li key={g.slug} style={{ marginBottom: 12 }}>
+                  <Link
+                    href={`/hi/guides/${g.slug}`}
+                    style={{
+                      fontSize: 18,
+                      color: '#2563eb', // Standard blue link
+                      textDecoration: 'none',
+                      fontWeight: 500,
+                    }}
+                  >
+                    👉 {g.title}
+                  </Link>
                 </li>
               ))}
             </ul>
           </section>
         )}
 
+        {/* Bottom Ad */}
         <div
           className="no-print"
           style={{
             marginTop: 48,
             paddingTop: 24,
-            borderTop: '1px solid #e2e8f0',
           }}
         >
-          <AdSlot id={`guide-bottom-${article.slug}`} type="leaderboard" />
+          <AdSlot
+            id={`hindi-guide-bottom-${article.slug}`}
+            type="leaderboard"
+          />
         </div>
       </article>
     </>
   );
 }
 
+/* ---------------- STATIC GENERATION ---------------- */
+
 export async function generateStaticParams() {
-  return (articles as Article[]).map((a) => ({
-    slug: a.slug,
-  }));
+  // ✅ Only generate paths for Hindi articles
+  return (articles as Article[])
+    .filter((a) => a.language === 'hi')
+    .map((a) => ({
+      slug: a.slug,
+    }));
 }

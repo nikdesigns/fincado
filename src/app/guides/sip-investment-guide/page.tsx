@@ -234,7 +234,7 @@ export default function SipGuidePage() {
       </header>
       {/* --- INTRO --- */}
       <WikiText
-        content={`**SIP (Systematic Investment Plan)** is a disciplined investment method where you invest a fixed amount regularly (monthly, quarterly, or weekly) in mutual funds, regardless of market conditions. It's the Indian retail investor's most powerful wealth-creation tool, with over 7.8 crore active SIP accounts as of December 2025, contributing ₹19,000+ crore monthly to mutual funds.`}
+        content={`SIP (Systematic Investment Plan) is a disciplined investment method where you invest a fixed amount regularly (monthly, quarterly, or weekly) in mutual funds, regardless of market conditions. It's the Indian retail investor's most powerful wealth-creation tool, with over 7.8 crore active SIP accounts as of December 2025, contributing ₹19,000+ crore monthly to mutual funds.`}
       />
       <h3>How SIP Differs from Traditional Investing:</h3>
       <div className="table-responsive">
@@ -400,7 +400,7 @@ export default function SipGuidePage() {
       {/* --- HOW SIP WORKS --- */}
       <h2 id="how-it-works">How SIP Works: The Compounding Magic Explained</h2>
       <WikiText
-        content={`SIP's real power lies not just in regular investing, but in **compounding**—earning returns on your returns. Albert Einstein allegedly called compound interest "the eighth wonder of the world."`}
+        content={`SIP's real power lies not just in regular investing, but in compounding—earning returns on your returns. Albert Einstein allegedly called compound interest "the eighth wonder of the world."`}
       />
       <h3>Understanding Compounding Through SIP:</h3>
       <div className="formula-box">
@@ -2433,35 +2433,33 @@ export default function SipGuidePage() {
         <h4>Your SIP Action Plan:</h4>
         <ul className="checklist">
           <li>
-            ✅ <strong>Start TODAY</strong> with whatever amount you can (even
+            <strong>Start TODAY</strong> with whatever amount you can (even
             ₹500/month)
           </li>
           <li>
-            ✅ <strong>Choose Direct Plans</strong> (save 1% annually = ₹20-30L
+            <strong>Choose Direct Plans</strong> (save 1% annually = ₹20-30L
             over lifetime)
           </li>
           <li>
-            ✅ <strong>Select 3-5 quality funds</strong> (1 large-cap, 1
-            flexi-cap, 1 mid-cap, 1 ELSS)
+            <strong>Select 3-5 quality funds</strong> (1 large-cap, 1 flexi-cap,
+            1 mid-cap, 1 ELSS)
           </li>
           <li>
-            ✅ <strong>Enable auto-debit</strong> (remove emotions from
-            investing)
+            <strong>Enable auto-debit</strong> (remove emotions from investing)
           </li>
           <li>
-            ✅ <strong>Increase SIP by 10% annually</strong> (step-up with
-            salary hikes)
+            <strong>Increase SIP by 10% annually</strong> (step-up with salary
+            hikes)
           </li>
           <li>
-            ✅ <strong>NEVER stop during crashes</strong> (best accumulation
-            phase)
+            <strong>NEVER stop during crashes</strong> (best accumulation phase)
           </li>
           <li>
-            ✅ <strong>Stay invested 10+ years</strong> (100% historical success
+            <strong>Stay invested 10+ years</strong> (100% historical success
             rate)
           </li>
           <li>
-            ✅ <strong>Choose Growth option</strong> (better tax efficiency +
+            <strong>Choose Growth option</strong> (better tax efficiency +
             compounding)
           </li>
         </ul>

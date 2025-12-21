@@ -1,65 +1,86 @@
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-// CONFIGURATION
+// ------------------------------------------
+// 1. CONFIGURATION
+// ------------------------------------------
 const HOST = 'www.fincado.com';
-const KEY = 'f79d7e3caed6497cafbcc9ee2cd99a55'; // Your key from indexnow.txt
-const KEY_LOCATION = `https://${HOST}/indexnow.txt`;
-const SITEMAP_PATH = path.join(process.cwd(), 'public', 'sitemap.xml');
+// I found this key in your file list (public/f79d7e3caed6497cafbcc9ee2cd99a55.txt)
+const API_KEY = 'f79d7e3caed6497cafbcc9ee2cd99a55';
+const KEY_LOCATION = `https://${HOST}/${API_KEY}.txt`;
 
-async function pingIndexNow() {
-  try {
-    // 1. Read the Sitemap
-    if (!fs.existsSync(SITEMAP_PATH)) {
-      console.error('❌ Sitemap not found! Run npm run build first.');
-      process.exit(1);
-    }
+// ------------------------------------------
+// 2. LOAD DATA
+// ------------------------------------------
+const articlesPath = path.join(__dirname, '../data/articles.json');
+const articles = JSON.parse(fs.readFileSync(articlesPath, 'utf8'));
 
-    const sitemapContent = fs.readFileSync(SITEMAP_PATH, 'utf8');
+// ------------------------------------------
+// 3. GENERATE URL LIST
+// ------------------------------------------
+console.log(`🔍 Found ${articles.length} articles in database...`);
 
-    // 2. Extract URLs using Regex (Simple & Fast)
-    const urls = [];
-    const locRegex = /<loc>(.*?)<\/loc>/g;
-    let match;
-    while ((match = locRegex.exec(sitemapContent)) !== null) {
-      urls.push(match[1]);
-    }
+const urlList = articles.map((article) => {
+  // Logic matches your sitemap.ts
+  const isHindi = article.language === 'hi';
+  const slugPath = isHindi
+    ? `/hi/guides/${article.slug}`
+    : `/guides/${article.slug}`;
 
-    console.log(`🔍 Found ${urls.length} URLs in sitemap.`);
+  return `https://${HOST}${slugPath}`;
+});
 
-    if (urls.length === 0) {
-      console.log('⚠️ No URLs to ping.');
-      return;
-    }
+// Add static pages that changed recently
+const staticPages = [
+  `https://${HOST}/`,
+  `https://${HOST}/hi`,
+  `https://${HOST}/calculators`,
+  `https://${HOST}/hi/guides`,
+];
 
-    // 3. Prepare the Payload
-    const payload = {
-      host: HOST,
-      key: KEY,
-      keyLocation: KEY_LOCATION,
-      urlList: urls,
-    };
+const allUrls = [...staticPages, ...urlList];
 
-    // 4. Send Request to Bing (IndexNow)
-    console.log('🚀 Sending request to IndexNow...');
-    const response = await fetch('https://api.indexnow.org/indexnow', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(payload),
-    });
+console.log(`🚀 Preparing to ping IndexNow with ${allUrls.length} URLs...`);
 
-    if (response.status === 200 || response.status === 202) {
-      console.log('✅ Success! Bing has been notified of your changes.');
-    } else {
-      console.error(`❌ Failed: ${response.status} ${response.statusText}`);
-      const errorText = await response.text();
-      console.error('Response:', errorText);
-    }
-  } catch (error) {
-    console.error('❌ Error pinging IndexNow:', error);
+// ------------------------------------------
+// 4. SEND REQUEST (Native Node.js)
+// ------------------------------------------
+const data = JSON.stringify({
+  host: HOST,
+  key: API_KEY,
+  keyLocation: KEY_LOCATION,
+  urlList: allUrls,
+});
+
+const options = {
+  hostname: 'api.indexnow.org',
+  port: 443,
+  path: '/indexnow',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length,
+  },
+};
+
+const req = https.request(options, (res) => {
+  console.log(`\n📡 Status Code: ${res.statusCode}`);
+
+  res.on('data', (d) => {
+    process.stdout.write(d);
+  });
+
+  if (res.statusCode === 200 || res.statusCode === 202) {
+    console.log('\n✅ Success! Search engines have been notified.');
+  } else {
+    console.error('\n❌ Error: Something went wrong.');
   }
-}
+});
 
-pingIndexNow();
+req.on('error', (error) => {
+  console.error(error);
+});
+
+req.write(data);
+req.end();

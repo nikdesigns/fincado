@@ -1,33 +1,36 @@
-'use client';
-
-import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
-import GuidesGrid from './GuidesGrid';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articlesData from '@/data/articles.json';
+import GuidesClient from './GuidesClient'; // ✅ Import Client Component
 
-type Article = {
-  slug: string;
-  title: string;
-  category: string;
-  metaDescription: string;
-  published: string;
-  language?: string;
+// --- METADATA (Server Side) ---
+export const metadata: Metadata = {
+  title: 'Financial Guides & Wisdom | Fincado',
+  description:
+    'Expert guides on Home Loans, SIP, Income Tax, and Credit Scores. Simplify your financial decisions with Fincado.',
+  alternates: {
+    canonical: 'https://www.fincado.com/guides',
+  },
 };
 
-const articles = articlesData as Article[];
-
 export default function GuidesPage() {
-  // Filter for English articles
-  const englishArticles = articles.filter(
-    (article) => article.language === 'en' || !article.language
+  // 1. PREPARE DATA (Server Side)
+  const uniqueArticles = new Map();
+  articlesData.forEach((article) => {
+    if (!article.language || article.language === 'en') {
+      uniqueArticles.set(article.slug, article);
+    }
+  });
+
+  // Sort by Newest
+  const sortedGuides = Array.from(uniqueArticles.values()).sort(
+    (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
   );
 
-  const popularGuides = englishArticles.slice(0, 4);
-
   return (
-    <>
+    <main className="container" style={{ padding: '40px 20px' }}>
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -35,11 +38,11 @@ export default function GuidesPage() {
         ]}
       />
 
-      {/* Hindi Promo */}
+      {/* --- HINDI PROMO --- */}
       <div
         className="no-print"
         style={{
-          marginBottom: '32px',
+          marginBottom: '40px',
           padding: '16px 24px',
           background: 'linear-gradient(to right, #fff1f2, #fff)',
           border: '1px solid #fecdd3',
@@ -80,104 +83,60 @@ export default function GuidesPage() {
         </Link>
       </div>
 
-      <div style={{ marginBottom: 24 }} className="no-print">
+      <div style={{ marginBottom: 40 }} className="no-print">
         <AdSlot id="guides-top-leaderboard" type="leaderboard" />
       </div>
 
-      {/* Hero Section */}
-      <section
+      {/* --- HERO SECTION --- */}
+      <header
         style={{
-          padding: '48px 32px',
           textAlign: 'center',
-          marginBottom: 32,
-          background:
-            'radial-gradient(circle at 50% 0%, rgba(72, 151, 25, 0.1) 0%, rgba(255,255,255,0) 80%)',
-          borderRadius: '20px',
-          border: '1px solid var(--color-border)',
+          maxWidth: '800px',
+          margin: '0 auto 40px auto',
         }}
       >
-        <h1
+        <span
           style={{
-            fontSize: 'clamp(32px, 5vw, 42px)',
-            fontWeight: 800,
-            marginBottom: 16,
+            color: '#16a34a',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            fontSize: '13px',
+            letterSpacing: '1px',
+            display: 'block',
+            marginBottom: '12px',
           }}
         >
-          Financial Wisdom,{' '}
-          <span style={{ color: 'var(--color-brand-green)' }}>Simplified.</span>
+          Financial Wisdom
+        </span>
+        <h1
+          style={{
+            fontSize: 'clamp(32px, 5vw, 48px)',
+            fontWeight: 800,
+            color: '#0f172a',
+            marginBottom: '16px',
+            lineHeight: 1.2,
+          }}
+        >
+          Read. Learn. <span style={{ color: '#16a34a' }}>Grow.</span>
         </h1>
         <p
           style={{
-            fontSize: 18,
-            color: 'var(--color-text-muted)',
-            maxWidth: 600,
-            margin: '0 auto',
+            fontSize: '18px',
+            color: '#64748b',
+            lineHeight: 1.6,
           }}
         >
-          Actionable finance guides on loans, investments, and taxes written for
-          India.
+          Demystifying money with simple, actionable guides on Loans,
+          Investments, and Tax Planning.
         </p>
-      </section>
+      </header>
 
-      {/* Trending Section */}
-      <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 20, marginBottom: 16, fontWeight: 700 }}>
-          🔥 Trending Now
-        </h2>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-            gap: 16,
-          }}
-        >
-          {popularGuides.map((g) => (
-            <Link
-              key={g.slug}
-              href={`/guides/${g.slug}`}
-              className="guide-mini-card"
-              style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                border: '1px solid var(--color-border)',
-                borderRadius: 12,
-                padding: 20,
-                background: '#fff',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 11,
-                  color: 'var(--color-text-muted)',
-                  textTransform: 'uppercase',
-                  fontWeight: 600,
-                  marginBottom: 8,
-                }}
-              >
-                {g.category}
-              </span>
-              <strong style={{ fontSize: 15, lineHeight: 1.4 }}>
-                {g.title}
-              </strong>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* --- CLIENT GRID & FILTER --- */}
+      <GuidesClient articles={sortedGuides} />
 
-      {/* Main Grid: Pass filtered English articles */}
-      <div id="all-guides">
-        <GuidesGrid allArticles={englishArticles} />
+      <div style={{ marginTop: 60 }}>
+        <AdSlot type="leaderboard" />
       </div>
-
-      <style jsx global>{`
-        .guide-mini-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-          border-color: var(--color-brand-light) !important;
-        }
-      `}</style>
-    </>
+    </main>
   );
 }

@@ -4,6 +4,8 @@ type Article = {
   slug: string;
   category: string;
   title: string;
+  language?: string; // ✅ Added to fix the error
+  published?: string; // Helpful for sorting later
 };
 
 export function getRelatedGuides(slug: string, category: string, limit = 4) {

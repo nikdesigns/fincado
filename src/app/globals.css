@@ -2223,3 +2223,29 @@ ul.checklist li::before {
     gap: 12px;
   }
 }
+
+/* Auto-generated Internal Links */
+.article-content a.internal-link {
+  color: #16a34a; /* Brand Green */
+  text-decoration: none;
+  border-bottom: 1px dotted #16a34a;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.article-content a.internal-link:hover {
+  background-color: #f0fdf4;
+  border-bottom-style: solid;
+}
+
+/* Guides Hub Card Hover Effect */
+.guide-card-wrapper article {
+  transition: all 0.2s ease;
+}
+
+.guide-card-wrapper:hover article {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  border-color: #bbf7d0 !important; /* Light Green Border */
+}
