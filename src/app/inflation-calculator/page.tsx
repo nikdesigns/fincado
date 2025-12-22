@@ -1,30 +1,32 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
+import InflationClient from './InflationClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Investment Context
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
-import InflationClient from './InflationClient';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
 /* ================= SEO METADATA ================= */
 export const metadata: Metadata = {
-  title: 'Inflation Calculator – Calculate Future Value of Money',
+  title: 'Inflation Calculator India 2025 – Future Value of Money',
   description:
-    'Use Fincado’s Inflation Calculator to see how inflation affects your money over time. Calculate future value, purchasing power loss and plan smarter investments.',
+    'Calculate how inflation reduces your purchasing power. Check future cost of living, education, and medical expenses. Learn the Rule of 72.',
   keywords: [
-    'Inflation Calculator',
     'Inflation Calculator India',
     'Purchasing Power Calculator',
     'Future Value of Money',
-    'Inflation Impact Calculator',
     'Cost of Living Calculator',
-    'Inflation Planning',
+    'Real Rate of Return',
+    'Rule of 72',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/inflation-calculator',
@@ -39,6 +41,37 @@ export const metadata: Metadata = {
 };
 
 export default function InflationPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      <strong>Inflation</strong> is the silent killer of wealth. It is the rate at which the prices of goods 
+      and services rise over time, effectively reducing the <strong>purchasing power</strong> of your money.
+    </p>
+    <p>
+      For example, if inflation is 6%, a product that costs ₹100 today will cost ₹106 next year. 
+      This means your savings must grow faster than inflation just to maintain their value.
+    </p>
+  `);
+
+  const typesContent = autoLinkContent(`
+    <ul>
+      <li><strong>CPI Inflation:</strong> The general inflation rate (approx 6%) affecting daily items like food and fuel.</li>
+      <li><strong>Lifestyle Inflation:</strong> The increase in spending as your income grows (upgrading cars, phones).</li>
+      <li><strong>Sectoral Inflation:</strong> Education and Medical costs in India rise much faster (10%-12%) than general inflation.</li>
+    </ul>
+  `);
+
+  const rule72Content = autoLinkContent(`
+    <p>
+      The <strong>Rule of 72</strong> is a quick mental shortcut to estimate how long it will take for prices 
+      to double at a given inflation rate.
+    </p>
+    <p>
+      <em>Formula: 72 / Inflation Rate = Years to Double.</em><br/>
+      Example: At 6% inflation, prices will double in <strong>12 years</strong> (72 / 6).
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -46,7 +79,8 @@ export default function InflationPage() {
         description="Calculate how inflation erodes purchasing power and estimate the future cost of goods and services."
         url="https://www.fincado.com/inflation-calculator"
       />
-      {/* ================= SCHEMA ================= */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -56,18 +90,18 @@ export default function InflationPage() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: 'What is inflation?',
+                name: 'What is a good inflation rate to assume in India?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Inflation is the rise in prices of goods and services over time, which reduces the purchasing power of money.',
+                  text: 'For long-term financial planning in India, an average inflation rate of around 6% is commonly used. However, for education and medical goals, assume 10%.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'What is a good inflation rate to assume in India?',
+                name: 'What is Real Rate of Return?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'For long-term financial planning in India, an average inflation rate of around 6% is commonly used.',
+                  text: 'It is the actual profit you make after adjusting for inflation. Formula: Real Return = ((1 + Nominal Rate) / (1 + Inflation Rate)) - 1.',
                 },
               },
               {
@@ -75,15 +109,7 @@ export default function InflationPage() {
                 name: 'How does inflation affect savings?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'If your savings grow slower than inflation, your real purchasing power declines even though the balance increases.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How do you calculate inflation-adjusted value?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Inflation-adjusted value is calculated by dividing the future amount by (1 + inflation rate)^years to get its value in today’s terms.',
+                  text: 'If your savings account gives 3% interest and inflation is 6%, your "Real Return" is negative (-3%). Your money is actually losing value.',
                 },
               },
             ],
@@ -102,10 +128,11 @@ export default function InflationPage() {
             },
           ]}
         />
-        {/* ================= HEADER ================= */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
-          <h1>Inflation Calculator – Know the Future Value of Your Money</h1>
-          <ShareTools title="Inflation Calculator – Know the Future Value of Your Money" />
+          <LanguageToggle path="/hi/inflation-calculator" />
+          <h1>Inflation Calculator – Future Value of Money</h1>
+          <ShareTools title="Inflation Calculator" />
           <WikiText
             content={`
               <p style="max-width: 720px; color: var(--color-text-muted);">
@@ -117,115 +144,239 @@ export default function InflationPage() {
         </header>
 
         <div className="layout-grid">
-          {/* ================= MAIN ================= */}
           <div className="main-content">
-            {/* CALCULATOR */}
             <InflationClient />
+
+            {/* ✅ Live Rates (Where to invest to beat inflation) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Beat Inflation
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  📈 SIP Calculator
+                </Link>
+                <Link
+                  href="/calculators/retirement-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  👴 Retire Calc
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🛡️</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Protect your wealth
+                </strong>
+                <Link
+                  href="/guides/gold-investment-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: Is Gold the best hedge against Inflation? →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="inflation-mid-content" type="leaderboard" />
             </div>
 
-            {/* ================= SEO CONTENT ================= */}
             <article className="article content-for-seo no-print">
-              <h2>What Is an Inflation Calculator?</h2>
+              <h2>What Is Inflation?</h2>
+              <WikiText content={introContent} />
+
+              <h3>Are You Beating Inflation? (Real Returns Table)</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Asset Class</th>
+                      <th>Avg Return</th>
+                      <th>Inflation (6%)</th>
+                      <th>Real Return</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Savings A/C</strong>
+                      </td>
+                      <td>3.0%</td>
+                      <td>-6.0%</td>
+                      <td style={{ color: 'red' }}>
+                        <strong>-3.0% (Loss)</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Fixed Deposit</strong>
+                      </td>
+                      <td>7.0%</td>
+                      <td>-6.0%</td>
+                      <td style={{ color: 'green' }}>
+                        <strong>+1.0%</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Equity Mutual Fund</strong>
+                      </td>
+                      <td>12.0%</td>
+                      <td>-6.0%</td>
+                      <td style={{ color: 'green' }}>
+                        <strong>+6.0% (Wealth Creation)</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Gold</strong>
+                      </td>
+                      <td>8.0%</td>
+                      <td>-6.0%</td>
+                      <td style={{ color: 'green' }}>
+                        <strong>+2.0%</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>The Rule of 72</h3>
+              <WikiText content={rule72Content} />
+
+              <h3>Types of Inflation in India</h3>
+              <WikiText content={typesContent} />
+
+              <h3>Inflation Calculation Formula</h3>
               <p>
-                An <strong>Inflation Calculator</strong> helps you understand
-                how inflation impacts the future value of money. It shows how
-                much more money you will need in the future to buy the same
-                goods and services you can afford today.
+                To calculate the future cost of an item based on inflation, we
+                use the compound interest formula:
               </p>
 
-              <h2>How Inflation Reduces Purchasing Power</h2>
-              <p>
-                As inflation increases, prices rise and each rupee buys less.
-                This means your money loses value over time if it does not grow
-                faster than inflation.
-              </p>
-
-              <h3>Inflation Formula</h3>
-              <p>To calculate the future cost of an item based on inflation:</p>
-
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <BlockMath math="FV = PV \times (1 + r)^n" />
               </div>
 
               <WikiText
                 content={`
-  <ul>
-    <li><strong>FV</strong> = Future Value (Cost in future)</li>
-    <li><strong>PV</strong> = Present Value (Current Cost)</li>
-    <li><strong>r</strong> = Annual Inflation Rate</li>
-    <li><strong>n</strong> = Number of Years</li>
-  </ul>
-`}
+                  <ul style="font-size: 14px;">
+                    <li><strong>FV</strong>: Future Value (Cost in future)</li>
+                    <li><strong>PV</strong>: Present Value (Current Cost)</li>
+                    <li><strong>r</strong>: Annual Inflation Rate</li>
+                    <li><strong>n</strong>: Number of Years</li>
+                  </ul>
+                `}
               />
 
-              <h2>Why Inflation Matters in India</h2>
-              <ul>
-                <li>Average inflation in India ranges between 5%–7%</li>
-                <li>Medical and education costs rise faster than inflation</li>
-                <li>Fixed deposits often fail to beat inflation</li>
-                <li>Ignoring inflation leads to under-saving</li>
-              </ul>
-
-              <h2>Inflation vs Fixed Deposits</h2>
-              <table className="rate-table">
-                <thead>
-                  <tr>
-                    <th>Option</th>
-                    <th>Returns</th>
-                    <th>Real Impact</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Savings Account</td>
-                    <td>3%</td>
-                    <td>Negative</td>
-                  </tr>
-                  <tr>
-                    <td>Fixed Deposit</td>
-                    <td>5–6%</td>
-                    <td>Near Zero</td>
-                  </tr>
-                  <tr>
-                    <td>Equity Mutual Funds</td>
-                    <td>10–12%</td>
-                    <td>Positive</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <h2>How to Beat Inflation</h2>
-              <ul>
-                <li>Invest in equity-oriented instruments</li>
-                <li>Increase income over time</li>
-                <li>Use SIPs for disciplined investing</li>
-                <li>Review investments annually</li>
-              </ul>
-
-              <h2>Related Financial Calculators</h2>
-              <ul>
-                <li>
-                  <a href="/emi-calculator">EMI Calculator</a>
-                </li>
-                <li>
-                  <a href="/sip-calculator">SIP Calculator</a>
-                </li>
-                <li>
-                  <a href="/fd-calculator">FD Calculator</a>
-                </li>
-                <li>
-                  <a href="/retirement-calculator">Retirement Calculator</a>
-                </li>
-              </ul>
+              <h3>How to Beat Inflation</h3>
+              <WikiText
+                content={`
+                  <ul>
+                    <li><strong>Invest in Equity:</strong> Stocks and Equity Mutual Funds are the only assets that consistently beat inflation by a wide margin.</li>
+                    <li><strong>Step-Up SIP:</strong> Increase your investments every year as your income grows.</li>
+                    <li><strong>Avoid Idle Cash:</strong> Keeping money in savings accounts guarantees a loss of value over time.</li>
+                  </ul>
+                `}
+              />
             </article>
+
+            {/* FAQs */}
+            <section className="article no-print">
+              <h2>Frequently Asked Questions (FAQs)</h2>
+              <div className="faqs-accordion">
+                <details open>
+                  <summary>Why do prices increase every year?</summary>
+                  <p>
+                    Prices rise due to increased demand (Demand-Pull), higher
+                    production costs (Cost-Push), or an increase in money supply
+                    by central banks.
+                  </p>
+                </details>
+                <details>
+                  <summary>How much is medical inflation in India?</summary>
+                  <p>
+                    Medical inflation in India is significantly higher than
+                    general inflation, often estimated between{' '}
+                    <strong>10% to 14%</strong> annually. Always plan a separate
+                    buffer for healthcare.
+                  </p>
+                </details>
+                <details>
+                  <summary>Does gold beat inflation?</summary>
+                  <p>
+                    Yes, historically gold has acted as a hedge against
+                    inflation, maintaining its purchasing power over centuries.
+                    However, it does not generate wealth as fast as businesses
+                    (Stocks).
+                  </p>
+                </details>
+              </div>
+            </section>
 
             <AuthorBio />
           </div>
 
-          {/* ================= SIDEBAR ================= */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="inflation-sidebar" type="box" />

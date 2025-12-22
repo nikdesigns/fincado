@@ -1,7 +1,6 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-// src/app/loans/home-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link'; // ✅ Use Next Link
 import HomeLoanClient from './HomeLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
@@ -11,11 +10,15 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import 'katex/dist/katex.min.css'; // ✅ Math Styling
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Internal Linking
+import LanguageToggle from '@/components/LanguageToggle';
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Home Loan EMI Calculator 2025 – Eligibility & Tax',
+  title: 'Home Loan EMI Calculator 2025 – Eligibility & Tax Benefits',
   description:
     'Calculate Home Loan EMI, total interest, and tax benefits under Section 24(b) and 80C. Check eligibility, PMAY subsidy, and amortization schedule instantly.',
   keywords: [
@@ -24,9 +27,9 @@ export const metadata: Metadata = {
     'SBI Home Loan EMI',
     'HDFC Home Loan Interest',
     'Home Loan Tax Benefit',
+    'Section 80C',
+    'Section 24b',
     'PMAY Calculator',
-    'Mortgage Calculator India',
-    'Home Loan Eligibility',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/loans/home-loan',
@@ -43,14 +46,37 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function HomeLoanPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Home Loan</strong> is a secured loan provided by banks or NBFCs to purchase,
+      construct, or renovate a residential property. In India, home loans offer significant 
+      <strong>tax benefits</strong> and long repayment tenures of up to 30 years.
+    </p>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      Home loans are the best tax-saving instruments in India. You can claim deductions under two sections:
+    </p>
+    <ul>
+      <li><strong>Section 80C:</strong> Deduction up to ₹1.5 Lakh on <em>Principal Repayment</em>.</li>
+      <li><strong>Section 24(b):</strong> Deduction up to ₹2 Lakh on <em>Interest Payment</em> for a self-occupied property.</li>
+    </ul>
+    <p>
+      Use this calculator to split your EMI into principal and interest components to maximize these claims.
+    </p>
+  `);
+
   return (
     <>
+      {/* ✅ Clean Schema (Removed Duplicate Script) */}
       <CalculatorSchema
         name="Home Loan EMI Calculator"
-        description="Calculate home loan EMI, total interest payable, and amortization schedule with prepayment options."
+        description="Calculate home loan EMI, total interest payable, and tax benefits (Sec 80C, 24b) with amortization schedule."
         url="https://www.fincado.com/loans/home-loan"
       />
-      {/* --------- BREADCRUMB STRUCTURED DATA --------- */}
+
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -62,7 +88,7 @@ export default function HomeLoanPage() {
         ]}
       />
 
-      {/* --------- FAQ SCHEMA --------- */}
+      {/* Expanded FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -88,10 +114,10 @@ export default function HomeLoanPage() {
               },
               {
                 '@type': 'Question',
-                name: 'Is shorter tenure better for home loans?',
+                name: 'Does tenure affect Home Loan interest?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes. Shorter tenure increases EMI but significantly reduces total interest paid.',
+                  text: 'Yes. A 30-year loan has lower EMI but you pay almost double the interest compared to a 15-year loan.',
                 },
               },
             ],
@@ -99,55 +125,58 @@ export default function HomeLoanPage() {
         }}
       />
 
-      {/* --------- CALCULATOR SCHEMA --------- */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'SoftwareApplication',
-            name: 'Home Loan EMI Calculator',
-            applicationCategory: 'FinanceApplication',
-            operatingSystem: 'Web',
-            url: 'https://www.fincado.com/loans/home-loan',
-            description:
-              'Calculate Home Loan EMI, total interest payable, and tax benefits using Fincado’s Home Loan Calculator.',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Fincado',
-              url: 'https://www.fincado.com',
-            },
-          }),
-        }}
-      />
-
-      {/* --------- PAGE CONTENT --------- */}
       <main className="container" style={{ padding: '40px 20px' }}>
-        {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/loans/home-loan" />
           <h1>Home Loan EMI Calculator</h1>
           <ShareTools title="Home Loan EMI Calculator" />
           <WikiText
             content={`
               <p style="max-width: 700px; color: var(--color-text-muted);">
                 Plan your dream home with our bank-grade accurate calculator.
-                Check EMI, total interest cost, and tax savings instantly.
+                Check EMI, total interest cost, and <strong>Tax Savings</strong> instantly.
               </p>
             `}
           />
         </header>
 
         <div className="layout-grid">
-          {/* -------- MAIN CONTENT -------- */}
           <div className="main-content">
             <HomeLoanClient />
 
             <LiveRateTable type="homeLoan" />
+
+            {/* ✅ High Value Internal Link */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🏡</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Buying your first home?
+                </strong>
+                <Link
+                  href="/guides/home-loan-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read our Complete Home Loan Guide (2025 Edition) →
+                </Link>
+              </div>
+            </div>
 
             <div className="no-print" style={{ margin: '40px 0' }}>
               <AdSlot id="home-loan-mid" type="leaderboard" />
@@ -156,57 +185,76 @@ export default function HomeLoanPage() {
             {/* -------- SEO CONTENT -------- */}
             <article className="article content-for-seo no-print">
               <h2>What is a Home Loan?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Home Loan</strong> is a secured loan provided to purchase,
-                    construct, or renovate residential property. The property acts as collateral.
-                  </p>
-                `}
-              />
+              <WikiText content={introContent} />
 
-              <h3>How This Home Loan Calculator Helps</h3>
-              <WikiText
-                content={`
-                  <p>
-                    This calculator helps you plan EMIs, reduce interest burden,
-                    and optimize tax savings before taking a long-term commitment.
-                  </p>
-                `}
-              />
+              <h3>Tax Benefits of Home Loans (2025)</h3>
+              {/* ✅ New Section: Crucial for ranking */}
+              <WikiText content={taxContent} />
 
               <h3>Home Loan EMI Formula</h3>
+              <p>Indian banks use the following standard formula:</p>
+
+              {/* ✅ Professional Math Display */}
               <div
                 style={{
-                  border: '1px solid #e2e8f0',
-                  padding: 16,
-                  borderRadius: 8,
-                  textAlign: 'center',
-                  fontFamily: 'monospace',
-                  fontWeight: 600,
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
                 }}
               >
-                EMI = [P × R × (1+R)<sup>N</sup>] / [(1+R)<sup>N</sup> − 1]
+                <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
               </div>
+
+              <WikiText
+                content={`
+                  <ul>
+                    <li><strong>P</strong>: Principal Loan Amount</li>
+                    <li><strong>r</strong>: Monthly Interest Rate (Annual Rate / 12 / 100)</li>
+                    <li><strong>n</strong>: Loan Tenure in Months</li>
+                  </ul>
+                `}
+              />
 
               <h3>Related Calculators</h3>
               <ul>
                 <li>
-                  <a href="/emi-calculator">EMI Calculator</a>
+                  <Link href="/emi-calculator">EMI Calculator</Link>
                 </li>
                 <li>
-                  <a href="/loans/personal-loan">Personal Loan Calculator</a>
+                  <Link href="/loans/personal-loan">
+                    Personal Loan Calculator
+                  </Link>
                 </li>
                 <li>
-                  <a href="/loans/car-loan">Car Loan Calculator</a>
+                  <Link href="/loans/car-loan">Car Loan Calculator</Link>
                 </li>
               </ul>
             </article>
 
+            {/* FAQ Section */}
+            <section className="article no-print">
+              <h2>Frequently Asked Questions</h2>
+              <details open>
+                <summary>Is home loan interest tax-free?</summary>
+                <p>
+                  Not entirely. Under Section 24(b), you can claim a deduction
+                  of up to ₹2 Lakh per year on interest paid for a self-occupied
+                  property.
+                </p>
+              </details>
+              <details>
+                <summary>Can I pay more than my EMI?</summary>
+                <p>
+                  Yes, this is called a <strong>Prepayment</strong>. Making even
+                  one extra EMI per year can reduce your loan tenure by several
+                  years and save lakhs in interest.
+                </p>
+              </details>
+            </section>
+
             <AuthorBio />
           </div>
 
-          {/* -------- SIDEBAR -------- */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="home-loan-sidebar" type="box" />

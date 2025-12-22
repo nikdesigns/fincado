@@ -1,6 +1,6 @@
-// src/app/loans/car-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import CarLoanClient from './CarLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
@@ -10,19 +10,24 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Car Loan EMI Calculator 2025 – Interest Rates & Down Payment',
+  title: 'Car Loan EMI Calculator 2025 – New & Used Car Loan Interest',
   description:
-    'Calculate Car Loan EMI instantly. Plan your down payment, check interest rates from SBI, HDFC, Axis, and view amortization schedules for new and used cars.',
+    'Calculate Car Loan EMI instantly. Compare interest rates for New vs Used cars from SBI, HDFC, Axis. Check eligibility and down payment impact.',
   keywords: [
     'Car Loan EMI Calculator',
     'Auto Loan Interest Rate',
     'Vehicle Loan Calculator',
+    'New Car Loan vs Used Car Loan',
     'Car Loan Eligibility',
-    'Used Car Loan Calculator',
+    'Zero Down Payment Car Loan',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/loans/car-loan',
@@ -39,6 +44,32 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function CarLoanPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Car Loan</strong> is a secured loan offered by banks and NBFCs to purchase 
+      a new or used vehicle. The car itself acts as collateral (hypothecation) until the loan is fully repaid.
+      Interest rates typically range between <strong>8.5% to 11%</strong> for new cars.
+    </p>
+  `);
+
+  const eligibilityContent = autoLinkContent(`
+    <ul>
+      <li><strong>Age:</strong> 21–65 years at loan maturity.</li>
+      <li><strong>Income:</strong> Minimum ₹3 Lakhs annually for salaried employees.</li>
+      <li><strong>Credit Score:</strong> A CIBIL Score of 750+ usually gets the lowest interest rates.</li>
+      <li><strong>Employment:</strong> At least 2 years of work experience is preferred.</li>
+    </ul>
+  `);
+
+  const newVsUsedContent = autoLinkContent(`
+    <p>
+      Banks offer different rates for <strong>New Car Loans</strong> versus <strong>Used Car Loans</strong>. 
+      Used car loans often have higher interest rates (12%–18%) and require a higher down payment compared 
+      to new car loans.
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -46,7 +77,8 @@ export default function CarLoanPage() {
         description="Calculate monthly EMI for new or used car loans. Plan your vehicle purchase budget effectively."
         url="https://www.fincado.com/loans/car-loan"
       />
-      {/* ---------- FAQ SCHEMA ---------- */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -72,10 +104,10 @@ export default function CarLoanPage() {
               },
               {
                 '@type': 'Question',
-                name: 'What credit score is required for a car loan?',
+                name: 'Is it better to take a longer tenure for a car loan?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'A CIBIL score of 750+ gets the best interest rates. Scores between 700–749 are usually approved with slightly higher rates.',
+                  text: 'A longer tenure reduces your monthly EMI but increases the total interest you pay. Ideally, choose the shortest tenure you can comfortably afford (e.g., 3-5 years) to save on interest.',
                 },
               },
             ],
@@ -84,7 +116,6 @@ export default function CarLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
-        {/* ---------- BREADCRUMB ---------- */}
         <BreadcrumbJsonLd
           items={[
             { name: 'Home', url: 'https://www.fincado.com' },
@@ -96,8 +127,8 @@ export default function CarLoanPage() {
           ]}
         />
 
-        {/* ---------- HEADER ---------- */}
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/loans/car-loan" />
           <h1>Car Loan EMI Calculator</h1>
           <ShareTools title="Car Loan EMI Calculator" />
           <WikiText
@@ -112,54 +143,63 @@ export default function CarLoanPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* ---------- CALCULATOR ---------- */}
             <CarLoanClient />
 
-            {/* ---------- LIVE RATES ---------- */}
             <LiveRateTable type="carLoan" />
+
+            {/* ✅ PROMO BOX: Drive users to the full guide */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🚗</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Buying a New vs Used Car?
+                </strong>
+                <Link
+                  href="/guides/car-loan-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read our 2025 Guide: Interest Rates & Hidden Costs →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="car-loan-mid" type="leaderboard" />
             </div>
 
-            {/* ---------- SEO CONTENT ---------- */}
             <article className="article content-for-seo no-print">
               <h2>What is a Car Loan?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Car Loan</strong> is a secured loan offered by banks
-                    and NBFCs to purchase a new or used vehicle. The car itself is
-                    pledged as collateral, known as <strong>hypothecation</strong>.
-                  </p>
-                  <p>
-                    Because the loan is secured, interest rates are lower than
-                    personal loans and typically range between 8.5%–11%.
-                  </p>
-                `}
-              />
+              <WikiText content={introContent} />
 
               <h3>Who is Eligible for a Car Loan?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Age:</strong> 21–65 years at loan maturity</li>
-                    <li><strong>Income:</strong> ₹3L+ annually (salaried)</li>
-                    <li><strong>Credit Score:</strong> 750+ for best rates</li>
-                    <li><strong>Employment Stability:</strong> 2+ years preferred</li>
-                  </ul>
-                `}
-              />
+              {/* ✅ Auto-Linked Eligibility List */}
+              <WikiText content={eligibilityContent} />
+
+              <h3>New Car vs Used Car Loans</h3>
+              {/* ✅ Crucial SEO Topic */}
+              <WikiText content={newVsUsedContent} />
 
               <h3>How This Calculator Helps</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Use this calculator to balance your down payment, tenure,
-                    and EMI so that your monthly budget stays comfortable.
-                  </p>
-                `}
-              />
+              <p>
+                Use this calculator to balance your down payment, tenure, and
+                EMI so that your monthly budget stays comfortable.
+              </p>
 
               <div className="advantage-grid">
                 <div className="advantage-card">
@@ -177,32 +217,31 @@ export default function CarLoanPage() {
               </div>
 
               <h3>Car Loan EMI Formula</h3>
+              <p>The standard formula used for EMI calculation is:</p>
+
+              {/* ✅ Professional Math Block */}
               <div
                 style={{
-                  background: '#f1f5f9',
-                  padding: 16,
-                  borderRadius: 8,
-                  fontFamily: 'monospace',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
                 }}
               >
-                EMI = [P × R × (1+R)^N] / [(1+R)^N − 1]
+                <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
               </div>
 
               <WikiText
                 content={`
-                  <ul style="font-size:14px;">
-                    <li><strong>P</strong> = Loan Amount</li>
-                    <li><strong>R</strong> = Monthly Interest Rate</li>
-                    <li><strong>N</strong> = Tenure in Months</li>
+                  <ul>
+                    <li><strong>P</strong>: Loan Principal (Amount Borrowed)</li>
+                    <li><strong>r</strong>: Monthly Interest Rate</li>
+                    <li><strong>n</strong>: Loan Tenure in Months</li>
                   </ul>
                 `}
               />
             </article>
 
-            {/* ---------- FAQs ---------- */}
+            {/* FAQ Section */}
             <section className="article no-print">
               <h2>Frequently Asked Questions</h2>
               <div className="faqs-accordion">
@@ -222,16 +261,19 @@ export default function CarLoanPage() {
                 </details>
                 <details>
                   <summary>Do salaried people get tax benefits?</summary>
-                  <p>No. Tax benefits apply only for business use vehicles.</p>
+                  <p>
+                    Generally, no. Tax benefits on car loans are typically
+                    available only to self-employed individuals or businesses
+                    who use the vehicle for business purposes (claiming
+                    depreciation and interest).
+                  </p>
                 </details>
               </div>
             </section>
 
-            {/* ---------- AUTHOR ---------- */}
             <AuthorBio />
           </div>
 
-          {/* ---------- SIDEBAR ---------- */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="car-loan-sidebar" type="box" />

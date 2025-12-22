@@ -1,30 +1,33 @@
-// src/app/lumpsum-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import LumpsumClient from './LumpsumClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'Lumpsum Calculator – Calculate One-Time Investment Returns',
+  title: 'Lumpsum Calculator 2025 – One-Time Investment Returns',
   description:
-    'Calculate the future value of your one-time investment with our Lumpsum Calculator. Compare returns, compounding frequency, and wealth growth over time.',
+    'Calculate the future value of your one-time investment. Compare Lumpsum vs SIP returns, check STP strategies, and visualize compound interest growth.',
   keywords: [
     'Lumpsum Calculator',
     'Mutual Fund Lumpsum',
     'Investment Returns Calculator',
     'Compound Interest Calculator',
+    'Lumpsum vs SIP',
+    'STP Calculator',
     'One Time Investment Plan',
-    'Wealth Calculator',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/lumpsum-calculator',
@@ -38,7 +41,39 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function LumpsumPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Lumpsum Investment</strong> involves depositing a significant sum of money 
+      in a single transaction rather than smaller recurring payments. This method is popular 
+      for <strong>Mutual Funds</strong>, Fixed Deposits, and stocks.
+    </p>
+    <p>
+      The primary advantage is that the entire capital starts earning returns from Day 1, 
+      maximizing the power of <strong>Compounding</strong> over long durations. However, it carries 
+      higher risk if invested during a market peak.
+    </p>
+  `);
+
+  const stpContent = autoLinkContent(`
+    <p>
+      Smart investors often use a <strong>Systematic Transfer Plan (STP)</strong> instead of a direct lumpsum. 
+      You park your money in a safe <strong>Liquid Fund</strong> and transfer a fixed amount monthly 
+      into an Equity Fund. This protects you from market volatility while earning better returns than a savings account.
+    </p>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      Lumpsum returns in mutual funds are taxed based on the holding period. 
+      For Equity Funds held for more than 1 year, gains above ₹1.25 Lakh are taxed at 
+      <strong>12.5% (LTCG)</strong>. Short-term gains (less than 1 year) are taxed at 20%.
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -46,7 +81,8 @@ export default function LumpsumPage() {
         description="Estimate the future value of your one-time mutual fund investment using compound interest."
         url="https://www.fincado.com/lumpsum-calculator"
       />
-      {/* 2. SCHEMA MARKUP */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -72,10 +108,10 @@ export default function LumpsumPage() {
               },
               {
                 '@type': 'Question',
-                name: 'What is CAGR?',
+                name: 'What is STP (Systematic Transfer Plan)?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'CAGR (Compounded Annual Growth Rate) represents the mean annual growth rate of an investment over a specified time period longer than one year.',
+                  text: 'STP allows you to invest a lumpsum in a Debt fund and transfer a fixed amount to an Equity fund monthly. It combines the safety of debt with the growth of equity.',
                 },
               },
             ],
@@ -94,7 +130,7 @@ export default function LumpsumPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
           <LanguageToggle path="/hi/lumpsum-calculator" />
           <h1>Lumpsum Calculator — One-Time Investment</h1>
@@ -111,56 +147,147 @@ export default function LumpsumPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <LumpsumClient />
+
+            {/* ✅ Live Rates (Using FD as a baseline comparison) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Compare Investments
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  📈 SIP Calculator
+                </Link>
+                <Link
+                  href="/calculators/fd-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🏦 FD Returns
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>💡</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Is the market too high?
+                </strong>
+                <Link
+                  href="/guides/sip-investment-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: Why STP is safer than Lumpsum →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="lumpsum-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is Lumpsum? */}
               <h2>What is a Lumpsum Investment?</h2>
+              <WikiText content={introContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Lumpsum Investment</strong> involves depositing a
-                    significant sum of money in a single transaction rather than
-                    smaller recurring payments. This method is popular for <strong>Mutual
-                    Funds</strong>, <strong>Fixed Deposits</strong>, and stocks.
-                  </p>
-                  <p>
-                    The primary advantage is that the entire capital starts earning
-                    returns from Day 1, maximizing the <strong>Compounding</strong> effect over long
-                    durations.
-                  </p>
-                `}
-              />
+              <h3>Lumpsum vs SIP: Which is Better?</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>Lumpsum</th>
+                      <th>SIP (Systematic Plan)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Best Time</strong>
+                      </td>
+                      <td>When market is low (Correction)</td>
+                      <td>Any time (Auto-averaging)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Risk</strong>
+                      </td>
+                      <td>Higher (Timing risk)</td>
+                      <td>Lower (Averages out volatility)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Capital</strong>
+                      </td>
+                      <td>Requires large upfront cash</td>
+                      <td>Small monthly amounts (e.g. ₹500)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Growth</strong>
+                      </td>
+                      <td>Higher potential if timed right</td>
+                      <td>Consistent long-term growth</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-              {/* 2. Who is Eligible? */}
-              <h3>Who Should Choose Lumpsum Investing?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Windfall Gainers:</strong> Individuals who receive a
-                      bonus, inheritance, or property sale proceeds.
-                    </li>
-                    <li>
-                      <strong>Market Timers:</strong> Investors looking to enter
-                      when the market has corrected significantly.
-                    </li>
-                    <li>
-                      <strong>Retirees:</strong> Investing retirement corpus into
-                      monthly income plans (SWP).
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>The STP Strategy (Pro Tip)</h3>
+              <WikiText content={stpContent} />
 
-              {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
               <WikiText
                 content={`
@@ -186,54 +313,45 @@ export default function LumpsumPage() {
                     conservative (8%) and aggressive (15%) return rates.
                   </p>
                 </div>
-                <div className="advantage-card">
-                  <h4>Frequency Impact</h4>
-                  <p>
-                    Check how different compounding frequencies (Annual vs
-                    Monthly) affect your final maturity amount.
-                  </p>
-                </div>
               </div>
 
-              {/* 4. Formula */}
+              <h3>Taxation on Returns (2025 Update)</h3>
+              <WikiText content={taxContent} />
+
               <h3>Lumpsum Calculation Formula</h3>
               <p>
-                This calculator uses the compound interest formula to estimate
-                future value:
+                This calculator uses the standard compound interest formula to
+                estimate future value:
               </p>
 
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <BlockMath math="FV = P (1 + r)^n" />
               </div>
 
               <WikiText
                 content={`
-  <ul>
-    <li><strong>FV</strong> = Future Value</li>
-    <li><strong>P</strong> = Present Investment Amount</li>
-    <li><strong>r</strong> = Annual Rate of Return (in decimals)</li>
-    <li><strong>n</strong> = Time Period in Years</li>
-  </ul>
-`}
+                  <ul style="font-size: 14px;">
+                    <li><strong>FV</strong>: Future Value</li>
+                    <li><strong>P</strong>: Present Investment Amount</li>
+                    <li><strong>r</strong>: Annual Rate of Return</li>
+                    <li><strong>n</strong>: Time Period in Years</li>
+                  </ul>
+                `}
               />
 
-              {/* 5. Key Advantages */}
-              <h3>Key Advantages of Lumpsum Investment</h3>
+              <h3>Key Advantages of Lumpsum</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>Instant Exposure:</strong> Your entire capital gets
-                      exposure to asset growth immediately.
-                    </li>
-                    <li>
-                      <strong>Convenience:</strong> A one-time transaction means no
-                      need to track monthly debit dates.
-                    </li>
-                    <li>
-                      <strong>Ideal for Debt:</strong> Lumpsum works exceptionally
-                      well for Debt Funds and FDs where volatility is low.
-                    </li>
+                    <li><strong>Instant Exposure:</strong> Your entire capital starts growing from Day 1.</li>
+                    <li><strong>Convenience:</strong> One-time transaction, no monthly tracking.</li>
+                    <li><strong>Ideal for Debt:</strong> Works great for Debt Funds/FDs where volatility is low.</li>
                   </ul>
                 `}
               />
@@ -269,11 +387,9 @@ export default function LumpsumPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="lumpsum-sidebar" type="box" />

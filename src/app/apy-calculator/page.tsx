@@ -1,27 +1,30 @@
-// src/app/apy-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import APYClient from './APYClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Context
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'APY Calculator – Atal Pension Yojana Scheme Calculator',
+  title: 'APY Calculator 2025 – Atal Pension Yojana Contribution Chart',
   description:
-    'Calculate your monthly contribution for Atal Pension Yojana (APY). Check guaranteed pension amount, total investment, and return to nominee.',
+    'Calculate monthly contribution for Atal Pension Yojana (APY). Check guaranteed pension (₹1000-₹5000), return to nominee, and age-wise contribution chart.',
   keywords: [
     'APY Calculator',
     'Atal Pension Yojana Calculator',
-    'APY Chart',
+    'APY Contribution Chart 2025',
     'Pension Scheme for Unorganized Sector',
+    'APY vs NPS',
     'Government Pension Scheme',
-    'APY Contribution Chart',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/apy-calculator',
@@ -35,7 +38,38 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function APYPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      <strong>Atal Pension Yojana (APY)</strong> is a social security scheme launched by the 
+      Government of India to provide a defined pension to workers in the unorganized sector.
+    </p>
+    <p>
+      It offers a minimum <strong>guaranteed pension</strong> ranging from ₹1,000 to ₹5,000 per month 
+      starting at age 60, depending on the subscriber's contribution amount and entry age.
+    </p>
+  `);
+
+  const eligibilityContent = autoLinkContent(`
+    <ul>
+      <li><strong>Age:</strong> Must be between 18 and 40 years.</li>
+      <li><strong>Citizenship:</strong> Must be an Indian citizen.</li>
+      <li><strong>Bank Account:</strong> Must have a valid savings bank account.</li>
+      <li><strong>Tax Status:</strong> Should NOT be an income tax payer (Effective from Oct 1, 2022).</li>
+    </ul>
+  `);
+
+  const benefitsContent = autoLinkContent(`
+    <ul>
+      <li><strong>Guaranteed Pension:</strong> The government guarantees the pension amount. If actual returns are lower, the government bridges the gap.</li>
+      <li><strong>Spouse Benefit:</strong> The same pension is paid to the spouse after the subscriber's death.</li>
+      <li><strong>Corpus to Nominee:</strong> After the death of both subscriber and spouse, the accumulated corpus (up to ₹8.5 Lakhs) is returned to the nominee.</li>
+    </ul>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -43,7 +77,8 @@ export default function APYPage() {
         description="Calculate the monthly contribution required to get a guaranteed pension of ₹1000 to ₹5000 under the APY scheme."
         url="https://www.fincado.com/apy-calculator"
       />
-      {/* 2. SCHEMA MARKUP */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -61,27 +96,18 @@ export default function APYPage() {
               },
               {
                 '@type': 'Question',
-                name: 'Is the pension amount guaranteed?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, the pension amount (₹1,000 to ₹5,000) is guaranteed by the Government of India.',
-                },
-              },
-              {
-                '@type': 'Question',
                 name: 'Can income tax payers join APY?',
                 acceptedAnswer: {
                   '@type': 'Answer',
                   text: 'No. Effective from October 1, 2022, any citizen who is or has been an income tax payer is not eligible to join APY.',
                 },
               },
-
               {
                 '@type': 'Question',
-                name: 'Can I exit Atal Pension Yojana before age 60?',
+                name: 'What happens to the corpus after death?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes, premature exit from APY is allowed only in exceptional circumstances such as terminal illness or death. In normal cases, exit before age 60 is discouraged and the subscriber receives only their contribution along with interest earned.',
+                  text: 'After the death of the subscriber, the pension continues to the spouse. After the death of both, the accumulated corpus (up to ₹8.5 Lakhs) is returned to the nominee.',
                 },
               },
             ],
@@ -95,25 +121,21 @@ export default function APYPage() {
             { name: 'Home', url: 'https://www.fincado.com' },
             { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
             {
-              name: 'Retirement',
-              url: 'https://www.fincado.com/retirement-calculator',
-            },
-            {
-              name: 'FIRE Calculator',
-              url: 'https://www.fincado.com/fire-calculator',
+              name: 'APY Calculator',
+              url: 'https://www.fincado.com/apy-calculator',
             },
           ]}
         />
-        {/* Header */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/apy-calculator" />
           <h1>Atal Pension Yojana (APY) Calculator</h1>
           <ShareTools title="Atal Pension Yojana (APY) Calculator" />
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
               Secure your old age with a guaranteed government pension. Calculate
-              your monthly contribution based on your age and desired pension
-              amount.
+              your monthly contribution based on your age and desired pension amount.
             </p>
           `}
           />
@@ -121,59 +143,188 @@ export default function APYPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <APYClient />
+
+            {/* ✅ Live Rates (Using FD/NPS context) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Retirement Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/nps-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🇮🇳 NPS Calculator
+                </Link>
+                <Link
+                  href="/calculators/epf-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🏢 EPF Calculator
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>👴</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Need Higher Pension?
+                </strong>
+                <Link
+                  href="/guides/nps-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: Why NPS might be better than APY →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="apy-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is APY? */}
               <h2>What is Atal Pension Yojana (APY)?</h2>
+              <WikiText content={introContent} />
 
-              <p>
-                <strong>Atal Pension Yojana (APY)</strong> is a social security
-                scheme launched by the Government of India to provide a defined
-                pension to workers in the unorganized sector.
-              </p>
-              <p>
-                It offers a minimum guaranteed pension ranging from ₹1,000 to
-                ₹5,000 per month starting at age 60, depending on the
-                subscriber&apos;s contribution.
-              </p>
-
-              {/* 2. Who is Eligible? */}
               <h3>Who Can Subscribe to APY?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Age:</strong> Must be between 18 and 40 years.
-                    </li>
-                    <li>
-                      <strong>Citizenship:</strong> Must be an Indian citizen.
-                    </li>
-                    <li>
-                      <strong>Bank Account:</strong> Must have a valid savings bank
-                      account or post office savings account.
-                    </li>
-                    <li>
-                      <strong>Tax Status:</strong> Should NOT be an income tax payer
-                      (as of Oct 1, 2022).
-                    </li>
-                  </ul>
-                `}
-              />
+              <WikiText content={eligibilityContent} />
 
-              {/* 3. Planning Help */}
+              <h3>APY vs NPS: Which is Better?</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>Atal Pension Yojana (APY)</th>
+                      <th>National Pension System (NPS)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Pension Amount</strong>
+                      </td>
+                      <td>Fixed (Max ₹5,000/month)</td>
+                      <td>Market Linked (No Limit)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Eligibility</strong>
+                      </td>
+                      <td>Unorganized Sector (Non-Tax Payers)</td>
+                      <td>Any Citizen (Including Tax Payers)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Returns</strong>
+                      </td>
+                      <td>Guaranteed (~8%)</td>
+                      <td>Market Linked (9% - 12%)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Premature Exit</strong>
+                      </td>
+                      <td>Difficult (Only in special cases)</td>
+                      <td>Partial Withdrawal Allowed</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Pension Slab & Return to Nominee</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Monthly Pension</th>
+                      <th>Corpus Returned to Nominee</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>₹1,000</td>
+                      <td>₹1.7 Lakh</td>
+                    </tr>
+                    <tr>
+                      <td>₹2,000</td>
+                      <td>₹3.4 Lakh</td>
+                    </tr>
+                    <tr>
+                      <td>₹3,000</td>
+                      <td>₹5.1 Lakh</td>
+                    </tr>
+                    <tr>
+                      <td>₹4,000</td>
+                      <td>₹6.8 Lakh</td>
+                    </tr>
+                    <tr>
+                      <td>₹5,000</td>
+                      <td>₹8.5 Lakh</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <h3>How This Calculator Helps Your Planning</h3>
               <WikiText
                 content={`
                   <p>
                     APY contributions depend heavily on your entry age. The earlier you join,
-                    the lower your monthly outflow.
+                    the lower your monthly outflow. For example, joining at 18 vs 30 significantly 
+                    reduces your monthly burden.
                   </p>
                 `}
               />
@@ -202,71 +353,8 @@ export default function APYPage() {
                 </div>
               </div>
 
-              {/* 4. Formula/Logic */}
-              <h3>How APY Contributions are Determined</h3>
-              <WikiText
-                content={`
-                  <p>
-                    APY is a <strong>Defined Benefit</strong> scheme. The contribution amounts
-                    are fixed actuarially based on:
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>Entry Age:</strong> Younger applicants pay less
-                      because their money compounds for longer.
-                    </li>
-                    <li>
-                      <strong>Pension Slab:</strong> Higher pension (e.g., ₹5,000)
-                      requires higher contribution.
-                    </li>
-                    <li>
-                      <strong>Frequency:</strong> You can pay Monthly, Quarterly, or
-                      Half-Yearly.
-                    </li>
-                  </ul>
-                `}
-              />
-
-              <div
-                style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                }}
-              >
-                Vesting Age = 60 Years
-              </div>
-
-              {/* 5. Key Advantages */}
-              <h3>Benefits of APY</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Guaranteed Pension:</strong> The government guarantees
-                      the pension amount. If actual returns are lower, the
-                      government bridges the gap.
-                    </li>
-                    <li>
-                      <strong>Spouse Benefit:</strong> The same pension is paid to
-                      the spouse after the subscriber's death.
-                    </li>
-                    <li>
-                      <strong>Corpus to Nominee:</strong> After the death of both
-                      subscriber and spouse, the accumulated corpus (up to ₹8.5
-                      Lakhs) is returned to the nominee.
-                    </li>
-                    <li>
-                      <strong>Tax Benefit:</strong> Contributions are eligible for tax deduction under Section 80CCD(1),<strong>subject to overall limits under Section 80C.</strong>.
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>Key Benefits of APY</h3>
+              <WikiText content={benefitsContent} />
             </article>
 
             {/* FAQs */}
@@ -280,8 +368,7 @@ export default function APYPage() {
                   <p>
                     The account will eventually be closed, and the accumulated
                     corpus (contributions + interest) will be returned to you.
-                    However, deductions/penalties may apply for maintenance
-                    charges.
+                    However, maintenance charges and penalties will be deducted.
                   </p>
                 </details>
                 <details>
@@ -295,18 +382,16 @@ export default function APYPage() {
                 <details>
                   <summary>Is there a penalty for delayed payment?</summary>
                   <p>
-                    Yes, banks charge a small penalty (₹1 to ₹10 per month) for
-                    delayed contributions.
+                    Yes, banks charge a small penalty (₹1 per month for every
+                    ₹100 contributed) for delayed contributions.
                   </p>
                 </details>
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="apy-sidebar" type="box" />

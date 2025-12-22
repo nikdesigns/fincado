@@ -1,31 +1,33 @@
-// src/app/ppf-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link'; // ✅ Use Next Link
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import PPFClient from './PPFClient';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'PPF Calculator – Public Provident Fund Interest & Maturity',
+  title: 'PPF Calculator 2025 – Public Provident Fund Interest & Maturity',
   description:
-    'Calculate PPF maturity amount, interest earned, and tax benefits with our accurate Public Provident Fund Calculator. Plan your 15-year tax-free savings goal.',
+    'Calculate PPF maturity amount, interest earned, and tax-free returns. Check current interest rates, loan against PPF rules, and withdrawal limits.',
   keywords: [
     'PPF Calculator',
     'Public Provident Fund Calculator',
-    'PPF Interest Rate',
-    'Tax Saving Investment',
-    '80C Deductions',
+    'PPF Interest Rate 2025',
+    'Tax Free Investment',
+    'Section 80C Investment',
     'PPF Maturity Calculator',
-    'Post Office PPF',
+    'Post Office PPF Scheme',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/ppf-calculator',
@@ -39,7 +41,48 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function PPFPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      The <strong>Public Provident Fund (PPF)</strong> is a long-term savings scheme backed by the 
+      Government of India. It allows you to build a retirement corpus while saving on taxes.
+    </p>
+    <p>
+      It is one of the few investment options that fall under the <strong>EEE (Exempt-Exempt-Exempt)</strong> 
+      category, meaning your investment, interest earned, and maturity amount are all <strong>100% Tax-Free</strong>.
+    </p>
+  `);
+
+  const eligibilityContent = autoLinkContent(`
+    <ul>
+      <li><strong>Resident Individuals:</strong> Any Indian resident can open a PPF account.</li>
+      <li><strong>Minors:</strong> Parents can open an account on behalf of a minor child.</li>
+      <li><strong>Restrictions:</strong> <strong>NRIs</strong> and <strong>HUFs</strong> cannot open new PPF accounts. However, existing NRI accounts can continue until maturity.</li>
+    </ul>
+  `);
+
+  const loanContent = autoLinkContent(`
+    <p>
+      You can take a loan against your PPF balance from the <strong>3rd to the 6th financial year</strong>. 
+      The loan interest rate is usually <strong>1% higher</strong> than the prevailing PPF interest rate. 
+      From the 7th year onwards, you become eligible for partial withdrawals instead of loans.
+    </p>
+  `);
+
+  const extensionContent = autoLinkContent(`
+    <p>
+      After the mandatory 15-year lock-in, you can extend your PPF account in blocks of <strong>5 years</strong>. 
+      You have two options:
+    </p>
+    <ul>
+      <li><strong>Extension with Contribution:</strong> Continue depositing money and earning interest. (Requires Form-H submission).</li>
+      <li><strong>Extension without Contribution:</strong> Stop depositing but keep the balance in the account to earn interest.</li>
+    </ul>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -47,7 +90,8 @@ export default function PPFPage() {
         description="Calculate Public Provident Fund (PPF) maturity amount, interest earned, and tax-free returns over 15 years."
         url="https://www.fincado.com/ppf-calculator"
       />
-      {/* 2. SCHEMA MARKUP */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -95,7 +139,7 @@ export default function PPFPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
           <LanguageToggle path="/hi/ppf-calculator" />
           <h1>PPF Calculator — Public Provident Fund</h1>
@@ -112,132 +156,192 @@ export default function PPFPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <PPFClient />
+
+            {/* ✅ Live Rates (FD comparison) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Compare Savings
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/fd-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🏦 FD Returns
+                </Link>
+                <Link
+                  href="/calculators/sukanya-samriddhi-yojana-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  👧 SSY Calculator
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🛡️</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Safe Investment Strategy
+                </strong>
+                <Link
+                  href="/guides/ppf-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: How to Maximize PPF Returns →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="ppf-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is PPF? */}
               <h2>What is the Public Provident Fund (PPF)?</h2>
+              <WikiText content={introContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    The <strong>Public Provident Fund (PPF)</strong> is a long-term
-                    savings scheme backed by the Government of India. It was
-                    introduced to mobilize small savings and provide retirement
-                    security to self-employed individuals and workers in the
-                    unorganized sector.
-                  </p>
-                `}
-              />
-
-              {/* 2. Who is Eligible? */}
               <h3>Who Can Open a PPF Account?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Resident Individuals:</strong> Any individual can open a
-                      PPF account in their own name.
-                    </li>
-                    <li>
-                      <strong>Minors:</strong> Parents or guardians can open an
-                      account on behalf of a minor child.
-                    </li>
-                    <li>
-                      <strong>Not Allowed:</strong> <strong>NRIs</strong> (Non-Resident Indians) and
-                      <strong>HUFs</strong> (Hindu Undivided Families) are not eligible to open new
-                      PPF accounts.
-                    </li>
-                  </ul>
-                `}
-              />
+              <WikiText content={eligibilityContent} />
 
-              {/* 3. Planning Help */}
-              <h3>How This Calculator Helps Your Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    PPF is a 15-year commitment. This calculator helps you visualize
-                    the long-term impact of your savings:
-                  </p>
-                `}
-              />
-
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Tax Planning</h4>
-                  <p>
-                    See exactly how much you need to invest (up to ₹1.5 Lakh) to
-                    maximize your Section 80C tax deduction.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Wealth Projection</h4>
-                  <p>
-                    Visualize how a small ₹5,000/month contribution grows into a
-                    significant tax-free corpus over 15+ years.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Extension Strategy</h4>
-                  <p>
-                    Plan beyond 15 years. See the compounding magic if you
-                    extend your account for another 5-year block.
-                  </p>
-                </div>
+              <h3>PPF vs FD vs ELSS: Quick Comparison</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>PPF</th>
+                      <th>Bank FD</th>
+                      <th>ELSS Mutual Fund</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Returns</strong>
+                      </td>
+                      <td>~7.1% (Guaranteed)</td>
+                      <td>6.5% - 7.5%</td>
+                      <td>12% - 15% (Market Linked)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Tax Status</strong>
+                      </td>
+                      <td>EEE (Tax Free)</td>
+                      <td>Fully Taxable</td>
+                      <td>LTCG Tax (12.5%)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Lock-in</strong>
+                      </td>
+                      <td>15 Years</td>
+                      <td>7 Days - 10 Years</td>
+                      <td>3 Years</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Risk</strong>
+                      </td>
+                      <td>Zero Risk (Govt Backed)</td>
+                      <td>Low Risk</td>
+                      <td>High Risk</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
-              {/* 4. Formula */}
+              <h3>Loan Against PPF & Partial Withdrawals</h3>
+              <WikiText content={loanContent} />
+
+              <h3>Extension Rules (After 15 Years)</h3>
+              <WikiText content={extensionContent} />
+
               <h3>PPF Calculation Formula</h3>
               <p>
-                Since PPF is compounded annually, the formula is similar to an
-                Annuity:
+                The interest on PPF is compounded annually. The formula is
+                similar to the Future Value of an Annuity:
               </p>
 
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <BlockMath math="A = P \times \left[ \frac{(1 + i)^n - 1}{i} \right] \times (1 + i)" />
               </div>
 
               <WikiText
                 content={`
-  <ul>
-    <li><strong>A</strong> = Maturity Amount</li>
-    <li><strong>P</strong> = Annual Installment</li>
-    <li><strong>i</strong> = Annual Interest Rate (in decimals)</li>
-    <li><strong>n</strong> = Number of Years (15 to 50)</li>
-  </ul>
-`}
+                  <ul style="font-size: 14px;">
+                    <li><strong>A</strong>: Maturity Amount</li>
+                    <li><strong>P</strong>: Annual Installment</li>
+                    <li><strong>i</strong>: Annual Interest Rate</li>
+                    <li><strong>n</strong>: Tenure (15 to 50 years)</li>
+                  </ul>
+                `}
               />
 
-              {/* 5. Key Advantages */}
               <h3>Key Advantages of PPF</h3>
-
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>EEE Tax Status:</strong> Investment is tax-deductible,
-                      interest is tax-free, and maturity amount is tax-free.
-                    </li>
-                    <li>
-                      <strong>Sovereign Guarantee:</strong> Being government-backed,
-                      your capital and returns are 100% safe.
-                    </li>
-                    <li>
-                      <strong>Loan Facility:</strong> You can take a loan against
-                      your PPF balance from the 3rd to the 6th financial year.
-                    </li>
-                    <li>
-                      <strong>Protection from Attachment:</strong> A PPF account
-                      cannot be attached by a court decree to pay off
-                      debts/liabilities.
-                    </li>
+                    <li><strong>EEE Tax Status:</strong> No tax on investment, interest, or withdrawal.</li>
+                    <li><strong>Sovereign Guarantee:</strong> 100% capital safety backed by Govt of India.</li>
+                    <li><strong>Protection from Attachment:</strong> Cannot be claimed by creditors/courts to pay off debts.</li>
                   </ul>
                 `}
               />
@@ -254,34 +358,31 @@ export default function PPFPage() {
                   <p>
                     Partial withdrawals are allowed from the 7th financial year
                     onwards. You can withdraw up to 50% of the balance at the
-                    end of the 4th preceding year or the immediate preceding
-                    year, whichever is lower.
+                    end of the 4th preceding year.
                   </p>
                 </details>
                 <details>
                   <summary>What happens if I miss a yearly deposit?</summary>
                   <p>
                     The account becomes &quot;inactive&quot;. To reactivate it,
-                    you must pay a penalty of ₹50 for each year of default along
-                    with the minimum subscription of ₹500 per year.
+                    you must pay a penalty of ₹50 per year along with the
+                    minimum subscription of ₹500 per year.
                   </p>
                 </details>
                 <details>
                   <summary>Can I extend my PPF account after 15 years?</summary>
                   <p>
                     Yes. You can extend the account indefinitely in blocks of 5
-                    years. You can choose to extend with or without making
-                    further contributions.
+                    years. You must submit Form H within one year of maturity to
+                    extend &quot;with contribution&quot;.
                   </p>
                 </details>
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="ppf-sidebar" type="box" />

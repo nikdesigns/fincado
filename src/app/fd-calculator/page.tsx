@@ -1,31 +1,32 @@
-// src/app/fd-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import FDClient from './FDClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker';
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'FD Calculator – Fixed Deposit Interest & Maturity Value',
+  title: 'FD Calculator 2025 – Calculate Interest & Maturity Value',
   description:
-    'Calculate the maturity amount of your Fixed Deposit (FD) with our accurate FD Calculator. Compare interest rates, check quarterly compounding returns, and estimate tax deductions.',
+    'Calculate Fixed Deposit maturity amount with our accurate FD Calculator. Check monthly/quarterly payouts, TDS deduction rules, and 2025 interest rates.',
   keywords: [
     'FD Calculator',
     'Fixed Deposit Calculator',
-    'FD Interest Rates',
+    'FD Interest Rates 2025',
     'Term Deposit Calculator',
-    'Bank FD Rates India',
-    'FD Maturity Calculator',
-    'Quarterly Compounding Calculator',
+    'FD TDS Calculator',
+    'Cumulative vs Non-Cumulative FD',
+    'Senior Citizen FD Rates',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/fd-calculator',
@@ -39,7 +40,46 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function FDPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Fixed Deposit (FD)</strong> is a low-risk investment instrument 
+      offered by banks and NBFCs where you deposit a lump sum amount 
+      for a fixed tenure at a pre-determined interest rate.
+    </p>
+    <p>
+      Unlike stock market investments, FDs offer <strong>guaranteed returns</strong> 
+      and capital safety, making them the preferred choice for conservative investors 
+      and senior citizens.
+    </p>
+  `);
+
+  const eligibilityContent = autoLinkContent(`
+    <p>
+      Almost any investor category can open an FD in India. Common eligibility includes:
+    </p>
+    <ul>
+      <li><strong>Resident Individuals:</strong> Including minors (with guardians).</li>
+      <li><strong>Senior Citizens:</strong> Eligible for higher interest rates (usually 0.50% extra).</li>
+      <li><strong>NRIs:</strong> Can open NRE (repatriable) or NRO (non-repatriable) FDs.</li>
+      <li><strong>Organizations:</strong> HUFs, Partnership Firms, Trusts, and Companies.</li>
+    </ul>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      Interest earned on Fixed Deposits is <strong>fully taxable</strong> as per your income tax slab. 
+      It is added to your annual income under "Income from Other Sources".
+    </p>
+    <ul>
+      <li><strong>TDS Deduction:</strong> Banks deduct 10% TDS if interest exceeds ₹40,000 in a year (₹50,000 for Senior Citizens).</li>
+      <li><strong>Form 15G/15H:</strong> You can submit these forms to the bank to avoid TDS if your total income is below the taxable limit.</li>
+    </ul>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -47,7 +87,8 @@ export default function FDPage() {
         description="Calculate the maturity amount and interest earned on your Fixed Deposits (FD) for all Indian banks."
         url="https://www.fincado.com/fd-calculator"
       />
-      {/* 2. SCHEMA MARKUP FOR FAQ */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -95,7 +136,7 @@ export default function FDPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
           <LanguageToggle path="/hi/fd-calculator" />
           <h1>Fixed Deposit (FD) Calculator</h1>
@@ -113,63 +154,101 @@ export default function FDPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <FDClient />
+
+            {/* Mobile Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                More Savings Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/rd-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🔄 RD Calculator
+                </Link>
+                <Link
+                  href="/calculators/ppf-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🏦 PPF Returns
+                </Link>
+              </div>
+            </div>
+
+            {/* Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🛡️</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Looking for safer returns?
+                </strong>
+                <Link
+                  href="/guides/fixed-deposit-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: How to Ladder FDs for Higher Interest →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="fd-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is an FD? */}
               <h2>What is a Fixed Deposit (FD)?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Fixed Deposit (FD)</strong> is a financial instrument
-                    offered by banks and NBFCs where you deposit a lump sum amount
-                    for a fixed tenure at a pre-determined interest rate.
-                  </p>
-                  <p>
-                    FDs are one of the most popular investment options in India due
-                    to their <strong>safety</strong>
-                    and <strong>guaranteed returns</strong>, which are unaffected by
-                    market fluctuations.
-                  </p>
-                `}
-              />
+              <WikiText content={introContent} />
 
-              {/* 2. Who is Eligible? */}
-              <h3>Who is Eligible to Open an FD?</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Almost any investor category can open an FD in India. Common
-                    eligibility includes:
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>Resident Individuals:</strong> Any individual,
-                      including minors (with guardians).
-                    </li>
-                    <li>
-                      <strong>Senior Citizens:</strong> Eligible for higher interest
-                      rates (usually 0.50% extra).
-                    </li>
-                    <li>
-                      <strong>NRIs:</strong> Can open NRE (repatriable) or NRO
-                      (non-repatriable) Fixed Deposits.
-                    </li>
-                    <li>
-                      <strong>Organizations:</strong> HUFs, Partnership Firms,
-                      Trusts, and Companies.
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>Who is Eligible?</h3>
+              <WikiText content={eligibilityContent} />
 
-              {/* 3. Planning Help */}
               <h3>How This Calculator Helps Your Planning</h3>
               <WikiText
                 content={`
@@ -192,9 +271,8 @@ export default function FDPage() {
                 <div className="advantage-card">
                   <h4>Tax Estimation</h4>
                   <p>
-                    See your &quot;Real Returns&quot;. Input your tax slab
-                    (e.g., 20% or 30%) to see how much money actually lands in
-                    your pocket.
+                    See your &quot;Real Returns&quot;. Input your tax slab (20%
+                    or 30%) to see how much money actually lands in your pocket.
                   </p>
                 </div>
                 <div className="advantage-card">
@@ -206,47 +284,41 @@ export default function FDPage() {
                 </div>
               </div>
 
-              {/* 4. Formula */}
+              <h3>TDS on FD Interest (2025 Rules)</h3>
+              <WikiText content={taxContent} />
+
               <h3>FD Maturity Formula</h3>
               <p>For Compound Interest FDs (Reinvestment), the formula is:</p>
 
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <BlockMath math="A = P \left(1 + \frac{r}{n}\right)^{n \times t}" />
               </div>
 
               <WikiText
                 content={`
-  <ul>
-    <li><strong>A</strong> = Maturity Amount</li>
-    <li><strong>P</strong> = Principal Investment</li>
-    <li><strong>r</strong> = Rate of Interest (in decimals)</li>
-    <li><strong>n</strong> = Compounding Frequency (4 for Quarterly)</li>
-    <li><strong>t</strong> = Time in Years</li>
-  </ul>
-`}
+                  <ul style="font-size: 14px;">
+                    <li><strong>A</strong>: Maturity Amount</li>
+                    <li><strong>P</strong>: Principal Investment</li>
+                    <li><strong>r</strong>: Rate of Interest (in decimals)</li>
+                    <li><strong>n</strong>: Compounding Frequency (4 for Quarterly)</li>
+                    <li><strong>t</strong>: Time in Years</li>
+                  </ul>
+                `}
               />
 
-              {/* 5. Key Advantages */}
               <h3>Key Advantages of Fixed Deposits</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>Capital Safety:</strong> FDs up to ₹5 Lakh per bank
-                      are insured by DICGC (RBI subsidiary).
-                    </li>
-                    <li>
-                      <strong>Liquidity:</strong> You can break your FD prematurely
-                      (with a small penalty) or take an overdraft loan against it.
-                    </li>
-                    <li>
-                      <strong>Tax Saving:</strong> 5-Year Tax Saver FDs allow
-                      deductions under Section 80C (up to ₹1.5 Lakh).
-                    </li>
-                    <li>
-                      <strong>Regular Income:</strong> You can choose non-cumulative
-                      FDs to get monthly or quarterly interest payouts.
-                    </li>
+                    <li><strong>Capital Safety:</strong> FDs up to ₹5 Lakh per bank are insured by DICGC.</li>
+                    <li><strong>Liquidity:</strong> Premature withdrawal allowed (with small penalty).</li>
+                    <li><strong>Tax Saving:</strong> 5-Year Tax Saver FDs allow Section 80C deductions.</li>
                   </ul>
                 `}
               />
@@ -260,11 +332,10 @@ export default function FDPage() {
                   <summary>Is interest on FD taxable?</summary>
                   <p>
                     Yes. The interest is added to your total income and taxed as
-                    per your slab. Banks deduct 10% TDS if interest `{'>'}`
+                    per your slab. Banks deduct 10% TDS if interest exceeds
                     ₹40,000 (₹50,000 for seniors).
                   </p>
                 </details>
-
                 <details>
                   <summary>Can I withdraw my FD before maturity?</summary>
                   <p>
@@ -285,11 +356,9 @@ export default function FDPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="fd-sidebar" type="box" />

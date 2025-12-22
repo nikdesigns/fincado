@@ -1,6 +1,6 @@
-// src/app/emi-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import EMIClient from './EMIClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
@@ -8,11 +8,12 @@ import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import { autoLinkContent } from '@/utils/autoLinker';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -28,7 +29,11 @@ export const metadata: Metadata = {
     'Personal Loan EMI',
     'Reduce Loan Interest',
     'Amortization Schedule',
+    'Loan Repayment Schedule',
   ],
+  alternates: {
+    canonical: 'https://www.fincado.com/emi-calculator',
+  },
   openGraph: {
     title: 'EMI Calculator – Plan Your Loan Repayment',
     description:
@@ -41,9 +46,34 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function EMIPage() {
+  const introContent = autoLinkContent(`
+    <p>
+      <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly
+      amount paid towards loan repayment, consisting of principal and interest.
+      Indian banks calculate EMI using the <strong>reducing balance method</strong>,
+      where interest is charged only on the outstanding principal.
+    </p>
+  `);
+
+  const benefitsContent = autoLinkContent(`
+    <p>
+      This calculator helps you budget better, compare loan offers,
+      and reduce total interest through informed planning.
+      Most borrowers underestimate how much interest accumulates
+      over long tenures until they see the amortization table.
+    </p>
+  `);
+
+  const factorsContent = autoLinkContent(`
+    <ul>
+      <li><strong>Loan Principal:</strong> The total amount you borrow. Higher principal means higher EMI.</li>
+      <li><strong>Interest Rate:</strong> A lower <strong>Personal Loan Interest Rate</strong> or Home Loan rate reduces your monthly burden significantly.</li>
+      <li><strong>Tenure:</strong> Choosing a longer tenure reduces your monthly EMI but increases the total interest payout over time.</li>
+    </ul>
+  `);
+
   return (
     <>
-      {/* --------- BREADCRUMB STRUCTURED DATA --------- */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -54,13 +84,13 @@ export default function EMIPage() {
           },
         ]}
       />
-      {/* Software Schema */}
+
       <CalculatorSchema
         name="Loan EMI Calculator"
         description="Calculate EMI for Home Loan, Car Loan, and Personal Loan. Check monthly repayment schedule and total interest."
         url="https://www.fincado.com/emi-calculator"
       />
-      {/* --------- FAQ SCHEMA --------- */}
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -86,10 +116,10 @@ export default function EMIPage() {
               },
               {
                 '@type': 'Question',
-                name: 'Does tenure affect total interest?',
+                name: 'Does prepayment reduce EMI or Tenure?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes. Longer tenure lowers EMI but significantly increases total interest paid over the loan term.',
+                  text: 'Most banks reduce the tenure by default when you make a prepayment, which saves you the maximum interest. However, you can request to reduce the EMI amount instead.',
                 },
               },
             ],
@@ -97,41 +127,9 @@ export default function EMIPage() {
         }}
       />
 
-      {/* --------- CALCULATOR SCHEMA --------- */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'SoftwareApplication',
-            name: 'EMI Calculator',
-            applicationCategory: 'FinanceApplication',
-            operatingSystem: 'Web',
-            url: 'https://www.fincado.com/emi-calculator',
-            description:
-              'Calculate EMI for home loan, car loan, and personal loan with interest breakdown and amortization schedule.',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Fincado',
-              url: 'https://www.fincado.com',
-            },
-            // ✅ EEAT: Explicit creator entity
-            creator: {
-              '@type': 'Organization',
-              name: 'Fincado',
-            },
-          }),
-        }}
-      />
-
-      {/* --------- PAGE CONTENT --------- */}
+      {/* ✅ FIX 1: Removed maxWidth: '100vw'. Left only padding. 
+          The .container class in globals.css will handle width perfectly. */}
       <main className="container" style={{ padding: '40px 20px' }}>
-        {/* Header */}
         <header style={{ marginBottom: 40 }} className="no-print">
           <LanguageToggle path="/hi/emi-calculator" />
           <h1>EMI Calculator – Plan Your Loan Smartly</h1>
@@ -148,41 +146,55 @@ export default function EMIPage() {
         </header>
 
         <div className="layout-grid">
-          {/* -------- MAIN CONTENT -------- */}
           <div className="main-content">
             <EMIClient />
 
             <LiveRateTable type="personalLoan" />
 
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>📚</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Want to master your EMI?
+                </strong>
+                <Link
+                  href="/guides/emi-calculator-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read our 2025 EMI Guide: Formulas & Smart Planning →
+                </Link>
+              </div>
+            </div>
+
             <div className="no-print" style={{ margin: '40px 0' }}>
               <AdSlot id="emi-mid-content" type="leaderboard" />
             </div>
 
-            {/* -------- SEO CONTENT -------- */}
             <article className="article content-for-seo no-print">
               <h2>What is an EMI?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly
-                    amount paid towards loan repayment, consisting of principal and interest.
-                    Indian banks calculate EMI using the <strong>reducing balance method</strong>,
-                    where interest is charged only on the outstanding principal.
-                  </p>
-                `}
-              />
+              <WikiText content={introContent} />
 
               <h3>How This EMI Calculator Helps</h3>
-              <WikiText
-                content={`
-                  <p>
-                    This calculator helps you budget better, compare loan offers,
-                    and reduce total interest through informed planning.
-                    Most borrowers underestimate how much interest accumulates
-                    over long tenures until they see the amortization table.
-                  </p>
-                `}
-              />
+              <WikiText content={benefitsContent} />
+
+              <h3>Factors That Affect Your EMI</h3>
+              <WikiText content={factorsContent} />
 
               <h3>EMI Calculation Formula</h3>
               <p>
@@ -190,59 +202,71 @@ export default function EMIPage() {
                 (EMI) is:
               </p>
 
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              {/* ✅ FIX 2: Kept Math block overflow safety */}
+              <div>
                 <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
               </div>
 
               <WikiText
                 content={`
-  <ul>
-    <li><strong>E</strong> = EMI Amount</li>
-    <li><strong>P</strong> = Principal Loan Amount</li>
-    <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
-    <li><strong>n</strong> = Loan Tenure in Months</li>
-  </ul>
-`}
+                  <ul>
+                    <li><strong>E</strong> = EMI Amount</li>
+                    <li><strong>P</strong> = Principal Loan Amount</li>
+                    <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
+                    <li><strong>n</strong> = Loan Tenure in Months</li>
+                  </ul>
+                `}
               />
 
-              {/* ✅ EEAT: Publisher transparency */}
               <p style={{ marginTop: 16 }}>
                 This EMI calculator is maintained by <strong>Fincado</strong>, a
                 financial tools platform focused on accuracy and transparency
                 for Indian borrowers.
               </p>
 
-              {/* ✅ EEAT: Non-advice disclaimer */}
-              <p style={{ fontSize: 13, color: '#64748b', marginTop: 8 }}>
-                Disclaimer: Results shown are estimates. Actual EMI may vary
-                based on lender policies, processing fees, and interest rate
-                changes.
-              </p>
-
               <h3>Related Loan Calculators</h3>
               <ul>
                 <li>
-                  <a href="/home-loan-calculator">Home Loan EMI Calculator</a>
+                  <Link href="/loans/home-loan">Home Loan EMI Calculator</Link>
                 </li>
                 <li>
-                  <a href="/car-loan-calculator">Car Loan EMI Calculator</a>
+                  <Link href="/loans/car-loan">Car Loan EMI Calculator</Link>
                 </li>
                 <li>
-                  <a href="/personal-loan-calculator">
+                  <Link href="/loans/personal-loan">
                     Personal Loan EMI Calculator
-                  </a>
+                  </Link>
+                </li>
+              </ul>
+
+              <h2>When Should You Use an EMI Calculator?</h2>
+              <ul>
+                <li>Before applying for any loan to check affordability.</li>
+                <li>While comparing banks to find the cheapest option.</li>
+                <li>
+                  To calculate how much interest you save with prepayments.
                 </li>
               </ul>
             </article>
 
-            {/* -------- FAQ UI -------- */}
+            {/* FAQ Section */}
             <section className="article no-print">
               <h2>Frequently Asked Questions</h2>
               <details open>
                 <summary>Does EMI affect credit score?</summary>
                 <p>
                   No. Checking EMI using a calculator is a soft activity and
-                  does not impact your credit score.
+                  does not impact your credit score. However, missing an EMI
+                  payment will negatively impact your score.
+                </p>
+              </details>
+              <details>
+                <summary>Does prepayment reduce EMI or Tenure?</summary>
+                <p>
+                  By default, banks reduce the <strong>Tenure</strong> when you
+                  prepay, which saves you the most interest. You must
+                  specifically request the bank if you want to reduce the EMI
+                  amount instead.
                 </p>
               </details>
             </section>
@@ -250,7 +274,6 @@ export default function EMIPage() {
             <AuthorBio />
           </div>
 
-          {/* -------- SIDEBAR -------- */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="emi-sidebar" type="box" />

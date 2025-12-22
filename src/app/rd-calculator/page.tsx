@@ -1,29 +1,33 @@
-// src/app/rd-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import RDClient from './RDClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Fresh Content
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'RD Calculator – Recurring Deposit Interest & Maturity Value',
+  title: 'RD Calculator 2025 – Recurring Deposit Maturity & Interest',
   description:
-    'Calculate the maturity amount of your Recurring Deposit (RD) with our accurate RD Calculator. Check interest rates, quarterly compounding, and plan your monthly savings goals.',
+    'Calculate RD maturity amount with quarterly compounding. Compare RD interest rates of SBI, HDFC, Post Office. Check TDS rules and RD vs SIP returns.',
   keywords: [
     'RD Calculator',
     'Recurring Deposit Calculator',
-    'RD Interest Rates',
+    'RD Interest Rates 2025',
     'Post Office RD Calculator',
-    'Bank RD Rates',
+    'RD vs SIP',
+    'Recurring Deposit Tax',
     'Monthly Savings Calculator',
-    'Compounding Interest Calculator',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/rd-calculator',
@@ -31,13 +35,47 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'RD Calculator – Grow Your Monthly Savings',
     description:
-      'Free tool to calculate RD maturity amount with quarterly compounding logic.',
+      'Free tool to calculate RD maturity amount with accurate quarterly compounding logic.',
     url: 'https://www.fincado.com/rd-calculator',
     type: 'website',
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function RDPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Recurring Deposit (RD)</strong> is a term deposit offered by banks and <strong>Post Offices</strong> 
+      that allows individuals to deposit a fixed amount every month for a pre-defined tenure. 
+      It is ideal for salaried people who want to save a portion of their income regularly.
+    </p>
+    <p>
+      Unlike a <strong>Fixed Deposit (FD)</strong> where a lump sum is required, RD brings the 
+      discipline of regular savings with interest rates similar to FDs.
+    </p>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      Interest earned on Recurring Deposits is <strong>fully taxable</strong>. It is added to your annual income 
+      and taxed according to your slab.
+    </p>
+    <ul>
+      <li><strong>TDS:</strong> Banks deduct 10% TDS if interest exceeds ₹40,000/year (₹50,000 for Seniors).</li>
+      <li><strong>Form 15G/15H:</strong> You can submit these forms to avoid TDS if your total income is below the taxable limit.</li>
+    </ul>
+  `);
+
+  const comparisonContent = autoLinkContent(`
+    <p>
+      Investors often confuse <strong>RD vs SIP</strong>. While RD offers guaranteed returns (6.5%–7.5%), 
+      <strong>SIPs in Mutual Funds</strong> offer market-linked returns (12%–15%) but come with higher risk. 
+      RD is safer, but SIP beats inflation better in the long run.
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -45,7 +83,8 @@ export default function RDPage() {
         description="Calculate the maturity value of your Recurring Deposits with quarterly compounding interest."
         url="https://www.fincado.com/rd-calculator"
       />
-      {/* 2. SCHEMA MARKUP FOR FAQ */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -93,7 +132,7 @@ export default function RDPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
           <LanguageToggle path="/hi/rd-calculator" />
           <h1>Recurring Deposit (RD) Calculator</h1>
@@ -111,73 +150,112 @@ export default function RDPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <RDClient />
+
+            {/* ✅ Live Rates (Using FD rates as proxy since RD rates are similar) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Related Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Compare Savings
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  📈 SIP Calculator
+                </Link>
+                <Link
+                  href="/calculators/fd-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  💰 FD Calculator
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🛡️</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Want safe returns?
+                </strong>
+                <Link
+                  href="/guides/fixed-deposit-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: How to Ladder Deposits for Higher Returns →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="rd-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is RD? */}
               <h2>What is a Recurring Deposit (RD)?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Recurring Deposit (RD)</strong> is a special term
-                    deposit offered by banks and <strong>Post Office</strong> schemes that allows you to
-                    deposit a fixed amount every month for a pre-defined tenure.
-                  </p>
-                  <p>
-                    Unlike a <strong>Fixed Deposit (FD)</strong> where you need a large lump sum
-                    upfront, an RD allows salaried individuals to build a corpus
-                    gradually. The interest rates are typically the same as FDs,
-                    making it a safe and high-return option for disciplined savers.
-                  </p>
-                `}
-              />
+              <WikiText content={introContent} />
 
-              {/* 2. Who is Eligible? */}
-              <h3>Who is Eligible to Open an RD?</h3>
-              <WikiText
-                content={`
-                  <p>
-                    RDs are designed to be accessible to almost everyone. Common
-                    eligibility criteria include:
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>Resident Individuals:</strong> Any Indian resident can
-                      open an RD in their own name.
-                    </li>
-                    <li>
-                      <strong>Minors:</strong> Can open an account under the
-                      guardianship of parents.
-                    </li>
-                    <li>
-                      <strong>Senior Citizens:</strong> Eligible for higher interest
-                      rates (usually 0.50% extra).
-                    </li>
-                    <li>
-                      <strong>Organizations:</strong> HUFs, Clubs, Associations, and
-                      Corporate entities can also open RDs.
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>RD Interest Taxation (TDS Rules)</h3>
+              <WikiText content={taxContent} />
 
-              {/* 3. Planning Help */}
-              <h3>How This Calculator Helps with Goal Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Since RDs involve multiple cash flows (one deposit every month),
-                    calculating the final maturity manually is difficult due to
-                    <strong>Compounding</strong>. This calculator helps you:
-                  </p>
-                `}
-              />
+              <h3>RD vs SIP: Which is better?</h3>
+              <WikiText content={comparisonContent} />
+
+              <h3>How This Calculator Helps Your Planning</h3>
+              <p>
+                Since RDs involve multiple cash flows (one deposit every month),
+                calculating the final maturity manually is difficult.
+              </p>
 
               <div className="advantage-grid">
                 <div className="advantage-card">
@@ -203,75 +281,43 @@ export default function RDPage() {
                 </div>
               </div>
 
-              {/* 4. Formula */}
-              <h3>RD Interest Calculation with Quarterly Compounding</h3>
+              <h3>RD Interest Calculation Formula</h3>
               <p>
-                The interest on RD is compounded quarterly in most banks. The
-                formula calculates the compound interest on each monthly
-                installment individually based on the number of quarters it
-                stays with the bank.
+                The interest on RD is compounded quarterly in most Indian banks.
+                The formula sums up the compound interest earned on each
+                individual monthly installment.
               </p>
+
+              {/* ✅ Professional Math Block (Summation Formula) */}
               <div
                 style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
                 }}
               >
-                M = P × (1 + r/n)^(nt)
+                <BlockMath math="M = \sum_{i=1}^{n} P \left(1 + \frac{r}{400}\right)^{4 \times \frac{t_i}{12}}" />
               </div>
+
               <WikiText
                 content={`
-                <p>
-                  <em>
-                    Where the formula is applied iteratively for every monthly
-                    deposit.
-                  </em>
-                </p>
                 <ul style="font-size: 14px;">
-                  <li>
-                    <strong>M</strong> = Maturity Value
-                  </li>
-                  <li>
-                    <strong>P</strong> = Monthly Installment
-                  </li>
-                  <li>
-                    <strong>n</strong> = Compounding Frequency (4 for Quarterly)
-                  </li>
-                  <li>
-                    <strong>t</strong> = Time period remaining for that specific
-                    installment
-                  </li>
+                  <li><strong>M</strong>: Maturity Value</li>
+                  <li><strong>P</strong>: Monthly Installment Amount</li>
+                  <li><strong>r</strong>: Annual Interest Rate (%)</li>
+                  <li><strong>t_i</strong>: Time in months for the <em>i-th</em> installment</li>
                 </ul>
               `}
               />
 
-              {/* 5. Key Advantages */}
-              <h3>Key Advantages of a Recurring Deposit</h3>
+              <h3>Key Advantages of RD</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>Disciplined Savings:</strong> The obligation to pay
-                      monthly fosters a habit of saving.
-                    </li>
-                    <li>
-                      <strong>Guaranteed Returns:</strong> Interest rates are locked
-                      at the time of opening, protecting you from market volatility.
-                    </li>
-                    <li>
-                      <strong>Liquid Options:</strong> While penalties apply, you
-                      can close an RD prematurely in case of financial emergencies.
-                    </li>
-                    <li>
-                      <strong>Loan Facility:</strong> You can avail a loan or
-                      overdraft of up to 90% of your RD balance.
-                    </li>
+                    <li><strong>Disciplined Savings:</strong> Forces you to save a fixed amount every month.</li>
+                    <li><strong>Guaranteed Returns:</strong> Interest rates are locked at the time of opening.</li>
+                    <li><strong>Liquid Options:</strong> Can be closed prematurely in emergencies (with penalty).</li>
+                    <li><strong>Loan Facility:</strong> Avail a loan up to 90% of your RD balance.</li>
                   </ul>
                 `}
               />
@@ -309,11 +355,9 @@ export default function RDPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="rd-sidebar" type="box" />

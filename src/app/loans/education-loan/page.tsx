@@ -1,47 +1,99 @@
-// src/app/loans/education-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import EducationLoanClient from './EducationLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker';
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'Education Loan EMI Calculator – Moratorium & 80E',
+  title: 'Education Loan EMI Calculator 2025 – Section 80E & Moratorium',
   description:
-    'Calculate Education Loan EMI including Moratorium period. Check eligibility, 80E tax deduction, and repayment schedule for SBI, HDFC, and Axis Bank.',
+    'Calculate Education Loan EMI with Moratorium period. Check tax benefits under Section 80E, Study Abroad eligibility, and repayment schedules from SBI, HDFC.',
   keywords: [
     'Education Loan Calculator',
     'Student Loan EMI Calculator',
     'Moratorium Period Calculator',
-    'Section 80E Tax Benefit',
-    'Education Loan Eligibility',
-    'Study Loan Interest Rate',
+    'Section 80E Tax Deduction',
+    'Study Abroad Loan Calculator',
+    'Education Loan Interest Rate',
+    'Student Loan Eligibility India',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/loans/education-loan',
   },
   openGraph: {
     title: 'Education Loan Calculator – Plan Your Future',
-    description: 'Accurate Student Loan EMI Calculator with Moratorium logic.',
+    description:
+      'Accurate Student Loan EMI Calculator with Moratorium logic & Tax Savings.',
     url: 'https://www.fincado.com/loans/education-loan',
     type: 'website',
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function EducationLoanPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      An <strong>Education Loan</strong> is a financial product designed to help students 
+      pursue higher education in India or abroad. Unlike other loans, it comes with a 
+      unique feature called the <strong>Moratorium Period</strong> (or Repayment Holiday), 
+      where the student is not required to pay EMIs during the course duration.
+    </p>
+    <p>
+      Education loans cover tuition fees, hostel charges, exam fees, and even equipment 
+      costs like laptops. They are available for both domestic and international studies.
+    </p>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      Education Loans offer the best tax benefits among all loan types. Under <strong>Section 80E</strong> 
+      of the Income Tax Act, you can claim a deduction on the <strong>entire interest amount</strong> paid.
+    </p>
+    <ul>
+      <li><strong>Limit:</strong> No upper limit on the deduction amount (unlike 80C).</li>
+      <li><strong>Duration:</strong> Available for up to 8 years or until interest is fully repaid.</li>
+      <li><strong>Eligibility:</strong> Only available to the individual who took the loan (Student or Parent/Legal Guardian).</li>
+    </ul>
+  `);
+
+  const eligibilityContent = autoLinkContent(`
+    <ul>
+      <li><strong>Student:</strong> Must be an Indian citizen, aged 18-35, with confirmed admission.</li>
+      <li><strong>Co-Applicant:</strong> A parent, guardian, or spouse with a stable income is mandatory.</li>
+      <li><strong>Academic Record:</strong> Good grades (10th, 12th, Graduation) help in faster approval.</li>
+      <li><strong>Collateral:</strong> 
+        <ul>
+          <li>Up to ₹4 Lakhs: No Collateral.</li>
+          <li>₹4 Lakhs to ₹7.5 Lakhs: Third-party Guarantor required.</li>
+          <li>Above ₹7.5 Lakhs: Tangible Collateral (Property/FD) required.</li>
+        </ul>
+      </li>
+    </ul>
+  `);
+
   return (
     <>
       <CalculatorSchema
         name="Education Loan EMI Calculator"
-        description="Calculate EMI for student loans. Account for moratorium periods and repayment holidays."
+        description="Calculate EMI for student loans. Account for moratorium periods and Section 80E tax deductions."
         url="https://www.fincado.com/loans/education-loan"
       />
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -54,23 +106,23 @@ export default function EducationLoanPage() {
                 name: 'What is a Moratorium Period?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'It is a repayment holiday during the course duration plus 6-12 months. You do not have to pay EMI, but interest accumulates.',
+                  text: 'It is a repayment holiday consisting of the course duration plus 6-12 months. During this time, you do not have to pay EMI, but simple interest continues to accrue on the principal.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'Who is eligible for an Education Loan?',
+                name: 'Who is eligible for Section 80E deduction?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Any Indian citizen aged 18-35 admitted to a recognized course in India or abroad is eligible. A co-applicant (parent/guardian) is usually mandatory.',
+                  text: 'Any individual who has taken a loan for higher education for themselves, their spouse, or children can claim the deduction. It applies only to the interest component, not the principal.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'Is Education Loan interest tax deductible?',
+                name: 'Can I get a loan for Study Abroad?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes, under Section 80E, the entire interest component is tax-deductible for up to 8 years.',
+                  text: 'Yes. Banks offer higher loan amounts (up to ₹1.5 Crore) for premier institutions abroad. You generally need collateral for loans above ₹7.5 Lakhs.',
                 },
               },
             ],
@@ -79,7 +131,6 @@ export default function EducationLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
-        {/* ✅ BREADCRUMB JSON-LD */}
         <BreadcrumbJsonLd
           items={[
             { name: 'Home', url: 'https://www.fincado.com' },
@@ -90,8 +141,9 @@ export default function EducationLoanPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/loans/education-loan" />
           <h1>Education Loan EMI Calculator</h1>
           <ShareTools title="Education Loan EMI Calculator" />
           <WikiText
@@ -107,54 +159,104 @@ export default function EducationLoanPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR */}
             <EducationLoanClient />
+
+            {/* ✅ Live Rates (Education Loan Specific or Fallback) */}
+            <LiveRateTable type="personalLoan" />
+
+            {/* ✅ PROMO BOX: Study Abroad Guide */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>✈️</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Planning to Study Abroad?
+                </strong>
+                <Link
+                  href="/guides/education-loan-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read our Guide: Collateral vs Non-Collateral Loans →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="edu-loan-mid" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. WHAT IS IT */}
               <h2>What is an Education Loan?</h2>
+              <WikiText content={introContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    An <strong>Education Loan</strong> provides financial support to students
-                    pursuing higher education in India or abroad. It covers tuition
-                    fees, hostel charges, exam fees, and even laptop purchases.
-                    Unlike personal loans, these come with a
-                    <strong>Moratorium Period</strong> (repayment holiday).
-                  </p>
-                `}
-              />
+              <h3>Eligibility Criteria (2025)</h3>
+              {/* ✅ Auto-Linked Eligibility */}
+              <WikiText content={eligibilityContent} />
 
-              {/* 2. ELIGIBILITY */}
-              <h3>Who is Eligible and Who Can Repay?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Student:</strong> Must be an Indian citizen, aged
-                      18-35, with confirmed admission in a recognized institute.
-                    </li>
-                    <li>
-                      <strong>Co-Applicant:</strong> A parent, guardian, or spouse
-                      with a stable income is mandatory to act as a guarantor.
-                    </li>
-                    <li>
-                      <strong>Repayment:</strong> The student is the primary
-                      borrower, but the co-applicant pays the simple interest during
-                      the course to save money.
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>Section 80E Tax Benefits</h3>
+              {/* ✅ Crucial SEO Section */}
+              <WikiText content={taxContent} />
 
-              {/* 3. MORATORIUM PLANNING (Crucial for Ranking) */}
-              <h3>How This Calculator Helps with Moratorium Planning</h3>
+              {/* ✅ Document Checklist - Featured Snippet Bait */}
+              <h3>Documents Required Checklist</h3>
+              <div
+                className="checklist-box"
+                style={{
+                  background: '#fff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  padding: '24px',
+                  margin: '24px 0',
+                }}
+              >
+                <h4
+                  style={{
+                    marginTop: 0,
+                    marginBottom: '16px',
+                    color: '#0f172a',
+                  }}
+                >
+                  📄 For Student & Co-Applicant
+                </h4>
+                <ul className="checklist">
+                  <li>
+                    <strong>KYC:</strong> Aadhaar Card, PAN Card, Passport.
+                  </li>
+                  <li>
+                    <strong>Academic:</strong> Marksheets (10th, 12th, Degree),
+                    Entrance Exam Scorecard (GRE/GMAT/CAT).
+                  </li>
+                  <li>
+                    <strong>Admission:</strong> Offer Letter from University
+                    with fee breakdown.
+                  </li>
+                  <li>
+                    <strong>Financial (Co-applicant):</strong> Last 3 months
+                    Salary Slips, 2 years ITR, Bank Statements (6 months).
+                  </li>
+                  <li>
+                    <strong>Property (If Secured):</strong> Property Title Deed,
+                    Valuation Report.
+                  </li>
+                </ul>
+              </div>
+
+              <h3>How the Moratorium Period Works</h3>
               <WikiText
                 content={`
                   <p>
@@ -163,72 +265,74 @@ export default function EducationLoanPage() {
                     this "Moratorium Interest" to your principal so you
                     can see your <strong>True EMI</strong>.
                   </p>
-                  <div style="background: #fff3cd; padding: 16px; border-radius: 8px; border: 1px solid #ffeeba; color: #856404;">
-                    <strong>Interest Trap:</strong> If you don't pay interest
-                    during the course, it gets added to your loan (Capitalization),
-                    meaning you pay interest on interest later!
-                  </div>
                 `}
               />
 
-              {/* 4. FORMULA */}
-              <h3>EMI Calculation with Moratorium Interest</h3>
-              <p>
-                The formula is slightly different because the Principal (P)
-                increases by the time repayment starts.
-              </p>
               <div
                 style={{
-                  background: '#f1f5f9',
+                  background: '#fff7ed',
                   padding: '16px',
                   borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
+                  borderLeft: '4px solid #f97316',
+                  margin: '20px 0',
                 }}
               >
-                EMI = [(P + Accrued Interest) x R x (1+R)^N] / [(1+R)^N-1]
+                <strong>⚠️ The Interest Trap:</strong> If you don&apos;t pay
+                simple interest during the course, it gets added to your loan
+                (Capitalization), meaning you pay interest on interest later!
               </div>
+
+              <h3>EMI Calculation Formula</h3>
+              <p>
+                The formula includes accrued interest during the moratorium:
+              </p>
+
+              {/* ✅ Professional Math Block */}
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
+                <BlockMath math="EMI = [(P + I_{moratorium}) \times r \times (1+R)^N] / [(1+R)^N-1]" />
+              </div>
+
               <WikiText
                 content={`
-                <p>
-                  Where <em>Accrued Interest</em> = Loan Amount × Rate × Course
-                  Duration.
-                </p>
+                <ul style="font-size: 14px;">
+                  <li><strong>P</strong>: Loan Principal</li>
+                  <li><strong>I_moratorium</strong>: Simple interest accrued during course</li>
+                  <li><strong>N</strong>: Repayment Tenure</li>
+                  <li><strong>r</strong>: Monthly Interest Rate</li>
+                </ul>
               `}
               />
 
-              {/* 5. ADVANTAGES */}
-              <h3>Key Advantages of an Education Loan</h3>
+              <h3>Key Advantages</h3>
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Build Credit Score</h4>
                   <p>
-                    It&apos;s often the first loan for a student. Repaying it on
-                    time builds a solid CIBIL score for future life.
+                    Repaying it on time builds a solid CIBIL score for future
+                    life.
                   </p>
                 </div>
                 <div className="advantage-card">
-                  <h4>Section 80E Tax Save</h4>
-                  <p>
-                    The <strong>entire interest amount</strong> paid is
-                    tax-deductible for 8 years. There is no upper limit (unlike
-                    80C).
-                  </p>
+                  <h4>Unlimited Tax Save</h4>
+                  <p>No upper limit on interest deduction under Section 80E.</p>
                 </div>
                 <div className="advantage-card">
-                  <h4>Moratorium Holiday</h4>
+                  <h4>Repayment Holiday</h4>
                   <p>
                     You get breathing space during your course + 1 year to find
-                    a job before EMIs start.
+                    a job.
                   </p>
                 </div>
               </div>
             </article>
 
-            {/* 6. FAQs */}
+            {/* FAQs */}
             <section className="article no-print">
               <h2>Frequently Asked Questions (FAQs)</h2>
               <div className="faqs-accordion">
@@ -261,7 +365,6 @@ export default function EducationLoanPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 

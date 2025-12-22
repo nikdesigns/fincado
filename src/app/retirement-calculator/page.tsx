@@ -1,29 +1,32 @@
-// src/app/retirement-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import RetirementCalculatorClient from './RetirementCalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'Retirement Calculator – Plan Your Retirement Corpus',
+  title: 'Retirement Calculator 2025 – Plan Your Corpus & Inflation',
   description:
-    'Calculate how much money you need to retire comfortably. Factor in inflation, current savings, and post-retirement expenses to find your target corpus.',
+    'Calculate retirement corpus required in India. Adjust for 6% inflation, life expectancy, and current savings. Plan for FIRE (Financial Independence).',
   keywords: [
-    'Retirement Calculator',
+    'Retirement Calculator India',
     'Pension Calculator',
-    'Retirement Corpus',
+    'Retirement Corpus Formula',
     'Inflation Adjusted Retirement',
-    'Financial Freedom Calculator',
-    'Retirement Planning India',
+    'FIRE Calculator',
+    'NPS vs EPF vs PPF',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/retirement-calculator',
@@ -31,13 +34,43 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Retirement Calculator – Secure Your Golden Years',
     description:
-      'Free tool to estimate your retirement corpus and required monthly savings.',
+      'Free tool to estimate your retirement corpus and required monthly SIP.',
     url: 'https://www.fincado.com/retirement-calculator',
     type: 'website',
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function RetirementPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      <strong>Retirement Planning</strong> is the process of estimating your future income needs 
+      and setting aside enough capital today to meet those needs when you stop working.
+    </p>
+    <p>
+      It is not just about saving; it's about investing wisely to beat <strong>Inflation</strong> 
+      so that your corpus lasts as long as you do. Modern planning also includes concepts like 
+      <strong>FIRE (Financial Independence, Retire Early)</strong>.
+    </p>
+  `);
+
+  const riskContent = autoLinkContent(`
+    <ul>
+      <li><strong>Inflation Risk:</strong> The "Silent Killer". ₹1 Lakh today will buy much less 20 years from now. Your corpus must grow faster than inflation (typically 6% in India).</li>
+      <li><strong>Longevity Risk:</strong> Living longer than expected means you might outlive your savings. You need a buffer for medical costs and an extended lifespan.</li>
+    </ul>
+  `);
+
+  const allocationContent = autoLinkContent(`
+    <ul>
+      <li><strong>Young (20s-30s):</strong> High <strong>Equity</strong> (70-80%). Focus on aggressive growth via Mutual Funds.</li>
+      <li><strong>Mid-Career (40s):</strong> Balanced (50-60% Equity). Start securing gains into Debt/NPS.</li>
+      <li><strong>Near Retirement (50s):</strong> Conservative (30-40% Equity). Focus on capital preservation and regular income (SWP).</li>
+    </ul>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -45,7 +78,8 @@ export default function RetirementPage() {
         description="Estimate how much money you need to retire in India. Adjust for inflation and life expectancy."
         url="https://www.fincado.com/retirement-calculator"
       />
-      {/* 2. SCHEMA MARKUP */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -71,10 +105,10 @@ export default function RetirementPage() {
               },
               {
                 '@type': 'Question',
-                name: 'How does inflation affect retirement?',
+                name: 'Where should I invest for retirement?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Inflation reduces your purchasing power. If your monthly expense is ₹50,000 today, you might need ₹1.5 Lakhs in 20 years to maintain the same lifestyle.',
+                  text: 'A balanced portfolio including EPF (Employee Provident Fund), NPS (National Pension System), and Equity Mutual Funds is recommended for Indian investors.',
                 },
               },
             ],
@@ -93,8 +127,9 @@ export default function RetirementPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/retirement-calculator" />
           <h1>Retirement Corpus Calculator</h1>
           <ShareTools title="Retirement Corpus Calculator" />
           <WikiText
@@ -110,109 +145,173 @@ export default function RetirementPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <RetirementCalculatorClient />
+
+            {/* ✅ Live Rates (FD/NPS Context) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Planning Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  📈 SIP Calculator
+                </Link>
+                <Link
+                  href="/calculators/swp-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  💸 Pension Calc
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>🔥</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Want to retire early?
+                </strong>
+                <Link
+                  href="/guides/swp-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: The F.I.R.E Movement Guide →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="retire-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* Formula */}
-              <h3>Retirement Corpus Formula</h3>
+              <h2>What is Retirement Planning?</h2>
+              <WikiText content={introContent} />
+              [Image of retirement timeline infographic]
+              <h3>EPF vs NPS vs Mutual Funds: Where to Save?</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>EPF (Provident Fund)</th>
+                      <th>NPS (Pension System)</th>
+                      <th>Equity Mutual Funds</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Returns</strong>
+                      </td>
+                      <td>~8.15% (Fixed)</td>
+                      <td>9% - 11% (Market Linked)</td>
+                      <td>12% - 15% (High Growth)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Tax Benefit</strong>
+                      </td>
+                      <td>Sec 80C (EEE status)</td>
+                      <td>Sec 80CCD (Extra ₹50k)</td>
+                      <td>ELSS (Sec 80C)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Liquidity</strong>
+                      </td>
+                      <td>Low (Retirement/Job loss)</td>
+                      <td>Very Low (Age 60)</td>
+                      <td>High (Anytime)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>The Two Biggest Risks</h3>
+              <WikiText content={riskContent} />
+              <h3>Recommended Asset Allocation by Age</h3>
+              <WikiText content={allocationContent} />
+              <h3>The 4% Withdrawal Rule</h3>
               <p>
-                The corpus required is calculated by estimating your future
-                monthly expenses (adjusted for inflation) and the corpus needed
-                to sustain that via SWP.
+                A popular rule for retirement spending. It states that if you
+                invest in a balanced portfolio (50% Equity, 50% Debt), you can
+                safely withdraw <strong>4% of your corpus</strong> in the first
+                year and adjust for inflation thereafter, without running out of
+                money for 30 years.
               </p>
-
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              <h3>Retirement Calculation Formula</h3>
+              <p>
+                The calculator uses two steps: First, estimating Future Expenses
+                (FV), and second, calculating the Corpus required (PV of Growing
+                Annuity).
+              </p>
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <BlockMath math="Exp_{future} = Exp_{current} \times (1 + r_{inf})^n" />
               </div>
-
               <WikiText
                 content={`
-  <ul>
-    <li><strong>Exp</strong> = Monthly Expenses</li>
-    <li><strong>r_inf</strong> = Inflation Rate</li>
-    <li><strong>n</strong> = Years until Retirement</li>
-  </ul>
-`}
-              />
-              {/* 1. What is Retirement Planning? */}
-              <h2>What is Retirement Planning?</h2>
-              {/* [Image of retirement timeline infographic] */}
-              <WikiText
-                content={`
-                  <p>
-                    <strong>Retirement Planning</strong> is the process of estimating your future
-                    income needs and setting aside enough capital today to meet
-                    those needs when you stop working.
-                  </p>
-                  <p>
-                    It is not just about saving; it's about investing wisely to
-                    beat <strong>Inflation</strong> so that your corpus lasts as long as you do.
-                  </p>
-                `}
-              />
-              {/* 2. Key Challenges */}
-              <h3>The Two Biggest Risks in Retirement</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Inflation Risk</h4>
-                  <p>
-                    The &quot;Silent Killer&quot;. ₹1 Lakh today will buy much
-                    less 20 years from now. Your corpus must grow faster than
-                    inflation.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Longevity Risk</h4>
-                  <p>
-                    Living longer than expected means you might outlive your
-                    savings. You need a buffer for medical costs and an extended
-                    lifespan.
-                  </p>
-                </div>
-              </div>
-              {/* 3. Planning Help */}
-              <h3>How This Calculator Helps You</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Target Setting:</strong> It calculates the precise
-                      "Magic Number" (Corpus) you need at age 60.
-                    </li>
-                    <li>
-                      <strong>Shortfall Analysis:</strong> It compares your target
-                      with your current savings to show the gap.
-                    </li>
-                    <li>
-                      <strong>Action Plan:</strong> It tells you the monthly <strong>SIP</strong>
-                      required starting TODAY to bridge that gap.
-                    </li>
-                  </ul>
-                `}
-              />
-              {/* 4. Strategy */}
-              <h3>Recommended Asset Allocation by Age</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Young (20s-30s):</strong> High <strong>Equity</strong> (70-80%). Focus
-                      on aggressive growth.
-                    </li>
-                    <li>
-                      <strong>Mid-Career (40s):</strong> Balanced (50-60% Equity).
-                      Start securing gains.
-                    </li>
-                    <li>
-                      <strong>Near Retirement (50s):</strong> Conservative (30-40%
-                      Equity). Focus on capital preservation.
-                    </li>
+                  <ul style="font-size: 14px;">
+                    <li><strong>Exp</strong>: Monthly Expenses</li>
+                    <li><strong>r_inf</strong>: Inflation Rate</li>
+                    <li><strong>n</strong>: Years until Retirement</li>
                   </ul>
                 `}
               />
@@ -223,23 +322,12 @@ export default function RetirementPage() {
               <h2>Frequently Asked Questions (FAQs)</h2>
               <div className="faqs-accordion">
                 <details open>
-                  <summary>
-                    When should I start planning for retirement?
-                  </summary>
+                  <summary>When should I start planning?</summary>
                   <p>
                     Ideally, as soon as you start earning. Starting early allows
                     you to leverage the power of compounding. For example,
                     starting at 25 vs 35 can double your final corpus with the
                     same monthly investment.
-                  </p>
-                </details>
-                <details>
-                  <summary>Where should I invest for retirement?</summary>
-                  <p>
-                    A mix of <strong>EPF</strong> (Employee Provident Fund),{' '}
-                    <strong>PPF</strong>, <strong>NPS</strong> (National Pension
-                    System), and Equity Mutual Funds is recommended for a
-                    balanced Indian portfolio.
                   </p>
                 </details>
                 <details>
@@ -250,14 +338,20 @@ export default function RetirementPage() {
                     (8-10%), so account for that separately.
                   </p>
                 </details>
+                <details>
+                  <summary>Is NPS mandatory?</summary>
+                  <p>
+                    No, but it is highly recommended for the additional tax
+                    benefit (₹50,000 under 80CCD) and low-cost exposure to
+                    equity and debt markets.
+                  </p>
+                </details>
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="retire-sidebar" type="box" />

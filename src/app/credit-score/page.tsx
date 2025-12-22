@@ -1,26 +1,32 @@
-// src/app/credit-score-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import CreditScoreClient from './CreditScoreClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Loan Context
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema'; // ✅ Actually used now
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'Credit Score Estimator – Check & Improve Your CIBIL Score',
+  title: 'Credit Score Calculator 2025 – Check CIBIL & Experian Score',
   description:
-    'Estimate your Credit Score based on utilization, payment history, and credit mix. Get actionable tips to improve your CIBIL/Experian score.',
+    'Estimate your Credit Score instantly. Check how utilization, payment history, and inquiries affect your CIBIL. Get tips to reach 750+ score.',
   keywords: [
     'Credit Score Calculator',
     'CIBIL Score Estimator',
-    'Check Credit Score',
+    'Check Credit Score Free',
     'Improve CIBIL Score',
     'Credit Utilization Calculator',
-    'Loan Approval Chances',
+    'Soft vs Hard Inquiry',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/credit-score-calculator',
@@ -34,10 +40,39 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function CreditScorePage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      Your <strong>Credit Score</strong> (often referred to as <strong>CIBIL Score</strong> in India) 
+      is a 3-digit number ranging from 300 to 900 that summarizes your creditworthiness. 
+      It is calculated based on your past behavior with loans and credit cards.
+    </p>
+    <p>
+      Lenders use this score to evaluate the risk of lending to you. A score above <strong>750</strong> 
+      is generally required to get loans at the lowest interest rates.
+    </p>
+  `);
+
+  const factorsContent = autoLinkContent(`
+    <ul>
+      <li><strong>Payment History (35%):</strong> The most critical factor. Even a single missed payment can drop your score by 50+ points.</li>
+      <li><strong>Credit Utilization (30%):</strong> How much of your limit you use. High utilization (>30%) signals "credit hunger".</li>
+      <li><strong>Credit Age (15%):</strong> Older accounts boost your score. Never close your oldest credit card.</li>
+    </ul>
+  `);
+
   return (
     <>
-      {/* 2. SCHEMA MARKUP */}
+      <CalculatorSchema
+        name="Credit Score Estimator"
+        description="Estimate your CIBIL/Credit Score based on payment history, utilization ratio, and credit mix."
+        url="https://www.fincado.com/credit-score-calculator"
+      />
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -63,7 +98,7 @@ export default function CreditScorePage() {
               },
               {
                 '@type': 'Question',
-                name: 'Do checking my own score lower it?',
+                name: 'Does checking my own score lower it?',
                 acceptedAnswer: {
                   '@type': 'Answer',
                   text: 'No. Checking your own score is a "soft enquiry" and does not impact your credit score. Only "hard enquiries" by lenders affect it.',
@@ -81,12 +116,13 @@ export default function CreditScorePage() {
             { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
             {
               name: 'Credit Score Calculator',
-              url: 'https://www.fincado.com/credit-score',
+              url: 'https://www.fincado.com/credit-score-calculator',
             },
           ]}
         />
-        {/* Header */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/credit-score-calculator" />
           <h1>Credit Score Estimator</h1>
           <ShareTools title="Credit Score Estimator" />
           <WikiText
@@ -102,92 +138,222 @@ export default function CreditScorePage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <CreditScoreClient />
+
+            {/* ✅ Live Rates (Personal Loan Context - High correlation with score) */}
+            <LiveRateTable type="personalLoan" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Loan Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/personal-loan-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  💸 Loan EMI
+                </Link>
+                <Link
+                  href="/calculators/emi-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🔢 EMI Calc
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>📉</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Score dropped suddenly?
+                </strong>
+                <Link
+                  href="/guides/credit-score-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: How to raise CIBIL Dispute →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="credit-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is Credit Score? */}
               <h2>What determines your Credit Score?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    Your <strong>Credit Score</strong> (like <strong>CIBIL Score</strong>, Experian) is a 3-digit number
-                    (300-900) that summarizes your creditworthiness. It is
-                    calculated based on your past behavior with loans and credit
-                    cards.
-                  </p>
-                `}
-              />
-              {/* [Image of credit score factors pie chart] */}
-              {/* 2. Key Factors */}
-              <h3>The 5 Pillars of Credit Scoring</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Payment History (35%)</h4>
-                  <p>
-                    The most critical factor. Even a single missed or late
-                    payment can drop your score significantly.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Utilization (30%)</h4>
-                  <p>
-                    How much of your limit you use. High utilization ({'>'}30%)
-                    signals &quot;credit hunger&quot; and risk.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Credit Mix (10%)</h4>
-                  <p>
-                    A healthy mix of secured (Home/Auto) and unsecured
-                    (Personal/Card) loans is preferred over just unsecured debt.
-                  </p>
-                </div>
+              <WikiText content={introContent} />
+
+              <h3>Credit Score Ranges: Where do you stand?</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Score Range</th>
+                      <th>Rating</th>
+                      <th>Loan Eligibility</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>750 - 900</strong>
+                      </td>
+                      <td>Excellent</td>
+                      <td>Fast Approval, Lowest Interest Rates</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>700 - 749</strong>
+                      </td>
+                      <td>Good</td>
+                      <td>High Chances, Standard Rates</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>650 - 699</strong>
+                      </td>
+                      <td>Average</td>
+                      <td>Possible Approval, Higher Interest</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>300 - 649</strong>
+                      </td>
+                      <td>Poor</td>
+                      <td>Likely Rejection</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              {/* 3. Planning Help */}
-              <h3>How This Estimator Helps You</h3>
+
+              <h3>The 5 Pillars of Credit Scoring</h3>
+              <WikiText content={factorsContent} />
+
+              <h3>Soft Inquiry vs Hard Inquiry</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>Soft Inquiry</th>
+                      <th>Hard Inquiry</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Who Checks?</strong>
+                      </td>
+                      <td>You (Self-check) or Employer</td>
+                      <td>Bank / Lender</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Reason</strong>
+                      </td>
+                      <td>Information / Monitoring</td>
+                      <td>Loan / Card Application</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Impact on Score</strong>
+                      </td>
+                      <td>
+                        <strong>No Impact (0 points)</strong>
+                      </td>
+                      <td>
+                        <strong>Negative Impact (-5 to -10 points)</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>How the Score is Calculated</h3>
+              <p>
+                While the exact algorithm (FICO/CIBIL) is proprietary, it
+                generally follows a weighted model:
+              </p>
+
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
+                <BlockMath math="Score = 0.35(P) + 0.30(U) + 0.15(A) + 0.10(M) + 0.10(N)" />
+              </div>
+
               <WikiText
                 content={`
-                  <ul>
-                    <li>
-                      <strong>Score Breakdown:</strong> See exactly how many points
-                      you are losing due to high utilization or inquiries.
-                    </li>
-                    <li>
-                      <strong>What-If Simulation:</strong> The tool calculates the
-                      potential score boost if you pay down ₹50,000 of card debt
-                      today.
-                    </li>
-                    <li>
-                      <strong>Action Plan:</strong> Prioritized steps (e.g.,
-                      "Stop applying for new cards") to fix your score.
-                    </li>
+                  <ul style="font-size: 14px;">
+                    <li><strong>P</strong>: Payment History (35%)</li>
+                    <li><strong>U</strong>: Credit Utilization (30%)</li>
+                    <li><strong>A</strong>: Age of Credit History (15%)</li>
+                    <li><strong>M</strong>: Credit Mix (10%)</li>
+                    <li><strong>N</strong>: New Inquiries (10%)</li>
                   </ul>
                 `}
               />
-              {/* 4. Strategy */}
+
               <h3>Steps to Improve Score (750+)</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>Automate Payments:</strong> Set up auto-debit for
-                      minimum dues to avoid late marks.
-                    </li>
-                    <li>
-                      <strong>Increase Limit:</strong> Requesting a higher credit
-                      limit (without spending more) lowers your utilization ratio.
-                    </li>
-                    <li>
-                      <strong>Don't Close Old Cards:</strong> The age of your
-                      oldest account (Credit History Length) boosts your score (15%
-                      weight).
-                    </li>
+                    <li><strong>Automate Payments:</strong> Set up auto-debit for minimum dues to avoid late marks.</li>
+                    <li><strong>Increase Limit:</strong> Requesting a higher credit limit lowers your utilization ratio.</li>
+                    <li><strong>Limit Applications:</strong> Don't apply for multiple cards in a short span (Hard Inquiries).</li>
                   </ul>
                 `}
               />
@@ -206,11 +372,11 @@ export default function CreditScorePage() {
                   </p>
                 </details>
                 <details>
-                  <summary>Is a &quot;Settled&quot; status bad?</summary>
+                  <summary>Is a &ldquo;Settled&ldquo; status bad?</summary>
                   <p>
-                    Yes. &quot;Settled&quot; means you paid less than the full
+                    Yes. &ldquo;Settled&ldquo; means you paid less than the full
                     amount owed. It is a negative mark. Always aim for
-                    &quot;Closed&quot; status by paying in full.
+                    &ldquo;Closed&ldquo; status by paying in full.
                   </p>
                 </details>
                 <details>
@@ -223,11 +389,9 @@ export default function CreditScorePage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="credit-sidebar" type="box" />

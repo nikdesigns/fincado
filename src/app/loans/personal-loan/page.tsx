@@ -1,6 +1,6 @@
-// src/app/loans/personal-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import PersonalLoanClient from './PersonalLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
@@ -10,17 +10,24 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+
+/* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Personal Loan EMI Calculator – Check Eligibility & Interest',
+  title: 'Personal Loan EMI Calculator – Check Eligibility & Interest (2025)',
   description:
-    'Calculate Personal Loan EMI instantly. Check monthly installments, total interest payout, and amortization schedule. Compare bank rates from HDFC, SBI, ICICI.',
+    'Calculate Personal Loan EMI instantly. Compare interest rates from HDFC, SBI, ICICI. Check eligibility, documents required, and foreclosure charges.',
   keywords: [
     'Personal Loan EMI Calculator',
     'Personal Loan Interest Rate',
     'Unsecured Loan Calculator',
-    'Loan Eligibility',
+    'Loan Eligibility Calculator',
     'Prepayment Calculator',
+    'Personal Loan vs Credit Card',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/loans/personal-loan',
@@ -34,7 +41,42 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function PersonalLoanPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Personal Loan</strong> is an <strong>unsecured form of credit</strong>
+      provided by financial institutions to help you meet immediate financial needs. 
+      Unlike home or car loans, it is not restricted to a specific purpose.
+    </p>
+    <p>
+      Because it is "unsecured," you do not need to pledge any <strong>collateral</strong> 
+      (like property or gold). The approval is based primarily on your <strong>Credit Score</strong>, 
+      income stability, and repayment capacity.
+    </p>
+  `);
+
+  const eligibilityContent = autoLinkContent(`
+    <ul>
+      <li><strong>Employment:</strong> Salaried (MNC/Pvt Ltd/Govt) or Self-Employed.</li>
+      <li><strong>Age:</strong> 21 to 60 years.</li>
+      <li><strong>Credit Score:</strong> A CIBIL score of <strong>750+</strong> gets the best rates.</li>
+      <li><strong>Income:</strong> Minimum monthly net income of ₹25,000 (varies by city).</li>
+      <li><strong>Experience:</strong> Min 2 years total work experience.</li>
+    </ul>
+  `);
+
+  const comparisonContent = autoLinkContent(`
+    <p>
+      Many borrowers confuse Personal Loans with Credit Card loans. 
+      <strong>Personal Loans</strong> are generally cheaper (10.5%–14%) compared to Credit Card 
+      revolving credit (36%–42%). Always choose a personal loan for large expenses like 
+      weddings or medical emergencies.
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -42,6 +84,8 @@ export default function PersonalLoanPage() {
         description="Check your personal loan EMI. Compare interest rates and repayment terms from top banks."
         url="https://www.fincado.com/loans/personal-loan"
       />
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -67,10 +111,10 @@ export default function PersonalLoanPage() {
               },
               {
                 '@type': 'Question',
-                name: 'Does tenure affect interest rate?',
+                name: 'Is interest on personal loan tax deductible?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Usually, the interest rate remains the same regardless of tenure, but a longer tenure increases the total interest amount you pay.',
+                  text: 'Generally, NO. However, if the loan is used for home renovation (deductible under Sec 24) or business expansion, you may claim deductions. Keep proofs handy.',
                 },
               },
             ],
@@ -79,7 +123,6 @@ export default function PersonalLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
-        {/* ---------- BREADCRUMB ---------- */}
         <BreadcrumbJsonLd
           items={[
             { name: 'Home', url: 'https://www.fincado.com' },
@@ -90,8 +133,9 @@ export default function PersonalLoanPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/loans/personal-loan" />
           <h1>Personal Loan EMI Calculator</h1>
           <ShareTools title="Personal Loan EMI Calculator" />
           <WikiText
@@ -106,97 +150,64 @@ export default function PersonalLoanPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <PersonalLoanClient />
 
-            {/* ✅ ADD LIVE RATES HERE */}
             <LiveRateTable type="personalLoan" />
+
+            {/* ✅ PROMO BOX: High CTR Internal Link */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>💸</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Need a loan quickly?
+                </strong>
+                <Link
+                  href="/guides/personal-loan-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read our Guide: How to Get Approved Instantly →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="personal-loan-mid" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT (Hidden in Print) --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is a Personal Loan? */}
               <h2>What is a Personal Loan?</h2>
+              <WikiText content={introContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Personal Loan</strong> is an <strong>unsecured form of credit</strong>
-                    provided by financial institutions to help you meet immediate
-                    financial needs. Unlike home or car loans, it is not restricted
-                    to a specific purpose.
-                  </p>
-                  <p>
-                    Because it is "unsecured," you do not need to pledge
-                    any <strong>collateral</strong> (like property or gold). The approval is based
-                    primarily on your <strong>Credit Score</strong>, income stability, and
-                    repayment capacity.
-                  </p>
-                `}
-              />
-
-              {/* 2. Who is Eligible? */}
               <h3>Who is Eligible?</h3>
+              {/* ✅ Auto-Linked Eligibility List */}
+              <WikiText content={eligibilityContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    Eligibility criteria ensure that the borrower has the capacity
-                    to repay the loan on time. While specific requirements vary by
-                    lender, the general parameters include:
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>Employment Type:</strong>
-                      <ul>
-                        <li>
-                          <em>Salaried:</em> Employees of private limited companies,
-                          PSUs, or government bodies.
-                        </li>
-                        <li>
-                          <em>Self-Employed:</em> Doctors, CAs, and business owners
-                          with income proof.
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <strong>Age:</strong> Typically between 21 and 60 years.
-                    </li>
-                    <li>
-                      <strong>Credit Score:</strong> A CIBIL score of
-                      <strong>750 or above</strong> is preferred.
-                    </li>
-                    <li>
-                      <strong>Income:</strong> Minimum monthly net income (e.g.,
-                      ₹25,000, varying by city).
-                    </li>
-                    <li>
-                      <strong>Experience:</strong> Min 2 years total work
-                      experience, with 1 year at the current employer.
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>Personal Loan vs Credit Card Loan</h3>
+              {/* ✅ Crucial Comparison for SEO */}
+              <WikiText content={comparisonContent} />
 
-              {/* 3. Calculator Help */}
               <h3>How This Calculator Helps Your Financial Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    <em>
-                      Note: Unlike education loans, personal loans usually do not
-                      have a moratorium period; EMIs start immediately.
-                    </em>
-                  </p>
-                  <p>
-                    Using a <strong>Personal Loan EMI Calculator</strong> is a crucial first step
-                    before applying. It empowers you to verify your affordability.
-                  </p>
-                `}
-              />
+              <p>
+                Using a <strong>Personal Loan EMI Calculator</strong> is a
+                crucial first step before applying. It empowers you to verify
+                your affordability.
+              </p>
 
               <div className="advantage-grid">
                 <div className="advantage-card">
@@ -222,69 +233,41 @@ export default function PersonalLoanPage() {
                 </div>
               </div>
 
-              {/* 4. EMI Formula */}
               <h3>EMI Calculation Formula</h3>
               <p>
                 The Equated Monthly Installment (EMI) for a personal loan is
                 calculated using the standard reducing balance method.
               </p>
+
+              {/* ✅ Professional Math Block */}
               <div
                 style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
                 }}
               >
-                EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
+                <BlockMath math="EMI = [P \times R \times (1+R)^N] / [(1+R)^N-1]" />
               </div>
+
               <WikiText
                 content={`
-                <ul style="font-size: 14px;">
-                  <li>
-                    <strong>P</strong> = Loan Amount (Principal)
-                  </li>
-                  <li>
-                    <strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 /
-                    100)
-                  </li>
-                  <li>
-                    <strong>N</strong> = Tenure in Months
-                  </li>
+                <ul>
+                  <li><strong>P</strong> = Loan Amount (Principal)</li>
+                  <li><strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 / 100)</li>
+                  <li><strong>N</strong> = Tenure in Months</li>
                 </ul>
               `}
               />
 
-              {/* 5. Key Advantages */}
               <h3>Key Advantages of a Personal Loan</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>No Collateral Required:</strong> Your assets remain
-                      safe; you don't need to mortgage your home.
-                    </li>
-                    <li>
-                      <strong>Quick Disbursal:</strong> Funds are often credited
-                      within 24–48 hours (or instantly for pre-approved customers).
-                    </li>
-                    <li>
-                      <strong>Flexible End-Use:</strong> You have complete freedom
-                      to use the funds for weddings, travel, medical needs, or
-                      renovations.
-                    </li>
-                    <li>
-                      <strong>Fixed Interest Rates:</strong> EMIs remain constant
-                      throughout the tenure, making budgeting easier.
-                    </li>
-                    <li>
-                      <strong>Minimal Documentation:</strong> The process is often
-                      paperless for existing bank customers.
-                    </li>
+                    <li><strong>No Collateral Required:</strong> Your assets remain safe.</li>
+                    <li><strong>Quick Disbursal:</strong> Funds are often credited within 24–48 hours.</li>
+                    <li><strong>Flexible End-Use:</strong> Use funds for weddings, travel, medical needs, etc.</li>
+                    <li><strong>Fixed Interest Rates:</strong> EMIs remain constant throughout the tenure.</li>
                   </ul>
                 `}
               />
@@ -321,34 +304,12 @@ export default function PersonalLoanPage() {
                     you get the lowest interest rates and quick approval.
                   </p>
                 </details>
-                <details>
-                  <summary>
-                    Can I close my personal loan before the tenure ends?
-                  </summary>
-                  <p>
-                    Yes, most lenders allow you to foreclose or make
-                    part-payments after a specific lock-in period (usually 6–12
-                    months).
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Will applying for a personal loan affect my credit score?
-                  </summary>
-                  <p>
-                    Applying triggers a &quot;hard inquiry&quot; which may dip
-                    your score slightly. However, timely repayment will boost
-                    your score significantly.
-                  </p>
-                </details>
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="personal-loan-sidebar" type="box" />

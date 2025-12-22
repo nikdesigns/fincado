@@ -1,26 +1,33 @@
-// src/app/epf-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import EPFClient from './EPFClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'EPF Calculator – Calculate Corpus & Interest',
+  title: 'EPF Calculator 2025 – Check Corpus & Interest (Tax Rules)',
   description:
-    'Calculate your Employee Provident Fund (EPF) corpus at retirement. Check employer contributions, total interest earned, and tax-free withdrawal limits.',
+    'Calculate EPF maturity corpus. Check employer contribution split (EPS vs EPF), interest rates, and tax on contributions above ₹2.5 Lakh.',
   keywords: [
     'EPF Calculator',
-    'PF Calculator',
-    'Provident Fund Calculator',
+    'PF Calculator India',
+    'Employees Provident Fund Calculator',
     'EPF Interest Calculator',
-    'Retirement Corpus',
+    'VPF Calculator',
+    'EPF Tax Rules 2025',
+    'Pension Contribution EPS',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/epf-calculator',
@@ -34,7 +41,38 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function EPFPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      The <strong>Employees' Provident Fund (EPF)</strong> is a mandatory retirement savings scheme 
+      managed by the <strong>EPFO</strong> for salaried employees in India. It builds a retirement 
+      corpus through regular monthly contributions from both the employee and the employer.
+    </p>
+    <p>
+      It offers a <strong>Sovereign Guarantee</strong> (backed by the Govt) and falls under the 
+      EEE (Exempt-Exempt-Exempt) tax status for most employees, making it one of the safest debt instruments.
+    </p>
+  `);
+
+  const contributionContent = autoLinkContent(`
+    <p>Both you and your employer contribute <strong>12%</strong> of your (Basic Salary + DA). However, the split is different:</p>
+    <ul>
+      <li><strong>Employee Share:</strong> 100% of your 12% goes into your EPF account.</li>
+      <li><strong>Employer Share:</strong> Out of their 12%, only <strong>3.67%</strong> goes to EPF. The remaining <strong>8.33%</strong> goes to the <strong>Employee Pension Scheme (EPS)</strong>.</li>
+    </ul>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      <strong>New Tax Rule (Budget 2021):</strong> If your total contribution (Employee Share + VPF) exceeds 
+      <strong>₹2.5 Lakhs</strong> in a financial year, the interest earned on the excess amount is <strong>taxable</strong> 
+      as per your income tax slab. The corpus accumulated up to ₹2.5 Lakhs remains tax-free.
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -42,7 +80,8 @@ export default function EPFPage() {
         description="Calculate your Employee Provident Fund (EPF) corpus at retirement including employer contributions and interest."
         url="https://www.fincado.com/epf-calculator"
       />
-      {/* 2. SCHEMA MARKUP */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -55,7 +94,7 @@ export default function EPFPage() {
                 name: 'How is EPF interest calculated?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'The EPF interest rate is notified by the government every year and is currently around 8%+, credited annually.',
+                  text: 'The EPF interest rate is notified by the government every year (currently around 8.25%). Interest is calculated monthly on the running balance but credited annually.',
                 },
               },
               {
@@ -71,7 +110,7 @@ export default function EPFPage() {
                 name: 'Is EPF withdrawal taxable?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'EPF withdrawal is tax-free if you have completed 5 years of continuous service. If withdrawn before 5 years, it is taxable.',
+                  text: 'EPF withdrawal is tax-free if you have completed 5 years of continuous service. If withdrawn before 5 years, it is taxable. Interest on contributions above ₹2.5 Lakh/year is also taxable.',
                 },
               },
             ],
@@ -90,8 +129,9 @@ export default function EPFPage() {
             },
           ]}
         />
-        {/* Header */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/epf-calculator" />
           <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>
           <ShareTools title="Employees' Provident Fund (EPF) Calculator" />
           <WikiText
@@ -107,58 +147,151 @@ export default function EPFPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <EPFClient />
+
+            {/* ✅ Live Rates (PPF Context) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Retirement Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/ppf-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🏦 PPF Calculator
+                </Link>
+                <Link
+                  href="/calculators/gratuity-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  💼 Gratuity Calc
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>📜</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Confused about PF withdrawal?
+                </strong>
+                <Link
+                  href="/guides/epf-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: How to withdraw PF Online →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="epf-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is EPF? */}
               <h2>What is the Employees&apos; Provident Fund (EPF)?</h2>
+              <WikiText content={introContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    The <strong>Employees' Provident Fund (EPF)</strong> is a mandatory
-                    retirement savings scheme managed by the <strong>EPFO</strong> for salaried
-                    employees. It helps build a retirement corpus through regular
-                    monthly contributions from both the employee and the employer.
-                  </p>
-                `}
-              />
-
-              {/* 2. Who Contributes? */}
               <h3>Understanding the Contribution Split</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Employee Share:</strong> 12% of (Basic Salary + DA).
-                      Entire amount goes to EPF.
-                    </li>
-                    <li>
-                      <strong>Employer Share:</strong> 12% of (Basic Salary + DA).
-                      <br />- <strong>3.67%</strong> goes to EPF.
-                      <br />- <strong>8.33%</strong> goes to <strong>EPS</strong> (Pension Scheme).
-                    </li>
-                  </ul>
-                `}
-              />
+              <WikiText content={contributionContent} />
 
-              {/* 3. Planning Help */}
+              <h3>EPF vs PPF: Which is Better?</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>EPF (Employees&lsquo; PF)</th>
+                      <th>PPF (Public PF)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Interest Rate</strong>
+                      </td>
+                      <td>8.25% (Higher)</td>
+                      <td>7.1% (Lower)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Eligibility</strong>
+                      </td>
+                      <td>Salaried Employees only</td>
+                      <td>Anyone (Salaried/Self-Employed)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Lock-in</strong>
+                      </td>
+                      <td>Until Retirement (58)</td>
+                      <td>15 Years</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Employer Match</strong>
+                      </td>
+                      <td>Yes (Employer adds 12%)</td>
+                      <td>No</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Taxation on EPF (The 2.5 Lakh Rule)</h3>
+              <WikiText content={taxContent} />
+
               <h3>How This Calculator Helps You</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Managing long-term contributions is complex. This tool helps visualize
-                    the compounding effect over 20-30 years.
-                  </p>
-                `}
-              />
-
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Corpus Projection</h4>
@@ -183,52 +316,39 @@ export default function EPFPage() {
                 </div>
               </div>
 
-              {/* 4. Formula */}
-              <h3>EPF Interest Calculation Logic</h3>
-              <p>Interest is calculated on the monthly running balance.</p>
+              <h3>EPF Interest Calculation Formula</h3>
+              <p>
+                Interest is calculated monthly on the running balance, but
+                credited annually.
+              </p>
+
               <div
                 style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
                 }}
               >
-                Monthly Interest = (Opening Bal + Contribution) × Rate% / 12
+                <BlockMath math="Interest = \frac{(OpeningBalance + Contribution) \times Rate}{1200}" />
               </div>
+
               <WikiText
                 content={`
                 <p style="font-size: 14px; color: #666;">
                   <em>
-                    *Interest is accumulated monthly but credited to the account
-                    only at the end of the financial year.
+                    *Note: This calculation happens every month, and the total interest is credited on March 31st.
                   </em>
                 </p>
               `}
               />
 
-              {/* 5. Key Advantages */}
               <h3>Key Benefits of EPF</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>Sovereign Guarantee:</strong> One of the safest debt
-                      instruments in India.
-                    </li>
-                    <li>
-                      <strong>Tax Benefits:</strong> Contributions qualify for
-                      <strong>Section 80C</strong>. Interest and Maturity are tax-free (subject to
-                      limits).
-                    </li>
-                    <li>
-                      <strong>Insurance (EDLI):</strong> EPF members get free life
-                      insurance cover up to ₹7 Lakhs.
-                    </li>
+                    <li><strong>Sovereign Guarantee:</strong> One of the safest debt instruments in India.</li>
+                    <li><strong>Tax Benefits:</strong> Contributions qualify for Section 80C.</li>
+                    <li><strong>Insurance (EDLI):</strong> EPF members get free life insurance cover up to ₹7 Lakhs.</li>
                   </ul>
                 `}
               />
@@ -266,11 +386,9 @@ export default function EPFPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="epf-sidebar" type="box" />

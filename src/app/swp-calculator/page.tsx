@@ -1,30 +1,32 @@
-// src/app/swp-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link'; // ✅ Next Link
 import SWPClient from './SWPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Comparison
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
-import 'katex/dist/katex.min.css'; // Import CSS for math
-import { BlockMath } from 'react-katex'; // Component for block formulas
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'SWP Calculator – Monthly Income from Mutual Funds',
+  title: 'SWP Calculator 2025 – Monthly Pension from Mutual Funds',
   description:
-    'Calculate monthly income from your Mutual Fund investments with our SWP Calculator. Estimate capital appreciation, withdrawal tenure, and remaining corpus.',
+    'Calculate monthly income from Mutual Fund investments. Estimate corpus longevity, 2025 tax rules (LTCG), and compare SWP vs Dividend plans.',
   keywords: [
     'SWP Calculator',
     'Systematic Withdrawal Plan',
     'Monthly Income Plan',
-    'Mutual Fund SWP',
+    'Mutual Fund SWP vs Dividend',
     'Retirement Income Calculator',
-    'SWP Return Calculator',
+    'SWP Tax Calculation 2025',
   ],
   alternates: {
     canonical: 'https://www.fincado.com/swp-calculator',
@@ -38,7 +40,42 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function SWPPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      A <strong>Systematic Withdrawal Plan (SWP)</strong> allows investors to withdraw a specific 
+      sum of money from their <strong>Mutual Fund</strong> investments at regular intervals 
+      (monthly, quarterly, or annually).
+    </p>
+    <p>
+      It is essentially the reverse of an <strong>SIP</strong>. While SIP is for wealth accumulation, 
+      SWP is for wealth distribution, making it the gold standard for retirees looking for a 
+      regular "pension-like" income from their corpus.
+    </p>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      SWP is highly tax-efficient because you are not taxed on the entire withdrawal amount—only on 
+      the <strong>Capital Gains</strong> portion of it.
+    </p>
+    <ul>
+      <li><strong>Equity Funds (LTCG):</strong> If held for >1 year, gains above ₹1.25 Lakh/year are taxed at <strong>12.5%</strong>.</li>
+      <li><strong>Debt Funds:</strong> Taxed as per your income tax slab (no indexation benefit for fresh investments after April 2023).</li>
+    </ul>
+  `);
+
+  const safeWithdrawalContent = autoLinkContent(`
+    <p>
+      Financial planners often cite the <strong>"4% Rule"</strong>. It suggests that if you withdraw 
+      <strong>4%</strong> of your retirement corpus annually (adjusted for inflation), your money 
+      should last for 30 years or more without depleting completely.
+    </p>
+  `);
+
   return (
     <>
       <CalculatorSchema
@@ -46,7 +83,8 @@ export default function SWPPage() {
         description="Plan your systematic withdrawals from mutual funds. Calculate how long your corpus will last with monthly payouts."
         url="https://www.fincado.com/swp-calculator"
       />
-      {/* 2. SCHEMA MARKUP */}
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -67,7 +105,7 @@ export default function SWPPage() {
                 name: 'Is SWP better than FD interest?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'SWP is generally more tax-efficient than FD interest, especially for those in higher tax brackets. In Debt Funds held >3 years, gains are taxed as LTCG with indexation benefits.',
+                  text: 'Yes. In FDs, the entire interest is taxed as per your slab. In SWP, only the capital gains portion is taxed, and the principal portion is tax-free. This makes SWP much more tax-efficient for those in the 30% tax bracket.',
                 },
               },
               {
@@ -94,7 +132,7 @@ export default function SWPPage() {
             },
           ]}
         />
-        {/* Header - Hidden in Print */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
           <LanguageToggle path="/hi/swp-calculator" />
           <h1>SWP Calculator — Systematic Withdrawal Plan</h1>
@@ -112,66 +150,151 @@ export default function SWPPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <SWPClient />
+
+            {/* ✅ Live Rates (FD vs SWP Context) */}
+            <LiveRateTable type="fixedDeposit" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Retirement Tools
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  📈 SIP Calculator
+                </Link>
+                <Link
+                  href="/calculators/fd-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  🏦 FD Calculator
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>👴</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Retired or Retiring soon?
+                </strong>
+                <Link
+                  href="/guides/swp-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: How to create a Tax-Free Pension →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="swp-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is SWP? */}
               <h2>What is a Systematic Withdrawal Plan (SWP)?</h2>
+              <WikiText content={introContent} />
 
-              <WikiText
-                content={`
-                  <p>
-                    A <strong>Systematic Withdrawal Plan (SWP)</strong> allows investors to
-                    withdraw a specific sum of money from their <strong>Mutual Fund</strong>
-                    investments at regular intervals (monthly, quarterly, or
-                    annually).
-                  </p>
-                  <p>
-                    It is essentially the reverse of an <strong>SIP</strong>. While SIP is for wealth
-                    accumulation, SWP is for wealth distribution, making it ideal
-                    for retirees looking for a regular pension-like income.
-                  </p>
-                `}
-              />
+              <h3>SWP vs Dividend (IDCW): Which is Better?</h3>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>SWP (Growth Option)</th>
+                      <th>Dividend (IDCW) Option</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Payout Amount</strong>
+                      </td>
+                      <td>Fixed (You decide)</td>
+                      <td>Uncertain (Fund Manager decides)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Taxation</strong>
+                      </td>
+                      <td>Capital Gains Tax (Lower)</td>
+                      <td>Taxed as per Slab (Higher)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Control</strong>
+                      </td>
+                      <td>Full Control</td>
+                      <td>No Control</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Best For</strong>
+                      </td>
+                      <td>Regular Monthly Income</td>
+                      <td>Occasional Payouts</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-              {/* 2. Who is Eligible? */}
-              <h3>Who Should Opt for SWP?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Retirees:</strong> To generate a steady monthly income
-                      from their retirement corpus.
-                    </li>
-                    <li>
-                      <strong>High Tax Bracket Investors:</strong> SWP from <strong>Debt
-                      Funds</strong> is more tax-efficient than <strong>Fixed Deposit</strong> interest.
-                    </li>
-                    <li>
-                      <strong>Goal Seekers:</strong> Those who need regular cash
-                      flow for specific expenses (e.g., child's hostel fees).
-                    </li>
-                  </ul>
-                `}
-              />
+              <h3>Taxation on SWP (2025 Rules)</h3>
+              <WikiText content={taxContent} />
 
-              {/* 3. Planning Help */}
+              <h3>How Long Will My Money Last? (Safe Withdrawal Rate)</h3>
+              <WikiText content={safeWithdrawalContent} />
+
               <h3>How This Calculator Helps Your Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Managing withdrawals is tricky. If you withdraw too much, you run out of money too soon.
-                    This calculator helps you find the balance.
-                  </p>
-                `}
-              />
-
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Corpus Longevity</h4>
@@ -196,47 +319,41 @@ export default function SWPPage() {
                 </div>
               </div>
 
-              {/* 4. Formula */}
               <h3>SWP Calculation Logic</h3>
               <p>
                 The remaining balance after withdrawals is calculated using the
                 annuity withdrawal formula:
               </p>
 
-              <div style={{ padding: '20px 0', overflowX: 'auto' }}>
+              <div
+                style={{
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <BlockMath math="Bal = P(1+i)^n - W \times \frac{(1+i)^n - 1}{i}" />
               </div>
 
               <WikiText
                 content={`
-  <ul>
-    <li><strong>Bal</strong> = Final Balance</li>
-    <li><strong>P</strong> = Initial Lumpsum Investment</li>
-    <li><strong>W</strong> = Monthly Withdrawal Amount</li>
-    <li><strong>i</strong> = Monthly Interest Rate</li>
-    <li><strong>n</strong> = Total Months</li>
-  </ul>
-`}
+                  <ul style="font-size: 14px;">
+                    <li><strong>Bal</strong>: Final Balance</li>
+                    <li><strong>P</strong>: Initial Lumpsum Investment</li>
+                    <li><strong>W</strong>: Monthly Withdrawal Amount</li>
+                    <li><strong>i</strong>: Monthly Interest Rate</li>
+                    <li><strong>n</strong>: Total Months</li>
+                  </ul>
+                `}
               />
 
-              {/* 5. Key Advantages */}
               <h3>Key Advantages of SWP</h3>
               <WikiText
                 content={`
                   <ul>
-                    <li>
-                      <strong>Tax Efficiency:</strong> Only the capital gains
-                      portion of the withdrawal is taxed, not the principal.
-                    </li>
-                    <li>
-                      <strong>Flexibility:</strong> You can change the withdrawal
-                      amount, frequency, or stop it anytime.
-                    </li>
-                    <li>
-                      <strong>Rupee Cost Averaging:</strong> When markets are high,
-                      fewer units are sold to meet your cash needs. When low, more
-                      units are sold.
-                    </li>
+                    <li><strong>Tax Efficiency:</strong> Lower tax compared to FD interest or Dividends.</li>
+                    <li><strong>Flexibility:</strong> Stop, pause, or increase amounts anytime.</li>
+                    <li><strong>Rupee Cost Averaging:</strong> Units are sold at averaged prices over time.</li>
                   </ul>
                 `}
               />
@@ -258,9 +375,8 @@ export default function SWPPage() {
                   <summary>Is SWP taxable?</summary>
                   <p>
                     Yes, but efficiently. Each withdrawal consists of principal
-                    (not taxed) and capital gains (taxed). For Debt funds &gt;3
-                    years, gains are taxed at 20% with indexation. For Equity
-                    &gt;1 year, gains &gt;₹1L are taxed at 10%.
+                    (not taxed) and capital gains (taxed). For Equity funds held
+                    &gt;1 year, gains &gt;₹1.25 Lakh are taxed at 12.5%.
                   </p>
                 </details>
                 <details>
@@ -274,11 +390,9 @@ export default function SWPPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="swp-sidebar" type="box" />

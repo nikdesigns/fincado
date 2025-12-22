@@ -1,25 +1,31 @@
-// src/app/mutual-fund-calculator/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import MutualFundsClient from './MutualFundsClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import LanguageToggle from '@/components/LanguageToggle';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
 
-// 1. SEO METADATA
+/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
-  title: 'Mutual Fund Calculator – Portfolio Return & Asset Allocation',
+  title: 'Mutual Fund Calculator 2025 – Portfolio Returns & Asset Allocation',
   description:
-    'Plan your mutual fund portfolio with our advanced calculator. Simulate returns for Equity, Debt, and Gold allocations. Check blended returns and inflation-adjusted value.',
+    'Plan your mutual fund portfolio with our advanced calculator. Simulate Equity, Debt, and Gold returns. Check Direct vs Regular plan savings and 2025 tax rules.',
   keywords: [
     'Mutual Fund Calculator',
     'Portfolio Return Calculator',
     'Asset Allocation Planner',
-    'SIP Calculator',
-    'Investment Planner India',
+    'Direct vs Regular Mutual Fund',
+    'Mutual Fund Tax Calculator 2025',
     'Inflation Adjusted Returns',
   ],
   alternates: {
@@ -34,10 +40,51 @@ export const metadata: Metadata = {
   },
 };
 
+/* ---------------- PAGE ---------------- */
+
 export default function MutualFundPage() {
+  // 1. Prepare SEO Content with Auto-Links
+  const introContent = autoLinkContent(`
+    <p>
+      Investing isn't just about picking the "best" stock. It's about building a balanced portfolio. 
+      <strong>Asset Allocation</strong> is the practice of spreading your investments across different 
+      asset classes like <strong>Equity</strong> (for growth), <strong>Debt</strong> (for stability), and 
+      <strong>Gold</strong> (for hedging) to minimize risk.
+    </p>
+    <p>
+      This calculator allows you to model a complete portfolio, unlike basic SIP calculators that 
+      only look at one fund type.
+    </p>
+  `);
+
+  const taxContent = autoLinkContent(`
+    <p>
+      <strong>Equity Mutual Funds:</strong> Gains above ₹1.25 Lakh/year (held >1 year) are taxed at 
+      <strong>12.5% (LTCG)</strong>. Short-term gains are taxed at 20%.
+    </p>
+    <p>
+      <strong>Debt Mutual Funds:</strong> Profits are added to your income and taxed as per your slab rate 
+      (for investments made after April 1, 2023).
+    </p>
+  `);
+
+  const strategyContent = autoLinkContent(`
+    <ul>
+      <li><strong>Aggressive (Growth):</strong> High Equity exposure (>70%) for long-term goals (>10 years). Suitable for young investors.</li>
+      <li><strong>Balanced (Moderate):</strong> A mix of Equity (50-60%) and Debt (40-50%) to balance growth with stability.</li>
+      <li><strong>Conservative (Safety):</strong> High Debt exposure (>70%) to protect capital. Ideal for retirees.</li>
+    </ul>
+  `);
+
   return (
     <>
-      {/* 2. SCHEMA MARKUP */}
+      <CalculatorSchema
+        name="Mutual Fund Portfolio Calculator"
+        description="Simulate returns for a multi-asset portfolio including Equity, Debt, and Gold. Check inflation-adjusted corpus."
+        url="https://www.fincado.com/mutual-fund-calculator"
+      />
+
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -63,10 +110,10 @@ export default function MutualFundPage() {
               },
               {
                 '@type': 'Question',
-                name: 'What is a balanced portfolio?',
+                name: 'What is the 100 minus Age rule?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'A balanced portfolio typically has a mix of Equity (for growth) and Debt (for stability). A common rule is "100 minus Age" for Equity allocation.',
+                  text: 'It is a rule of thumb for asset allocation. Subtract your age from 100 to find the percentage of your portfolio that should be in Equity. For example, at age 30, you should have 70% in Equity.',
                 },
               },
             ],
@@ -85,8 +132,9 @@ export default function MutualFundPage() {
             },
           ]}
         />
-        {/* Header */}
+
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/mutual-fund-calculator" />
           <h1>Mutual Fund Portfolio Planner</h1>
           <ShareTools title="Mutual Fund Portfolio Planner" />
           <WikiText
@@ -102,60 +150,152 @@ export default function MutualFundPage() {
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* CALCULATOR APP */}
             <MutualFundsClient />
+
+            {/* ✅ Live Rates (SIP/Lumpsum Context) */}
+            <LiveRateTable type="personalLoan" />
+
+            {/* ✅ Mobile-Only Tools */}
+            <div
+              className="mobile-only-suggestions"
+              style={{ marginTop: 32, marginBottom: 32 }}
+            >
+              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+                Related Calculators
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+              >
+                <Link
+                  href="/calculators/sip-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  📈 SIP Calculator
+                </Link>
+                <Link
+                  href="/calculators/lumpsum-calculator"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    color: '#0f172a',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    background: '#fff',
+                  }}
+                >
+                  💰 Lumpsum Calc
+                </Link>
+              </div>
+            </div>
+
+            {/* ✅ Promo Box */}
+            <div
+              className="no-print"
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: '8px',
+                padding: '16px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>📊</span>
+              <div>
+                <strong style={{ display: 'block', color: '#166534' }}>
+                  Confused by Funds?
+                </strong>
+                <Link
+                  href="/guides/mutual-fund-guide"
+                  style={{
+                    color: '#16a34a',
+                    fontWeight: 600,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Read: Direct vs Regular Plans Explained →
+                </Link>
+              </div>
+            </div>
 
             <div style={{ margin: '40px 0' }} className="no-print">
               <AdSlot id="mf-mid-content" type="leaderboard" />
             </div>
 
-            {/* --- RICH SEO CONTENT --- */}
             <article className="article content-for-seo no-print">
-              {/* 1. What is Asset Allocation? */}
               <h2>Why Asset Allocation Matters?</h2>
-              <WikiText
-                content={`
-                  <p>
-                    Investing isn't just about picking the "best"
-                    stock. It's about building a balanced portfolio.
-                    <strong>Asset Allocation</strong> is the practice of spreading
-                    your investments across different asset classes (<strong>Equity</strong>, <strong>Debt</strong>,
-                    <strong>Gold</strong>) to minimize risk.
-                  </p>
-                `}
-              />
-              {/* 2. Strategy */}
+              <WikiText content={introContent} />
+
+              <h3>Direct vs Regular Plans: Which is Better?</h3>
+
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Feature</th>
+                      <th>Direct Plan</th>
+                      <th>Regular Plan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Expense Ratio</strong>
+                      </td>
+                      <td>Lower (~0.5% - 1%)</td>
+                      <td>Higher (~1.5% - 2.5%)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Commission</strong>
+                      </td>
+                      <td>Zero Commission</td>
+                      <td>Agent Commission Included</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Returns</strong>
+                      </td>
+                      <td>Higher (due to low fees)</td>
+                      <td>Lower</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>How to Buy</strong>
+                      </td>
+                      <td>Directly from AMC/Apps</td>
+                      <td>Via Distributor/Agent</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <h3>Strategies for Every Investor</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Aggressive (Growth):</strong> High Equity exposure
-                      (>70%) for long-term goals (>10 years). Suitable for
-                      young investors with high risk appetite.
-                    </li>
-                    <li>
-                      <strong>Balanced (Moderate):</strong> A mix of Equity (50-60%)
-                      and Debt (40-50%) to balance growth with stability.
-                    </li>
-                    <li>
-                      <strong>Conservative (Safety):</strong> High Debt exposure
-                      (>70%) to protect capital. Ideal for retirees or short-term
-                      goals.
-                    </li>
-                  </ul>
-                `}
-              />
-              {/* 3. Planning Help */}
+              <WikiText content={strategyContent} />
+
+              <h3>Taxation on Mutual Funds (2025 Rules)</h3>
+              <WikiText content={taxContent} />
+
               <h3>How This Calculator Helps You</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Unlike basic <strong>SIP Calculators</strong>, this tool lets you model a
-                    <strong>complete portfolio</strong>:
-                  </p>
-                `}
-              />
               <div className="advantage-grid">
                 <div className="advantage-card">
                   <h4>Blended Returns</h4>
@@ -181,52 +321,28 @@ export default function MutualFundPage() {
                   </p>
                 </div>
               </div>
-              {/* 4. Formula */}
+
               <h3>Portfolio Return Calculation</h3>
               <p>
                 The calculator computes the future value for each asset class
-                separately and sums them up.
+                separately (using Compound Interest logic) and sums them up.
               </p>
+
               <div
                 style={{
-                  background: '#f1f5f9',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  fontFamily: 'monospace',
-                  marginBottom: '20px',
-                  border: '1px solid #e2e8f0',
-                  textAlign: 'center',
-                  fontWeight: 600,
+                  padding: '20px 0',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
                 }}
               >
-                Portfolio FV = Σ (FV of Asset Class_i)
+                <BlockMath math="FV_{portfolio} = \sum (FV_{asset})" />
               </div>
+
               <WikiText
                 content={`
-                <p>
-                  Where FV is calculated using standard <strong>SIP</strong> (Annuity Due) and
-                  <strong>Lumpsum</strong> (Compound Interest) formulas.
-                </p>
-              `}
-              />
-              {/* 5. Key Advantages */}
-              <h3>Benefits of Mutual Funds</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li>
-                      <strong>Professional Management:</strong> Fund managers handle
-                      the research and trading decisions.
-                    </li>
-                    <li>
-                      <strong>Diversification:</strong> A single fund invests in
-                      30-50 stocks, reducing company-specific risk.
-                    </li>
-                    <li>
-                      <strong>Liquidity:</strong> Open-ended funds allow you to
-                      withdraw money anytime (T+1 to T+3 days).
-                    </li>
-                  </ul>
+                  <p>
+                    Where FV is calculated using standard SIP (Annuity Due) and Lumpsum formulas for each asset class.
+                  </p>
                 `}
               />
             </article>
@@ -263,11 +379,9 @@ export default function MutualFundPage() {
               </div>
             </section>
 
-            {/* ✅ ADD AUTHOR BIO HERE */}
             <AuthorBio />
           </div>
 
-          {/* Sidebar */}
           <aside className="sidebar no-print">
             <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
               <AdSlot id="mf-sidebar" type="box" />
