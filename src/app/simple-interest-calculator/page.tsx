@@ -214,7 +214,7 @@ export default function SimpleInterestPage() {
                   Buying a car on Flat Rate?
                 </strong>
                 <Link
-                  href="/calculators/car-loan-emi-calculator"
+                  href="/loans/car-loan/"
                   style={{
                     color: '#16a34a',
                     fontWeight: 600,
