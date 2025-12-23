@@ -38,13 +38,15 @@
 # ================================
 RewriteEngine On
 
-# --- FIX: Force Trailing Slash (With Anti-Loop Protection) ---
+# --- FIX: Force Trailing Slash (With Anti-Loop & IndexNow Protection) ---
 # 1. If it's NOT a real file
 RewriteCond %{REQUEST_FILENAME} !-f
 # 2. And it does NOT end in a slash
 RewriteCond %{REQUEST_URI} !/$
 # 3. And it is NOT an .html file (This stops the infinite loop!)
 RewriteCond %{REQUEST_URI} !\.html$
+# 4. And it is NOT a .txt file (Safeguard for IndexNow/Robots.txt)
+RewriteCond %{REQUEST_URI} !\.txt$
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
 # --- Calculator Cleanups ---

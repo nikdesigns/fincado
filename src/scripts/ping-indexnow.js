@@ -6,7 +6,6 @@ const path = require('path');
 // 1. CONFIGURATION
 // ------------------------------------------
 const HOST = 'www.fincado.com';
-// I found this key in your file list (public/f79d7e3caed6497cafbcc9ee2cd99a55.txt)
 const API_KEY = 'f79d7e3caed6497cafbcc9ee2cd99a55';
 const KEY_LOCATION = `https://${HOST}/${API_KEY}.txt`;
 
@@ -21,17 +20,17 @@ const articles = JSON.parse(fs.readFileSync(articlesPath, 'utf8'));
 // ------------------------------------------
 console.log(`🔍 Found ${articles.length} articles in database...`);
 
-// Change this part in your script:
 const urlList = articles.map((article) => {
   const isHindi = article.language === 'hi';
+  // FIX: Add the slash at the end
   const slugPath = isHindi
-    ? `/hi/guides/${article.slug}/` // Added slash
-    : `/guides/${article.slug}/`; // Added slash
+    ? `/hi/guides/${article.slug}/`
+    : `/guides/${article.slug}/`;
 
   return `https://${HOST}${slugPath}`;
 });
 
-// Also update your staticPages array to have trailing slashes
+// FIX: Add slashes to static pages too
 const staticPages = [
   `https://${HOST}/`,
   `https://${HOST}/hi/`,
@@ -44,7 +43,7 @@ const allUrls = [...staticPages, ...urlList];
 console.log(`🚀 Preparing to ping IndexNow with ${allUrls.length} URLs...`);
 
 // ------------------------------------------
-// 4. SEND REQUEST (Native Node.js)
+// 4. SEND REQUEST
 // ------------------------------------------
 const data = JSON.stringify({
   host: HOST,
