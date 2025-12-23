@@ -49,7 +49,34 @@ RewriteCond %{REQUEST_URI} !\.html$
 RewriteCond %{REQUEST_URI} !\.txt$
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
-# --- Calculator Cleanups ---
+# --- FIX: Old /calculators/ Subfolder (From 404 Report) ---
+# These catch traffic going to /calculators/xyz and send it to /xyz
+Redirect 301 /calculators/emi-calculator/ /emi-calculator/
+Redirect 301 /calculators/sip-calculator/ /sip-calculator/
+Redirect 301 /calculators/ppf-calculator/ /ppf-calculator/
+Redirect 301 /calculators/epf-calculator/ /epf-calculator/
+Redirect 301 /calculators/fd-calculator/ /fd-calculator/
+Redirect 301 /calculators/rd-calculator/ /rd-calculator/
+Redirect 301 /calculators/gst-calculator/ /gst-calculator/
+Redirect 301 /calculators/lumpsum-calculator/ /lumpsum-calculator/
+Redirect 301 /calculators/simple-interest-calculator/ /simple-interest-calculator/
+Redirect 301 /calculators/step-up-sip-calculator/ /sip-calculator/
+Redirect 301 /calculators/fire-calculator/ /fire-calculator/
+Redirect 301 /calculators/swp-calculator/ /swp-calculator/
+
+# --- Complex Mappings (Folder -> Loan Category) ---
+Redirect 301 /calculators/home-loan-calculator/ /loans/home-loan/
+Redirect 301 /calculators/personal-loan-calculator/ /loans/personal-loan/
+Redirect 301 /calculators/car-loan-calculator/ /loans/car-loan/
+Redirect 301 /calculators/education-loan-calculator/ /loans/education-loan/
+Redirect 301 /calculators/sukanya-samriddhi-yojana-calculator/ /sukanya-samriddhi/
+
+# --- Missing Pages -> Relevant Guides (Fixes 404s) ---
+Redirect 301 /calculators/nps-calculator/ /guides/nps-guide/
+Redirect 301 /calculators/sgb-calculator/ /guides/gold-investment-guide/
+Redirect 301 /income-tax-calculator/ /guides/new-vs-old-tax-regime-2025/
+
+# --- Original Calculator Cleanups ---
 Redirect 301 /home-loan-calculator /loans/home-loan/
 Redirect 301 /personal-loan-calculator /loans/personal-loan/
 Redirect 301 /car-loan-calculator /loans/car-loan/
@@ -59,6 +86,7 @@ Redirect 301 /ssy-calculator /sukanya-samriddhi/
 Redirect 301 /step-up-sip-calculator /sip-calculator/
 Redirect 301 /retirement-plan /retirement-calculator/
 Redirect 301 /credit-score-calculator /credit-score/
+Redirect 301 /investing /mutual-funds/
 
 # --- Guide Fixes ---
 Redirect 301 /guides/home-loan-for-first-time-buyers /guides/home-loan-first-time-buyers/
