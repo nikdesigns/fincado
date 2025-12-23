@@ -74,6 +74,12 @@ const excludedSlugs = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Helper to ensure trailing slash matches next.config.js
+  const getUrl = (path: string) => {
+    if (path === '') return `${BASE_URL}/`;
+    return `${BASE_URL}${path}/`; // ✅ Force Trailing Slash
+  };
+
   // 1. Static English Pages
   const staticRoutes = [
     '',
@@ -114,7 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/loans/education-loan',
     '/compare-loans',
   ].map((route) => ({
-    url: `${BASE_URL}${route}`,
+    url: getUrl(route),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: route === '' ? 1.0 : 0.8,
@@ -134,7 +140,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/sukanya-samriddhi',
     '/hi/simple-interest-calculator',
   ].map((route) => ({
-    url: `${BASE_URL}${route}`,
+    url: getUrl(route),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
@@ -150,7 +156,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         : `/guides/${article.slug}`;
 
       return {
-        url: `${BASE_URL}${path}`,
+        url: getUrl(path),
         lastModified: new Date(article.published || new Date()),
         changeFrequency: 'monthly' as const,
         priority: 0.9,
@@ -160,7 +166,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 4. Category Pages
   const categories = Array.from(new Set(articlesData.map((a) => a.category)));
   const categoryRoutes = categories.map((cat) => ({
-    url: `${BASE_URL}/guides/category/${encodeURIComponent(cat)}`,
+    url: getUrl(`/guides/category/${encodeURIComponent(cat)}`),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
@@ -168,7 +174,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 5. City EMI Pages
   const cityRoutes = supportedCitySlugs.map((slug) => ({
-    url: `${BASE_URL}/emi-calculator/${slug}`,
+    url: getUrl(`/emi-calculator/${slug}`),
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
@@ -176,7 +182,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 6. Bank Pages
   const bankRoutes = bankSlugs.map((slug) => ({
-    url: `${BASE_URL}/bank-emi/${slug}`,
+    url: getUrl(`/bank-emi/${slug}`),
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
@@ -187,7 +193,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   bankSlugs.forEach((bank) => {
     supportedCitySlugs.forEach((city) => {
       bankCityRoutes.push({
-        url: `${BASE_URL}/bank-emi/${bank}/${city}`,
+        url: getUrl(`/bank-emi/${bank}/${city}`),
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.5,

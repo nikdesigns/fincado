@@ -21,22 +21,22 @@ const articles = JSON.parse(fs.readFileSync(articlesPath, 'utf8'));
 // ------------------------------------------
 console.log(`🔍 Found ${articles.length} articles in database...`);
 
+// Change this part in your script:
 const urlList = articles.map((article) => {
-  // Logic matches your sitemap.ts
   const isHindi = article.language === 'hi';
   const slugPath = isHindi
-    ? `/hi/guides/${article.slug}`
-    : `/guides/${article.slug}`;
+    ? `/hi/guides/${article.slug}/` // Added slash
+    : `/guides/${article.slug}/`; // Added slash
 
   return `https://${HOST}${slugPath}`;
 });
 
-// Add static pages that changed recently
+// Also update your staticPages array to have trailing slashes
 const staticPages = [
   `https://${HOST}/`,
-  `https://${HOST}/hi`,
-  `https://${HOST}/calculators`,
-  `https://${HOST}/hi/guides`,
+  `https://${HOST}/hi/`,
+  `https://${HOST}/calculators/`,
+  `https://${HOST}/hi/guides/`,
 ];
 
 const allUrls = [...staticPages, ...urlList];
