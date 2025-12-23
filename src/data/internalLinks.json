@@ -1,56 +1,71 @@
 [
-  { "keyword": "EMI Calculator", "url": "/emi-calculator" },
-  { "keyword": "SIP Calculator", "url": "/sip-calculator" },
-  { "keyword": "FD Calculator", "url": "/fd-calculator" },
-  { "keyword": "RD Calculator", "url": "/rd-calculator" },
-  { "keyword": "PPF Calculator", "url": "/ppf-calculator" },
-  { "keyword": "EPF Calculator", "url": "/epf-calculator" },
-  { "keyword": "Home Loan", "url": "/loans/home-loan" },
-  { "keyword": "Personal Loan", "url": "/loans/personal-loan" },
-  { "keyword": "Car Loan", "url": "/loans/car-loan" },
-  { "keyword": "Education Loan", "url": "/loans/education-loan" },
-  { "keyword": "Credit Score", "url": "/credit-score" },
-  { "keyword": "CIBIL Score", "url": "/credit-score" },
-  { "keyword": "GST Calculator", "url": "/gst-calculator" },
-  { "keyword": "Simple Interest", "url": "/simple-interest-calculator" },
-  { "keyword": "Retirement Planner", "url": "/retirement-calculator" },
-  { "keyword": "FIRE Calculator", "url": "/fire-calculator" },
-  { "keyword": "Lumpsum", "url": "/lumpsum-calculator" },
-  { "keyword": "SWP", "url": "/swp-calculator" },
-  { "keyword": "Sukanya Samriddhi", "url": "/sukanya-samriddhi" },
-  { "keyword": "SSY", "url": "/sukanya-samriddhi" },
-  { "keyword": "Mutual Funds", "url": "/mutual-funds" },
-  { "keyword": "APY", "url": "/apy-calculator" },
-  { "keyword": "Atal Pension Yojana", "url": "/apy-calculator" },
-  { "keyword": "Gratuity", "url": "/gratuity-calculator" },
-  { "keyword": "Inflation", "url": "/inflation-calculator" },
+  { "keyword": "EMI Calculator", "url": "/emi-calculator/" },
+  { "keyword": "SIP Calculator", "url": "/sip-calculator/" },
+  { "keyword": "FD Calculator", "url": "/fd-calculator/" },
+  { "keyword": "RD Calculator", "url": "/rd-calculator/" },
+  { "keyword": "PPF Calculator", "url": "/ppf-calculator/" },
+  { "keyword": "EPF Calculator", "url": "/epf-calculator/" },
+  { "keyword": "Home Loan", "url": "/loans/home-loan/" },
+  { "keyword": "Personal Loan", "url": "/loans/personal-loan/" },
+  { "keyword": "Car Loan", "url": "/loans/car-loan/" },
+  { "keyword": "Education Loan", "url": "/loans/education-loan/" },
+  { "keyword": "Credit Score", "url": "/credit-score/" },
+  { "keyword": "CIBIL Score", "url": "/credit-score/" },
+  { "keyword": "GST Calculator", "url": "/gst-calculator/" },
+  { "keyword": "Simple Interest", "url": "/simple-interest-calculator/" },
+  { "keyword": "Retirement Planner", "url": "/retirement-calculator/" },
+  { "keyword": "FIRE Calculator", "url": "/fire-calculator/" },
+  { "keyword": "Lumpsum", "url": "/lumpsum-calculator/" },
+  { "keyword": "SWP", "url": "/swp-calculator/" },
+  { "keyword": "Sukanya Samriddhi", "url": "/sukanya-samriddhi/" },
+  { "keyword": "SSY", "url": "/sukanya-samriddhi/" },
+  { "keyword": "Mutual Funds", "url": "/mutual-funds/" },
+  { "keyword": "APY", "url": "/apy-calculator/" },
+  { "keyword": "Atal Pension Yojana", "url": "/apy-calculator/" },
+  { "keyword": "Inflation", "url": "/inflation-calculator/" },
 
   {
     "keyword": "Home Loan Guide",
-    "url": "/guides/home-loan-first-time-buyers"
+    "url": "/guides/home-loan-first-time-buyers/"
   },
-  { "keyword": "SIP Investment Guide", "url": "/guides/sip-investment-guide" },
-  { "keyword": "SIP vs FD", "url": "/guides/sip-vs-fd" },
-  { "keyword": "New Tax Regime", "url": "/guides/new-vs-old-tax-regime-2025" },
-  { "keyword": "Old Tax Regime", "url": "/guides/new-vs-old-tax-regime-2025" },
+  { "keyword": "SIP Investment Guide", "url": "/guides/sip-investment-guide/" },
+  { "keyword": "SIP vs FD", "url": "/guides/sip-vs-fd/" },
+  { "keyword": "New Tax Regime", "url": "/guides/new-vs-old-tax-regime-2025/" },
+  { "keyword": "Old Tax Regime", "url": "/guides/new-vs-old-tax-regime-2025/" },
   {
     "keyword": "SSY Guide",
-    "url": "/guides/sukanya-samriddhi-yojana-guide-2025"
+    "url": "/guides/sukanya-samriddhi-yojana-guide-2025/"
   },
-  { "keyword": "ELSS Funds", "url": "/guides/elss-funds-guide-2025" },
-  { "keyword": "Tax Saving Funds", "url": "/guides/elss-funds-guide-2025" },
+  { "keyword": "ELSS Funds", "url": "/guides/elss-funds-guide-2025/" },
+  { "keyword": "Tax Saving Funds", "url": "/guides/elss-funds-guide-2025/" },
   {
     "keyword": "Sovereign Gold Bond",
-    "url": "/guides/sovereign-gold-bond-sgb-guide"
+    "url": "/guides/gold-investment-guide/"
   },
-  { "keyword": "SGB", "url": "/guides/sovereign-gold-bond-sgb-guide" },
+  { "keyword": "SGB", "url": "/guides/gold-investment-guide/" },
   {
     "keyword": "Health Insurance Guide",
-    "url": "/guides/health-insurance-buying-guide"
+    "url": "/guides/health-insurance-buying-guide/"
   },
-  { "keyword": "Mediclaim", "url": "/guides/health-insurance-buying-guide" },
+  { "keyword": "Mediclaim", "url": "/guides/health-insurance-buying-guide/" },
   {
     "keyword": "Improve Credit Score",
-    "url": "/guides/how-credit-score-works-india"
+    "url": "/guides/how-credit-score-works-india/"
+  },
+  { "keyword": "NPS Guide", "url": "/guides/nps-guide/" },
+  { "keyword": "National Pension System", "url": "/guides/nps-guide/" },
+  { "keyword": "GST Guide", "url": "/guides/gst-guide/" },
+  { "keyword": "Car Loan Guide", "url": "/guides/car-loan-guide/" },
+  { "keyword": "Personal Loan Guide", "url": "/guides/personal-loan-guide/" },
+  { "keyword": "Education Loan Guide", "url": "/guides/education-loan-guide/" },
+  { "keyword": "Mutual Fund Guide", "url": "/guides/mutual-fund-guide/" },
+  { "keyword": "SWP Guide", "url": "/guides/swp-guide/" },
+  {
+    "keyword": "Retirement Planning",
+    "url": "/guides/retirement-planning-india/"
+  },
+  {
+    "keyword": "EMI Calculator Guide",
+    "url": "/guides/emi-calculator-guide/"
   }
 ]

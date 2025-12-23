@@ -12,38 +12,38 @@ import articlesData from '@/data/articles.json';
 const HINDI_TOOLS = [
   {
     title: 'SIP कैलकुलेटर',
-    desc: 'जानें आपकी छोटी बचत भविष्य में कितनी बड़ी रकम बनेगी।',
-    href: '/hi/sip-calculator',
+    desc: 'जानें आपकी छोटी बचत भविष्य में कितनी बड़ी रकम बनेगी।',
+    href: '/hi/sip-calculator/', // ✅ Added Slash
     icon: '📈',
   },
   {
     title: 'EMI कैलकुलेटर',
     desc: 'होम लोन या पर्सनल लोन की सटीक मासिक किस्त (EMI) जानें।',
-    href: '/hi/emi-calculator',
+    href: '/hi/emi-calculator/', // ✅ Added Slash
     icon: '🏠',
   },
   {
     title: 'PPF कैलकुलेटर',
     desc: 'पब्लिक प्रोविडेंट फंड (PPF) की ब्याज और मैच्योरिटी गणना।',
-    href: '/hi/ppf-calculator',
+    href: '/hi/ppf-calculator/', // ✅ Added Slash
     icon: '💰',
   },
   {
     title: 'SSY (सुकन्या) कैलकुलेटर',
     desc: 'बेटियों के उज्ज्वल भविष्य के लिए सरकारी योजना की गणना।',
-    href: '/hi/sukanya-samriddhi',
+    href: '/hi/sukanya-samriddhi/', // ✅ Added Slash
     icon: '👧',
   },
   {
     title: 'FD कैलकुलेटर',
     desc: 'फिक्स्ड डिपॉजिट (FD) पर मिलने वाले कुल रिटर्न को जानें।',
-    href: '/hi/fd-calculator',
+    href: '/hi/fd-calculator/', // ✅ Added Slash
     icon: '🏦',
   },
   {
     title: 'GST कैलकुलेटर',
     desc: 'आसानी से GST जोड़ें या हटाएं (Exclusive/Inclusive)।',
-    href: '/hi/gst-calculator',
+    href: '/hi/gst-calculator/', // ✅ Added Slash
     icon: '🧾',
   },
 ];
@@ -61,7 +61,7 @@ export default function HindiHubPage() {
         desc:
           article.metaDescription.replace(/<[^>]*>?/gm, '').substring(0, 150) +
           '...',
-        href: `/hi/guides/${article.slug}`,
+        href: `/hi/guides/${article.slug}/`, // ✅ Added Slash
         category: article.category,
         published: article.published || '2025-01-01',
       }));
@@ -84,7 +84,7 @@ export default function HindiHubPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi' },
+          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi/' }, // ✅ Added Slash
         ]}
       />
 
@@ -214,7 +214,7 @@ export default function HindiHubPage() {
               📚 नवीनतम लेख (Latest Guides)
             </h2>
 
-            {/* --- FILTER PILLS (New) --- */}
+            {/* --- FILTER PILLS --- */}
             <div
               style={{
                 display: 'flex',

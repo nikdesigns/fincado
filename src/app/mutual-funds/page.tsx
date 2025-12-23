@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     'Inflation Adjusted Returns',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/mutual-fund-calculator',
+    canonical: 'https://www.fincado.com/mutual-funds/',
   },
   openGraph: {
     title: 'Mutual Fund Calculator – Optimize Your Portfolio',
     description:
       'Free tool to simulate multi-asset portfolio growth with inflation adjustment.',
-    url: 'https://www.fincado.com/mutual-fund-calculator',
+    url: 'https://www.fincado.com/mutual-funds/',
     type: 'website',
   },
 };
@@ -81,7 +81,7 @@ export default function MutualFundPage() {
       <CalculatorSchema
         name="Mutual Fund Portfolio Calculator"
         description="Simulate returns for a multi-asset portfolio including Equity, Debt, and Gold. Check inflation-adjusted corpus."
-        url="https://www.fincado.com/mutual-fund-calculator"
+        url="https://www.fincado.com/mutual-funds/"
       />
 
       {/* FAQ Schema */}
@@ -128,13 +128,13 @@ export default function MutualFundPage() {
             { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
             {
               name: 'Mutual Fund Calculator',
-              url: 'https://www.fincado.com/mutual-fund-calculator',
+              url: 'https://www.fincado.com/mutual-funds/',
             },
           ]}
         />
 
         <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/mutual-fund-calculator" />
+          <LanguageToggle path="/hi/" />
           <h1>Mutual Fund Portfolio Planner</h1>
           <ShareTools title="Mutual Fund Portfolio Planner" />
           <WikiText

@@ -18,6 +18,7 @@ type Article = {
   metaDescription: string;
   content: string;
   published: string;
+  language?: string;
 };
 
 type Props = {
@@ -28,22 +29,40 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
+
+  // 1. Find the article (Safely filter for English to avoid grabbing Hindi by mistake)
+  const article = (articles as Article[]).find(
+    (a) => a.slug === slug && (!a.language || a.language === 'en')
+  );
 
   if (!article) return {};
 
-  const canonical = `https://www.fincado.com/guides/${article.slug}/`;
+  const baseUrl = 'https://www.fincado.com';
+  // 2. Define URLs with trailing slashes
+  const enUrl = `${baseUrl}/guides/${article.slug}/`;
+  const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
 
   return {
     title: article.seoTitle || article.title,
     description: article.metaDescription,
-    alternates: { canonical },
+
+    // 3. ✅ FIX: Add Hreflang Tags
+    alternates: {
+      canonical: enUrl,
+      languages: {
+        en: enUrl, // Current Page (English)
+        hi: hiUrl, // Alternate Page (Hindi)
+        'x-default': enUrl, // Default fallback
+      },
+    },
+
     openGraph: {
       title: article.title,
       description: article.metaDescription,
       type: 'article',
-      url: canonical,
+      url: enUrl,
       publishedTime: article.published,
+      locale: 'en_IN', // Explicitly set locale
     },
   };
 }

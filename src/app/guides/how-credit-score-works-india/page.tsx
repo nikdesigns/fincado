@@ -989,12 +989,12 @@ export default function CreditScoreGuidePage() {
       <h3>Phase 2: Damage Control (Month 1-2)</h3>
       <div className="checklist-box">
         <ul className="checklist">
-          <li>✅ Set auto-debit for ALL EMIs</li>
-          <li>✅ Pay all credit cards in FULL (or at least 50%)</li>
+          <li>Set auto-debit for ALL EMIs</li>
+          <li>Pay all credit cards in FULL (or at least 50%)</li>
           <li>
-            ✅ Reduce utilization below 30% (Pay down or request limit increase)
+            Reduce utilization below 30% (Pay down or request limit increase)
           </li>
-          <li>✅ Freeze new credit applications for 6 months</li>
+          <li>Freeze new credit applications for 6 months</li>
         </ul>
       </div>
 
@@ -1112,10 +1112,10 @@ export default function CreditScoreGuidePage() {
         </p>
         <h4>Your Immediate Action Checklist:</h4>
         <ul className="checklist">
-          <li>✅ Check your score today (it&apos;s free)</li>
-          <li>✅ Identify any errors and dispute them</li>
-          <li>✅ Pay down credit cards to below 30% utilization</li>
-          <li>✅ Automate all future payments</li>
+          <li>Check your score today (it&apos;s free)</li>
+          <li>Identify any errors and dispute them</li>
+          <li>Pay down credit cards to below 30% utilization</li>
+          <li>Automate all future payments</li>
         </ul>
       </div>
 

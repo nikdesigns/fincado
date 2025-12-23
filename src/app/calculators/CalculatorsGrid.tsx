@@ -1,42 +1,42 @@
 // src/app/calculators/CalculatorsGrid.tsx
 'use client';
 import React, { useMemo } from 'react';
-import AdSlot from '@/components/AdSlot'; // ➕ Add this
+import AdSlot from '@/components/AdSlot';
 
 // Comprehensive list of all calculators
 const ALL_CALCULATORS = [
   // --- LOANS ---
   {
     title: 'Home Loan EMI',
-    path: '/loans/home-loan',
+    path: '/loans/home-loan/', // ✅ Added Slash
     category: 'Loans',
     icon: '🏠',
     desc: 'Calculate Home Loan EMI, check LTV, and estimate tax savings (80C & 24).',
   },
   {
     title: 'Car Loan EMI',
-    path: '/loans/car-loan',
+    path: '/loans/car-loan/', // ✅ Added Slash
     category: 'Loans',
     icon: '🚗',
     desc: 'Calculate Car Loan EMI, factoring in down payment and trade-in.',
   },
   {
     title: 'Personal Loan EMI',
-    path: '/loans/personal-loan',
+    path: '/loans/personal-loan/', // ✅ Added Slash
     category: 'Loans',
     icon: '💳',
     desc: 'Calculate Personal Loan EMI, total interest, and check affordability (FOIR).',
   },
   {
     title: 'Education Loan EMI',
-    path: '/loans/education-loan',
+    path: '/loans/education-loan/', // ✅ Added Slash
     category: 'Loans',
     icon: '🎓',
     desc: 'Calculate loan EMI, including the impact of moratorium interest.',
   },
   {
     title: 'General EMI',
-    path: '/emi-calculator',
+    path: '/emi-calculator/', // ✅ Added Slash
     category: 'Loans',
     icon: '📊',
     desc: 'Universal loan calculator for any principal, rate, and tenure.',
@@ -45,42 +45,64 @@ const ALL_CALCULATORS = [
   // --- INVESTMENT ---
   {
     title: 'SIP Planner',
-    path: '/sip-calculator',
+    path: '/sip-calculator/', // ✅ Added Slash
     category: 'Investment & Savings',
     icon: '💰',
     desc: 'Estimate the maturity value of your Systematic Investment Plan.',
   },
   {
     title: 'Lumpsum Calculator',
-    path: '/lumpsum-calculator',
+    path: '/lumpsum-calculator/', // ✅ Added Slash
     category: 'Investment & Savings',
     icon: '💎',
     desc: 'Calculate the future value (FV) and returns of a one-time investment.',
   },
   {
-    title: 'FD Calculator',
-    path: '/fd-calculator',
+    title: 'Mutual Funds', // ✅ ADDED MISSING CALCULATOR
+    path: '/mutual-funds/',
+    category: 'Investment & Savings',
+    icon: '📈',
+    desc: 'Estimate returns on equity and debt mutual funds.',
+  },
+  {
+    title: 'PPF Calculator', // ✅ ADDED MISSING CALCULATOR
+    path: '/ppf-calculator/',
     category: 'Investment & Savings',
     icon: '🏦',
+    desc: 'Calculate Public Provident Fund maturity amount and interest earned.',
+  },
+  {
+    title: 'Sukanya Samriddhi (SSY)', // ✅ ADDED MISSING CALCULATOR
+    path: '/sukanya-samriddhi/',
+    category: 'Investment & Savings',
+    icon: '👧',
+    desc: 'Calculate SSY returns for your girl child with the latest interest rates.',
+  },
+  {
+    title: 'FD Calculator',
+    path: '/fd-calculator/', // ✅ Added Slash
+    category: 'Investment & Savings',
+    icon: '📜',
     desc: 'Compute FD maturity, gross interest, and post-tax payout.',
   },
   {
     title: 'RD Calculator',
-    path: '/rd-calculator',
+    path: '/rd-calculator/', // ✅ Added Slash
     category: 'Investment & Savings',
     icon: '🔄',
     desc: 'Calculate the maturity amount for your Recurring Deposit contributions.',
   },
   {
     title: 'SWP Calculator',
-    path: '/swp-calculator',
+    path: '/swp-calculator/', // ✅ Added Slash
     category: 'Investment & Savings',
     icon: '💧',
     desc: 'Plan regular withdrawals from a corpus and check portfolio longevity.',
   },
+  // (Optional: Keep /investing only if it's a distinct "Planner" tool)
   {
-    title: 'Multi-Asset Portfolio',
-    path: '/investing',
+    title: 'Multi-Asset Planner',
+    path: '/investing/', // ✅ Added Slash
     category: 'Investment & Savings',
     icon: '🧩',
     desc: 'Analyze portfolio value based on Equity, Debt, and Gold allocation.',
@@ -89,28 +111,28 @@ const ALL_CALCULATORS = [
   // --- RETIREMENT ---
   {
     title: 'Retirement Planner',
-    path: '/retirement-calculator',
+    path: '/retirement-calculator/', // ✅ Added Slash
     category: 'Retirement & Pension',
     icon: '👵',
     desc: 'Determine required retirement corpus and monthly SIP needed to cover inflation.',
   },
   {
     title: 'EPF Calculator',
-    path: '/epf-calculator',
+    path: '/epf-calculator/', // ✅ Added Slash
     category: 'Retirement & Pension',
     icon: '👨‍💼',
     desc: 'Project the tax-free EPF corpus based on employee/employer contributions.',
   },
   {
     title: 'APY Calculator',
-    path: '/apy-calculator',
+    path: '/apy-calculator/', // ✅ Added Slash
     category: 'Retirement & Pension',
     icon: '👴',
     desc: 'Find the required contribution for a guaranteed pension under Atal Pension Yojana.',
   },
   {
     title: 'FIRE Calculator',
-    path: '/fire-calculator',
+    path: '/fire-calculator/', // ✅ Added Slash
     category: 'Retirement & Pension',
     icon: '🔥',
     desc: 'Calculate your FIRE number (28x+ expense) for early retirement planning.',
@@ -118,29 +140,29 @@ const ALL_CALCULATORS = [
 
   // --- TOOLS & TAX ---
   {
-    title: 'Inflation Calculator', // ✅ ADDED HERE
-    path: '/inflation-calculator',
+    title: 'Inflation Calculator',
+    path: '/inflation-calculator/', // ✅ Added Slash
     category: 'Tools & Tax',
     icon: '📉',
     desc: 'Calculate the future value of money and see how inflation erodes purchasing power.',
   },
   {
     title: 'Credit Score Estimator',
-    path: '/credit-score',
+    path: '/credit-score/', // ✅ Added Slash
     category: 'Tools & Tax',
     icon: '⭐',
     desc: 'Estimate your score and get an actionable plan to improve creditworthiness.',
   },
   {
     title: 'GST Calculator',
-    path: '/gst-calculator',
+    path: '/gst-calculator/', // ✅ Added Slash
     category: 'Tools & Tax',
     icon: '🧾',
     desc: 'Add or remove GST from a price and view the CGST/SGST split.',
   },
   {
     title: 'Simple Interest',
-    path: '/simple-interest-calculator',
+    path: '/simple-interest-calculator/', // ✅ Added Slash
     category: 'Tools & Tax',
     icon: '➗',
     desc: 'Basic interest calculation (I=PRT) without compounding.',

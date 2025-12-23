@@ -4,49 +4,48 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-// ... existing CALCULATOR_MENU const ...
 const CALCULATOR_MENU = [
-  // ... your existing menu items ...
   {
     category: 'Loans',
     items: [
-      { label: 'EMI Calculator', href: '/emi-calculator' },
-      { label: 'Home Loan', href: '/loans/home-loan' },
-      { label: 'Car Loan', href: '/loans/car-loan' },
-      { label: 'Personal Loan', href: '/loans/personal-loan' },
-      { label: 'Education Loan', href: '/loans/education-loan' },
+      { label: 'EMI Calculator', href: '/emi-calculator/' },
+      { label: 'Home Loan', href: '/loans/home-loan/' },
+      { label: 'Car Loan', href: '/loans/car-loan/' },
+      { label: 'Personal Loan', href: '/loans/personal-loan/' },
+      { label: 'Education Loan', href: '/loans/education-loan/' },
     ],
   },
   {
     category: 'Investment',
     items: [
-      { label: 'SIP Calculator', href: '/sip-calculator' },
-      { label: 'FD Calculator', href: '/fd-calculator' },
-      { label: 'RD Calculator', href: '/rd-calculator' },
-      { label: 'PPF Calculator', href: '/ppf-calculator' },
-      { label: 'Lumpsum', href: '/lumpsum-calculator' },
-      { label: 'SWP Calculator', href: '/swp-calculator' },
-      { label: 'SSY (Sukanya)', href: '/sukanya-samriddhi' },
-      { label: 'Mutual Funds', href: '/mutual-funds' },
+      { label: 'SIP Calculator', href: '/sip-calculator/' },
+      { label: 'FD Calculator', href: '/fd-calculator/' },
+      { label: 'RD Calculator', href: '/rd-calculator/' },
+      { label: 'PPF Calculator', href: '/ppf-calculator/' },
+      { label: 'Lumpsum', href: '/lumpsum-calculator/' },
+      { label: 'SWP Calculator', href: '/swp-calculator/' },
+      // ✅ FIX: Added trailing slash
+      { label: 'SSY (Sukanya)', href: '/sukanya-samriddhi/' },
+      { label: 'Mutual Funds', href: '/mutual-funds/' },
     ],
   },
   {
     category: 'Retirement',
     items: [
-      { label: 'Retirement Planner', href: '/retirement-calculator' },
-      { label: 'EPF Calculator', href: '/epf-calculator' },
-      { label: 'APY Calculator', href: '/apy-calculator' },
-      { label: 'FIRE Calculator', href: '/fire-calculator' },
+      { label: 'Retirement Planner', href: '/retirement-calculator/' },
+      { label: 'EPF Calculator', href: '/epf-calculator/' },
+      { label: 'APY Calculator', href: '/apy-calculator/' },
+      { label: 'FIRE Calculator', href: '/fire-calculator/' },
     ],
   },
   {
     category: 'Tools & Tax',
     items: [
-      { label: 'Credit Score', href: '/credit-score' },
-      { label: 'GST Calculator', href: '/gst-calculator' },
-      { label: 'Inflation', href: '/inflation-calculator' },
-      { label: 'Simple Interest', href: '/simple-interest-calculator' },
-      { label: 'All Calculators', href: '/calculators', bold: true },
+      { label: 'Credit Score', href: '/credit-score/' },
+      { label: 'GST Calculator', href: '/gst-calculator/' },
+      { label: 'Inflation', href: '/inflation-calculator/' },
+      { label: 'Simple Interest', href: '/simple-interest-calculator/' },
+      { label: 'All Calculators', href: '/calculators/', bold: true },
     ],
   },
 ];
@@ -146,15 +145,15 @@ export default function Header() {
             </div>
 
             <Link
-              href="/guides"
+              href="/guides/"
               className={`nav-item ${isActive('/guides') ? 'active' : ''}`}
             >
               Guides
             </Link>
 
-            {/* ✅ NEW: Hindi Link */}
+            {/* Desktop Hindi Link (Already had slash, keeping it) */}
             <Link
-              href="/hi"
+              href="/hi/"
               className="nav-item"
               style={{ fontWeight: 600, color: '#e11d48' }}
             >
@@ -163,7 +162,7 @@ export default function Header() {
           </nav>
 
           <div className="nav-actions">
-            <Link href="/emi-calculator" className="nav-btn desktop-only">
+            <Link href="/emi-calculator/" className="nav-btn desktop-only">
               EMI Calculator
             </Link>
             <button
@@ -181,9 +180,9 @@ export default function Header() {
               Home
             </Link>
 
-            {/* ✅ NEW: Mobile Hindi Link */}
+            {/* ✅ FIX: Added trailing slash to Mobile Hindi Link */}
             <Link
-              href="/hi"
+              href="/hi/"
               className="mobile-link"
               style={{ color: '#e11d48', fontWeight: 'bold' }}
             >

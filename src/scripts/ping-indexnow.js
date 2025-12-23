@@ -7,7 +7,6 @@ const path = require('path');
 // ------------------------------------------
 const HOST = 'www.fincado.com';
 const API_KEY = 'f79d7e3caed6497cafbcc9ee2cd99a55';
-const KEY_LOCATION = `https://${HOST}/${API_KEY}.txt`;
 
 // ------------------------------------------
 // 2. LOAD DATA
@@ -16,13 +15,13 @@ const articlesPath = path.join(__dirname, '../data/articles.json');
 const articles = JSON.parse(fs.readFileSync(articlesPath, 'utf8'));
 
 // ------------------------------------------
-// 3. GENERATE URL LIST
+// 3. GENERATE URL LIST (Must have trailing slashes!)
 // ------------------------------------------
 console.log(`🔍 Found ${articles.length} articles in database...`);
 
 const urlList = articles.map((article) => {
   const isHindi = article.language === 'hi';
-  // FIX: Add the slash at the end
+  // FIX: URLs must end with '/' to match your .htaccess rules
   const slugPath = isHindi
     ? `/hi/guides/${article.slug}/`
     : `/guides/${article.slug}/`;
@@ -30,7 +29,7 @@ const urlList = articles.map((article) => {
   return `https://${HOST}${slugPath}`;
 });
 
-// FIX: Add slashes to static pages too
+// FIX: Static pages must also have trailing slashes
 const staticPages = [
   `https://${HOST}/`,
   `https://${HOST}/hi/`,
@@ -48,7 +47,9 @@ console.log(`🚀 Preparing to ping IndexNow with ${allUrls.length} URLs...`);
 const data = JSON.stringify({
   host: HOST,
   key: API_KEY,
-  keyLocation: KEY_LOCATION,
+  // ⚠️ FIX: REMOVED keyLocation.
+  // We let IndexNow find it automatically at https://www.fincado.com/{key}.txt
+  // This bypasses many 403 errors.
   urlList: allUrls,
 });
 

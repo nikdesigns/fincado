@@ -1,7 +1,6 @@
 // src/components/Footer.tsx
 import React from 'react';
 import Link from 'next/link';
-import Icon, { IconName } from '@/components/Icon';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,6 +18,7 @@ export default function Footer() {
           </p>
 
           <div className="footer-social">
+            {/* External Social Links (New Tab) */}
             <SocialLink
               href="https://twitter.com"
               label="Twitter"
@@ -29,12 +29,23 @@ export default function Footer() {
               label="LinkedIn"
               path="M4.98 3.5A2.5 2.5 0 1 1 5 8.5 2.5 2.5 0 0 1 4.98 3.5zM3 9h4v12H3zM9 9h3.7v1.7h.1c.5-1 1.8-2 3.7-2C20.6 8.7 21 11 21 14.3V21h-4v-6.2c0-1.4 0-3.1-1.9-3.1-1.9 0-2.2 1.5-2.2 3v6.3H9z"
             />
-            <SocialLink
-              href="/contact"
-              label="Contact"
-              path="M3 6.5v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-11a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z M21 6.5l-9 6-9-6"
-              stroke
-            />
+            {/* Internal Contact Link (Same Tab - Fixed UX) */}
+            <Link href="/contact/" aria-label="Contact" className="social-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  d="M3 6.5v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-11a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z M21 6.5l-9 6-9-6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
 
           <div className="footer-trust">
@@ -43,82 +54,90 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* --- COLUMN 2: LOANS (Silo 1) --- */}
+        {/* --- COLUMN 2: LOANS --- */}
         <div className="footer-col">
           <h4>Loans & EMI</h4>
           <ul>
             <li>
-              <Link href="/emi-calculator">EMI Calculator</Link>
+              <Link href="/emi-calculator/">EMI Calculator</Link>
             </li>
             <li>
-              <Link href="/loans/home-loan">Home Loan</Link>
+              <Link href="/loans/home-loan/">Home Loan</Link>
             </li>
             <li>
-              <Link href="/loans/personal-loan">Personal Loan</Link>
+              <Link href="/loans/personal-loan/">Personal Loan</Link>
             </li>
             <li>
-              <Link href="/loans/car-loan">Car Loan</Link>
+              <Link href="/loans/car-loan/">Car Loan</Link>
             </li>
             <li>
-              <Link href="/loans/education-loan">Education Loan</Link>
+              <Link href="/loans/education-loan/">Education Loan</Link>
             </li>
             <li>
-              <Link href="/credit-score" className="highlight-link">
+              <Link href="/credit-score/" className="highlight-link">
                 Check Credit Score
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* --- COLUMN 3: INVESTMENTS (Silo 2) --- */}
+        {/* --- COLUMN 3: INVESTMENTS --- */}
         <div className="footer-col">
           <h4>Investments</h4>
           <ul>
             <li>
-              <Link href="/sip-calculator">SIP Calculator</Link>
+              <Link href="/sip-calculator/">SIP Calculator</Link>
             </li>
             <li>
-              <Link href="/fd-calculator">FD Calculator</Link>
+              <Link href="/fd-calculator/">FD Calculator</Link>
             </li>
             <li>
-              <Link href="/rd-calculator">RD Calculator</Link>
+              <Link href="/rd-calculator/">RD Calculator</Link>
             </li>
             <li>
-              <Link href="/ppf-calculator">PPF Calculator</Link>
+              <Link href="/ppf-calculator/">PPF Calculator</Link>
+            </li>
+            {/* ✅ Added Missing High-Value Page */}
+            <li>
+              <Link href="/sukanya-samriddhi/">Sukanya Samriddhi (SSY)</Link>
             </li>
             <li>
-              <Link href="/lumpsum-calculator">Lumpsum Returns</Link>
+              <Link href="/lumpsum-calculator/">Lumpsum Returns</Link>
             </li>
             <li>
-              <Link href="/mutual-funds">Mutual Funds</Link>
+              <Link href="/mutual-funds/">Mutual Funds</Link>
             </li>
           </ul>
         </div>
 
-        {/* --- COLUMN 4: PLANNING & TAX (Silo 3) --- */}
+        {/* --- COLUMN 4: PLANNING & TAX --- */}
         <div className="footer-col">
           <h4>Planning & Tax</h4>
           <ul>
             <li>
-              <Link href="/inflation-calculator">Inflation Calculator</Link>
+              <Link href="/inflation-calculator/">Inflation Calculator</Link>
             </li>
             <li>
-              <Link href="/retirement-calculator">Retirement Plan</Link>
+              <Link href="/retirement-calculator/">Retirement Plan</Link>
             </li>
             <li>
-              <Link href="/epf-calculator">EPF Calculator</Link>
+              <Link href="/epf-calculator/">EPF Calculator</Link>
             </li>
             <li>
-              <Link href="/swp-calculator">SWP Calculator</Link>
+              <Link href="/swp-calculator/">SWP Calculator</Link>
             </li>
             <li>
-              <Link href="/gst-calculator">GST Calculator</Link>
+              <Link href="/gst-calculator/">GST Calculator</Link>
+            </li>
+            {/* ✅ Added Missing Page */}
+            <li>
+              <Link href="/simple-interest-calculator/">Simple Interest</Link>
             </li>
             <li>
-              <Link href="/apy-calculator">APY Scheme</Link>
+              <Link href="/apy-calculator/">APY Scheme</Link>
             </li>
             <li>
-              <Link href="/fire-calculator">FIRE Calculator</Link>
+              <Link href="/fire-calculator/">FIRE Calculator</Link>
             </li>
           </ul>
         </div>
@@ -128,22 +147,22 @@ export default function Footer() {
           <h4>Company</h4>
           <ul>
             <li>
-              <Link href="/about">About Us</Link>
+              <Link href="/about/">About Us</Link>
             </li>
             <li>
-              <Link href="/contact">Contact Support</Link>
+              <Link href="/contact/">Contact Support</Link>
             </li>
             <li>
-              <Link href="/guides">Financial Guides</Link>
+              <Link href="/guides/">Financial Guides</Link>
             </li>
             <li>
-              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/privacy-policy/">Privacy Policy</Link>
             </li>
             <li>
-              <Link href="/terms">Terms of Use</Link>
+              <Link href="/terms/">Terms of Use</Link>
             </li>
             <li>
-              <Link href="/disclaimer">Disclaimer</Link>
+              <Link href="/disclaimer/">Disclaimer</Link>
             </li>
           </ul>
         </div>
@@ -165,7 +184,7 @@ export default function Footer() {
   );
 }
 
-// Helper for Social Icons
+// Helper for Social Icons (Strictly for external links now)
 function SocialLink({
   href,
   label,

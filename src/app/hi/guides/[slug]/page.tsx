@@ -6,7 +6,7 @@ import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Connects Internal Links
+import { autoLinkContent } from '@/utils/autoLinker';
 
 /* ---------------- TYPES ---------------- */
 
@@ -37,19 +37,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) return {};
 
-  const canonical = `https://www.fincado.com/hi/guides/${article.slug}/`;
+  const baseUrl = 'https://www.fincado.com';
+  // ✅ Ensure trailing slashes for Hreflang
+  const enUrl = `${baseUrl}/guides/${article.slug}/`;
+  const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
 
   return {
     title: article.seoTitle || article.title,
     description: article.metaDescription,
-    alternates: { canonical },
+    alternates: {
+      canonical: hiUrl, // Self-referencing canonical
+      languages: {
+        en: enUrl, // Connects to English version
+        hi: hiUrl, // Connects to Hindi version
+        'x-default': enUrl, // Fallback for other languages
+      },
+    },
     openGraph: {
       title: article.title,
       description: article.metaDescription,
       type: 'article',
-      url: canonical,
+      url: hiUrl,
       publishedTime: article.published,
-      locale: 'hi_IN', // ✅ Hindi Locale
+      locale: 'hi_IN',
     },
   };
 }
@@ -70,8 +80,6 @@ export default async function HindiGuidePost({ params }: Props) {
   const processedContent = autoLinkContent(article.content);
 
   // ✅ 3. Get Related Hindi Guides
-  // (Ensure your getRelatedGuides util handles language filtering,
-  // or simply filter the result here if needed)
   const related = getRelatedGuides(article.slug, article.category).filter(
     (g) => g.language === 'hi'
   );
@@ -84,7 +92,7 @@ export default async function HindiGuidePost({ params }: Props) {
     description: article.metaDescription,
     datePublished: article.published,
     dateModified: article.published,
-    inLanguage: 'hi', // ✅ Mark as Hindi
+    inLanguage: 'hi',
     articleSection: article.category,
     author: {
       '@type': 'Organization',
@@ -110,10 +118,10 @@ export default async function HindiGuidePost({ params }: Props) {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi' },
+          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi/' },
           {
             name: article.title,
-            url: `https://www.fincado.com/hi/guides/${article.slug}`,
+            url: `https://www.fincado.com/hi/guides/${article.slug}/`,
           },
         ]}
       />
@@ -161,7 +169,6 @@ export default async function HindiGuidePost({ params }: Props) {
               lineHeight: 1.6,
             }}
           >
-            {/* Display description nicely at the top */}
             <p>{article.metaDescription.replace(/<[^>]*>?/gm, '')}</p>
           </div>
         </header>
@@ -189,11 +196,12 @@ export default async function HindiGuidePost({ params }: Props) {
             <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
               {related.map((g) => (
                 <li key={g.slug} style={{ marginBottom: 12 }}>
+                  {/* ✅ FIX: Added trailing slash to internal link */}
                   <Link
-                    href={`/hi/guides/${g.slug}`}
+                    href={`/hi/guides/${g.slug}/`}
                     style={{
                       fontSize: 18,
-                      color: '#2563eb', // Standard blue link
+                      color: '#2563eb',
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}
@@ -227,7 +235,6 @@ export default async function HindiGuidePost({ params }: Props) {
 /* ---------------- STATIC GENERATION ---------------- */
 
 export async function generateStaticParams() {
-  // ✅ Only generate paths for Hindi articles
   return (articles as Article[])
     .filter((a) => a.language === 'hi')
     .map((a) => ({
