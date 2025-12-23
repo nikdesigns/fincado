@@ -1,62 +1,122 @@
 [
   {
+    "slug": "car-loan-guide",
+    "title": "Car Loan Guide 2025: Interest Rates & Down Payment",
+    "category": "Loans & Mortgages",
+    "seoTitle": "Car Loan Guide 2025: Interest Rates & Down Payment | Fincado",
+    "metaDescription": "Everything you need to know about car loans: Interest types, down payment rules, and foreclosure charges.",
+    "content": "",
+    "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "credit-score-guide",
+    "title": "Credit Score Guide: Factors & Improvement",
+    "category": "Credit Score",
+    "seoTitle": "Credit Score Guide: Factors & Improvement | Fincado",
+    "metaDescription": "Understanding the factors that affect your credit score and how to improve it.",
+    "content": "",
+    "published": "2025-01-15",
+    "language": "en"
+  },
+  {
+    "slug": "education-loan-guide",
+    "title": "Education Loan Guide 2025: Eligibility & Tax Subsidy",
+    "category": "Loans & Mortgages",
+    "seoTitle": "Education Loan Guide 2025: Eligibility & Tax Subsidy | Fincado",
+    "metaDescription": "Study abroad or in India? Learn about education loan interest rates, moratorium period, and tax savings.",
+    "content": "",
+    "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "elss-funds-guide-2025",
+    "title": "ELSS Funds Guide 2025: Save Tax & Build Wealth",
+    "category": "Mutual Funds",
+    "seoTitle": "ELSS Funds Guide 2025: 3-Year Lock-in & Tax Benefits | Fincado",
+    "metaDescription": "Learn about ELSS Mutual Funds: Section 80C tax saving, shortest 3-year lock-in, and high return potential.",
+    "content": "",
+    "published": "2025-01-08",
+    "language": "en"
+  },
+  {
     "slug": "emi-calculator-guide",
     "title": "EMI Calculator Guide 2025: Formulas, Examples & Smart Planning",
     "category": "Loans & Mortgages",
     "seoTitle": "EMI Calculator Guide 2025: Formulas, Examples & Smart Planning | Fincado",
-    "metaDescription": "Learn how <a href=\"/emi-calculator\"><a href=\"/emi-calculator\"><a href=\"/emi-calculator\"><a href=\"/emi-calculator\">EMI</a></a></a></a> is calculated, how tenure and interest affect cost, prepayment strategies, and RBI-linked loan behaviour.",
+    "metaDescription": "Learn how EMI is calculated, tenure impact, prepayment strategies, and RBI-linked loan behaviour.",
     "content": "",
     "published": "2025-12-20",
     "language": "en"
   },
   {
-    "slug": "sip-investment-strategies",
-    "title": "SIP Investment Guide 2025: Strategy, Returns & Tax Rules",
-    "category": "Mutual Funds & SIP",
-    "seoTitle": "SIP Investment Guide 2025: Strategy, Returns & Tax Rules | Fincado",
-    "metaDescription": "Understand <a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\">SIP</a></a></a></a> compounding, <a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\">SIP</a></a></a></a> vs lump sum, market cycles, tax rules, and long-term wealth strategies.",
+    "slug": "epf-guide",
+    "title": "EPF Guide 2025: Interest Rate, UAN & Withdrawal Rules",
+    "category": "Retirement",
+    "seoTitle": "EPF Guide 2025: Interest Rate, UAN & Withdrawal Rules | Fincado",
+    "metaDescription": "EPF 2025: 8.25% interest rate, EEE tax benefits, 5-year withdrawal rule, and EPF vs NPS comparison.",
     "content": "",
-    "published": "2025-12-20",
-    "language": "en"
-  },
-  {
-    "slug": "credit-score-guide-india",
-    "title": "Credit Score Guide 2025: How CIBIL Works in India",
-    "category": "Credit Score",
-    "seoTitle": "Credit Score Guide 2025: How CIBIL Works in India | Fincado",
-    "metaDescription": "Learn how credit scores are calculated, why 750+ matters, and a practical plan to fix low scores.",
-    "content": "",
-    "published": "2025-12-20",
-    "language": "en"
-  },
-  {
-    "slug": "emi-calculator-guide",
-    "title": "EMI Calculator – Complete Guide",
-    "category": "Loans & Mortgages",
-    "seoTitle": "EMI Calculator – Complete Guide | Fincado",
-    "metaDescription": "Understand <a href=\"/emi-calculator\"><a href=\"/emi-calculator\"><a href=\"/emi-calculator\"><a href=\"/emi-calculator\">EMI</a></a></a></a> calculation, formula, tax benefits, prepayment strategies and <a href=\"/credit-score\"><a href=\"/credit-score\"><a href=\"/credit-score\"><a href=\"/credit-score\">Credit Score</a></a></a></a> impact.",
-    "content": "",
-    "published": "2025-12-20",
+    "published": "2025-01-01",
     "language": "en"
   },
   {
     "slug": "fd-truths",
-    "title": "Fixed Deposit Guide: Interest, Tax & Inflation",
+    "title": "Fixed Deposit Truths: Interest, Tax & Inflation",
     "category": "Savings & FD",
-    "seoTitle": "Fixed Deposit Guide: Interest, Tax & Inflation | Fincado",
-    "metaDescription": "Learn how <a href=\"/fd-calculator\"><a href=\"/fd-calculator\"><a href=\"/fd-calculator\"><a href=\"/fd-calculator\">FD</a></a></a></a> interest works, taxation rules, and why inflation reduces real returns.",
+    "seoTitle": "Fixed Deposit Truths: Interest, Tax & Inflation | Fincado",
+    "metaDescription": "Learn how FD interest works, taxation rules, and why inflation reduces real returns.",
     "content": "",
     "published": "2025-12-20",
     "language": "en"
   },
   {
+    "slug": "fixed-deposit-guide",
+    "title": "Fixed Deposit Guide 2025: Maximizing Returns",
+    "category": "Savings & FD",
+    "seoTitle": "Fixed Deposit Guide 2025: Maximizing Returns | Fincado",
+    "metaDescription": "Strategies for FD investment, laddering, and choosing the right bank for higher interest rates.",
+    "content": "",
+    "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "gold-investment-guide",
+    "title": "Gold Investment Guide: SGB vs Digital vs Physical",
+    "category": "Gold Investment",
+    "seoTitle": "Gold Investment Guide: SGB vs Digital vs Physical | Fincado",
+    "metaDescription": "Compare different ways to buy gold: SGB, Digital Gold, ETFs, and Physical Jewelry.",
+    "content": "",
+    "published": "2025-01-10",
+    "language": "en"
+  },
+  {
     "slug": "gst-explained",
-    "title": "GST Explained for Individuals & Small Businesses",
+    "title": "GST Explained: Concepts & Basics",
     "category": "Taxation",
-    "seoTitle": "GST Explained for Individuals & Small Businesses | Fincado",
-    "metaDescription": "GST simplified: slabs, reverse charge, ITC and common mistakes.",
+    "seoTitle": "GST Explained: Concepts & Basics | Fincado",
+    "metaDescription": "GST simplified: Understanding slabs, input tax credit, and how it affects your purchases.",
     "content": "",
     "published": "2025-12-20",
+    "language": "en"
+  },
+  {
+    "slug": "gst-guide",
+    "title": "GST Guide 2025 for Individuals & Businesses",
+    "category": "Taxation",
+    "seoTitle": "GST Guide 2025 for Individuals & Businesses | Fincado",
+    "metaDescription": "Comprehensive GST guide covering registration, filing, and compliance for small businesses.",
+    "content": "",
+    "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "health-insurance-buying-guide",
+    "title": "Health Insurance Buying Guide India",
+    "category": "Insurance",
+    "seoTitle": "Health Insurance Buying Guide India: Top 5 Checks | Fincado",
+    "metaDescription": "Before buying mediclaim, check room rent capping, NCB, waiting periods, and cashless network.",
+    "content": "",
+    "published": "2025-01-12",
     "language": "en"
   },
   {
@@ -64,47 +124,17 @@
     "title": "Home Loan for First-Time Buyers (India)",
     "category": "Loans & Mortgages",
     "seoTitle": "Home Loan for First-Time Buyers (India) | Fincado",
-    "metaDescription": "Eligibility, FOIR, down payment rules, tax benefits and mistakes to avoid.",
+    "metaDescription": "Specific guide for first-time buyers: PMAY scheme, eligibility, and extra tax benefits.",
     "content": "",
     "published": "2025-12-20",
     "language": "en"
   },
   {
-    "slug": "how-credit-score-works-india",
-    "title": "Credit Score Guide (CIBIL Focus)",
-    "category": "Credit Score",
-    "seoTitle": "Credit Score Guide (CIBIL Focus) | Fincado",
-    "metaDescription": "CIBIL score range, factors, <a href=\"/emi-calculator\"><a href=\"/emi-calculator\"><a href=\"/emi-calculator\"><a href=\"/emi-calculator\">EMI</a></a></a></a> impact and step-by-step improvement plan.",
-    "content": "",
-    "published": "2025-12-20",
-    "language": "en"
-  },
-  {
-    "slug": "sip-investment-guide",
-    "title": "SIP Investment Guide (Beginner to Advanced)",
-    "category": "Mutual Funds & SIP",
-    "seoTitle": "SIP Investment Guide (Beginner to Advanced) | Fincado",
-    "metaDescription": "How <a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\">SIP</a></a></a></a> works, compounding, tax rules, returns and common mistakes.",
-    "content": "",
-    "published": "2025-12-20",
-    "language": "en"
-  },
-  {
-    "slug": "sip-vs-fd",
-    "title": "SIP vs FD – Which Is Better?",
-    "category": "Investments",
-    "seoTitle": "SIP vs FD – Which Is Better? | Fincado",
-    "metaDescription": "Compare <a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\"><a href=\"/sip-calculator\">SIP</a></a></a></a> vs <a href=\"/fd-calculator\"><a href=\"/fd-calculator\"><a href=\"/fd-calculator\"><a href=\"/fd-calculator\">FD</a></a></a></a> returns, taxation and inflation-adjusted performance.",
-    "content": "",
-    "published": "2025-12-20",
-    "language": "en"
-  },
-  {
-    "slug": "retirement-planning-india",
-    "title": "Retirement Planning Guide (India)",
-    "category": "Retirement",
-    "seoTitle": "Retirement Planning Guide (India) | Fincado",
-    "metaDescription": "Inflation-adjusted retirement planning using EPF, PPF and NPS.",
+    "slug": "home-loan-guide",
+    "title": "Home Loan Guide 2025: Eligibility, Rates & Tax Benefits",
+    "category": "Loans & Mortgages",
+    "seoTitle": "Home Loan Guide 2025: Eligibility, Rates & Tax Benefits | Fincado",
+    "metaDescription": "Complete guide to home loans: Eligibility, FOIR, down payment rules, and Section 80C/24b benefits.",
     "content": "",
     "published": "2025-12-20",
     "language": "en"
@@ -114,9 +144,19 @@
     "title": "How Credit Score Affects Your Loan Approval",
     "category": "Credit Score",
     "seoTitle": "How Credit Score Affects Loans | Fincado",
-    "metaDescription": "Discover how your <a href=\"/credit-score\"><a href=\"/credit-score\"><a href=\"/credit-score\"><a href=\"/credit-score\">Credit Score</a></a></a></a> impacts loan eligibility and interest rates.",
+    "metaDescription": "Discover how your Credit Score impacts loan eligibility and interest rates.",
     "content": "",
     "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "how-credit-score-works-india",
+    "title": "Credit Score Guide 2025: How CIBIL Works in India",
+    "category": "Credit Score",
+    "seoTitle": "Credit Score Guide 2025: How CIBIL Works in India | Fincado",
+    "metaDescription": "Learn how credit scores are calculated, why 750+ matters, and a practical plan to fix low scores.",
+    "content": "",
+    "published": "2025-12-20",
     "language": "en"
   },
   {
@@ -125,6 +165,46 @@
     "category": "Financial Literacy",
     "seoTitle": "Inflation Guide 2025 | Fincado",
     "metaDescription": "Learn how inflation erodes purchasing power and how to beat it with smart investments.",
+    "content": "",
+    "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "mutual-fund-guide",
+    "title": "Mutual Fund Guide 2025: Beginners to Advanced",
+    "category": "Mutual Funds",
+    "seoTitle": "Mutual Fund Guide 2025: Beginners to Advanced | Fincado",
+    "metaDescription": "Everything you need to know about Mutual Funds: Types, Risks, Returns, and How to Choose.",
+    "content": "",
+    "published": "2025-01-15",
+    "language": "en"
+  },
+  {
+    "slug": "new-vs-old-tax-regime-2025",
+    "title": "New vs Old Tax Regime 2025: Which is Better?",
+    "category": "Taxation",
+    "seoTitle": "New vs Old Tax Regime 2025: Tax Slab Comparison | Fincado",
+    "metaDescription": "Compare New vs Old Tax Regime tax slabs, deductions, and exemptions to choose the best option for FY 2025-26.",
+    "content": "",
+    "published": "2025-01-08",
+    "language": "en"
+  },
+  {
+    "slug": "nps-guide",
+    "title": "NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal",
+    "category": "Retirement",
+    "seoTitle": "NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal | Fincado",
+    "metaDescription": "NPS 2025 guide: 10-12% returns, ₹2L tax deduction, Tier 1 vs Tier 2, and new 80-20 withdrawal rules.",
+    "content": "",
+    "published": "2025-01-01",
+    "language": "en"
+  },
+  {
+    "slug": "personal-loan-guide",
+    "title": "Personal Loan Guide 2025: Rates, CIBIL & Hidden Charges",
+    "category": "Loans & Mortgages",
+    "seoTitle": "Personal Loan Guide 2025: Rates, CIBIL & Hidden Charges | Fincado",
+    "metaDescription": "Personal loan guide: Interest rates, CIBIL score requirements, flat vs reducing rate trap, and hidden charges.",
     "content": "",
     "published": "2025-01-01",
     "language": "en"
@@ -140,34 +220,44 @@
     "language": "en"
   },
   {
-    "slug": "new-vs-old-tax-regime-2025",
-    "title": "New vs Old Tax Regime 2025: Which is Better?",
-    "category": "Taxation",
-    "seoTitle": "New vs Old Tax Regime 2025: Tax Slab Comparison | Fincado",
-    "metaDescription": "Compare New vs Old Tax Regime tax slabs, deductions, and exemptions to choose the best option for FY 2025-26.",
+    "slug": "ppf-guide",
+    "title": "PPF Guide 2025: Interest Rate, Withdrawal & Tax Benefits",
+    "category": "Savings & FD",
+    "seoTitle": "PPF Guide 2025: Interest Rate, Withdrawal & Tax Benefits | Fincado",
+    "metaDescription": "PPF 2025 guide: 7.1% interest, EEE tax status, 5th-month deposit rule, and loan against PPF rules.",
     "content": "",
-    "language": "en",
-    "published": "2025-01-08"
+    "published": "2025-01-01",
+    "language": "en"
   },
   {
-    "slug": "sukanya-samriddhi-yojana-guide",
-    "title": "Sukanya Samriddhi Yojana (SSY) Guide 2025",
-    "category": "Government Schemes",
-    "seoTitle": "Sukanya Samriddhi Yojana (SSY) Guide 2025: Rules & Interest | Fincado",
-    "metaDescription": "Complete guide to SSY 2025: Eligibility, 8.2% interest rate, calculator, withdrawal rules, and tax benefits (80C).",
+    "slug": "retirement-planning-india",
+    "title": "Retirement Planning Guide (India)",
+    "category": "Retirement",
+    "seoTitle": "Retirement Planning Guide (India) | Fincado",
+    "metaDescription": "Inflation-adjusted retirement planning using EPF, PPF and NPS.",
     "content": "",
-    "language": "en",
-    "published": "2025-01-05"
+    "published": "2025-12-20",
+    "language": "en"
   },
   {
-    "slug": "elss-funds-guide-2025",
-    "title": "ELSS Funds Guide 2025: Save Tax & Build Wealth",
-    "category": "Mutual Funds",
-    "seoTitle": "ELSS Funds Guide 2025: 3-Year Lock-in & Tax Benefits | Fincado",
-    "metaDescription": "Learn about ELSS Mutual Funds: Section 80C tax saving, shortest 3-year lock-in, and high return potential.",
+    "slug": "sip-investment-guide",
+    "title": "SIP Investment Guide 2025: Strategy, Returns & Tax Rules",
+    "category": "Mutual Funds & SIP",
+    "seoTitle": "SIP Investment Guide 2025: Strategy, Returns & Tax Rules | Fincado",
+    "metaDescription": "Understand SIP compounding, SIP vs lump sum, market cycles, tax rules, and long-term wealth strategies.",
     "content": "",
-    "language": "en",
-    "published": "2025-01-08"
+    "published": "2025-12-20",
+    "language": "en"
+  },
+  {
+    "slug": "sip-vs-fd",
+    "title": "SIP vs FD – Which Is Better?",
+    "category": "Investments",
+    "seoTitle": "SIP vs FD – Which Is Better? | Fincado",
+    "metaDescription": "Compare SIP vs FD returns, taxation and inflation-adjusted performance.",
+    "content": "",
+    "published": "2025-12-20",
+    "language": "en"
   },
   {
     "slug": "sovereign-gold-bond-sgb-guide",
@@ -176,19 +266,40 @@
     "seoTitle": "Sovereign Gold Bonds (SGB) Guide 2025: Interest & Tax | Fincado",
     "metaDescription": "Complete SGB guide: Earn 2.5% fixed interest + gold appreciation. Tax-free maturity and government safety.",
     "content": "",
-    "language": "en",
-    "published": "2025-01-10"
+    "published": "2025-01-10",
+    "language": "en"
   },
   {
-    "slug": "health-insurance-buying-guide",
-    "title": "Health Insurance Buying Guide India",
-    "category": "Insurance",
-    "seoTitle": "Health Insurance Buying Guide India: Top 5 Checks | Fincado",
-    "metaDescription": "Before buying mediclaim, check room rent capping, NCB, waiting periods, and cashless network.",
+    "slug": "ssy-guide",
+    "title": "SSY Guide: Quick Facts & Benefits",
+    "category": "Government Schemes",
+    "seoTitle": "SSY Guide: Quick Facts & Benefits | Fincado",
+    "metaDescription": "Quick overview of Sukanya Samriddhi Yojana benefits and features.",
     "content": "",
-    "language": "en",
-    "published": "2025-01-12"
+    "published": "2025-01-05",
+    "language": "en"
   },
+  {
+    "slug": "sukanya-samriddhi-yojana-guide-2025",
+    "title": "Sukanya Samriddhi Yojana (SSY) Guide 2025",
+    "category": "Government Schemes",
+    "seoTitle": "Sukanya Samriddhi Yojana (SSY) Guide 2025: Rules & Interest | Fincado",
+    "metaDescription": "Complete guide to SSY 2025: Eligibility, 8.2% interest rate, calculator, withdrawal rules, and tax benefits.",
+    "content": "",
+    "published": "2025-01-05",
+    "language": "en"
+  },
+  {
+    "slug": "swp-guide",
+    "title": "SWP Guide: Generate Regular Income",
+    "category": "Mutual Funds",
+    "seoTitle": "SWP Guide: Systematic Withdrawal Plan Explained | Fincado",
+    "metaDescription": "Learn how SWP works to generate a regular monthly income from your mutual fund investments.",
+    "content": "",
+    "published": "2025-01-15",
+    "language": "en"
+  },
+
   {
     "slug": "sukanya-samriddhi-yojana",
     "title": "सुकन्या समृद्धि योजना (SSY) 2025: पूरी जानकारी",

@@ -194,7 +194,7 @@ export default function PersonalLoanGuidePage() {
 
       {/* --- INTRO --- */}
       <WikiText
-        content={`A **personal loan** is an unsecured loan provided by banks and NBFCs for any personal use—medical emergencies, weddings, vacations, debt consolidation, or business needs—without requiring collateral or security. Unlike home or car loans where the property/vehicle is pledged, personal loans are sanctioned purely based on your creditworthiness, income stability, and repayment capacity.`}
+        content={`A <strong>personal loan</strong> is an unsecured loan provided by banks and NBFCs for any personal use—medical emergencies, weddings, vacations, debt consolidation, or business needs—without requiring collateral or security. Unlike home or car loans where the property/vehicle is pledged, personal loans are sanctioned purely based on your creditworthiness, income stability, and repayment capacity.`}
       />
 
       <div className="callout-box info-box">
@@ -516,7 +516,7 @@ export default function PersonalLoanGuidePage() {
         How Credit Score Affects Personal Loan Interest Rates
       </h2>
       <WikiText
-        content={`Your **CIBIL score** is the single most important factor determining your interest rate. Here's the exact correlation based on 2025 lending.`}
+        content={`Your <strong>CIBIL score</strong> is the single most important factor determining your interest rate. Here's the exact correlation based on 2025 lending.`}
       />
 
       <div className="guide-image-wrap">
@@ -896,7 +896,7 @@ export default function PersonalLoanGuidePage() {
         Flat Rate vs Reducing Balance: The ₹1 Lakh Difference
       </h2>
       <WikiText
-        content={`This is **THE MOST IMPORTANT** concept in personal loans that 70% of borrowers don't understand, leading to massive overpayment.`}
+        content={`This is <strong>THE MOST IMPORTANT</strong> concept in personal loans that 70% of borrowers don't understand, leading to massive overpayment.`}
       />
 
       <div className="guide-image-wrap">
