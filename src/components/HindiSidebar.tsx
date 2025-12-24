@@ -2,16 +2,36 @@ import Link from 'next/link';
 import AdSlot from './AdSlot';
 
 const MENU_ITEMS = [
+  // --- LOANS ---
+  { label: '🏠 होम लोन EMI', href: '/hi/loans/home-loan/' },
+  { label: '🚗 कार लोन EMI', href: '/hi/loans/car-loan/' },
+  { label: '💳 पर्सनल लोन EMI', href: '/hi/loans/personal-loan/' },
+  { label: '🎓 एजुकेशन लोन', href: '/hi/loans/education-loan/' },
+  { label: '🔢 EMI कैलकुलेटर', href: '/hi/emi-calculator/' },
+
+  // --- INVESTMENT ---
   { label: '📈 SIP कैलकुलेटर', href: '/hi/sip-calculator/' },
-  { label: '💰 Lumpsum (एकमुश्त)', href: '/hi/lumpsum-calculator/' },
-  { label: '💸 SWP (पेंशन)', href: '/hi/swp-calculator/' },
-  { label: '🏠 EMI कैलकुलेटर', href: '/hi/emi-calculator/' },
+  { label: '💰 लम्पसम (एकमुश्त)', href: '/hi/lumpsum-calculator/' },
+  { label: '📊 म्यूचुअल फंड', href: '/hi/mutual-funds/' },
   { label: '🏦 PPF कैलकुलेटर', href: '/hi/ppf-calculator/' },
-  { label: '👧 SSY (सुकन्या योजना)', href: '/hi/sukanya-samriddhi/' },
-  { label: '📊 GST कैलकुलेटर', href: '/hi/gst-calculator/' },
-  { label: '🔄 RD कैलकुलेटर', href: '/hi/rd-calculator/' },
+  { label: '👧 SSY (सुकन्या)', href: '/hi/sukanya-samriddhi/' },
   { label: '📜 FD कैलकुलेटर', href: '/hi/fd-calculator/' },
-  { label: '➗ साधारण ब्याज (SI)', href: '/hi/simple-interest-calculator/' },
+  { label: '🔄 RD कैलकुलेटर', href: '/hi/rd-calculator/' },
+  { label: '💸 SWP (पेंशन)', href: '/hi/swp-calculator/' },
+
+  // --- RETIREMENT ---
+  { label: '👴 रिटायरमेंट प्लानर', href: '/hi/retirement-calculator/' },
+  { label: '🏢 EPF कैलकुलेटर', href: '/hi/epf-calculator/' },
+  { label: '☂️ अटल पेंशन (APY)', href: '/hi/apy-calculator/' },
+  { label: '🎁 ग्रेच्युटी (Gratuity)', href: '/hi/gratuity-calculator/' },
+  { label: '🔥 FIRE कैलकुलेटर', href: '/hi/fire-calculator/' },
+
+  // --- TOOLS ---
+  { label: '📉 महंगाई (Inflation)', href: '/hi/inflation-calculator/' },
+  { label: '⭐ क्रेडिट स्कोर', href: '/hi/credit-score/' },
+  { label: '🧾 GST कैलकुलेटर', href: '/hi/gst-calculator/' },
+  { label: '🔄 कंपाउंड इंटरेस्ट', href: '/hi/compound-interest-calculator/' },
+  { label: '➗ साधारण ब्याज', href: '/hi/simple-interest-calculator/' },
 ];
 
 export default function HindiSidebar() {
@@ -53,10 +73,10 @@ export default function HindiSidebar() {
               <Link
                 href={item.href}
                 style={{
-                  color: '#15803d', // Darker green for better contrast
+                  color: '#15803d',
                   textDecoration: 'none',
                   fontWeight: 600,
-                  fontSize: '16px',
+                  fontSize: '15px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
@@ -78,7 +98,7 @@ export default function HindiSidebar() {
           }}
         >
           <Link
-            href="/calculators/" // ✅ Fixed trailing slash
+            href="/calculators/"
             style={{
               fontSize: '15px',
               color: '#475569',

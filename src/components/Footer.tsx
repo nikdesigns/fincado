@@ -29,7 +29,7 @@ export default function Footer() {
               label="LinkedIn"
               path="M4.98 3.5A2.5 2.5 0 1 1 5 8.5 2.5 2.5 0 0 1 4.98 3.5zM3 9h4v12H3zM9 9h3.7v1.7h.1c.5-1 1.8-2 3.7-2C20.6 8.7 21 11 21 14.3V21h-4v-6.2c0-1.4 0-3.1-1.9-3.1-1.9 0-2.2 1.5-2.2 3v6.3H9z"
             />
-            {/* Internal Contact Link (Same Tab - Fixed UX) */}
+            {/* Internal Contact Link (Same Tab) */}
             <Link href="/contact/" aria-label="Contact" className="social-icon">
               <svg
                 width="20"
@@ -97,7 +97,6 @@ export default function Footer() {
             <li>
               <Link href="/ppf-calculator/">PPF Calculator</Link>
             </li>
-            {/* ✅ Added Missing High-Value Page */}
             <li>
               <Link href="/sukanya-samriddhi/">Sukanya Samriddhi (SSY)</Link>
             </li>
@@ -124,20 +123,23 @@ export default function Footer() {
               <Link href="/epf-calculator/">EPF Calculator</Link>
             </li>
             <li>
-              <Link href="/swp-calculator/">SWP Calculator</Link>
+              <Link href="/gratuity-calculator/">Gratuity Calculator</Link>{' '}
+              {/* ✅ Added */}
             </li>
             <li>
               <Link href="/gst-calculator/">GST Calculator</Link>
             </li>
-            {/* ✅ Added Missing Page */}
+            <li>
+              <Link href="/compound-interest-calculator/">
+                Compound Interest
+              </Link>{' '}
+              {/* ✅ Added */}
+            </li>
             <li>
               <Link href="/simple-interest-calculator/">Simple Interest</Link>
             </li>
             <li>
               <Link href="/apy-calculator/">APY Scheme</Link>
-            </li>
-            <li>
-              <Link href="/fire-calculator/">FIRE Calculator</Link>
             </li>
           </ul>
         </div>
@@ -184,7 +186,7 @@ export default function Footer() {
   );
 }
 
-// Helper for Social Icons (Strictly for external links now)
+// Helper for Social Icons
 function SocialLink({
   href,
   label,

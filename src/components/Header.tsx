@@ -24,7 +24,6 @@ const CALCULATOR_MENU = [
       { label: 'PPF Calculator', href: '/ppf-calculator/' },
       { label: 'Lumpsum', href: '/lumpsum-calculator/' },
       { label: 'SWP Calculator', href: '/swp-calculator/' },
-      // ✅ FIX: Added trailing slash
       { label: 'SSY (Sukanya)', href: '/sukanya-samriddhi/' },
       { label: 'Mutual Funds', href: '/mutual-funds/' },
     ],
@@ -35,6 +34,7 @@ const CALCULATOR_MENU = [
       { label: 'Retirement Planner', href: '/retirement-calculator/' },
       { label: 'EPF Calculator', href: '/epf-calculator/' },
       { label: 'APY Calculator', href: '/apy-calculator/' },
+      { label: 'Gratuity Calculator', href: '/gratuity-calculator/' }, // ✅ Added
       { label: 'FIRE Calculator', href: '/fire-calculator/' },
     ],
   },
@@ -45,6 +45,7 @@ const CALCULATOR_MENU = [
       { label: 'GST Calculator', href: '/gst-calculator/' },
       { label: 'Inflation', href: '/inflation-calculator/' },
       { label: 'Simple Interest', href: '/simple-interest-calculator/' },
+      { label: 'Compound Interest', href: '/compound-interest-calculator/' }, // ✅ Added
       { label: 'All Calculators', href: '/calculators/', bold: true },
     ],
   },
@@ -151,7 +152,6 @@ export default function Header() {
               Guides
             </Link>
 
-            {/* Desktop Hindi Link (Already had slash, keeping it) */}
             <Link
               href="/hi/"
               className="nav-item"
@@ -180,7 +180,6 @@ export default function Header() {
               Home
             </Link>
 
-            {/* ✅ FIX: Added trailing slash to Mobile Hindi Link */}
             <Link
               href="/hi/"
               className="mobile-link"

@@ -74,10 +74,9 @@ const excludedSlugs = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Helper to ensure trailing slash matches next.config.js
   const getUrl = (path: string) => {
     if (path === '') return `${BASE_URL}/`;
-    return `${BASE_URL}${path}/`; // ✅ Force Trailing Slash
+    return `${BASE_URL}${path}/`;
   };
 
   // 1. Static English Pages
@@ -113,6 +112,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/apy-calculator',
     '/sukanya-samriddhi',
     '/fire-calculator',
+    '/gratuity-calculator', // ✅ Added
+    '/compound-interest-calculator', // ✅ Added
     // Loans
     '/loans/home-loan',
     '/loans/personal-loan',
@@ -129,15 +130,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 2. Static Hindi Pages
   const hindiRoutes = [
     '/hi',
-    '/hi/sip-calculator',
+    // Loans
+    '/hi/loans/home-loan',
+    '/hi/loans/car-loan',
+    '/hi/loans/personal-loan',
+    '/hi/loans/education-loan',
     '/hi/emi-calculator',
+    // Investment
+    '/hi/sip-calculator',
+    '/hi/lumpsum-calculator',
+    '/hi/mutual-funds',
     '/hi/ppf-calculator',
+    '/hi/sukanya-samriddhi',
     '/hi/fd-calculator',
     '/hi/rd-calculator',
-    '/hi/gst-calculator',
-    '/hi/lumpsum-calculator',
     '/hi/swp-calculator',
-    '/hi/sukanya-samriddhi',
+    // Retirement
+    '/hi/retirement-calculator',
+    '/hi/epf-calculator',
+    '/hi/apy-calculator',
+    '/hi/gratuity-calculator',
+    '/hi/fire-calculator',
+    // Tools
+    '/hi/inflation-calculator',
+    '/hi/credit-score',
+    '/hi/gst-calculator',
+    '/hi/compound-interest-calculator',
     '/hi/simple-interest-calculator',
   ].map((route) => ({
     url: getUrl(route),
@@ -146,7 +164,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // 3. Dynamic Articles (English & Hindi)
+  // ... (Article, Category, City, Bank logic remains same)
+  // Just copy the rest
   const articleRoutes = articlesData
     .filter((article) => !excludedSlugs.includes(article.slug))
     .map((article) => {
@@ -163,7 +182,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       };
     });
 
-  // 4. Category Pages
   const categories = Array.from(new Set(articlesData.map((a) => a.category)));
   const categoryRoutes = categories.map((cat) => ({
     url: getUrl(`/guides/category/${encodeURIComponent(cat)}`),
@@ -172,7 +190,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // 5. City EMI Pages
   const cityRoutes = supportedCitySlugs.map((slug) => ({
     url: getUrl(`/emi-calculator/${slug}`),
     lastModified: new Date(),
@@ -180,7 +197,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // 6. Bank Pages
   const bankRoutes = bankSlugs.map((slug) => ({
     url: getUrl(`/bank-emi/${slug}`),
     lastModified: new Date(),
@@ -188,7 +204,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // 7. Bank + City Pages
   const bankCityRoutes: MetadataRoute.Sitemap = [];
   bankSlugs.forEach((bank) => {
     supportedCitySlugs.forEach((city) => {
