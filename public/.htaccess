@@ -45,7 +45,7 @@ RewriteCond %{REQUEST_URI} !\.html$
 RewriteCond %{REQUEST_URI} !\.txt$
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
-# --- FIX: Old /calculators/ Subfolder (From 404 Report) ---
+# --- FIX: Old /calculators/ Subfolder ---
 Redirect 301 /calculators/emi-calculator/ /emi-calculator/
 Redirect 301 /calculators/sip-calculator/ /sip-calculator/
 Redirect 301 /calculators/ppf-calculator/ /ppf-calculator/
@@ -58,10 +58,12 @@ Redirect 301 /calculators/simple-interest-calculator/ /simple-interest-calculato
 Redirect 301 /calculators/step-up-sip-calculator/ /sip-calculator/
 Redirect 301 /calculators/fire-calculator/ /fire-calculator/
 Redirect 301 /calculators/swp-calculator/ /swp-calculator/
-Redirect 301 /calculators/compound-interest-calculator/ /simple-interest-calculator/
-Redirect 301 /calculators/gratuity-calculator/ /calculators/
 Redirect 301 /calculators/loan-calculator/ /emi-calculator/
 Redirect 301 /calculators/retirement-calculator/ /retirement-calculator/
+
+# ✅ FIXED: Now pointing to the new pages
+Redirect 301 /calculators/compound-interest-calculator/ /compound-interest-calculator/
+Redirect 301 /calculators/gratuity-calculator/ /gratuity-calculator/
 
 # --- Complex Mappings (Folder -> Loan Category) ---
 Redirect 301 /calculators/home-loan-calculator/ /loans/home-loan/
