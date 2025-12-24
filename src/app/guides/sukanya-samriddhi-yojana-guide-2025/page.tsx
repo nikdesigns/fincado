@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: 'Sukanya Samriddhi Yojana (SSY) Guide 2025: Interest Rate & Rules',
   description:
     'Complete guide to SSY 2025. Check current 8.2% interest rate, eligibility, withdrawal rules, tax benefits (80C), and calculator.',
+  keywords: [
+    'Sukanya Samriddhi Yojana 2025',
+    'SSY interest rate 2025',
+    'SSY calculator',
+    'Sukanya Samriddhi Yojana eligibility',
+    'SSY withdrawal rules',
+    'girl child savings scheme',
+    'post office sukanya samriddhi yojana',
+    'tax saving schemes for girl child',
+  ],
   alternates: {
     canonical:
       'https://www.fincado.com/guides/sukanya-samriddhi-yojana-guide-2025',

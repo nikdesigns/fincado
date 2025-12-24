@@ -122,7 +122,7 @@ export default function CreditScorePage() {
         />
 
         <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/" />
+          <LanguageToggle path="/hi/credit-score/" />
           <h1>Credit Score Estimator</h1>
           <ShareTools title="Credit Score Estimator" />
           <WikiText

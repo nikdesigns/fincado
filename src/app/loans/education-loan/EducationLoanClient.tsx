@@ -11,7 +11,58 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function EducationLoanClient() {
+// ✅ Interface for custom labels
+interface EduLoanLabels {
+  loanAmount: string;
+  interestRate: string;
+  moratorium: string;
+  repaymentTenure: string;
+  payInterestToggle: string;
+  monthlyEMI: string;
+  principalCap: string;
+  totalInterest: string;
+  interestSavedMsg: string;
+  interestAddedMsg: string;
+  repaymentSchedule: string;
+  startsAfter: string;
+  copy: string;
+  export: string;
+  print: string;
+  month: string;
+  principal: string;
+  interest: string;
+  balance: string;
+}
+
+const DEFAULT_LABELS: EduLoanLabels = {
+  loanAmount: 'Loan Amount (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  moratorium: 'Course Moratorium (Months)',
+  repaymentTenure: 'Repayment Tenure (Years)',
+  payInterestToggle: 'Pay Interest during Moratorium?',
+  monthlyEMI: 'Monthly EMI',
+  principalCap: 'Principal + Cap.',
+  totalInterest: 'Total Interest',
+  interestSavedMsg: '✅ You save interest on principal!',
+  interestAddedMsg: '⚠️ Interest added to principal',
+  repaymentSchedule: 'Repayment Schedule',
+  startsAfter: 'Starts after moratorium period',
+  copy: 'Copy',
+  export: 'Export',
+  print: 'Print',
+  month: 'Month',
+  principal: 'Principal',
+  interest: 'Interest',
+  balance: 'Balance',
+};
+
+export default function EducationLoanClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<EduLoanLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [loanAmount, setLoanAmount] = useState(1000000); // 10 Lakhs
   const [rate, setRate] = useState(10.5); // 10.5% Avg
@@ -31,7 +82,6 @@ export default function EducationLoanClient() {
     const repayMonths = repayYears * 12;
 
     // 1. Calculate Interest during Moratorium
-    // Simple Interest Formula usually applies during moratorium for capitalization
     const moratoriumInterest = Math.round(
       loanAmount * (rate / 100) * (moratoriumMonths / 12)
     );
@@ -39,7 +89,6 @@ export default function EducationLoanClient() {
     let principalAtRepaymentStart = loanAmount;
 
     if (!payInterestDuringMoratorium) {
-      // Capitalize interest if not paid
       principalAtRepaymentStart += moratoriumInterest;
     }
 
@@ -61,7 +110,6 @@ export default function EducationLoanClient() {
       principalAtRepaymentStart +
       (payInterestDuringMoratorium ? moratoriumInterest : 0);
 
-    // Interest % logic
     const totalCost =
       totalRepayment + (payInterestDuringMoratorium ? moratoriumInterest : 0);
     const interestPct =
@@ -98,7 +146,6 @@ export default function EducationLoanClient() {
       balance -= principal;
 
       if (i <= 120) {
-        // Limit rows
         data.push({
           month: i,
           principal,
@@ -112,7 +159,7 @@ export default function EducationLoanClient() {
 
   // --- ACTIONS ---
   const downloadCSV = () => {
-    const headers = ['Month,Principal,Interest,Balance'];
+    const headers = [`${t.month},${t.principal},${t.interest},${t.balance}`];
     const rows = schedule.map(
       (r) =>
         `${r.month},${Math.round(r.principal)},${Math.round(
@@ -137,7 +184,7 @@ export default function EducationLoanClient() {
       )
       .join('\n');
     navigator.clipboard.writeText(
-      `Month\tPrincipal\tInterest\tBalance\n${text}`
+      `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`
     );
     alert('Copied to clipboard!');
   };
@@ -150,14 +197,13 @@ export default function EducationLoanClient() {
 
   return (
     <div className="card calculator-card">
-      {/* 1. INPUTS & CHART */}
       <div className="calc-grid">
         <div
           className="calc-inputs"
           style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
         >
           <div className="input-group">
-            <label>Loan Amount (₹)</label>
+            <label>{t.loanAmount}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -179,7 +225,7 @@ export default function EducationLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.interestRate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -200,7 +246,7 @@ export default function EducationLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Course Moratorium (Months)</label>
+            <label>{t.moratorium}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -222,7 +268,7 @@ export default function EducationLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Repayment Tenure (Years)</label>
+            <label>{t.repaymentTenure}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -257,7 +303,7 @@ export default function EducationLoanClient() {
               htmlFor="payInterest"
               style={{ marginBottom: 0, fontWeight: 500, cursor: 'pointer' }}
             >
-              Pay Interest during Moratorium?
+              {t.payInterestToggle}
             </label>
           </div>
         </div>
@@ -272,7 +318,7 @@ export default function EducationLoanClient() {
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Monthly EMI
+                {t.monthlyEMI}
               </span>
               <div
                 style={{
@@ -296,10 +342,10 @@ export default function EducationLoanClient() {
             >
               <div style={{ color: '#64748b' }}>
                 {payInterestDuringMoratorium
-                  ? `✅ You save interest on principal!`
-                  : `⚠️ Interest of ${formatINR(
+                  ? t.interestSavedMsg
+                  : `${t.interestAddedMsg} ${formatINR(
                       calculations.moratoriumInterest
-                    )} added to principal`}
+                    )}`}
               </div>
             </div>
             <div
@@ -320,7 +366,7 @@ export default function EducationLoanClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Principal + Cap.
+                  {t.principalCap}
                 </div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(calculations.principalAtRepaymentStart)}
@@ -335,7 +381,7 @@ export default function EducationLoanClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Interest
+                  {t.totalInterest}
                 </div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(calculations.totalInterest)}
@@ -350,20 +396,20 @@ export default function EducationLoanClient() {
       <div style={{ marginTop: 40 }}>
         <div className="table-header-row table-actions">
           <div>
-            <h3>Repayment Schedule</h3>
+            <h3>{t.repaymentSchedule}</h3>
             <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
-              Starts after moratorium period
+              {t.startsAfter}
             </p>
           </div>
           <div className="table-actions">
             <button onClick={copyToClipboard} className="action-btn">
-              Copy
+              {t.copy}
             </button>
             <button onClick={downloadCSV} className="action-btn">
-              Export
+              {t.export}
             </button>
             <button onClick={printPage} className="action-btn">
-              Print
+              {t.print}
             </button>
           </div>
         </div>
@@ -372,10 +418,10 @@ export default function EducationLoanClient() {
           <table className="rate-table">
             <thead>
               <tr>
-                <th style={{ textAlign: 'left' }}>Month</th>
-                <th style={{ textAlign: 'right' }}>Principal</th>
-                <th style={{ textAlign: 'right' }}>Interest</th>
-                <th style={{ textAlign: 'right' }}>Balance</th>
+                <th style={{ textAlign: 'left' }}>{t.month}</th>
+                <th style={{ textAlign: 'right' }}>{t.principal}</th>
+                <th style={{ textAlign: 'right' }}>{t.interest}</th>
+                <th style={{ textAlign: 'right' }}>{t.balance}</th>
               </tr>
             </thead>
             <tbody>

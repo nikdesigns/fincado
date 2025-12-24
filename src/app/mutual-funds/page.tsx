@@ -134,7 +134,7 @@ export default function MutualFundPage() {
         />
 
         <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/" />
+          <LanguageToggle path="/hi/mutual-funds" />
           <h1>Mutual Fund Portfolio Planner</h1>
           <ShareTools title="Mutual Fund Portfolio Planner" />
           <WikiText

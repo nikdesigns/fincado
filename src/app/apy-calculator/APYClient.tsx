@@ -1,3 +1,4 @@
+// src/app/apy-calculator/APYClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
@@ -40,7 +41,52 @@ const APY_CONTRIBUTION_5000_PENSION: Record<number, number> = {
 
 const PENSION_SLABS = [1000, 2000, 3000, 4000, 5000];
 
-export default function APYClient() {
+// ✅ Interface for custom labels
+interface APYLabels {
+  joiningAge: string;
+  desiredPension: string;
+  contributionFreq: string;
+  contributionYears: string;
+  pensionStartsAt: string;
+  resetDefaults: string;
+  youNeedToPay: string;
+  totalInvestment: string;
+  corpusToNominee: string;
+  guaranteedPension: string;
+  forSpouse: string;
+  per: string;
+  monthly: string;
+  quarterly: string;
+  halfYearly: string;
+  years: string;
+}
+
+const DEFAULT_LABELS: APYLabels = {
+  joiningAge: 'Joining Age (18-40 Yrs)',
+  desiredPension: 'Desired Monthly Pension (₹)',
+  contributionFreq: 'Contribution Frequency',
+  contributionYears: 'Contribution Years:',
+  pensionStartsAt: 'Pension Starts At:',
+  resetDefaults: 'Reset Defaults',
+  youNeedToPay: 'You Need To Pay',
+  totalInvestment: 'Total Investment',
+  corpusToNominee: 'Corpus to Nominee',
+  guaranteedPension: 'Guaranteed Monthly Pension',
+  forSpouse: '(For you & your spouse)',
+  per: '/',
+  monthly: 'Monthly',
+  quarterly: 'Quarterly',
+  halfYearly: 'Half-Yearly',
+  years: 'Years',
+};
+
+export default function APYClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<APYLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [joiningAge, setJoiningAge] = useState<number>(25);
   const [desiredPension, setDesiredPension] = useState<number>(5000);
@@ -112,6 +158,14 @@ export default function APYClient() {
     (e: React.ChangeEvent<HTMLInputElement>) =>
       setter(Number(e.target.value) || 0);
 
+  // Helper to translate frequency value for display
+  const getFrequencyLabel = (freq: string) => {
+    if (freq === 'Monthly') return t.monthly;
+    if (freq === 'Quarterly') return t.quarterly;
+    if (freq === 'Half-Yearly') return t.halfYearly;
+    return freq;
+  };
+
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
@@ -119,7 +173,7 @@ export default function APYClient() {
         <div className="calc-inputs">
           {/* 1. Age */}
           <div className="input-group">
-            <label>Joining Age (18-40 Yrs)</label>
+            <label>{t.joiningAge}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -142,7 +196,7 @@ export default function APYClient() {
 
           {/* 2. Pension Slab */}
           <div className="input-group">
-            <label>Desired Monthly Pension (₹)</label>
+            <label>{t.desiredPension}</label>
             <div className="input-wrapper">
               <select
                 value={desiredPension}
@@ -165,7 +219,7 @@ export default function APYClient() {
 
           {/* 3. Frequency */}
           <div className="input-group">
-            <label>Contribution Frequency</label>
+            <label>{t.contributionFreq}</label>
             <div className="input-wrapper">
               <select
                 value={frequency}
@@ -177,9 +231,9 @@ export default function APYClient() {
                   outline: 'none',
                 }}
               >
-                <option value="Monthly">Monthly</option>
-                <option value="Quarterly">Quarterly</option>
-                <option value="Half-Yearly">Half-Yearly</option>
+                <option value="Monthly">{t.monthly}</option>
+                <option value="Quarterly">{t.quarterly}</option>
+                <option value="Half-Yearly">{t.halfYearly}</option>
               </select>
             </div>
           </div>
@@ -201,15 +255,15 @@ export default function APYClient() {
               }}
             >
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Contribution Years:
+                {t.contributionYears}
               </span>
               <span style={{ fontWeight: 600 }}>
-                {results.yearsOfContribution} Years
+                {results.yearsOfContribution} {t.years}
               </span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Pension Starts At:
+                {t.pensionStartsAt}
               </span>
               <span style={{ fontWeight: 600 }}>Age 60</span>
             </div>
@@ -228,7 +282,7 @@ export default function APYClient() {
               fontSize: 13,
             }}
           >
-            Reset Defaults
+            {t.resetDefaults}
           </button>
         </div>
 
@@ -244,7 +298,7 @@ export default function APYClient() {
             {/* Main Result: Required Contribution */}
             <div style={{ marginBottom: 16, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                You Need To Pay
+                {t.youNeedToPay}
               </span>
               <div
                 style={{
@@ -258,7 +312,7 @@ export default function APYClient() {
                   style={{ fontSize: 16, fontWeight: 500, color: '#64748b' }}
                 >
                   {' '}
-                  / {frequency}
+                  {t.per} {getFrequencyLabel(frequency)}
                 </span>
               </div>
             </div>
@@ -281,7 +335,7 @@ export default function APYClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Total Investment</div>
+                <div style={{ color: '#64748b' }}>{t.totalInvestment}</div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(results.totalInvestment)}
                 </div>
@@ -294,7 +348,7 @@ export default function APYClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Corpus to Nominee</div>
+                <div style={{ color: '#64748b' }}>{t.corpusToNominee}</div>
                 <div style={{ fontWeight: 600, color: '#16a34a' }}>
                   {formatINR(results.nomineeCorpus)}
                 </div>
@@ -313,13 +367,13 @@ export default function APYClient() {
               }}
             >
               <div style={{ fontSize: 12, color: '#9a3412', marginBottom: 4 }}>
-                Guaranteed Monthly Pension
+                {t.guaranteedPension}
               </div>
               <div style={{ fontSize: 20, fontWeight: 700, color: '#c2410c' }}>
                 {formatINR(desiredPension)}
               </div>
               <div style={{ fontSize: 11, color: '#9a3412', marginTop: 2 }}>
-                (For you & your spouse)
+                {t.forSpouse}
               </div>
             </div>
           </div>

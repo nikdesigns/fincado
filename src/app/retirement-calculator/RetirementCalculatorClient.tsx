@@ -1,3 +1,4 @@
+// src/app/retirement-calculator/RetirementCalculatorClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
@@ -11,7 +12,48 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function RetirementCalculatorClient() {
+// ✅ Interface for custom labels
+interface RetirementLabels {
+  currentAge: string;
+  retireAge: string;
+  currentExpense: string;
+  currentSavings: string;
+  advancedRates: string;
+  inflation: string;
+  preRetireReturn: string;
+  postRetireReturn: string;
+  resetDefaults: string;
+  targetCorpus: string;
+  sipNeeded: string;
+  perMonth: string;
+  expenseAtRetirement: string;
+  currentSavingsFV: string;
+}
+
+const DEFAULT_LABELS: RetirementLabels = {
+  currentAge: 'Current Age',
+  retireAge: 'Retire Age',
+  currentExpense: 'Current Monthly Expense (₹)',
+  currentSavings: 'Current Savings (₹)',
+  advancedRates: 'Advanced Rates (Inflation, Returns)',
+  inflation: 'Inflation (%)',
+  preRetireReturn: 'Pre-Retire Return (%)',
+  postRetireReturn: 'Post-Retire Return (%)',
+  resetDefaults: 'Reset Defaults',
+  targetCorpus: 'Target Retirement Corpus',
+  sipNeeded: 'SIP Needed to Bridge Gap',
+  perMonth: '/mo',
+  expenseAtRetirement: 'Expense at Retirement',
+  currentSavingsFV: 'Current Savings FV',
+};
+
+export default function RetirementCalculatorClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<RetirementLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [currentAge, setCurrentAge] = useState<number>(30);
   const [retirementAge, setRetirementAge] = useState<number>(60);
@@ -77,9 +119,7 @@ export default function RetirementCalculatorClient() {
       }
     }
 
-    // 6. Pie Chart Data (Projected Corpus Breakdown)
-    // Corpus comes from: FV of Existing Savings + FV of New SIPs
-    // To visualize "How much you have" vs "Gap"
+    // 6. Pie Chart Data
     const securedPct =
       targetCorpus > 0
         ? Math.min(100, Math.round((fvCurrentSavings / targetCorpus) * 100))
@@ -131,7 +171,7 @@ export default function RetirementCalculatorClient() {
           {/* Ages */}
           <div style={{ display: 'flex', gap: 16 }}>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Current Age</label>
+              <label>{t.currentAge}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -143,7 +183,7 @@ export default function RetirementCalculatorClient() {
               </div>
             </div>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Retire Age</label>
+              <label>{t.retireAge}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -158,7 +198,7 @@ export default function RetirementCalculatorClient() {
 
           {/* Current Financials */}
           <div className="input-group">
-            <label>Current Monthly Expense (₹)</label>
+            <label>{t.currentExpense}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -180,7 +220,7 @@ export default function RetirementCalculatorClient() {
           </div>
 
           <div className="input-group">
-            <label>Current Savings (₹)</label>
+            <label>{t.currentSavings}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -210,7 +250,7 @@ export default function RetirementCalculatorClient() {
                 fontWeight: 500,
               }}
             >
-              Advanced Rates (Inflation, Returns)
+              {t.advancedRates}
             </summary>
             <div
               style={{
@@ -221,7 +261,7 @@ export default function RetirementCalculatorClient() {
               }}
             >
               <div className="input-group">
-                <label>Inflation (%)</label>
+                <label>{t.inflation}</label>
                 <input
                   className="input-small"
                   type="number"
@@ -231,7 +271,7 @@ export default function RetirementCalculatorClient() {
                 />
               </div>
               <div className="input-group">
-                <label>Pre-Retire Return (%)</label>
+                <label>{t.preRetireReturn}</label>
                 <input
                   className="input-small"
                   type="number"
@@ -241,7 +281,7 @@ export default function RetirementCalculatorClient() {
                 />
               </div>
               <div className="input-group">
-                <label>Post-Retire Return (%)</label>
+                <label>{t.postRetireReturn}</label>
                 <input
                   className="input-small"
                   type="number"
@@ -266,15 +306,15 @@ export default function RetirementCalculatorClient() {
               fontSize: 13,
             }}
           >
-            Reset Defaults
+            {t.resetDefaults}
           </button>
         </div>
 
         {/* --- RIGHT: VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
-            principalPct={results.securedPct} // Represents "Secured" by current savings
-            interestPct={results.gapPct} // Represents "Gap" to be filled
+            principalPct={results.securedPct}
+            interestPct={results.gapPct}
             size={200}
           />
 
@@ -282,7 +322,7 @@ export default function RetirementCalculatorClient() {
             {/* Main Result: Target Corpus */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Target Retirement Corpus
+                {t.targetCorpus}
               </span>
               <div
                 style={{
@@ -307,11 +347,11 @@ export default function RetirementCalculatorClient() {
               }}
             >
               <div style={{ fontSize: 12, color: '#7e22ce', fontWeight: 600 }}>
-                SIP Needed to Bridge Gap
+                {t.sipNeeded}
               </div>
               <div style={{ fontSize: 22, fontWeight: 800, color: '#6b21a8' }}>
                 {formatINR(results.requiredSIP)}
-                <span style={{ fontSize: 14 }}>/mo</span>
+                <span style={{ fontSize: 14 }}>{t.perMonth}</span>
               </div>
             </div>
 
@@ -333,7 +373,7 @@ export default function RetirementCalculatorClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Expense at 60</div>
+                <div style={{ color: '#64748b' }}>{t.expenseAtRetirement}</div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(Math.round(results.monthlyExpenseAtRetirement))}
                 </div>
@@ -346,7 +386,7 @@ export default function RetirementCalculatorClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Current Savings FV</div>
+                <div style={{ color: '#64748b' }}>{t.currentSavingsFV}</div>
                 <div style={{ fontWeight: 600, color: '#16a34a' }}>
                   {formatINR(results.fvCurrentSavings)}
                 </div>

@@ -39,18 +39,13 @@
 RewriteEngine On
 
 # --- FIX: Force Trailing Slash (With Anti-Loop & IndexNow Protection) ---
-# 1. If it's NOT a real file
 RewriteCond %{REQUEST_FILENAME} !-f
-# 2. And it does NOT end in a slash
 RewriteCond %{REQUEST_URI} !/$
-# 3. And it is NOT an .html file (This stops the infinite loop!)
 RewriteCond %{REQUEST_URI} !\.html$
-# 4. And it is NOT a .txt file (Safeguard for IndexNow/Robots.txt)
 RewriteCond %{REQUEST_URI} !\.txt$
 RewriteRule ^(.*)$ /$1/ [L,R=301]
 
 # --- FIX: Old /calculators/ Subfolder (From 404 Report) ---
-# These catch traffic going to /calculators/xyz and send it to /xyz
 Redirect 301 /calculators/emi-calculator/ /emi-calculator/
 Redirect 301 /calculators/sip-calculator/ /sip-calculator/
 Redirect 301 /calculators/ppf-calculator/ /ppf-calculator/
@@ -63,6 +58,10 @@ Redirect 301 /calculators/simple-interest-calculator/ /simple-interest-calculato
 Redirect 301 /calculators/step-up-sip-calculator/ /sip-calculator/
 Redirect 301 /calculators/fire-calculator/ /fire-calculator/
 Redirect 301 /calculators/swp-calculator/ /swp-calculator/
+Redirect 301 /calculators/compound-interest-calculator/ /simple-interest-calculator/
+Redirect 301 /calculators/gratuity-calculator/ /calculators/
+Redirect 301 /calculators/loan-calculator/ /emi-calculator/
+Redirect 301 /calculators/retirement-calculator/ /retirement-calculator/
 
 # --- Complex Mappings (Folder -> Loan Category) ---
 Redirect 301 /calculators/home-loan-calculator/ /loans/home-loan/
@@ -88,12 +87,17 @@ Redirect 301 /retirement-plan /retirement-calculator/
 Redirect 301 /credit-score-calculator /credit-score/
 Redirect 301 /investing /mutual-funds/
 
-# --- Guide Fixes ---
+# --- Guide Fixes (Canonical & Broken Links) ---
 Redirect 301 /guides/home-loan-for-first-time-buyers /guides/home-loan-first-time-buyers/
 Redirect 301 /guides/personal-loan-interest-rates /loans/personal-loan/
 Redirect 301 /guides/sip-investment-strategies /guides/sip-investment-guide/
 Redirect 301 /guides/credit-score-guide-india /guides/how-credit-score-works-india/
 Redirect 301 /guides/emi-calculator-guide-2025 /guides/emi-calculator-guide/
+
+# ✅ NEW: Canonical Fixes from directives_all.csv
+Redirect 301 /guides/personal-loan-interest-rates-india/ /guides/personal-loan-interest-rates/
+Redirect 301 /guides/home-loan-first-time-buyers/ /guides/home-loan-for-first-time-buyers/
+Redirect 301 /guides/how-credit-score-works-india/ /guides/how-credit-score-affects-loans/
 
 # --- General ---
 Redirect 301 /privacy /privacy-policy/
@@ -103,21 +107,16 @@ Redirect 301 /faq /faqs/
 # 5. STATIC FILE HANDLING (Next.js Export)
 # ================================
 
-# If the request matches a real file or directory, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Internal Rewrite: Map folder/ to folder/index.html
-# Only if the index.html actually exists (Prevents 404 loops)
 RewriteCond %{REQUEST_URI} \/$
 RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
 RewriteRule ^(.*)/$ $1/index.html [L]
 
-# Clean URL Map: If /about requested, try /about.html
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*)$ $1.html [L]
 
-# 404 Fallback
 ErrorDocument 404 /404.html

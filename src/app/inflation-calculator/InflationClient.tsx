@@ -1,3 +1,4 @@
+// src/app/inflation-calculator/InflationClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
@@ -11,7 +12,35 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function InflationClient() {
+// ✅ Interface for custom labels
+interface InflationLabels {
+  currentAmount: string;
+  inflationRate: string;
+  timePeriod: string;
+  futureValueRequired: string;
+  todaysValue: string;
+  inflationImpact: string;
+  disclaimer: string;
+}
+
+const DEFAULT_LABELS: InflationLabels = {
+  currentAmount: 'Current Amount (₹)',
+  inflationRate: 'Inflation Rate (% p.a)',
+  timePeriod: 'Time Period (Years)',
+  futureValueRequired: 'Future Value Required',
+  todaysValue: "Today's Value",
+  inflationImpact: 'Inflation Impact',
+  disclaimer:
+    '*Inflation rates used are indicative averages. Actual inflation may vary by category and time period.',
+};
+
+export default function InflationClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<InflationLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [amount, setAmount] = useState(100000); // ₹1 Lakh
   const [rate, setRate] = useState(6); // Avg India inflation
@@ -63,7 +92,7 @@ export default function InflationClient() {
         >
           {/* Current Amount */}
           <div className="input-group">
-            <label>Current Amount (₹)</label>
+            <label>{t.currentAmount}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -86,7 +115,7 @@ export default function InflationClient() {
 
           {/* Inflation Rate */}
           <div className="input-group">
-            <label>Inflation Rate (% p.a)</label>
+            <label>{t.inflationRate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -110,7 +139,7 @@ export default function InflationClient() {
 
           {/* Years */}
           <div className="input-group">
-            <label>Time Period (Years)</label>
+            <label>{t.timePeriod}</label>
             <div className="input-wrapper">
               <input type="number" value={years} onChange={safeSet(setYears)} />
             </div>
@@ -139,7 +168,7 @@ export default function InflationClient() {
           <div style={{ marginTop: 24, textAlign: 'center' }}>
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Future Value Required
+                {t.futureValueRequired}
               </span>
               <div
                 style={{
@@ -170,7 +199,7 @@ export default function InflationClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Today&apos;s Value
+                  {t.todaysValue}
                 </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(amount)}</div>
               </div>
@@ -184,7 +213,7 @@ export default function InflationClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Inflation Impact
+                  {t.inflationImpact}
                 </div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(calculations.inflationLoss)}
@@ -202,8 +231,7 @@ export default function InflationClient() {
           marginTop: 10,
         }}
       >
-        *Inflation rates used are indicative averages. Actual inflation may vary
-        by category and time period.
+        {t.disclaimer}
       </p>
     </div>
   );

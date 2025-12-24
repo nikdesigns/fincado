@@ -1,3 +1,4 @@
+// src/app/epf-calculator/EPFClient.tsx
 'use client';
 
 import React, { useMemo, useState, useRef } from 'react';
@@ -11,7 +12,58 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function EPFClient() {
+// ✅ Interface for custom labels
+interface EPFLabels {
+  basicSalary: string;
+  yourContribution: string;
+  employerContribution: string;
+  employmentPeriod: string;
+  annualIncrease: string;
+  currentInterestRate: string;
+  resetDefaults: string;
+  estimatedCorpus: string;
+  yourShare: string;
+  employerShare: string;
+  totalInterest: string;
+  yearlyGrowth: string;
+  balanceAccumulation: string;
+  exportCSV: string;
+  year: string;
+  youContrib: string;
+  employerContrib: string;
+  interest: string;
+  balance: string;
+}
+
+const DEFAULT_LABELS: EPFLabels = {
+  basicSalary: 'Monthly Basic Salary + DA (₹)',
+  yourContribution: 'Your Contribution (%)',
+  employerContribution: 'Employer Contrib (%)',
+  employmentPeriod: 'Employment Period (Years)',
+  annualIncrease: 'Expected Annual Increase (% p.a)',
+  currentInterestRate: 'Current Interest Rate',
+  resetDefaults: 'Reset Defaults',
+  estimatedCorpus: 'Estimated EPF Corpus',
+  yourShare: 'Your Share',
+  employerShare: 'Employer Share',
+  totalInterest: 'Total Interest Earned',
+  yearlyGrowth: 'Yearly EPF Growth',
+  balanceAccumulation: 'Balance accumulation over',
+  exportCSV: 'Export CSV',
+  year: 'Year',
+  youContrib: 'You Contrib.',
+  employerContrib: 'Employer Contrib.',
+  interest: 'Interest',
+  balance: 'Balance',
+};
+
+export default function EPFClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<EPFLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [basicSalary, setBasicSalary] = useState<number>(40000); // Monthly Basic + DA
   const [employeePct, setEmployeePct] = useState<number>(12); // Employee Contrib %
@@ -31,61 +83,27 @@ export default function EPFClient() {
 
   // --- CALCULATIONS ---
   const calculation = useMemo(() => {
-    // Logic:
-    // Employee Share = 12% of Basic (goes to EPF)
-    // Employer Share = 12% of Basic -> split: 3.67% to EPF, 8.33% to EPS
-    // EPS contribution is capped on wage ceiling of 15,000 (usually), but calculator often simplifies.
-    // Here we use the standard breakdown.
-
     const empMonthly = (basicSalary * employeePct) / 100;
-
-    // Employer EPF portion (3.67%)
     const erEPFMonthly = (basicSalary * 3.67) / 100;
-    // Employer EPS portion (8.33%) - Not part of EPF corpus usually, but kept separate
-    // For this calculator, we only track the EPF Corpus growth.
-
-    // Total monthly addition to EPF account
     const totalMonthlyEPF = empMonthly + erEPFMonthly;
 
-    // Simulation
     let balance = 0;
     let totalEmployeeContrib = 0;
     let totalEmployerEPFContrib = 0;
     const schedule = [];
 
-    // Monthly compounding logic not strictly applicable (EPF is monthly calc, annual credit).
-    // Standard approximation:
     for (let y = 1; y <= years; y++) {
       let interestEarnedThisYear = 0;
       const openingBal = balance;
 
-      // Simulate 12 months
-      for (let m = 1; m <= 12; m++) {
-        balance += totalMonthlyEPF; // Add contribution
-        // Interest is calculated on the running balance monthly
-        const monthlyInterest = (balance * (annualRate / 100)) / 12;
-        interestEarnedThisYear += monthlyInterest;
-      }
-
-      // In reality, interest is credited at end of year
-      // We add the accrued interest to balance at year end
-      // (Note: The above loop added interest monthly which compounds it monthly.
-      // EPF is simple interest monthly, compounded annually. Let's adjust).
-
-      // CORRECTED LOOP for EPF:
       // Reset balance to opening for recalculation to be precise
       balance = openingBal;
       interestEarnedThisYear = 0;
 
       for (let m = 1; m <= 12; m++) {
-        // Add contribution at end of month (or start, usually end for salary)
         balance += totalMonthlyEPF;
-
-        // Calculate interest on this month's closing balance
-        // (EPF rule: Interest on lowest bal between 5th and end. Assuming deposit by 5th)
         interestEarnedThisYear += (balance * (annualRate / 100)) / 12;
       }
-      // Credit interest at year end
       balance += interestEarnedThisYear;
 
       totalEmployeeContrib += empMonthly * 12;
@@ -132,7 +150,7 @@ export default function EPFClient() {
 
   const exportCSV = () => {
     const header = [
-      'Year,Employee Contrib,Employer EPF Contrib,Interest,Balance',
+      `${t.year},${t.youContrib},${t.employerContrib},${t.interest},${t.balance}`,
     ];
     const lines = [header.join(',')].concat(
       calculation.schedule.map((r) =>
@@ -161,7 +179,7 @@ export default function EPFClient() {
         <div className="calc-inputs">
           {/* 1. Basic Salary */}
           <div className="input-group">
-            <label>Monthly Basic Salary + DA (₹)</label>
+            <label>{t.basicSalary}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -187,7 +205,7 @@ export default function EPFClient() {
             style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
           >
             <div className="input-group">
-              <label>Your Contribution (%)</label>
+              <label>{t.yourContribution}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -198,7 +216,7 @@ export default function EPFClient() {
               </div>
             </div>
             <div className="input-group">
-              <label>Employer Contrib (%)</label>
+              <label>{t.employerContribution}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -212,7 +230,7 @@ export default function EPFClient() {
 
           {/* 3. Tenure & Rate */}
           <div className="input-group">
-            <label>Employment Period (Years)</label>
+            <label>{t.employmentPeriod}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -232,7 +250,7 @@ export default function EPFClient() {
           </div>
 
           <div className="input-group">
-            <label>Expected Annual Increase (% p.a)</label>
+            <label>{t.annualIncrease}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -242,7 +260,7 @@ export default function EPFClient() {
               />
             </div>
             <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-              Current Interest Rate: <strong>8.25%</strong>
+              {t.currentInterestRate}: <strong>8.25%</strong>
             </div>
           </div>
 
@@ -259,7 +277,7 @@ export default function EPFClient() {
               fontSize: 13,
             }}
           >
-            Reset Defaults
+            {t.resetDefaults}
           </button>
         </div>
 
@@ -275,7 +293,7 @@ export default function EPFClient() {
             {/* Main Result */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Estimated EPF Corpus
+                {t.estimatedCorpus}
               </span>
               <div
                 style={{
@@ -306,7 +324,7 @@ export default function EPFClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Your Share</div>
+                <div style={{ color: '#64748b' }}>{t.yourShare}</div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(calculation.totalEmployeeContrib)}
                 </div>
@@ -319,7 +337,7 @@ export default function EPFClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Employer Share</div>
+                <div style={{ color: '#64748b' }}>{t.employerShare}</div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(calculation.totalEmployerEPFContrib)}
                 </div>
@@ -336,7 +354,7 @@ export default function EPFClient() {
               }}
             >
               <div style={{ color: '#64748b', fontSize: 13 }}>
-                Total Interest Earned
+                {t.totalInterest}
               </div>
               <div
                 style={{
@@ -356,14 +374,15 @@ export default function EPFClient() {
       <div style={{ marginTop: 40 }}>
         <div className="table-header-row table-actions">
           <div>
-            <h3>Yearly EPF Growth</h3>
+            <h3>{t.yearlyGrowth}</h3>
             <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
-              Balance accumulation over {years} years
+              {t.balanceAccumulation} {years}{' '}
+              {t.year === 'वर्ष' ? 'वर्ष' : 'years'}
             </p>
           </div>
           <div className="table-actions">
             <button onClick={exportCSV} className="action-btn">
-              Export CSV
+              {t.exportCSV}
             </button>
           </div>
         </div>
@@ -375,11 +394,11 @@ export default function EPFClient() {
           <table className="rate-table">
             <thead>
               <tr>
-                <th style={{ textAlign: 'left' }}>Year</th>
-                <th style={{ textAlign: 'right' }}>You Contrib.</th>
-                <th style={{ textAlign: 'right' }}>Employer Contrib.</th>
-                <th style={{ textAlign: 'right' }}>Interest</th>
-                <th style={{ textAlign: 'right' }}>Balance</th>
+                <th style={{ textAlign: 'left' }}>{t.year}</th>
+                <th style={{ textAlign: 'right' }}>{t.youContrib}</th>
+                <th style={{ textAlign: 'right' }}>{t.employerContrib}</th>
+                <th style={{ textAlign: 'right' }}>{t.interest}</th>
+                <th style={{ textAlign: 'right' }}>{t.balance}</th>
               </tr>
             </thead>
             <tbody>

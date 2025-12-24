@@ -11,9 +11,47 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function PersonalLoanClient() {
+// ✅ Interface for custom labels
+interface PersonalLoanLabels {
+  loanAmount: string;
+  interestRate: string;
+  tenure: string;
+  monthlyEMI: string;
+  principal: string;
+  interest: string;
+  amortizationSchedule: string;
+  monthlyBreakdown: string;
+  copy: string;
+  export: string;
+  print: string;
+  month: string;
+  balance: string;
+}
+
+const DEFAULT_LABELS: PersonalLoanLabels = {
+  loanAmount: 'Loan Amount (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  tenure: 'Tenure (Years)',
+  monthlyEMI: 'Monthly EMI',
+  principal: 'Principal',
+  interest: 'Interest',
+  amortizationSchedule: 'Amortization Schedule',
+  monthlyBreakdown: 'Monthly breakdown',
+  copy: 'Copy',
+  export: 'Export',
+  print: 'Print',
+  month: 'Month',
+  balance: 'Balance',
+};
+
+export default function PersonalLoanClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<PersonalLoanLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
-  // Defaults suitable for Personal Loans (smaller amount, higher rate, shorter tenure)
   const [amount, setAmount] = useState(500000); // 5 Lakhs
   const [rate, setRate] = useState(11.0); // 11% (Avg PL Rate)
   const [tenure, setTenure] = useState(3); // 3 Years
@@ -81,7 +119,7 @@ export default function PersonalLoanClient() {
 
   // --- ACTIONS ---
   const downloadCSV = () => {
-    const headers = ['Month,Principal,Interest,Balance'];
+    const headers = [`${t.month},${t.principal},${t.interest},${t.balance}`];
     const rows = schedule.map(
       (r) =>
         `${r.month},${Math.round(r.principal)},${Math.round(
@@ -106,7 +144,7 @@ export default function PersonalLoanClient() {
       )
       .join('\n');
     navigator.clipboard.writeText(
-      `Month\tPrincipal\tInterest\tBalance\n${text}`
+      `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`
     );
     alert('Copied to clipboard!');
   };
@@ -127,7 +165,7 @@ export default function PersonalLoanClient() {
         >
           {/* Loan Amount */}
           <div className="input-group">
-            <label>Loan Amount (₹)</label>
+            <label>{t.loanAmount}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -148,7 +186,7 @@ export default function PersonalLoanClient() {
 
           {/* Interest Rate */}
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.interestRate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -170,7 +208,7 @@ export default function PersonalLoanClient() {
 
           {/* Tenure */}
           <div className="input-group">
-            <label>Tenure (Years)</label>
+            <label>{t.tenure}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -200,7 +238,7 @@ export default function PersonalLoanClient() {
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Monthly EMI
+                {t.monthlyEMI}
               </span>
               <div
                 style={{
@@ -229,7 +267,9 @@ export default function PersonalLoanClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Principal</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.principal}
+                </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(amount)}</div>
               </div>
               <div
@@ -240,7 +280,9 @@ export default function PersonalLoanClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Interest</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.interest}
+                </div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(calculations.totalInterest)}
                 </div>
@@ -254,20 +296,20 @@ export default function PersonalLoanClient() {
       <div style={{ marginTop: 40 }}>
         <div className="table-header-row table-actions">
           <div>
-            <h3>Amortization Schedule</h3>
+            <h3>{t.amortizationSchedule}</h3>
             <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
-              Monthly breakdown
+              {t.monthlyBreakdown}
             </p>
           </div>
           <div className="table-actions">
             <button onClick={copyToClipboard} className="action-btn">
-              Copy
+              {t.copy}
             </button>
             <button onClick={downloadCSV} className="action-btn">
-              Export
+              {t.export}
             </button>
             <button onClick={printPage} className="action-btn">
-              Print
+              {t.print}
             </button>
           </div>
         </div>
@@ -276,10 +318,10 @@ export default function PersonalLoanClient() {
           <table className="rate-table">
             <thead>
               <tr>
-                <th style={{ textAlign: 'left' }}>Month</th>
-                <th style={{ textAlign: 'right' }}>Principal</th>
-                <th style={{ textAlign: 'right' }}>Interest</th>
-                <th style={{ textAlign: 'right' }}>Balance</th>
+                <th style={{ textAlign: 'left' }}>{t.month}</th>
+                <th style={{ textAlign: 'right' }}>{t.principal}</th>
+                <th style={{ textAlign: 'right' }}>{t.interest}</th>
+                <th style={{ textAlign: 'right' }}>{t.balance}</th>
               </tr>
             </thead>
             <tbody>

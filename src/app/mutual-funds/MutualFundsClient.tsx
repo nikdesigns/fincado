@@ -1,3 +1,4 @@
+// src/app/mutual-funds/MutualFundsClient.tsx
 /* eslint-disable react/no-unescaped-entities */
 'use client';
 
@@ -13,17 +14,11 @@ const formatINR = (val: number) =>
   }).format(val);
 
 // Helper: Simple Pie for Allocation Visualization
-// (We reuse the main PieChart but map the data format)
 const AllocPieChart = ({
   slices,
 }: {
   slices: { color: string; pct: number }[];
 }) => {
-  // Mapping to PieChart props: principalPct/interestPct isn't enough for 4 slices.
-  // Assuming PieChart component can handle generic slices or we adapt.
-  // For this specific complex chart, using a custom svg implementation here or adapting the existing one.
-  // Since the instruction is "similar way", I'll implement a simple multi-slice donut here visually matching the design.
-
   const size = 220;
   const strokeWidth = 40;
   const radius = (size - strokeWidth) / 2;
@@ -89,7 +84,60 @@ const AllocPieChart = ({
   );
 };
 
-export default function MutualFundsClient() {
+// ✅ Interface for custom labels
+interface MFLabels {
+  monthlySIP: string;
+  lumpSum: string;
+  horizon: string;
+  strategy: string;
+  conservative: string;
+  balanced: string;
+  growth: string;
+  equity: string;
+  debt: string;
+  gold: string;
+  cash: string;
+  return: string;
+  inflation: string;
+  inflationSub: string;
+  resetDefaults: string;
+  portfolioValue: string;
+  blendedReturn: string;
+  totalInvested: string;
+  wealthGained: string;
+  realValue: string;
+}
+
+const DEFAULT_LABELS: MFLabels = {
+  monthlySIP: 'Monthly SIP Amount (₹)',
+  lumpSum: 'Lump Sum Investment (₹)',
+  horizon: 'Investment Horizon (Years)',
+  strategy: 'Asset Allocation Strategy',
+  conservative: 'Conservative',
+  balanced: 'Balanced',
+  growth: 'Growth',
+  equity: 'Equity (%)',
+  debt: 'Debt (%)',
+  gold: 'Gold (%)',
+  cash: 'Cash (%)',
+  return: 'Return',
+  inflation: 'Inflation Rate (%)',
+  inflationSub: '- for real value adjustment',
+  resetDefaults: 'Reset Defaults',
+  portfolioValue: 'Estimated Portfolio Value',
+  blendedReturn: 'Blended Return',
+  totalInvested: 'Total Invested',
+  wealthGained: 'Wealth Gained',
+  realValue: "Real Value (Today's Terms)",
+};
+
+export default function MutualFundsClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<MFLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [monthlySIP, setMonthlySIP] = useState<number>(10000);
   const [lumpSumNow, setLumpSumNow] = useState<number>(100000);
@@ -145,9 +193,9 @@ export default function MutualFundsClient() {
   // --- CALCULATIONS ---
   const results = useMemo(() => {
     const months = Math.round(years * 12);
-    const totalAlloc = equityPct + debtPct + goldPct + cashPct || 1; // Avoid divide by zero
+    const totalAlloc = equityPct + debtPct + goldPct + cashPct || 1;
 
-    // Normalize allocations to ratios (0-1)
+    // Normalize allocations
     const alloc = {
       equity: equityPct / totalAlloc,
       debt: debtPct / totalAlloc,
@@ -155,14 +203,11 @@ export default function MutualFundsClient() {
       cash: cashPct / totalAlloc,
     };
 
-    // Calculate FV for each asset class
-    // FV = FV_SIP + FV_LumpSum
     const calcFV = (ratio: number, rate: number) => {
       const monthlyRate = rate / 12 / 100;
       const sipAmount = monthlySIP * ratio;
       const lumpAmount = lumpSumNow * ratio;
 
-      // SIP FV (Annuity Due)
       let fvSip = 0;
       if (monthlyRate === 0) fvSip = sipAmount * months;
       else
@@ -171,9 +216,7 @@ export default function MutualFundsClient() {
           ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
           (1 + monthlyRate);
 
-      // LumpSum FV
       const fvLump = lumpAmount * Math.pow(1 + monthlyRate, months);
-
       return fvSip + fvLump;
     };
 
@@ -186,7 +229,6 @@ export default function MutualFundsClient() {
     const totalInvested = Math.round(monthlySIP * months + lumpSumNow);
     const totalReturns = totalFutureValue - totalInvested;
 
-    // Blended Return (Approx weighted average)
     const blendedReturn = (
       equityReturn * alloc.equity +
       debtReturn * alloc.debt +
@@ -194,34 +236,32 @@ export default function MutualFundsClient() {
       cashReturn * alloc.cash
     ).toFixed(1);
 
-    // Inflation Adjustment
     const monthlyInflation = inflationPct / 12 / 100;
     const realValue = Math.round(
       totalFutureValue / Math.pow(1 + monthlyInflation, months)
     );
 
-    // Pie Slices for Visualization (Future Value breakdown)
     const pieSlices = [
       {
         color: '#16a34a',
         pct: Math.round((fvEquity / totalFutureValue) * 100) || 0,
-        label: 'Equity',
-      }, // Green
+        label: t.equity.replace(' (%)', ''),
+      },
       {
         color: '#3b82f6',
         pct: Math.round((fvDebt / totalFutureValue) * 100) || 0,
-        label: 'Debt',
-      }, // Blue
+        label: t.debt.replace(' (%)', ''),
+      },
       {
         color: '#eab308',
         pct: Math.round((fvGold / totalFutureValue) * 100) || 0,
-        label: 'Gold',
-      }, // Yellow
+        label: t.gold.replace(' (%)', ''),
+      },
       {
         color: '#94a3b8',
         pct: Math.round((fvCash / totalFutureValue) * 100) || 0,
-        label: 'Cash',
-      }, // Grey
+        label: t.cash.replace(' (%)', ''),
+      },
     ];
 
     return {
@@ -231,10 +271,6 @@ export default function MutualFundsClient() {
       realValue,
       blendedReturn,
       pieSlices,
-      fvEquity,
-      fvDebt,
-      fvGold,
-      fvCash,
     };
   }, [
     monthlySIP,
@@ -249,6 +285,7 @@ export default function MutualFundsClient() {
     goldReturn,
     cashReturn,
     inflationPct,
+    t,
   ]);
 
   // Safe Setter
@@ -264,7 +301,7 @@ export default function MutualFundsClient() {
         <div className="calc-inputs">
           {/* 1. Basic Inputs */}
           <div className="input-group">
-            <label>Monthly SIP Amount (₹)</label>
+            <label>{t.monthlySIP}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -275,7 +312,7 @@ export default function MutualFundsClient() {
           </div>
 
           <div className="input-group">
-            <label>Lump Sum Investment (₹)</label>
+            <label>{t.lumpSum}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -286,7 +323,7 @@ export default function MutualFundsClient() {
           </div>
 
           <div className="input-group">
-            <label>Investment Horizon (Years)</label>
+            <label>{t.horizon}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -321,9 +358,9 @@ export default function MutualFundsClient() {
                 marginBottom: 8,
               }}
             >
-              Asset Allocation Strategy
+              {t.strategy}
             </label>
-            <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => applyPreset('conservative')}
@@ -336,7 +373,7 @@ export default function MutualFundsClient() {
                   cursor: 'pointer',
                 }}
               >
-                Conservative
+                {t.conservative}
               </button>
               <button
                 type="button"
@@ -350,7 +387,7 @@ export default function MutualFundsClient() {
                   cursor: 'pointer',
                 }}
               >
-                Balanced
+                {t.balanced}
               </button>
               <button
                 type="button"
@@ -364,7 +401,7 @@ export default function MutualFundsClient() {
                   cursor: 'pointer',
                 }}
               >
-                Growth
+                {t.growth}
               </button>
             </div>
           </div>
@@ -383,7 +420,7 @@ export default function MutualFundsClient() {
               <label
                 style={{ fontSize: 12, fontWeight: 600, color: '#16a34a' }}
               >
-                Equity (%)
+                {t.equity}
               </label>
               <input
                 type="number"
@@ -405,7 +442,7 @@ export default function MutualFundsClient() {
                   display: 'block',
                 }}
               >
-                Return: {equityReturn}%
+                {t.return}: {equityReturn}%
               </label>
             </div>
 
@@ -414,7 +451,7 @@ export default function MutualFundsClient() {
               <label
                 style={{ fontSize: 12, fontWeight: 600, color: '#3b82f6' }}
               >
-                Debt (%)
+                {t.debt}
               </label>
               <input
                 type="number"
@@ -436,7 +473,7 @@ export default function MutualFundsClient() {
                   display: 'block',
                 }}
               >
-                Return: {debtReturn}%
+                {t.return}: {debtReturn}%
               </label>
             </div>
 
@@ -445,7 +482,7 @@ export default function MutualFundsClient() {
               <label
                 style={{ fontSize: 12, fontWeight: 600, color: '#eab308' }}
               >
-                Gold (%)
+                {t.gold}
               </label>
               <input
                 type="number"
@@ -467,7 +504,7 @@ export default function MutualFundsClient() {
                   display: 'block',
                 }}
               >
-                Return: {goldReturn}%
+                {t.return}: {goldReturn}%
               </label>
             </div>
 
@@ -476,7 +513,7 @@ export default function MutualFundsClient() {
               <label
                 style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8' }}
               >
-                Cash (%)
+                {t.cash}
               </label>
               <input
                 type="number"
@@ -498,16 +535,16 @@ export default function MutualFundsClient() {
                   display: 'block',
                 }}
               >
-                Return: {cashReturn}%
+                {t.return}: {cashReturn}%
               </label>
             </div>
           </div>
 
           <div className="input-group" style={{ marginTop: 16 }}>
             <label>
-              Inflation Rate (%){' '}
+              {t.inflation}{' '}
               <span style={{ fontWeight: 400, fontSize: 12, color: '#666' }}>
-                - for real value adjustment
+                {t.inflationSub}
               </span>
             </label>
             <div className="input-wrapper">
@@ -533,7 +570,7 @@ export default function MutualFundsClient() {
               fontSize: 13,
             }}
           >
-            Reset Defaults
+            {t.resetDefaults}
           </button>
         </div>
 
@@ -545,7 +582,7 @@ export default function MutualFundsClient() {
             {/* Main Result */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Estimated Portfolio Value
+                {t.portfolioValue}
               </span>
               <div
                 style={{
@@ -557,7 +594,7 @@ export default function MutualFundsClient() {
                 {formatINR(results.totalFutureValue)}
               </div>
               <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
-                Blended Return: <strong>{results.blendedReturn}%</strong>
+                {t.blendedReturn}: <strong>{results.blendedReturn}%</strong>
               </div>
             </div>
 
@@ -580,7 +617,7 @@ export default function MutualFundsClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Total Invested
+                  {t.totalInvested}
                 </div>
                 <div style={{ fontWeight: 600 }}>
                   {formatINR(results.totalInvested)}
@@ -595,7 +632,7 @@ export default function MutualFundsClient() {
                 }}
               >
                 <div style={{ color: '#64748b', fontSize: 12 }}>
-                  Wealth Gained
+                  {t.wealthGained}
                 </div>
                 <div style={{ fontWeight: 600, color: '#16a34a' }}>
                   +{formatINR(results.totalReturns)}
@@ -616,8 +653,7 @@ export default function MutualFundsClient() {
                 border: '1px solid #e2e8f0',
               }}
             >
-              Real Value (Today's Terms):{' '}
-              <strong>{formatINR(results.realValue)}</strong>
+              {t.realValue}: <strong>{formatINR(results.realValue)}</strong>
             </div>
 
             {/* Asset Breakdown Mini Table */}

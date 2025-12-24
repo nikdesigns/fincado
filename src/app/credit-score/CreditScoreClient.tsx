@@ -1,8 +1,67 @@
+// src/app/credit-score/CreditScoreClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
 
-export default function CreditScoreClient() {
+// ✅ Interface for custom labels
+interface CreditScoreLabels {
+  onTimePayments: string;
+  creditUtilization: string;
+  avgAge: string;
+  activeAccounts: string;
+  recentEnquiries: string;
+  loanMix: string;
+  hasDefaults: string;
+  hasSettlements: string;
+  estimatedScore: string;
+  improveSimulator: string;
+  totalCardLimit: string;
+  payDownAmount: string;
+  newUtil: string;
+  noChange: string;
+  points: string;
+  priorityActions: string;
+  actionReduceUtil: string;
+  actionAvoidLoans: string;
+  actionOnTime: string;
+  actionKeepOld: string;
+  actionMaintain: string;
+  disclaimer: string;
+}
+
+const DEFAULT_LABELS: CreditScoreLabels = {
+  onTimePayments: 'On-Time Payments (%)',
+  creditUtilization: 'Credit Utilization (%)',
+  avgAge: 'Avg Age (Yrs)',
+  activeAccounts: 'Active Accounts',
+  recentEnquiries: 'Recent Enquiries',
+  loanMix: 'Loan Mix (%)',
+  hasDefaults: 'Has Defaults',
+  hasSettlements: 'Has Settlements',
+  estimatedScore: 'Estimated Score',
+  improveSimulator: '⚡ Improve Score Simulator',
+  totalCardLimit: 'Total Card Limit',
+  payDownAmount: 'Pay Down Amount',
+  newUtil: 'New Util',
+  noChange: 'No Change',
+  points: 'Points',
+  priorityActions: 'Priority Actions:',
+  actionReduceUtil: 'Reduce utilization below 30%',
+  actionAvoidLoans: 'Avoid applying for new loans',
+  actionOnTime: 'Ensure 100% on-time payments',
+  actionKeepOld: 'Keep old accounts open',
+  actionMaintain: 'Maintain current healthy habits!',
+  disclaimer:
+    '*This is an estimated score for educational purposes. Actual CIBIL or Experian scores may vary.',
+};
+
+export default function CreditScoreClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<CreditScoreLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [onTimePaymentsPct, setOnTimePaymentsPct] = useState<number>(95);
   const [creditUtilizationPct, setCreditUtilizationPct] = useState<number>(45);
@@ -40,7 +99,6 @@ export default function CreditScoreClient() {
     score += Math.round(210 * payFactor);
 
     // 2. Utilization (30%) -> Max ~180 pts
-    // Ideal < 30%. Linear decline as utilization goes up.
     const util = Math.min(100, Math.max(0, creditUtilizationPct));
     let utilScore = 0;
     if (util <= 20) utilScore = 180;
@@ -48,19 +106,16 @@ export default function CreditScoreClient() {
     score += utilScore;
 
     // 3. Length of History (15%) -> Max ~90 pts
-    // Max points at 10+ years
     const lengthScore = Math.round(Math.min(1, avgAccountAgeYears / 10) * 90);
     score += lengthScore;
 
     // 4. New Credit / Enquiries (10%) -> Penalty
-    // Penalty up to 60 pts for >10 enquiries
     const enquiriesPenalty = Math.round(
       Math.min(1, numRecentEnquiries / 10) * 60
     );
     score -= enquiriesPenalty;
 
     // 5. Credit Mix (10%) -> Max ~60 pts
-    // Higher installment % (secured) is generally better than 100% revolving
     const mixScore = Math.round((percentInstallmentLoans / 100) * 60);
     score += mixScore;
 
@@ -126,7 +181,7 @@ export default function CreditScoreClient() {
           {/* Payment History */}
           <div className="input-group">
             <label>
-              On-Time Payments (%){' '}
+              {t.onTimePayments}{' '}
               <span style={{ fontSize: 11, color: '#666' }}>(Last 24 mo)</span>
             </label>
             <div className="input-wrapper">
@@ -158,7 +213,7 @@ export default function CreditScoreClient() {
           {/* Utilization */}
           <div className="input-group">
             <label>
-              Credit Utilization (%){' '}
+              {t.creditUtilization}{' '}
               <span style={{ fontSize: 11, color: '#666' }}>
                 (Total Used / Limit)
               </span>
@@ -192,7 +247,7 @@ export default function CreditScoreClient() {
           {/* Account Details */}
           <div style={{ display: 'flex', gap: 16 }}>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Avg Age (Yrs)</label>
+              <label>{t.avgAge}</label>
               <input
                 className="input-small"
                 type="number"
@@ -201,7 +256,7 @@ export default function CreditScoreClient() {
               />
             </div>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Active Accounts</label>
+              <label>{t.activeAccounts}</label>
               <input
                 className="input-small"
                 type="number"
@@ -213,7 +268,7 @@ export default function CreditScoreClient() {
 
           <div style={{ display: 'flex', gap: 16 }}>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Recent Enquiries</label>
+              <label>{t.recentEnquiries}</label>
               <input
                 className="input-small"
                 type="number"
@@ -222,7 +277,7 @@ export default function CreditScoreClient() {
               />
             </div>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Loan Mix (%)</label>
+              <label>{t.loanMix}</label>
               <input
                 className="input-small"
                 type="number"
@@ -251,7 +306,7 @@ export default function CreditScoreClient() {
                 checked={hasDefaults}
                 onChange={(e) => setHasDefaults(e.target.checked)}
               />
-              Has Defaults
+              {t.hasDefaults}
             </label>
             <label
               style={{
@@ -267,7 +322,7 @@ export default function CreditScoreClient() {
                 checked={hasSettlements}
                 onChange={(e) => setHasSettlements(e.target.checked)}
               />
-              Has Settlements
+              {t.hasSettlements}
             </label>
           </div>
         </div>
@@ -286,7 +341,7 @@ export default function CreditScoreClient() {
             }}
           >
             <div style={{ fontSize: 14, color: '#6b7280', marginBottom: 8 }}>
-              Estimated Score
+              {t.estimatedScore}
             </div>
             <div
               style={{
@@ -336,7 +391,7 @@ export default function CreditScoreClient() {
                 marginBottom: 12,
               }}
             >
-              ⚡ Improve Score Simulator
+              {t.improveSimulator}
             </div>
 
             <div
@@ -349,7 +404,7 @@ export default function CreditScoreClient() {
             >
               <div>
                 <label style={{ fontSize: 11, color: '#64748b' }}>
-                  Total Card Limit
+                  {t.totalCardLimit}
                 </label>
                 <input
                   type="number"
@@ -365,7 +420,7 @@ export default function CreditScoreClient() {
               </div>
               <div>
                 <label style={{ fontSize: 11, color: '#64748b' }}>
-                  Pay Down Amount
+                  {t.payDownAmount}
                 </label>
                 <input
                   type="number"
@@ -390,7 +445,7 @@ export default function CreditScoreClient() {
               }}
             >
               <div>
-                New Util: <strong>{paydownAnalysis.newUtilPct}%</strong>
+                {t.newUtil}: <strong>{paydownAnalysis.newUtilPct}%</strong>
               </div>
               <div
                 style={{
@@ -402,8 +457,8 @@ export default function CreditScoreClient() {
                 }}
               >
                 {paydownAnalysis.scoreImprovement > 0
-                  ? `+${paydownAnalysis.scoreImprovement} Points`
-                  : 'No Change'}
+                  ? `+${paydownAnalysis.scoreImprovement} ${t.points}`
+                  : t.noChange}
               </div>
             </div>
           </div>
@@ -411,7 +466,7 @@ export default function CreditScoreClient() {
           {/* Action Checklist */}
           <div style={{ marginTop: 16 }}>
             <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Priority Actions:
+              {t.priorityActions}
             </div>
             <ul
               style={{
@@ -421,17 +476,13 @@ export default function CreditScoreClient() {
                 margin: 0,
               }}
             >
-              {creditUtilizationPct > 30 && (
-                <li>Reduce utilization below 30%</li>
-              )}
-              {numRecentEnquiries > 2 && <li>Avoid applying for new loans</li>}
-              {onTimePaymentsPct < 100 && <li>Ensure 100% on-time payments</li>}
-              {avgAccountAgeYears < 2 && <li>Keep old accounts open</li>}
+              {creditUtilizationPct > 30 && <li>{t.actionReduceUtil}</li>}
+              {numRecentEnquiries > 2 && <li>{t.actionAvoidLoans}</li>}
+              {onTimePaymentsPct < 100 && <li>{t.actionOnTime}</li>}
+              {avgAccountAgeYears < 2 && <li>{t.actionKeepOld}</li>}
               {creditUtilizationPct <= 30 &&
                 numRecentEnquiries <= 2 &&
-                onTimePaymentsPct === 100 && (
-                  <li>Maintain current healthy habits!</li>
-                )}
+                onTimePaymentsPct === 100 && <li>{t.actionMaintain}</li>}
             </ul>
           </div>
         </div>
@@ -444,8 +495,7 @@ export default function CreditScoreClient() {
           marginTop: 10,
         }}
       >
-        *This is an estimated score for educational purposes. Actual CIBIL or
-        Experian scores may vary.
+        {t.disclaimer}
       </p>
     </div>
   );

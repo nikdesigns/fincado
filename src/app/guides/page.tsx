@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: 'Financial Guides & Wisdom | Fincado',
   description:
     'Expert guides on Home Loans, SIP, Income Tax, and Credit Scores. Simplify your financial decisions with Fincado.',
+  keywords: [
+    'financial guides',
+    'personal finance articles',
+    'investment guides india',
+    'home loan guides',
+    'SIP investment tips',
+    'tax planning guides',
+    'credit score tips',
+    'financial literacy india',
+  ],
   alternates: {
     canonical: 'https://www.fincado.com/guides',
   },

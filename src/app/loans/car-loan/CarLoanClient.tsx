@@ -11,14 +11,58 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function CarLoanClient() {
+// ✅ Interface for custom labels
+interface CarLoanLabels {
+  vehiclePrice: string;
+  downPayment: string;
+  tradeInValue: string;
+  interestRate: string;
+  tenure: string;
+  monthlyEMI: string;
+  principal: string;
+  interest: string;
+  amortizationSchedule: string;
+  yearlyBreakdown: string;
+  copy: string;
+  export: string;
+  print: string;
+  month: string;
+  balance: string;
+}
+
+const DEFAULT_LABELS: CarLoanLabels = {
+  vehiclePrice: 'Vehicle Price (₹)',
+  downPayment: 'Down Payment (₹)',
+  tradeInValue: 'Trade-In Value (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  tenure: 'Tenure (Years)',
+  monthlyEMI: 'Monthly EMI',
+  principal: 'Principal',
+  interest: 'Interest',
+  amortizationSchedule: 'Amortization Schedule',
+  yearlyBreakdown: 'Yearly breakdown',
+  copy: 'Copy',
+  export: 'Export',
+  print: 'Print',
+  month: 'Month',
+  balance: 'Balance',
+};
+
+export default function CarLoanClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<CarLoanLabels>;
+}) {
+  // Merge custom labels with defaults
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [vehiclePrice, setVehiclePrice] = useState(1500000); // 15 Lakhs
   const [downPayment, setDownPayment] = useState(300000); // 3 Lakhs
   const [tradeInValue, setTradeInValue] = useState(0); // 0 Trade-in
   const [rate, setRate] = useState(9.5); // 9.5% Auto Loan
   const [tenure, setTenure] = useState(5); // 5 Years
-  const [balloonPayment, setBalloonPayment] = useState(0); // Optional Balloon
+  const [balloonPayment] = useState(0); // Optional Balloon (Hidden feature for now)
 
   // Derived Loan Amount
   const loanAmount = Math.max(0, vehiclePrice - downPayment - tradeInValue);
@@ -34,7 +78,6 @@ export default function CarLoanClient() {
     const months = tenure * 12;
     let emi = 0;
 
-    // Standard EMI formula modified for Balloon Payment
     if (loanAmount > 0) {
       if (rate === 0) {
         emi = (loanAmount - balloonPayment) / months;
@@ -76,7 +119,6 @@ export default function CarLoanClient() {
         const interest = balance * monthlyRate;
         let principal = emiVal - interest;
 
-        // Adjust for Balloon Payment in last month
         if (i === calculations.months) {
           principal = balance - balloonPayment;
         }
@@ -102,7 +144,7 @@ export default function CarLoanClient() {
 
   // --- ACTIONS ---
   const downloadCSV = () => {
-    const headers = ['Month,Principal,Interest,Balance'];
+    const headers = [`${t.month},${t.principal},${t.interest},${t.balance}`];
     const rows = schedule.map(
       (r) =>
         `${r.month},${Math.round(r.principal)},${Math.round(
@@ -127,7 +169,7 @@ export default function CarLoanClient() {
       )
       .join('\n');
     navigator.clipboard.writeText(
-      `Month\tPrincipal\tInterest\tBalance\n${text}`
+      `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`
     );
     alert('Copied to clipboard!');
   };
@@ -147,7 +189,7 @@ export default function CarLoanClient() {
           style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
         >
           <div className="input-group">
-            <label>Vehicle Price (₹)</label>
+            <label>{t.vehiclePrice}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -169,7 +211,7 @@ export default function CarLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Down Payment (₹)</label>
+            <label>{t.downPayment}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -191,7 +233,7 @@ export default function CarLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Trade-In Value (₹)</label>
+            <label>{t.tradeInValue}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -217,7 +259,7 @@ export default function CarLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.interestRate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -238,7 +280,7 @@ export default function CarLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Tenure (Years)</label>
+            <label>{t.tenure}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -268,7 +310,7 @@ export default function CarLoanClient() {
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Monthly EMI
+                {t.monthlyEMI}
               </span>
               <div
                 style={{
@@ -297,7 +339,9 @@ export default function CarLoanClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Principal</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.principal}
+                </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(loanAmount)}</div>
               </div>
               <div
@@ -308,7 +352,9 @@ export default function CarLoanClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Interest</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.interest}
+                </div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(calculations.totalInterest)}
                 </div>
@@ -322,20 +368,20 @@ export default function CarLoanClient() {
       <div style={{ marginTop: 40 }}>
         <div className="table-header-row table-actions">
           <div>
-            <h3>Amortization Schedule</h3>
+            <h3>{t.amortizationSchedule}</h3>
             <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
-              Yearly breakdown
+              {t.yearlyBreakdown}
             </p>
           </div>
           <div className="table-actions">
             <button onClick={copyToClipboard} className="action-btn">
-              Copy
+              {t.copy}
             </button>
             <button onClick={downloadCSV} className="action-btn">
-              Export
+              {t.export}
             </button>
             <button onClick={printPage} className="action-btn">
-              Print
+              {t.print}
             </button>
           </div>
         </div>
@@ -344,10 +390,10 @@ export default function CarLoanClient() {
           <table className="rate-table">
             <thead>
               <tr>
-                <th style={{ textAlign: 'left' }}>Month</th>
-                <th style={{ textAlign: 'right' }}>Principal</th>
-                <th style={{ textAlign: 'right' }}>Interest</th>
-                <th style={{ textAlign: 'right' }}>Balance</th>
+                <th style={{ textAlign: 'left' }}>{t.month}</th>
+                <th style={{ textAlign: 'right' }}>{t.principal}</th>
+                <th style={{ textAlign: 'right' }}>{t.interest}</th>
+                <th style={{ textAlign: 'right' }}>{t.balance}</th>
               </tr>
             </thead>
             <tbody>

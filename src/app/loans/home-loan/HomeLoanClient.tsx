@@ -11,7 +11,47 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function HomeLoanClient() {
+// ✅ interface for custom labels
+interface HomeLoanLabels {
+  loanAmount: string;
+  interestRate: string;
+  tenure: string;
+  monthlyEMI: string;
+  principal: string;
+  interest: string;
+  amortizationSchedule: string;
+  yearlyBreakdown: string;
+  copy: string;
+  export: string;
+  print: string;
+  month: string;
+  balance: string;
+}
+
+const DEFAULT_LABELS: HomeLoanLabels = {
+  loanAmount: 'Loan Amount (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  tenure: 'Tenure (Years)',
+  monthlyEMI: 'Monthly EMI',
+  principal: 'Principal',
+  interest: 'Interest',
+  amortizationSchedule: 'Amortization Schedule',
+  yearlyBreakdown: 'Yearly breakdown',
+  copy: 'Copy',
+  export: 'Export',
+  print: 'Print',
+  month: 'Month',
+  balance: 'Balance',
+};
+
+export default function HomeLoanClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<HomeLoanLabels>;
+}) {
+  // Merge custom labels with defaults
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   const [amount, setAmount] = useState(5000000); // Default 50 Lakhs
   const [rate, setRate] = useState(8.5); // Default 8.5%
   const [tenure, setTenure] = useState(20); // Default 20 Years
@@ -60,7 +100,6 @@ export default function HomeLoanClient() {
       if (balance - principal < 0) principal = balance;
       balance -= principal;
 
-      // Limit 360 months (30 years) for DOM performance
       if (i <= 360) {
         data.push({
           month: i,
@@ -75,7 +114,7 @@ export default function HomeLoanClient() {
 
   // --- ACTIONS ---
   const downloadCSV = () => {
-    const headers = ['Month,Principal,Interest,Balance'];
+    const headers = [`${t.month},${t.principal},${t.interest},${t.balance}`];
     const rows = schedule.map(
       (r) =>
         `${r.month},${Math.round(r.principal)},${Math.round(
@@ -100,7 +139,7 @@ export default function HomeLoanClient() {
       )
       .join('\n');
     navigator.clipboard.writeText(
-      `Month\tPrincipal\tInterest\tBalance\n${text}`
+      `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`
     );
     alert('Copied to clipboard!');
   };
@@ -113,14 +152,13 @@ export default function HomeLoanClient() {
 
   return (
     <div className="card calculator-card">
-      {/* 1. INPUTS */}
       <div className="calc-grid">
         <div
           className="calc-inputs"
           style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
         >
           <div className="input-group">
-            <label>Loan Amount (₹)</label>
+            <label>{t.loanAmount}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -142,7 +180,7 @@ export default function HomeLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Interest Rate (% p.a)</label>
+            <label>{t.interestRate}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -163,7 +201,7 @@ export default function HomeLoanClient() {
           </div>
 
           <div className="input-group">
-            <label>Tenure (Years)</label>
+            <label>{t.tenure}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -183,7 +221,6 @@ export default function HomeLoanClient() {
           </div>
         </div>
 
-        {/* 2. CHART */}
         <div className="calc-visuals">
           <PieChart
             principalPct={calculations.principalPct}
@@ -194,7 +231,7 @@ export default function HomeLoanClient() {
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
             <div style={{ marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Monthly EMI
+                {t.monthlyEMI}
               </span>
               <div
                 style={{
@@ -224,7 +261,9 @@ export default function HomeLoanClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Principal</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.principal}
+                </div>
                 <div style={{ fontWeight: 600 }}>{formatINR(amount)}</div>
               </div>
               <div
@@ -235,7 +274,9 @@ export default function HomeLoanClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>Interest</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>
+                  {t.interest}
+                </div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(calculations.totalInterest)}
                 </div>
@@ -245,24 +286,23 @@ export default function HomeLoanClient() {
         </div>
       </div>
 
-      {/* 3. TABLE SECTION */}
       <div style={{ marginTop: 40 }}>
         <div className="table-header-row table-actions">
           <div>
-            <h3>Amortization Schedule</h3>
+            <h3>{t.amortizationSchedule}</h3>
             <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
-              Yearly breakdown
+              {t.yearlyBreakdown}
             </p>
           </div>
           <div className="table-actions">
             <button onClick={copyToClipboard} className="action-btn">
-              Copy
+              {t.copy}
             </button>
             <button onClick={downloadCSV} className="action-btn">
-              Export
+              {t.export}
             </button>
             <button onClick={printPage} className="action-btn">
-              Print
+              {t.print}
             </button>
           </div>
         </div>
@@ -271,10 +311,10 @@ export default function HomeLoanClient() {
           <table className="rate-table">
             <thead>
               <tr>
-                <th style={{ textAlign: 'left' }}>Month</th>
-                <th style={{ textAlign: 'right' }}>Principal</th>
-                <th style={{ textAlign: 'right' }}>Interest</th>
-                <th style={{ textAlign: 'right' }}>Balance</th>
+                <th style={{ textAlign: 'left' }}>{t.month}</th>
+                <th style={{ textAlign: 'right' }}>{t.principal}</th>
+                <th style={{ textAlign: 'right' }}>{t.interest}</th>
+                <th style={{ textAlign: 'right' }}>{t.balance}</th>
               </tr>
             </thead>
             <tbody>

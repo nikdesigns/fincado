@@ -1,3 +1,4 @@
+// src/app/fire-calculator/FIRECalculatorClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
@@ -11,7 +12,52 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function FIRECalculatorClient() {
+// ✅ Interface for custom labels
+interface FIRELabels {
+  currentAge: string;
+  fireAge: string;
+  currentAnnualExpense: string;
+  currentCorpus: string;
+  advancedAssumptions: string;
+  inflation: string;
+  returnRate: string;
+  safeWithdrawalRate: string;
+  multiplier: string;
+  recommendedSWR: string;
+  resetDefaults: string;
+  fireNumber: string;
+  monthlySavingsNeeded: string;
+  perMonth: string;
+  futureAnnualExp: string;
+  currentCorpusFV: string;
+}
+
+const DEFAULT_LABELS: FIRELabels = {
+  currentAge: 'Current Age',
+  fireAge: 'FIRE Age',
+  currentAnnualExpense: 'Current Annual Expense (₹)',
+  currentCorpus: 'Current Savings / Corpus (₹)',
+  advancedAssumptions: 'Advanced Assumptions (SWR, Inflation)',
+  inflation: 'Inflation (%)',
+  returnRate: 'Return Rate (%)',
+  safeWithdrawalRate: 'Safe Withdrawal Rate (%)',
+  multiplier: 'Multiplier',
+  recommendedSWR: 'Recommended for India: 3.0% - 3.5%',
+  resetDefaults: 'Reset Defaults',
+  fireNumber: 'Your FIRE Number',
+  monthlySavingsNeeded: 'Monthly Savings Needed',
+  perMonth: '/mo',
+  futureAnnualExp: 'Future Annual Exp.',
+  currentCorpusFV: 'Current Corpus FV',
+};
+
+export default function FIRECalculatorClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<FIRELabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   // --- STATE ---
   const [currentAge, setCurrentAge] = useState<number>(30);
   const [targetRetirementAge, setTargetRetirementAge] = useState<number>(45);
@@ -42,12 +88,10 @@ export default function FIRECalculatorClient() {
     );
 
     // 2. FIRE Number (Corpus Required)
-    // Formula: Expense / SWR (e.g. Expense / 0.04)
     const multiplier = 100 / safeWithdrawalRate;
     const fireNumberCorpus = Math.round(annualExpenseAtFIRE * multiplier);
 
     // 3. Future Value of Current Corpus
-    // FV = P * (1+r)^n
     const futureValueOfCurrentCorpus = Math.round(
       currentCorpus * Math.pow(1 + monthlyRatePre, monthsToFIRE)
     );
@@ -63,7 +107,6 @@ export default function FIRECalculatorClient() {
       if (monthlyRatePre === 0) {
         requiredMonthlySIP = Math.round(requiredShortfall / monthsToFIRE);
       } else {
-        // SIP = FV / [ ((1+r)^n - 1)/r * (1+r) ]
         const annuityFactor =
           ((Math.pow(1 + monthlyRatePre, monthsToFIRE) - 1) / monthlyRatePre) *
           (1 + monthlyRatePre);
@@ -71,10 +114,7 @@ export default function FIRECalculatorClient() {
       }
     }
 
-    // 5. Pie Chart Data (Progress)
-    // "Achieved" = Future Value of Current Corpus
-    // "Gap" = Shortfall to reach FIRE Number
-    // Cap achieved at 100% if they are already FI
+    // 5. Pie Chart Data
     const achievedPct =
       fireNumberCorpus > 0
         ? Math.min(
@@ -130,7 +170,7 @@ export default function FIRECalculatorClient() {
           {/* Ages */}
           <div style={{ display: 'flex', gap: 16 }}>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>Current Age</label>
+              <label>{t.currentAge}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -142,7 +182,7 @@ export default function FIRECalculatorClient() {
               </div>
             </div>
             <div className="input-group" style={{ flex: 1 }}>
-              <label>FIRE Age</label>
+              <label>{t.fireAge}</label>
               <div className="input-wrapper">
                 <input
                   type="number"
@@ -157,7 +197,7 @@ export default function FIRECalculatorClient() {
 
           {/* Finances */}
           <div className="input-group">
-            <label>Current Annual Expense (₹)</label>
+            <label>{t.currentAnnualExpense}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -183,7 +223,7 @@ export default function FIRECalculatorClient() {
           </div>
 
           <div className="input-group">
-            <label>Current Savings / Corpus (₹)</label>
+            <label>{t.currentCorpus}</label>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -213,7 +253,7 @@ export default function FIRECalculatorClient() {
                 fontWeight: 500,
               }}
             >
-              Advanced Assumptions (SWR, Inflation)
+              {t.advancedAssumptions}
             </summary>
             <div
               style={{
@@ -224,7 +264,7 @@ export default function FIRECalculatorClient() {
               }}
             >
               <div className="input-group">
-                <label>Inflation (%)</label>
+                <label>{t.inflation}</label>
                 <input
                   className="input-small"
                   type="number"
@@ -234,7 +274,7 @@ export default function FIRECalculatorClient() {
                 />
               </div>
               <div className="input-group">
-                <label>Return Rate (%)</label>
+                <label>{t.returnRate}</label>
                 <input
                   className="input-small"
                   type="number"
@@ -247,9 +287,9 @@ export default function FIRECalculatorClient() {
                 <div
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
-                  <label>Safe Withdrawal Rate (%)</label>
+                  <label>{t.safeWithdrawalRate}</label>
                   <span style={{ fontSize: 11, color: '#666' }}>
-                    Multiplier: {results.multiplier}x
+                    {t.multiplier}: {results.multiplier}x
                   </span>
                 </div>
                 <input
@@ -262,7 +302,7 @@ export default function FIRECalculatorClient() {
                   max={6}
                 />
                 <div style={{ fontSize: 11, color: '#666', marginTop: 4 }}>
-                  Recommended for India: 3.0% - 3.5%
+                  {t.recommendedSWR}
                 </div>
               </div>
             </div>
@@ -281,15 +321,15 @@ export default function FIRECalculatorClient() {
               fontSize: 13,
             }}
           >
-            Reset Defaults
+            {t.resetDefaults}
           </button>
         </div>
 
         {/* --- RIGHT: VISUALS --- */}
         <div className="calc-visuals">
           <PieChart
-            principalPct={results.achievedPct} // Represents "Achieved" via current savings
-            interestPct={results.gapPct} // Represents "Gap" to fill
+            principalPct={results.achievedPct}
+            interestPct={results.gapPct}
             size={200}
           />
 
@@ -297,7 +337,7 @@ export default function FIRECalculatorClient() {
             {/* Main Result: FIRE Number */}
             <div style={{ marginBottom: 12, textAlign: 'center' }}>
               <span style={{ fontSize: 13, color: '#64748b' }}>
-                Your FIRE Number
+                {t.fireNumber}
               </span>
               <div
                 style={{
@@ -322,11 +362,11 @@ export default function FIRECalculatorClient() {
               }}
             >
               <div style={{ fontSize: 12, color: '#c2410c', fontWeight: 600 }}>
-                Monthly Savings Needed
+                {t.monthlySavingsNeeded}
               </div>
               <div style={{ fontSize: 22, fontWeight: 800, color: '#ea580c' }}>
                 {formatINR(results.requiredMonthlySIP)}
-                <span style={{ fontSize: 14 }}>/mo</span>
+                <span style={{ fontSize: 14 }}>{t.perMonth}</span>
               </div>
             </div>
 
@@ -348,7 +388,7 @@ export default function FIRECalculatorClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Future Annual Exp.</div>
+                <div style={{ color: '#64748b' }}>{t.futureAnnualExp}</div>
                 <div style={{ fontWeight: 600, color: '#dc2626' }}>
                   {formatINR(results.annualExpenseAtFIRE)}
                 </div>
@@ -361,7 +401,7 @@ export default function FIRECalculatorClient() {
                   border: '1px solid #e2e8f0',
                 }}
               >
-                <div style={{ color: '#64748b' }}>Current Corpus FV</div>
+                <div style={{ color: '#64748b' }}>{t.currentCorpusFV}</div>
                 <div style={{ fontWeight: 600, color: '#16a34a' }}>
                   {formatINR(results.futureValueOfCurrentCorpus)}
                 </div>
