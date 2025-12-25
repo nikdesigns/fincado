@@ -177,8 +177,12 @@ export default async function BankCityPage({
             </p>
           </header>
 
-          {/* ✅ AdSlot with Label (Make sure AdSlot.tsx is updated too!) */}
-          <AdSlot type="leaderboard" label="Sponsored Loan Offers" />
+          {/* ✅ FIXED: Added unique ID for the top ad */}
+          <AdSlot
+            id="bank-city-top-ad"
+            type="leaderboard"
+            label="Sponsored Loan Offers"
+          />
 
           <div style={{ marginTop: 32 }}>
             <EMIClient defaultRate={bank.rate} />
@@ -416,8 +420,9 @@ export default async function BankCityPage({
                 ))}
             </ul>
           </div>
+          {/* ✅ FIXED: Ensure sidebar ad has unique ID */}
           <div style={{ marginTop: 24, position: 'sticky', top: 20 }}>
-            <AdSlot type="box" id="sidebar-sticky" />
+            <AdSlot type="box" id="bank-city-sidebar-sticky" />
           </div>
         </aside>
       </div>

@@ -100,26 +100,18 @@ export default function EMIPage() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: 'How is EMI calculated?',
+                name: 'Does EMI affect credit score?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'EMI is calculated using the formula EMI = [P × R × (1+R)^N] / [(1+R)^N − 1], where P is principal, R is monthly interest rate, and N is tenure in months.',
+                  text: 'Checking EMI using a calculator does not affect your credit score. However, missing EMI payments can negatively impact your credit score.',
                 },
               },
               {
                 '@type': 'Question',
-                name: 'How can I reduce my loan EMI?',
+                name: 'Does prepayment reduce EMI or tenure?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'You can reduce EMI by increasing down payment, choosing longer tenure, negotiating interest rate, or making prepayments.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Does prepayment reduce EMI or Tenure?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Most banks reduce the tenure by default when you make a prepayment, which saves you the maximum interest. However, you can request to reduce the EMI amount instead.',
+                  text: 'By default, banks reduce the loan tenure after prepayment as it saves the most interest. EMI reduction can be requested separately.',
                 },
               },
             ],

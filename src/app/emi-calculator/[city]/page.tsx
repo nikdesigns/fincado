@@ -203,7 +203,12 @@ export default async function CityEMIPage({
         <div className="layout-grid">
           {/* -------- MAIN CONTENT -------- */}
           <div className="main-content">
-            <AdSlot type="leaderboard" label="City Top Ad" />
+            {/* ✅ FIXED: Added unique ID for top ad */}
+            <AdSlot
+              id="city-top-leaderboard"
+              type="leaderboard"
+              label="City Top Ad"
+            />
 
             <div
               style={{
@@ -312,7 +317,13 @@ export default async function CityEMIPage({
                 ))}
               </div>
             </div>
-            <AdSlot type="rectangle" label="City Bottom Ad" />
+
+            {/* ✅ FIXED: Added unique ID for bottom ad */}
+            <AdSlot
+              id="city-bottom-rectangle"
+              type="rectangle"
+              label="City Bottom Ad"
+            />
           </div>
 
           {/* -------- SIDEBAR -------- */}

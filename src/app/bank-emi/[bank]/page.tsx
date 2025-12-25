@@ -8,7 +8,7 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getCompetitors } from '@/lib/localData'; // Uses the logic we just added
+import { getCompetitors } from '@/lib/localData';
 
 export async function generateStaticParams() {
   return banks.map((bank) => ({ bank: bank.slug }));
@@ -139,7 +139,12 @@ export default async function BankPage({
             </p>
           </header>
 
-          <AdSlot type="leaderboard" label="Bank Top Ad" />
+          {/* ✅ FIXED: Added unique ID */}
+          <AdSlot
+            id="bank-top-leaderboard"
+            type="leaderboard"
+            label="Bank Top Ad"
+          />
 
           {/* CALCULATOR SECTION */}
           <div
@@ -295,7 +300,12 @@ export default async function BankPage({
             </p>
           </section>
 
-          <AdSlot type="rectangle" label="Bank Mid Ad" />
+          {/* ✅ FIXED: Added unique ID */}
+          <AdSlot
+            id="bank-mid-rectangle"
+            type="rectangle"
+            label="Bank Mid Ad"
+          />
 
           {/* CONTENT SECTION 3: Localized Links (Hub & Spoke Strategy) */}
           <div
@@ -467,6 +477,7 @@ export default async function BankPage({
             </ul>
           </div>
           <div style={{ marginTop: 24, position: 'sticky', top: 20 }}>
+            {/* Sidebar already had ID, kept it */}
             <AdSlot type="box" id="bank-sidebar" />
           </div>
         </aside>
