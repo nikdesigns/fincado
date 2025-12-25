@@ -142,6 +142,10 @@ export default function HindiAPYPage() {
           </h1>
           <ShareTools title="अटल पेंशन योजना (APY) कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-apy-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -161,8 +165,8 @@ export default function HindiAPYPage() {
             {/* The Calculator with Hindi Props */}
             <APYClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-apy-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-apy-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -267,6 +271,10 @@ export default function HindiAPYPage() {
                 </table>
               </div>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>संबंधित कैलकुलेटर</h3>
               <ul>
                 <li>
@@ -308,10 +316,7 @@ export default function HindiAPYPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-apy-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-apy-sidebar" />
           </aside>
         </div>
       </main>

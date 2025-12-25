@@ -145,6 +145,10 @@ export default function HindiEPFPage() {
           </h1>
           <ShareTools title="EPF कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-epf-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -165,8 +169,8 @@ export default function HindiEPFPage() {
             {/* The Calculator with Hindi Props */}
             <EPFClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-epf-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-epf-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -227,6 +231,10 @@ export default function HindiEPFPage() {
               </ul>
             </article>
 
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
+
             {/* FAQ Section */}
             <section className="article no-print" style={{ marginTop: 40 }}>
               <h2>अक्सर पूछे जाने वाले प्रश्न (FAQs)</h2>
@@ -251,10 +259,7 @@ export default function HindiEPFPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-epf-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-epf-sidebar" />
           </aside>
         </div>
       </main>

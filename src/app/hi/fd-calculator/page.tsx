@@ -62,6 +62,9 @@ export default function HindiFDPage() {
               FD कैलकुलेटर (FD Calculator in Hindi)
             </h1>
             <ShareTools title="FD कैलकुलेटर (Hindi)" />
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-fd-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               फिक्स्ड डिपॉजिट (FD) निवेश का पारंपरिक और सुरक्षित तरीका है। अपनी
               जमा राशि, ब्याज दर और अवधि दर्ज करें और जानें कि आपको कितना रिटर्न
@@ -69,11 +72,13 @@ export default function HindiFDPage() {
             </p>
           </header>
 
-          <AdSlot type="leaderboard" />
-
           <div style={{ marginTop: 32 }}>
             {/* ✅ Pass Labels */}
             <FDClient labels={hindiLabels} />
+
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-fd-mid" type="banner" />
+            </div>
           </div>
 
           <div className="article" style={{ marginTop: 40 }}>
@@ -83,6 +88,9 @@ export default function HindiFDPage() {
               5 साल) के लिए जमा करते हैं। बदले में बैंक आपको सामान्य बचत खाते से
               ज्यादा ब्याज देता है।
             </p>
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>लाभ (Benefits)</h3>
             <ul>
               <li>
@@ -96,7 +104,7 @@ export default function HindiFDPage() {
           </div>
         </div>
 
-        <HindiSidebar />
+        <HindiSidebar adId="hi-fd-sidebar" />
       </div>
     </main>
   );

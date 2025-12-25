@@ -70,6 +70,10 @@ export default function HindiSSYPage() {
               सुकन्या समृद्धि योजना (SSY Calculator Hindi)
             </h1>
             <ShareTools title="SSY कैलकुलेटर (Hindi)" />
+
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-ssy-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               यह भारत सरकार की &apos;बेटी बचाओ, बेटी पढ़ाओ&apos; अभियान के तहत
               एक छोटी बचत योजना है। जानें कि आज का छोटा निवेश आपकी बेटी के
@@ -77,11 +81,13 @@ export default function HindiSSYPage() {
             </p>
           </header>
 
-          <AdSlot type="leaderboard" />
-
           <div style={{ marginTop: 32 }}>
             {/* ✅ Pass Hindi Labels */}
             <SSYClient labels={hindiLabels} />
+
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-ssy-mid" type="banner" />
+            </div>
           </div>
 
           <div className="article" style={{ marginTop: 40 }}>
@@ -115,6 +121,10 @@ export default function HindiSSYPage() {
               </li>
             </ul>
 
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
+
             <h3>पैसे कब निकाल सकते हैं?</h3>
             <p>
               बेटी की उम्र <strong>18 साल</strong> होने पर उसकी उच्च शिक्षा
@@ -124,7 +134,7 @@ export default function HindiSSYPage() {
           </div>
         </div>
 
-        <HindiSidebar />
+        <HindiSidebar adId="hi-ssy-sidebar" />
       </div>
     </main>
   );

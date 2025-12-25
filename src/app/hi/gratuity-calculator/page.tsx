@@ -136,6 +136,10 @@ export default function HindiGratuityPage() {
           </h1>
           <ShareTools title="ग्रेच्युटी कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-gratuity-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -156,8 +160,8 @@ export default function HindiGratuityPage() {
             {/* The Calculator with Hindi Props */}
             <GratuityClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-gratuity-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-gratuity-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -223,6 +227,10 @@ export default function HindiGratuityPage() {
                 </em>
               </p>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>पात्रता (Eligibility)</h3>
               <ul>
                 <li>
@@ -275,10 +283,7 @@ export default function HindiGratuityPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-gratuity-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-gratuity-sidebar" />
           </aside>
         </div>
       </main>

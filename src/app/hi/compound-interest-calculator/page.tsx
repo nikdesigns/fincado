@@ -140,6 +140,9 @@ export default function HindiCompoundInterestPage() {
             कंपाउंड इंटरेस्ट कैलकुलेटर (चक्रवृद्धि ब्याज)
           </h1>
           <ShareTools title="कंपाउंड इंटरेस्ट कैलकुलेटर (Hindi)" />
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-ci-top" type="leaderboard" />
+          </div>
 
           <p
             style={{
@@ -161,8 +164,8 @@ export default function HindiCompoundInterestPage() {
             {/* The Calculator with Hindi Props */}
             <CompoundInterestClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-ci-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-ci-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -246,6 +249,10 @@ export default function HindiCompoundInterestPage() {
                 </table>
               </div>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>संबंधित कैलकुलेटर</h3>
               <ul>
                 <li>
@@ -287,10 +294,7 @@ export default function HindiCompoundInterestPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-ci-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-ci-sidebar" />
           </aside>
         </div>
       </main>

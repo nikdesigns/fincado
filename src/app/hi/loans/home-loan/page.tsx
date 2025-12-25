@@ -138,6 +138,9 @@ export default function HindiHomeLoanPage() {
             होम लोन EMI कैलकुलेटर
           </h1>
           <ShareTools title="होम लोन EMI कैलकुलेटर (Hindi)" />
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-home-loan-top" type="leaderboard" />
+          </div>
 
           <p
             style={{
@@ -158,8 +161,8 @@ export default function HindiHomeLoanPage() {
             {/* The Calculator with Hindi Props */}
             <HomeLoanClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-home-loan-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-home-loan-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -192,6 +195,10 @@ export default function HindiHomeLoanPage() {
                 इस कैलकुलेटर का उपयोग करके अपनी EMI को मूलधन और ब्याज में
                 विभाजित करें और अधिकतम टैक्स लाभ उठाएं।
               </p>
+
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>संबंधित कैलकुलेटर</h3>
               <ul>
@@ -232,10 +239,7 @@ export default function HindiHomeLoanPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-home-loan-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-home-loan-sidebar" />
           </aside>
         </div>
       </main>

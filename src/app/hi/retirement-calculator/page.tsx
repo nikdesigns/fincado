@@ -141,6 +141,10 @@ export default function HindiRetirementPage() {
           </h1>
           <ShareTools title="रिटायरमेंट कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-retire-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -161,8 +165,8 @@ export default function HindiRetirementPage() {
             {/* The Calculator with Hindi Props */}
             <RetirementCalculatorClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-retirement-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-retire-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -222,6 +226,10 @@ export default function HindiRetirementPage() {
                 </li>
               </ul>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>4% निकासी नियम (4% Withdrawal Rule)</h3>
               <p>
                 रिटायरमेंट खर्च के लिए एक लोकप्रिय नियम। यह कहता है कि यदि आप
@@ -277,10 +285,7 @@ export default function HindiRetirementPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-retire-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-retire-sidebar" />
           </aside>
         </div>
       </main>

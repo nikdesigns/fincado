@@ -148,6 +148,9 @@ export default function HindiCreditScorePage() {
             क्रेडिट स्कोर कैलकुलेटर (CIBIL Score Estimator)
           </h1>
           <ShareTools title="क्रेडिट स्कोर कैलकुलेटर (Hindi)" />
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-credit-top" type="leaderboard" />
+          </div>
 
           <p
             style={{
@@ -169,8 +172,8 @@ export default function HindiCreditScorePage() {
             {/* The Calculator with Hindi Props */}
             <CreditScoreClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-credit-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-credit-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -250,6 +253,10 @@ export default function HindiCreditScorePage() {
                 </table>
               </div>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>संबंधित कैलकुलेटर</h3>
               <ul>
                 <li>
@@ -289,10 +296,7 @@ export default function HindiCreditScorePage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-credit-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-credit-sidebar" />
           </aside>
         </div>
       </main>

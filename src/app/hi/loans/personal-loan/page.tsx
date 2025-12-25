@@ -138,6 +138,10 @@ export default function HindiPersonalLoanPage() {
           </h1>
           <ShareTools title="पर्सनल लोन EMI कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-personal-loan-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -157,8 +161,8 @@ export default function HindiPersonalLoanPage() {
             {/* The Calculator with Hindi Props */}
             <PersonalLoanClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-personal-loan-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-personal-loan-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -178,6 +182,9 @@ export default function HindiPersonalLoanPage() {
                 करती है।
               </p>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
               <h3>पात्रता (Eligibility Criteria)</h3>
               <ul>
                 <li>
@@ -246,10 +253,7 @@ export default function HindiPersonalLoanPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-personal-loan-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-personal-loan-sidebar" />
           </aside>
         </div>
       </main>

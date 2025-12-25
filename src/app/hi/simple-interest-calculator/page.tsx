@@ -64,14 +64,21 @@ export default function HindiSIPage() {
               साधारण ब्याज कैलकुलेटर (Simple Interest)
             </h1>
             <ShareTools title="Simple Interest Calculator (Hindi)" />
+
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-si-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               यह कैलकुलेटर आपको आसानी से साधारण ब्याज (Simple Interest) और अंतिम
               राशि की गणना करने में मदद करता है।
             </p>
           </header>
-          <AdSlot type="leaderboard" />
+
           <div style={{ marginTop: 32 }}>
             <SICalculatorClient labels={hindiLabels} />
+          </div>
+          <div className="no-print" style={{ margin: '32px 0' }}>
+            <AdSlot id="hi-si-mid" type="banner" />
           </div>
           <div className="article" style={{ marginTop: 40 }}>
             <h2>साधारण ब्याज क्या है?</h2>
@@ -79,6 +86,10 @@ export default function HindiSIPage() {
               जब ब्याज केवल मूल राशि (Principal) पर लगता है, तो उसे साधारण ब्याज
               कहते हैं।
             </p>
+
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>सूत्र (Formula)</h3>
             <p>
               <strong>SI = (P × R × T) / 100</strong>
@@ -90,7 +101,7 @@ export default function HindiSIPage() {
             </ul>
           </div>
         </div>
-        <HindiSidebar />
+        <HindiSidebar adId="hi-si-sidebar" />
       </div>
     </main>
   );

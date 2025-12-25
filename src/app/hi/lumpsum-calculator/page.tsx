@@ -58,15 +58,21 @@ export default function HindiLumpsumPage() {
               Lumpsum कैलकुलेटर (एकमुश्त निवेश)
             </h1>
             <ShareTools title="Lumpsum Calculator (Hindi)" />
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-lumpsum-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               यदि आपके पास एक साथ बड़ी राशि (जैसे बोनस या प्रॉपर्टी से मिला
               पैसा) है, तो उसे एकमुश्त (Lumpsum) निवेश करें और कंपाउंडिंग का लाभ
               उठाएं।
             </p>
           </header>
-          <AdSlot type="leaderboard" />
+
           <div style={{ marginTop: 32 }}>
             <LumpsumClient labels={hindiLabels} />
+          </div>
+          <div className="no-print" style={{ margin: '40px 0' }}>
+            <AdSlot id="hi-lumpsum-mid" type="banner" />
           </div>
           <div className="article" style={{ marginTop: 40 }}>
             <h2>Lumpsum निवेश क्या है?</h2>
@@ -74,6 +80,9 @@ export default function HindiLumpsumPage() {
               जब आप म्यूचुअल फंड या बैंक में एक ही बार में बड़ी रकम जमा करते
               हैं, तो इसे Lumpsum निवेश कहते हैं।
             </p>
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>फायदे</h3>
             <ul>
               <li>
@@ -86,7 +95,7 @@ export default function HindiLumpsumPage() {
             </ul>
           </div>
         </div>
-        <HindiSidebar />
+        <HindiSidebar adId="hi-lumpsum-sidebar" />
       </div>
     </main>
   );

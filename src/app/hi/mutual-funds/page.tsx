@@ -162,13 +162,15 @@ export default function HindiMutualFundPage() {
           </p>
         </header>
 
+        <AdSlot type="leaderboard" id="hi-edu-loan-top" />
+
         <div className="layout-grid">
           <div className="main-content">
             {/* The Calculator with Hindi Props */}
             <MutualFundsClient labels={hindiLabels} />
 
             <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-mf-mid" type="leaderboard" />
+              <AdSlot id="hi-edu-loan-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -193,6 +195,10 @@ export default function HindiMutualFundPage() {
                   लिए।
                 </li>
               </ul>
+
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>निवेश की रणनीतियाँ (Strategies)</h3>
               <ul>
@@ -267,10 +273,7 @@ export default function HindiMutualFundPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-mf-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-edu-loan-sidebar" />
           </aside>
         </div>
       </main>

@@ -142,6 +142,10 @@ export default function HindiFIREPage() {
           </h1>
           <ShareTools title="FIRE कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-fire-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -162,10 +166,9 @@ export default function HindiFIREPage() {
             {/* The Calculator with Hindi Props */}
             <FIRECalculatorClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-fire-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-fire-mid" type="banner" />
             </div>
-
             {/* -------- SEO CONTENT (HINDI) -------- */}
             <article className="article content-for-seo no-print">
               <h2>FIRE मूवमेंट क्या है?</h2>
@@ -213,6 +216,10 @@ export default function HindiFIREPage() {
                 <strong>33 गुना</strong> जमा करना चाहिए।
               </p>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>संबंधित कैलकुलेटर</h3>
               <ul>
                 <li>
@@ -254,10 +261,7 @@ export default function HindiFIREPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-fire-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-fire-sidebar" />
           </aside>
         </div>
       </main>

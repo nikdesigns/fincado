@@ -72,6 +72,11 @@ export default function HindiGSTPage() {
               GST कैलकुलेटर (GST Calculator in Hindi)
             </h1>
             <ShareTools title="GST कैलकुलेटर (Hindi)" />
+
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-gst-top" type="leaderboard" />
+            </div>
+
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               यह टूल आपको किसी भी सामान या सेवा पर GST की गणना करने में मदद करता
               है। आप GST जोड़ भी सकते हैं और MRP से GST हटा (Reverse Calculate)
@@ -79,11 +84,13 @@ export default function HindiGSTPage() {
             </p>
           </header>
 
-          <AdSlot type="leaderboard" label="Sponsored" />
-
           <div style={{ marginTop: 32 }}>
             {/* ✅ Pass Hindi Labels */}
             <GSTClient labels={hindiLabels} />
+
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-gst-mid" type="banner" />
+            </div>
           </div>
 
           <div className="article" style={{ marginTop: 40 }}>
@@ -107,6 +114,9 @@ export default function HindiGSTPage() {
                 राज्य में व्यापार करते हैं।
               </li>
             </ul>
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
 
             <h3>GST कैसे निकालें?</h3>
             <p>
@@ -119,7 +129,7 @@ export default function HindiGSTPage() {
           </div>
         </div>
 
-        <HindiSidebar />
+        <HindiSidebar adId="hi-gst-sidebar" />
       </div>
     </main>
   );

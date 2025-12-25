@@ -66,6 +66,10 @@ export default function HindiSIPPage() {
               SIP कैलकुलेटर (SIP Calculator in Hindi)
             </h1>
             <ShareTools title="SIP कैलकुलेटर (Hindi)" />
+            {/* 💰 AD 1: TOP */}
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-sip-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               एसआईपी (Systematic Investment Plan) म्यूचुअल फंड में निवेश करने का
               सबसे आसान तरीका है। जानें कि छोटे निवेश से आप भविष्य में कितना
@@ -78,6 +82,10 @@ export default function HindiSIPPage() {
           <div style={{ marginTop: 32 }}>
             {/* ✅ 2. Pass Labels Prop */}
             <SIPClient labels={hindiLabels} />
+            {/* 💰 AD 2: MIDDLE */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-sip-mid" type="banner" />
+            </div>
           </div>
 
           <div className="article" style={{ marginTop: 40 }}>
@@ -87,6 +95,10 @@ export default function HindiSIPPage() {
               ऐसा तरीका है जिससे आप हर महीने थोड़ी-थोड़ी रकम (जैसे ₹500)
               म्यूचुअल फंड में जमा कर सकते हैं।
             </p>
+            {/* 💰 AD 3: IN-CONTENT */}
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>SIP के फायदे (Benefits)</h3>
             <ul>
               <li>
@@ -103,7 +115,7 @@ export default function HindiSIPPage() {
           </div>
         </div>
 
-        <HindiSidebar />
+        <HindiSidebar adId="hi-sip-sidebar" />
       </div>
     </main>
   );

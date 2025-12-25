@@ -63,9 +63,12 @@ export default function HindiSWPPage() {
               विकल्प है। अपने निवेश से हर महीने एक निश्चित राशि पाएं।
             </p>
           </header>
-          <AdSlot type="leaderboard" />
+          <AdSlot type="leaderboard" id="hi-swp-top" />
           <div style={{ marginTop: 32 }}>
             <SWPClient labels={hindiLabels} />
+          </div>
+          <div className="no-print" style={{ margin: '40px 0' }}>
+            <AdSlot id="hi-swp-mid" type="banner" />
           </div>
           <div className="article" style={{ marginTop: 40 }}>
             <h2>SWP क्या है?</h2>
@@ -74,6 +77,10 @@ export default function HindiSWPPage() {
               का उल्टा है। इसमें आप हर महीने अपने म्यूचुअल फंड से एक निश्चित
               राशि निकालते हैं।
             </p>
+
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>फायदे</h3>
             <ul>
               <li>
@@ -87,7 +94,7 @@ export default function HindiSWPPage() {
             </ul>
           </div>
         </div>
-        <HindiSidebar />
+        <HindiSidebar adId="hi-swp-sidebar" />
       </div>
     </main>
   );

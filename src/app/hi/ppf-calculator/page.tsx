@@ -62,17 +62,23 @@ export default function HindiPPFPage() {
               PPF कैलकुलेटर (PPF Calculator in Hindi)
             </h1>
             <ShareTools title="PPF कैलकुलेटर (Hindi)" />
+
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-ppf-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               पब्लिक प्रोविडेंट फंड (PPF) भारत में निवेश का सबसे सुरक्षित विकल्प
               है। इस कैलकुलेटर से जानें कि 15 साल बाद आपको कितना रिटर्न मिलेगा।
             </p>
           </header>
 
-          <AdSlot type="leaderboard" />
-
           <div style={{ marginTop: 32 }}>
             {/* ✅ Pass Labels */}
             <PPFClient labels={hindiLabels} />
+          </div>
+
+          <div className="no-print" style={{ margin: '32px 0' }}>
+            <AdSlot id="hi-ppf-mid" type="banner" />
           </div>
 
           <div className="article" style={{ marginTop: 40 }}>
@@ -82,6 +88,10 @@ export default function HindiPPFPage() {
               बचत योजना है। इसमें निवेश करने पर आपको <strong>धारा 80C</strong>{' '}
               के तहत टैक्स छूट भी मिलती है।
             </p>
+
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>महत्वपूर्ण नियम</h3>
             <ul>
               <li>
@@ -94,7 +104,7 @@ export default function HindiPPFPage() {
           </div>
         </div>
 
-        <HindiSidebar />
+        <HindiSidebar adId="hi-ppf-sidebar" />
       </div>
     </main>
   );

@@ -135,6 +135,10 @@ export default function HindiInflationPage() {
           </h1>
           <ShareTools title="महंगाई कैलकुलेटर (Hindi)" />
 
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-inflation-top" type="leaderboard" />
+          </div>
+
           <p
             style={{
               maxWidth: '700px',
@@ -155,8 +159,8 @@ export default function HindiInflationPage() {
             {/* The Calculator with Hindi Props */}
             <InflationClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-inflation-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-inflation-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -203,6 +207,10 @@ export default function HindiInflationPage() {
                 </li>
               </ul>
 
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>संबंधित कैलकुलेटर</h3>
               <ul>
                 <li>
@@ -242,10 +250,7 @@ export default function HindiInflationPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-inflation-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-inflation-sidebar" />
           </aside>
         </div>
       </main>

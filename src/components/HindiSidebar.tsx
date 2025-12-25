@@ -34,9 +34,13 @@ const MENU_ITEMS = [
   { label: '➗ साधारण ब्याज', href: '/hi/simple-interest-calculator/' },
 ];
 
-export default function HindiSidebar() {
+export default function HindiSidebar({ adId }: { adId?: string }) {
   return (
     <aside className="sidebar">
+      {/* Sticky Ad Unit with Dynamic ID */}
+      <div style={{ marginTop: 32, position: 'sticky', top: 24 }}>
+        <AdSlot id={adId} type="box" label="विज्ञापन (Ad)" />
+      </div>
       <div
         style={{
           background: '#f8fafc',
@@ -117,11 +121,6 @@ export default function HindiSidebar() {
             <span>🇬🇧</span> Switch to English
           </Link>
         </div>
-      </div>
-
-      {/* Sticky Ad Unit */}
-      <div style={{ marginTop: 32, position: 'sticky', top: 24 }}>
-        <AdSlot type="box" label="विज्ञापन (Ad)" />
       </div>
     </aside>
   );

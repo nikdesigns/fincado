@@ -65,17 +65,23 @@ export default function HindiEMIPage() {
               EMI कैलकुलेटर (EMI Calculator in Hindi)
             </h1>
             <ShareTools title="EMI कैलकुलेटर (Hindi)" />
+            {/* 💰 AD 1: TOP LEADERBOARD */}
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-emi-top" type="leaderboard" />
+            </div>
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               लोन लेने से पहले अपनी मासिक किस्त (EMI) की गणना करें। यह टूल आपको
               होम लोन, पर्सनल लोन और कार लोन की EMI आसानी से बताता है।
             </p>
           </header>
 
-          <AdSlot type="leaderboard" label="Sponsored Loans" />
-
           <div style={{ marginTop: 32 }}>
             {/* ✅ Pass Labels */}
             <EMIClient labels={hindiLabels} />
+            {/* 💰 AD 2: AFTER CALCULATOR (BANNER) */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-emi-after-calc" type="banner" />
+            </div>
           </div>
 
           <div className="article" style={{ marginTop: 40 }}>
@@ -85,6 +91,10 @@ export default function HindiEMIPage() {
               निश्चित राशि है जो आप हर महीने बैंक को अपने लोन को चुकाने के लिए
               देते हैं।
             </p>
+            {/* 💰 AD 3: IN-CONTENT SQUARE */}
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot type="square" label="Advertisement" />
+            </div>
             <h3>EMI कैसे कम करें?</h3>
             <ul>
               <li>
@@ -98,8 +108,7 @@ export default function HindiEMIPage() {
             </ul>
           </div>
         </div>
-
-        <HindiSidebar />
+        <HindiSidebar adId="hi-emi-sidebar" />
       </div>
     </main>
   );

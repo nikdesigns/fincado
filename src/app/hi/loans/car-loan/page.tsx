@@ -139,7 +139,9 @@ export default function HindiCarLoanPage() {
             कार लोन EMI कैलकुलेटर
           </h1>
           <ShareTools title="कार लोन EMI कैलकुलेटर (Hindi)" />
-
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="hi-car-loan-top" type="leaderboard" />
+          </div>
           <p
             style={{
               maxWidth: '700px',
@@ -159,8 +161,8 @@ export default function HindiCarLoanPage() {
             {/* The Calculator with Hindi Props */}
             <CarLoanClient labels={hindiLabels} />
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="hindi-car-loan-mid" type="leaderboard" />
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="hi-car-loan-mid" type="banner" />
             </div>
 
             {/* -------- SEO CONTENT (HINDI) -------- */}
@@ -187,6 +189,9 @@ export default function HindiCarLoanPage() {
                   ब्याज दरें मिलती हैं।
                 </li>
               </ul>
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>नई कार बनाम पुरानी कार लोन</h3>
               <p>
@@ -240,10 +245,7 @@ export default function HindiCarLoanPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <HindiSidebar />
-            <div style={{ marginTop: 24, position: 'sticky', top: '20px' }}>
-              <AdSlot id="hindi-car-loan-sidebar" type="box" />
-            </div>
+            <HindiSidebar adId="hi-car-loan-sidebar" />
           </aside>
         </div>
       </main>

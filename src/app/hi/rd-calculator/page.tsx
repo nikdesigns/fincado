@@ -69,15 +69,24 @@ export default function HindiRDPage() {
               RD कैलकुलेटर (Recurring Deposit in Hindi)
             </h1>
             <ShareTools title="RD कैलकुलेटर (Hindi)" />
+
+            <div style={{ marginTop: 24, marginBottom: 24 }}>
+              <AdSlot id="hi-rd-top" type="leaderboard" />
+            </div>
+
             <p style={{ color: '#64748b', fontSize: '18px', marginTop: 16 }}>
               रिकरिंग डिपॉजिट (RD) उन लोगों के लिए बेहतरीन है जो एक बार में बड़ा
               निवेश नहीं कर सकते। हर महीने थोड़ी रकम जमा करें और बैंक से
               सुरक्षित रिटर्न पाएं।
             </p>
           </header>
-          <AdSlot type="leaderboard" />
+
           <div style={{ marginTop: 32 }}>
             <RDClient labels={hindiLabels} />
+          </div>
+
+          <div className="no-print" style={{ margin: '32px 0' }}>
+            <AdSlot id="hi-rd-mid" type="banner" />
           </div>
           <div className="article" style={{ marginTop: 40 }}>
             <h2>RD (रिकरिंग डिपॉजिट) क्या है?</h2>
@@ -100,7 +109,7 @@ export default function HindiRDPage() {
             </ul>
           </div>
         </div>
-        <HindiSidebar />
+        <HindiSidebar adId="hi-rd-sidebar" />
       </div>
     </main>
   );
