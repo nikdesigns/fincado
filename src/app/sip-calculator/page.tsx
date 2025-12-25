@@ -14,7 +14,7 @@ import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title:
     'SIP Calculator 2025 – Calculate Mutual Fund Returns (Inflation Adjusted)',
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function SIPPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Systematic Investment Plan (SIP)</strong> is a disciplined method of investing in 
@@ -97,7 +96,6 @@ export default function SIPPage() {
         url="https://www.fincado.com/sip-calculator"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -154,10 +152,16 @@ export default function SIPPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/sip-calculator" />
           <h1>SIP Calculator — Plan Your Wealth Creation</h1>
           <ShareTools title="SIP Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="sip-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -172,6 +176,11 @@ export default function SIPPage() {
         <div className="layout-grid">
           <div className="main-content">
             <SIPClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="sip-after-calc" type="banner" />
+            </div>
 
             {/* Mobile-Only Related Tools */}
             <div
@@ -255,10 +264,6 @@ export default function SIPPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="sip-mid-content" type="leaderboard" />
-            </div>
-
             {/* --- FULL SEO ARTICLE --- */}
             <article className="article content-for-seo no-print">
               <h2>What is a Systematic Investment Plan (SIP)?</h2>
@@ -266,6 +271,11 @@ export default function SIPPage() {
 
               <h3>Who Can Invest in SIP?</h3>
               <WikiText content={eligibilityContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>How This Calculator Helps Your Wealth Planning</h3>
               <WikiText

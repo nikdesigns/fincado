@@ -137,6 +137,10 @@ export default function MutualFundPage() {
           <LanguageToggle path="/hi/mutual-funds" />
           <h1>Mutual Fund Portfolio Planner</h1>
           <ShareTools title="Mutual Fund Portfolio Planner" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="mf-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -151,6 +155,11 @@ export default function MutualFundPage() {
         <div className="layout-grid">
           <div className="main-content">
             <MutualFundsClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="mf-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (SIP/Lumpsum Context) */}
             <LiveRateTable type="personalLoan" />
@@ -287,6 +296,11 @@ export default function MutualFundPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>Strategies for Every Investor</h3>

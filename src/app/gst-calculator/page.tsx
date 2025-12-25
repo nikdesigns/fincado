@@ -133,6 +133,11 @@ export default function GSTPage() {
           <LanguageToggle path="/hi/gst-calculator" />
           <h1>GST Calculator (Goods and Services Tax)</h1>
           <ShareTools title="GST Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="gst-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -146,6 +151,11 @@ export default function GSTPage() {
         <div className="layout-grid">
           <div className="main-content">
             <GSTClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="gst-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (Business Loan Context) */}
             <LiveRateTable type="personalLoan" />
@@ -294,6 +304,11 @@ export default function GSTPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>Components of GST</h3>

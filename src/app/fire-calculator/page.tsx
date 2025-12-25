@@ -135,6 +135,10 @@ export default function FIREPage() {
           <LanguageToggle path="/hi/fire-calculator" />
           <h1>FIRE Calculator (Financial Independence, Retire Early)</h1>
           <ShareTools title="FIRE Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="fire-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -149,6 +153,10 @@ export default function FIREPage() {
         <div className="layout-grid">
           <div className="main-content">
             <FIRECalculatorClient />
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="fire-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (Mutual Fund Context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -284,6 +292,11 @@ export default function FIREPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>Core Concepts of FIRE</h3>

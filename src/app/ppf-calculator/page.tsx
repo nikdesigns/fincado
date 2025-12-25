@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import Link from 'next/link'; // ✅ Use Next Link
+import Link from 'next/link';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
@@ -10,12 +10,12 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
+import LiveRateTable from '@/components/LiveRateTable';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title: 'PPF Calculator 2025 – Public Provident Fund Interest & Maturity',
   description:
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function PPFPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       The <strong>Public Provident Fund (PPF)</strong> is a long-term savings scheme backed by the 
@@ -91,7 +90,6 @@ export default function PPFPage() {
         url="https://www.fincado.com/ppf-calculator"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -140,10 +138,16 @@ export default function PPFPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/ppf-calculator" />
           <h1>PPF Calculator — Public Provident Fund</h1>
           <ShareTools title="PPF Calculator — Public Provident Fund" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="ppf-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -158,10 +162,13 @@ export default function PPFPage() {
           <div className="main-content">
             <PPFClient />
 
-            {/* ✅ Live Rates (FD comparison) */}
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="ppf-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="fixedDeposit" />
 
-            {/* ✅ Mobile-Only Tools */}
             <div
               className="mobile-only-suggestions"
               style={{ marginTop: 32, marginBottom: 32 }}
@@ -211,7 +218,6 @@ export default function PPFPage() {
               </div>
             </div>
 
-            {/* ✅ Promo Box */}
             <div
               className="no-print"
               style={{
@@ -243,16 +249,17 @@ export default function PPFPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="ppf-mid-content" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is the Public Provident Fund (PPF)?</h2>
               <WikiText content={introContent} />
 
               <h3>Who Can Open a PPF Account?</h3>
               <WikiText content={eligibilityContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>PPF vs FD vs ELSS: Quick Comparison</h3>
               <div className="table-responsive">

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import RDClient from './RDClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Fresh Content
+import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -13,9 +13,9 @@ import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title: 'RD Calculator 2025 – Recurring Deposit Maturity & Interest',
   description:
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function RDPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Recurring Deposit (RD)</strong> is a term deposit offered by banks and <strong>Post Offices</strong> 
@@ -84,7 +83,6 @@ export default function RDPage() {
         url="https://www.fincado.com/rd-calculator"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -133,10 +131,16 @@ export default function RDPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/rd-calculator" />
           <h1>Recurring Deposit (RD) Calculator</h1>
           <ShareTools title="Recurring Deposit (RD) Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="rd-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -152,10 +156,13 @@ export default function RDPage() {
           <div className="main-content">
             <RDClient />
 
-            {/* ✅ Live Rates (Using FD rates as proxy since RD rates are similar) */}
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="rd-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="fixedDeposit" />
 
-            {/* ✅ Mobile-Only Related Tools */}
             <div
               className="mobile-only-suggestions"
               style={{ marginTop: 32, marginBottom: 32 }}
@@ -205,7 +212,6 @@ export default function RDPage() {
               </div>
             </div>
 
-            {/* ✅ Promo Box */}
             <div
               className="no-print"
               style={{
@@ -237,16 +243,17 @@ export default function RDPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="rd-mid-content" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is a Recurring Deposit (RD)?</h2>
               <WikiText content={introContent} />
 
               <h3>RD Interest Taxation (TDS Rules)</h3>
               <WikiText content={taxContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>RD vs SIP: Which is better?</h3>
               <WikiText content={comparisonContent} />
@@ -288,7 +295,6 @@ export default function RDPage() {
                 individual monthly installment.
               </p>
 
-              {/* ✅ Professional Math Block (Summation Formula) */}
               <div
                 style={{
                   padding: '20px 0',

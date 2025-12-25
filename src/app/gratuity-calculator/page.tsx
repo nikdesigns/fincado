@@ -131,6 +131,10 @@ export default function GratuityPage() {
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Gratuity Calculator</h1>
           <ShareTools title="Gratuity Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="gratuity-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -144,6 +148,11 @@ export default function GratuityPage() {
         <div className="layout-grid">
           <div className="main-content">
             <GratuityClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="gratuity-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (EPF/PPF Context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -208,6 +217,11 @@ export default function GratuityPage() {
 
               <h3>Gratuity Calculation Formula</h3>
               <WikiText content={formulaContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>Tax Rules for Gratuity (2025)</h3>
               <div className="table-responsive">

@@ -1,4 +1,4 @@
-// src/app/privacy/page.tsx
+// src/app/privacy-policy/page.tsx
 import type { Metadata } from 'next';
 import '@/styles/terms.css';
 
@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 
 const LAST_UPDATED = 'January 2025';
 const SUPPORT_EMAIL = 'support@fincado.com';
-const JURISDICTION_CITY = 'Mumbai';
 
 export default function PrivacyPolicyPage() {
   return (
@@ -96,7 +95,6 @@ export default function PrivacyPolicyPage() {
 
             <h3>2. Automatically Collected Data</h3>
             <p>We automatically collect basic technical information such as:</p>
-
             <ul className="terms-list">
               <li>IP address (masked/ anonymized by Google Analytics)</li>
               <li>Browser type, device type, OS</li>
@@ -111,31 +109,51 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
+          {/* UPDATED SECTION START */}
           <section id="ads" className="terms-section">
-            <h2>Cookies, Analytics & Advertising</h2>
-
-            <h3>Google Analytics</h3>
-            <p>
-              We use Google Analytics to understand user behavior. This may
-              include anonymized data such as page views, device type, and
-              session activity.
-            </p>
+            <h2>Advertising & Cookies</h2>
 
             <h3>Google AdSense</h3>
             <p>
-              Fincado uses Google AdSense to serve ads. Google may use cookies
-              to:
+              This site uses Google AdSense to display advertisements. Google,
+              as a third-party vendor, uses cookies to serve ads on this site.
             </p>
-
             <ul className="terms-list">
-              <li>Serve personalized or non-personalized ads</li>
-              <li>Limit repeated ad impressions</li>
-              <li>Measure ad performance</li>
+              <li>
+                Third-party vendors, including Google, use cookies to serve ads
+                based on a user&apos;s prior visits to this website or other
+                websites.
+              </li>
+              <li>
+                Google&apos;s use of advertising cookies enables it and its
+                partners to serve ads to users based on their visit to this site
+                and/or other sites on the Internet.
+              </li>
             </ul>
 
+            <h3>Opting Out</h3>
             <p>
-              You may opt out of personalised ads anytime via Google’s Ads
-              Settings.
+              Users may opt out of personalized advertising by visiting{' '}
+              <a
+                href="https://www.google.com/settings/ads"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Ads Settings
+              </a>
+              .
+            </p>
+            <p>
+              Alternatively, you can opt out of a third-party vendor&apos;s use
+              of cookies for personalized advertising by visiting{' '}
+              <a
+                href="https://www.aboutads.info"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                www.aboutads.info
+              </a>
+              .
             </p>
 
             <h3>Cookies</h3>
@@ -145,10 +163,10 @@ export default function PrivacyPolicyPage() {
               browser, but some features may not work as intended.
             </p>
           </section>
+          {/* UPDATED SECTION END */}
 
           <section id="usage" className="terms-section">
             <h2>How We Use Your Information</h2>
-
             <ul className="terms-list">
               <li>To improve calculators, tools, and website experience.</li>
               <li>To analyze traffic patterns and optimize performance.</li>
@@ -163,7 +181,6 @@ export default function PrivacyPolicyPage() {
               Fincado does <strong>not sell, rent, or trade</strong> user data.
             </p>
             <p>Information may be shared only with:</p>
-
             <ul className="terms-list">
               <li>Analytics providers (Google Analytics)</li>
               <li>Ad networks (Google AdSense)</li>
@@ -183,16 +200,17 @@ export default function PrivacyPolicyPage() {
           <section id="rights" className="terms-section">
             <h2>Your Rights</h2>
             <p>You have the right to:</p>
-
             <ul className="terms-list">
               <li>Request deletion of messages you voluntarily sent us.</li>
-              <li>Opt out of personalized ads.</li>
+              <li>
+                Opt out of personalized ads (see the &quot;Ads&quot; section
+                above).
+              </li>
               <li>Disable cookies in your browser.</li>
             </ul>
-
             <p>
               Since we do not store calculator inputs, there is nothing to
-              delete from our side.
+              delete from our side regarding financial data.
             </p>
           </section>
 
@@ -219,7 +237,6 @@ export default function PrivacyPolicyPage() {
               If you have any questions about this Privacy Policy, please
               contact us:
             </p>
-
             <div className="contact-card">
               <a href={`mailto:${SUPPORT_EMAIL}`} className="contact-email">
                 {SUPPORT_EMAIL}

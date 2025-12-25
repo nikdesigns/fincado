@@ -127,13 +127,17 @@ export default function EMIPage() {
         }}
       />
 
-      {/* ✅ FIX 1: Removed maxWidth: '100vw'. Left only padding. 
-          The .container class in globals.css will handle width perfectly. */}
       <main className="container" style={{ padding: '40px 20px' }}>
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/emi-calculator" />
           <h1>EMI Calculator – Plan Your Loan Smartly</h1>
           <ShareTools title="EMI Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD (High Viewability) */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="emi-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
               <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -148,6 +152,11 @@ export default function EMIPage() {
         <div className="layout-grid">
           <div className="main-content">
             <EMIClient />
+
+            {/* 💰 AD 2: AFTER RESULT (High Engagement) */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="emi-after-calc" type="banner" />
+            </div>
 
             <LiveRateTable type="personalLoan" />
 
@@ -182,16 +191,17 @@ export default function EMIPage() {
               </div>
             </div>
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="emi-mid-content" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is an EMI?</h2>
               <WikiText content={introContent} />
 
               <h3>How This EMI Calculator Helps</h3>
               <WikiText content={benefitsContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE (Between text sections) */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>Factors That Affect Your EMI</h3>
               <WikiText content={factorsContent} />
@@ -202,7 +212,6 @@ export default function EMIPage() {
                 (EMI) is:
               </p>
 
-              {/* ✅ FIX 2: Kept Math block overflow safety */}
               <div>
                 <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
               </div>

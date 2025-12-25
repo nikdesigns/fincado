@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import Link from 'next/link'; // ✅ Next Link
+import Link from 'next/link';
 import SWPClient from './SWPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Comparison
+import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -13,9 +13,9 @@ import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title: 'SWP Calculator 2025 – Monthly Pension from Mutual Funds',
   description:
@@ -43,7 +43,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function SWPPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Systematic Withdrawal Plan (SWP)</strong> allows investors to withdraw a specific 
@@ -84,7 +83,6 @@ export default function SWPPage() {
         url="https://www.fincado.com/swp-calculator"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -133,10 +131,16 @@ export default function SWPPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/swp-calculator" />
           <h1>SWP Calculator — Systematic Withdrawal Plan</h1>
           <ShareTools title="SWP Calculator — Systematic Withdrawal Plan" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="swp-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -152,10 +156,13 @@ export default function SWPPage() {
           <div className="main-content">
             <SWPClient />
 
-            {/* ✅ Live Rates (FD vs SWP Context) */}
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="swp-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="fixedDeposit" />
 
-            {/* ✅ Mobile-Only Tools */}
             <div
               className="mobile-only-suggestions"
               style={{ marginTop: 32, marginBottom: 32 }}
@@ -205,7 +212,6 @@ export default function SWPPage() {
               </div>
             </div>
 
-            {/* ✅ Promo Box */}
             <div
               className="no-print"
               style={{
@@ -235,10 +241,6 @@ export default function SWPPage() {
                   Read: How to create a Tax-Free Pension →
                 </Link>
               </div>
-            </div>
-
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="swp-mid-content" type="leaderboard" />
             </div>
 
             <article className="article content-for-seo no-print">
@@ -286,6 +288,11 @@ export default function SWPPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>Taxation on SWP (2025 Rules)</h3>

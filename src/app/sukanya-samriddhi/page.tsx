@@ -138,6 +138,10 @@ export default function SSYPage() {
           <LanguageToggle path="/hi/sukanya-samriddhi/" />
           <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>
           <ShareTools title="Sukanya Samriddhi Yojana (SSY) Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="ssy-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -152,6 +156,11 @@ export default function SSYPage() {
         <div className="layout-grid">
           <div className="main-content">
             <SSYClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="ssy-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (PPF vs SSY Comparison Context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -245,6 +254,11 @@ export default function SSYPage() {
             <article className="article content-for-seo no-print">
               <h2>What is Sukanya Samriddhi Yojana (SSY)?</h2>
               <WikiText content={introContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>Who Can Open an Account?</h3>
               <WikiText content={eligibilityContent} />

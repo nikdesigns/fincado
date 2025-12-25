@@ -13,7 +13,7 @@ import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function CarLoanPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Car Loan</strong> is a secured loan offered by banks and NBFCs to purchase 
@@ -78,7 +77,6 @@ export default function CarLoanPage() {
         url="https://www.fincado.com/loans/car-loan"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -131,6 +129,12 @@ export default function CarLoanPage() {
           <LanguageToggle path="/hi/loans/car-loan" />
           <h1>Car Loan EMI Calculator</h1>
           <ShareTools title="Car Loan EMI Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="car-loan-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
               <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -145,9 +149,13 @@ export default function CarLoanPage() {
           <div className="main-content">
             <CarLoanClient />
 
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="car-loan-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="carLoan" />
 
-            {/* ✅ PROMO BOX: Drive users to the full guide */}
             <div
               className="no-print"
               style={{
@@ -179,20 +187,19 @@ export default function CarLoanPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="car-loan-mid" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is a Car Loan?</h2>
               <WikiText content={introContent} />
 
               <h3>Who is Eligible for a Car Loan?</h3>
-              {/* ✅ Auto-Linked Eligibility List */}
               <WikiText content={eligibilityContent} />
 
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>New Car vs Used Car Loans</h3>
-              {/* ✅ Crucial SEO Topic */}
               <WikiText content={newVsUsedContent} />
 
               <h3>How This Calculator Helps</h3>
@@ -219,7 +226,6 @@ export default function CarLoanPage() {
               <h3>Car Loan EMI Formula</h3>
               <p>The standard formula used for EMI calculation is:</p>
 
-              {/* ✅ Professional Math Block */}
               <div
                 style={{
                   padding: '20px 0',
@@ -241,7 +247,7 @@ export default function CarLoanPage() {
               />
             </article>
 
-            {/* FAQ Section */}
+            {/* FAQs */}
             <section className="article no-print">
               <h2>Frequently Asked Questions</h2>
               <div className="faqs-accordion">

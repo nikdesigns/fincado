@@ -15,7 +15,7 @@ import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title: 'Education Loan EMI Calculator 2025 – Section 80E & Moratorium',
   description:
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function EducationLoanPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       An <strong>Education Loan</strong> is a financial product designed to help students 
@@ -93,7 +92,6 @@ export default function EducationLoanPage() {
         url="https://www.fincado.com/loans/education-loan"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -146,6 +144,12 @@ export default function EducationLoanPage() {
           <LanguageToggle path="/hi/loans/education-loan" />
           <h1>Education Loan EMI Calculator</h1>
           <ShareTools title="Education Loan EMI Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="edu-loan-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -161,10 +165,13 @@ export default function EducationLoanPage() {
           <div className="main-content">
             <EducationLoanClient />
 
-            {/* ✅ Live Rates (Education Loan Specific or Fallback) */}
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="edu-loan-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="personalLoan" />
 
-            {/* ✅ PROMO BOX: Study Abroad Guide */}
             <div
               className="no-print"
               style={{
@@ -196,23 +203,21 @@ export default function EducationLoanPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="edu-loan-mid" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is an Education Loan?</h2>
               <WikiText content={introContent} />
 
               <h3>Eligibility Criteria (2025)</h3>
-              {/* ✅ Auto-Linked Eligibility */}
               <WikiText content={eligibilityContent} />
 
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>Section 80E Tax Benefits</h3>
-              {/* ✅ Crucial SEO Section */}
               <WikiText content={taxContent} />
 
-              {/* ✅ Document Checklist - Featured Snippet Bait */}
               <h3>Documents Required Checklist</h3>
               <div
                 className="checklist-box"
@@ -239,19 +244,15 @@ export default function EducationLoanPage() {
                   </li>
                   <li>
                     <strong>Academic:</strong> Marksheets (10th, 12th, Degree),
-                    Entrance Exam Scorecard (GRE/GMAT/CAT).
+                    Entrance Exam Scorecard.
                   </li>
                   <li>
                     <strong>Admission:</strong> Offer Letter from University
                     with fee breakdown.
                   </li>
                   <li>
-                    <strong>Financial (Co-applicant):</strong> Last 3 months
-                    Salary Slips, 2 years ITR, Bank Statements (6 months).
-                  </li>
-                  <li>
-                    <strong>Property (If Secured):</strong> Property Title Deed,
-                    Valuation Report.
+                    <strong>Financial:</strong> Last 3 months Salary Slips, 2
+                    years ITR, Bank Statements.
                   </li>
                 </ul>
               </div>
@@ -268,26 +269,11 @@ export default function EducationLoanPage() {
                 `}
               />
 
-              <div
-                style={{
-                  background: '#fff7ed',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  borderLeft: '4px solid #f97316',
-                  margin: '20px 0',
-                }}
-              >
-                <strong>⚠️ The Interest Trap:</strong> If you don&apos;t pay
-                simple interest during the course, it gets added to your loan
-                (Capitalization), meaning you pay interest on interest later!
-              </div>
-
               <h3>EMI Calculation Formula</h3>
               <p>
                 The formula includes accrued interest during the moratorium:
               </p>
 
-              {/* ✅ Professional Math Block */}
               <div
                 style={{
                   padding: '20px 0',
@@ -308,28 +294,6 @@ export default function EducationLoanPage() {
                 </ul>
               `}
               />
-
-              <h3>Key Advantages</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Build Credit Score</h4>
-                  <p>
-                    Repaying it on time builds a solid CIBIL score for future
-                    life.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Unlimited Tax Save</h4>
-                  <p>No upper limit on interest deduction under Section 80E.</p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Repayment Holiday</h4>
-                  <p>
-                    You get breathing space during your course + 1 year to find
-                    a job.
-                  </p>
-                </div>
-              </div>
             </article>
 
             {/* FAQs */}
@@ -352,14 +316,6 @@ export default function EducationLoanPage() {
                     Loans up to ₹4 Lakhs need no collateral. Loans between
                     ₹4L-₹7.5L need a third-party guarantor. Above ₹7.5L requires
                     collateral (Property/FD).
-                  </p>
-                </details>
-                <details>
-                  <summary>Can I repay the loan early?</summary>
-                  <p>
-                    Yes. Most education loans have{' '}
-                    <strong>Zero Prepayment Penalty</strong>. You should clear
-                    it as soon as you get a job to save on interest.
                   </p>
                 </details>
               </div>

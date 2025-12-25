@@ -132,6 +132,10 @@ export default function RetirementPage() {
           <LanguageToggle path="/hi/retirement-calculator" />
           <h1>Retirement Corpus Calculator</h1>
           <ShareTools title="Retirement Corpus Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="retire-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -146,6 +150,11 @@ export default function RetirementPage() {
         <div className="layout-grid">
           <div className="main-content">
             <RetirementCalculatorClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="retire-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (FD/NPS Context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -278,6 +287,10 @@ export default function RetirementPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
               <h3>The Two Biggest Risks</h3>
               <WikiText content={riskContent} />

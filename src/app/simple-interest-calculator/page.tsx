@@ -126,6 +126,10 @@ export default function SimpleInterestPage() {
           <LanguageToggle path="/hi/simple-interest-calculator" />
           <h1>Simple Interest Calculator</h1>
           <ShareTools title="Simple Interest Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="si-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -140,6 +144,10 @@ export default function SimpleInterestPage() {
         <div className="layout-grid">
           <div className="main-content">
             <SICalculatorClient />
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="si-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (Loan Context) */}
             <LiveRateTable type="personalLoan" />
@@ -275,6 +283,11 @@ export default function SimpleInterestPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>The &quot;Flat Rate&quot; Loan Trap</h3>

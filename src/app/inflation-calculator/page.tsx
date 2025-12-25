@@ -133,6 +133,10 @@ export default function InflationPage() {
           <LanguageToggle path="/hi/inflation-calculator" />
           <h1>Inflation Calculator – Future Value of Money</h1>
           <ShareTools title="Inflation Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="inflation-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
               <p style="max-width: 720px; color: var(--color-text-muted);">
@@ -146,6 +150,10 @@ export default function InflationPage() {
         <div className="layout-grid">
           <div className="main-content">
             <InflationClient />
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="inflation-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (Where to invest to beat inflation) */}
             <LiveRateTable type="fixedDeposit" />
@@ -294,6 +302,11 @@ export default function InflationPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>The Rule of 72</h3>

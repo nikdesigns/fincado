@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import Link from 'next/link'; // ✅ Use Next Link
+import Link from 'next/link';
 import HomeLoanClient from './HomeLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
@@ -10,9 +10,9 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
-import 'katex/dist/katex.min.css'; // ✅ Math Styling
+import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Internal Linking
+import { autoLinkContent } from '@/utils/autoLinker';
 import LanguageToggle from '@/components/LanguageToggle';
 
 /* ---------------- SEO METADATA ---------------- */
@@ -46,7 +46,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function HomeLoanPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Home Loan</strong> is a secured loan provided by banks or NBFCs to purchase,
@@ -70,7 +69,6 @@ export default function HomeLoanPage() {
 
   return (
     <>
-      {/* ✅ Clean Schema (Removed Duplicate Script) */}
       <CalculatorSchema
         name="Home Loan EMI Calculator"
         description="Calculate home loan EMI, total interest payable, and tax benefits (Sec 80C, 24b) with amortization schedule."
@@ -88,7 +86,6 @@ export default function HomeLoanPage() {
         ]}
       />
 
-      {/* Expanded FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -126,10 +123,16 @@ export default function HomeLoanPage() {
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/loans/home-loan" />
           <h1>Home Loan EMI Calculator</h1>
           <ShareTools title="Home Loan EMI Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="home-loan-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
               <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -144,9 +147,13 @@ export default function HomeLoanPage() {
           <div className="main-content">
             <HomeLoanClient />
 
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="home-loan-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="homeLoan" />
 
-            {/* ✅ High Value Internal Link */}
             <div
               className="no-print"
               style={{
@@ -178,23 +185,21 @@ export default function HomeLoanPage() {
               </div>
             </div>
 
-            <div className="no-print" style={{ margin: '40px 0' }}>
-              <AdSlot id="home-loan-mid" type="leaderboard" />
-            </div>
-
-            {/* -------- SEO CONTENT -------- */}
             <article className="article content-for-seo no-print">
               <h2>What is a Home Loan?</h2>
               <WikiText content={introContent} />
 
               <h3>Tax Benefits of Home Loans (2025)</h3>
-              {/* ✅ New Section: Crucial for ranking */}
               <WikiText content={taxContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>Home Loan EMI Formula</h3>
               <p>Indian banks use the following standard formula:</p>
 
-              {/* ✅ Professional Math Display */}
               <div
                 style={{
                   padding: '20px 0',

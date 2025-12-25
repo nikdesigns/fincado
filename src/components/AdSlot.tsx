@@ -108,7 +108,7 @@ export default function AdSlot({
     leaderboard: 'horizontal',
     banner: 'horizontal',
     box: 'rectangle',
-    'in-article': 'fluid',
+    'in-article': 'rectangle',
     rectangle: 'rectangle',
     square: 'rectangle',
   };

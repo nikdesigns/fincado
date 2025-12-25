@@ -113,6 +113,10 @@ export default function CompoundInterestPage() {
         <header style={{ marginBottom: 40 }} className="no-print">
           <h1>Compound Interest Calculator</h1>
           <ShareTools title="Compound Interest Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="ci-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -126,6 +130,10 @@ export default function CompoundInterestPage() {
         <div className="layout-grid">
           <div className="main-content">
             <CompoundInterestClient />
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="ci-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (FD/RD Context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -164,6 +172,11 @@ export default function CompoundInterestPage() {
                   </ul>
                 `}
               />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>Compounding Frequency Explained</h3>
               <p>

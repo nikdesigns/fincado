@@ -134,6 +134,11 @@ export default function EPFPage() {
           <LanguageToggle path="/hi/epf-calculator" />
           <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>
           <ShareTools title="Employees' Provident Fund (EPF) Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="epf-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -148,6 +153,11 @@ export default function EPFPage() {
         <div className="layout-grid">
           <div className="main-content">
             <EPFClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="epf-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (PPF Context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -244,6 +254,11 @@ export default function EPFPage() {
 
               <h3>Understanding the Contribution Split</h3>
               <WikiText content={contributionContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>EPF vs PPF: Which is Better?</h3>
               <div className="table-responsive">

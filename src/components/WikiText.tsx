@@ -1,6 +1,6 @@
-/* ❌ src/components/WikiText.tsx - DO NOT add 'use client' */
-
+/* src/components/WikiText.tsx */
 import React from 'react';
+import AdSlot from '@/components/AdSlot';
 
 const LINK_MAP: Record<string, string> = {
   'Home Loan': '/loans/home-loan',
@@ -35,13 +35,13 @@ function linkKeywords(html: string): string {
   if (!html) return '';
   let output = html;
 
+  // Sort by length to avoid replacing substrings (e.g., matching "Loan" inside "Home Loan")
   const keywords = Object.keys(LINK_MAP).sort((a, b) => b.length - a.length);
 
   keywords.forEach((word) => {
     const url = LINK_MAP[word];
-    // This regex ensures we match whole words and DO NOT replace words already inside an <a> tag or other HTML tags
+    // Regex: Match whole word, NOT inside existing tags or <a> links
     const regex = new RegExp(`\\b${word}\\b(?![^<]*>|[^<>]*</a>)`, 'gi');
-
     output = output.replace(regex, `<a href="${url}" class="wiki-link">$&</a>`);
   });
 
@@ -55,15 +55,46 @@ export default function WikiText({
   content: string;
   className?: string;
 }) {
-  // ✅ FIX 1: Run the linker
+  // 1. Run the auto-linker on the full content first
   const linkedContent = linkKeywords(content);
 
+  // 2. Logic to split content and inject Ad
+  // We split by closing paragraph tags </p> to ensure we don't break HTML structure
+  const paragraphs = linkedContent.split('</p>');
+
+  // If the article is short (less than 4 paragraphs), just show it all without insertion
+  if (paragraphs.length < 4) {
+    return (
+      <div
+        className={`wiki-content ${className}`}
+        dangerouslySetInnerHTML={{ __html: linkedContent }}
+        suppressHydrationWarning={true}
+      />
+    );
+  }
+
+  // 3. Inject Ad after the 2nd paragraph (index 0 and 1)
+  const firstBlock = paragraphs.slice(0, 2).join('</p>') + '</p>';
+  const secondBlock = paragraphs.slice(2).join('</p>');
+
   return (
-    <div
-      className={`wiki-content ${className}`}
-      // ✅ FIX 2: Use the LINKED content, not the original raw content
-      dangerouslySetInnerHTML={{ __html: linkedContent }}
-      suppressHydrationWarning={true}
-    />
+    <div className={`wiki-content ${className}`}>
+      {/* First Block of Text */}
+      <div
+        dangerouslySetInnerHTML={{ __html: firstBlock }}
+        suppressHydrationWarning={true}
+      />
+
+      {/* ✅ IN-ARTICLE AD SLOT (Using 'square' to match your approved unit) */}
+      <div className="my-8 no-print flex justify-center">
+        <AdSlot type="square" label="Advertisement" />
+      </div>
+
+      {/* Remaining Text */}
+      <div
+        dangerouslySetInnerHTML={{ __html: secondBlock }}
+        suppressHydrationWarning={true}
+      />
+    </div>
   );
 }

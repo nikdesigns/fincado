@@ -14,7 +14,7 @@ import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title: 'FD Calculator 2025 – Calculate Interest & Maturity Value',
   description:
@@ -43,7 +43,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function FDPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Fixed Deposit (FD)</strong> is a low-risk investment instrument 
@@ -88,7 +87,6 @@ export default function FDPage() {
         url="https://www.fincado.com/fd-calculator"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -137,10 +135,16 @@ export default function FDPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/fd-calculator" />
           <h1>Fixed Deposit (FD) Calculator</h1>
           <ShareTools title="Fixed Deposit (FD) Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="fd-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -156,7 +160,11 @@ export default function FDPage() {
           <div className="main-content">
             <FDClient />
 
-            {/* Mobile Tools */}
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="fd-after-calc" type="banner" />
+            </div>
+
             <div
               className="mobile-only-suggestions"
               style={{ marginTop: 32, marginBottom: 32 }}
@@ -206,7 +214,6 @@ export default function FDPage() {
               </div>
             </div>
 
-            {/* Promo Box */}
             <div
               className="no-print"
               style={{
@@ -238,16 +245,17 @@ export default function FDPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="fd-mid-content" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is a Fixed Deposit (FD)?</h2>
               <WikiText content={introContent} />
 
               <h3>Who is Eligible?</h3>
               <WikiText content={eligibilityContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>How This Calculator Helps Your Planning</h3>
               <WikiText

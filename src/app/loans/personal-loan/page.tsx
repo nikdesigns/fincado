@@ -13,7 +13,7 @@ import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function PersonalLoanPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Personal Loan</strong> is an <strong>unsecured form of credit</strong>
@@ -85,7 +84,6 @@ export default function PersonalLoanPage() {
         url="https://www.fincado.com/loans/personal-loan"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -138,6 +136,12 @@ export default function PersonalLoanPage() {
           <LanguageToggle path="/hi/loans/personal-loan" />
           <h1>Personal Loan EMI Calculator</h1>
           <ShareTools title="Personal Loan EMI Calculator" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="personal-loan-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -152,9 +156,13 @@ export default function PersonalLoanPage() {
           <div className="main-content">
             <PersonalLoanClient />
 
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="personal-loan-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="personalLoan" />
 
-            {/* ✅ PROMO BOX: High CTR Internal Link */}
             <div
               className="no-print"
               style={{
@@ -186,20 +194,19 @@ export default function PersonalLoanPage() {
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="personal-loan-mid" type="leaderboard" />
-            </div>
-
             <article className="article content-for-seo no-print">
               <h2>What is a Personal Loan?</h2>
               <WikiText content={introContent} />
 
               <h3>Who is Eligible?</h3>
-              {/* ✅ Auto-Linked Eligibility List */}
               <WikiText content={eligibilityContent} />
 
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
+
               <h3>Personal Loan vs Credit Card Loan</h3>
-              {/* ✅ Crucial Comparison for SEO */}
               <WikiText content={comparisonContent} />
 
               <h3>How This Calculator Helps Your Financial Planning</h3>
@@ -239,7 +246,6 @@ export default function PersonalLoanPage() {
                 calculated using the standard reducing balance method.
               </p>
 
-              {/* ✅ Professional Math Block */}
               <div
                 style={{
                   padding: '20px 0',

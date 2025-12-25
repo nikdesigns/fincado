@@ -125,6 +125,10 @@ export default function CreditScorePage() {
           <LanguageToggle path="/hi/credit-score/" />
           <h1>Credit Score Estimator</h1>
           <ShareTools title="Credit Score Estimator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="credit-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -139,6 +143,11 @@ export default function CreditScorePage() {
         <div className="layout-grid">
           <div className="main-content">
             <CreditScoreClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="credit-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (Personal Loan Context - High correlation with score) */}
             <LiveRateTable type="personalLoan" />
@@ -274,6 +283,11 @@ export default function CreditScorePage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>The 5 Pillars of Credit Scoring</h3>

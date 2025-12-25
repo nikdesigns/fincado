@@ -131,6 +131,10 @@ export default function APYPage() {
           <LanguageToggle path="/hi/apy-calculator" />
           <h1>Atal Pension Yojana (APY) Calculator</h1>
           <ShareTools title="Atal Pension Yojana (APY) Calculator" />
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="apy-top" type="leaderboard" />
+          </div>
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -144,6 +148,11 @@ export default function APYPage() {
         <div className="layout-grid">
           <div className="main-content">
             <APYClient />
+
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="apy-after-calc" type="banner" />
+            </div>
 
             {/* ✅ Live Rates (Using FD/NPS context) */}
             <LiveRateTable type="fixedDeposit" />
@@ -240,6 +249,11 @@ export default function APYPage() {
 
               <h3>Who Can Subscribe to APY?</h3>
               <WikiText content={eligibilityContent} />
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
+              </div>
 
               <h3>APY vs NPS: Which is Better?</h3>
               <div className="table-responsive">

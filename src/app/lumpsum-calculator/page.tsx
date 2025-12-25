@@ -10,12 +10,12 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
+import LiveRateTable from '@/components/LiveRateTable';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title: 'Lumpsum Calculator 2025 – One-Time Investment Returns',
   description:
@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 /* ---------------- PAGE ---------------- */
 
 export default function LumpsumPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       A <strong>Lumpsum Investment</strong> involves depositing a significant sum of money 
@@ -82,7 +81,6 @@ export default function LumpsumPage() {
         url="https://www.fincado.com/lumpsum-calculator"
       />
 
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -131,10 +129,16 @@ export default function LumpsumPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
+        <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/lumpsum-calculator" />
           <h1>Lumpsum Calculator — One-Time Investment</h1>
           <ShareTools title="Lumpsum Calculator — One-Time Investment" />
+
+          {/* 💰 AD 1: TOP LEADERBOARD */}
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="lumpsum-top" type="leaderboard" />
+          </div>
+
           <WikiText
             content={`
             <p style="max-width: 700px; color: var(--color-text-muted);">
@@ -149,10 +153,13 @@ export default function LumpsumPage() {
           <div className="main-content">
             <LumpsumClient />
 
-            {/* ✅ Live Rates (Using FD as a baseline comparison) */}
+            {/* 💰 AD 2: AFTER CALCULATOR */}
+            <div className="no-print" style={{ margin: '32px 0' }}>
+              <AdSlot id="lumpsum-after-calc" type="banner" />
+            </div>
+
             <LiveRateTable type="fixedDeposit" />
 
-            {/* ✅ Mobile-Only Tools */}
             <div
               className="mobile-only-suggestions"
               style={{ marginTop: 32, marginBottom: 32 }}
@@ -202,7 +209,6 @@ export default function LumpsumPage() {
               </div>
             </div>
 
-            {/* ✅ Promo Box */}
             <div
               className="no-print"
               style={{
@@ -232,10 +238,6 @@ export default function LumpsumPage() {
                   Read: Why STP is safer than Lumpsum →
                 </Link>
               </div>
-            </div>
-
-            <div style={{ margin: '40px 0' }} className="no-print">
-              <AdSlot id="lumpsum-mid-content" type="leaderboard" />
             </div>
 
             <article className="article content-for-seo no-print">
@@ -283,6 +285,11 @@ export default function LumpsumPage() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              <div className="no-print my-8 flex justify-center">
+                <AdSlot type="square" label="Advertisement" />
               </div>
 
               <h3>The STP Strategy (Pro Tip)</h3>
