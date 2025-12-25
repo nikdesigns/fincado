@@ -145,7 +145,8 @@ export default function GuidesPage() {
       <GuidesClient articles={sortedGuides} />
 
       <div style={{ marginTop: 60 }}>
-        <AdSlot type="leaderboard" />
+        {/* 🔴 FIXED: Added ID */}
+        <AdSlot id="guides-bottom-leaderboard" type="leaderboard" />
       </div>
     </main>
   );

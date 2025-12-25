@@ -285,7 +285,12 @@ export default function InvestingPage() {
 
               {/* 💰 AD 3: IN-CONTENT SQUARE */}
               <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
+                {/* 🔴 FIXED: Added ID */}
+                <AdSlot
+                  id="investing-square-inner"
+                  type="square"
+                  label="Advertisement"
+                />
               </div>
 
               <h3>Understanding Asset Classes</h3>

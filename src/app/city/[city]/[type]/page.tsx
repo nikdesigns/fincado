@@ -84,7 +84,12 @@ export default async function CityLoanPage({
         </p>
 
         <div style={{ margin: '24px 0' }}>
-          <AdSlot type="leaderboard" label="Sponsored" />
+          {/* 🔴 FIXED: Added ID */}
+          <AdSlot
+            id="city-loan-type-top"
+            type="leaderboard"
+            label="Sponsored"
+          />
         </div>
 
         {/* ✅ NEW: DATA-RICH TABLE (SEO GOLD) */}
@@ -247,7 +252,8 @@ export default async function CityLoanPage({
         </section>
 
         <div style={{ margin: '32px 0' }}>
-          <AdSlot type="rectangle" />
+          {/* 🔴 FIXED: Added ID */}
+          <AdSlot id="city-loan-type-bottom" type="rectangle" />
         </div>
       </div>
 
