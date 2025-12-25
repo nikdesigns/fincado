@@ -62,7 +62,7 @@ export default function AdSlot({
     const timeout = setTimeout(() => {
       // Safety Checks
       if (!adRef.current) return;
-      if (adRef.current.offsetWidth === 0) return; // Don't load in hidden divs
+      // if (adRef.current.offsetWidth === 0) return; // Don't load in hidden divs
       if (isAdLoaded) return; // Prevent double-loading
 
       // Check if AdSense already filled this specific slot
