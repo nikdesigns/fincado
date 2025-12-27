@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'साधारण ब्याज (Simple Interest) कैलकुलेटर | Fincado',
@@ -54,6 +55,7 @@ export default function HindiSIPage() {
       <div className="layout-grid">
         <div className="main-content">
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/simple-interest-calculator" />
             <h1
               style={{
                 fontSize: '28px',

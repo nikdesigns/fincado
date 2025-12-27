@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'GST कैलकुलेटर – GST जोड़ें या हटाएं (Online Tool) | Fincado',
@@ -62,6 +63,7 @@ export default function HindiGSTPage() {
       <div className="layout-grid">
         <div className="main-content">
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/gst-calculator" />
             <h1
               style={{
                 fontSize: '28px',

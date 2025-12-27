@@ -5,6 +5,10 @@ interface LanguageToggleProps {
 }
 
 export default function LanguageToggle({ path }: LanguageToggleProps) {
+  // Logic: If the target path starts with '/hi', we are going TO Hindi.
+  // Otherwise, we are going TO English.
+  const isTargetHindi = path.startsWith('/hi');
+
   return (
     <Link
       href={path}
@@ -26,8 +30,10 @@ export default function LanguageToggle({ path }: LanguageToggleProps) {
         boxShadow: '0 2px 4px rgba(225, 29, 72, 0.1)',
       }}
     >
-      <span style={{ fontSize: '16px' }}>🇮🇳</span>
-      <span>हिंदी में देखें (Read in Hindi)</span>
+      <span style={{ fontSize: '16px' }}>{isTargetHindi ? '🇮🇳' : '🇺🇸'}</span>
+      <span>
+        {isTargetHindi ? 'हिंदी में देखें (Read in Hindi)' : 'Read in English'}
+      </span>
     </Link>
   );
 }

@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'Lumpsum कैलकुलेटर – एकमुश्त निवेश पर रिटर्न | Fincado',
@@ -48,6 +49,7 @@ export default function HindiLumpsumPage() {
       <div className="layout-grid">
         <div className="main-content">
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/lumpsum-calculator" />
             <h1
               style={{
                 fontSize: '28px',

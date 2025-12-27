@@ -5,12 +5,14 @@ type PieChartProps = {
   principalPct: number;
   interestPct: number;
   size?: number;
+  centerLabel?: string;
 };
 
 export default function PieChart({
   principalPct,
   interestPct,
   size = 240,
+  centerLabel = 'Principal / Interest',
 }: PieChartProps) {
   // Calculate dimensions
   const strokeWidth = Math.round(size * 0.18); // Thick ring (18% of size)
@@ -47,7 +49,6 @@ export default function PieChart({
         />
 
         {/* 2. Interest Arc (Overlay) - Brand Green */}
-        {/* Rotated -90deg so it starts at the top (12 o'clock) */}
         <g transform={`rotate(-90 ${cx} ${cy})`}>
           <circle
             cx={cx}
@@ -69,25 +70,31 @@ export default function PieChart({
         <circle cx={cx} cy={cy} r={r * 0.52} fill="#ffffff" />
 
         {/* 4. Center Text Labels */}
+
+        {/* Top Text: Percentages */}
         <text
           x={cx}
-          y={cy - 5}
+          y={cy - size * 0.06} /* Moved slightly higher */
           textAnchor="middle"
           fontWeight={700}
-          fontSize={size * 0.08} // Scales with size
+          fontSize={size * 0.075} /* Adjusted font size to fit */
           fill="#0f172a"
+          dominantBaseline="auto"
         >
           {principalPct}% / {interestPct}%
         </text>
+
+        {/* Bottom Text: Label (Fixed: Only one text element now) */}
         <text
           x={cx}
-          y={cy + size * 0.07}
+          y={cy + size * 0.08} /* Moved slightly lower */
           textAnchor="middle"
-          fontSize={size * 0.05} // Scales with size
+          fontSize={size * 0.05}
           fill="#6b7280"
           fontWeight={500}
+          dominantBaseline="hanging" /* Ensures it hangs below the center line */
         >
-          Principal / Interest
+          {centerLabel}
         </text>
       </svg>
     </div>

@@ -11,6 +11,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import { autoLinkContent } from '@/utils/autoLinker';
+import LanguageToggle from '@/components/LanguageToggle';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -129,7 +130,9 @@ export default function GratuityPage() {
         />
 
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/gratuity-calculator" />
           <h1>Gratuity Calculator</h1>
+
           <ShareTools title="Gratuity Calculator" />
           {/* 💰 AD 1: TOP LEADERBOARD */}
           <div style={{ marginTop: 24, marginBottom: 24 }}>

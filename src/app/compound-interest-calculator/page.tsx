@@ -13,6 +13,7 @@ import ShareTools from '@/components/ShareTools';
 import { autoLinkContent } from '@/utils/autoLinker';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
+import LanguageToggle from '@/components/LanguageToggle';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -111,6 +112,7 @@ export default function CompoundInterestPage() {
         />
 
         <header style={{ marginBottom: 40 }} className="no-print">
+          <LanguageToggle path="/hi/compound-interest-calculator" />
           <h1>Compound Interest Calculator</h1>
           <ShareTools title="Compound Interest Calculator" />
           {/* 💰 AD 1: TOP LEADERBOARD */}

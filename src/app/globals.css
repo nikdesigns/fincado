@@ -312,7 +312,6 @@ input[type='range']::-webkit-slider-thumb:hover {
   align-items: center;
 }
 .input-wrapper input {
-  padding-right: 40px;
   font-weight: 500;
 }
 .input-wrapper span {
@@ -1713,10 +1712,6 @@ input[type='range']::-webkit-slider-thumb:hover {
   transition: background-color 0.2s;
 }
 
-.faqs-accordion details:last-child {
-  border-bottom: none;
-}
-
 .faqs-accordion details[open] {
   background-color: var(--color-bg-soft); /* Light background when open */
 }
@@ -2258,4 +2253,165 @@ ul.checklist li::before {
   max-width: 100%;
   height: 50%;
   white-space: normal !important; /* Allows text wrapping */
+}
+
+/* =========================================
+   VERDICT BOX STYLES (Elegant & Subtle)
+   ========================================= */
+
+.verdict-box {
+  /* Subtle Background & Depth */
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--color-brand-green); /* Brand Identity */
+
+  /* Spacing & Shape */
+  border-radius: 16px; /* Softer corners */
+  padding: 32px;
+  margin: 40px 0;
+
+  /* Soft, upscale shadow */
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative subtle glow in the corner (Optional) */
+.verdict-box::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: var(--color-success-bg);
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* Header Styling: Clean, uppercase, distinctive */
+.verdict-box h2 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-brand-green); /* Brand Green */
+  margin-top: 0;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Elegant Icon before Title */
+.verdict-box h2::before {
+  content: '⚖️'; /* Using emoji is lightweight and semantic for "Verdict" */
+  font-size: 18px;
+  filter: grayscale(100%); /* Makes emoji look sleek/monochrome */
+  opacity: 0.8;
+}
+
+/* Typography for the content */
+.verdict-box p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #334155; /* Slate-700: Richer than standard grey */
+  margin-bottom: 16px;
+}
+
+.verdict-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* "Highlighter" effect for <strong> text */
+.verdict-box strong {
+  font-weight: 600;
+  color: #0f172a; /* Slate-900: Dark and sharp */
+  /* Creates a subtle green highlight at the bottom half of the text */
+  background: linear-gradient(180deg, transparent 70%, #dcfce7 70%);
+  padding: 0 2px;
+}
+
+/* =========================================
+   MINI QnA SECTION (Elegant & Beautiful)
+   ========================================= */
+
+.mini-qna {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 32px;
+  margin: 40px 0;
+  /* Subtle, premium shadow */
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.03);
+}
+
+.mini-qna h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-top: 0;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Decorative Question Icon */
+.mini-qna h2::before {
+  content: '?';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--color-success-bg);
+  color: var(--color-brand-green);
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.mini-qna ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.mini-qna li {
+  font-size: 16px;
+  font-weight: 500;
+  color: #334155; /* Slate-700 for better readability */
+  background: var(--color-bg-soft);
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Elegant Bullet Point */
+.mini-qna li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-brand-green);
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* Subtle Hover Interaction */
+.mini-qna li:hover {
+  background: #ffffff;
+  border-color: var(--color-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  color: var(--color-action-cta);
+  transform: translateX(4px);
 }

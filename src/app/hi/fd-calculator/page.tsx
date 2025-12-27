@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'FD कैलकुलेटर – फिक्स्ड डिपॉजिट ब्याज और रिटर्न | Fincado',
@@ -52,6 +53,7 @@ export default function HindiFDPage() {
       <div className="layout-grid">
         <div className="main-content">
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/fd-calculator" />
             <h1
               style={{
                 fontSize: '28px',

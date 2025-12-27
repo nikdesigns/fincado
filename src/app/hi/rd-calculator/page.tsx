@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'RD कैलकुलेटर – रिकरिंग डिपॉजिट ब्याज और परिपक्वता राशि | Fincado',
@@ -59,6 +60,7 @@ export default function HindiRDPage() {
       <div className="layout-grid">
         <div className="main-content">
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/rd-calculator" />
             <h1
               style={{
                 fontSize: '28px',

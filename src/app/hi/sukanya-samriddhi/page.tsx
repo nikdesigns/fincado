@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import HindiSidebar from '@/components/HindiSidebar';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'सुकन्या समृद्धि योजना (SSY) कैलकुलेटर - ब्याज और परिपक्वता | Fincado',
@@ -60,6 +61,7 @@ export default function HindiSSYPage() {
       <div className="layout-grid">
         <div className="main-content">
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/sukanya-samriddhi" />
             <h1
               style={{
                 fontSize: '28px',
