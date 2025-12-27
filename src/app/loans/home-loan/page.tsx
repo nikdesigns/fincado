@@ -54,6 +54,10 @@ export default function HomeLoanPage() {
       construct, or renovate a residential property. In India, home loans offer significant 
       <strong>tax benefits</strong> and long repayment tenures of up to 30 years. Check EMI, eligibility, interest outgo, and tax savings before applying.
     </p>
+    <p>
+      This <strong>Home Loan EMI Calculator</strong> helps you calculate monthly EMI,
+      total interest payable, and tax benefits before applying for a housing loan.
+    </p>
   `);
 
   const taxContent = autoLinkContent(`
