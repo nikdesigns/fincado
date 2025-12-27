@@ -18,7 +18,8 @@ import LanguageToggle from '@/components/LanguageToggle';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Home Loan EMI Calculator 2025 – Eligibility & Tax Benefits',
+  title:
+    'Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits',
   description:
     'Calculate Home Loan EMI, total interest, and tax benefits under Section 24(b) and 80C. Check eligibility, PMAY subsidy, and amortization schedule instantly.',
   keywords: [
@@ -35,7 +36,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.fincado.com/loans/home-loan',
   },
   openGraph: {
-    title: 'Home Loan EMI Calculator – Plan Your Dream Home',
+    title:
+      'Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits',
     description:
       'Free tool to calculate Home Loan EMI, Interest, and Tax Benefits.',
     url: 'https://www.fincado.com/loans/home-loan',
@@ -50,7 +52,7 @@ export default function HomeLoanPage() {
     <p>
       A <strong>Home Loan</strong> is a secured loan provided by banks or NBFCs to purchase,
       construct, or renovate a residential property. In India, home loans offer significant 
-      <strong>tax benefits</strong> and long repayment tenures of up to 30 years.
+      <strong>tax benefits</strong> and long repayment tenures of up to 30 years. Check EMI, eligibility, interest outgo, and tax savings before applying.
     </p>
   `);
 
@@ -117,6 +119,14 @@ export default function HomeLoanPage() {
                   text: 'Yes. A 30-year loan has lower EMI but you pay almost double the interest compared to a 15-year loan.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'Which bank offers the lowest home loan EMI?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Home loan EMI depends on interest rate, tenure, and loan amount. PSU banks like SBI often offer lower rates, while private banks provide faster processing. Always compare EMIs using a home loan EMI calculator before choosing.',
+                },
+              },
             ],
           }),
         }}
@@ -125,8 +135,10 @@ export default function HomeLoanPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <header style={{ marginBottom: 32 }} className="no-print">
           <LanguageToggle path="/hi/loans/home-loan" />
-          <h1>Home Loan EMI Calculator</h1>
-          <ShareTools title="Home Loan EMI Calculator" />
+          <h1>
+            Home Loan EMI Calculator – Check Eligibility, EMI & Tax Benefits
+          </h1>
+          <ShareTools title="Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits" />
 
           {/* 💰 AD 1: TOP LEADERBOARD */}
           <div style={{ marginTop: 24, marginBottom: 24 }}>
@@ -161,7 +173,7 @@ export default function HomeLoanPage() {
                 border: '1px solid #bbf7d0',
                 borderRadius: '8px',
                 padding: '16px',
-                marginTop: '32px',
+                margin: '32px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',

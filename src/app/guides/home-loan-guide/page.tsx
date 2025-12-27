@@ -180,7 +180,11 @@ export default function HomeLoanGuidePage() {
             <li><strong>Principal Amount:</strong> The total loan amount borrowed.</li>
             <li><strong>Interest Rate:</strong> The cost of borrowing (fixed or floating).</li>
             <li><strong>Tenure:</strong> The repayment period, typically ranging from 5 to 30 years.</li>
-            <li><strong>EMI:</strong> The monthly payment comprising both principal and interest.</li>
+            <li>
+              <strong>EMI:</strong> The monthly payment comprising both principal and interest.
+              You can calculate your exact monthly outflow using our
+              <a href="/emi-calculator/">EMI Calculator</a> before applying.
+            </li>
           </ul>
         `}
       />
@@ -270,8 +274,8 @@ export default function HomeLoanGuidePage() {
             Most lenders prefer a FOIR of <strong>40-50%</strong> or lower.
           </p>
           <p>
-            <em>Example:</em> If your income is ₹1 Lakh and existing EMIs are ₹25,000, your FOIR is 25%. 
-            This leaves room for a home loan EMI of roughly ₹25,000.
+            You can simulate different income, FOIR, and EMI combinations using our
+            <a href="/emi-calculator">loan EMI calculator</a> to avoid over-borrowing.
           </p>
         `}
       />
@@ -306,7 +310,7 @@ export default function HomeLoanGuidePage() {
             backgroundColor: 'white',
           }}
         >
-          Open Home Loan Calculator
+          Home Loan EMI Calculator (Check Eligibility)
         </Link>
       </div>
 
@@ -392,6 +396,10 @@ export default function HomeLoanGuidePage() {
             Home loan interest rates in India are benchmarked to either <strong>MCLR</strong> or <strong>RLLR</strong>. 
             Most experts now favor <strong>RLLR (Repo Linked Lending Rate)</strong> because it is directly linked 
             to the RBI's repo rate, offering faster transmission of rate cuts and greater transparency.
+          </p>
+          <p>
+            Even a 0.5% rate change can significantly impact your EMI, which is why
+            borrowers should always compare scenarios using an EMI calculator.
           </p>
         `}
       />
@@ -593,8 +601,8 @@ export default function HomeLoanGuidePage() {
             discover how much you can afford!
           </p>
           <div className="final-cta-row">
-            <Link href="/emi-calculator" className="primary-cta">
-              Check Eligibility
+            <Link href="/loans/home-loan/" className="primary-cta">
+              Home Loan EMI Calculator (Check Eligibility)
             </Link>
             <Link href="/credit-score" className="secondary-cta">
               Check Credit Score

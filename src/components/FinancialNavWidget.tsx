@@ -13,7 +13,12 @@ type NavItem = {
 // 1. POPULAR TOOLS (Curated List)
 const TOP_TOOLS: NavItem[] = [
   { href: '/sip-calculator', label: 'SIP Calculator', icon: '📈' },
-  { href: '/emi-calculator', label: 'EMI Calculator', icon: '🏠' },
+  { href: '/emi-calculator', label: 'Loan EMI Calculator', icon: '🏠' },
+  {
+    href: '/loans/home-loan',
+    label: 'Home Loan EMI Calculator',
+    icon: '🏡',
+  },
   {
     href: '/sukanya-samriddhi',
     label: 'SSY Calculator',
@@ -29,7 +34,7 @@ const TOP_TOOLS: NavItem[] = [
 const TRENDING_GUIDES: NavItem[] = [
   {
     href: '/guides/sukanya-samriddhi-yojana-guide-2025',
-    label: 'SSY Scheme 2025: Full Guide',
+    label: 'Sukanya Samriddhi Yojana Guide 2025',
   },
   {
     href: '/guides/elss-funds-guide-2025',

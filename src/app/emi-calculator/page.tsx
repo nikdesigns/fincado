@@ -114,6 +114,30 @@ export default function EMIPage() {
                   text: 'By default, banks reduce the loan tenure after prepayment as it saves the most interest. EMI reduction can be requested separately.',
                 },
               },
+              {
+                '@type': 'Question',
+                name: 'How do banks calculate EMI?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Banks calculate EMI using the reducing balance method, where interest is charged only on the outstanding principal.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is EMI different for fixed and floating interest rates?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes. Fixed-rate EMIs remain constant, while floating-rate EMIs can change when interest rates change.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can EMI change during the loan tenure?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes. EMI can change if interest rates change or if you make part prepayments.',
+                },
+              },
             ],
           }),
         }}
@@ -132,18 +156,35 @@ export default function EMIPage() {
 
           <WikiText
             content={`
-              <p style="max-width: 700px; color: var(--color-text-muted);">
-                Instantly calculate your monthly EMI, visualize total interest costs,
-                and download your repayment schedule.
-                <strong> Accurate. Free. No Login Required.</strong>
-              </p>
-            `}
+    <p style="max-width: 720px; color: var(--color-text-muted);">
+      Use Fincado’s <strong>EMI Calculator</strong> to calculate your monthly loan EMI,
+      total interest payable, and repayment schedule for
+      <strong>Home Loans, Personal Loans, and Car Loans</strong>.
+      Compare loan options, test prepayments, and plan your loan smartly
+      <strong>before applying</strong>.
+    </p>
+  `}
           />
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <EMIClient />
+
+            <section className="article no-print" style={{ marginTop: 32 }}>
+              <h2>Key EMI Insights</h2>
+              <ul>
+                <li>Lower EMI often means higher total interest over time.</li>
+                <li>Even small prepayments can reduce interest by lakhs.</li>
+                <li>
+                  Tenure changes impact total repayment more than interest rate
+                  changes.
+                </li>
+                <li>
+                  EMI calculators help compare banks before applying for loans.
+                </li>
+              </ul>
+            </section>
 
             {/* 💰 AD 2: AFTER RESULT (High Engagement) */}
             <div className="no-print" style={{ margin: '32px 0' }}>
