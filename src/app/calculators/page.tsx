@@ -6,6 +6,7 @@ import LegalNote from '@/components/LegalNote';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import AdSlot from '@/components/AdSlot';
+import LanguageToggle from '@/components/LanguageToggle';
 
 // --- 1. SEO METADATA ---
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default function CalculatorsPage() {
         <div style={{ minWidth: 0 }}>
           {/* ✅ H1 (Critical for SEO) */}
           <header style={{ marginBottom: 32 }}>
+            <LanguageToggle path="/hi/calculators" />
             <h1>All Financial Calculators</h1>
             <p
               style={{

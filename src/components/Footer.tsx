@@ -89,6 +89,10 @@ export default function Footer() {
               <Link href="/sip-calculator/">SIP Calculator</Link>
             </li>
             <li>
+              <Link href="/elss-calculator/">ELSS Calculator</Link>{' '}
+              {/* ✅ Added */}
+            </li>
+            <li>
               <Link href="/fd-calculator/">FD Calculator</Link>
             </li>
             <li>
@@ -114,6 +118,10 @@ export default function Footer() {
           <h4>Planning & Tax</h4>
           <ul>
             <li>
+              <Link href="/income-tax-calculator/">Income Tax Calculator</Link>{' '}
+              {/* ✅ Added */}
+            </li>
+            <li>
               <Link href="/inflation-calculator/">Inflation Calculator</Link>
             </li>
             <li>
@@ -123,8 +131,7 @@ export default function Footer() {
               <Link href="/epf-calculator/">EPF Calculator</Link>
             </li>
             <li>
-              <Link href="/gratuity-calculator/">Gratuity Calculator</Link>{' '}
-              {/* ✅ Added */}
+              <Link href="/gratuity-calculator/">Gratuity Calculator</Link>
             </li>
             <li>
               <Link href="/gst-calculator/">GST Calculator</Link>
@@ -132,8 +139,7 @@ export default function Footer() {
             <li>
               <Link href="/compound-interest-calculator/">
                 Compound Interest
-              </Link>{' '}
-              {/* ✅ Added */}
+              </Link>
             </li>
             <li>
               <Link href="/simple-interest-calculator/">Simple Interest</Link>

@@ -19,13 +19,13 @@ const CALCULATOR_MENU = [
     category: 'Investment',
     items: [
       { label: 'SIP Calculator', href: '/sip-calculator/' },
+      { label: 'ELSS Calculator', href: '/elss-calculator/' }, // ✅ Added
       { label: 'FD Calculator', href: '/fd-calculator/' },
       { label: 'RD Calculator', href: '/rd-calculator/' },
       { label: 'PPF Calculator', href: '/ppf-calculator/' },
       { label: 'Lumpsum', href: '/lumpsum-calculator/' },
       { label: 'SWP Calculator', href: '/swp-calculator/' },
       { label: 'SSY (Sukanya)', href: '/sukanya-samriddhi/' },
-      { label: 'Mutual Funds', href: '/mutual-funds/' },
     ],
   },
   {
@@ -34,18 +34,19 @@ const CALCULATOR_MENU = [
       { label: 'Retirement Planner', href: '/retirement-calculator/' },
       { label: 'EPF Calculator', href: '/epf-calculator/' },
       { label: 'APY Calculator', href: '/apy-calculator/' },
-      { label: 'Gratuity Calculator', href: '/gratuity-calculator/' }, // ✅ Added
+      { label: 'Gratuity Calculator', href: '/gratuity-calculator/' },
       { label: 'FIRE Calculator', href: '/fire-calculator/' },
     ],
   },
   {
     category: 'Tools & Tax',
     items: [
+      { label: 'Income Tax (New!)', href: '/income-tax-calculator/' }, // ✅ Added
       { label: 'Credit Score', href: '/credit-score/' },
       { label: 'GST Calculator', href: '/gst-calculator/' },
       { label: 'Inflation', href: '/inflation-calculator/' },
       { label: 'Simple Interest', href: '/simple-interest-calculator/' },
-      { label: 'Compound Interest', href: '/compound-interest-calculator/' }, // ✅ Added
+      { label: 'Compound Interest', href: '/compound-interest-calculator/' },
       { label: 'All Calculators', href: '/calculators/', bold: true },
     ],
   },

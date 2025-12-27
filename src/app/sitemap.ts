@@ -15,7 +15,7 @@ const getUrl = (path: string) =>
   path === '' ? `${BASE_URL}/` : `${BASE_URL}${path}/`;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  /* ---------------- STATIC PAGES ---------------- */
+  /* ---------------- STATIC PAGES (ENGLISH) ---------------- */
   const staticRoutes = [
     '',
     '/about',
@@ -46,6 +46,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/fire-calculator',
     '/gratuity-calculator',
     '/compound-interest-calculator',
+    '/elss-calculator', // ✅ Added
+    '/income-tax-calculator', // ✅ Added
 
     // Loans
     '/loans/home-loan',
@@ -62,22 +64,41 @@ export default function sitemap(): MetadataRoute.Sitemap {
   /* ---------------- HINDI PAGES ---------------- */
   const hindiRoutes = [
     '/hi',
-    '/hi/emi-calculator',
+    '/hi/calculators', // ✅ New Hub
+    '/hi/guides', // ✅ New Hub
+
+    // Investment & Saving
     '/hi/sip-calculator',
+    '/hi/elss-calculator', // ✅ Added
     '/hi/fd-calculator',
     '/hi/rd-calculator',
     '/hi/ppf-calculator',
     '/hi/epf-calculator',
     '/hi/swp-calculator',
+    '/hi/lumpsum-calculator', // ✅ Added
+    '/hi/sukanya-samriddhi',
+    '/hi/mutual-funds',
+
+    // Retirement
     '/hi/retirement-calculator',
     '/hi/apy-calculator',
     '/hi/fire-calculator',
     '/hi/gratuity-calculator',
+
+    // Tax & Tools
+    '/hi/income-tax-calculator', // ✅ Added
     '/hi/inflation-calculator',
     '/hi/gst-calculator',
     '/hi/credit-score',
-    '/hi/mutual-funds',
-    '/hi/sukanya-samriddhi',
+    '/hi/simple-interest-calculator', // ✅ Added
+    '/hi/compound-interest-calculator', // ✅ Added
+
+    // Loans
+    '/hi/emi-calculator',
+    '/hi/loans/home-loan', // ✅ Added
+    '/hi/loans/car-loan', // ✅ Added
+    '/hi/loans/personal-loan', // ✅ Added
+    '/hi/loans/education-loan', // ✅ Added
   ].map((route) => ({
     url: getUrl(route),
     lastModified: new Date(),
@@ -85,7 +106,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  /* ---------------- GUIDES ---------------- */
+  /* ---------------- GUIDES (DYNAMIC) ---------------- */
+  // This automatically picks up the new guides from articles.json
   const articleRoutes = articlesData
     .filter((a) => !excludedSlugs.includes(a.slug))
     .map((article) => {
@@ -101,13 +123,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
       };
     });
-
-  /* ❌ REMOVED:
-     - City routes
-     - Bank routes
-     - Bank-city routes
-     - Category routes
-  */
 
   return [...staticRoutes, ...hindiRoutes, ...articleRoutes];
 }
