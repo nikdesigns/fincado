@@ -1092,14 +1092,12 @@ export default function EmiGuidePage() {
         </p>
         <h4>Key Takeaways:</h4>
         <ul className="checklist">
-          <li>✅ Use the EMI formula to verify lender calculations.</li>
-          <li>✅ Negotiate even 0.5% rate differences to save ₹lakhs.</li>
-          <li>
-            ✅ Prepay more in the first 5–7 years to cut interest sharply.
-          </li>
-          <li>✅ Keep EMI-to-income ratio near or below 40%.</li>
-          <li>✅ Protect your credit score with strict EMI discipline.</li>
-          <li>✅ Optimise tax benefits wherever applicable on home loans.</li>
+          <li> Use the EMI formula to verify lender calculations.</li>
+          <li> Negotiate even 0.5% rate differences to save ₹lakhs.</li>
+          <li>Prepay more in the first 5–7 years to cut interest sharply.</li>
+          <li> Keep EMI-to-income ratio near or below 40%.</li>
+          <li> Protect your credit score with strict EMI discipline.</li>
+          <li> Optimise tax benefits wherever applicable on home loans.</li>
         </ul>
       </div>
 
