@@ -10,7 +10,7 @@ type NavItem = {
   isNew?: boolean;
 };
 
-// 1. POPULAR TOOLS (Curated List)
+// 1. POPULAR TOOLS
 const TOP_TOOLS: NavItem[] = [
   { href: '/sip-calculator', label: 'SIP Calculator', icon: '📈' },
   { href: '/emi-calculator', label: 'Loan EMI Calculator', icon: '🏠' },
@@ -23,14 +23,14 @@ const TOP_TOOLS: NavItem[] = [
     href: '/sukanya-samriddhi',
     label: 'SSY Calculator',
     icon: '👧',
-    isNew: true,
+    isNew: true, // Will now sit immediately next to text
   },
   { href: '/ppf-calculator', label: 'PPF Calculator', icon: '💰' },
   { href: '/income-tax-calculator', label: 'Tax Calculator', icon: '🧾' },
   { href: '/credit-score', label: 'Check Credit Score', icon: '🛡️' },
 ];
 
-// 2. TRENDING GUIDES (Updated with your new content)
+// 2. TRENDING GUIDES
 const TRENDING_GUIDES: NavItem[] = [
   {
     href: '/guides/sukanya-samriddhi-yojana-guide-2025',
@@ -60,20 +60,15 @@ export default function FinancialNavWidget() {
           {TOP_TOOLS.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className="tool-link">
-                <span
-                  style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
-                >
-                  <span style={{ fontSize: '16px' }}>{item.icon}</span>
-                  {item.label}
-                </span>
+                <span className="icon">{item.icon}</span>
+                <span className="label-text">{item.label}</span>
                 {item.isNew && <span className="badge-new">NEW</span>}
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* View All Link */}
-        <div style={{ marginTop: '12px', paddingLeft: '8px' }}>
+        <div className="view-all-wrap">
           <Link href="/calculators" className="view-all-link">
             View All Calculators →
           </Link>
@@ -82,7 +77,7 @@ export default function FinancialNavWidget() {
 
       {/* --- SECTION 2: GUIDES --- */}
       <div className="sidebar-section">
-        <h3 className="sidebar-title">Latest Guides</h3>
+        <h3 className="sidebar-title">Trending Guides</h3>
         <ul className="sidebar-list">
           {TRENDING_GUIDES.map((item) => (
             <li key={item.href}>
@@ -95,32 +90,31 @@ export default function FinancialNavWidget() {
         </ul>
       </div>
 
-      {/* --- STYLES --- */}
       <style jsx>{`
         .financial-sidebar {
-          background: #fff;
-          border: 1px solid var(--color-border);
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
           border-radius: 16px;
           overflow: hidden;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .sidebar-section {
-          padding: 20px;
-          border-bottom: 1px solid #f1f5f9;
+          padding: 24px 20px;
         }
 
-        .sidebar-section:last-child {
-          border-bottom: none;
+        .sidebar-section + .sidebar-section {
+          border-top: 1px solid #e2e8f0;
         }
 
         .sidebar-title {
-          font-size: 11px;
-          text-transform: uppercase;
-          color: #64748b;
+          font-size: 18px;
           font-weight: 700;
-          letter-spacing: 0.8px;
-          margin-bottom: 16px;
+          color: #0f172a;
+          margin-bottom: 20px;
+          border-bottom: 2px solid #22c55e;
+          display: inline-block;
+          padding-bottom: 4px;
         }
 
         .sidebar-list {
@@ -130,55 +124,73 @@ export default function FinancialNavWidget() {
         }
 
         .sidebar-list li {
-          margin-bottom: 4px;
+          margin-bottom: 12px;
+          padding-bottom: 12px;
+          border-bottom: 1px dashed #cbd5e1;
         }
 
-        /* Tool Link Styling */
+        .sidebar-list li:last-child {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          border-bottom: none;
+        }
+
+        /* --- TOOL LINK (Simplified & Fixed) --- */
         .tool-link {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          padding: 10px 12px;
-          border-radius: 8px;
+          gap: 12px; /* Consistent spacing between Icon, Text, Badge */
           text-decoration: none;
-          color: var(--color-text-main);
-          font-weight: 500;
-          font-size: 14px;
+          color: #334155;
+          font-weight: 600;
+          font-size: 15px;
           transition: all 0.2s ease;
         }
 
         .tool-link:hover {
-          background: #f0fdf4; /* Light Green */
-          color: var(--color-brand-green);
-          padding-left: 16px; /* Slide effect */
+          color: #16a34a;
+          transform: translateX(4px);
+        }
+
+        .icon {
+          font-size: 18px;
+          flex-shrink: 0; /* Prevents icon from squishing */
+          line-height: 1;
+        }
+
+        .label-text {
+          white-space: nowrap; /* Prevents text wrapping */
         }
 
         .badge-new {
           font-size: 9px;
           background: #ef4444;
           color: white;
-          padding: 2px 6px;
-          border-radius: 4px;
+          padding: 2px 8px;
+          border-radius: 99px;
           font-weight: 700;
+          letter-spacing: 0.5px;
+          display: inline-flex; /* Ensures standard box model */
+          align-items: center;
+          height: 18px;
+          line-height: 1;
         }
 
-        /* Guide Link Styling */
+        /* --- GUIDE LINK --- */
         .guide-link {
           display: flex;
           align-items: start;
           gap: 10px;
-          padding: 8px 8px;
-          border-radius: 6px;
           text-decoration: none;
-          color: #334155;
+          color: #475569;
           font-size: 14px;
+          font-weight: 500;
           line-height: 1.5;
-          transition: all 0.2s;
+          transition: color 0.2s;
         }
 
         .guide-link:hover {
-          color: var(--color-brand-green);
-          background: #f8fafc;
+          color: #16a34a;
         }
 
         .guide-bullet {
@@ -188,18 +200,31 @@ export default function FinancialNavWidget() {
         }
 
         .guide-link:hover .guide-bullet {
-          color: var(--color-brand-green);
+          color: #16a34a;
+        }
+
+        .view-all-wrap {
+          margin-top: 16px;
+          padding-top: 16px;
+          border-top: 1px solid #e2e8f0;
+          text-align: center;
         }
 
         .view-all-link {
-          font-size: 13px;
-          color: var(--color-brand-green);
+          font-size: 14px;
+          color: #16a34a;
           font-weight: 600;
           text-decoration: none;
+          display: inline-block;
+          padding: 6px 12px;
+          background: #fff;
+          border: 1px solid #bbf7d0;
+          border-radius: 6px;
+          transition: all 0.2s;
         }
 
         .view-all-link:hover {
-          text-decoration: underline;
+          background: #f0fdf4;
         }
       `}</style>
     </nav>

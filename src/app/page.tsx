@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import Link from 'next/link';
@@ -8,7 +7,8 @@ import articlesData from '@/data/articles.json';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Fincado – India’s #1 Financial Calculators (EMI, SIP, PPF & Tax)',
+  title:
+    'Financial Calculators for India – EMI, SIP, Tax & Retirement | Fincado',
   description:
     'Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, Inflation, EPF, PPF, GST, and Retirement Planning. Updated for 2025.',
   keywords: [
@@ -36,7 +36,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home(): JSX.Element {
-  // ✅ LOGIC: Select specific high-quality guides for Home Page
   const featuredSlugs = [
     'sukanya-samriddhi-yojana-guide-2025',
     'elss-funds-guide-2025',
@@ -44,13 +43,11 @@ export default function Home(): JSX.Element {
     'health-insurance-buying-guide',
   ];
 
-  // ✅ FIX: Filter for Slug AND Language='en' to avoid duplicates
   const featuredGuides = articlesData.filter(
     (a) =>
       featuredSlugs.includes(a.slug) && (a.language === 'en' || !a.language)
   );
 
-  // Fallback if specific slugs aren't found yet
   const displayGuides =
     featuredGuides.length > 0
       ? featuredGuides
@@ -60,7 +57,6 @@ export default function Home(): JSX.Element {
 
   return (
     <>
-      {/* --- STRUCTURED DATA (JSON-LD) --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -82,6 +78,41 @@ export default function Home(): JSX.Element {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'Which is the best financial calculator in India?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Fincado provides free, accurate financial calculators for EMI, SIP, income tax, retirement planning, and investments tailored for India.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Are online EMI calculators accurate?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, Fincado EMI calculators use bank-grade reducing balance formulas followed by Indian banks.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is Fincado free to use?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, all calculators on Fincado are 100% free and require no login.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'Fincado',
             url: 'https://www.fincado.com',
@@ -95,13 +126,12 @@ export default function Home(): JSX.Element {
       />
 
       <main className="container home-hero-wrap" id="main-content">
-        {/* --- HERO SECTION --- */}
+        {/* --- HERO SECTION (Unchanged) --- */}
         <section
           className="home-hero hero-elevated"
           aria-labelledby="hero-title"
           style={{ position: 'relative', overflow: 'hidden' }}
         >
-          {/* Ambient Background Glow */}
           <div
             style={{
               position: 'absolute',
@@ -124,41 +154,66 @@ export default function Home(): JSX.Element {
           >
             {/* LEFT CONTENT */}
             <div className="hero-content">
-              {/* Trust Badge */}
+              {/* --- BADGE WRAPPER --- */}
               <div
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '6px 12px',
-                  background: '#ecfdf5',
-                  border: '1px solid #a7f3d0',
-                  borderRadius: '100px',
-                  color: '#065f46',
-                  fontSize: '13px',
-                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center', // Centers them vertically relative to each other
+                  flexWrap: 'wrap', // Allows wrapping on mobile
+                  gap: '12px', // Handles spacing (both horizontal & vertical if wrapped)
                   marginBottom: '24px',
                 }}
               >
-                <span
+                {/* 1. Existing FY Badge (Added marginRight) */}
+                <div
                   style={{
-                    width: '6px',
-                    height: '6px',
-                    borderRadius: '50%',
-                    background: '#059669',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '6px 12px',
+                    background: '#ecfdf5',
+                    border: '1px solid #a7f3d0',
+                    borderRadius: '100px',
+                    color: '#065f46',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    marginRight: '12px', // ✅ FORCED SPACE
+                    marginBottom: '8px',
+                    marginTop: '8px', // Safety for mobile wrapping
                   }}
-                />
-                Updated for FY 2025-26
+                >
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '12px',
+                      borderRadius: '50%',
+                      background: '#059669',
+                    }}
+                  />
+                  Updated for FY 2025-26
+                </div>
+
+                {/* 2. New Update Badge */}
+                <div
+                  className="hero-update-badge"
+                  style={{
+                    margin: 0,
+                  }}
+                >
+                  <span className="pulse-dot"></span>
+                  Updated weekly with RBI & Budget changes
+                </div>
               </div>
 
               <h1
                 id="hero-title"
                 style={{
-                  fontSize: '3.5rem',
-                  lineHeight: '1.1',
-                  marginBottom: '20px',
-                  letterSpacing: '-0.02em',
+                  fontSize: 'clamp(2rem, 4vw, 3rem)', // Responsive: 2.5rem on mobile, up to 4rem on desktop
+                  lineHeight: '1.15',
+                  marginBottom: '24px',
+                  letterSpacing: '-0.03em',
                   color: '#0f172a',
+                  fontWeight: 600,
                 }}
               >
                 <span
@@ -167,14 +222,24 @@ export default function Home(): JSX.Element {
                       'linear-gradient(135deg, #065f46 0%, #059669 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text', // Standard property
                     display: 'inline-block',
                   }}
                 >
-                  Master Your Money
-                </span>{' '}
+                  Financial Calculators for India
+                </span>
                 <br />
-                <span style={{ fontSize: '0.9em', color: '#334155' }}>
-                  with Precision Tools.
+                <span
+                  style={{
+                    fontSize: '0.55em', // Relative size for the subtitle (approx 28px-35px)
+                    color: '#475569',
+                    fontWeight: 600,
+                    letterSpacing: '0.01em',
+                    marginTop: '12px',
+                    display: 'block', // Ensures it takes its own line cleanly
+                  }}
+                >
+                  EMI • SIP • Tax • Retirement Tools
                 </span>
               </h1>
 
@@ -251,7 +316,6 @@ export default function Home(): JSX.Element {
               </div>
             </div>
 
-            {/* RIGHT VISUALS */}
             <aside
               className="hero-visual"
               style={{
@@ -262,7 +326,6 @@ export default function Home(): JSX.Element {
               }}
             >
               <div className="hero-stats">
-                {/* Floating Card 1: Debt */}
                 <div
                   className="stat-card"
                   style={{
@@ -322,7 +385,6 @@ export default function Home(): JSX.Element {
                   </span>
                 </div>
 
-                {/* Floating Card 2: Wealth */}
                 <div
                   className="stat-card"
                   style={{
@@ -413,16 +475,48 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
+        {/* --- TRUST STRIP (New Section) --- */}
+        <section className="trust-strip">
+          <div className="container trust-inner">
+            <div className="trust-badge">
+              <span>🇮🇳</span>
+              <span>Trusted by Indian Investors</span>
+            </div>
+            <div className="trust-divider"></div>
+            <div className="trust-tags">
+              <span className="trust-tag">
+                <Icon name="homeLoan" className="trust-icon" /> Loans
+              </span>
+              <span className="trust-tag">
+                <Icon name="tax" className="trust-icon" /> Tax Planning
+              </span>
+              <span className="trust-tag">
+                <Icon name="sip" className="trust-icon" /> Investments
+              </span>
+            </div>
+            <p className="homepage-entity">
+              Fincado is a free financial calculator platform for India, helping
+              users calculate EMI, SIP returns, income tax, retirement corpus,
+              and investment growth using bank-grade formulas.
+            </p>
+          </div>
+        </section>
+
         {/* --- 1. MOST POPULAR TOOLS --- */}
         <section className="tools-section">
           <div className="tools-header container-inner">
             <div>
               <h2>Essential Financial Tools</h2>
               <p className="tools-sub">
-                Everyday calculators used by millions of Indians.
+                Popular financial calculators in India for EMI, SIP, income tax
+                and credit planning.
               </p>
             </div>
-            <Link href="/calculators" className="secondary-cta">
+            <Link
+              href="/calculators"
+              className="secondary-cta"
+              style={{ whiteSpace: 'nowrap' }}
+            >
               View All
             </Link>
           </div>
@@ -444,13 +538,13 @@ export default function Home(): JSX.Element {
               href="/credit-score"
               icon="creditScore"
               title="Credit Score"
-              desc="Check Loan Eligibility"
+              desc="Check CIBIL-based credit eligibility"
             />
             <ToolCard
-              href="/gst-calculator"
+              href="/income-tax-calculator" // ✅ ADDED
               icon="tax"
-              title="GST Calculator"
-              desc="Calculate Inclusive/Exclusive Tax"
+              title="Income Tax Calc"
+              desc="New vs Old Regime (FY 2025-26)"
             />
           </div>
         </section>
@@ -465,9 +559,7 @@ export default function Home(): JSX.Element {
           <div className="tools-header container-inner">
             <div>
               <h2>Loan & Debt Planning</h2>
-              <p className="tools-sub">
-                Compare rates and plan your repayment strategy.
-              </p>
+              <p className="tools-sub">Loan calculators in India</p>
             </div>
           </div>
           <div className="tools-grid container-inner">
@@ -503,23 +595,21 @@ export default function Home(): JSX.Element {
           <div className="tools-header container-inner">
             <div>
               <h2>Grow Your Wealth</h2>
-              <p className="tools-sub">
-                Maximize returns on your savings and investments.
-              </p>
+              <p className="tools-sub">Investment calculators</p>
             </div>
           </div>
           <div className="tools-grid container-inner">
+            <ToolCard
+              href="/elss-calculator" // ✅ ADDED
+              icon="investing"
+              title="ELSS Calculator"
+              desc="Tax Saving Mutual Fund Returns"
+            />
             <ToolCard
               href="/fd-calculator"
               icon="fd"
               title="FD Calculator"
               desc="Fixed Deposit Maturity Value"
-            />
-            <ToolCard
-              href="/rd-calculator"
-              icon="rd"
-              title="RD Calculator"
-              desc="Recurring Deposit Returns"
             />
             <ToolCard
               href="/lumpsum-calculator"
@@ -546,9 +636,7 @@ export default function Home(): JSX.Element {
           <div className="tools-header container-inner">
             <div>
               <h2>Retirement & Tax Planning</h2>
-              <p className="tools-sub">
-                Secure your future with government-backed schemes.
-              </p>
+              <p className="tools-sub">Retirement & tax calculators</p>
             </div>
           </div>
           <div className="tools-grid container-inner">
@@ -577,15 +665,15 @@ export default function Home(): JSX.Element {
               desc="Employee Provident Fund Corpus"
             />
             <ToolCard
-              href="/fire-calculator"
-              icon="fire"
-              title="FIRE Calculator"
-              desc="Financial Independence Retire Early"
+              href="/gst-calculator" // ✅ MOVED GST HERE
+              icon="tax"
+              title="GST Calculator"
+              desc="Calculate GST Rates (5% - 28%)"
             />
           </div>
         </section>
 
-        {/* --- FEATURED GUIDES (UPDATED ROBUST VERSION) --- */}
+        {/* --- FEATURED GUIDES --- */}
         <section className="featured-guides" style={{ marginTop: 60 }}>
           <div
             className="tools-header container-inner"
@@ -599,7 +687,8 @@ export default function Home(): JSX.Element {
             <div>
               <h2 style={{ marginBottom: 4 }}>Financial Wisdom</h2>
               <p style={{ color: '#64748b', fontSize: 16 }}>
-                Latest insights on Loans, Tax, and Investing.
+                Expert-written guides backed by real calculations, updated for
+                Indian laws.
               </p>
             </div>
             <Link
@@ -686,7 +775,6 @@ export default function Home(): JSX.Element {
                       overflow: 'hidden',
                     }}
                   >
-                    {/* Strip HTML if any, take substring */}
                     {guide.metaDescription
                       .replace(/<[^>]+>/g, '')
                       .substring(0, 120)}
@@ -725,7 +813,7 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* --- RICH SEO CONTENT --- */}
+        {/* --- RICH SEO CONTENT (Unchanged) --- */}
         <article
           className="article content-for-seo container-inner"
           style={{ marginTop: 60, marginBottom: 60 }}
@@ -818,7 +906,7 @@ export default function Home(): JSX.Element {
           </div>
         </article>
 
-        {/* --- FINAL CTA --- */}
+        {/* --- FINAL CTA (Unchanged) --- */}
         <section className="final-cta">
           <div className="final-cta-inner">
             <h2>Ready to take control?</h2>

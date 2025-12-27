@@ -67,5 +67,40 @@
   {
     "keyword": "EMI Calculator Guide",
     "url": "/guides/emi-calculator-guide/"
+  },
+  {
+    "phrase": "Income Tax Calculator",
+    "url": "/income-tax-calculator",
+    "category": "Tax"
+  },
+  {
+    "phrase": "New Tax Regime",
+    "url": "/income-tax-calculator",
+    "category": "Tax"
+  },
+  {
+    "phrase": "Old Tax Regime",
+    "url": "/income-tax-calculator",
+    "category": "Tax"
+  },
+  {
+    "phrase": "ELSS Calculator",
+    "url": "/elss-calculator",
+    "category": "Investment"
+  },
+  {
+    "phrase": "ELSS Mutual Funds",
+    "url": "/elss-calculator",
+    "category": "Investment"
+  },
+  {
+    "phrase": "Sukanya Samriddhi Yojana",
+    "url": "/sukanya-samriddhi",
+    "category": "Government Schemes"
+  },
+  {
+    "phrase": "SSY Calculator",
+    "url": "/sukanya-samriddhi",
+    "category": "Government Schemes"
   }
 ]
