@@ -23,7 +23,6 @@
   { "keyword": "APY", "url": "/apy-calculator/" },
   { "keyword": "Atal Pension Yojana", "url": "/apy-calculator/" },
   { "keyword": "Inflation", "url": "/inflation-calculator/" },
-
   {
     "keyword": "Home Loan Guide",
     "url": "/guides/home-loan-first-time-buyers/"
@@ -38,10 +37,7 @@
   },
   { "keyword": "ELSS Funds", "url": "/guides/elss-funds-guide-2025/" },
   { "keyword": "Tax Saving Funds", "url": "/guides/elss-funds-guide-2025/" },
-  {
-    "keyword": "Sovereign Gold Bond",
-    "url": "/guides/gold-investment-guide/"
-  },
+  { "keyword": "Sovereign Gold Bond", "url": "/guides/gold-investment-guide/" },
   { "keyword": "SGB", "url": "/guides/gold-investment-guide/" },
   {
     "keyword": "Health Insurance Guide",
@@ -64,43 +60,9 @@
     "keyword": "Retirement Planning",
     "url": "/guides/retirement-planning-india/"
   },
-  {
-    "keyword": "EMI Calculator Guide",
-    "url": "/guides/emi-calculator-guide/"
-  },
-  {
-    "phrase": "Income Tax Calculator",
-    "url": "/income-tax-calculator",
-    "category": "Tax"
-  },
-  {
-    "phrase": "New Tax Regime",
-    "url": "/income-tax-calculator",
-    "category": "Tax"
-  },
-  {
-    "phrase": "Old Tax Regime",
-    "url": "/income-tax-calculator",
-    "category": "Tax"
-  },
-  {
-    "phrase": "ELSS Calculator",
-    "url": "/elss-calculator",
-    "category": "Investment"
-  },
-  {
-    "phrase": "ELSS Mutual Funds",
-    "url": "/elss-calculator",
-    "category": "Investment"
-  },
-  {
-    "phrase": "Sukanya Samriddhi Yojana",
-    "url": "/sukanya-samriddhi",
-    "category": "Government Schemes"
-  },
-  {
-    "phrase": "SSY Calculator",
-    "url": "/sukanya-samriddhi",
-    "category": "Government Schemes"
-  }
+  { "keyword": "EMI Calculator Guide", "url": "/guides/emi-calculator-guide/" },
+
+  { "keyword": "Income Tax Calculator", "url": "/income-tax-calculator/" },
+  { "keyword": "ELSS Calculator", "url": "/elss-calculator/" },
+  { "keyword": "ELSS Mutual Funds", "url": "/elss-calculator/" }
 ]
