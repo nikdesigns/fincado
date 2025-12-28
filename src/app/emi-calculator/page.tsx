@@ -200,7 +200,7 @@ export default function EMIPage() {
                 border: '1px solid #bbf7d0',
                 borderRadius: '8px',
                 padding: '16px',
-                marginTop: '32px',
+                margin: '32px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',

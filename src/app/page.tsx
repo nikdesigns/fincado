@@ -184,10 +184,12 @@ export default function Home(): JSX.Element {
                 >
                   <span
                     style={{
-                      width: '6px',
-                      height: '12px',
+                      width: '8px', // ✅ Changed from 6px
+                      height: '8px', // ✅ Changed from 12px (Must match width)
                       borderRadius: '50%',
                       background: '#059669',
+                      flexShrink: 0, // ✅ Prevents the dot from squishing on small screens
+                      display: 'inline-block',
                     }}
                   />
                   Updated for FY 2025-26
