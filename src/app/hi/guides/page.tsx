@@ -6,13 +6,24 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articlesData from '@/data/articles.json';
 import LanguageToggle from '@/components/LanguageToggle';
 
-// Note: Using client component here for the category filter functionality
+// Define the type to avoid TS errors
+type Article = {
+  slug: string;
+  title: string;
+  metaDescription: string;
+  category: string;
+  published: string;
+  language: string;
+  hidden?: boolean; // ✅ Added optional hidden property
+};
+
 export default function HindiGuidesPage() {
   const [activeCategory, setActiveCategory] = useState('All');
 
   const allGuides = useMemo(() => {
-    return articlesData
+    return (articlesData as Article[])
       .filter((article) => article.language === 'hi')
+      .filter((article) => !article.hidden) // ✅ ADDED: Filter out hidden guides
       .map((article) => ({
         slug: article.slug,
         title: article.title,

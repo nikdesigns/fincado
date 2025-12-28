@@ -9,22 +9,30 @@ type Article = {
   category: string;
   metaDescription: string;
   published: string;
+  hidden?: boolean; // ✅ Added optional property
 };
 
 export default function GuidesClient({ articles }: { articles: Article[] }) {
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // 1. Extract Unique Categories
-  const categories = useMemo(() => {
-    const uniqueCats = Array.from(new Set(articles.map((a) => a.category)));
-    return ['All', ...uniqueCats.sort()];
+  // ✅ 1. Initial Clean: Remove hidden articles immediately
+  const visibleArticles = useMemo(() => {
+    return articles.filter((a) => !a.hidden);
   }, [articles]);
 
-  // 2. Filter Logic
+  // 2. Extract Unique Categories (from visible articles only)
+  const categories = useMemo(() => {
+    const uniqueCats = Array.from(
+      new Set(visibleArticles.map((a) => a.category))
+    );
+    return ['All', ...uniqueCats.sort()];
+  }, [visibleArticles]);
+
+  // 3. Filter Logic (Category based)
   const filteredArticles = useMemo(() => {
-    if (activeCategory === 'All') return articles;
-    return articles.filter((a) => a.category === activeCategory);
-  }, [activeCategory, articles]);
+    if (activeCategory === 'All') return visibleArticles;
+    return visibleArticles.filter((a) => a.category === activeCategory);
+  }, [activeCategory, visibleArticles]);
 
   return (
     <div>
@@ -65,7 +73,9 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
+                transition: 'transform 0.2s, box-shadow 0.2s',
               }}
+              className="guide-card-inner" // Added class for hover effects if needed later
             >
               <div style={{ padding: '24px', flexGrow: 1 }}>
                 <div style={{ marginBottom: '16px' }}>
@@ -167,6 +177,12 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
 
       {/* --- STYLES FOR PILLS --- */}
       <style jsx>{`
+        .guide-card-wrapper:hover article {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+          border-color: #cbd5e1 !important;
+        }
+
         .filter-scroll-container {
           display: flex;
           gap: 12px;
