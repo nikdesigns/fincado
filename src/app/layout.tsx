@@ -40,6 +40,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     siteName: 'Fincado',
+    images: [
+      {
+        url: '/og-image.png', // Must match the filename in your public folder
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,
