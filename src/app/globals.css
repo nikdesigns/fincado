@@ -1537,10 +1537,9 @@ input[type='range']::-webkit-slider-thumb:hover {
   background: #f8fafc;
 }
 .caption-text {
-  font-size: 14px;
+  font-size: 10px;
   color: var(--color-text-muted);
-  margin-top: -16px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   font-style: italic;
 }
 
@@ -1868,7 +1867,7 @@ input[type='range']::-webkit-slider-thumb:hover {
    ========================================= */
 
 .legal-disclaimer {
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1.6;
   color: var(--color-text-muted); /* Muted gray text */
   border-top: 1px solid var(--color-border);
@@ -2601,4 +2600,231 @@ ul.checklist li::before {
   /* Optional: Re-order so Sidebar comes after content or before? 
      Default is Content first, Sidebar second (below). 
   */
+}
+
+/* =========================================
+   SHORT ANSWER BOX (Premium)
+   ========================================= */
+
+.short-answer-box {
+  /* Elegant Background */
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  border: 1px solid #bbf7d0; /* Soft Green Border */
+
+  /* Distinctive Left Accent */
+  border-left: 4px solid var(--color-brand-green);
+
+  /* Spacing & Shape */
+  border-radius: 12px;
+  padding: 32px;
+  margin: 32px 0;
+
+  /* Premium Depth */
+  box-shadow: 0 12px 30px -10px rgba(22, 163, 74, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Heading Styling */
+.short-answer-box h3 {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #15803d; /* Deep Green */
+  margin-top: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Decorative Line before Heading */
+.short-answer-box h3::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: #15803d;
+  opacity: 0.3;
+}
+
+/* Content Typography */
+.short-answer-box p {
+  font-size: 19px; /* Larger for readability */
+  line-height: 1.6;
+  color: #1e293b; /* Slate-800 */
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+/* "Highlighter" Effect for Numbers */
+.short-answer-box strong {
+  font-weight: 700;
+  color: #0f172a;
+  position: relative;
+  z-index: 1;
+  padding: 0 4px;
+}
+
+.short-answer-box strong::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 8px; /* Bottom half highlight */
+  background: #bbf7d0; /* Green highlight */
+  z-index: -1;
+  opacity: 0.6;
+  border-radius: 2px;
+}
+
+/* CTA Button Styling override */
+.short-answer-box .primary-cta {
+  font-size: 14px;
+  padding: 10px 24px;
+  background: #16a34a;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+  border-radius: 50px; /* Pill shape */
+}
+
+.short-answer-box .primary-cta:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   METHODOLOGY BOX (Technical Note)
+   ========================================= */
+
+.methodology-box {
+  background: var(--color-bg-soft); /* Matches your soft gray theme */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.methodology-box h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748b; /* Slate-500: Professional Muted Label */
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Optional: Adds a small icon before title */
+.methodology-box h4::before {
+  content: 'ℹ'; /* Info Icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #e2e8f0;
+  color: #64748b;
+  border-radius: 50%;
+  font-size: 11px;
+}
+
+.methodology-box p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* =========================================
+   FRESHNESS NOTE (Update Badge)
+   ========================================= */
+
+.freshness-note {
+  background: var(--color-success-bg); /* #f0fdf4 */
+  border: 1px solid #bbf7d0; /* Subtle Green Border */
+  border-radius: 8px;
+  padding: 14px 18px;
+
+  font-size: 14px;
+  color: #166534; /* Deep Green Text */
+  line-height: 1.5;
+
+  margin: 24px 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+/* Adds a small calendar/check icon automatically */
+.freshness-note::before {
+  content: '📅';
+  font-size: 16px;
+  line-height: 1.5;
+  filter: grayscale(20%); /* Softens the emoji */
+}
+
+.freshness-note strong {
+  color: var(--color-brand-green);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+}
+
+/* =========================================
+   SIBLING LINKS (Internal Navigation)
+   ========================================= */
+.sibling-links {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 40px 0;
+}
+
+.sibling-links h3 {
+  margin-top: 0 !important;
+  font-size: 18px;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.sibling-links ul {
+  margin: 0 !important;
+  padding-left: 20px;
+}
+
+.sibling-links li {
+  margin-bottom: 12px;
+}
+
+.sibling-links a {
+  color: #16a34a; /* Brand Green */
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.sibling-links a:hover {
+  border-bottom-color: #16a34a;
+}
+
+/* =========================================
+   DISCLAIMER NOTE
+   ========================================= */
+.disclaimer-note {
+  font-size: 13px;
+  color: #94a3b8; /* Muted Slate */
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+  margin-top: 40px;
+  line-height: 1.6;
 }
