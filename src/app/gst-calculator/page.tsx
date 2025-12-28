@@ -176,7 +176,7 @@ export default function GSTPage() {
                 }}
               >
                 <Link
-                  href="/calculators/sip-calculator"
+                  href="/sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -192,7 +192,7 @@ export default function GSTPage() {
                   📈 Investment Calc
                 </Link>
                 <Link
-                  href="/calculators/loan-calculator"
+                  href="/loan-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

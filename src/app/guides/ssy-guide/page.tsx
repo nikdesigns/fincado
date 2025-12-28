@@ -552,7 +552,7 @@ export default function SSYGuidePage() {
             <Link href="/sukanya-samriddhi" className="primary-cta">
               SSY Calculator
             </Link>
-            <Link href="/calculators/sip-calculator" className="secondary-cta">
+            <Link href="/sip-calculator" className="secondary-cta">
               SIP Calculator
             </Link>
           </div>

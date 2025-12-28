@@ -528,10 +528,10 @@ export default function EPFGuidePage() {
           <h2>Plan your retirement</h2>
           <p>Calculate your EPF corpus growth over time.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/epf-calculator" className="primary-cta">
+            <Link href="/epf-calculator" className="primary-cta">
               EPF Calculator
             </Link>
-            <Link href="/calculators/ppf-calculator" className="secondary-cta">
+            <Link href="/ppf-calculator" className="secondary-cta">
               Compare with PPF
             </Link>
           </div>

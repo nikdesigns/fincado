@@ -198,7 +198,7 @@ export default function SIPPage() {
                 }}
               >
                 <Link
-                  href="/calculators/step-up-sip-calculator"
+                  href="/step-up-sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -214,7 +214,7 @@ export default function SIPPage() {
                   📈 Step-up SIP
                 </Link>
                 <Link
-                  href="/calculators/lumpsum-calculator"
+                  href="/lumpsum-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

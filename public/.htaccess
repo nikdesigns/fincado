@@ -44,7 +44,7 @@ RewriteRule ^(.+)$ /$1/ [R=301,L]
 # ------------------------------------------------
 # 3. SEO REDIRECTS
 # ------------------------------------------------
-RewriteRule ^calculators/emi-calculator/?$ /emi-calculator/ [R=301,L]
+RewriteRule ^?$ /emi-calculator/ [R=301,L]
 RewriteRule ^calculators/sip-calculator/?$ /sip-calculator/ [R=301,L]
 RewriteRule ^calculators/ppf-calculator/?$ /ppf-calculator/ [R=301,L]
 RewriteRule ^calculators/epf-calculator/?$ /epf-calculator/ [R=301,L]

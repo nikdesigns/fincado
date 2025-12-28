@@ -162,7 +162,7 @@ export default function ELSSPage() {
                 }}
               >
                 <Link
-                  href="/calculators/ppf-calculator"
+                  href="/ppf-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -175,10 +175,10 @@ export default function ELSSPage() {
                     background: '#fff',
                   }}
                 >
-                  🔒 PPF Calc
+                  🔒 PPF Calculator
                 </Link>
                 <Link
-                  href="/calculators/sip-calculator"
+                  href="/sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -191,7 +191,7 @@ export default function ELSSPage() {
                     background: '#fff',
                   }}
                 >
-                  📈 SIP Calc
+                  📈 SIP Calculator
                 </Link>
               </div>
             </div>

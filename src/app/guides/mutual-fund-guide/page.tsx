@@ -573,14 +573,8 @@ export default function DirectMFGuidePage() {
           <h2>Calculate your savings</h2>
           <p>See exactly how much extra wealth you can create.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/sip-calculator" className="primary-cta">
+            <Link href="/sip-calculator" className="primary-cta">
               SIP Calculator
-            </Link>
-            <Link
-              href="/calculators/step-up-sip-calculator"
-              className="secondary-cta"
-            >
-              Step-Up Calculator
             </Link>
           </div>
         </div>

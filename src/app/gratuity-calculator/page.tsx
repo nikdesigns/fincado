@@ -176,7 +176,7 @@ export default function GratuityPage() {
                 }}
               >
                 <Link
-                  href="/calculators/epf-calculator"
+                  href="/epf-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -192,7 +192,7 @@ export default function GratuityPage() {
                   🏢 EPF Calc
                 </Link>
                 <Link
-                  href="/calculators/retirement-calculator"
+                  href="/retirement-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

@@ -566,13 +566,7 @@ export default function NPSGuidePage() {
           <h2>Plan your retirement</h2>
           <p>Calculate your NPS corpus and monthly pension.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/nps-calculator" className="primary-cta">
-              NPS Calculator
-            </Link>
-            <Link
-              href="/calculators/retirement-calculator"
-              className="secondary-cta"
-            >
+            <Link href="/retirement-calculator" className="primary-cta">
               Retirement Planner
             </Link>
           </div>

@@ -180,7 +180,7 @@ export default function FDPage() {
                 }}
               >
                 <Link
-                  href="/calculators/rd-calculator"
+                  href="/rd-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -196,7 +196,7 @@ export default function FDPage() {
                   🔄 RD Calculator
                 </Link>
                 <Link
-                  href="/calculators/ppf-calculator"
+                  href="/ppf-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

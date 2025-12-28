@@ -168,7 +168,7 @@ export default function CreditScorePage() {
                 }}
               >
                 <Link
-                  href="/calculators/personal-loan-calculator"
+                  href="/loans/personal-loan"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -184,7 +184,7 @@ export default function CreditScorePage() {
                   💸 Loan EMI
                 </Link>
                 <Link
-                  href="/calculators/emi-calculator"
+                  href="/emi-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

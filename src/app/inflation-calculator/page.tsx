@@ -174,7 +174,7 @@ export default function InflationPage() {
                 }}
               >
                 <Link
-                  href="/calculators/sip-calculator"
+                  href="/sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -190,7 +190,7 @@ export default function InflationPage() {
                   📈 SIP Calculator
                 </Link>
                 <Link
-                  href="/calculators/retirement-calculator"
+                  href="/retirement-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

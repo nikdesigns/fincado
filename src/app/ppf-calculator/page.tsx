@@ -184,7 +184,7 @@ export default function PPFPage() {
                 }}
               >
                 <Link
-                  href="/calculators/fd-calculator"
+                  href="/fd-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -200,7 +200,7 @@ export default function PPFPage() {
                   🏦 FD Returns
                 </Link>
                 <Link
-                  href="/calculators/sukanya-samriddhi-yojana-calculator"
+                  href="/sukanya-samriddhi"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

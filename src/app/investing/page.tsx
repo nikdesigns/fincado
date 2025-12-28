@@ -173,7 +173,7 @@ export default function InvestingPage() {
                 }}
               >
                 <Link
-                  href="/calculators/sip-calculator"
+                  href="/sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -189,7 +189,7 @@ export default function InvestingPage() {
                   📈 SIP Calc
                 </Link>
                 <Link
-                  href="/calculators/mutual-funds"
+                  href="/mutual-funds"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

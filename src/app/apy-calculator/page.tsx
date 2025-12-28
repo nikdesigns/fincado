@@ -173,7 +173,7 @@ export default function APYPage() {
                 }}
               >
                 <Link
-                  href="/calculators/nps-calculator"
+                  href="/gratuity-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -186,10 +186,10 @@ export default function APYPage() {
                     background: '#fff',
                   }}
                 >
-                  🇮🇳 NPS Calculator
+                  Gratuity Calculator
                 </Link>
                 <Link
-                  href="/calculators/epf-calculator"
+                  href="/retirement-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -202,7 +202,7 @@ export default function APYPage() {
                     background: '#fff',
                   }}
                 >
-                  🏢 EPF Calculator
+                  🏢 Retirement Calculator
                 </Link>
               </div>
             </div>

@@ -175,7 +175,7 @@ export default function RetirementPage() {
                 }}
               >
                 <Link
-                  href="/calculators/sip-calculator"
+                  href="/sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -191,7 +191,7 @@ export default function RetirementPage() {
                   📈 SIP Calculator
                 </Link>
                 <Link
-                  href="/calculators/swp-calculator"
+                  href="/swp-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

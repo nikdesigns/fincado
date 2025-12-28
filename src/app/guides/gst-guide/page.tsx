@@ -526,13 +526,10 @@ export default function GSTReturnsGuidePage() {
           <h2>Managing a business?</h2>
           <p>Use our tools to calculate GST liability and plan finances.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/gst-calculator" className="primary-cta">
+            <Link href="/gst-calculator" className="primary-cta">
               GST Calculator
             </Link>
-            <Link
-              href="/calculators/simple-interest-calculator"
-              className="secondary-cta"
-            >
+            <Link href="/simple-interest-calculator" className="secondary-cta">
               Interest Calculator
             </Link>
           </div>

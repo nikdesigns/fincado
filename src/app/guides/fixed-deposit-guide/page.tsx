@@ -911,10 +911,10 @@ export default function FixedDepositGuidePage() {
           <h2>Calculate your returns now</h2>
           <p>Check how much your FD investment will grow over time.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/fd-calculator" className="primary-cta">
+            <Link href="/fd-calculator" className="primary-cta">
               Open FD Calculator
             </Link>
-            <Link href="/calculators/sip-calculator" className="secondary-cta">
+            <Link href="/sip-calculator" className="secondary-cta">
               Compare with SIP
             </Link>
           </div>

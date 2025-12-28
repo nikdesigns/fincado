@@ -554,10 +554,10 @@ export default function PPFGuidePage() {
           <h2>Plan your tax savings</h2>
           <p>Calculate your PPF maturity amount and tax benefits.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/ppf-calculator" className="primary-cta">
+            <Link href="/ppf-calculator" className="primary-cta">
               PPF Calculator
             </Link>
-            <Link href="/calculators/sip-calculator" className="secondary-cta">
+            <Link href="/sip-calculator" className="secondary-cta">
               Compare with ELSS
             </Link>
           </div>

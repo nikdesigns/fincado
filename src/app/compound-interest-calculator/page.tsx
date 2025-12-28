@@ -243,15 +243,13 @@ export default function CompoundInterestPage() {
               <h3>Related Calculators</h3>
               <ul>
                 <li>
-                  <Link href="/calculators/sip-calculator">SIP Calculator</Link>
+                  <Link href="/sip-calculator">SIP Calculator</Link>
                 </li>
                 <li>
-                  <Link href="/calculators/fd-calculator">
-                    Fixed Deposit Calculator
-                  </Link>
+                  <Link href="/fd-calculator">Fixed Deposit Calculator</Link>
                 </li>
                 <li>
-                  <Link href="/calculators/ppf-calculator">PPF Calculator</Link>
+                  <Link href="/ppf-calculator">PPF Calculator</Link>
                 </li>
               </ul>
             </article>

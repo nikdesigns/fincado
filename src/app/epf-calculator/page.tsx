@@ -178,7 +178,7 @@ export default function EPFPage() {
                 }}
               >
                 <Link
-                  href="/calculators/ppf-calculator"
+                  href="/ppf-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -194,7 +194,7 @@ export default function EPFPage() {
                   🏦 PPF Calculator
                 </Link>
                 <Link
-                  href="/calculators/gratuity-calculator"
+                  href="/gratuity-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

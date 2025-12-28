@@ -568,10 +568,7 @@ export default function PersonalLoanGuidePage() {
             <Link href="/loans/personal-loan" className="primary-cta">
               Personal Loan EMI
             </Link>
-            <Link
-              href="/calculators/simple-interest-calculator"
-              className="secondary-cta"
-            >
+            <Link href="/simple-interest-calculator" className="secondary-cta">
               Check Flat Rate
             </Link>
           </div>

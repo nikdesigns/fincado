@@ -15,21 +15,19 @@ export default function GuidesLayout({
       className="container"
       style={{ padding: '40px 20px', maxWidth: 1180, margin: '0 auto' }}
     >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 300px',
-          gap: 24,
-        }}
-      >
-        {/* LEFT COLUMN: Main Content (Grid or Article) */}
+      {/* ✅ FIXED: Replaced inline styles with 'page-layout-grid' class.
+          This allows the CSS in globals.css to switch to 1 column on mobile.
+      */}
+      <div className="page-layout-grid">
+        {/* LEFT COLUMN: Main Content */}
         <div className="main-content" style={{ minWidth: 0 }}>
           {children}
         </div>
 
-        {/* RIGHT COLUMN: Unified Sidebar */}
+        {/* RIGHT COLUMN: Sidebar */}
         <aside className="sidebar no-print">
-          <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+          {/* Sticky Ad Wrapper */}
+          <div style={{ marginBottom: 24, position: 'sticky', top: '24px' }}>
             <AdSlot id="guides-sidebar-sticky" type="box" />
           </div>
 
@@ -60,7 +58,7 @@ export default function GuidesLayout({
               href="/guides"
               style={{
                 fontSize: 14,
-                color: 'var(--color-brand-green)',
+                color: 'var(--color-brand-green)', // Ensure this var exists or use #16a34a
                 fontWeight: 600,
                 display: 'flex',
                 alignItems: 'center',

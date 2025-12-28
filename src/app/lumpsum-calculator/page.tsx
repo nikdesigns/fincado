@@ -175,7 +175,7 @@ export default function LumpsumPage() {
                 }}
               >
                 <Link
-                  href="/calculators/sip-calculator"
+                  href="/sip-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -191,7 +191,7 @@ export default function LumpsumPage() {
                   📈 SIP Calculator
                 </Link>
                 <Link
-                  href="/calculators/fd-calculator"
+                  href="/fd-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

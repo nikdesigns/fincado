@@ -743,7 +743,7 @@ export default function EducationLoanGuidePage() {
             <Link href="/loans/education-loan" className="primary-cta">
               Calculate Education EMI
             </Link>
-            <Link href="/calculators/sip-calculator" className="secondary-cta">
+            <Link href="/sip-calculator" className="secondary-cta">
               Plan Investments
             </Link>
           </div>

@@ -647,8 +647,8 @@ input[type='range']::-webkit-slider-thumb:hover {
   }
 }
 .mobile-menu {
-  position: fixed;
-  top: 70px;
+  position: absolute; /* ✅ Changed from fixed */
+  top: 100%; /* ✅ Attach to bottom of the header */
   left: 0;
   width: 100%;
   background: white;
@@ -2543,4 +2543,62 @@ ul.checklist li::before {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
   }
+}
+
+/* =========================================
+   MOBILE BUTTON FIXES
+   ========================================= */
+
+/* Desktop: Flex row with gap */
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 32px; /* Ensure space from text above */
+}
+
+/* Mobile: Stack buttons vertically & full width */
+@media (max-width: 640px) {
+  .hero-cta-row,
+  .final-cta-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px; /* Space between stacked buttons */
+  }
+
+  /* Target buttons inside these rows */
+  .hero-cta-row .primary-cta,
+  .hero-cta-row .secondary-cta,
+  .final-cta-row .primary-cta,
+  .final-cta-row .secondary-cta {
+    width: 100%; /* Full width */
+    text-align: center; /* Center text */
+    justify-content: center;
+    margin-left: 0 !important; /* Force reset margins */
+  }
+}
+
+/* --- RESPONSIVE PAGE LAYOUT --- */
+.page-layout-grid {
+  display: grid;
+  /* Desktop: Content takes available space (1fr), Sidebar is fixed (340px) */
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  align-items: start; /* Prevents sidebar from stretching full height */
+}
+
+/* --- MOBILE FIX --- */
+@media (max-width: 900px) {
+  .page-layout-grid {
+    /* Mobile: Stack them vertically */
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* Optional: Re-order so Sidebar comes after content or before? 
+     Default is Content first, Sidebar second (below). 
+  */
 }

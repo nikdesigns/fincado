@@ -168,7 +168,7 @@ export default function SimpleInterestPage() {
                 }}
               >
                 <Link
-                  href="/calculators/compound-interest-calculator"
+                  href="/compound-interest-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',
@@ -184,7 +184,7 @@ export default function SimpleInterestPage() {
                   🔄 Compound Interest
                 </Link>
                 <Link
-                  href="/calculators/emi-calculator"
+                  href="/emi-calculator"
                   style={{
                     padding: '12px',
                     border: '1px solid #e2e8f0',

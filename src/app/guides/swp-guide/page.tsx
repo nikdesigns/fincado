@@ -621,10 +621,10 @@ export default function SWPGuidePage() {
             Calculate how long your retirement corpus will last with our tools.
           </p>
           <div className="final-cta-row">
-            <Link href="/calculators/swp-calculator" className="primary-cta">
+            <Link href="/swp-calculator" className="primary-cta">
               SWP Calculator
             </Link>
-            <Link href="/calculators/fire-calculator" className="secondary-cta">
+            <Link href="/fire-calculator" className="secondary-cta">
               FIRE Calculator
             </Link>
           </div>

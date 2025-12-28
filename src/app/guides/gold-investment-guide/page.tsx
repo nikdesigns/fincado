@@ -535,10 +535,7 @@ export default function GoldInvestmentGuidePage() {
           <h2>Calculate your gold returns</h2>
           <p>See how much more you earn with SGBs compared to physical gold.</p>
           <div className="final-cta-row">
-            <Link href="/calculators/sgb-calculator" className="primary-cta">
-              SGB Calculator
-            </Link>
-            <Link href="/calculators/sip-calculator" className="secondary-cta">
+            <Link href="/sip-calculator" className="primary-cta">
               Compare with Mutual Funds
             </Link>
           </div>

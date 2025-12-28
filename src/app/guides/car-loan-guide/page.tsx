@@ -769,10 +769,7 @@ export default function CarLoanGuidePage() {
             <Link href="/loans/car-loan" className="primary-cta">
               Calculate Car EMI
             </Link>
-            <Link
-              href="/calculators/simple-interest-calculator"
-              className="secondary-cta"
-            >
+            <Link href="/simple-interest-calculator" className="secondary-cta">
               Check Flat Rate Truth
             </Link>
           </div>
