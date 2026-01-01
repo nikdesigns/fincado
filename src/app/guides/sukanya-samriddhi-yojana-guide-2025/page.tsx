@@ -365,7 +365,7 @@ export default function SSYGuide() {
             Use our free calculator to plan your investments based on your
             daughter&apos;s age.
           </p>
-          <Link href="/hi/sukanya-samriddhi" className="primary-cta">
+          <Link href="/sukanya-samriddhi" className="primary-cta">
             Open SSY Calculator
           </Link>
         </div>
@@ -554,6 +554,36 @@ export default function SSYGuide() {
               </p>
             </details>
           </div>
+        </div>
+
+        <div
+          style={{
+            background: '#f8fafc',
+            padding: '24px',
+            borderRadius: '12px',
+            margin: '32px 0',
+          }}
+        >
+          <h3 style={{ marginTop: 0 }}>Not eligible for SSY?</h3>
+          <p>
+            If you have a son or want to save for general goals, a Recurring
+            Deposit (RD) is the best alternative.
+          </p>
+          <ul style={{ marginBottom: '16px' }}>
+            <li>Interest rates up to 7.5%</li>
+            <li>No gender restrictions</li>
+            <li>Flexible tenure (6 months to 10 years)</li>
+          </ul>
+          <Link
+            href="/rd-calculator"
+            style={{
+              color: '#16a34a',
+              fontWeight: 'bold',
+              textDecoration: 'underline',
+            }}
+          >
+            Check RD Returns Calculator →
+          </Link>
         </div>
 
         <section className="conclusion-box">

@@ -66,6 +66,7 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
       </head>
       <body>
+        <AdBlockDetector />
         {/* ✅ ADDS THE LOADING BAR */}
         <NextTopLoader
           color="#80d843"
@@ -123,8 +124,6 @@ export default function RootLayout({
         {/* Footer */}
         <Footer />
         <CookieBanner />
-        {/* ✅ ADD DETECTOR HERE */}
-        <AdBlockDetector />
       </body>
     </html>
   );

@@ -161,6 +161,21 @@ export default function RDPage() {
               <AdSlot id="rd-after-calc" type="banner" />
             </div>
 
+            {/* Add this H2 specifically for SEO */}
+            <h2
+              style={{
+                fontSize: '24px',
+                fontWeight: 'bold',
+                margin: '32px 0 16px',
+              }}
+            >
+              Current RD Interest Rates (2025)
+            </h2>
+            <p style={{ marginBottom: '24px', color: '#64748b' }}>
+              Comparison of latest Recurring Deposit interest rates offered by
+              top banks like SBI, HDFC, and ICICI.
+            </p>
+
             <LiveRateTable type="fixedDeposit" />
 
             <div
