@@ -2,22 +2,27 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
+import TaxRegimeWidget from '@/components/TaxRegimeWidget'; // Import the widget
 
 export default function GuidesLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  // Show widget if URL contains 'tax' or 'salary'
+  const showTaxWidget =
+    pathname?.includes('tax') || pathname?.includes('salary');
+
   return (
     <main
       className="container"
       style={{ padding: '40px 20px', maxWidth: 1180, margin: '0 auto' }}
     >
-      {/* ✅ FIXED: Replaced inline styles with 'page-layout-grid' class.
-          This allows the CSS in globals.css to switch to 1 column on mobile.
-      */}
       <div className="page-layout-grid">
         {/* LEFT COLUMN: Main Content */}
         <div className="main-content" style={{ minWidth: 0 }}>
@@ -26,6 +31,9 @@ export default function GuidesLayout({
 
         {/* RIGHT COLUMN: Sidebar */}
         <aside className="sidebar no-print">
+          {/* ✅ DYNAMIC WIDGET: Only appears on relevant pages */}
+          {showTaxWidget && <TaxRegimeWidget />}
+
           {/* Sticky Ad Wrapper */}
           <div style={{ marginBottom: 24, position: 'sticky', top: '24px' }}>
             <AdSlot id="guides-sidebar-sticky" type="box" />
@@ -58,7 +66,7 @@ export default function GuidesLayout({
               href="/guides"
               style={{
                 fontSize: 14,
-                color: 'var(--color-brand-green)', // Ensure this var exists or use #16a34a
+                color: 'var(--color-brand-green)',
                 fontWeight: 600,
                 display: 'flex',
                 alignItems: 'center',

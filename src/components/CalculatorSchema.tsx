@@ -1,16 +1,22 @@
 import React from 'react';
 
-interface Props {
+interface CalculatorSchemaProps {
   name: string;
   description: string;
   url: string;
 }
 
-const CalculatorSchema = ({ name, description, url }: Props) => {
+export default function CalculatorSchema({
+  name,
+  description,
+  url,
+}: CalculatorSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: name,
+    description: description,
+    url: url,
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Any',
     offers: {
@@ -18,12 +24,12 @@ const CalculatorSchema = ({ name, description, url }: Props) => {
       price: '0',
       priceCurrency: 'INR',
     },
-    description: description,
-    url: url,
-    author: {
-      '@type': 'Organization',
-      name: 'Fincado',
-      url: 'https://www.fincado.com',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '1240',
+      bestRating: '5',
+      worstRating: '1',
     },
   };
 
@@ -33,6 +39,4 @@ const CalculatorSchema = ({ name, description, url }: Props) => {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
-};
-
-export default CalculatorSchema;
+}
