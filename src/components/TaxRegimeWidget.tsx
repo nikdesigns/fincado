@@ -1,13 +1,28 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function TaxRegimeWidget() {
   const pathname = usePathname();
+  const [showAll, setShowAll] = useState(false);
 
   const salaries = [
+    {
+      label: '₹6 Lakh Salary',
+      url: '/guides/tax-on-6-lakh-salary',
+      badge: 'Zero Tax',
+      badgeColor: '#ecfccb',
+      badgeText: '#3f6212',
+    },
+    {
+      label: '₹7.5 Lakh Salary',
+      url: '/guides/tax-on-7-5-lakh-salary',
+      badge: 'Zero Tax',
+      badgeColor: '#ecfccb',
+      badgeText: '#3f6212',
+    },
     {
       label: '₹8 Lakh Salary',
       url: '/guides/tax-on-8-lakh-salary',
@@ -15,10 +30,16 @@ export default function TaxRegimeWidget() {
       badgeColor: '#fff7ed',
       badgeText: '#c2410c',
     },
+    { label: '₹9 Lakh Salary', url: '/guides/tax-on-9-lakh-salary' },
     { label: '₹10 Lakh Salary', url: '/guides/tax-on-10-lakh-salary' },
     { label: '₹12 Lakh Salary', url: '/guides/tax-on-12-lakh-salary' },
     { label: '₹15 Lakh Salary', url: '/guides/tax-on-15-lakh-salary' },
     { label: '₹20 Lakh Salary', url: '/guides/tax-on-20-lakh-salary' },
+    // Hidden by default items (Intermediate & High steps)
+    { label: '₹11 Lakh Salary', url: '/guides/tax-on-11-lakh-salary' },
+    { label: '₹14 Lakh Salary', url: '/guides/tax-on-14-lakh-salary' },
+    { label: '₹16 Lakh Salary', url: '/guides/tax-on-16-lakh-salary' },
+    { label: '₹18 Lakh Salary', url: '/guides/tax-on-18-lakh-salary' },
     {
       label: '₹25 Lakh Salary',
       url: '/guides/tax-on-25-lakh-salary',
@@ -26,7 +47,17 @@ export default function TaxRegimeWidget() {
       badgeColor: '#eff6ff',
       badgeText: '#1e40af',
     },
+    {
+      label: '₹30 Lakh Salary',
+      url: '/guides/tax-on-30-lakh-salary',
+      badge: 'High',
+      badgeColor: '#eff6ff',
+      badgeText: '#1e40af',
+    },
   ];
+
+  // Show first 8 items, or all if expanded
+  const visibleSalaries = showAll ? salaries : salaries.slice(0, 8);
 
   return (
     <nav className="tax-sidebar">
@@ -34,7 +65,7 @@ export default function TaxRegimeWidget() {
         <h3 className="sidebar-title">Salary Tax Hub</h3>
 
         <ul className="sidebar-list">
-          {salaries.map((item) => {
+          {visibleSalaries.map((item) => {
             const isActive = pathname === item.url;
             return (
               <li key={item.url}>
@@ -62,12 +93,17 @@ export default function TaxRegimeWidget() {
           })}
         </ul>
 
+        {/* Toggle Button */}
+        <button onClick={() => setShowAll(!showAll)} className="show-more-btn">
+          {showAll ? 'Show Less' : `Show All (${salaries.length})`}
+        </button>
+
         <div className="view-all-wrap">
           <Link
             href="/guides/new-vs-old-tax-regime-2025"
             className="view-all-link"
           >
-            Understand New vs Old Tax Regime →
+            New vs Old Tax Regime Guide →
           </Link>
         </div>
       </div>
@@ -83,14 +119,14 @@ export default function TaxRegimeWidget() {
         }
 
         .sidebar-section {
-          padding: 24px 20px;
+          padding: 20px;
         }
 
         .sidebar-title {
           font-size: 18px;
           font-weight: 700;
           color: #0f172a;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           border-bottom: 2px solid #22c55e;
           display: inline-block;
           padding-bottom: 4px;
@@ -103,8 +139,8 @@ export default function TaxRegimeWidget() {
         }
 
         .sidebar-list li {
-          margin-bottom: 12px;
-          padding-bottom: 12px;
+          margin-bottom: 8px;
+          padding-bottom: 8px;
           border-bottom: 1px dashed #cbd5e1;
         }
 
@@ -114,17 +150,16 @@ export default function TaxRegimeWidget() {
           border-bottom: none;
         }
 
-        /* FLEXBOX FIXES START HERE */
         .salary-link {
           display: flex;
           align-items: center;
-          gap: 12px; /* Consistent spacing */
+          gap: 10px;
           text-decoration: none;
           color: #334155;
           font-weight: 600;
-          font-size: 15px;
+          font-size: 14px;
           transition: all 0.2s ease;
-          width: 100%; /* Ensure it takes full width */
+          width: 100%;
         }
 
         .salary-link:hover,
@@ -134,26 +169,38 @@ export default function TaxRegimeWidget() {
         }
 
         .icon {
-          font-size: 16px;
+          font-size: 14px;
           line-height: 1;
-          flex-shrink: 0; /* Prevents icon from getting squashed */
-        }
-
-        .label-text {
-          white-space: nowrap; /* Prevents text from breaking */
         }
 
         .badge {
           font-size: 9px;
           font-weight: 700;
-          padding: 3px 8px;
+          padding: 2px 6px;
           border-radius: 100px;
           text-transform: uppercase;
-          letter-spacing: 0.5px;
-          line-height: 1;
-          white-space: nowrap; /* Ensures badge stays on one line */
-          flex-shrink: 0; /* Prevents badge from shrinking */
-          margin-left: auto; /* Pushes badge to the right edge (Optional - remove this line to keep it next to text) */
+          margin-left: auto;
+        }
+
+        /* NEW: Show More Button Styling */
+        .show-more-btn {
+          width: 100%;
+          margin-top: 12px;
+          background: transparent;
+          border: 1px dashed #94a3b8;
+          color: #64748b;
+          font-size: 12px;
+          font-weight: 600;
+          padding: 8px;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .show-more-btn:hover {
+          background: #f1f5f9;
+          color: #0f172a;
+          border-color: #64748b;
         }
 
         .view-all-wrap {
@@ -164,12 +211,12 @@ export default function TaxRegimeWidget() {
         }
 
         .view-all-link {
-          font-size: 14px;
+          font-size: 13px;
           color: #16a34a;
-          font-weight: 600;
+          font-weight: 700;
           text-decoration: none;
-          display: inline-block;
-          padding: 6px 12px;
+          display: block;
+          padding: 8px 12px;
           background: #fff;
           border: 1px solid #bbf7d0;
           border-radius: 6px;
