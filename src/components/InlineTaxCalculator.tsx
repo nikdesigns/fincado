@@ -183,11 +183,6 @@ export default function InlineTaxCalculator({
           gap: 20px;
           margin-bottom: 24px;
         }
-        @media (max-width: 640px) {
-          .inputs-row {
-            grid-template-columns: 1fr;
-          }
-        }
         .input-group label {
           font-size: 13px;
           font-weight: 600;
@@ -253,6 +248,41 @@ export default function InlineTaxCalculator({
         }
         .verdict-banner strong {
           color: #16a34a;
+        }
+
+        /* --- MOBILE RESPONSIVENESS TWEAKS --- */
+        @media (max-width: 640px) {
+          .widget-body {
+            padding: 16px;
+          }
+          .inputs-row {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .input-group {
+            display: flex;
+            flex-direction: column;
+          }
+          .input-group input {
+            font-size: 16px; /* Prevents zoom on iOS */
+          }
+          .comparison-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+          .result-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+          }
+          .regime-label {
+            margin-bottom: 0;
+            text-align: left;
+          }
+          .tax-value {
+            font-size: 18px;
+          }
         }
       `}</style>
     </div>
