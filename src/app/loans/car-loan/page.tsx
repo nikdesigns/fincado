@@ -14,6 +14,14 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -69,6 +77,45 @@ export default function CarLoanPage() {
     </p>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'Can I sell my car during the loan tenure?',
+      answer:
+        'No. You must first close the car loan and remove hypothecation from the RC before selling the vehicle.',
+    },
+    {
+      id: 'faq-2',
+      question: 'Are there foreclosure charges on car loans?',
+      answer:
+        'Yes. Most banks charge 3–5% of the outstanding principal. Some lenders waive foreclosure charges after 2–3 years.',
+    },
+    {
+      id: 'faq-3',
+      question: 'Do salaried individuals get tax benefits on car loans?',
+      answer:
+        'Generally no. Tax benefits on car loans are available mainly to self-employed individuals or businesses using the car for business purposes.',
+    },
+    {
+      id: 'faq-4',
+      question: 'Is car loan EMI lower for new cars than used cars?',
+      answer:
+        'Yes. New car loans usually have lower interest rates, resulting in lower EMI compared to used car loans.',
+    },
+    {
+      id: 'faq-5',
+      question: 'Can I increase my down payment later?',
+      answer:
+        'No. Down payment is paid upfront. However, you can reduce loan burden later by making part prepayments.',
+    },
+    {
+      id: 'faq-6',
+      question: 'Which tenure is best for a car loan?',
+      answer:
+        'A tenure of 4–5 years usually offers the best balance between EMI affordability and total interest cost.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -77,40 +124,11 @@ export default function CarLoanPage() {
         url="https://www.fincado.com/loans/car-loan"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is Hypothecation in Car Loans?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Hypothecation means the car is pledged as collateral to the bank. You own the car, but the bank holds the legal right to seize it if EMIs are not paid. The hypothecation is removed from the RC once the loan is fully repaid.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I get 100% funding on the car price?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Some banks offer 100% funding on the ex-showroom price. Insurance and registration are usually paid separately. High-credit customers may get 100% on-road funding under special schemes.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is it better to take a longer tenure for a car loan?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'A longer tenure reduces your monthly EMI but increases the total interest you pay. Ideally, choose the shortest tenure you can comfortably afford (e.g., 3-5 years) to save on interest.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -125,24 +143,44 @@ export default function CarLoanPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/loans/car-loan" />
-          <h1>Car Loan EMI Calculator</h1>
-          <ShareTools title="Car Loan EMI Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="car-loan-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Car Loan EMI Calculator" />
+            <LanguageToggle path="/hi/loans/car-loan" />
           </div>
 
-          <WikiText
-            content={`
-              <p style="max-width: 700px; color: var(--color-text-muted);">
-                Drive home your dream car with confidence. Calculate accurate EMIs,
-                optimize your down payment, and compare interest rates instantly.
-              </p>
-            `}
-          />
+          {/* Title */}
+          <h1
+            className="
+      mb-4
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
+      font-semibold
+      tracking-tight
+      text-slate-900
+    "
+          >
+            Car Loan EMI Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mb-4">
+              Check EMI & Down Payment
+            </span>
+          </h1>
+
+          {/* Intro text */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Drive home your dream car with confidence using Fincado’s
+          <strong>Car Loan EMI Calculator</strong>.
+          Calculate accurate EMIs, optimize your <strong>down payment</strong>,
+          and compare interest rates across banks instantly.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -156,132 +194,192 @@ export default function CarLoanPage() {
 
             <LiveRateTable type="carLoan" />
 
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>🚗</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Buying a New vs Used Car?
-                </strong>
-                <Link
-                  href="/guides/car-loan-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read our 2025 Guide: Interest Rates & Hidden Costs →
-                </Link>
-              </div>
-            </div>
-
-            <article className="article content-for-seo no-print">
-              <h2>What is a Car Loan?</h2>
-              <WikiText content={introContent} />
-
-              <h3>Who is Eligible for a Car Loan?</h3>
-              <WikiText content={eligibilityContent} />
-
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
-
-              <h3>New Car vs Used Car Loans</h3>
-              <WikiText content={newVsUsedContent} />
-
-              <h3>How This Calculator Helps</h3>
-              <p>
-                Use this calculator to balance your down payment, tenure, and
-                EMI so that your monthly budget stays comfortable.
-              </p>
-
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Down Payment Planning</h4>
-                  <p>Higher down payment = lower EMI & interest.</p>
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/60">
+              <CardContent className="flex items-start gap-4 p-4 sm:p-5">
+                {/* Icon */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
+                  🚗
                 </div>
-                <div className="advantage-card">
-                  <h4>Tenure Optimization</h4>
-                  <p>4–5 years usually gives the best balance.</p>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Buying a New vs Used Car?
+                  </strong>
+
+                  <Link
+                    href="/guides/car-loan-guide"
+                    className="
+          mt-1
+          inline-flex
+          items-center
+          gap-1
+          text-sm
+          font-semibold
+          text-emerald-700
+          underline-offset-4
+          hover:underline
+        "
+                  >
+                    Read our 2025 Guide: Interest Rates & Hidden Costs →
+                  </Link>
                 </div>
-                <div className="advantage-card">
-                  <h4>On-Road Cost Awareness</h4>
-                  <p>Plan for insurance, road tax & maintenance.</p>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
 
-              <h3>Car Loan EMI Formula</h3>
-              <p>The standard formula used for EMI calculation is:</p>
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS CAR LOAN --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is a Car Loan?
+                    </h2>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
-              </div>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>P</strong>: Loan Principal (Amount Borrowed)</li>
-                    <li><strong>r</strong>: Monthly Interest Rate</li>
-                    <li><strong>n</strong>: Loan Tenure in Months</li>
-                  </ul>
-                `}
-              />
+                  {/* --- ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Who is Eligible for a Car Loan?
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={eligibilityContent} />
+                    </div>
+                  </section>
+
+                  {/* --- AD SLOT --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  {/* --- NEW VS USED --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      New Car vs Used Car Loans
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={newVsUsedContent} />
+                    </div>
+                  </section>
+
+                  {/* --- HOW CALCULATOR HELPS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This Car Loan Calculator Helps
+                    </h3>
+
+                    <p className="text-slate-700">
+                      Use this calculator to balance your down payment, tenure,
+                      and EMI so that your monthly budget stays comfortable
+                      without overpaying interest.
+                    </p>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Down Payment Planning
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Higher down payment reduces EMI and total interest
+                          cost.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Tenure Optimization
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          A 4–5 year tenure usually offers the best EMI–interest
+                          balance.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          On-Road Cost Awareness
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Plan for insurance, road tax, registration, and
+                          maintenance costs.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* --- FORMULA --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Car Loan EMI Formula
+                    </h3>
+
+                    <p className="text-slate-700">
+                      The standard formula used to calculate Car Loan EMI is:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
+                      <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <ul>
+                <li><strong>P</strong> = Loan Principal (Amount Borrowed)</li>
+                <li><strong>r</strong> = Monthly Interest Rate</li>
+                <li><strong>n</strong> = Loan Tenure in Months</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Can I sell my car during the loan?</summary>
-                  <p>
-                    No. You must first close the loan and remove hypothecation
-                    from the RC before selling.
-                  </p>
-                </details>
-                <details>
-                  <summary>Are there foreclosure charges?</summary>
-                  <p>
-                    Usually 3–5% of outstanding principal. Some banks waive it
-                    after 2 years.
-                  </p>
-                </details>
-                <details>
-                  <summary>Do salaried people get tax benefits?</summary>
-                  <p>
-                    Generally, no. Tax benefits on car loans are typically
-                    available only to self-employed individuals or businesses
-                    who use the vehicle for business purposes (claiming
-                    depreciation and interest).
-                  </p>
-                </details>
-              </div>
+            {/* FAQs */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="car-loan-sidebar" type="box" />
             </div>
             <FinancialNavWidget />

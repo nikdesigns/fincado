@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import CalculatorField from '@/components/CalculatorField';
+import EMIPieChart from '@/components/EMIPieChart';
+import { Card, CardContent } from '@/components/ui/card';
 
-// 1. Define Labels
+/* ---------- TYPES ---------- */
 interface LabelConfig {
   investment: string;
   rate: string;
@@ -15,10 +17,10 @@ interface LabelConfig {
 }
 
 interface LumpsumClientProps {
-  labels?: LabelConfig;
+  labels?: Partial<LabelConfig>;
 }
 
-// Helper: Format Currency
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -26,140 +28,102 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function LumpsumClient({ labels }: LumpsumClientProps) {
-  // --- STATE ---
-  const [principal, setPrincipal] = useState<number>(100000);
-  const [annualRate, setAnnualRate] = useState<number>(12);
-  const [timeYears, setTimeYears] = useState<number>(10);
-  const [compoundingFrequency, setCompoundingFrequency] = useState<number>(1);
+/* ---------- DEFAULT LABELS ---------- */
+const DEFAULT_LABELS: LabelConfig = {
+  investment: 'Investment Amount (₹)',
+  rate: 'Expected Return (% p.a)',
+  time: 'Time Period (Years)',
+  frequency: 'Compounding Frequency',
+  futureVal: 'Estimated Future Value',
+  invested: 'Invested Amount',
+  wealthGained: 'Wealth Gained',
+};
 
-  // 2. Default Labels
-  const t = labels || {
-    investment: 'Investment Amount (₹)',
-    rate: 'Expected Return (% p.a)',
-    time: 'Time Period (Years)',
-    frequency: 'Compounding Frequency',
-    futureVal: 'Estimated Future Value',
-    invested: 'Invested Amount',
-    wealthGained: 'Wealth Gained',
-  };
+export default function LumpsumClient({ labels = {} }: LumpsumClientProps) {
+  const t = { ...DEFAULT_LABELS, ...labels };
 
-  // --- HELPER ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
+  /* ---------- STATE ---------- */
+  const [principal, setPrincipal] = useState(100000);
+  const [annualRate, setAnnualRate] = useState(12);
+  const [years, setYears] = useState(10);
+  const [frequency, setFrequency] = useState(1);
 
-  // --- CALCULATIONS ---
-  const futureValue = useMemo(() => {
-    const n = compoundingFrequency;
-    const t = timeYears;
-    const periodicRate = annualRate / 100 / n;
-    const totalPeriods = n * t;
+  /* ---------- CALCULATIONS ---------- */
+  const calculations = useMemo(() => {
+    const r = annualRate / 100 / frequency;
+    const n = frequency * years;
 
-    if (principal <= 0 || totalPeriods <= 0) return 0;
-    const fv = principal * Math.pow(1 + periodicRate, totalPeriods);
-    return Math.round(fv);
-  }, [principal, annualRate, timeYears, compoundingFrequency]);
+    if (principal <= 0 || n <= 0) {
+      return {
+        futureValue: 0,
+        wealthGained: 0,
+        principalPct: 0,
+        interestPct: 0,
+      };
+    }
 
-  const totalReturns = Math.max(0, futureValue - principal);
+    const futureValue = Math.round(principal * Math.pow(1 + r, n));
 
-  const principalPct =
-    futureValue > 0 ? Math.round((principal / futureValue) * 100) : 0;
-  const interestPct = 100 - principalPct;
+    const wealthGained = futureValue - principal;
 
-  const handleReset = () => {
-    setPrincipal(100000);
-    setAnnualRate(12);
-    setTimeYears(10);
-    setCompoundingFrequency(1);
-  };
+    const principalPct = Math.round((principal / futureValue) * 100);
+    const interestPct = 100 - principalPct;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const numSetter = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
+    return {
+      futureValue,
+      wealthGained,
+      principalPct,
+      interestPct,
+    };
+  }, [principal, annualRate, years, frequency]);
 
+  /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        <div className="calc-inputs">
-          <div className="input-group">
-            <label>{t.investment}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={principal}
-                onChange={numSetter(setPrincipal)}
-              />
-            </div>
-            <input
-              type="range"
-              min="5000"
-              max="10000000"
-              step="5000"
+    <Card className="border-slate-200 shadow-sm">
+      <CardContent className="p-6 sm:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* ---------- INPUTS ---------- */}
+          <div className="space-y-6">
+            <CalculatorField
+              label={t.investment}
               value={principal}
-              onChange={numSetter(setPrincipal)}
-              style={{
-                background: getRangeBackground(principal, 5000, 10000000),
-              }}
+              min={5000}
+              max={10000000}
+              step={5000}
+              onChange={setPrincipal}
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.rate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={annualRate}
-                onChange={numSetter(setAnnualRate)}
-                step="0.1"
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="30"
-              step="0.1"
+            <CalculatorField
+              label={t.rate}
               value={annualRate}
-              onChange={numSetter(setAnnualRate)}
-              style={{ background: getRangeBackground(annualRate, 1, 30) }}
+              min={1}
+              max={30}
+              step={0.1}
+              onChange={setAnnualRate}
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.time}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={timeYears}
-                onChange={numSetter(setTimeYears)}
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="40"
-              step="1"
-              value={timeYears}
-              onChange={numSetter(setTimeYears)}
-              style={{ background: getRangeBackground(timeYears, 1, 40) }}
+            <CalculatorField
+              label={t.time}
+              value={years}
+              min={1}
+              max={40}
+              step={1}
+              onChange={setYears}
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.frequency}</label>
-            <div className="input-wrapper">
+            {/* Compounding Frequency */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">
+                {t.frequency}
+              </label>
               <select
-                value={compoundingFrequency}
-                onChange={(e) =>
-                  setCompoundingFrequency(Number(e.target.value))
-                }
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                }}
+                value={frequency}
+                onChange={(e) => setFrequency(Number(e.target.value))}
+                className="
+                  w-full rounded-md border border-slate-300
+                  bg-white px-3 py-2 text-sm
+                  focus:outline-none focus:ring-2 focus:ring-lime-500
+                "
               >
                 <option value={1}>Annually (Standard)</option>
                 <option value={2}>Half-Yearly</option>
@@ -169,85 +133,46 @@ export default function LumpsumClient({ labels }: LumpsumClientProps) {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
-          >
-            Reset Defaults
-          </button>
-        </div>
+          {/* ---------- VISUALS ---------- */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={calculations.principalPct}
+              interestPct={calculations.interestPct}
+              size={200}
+            />
 
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={principalPct}
-            interestPct={interestPct}
-            size={200}
-          />
-          <div style={{ marginTop: 24, width: '100%' }}>
-            <div style={{ marginBottom: 12, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.futureVal}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(futureValue)}
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.futureVal}</div>
+
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                {formatINR(calculations.futureValue)}
               </div>
-            </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.invested}
-                </div>
-                <div style={{ fontWeight: 600 }}>{formatINR(principal)}</div>
-              </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.wealthGained}
-                </div>
-                <div style={{ fontWeight: 600, color: '#16a34a' }}>
-                  +{formatINR(totalReturns)}
-                </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+                <Card className="border-slate-200">
+                  <CardContent>
+                    <div className="text-xs text-slate-500">{t.invested}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(principal)}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-lime-200 bg-lime-50">
+                  <CardContent>
+                    <div className="text-xs text-lime-700">
+                      {t.wealthGained}
+                    </div>
+                    <div className="mt-1 font-semibold text-lime-700">
+                      +{formatINR(calculations.wealthGained)}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

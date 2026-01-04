@@ -1,10 +1,10 @@
-// src/app/apy-calculator/APYClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import EMIPieChart from '@/components/EMIPieChart';
+import CalculatorField from '@/components/CalculatorField';
 
-// Helper: Format Currency
+/* ------------------ HELPERS ------------------ */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -12,369 +12,192 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-// --- APY LOOKUP DATA (Approximate for 5k Pension) ---
-const APY_CONTRIBUTION_5000_PENSION: Record<number, number> = {
+/* ------------------ DATA ------------------ */
+
+// Approx monthly contribution for ₹5,000 pension
+const APY_BASE_5000: Record<number, number> = {
   18: 210,
-  19: 228,
   20: 248,
-  21: 269,
-  22: 292,
-  23: 318,
-  24: 346,
   25: 376,
-  26: 409,
-  27: 446,
-  28: 485,
-  29: 529,
   30: 577,
-  31: 630,
-  32: 689,
-  33: 752,
-  34: 824,
   35: 902,
-  36: 990,
-  37: 1090,
-  38: 1198,
-  39: 1318,
   40: 1454,
 };
 
-const PENSION_SLABS = [1000, 2000, 3000, 4000, 5000];
+const PENSION_SLABS = [1000, 2000, 3000, 4000, 5000] as const;
+type Frequency = 'Monthly' | 'Quarterly' | 'Half-Yearly';
 
-// ✅ Interface for custom labels
-interface APYLabels {
-  joiningAge: string;
-  desiredPension: string;
-  contributionFreq: string;
-  contributionYears: string;
-  pensionStartsAt: string;
-  resetDefaults: string;
-  youNeedToPay: string;
-  totalInvestment: string;
-  corpusToNominee: string;
-  guaranteedPension: string;
-  forSpouse: string;
-  per: string;
-  monthly: string;
-  quarterly: string;
-  halfYearly: string;
-  years: string;
-}
+/* ------------------ COMPONENT ------------------ */
 
-const DEFAULT_LABELS: APYLabels = {
-  joiningAge: 'Joining Age (18-40 Yrs)',
-  desiredPension: 'Desired Monthly Pension (₹)',
-  contributionFreq: 'Contribution Frequency',
-  contributionYears: 'Contribution Years:',
-  pensionStartsAt: 'Pension Starts At:',
-  resetDefaults: 'Reset Defaults',
-  youNeedToPay: 'You Need To Pay',
-  totalInvestment: 'Total Investment',
-  corpusToNominee: 'Corpus to Nominee',
-  guaranteedPension: 'Guaranteed Monthly Pension',
-  forSpouse: '(For you & your spouse)',
-  per: '/',
-  monthly: 'Monthly',
-  quarterly: 'Quarterly',
-  halfYearly: 'Half-Yearly',
-  years: 'Years',
-};
-
-export default function APYClient({
-  labels = DEFAULT_LABELS,
-}: {
-  labels?: Partial<APYLabels>;
-}) {
-  const t = { ...DEFAULT_LABELS, ...labels };
-
-  // --- STATE ---
+export default function APYClient() {
+  /* ---------- STATE ---------- */
   const [joiningAge, setJoiningAge] = useState<number>(25);
-  const [desiredPension, setDesiredPension] = useState<number>(5000);
-  const [frequency, setFrequency] = useState<
-    'Monthly' | 'Quarterly' | 'Half-Yearly'
-  >('Monthly');
+  const [pension, setPension] = useState<number>(5000);
+  const [frequency, setFrequency] = useState<Frequency>('Monthly');
 
-  // --- HELPER: Background for Range Sliders ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    // Orange/Red theme for Government Scheme
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
-
-  // --- CALCULATIONS ---
-  const results = useMemo(() => {
+  /* ---------- CALCULATION ---------- */
+  const result = useMemo(() => {
     const retirementAge = 60;
-    const yearsOfContribution = Math.max(0, retirementAge - joiningAge);
-    const totalMonths = yearsOfContribution * 12;
+    const years = Math.max(0, retirementAge - joiningAge);
+    const months = years * 12;
 
-    // 1. Get Base Contribution for 5000
-    const baseContrib5000 = APY_CONTRIBUTION_5000_PENSION[joiningAge] || 0;
+    const base5000 = APY_BASE_5000[joiningAge] ?? 0;
+    const scale = pension / 5000;
 
-    // 2. Scale for selected slab
-    const scaleFactor = desiredPension / 5000;
-    const monthlyBase = Math.round(baseContrib5000 * scaleFactor);
+    const monthlyBase = Math.round(base5000 * scale);
 
-    // 3. Adjust for Frequency
-    let periodicContribution = 0;
-    if (frequency === 'Monthly') {
-      periodicContribution = monthlyBase;
-    } else if (frequency === 'Quarterly') {
-      periodicContribution = Math.round(monthlyBase * 3 * 1.01); // Slight adjustment
-    } else {
-      periodicContribution = Math.round(monthlyBase * 6 * 1.03); // Slight adjustment
-    }
+    let periodicContribution = monthlyBase;
+    if (frequency === 'Quarterly') periodicContribution = monthlyBase * 3;
+    if (frequency === 'Half-Yearly') periodicContribution = monthlyBase * 6;
 
-    // 4. Total Investment
-    const totalInvestment = Math.round(monthlyBase * totalMonths); // Approximation of total cost
+    const totalInvestment = monthlyBase * months;
+    const nomineeCorpus = Math.round(850000 * scale);
 
-    // 5. Corpus to Nominee
-    // 5k Pension -> 8.5 Lakhs
-    const nomineeCorpus = Math.round(850000 * scaleFactor);
-
-    // 6. Pie Chart (Invested vs Return/Growth)
-    const investedPct = Math.round((totalInvestment / nomineeCorpus) * 100);
-    const returnPct = 100 - investedPct;
+    const investedPct =
+      nomineeCorpus > 0
+        ? Math.round((totalInvestment / nomineeCorpus) * 100)
+        : 0;
 
     return {
+      years,
       periodicContribution,
       totalInvestment,
       nomineeCorpus,
-      yearsOfContribution,
       investedPct,
-      returnPct,
+      growthPct: 100 - investedPct,
     };
-  }, [joiningAge, desiredPension, frequency]);
+  }, [joiningAge, pension, frequency]);
 
-  // --- ACTIONS ---
-  const handleReset = () => {
+  /* ---------- RESET ---------- */
+  const resetDefaults = () => {
     setJoiningAge(25);
-    setDesiredPension(5000);
+    setPension(5000);
     setFrequency('Monthly');
   };
 
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
-
-  // Helper to translate frequency value for display
-  const getFrequencyLabel = (freq: string) => {
-    if (freq === 'Monthly') return t.monthly;
-    if (freq === 'Quarterly') return t.quarterly;
-    if (freq === 'Half-Yearly') return t.halfYearly;
-    return freq;
-  };
-
+  /* ------------------ UI ------------------ */
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
-        <div className="calc-inputs">
-          {/* 1. Age */}
-          <div className="input-group">
-            <label>{t.joiningAge}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={joiningAge}
-                onChange={numSetter(setJoiningAge)}
-                min={18}
-                max={40}
-              />
-            </div>
-            <input
-              type="range"
-              min="18"
-              max="40"
-              step="1"
-              value={joiningAge}
-              onChange={numSetter(setJoiningAge)}
-              style={{ background: getRangeBackground(joiningAge, 18, 40) }}
-            />
-          </div>
+        {/* ================= INPUTS ================= */}
+        <div className="calc-inputs space-y-6">
+          <CalculatorField
+            label="Joining Age (18–40 years)"
+            value={joiningAge}
+            min={18}
+            max={40}
+            step={1}
+            onChange={setJoiningAge}
+          />
 
-          {/* 2. Pension Slab */}
-          <div className="input-group">
-            <label>{t.desiredPension}</label>
-            <div className="input-wrapper">
-              <select
-                value={desiredPension}
-                onChange={(e) => setDesiredPension(Number(e.target.value))}
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                }}
-              >
-                {PENSION_SLABS.map((slab) => (
-                  <option key={slab} value={slab}>
-                    {formatINR(slab)}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* 3. Frequency */}
-          <div className="input-group">
-            <label>{t.contributionFreq}</label>
-            <div className="input-wrapper">
-              <select
-                value={frequency}
-                onChange={(e) => setFrequency(e.target.value as never)}
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                }}
-              >
-                <option value="Monthly">{t.monthly}</option>
-                <option value="Quarterly">{t.quarterly}</option>
-                <option value="Half-Yearly">{t.halfYearly}</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Fixed Info */}
-          <div
-            style={{
-              padding: 12,
-              background: '#f8fafc',
-              borderRadius: 8,
-              border: '1px solid #e2e8f0',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginBottom: 6,
-              }}
+          {/* Pension slab */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-600">
+              Desired Monthly Pension (₹)
+            </label>
+            <select
+              value={pension}
+              onChange={(e) => setPension(Number(e.target.value))}
+              className="
+                w-full rounded-lg border border-slate-300 bg-white
+                px-4 py-2 text-base font-semibold text-slate-900
+                focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                outline-none
+              "
             >
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.contributionYears}
-              </span>
-              <span style={{ fontWeight: 600 }}>
-                {results.yearsOfContribution} {t.years}
+              {PENSION_SLABS.map((v) => (
+                <option key={v} value={v}>
+                  {formatINR(v)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Frequency */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-600">
+              Contribution Frequency
+            </label>
+            <select
+              value={frequency}
+              onChange={(e) => setFrequency(e.target.value as Frequency)}
+              className="
+                w-full rounded-lg border border-slate-300 bg-white
+                px-4 py-2 text-base font-semibold text-slate-900
+                focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                outline-none
+              "
+            >
+              <option value="Monthly">Monthly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Half-Yearly">Half-Yearly</option>
+            </select>
+          </div>
+
+          {/* Info */}
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-slate-500">Contribution Years</span>
+              <span className="font-semibold text-slate-900">
+                {result.years} years
               </span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.pensionStartsAt}
-              </span>
-              <span style={{ fontWeight: 600 }}>Age 60</span>
+            <div className="mt-1 flex justify-between">
+              <span className="text-slate-500">Pension Starts</span>
+              <span className="font-semibold text-slate-900">Age 60</span>
             </div>
           </div>
 
           <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
+            onClick={resetDefaults}
+            className="w-fit text-sm font-medium text-slate-500 underline hover:text-slate-700"
           >
-            {t.resetDefaults}
+            Reset defaults
           </button>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={results.investedPct} // Total paid by user
-            interestPct={results.returnPct} // Value added (Govt guarantee/growth)
+        {/* ================= VISUALS ================= */}
+        <div className="calc-visuals flex flex-col items-center">
+          <EMIPieChart
+            principalPct={result.investedPct}
+            interestPct={result.growthPct}
             size={200}
           />
 
-          <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result: Required Contribution */}
-            <div style={{ marginBottom: 16, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.youNeedToPay}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(results.periodicContribution)}
-                <span
-                  style={{ fontSize: 16, fontWeight: 500, color: '#64748b' }}
-                >
-                  {' '}
-                  {t.per} {getFrequencyLabel(frequency)}
+          <div className="mt-6 w-full space-y-4">
+            <div className="text-center">
+              <div className="text-sm text-slate-500">You need to pay</div>
+              <div className="text-3xl font-extrabold text-lime-600">
+                {formatINR(result.periodicContribution)}
+                <span className="ml-1 text-base font-medium text-slate-500">
+                  / {frequency}
                 </span>
               </div>
             </div>
 
-            {/* Grid Breakdown */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 12,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 8,
-                  background: '#fff',
-                  borderRadius: 6,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b' }}>{t.totalInvestment}</div>
-                <div style={{ fontWeight: 600 }}>
-                  {formatINR(results.totalInvestment)}
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="rounded-lg border border-slate-200 bg-white p-3">
+                <div className="text-slate-500">Total Investment</div>
+                <div className="font-semibold">
+                  {formatINR(result.totalInvestment)}
                 </div>
               </div>
-              <div
-                style={{
-                  padding: 8,
-                  background: '#fff',
-                  borderRadius: 6,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b' }}>{t.corpusToNominee}</div>
-                <div style={{ fontWeight: 600, color: '#16a34a' }}>
-                  {formatINR(results.nomineeCorpus)}
+              <div className="rounded-lg border border-slate-200 bg-white p-3">
+                <div className="text-slate-500">Corpus to Nominee</div>
+                <div className="font-semibold text-emerald-600">
+                  {formatINR(result.nomineeCorpus)}
                 </div>
               </div>
             </div>
 
-            {/* Pension Info Badge */}
-            <div
-              style={{
-                marginTop: 16,
-                padding: 10,
-                background: '#fff7ed',
-                borderRadius: 8,
-                border: '1px solid #fed7aa',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{ fontSize: 12, color: '#9a3412', marginBottom: 4 }}>
-                {t.guaranteedPension}
+            <div className="rounded-lg border border-lime-200 bg-lime-50 p-4 text-center">
+              <div className="text-xs font-semibold text-lime-700">
+                Guaranteed Monthly Pension
               </div>
-              <div style={{ fontSize: 20, fontWeight: 700, color: '#c2410c' }}>
-                {formatINR(desiredPension)}
+              <div className="text-xl font-bold text-lime-800">
+                {formatINR(pension)}
               </div>
-              <div style={{ fontSize: 11, color: '#9a3412', marginTop: 2 }}>
-                {t.forSpouse}
-              </div>
+              <div className="text-xs text-lime-600">(for you & spouse)</div>
             </div>
           </div>
         </div>

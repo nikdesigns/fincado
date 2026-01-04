@@ -14,6 +14,14 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -76,6 +84,39 @@ export default function PersonalLoanPage() {
     </p>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'Is interest on personal loan tax deductible?',
+      answer:
+        'Generally, personal loan interest is not tax deductible. However, if the loan is used for home renovation (deductible under Section 24) or for business purposes, interest may be claimed as a deduction with proper documentation.',
+    },
+    {
+      id: 'faq-2',
+      question: 'What are foreclosure charges on a personal loan?',
+      answer:
+        'Most banks charge 2% to 4% of the outstanding principal if you close the loan before tenure completion. Some lenders waive foreclosure charges after a fixed period.',
+    },
+    {
+      id: 'faq-3',
+      question: 'What is a good CIBIL score for a personal loan?',
+      answer:
+        'A CIBIL score of 750 or above is considered excellent and helps you secure lower interest rates and faster approval.',
+    },
+    {
+      id: 'faq-4',
+      question: 'Can I prepay my personal loan anytime?',
+      answer:
+        'Yes, most banks allow part-prepayment or foreclosure, but charges may apply during the initial years of the loan tenure.',
+    },
+    {
+      id: 'faq-5',
+      question: 'Does personal loan EMI change during tenure?',
+      answer:
+        'Personal loans usually have fixed interest rates, so EMI remains constant unless you prepay or refinance the loan.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -84,40 +125,11 @@ export default function PersonalLoanPage() {
         url="https://www.fincado.com/loans/personal-loan"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'How is Personal Loan EMI calculated?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Personal Loan EMI is calculated using the formula: P x R x (1+R)^N / [(1+R)^N-1], where P is Principal, R is monthly interest rate, and N is tenure.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I prepay my personal loan?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, but most banks charge a foreclosure fee of 2-4% on the outstanding principal. Some banks offer zero prepayment charges after 12 months.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is interest on personal loan tax deductible?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Generally, NO. However, if the loan is used for home renovation (deductible under Sec 24) or business expansion, you may claim deductions. Keep proofs handy.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -132,24 +144,54 @@ export default function PersonalLoanPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/loans/personal-loan" />
-          <h1>Personal Loan EMI Calculator</h1>
-          <ShareTools title="Personal Loan EMI Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="personal-loan-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* TOP ACTION ROW */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Personal Loan EMI Calculator" />
+            <LanguageToggle path="/hi/loans/personal-loan" />
           </div>
 
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Plan your expenses smartly. Calculate accurate EMIs for weddings,
-              travel, or medical emergencies instantly.
-            </p>
-          `}
-          />
+          {/* TITLE */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+        text-slate-900
+      "
+            >
+              Personal Loan EMI Calculator
+            </span>
+
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-2">
+              Calculate EMI for travel, weddings & emergencies
+            </span>
+          </h1>
+
+          {/* DESCRIPTION */}
+          <div className="max-w-3xl mt-4 text-slate-600 text-base leading-relaxed">
+            <WikiText
+              content={`
+        <p>
+          Plan your expenses confidently using our <strong>Personal Loan EMI Calculator</strong>.
+          Instantly check monthly EMI, total interest cost, and repayment timeline
+          before applying for an unsecured loan.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -163,164 +205,210 @@ export default function PersonalLoanPage() {
 
             <LiveRateTable type="personalLoan" />
 
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>💸</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Need a loan quickly?
-                </strong>
-                <Link
-                  href="/guides/personal-loan-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read our Guide: How to Get Approved Instantly →
-                </Link>
-              </div>
-            </div>
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-4 sm:p-6">
+                {/* Icon */}
+                <span className="text-2xl leading-none">💸</span>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is a Personal Loan?</h2>
-              <WikiText content={introContent} />
+                {/* Content */}
+                <div>
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Need a loan quickly?
+                  </strong>
 
-              <h3>Who is Eligible?</h3>
-              <WikiText content={eligibilityContent} />
-
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
-
-              <h3>Personal Loan vs Credit Card Loan</h3>
-              <WikiText content={comparisonContent} />
-
-              <h3>How This Calculator Helps Your Financial Planning</h3>
-              <p>
-                Using a <strong>Personal Loan EMI Calculator</strong> is a
-                crucial first step before applying. It empowers you to verify
-                your affordability.
-              </p>
-
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Assess Affordability</h4>
-                  <p>
-                    Instantly see the monthly outflow. Ensure your EMI does not
-                    exceed 40-50% of your monthly take-home salary.
-                  </p>
+                  <Link
+                    href="/guides/personal-loan-guide"
+                    className="
+          mt-1 inline-block
+          text-sm
+          font-semibold
+          text-emerald-700
+          underline
+          underline-offset-4
+          hover:text-emerald-800
+        "
+                  >
+                    Read our Guide: How to Get Approved Instantly →
+                  </Link>
                 </div>
-                <div className="advantage-card">
-                  <h4>Choose the Right Tenure</h4>
-                  <p>
-                    Balance your budget. A longer tenure reduces the monthly EMI
-                    but increases the total interest payout.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Plan Pre-payments</h4>
-                  <p>
-                    See how the outstanding balance reduces over time to plan
-                    for foreclosure when you receive a bonus.
-                  </p>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
 
-              <h3>EMI Calculation Formula</h3>
-              <p>
-                The Equated Monthly Installment (EMI) for a personal loan is
-                calculated using the standard reducing balance method.
-              </p>
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- SECTION: WHAT IS PERSONAL LOAN --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is a Personal Loan?
+                    </h2>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="EMI = [P \times R \times (1+R)^N] / [(1+R)^N-1]" />
-              </div>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              <WikiText
-                content={`
-                <ul>
-                  <li><strong>P</strong> = Loan Amount (Principal)</li>
-                  <li><strong>R</strong> = Monthly Interest Rate (Annual Rate / 12 / 100)</li>
-                  <li><strong>N</strong> = Tenure in Months</li>
-                </ul>
-              `}
-              />
+                  {/* --- SECTION: ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Who is Eligible for a Personal Loan?
+                    </h3>
 
-              <h3>Key Advantages of a Personal Loan</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>No Collateral Required:</strong> Your assets remain safe.</li>
-                    <li><strong>Quick Disbursal:</strong> Funds are often credited within 24–48 hours.</li>
-                    <li><strong>Flexible End-Use:</strong> Use funds for weddings, travel, medical needs, etc.</li>
-                    <li><strong>Fixed Interest Rates:</strong> EMIs remain constant throughout the tenure.</li>
-                  </ul>
-                `}
-              />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={eligibilityContent} />
+                    </div>
+                  </section>
+
+                  {/* --- AD SLOT (CONSISTENT POSITION) --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  {/* --- SECTION: COMPARISON --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Personal Loan vs Credit Card Loan
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={comparisonContent} />
+                    </div>
+                  </section>
+
+                  {/* --- SECTION: HOW CALCULATOR HELPS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This Personal Loan EMI Calculator Helps
+                    </h3>
+
+                    <p className="text-slate-700">
+                      Using a <strong>Personal Loan EMI Calculator</strong>{' '}
+                      before applying helps you validate affordability, avoid
+                      over-borrowing, and plan prepayments efficiently.
+                    </p>
+
+                    <div className="advantage-grid">
+                      <div className="advantage-card">
+                        <h4>Assess Affordability</h4>
+                        <p>
+                          Ensure your EMI stays within 40–50% of your monthly
+                          take-home salary.
+                        </p>
+                      </div>
+
+                      <div className="advantage-card">
+                        <h4>Choose the Right Tenure</h4>
+                        <p>
+                          Longer tenure lowers EMI but increases total interest
+                          paid over time.
+                        </p>
+                      </div>
+
+                      <div className="advantage-card">
+                        <h4>Plan Smart Prepayments</h4>
+                        <p>
+                          Track outstanding balance reduction to plan
+                          foreclosure using bonuses or salary hikes.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* --- SECTION: EMI FORMULA (EMI STYLE) --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Personal Loan EMI Formula
+                    </h3>
+
+                    <p className="text-slate-700">
+                      Banks calculate Personal Loan EMI using the standard
+                      reducing balance formula:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <BlockMath math="EMI = \frac{P \times R \times (1+R)^N}{(1+R)^N - 1}" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <ul>
+                <li><strong>P</strong> = Loan Amount (Principal)</li>
+                <li><strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
+                <li><strong>N</strong> = Loan Tenure in Months</li>
+              </ul>
+            `}
+                      />
+                    </div>
+
+                    <p className="text-sm text-slate-600">
+                      This Personal Loan calculator follows RBI-aligned EMI
+                      formulas used by Indian banks and NBFCs.
+                    </p>
+                  </section>
+
+                  {/* --- SECTION: ADVANTAGES --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Key Advantages of a Personal Loan
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText
+                        content={`
+              <ul>
+                <li><strong>No Collateral Required:</strong> Your assets remain untouched.</li>
+                <li><strong>Quick Disbursal:</strong> Funds often credited within 24–48 hours.</li>
+                <li><strong>Flexible Usage:</strong> Weddings, travel, medical needs, or emergencies.</li>
+                <li><strong>Fixed Interest Rates:</strong> EMIs remain constant throughout the tenure.</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>
-                    Is interest on personal loan tax deductible?
-                  </summary>
-                  <p>
-                    Generally, NO. However, if the loan is used for home
-                    renovation (deductible under Sec 24) or business expansion,
-                    you may claim deductions. Keep proofs handy.
-                  </p>
-                </details>
-                <details>
-                  <summary>What are foreclosure charges?</summary>
-                  <p>
-                    Most banks charge 2% to 4% of the outstanding principal if
-                    you repay the full loan before the tenure ends. Check your
-                    loan agreement.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    What is a good CIBIL score for a personal loan?
-                  </summary>
-                  <p>
-                    A score of 750 and above is considered excellent and helps
-                    you get the lowest interest rates and quick approval.
-                  </p>
-                </details>
-              </div>
-            </section>
+            {/* --- FAQ SECTION --- */}
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
 
-            <AuthorBio />
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
+
+              <AuthorBio />
+            </section>
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6 mb-12">
               <AdSlot id="personal-loan-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

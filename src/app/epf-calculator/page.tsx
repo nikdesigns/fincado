@@ -14,6 +14,22 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -41,32 +57,50 @@ export const metadata: Metadata = {
   },
 };
 
+const EPF_FAQS = [
+  {
+    question: 'Can I withdraw my EPF anytime?',
+    answer:
+      'You can withdraw the full amount only at retirement (58 years) or if you remain unemployed for 2 months. Partial withdrawals are allowed for marriage, education, or home purchase.',
+  },
+  {
+    question: 'Is interest on EPF taxable?',
+    answer:
+      'Interest is tax-free for employee contributions up to ₹2.5 Lakh per year. If you contribute more than ₹2.5 Lakh (via VPF), the interest on the excess amount is taxable.',
+  },
+  {
+    question: 'How to check my EPF balance?',
+    answer:
+      'You can check your balance via the EPFO Portal, UMANG App, or by giving a missed call to 9966044425 from your registered mobile number.',
+  },
+];
+
 /* ---------------- PAGE ---------------- */
 
 export default function EPFPage() {
   // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
-    <p>
+    <p class="mt-2 text-slate-600">
       The <strong>Employees' Provident Fund (EPF)</strong> is a mandatory retirement savings scheme 
       managed by the <strong>EPFO</strong> for salaried employees in India. It builds a retirement 
       corpus through regular monthly contributions from both the employee and the employer.
     </p>
-    <p>
+    <p class="mt-4">
       It offers a <strong>Sovereign Guarantee</strong> (backed by the Govt) and falls under the 
       EEE (Exempt-Exempt-Exempt) tax status for most employees, making it one of the safest debt instruments.
     </p>
   `);
 
   const contributionContent = autoLinkContent(`
-    <p>Both you and your employer contribute <strong>12%</strong> of your (Basic Salary + DA). However, the split is different:</p>
-    <ul>
+    <p class="mt-4 text-slate-600">Both you and your employer contribute <strong>12%</strong> of your (Basic Salary + DA). However, the split is different:</p>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Employee Share:</strong> 100% of your 12% goes into your EPF account.</li>
       <li><strong>Employer Share:</strong> Out of their 12%, only <strong>3.67%</strong> goes to EPF. The remaining <strong>8.33%</strong> goes to the <strong>Employee Pension Scheme (EPS)</strong>.</li>
     </ul>
   `);
 
   const taxContent = autoLinkContent(`
-    <p>
+    <p class="mt-2 text-slate-600">
       <strong>New Tax Rule (Budget 2021):</strong> If your total contribution (Employee Share + VPF) exceeds 
       <strong>₹2.5 Lakhs</strong> in a financial year, the interest earned on the excess amount is <strong>taxable</strong> 
       as per your income tax slab. The corpus accumulated up to ₹2.5 Lakhs remains tax-free.
@@ -82,40 +116,11 @@ export default function EPFPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'How is EPF interest calculated?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The EPF interest rate is notified by the government every year (currently around 8.25%). Interest is calculated monthly on the running balance but credited annually.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: "What is the employer's contribution to EPF?",
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The employer contributes 12% of Basic + DA. However, only 3.67% goes to your EPF account. The remaining 8.33% goes towards the Employee Pension Scheme (EPS).',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is EPF withdrawal taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'EPF withdrawal is tax-free if you have completed 5 years of continuous service. If withdrawn before 5 years, it is taxable. Interest on contributions above ₹2.5 Lakh/year is also taxable.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={EPF_FAQS.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -130,23 +135,51 @@ export default function EPFPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/epf-calculator" />
-          <h1>Employees&apos; Provident Fund (EPF) Calculator</h1>
-          <ShareTools title="Employees' Provident Fund (EPF) Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="epf-top" type="leaderboard" />
+        <header className="no-print my-6">
+          {/* Share + Language */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Employees' Provident Fund (EPF) Calculator" />
+            <LanguageToggle path="/hi/epf-calculator" />
           </div>
+
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              Employees’ Provident Fund (EPF) Calculator
+            </span>
+
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Estimate your retirement corpus from employee & employer
+              contributions
+            </span>
+          </h1>
+
+          {/* Intro */}
           <WikiText
             content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Your EPF is your biggest retirement asset. Calculate the exact
-              breakdown of employee vs employer contributions and total interest
-              earned over your career.
-            </p>
-          `}
+      <p class="max-w-2xl text-slate-600 mt-2">
+        Your EPF is one of your most important retirement assets.
+        Calculate the exact breakdown of <strong>employee vs employer contributions</strong>
+        and the <strong>total interest earned</strong> over your working life.
+      </p>
+    `}
           />
         </header>
 
@@ -155,7 +188,7 @@ export default function EPFPage() {
             <EPFClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="epf-after-calc" type="banner" />
             </div>
 
@@ -163,49 +196,36 @@ export default function EPFPage() {
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="text-lg font-semibold mb-4 text-slate-900">
                 Retirement Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/ppf-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        no-underline
+        hover:border-slate-300
+      "
                 >
                   🏦 PPF Calculator
                 </Link>
+
                 <Link
                   href="/gratuity-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        no-underline
+        hover:border-slate-300
+      "
                 >
                   💼 Gratuity Calc
                 </Link>
@@ -214,100 +234,149 @@ export default function EPFPage() {
 
             {/* ✅ Promo Box */}
             <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
+              className="
+    no-print
+    mt-8
+    flex items-center gap-3
+    rounded-lg
+    border border-emerald-200
+    bg-emerald-50
+    p-4
+  "
             >
-              <span style={{ fontSize: '24px' }}>📜</span>
+              <span className="text-2xl">📜</span>
+
               <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
+                <strong className="block text-emerald-900 font-semibold">
                   Confused about PF withdrawal?
                 </strong>
+
                 <Link
                   href="/guides/epf-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+                  className="
+        mt-1 inline-block
+        text-emerald-600
+        font-semibold
+        underline
+        hover:text-emerald-700
+        text-sm
+      "
                 >
                   Read: How to withdraw PF Online →
                 </Link>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            {/* 💰 Mid Content Ad */}
+            <div className="no-print my-10 flex justify-center">
               <AdSlot id="epf-mid-content" type="leaderboard" />
             </div>
 
+            {/* --- FULL SEO ARTICLE --- */}
             <article className="article content-for-seo no-print">
-              <h2>What is the Employees&apos; Provident Fund (EPF)?</h2>
+              {/* INTRO */}
+              <h2 className="text-2xl font-semibold text-slate-700">
+                What is the Employees&apos; Provident Fund (EPF)?
+              </h2>
+
               <WikiText content={introContent} />
 
-              <h3>Understanding the Contribution Split</h3>
+              {/* CONTRIBUTION SPLIT */}
+              <h3 className="mt-8 text-xl font-semibold text-slate-700">
+                Understanding the Contribution Split
+              </h3>
+
               <WikiText content={contributionContent} />
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              {/* 💰 AD 3 */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
 
-              <h3>EPF vs PPF: Which is Better?</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>EPF (Employees&lsquo; PF)</th>
-                      <th>PPF (Public PF)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Interest Rate</strong>
-                      </td>
-                      <td>8.25% (Higher)</td>
-                      <td>7.1% (Lower)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Eligibility</strong>
-                      </td>
-                      <td>Salaried Employees only</td>
-                      <td>Anyone (Salaried/Self-Employed)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Lock-in</strong>
-                      </td>
-                      <td>Until Retirement (58)</td>
-                      <td>15 Years</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Employer Match</strong>
-                      </td>
-                      <td>Yes (Employer adds 12%)</td>
-                      <td>No</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {/* COMPARISON TABLE */}
+              <h3 className="mt-8 text-xl font-semibold text-slate-900">
+                EPF vs PPF: Which is Better?
+              </h3>
 
-              <h3>Taxation on EPF (The 2.5 Lakh Rule)</h3>
+              <Card className="mt-4 border-none shadow-none m-0">
+                <CardContent className="p-0">
+                  <div className="table-responsive">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-left">Feature</TableHead>
+                          <TableHead className="text-left">
+                            EPF (Employees&apos; PF)
+                          </TableHead>
+                          <TableHead className="text-left">
+                            PPF (Public PF)
+                          </TableHead>
+                        </TableRow>
+                      </TableHeader>
+
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Interest Rate
+                          </TableCell>
+                          <TableCell className="font-semibold text-emerald-600">
+                            8.25% (Higher)
+                          </TableCell>
+                          <TableCell className="text-slate-700">7.1%</TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Eligibility
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            Salaried Employees only
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            Anyone
+                          </TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Lock-in
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            Until Retirement (58)
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            15 Years
+                          </TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Employer Match
+                          </TableCell>
+                          <TableCell className="font-semibold text-emerald-600">
+                            Yes (12%)
+                          </TableCell>
+                          <TableCell className="text-slate-700">No</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* TAXATION */}
+              <h3 className="mt-8 text-xl font-semibold text-slate-900">
+                Taxation on EPF (The 2.5 Lakh Rule)
+              </h3>
+
               <WikiText content={taxContent} />
 
-              <h3>How This Calculator Helps You</h3>
-              <div className="advantage-grid">
+              {/* ADVANTAGES */}
+              <h3 className="mt-10 text-xl font-semibold text-slate-900">
+                How This Calculator Helps You
+              </h3>
+
+              <div className="advantage-grid mt-6">
                 <div className="advantage-card">
                   <h4>Corpus Projection</h4>
                   <p>
@@ -315,13 +384,15 @@ export default function EPFPage() {
                     58/60).
                   </p>
                 </div>
+
                 <div className="advantage-card">
                   <h4>Interest Visualization</h4>
                   <p>
                     See how compounding turns small monthly deductions into a
-                    massive interest component over 20-30 years.
+                    massive interest component over 20–30 years.
                   </p>
                 </div>
+
                 <div className="advantage-card">
                   <h4>VPF Planning</h4>
                   <p>
@@ -331,83 +402,78 @@ export default function EPFPage() {
                 </div>
               </div>
 
-              <h3>EPF Interest Calculation Formula</h3>
+              {/* FORMULA */}
+              <h3 className="mt-10 text-xl font-semibold text-slate-900">
+                EPF Interest Calculation Formula
+              </h3>
+
               <p>
                 Interest is calculated monthly on the running balance, but
                 credited annually.
               </p>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
+              <div className="py-6 overflow-x-auto bg-slate-50 px-4 rounded-md my-4">
                 <BlockMath math="Interest = \frac{(OpeningBalance + Contribution) \times Rate}{1200}" />
               </div>
 
               <WikiText
                 content={`
-                <p style="font-size: 14px; color: #666;">
-                  <em>
-                    *Note: This calculation happens every month, and the total interest is credited on March 31st.
-                  </em>
-                </p>
-              `}
+      <p class="text-sm text-slate-500">
+        <em>
+          *Interest is calculated every month and credited on March 31st.
+        </em>
+      </p>
+    `}
               />
 
-              <h3>Key Benefits of EPF</h3>
+              {/* BENEFITS */}
+              <h3 className="mt-10 mb-2 text-xl font-semibold text-slate-900">
+                Key Benefits of EPF
+              </h3>
+
               <WikiText
                 content={`
-                  <ul>
-                    <li><strong>Sovereign Guarantee:</strong> One of the safest debt instruments in India.</li>
-                    <li><strong>Tax Benefits:</strong> Contributions qualify for Section 80C.</li>
-                    <li><strong>Insurance (EDLI):</strong> EPF members get free life insurance cover up to ₹7 Lakhs.</li>
-                  </ul>
-                `}
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Sovereign Guarantee:</strong> One of the safest debt instruments in India.</li>
+        <li><strong>Tax Benefits:</strong> Contributions qualify for Section 80C.</li>
+        <li><strong>Insurance (EDLI):</strong> Free life insurance cover up to ₹7 Lakhs.</li>
+      </ul>
+    `}
               />
             </article>
 
-            {/* FAQs */}
+            {/* --- FAQs --- */}
             <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Can I withdraw my EPF anytime?</summary>
-                  <p>
-                    You can withdraw the full amount only at retirement (58
-                    years) or if you remain unemployed for 2 months. Partial
-                    withdrawals are allowed for marriage, education, or home
-                    purchase.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is interest on EPF taxable?</summary>
-                  <p>
-                    Interest is tax-free for employee contributions up to ₹2.5
-                    Lakh per year. If you contribute more than ₹2.5 Lakh (via
-                    VPF), the interest on the excess amount is taxable.
-                  </p>
-                </details>
-                <details>
-                  <summary>How to check my EPF balance?</summary>
-                  <p>
-                    You can check your balance via the EPFO Portal, UMANG App,
-                    or by giving a missed call to 9966044425 from your
-                    registered mobile number.
-                  </p>
-                </details>
-              </div>
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Frequently Asked Questions (FAQs)
+              </h2>
+
+              <Accordion type="single" collapsible className="mt-6 space-y-2">
+                {EPF_FAQS.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`epf-faq-${index}`}
+                    className="rounded-lg px-4"
+                  >
+                    <AccordionTrigger className="text-left font-medium text-slate-900">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-600 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="epf-sidebar" type="box" />
             </div>
+
             <FinancialNavWidget />
           </aside>
         </div>

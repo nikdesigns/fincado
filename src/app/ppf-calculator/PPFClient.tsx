@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useState, useMemo, useRef } from 'react';
-import PieChart from '@/components/PieChart';
+import React, { useMemo, useState } from 'react';
+import EMIPieChart from '@/components/EMIPieChart';
+import CalculatorField from '@/components/CalculatorField';
+import { Card, CardContent } from '@/components/ui/card';
 
+/* ---------- TYPES ---------- */
 interface LabelConfig {
   modeLabel: string;
   monthlyInv: string;
@@ -15,9 +18,10 @@ interface LabelConfig {
 }
 
 interface PPFClientProps {
-  labels?: LabelConfig;
+  labels?: Partial<LabelConfig>;
 }
 
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -25,278 +29,179 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function PPFClient({ labels }: PPFClientProps) {
+/* ---------- DEFAULT LABELS ---------- */
+const DEFAULT_LABELS: LabelConfig = {
+  modeLabel: 'Contribution Mode',
+  monthlyInv: 'Monthly Investment (₹)',
+  annualInv: 'Annual Investment (₹)',
+  rate: 'Interest Rate (% p.a)',
+  duration: 'Duration (Years)',
+  maturity: 'Maturity Value (Tax Free)',
+  totalInv: 'Total Investment',
+  totalInt: 'Total Interest',
+};
+
+export default function PPFClient({ labels = {} }: PPFClientProps) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
+  /* ---------- STATE ---------- */
   const [mode, setMode] = useState<'monthly' | 'annual'>('monthly');
-  const [monthlyContribution, setMonthlyContribution] = useState<number>(1000);
-  const [annualContribution, setAnnualContribution] = useState<number>(12000);
-  const [years, setYears] = useState<number>(15);
-  const [annualRate, setAnnualRate] = useState<number>(7.1);
+  const [monthlyContribution, setMonthlyContribution] = useState(1000);
+  const [annualContribution, setAnnualContribution] = useState(12000);
+  const [years, setYears] = useState(15);
+  const [annualRate, setAnnualRate] = useState(7.1);
 
-  // Default English Labels
-  const t = labels || {
-    modeLabel: 'Contribution Mode',
-    monthlyInv: 'Monthly Investment (₹)',
-    annualInv: 'Annual Investment (₹)',
-    rate: 'Interest Rate (% p.a)',
-    duration: 'Duration (Years)',
-    maturity: 'Maturity Value (Tax Free)',
-    totalInv: 'Total Investment',
-    totalInt: 'Total Interest',
-  };
+  /* ---------- CALCULATIONS ---------- */
+  const calculations = useMemo(() => {
+    const months = years * 12;
+    const monthlyRate = annualRate / 12 / 100;
+    const yearlyRate = annualRate / 100;
 
-  const max80CLimit = 150000;
-  const printRef = useRef<HTMLDivElement | null>(null);
+    let maturity = 0;
+    let invested = 0;
 
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
-
-  const monthlyRate = annualRate / 12 / 100;
-  const yearlyRate = annualRate / 100;
-  const months = Math.max(1, Math.round(years * 12));
-
-  const totalContributed = useMemo(() => {
-    if (mode === 'monthly') return monthlyContribution * months;
-    return annualContribution * years;
-  }, [mode, monthlyContribution, annualContribution, months, years]);
-
-  const maturity = useMemo(() => {
     if (mode === 'monthly') {
-      if (monthlyContribution <= 0) return 0;
-      const r = monthlyRate;
-      const n = months;
-      if (r === 0) return monthlyContribution * n;
-      return monthlyContribution * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+      invested = monthlyContribution * months;
+      if (monthlyRate === 0) {
+        maturity = invested;
+      } else {
+        maturity =
+          monthlyContribution *
+          ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
+          (1 + monthlyRate);
+      }
     } else {
-      if (annualContribution <= 0) return 0;
-      const r = yearlyRate;
-      const n = Math.max(1, years);
-      if (r === 0) return annualContribution * n;
-      return annualContribution * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+      invested = annualContribution * years;
+      if (yearlyRate === 0) {
+        maturity = invested;
+      } else {
+        maturity =
+          annualContribution *
+          ((Math.pow(1 + yearlyRate, years) - 1) / yearlyRate) *
+          (1 + yearlyRate);
+      }
     }
-  }, [
-    mode,
-    monthlyContribution,
-    monthlyRate,
-    months,
-    annualContribution,
-    yearlyRate,
-    years,
-  ]);
 
-  const maturityRounded = Math.round(maturity);
-  const totalInterest = Math.max(0, Math.round(maturity - totalContributed));
-  const principalPct =
-    maturity === 0 ? 0 : Math.round((totalContributed / maturity) * 100);
-  const interestPct = 100 - principalPct;
-  const annualContributionForTax = useMemo(() => {
-    const currentAnnual =
-      mode === 'monthly' ? monthlyContribution * 12 : annualContribution;
-    return Math.min(currentAnnual, max80CLimit);
-  }, [mode, monthlyContribution, annualContribution, max80CLimit]);
+    const interest = Math.max(0, maturity - invested);
+    const principalPct =
+      maturity > 0 ? Math.round((invested / maturity) * 100) : 0;
 
-  const handleReset = () => {
-    setMode('monthly');
-    setMonthlyContribution(1000);
-    setAnnualContribution(12000);
-    setYears(15);
-    setAnnualRate(7.1);
-  };
+    return {
+      maturity: Math.round(maturity),
+      invested: Math.round(invested),
+      interest: Math.round(interest),
+      principalPct,
+      interestPct: 100 - principalPct,
+    };
+  }, [mode, monthlyContribution, annualContribution, years, annualRate]);
 
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
-
+  /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        <div className="calc-inputs">
-          <div className="input-group">
-            <label>{t.modeLabel}</label>
-            <div className="input-wrapper">
+    <Card className="border-slate-200 shadow-sm">
+      <CardContent className="p-6 sm:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* ---------- INPUTS ---------- */}
+          <div className="space-y-6">
+            {/* Contribution Mode */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">
+                {t.modeLabel}
+              </label>
               <select
                 value={mode}
                 onChange={(e) =>
                   setMode(e.target.value as 'monthly' | 'annual')
                 }
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                }}
+                className="
+                  w-full rounded-md border border-slate-300
+                  bg-white px-3 py-2 text-sm
+                  focus:outline-none focus:ring-2 focus:ring-lime-500
+                "
               >
                 <option value="monthly">Monthly</option>
                 <option value="annual">Annual (Lump Sum)</option>
               </select>
             </div>
-          </div>
 
-          <div className="input-group">
-            <label>{mode === 'monthly' ? t.monthlyInv : t.annualInv}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={
-                  mode === 'monthly' ? monthlyContribution : annualContribution
-                }
-                onChange={numSetter(
-                  mode === 'monthly'
-                    ? setMonthlyContribution
-                    : setAnnualContribution
-                )}
-              />
-            </div>
-            <input
-              type="range"
-              min={500}
-              max={mode === 'monthly' ? 12500 : 150000}
-              step={mode === 'monthly' ? 500 : 1000}
+            {/* Investment Amount */}
+            <CalculatorField
+              label={mode === 'monthly' ? t.monthlyInv : t.annualInv}
               value={
                 mode === 'monthly' ? monthlyContribution : annualContribution
               }
-              onChange={numSetter(
+              min={500}
+              max={mode === 'monthly' ? 12500 : 150000}
+              step={mode === 'monthly' ? 500 : 1000}
+              onChange={
                 mode === 'monthly'
                   ? setMonthlyContribution
                   : setAnnualContribution
-              )}
-              style={{
-                background: getRangeBackground(
-                  mode === 'monthly' ? monthlyContribution : annualContribution,
-                  500,
-                  mode === 'monthly' ? 12500 : 150000
-                ),
-              }}
+              }
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.rate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={annualRate}
-                onChange={numSetter(setAnnualRate)}
-                step="0.1"
-              />
-            </div>
-            <input
-              type="range"
-              min="4"
-              max="12"
-              step="0.1"
+            {/* Interest Rate */}
+            <CalculatorField
+              label={t.rate}
               value={annualRate}
-              onChange={numSetter(setAnnualRate)}
-              style={{ background: getRangeBackground(annualRate, 4, 12) }}
+              min={4}
+              max={12}
+              step={0.1}
+              onChange={setAnnualRate}
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.duration}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={years}
-                onChange={numSetter(setYears)}
-                min={15}
-              />
-            </div>
-            <input
-              type="range"
-              min="15"
-              max="50"
-              step="5"
+            {/* Duration */}
+            <CalculatorField
+              label={t.duration}
               value={years}
-              onChange={numSetter(setYears)}
-              style={{ background: getRangeBackground(years, 15, 50) }}
+              min={15}
+              max={50}
+              step={5}
+              onChange={setYears}
             />
           </div>
 
-          <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
-          >
-            Reset
-          </button>
-        </div>
+          {/* ---------- VISUALS ---------- */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={calculations.principalPct}
+              interestPct={calculations.interestPct}
+            />
 
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={principalPct}
-            interestPct={interestPct}
-            size={200}
-          />
-          <div style={{ marginTop: 24, width: '100%' }}>
-            <div style={{ marginBottom: 12, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.maturity}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(maturityRounded)}
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.maturity}</div>
+
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                {formatINR(calculations.maturity)}
               </div>
-            </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalInv}
-                </div>
-                <div style={{ fontWeight: 600 }}>
-                  {formatINR(totalContributed)}
-                </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+                <Card className="border-slate-200">
+                  <CardContent>
+                    <div className="text-xs text-slate-500">{t.totalInv}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(calculations.invested)}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-lime-200 bg-lime-50">
+                  <CardContent>
+                    <div className="text-xs text-lime-700">{t.totalInt}</div>
+                    <div className="mt-1 font-semibold text-lime-700">
+                      +{formatINR(calculations.interest)}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalInt}
-                </div>
-                <div
-                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
-                >
-                  +{formatINR(totalInterest)}
-                </div>
-              </div>
+
+              <p className="mt-4 text-xs text-slate-500">
+                🔒 PPF has a mandatory 15-year lock-in. Returns are completely
+                tax-free.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

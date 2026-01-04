@@ -4,7 +4,6 @@ import Link from 'next/link';
 import RDClient from './RDClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -14,6 +13,14 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import FAQSchema from '@/components/FAQSchema';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -61,7 +68,7 @@ export default function RDPage() {
       Interest earned on Recurring Deposits is <strong>fully taxable</strong>. It is added to your annual income 
       and taxed according to your slab.
     </p>
-    <ul>
+    <ul class="list-disc pl-6 space-y-2">
       <li><strong>TDS:</strong> Banks deduct 10% TDS if interest exceeds ₹40,000/year (₹50,000 for Seniors).</li>
       <li><strong>Form 15G/15H:</strong> You can submit these forms to avoid TDS if your total income is below the taxable limit.</li>
     </ul>
@@ -75,6 +82,27 @@ export default function RDPage() {
     </p>
   `);
 
+  const rdFaqItems = [
+    {
+      id: 'rd-faq-1',
+      question: 'Is RD interest taxable?',
+      answer:
+        'Yes. Interest earned on a Recurring Deposit is added to your total income and taxed as per your income slab. Banks deduct TDS if interest exceeds ₹40,000 in a financial year (₹50,000 for senior citizens).',
+    },
+    {
+      id: 'rd-faq-2',
+      question: 'Can I increase my monthly installment later?',
+      answer:
+        'No. In a standard RD, the monthly installment amount is fixed at the time of opening. However, some banks offer Flexi RD or iWish RD products where you can vary the deposit amount.',
+    },
+    {
+      id: 'rd-faq-3',
+      question: 'What is the minimum tenure for an RD?',
+      answer:
+        'The minimum RD tenure is usually 6 months, while the maximum can go up to 10 years, depending on the bank.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -83,40 +111,11 @@ export default function RDPage() {
         url="https://www.fincado.com/rd-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'How is RD interest calculated?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'RD interest is calculated using the compound interest formula on each monthly installment individually. Most banks in India compound interest quarterly.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is RD interest taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. Interest earned on Recurring Deposits is fully taxable as per your income tax slab. TDS (10%) is deducted if interest income exceeds ₹40,000 in a financial year (₹50,000 for senior citizens).',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I miss an RD installment?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'If you miss an installment, banks typically charge a penalty (e.g., ₹1.50 per ₹100 per month). Continued default may lead to the closure of the RD account.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={rdFaqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -131,24 +130,50 @@ export default function RDPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/hi/rd-calculator" />
-          <h1>Recurring Deposit (RD) Calculator</h1>
-          <ShareTools title="Recurring Deposit (RD) Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="rd-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* Share + Language (same as other calculators) */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Recurring Deposit (RD) Calculator" />
+            <LanguageToggle path="/hi/rd-calculator" />
           </div>
 
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              Recurring Deposit (RD) Calculator
+            </span>
+
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Grow disciplined monthly savings with guaranteed returns
+            </span>
+          </h1>
+
+          {/* Intro */}
           <WikiText
             content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Turn small monthly savings into a large corpus. Use our bank-grade
-              calculator to check your maturity amount with accurate
-              <strong>quarterly compounding</strong>.
-            </p>
-          `}
+      <p class="max-w-175 text-slate-500 mt-2">
+        Turn small monthly savings into a large corpus. Use our bank-grade
+        calculator to check your maturity amount with
+        <strong> quarterly compounding</strong>.
+      </p>
+    `}
           />
         </header>
 
@@ -157,233 +182,254 @@ export default function RDPage() {
             <RDClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="rd-after-calc" type="banner" />
             </div>
 
-            {/* Add this H2 specifically for SEO */}
-            <h2
-              style={{
-                fontSize: '24px',
-                fontWeight: 'bold',
-                margin: '32px 0 16px',
-              }}
-            >
-              Current RD Interest Rates (2025)
-            </h2>
-            <p style={{ marginBottom: '24px', color: '#64748b' }}>
-              Comparison of latest Recurring Deposit interest rates offered by
-              top banks like SBI, HDFC, and ICICI.
-            </p>
-
-            <LiveRateTable type="fixedDeposit" />
-
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            {/* 📱 Mobile-only Related Tools */}
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Savings
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        transition hover:bg-slate-50
+      "
                 >
                   📈 SIP Calculator
                 </Link>
+
                 <Link
                   href="/fd-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        transition hover:bg-slate-50
+      "
                 >
                   💰 FD Calculator
                 </Link>
               </div>
             </div>
 
+            {/* 🛡️ Promo Box */}
             <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
+              className="
+    no-print
+    my-8
+    flex items-start gap-3
+    rounded-lg
+    border border-emerald-200
+    bg-emerald-50
+    px-4 py-4
+  "
             >
-              <span style={{ fontSize: '24px' }}>🛡️</span>
+              <span className="text-2xl leading-none">🛡️</span>
+
               <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
+                <strong className="block text-sm font-semibold text-emerald-800">
                   Want safe returns?
                 </strong>
+
                 <Link
                   href="/guides/fixed-deposit-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+                  className="
+        mt-1 inline-block
+        text-sm font-medium
+        text-emerald-700
+        underline
+        underline-offset-2
+        hover:text-emerald-800
+      "
                 >
                   Read: How to Ladder Deposits for Higher Returns →
                 </Link>
               </div>
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is a Recurring Deposit (RD)?</h2>
-              <WikiText content={introContent} />
+            <article className="article content-for-seo no-print space-y-10">
+              {/* --- INTRO --- */}
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  What is a Recurring Deposit (RD)?
+                </h2>
+                <WikiText content={introContent} />
+              </section>
 
-              <h3>RD Interest Taxation (TDS Rules)</h3>
-              <WikiText content={taxContent} />
+              {/* --- TAXATION --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  RD Interest Taxation (TDS Rules)
+                </h3>
+                <WikiText content={taxContent} />
+              </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              {/* 💰 AD 3 */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
 
-              <h3>RD vs SIP: Which is better?</h3>
-              <WikiText content={comparisonContent} />
+              {/* --- COMPARISON --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  RD vs SIP: Which is better?
+                </h3>
+                <WikiText content={comparisonContent} />
+              </section>
 
-              <h3>How This Calculator Helps Your Planning</h3>
-              <p>
-                Since RDs involve multiple cash flows (one deposit every month),
-                calculating the final maturity manually is difficult.
-              </p>
+              {/* --- BENEFITS --- */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  How This Calculator Helps Your Planning
+                </h3>
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Plan Short-Term Goals</h4>
-                  <p>
-                    Calculate exactly how much to save monthly to buy a car or
-                    fund a vacation in 2 years.
-                  </p>
+                <p className="text-slate-700">
+                  Since RDs involve multiple cash flows (one deposit every
+                  month), calculating the final maturity manually is difficult.
+                </p>
+
+                <div className="advantage-grid">
+                  <div className="advantage-card">
+                    <h4 className="font-semibold text-slate-900">
+                      Plan Short-Term Goals
+                    </h4>
+                    <p>
+                      Calculate exactly how much to save monthly to buy a car or
+                      fund a vacation in 2 years.
+                    </p>
+                  </div>
+
+                  <div className="advantage-card">
+                    <h4 className="font-semibold text-slate-900">
+                      Verify Bank Quotes
+                    </h4>
+                    <p>
+                      Ensure your bank is calculating interest correctly using
+                      the quarterly compounding formula.
+                    </p>
+                  </div>
+
+                  <div className="advantage-card">
+                    <h4 className="font-semibold text-slate-900">
+                      Compare Returns
+                    </h4>
+                    <p>
+                      See the difference in earnings between a 5-year RD and a
+                      3-year RD instantly.
+                    </p>
+                  </div>
                 </div>
-                <div className="advantage-card">
-                  <h4>Verify Bank Quotes</h4>
-                  <p>
-                    Ensure your bank is calculating interest correctly using the
-                    quarterly compounding formula.
-                  </p>
+              </section>
+
+              {/* --- FORMULA --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  RD Interest Calculation Formula
+                </h3>
+
+                <p className="text-slate-700">
+                  The interest on RD is compounded quarterly in most Indian
+                  banks. The formula sums up the compound interest earned on
+                  each individual monthly installment.
+                </p>
+
+                <div className="overflow-x-auto py-4 bg-slate-50 px-4 rounded-md">
+                  <BlockMath math="M = \sum_{i=1}^{n} P \left(1 + \frac{r}{400}\right)^{4 \times \frac{t_i}{12}}" />
                 </div>
-                <div className="advantage-card">
-                  <h4>Compare Returns</h4>
-                  <p>
-                    See the difference in earnings between a 5-year RD and a
-                    3-year RD instantly.
-                  </p>
-                </div>
-              </div>
 
-              <h3>RD Interest Calculation Formula</h3>
-              <p>
-                The interest on RD is compounded quarterly in most Indian banks.
-                The formula sums up the compound interest earned on each
-                individual monthly installment.
-              </p>
-
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="M = \sum_{i=1}^{n} P \left(1 + \frac{r}{400}\right)^{4 \times \frac{t_i}{12}}" />
-              </div>
-
-              <WikiText
-                content={`
-                <ul style="font-size: 14px;">
-                  <li><strong>M</strong>: Maturity Value</li>
-                  <li><strong>P</strong>: Monthly Installment Amount</li>
-                  <li><strong>r</strong>: Annual Interest Rate (%)</li>
-                  <li><strong>t_i</strong>: Time in months for the <em>i-th</em> installment</li>
+                <ul className="list-disc pl-6 text-sm text-slate-700 space-y-1">
+                  <li>
+                    <strong>M</strong>: Maturity Value
+                  </li>
+                  <li>
+                    <strong>P</strong>: Monthly Installment Amount
+                  </li>
+                  <li>
+                    <strong>r</strong>: Annual Interest Rate (%)
+                  </li>
+                  <li>
+                    <strong>tᵢ</strong>: Time in months for the <em>i-th</em>{' '}
+                    installment
+                  </li>
                 </ul>
-              `}
-              />
+              </section>
 
-              <h3>Key Advantages of RD</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Disciplined Savings:</strong> Forces you to save a fixed amount every month.</li>
-                    <li><strong>Guaranteed Returns:</strong> Interest rates are locked at the time of opening.</li>
-                    <li><strong>Liquid Options:</strong> Can be closed prematurely in emergencies (with penalty).</li>
-                    <li><strong>Loan Facility:</strong> Avail a loan up to 90% of your RD balance.</li>
-                  </ul>
-                `}
-              />
+              {/* --- ADVANTAGES --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Key Advantages of RD
+                </h3>
+
+                <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                  <li>
+                    <strong>Disciplined Savings:</strong> Forces you to save a
+                    fixed amount every month.
+                  </li>
+                  <li>
+                    <strong>Guaranteed Returns:</strong> Interest rates are
+                    locked at the time of opening.
+                  </li>
+                  <li>
+                    <strong>Liquidity:</strong> Can be closed prematurely in
+                    emergencies (with penalty).
+                  </li>
+                  <li>
+                    <strong>Loan Facility:</strong> Avail a loan up to 90% of
+                    your RD balance.
+                  </li>
+                </ul>
+              </section>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Is RD interest taxable?</summary>
-                  <p>
-                    Yes. Interest earned is added to your income and taxed at
-                    your slab rate. TDS is deducted if interest exceeds
-                    ₹40,000/year (₹50,000 for Seniors).
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Can I increase my monthly installment later?
-                  </summary>
-                  <p>
-                    No. In a standard RD, the amount is fixed. However, some
-                    banks offer &quot;iWish&quot; or &quot;Flexi RD&quot;
-                    products where you can vary the deposit amount.
-                  </p>
-                </details>
-                <details>
-                  <summary>What is the minimum tenure for an RD?</summary>
-                  <p>
-                    The minimum tenure is usually <strong>6 months</strong> and
-                    the maximum is <strong>10 years</strong>.
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQ SECTION --- */}
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={rdFaqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {rdFaqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6 mb-12">
               <AdSlot id="rd-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

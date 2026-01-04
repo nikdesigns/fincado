@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import CalculatorField from '@/components/CalculatorField';
+import EMIPieChart from '@/components/EMIPieChart';
+import { Card, CardContent } from '@/components/ui/card';
 
-// 1. Labels Interface
+/* ---------- TYPES ---------- */
 interface LabelConfig {
   totalInv: string;
   monthlyWithdrawal: string;
@@ -15,10 +17,10 @@ interface LabelConfig {
 }
 
 interface SWPClientProps {
-  labels?: LabelConfig;
+  labels?: Partial<LabelConfig>;
 }
 
-// Helper: Format Currency
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -26,255 +28,149 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SWPClient({ labels }: SWPClientProps) {
-  const [initialCorpus, setInitialCorpus] = useState<number>(1000000);
-  const [monthlyWithdrawal, setMonthlyWithdrawal] = useState<number>(10000);
-  const [annualRate, setAnnualRate] = useState<number>(8);
-  const [years, setYears] = useState<number>(10);
+/* ---------- DEFAULT LABELS ---------- */
+const DEFAULT_LABELS: LabelConfig = {
+  totalInv: 'Initial Investment (₹)',
+  monthlyWithdrawal: 'Monthly Withdrawal (₹)',
+  rate: 'Expected Return (% p.a)',
+  time: 'Time Period (Years)',
+  remainingVal: 'Remaining Corpus',
+  totalWithdrawn: 'Total Withdrawn',
+  warning:
+    '⚠️ Your corpus gets exhausted within the selected period. Consider lowering withdrawal amount or increasing returns.',
+};
 
-  // 2. Default Labels
-  const t = labels || {
-    totalInv: 'Total Investment Amount (₹)',
-    monthlyWithdrawal: 'Monthly Withdrawal (₹)',
-    rate: 'Expected Return (% p.a)',
-    time: 'Time Period (Years)',
-    remainingVal: 'Projected Remaining Value',
-    totalWithdrawn: 'Total Withdrawn',
-    warning:
-      '⚠️ Corpus exhausted within the selected period. Consider lowering withdrawal amount.',
-  };
+export default function SWPClient({ labels = {} }: SWPClientProps) {
+  const t = { ...DEFAULT_LABELS, ...labels };
 
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
+  /* ---------- STATE ---------- */
+  const [initialCorpus, setInitialCorpus] = useState(10_00_000);
+  const [monthlyWithdrawal, setMonthlyWithdrawal] = useState(10_000);
+  const [annualRate, setAnnualRate] = useState(8);
+  const [years, setYears] = useState(10);
 
+  /* ---------- CALCULATIONS ---------- */
   const results = useMemo(() => {
-    const monthsHorizon = Math.round(years * 12);
+    const months = years * 12;
     const monthlyRate = annualRate / 12 / 100;
-    let balance = initialCorpus;
-    let totalWithdrawn = 0;
 
-    for (let m = 1; m <= monthsHorizon; m++) {
-      const interest = balance * monthlyRate;
-      balance += interest;
-      const withdrawal = Math.min(monthlyWithdrawal, balance);
-      balance -= withdrawal;
-      totalWithdrawn += withdrawal;
+    let balance = initialCorpus;
+    let withdrawn = 0;
+
+    for (let i = 0; i < months; i++) {
+      balance += balance * monthlyRate;
+      const w = Math.min(monthlyWithdrawal, balance);
+      balance -= w;
+      withdrawn += w;
       if (balance <= 0) {
         balance = 0;
         break;
       }
     }
 
-    const finalBalance = Math.round(balance);
-    const totalValue = finalBalance + totalWithdrawn;
+    const totalValue = withdrawn + balance;
     const remainingPct =
-      totalValue > 0 ? Math.round((finalBalance / totalValue) * 100) : 0;
+      totalValue > 0 ? Math.round((balance / totalValue) * 100) : 0;
     const withdrawnPct = 100 - remainingPct;
 
     return {
-      finalBalance,
-      totalWithdrawn: Math.round(totalWithdrawn),
+      remaining: Math.round(balance),
+      withdrawn: Math.round(withdrawn),
       remainingPct,
       withdrawnPct,
     };
   }, [initialCorpus, monthlyWithdrawal, annualRate, years]);
 
-  const handleReset = () => {
-    setInitialCorpus(1000000);
-    setMonthlyWithdrawal(10000);
-    setAnnualRate(8);
-    setYears(10);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const numSetter = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
-
+  /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        <div className="calc-inputs">
-          <div className="input-group">
-            <label>{t.totalInv}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={initialCorpus}
-                onChange={numSetter(setInitialCorpus)}
-              />
-            </div>
-            <input
-              type="range"
-              min="100000"
-              max="10000000"
-              step="50000"
+    <Card className="border-slate-200 shadow-sm">
+      <CardContent className="p-6 sm:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* ---------- INPUTS ---------- */}
+          <div className="space-y-6">
+            <CalculatorField
+              label={t.totalInv}
               value={initialCorpus}
-              onChange={numSetter(setInitialCorpus)}
-              style={{
-                background: getRangeBackground(initialCorpus, 100000, 10000000),
-              }}
+              min={100000}
+              max={10000000}
+              step={50000}
+              onChange={setInitialCorpus}
             />
-          </div>
-          <div className="input-group">
-            <label>{t.monthlyWithdrawal}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={monthlyWithdrawal}
-                onChange={numSetter(setMonthlyWithdrawal)}
-              />
-            </div>
-            <input
-              type="range"
-              min="1000"
-              max="200000"
-              step="500"
-              value={monthlyWithdrawal}
-              onChange={numSetter(setMonthlyWithdrawal)}
-              style={{
-                background: getRangeBackground(monthlyWithdrawal, 1000, 200000),
-              }}
-            />
-          </div>
-          <div className="input-group">
-            <label>{t.rate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={annualRate}
-                onChange={numSetter(setAnnualRate)}
-                step="0.1"
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="20"
-              step="0.1"
-              value={annualRate}
-              onChange={numSetter(setAnnualRate)}
-              style={{ background: getRangeBackground(annualRate, 1, 20) }}
-            />
-          </div>
-          <div className="input-group">
-            <label>{t.time}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={years}
-                onChange={numSetter(setYears)}
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="30"
-              step="1"
-              value={years}
-              onChange={numSetter(setYears)}
-              style={{ background: getRangeBackground(years, 1, 30) }}
-            />
-          </div>
-          <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
-          >
-            Reset Defaults
-          </button>
-        </div>
 
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={results.remainingPct}
-            interestPct={results.withdrawnPct}
-            size={200}
-          />
-          <div style={{ marginTop: 24, width: '100%' }}>
-            <div style={{ marginBottom: 12, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.remainingVal}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(results.finalBalance)}
+            <CalculatorField
+              label={t.monthlyWithdrawal}
+              value={monthlyWithdrawal}
+              min={1000}
+              max={200000}
+              step={500}
+              onChange={setMonthlyWithdrawal}
+            />
+
+            <CalculatorField
+              label={t.rate}
+              value={annualRate}
+              min={1}
+              max={20}
+              step={0.1}
+              onChange={setAnnualRate}
+            />
+
+            <CalculatorField
+              label={t.time}
+              value={years}
+              min={1}
+              max={30}
+              step={1}
+              onChange={setYears}
+            />
+          </div>
+
+          {/* ---------- VISUALS ---------- */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={results.remainingPct}
+              interestPct={results.withdrawnPct}
+              size={200}
+            />
+
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.remainingVal}</div>
+
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                {formatINR(results.remaining)}
               </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+                <Card className="border-slate-200">
+                  <CardContent>
+                    <div className="text-xs text-slate-500">{t.totalInv}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(initialCorpus)}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-lime-200 bg-lime-50">
+                  <CardContent>
+                    <div className="text-xs text-lime-700">
+                      {t.totalWithdrawn}
+                    </div>
+                    <div className="mt-1 font-semibold text-lime-700">
+                      {formatINR(results.withdrawn)}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {results.remaining === 0 && (
+                <div className="mt-6 rounded-md bg-red-50 px-4 py-2 text-sm text-red-700">
+                  {t.warning}
+                </div>
+              )}
             </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalInv}
-                </div>
-                <div style={{ fontWeight: 600 }}>
-                  {formatINR(initialCorpus)}
-                </div>
-              </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalWithdrawn}
-                </div>
-                <div
-                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
-                >
-                  {formatINR(results.totalWithdrawn)}
-                </div>
-              </div>
-            </div>
-            {results.finalBalance === 0 && (
-              <div
-                style={{
-                  marginTop: 16,
-                  padding: 8,
-                  background: '#fef2f2',
-                  borderRadius: 6,
-                  textAlign: 'center',
-                  fontSize: 12,
-                  color: '#991b1b',
-                }}
-              >
-                {t.warning}
-              </div>
-            )}
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

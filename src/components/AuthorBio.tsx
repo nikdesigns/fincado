@@ -1,92 +1,53 @@
 // src/components/AuthorBio.tsx
 import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function AuthorBio() {
   return (
-    <div
-      className="author-bio no-print"
-      style={{
-        marginTop: '40px',
-        padding: '24px',
-        background: '#fff',
-        borderRadius: '16px',
-        border: '1px solid #e2e8f0',
-        display: 'flex',
-        gap: '20px',
-        alignItems: 'center',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
-      }}
-    >
-      <div style={{ flexShrink: 0 }}>
-        {/* Placeholder Avatar - Replace with real image later if needed */}
-        <div
-          style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '50%',
-            background: '#f1f5f9',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '28px',
-          }}
-        >
-          👨‍💻
-        </div>
-      </div>
-
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '6px',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '11px',
-              textTransform: 'uppercase',
-              background: '#dcfce7',
-              color: '#166534',
-              padding: '2px 8px',
-              borderRadius: '10px',
-              fontWeight: 700,
-              letterSpacing: '0.5px',
-            }}
-          >
-            Fact Checked
-          </span>
-          <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
-            • Last Updated: Jan 2025
-          </span>
+    <Card className="no-print mt-10 border-slate-200 bg-white shadow-sm">
+      <CardContent className="flex gap-5 p-6 sm:p-8">
+        {/* Avatar */}
+        <div className="shrink-0">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-2xl">
+            👨‍💻
+          </div>
         </div>
 
-        <h4
-          style={{
-            margin: '0 0 4px',
-            fontSize: '17px',
-            color: '#0f172a',
-            fontWeight: 700,
-          }}
-        >
-          Fincado Research Team
-        </h4>
+        {/* Content */}
+        <div className="flex-1">
+          {/* Meta row */}
+          <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
+            <Badge
+              variant="secondary"
+              className="bg-emerald-50 text-emerald-700 font-semibold"
+            >
+              ✔ Fact Checked
+            </Badge>
 
-        <p
-          style={{
-            margin: 0,
-            fontSize: '14px',
-            color: '#475569',
-            lineHeight: '1.5',
-          }}
-        >
-          Our tools are built on the latest <strong>RBI Guidelines</strong> and{' '}
-          <strong>Income Tax Act (FY 2024-25)</strong> rules. Verified by
-          certified financial planners to ensure bank-grade accuracy.
-        </p>
-      </div>
-    </div>
+            <span className="text-slate-500">• Last Updated: Jan 2025</span>
+          </div>
+
+          {/* Author */}
+          <h4 className="text-base font-semibold text-slate-900">
+            Fincado Research Team
+          </h4>
+
+          {/* Description */}
+          <p className="mt-1 text-sm leading-relaxed text-slate-600">
+            Our tools are built using the latest{' '}
+            <strong className="font-semibold text-slate-800">
+              RBI Guidelines
+            </strong>{' '}
+            and{' '}
+            <strong className="font-semibold text-slate-800">
+              Income Tax Act (FY 2024–25)
+            </strong>
+            . All calculations are reviewed by certified financial planners to
+            ensure bank-grade accuracy and transparency.
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

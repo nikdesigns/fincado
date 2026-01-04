@@ -13,6 +13,14 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -79,6 +87,34 @@ export default function FDPage() {
     </ul>
   `);
 
+  const faqItems = [
+    {
+      id: 'fd-faq-1',
+      question: 'Is interest on FD taxable?',
+      answer:
+        'Yes. Interest earned on Fixed Deposits is fully taxable and added to your total income. Banks deduct 10% TDS if interest exceeds ₹40,000 in a year (₹50,000 for senior citizens).',
+    },
+    {
+      id: 'fd-faq-2',
+      question: 'Can I withdraw my FD before maturity?',
+      answer:
+        'Yes, most FDs allow premature withdrawal. However, banks usually charge a penalty of 0.5%–1% on the interest rate. Note that 5-year Tax Saver FDs cannot be withdrawn early.',
+    },
+    {
+      id: 'fd-faq-3',
+      question:
+        'What is the difference between Cumulative and Non-Cumulative FD?',
+      answer:
+        'In a Cumulative FD, interest is reinvested and paid at maturity, offering higher returns through compounding. In a Non-Cumulative FD, interest is paid monthly, quarterly, or yearly, making it suitable for regular income.',
+    },
+    {
+      id: 'fd-faq-4',
+      question: 'Is FD safe compared to other investments?',
+      answer:
+        'FDs are considered very safe as deposits up to ₹5 lakh per bank are insured by DICGC. However, returns may not always beat inflation compared to equity-based investments.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -87,40 +123,11 @@ export default function FDPage() {
         url="https://www.fincado.com/fd-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'How is FD interest calculated?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'FD interest is calculated using the compound interest formula: A = P * (1 + r/n)^(n*t). In India, most banks compound interest quarterly (n=4).',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is FD interest taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. Interest earned on Fixed Deposits is fully taxable as per your income tax slab. Banks deduct 10% TDS if the interest exceeds ₹40,000 in a financial year (₹50,000 for senior citizens).',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I withdraw my FD before maturity?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, most FDs allow premature withdrawal, but banks typically charge a penalty of 0.5% to 1% on the interest rate. Tax Saver FDs (5 years) cannot be withdrawn early.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -135,25 +142,42 @@ export default function FDPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/hi/fd-calculator" />
-          <h1>Fixed Deposit (FD) Calculator</h1>
-          <ShareTools title="Fixed Deposit (FD) Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="fd-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* Top actions row */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Fixed Deposit (FD) Calculator" />
+            <LanguageToggle path="/hi/fd-calculator" />
           </div>
 
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Secure your future with guaranteed returns. Calculate accurate FD
-              maturity values with options for <strong>Tax Deductions</strong> and
-              <strong>Quarterly Compounding</strong>.
-            </p>
-          `}
-          />
+          {/* Main heading */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            Fixed Deposit (FD) Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-2">
+              Calculate FD maturity value with interest & compounding
+            </span>
+          </h1>
+
+          {/* Description */}
+          <div className="max-w-3xl mt-4 text-slate-600 text-base leading-relaxed">
+            <WikiText
+              content={`
+        <p>
+          Secure your future with <strong>guaranteed returns</strong>.
+          Instantly calculate Fixed Deposit maturity amount based on
+          <strong>interest rate</strong>, <strong>tenure</strong>, and
+          <strong>compounding frequency</strong>.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -161,217 +185,269 @@ export default function FDPage() {
             <FDClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="fd-after-calc" type="banner" />
             </div>
 
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            {/* 📱 Mobile-Only Related Tools */}
+            <div className="mobile-only-suggestions my-8 no-print">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 More Savings Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/rd-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        shadow-sm transition
+        hover:border-emerald-300
+        hover:bg-emerald-50
+      "
                 >
                   🔄 RD Calculator
                 </Link>
+
                 <Link
                   href="/ppf-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        shadow-sm transition
+        hover:border-emerald-300
+        hover:bg-emerald-50
+      "
                 >
                   🏦 PPF Returns
                 </Link>
               </div>
             </div>
 
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>🛡️</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Looking for safer returns?
-                </strong>
-                <Link
-                  href="/guides/fixed-deposit-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read: How to Ladder FDs for Higher Interest →
-                </Link>
+            {/* 🛡️ FD Guide Promo */}
+            <div className="no-print my-8">
+              <div className="flex items-start gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:p-6">
+                {/* Icon */}
+                <span className="text-2xl leading-none">🛡️</span>
+
+                {/* Content */}
+                <div>
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Looking for safer returns?
+                  </strong>
+
+                  <Link
+                    href="/guides/fixed-deposit-guide"
+                    className="
+          mt-1 inline-block
+          text-sm font-semibold
+          text-emerald-700
+          underline underline-offset-4
+          hover:text-emerald-800
+        "
+                  >
+                    Read: How to Ladder FDs for Higher Interest →
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is a Fixed Deposit (FD)?</h2>
-              <WikiText content={introContent} />
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS FD --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is a Fixed Deposit (FD)?
+                    </h2>
 
-              <h3>Who is Eligible?</h3>
-              <WikiText content={eligibilityContent} />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* --- ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Who is Eligible?
+                    </h3>
 
-              <h3>How This Calculator Helps Your Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Manual calculation of compound interest can be tricky. This
-                    calculator helps you verify bank quotes and understand the
-                    impact of <strong>TDS (Tax Deducted at Source)</strong>.
-                  </p>
-                `}
-              />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={eligibilityContent} />
+                    </div>
+                  </section>
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Exact Compounding</h4>
-                  <p>
-                    Most Indian banks compound interest quarterly. This tool
-                    uses the exact formula to give you precise maturity figures.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Tax Estimation</h4>
-                  <p>
-                    See your &quot;Real Returns&quot;. Input your tax slab (20%
-                    or 30%) to see how much money actually lands in your pocket.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Compare Tenures</h4>
-                  <p>
-                    Quickly check if locking your money for 5 years yields
-                    significantly more than renewing it every year.
-                  </p>
-                </div>
-              </div>
+                  {/* --- AD SLOT (UNCHANGED POSITION) --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <h3>TDS on FD Interest (2025 Rules)</h3>
-              <WikiText content={taxContent} />
+                  {/* --- HOW CALCULATOR HELPS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This Calculator Helps Your Planning
+                    </h3>
 
-              <h3>FD Maturity Formula</h3>
-              <p>For Compound Interest FDs (Reinvestment), the formula is:</p>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText
+                        content={`
+              <p>
+                Manual calculation of compound interest can be tricky.
+                This calculator helps you verify bank quotes and understand
+                the impact of <strong>TDS (Tax Deducted at Source)</strong>.
+              </p>
+            `}
+                      />
+                    </div>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="A = P \left(1 + \frac{r}{n}\right)^{n \times t}" />
-              </div>
+                    {/* ADVANTAGE GRID */}
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <Card className="border-slate-200 bg-slate-50">
+                        <CardContent className="p-4 ">
+                          <h4 className="font-semibold text-slate-900">
+                            Exact Compounding
+                          </h4>
+                          <p className="mt-1 text-sm text-slate-600">
+                            Most Indian banks compound interest quarterly. This
+                            calculator uses the exact formula for accurate
+                            maturity values.
+                          </p>
+                        </CardContent>
+                      </Card>
 
-              <WikiText
-                content={`
-                  <ul style="font-size: 14px;">
-                    <li><strong>A</strong>: Maturity Amount</li>
-                    <li><strong>P</strong>: Principal Investment</li>
-                    <li><strong>r</strong>: Rate of Interest (in decimals)</li>
-                    <li><strong>n</strong>: Compounding Frequency (4 for Quarterly)</li>
-                    <li><strong>t</strong>: Time in Years</li>
-                  </ul>
-                `}
-              />
+                      <Card className="border-slate-200 bg-slate-50">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900">
+                            Tax Estimation
+                          </h4>
+                          <p className="mt-1 text-sm text-slate-600">
+                            Understand your real returns after TDS. Estimate how
+                            much actually reaches your bank account.
+                          </p>
+                        </CardContent>
+                      </Card>
 
-              <h3>Key Advantages of Fixed Deposits</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Capital Safety:</strong> FDs up to ₹5 Lakh per bank are insured by DICGC.</li>
-                    <li><strong>Liquidity:</strong> Premature withdrawal allowed (with small penalty).</li>
-                    <li><strong>Tax Saving:</strong> 5-Year Tax Saver FDs allow Section 80C deductions.</li>
-                  </ul>
-                `}
-              />
+                      <Card className="border-slate-200 bg-slate-50">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900">
+                            Compare Tenures
+                          </h4>
+                          <p className="mt-1 text-sm text-slate-600">
+                            Check whether a long-term FD performs better than
+                            yearly renewals.
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </section>
+
+                  {/* --- TDS SECTION --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      TDS on FD Interest (2025 Rules)
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={taxContent} />
+                    </div>
+                  </section>
+
+                  {/* --- FORMULA --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      FD Maturity Formula
+                    </h3>
+
+                    <p className="text-slate-700">
+                      For compound interest (reinvestment) fixed deposits, banks
+                      use the following formula:
+                    </p>
+
+                    {/* Formula Box — SAME STYLE AS EMI / SIP */}
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <BlockMath math="A = P \left(1 + \frac{r}{n}\right)^{n \times t}" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <ul class="list-disc pl-5">
+                <li><strong>A</strong>: Maturity Amount</li>
+                <li><strong>P</strong>: Principal Investment</li>
+                <li><strong>r</strong>: Rate of Interest (in decimals)</li>
+                <li><strong>n</strong>: Compounding Frequency (4 for Quarterly)</li>
+                <li><strong>t</strong>: Time in Years</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+
+                  {/* --- ADVANTAGES --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Key Advantages of Fixed Deposits
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText
+                        content={`
+              <ul class="list-disc pl-5">
+                <li><strong>Capital Safety:</strong> FDs up to ₹5 Lakh per bank are insured by DICGC.</li>
+                <li><strong>Liquidity:</strong> Premature withdrawal allowed (with small penalty).</li>
+                <li><strong>Tax Saving:</strong> 5-Year Tax Saver FDs qualify for Section 80C.</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Is interest on FD taxable?</summary>
-                  <p>
-                    Yes. The interest is added to your total income and taxed as
-                    per your slab. Banks deduct 10% TDS if interest exceeds
-                    ₹40,000 (₹50,000 for seniors).
-                  </p>
-                </details>
-                <details>
-                  <summary>Can I withdraw my FD before maturity?</summary>
-                  <p>
-                    Yes, most FDs allow premature withdrawal, but banks
-                    typically charge a penalty of 0.5% to 1% on the interest
-                    rate. Tax Saver FDs (5 years) cannot be withdrawn early.
-                  </p>
-                </details>
-                <details>
-                  <summary>What is Cumulative vs Non-Cumulative FD?</summary>
-                  <p>
-                    <strong>Cumulative:</strong> Interest is reinvested and paid
-                    at maturity (Power of Compounding). <br />
-                    <strong>Non-Cumulative:</strong> Interest is paid out
-                    monthly, quarterly, or yearly (Good for regular income).
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQ SECTION --- */}
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6 mb-12">
               <AdSlot id="fd-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

@@ -14,6 +14,23 @@ import LiveRateTable from '@/components/LiveRateTable';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -73,6 +90,48 @@ export default function LumpsumPage() {
     </p>
   `);
 
+  const LUMPSUM_FAQS = [
+    {
+      id: 'lumpsum-risk',
+      question: 'Is lumpsum risky in mutual funds?',
+      answerText:
+        'Lumpsum investing can be riskier than SIP if invested at a market peak. Over a 7–10 year horizon, volatility usually smooths out.',
+      answerNode: (
+        <>
+          Lumpsum investing can be riskier than SIP if invested at a market
+          peak. Over a <strong>7–10 year</strong> horizon, volatility usually
+          smooths out.
+        </>
+      ),
+    },
+    {
+      id: 'lumpsum-best-time',
+      question: 'What is the best time for lumpsum investment?',
+      answerText:
+        'Historically, investing when market valuations like P/E ratios are low has produced better long-term returns.',
+      answerNode: (
+        <>
+          Historically, investing when market valuations like
+          <strong> P/E ratios</strong> are low has produced better long-term
+          returns.
+        </>
+      ),
+    },
+    {
+      id: 'lumpsum-to-sip',
+      question: 'Can I convert a lumpsum investment into SIP?',
+      answerText:
+        'Yes. You can invest a lumpsum in a liquid fund and use an STP to gradually transfer money into equity funds.',
+      answerNode: (
+        <>
+          Yes. You can invest a lumpsum in a <strong>Liquid Fund</strong> and
+          use an
+          <strong> STP</strong> to move money into equity funds gradually.
+        </>
+      ),
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -81,40 +140,11 @@ export default function LumpsumPage() {
         url="https://www.fincado.com/lumpsum-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is a Lumpsum investment?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'A Lumpsum investment is a one-time payment of a large amount into a financial instrument like a Mutual Fund or FD, allowing it to compound over a fixed tenure.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is Lumpsum better than SIP?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Lumpsum works best when markets are low or correcting, as you buy units at a lower price. SIP is better for rupee cost averaging in volatile markets.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is STP (Systematic Transfer Plan)?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'STP allows you to invest a lumpsum in a Debt fund and transfer a fixed amount to an Equity fund monthly. It combines the safety of debt with the growth of equity.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={LUMPSUM_FAQS.map((faq) => ({
+          question: faq.question,
+          answer: faq.answerText, // ✅ plain text only
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -129,23 +159,50 @@ export default function LumpsumPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/hi/lumpsum-calculator" />
-          <h1>Lumpsum Calculator — One-Time Investment</h1>
-          <ShareTools title="Lumpsum Calculator — One-Time Investment" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="lumpsum-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* Share + Language (same as other calculators) */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Lumpsum Calculator — One-Time Investment" />
+            <LanguageToggle path="/hi/lumpsum-calculator" />
           </div>
 
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              Lumpsum Calculator
+            </span>
+
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Plan one-time investments and see long-term wealth growth
+            </span>
+          </h1>
+
+          {/* Intro */}
           <WikiText
             content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Invest once, grow forever. Calculate the future value of your lump
-              sum investment and visualize the power of compounding.
-            </p>
-          `}
+      <p class="max-w-175 text-slate-600 mt-2">
+        Invest once, grow forever. Calculate the future value of your
+        <strong>lump sum investment</strong> and visualize the power of
+        <strong>compounding</strong> over time.
+      </p>
+    `}
           />
         </header>
 
@@ -154,254 +211,299 @@ export default function LumpsumPage() {
             <LumpsumClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="lumpsum-after-calc" type="banner" />
             </div>
 
             <LiveRateTable type="fixedDeposit" />
 
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            {/* Mobile-only Suggestions */}
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Investments
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200 bg-white
+        px-3 py-3
+        text-sm font-medium text-slate-900
+        transition hover:bg-slate-50
+      "
                 >
                   📈 SIP Calculator
                 </Link>
+
                 <Link
                   href="/fd-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200 bg-white
+        px-3 py-3
+        text-sm font-medium text-slate-900
+        transition hover:bg-slate-50
+      "
                 >
                   🏦 FD Returns
                 </Link>
               </div>
             </div>
 
+            {/* Promo Box */}
             <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
+              className="
+    no-print my-8
+    flex items-start gap-3
+    rounded-lg border border-emerald-200
+    bg-emerald-50 p-4
+  "
             >
-              <span style={{ fontSize: '24px' }}>💡</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
+              <span className="text-2xl">💡</span>
+
+              <div className="space-y-1">
+                <strong className="block text-base font-semibold text-emerald-800">
                   Is the market too high?
                 </strong>
+
                 <Link
                   href="/guides/sip-investment-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+                  className="
+        inline-block text-sm font-medium
+        text-emerald-700 underline
+        hover:text-emerald-800
+      "
                 >
                   Read: Why STP is safer than Lumpsum →
                 </Link>
               </div>
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is a Lumpsum Investment?</h2>
-              <WikiText content={introContent} />
+            {/* --- FULL SEO ARTICLE --- */}
+            <article className="article content-for-seo no-print space-y-10">
+              {/* INTRO */}
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  What is a Lumpsum Investment?
+                </h2>
 
-              <h3>Lumpsum vs SIP: Which is Better?</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>Lumpsum</th>
-                      <th>SIP (Systematic Plan)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Best Time</strong>
-                      </td>
-                      <td>When market is low (Correction)</td>
-                      <td>Any time (Auto-averaging)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Risk</strong>
-                      </td>
-                      <td>Higher (Timing risk)</td>
-                      <td>Lower (Averages out volatility)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Capital</strong>
-                      </td>
-                      <td>Requires large upfront cash</td>
-                      <td>Small monthly amounts (e.g. ₹500)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Growth</strong>
-                      </td>
-                      <td>Higher potential if timed right</td>
-                      <td>Consistent long-term growth</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                <WikiText content={introContent} />
+              </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              {/* COMPARISON TABLE */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Lumpsum vs SIP: Which is Better?
+                </h3>
+
+                <Card>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <Table className="border-collapse">
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Feature</TableHead>
+                            <TableHead>Lumpsum</TableHead>
+                            <TableHead>SIP (Systematic Plan)</TableHead>
+                          </TableRow>
+                        </TableHeader>
+
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Best Time
+                            </TableCell>
+                            <TableCell className="text-amber-600 font-semibold">
+                              Market Corrections
+                            </TableCell>
+                            <TableCell className="text-emerald-600 font-semibold">
+                              Any Time (Rupee Cost Averaging)
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Risk Level
+                            </TableCell>
+                            <TableCell className="text-red-600">
+                              Higher (Timing Risk)
+                            </TableCell>
+                            <TableCell className="text-emerald-600">
+                              Lower (Volatility Averaged)
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Capital Required
+                            </TableCell>
+                            <TableCell>Large Upfront Amount</TableCell>
+                            <TableCell>Small Monthly Amounts (₹500+)</TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Growth Pattern
+                            </TableCell>
+                            <TableCell className="font-semibold">
+                              High if Timed Correctly
+                            </TableCell>
+                            <TableCell className="font-semibold">
+                              Stable Long-Term Growth
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* AD */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
 
-              <h3>The STP Strategy (Pro Tip)</h3>
-              <WikiText content={stpContent} />
+              {/* STP */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  The STP Strategy (Pro Tip)
+                </h3>
 
-              <h3>How This Calculator Helps Your Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Seeing the end value of a large investment helps in decision
-                    making. This tool assists you to visualize exponential growth.
-                  </p>
-                `}
-              />
+                <WikiText content={stpContent} />
+              </section>
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Compare Tenures</h4>
-                  <p>
-                    See how extending your investment by just 5 years can double
-                    your returns due to exponential growth.
-                  </p>
+              {/* CALCULATOR VALUE */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  How This Calculator Helps Your Planning
+                </h3>
+
+                <WikiText
+                  content={`
+        <p>
+          Seeing the end value of a large one-time investment helps reduce emotional
+          decision-making. This calculator helps you visualize true
+          <strong>compounding-driven growth</strong>.
+        </p>
+      `}
+                />
+              </section>
+
+              {/* ADVANTAGES GRID */}
+              <section className="space-y-6">
+                <div className="advantage-grid">
+                  <div className="advantage-card">
+                    <h4>Compare Tenures</h4>
+                    <p>
+                      See how extending your investment horizon by just 5 years
+                      can dramatically increase returns due to compounding.
+                    </p>
+                  </div>
+
+                  <div className="advantage-card">
+                    <h4>Set Realistic Expectations</h4>
+                    <p>
+                      Toggle between conservative (8%) and aggressive (15%)
+                      return assumptions to plan better.
+                    </p>
+                  </div>
                 </div>
-                <div className="advantage-card">
-                  <h4>Adjust Expectations</h4>
-                  <p>
-                    Visualize realistic outcomes by toggling between
-                    conservative (8%) and aggressive (15%) return rates.
-                  </p>
+              </section>
+
+              {/* TAX */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Taxation on Returns (2025 Update)
+                </h3>
+
+                <WikiText content={taxContent} />
+              </section>
+
+              {/* FORMULA */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Lumpsum Calculation Formula
+                </h3>
+
+                <p>
+                  This calculator uses the standard compound interest formula to
+                  estimate future value:
+                </p>
+
+                <div className="py-6 overflow-x-auto bg-slate-50 p-4 rounded-md">
+                  <BlockMath math="FV = P (1 + r)^n" />
                 </div>
-              </div>
 
-              <h3>Taxation on Returns (2025 Update)</h3>
-              <WikiText content={taxContent} />
+                <WikiText
+                  content={`
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>FV</strong>: Future Value</li>
+          <li><strong>P</strong>: Initial Investment</li>
+          <li><strong>r</strong>: Annual Rate of Return</li>
+          <li><strong>n</strong>: Time Period in Years</li>
+        </ul>
+      `}
+                />
+              </section>
 
-              <h3>Lumpsum Calculation Formula</h3>
-              <p>
-                This calculator uses the standard compound interest formula to
-                estimate future value:
-              </p>
+              {/* ADVANTAGES */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Key Advantages of Lumpsum Investing
+                </h3>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="FV = P (1 + r)^n" />
-              </div>
-
-              <WikiText
-                content={`
-                  <ul style="font-size: 14px;">
-                    <li><strong>FV</strong>: Future Value</li>
-                    <li><strong>P</strong>: Present Investment Amount</li>
-                    <li><strong>r</strong>: Annual Rate of Return</li>
-                    <li><strong>n</strong>: Time Period in Years</li>
-                  </ul>
-                `}
-              />
-
-              <h3>Key Advantages of Lumpsum</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Instant Exposure:</strong> Your entire capital starts growing from Day 1.</li>
-                    <li><strong>Convenience:</strong> One-time transaction, no monthly tracking.</li>
-                    <li><strong>Ideal for Debt:</strong> Works great for Debt Funds/FDs where volatility is low.</li>
-                  </ul>
-                `}
-              />
+                <WikiText
+                  content={`
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>Instant Market Exposure:</strong> Your entire capital starts compounding from day one.</li>
+          <li><strong>Simple Execution:</strong> One-time investment with no monthly tracking.</li>
+          <li><strong>Ideal for Low Volatility Assets:</strong> Works well with debt funds and FDs.</li>
+        </ul>
+      `}
+                />
+              </section>
             </article>
 
             {/* FAQs */}
             <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Is Lumpsum risky in Mutual Funds?</summary>
-                  <p>
-                    It carries higher risk than SIP if invested at a market
-                    peak. However, over a 7-10 year horizon, volatility usually
-                    smooths out.
-                  </p>
-                </details>
-                <details>
-                  <summary>What is the best time for Lumpsum?</summary>
-                  <p>
-                    Historically, investing when market valuations (P/E ratio)
-                    are low has generated the best long-term returns.
-                  </p>
-                </details>
-                <details>
-                  <summary>Can I convert Lumpsum to SIP?</summary>
-                  <p>
-                    Yes, you can park a lumpsum in a Liquid Fund and use an STP
-                    (Systematic Transfer Plan) to move money into Equity funds
-                    monthly.
-                  </p>
-                </details>
-              </div>
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Frequently Asked Questions (FAQs)
+              </h2>
+
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue={LUMPSUM_FAQS[0].id}
+                className="mt-6 w-full"
+              >
+                {LUMPSUM_FAQS.map((faq) => (
+                  <AccordionItem key={faq.id} value={faq.id}>
+                    <AccordionTrigger className="text-left text-slate-900">
+                      {faq.question}
+                    </AccordionTrigger>
+
+                    <AccordionContent className="text-slate-600 leading-relaxed">
+                      {faq.answerText}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 space-y-6">
+              {/* Sidebar Ad */}
               <AdSlot id="lumpsum-sidebar" type="box" />
+
+              {/* Financial Navigation */}
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

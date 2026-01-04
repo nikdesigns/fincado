@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import EMIPieChart from '@/components/EMIPieChart';
+import CalculatorField from '@/components/CalculatorField';
 
-// Helper: Format Currency
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -11,31 +11,24 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-// ✅ Interface for custom labels
 interface GratuityLabels {
   basicSalary: string;
   yearsOfService: string;
-  isCovered: string;
-  coveredOption: string;
-  notCoveredOption: string;
+  coveredFlag: string;
   resetDefaults: string;
   totalGratuity: string;
   exemptGratuity: string;
   taxableGratuity: string;
-  formulaNote: string;
 }
 
 const DEFAULT_LABELS: GratuityLabels = {
   basicSalary: 'Monthly Basic Salary + DA (₹)',
   yearsOfService: 'Years of Service',
-  isCovered: 'Covered under Gratuity Act?',
-  coveredOption: 'Yes',
-  notCoveredOption: 'No',
+  coveredFlag: 'Covered under Gratuity Act? (1 = Yes, 0 = No)',
   resetDefaults: 'Reset Defaults',
   totalGratuity: 'Total Gratuity Payable',
   exemptGratuity: 'Tax Exempt Amount',
   taxableGratuity: 'Taxable Amount',
-  formulaNote: 'Formula: (Basic + DA) × 15/26 × Years',
 };
 
 export default function GratuityClient({
@@ -45,242 +38,119 @@ export default function GratuityClient({
 }) {
   const t = { ...DEFAULT_LABELS, ...labels };
 
-  // --- STATE ---
-  const [basicSalary, setBasicSalary] = useState<number>(50000);
-  const [years, setYears] = useState<number>(5);
-  const [isCovered, setIsCovered] = useState<boolean>(true);
+  const [basicSalary, setBasicSalary] = useState(50000);
+  const [years, setYears] = useState(5);
+  const [coveredFlag, setCoveredFlag] = useState(1); // 1 = Yes, 0 = No
 
-  // --- HELPER: Background for Range Sliders ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
-
-  // --- CALCULATIONS ---
-  const results = useMemo(() => {
-    let gratuityAmount = 0;
+  const result = useMemo(() => {
+    let gratuity = 0;
 
     if (years >= 5) {
-      if (isCovered) {
-        // Formula: (Last Drawn Salary * 15 / 26) * Years
-        gratuityAmount = Math.round((basicSalary * 15 * years) / 26);
-      } else {
-        // Formula: (Last Drawn Salary * 15 / 30) * Years
-        gratuityAmount = Math.round((basicSalary * 15 * years) / 30);
-      }
-    } else {
-      gratuityAmount = 0; // Not eligible if < 5 years
+      gratuity =
+        coveredFlag === 1
+          ? Math.round((basicSalary * 15 * years) / 26)
+          : Math.round((basicSalary * 15 * years) / 30);
     }
 
-    // Tax Exemption Limit (₹20 Lakhs)
-    const MAX_EXEMPTION = 2000000;
-    const exemptAmount = Math.min(gratuityAmount, MAX_EXEMPTION);
-    const taxableAmount = Math.max(0, gratuityAmount - MAX_EXEMPTION);
+    const MAX_EXEMPT = 2000000;
+    const exempt = Math.min(gratuity, MAX_EXEMPT);
+    const taxable = Math.max(0, gratuity - MAX_EXEMPT);
 
-    // Pie Data (Exempt vs Taxable)
-    const exemptPct =
-      gratuityAmount > 0
-        ? Math.round((exemptAmount / gratuityAmount) * 100)
-        : 100;
-    const taxablePct = 100 - exemptPct;
+    const exemptPct = gratuity ? Math.round((exempt / gratuity) * 100) : 100;
 
     return {
-      gratuityAmount,
-      exemptAmount,
-      taxableAmount,
+      gratuity,
+      exempt,
+      taxable,
       exemptPct,
-      taxablePct,
+      taxablePct: 100 - exemptPct,
     };
-  }, [basicSalary, years, isCovered]);
+  }, [basicSalary, years, coveredFlag]);
 
-  // --- ACTIONS ---
   const handleReset = () => {
     setBasicSalary(50000);
     setYears(5);
-    setIsCovered(true);
+    setCoveredFlag(1);
   };
-
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
+        {/* INPUTS */}
         <div className="calc-inputs">
-          {/* 1. Basic Salary */}
-          <div className="input-group">
-            <label>{t.basicSalary}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={basicSalary}
-                onChange={numSetter(setBasicSalary)}
-              />
-            </div>
-            <input
-              type="range"
-              min="10000"
-              max="500000"
-              step="1000"
-              value={basicSalary}
-              onChange={numSetter(setBasicSalary)}
-              style={{
-                background: getRangeBackground(basicSalary, 10000, 500000),
-              }}
-            />
-          </div>
+          <CalculatorField
+            label={t.basicSalary}
+            value={basicSalary}
+            min={10000}
+            max={500000}
+            step={1000}
+            onChange={setBasicSalary}
+          />
 
-          {/* 2. Years of Service */}
-          <div className="input-group">
-            <label>{t.yearsOfService}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={years}
-                onChange={numSetter(setYears)}
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="50"
-              step="1"
-              value={years}
-              onChange={numSetter(setYears)}
-              style={{
-                background: getRangeBackground(years, 1, 50),
-              }}
-            />
-            {years < 5 && (
-              <p style={{ fontSize: 12, color: '#dc2626', marginTop: 4 }}>
-                *Minimum 5 years required for eligibility.
-              </p>
-            )}
-          </div>
+          <CalculatorField
+            label={t.yearsOfService}
+            value={years}
+            min={1}
+            max={50}
+            step={1}
+            onChange={setYears}
+          />
 
-          {/* 3. Covered Status Toggle */}
-          <div className="input-group">
-            <label>{t.isCovered}</label>
-            <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  cursor: 'pointer',
-                }}
-              >
-                <input
-                  type="radio"
-                  checked={isCovered}
-                  onChange={() => setIsCovered(true)}
-                />
-                {t.coveredOption}
-              </label>
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  cursor: 'pointer',
-                }}
-              >
-                <input
-                  type="radio"
-                  checked={!isCovered}
-                  onChange={() => setIsCovered(false)}
-                />
-                {t.notCoveredOption}
-              </label>
-            </div>
-          </div>
+          {years < 5 && (
+            <p className="text-xs text-red-600 -mt-2">
+              Minimum 5 years required to be eligible for gratuity
+            </p>
+          )}
+
+          <CalculatorField
+            label={t.coveredFlag}
+            value={coveredFlag}
+            min={0}
+            max={1}
+            step={1}
+            onChange={setCoveredFlag}
+          />
 
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              marginTop: 16,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
+            className="text-sm text-slate-500 underline hover:text-slate-700"
           >
             {t.resetDefaults}
           </button>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
+        {/* VISUALS */}
         <div className="calc-visuals">
-          <PieChart
-            principalPct={results.exemptPct} // Green: Exempt
-            interestPct={results.taxablePct} // Red: Taxable
-            size={200}
+          <EMIPieChart
+            principalPct={result.exemptPct}
+            interestPct={result.taxablePct}
           />
 
-          <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result */}
-            <div style={{ marginBottom: 16, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.totalGratuity}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(results.gratuityAmount)}
-              </div>
-              <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
-                {isCovered
-                  ? '(Basic + DA) × 15/26 × Years'
-                  : '(Basic + DA) × 15/30 × Years'}
+          <div className="mt-6 text-center">
+            <div className="text-xs text-slate-500">{t.totalGratuity}</div>
+            <div className="text-2xl font-extrabold text-emerald-600">
+              {formatINR(result.gratuity)}
+            </div>
+            <div className="mt-1 text-xs text-slate-500">
+              {coveredFlag === 1
+                ? '(Basic + DA) × 15 / 26 × Years'
+                : '(Basic + DA) × 15 / 30 × Years'}
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-lg border bg-white p-3">
+              <div className="text-xs text-slate-500">{t.exemptGratuity}</div>
+              <div className="font-semibold text-emerald-600">
+                {formatINR(result.exempt)}
               </div>
             </div>
 
-            {/* Grid Breakdown */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 13,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b' }}>{t.exemptGratuity}</div>
-                <div style={{ fontWeight: 600, color: '#16a34a' }}>
-                  {formatINR(results.exemptAmount)}
-                </div>
-              </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b' }}>{t.taxableGratuity}</div>
-                <div style={{ fontWeight: 600, color: '#dc2626' }}>
-                  {formatINR(results.taxableAmount)}
-                </div>
+            <div className="rounded-lg border bg-white p-3">
+              <div className="text-xs text-slate-500">{t.taxableGratuity}</div>
+              <div className="font-semibold text-red-600">
+                {formatINR(result.taxable)}
               </div>
             </div>
           </div>

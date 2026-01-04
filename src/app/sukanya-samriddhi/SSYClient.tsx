@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import EMIPieChart from '@/components/EMIPieChart';
+import CalculatorField from '@/components/CalculatorField';
 
-// 1. Define Labels Interface
+/* ---------- TYPES ---------- */
 interface LabelConfig {
   girlAge: string;
   depositFreq: string;
@@ -17,10 +18,10 @@ interface LabelConfig {
 }
 
 interface SSYClientProps {
-  labels?: LabelConfig;
+  labels?: Partial<LabelConfig>;
 }
 
-// Helper: Format Currency
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -28,286 +29,152 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SSYClient({ labels }: SSYClientProps) {
-  // --- STATE ---
-  const [currentAge, setCurrentAge] = useState<number>(5);
+/* ---------- DEFAULT LABELS ---------- */
+const DEFAULT_LABELS: LabelConfig = {
+  girlAge: "Girl's Current Age (Years)",
+  depositFreq: 'Deposit Frequency',
+  monthlyInv: 'Monthly Investment (₹)',
+  yearlyInv: 'Yearly Investment (₹)',
+  rate: 'Interest Rate (% p.a)',
+  maturityVal: 'Maturity Value (Tax Free)',
+  totalInv: 'Total Investment',
+  totalInt: 'Total Interest',
+  infoText: 'Account can be opened until age 10.',
+};
+
+export default function SSYClient({ labels = {} }: SSYClientProps) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
+  /* ---------- STATE ---------- */
+  const [currentAge, setCurrentAge] = useState(5);
   const [depositMode, setDepositMode] = useState<'monthly' | 'yearly'>(
     'monthly'
   );
-  const [monthlyDeposit, setMonthlyDeposit] = useState<number>(5000);
-  const [yearlyDeposit, setYearlyDeposit] = useState<number>(60000);
-  const [startYear] = useState<number>(new Date().getFullYear());
-  const [annualRate, setAnnualRate] = useState<number>(8.2);
+  const [monthlyDeposit, setMonthlyDeposit] = useState(5000);
+  const [yearlyDeposit, setYearlyDeposit] = useState(60000);
+  const [annualRate, setAnnualRate] = useState(8.2);
 
-  // 2. Default Labels (English)
-  const t = labels || {
-    girlAge: "Girl's Current Age (Years)",
-    depositFreq: 'Deposit Frequency',
-    monthlyInv: 'Monthly Investment (₹)',
-    yearlyInv: 'Yearly Investment (₹)',
-    rate: 'Interest Rate (% p.a)',
-    maturityVal: 'Maturity Value (Tax Free)',
-    totalInv: 'Total Investment',
-    totalInt: 'Total Interest',
-    infoText: 'Account can be opened until age 10.',
-  };
-
-  // --- HELPER ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
-
-  // --- CALCULATION LOGIC ---
+  /* ---------- CALCULATIONS ---------- */
   const results = useMemo(() => {
-    const maturityYear = 21;
-    const depositPeriod = 15;
+    const maturityYears = 21;
+    const depositYears = 15;
     const rate = annualRate / 100;
+
     let balance = 0;
     let totalInvested = 0;
 
     const annualInvestment =
       depositMode === 'monthly' ? monthlyDeposit * 12 : yearlyDeposit;
 
-    for (let i = 1; i <= maturityYear; i++) {
-      let investmentThisYear = 0;
-      if (i <= depositPeriod) {
-        investmentThisYear = annualInvestment;
+    for (let year = 1; year <= maturityYears; year++) {
+      if (year <= depositYears) {
+        balance += annualInvestment;
+        totalInvested += annualInvestment;
       }
-      balance += investmentThisYear;
-      totalInvested += investmentThisYear;
-      const interest = balance * rate;
-      balance += interest;
+      balance += balance * rate;
     }
 
     const maturityAmount = Math.round(balance);
-    const totalInterest = maturityAmount - totalInvested;
+    const totalInterest = Math.max(0, maturityAmount - totalInvested);
 
-    const investedPct =
-      maturityAmount > 0
-        ? Math.round((totalInvested / maturityAmount) * 100)
-        : 0;
-    const interestPct = 100 - investedPct;
+    const totalValue = maturityAmount;
+    const principalPct =
+      totalValue > 0 ? Math.round((totalInvested / totalValue) * 100) : 0;
+    const interestPct = 100 - principalPct;
 
     return {
       maturityAmount,
       totalInvested,
       totalInterest,
-      investedPct,
+      principalPct,
       interestPct,
       maturityAge: currentAge + 21,
-      maturityYearDate: startYear + 21,
     };
-  }, [
-    depositMode,
-    monthlyDeposit,
-    yearlyDeposit,
-    annualRate,
-    currentAge,
-    startYear,
-  ]);
+  }, [currentAge, depositMode, monthlyDeposit, yearlyDeposit, annualRate]);
 
-  // Actions
-  const handleReset = () => {
-    setCurrentAge(5);
-    setDepositMode('monthly');
-    setMonthlyDeposit(5000);
-    setYearlyDeposit(60000);
-    setAnnualRate(8.2);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const numSetter = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
-
+  /* ---------- UI ---------- */
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- INPUTS --- */}
-        <div className="calc-inputs">
-          <div className="input-group">
-            <label>{t.girlAge}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={currentAge}
-                onChange={numSetter(setCurrentAge)}
-                max={10}
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              step="1"
-              value={currentAge}
-              onChange={numSetter(setCurrentAge)}
-              style={{ background: getRangeBackground(currentAge, 0, 10) }}
-            />
-            <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-              {t.infoText}
-            </div>
-          </div>
+        {/* ---------- INPUTS ---------- */}
+        <div className="calc-inputs space-y-6">
+          <CalculatorField
+            label={t.girlAge}
+            value={currentAge}
+            min={0}
+            max={10}
+            step={1}
+            onChange={setCurrentAge}
+          />
 
-          <div className="input-group">
-            <label>{t.depositFreq}</label>
-            <div className="input-wrapper">
-              <select
-                value={depositMode}
-                onChange={(e) =>
-                  setDepositMode(e.target.value as 'monthly' | 'yearly')
-                }
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                }}
-              >
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="input-group">
-            <label>
-              {depositMode === 'monthly' ? t.monthlyInv : t.yearlyInv}
+          {/* Deposit Frequency */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-700">
+              {t.depositFreq}
             </label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={
-                  depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit
-                }
-                onChange={numSetter(
-                  depositMode === 'monthly'
-                    ? setMonthlyDeposit
-                    : setYearlyDeposit
-                )}
-              />
-            </div>
-            <input
-              type="range"
-              min="250"
-              max={depositMode === 'monthly' ? 12500 : 150000}
-              step={depositMode === 'monthly' ? 250 : 1000}
-              value={depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit}
-              onChange={numSetter(
-                depositMode === 'monthly' ? setMonthlyDeposit : setYearlyDeposit
-              )}
-              style={{
-                background: getRangeBackground(
-                  depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit,
-                  250,
-                  depositMode === 'monthly' ? 12500 : 150000
-                ),
-              }}
-            />
+            <select
+              value={depositMode}
+              onChange={(e) =>
+                setDepositMode(e.target.value as 'monthly' | 'yearly')
+              }
+              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:ring-2 focus:ring-lime-500"
+            >
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
           </div>
 
-          <div className="input-group">
-            <label>{t.rate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={annualRate}
-                onChange={numSetter(setAnnualRate)}
-                step="0.1"
-              />
-            </div>
-            <input
-              type="range"
-              min="7"
-              max="9"
-              step="0.1"
-              value={annualRate}
-              onChange={numSetter(setAnnualRate)}
-              style={{ background: getRangeBackground(annualRate, 7, 9) }}
-            />
-          </div>
+          <CalculatorField
+            label={depositMode === 'monthly' ? t.monthlyInv : t.yearlyInv}
+            value={depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit}
+            min={depositMode === 'monthly' ? 250 : 1000}
+            max={depositMode === 'monthly' ? 12500 : 150000}
+            step={depositMode === 'monthly' ? 250 : 1000}
+            onChange={
+              depositMode === 'monthly' ? setMonthlyDeposit : setYearlyDeposit
+            }
+          />
 
-          <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
-          >
-            Reset Defaults
-          </button>
+          <CalculatorField
+            label={t.rate}
+            value={annualRate}
+            min={7}
+            max={9}
+            step={0.1}
+            onChange={setAnnualRate}
+          />
         </div>
 
-        {/* --- VISUALS --- */}
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={results.investedPct}
+        {/* ---------- VISUALS ---------- */}
+        <div className="calc-visuals flex flex-col items-center">
+          <EMIPieChart
+            principalPct={results.principalPct}
             interestPct={results.interestPct}
             size={200}
           />
 
-          <div style={{ marginTop: 24, width: '100%' }}>
-            <div style={{ marginBottom: 12, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.maturityVal}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(results.maturityAmount)}
-              </div>
-              <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
-                Age {results.maturityAge}: Year {results.maturityYearDate}
-              </div>
+          <div className="mt-6 text-center">
+            <div className="text-sm text-slate-500">{t.maturityVal}</div>
+
+            <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+              {formatINR(results.maturityAmount)}
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalInv}
-                </div>
-                <div style={{ fontWeight: 600 }}>
+            <div className="mt-1 text-xs text-slate-500">
+              Maturity Age: {results.maturityAge} years
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+              <div className="rounded-lg border border-slate-200 bg-white p-4">
+                <div className="text-xs text-slate-500">{t.totalInv}</div>
+                <div className="mt-1 font-semibold text-slate-900">
                   {formatINR(results.totalInvested)}
                 </div>
               </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalInt}
-                </div>
-                <div
-                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
-                >
+
+              <div className="rounded-lg border border-lime-200 bg-lime-50 p-4">
+                <div className="text-xs text-lime-700">{t.totalInt}</div>
+                <div className="mt-1 font-semibold text-lime-700">
                   +{formatINR(results.totalInterest)}
                 </div>
               </div>

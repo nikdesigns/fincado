@@ -13,6 +13,14 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -88,6 +96,33 @@ export default function SIPPage() {
     </ul>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'Can I withdraw my SIP money anytime?',
+      answer:
+        'Yes, for open-ended mutual funds you can withdraw anytime. However, ELSS (tax-saving SIPs) have a mandatory 3-year lock-in period.',
+    },
+    {
+      id: 'faq-2',
+      question: 'What happens if I miss a monthly SIP installment?',
+      answer:
+        'Nothing major happens. Your bank may charge a small NACH bounce penalty, but the SIP is not cancelled and continues from the next month.',
+    },
+    {
+      id: 'faq-3',
+      question: 'Which date is best for SIP investment?',
+      answer:
+        'Over the long term, the SIP date has negligible impact on returns. Choose a date shortly after your salary credit (such as the 5th or 7th) to maintain discipline.',
+    },
+    {
+      id: 'faq-4',
+      question: 'What is a Step-Up SIP?',
+      answer:
+        'A Step-Up SIP allows you to increase your SIP amount every year (for example by 10%) as your income grows, significantly boosting long-term wealth.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -96,48 +131,11 @@ export default function SIPPage() {
         url="https://www.fincado.com/sip-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is Rupee Cost Averaging?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Rupee Cost Averaging is a strategy where you invest a fixed amount regularly. You buy more units when markets are low and fewer when markets are high, averaging out the cost of your investment over time.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How does inflation affect my SIP returns?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Inflation reduces the purchasing power of your future wealth. A ₹1 Crore corpus in 20 years might only be worth ₹40 Lakhs in today\'s value. Use our calculator to see "Real Returns".',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I increase my SIP amount later?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, this is called a Step-up SIP. Increasing your SIP amount by just 10% every year can double your final corpus compared to a fixed SIP.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Are SIP returns taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. For Equity funds, gains withdrawn before 1 year are taxed at 20% (STCG). Gains above ₹1.25 Lakh withdrawn after 1 year are taxed at 12.5% (LTCG).',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -152,25 +150,44 @@ export default function SIPPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/hi/sip-calculator" />
-          <h1>SIP Calculator — Plan Your Wealth Creation</h1>
-          <ShareTools title="SIP Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="sip-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* Top actions */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="SIP Calculator" />
+            <LanguageToggle path="/hi/sip-calculator" />
           </div>
 
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              See the magic of compounding. Calculate how your small monthly
-              investments grow over time and plan for your dream goals.
-              <strong> Accurate. Free. Inflation Adjusted.</strong>
-            </p>
-          `}
-          />
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
+              SIP Calculator
+            </span>
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Plan your wealth creation with disciplined investing
+            </span>
+          </h1>
+
+          {/* Description */}
+          <div className="mt-4 max-w-3xl text-slate-500 text-base leading-relaxed">
+            <WikiText
+              content={`
+        <p>
+          See the magic of <strong>compounding</strong>. Calculate how your small
+          monthly SIP investments grow over time and plan confidently for
+          long-term goals.
+          <strong> Accurate. Free. Inflation-adjusted.</strong>
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -178,228 +195,260 @@ export default function SIPPage() {
             <SIPClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="sip-after-calc" type="banner" />
             </div>
 
-            {/* Mobile-Only Related Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            {/* --- MOBILE ONLY: RELATED TOOLS --- */}
+            <div className="block lg:hidden my-8 no-print">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 More Investment Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
-                <Link
-                  href="/step-up-sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
-                >
-                  📈 Step-up SIP
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/step-up-sip-calculator" className="group">
+                  <Card className="border-slate-200 transition hover:-translate-y-0.5 hover:shadow-sm">
+                    <CardContent className="flex flex-col items-center justify-center p-4 text-center">
+                      <span className="mb-2 text-xl">📈</span>
+                      <span className="text-sm font-medium text-slate-900 group-hover:text-emerald-700">
+                        Step-up SIP
+                      </span>
+                    </CardContent>
+                  </Card>
                 </Link>
-                <Link
-                  href="/lumpsum-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
-                >
-                  💰 Lumpsum Calc
+
+                <Link href="/lumpsum-calculator" className="group">
+                  <Card className="border-slate-200 transition hover:-translate-y-0.5 hover:shadow-sm">
+                    <CardContent className="flex flex-col items-center justify-center p-4 text-center">
+                      <span className="mb-2 text-xl">💰</span>
+                      <span className="text-sm font-medium text-slate-900 group-hover:text-emerald-700">
+                        Lumpsum Calculator
+                      </span>
+                    </CardContent>
+                  </Card>
                 </Link>
               </div>
             </div>
 
-            {/* Promo Box */}
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>🏆</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Where to invest in 2025?
-                </strong>
-                <Link
-                  href="/guides/sip-investment-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read our Guide: Best SIP Investment Strategies →
-                </Link>
-              </div>
-            </div>
+            {/* --- PROMO BOX --- */}
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-4 sm:p-6">
+                {/* Icon */}
+                <span className="text-2xl leading-none">🏆</span>
+
+                {/* Content */}
+                <div>
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Where to invest in 2025?
+                  </strong>
+
+                  <Link
+                    href="/guides/sip-investment-guide"
+                    className="
+          mt-1 inline-block
+          text-sm
+          font-semibold
+          text-emerald-700
+          underline
+          underline-offset-4
+          hover:text-emerald-800
+        "
+                  >
+                    Read our Guide: Best SIP Investment Strategies →
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* --- FULL SEO ARTICLE --- */}
-            <article className="article content-for-seo no-print">
-              <h2>What is a Systematic Investment Plan (SIP)?</h2>
-              <WikiText content={introContent} />
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS SIP --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is a Systematic Investment Plan (SIP)?
+                    </h2>
 
-              <h3>Who Can Invest in SIP?</h3>
-              <WikiText content={eligibilityContent} />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* --- ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Who Can Invest in SIP?
+                    </h3>
 
-              <h3>How This Calculator Helps Your Wealth Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Investing without a target is like driving without a
-                    destination. This calculator helps you Visualize Growth and check the
-                    impact of <strong>Inflation</strong>.
-                  </p>
-                `}
-              />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={eligibilityContent} />
+                    </div>
+                  </section>
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Visualize Growth</h4>
-                  <p>
-                    See how a small ₹5,000 monthly investment can grow into
-                    Crores over 20-30 years due to compounding.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Goal Mapping</h4>
-                  <p>
-                    Reverse calculate: Input your target corpus (e.g., ₹1 Crore
-                    for retirement) to find out the monthly SIP required today.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Check Inflation Impact</h4>
-                  <p>
-                    Understand the &quot;Real Value&quot; of your returns. ₹10
-                    Lakhs today will not buy the same things 10 years from now.
-                  </p>
-                </div>
-              </div>
+                  {/* --- AD SLOT (UNCHANGED POSITION) --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <h3>Taxation on SIP Returns (Updated 2025)</h3>
-              <WikiText content={taxContent} />
+                  {/* --- HOW CALCULATOR HELPS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This SIP Calculator Helps Your Wealth Planning
+                    </h3>
 
-              <h3>SIP Calculation Formula</h3>
-              <WikiText
-                content={`
-                   <p>
-                     The calculator uses the Future Value of Annuity formula. 
-                     SIPs are calculated as an "Annuity Due" because payments are made at the start of the period.
-                   </p>
-                 `}
-              />
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <p>
+                Investing without a target is like driving without a destination.
+                This calculator helps you <strong>visualize long-term growth</strong>
+                and understand the impact of <strong>inflation</strong> on your wealth.
+              </p>
+            `}
+                      />
+                    </div>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="FV = P \times \frac{(1 + i)^n - 1}{i} \times (1 + i)" />
-              </div>
+                    {/* Advantage Grid — SAME SYSTEM AS OTHER PAGES */}
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <Card className="border-slate-200">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900 mb-1">
+                            Visualize Growth
+                          </h4>
+                          <p className="text-sm text-slate-600">
+                            See how a ₹5,000 monthly SIP can grow into crores
+                            over 20–30 years due to compounding.
+                          </p>
+                        </CardContent>
+                      </Card>
 
-              <WikiText
-                content={`
-                  <ul style="font-size: 14px;">
-                    <li><strong>FV</strong>: Future Value</li>
-                    <li><strong>P</strong>: Monthly Investment Amount</li>
-                    <li><strong>i</strong>: Monthly Rate (Annual Rate ÷ 1200)</li>
-                    <li><strong>n</strong>: Total Months</li>
-                  </ul>
-                `}
-              />
+                      <Card className="border-slate-200">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900 mb-1">
+                            Goal Mapping
+                          </h4>
+                          <p className="text-sm text-slate-600">
+                            Reverse-calculate your SIP by entering a target
+                            corpus like ₹1 crore for retirement.
+                          </p>
+                        </CardContent>
+                      </Card>
 
-              <h3>Key Advantages of SIP</h3>
-              <WikiText content={advantagesContent} />
+                      <Card className="border-slate-200">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900 mb-1">
+                            Inflation Awareness
+                          </h4>
+                          <p className="text-sm text-slate-600">
+                            Understand the <em>real value</em> of returns — ₹10
+                            lakh today won’t buy the same in 10 years.
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </section>
+
+                  {/* --- TAXATION --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Taxation on SIP Returns (Updated 2025)
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={taxContent} />
+                    </div>
+                  </section>
+
+                  {/* --- FORMULA --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      SIP Calculation Formula
+                    </h3>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <p>
+                SIP returns are calculated using the <strong>Future Value of Annuity Due</strong>
+                formula, as investments are made at the beginning of each period.
+              </p>
+            `}
+                      />
+                    </div>
+
+                    {/* Formula Box — EXACT EMI STYLE */}
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <BlockMath math="FV = P \\times \\frac{(1 + i)^n - 1}{i} \\times (1 + i)" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <ul>
+                <li><strong>FV</strong> = Future Value</li>
+                <li><strong>P</strong> = Monthly Investment Amount</li>
+                <li><strong>i</strong> = Monthly Rate (Annual Rate ÷ 1200)</li>
+                <li><strong>n</strong> = Total Number of Months</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+
+                  {/* --- ADVANTAGES --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Key Advantages of SIP Investing
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={advantagesContent} />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Can I withdraw my SIP money anytime?</summary>
-                  <p>
-                    Yes, for open-ended mutual funds, you can withdraw anytime.
-                    However, <strong>ELSS (Tax Saving)</strong> funds have a
-                    3-year lock-in period.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    What happens if I miss a monthly installment?
-                  </summary>
-                  <p>
-                    Nothing major. The bank may charge a small penalty for
-                    insufficient funds (NACH bounce), but your SIP will not be
-                    cancelled. It will continue from the next month.
-                  </p>
-                </details>
-                <details>
-                  <summary>Which date is best for SIP?</summary>
-                  <p>
-                    Historically, the date of the month has negligible impact on
-                    long-term returns. It is best to choose a date shortly after
-                    your salary credit date (e.g., 5th or 7th) to ensure
-                    discipline.
-                  </p>
-                </details>
-                <details>
-                  <summary>What is Step-Up SIP?</summary>
-                  <p>
-                    A strategy where you increase your SIP amount every year
-                    (e.g., by 10%) as your income grows. This significantly
-                    boosts your final corpus.
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQ SECTION --- */}
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6 mb-12">
               <AdSlot id="sip-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

@@ -11,6 +11,16 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import { autoLinkContent } from '@/utils/autoLinker';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent } from '@/components/ui/card';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -61,6 +71,39 @@ export default function ELSSPage() {
     </ul>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'Can I withdraw money from ELSS after 3 years?',
+      answer:
+        'Yes. ELSS has a mandatory 3-year lock-in period. After completion, you can redeem your units partially or fully. However, staying invested for 5–7 years is recommended for better long-term returns.',
+    },
+    {
+      id: 'faq-2',
+      question: 'Is SIP allowed in ELSS mutual funds?',
+      answer:
+        'Yes, SIP is the most popular way to invest in ELSS. Note that each SIP installment has its own independent 3-year lock-in period starting from the date of investment.',
+    },
+    {
+      id: 'faq-3',
+      question: 'How is ELSS taxed on redemption?',
+      answer:
+        'ELSS returns are taxed as Long-Term Capital Gains (LTCG). Gains up to ₹1.25 lakh per financial year are tax-free. Any gains above this limit are taxed at 12.5% without indexation.',
+    },
+    {
+      id: 'faq-4',
+      question: 'Is ELSS suitable for short-term investment?',
+      answer:
+        'No. ELSS is an equity-linked product and is best suited for long-term investors (5+ years). Short-term investments may be impacted by market volatility.',
+    },
+    {
+      id: 'faq-5',
+      question: 'What happens if I stop my ELSS SIP?',
+      answer:
+        'You can stop or pause your ELSS SIP anytime without penalty. However, the installments already invested will remain locked until each completes its individual 3-year lock-in period.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -69,40 +112,11 @@ export default function ELSSPage() {
         url="https://www.fincado.com/elss-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the lock-in period for ELSS?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'ELSS has a mandatory lock-in period of 3 years from the date of investment. If you do a SIP, each installment is locked for 3 years individually.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How much tax can I save with ELSS?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'You can invest up to ₹1.5 Lakh under Section 80C. If you are in the 30% tax bracket, you save approximately ₹46,800 (including cess) in taxes.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is ELSS better than PPF?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'For wealth creation, ELSS is generally better as it offers equity-linked returns (12-15%) compared to PPF (7.1%). ELSS also has a shorter lock-in (3 years vs 15 years). However, PPF is risk-free, while ELSS carries market risk.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -117,91 +131,116 @@ export default function ELSSPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/hi/elss-calculator" />
-          <h1>ELSS Calculator — Tax Saving + Growth</h1>
-          <ShareTools title="ELSS Calculator" />
-
-          {/* 💰 AD 1 */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="elss-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* Share + Language (same as other calculators) */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="ELSS Calculator — Tax Saving + Growth" />
+            <LanguageToggle path="/hi/elss-calculator" />
           </div>
 
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Calculate the maturity value of your tax-saving mutual fund investments.
-              Find out how much wealth you can build while saving taxes under Section 80C.
-            </p>
-          `}
-          />
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              ELSS Calculator
+            </span>
+
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Save tax under Section 80C and grow long-term wealth
+            </span>
+          </h1>
+
+          {/* Intro */}
+          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+            <WikiText
+              content={`
+        <p>
+          Use this <strong>ELSS Calculator</strong> to estimate the maturity value
+          of your tax-saving mutual fund investments. 
+          See how much wealth you can build while saving up to
+          <strong>₹1.5 lakh under Section 80C</strong> every year.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <ELSSClient />
 
-            {/* 💰 AD 2 */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            {/* 💰 AD 2: AFTER CALCULATOR (High Engagement) */}
+            <div className="no-print my-8">
               <AdSlot id="elss-after-calc" type="banner" />
             </div>
 
             {/* Mobile Tools Grid */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Tax Saving Options
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/ppf-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200
+        bg-white px-4 py-3
+        text-sm font-medium text-slate-900
+        transition
+        hover:border-emerald-300
+        hover:bg-emerald-50
+      "
                 >
-                  🔒 PPF Calculator
+                  🔒 <span>PPF Calculator</span>
                 </Link>
+
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center gap-2
+        rounded-lg border border-slate-200
+        bg-white px-4 py-3
+        text-sm font-medium text-slate-900
+        transition
+        hover:border-emerald-300
+        hover:bg-emerald-50
+      "
                 >
-                  📈 SIP Calculator
+                  📈 <span>SIP Calculator</span>
                 </Link>
               </div>
             </div>
 
             {/* --- FULL SEO ARTICLE --- */}
             <article className="article content-for-seo no-print">
-              <h2>What is ELSS Mutual Fund?</h2>
+              <h2 className="text-2xl font-semibold text-slate-900">
+                What is ELSS Mutual Fund?
+              </h2>
+
               <WikiText content={introContent} />
 
-              <h3>Key Features of ELSS</h3>
+              <h3 className="mt-8 text-xl font-semibold text-slate-900">
+                Key Features of ELSS
+              </h3>
+
               <WikiText content={featuresContent} />
 
               {/* 💰 AD 3 */}
@@ -209,78 +248,106 @@ export default function ELSSPage() {
                 <AdSlot type="square" label="Advertisement" />
               </div>
 
-              <h3>ELSS vs PPF: Quick Comparison</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>ELSS</th>
-                      <th>PPF</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Returns</strong>
-                      </td>
-                      <td style={{ color: 'var(--color-brand-green)' }}>
-                        12% - 15% (Exp)
-                      </td>
-                      <td>7.1% (Fixed)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Lock-in</strong>
-                      </td>
-                      <td style={{ color: 'var(--color-brand-green)' }}>
-                        3 Years
-                      </td>
-                      <td>15 Years</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Risk</strong>
-                      </td>
-                      <td style={{ color: '#eab308' }}>Moderate/High</td>
-                      <td style={{ color: 'var(--color-brand-green)' }}>
-                        Risk Free
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Tax on Returns</strong>
-                      </td>
-                      <td>12.5% (LTCG &gt; 1.25L)</td>
-                      <td style={{ color: 'var(--color-brand-green)' }}>
-                        Tax Free
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {/* --- COMPARISON TABLE --- */}
+              <h3 className="mt-8 text-xl font-semibold text-slate-900">
+                ELSS vs PPF: Quick Comparison
+              </h3>
 
-              <h3>Why Choose ELSS?</h3>
-              <div className="advantage-grid">
+              <Card className="mt-4 border-none shadow-none m-0">
+                <CardContent className="p-0">
+                  <div className="table-responsive">
+                    <Table className="border-collapse">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-left">Feature</TableHead>
+                          <TableHead className="text-left">ELSS</TableHead>
+                          <TableHead className="text-left">PPF</TableHead>
+                        </TableRow>
+                      </TableHeader>
+
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Returns
+                          </TableCell>
+                          <TableCell className="font-semibold text-emerald-600">
+                            12% – 15% (Expected)
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            7.1% (Fixed)
+                          </TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Lock-in Period
+                          </TableCell>
+                          <TableCell className="font-semibold text-emerald-600">
+                            3 Years
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            15 Years
+                          </TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Risk Level
+                          </TableCell>
+                          <TableCell className="font-semibold text-amber-600">
+                            Moderate to High
+                          </TableCell>
+                          <TableCell className="font-semibold text-emerald-600">
+                            Risk Free
+                          </TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                          <TableCell className="font-medium text-slate-700">
+                            Tax on Returns
+                          </TableCell>
+                          <TableCell className="text-slate-700">
+                            12.5% LTCG above ₹1.25L
+                          </TableCell>
+                          <TableCell className="font-semibold text-emerald-600">
+                            Fully Tax Free
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* --- ADVANTAGES GRID --- */}
+              <h3 className="mt-10 text-xl font-semibold text-slate-900">
+                Why Choose ELSS?
+              </h3>
+
+              <div className="advantage-grid mt-6">
                 <div className="advantage-card">
                   <h4>Shortest Lock-in</h4>
                   <p>
-                    With just a 3-year lock-in, ELSS is the most liquid tax
-                    saving option compared to PPF (15y) or FD (5y).
+                    With just a <strong>3-year lock-in</strong>, ELSS is the
+                    most liquid tax-saving option compared to PPF (15 years) or
+                    tax-saving FD (5 years).
                   </p>
                 </div>
+
                 <div className="advantage-card">
-                  <h4>Inflation Beating</h4>
+                  <h4>Inflation Beating Growth</h4>
                   <p>
-                    Equity is the only asset class that consistently beats
-                    inflation over the long term (5+ years).
+                    Equity investments have historically outperformed inflation
+                    over the long term, helping you grow real wealth.
                   </p>
                 </div>
+
                 <div className="advantage-card">
                   <h4>SIP Convenience</h4>
                   <p>
-                    You don&apos;t need a large lump sum. Start saving tax with
-                    just ₹500 per month via SIP.
+                    Start tax-saving with as little as{' '}
+                    <strong>₹500 per month</strong>
+                    through SIP—no need for a large lump sum.
                   </p>
                 </div>
               </div>

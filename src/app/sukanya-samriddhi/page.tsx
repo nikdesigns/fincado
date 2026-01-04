@@ -14,6 +14,22 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -41,6 +57,23 @@ export const metadata: Metadata = {
   },
 };
 
+export const SSY_FAQS = [
+  {
+    question: 'How long do I need to deposit money?',
+    answer:
+      'You need to deposit money for the first 15 years from the date of account opening. The account continues to earn interest without deposits for the remaining 6 years until maturity (total 21 years).',
+  },
+  {
+    question: "Can I withdraw money for my daughter's education?",
+    answer:
+      'Yes. Partial withdrawal of up to 50% of the balance is allowed for higher education expenses once the girl child attains the age of 18 or passes the 10th standard.',
+  },
+  {
+    question: 'What happens if the girl gets married before 21?',
+    answer:
+      'If the girl child turns 18 and gets married, the SSY account can be closed prematurely. No interest is credited after the date of marriage.',
+  },
+];
 /* ---------------- PAGE ---------------- */
 
 export default function SSYPage() {
@@ -51,7 +84,7 @@ export default function SSYPage() {
       as part of the <em>Beti Bachao, Beti Padhao</em> campaign. It is designed exclusively for the 
       girl child to build a corpus for her higher education and marriage expenses.
     </p>
-    <p>
+    <p class="mt-2">
       It offers the <strong>highest interest rate</strong> among all small savings schemes and falls under 
       the <strong>EEE (Exempt-Exempt-Exempt)</strong> tax category, making it the best investment 
       for your daughter's future.
@@ -59,7 +92,7 @@ export default function SSYPage() {
   `);
 
   const eligibilityContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Girl Child:</strong> Account can be opened in the name of a girl child below 10 years of age.</li>
       <li><strong>Limit:</strong> Only one account per girl child. Maximum two accounts per family (exception for twins/triplets).</li>
       <li><strong>Min/Max Deposit:</strong> Minimum ₹250/year and Maximum ₹1.5 Lakh/year.</li>
@@ -86,40 +119,11 @@ export default function SSYPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the current SSY interest rate?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The SSY interest rate is reviewed quarterly by the government. Currently, it is around 8.2% per annum, compounded annually.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the maturity period of SSY?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The SSY account matures after 21 years from the date of opening. However, you only need to deposit money for the first 15 years.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is SSY tax-free?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, SSY falls under the EEE (Exempt-Exempt-Exempt) category. Investment amount (80C), interest earned, and maturity proceeds are all tax-free.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={SSY_FAQS.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -134,22 +138,50 @@ export default function SSYPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/sukanya-samriddhi/" />
-          <h1>Sukanya Samriddhi Yojana (SSY) Calculator</h1>
-          <ShareTools title="Sukanya Samriddhi Yojana (SSY) Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="ssy-top" type="leaderboard" />
+        <header className="no-print my-6">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Sukanya Samriddhi Yojana (SSY) Calculator" />
+            <LanguageToggle path="/hi/sukanya-samriddhi/" />
           </div>
+
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              Sukanya Samriddhi Yojana (SSY) Calculator
+            </span>
+
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Build a tax-free corpus for your daughter’s education & marriage
+            </span>
+          </h1>
+
+          {/* Intro */}
           <WikiText
             content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Secure your daughter&apos;s future with India&apos;s highest-return
-              small savings scheme. Calculate the tax-free maturity amount for
-              education or marriage.
-            </p>
-          `}
+      <p class="max-w-2xl text-slate-600 mt-2">
+        Secure your daughter&apos;s future with India&apos;s highest-return
+        small savings scheme. Calculate the <strong>tax-free maturity amount</strong>
+        for education or marriage planning.
+      </p>
+    `}
           />
         </header>
 
@@ -166,49 +198,46 @@ export default function SSYPage() {
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Related Calculators
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/ppf-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border border-slate-200
+        bg-white
+        px-3 py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        transition
+        hover:border-slate-300
+        hover:bg-slate-50
+      "
                 >
                   🏦 PPF Calculator
                 </Link>
+
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border border-slate-200
+        bg-white
+        px-3 py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        transition
+        hover:border-slate-300
+        hover:bg-slate-50
+      "
                 >
                   📈 Children&apos;s Fund
                 </Link>
@@ -217,210 +246,258 @@ export default function SSYPage() {
 
             {/* ✅ Promo Box */}
             <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
+              className="
+    no-print
+    mt-8
+    flex items-center gap-3
+    rounded-lg
+    border border-lime-200
+    bg-lime-50
+    p-4
+  "
             >
-              <span style={{ fontSize: '24px' }}>👧</span>
+              <span className="text-2xl">👧</span>
+
               <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
+                <strong className="block text-sm font-semibold text-lime-800">
                   Best Plan for Girl Child?
                 </strong>
+
                 <Link
                   href="/guides/ssy-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+                  className="
+        mt-1 inline-block
+        text-sm
+        font-semibold
+        text-lime-700
+        underline
+        underline-offset-2
+        hover:text-lime-800
+      "
                 >
                   Read: SSY vs Mutual Funds Comparison →
                 </Link>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            <div className="no-print my-10 flex justify-center">
               <AdSlot id="ssy-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is Sukanya Samriddhi Yojana (SSY)?</h2>
-              <WikiText content={introContent} />
+            {/* --- FULL SEO ARTICLE --- */}
+            <article className="article content-for-seo no-print space-y-10">
+              {/* INTRO */}
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  What is Sukanya Samriddhi Yojana (SSY)?
+                </h2>
+                <WikiText content={introContent} />
+              </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+              {/* AD */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
 
-              <h3>Who Can Open an Account?</h3>
-              <WikiText content={eligibilityContent} />
+              {/* ELIGIBILITY */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Who Can Open an SSY Account?
+                </h3>
+                <WikiText content={eligibilityContent} />
+              </section>
 
-              <h3>SSY vs PPF: Which is Better?</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>Sukanya Samriddhi (SSY)</th>
-                      <th>Public Provident Fund (PPF)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Interest Rate</strong>
-                      </td>
-                      <td>~8.2% (Higher)</td>
-                      <td>~7.1%</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Eligibility</strong>
-                      </td>
-                      <td>Girl Child only (Below 10)</td>
-                      <td>Anyone</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Tenure</strong>
-                      </td>
-                      <td>21 Years</td>
-                      <td>15 Years</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Deposit Period</strong>
-                      </td>
-                      <td>15 Years</td>
-                      <td>15 Years</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {/* COMPARISON TABLE */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  SSY vs PPF: Which is Better?
+                </h3>
 
-              <h3>Withdrawal & Maturity Rules</h3>
-              <WikiText content={withdrawalContent} />
+                <Card>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Feature</TableHead>
+                            <TableHead>Sukanya Samriddhi (SSY)</TableHead>
+                            <TableHead>Public Provident Fund (PPF)</TableHead>
+                          </TableRow>
+                        </TableHeader>
 
-              <h3>How This Calculator Helps Your Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Since SSY involves a long 21-year tenure with changing deposit rules 
-                    (you pay for 15 years, but earn interest for 21 years), manual calculation is complex.
-                  </p>
-                `}
-              />
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Interest Rate
+                            </TableCell>
+                            <TableCell className="font-semibold text-emerald-600">
+                              ~8.2%
+                            </TableCell>
+                            <TableCell className="text-slate-700">
+                              ~7.1%
+                            </TableCell>
+                          </TableRow>
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Maturity Estimate</h4>
-                  <p>
-                    Know exactly how much corpus will be available when your
-                    daughter turns 21.
-                  </p>
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Eligibility
+                            </TableCell>
+                            <TableCell className="text-slate-700">
+                              Girl Child (Below 10 years)
+                            </TableCell>
+                            <TableCell className="text-slate-700">
+                              Anyone
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Tenure
+                            </TableCell>
+                            <TableCell className="font-semibold">
+                              21 Years
+                            </TableCell>
+                            <TableCell>15 Years</TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Deposit Period
+                            </TableCell>
+                            <TableCell>15 Years</TableCell>
+                            <TableCell>15 Years</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* WITHDRAWAL */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Withdrawal & Maturity Rules
+                </h3>
+                <WikiText content={withdrawalContent} />
+              </section>
+
+              {/* HOW CALCULATOR HELPS */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  How This Calculator Helps Your Planning
+                </h3>
+
+                <WikiText
+                  content={`
+        <p>
+          SSY involves a long <strong>21-year tenure</strong>, where deposits are
+          made for only 15 years but interest continues for the full period.
+          Calculating this manually is complex.
+        </p>
+      `}
+                />
+
+                <div className="advantage-grid mt-6">
+                  <div className="advantage-card">
+                    <h4>Maturity Estimate</h4>
+                    <p>
+                      Know exactly how much corpus will be available when your
+                      daughter turns <strong>21 years old</strong>.
+                    </p>
+                  </div>
+
+                  <div className="advantage-card">
+                    <h4>Deposit Planning</h4>
+                    <p>
+                      See how increasing deposits from ₹2,000 to ₹5,000 can
+                      dramatically boost the final amount due to compounding.
+                    </p>
+                  </div>
+
+                  <div className="advantage-card">
+                    <h4>Long-Term Visibility</h4>
+                    <p>
+                      Understand the power of compounding over two decades with
+                      a government-backed scheme.
+                    </p>
+                  </div>
                 </div>
-                <div className="advantage-card">
-                  <h4>Deposit Planning</h4>
-                  <p>
-                    See how a small increase in monthly deposit (e.g., ₹2,000 to
-                    ₹5,000) impacts the final amount exponentially.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Schedule View</h4>
-                  <p>
-                    Get a year-by-year breakdown of principal vs interest
-                    accumulation.
-                  </p>
-                </div>
-              </div>
+              </section>
 
-              <h3>SSY Interest Calculation Logic</h3>
-              <p>
-                Interest on SSY is compounded annually. The balance earns
-                interest at the end of every financial year.
-              </p>
+              {/* FORMULA */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  SSY Interest Calculation Logic
+                </h3>
 
-              {/* ✅ Professional Math Block */}
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="A = P(1 + \frac{r}{100})^n" />
-              </div>
-
-              <WikiText
-                content={`
-                <p style="font-size: 14px; color: #666;">
-                  <em>*Note: P is the accumulated principal + interest from previous years.</em>
+                <p>
+                  Interest in SSY is compounded annually at the end of each
+                  financial year.
                 </p>
-              `}
-              />
 
-              <h3>Key Advantages of SSY</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Highest Interest Rate:</strong> Offers better returns than PPF and FDs.</li>
-                    <li><strong>Triple EEE Tax Benefit:</strong> No tax on entry, growth, or exit.</li>
-                    <li><strong>Sovereign Guarantee:</strong> 100% capital safety backed by the Government.</li>
-                  </ul>
-                `}
-              />
+                <div className="py-6 overflow-x-auto bg-slate-50 border border-slate-200 rounded-md">
+                  <BlockMath math="A = P(1 + r)^n" />
+                </div>
+
+                <WikiText
+                  content={`
+        <p class="text-sm text-slate-600">
+          <em>
+            P includes accumulated principal and interest from previous years.
+          </em>
+        </p>
+      `}
+                />
+              </section>
+
+              {/* ADVANTAGES */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Key Advantages of SSY
+                </h3>
+
+                <WikiText
+                  content={`
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>Highest Small-Savings Returns:</strong> Higher than PPF and most FDs.</li>
+          <li><strong>EEE Tax Benefit:</strong> Investment, interest, and maturity are fully tax-free.</li>
+          <li><strong>Sovereign Guarantee:</strong> Backed by the Government of India.</li>
+        </ul>
+      `}
+                />
+              </section>
             </article>
 
             {/* FAQs */}
             <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>How long do I need to deposit money?</summary>
-                  <p>
-                    You need to deposit money for the first{' '}
-                    <strong>15 years</strong> from the date of account opening.
-                    The account continues to earn interest without deposits for
-                    the remaining 6 years until maturity (Total 21 years).
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Can I withdraw money for my daughter&apos;s education?
-                  </summary>
-                  <p>
-                    Yes. Partial withdrawal of up to 50% of the balance is
-                    allowed for higher education expenses once the girl child
-                    attains the age of 18 or passes the 10th standard.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    What happens if the girl gets married before 21?
-                  </summary>
-                  <p>
-                    If the girl child turns 18 and gets married, the SSY account
-                    can be closed prematurely. No interest is credited after the
-                    date of marriage.
-                  </p>
-                </details>
-              </div>
+              <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+                Frequently Asked Questions (FAQs)
+              </h2>
+
+              <Accordion type="single" collapsible className="w-full">
+                {SSY_FAQS.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`ssy-faq-${index}`}
+                    className="border-b"
+                  >
+                    <AccordionTrigger className="text-left font-medium text-slate-800">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-600 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="mb-6 sticky top-5">
               <AdSlot id="ssy-sidebar" type="box" />
             </div>
             <FinancialNavWidget />

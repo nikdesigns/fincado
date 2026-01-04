@@ -4,6 +4,15 @@ import Link from 'next/link';
 import Icon, { IconName } from '@/components/Icon';
 import AdSlot from '@/components/AdSlot';
 import articlesData from '@/data/articles.json';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -128,349 +137,173 @@ export default function Home(): JSX.Element {
       <main className="container home-hero-wrap" id="main-content">
         {/* --- HERO SECTION (Unchanged) --- */}
         <section
-          className="home-hero hero-elevated"
+          className="home-hero hero-elevated relative overflow-hidden"
           aria-labelledby="hero-title"
-          style={{ position: 'relative', overflow: 'hidden' }}
         >
+          {/* Background glow */}
           <div
-            style={{
-              position: 'absolute',
-              top: '-20%',
-              right: '-10%',
-              width: '600px',
-              maxWidth: '80vw',
-              height: '600px',
-              maxHeight: '80vw',
-              background:
-                'radial-gradient(circle, rgba(5, 150, 105, 0.08) 0%, rgba(255,255,255,0) 70%)',
-              zIndex: 0,
-              pointerEvents: 'none',
-            }}
+            className="
+      pointer-events-none
+      absolute
+      -top-[20%]
+      -right-[10%]
+      h-150
+      w-150
+      max-h-[80vw]
+      max-w-[80vw]
+      bg-[radial-gradient(circle,rgba(5,150,105,0.08)_0%,rgba(255,255,255,0)_70%)]
+      z-0
+    "
           />
 
-          <div
-            className="hero-grid"
-            style={{ position: 'relative', zIndex: 1 }}
-          >
-            {/* LEFT CONTENT */}
+          <div className="hero-grid relative z-10">
+            {/* LEFT */}
             <div className="hero-content">
-              {/* --- BADGE WRAPPER --- */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center', // Centers them vertically relative to each other
-                  flexWrap: 'wrap', // Allows wrapping on mobile
-                  gap: '12px', // Handles spacing (both horizontal & vertical if wrapped)
-                  marginBottom: '24px',
-                }}
-              >
-                {/* 1. Existing FY Badge (Added marginRight) */}
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '6px 12px',
-                    background: '#ecfdf5',
-                    border: '1px solid #a7f3d0',
-                    borderRadius: '100px',
-                    color: '#065f46',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    marginRight: '12px', // ✅ FORCED SPACE
-                    marginBottom: '8px',
-                    marginTop: '8px', // Safety for mobile wrapping
-                  }}
+              {/* BADGES */}
+              <div className="mb-6 flex flex-wrap items-center gap-3">
+                <Badge
+                  variant="outline"
+                  className="
+            flex items-center gap-2
+            border-emerald-200
+            bg-emerald-50
+            text-emerald-800
+            px-3 py-1.5
+            text-[13px]
+            font-semibold
+          "
                 >
-                  <span
-                    style={{
-                      width: '8px', // ✅ Changed from 6px
-                      height: '8px', // ✅ Changed from 12px (Must match width)
-                      borderRadius: '50%',
-                      background: '#059669',
-                      flexShrink: 0, // ✅ Prevents the dot from squishing on small screens
-                      display: 'inline-block',
-                    }}
-                  />
+                  <span className="h-2 w-2 rounded-full bg-emerald-600" />
                   Updated for FY 2025-26
-                </div>
+                </Badge>
 
-                {/* 2. New Update Badge */}
-                <div
-                  className="hero-update-badge"
-                  style={{
-                    margin: 0,
-                  }}
+                {/* Existing animated badge kept */}
+                <Badge
+                  variant="outline"
+                  className="
+            flex items-center gap-2
+            border-emerald-200
+            bg-emerald-50
+            text-emerald-800
+            px-3 py-1.5
+            text-[13px]
+            font-semibold
+          "
                 >
                   <span className="pulse-dot"></span>
                   Updated weekly with RBI & Budget changes
-                </div>
+                </Badge>
               </div>
 
+              {/* TITLE */}
               <h1
                 id="hero-title"
-                style={{
-                  fontSize: 'clamp(2rem, 4vw, 3rem)', // Responsive: 2.5rem on mobile, up to 4rem on desktop
-                  lineHeight: '1.15',
-                  marginBottom: '24px',
-                  letterSpacing: '-0.03em',
-                  color: '#0f172a',
-                  fontWeight: 600,
-                }}
+                className="
+          mb-6
+          font-semibold
+          leading-[1.15]
+          tracking-[-0.03em]
+          text-slate-900
+          text-[clamp(2rem,4vw,3rem)]
+        "
               >
-                <span
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #065f46 0%, #059669 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text', // Standard property
-                    display: 'inline-block',
-                  }}
-                >
+                <span className="inline-block bg-linear-to-br from-emerald-800 to-emerald-600 bg-clip-text text-transparent">
                   Financial Calculators for India
                 </span>
                 <br />
-                <span
-                  style={{
-                    fontSize: '0.55em', // Relative size for the subtitle (approx 28px-35px)
-                    color: '#475569',
-                    fontWeight: 600,
-                    letterSpacing: '0.01em',
-                    marginTop: '12px',
-                    display: 'block', // Ensures it takes its own line cleanly
-                  }}
-                >
+                <span className="mt-3 block text-[0.45em] font-semibold tracking-[0.01em] text-slate-600">
                   EMI • SIP • Tax • Retirement Tools
                 </span>
               </h1>
 
-              <p
-                className="hero-sub"
-                style={{
-                  fontSize: '1.125rem',
-                  color: '#475569',
-                  maxWidth: '540px',
-                  lineHeight: '1.6',
-                  marginBottom: '32px',
-                }}
-              >
+              {/* SUBTEXT */}
+              <p className="hero-sub mb-8 max-w-135 text-[1.125rem] leading-relaxed text-slate-600">
                 Make smarter decisions with 20+ bank-grade calculators for
                 Loans, SIPs, Inflation, and Retirement.
-                <span
-                  style={{
-                    display: 'flex',
-                    gap: '16px',
-                    marginTop: '12px',
-                    fontSize: '0.9em',
-                    color: '#64748b',
-                    fontWeight: 500,
-                  }}
-                >
-                  <span>✓ No login required</span>
-                  <span>✓ 100% Free</span>
-                  <span>✓ Data Private</span>
+                <span className="mt-3 flex gap-4 text-[0.9em] font-medium text-slate-500">
+                  <span>✅ No Login Required</span>
+                  <span>✅ 100% Free</span>
+                  <span>✅ Data Private</span>
                 </span>
               </p>
 
-              <div className="hero-cta-row" style={{ gap: '16px' }}>
-                <Link
-                  href="/emi-calculator"
-                  className="primary-cta"
-                  style={{
-                    padding: '14px 32px',
-                    fontSize: '16px',
-                    backgroundColor: '#80d843',
-                    color: '#0e0e11',
-                    boxShadow: '0 10px 15px -3px rgba(5, 150, 105, 0.2)',
-                    borderRadius: '8px',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    display: 'inline-block',
-                  }}
+              {/* CTAs — shadcn Button */}
+              <div className="hero-cta-row flex flex-wrap gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="
+            bg-emerald-600
+            text-white
+            hover:bg-emerald-700
+            shadow-lg
+            shadow-emerald-500/20
+            font-semibold
+          "
                 >
-                  Check Loan EMI
-                </Link>
-                <Link
-                  href="/sip-calculator"
-                  className="secondary-cta"
-                  style={{
-                    padding: '14px 32px',
-                    fontSize: '16px',
-                    background: 'white',
-                    border: '1px solid #e2e8f0',
-                    color: '#0f172a',
-                    borderRadius: '8px',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    display: 'inline-block',
-                  }}
+                  <Link href="/emi-calculator">Check Loan EMI</Link>
+                </Button>
+
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="font-semibold"
                 >
-                  Start Investing
-                </Link>
+                  <Link href="/sip-calculator">Start Investing</Link>
+                </Button>
               </div>
 
-              <div
-                style={{ marginTop: 32, minHeight: 90, maxWidth: '728px' }}
-                className="hero-ad"
-              >
+              {/* AD */}
+              <div className="hero-ad mt-8 min-h-22.5 max-w-182">
                 <AdSlot id="home-hero-leaderboard" type="banner" />
               </div>
             </div>
 
-            <aside
-              className="hero-visual"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                paddingLeft: '20px',
-              }}
-            >
-              <div className="hero-stats">
-                <div
-                  className="stat-card"
-                  style={{
-                    position: 'absolute',
-                    top: '20px',
-                    left: '0',
-                    background: 'rgba(255,255,255,0.9)',
-                    backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(255,255,255,0.6)',
-                    boxShadow:
-                      '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
-                    transform: 'rotate(-3deg)',
-                    zIndex: 1,
-                    borderRadius: '16px',
-                    padding: '16px 20px',
-                    minWidth: '180px',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      marginBottom: '4px',
-                    }}
-                  >
-                    <span
-                      style={{
-                        background: '#fee2e2',
-                        borderRadius: '50%',
-                        width: '24px',
-                        height: '24px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '12px',
-                      }}
-                    >
-                      📉
-                    </span>
-                    <span
-                      className="stat-label"
-                      style={{ fontSize: '12px', color: '#64748b' }}
-                    >
-                      Monthly EMI
+            {/* RIGHT */}
+            <aside className="hero-visual flex flex-col justify-center pl-5">
+              <div className="hero-stats relative">
+                {/* EMI CARD */}
+                <Card className="stat-card absolute left-0 top-5 z-10 min-w-45 -rotate-3 bg-white/90 backdrop-blur">
+                  <div className="p-4">
+                    <div className="mb-1 flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-xs">
+                        📉
+                      </span>
+                      <span className="text-xs text-slate-500">
+                        Monthly EMI
+                      </span>
+                    </div>
+                    <span className="text-xl font-bold text-slate-800">
+                      ₹12,450
                     </span>
                   </div>
-                  <span
-                    className="stat-value"
-                    style={{
-                      fontSize: '20px',
-                      color: '#1e293b',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    ₹12,450
-                  </span>
-                </div>
+                </Card>
 
-                <div
-                  className="stat-card"
-                  style={{
-                    position: 'absolute',
-                    top: '50px',
-                    right: '20px',
-                    background: 'white',
-                    border: '1px solid #d1fae5',
-                    boxShadow:
-                      '0 25px 50px -12px rgba(5, 150, 105, 0.15), 0 0 0 1px rgba(5, 150, 105, 0.1)',
-                    transform: 'rotate(2deg)',
-                    zIndex: 2,
-                    borderRadius: '20px',
-                    padding: '24px',
-                    minWidth: '220px',
-                  }}
-                >
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '-10px',
-                      right: '20px',
-                      background: '#059669',
-                      color: 'white',
-                      fontSize: '10px',
-                      fontWeight: '700',
-                      padding: '4px 8px',
-                      borderRadius: '12px',
-                    }}
-                  >
-                    +12% Growth
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    <span
-                      style={{
-                        background: '#d1fae5',
-                        borderRadius: '50%',
-                        width: '32px',
-                        height: '32px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '16px',
-                      }}
-                    >
-                      🚀
+                {/* CORPUS CARD */}
+                <Card className="stat-card absolute right-5 top-12 z-20 min-w-55 rotate-2 border-emerald-200">
+                  <div className="relative p-6">
+                    <span className="absolute -top-2.5 right-5 rounded-full bg-emerald-600 px-2 py-1 text-[10px] font-bold text-white">
+                      +12% Growth
                     </span>
-                    <span
-                      className="stat-label"
-                      style={{
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        color: '#475569',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                      }}
-                    >
-                      Projected Corpus
+
+                    <div className="mb-2 flex items-center gap-2.5">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-base">
+                        🚀
+                      </span>
+                      <span className="text-[13px] font-semibold uppercase tracking-wide text-slate-600">
+                        Projected Corpus
+                      </span>
+                    </div>
+
+                    <span className="text-4xl font-extrabold text-emerald-800">
+                      ₹2.54 Cr
                     </span>
                   </div>
-                  <span
-                    className="stat-value"
-                    style={{
-                      fontSize: '36px',
-                      fontWeight: 800,
-                      color: '#065f46',
-                    }}
-                  >
-                    ₹2.54 Cr
-                  </span>
-                </div>
+                </Card>
               </div>
 
-              <div
-                className="hero-side-ad"
-                style={{ transform: 'scale(0.95)' }}
-              >
+              <div className="hero-side-ad scale-95">
                 <AdSlot id="home-hero-sidebar" type="box" />
               </div>
             </aside>
@@ -478,52 +311,135 @@ export default function Home(): JSX.Element {
         </section>
 
         {/* --- TRUST STRIP (New Section) --- */}
-        <section className="trust-strip">
-          <div className="container trust-inner">
-            <div className="trust-badge">
-              <span>🇮🇳</span>
-              <span>Trusted by Indian Investors</span>
-            </div>
-            <div className="trust-divider"></div>
-            <div className="trust-tags">
-              <span className="trust-tag">
-                <Icon name="homeLoan" className="trust-icon" /> Loans
-              </span>
-              <span className="trust-tag">
-                <Icon name="tax" className="trust-icon" /> Tax Planning
-              </span>
-              <span className="trust-tag">
-                <Icon name="sip" className="trust-icon" /> Investments
-              </span>
-            </div>
-            <p className="homepage-entity">
-              Fincado is a free financial calculator platform for India, helping
-              users calculate EMI, SIP returns, income tax, retirement corpus,
-              and investment growth using bank-grade formulas.
-            </p>
+        <section>
+          <div className="container">
+            <Card
+              className="
+                border
+                border-slate-200
+                bg-white
+                px-6
+                py-6
+                md:px-8
+                md:py-8
+              "
+            >
+              <div className="flex flex-col items-center gap-6 text-center">
+                {/* TRUST BADGE */}
+                <Badge
+                  variant="secondary"
+                  className="
+            flex items-center gap-2
+            px-4 py-1.5
+            text-sm
+            font-semibold
+            text-slate-800
+          "
+                >
+                  <span className="text-lg">🇮🇳</span>
+                  Trusted by Indian Investors
+                </Badge>
+
+                {/* DIVIDER (kept semantic role) */}
+                <div className="h-px w-16 bg-slate-200" />
+
+                {/* TRUST TAGS */}
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                  <span
+                    className="
+             
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-slate-200
+              bg-slate-50
+              px-4
+              py-2
+              text-sm
+              font-medium
+              text-slate-700
+            "
+                  >
+                    <Icon name="homeLoan" className="trust-icon h-4 w-4" />
+                    Loans
+                  </span>
+
+                  <span
+                    className="
+              trust-tag
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-slate-200
+              bg-slate-50
+              px-4
+              py-2
+              text-sm
+              font-medium
+              text-slate-700
+            "
+                  >
+                    <Icon name="tax" className="trust-icon h-4 w-4" />
+                    Tax Planning
+                  </span>
+
+                  <span
+                    className="
+             
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-slate-200
+              bg-slate-50
+              px-4
+              py-2
+              text-sm
+              font-medium
+              text-slate-700
+            "
+                  >
+                    <Icon name="sip" className="trust-icon h-4 w-4" />
+                    Investments
+                  </span>
+                </div>
+
+                {/* ENTITY / SEO TEXT (UNCHANGED) */}
+                <p className="homepage-entity max-w-3xl text-sm leading-relaxed text-slate-600">
+                  Fincado is a free financial calculator platform for India,
+                  helping users calculate EMI, SIP returns, income tax,
+                  retirement corpus, and investment growth using bank-grade
+                  formulas.
+                </p>
+              </div>
+            </Card>
           </div>
         </section>
 
         {/* --- 1. MOST POPULAR TOOLS --- */}
         <section className="tools-section">
-          <div className="tools-header container-inner">
+          <div className="tools-header container-inner flex items-end justify-between gap-4">
             <div>
-              <h2>Essential Financial Tools</h2>
-              <p className="tools-sub">
+              <h2 className="text-xl font-semibold text-slate-900">
+                Essential Financial Tools
+              </h2>
+              <p className="tools-sub mt-1 text-slate-600">
                 Popular financial calculators in India for EMI, SIP, income tax
                 and credit planning.
               </p>
             </div>
-            <Link
-              href="/calculators"
-              className="secondary-cta"
-              style={{ whiteSpace: 'nowrap' }}
-            >
-              View All
-            </Link>
+
+            <Button asChild variant="outline" className="shrink-0">
+              <Link href="/calculators">View All</Link>
+            </Button>
           </div>
 
-          <div className="tools-grid container-inner">
+          <div className="tools-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <ToolCard
               href="/emi-calculator"
               icon="emi"
@@ -543,7 +459,7 @@ export default function Home(): JSX.Element {
               desc="Check CIBIL-based credit eligibility"
             />
             <ToolCard
-              href="/income-tax-calculator" // ✅ ADDED
+              href="/income-tax-calculator"
               icon="tax"
               title="Income Tax Calc"
               desc="New vs Old Regime (FY 2025-26)"
@@ -676,124 +592,68 @@ export default function Home(): JSX.Element {
         </section>
 
         {/* --- FEATURED GUIDES --- */}
-        <section className="featured-guides" style={{ marginTop: 60 }}>
-          <div
-            className="tools-header container-inner"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 32,
-            }}
-          >
+        <section className="featured-guides mt-15">
+          <div className="tools-header container-inner mb-8 flex items-end justify-between gap-4">
             <div>
-              <h2 style={{ marginBottom: 4 }}>Financial Wisdom</h2>
-              <p style={{ color: '#64748b', fontSize: 16 }}>
+              <h2 className="text-xl font-semibold text-slate-900">
+                Financial Wisdom
+              </h2>
+              <p className="mt-1 text-base text-slate-500">
                 Expert-written guides backed by real calculations, updated for
                 Indian laws.
               </p>
             </div>
-            <Link
-              href="/guides"
-              style={{
-                color: '#065f46',
-                fontWeight: 600,
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4,
-              }}
+
+            <Button
+              asChild
+              variant="ghost"
+              className="font-semibold text-emerald-700 hover:text-emerald-800"
             >
-              View All Guides <span>→</span>
-            </Link>
+              <Link href="/guides">View All Guides →</Link>
+            </Button>
           </div>
 
-          <div
-            className="guide-grid container-inner"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 24,
-            }}
-          >
+          <div className="guide-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {displayGuides.map((guide) => (
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
-                style={{ textDecoration: 'none' }}
-                className="guide-hover-card"
+                className="group block"
               >
-                <article
-                  style={{
-                    background: '#fff',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: 16,
-                    padding: 24,
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'all 0.2s ease',
-                  }}
+                <Card
+                  className="
+            h-full
+            rounded-xl
+            border
+            border-slate-200
+            p-6
+            transition
+            hover:-translate-y-1
+            hover:shadow-lg
+          "
                 >
-                  <div style={{ marginBottom: 16 }}>
-                    <span
-                      style={{
-                        background: '#dcfce7',
-                        color: '#166534',
-                        fontSize: 11,
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                        padding: '4px 10px',
-                        borderRadius: 999,
-                        letterSpacing: '0.5px',
-                      }}
-                    >
+                  {/* CATEGORY */}
+                  <div className="mb-4">
+                    <span className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-700">
                       {guide.category}
                     </span>
                   </div>
 
-                  <h3
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 700,
-                      color: '#1e293b',
-                      marginBottom: 12,
-                      lineHeight: 1.4,
-                    }}
-                  >
+                  {/* TITLE */}
+                  <h3 className="mb-3 text-lg font-bold leading-snug text-slate-900">
                     {guide.title}
                   </h3>
 
-                  <p
-                    style={{
-                      fontSize: 14,
-                      color: '#64748b',
-                      lineHeight: 1.6,
-                      marginBottom: 16,
-                      flexGrow: 1,
-                      display: '-webkit-box',
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                    }}
-                  >
+                  {/* DESCRIPTION */}
+                  <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-600">
                     {guide.metaDescription
                       .replace(/<[^>]+>/g, '')
                       .substring(0, 120)}
                     ...
                   </p>
 
-                  <div
-                    style={{
-                      paddingTop: 16,
-                      borderTop: '1px solid #f1f5f9',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      fontSize: 12,
-                      color: '#94a3b8',
-                      fontWeight: 500,
-                    }}
-                  >
+                  {/* FOOTER */}
+                  <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-medium text-slate-400">
                     <span>
                       {guide.published
                         ? new Date(guide.published).toLocaleDateString(
@@ -805,121 +665,180 @@ export default function Home(): JSX.Element {
                           )
                         : 'Guide'}
                     </span>
-                    <span style={{ color: '#059669', fontWeight: 600 }}>
-                      Read Article
+                    <span className="font-semibold text-emerald-600 group-hover:underline">
+                      Read Article →
                     </span>
                   </div>
-                </article>
+                </Card>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* --- RICH SEO CONTENT (Unchanged) --- */}
-        <article
-          className="article content-for-seo container-inner"
-          style={{ marginTop: 60, marginBottom: 60 }}
-        >
-          <h2>Your All-In-One Financial Planning Platform</h2>
-          <p>
-            Financial freedom isn&apos;t a dream; it&apos;s a calculation.
-            Whether you are a fresh graduate starting your first job, a parent
-            planning for your child&apos;s education, or someone nearing
-            retirement, <strong>Fincado</strong> provides the mathematical
-            clarity you need to make the right choices.
-          </p>
+        {/* --- RICH SEO CONTENT (Unchanged content, improved UX) --- */}
+        <section className="mt-24">
+          <article className="container-inner">
+            <div className="prose prose-slate max-w-none bg-white p-12 rounded-2xl border">
+              <h2 className="text-3xl text-slate-900 pb-4 font-medium">
+                Your All-In-One Financial Planning Platform
+              </h2>
 
-          <h3>Why Use Online Financial Calculators?</h3>
-          <p>
-            Manual calculations are prone to errors, especially when dealing
-            with compound interest, tax slabs, and inflation. Our calculators
-            offer:
-          </p>
-          <ul>
-            <li>
-              <strong>Precision:</strong> We use bank-grade formulas used by
-              institutions like SBI, HDFC, and ICICI.
-            </li>
-            <li>
-              <strong>Speed:</strong> Get answers in milliseconds—no complex
-              Excel sheets required.
-            </li>
-            <li>
-              <strong>Visualization:</strong> Our interactive charts help you
-              &quot;see&quot; your money grow or your debt reduce.
-            </li>
-          </ul>
-
-          <h3>Core Pillars of Personal Finance</h3>
-          <div className="advantage-grid">
-            <div className="advantage-card">
-              <h4>Debt Management</h4>
-              <p>
-                Use our <strong>EMI Calculators</strong> to keep your
-                Debt-to-Income ratio below 40%. Smartly plan prepayments to
-                become debt-free faster.
+              <p className="pb-2">
+                Financial freedom isn&apos;t a dream; it&apos;s a calculation.
+                Whether you are a fresh graduate starting your first job, a
+                parent planning for your child&apos;s education, or someone
+                nearing retirement, <strong>Fincado</strong> provides the
+                mathematical clarity you need to make the right choices.
               </p>
+
+              <h3 className="text-xl text-slate-900 py-4 font-medium">
+                Why Use Online Financial Calculators?
+              </h3>
+
+              <p className="pb-2">
+                Manual calculations are prone to errors, especially when dealing
+                with compound interest, tax slabs, and inflation. Our
+                calculators offer:
+              </p>
+
+              <ul className="list-disc pl-6">
+                <li>
+                  <strong>Precision:</strong> We use bank-grade formulas used by
+                  institutions like SBI, HDFC, and ICICI.
+                </li>
+                <li>
+                  <strong>Speed:</strong> Get answers in milliseconds—no complex
+                  Excel sheets required.
+                </li>
+                <li>
+                  <strong>Visualization:</strong> Our interactive charts help
+                  you &quot;see&quot; your money grow or your debt reduce.
+                </li>
+              </ul>
+
+              <h3 className="pt-6 text-xl font-medium">
+                Core Pillars of Personal Finance
+              </h3>
+              <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
+                  <h4 className="mb-2 text-base font-semibold text-slate-900">
+                    Debt Management
+                  </h4>
+                  <p className="text-sm leading-relaxed text-slate-600 pt-5">
+                    Use our <strong>EMI Calculators</strong> to keep your
+                    Debt-to-Income ratio below 40%. Smartly plan prepayments to
+                    become debt-free faster.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
+                  <h4 className="mb-2 text-base font-semibold text-slate-900">
+                    Wealth Creation
+                  </h4>
+                  <p className="text-sm leading-relaxed text-slate-600 pt-5">
+                    Start a <strong>SIP</strong> today. Even ₹500/month
+                    compounded at 12% over 30 years can create a significant
+                    corpus.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
+                  <h4 className="mb-2 text-base font-semibold text-slate-900">
+                    Tax Saving
+                  </h4>
+                  <p className="text-sm leading-relaxed text-slate-600 pt-5">
+                    Maximize Section 80C limits with <strong>PPF</strong>,{' '}
+                    <strong>EPF</strong>, and ELSS funds. Don&apos;t let taxes
+                    eat into your retirement nest egg.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="advantage-card">
-              <h4>Wealth Creation</h4>
-              <p>
-                Start a <strong>SIP</strong> today. Even ₹500/month compounded
-                at 12% over 30 years can create a significant corpus.
-              </p>
-            </div>
-            <div className="advantage-card">
-              <h4>Tax Saving</h4>
-              <p>
-                Maximize Section 80C limits with <strong>PPF</strong>,{' '}
-                <strong>EPF</strong>, and ELSS funds. Don&apos;t let taxes eat
-                into your retirement nest egg.
-              </p>
-            </div>
-          </div>
 
-          <h3>Frequently Asked Questions</h3>
-          <div className="faqs-accordion">
-            <details>
-              <summary>
-                Are these calculators accurate for Indian banks?
-              </summary>
-              <p>
-                Yes. All our tools (EMI, FD, RD) are calibrated for the Indian
-                banking system, including quarterly compounding for FDs and
-                reducing balance method for Loans.
-              </p>
-            </details>
-            <details>
-              <summary>How can I save tax on my salary?</summary>
-              <p>
-                You can use our EPF and PPF calculators to plan your Section 80C
-                investments (Limit: ₹1.5 Lakh). Additionally, Home Loan interest
-                (Section 24b) and NPS (Section 80CCD) offer further deductions.
-              </p>
-            </details>
-            <details>
-              <summary>What is the best way to become a Crorepati?</summary>
-              <p>
-                Consistent investing. Use the SIP Calculator to see how a
-                ₹15,000 monthly investment at 12% return makes you a Crorepati
-                in 15 years.
-              </p>
-            </details>
-          </div>
-        </article>
+            {/* --- ADVANTAGE GRID --- */}
 
-        {/* --- FINAL CTA (Unchanged) --- */}
-        <section className="final-cta">
-          <div className="final-cta-inner">
-            <h2>Ready to take control?</h2>
-            <p>Join thousands of smart investors using Fincado daily.</p>
-            <div className="final-cta-row">
-              <Link href="/emi-calculator" className="primary-cta">
-                Calculate EMI
-              </Link>
-              <Link href="/sip-calculator" className="secondary-cta">
-                Plan Investment
-              </Link>
+            {/* --- FAQ SECTION --- */}
+            <div className="mt-12">
+              <Card className="bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion type="single" collapsible className="space-y-2">
+                    <AccordionItem value="faq-1">
+                      <AccordionTrigger>
+                        Are these calculators accurate for Indian banks?
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        Yes. All our tools (EMI, FD, RD) are calibrated for the
+                        Indian banking system, including quarterly compounding
+                        for FDs and reducing balance method for Loans.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="faq-2">
+                      <AccordionTrigger>
+                        How can I save tax on my salary?
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        You can use our EPF and PPF calculators to plan your
+                        Section 80C investments (Limit: ₹1.5 Lakh).
+                        Additionally, Home Loan interest (Section 24b) and NPS
+                        (Section 80CCD) offer further deductions.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="faq-3">
+                      <AccordionTrigger>
+                        What is the best way to become a Crorepati?
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        Consistent investing. Use the SIP Calculator to see how
+                        a ₹15,000 monthly investment at 12% return makes you a
+                        Crorepati in 15 years.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </CardContent>
+              </Card>
+            </div>
+          </article>
+        </section>
+
+        {/* --- FINAL CTA SECTION --- */}
+        <section className="mt-20">
+          <div className="relative rounded-2xl bg-linear-to-br from-emerald-300 to-emerald-700 p-px">
+            {/* Inner surface */}
+            <div className="rounded-2xl bg-white px-6 py-12 sm:px-12 text-center shadow-lg">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 mb-3">
+                Ready to take control?
+              </h2>
+
+              <p className="text-slate-600 max-w-xl mx-auto mb-8 text-base sm:text-lg">
+                Join thousands of smart investors using Fincado daily.
+              </p>
+
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-emerald-600 text-white hover:bg-emerald-700"
+                >
+                  <Link href="/emi-calculator">Calculate EMI</Link>
+                </Button>
+
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-slate-300 text-slate-900 hover:bg-slate-50"
+                >
+                  <Link href="/sip-calculator">Plan Investment</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

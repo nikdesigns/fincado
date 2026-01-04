@@ -12,6 +12,22 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from '@/components/ui/table';
+import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -38,23 +54,44 @@ export const metadata: Metadata = {
   },
 };
 
+const APY_FAQS = [
+  {
+    id: 'faq-1',
+    question: 'What happens if I stop paying contributions?',
+    answer:
+      'The APY account may eventually be closed, and the accumulated corpus (your contributions plus interest) will be returned. However, maintenance charges and penalties may be deducted by the bank.',
+  },
+  {
+    id: 'faq-2',
+    question: 'Can I increase my pension amount later?',
+    answer:
+      'Yes. You can upgrade to a higher pension slab (for example, from ₹1,000 to ₹5,000) once in a financial year by paying the differential contribution amount.',
+  },
+  {
+    id: 'faq-3',
+    question: 'Is there a penalty for delayed payment?',
+    answer:
+      'Yes. Banks charge a small penalty for delayed contributions—typically ₹1 per month for every ₹100 contributed.',
+  },
+];
+
 /* ---------------- PAGE ---------------- */
 
 export default function APYPage() {
   // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
-    <p>
+    <p class="mt-2">
       <strong>Atal Pension Yojana (APY)</strong> is a social security scheme launched by the 
       Government of India to provide a defined pension to workers in the unorganized sector.
     </p>
-    <p>
+    <p class="mt-2">
       It offers a minimum <strong>guaranteed pension</strong> ranging from ₹1,000 to ₹5,000 per month 
       starting at age 60, depending on the subscriber's contribution amount and entry age.
     </p>
   `);
 
   const eligibilityContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Age:</strong> Must be between 18 and 40 years.</li>
       <li><strong>Citizenship:</strong> Must be an Indian citizen.</li>
       <li><strong>Bank Account:</strong> Must have a valid savings bank account.</li>
@@ -63,7 +100,7 @@ export default function APYPage() {
   `);
 
   const benefitsContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Guaranteed Pension:</strong> The government guarantees the pension amount. If actual returns are lower, the government bridges the gap.</li>
       <li><strong>Spouse Benefit:</strong> The same pension is paid to the spouse after the subscriber's death.</li>
       <li><strong>Corpus to Nominee:</strong> After the death of both subscriber and spouse, the accumulated corpus (up to ₹8.5 Lakhs) is returned to the nominee.</li>
@@ -79,40 +116,11 @@ export default function APYPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the age limit for APY?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Any Indian citizen between the age of 18 and 40 years can join the Atal Pension Yojana scheme.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can income tax payers join APY?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. Effective from October 1, 2022, any citizen who is or has been an income tax payer is not eligible to join APY.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What happens to the corpus after death?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'After the death of the subscriber, the pension continues to the spouse. After the death of both, the accumulated corpus (up to ₹8.5 Lakhs) is returned to the nominee.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={APY_FAQS.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -127,22 +135,46 @@ export default function APYPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/apy-calculator" />
-          <h1>Atal Pension Yojana (APY) Calculator</h1>
-          <ShareTools title="Atal Pension Yojana (APY) Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="apy-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Atal Pension Yojana (APY) Calculator" />
+            <LanguageToggle path="/hi/apy-calculator" />
           </div>
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Secure your old age with a guaranteed government pension. Calculate
-              your monthly contribution based on your age and desired pension amount.
-            </p>
-          `}
-          />
+
+          {/* Title */}
+          <h1
+            className="
+      mb-4
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
+      font-semibold
+      tracking-tight
+      text-slate-900
+    "
+          >
+            Atal Pension Yojana (APY) Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-1">
+              Guaranteed Government Pension
+            </span>
+          </h1>
+
+          {/* Intro text */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Plan a <strong>guaranteed monthly pension</strong> backed by the
+          Government of India using Fincado’s
+          <strong>Atal Pension Yojana Calculator</strong>.
+          Instantly find out how much you need to contribute every month
+          based on your <strong>age</strong> and
+          <strong>desired pension amount</strong>.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -150,7 +182,7 @@ export default function APYPage() {
             <APYClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="apy-after-calc" type="banner" />
             </div>
 
@@ -158,49 +190,46 @@ export default function APYPage() {
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Retirement Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/gratuity-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border
+        border-slate-200
+        bg-white
+        px-3
+        py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        hover:bg-slate-50
+      "
                 >
-                  Gratuity Calculator
+                  💼 Gratuity Calculator
                 </Link>
+
                 <Link
                   href="/retirement-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border
+        border-slate-200
+        bg-white
+        px-3
+        py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        hover:bg-slate-50
+      "
                 >
                   🏢 Retirement Calculator
                 </Link>
@@ -208,206 +237,278 @@ export default function APYPage() {
             </div>
 
             {/* ✅ Promo Box */}
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>👴</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Need Higher Pension?
-                </strong>
-                <Link
-                  href="/guides/nps-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read: Why NPS might be better than APY →
-                </Link>
+            <div className="no-print my-8">
+              <div className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50/60 p-4">
+                {/* Icon */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
+                  👴
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Need Higher Pension?
+                  </strong>
+
+                  <Link
+                    href="/guides/nps-guide"
+                    className="
+          mt-1
+          inline-flex
+          items-center
+          gap-1
+          text-sm
+          font-semibold
+          text-emerald-700
+          underline-offset-4
+          hover:underline
+        "
+                  >
+                    Read: Why NPS might be better than APY →
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            {/* 💰 AD: MID CONTENT */}
+            <div className="no-print my-10">
               <AdSlot id="apy-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is Atal Pension Yojana (APY)?</h2>
-              <WikiText content={introContent} />
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS APY --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is Atal Pension Yojana (APY)?
+                    </h2>
 
-              <h3>Who Can Subscribe to APY?</h3>
-              <WikiText content={eligibilityContent} />
+                    <div className="leading-relaxed text-slate-700">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* --- ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Who Can Subscribe to APY?
+                    </h3>
 
-              <h3>APY vs NPS: Which is Better?</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>Atal Pension Yojana (APY)</th>
-                      <th>National Pension System (NPS)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Pension Amount</strong>
-                      </td>
-                      <td>Fixed (Max ₹5,000/month)</td>
-                      <td>Market Linked (No Limit)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Eligibility</strong>
-                      </td>
-                      <td>Unorganized Sector (Non-Tax Payers)</td>
-                      <td>Any Citizen (Including Tax Payers)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Returns</strong>
-                      </td>
-                      <td>Guaranteed (~8%)</td>
-                      <td>Market Linked (9% - 12%)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Premature Exit</strong>
-                      </td>
-                      <td>Difficult (Only in special cases)</td>
-                      <td>Partial Withdrawal Allowed</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    <div className="leading-relaxed text-slate-700">
+                      <WikiText content={eligibilityContent} />
+                    </div>
+                  </section>
 
-              <h3>Pension Slab & Return to Nominee</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Monthly Pension</th>
-                      <th>Corpus Returned to Nominee</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>₹1,000</td>
-                      <td>₹1.7 Lakh</td>
-                    </tr>
-                    <tr>
-                      <td>₹2,000</td>
-                      <td>₹3.4 Lakh</td>
-                    </tr>
-                    <tr>
-                      <td>₹3,000</td>
-                      <td>₹5.1 Lakh</td>
-                    </tr>
-                    <tr>
-                      <td>₹4,000</td>
-                      <td>₹6.8 Lakh</td>
-                    </tr>
-                    <tr>
-                      <td>₹5,000</td>
-                      <td>₹8.5 Lakh</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                  {/* --- AD SLOT --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <h3>How This Calculator Helps Your Planning</h3>
-              <WikiText
-                content={`
-                  <p>
-                    APY contributions depend heavily on your entry age. The earlier you join,
-                    the lower your monthly outflow. For example, joining at 18 vs 30 significantly 
-                    reduces your monthly burden.
-                  </p>
-                `}
-              />
+                  {/* --- APY VS NPS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      APY vs NPS: Which is Better?
+                    </h3>
 
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Contribution Check</h4>
-                  <p>
-                    Find out exactly how much will be deducted from your bank
-                    account monthly based on your entry age.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Total Investment</h4>
-                  <p>
-                    See the total amount you will invest over 20-40 years versus
-                    the corpus returned to your nominee.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Pension Selection</h4>
-                  <p>
-                    Compare the cost difference between opting for a ₹2,000
-                    pension vs a ₹5,000 pension.
-                  </p>
-                </div>
-              </div>
+                    <Card className="border-slate-200">
+                      <CardContent className="p-0">
+                        <div className="overflow-x-auto">
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>Feature</TableHead>
+                                <TableHead>Atal Pension Yojana (APY)</TableHead>
+                                <TableHead>
+                                  National Pension System (NPS)
+                                </TableHead>
+                              </TableRow>
+                            </TableHeader>
 
-              <h3>Key Benefits of APY</h3>
-              <WikiText content={benefitsContent} />
+                            <TableBody>
+                              <TableRow>
+                                <TableCell className="font-medium">
+                                  Pension Amount
+                                </TableCell>
+                                <TableCell>Fixed (Max ₹5,000/month)</TableCell>
+                                <TableCell>Market Linked (No Limit)</TableCell>
+                              </TableRow>
+
+                              <TableRow>
+                                <TableCell className="font-medium">
+                                  Eligibility
+                                </TableCell>
+                                <TableCell>
+                                  Unorganized Sector (Non-Tax Payers)
+                                </TableCell>
+                                <TableCell>
+                                  Any Citizen (Including Tax Payers)
+                                </TableCell>
+                              </TableRow>
+
+                              <TableRow>
+                                <TableCell className="font-medium">
+                                  Returns
+                                </TableCell>
+                                <TableCell>Guaranteed (~8%)</TableCell>
+                                <TableCell>Market Linked (9%–12%)</TableCell>
+                              </TableRow>
+
+                              <TableRow>
+                                <TableCell className="font-medium">
+                                  Premature Exit
+                                </TableCell>
+                                <TableCell>
+                                  Difficult (Special Cases Only)
+                                </TableCell>
+                                <TableCell>
+                                  Partial Withdrawal Allowed
+                                </TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </section>
+
+                  {/* --- PENSION SLABS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Pension Slab & Return to Nominee
+                    </h3>
+
+                    <Card className="border-slate-200">
+                      <CardContent className="p-0">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>Monthly Pension</TableHead>
+                              <TableHead>Corpus Returned to Nominee</TableHead>
+                            </TableRow>
+                          </TableHeader>
+
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>₹1,000</TableCell>
+                              <TableCell>₹1.7 Lakh</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>₹2,000</TableCell>
+                              <TableCell>₹3.4 Lakh</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>₹3,000</TableCell>
+                              <TableCell>₹5.1 Lakh</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>₹4,000</TableCell>
+                              <TableCell>₹6.8 Lakh</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>₹5,000</TableCell>
+                              <TableCell>₹8.5 Lakh</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </CardContent>
+                    </Card>
+                  </section>
+
+                  {/* --- HOW CALCULATOR HELPS --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This Calculator Helps Your Planning
+                    </h3>
+
+                    <p className="text-slate-700">
+                      APY contributions depend heavily on your entry age. The
+                      earlier you join, the lower your monthly outflow. This
+                      calculator lets you compare scenarios instantly.
+                    </p>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="mb-1 font-semibold text-slate-900">
+                          Contribution Check
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Know exactly how much will be deducted based on your
+                          joining age.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="mb-1 font-semibold text-slate-900">
+                          Total Investment
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Compare lifetime contribution vs nominee corpus value.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="mb-1 font-semibold text-slate-900">
+                          Pension Selection
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Instantly compare ₹2,000 vs ₹5,000 pension cost.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* --- BENEFITS --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Key Benefits of APY
+                    </h3>
+
+                    <div className="leading-relaxed text-slate-700">
+                      <WikiText content={benefitsContent} />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>
-                    What happens if I stop paying contributions?
-                  </summary>
-                  <p>
-                    The account will eventually be closed, and the accumulated
-                    corpus (contributions + interest) will be returned to you.
-                    However, maintenance charges and penalties will be deducted.
-                  </p>
-                </details>
-                <details>
-                  <summary>Can I increase my pension amount later?</summary>
-                  <p>
-                    Yes, you can upgrade to a higher pension slab (e.g., from
-                    ₹1,000 to ₹5,000) once in a financial year by paying the
-                    differential contribution amount.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is there a penalty for delayed payment?</summary>
-                  <p>
-                    Yes, banks charge a small penalty (₹1 per month for every
-                    ₹100 contributed) for delayed contributions.
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQs --- */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={APY_FAQS[0]?.id}
+                    className="space-y-2"
+                  >
+                    {APY_FAQS.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="leading-relaxed text-slate-600">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="apy-sidebar" type="box" />
             </div>
             <FinancialNavWidget />

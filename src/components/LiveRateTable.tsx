@@ -1,4 +1,15 @@
+'use client';
+
 import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 type LoanType = 'homeLoan' | 'personalLoan' | 'carLoan' | 'educationLoan';
 
@@ -6,8 +17,7 @@ interface Props {
   type?: LoanType | string;
 }
 
-const LiveRateTable = ({ type = 'homeLoan' }: Props) => {
-  // Define static data ranges (Easy to update once a year)
+export default function LiveRateTable({ type = 'homeLoan' }: Props) {
   const ranges = {
     homeLoan: {
       title: 'Home Loan Interest Rates 2025',
@@ -62,11 +72,14 @@ const LiveRateTable = ({ type = 'homeLoan' }: Props) => {
           rate: '9.00% — 11.00%',
           fee: '0.5% - 1%',
         },
-        { category: 'Used Car Loans', rate: '12.00% — 18.00%', fee: '1% - 2%' },
+        {
+          category: 'Used Car Loans',
+          rate: '12.00% — 18.00%',
+          fee: '1% - 2%',
+        },
       ],
     },
     educationLoan: {
-      // Fallback for other types
       title: 'Education Loan Rates 2025',
       data: [
         {
@@ -88,67 +101,57 @@ const LiveRateTable = ({ type = 'homeLoan' }: Props) => {
     },
   };
 
-  // Select data based on prop, fallback to homeLoan if type doesn't exist
   const selected = ranges[type as keyof typeof ranges] || ranges.homeLoan;
 
   return (
-    <div style={{ marginTop: '24px', marginBottom: '32px' }}>
-      {/* Title Header */}
-      <h3
-        style={{
-          fontSize: '16px',
-          marginBottom: '12px',
-          color: 'var(--color-text-main)',
-          fontWeight: 600,
-        }}
-      >
-        {selected.title}
-      </h3>
+    <section className="mt-8 no-print">
+      <Card className="border-slate-200 bg-white">
+        {/* HEADER */}
+        <CardHeader className="pb-4">
+          <CardTitle className="text-base font-semibold text-slate-900">
+            {selected.title}
+          </CardTitle>
+        </CardHeader>
 
-      {/* Table Wrapper (Uses your existing CSS class) */}
-      <div className="schedule-wrapper">
-        <table className="rate-table">
-          <thead>
-            <tr>
-              <th style={{ width: '40%' }}>Lender Category</th>
-              <th style={{ width: '30%' }}>Interest Rate (p.a.)</th>
-              <th style={{ width: '30%' }}>Processing Fee</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selected.data.map((row, index) => (
-              <tr key={index}>
-                <td style={{ fontWeight: 500 }}>{row.category}</td>
-                <td
-                  style={{ color: 'var(--color-brand-green)', fontWeight: 600 }}
-                >
-                  {row.rate}
-                </td>
-                <td>{row.fee}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        {/* TABLE */}
+        <CardContent className="pt-0">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[40%]">Lender Category</TableHead>
+                  <TableHead className="w-[30%]">
+                    Interest Rate (p.a.)
+                  </TableHead>
+                  <TableHead className="w-[30%]">Processing Fee</TableHead>
+                </TableRow>
+              </TableHeader>
 
-      {/* Disclaimer / Note */}
-      <div
-        style={{
-          marginTop: '12px',
-          padding: '12px',
-          background: 'var(--color-bg-soft)',
-          border: '1px solid var(--color-border)',
-          borderRadius: '8px',
-          fontSize: '13px',
-          color: 'var(--color-text-muted)',
-        }}
-      >
-        <strong>Note:</strong> Rates mentioned above are indicative market
-        ranges for borrowers with a Credit Score &gt; 750. Actual rates may vary
-        based on your profile.
-      </div>
-    </div>
+              <TableBody>
+                {selected.data.map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium text-slate-700">
+                      {row.category}
+                    </TableCell>
+                    <TableCell className="font-semibold text-emerald-600">
+                      {row.rate}
+                    </TableCell>
+                    <TableCell className="text-slate-600">{row.fee}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* NOTE */}
+          <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600">
+            <strong className="font-semibold text-slate-700">Note:</strong>{' '}
+            Rates mentioned above are indicative market ranges for borrowers
+            with a Credit Score &gt; 750. Actual rates may vary based on your
+            profile.
+          </div>
+        </CardContent>
+      </Card>
+    </section>
   );
-};
-
-export default LiveRateTable;
+}

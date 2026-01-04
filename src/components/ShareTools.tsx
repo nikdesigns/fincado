@@ -1,13 +1,18 @@
 'use client';
+
 import React from 'react';
 import { FaWhatsapp, FaLinkedin, FaPrint, FaCopy } from 'react-icons/fa';
 
-const ShareTools = ({ title }: { title: string }) => {
+export default function ShareTools({
+  title,
+  rightSlot,
+}: {
+  title: string;
+  rightSlot?: React.ReactNode;
+}) {
   const [copied, setCopied] = React.useState(false);
 
-  const handlePrint = () => {
-    window.print();
-  };
+  const handlePrint = () => window.print();
 
   const handleShare = (platform: 'whatsapp' | 'linkedin') => {
     const url = window.location.href;
@@ -15,7 +20,9 @@ const ShareTools = ({ title }: { title: string }) => {
 
     if (platform === 'whatsapp') {
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-    } else if (platform === 'linkedin') {
+    }
+
+    if (platform === 'linkedin') {
       window.open(
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
           url
@@ -32,102 +39,61 @@ const ShareTools = ({ title }: { title: string }) => {
   };
 
   return (
-    <div className="share-widget no-print">
-      <span className="share-label">Share:</span>
-
-      <button
-        onClick={() => handleShare('whatsapp')}
-        className="share-btn whatsapp"
-        aria-label="Share on WhatsApp"
+    <div className="no-print mb-4">
+      <div
+        className="
+          flex
+          items-center
+          justify-between
+          gap-3
+          rounded-full
+          border
+          bg-white
+          px-4
+          py-2
+          shadow-sm
+        "
       >
-        <FaWhatsapp size={18} />
-      </button>
+        {/* LEFT: SHARE ACTIONS */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-semibold text-slate-500">Share:</span>
 
-      <button
-        onClick={() => handleShare('linkedin')}
-        className="share-btn linkedin"
-        aria-label="Share on LinkedIn"
-      >
-        <FaLinkedin size={18} />
-      </button>
+          <button
+            onClick={() => handleShare('whatsapp')}
+            aria-label="Share on WhatsApp"
+            className="rounded-full bg-emerald-50 p-2 text-emerald-600 hover:bg-emerald-100"
+          >
+            <FaWhatsapp size={16} />
+          </button>
 
-      <div className="divider"></div>
+          <button
+            onClick={() => handleShare('linkedin')}
+            aria-label="Share on LinkedIn"
+            className="rounded-full bg-sky-50 p-2 text-sky-600 hover:bg-sky-100"
+          >
+            <FaLinkedin size={16} />
+          </button>
 
-      <button
-        onClick={handlePrint}
-        className="share-btn print"
-        aria-label="Print Page"
-      >
-        <FaPrint size={16} /> Print
-      </button>
+          <button
+            onClick={handlePrint}
+            aria-label="Print"
+            className="rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200"
+          >
+            <FaPrint size={14} />
+          </button>
 
-      <button
-        onClick={copyLink}
-        className="share-btn copy"
-        aria-label="Copy Link"
-      >
-        <FaCopy size={16} /> {copied ? 'Copied!' : 'Copy'}
-      </button>
+          <button
+            onClick={copyLink}
+            aria-label="Copy link"
+            className="rounded-full bg-slate-100 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-200"
+          >
+            {copied ? 'Copied!' : <FaCopy size={14} />}
+          </button>
+        </div>
 
-      <style jsx>{`
-        .share-widget {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 12px 16px;
-          background: #fff;
-          border: 1px solid #e2e8f0;
-          border-radius: 50px;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-          margin: 24px 0;
-          flex-wrap: wrap;
-        }
-        .share-label {
-          font-size: 14px;
-          font-weight: 600;
-          color: #64748b;
-        }
-        .share-btn {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          border: none;
-          background: none;
-          cursor: pointer;
-          padding: 6px 10px;
-          border-radius: 6px;
-          transition: all 0.2s;
-          font-size: 13px;
-          font-weight: 500;
-        }
-        .share-btn:hover {
-          transform: translateY(-1px);
-        }
-        .whatsapp {
-          color: #25d366;
-          background: #dcfce7;
-        }
-        .linkedin {
-          color: #0077b5;
-          background: #e0f2fe;
-        }
-        .print {
-          color: #475569;
-          background: #f1f5f9;
-        }
-        .copy {
-          color: #475569;
-          background: #f1f5f9;
-        }
-        .divider {
-          width: 1px;
-          height: 20px;
-          background: #cbd5e1;
-          margin: 0 4px;
-        }
-      `}</style>
+        {/* RIGHT: LANGUAGE TOGGLE */}
+        {rightSlot && <div className="shrink-0">{rightSlot}</div>}
+      </div>
     </div>
   );
-};
-
-export default ShareTools;
+}

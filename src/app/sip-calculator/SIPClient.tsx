@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import CalculatorField from '@/components/CalculatorField';
+import EMIPieChart from '@/components/EMIPieChart';
+import { Card, CardContent } from '@/components/ui/card';
 
-// 1. Define Label Interface
-interface LabelConfig {
+/* ---------- TYPES ---------- */
+interface SIPLabels {
   monthlyInv: string;
   rate: string;
   timePeriod: string;
@@ -13,11 +15,17 @@ interface LabelConfig {
   returns: string;
 }
 
-interface SIPClientProps {
-  labels?: LabelConfig;
-}
+/* ---------- DEFAULT LABELS ---------- */
+const DEFAULT_LABELS: SIPLabels = {
+  monthlyInv: 'Monthly Investment (₹)',
+  rate: 'Expected Return (% p.a)',
+  timePeriod: 'Time Period (Years)',
+  maturityValue: 'Total Maturity Value',
+  invested: 'Total Invested',
+  returns: 'Total Returns',
+};
 
-// Helper: Format Currency
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -25,32 +33,21 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SIPClient({ labels }: SIPClientProps) {
-  // --- STATE ---
+export default function SIPClient({
+  labels = {},
+}: {
+  labels?: Partial<SIPLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
+  /* ---------- STATE ---------- */
   const [monthlySIP, setMonthlySIP] = useState(5000);
   const [rate, setRate] = useState(12);
   const [years, setYears] = useState(10);
   const [lumpSum, setLumpSum] = useState(0);
   const [inflation, setInflation] = useState(6);
-  const [targetAmount, setTargetAmount] = useState(0);
 
-  // 2. Default Labels (English)
-  const t = labels || {
-    monthlyInv: 'Monthly Investment (₹)',
-    rate: 'Expected Return (% p.a)',
-    timePeriod: 'Time Period (Years)',
-    maturityValue: 'Total Maturity Value',
-    invested: 'Invested',
-    returns: 'Returns',
-  };
-
-  // --- HELPER ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
-
-  // --- LOGIC ---
+  /* ---------- CALCULATIONS ---------- */
   const calculations = useMemo(() => {
     const months = years * 12;
     const monthlyRate = rate / 12 / 100;
@@ -70,6 +67,7 @@ export default function SIPClient({ labels }: SIPClientProps) {
 
     const fvLump = lumpSum * Math.pow(1 + monthlyRate, months);
     const futureValue = Math.round(fvSIP + fvLump);
+
     const totalInvested = Math.round(monthlySIP * months + lumpSum);
     const totalReturns = futureValue - totalInvested;
 
@@ -77,247 +75,123 @@ export default function SIPClient({ labels }: SIPClientProps) {
       futureValue / Math.pow(1 + monthlyInflation, months)
     );
 
-    let requiredSIP = 0;
-    if (targetAmount > 0) {
-      const lumpSumGrowth = lumpSum * Math.pow(1 + monthlyRate, months);
-      const shortfall = Math.max(0, targetAmount - lumpSumGrowth);
-
-      if (shortfall > 0) {
-        const annuityFactor =
-          ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-          (1 + monthlyRate);
-        requiredSIP = Math.ceil(shortfall / annuityFactor);
-      }
-    }
-
     const investedPct =
       futureValue > 0 ? Math.round((totalInvested / futureValue) * 100) : 0;
-    const returnsPct = 100 - investedPct;
 
     return {
       futureValue,
       totalInvested,
       totalReturns,
       realValue,
-      requiredSIP,
       investedPct,
-      returnsPct,
+      returnsPct: 100 - investedPct,
     };
-  }, [monthlySIP, rate, years, lumpSum, inflation, targetAmount]);
+  }, [monthlySIP, rate, years, lumpSum, inflation]);
 
-  // Safe Setter
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const safeSet = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
-
+  /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        {/* --- INPUTS --- */}
-        <div className="calc-inputs">
-          <div className="input-group">
-            <label>{t.monthlyInv}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={monthlySIP}
-                onChange={safeSet(setMonthlySIP)}
-              />
-            </div>
-            <input
-              type="range"
-              min="500"
-              max="200000"
-              step="500"
+    <Card className="border-slate-200 shadow-sm">
+      <CardContent className="p-6 sm:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* ---------- INPUTS ---------- */}
+          <div className="space-y-6">
+            <CalculatorField
+              label={t.monthlyInv}
               value={monthlySIP}
-              onChange={safeSet(setMonthlySIP)}
-              style={{
-                background: getRangeBackground(monthlySIP, 500, 200000),
-              }}
+              min={500}
+              max={200000}
+              step={500}
+              onChange={setMonthlySIP}
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.rate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={rate}
-                onChange={safeSet(setRate)}
-                step="0.1"
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="30"
-              step="0.1"
+            <CalculatorField
+              label={t.rate}
               value={rate}
-              onChange={safeSet(setRate)}
-              style={{ background: getRangeBackground(rate, 1, 30) }}
+              min={1}
+              max={30}
+              step={0.1}
+              onChange={setRate}
             />
-          </div>
 
-          <div className="input-group">
-            <label>{t.timePeriod}</label>
-            <div className="input-wrapper">
-              <input type="number" value={years} onChange={safeSet(setYears)} />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="40"
-              step="1"
+            <CalculatorField
+              label={t.timePeriod}
               value={years}
-              onChange={safeSet(setYears)}
-              style={{ background: getRangeBackground(years, 1, 40) }}
+              min={1}
+              max={40}
+              step={1}
+              onChange={setYears}
             />
+
+            {/* ADVANCED OPTIONS */}
+            <details className="pt-4 border-t">
+              <summary className="cursor-pointer text-sm font-medium text-slate-600">
+                Advanced Options
+              </summary>
+
+              <div className="mt-4 space-y-4">
+                <CalculatorField
+                  label="Initial Lump Sum (₹)"
+                  value={lumpSum}
+                  min={0}
+                  max={10000000}
+                  step={10000}
+                  onChange={setLumpSum}
+                />
+
+                <CalculatorField
+                  label="Inflation Rate (%)"
+                  value={inflation}
+                  min={0}
+                  max={15}
+                  step={0.1}
+                  onChange={setInflation}
+                />
+              </div>
+            </details>
           </div>
 
-          {/* Details for Advanced (Keep in English or pass extra props if needed) */}
-          <details
-            style={{
-              marginTop: 16,
-              borderTop: '1px solid #eee',
-              paddingTop: 12,
-            }}
-          >
-            <summary
-              style={{
-                cursor: 'pointer',
-                color: 'var(--color-text-muted)',
-                fontWeight: 500,
-              }}
-            >
-              Advanced Options (Lump Sum, Goal)
-            </summary>
-            <div
-              style={{
-                marginTop: 16,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 16,
-              }}
-            >
-              <div className="input-group">
-                <label>Initial Lump Sum (₹)</label>
-                <div className="input-wrapper">
-                  <input
-                    type="number"
-                    value={lumpSum}
-                    onChange={safeSet(setLumpSum)}
-                  />
-                </div>
-              </div>
-              <div className="input-group">
-                <label>Inflation Rate (%)</label>
-                <div className="input-wrapper">
-                  <input
-                    type="number"
-                    value={inflation}
-                    onChange={safeSet(setInflation)}
-                    step="0.1"
-                  />
-                </div>
-              </div>
-              <div className="input-group">
-                <label>Target Goal Amount (₹)</label>
-                <div className="input-wrapper">
-                  <input
-                    type="number"
-                    value={targetAmount}
-                    onChange={safeSet(setTargetAmount)}
-                  />
-                </div>
-              </div>
-            </div>
-          </details>
-        </div>
+          {/* ---------- VISUAL ---------- */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={calculations.investedPct}
+              interestPct={calculations.returnsPct}
+            />
 
-        {/* --- VISUALS --- */}
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={calculations.investedPct}
-            interestPct={calculations.returnsPct}
-            size={200}
-          />
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
-          <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
-            <div style={{ marginBottom: 12 }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.maturityValue}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                 {formatINR(calculations.futureValue)}
               </div>
-            </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.invested}
-                </div>
-                <div style={{ fontWeight: 600 }}>
-                  {formatINR(calculations.totalInvested)}
-                </div>
-              </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.returns}
-                </div>
-                <div
-                  style={{ fontWeight: 600, color: 'var(--color-brand-green)' }}
-                >
-                  +{formatINR(calculations.totalReturns)}
-                </div>
-              </div>
-            </div>
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+                <Card className="border-slate-200">
+                  <CardContent>
+                    <div className="text-xs text-slate-500">{t.invested}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(calculations.totalInvested)}
+                    </div>
+                  </CardContent>
+                </Card>
 
-            <div
-              style={{
-                marginTop: 16,
-                fontSize: 12,
-                color: '#64748b',
-                background: '#e2e8f0',
-                padding: '4px 8px',
-                borderRadius: 4,
-                display: 'inline-block',
-              }}
-            >
-              Real Value (~{inflation}% inflation):{' '}
-              <strong>{formatINR(calculations.realValue)}</strong>
+                <Card className="border-lime-200 bg-lime-50">
+                  <CardContent>
+                    <div className="text-xs text-lime-700">{t.returns}</div>
+                    <div className="mt-1 font-semibold text-lime-700">
+                      +{formatINR(calculations.totalReturns)}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="mt-4 inline-block rounded-md bg-slate-100 px-3 py-1 text-xs text-slate-600">
+                Real Value (after {inflation}% inflation):{' '}
+                <strong>{formatINR(calculations.realValue)}</strong>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

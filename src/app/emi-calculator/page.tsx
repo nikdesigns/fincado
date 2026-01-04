@@ -14,6 +14,14 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -72,6 +80,39 @@ export default function EMIPage() {
     </ul>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'Does EMI affect credit score?',
+      answer:
+        'Checking EMI using a calculator does not affect your credit score. However, missing EMI payments can negatively impact your credit score.',
+    },
+    {
+      id: 'faq-2',
+      question: 'Does prepayment reduce EMI or tenure?',
+      answer:
+        'By default, banks reduce the loan tenure after prepayment as it saves the most interest. EMI reduction can be requested separately.',
+    },
+    {
+      id: 'faq-3',
+      question: 'How do banks calculate EMI?',
+      answer:
+        'Banks calculate EMI using the reducing balance method, where interest is charged only on the outstanding principal.',
+    },
+    {
+      id: 'faq-4',
+      question: 'Is EMI different for fixed and floating interest rates?',
+      answer:
+        'Yes. Fixed-rate EMIs remain constant, while floating-rate EMIs can change when interest rates change.',
+    },
+    {
+      id: 'faq-5',
+      question: 'Can EMI change during the loan tenure?',
+      answer:
+        'Yes. EMI can change if interest rates change or if you make part prepayments.',
+    },
+  ];
+
   return (
     <>
       <BreadcrumbJsonLd
@@ -91,99 +132,82 @@ export default function EMIPage() {
         url="https://www.fincado.com/emi-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Does EMI affect credit score?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Checking EMI using a calculator does not affect your credit score. However, missing EMI payments can negatively impact your credit score.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Does prepayment reduce EMI or tenure?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'By default, banks reduce the loan tenure after prepayment as it saves the most interest. EMI reduction can be requested separately.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How do banks calculate EMI?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Banks calculate EMI using the reducing balance method, where interest is charged only on the outstanding principal.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is EMI different for fixed and floating interest rates?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. Fixed-rate EMIs remain constant, while floating-rate EMIs can change when interest rates change.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can EMI change during the loan tenure?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. EMI can change if interest rates change or if you make part prepayments.',
-                },
-              },
-            ],
-          }),
-        }}
-      />
+      <FAQSchema faqs={faqItems} />
 
       <main className="container" style={{ padding: '40px 20px' }}>
         <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/hi/emi-calculator" />
-          <h1>EMI Calculator – Plan Your Loan Smartly</h1>
-          <ShareTools title="EMI Calculator" />
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="EMI Calculator" />
+            <LanguageToggle path="/hi/emi-calculator" />
+          </div>
+          <h1
+            className="
+              mb-4
+              text-2xl
+              sm:text-3xl
+              lg:text-4xl
+              font-semibold
+              tracking-tight
+              text-slate-900
+            "
+          >
+            EMI Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mb-4">
+              Plan Your Loan Smartly
+            </span>
+          </h1>
 
           {/* 💰 AD 1: TOP LEADERBOARD (High Viewability) */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
+          {/* <div style={{ marginTop: 24, marginBottom: 24 }}>
             <AdSlot id="emi-top" type="leaderboard" />
-          </div>
+          </div> */}
 
-          <WikiText
-            content={`
-    <p style="max-width: 720px; color: var(--color-text-muted);">
-      Use Fincado’s <strong>EMI Calculator</strong> to calculate your monthly loan EMI,
-      total interest payable, and repayment schedule for
-      <strong>Home Loans, Personal Loans, and Car Loans</strong>.
-      Compare loan options, test prepayments, and plan your loan smartly
-      <strong>before applying</strong>.
-    </p>
-  `}
-          />
+          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+            <WikiText
+              content={`
+      <p>
+        Use Fincado’s <strong>EMI Calculator</strong> to calculate your monthly loan EMI,
+        total interest payable, and repayment schedule for
+        <strong>Home Loans, Personal Loans, and Car Loans</strong>.
+        Compare loan options, test prepayments, and plan your loan smartly
+        <strong>before applying</strong>.
+      </p>
+    `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <EMIClient />
 
-            <section className="article no-print" style={{ marginTop: 32 }}>
-              <h2>Key EMI Insights</h2>
-              <ul>
-                <li>Lower EMI often means higher total interest over time.</li>
-                <li>Even small prepayments can reduce interest by lakhs.</li>
-                <li>
-                  Tenure changes impact total repayment more than interest rate
-                  changes.
-                </li>
-                <li>
-                  EMI calculators help compare banks before applying for loans.
-                </li>
-              </ul>
+            <section className="no-print mt-8">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Key EMI Insights
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <ul className="space-y-3 text-sm text-slate-600 list-disc pl-5">
+                    <li>
+                      Lower EMI often means higher total interest over time.
+                    </li>
+                    <li>
+                      Even small prepayments can reduce interest by lakhs.
+                    </li>
+                    <li>
+                      Tenure changes impact total repayment more than interest
+                      rate changes.
+                    </li>
+                    <li>
+                      EMI calculators help compare banks before applying for
+                      loans.
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
             </section>
 
             {/* 💰 AD 2: AFTER RESULT (High Engagement) */}
@@ -193,64 +217,99 @@ export default function EMIPage() {
 
             <LiveRateTable type="personalLoan" />
 
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>📚</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Want to master your EMI?
-                </strong>
-                <Link
-                  href="/guides/emi-calculator-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read our 2025 EMI Guide: Formulas & Smart Planning →
-                </Link>
-              </div>
-            </div>
+            <Card className="no-print border-emerald-200 bg-emerald-50/60 my-6">
+              <CardContent className="flex items-start gap-4 p-4 sm:p-5">
+                {/* Icon */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
+                  📚
+                </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is an EMI?</h2>
-              <WikiText content={introContent} />
+                {/* Content */}
+                <div className="flex-1">
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Want to master your EMI?
+                  </strong>
 
-              <h3>How This EMI Calculator Helps</h3>
-              <WikiText content={benefitsContent} />
+                  <Link
+                    href="/guides/emi-calculator-guide"
+                    className="
+                    mt-1
+                    inline-flex
+                    items-center
+                    gap-1
+                    text-sm
+                    font-semibold
+                    text-emerald-700
+                    underline-offset-4
+                    hover:underline
+                  "
+                  >
+                    Read our 2025 EMI Guide: Formulas & Smart Planning →
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE (Between text sections) */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+            {/* Content Section for SEO */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- SECTION: WHAT IS EMI --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is an EMI?
+                    </h2>
 
-              <h3>Factors That Affect Your EMI</h3>
-              <WikiText content={factorsContent} />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              <h3>EMI Calculation Formula</h3>
-              <p>
-                The formula used to calculate the Equated Monthly Installment
-                (EMI) is:
-              </p>
+                  {/* --- SECTION: HOW CALCULATOR HELPS --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This EMI Calculator Helps
+                    </h3>
 
-              <div>
-                <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
-              </div>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={benefitsContent} />
+                    </div>
+                  </section>
 
-              <WikiText
-                content={`
+                  {/* --- AD SLOT (UNCHANGED) --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  {/* --- SECTION: FACTORS --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Factors That Affect Your EMI
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={factorsContent} />
+                    </div>
+                  </section>
+
+                  {/* --- SECTION: FORMULA --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      EMI Calculation Formula
+                    </h3>
+
+                    <p className="text-slate-700">
+                      The formula used to calculate the Equated Monthly
+                      Installment (EMI) is:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
+                      <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
                   <ul>
                     <li><strong>E</strong> = EMI Amount</li>
                     <li><strong>P</strong> = Principal Loan Amount</li>
@@ -258,69 +317,150 @@ export default function EMIPage() {
                     <li><strong>n</strong> = Loan Tenure in Months</li>
                   </ul>
                 `}
-              />
+                      />
+                    </div>
 
-              <p style={{ marginTop: 16 }}>
-                This EMI calculator is maintained by <strong>Fincado</strong>, a
-                financial tools platform focused on accuracy and transparency
-                for Indian borrowers.
-              </p>
+                    <p className="text-sm text-slate-600">
+                      This EMI calculator is maintained by{' '}
+                      <strong>Fincado</strong>, a financial tools platform
+                      focused on accuracy and transparency for Indian borrowers.
+                    </p>
+                  </section>
 
-              <h3>Related Loan Calculators</h3>
-              <ul>
-                <li>
-                  <Link href="/loans/home-loan">Home Loan EMI Calculator</Link>
-                </li>
-                <li>
-                  <Link href="/loans/car-loan">Car Loan EMI Calculator</Link>
-                </li>
-                <li>
-                  <Link href="/loans/personal-loan">
-                    Personal Loan EMI Calculator
-                  </Link>
-                </li>
-              </ul>
+                  {/* --- RELATED CALCULATORS --- */}
+                  <section className="space-y-5">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Related Loan Calculators
+                    </h3>
 
-              <h2>When Should You Use an EMI Calculator?</h2>
-              <ul>
-                <li>Before applying for any loan to check affordability.</li>
-                <li>While comparing banks to find the cheapest option.</li>
-                <li>
-                  To calculate how much interest you save with prepayments.
-                </li>
-              </ul>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <Link href="/loans/home-loan" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
+                                🏠
+                              </span>
+
+                              <div>
+                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
+                                  Home Loan EMI Calculator
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">
+                                  Plan affordability, tenure & tax benefits
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      <Link href="/loans/car-loan" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
+                                🚗
+                              </span>
+
+                              <div>
+                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
+                                  Car Loan EMI Calculator
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">
+                                  Compare new & used car loan EMIs
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      <Link href="/loans/personal-loan" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
+                                💼
+                              </span>
+
+                              <div>
+                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
+                                  Personal Loan EMI Calculator
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">
+                                  Estimate EMI for unsecured loans
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    </div>
+                  </section>
+
+                  {/* --- WHEN TO USE --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      When Should You Use an EMI Calculator?
+                    </h2>
+
+                    <ul className="list-disc pl-6 space-y-2 text-slate-700">
+                      <li>
+                        Before applying for any loan to check affordability.
+                      </li>
+                      <li>
+                        While comparing banks to find the cheapest option.
+                      </li>
+                      <li>
+                        To calculate how much interest you save with
+                        prepayments.
+                      </li>
+                    </ul>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQ Section */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions</h2>
-              <details open>
-                <summary>Does EMI affect credit score?</summary>
-                <p>
-                  No. Checking EMI using a calculator is a soft activity and
-                  does not impact your credit score. However, missing an EMI
-                  payment will negatively impact your score.
-                </p>
-              </details>
-              <details>
-                <summary>Does prepayment reduce EMI or Tenure?</summary>
-                <p>
-                  By default, banks reduce the <strong>Tenure</strong> when you
-                  prepay, which saves you the most interest. You must
-                  specifically request the bank if you want to reduce the EMI
-                  amount instead.
-                </p>
-              </details>
+            {/* Faq Section */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6">
               <AdSlot id="emi-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

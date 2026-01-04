@@ -2,8 +2,20 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import CalculatorField from '@/components/CalculatorField';
+import EMIPieChart from '@/components/EMIPieChart';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -11,7 +23,7 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-// ✅ Interface for custom labels
+/* ---------- TYPES ---------- */
 interface PersonalLoanLabels {
   loanAmount: string;
   interestRate: string;
@@ -36,7 +48,7 @@ const DEFAULT_LABELS: PersonalLoanLabels = {
   principal: 'Principal',
   interest: 'Interest',
   amortizationSchedule: 'Amortization Schedule',
-  monthlyBreakdown: 'Monthly breakdown',
+  monthlyBreakdown: 'Month-wise breakdown',
   copy: 'Copy',
   export: 'Export',
   print: 'Print',
@@ -45,92 +57,78 @@ const DEFAULT_LABELS: PersonalLoanLabels = {
 };
 
 export default function PersonalLoanClient({
-  labels = DEFAULT_LABELS,
+  labels = {},
 }: {
   labels?: Partial<PersonalLoanLabels>;
 }) {
   const t = { ...DEFAULT_LABELS, ...labels };
 
-  // --- STATE ---
-  const [amount, setAmount] = useState(500000); // 5 Lakhs
-  const [rate, setRate] = useState(11.0); // 11% (Avg PL Rate)
-  const [tenure, setTenure] = useState(3); // 3 Years
+  /* ---------- STATE ---------- */
+  const [amount, setAmount] = useState(500000); // 5L
+  const [rate, setRate] = useState(11); // Avg PL rate
+  const [tenure, setTenure] = useState(3); // Years
 
-  // --- LOGIC ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
-
+  /* ---------- CALCULATIONS ---------- */
   const calculations = useMemo(() => {
-    const monthlyRate = rate / 12 / 100;
-    const months = tenure * 12;
+    const r = rate / 12 / 100;
+    const n = tenure * 12;
+
     let emi = 0;
+    if (r === 0) emi = amount / n;
+    else emi = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 
-    if (amount > 0) {
-      if (rate === 0) emi = amount / months;
-      else
-        emi =
-          (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-          (Math.pow(1 + monthlyRate, months) - 1);
-    }
-
-    const totalPayment = emi * months;
+    const totalPayment = emi * n;
     const totalInterest = totalPayment - amount;
-    const interestPct =
-      totalPayment > 0 ? Math.round((totalInterest / totalPayment) * 100) : 0;
+    const interestPct = Math.round((totalInterest / totalPayment) * 100);
 
     return {
       emi: Math.round(emi),
       totalInterest: Math.round(totalInterest),
-      totalPayment: Math.round(totalPayment),
       interestPct,
       principalPct: 100 - interestPct,
-      months,
+      months: n,
     };
   }, [amount, rate, tenure]);
 
+  /* ---------- AMORTIZATION ---------- */
   const schedule = useMemo(() => {
     let balance = amount;
-    const monthlyRate = rate / 12 / 100;
-    const data = [];
-    const emiVal = calculations.emi;
+    const r = rate / 12 / 100;
+    const rows = [];
 
-    if (amount > 0) {
-      for (let i = 1; i <= calculations.months; i++) {
-        const interest = balance * monthlyRate;
-        let principal = emiVal - interest;
-        if (balance - principal < 0) principal = balance;
-        balance -= principal;
+    for (let i = 1; i <= calculations.months && i <= 84; i++) {
+      const interest = balance * r;
+      const principal = Math.min(calculations.emi - interest, balance);
+      balance -= principal;
 
-        // Limit to 84 months (7 years is max for PL usually)
-        if (i <= 84) {
-          data.push({
-            month: i,
-            principal,
-            interest,
-            balance: Math.max(0, balance),
-          });
-        }
-      }
+      rows.push({
+        month: i,
+        principal,
+        interest,
+        balance: Math.max(balance, 0),
+      });
     }
-    return data;
+
+    return rows;
   }, [amount, rate, calculations]);
 
-  // --- ACTIONS ---
+  /* ---------- ACTIONS ---------- */
   const downloadCSV = () => {
-    const headers = [`${t.month},${t.principal},${t.interest},${t.balance}`];
     const rows = schedule.map(
       (r) =>
         `${r.month},${Math.round(r.principal)},${Math.round(
           r.interest
         )},${Math.round(r.balance)}`
     );
-    const csvContent =
-      'data:text/csv;charset=utf-8,' + [headers, ...rows].join('\n');
+
+    const csv =
+      'data:text/csv;charset=utf-8,' +
+      `${t.month},${t.principal},${t.interest},${t.balance}\n` +
+      rows.join('\n');
+
     const link = document.createElement('a');
-    link.href = encodeURI(csvContent);
-    link.download = 'personal_loan_schedule.csv';
+    link.href = encodeURI(csv);
+    link.download = 'personal-loan-schedule.csv';
     link.click();
   };
 
@@ -143,213 +141,158 @@ export default function PersonalLoanClient({
           )}\t${Math.round(r.balance)}`
       )
       .join('\n');
+
     navigator.clipboard.writeText(
       `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`
     );
-    alert('Copied to clipboard!');
   };
 
-  const printPage = () => window.print();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const safeSet = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
-
+  /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      {/* 1. INPUTS & CHART */}
-      <div className="calc-grid">
-        <div
-          className="calc-inputs"
-          style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
-        >
-          {/* Loan Amount */}
-          <div className="input-group">
-            <label>{t.loanAmount}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={amount}
-                onChange={safeSet(setAmount)}
-              />
-            </div>
-            <input
-              type="range"
-              min="50000"
-              max="5000000"
-              step="10000"
+    <Card className="border-slate-200 shadow-sm">
+      <CardContent className="p-6 sm:p-8">
+        {/* INPUT + VISUAL */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 no-print">
+          {/* INPUTS */}
+          <div className="space-y-6">
+            <CalculatorField
+              label={t.loanAmount}
               value={amount}
-              onChange={safeSet(setAmount)}
-              style={{ background: getRangeBackground(amount, 50000, 5000000) }}
+              min={50000}
+              max={5000000}
+              step={10000}
+              onChange={setAmount}
             />
-          </div>
 
-          {/* Interest Rate */}
-          <div className="input-group">
-            <label>{t.interestRate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                step="0.1"
-                value={rate}
-                onChange={safeSet(setRate)}
-              />
-            </div>
-            <input
-              type="range"
-              min="8"
-              max="25"
-              step="0.1"
+            <CalculatorField
+              label={t.interestRate}
               value={rate}
-              onChange={safeSet(setRate)}
-              style={{ background: getRangeBackground(rate, 8, 25) }}
+              min={8}
+              max={25}
+              step={0.1}
+              onChange={setRate}
             />
-          </div>
 
-          {/* Tenure */}
-          <div className="input-group">
-            <label>{t.tenure}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={tenure}
-                onChange={safeSet(setTenure)}
-              />
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="7"
-              step="1"
+            <CalculatorField
+              label={t.tenure}
               value={tenure}
-              onChange={safeSet(setTenure)}
-              style={{ background: getRangeBackground(tenure, 1, 7) }}
+              min={1}
+              max={7}
+              step={1}
+              onChange={setTenure}
             />
           </div>
-        </div>
 
-        {/* Visuals */}
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={calculations.principalPct}
-            interestPct={calculations.interestPct}
-            size={200}
-          />
-          <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
-            <div style={{ marginBottom: 12 }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.monthlyEMI}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
+          {/* VISUAL */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={calculations.principalPct}
+              interestPct={calculations.interestPct}
+            />
+
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.monthlyEMI}</div>
+
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                 {formatINR(calculations.emi)}
               </div>
-            </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.principal}
-                </div>
-                <div style={{ fontWeight: 600 }}>{formatINR(amount)}</div>
-              </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.interest}
-                </div>
-                <div style={{ fontWeight: 600, color: '#dc2626' }}>
-                  {formatINR(calculations.totalInterest)}
-                </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+                <Card className="border-slate-200">
+                  <CardContent>
+                    <div className="text-xs text-slate-500">{t.principal}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(amount)}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-red-200 bg-red-50">
+                  <CardContent>
+                    <div className="text-xs text-red-700">{t.interest}</div>
+                    <div className="mt-1 font-semibold text-red-700">
+                      {formatINR(calculations.totalInterest)}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 2. TABLE */}
-      <div style={{ marginTop: 40 }}>
-        <div className="table-header-row table-actions">
-          <div>
-            <h3>{t.amortizationSchedule}</h3>
-            <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
-              {t.monthlyBreakdown}
-            </p>
-          </div>
-          <div className="table-actions">
-            <button onClick={copyToClipboard} className="action-btn">
-              {t.copy}
-            </button>
-            <button onClick={downloadCSV} className="action-btn">
-              {t.export}
-            </button>
-            <button onClick={printPage} className="action-btn">
-              {t.print}
-            </button>
-          </div>
-        </div>
+        {/* AMORTIZATION TABLE */}
+        <div className="mt-12">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-900">
+                {t.amortizationSchedule}
+              </h3>
+              <p className="text-sm text-slate-500">{t.monthlyBreakdown}</p>
+            </div>
 
-        <div className="schedule-wrapper">
-          <table className="rate-table">
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'left' }}>{t.month}</th>
-                <th style={{ textAlign: 'right' }}>{t.principal}</th>
-                <th style={{ textAlign: 'right' }}>{t.interest}</th>
-                <th style={{ textAlign: 'right' }}>{t.balance}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {schedule.map((row) => (
-                <tr
-                  key={row.month}
-                  style={{ borderBottom: '1px solid #f1f5f9' }}
-                >
-                  <td style={{ color: '#64748b' }}>{row.month}</td>
-                  <td style={{ textAlign: 'right', fontWeight: 500 }}>
-                    {formatINR(Math.round(row.principal))}
-                  </td>
-                  <td style={{ textAlign: 'right', color: '#dc2626' }}>
-                    {formatINR(Math.round(row.interest))}
-                  </td>
-                  <td style={{ textAlign: 'right', color: '#0f172a' }}>
-                    {formatINR(Math.round(row.balance))}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <div className="flex gap-2 no-print">
+              <Button variant="outline" onClick={copyToClipboard}>
+                {t.copy}
+              </Button>
+              <Button variant="outline" onClick={downloadCSV}>
+                {t.export}
+              </Button>
+              <Button variant="outline" onClick={() => window.print()}>
+                {t.print}
+              </Button>
+            </div>
+          </div>
+
+          <Card className="border-slate-200">
+            <CardContent className="p-0">
+              <div className="schedule-wrapper max-h-105 overflow-y-auto">
+                <Table className="border-collapse-separate border-spacing-0">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="sticky top-0 z-30 bg-white">
+                        {t.month}
+                      </TableHead>
+                      <TableHead className="sticky top-0 z-30 bg-white text-right">
+                        {t.principal}
+                      </TableHead>
+                      <TableHead className="sticky top-0 z-30 bg-white text-right">
+                        {t.interest}
+                      </TableHead>
+                      <TableHead className="sticky top-0 z-30 bg-white text-right">
+                        {t.balance}
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {schedule.map((row) => (
+                      <TableRow key={row.month}>
+                        <TableCell className="text-slate-500">
+                          {row.month}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {formatINR(row.principal)}
+                        </TableCell>
+                        <TableCell className="text-right text-red-600">
+                          {formatINR(row.interest)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {formatINR(row.balance)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          <p className="mt-3 text-xs text-slate-500">
+            Showing first {schedule.length} months. Export CSV for full
+            schedule.
+          </p>
         </div>
-        <div className="table-footer">
-          Showing first {schedule.length} months. Download CSV for full
-          timeline.
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

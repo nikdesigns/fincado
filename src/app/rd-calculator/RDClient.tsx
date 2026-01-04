@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import PieChart from '@/components/PieChart';
+import EMIPieChart from '@/components/EMIPieChart';
+import CalculatorField from '@/components/CalculatorField';
+import { Card, CardContent } from '@/components/ui/card';
 
-// 1. Define Labels
+/* ---------- TYPES ---------- */
 interface LabelConfig {
   monthlyDeposit: string;
   rate: string;
@@ -20,10 +22,10 @@ interface LabelConfig {
 }
 
 interface RDClientProps {
-  labels?: LabelConfig;
+  labels?: Partial<LabelConfig>;
 }
 
-// Helper: Format Currency
+/* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -31,46 +33,34 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function RDClient({ labels }: RDClientProps) {
-  // --- STATE ---
-  const [monthlyDeposit, setMonthlyDeposit] = useState<number>(5000);
-  const [rate, setRate] = useState<number>(7.0);
-  const [years, setYears] = useState<number>(3);
-  const [months, setMonths] = useState<number>(0);
-  const [taxRate, setTaxRate] = useState<number>(10);
-  const [showGrossOnly, setShowGrossOnly] = useState<boolean>(false);
+/* ---------- DEFAULT LABELS ---------- */
+const DEFAULT_LABELS: LabelConfig = {
+  monthlyDeposit: 'Monthly Deposit (₹)',
+  rate: 'Interest Rate (% p.a)',
+  years: 'Tenure (Years)',
+  months: 'Additional Months',
+  maturityAmount: 'Maturity Amount',
+  totalInv: 'Total Investment',
+  grossInt: 'Gross Interest',
+  netInt: 'Net Interest',
+  taxDeducted: 'Tax Deducted',
+  advancedParams: 'Advanced Options (Tax)',
+  taxRate: 'Tax Rate (%)',
+  ignoreTax: 'Show Gross Interest (Ignore Tax)',
+};
 
-  // 2. Default Labels
-  const t = labels || {
-    monthlyDeposit: 'Monthly Deposit (₹)',
-    rate: 'Interest Rate (% p.a)',
-    years: 'Years',
-    months: 'Months',
-    maturityAmount: 'Maturity Amount',
-    totalInv: 'Total Investment',
-    grossInt: 'Gross Int.',
-    netInt: 'Net Int.',
-    taxDeducted: 'Tax Deducted',
-    advancedParams: 'Advanced Options (Tax)',
-    taxRate: 'Tax Rate (%)',
-    ignoreTax: 'Show Gross Interest (Ignore Tax)',
-  };
+export default function RDClient({ labels = {} }: RDClientProps) {
+  const t = { ...DEFAULT_LABELS, ...labels };
 
-  // --- HELPER: Background for Range Sliders ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
+  /* ---------- STATE ---------- */
+  const [monthlyDeposit, setMonthlyDeposit] = useState(5000);
+  const [rate, setRate] = useState(7.0);
+  const [years, setYears] = useState(3);
+  const [months, setMonths] = useState(0);
+  const [taxRate, setTaxRate] = useState(10);
+  const [showGrossOnly, setShowGrossOnly] = useState(false);
 
-  const handleReset = () => {
-    setMonthlyDeposit(5000);
-    setRate(7.0);
-    setYears(3);
-    setMonths(0);
-    setTaxRate(10);
-    setShowGrossOnly(false);
-  };
-
+  /* ---------- CALCULATIONS ---------- */
   const results = useMemo(() => {
     const totalMonths = years * 12 + months;
     const r = rate / 100;
@@ -84,273 +74,150 @@ export default function RDClient({ labels }: RDClientProps) {
       for (let i = 0; i < totalMonths; i++) {
         const monthsRemaining = totalMonths - i;
         const t = monthsRemaining / 12;
-        const installmentMaturity = monthlyDeposit * Math.pow(1 + r / n, n * t);
-        maturityAmount += installmentMaturity;
+        maturityAmount += monthlyDeposit * Math.pow(1 + r / n, n * t);
       }
     }
 
     const totalInvestment = monthlyDeposit * totalMonths;
     const totalInterest = maturityAmount - totalInvestment;
 
-    let taxCalc = 0;
-    if (!showGrossOnly && taxRate > 0) {
-      taxCalc = (totalInterest * taxRate) / 100;
-    }
+    const tax =
+      !showGrossOnly && taxRate > 0 ? (totalInterest * taxRate) / 100 : 0;
 
-    const netInterest = totalInterest - taxCalc;
+    const netInterest = totalInterest - tax;
     const finalMaturity = totalInvestment + netInterest;
 
     const principalPct =
-      totalInvestment > 0
+      finalMaturity > 0
         ? Math.round((totalInvestment / finalMaturity) * 100)
         : 0;
-    const interestPct = 100 - principalPct;
 
     return {
       maturity: Math.round(finalMaturity),
       investment: Math.round(totalInvestment),
       interest: Math.round(netInterest),
-      tax: Math.round(taxCalc),
+      tax: Math.round(tax),
       principalPct,
-      interestPct,
+      interestPct: 100 - principalPct,
     };
   }, [monthlyDeposit, rate, years, months, taxRate, showGrossOnly]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const numSetter = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
-
+  /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        <div className="calc-inputs">
-          {/* Monthly Deposit */}
-          <div className="input-group">
-            <label>{t.monthlyDeposit}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={monthlyDeposit}
-                onChange={numSetter(setMonthlyDeposit)}
-              />
-            </div>
-            <input
-              type="range"
-              min="500"
-              max="200000"
-              step="500"
+    <Card className="border-slate-200 shadow-sm">
+      <CardContent className="p-6 sm:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* ---------- INPUTS ---------- */}
+          <div className="space-y-6">
+            <CalculatorField
+              label={t.monthlyDeposit}
               value={monthlyDeposit}
-              onChange={numSetter(setMonthlyDeposit)}
-              style={{
-                background: getRangeBackground(monthlyDeposit, 500, 200000),
-              }}
+              min={500}
+              max={200000}
+              step={500}
+              onChange={setMonthlyDeposit}
             />
-          </div>
 
-          {/* Rate */}
-          <div className="input-group">
-            <label>{t.rate}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={rate}
-                onChange={numSetter(setRate)}
-                step="0.1"
-              />
-            </div>
-            <input
-              type="range"
-              min="2"
-              max="15"
-              step="0.1"
+            <CalculatorField
+              label={t.rate}
               value={rate}
-              onChange={numSetter(setRate)}
-              style={{ background: getRangeBackground(rate, 2, 15) }}
+              min={2}
+              max={15}
+              step={0.1}
+              onChange={setRate}
             />
-          </div>
 
-          {/* Tenure */}
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.years}</label>
-              <div className="input-wrapper">
-                <input
-                  type="number"
-                  value={years}
-                  onChange={numSetter(setYears)}
-                  min={0}
-                />
-              </div>
-            </div>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.months}</label>
-              <div className="input-wrapper">
-                <input
-                  type="number"
-                  value={months}
-                  onChange={numSetter(setMonths)}
-                  min={0}
-                  max={11}
-                />
-              </div>
-            </div>
-          </div>
+            <CalculatorField
+              label={t.years}
+              value={years}
+              min={0}
+              max={30}
+              step={1}
+              onChange={setYears}
+            />
 
-          {/* Advanced Tax */}
-          <details className="advanced-options" style={{ marginTop: 16 }}>
-            <summary
-              style={{
-                cursor: 'pointer',
-                color: 'var(--color-text-muted)',
-                fontWeight: 500,
-              }}
-            >
-              {t.advancedParams}
-            </summary>
-            <div
-              style={{
-                marginTop: 16,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 16,
-              }}
-            >
-              <div className="input-group">
-                <label>{t.taxRate}</label>
-                <div className="input-wrapper">
+            <CalculatorField
+              label={t.months}
+              value={months}
+              min={0}
+              max={11}
+              step={1}
+              onChange={setMonths}
+            />
+
+            {/* Advanced Options */}
+            <details className="rounded-md border border-slate-200 p-4">
+              <summary className="cursor-pointer text-sm font-medium text-slate-700">
+                {t.advancedParams}
+              </summary>
+
+              <div className="mt-4 space-y-4">
+                <CalculatorField
+                  label={t.taxRate}
+                  value={taxRate}
+                  min={0}
+                  max={30}
+                  step={1}
+                  onChange={setTaxRate}
+                />
+
+                <label className="flex items-center gap-2 text-sm text-slate-700">
                   <input
-                    type="number"
-                    value={taxRate}
-                    onChange={numSetter(setTaxRate)}
-                    disabled={showGrossOnly}
-                    style={{ opacity: showGrossOnly ? 0.5 : 1 }}
+                    type="checkbox"
+                    checked={showGrossOnly}
+                    onChange={(e) => setShowGrossOnly(e.target.checked)}
                   />
-                </div>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <input
-                  type="checkbox"
-                  id="grossCheck"
-                  checked={showGrossOnly}
-                  onChange={(e) => setShowGrossOnly(e.target.checked)}
-                  style={{ width: 16, height: 16, cursor: 'pointer' }}
-                />
-                <label
-                  htmlFor="grossCheck"
-                  style={{
-                    fontSize: 14,
-                    cursor: 'pointer',
-                    color: 'var(--color-text-main)',
-                  }}
-                >
                   {t.ignoreTax}
                 </label>
               </div>
-            </div>
-          </details>
+            </details>
+          </div>
 
-          <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: 'var(--color-text-muted)',
-              cursor: 'pointer',
-              fontSize: 13,
-              width: 'fit-content',
-            }}
-          >
-            Reset Defaults
-          </button>
-        </div>
+          {/* ---------- VISUALS ---------- */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={results.principalPct}
+              interestPct={results.interestPct}
+            />
 
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={results.principalPct}
-            interestPct={results.interestPct}
-            size={200}
-          />
-          <div style={{ marginTop: 24, width: '100%' }}>
-            <div style={{ marginBottom: 12, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.maturityAmount}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green, #6366f1)',
-                }}
-              >
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.maturityAmount}</div>
+
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                 {formatINR(results.maturity)}
               </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+                <Card className="border-slate-200">
+                  <CardContent>
+                    <div className="text-xs text-slate-500">{t.totalInv}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(results.investment)}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-lime-200 bg-lime-50">
+                  <CardContent>
+                    <div className="text-xs text-lime-700">
+                      {showGrossOnly ? t.grossInt : t.netInt}
+                    </div>
+                    <div className="mt-1 font-semibold text-lime-700">
+                      +{formatINR(results.interest)}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {!showGrossOnly && results.tax > 0 && (
+                <div className="mt-4 rounded-md bg-red-50 px-3 py-2 text-xs text-red-700">
+                  {t.taxDeducted}: <strong>-{formatINR(results.tax)}</strong>
+                </div>
+              )}
             </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {t.totalInv}
-                </div>
-                <div style={{ fontWeight: 600 }}>
-                  {formatINR(results.investment)}
-                </div>
-              </div>
-              <div
-                style={{
-                  padding: 10,
-                  background: '#fff',
-                  borderRadius: 8,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
-                  {showGrossOnly ? t.grossInt : t.netInt}
-                </div>
-                <div
-                  style={{
-                    fontWeight: 600,
-                    color: 'var(--color-brand-green, #6366f1)',
-                  }}
-                >
-                  +{formatINR(results.interest)}
-                </div>
-              </div>
-            </div>
-            {!showGrossOnly && results.tax > 0 && (
-              <div
-                style={{
-                  marginTop: 16,
-                  padding: 8,
-                  background: '#fef2f2',
-                  borderRadius: 6,
-                  textAlign: 'center',
-                  fontSize: 12,
-                  color: '#991b1b',
-                }}
-              >
-                {t.taxDeducted}: <strong>-{formatINR(results.tax)}</strong>
-              </div>
-            )}
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

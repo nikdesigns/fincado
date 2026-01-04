@@ -14,6 +14,14 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -84,6 +92,39 @@ export default function EducationLoanPage() {
     </ul>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'What happens if I don’t pay interest during the course?',
+      answer:
+        'The interest accrued during the moratorium period is added to your loan principal (capitalized). Your EMI is then calculated on this higher amount, increasing the total interest payable.',
+    },
+    {
+      id: 'faq-2',
+      question: 'Is collateral required for an education loan?',
+      answer:
+        'Loans up to ₹4 lakh usually do not require collateral. Loans between ₹4–7.5 lakh may need a third-party guarantor. Loans above ₹7.5 lakh generally require collateral such as property or fixed deposits.',
+    },
+    {
+      id: 'faq-3',
+      question: 'When does education loan repayment start?',
+      answer:
+        'Repayment usually starts after the moratorium period, which includes the course duration plus 6–12 months, depending on the lender.',
+    },
+    {
+      id: 'faq-4',
+      question: 'Is education loan interest tax deductible?',
+      answer:
+        'Yes. Under Section 80E of the Income Tax Act, the entire interest paid on an education loan is tax-deductible for up to 8 years, with no upper limit.',
+    },
+    {
+      id: 'faq-5',
+      question: 'Can I prepay or foreclose an education loan?',
+      answer:
+        'Most banks allow prepayment without penalty. Early repayment can significantly reduce total interest paid.',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
@@ -92,40 +133,11 @@ export default function EducationLoanPage() {
         url="https://www.fincado.com/loans/education-loan"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is a Moratorium Period?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'It is a repayment holiday consisting of the course duration plus 6-12 months. During this time, you do not have to pay EMI, but simple interest continues to accrue on the principal.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Who is eligible for Section 80E deduction?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Any individual who has taken a loan for higher education for themselves, their spouse, or children can claim the deduction. It applies only to the interest component, not the principal.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I get a loan for Study Abroad?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes. Banks offer higher loan amounts (up to ₹1.5 Crore) for premier institutions abroad. You generally need collateral for loans above ₹7.5 Lakhs.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -140,25 +152,56 @@ export default function EducationLoanPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/loans/education-loan" />
-          <h1>Education Loan EMI Calculator</h1>
-          <ShareTools title="Education Loan EMI Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="edu-loan-top" type="leaderboard" />
+        <header className="no-print my-4">
+          {/* Top action row */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Education Loan EMI Calculator" />
+            <LanguageToggle path="/hi/loans/education-loan" />
           </div>
 
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Plan your higher studies smartly. Calculate EMI including the
-              <strong>Moratorium Period</strong> and estimate
-              <strong>Section 80E</strong> tax savings.
-            </p>
-          `}
-          />
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        mb-3
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              Education Loan EMI Calculator
+            </span>
+
+            <span className="block text-base sm:text-lg font-medium text-lime-700">
+              Calculate EMI, moratorium impact & tax benefits
+            </span>
+          </h1>
+
+          {/* Description */}
+          <div className="max-w-3xl mt-4 text-slate-600 text-base leading-relaxed">
+            <WikiText
+              content={`
+        <p>
+          Plan your higher studies smartly using our
+          <strong>Education Loan EMI Calculator</strong>.
+          Instantly calculate EMI including the
+          <strong>moratorium period</strong> and estimate
+          <strong>Section 80E tax savings</strong> before applying.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -172,163 +215,224 @@ export default function EducationLoanPage() {
 
             <LiveRateTable type="personalLoan" />
 
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                margin: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>✈️</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Planning to Study Abroad?
-                </strong>
-                <Link
-                  href="/guides/education-loan-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read our Guide: Collateral vs Non-Collateral Loans →
-                </Link>
-              </div>
-            </div>
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-4 sm:p-6">
+                {/* Icon */}
+                <span className="text-2xl leading-none">✈️</span>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is an Education Loan?</h2>
-              <WikiText content={introContent} />
+                {/* Content */}
+                <div>
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Planning to Study Abroad?
+                  </strong>
 
-              <h3>Eligibility Criteria (2025)</h3>
-              <WikiText content={eligibilityContent} />
+                  <Link
+                    href="/guides/education-loan-guide"
+                    className="
+          mt-1 inline-block
+          text-sm
+          font-semibold
+          text-emerald-700
+          underline
+          underline-offset-4
+          hover:text-emerald-800
+        "
+                  >
+                    Read our Guide: Collateral vs Non-Collateral Loans →
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS EDUCATION LOAN --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is an Education Loan?
+                    </h2>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              <h3>Section 80E Tax Benefits</h3>
-              <WikiText content={taxContent} />
+                  {/* --- ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Eligibility Criteria (2025)
+                    </h3>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={eligibilityContent} />
+                    </div>
+                  </section>
 
-              <h3>Documents Required Checklist</h3>
-              <div
-                className="checklist-box"
-                style={{
-                  background: '#fff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  margin: '24px 0',
-                }}
-              >
-                <h4
-                  style={{
-                    marginTop: 0,
-                    marginBottom: '16px',
-                    color: '#0f172a',
-                  }}
-                >
-                  📄 For Student & Co-Applicant
-                </h4>
-                <ul className="checklist">
-                  <li>
-                    <strong>KYC:</strong> Aadhaar Card, PAN Card, Passport.
-                  </li>
-                  <li>
-                    <strong>Academic:</strong> Marksheets (10th, 12th, Degree),
-                    Entrance Exam Scorecard.
-                  </li>
-                  <li>
-                    <strong>Admission:</strong> Offer Letter from University
-                    with fee breakdown.
-                  </li>
-                  <li>
-                    <strong>Financial:</strong> Last 3 months Salary Slips, 2
-                    years ITR, Bank Statements.
-                  </li>
-                </ul>
-              </div>
+                  {/* --- AD SLOT --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <h3>How the Moratorium Period Works</h3>
-              <WikiText
-                content={`
-                  <p>
-                    Most calculators fail to account for the interest that
-                    accumulates while you are studying. Fincado's tool adds
-                    this "Moratorium Interest" to your principal so you
-                    can see your <strong>True EMI</strong>.
-                  </p>
-                `}
-              />
+                  {/* --- TAX BENEFITS --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Section 80E Tax Benefits
+                    </h3>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={taxContent} />
+                    </div>
+                  </section>
 
-              <h3>EMI Calculation Formula</h3>
+                  {/* --- DOCUMENT CHECKLIST --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Documents Required Checklist
+                    </h3>
+
+                    <Card className="border-slate-200 bg-slate-50">
+                      <CardContent className="p-6 sm:p-8">
+                        {/* Header */}
+                        <div className="mb-6 flex items-center gap-3">
+                          <h4 className="text-base font-semibold text-slate-900">
+                            For Student & Co-Applicant
+                          </h4>
+                        </div>
+
+                        {/* Checklist Grid */}
+                        <ul className="grid gap-4 sm:grid-cols-2">
+                          <li className="flex items-start gap-3">
+                            <span className="mt-1 text-emerald-600">✅</span>
+                            <p className="text-sm leading-relaxed text-slate-700">
+                              <strong className="text-slate-900">KYC:</strong>{' '}
+                              Aadhaar Card, PAN Card, Passport
+                            </p>
+                          </li>
+
+                          <li className="flex items-start gap-3">
+                            <span className="mt-1 text-emerald-600">✅</span>
+                            <p className="text-sm leading-relaxed text-slate-700">
+                              <strong className="text-slate-900">
+                                Academic:
+                              </strong>{' '}
+                              Marksheets (10th, 12th, Degree), Entrance Exam
+                              Scorecard
+                            </p>
+                          </li>
+
+                          <li className="flex items-start gap-3">
+                            <span className="mt-1 text-emerald-600">✅</span>
+                            <p className="text-sm leading-relaxed text-slate-700">
+                              <strong className="text-slate-900">
+                                Admission:
+                              </strong>{' '}
+                              University Offer Letter with fee breakdown
+                            </p>
+                          </li>
+
+                          <li className="flex items-start gap-3">
+                            <span className="mt-1 text-emerald-600">✅</span>
+                            <p className="text-sm leading-relaxed text-slate-700">
+                              <strong className="text-slate-900">
+                                Financial:
+                              </strong>{' '}
+                              Salary Slips, ITR (last 2 years), Bank Statements
+                            </p>
+                          </li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </section>
+
+                  {/* --- MORATORIUM EXPLANATION --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How the Moratorium Period Works
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText
+                        content={`
               <p>
-                The formula includes accrued interest during the moratorium:
+                Most calculators fail to account for the interest that accrues
+                while you are studying. Fincado’s calculator adds this
+                <strong> Moratorium Interest</strong> to your principal so you
+                see your <strong>true EMI</strong> after repayment begins.
               </p>
+            `}
+                      />
+                    </div>
+                  </section>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="EMI = [(P + I_{moratorium}) \times r \times (1+R)^N] / [(1+R)^N-1]" />
-              </div>
+                  {/* --- EMI FORMULA --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      EMI Calculation Formula
+                    </h3>
 
-              <WikiText
-                content={`
-                <ul style="font-size: 14px;">
-                  <li><strong>P</strong>: Loan Principal</li>
-                  <li><strong>I_moratorium</strong>: Simple interest accrued during course</li>
-                  <li><strong>N</strong>: Repayment Tenure</li>
-                  <li><strong>r</strong>: Monthly Interest Rate</li>
-                </ul>
-              `}
-              />
+                    <p className="text-slate-700">
+                      Education loan EMI includes interest accrued during the
+                      moratorium:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <BlockMath math="EMI = [(P + I_{moratorium}) \times r \times (1+r)^N] / [(1+r)^N - 1]" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <ul>
+                <li><strong>P</strong> = Original Loan Amount</li>
+                <li><strong>I<sub>moratorium</sub></strong> = Interest accrued during study period</li>
+                <li><strong>r</strong> = Monthly Interest Rate</li>
+                <li><strong>N</strong> = Repayment Tenure (Months)</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>
-                    What happens if I don&apos;t pay interest during the course?
-                  </summary>
-                  <p>
-                    The interest accumulates and is added to your principal
-                    (Capitalization). Your future EMI will be calculated on this
-                    higher amount.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is collateral required?</summary>
-                  <p>
-                    Loans up to ₹4 Lakhs need no collateral. Loans between
-                    ₹4L-₹7.5L need a third-party guarantor. Above ₹7.5L requires
-                    collateral (Property/FD).
-                  </p>
-                </details>
-              </div>
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6 mb-12">
               <AdSlot id="edu-loan-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

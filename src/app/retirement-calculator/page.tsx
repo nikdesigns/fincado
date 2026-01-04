@@ -14,6 +14,22 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -42,6 +58,26 @@ export const metadata: Metadata = {
 
 /* ---------------- PAGE ---------------- */
 
+// retirementFaqs.ts (or near top of page)
+
+export const RETIREMENT_FAQS = [
+  {
+    question: 'When should I start planning?',
+    answer:
+      'Ideally, as soon as you start earning. Starting early allows you to leverage the power of compounding. For example, starting at 25 vs 35 can double your final corpus with the same monthly investment.',
+  },
+  {
+    question: 'How much inflation should I assume?',
+    answer:
+      'For India, a long-term inflation rate of around 6% is a standard assumption. However, medical inflation is often higher (8–10%), so it should be planned separately.',
+  },
+  {
+    question: 'Is NPS mandatory?',
+    answer:
+      'No. However, NPS is highly recommended due to the additional tax benefit of ₹50,000 under Section 80CCD(1B) and its low-cost exposure to equity and debt.',
+  },
+];
+
 export default function RetirementPage() {
   // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
@@ -57,14 +93,14 @@ export default function RetirementPage() {
   `);
 
   const riskContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Inflation Risk:</strong> The "Silent Killer". ₹1 Lakh today will buy much less 20 years from now. Your corpus must grow faster than inflation (typically 6% in India).</li>
       <li><strong>Longevity Risk:</strong> Living longer than expected means you might outlive your savings. You need a buffer for medical costs and an extended lifespan.</li>
     </ul>
   `);
 
   const allocationContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Young (20s-30s):</strong> High <strong>Equity</strong> (70-80%). Focus on aggressive growth via Mutual Funds.</li>
       <li><strong>Mid-Career (40s):</strong> Balanced (50-60% Equity). Start securing gains into Debt/NPS.</li>
       <li><strong>Near Retirement (50s):</strong> Conservative (30-40% Equity). Focus on capital preservation and regular income (SWP).</li>
@@ -80,40 +116,11 @@ export default function RetirementPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'How much money do I need for retirement?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'A common rule of thumb is to aim for a corpus that is 20-25 times your annual expenses at the time of retirement. However, this varies based on lifestyle and inflation.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the 4% withdrawal rule?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The 4% rule suggests you can withdraw 4% of your retirement portfolio in the first year, and adjust that amount for inflation annually, ensuring your money lasts for 30 years.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Where should I invest for retirement?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'A balanced portfolio including EPF (Employee Provident Fund), NPS (National Pension System), and Equity Mutual Funds is recommended for Indian investors.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={RETIREMENT_FAQS.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -128,22 +135,50 @@ export default function RetirementPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/retirement-calculator" />
-          <h1>Retirement Corpus Calculator</h1>
-          <ShareTools title="Retirement Corpus Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="retire-top" type="leaderboard" />
+        <header className="no-print my-6">
+          {/* Share + Language (consistent across calculators) */}
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Retirement Corpus Calculator" />
+            <LanguageToggle path="/hi/retirement-calculator" />
           </div>
+
+          {/* Title */}
+          <h1
+            className="
+      text-[clamp(1.9rem,4vw,2.6rem)]
+      font-semibold
+      leading-tight
+      tracking-[-0.02em]
+      text-slate-900
+    "
+          >
+            <span
+              className="
+        block
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-semibold
+        tracking-tight
+      "
+            >
+              Retirement Corpus Calculator
+            </span>
+
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Plan for inflation, longevity, and financial independence
+            </span>
+          </h1>
+
+          {/* Intro Text */}
           <WikiText
             content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Find out exactly how much you need to save today to maintain your
-              lifestyle tomorrow. Account for <strong>Inflation</strong> and
-              <strong>Longevity</strong>.
-            </p>
-          `}
+      <p class="max-w-175 text-slate-600 mt-2">
+        Find out exactly how much you need to save today to maintain your
+        lifestyle tomorrow. Account for <strong>inflation</strong> and
+        <strong>longevity risk</strong> with realistic assumptions.
+      </p>
+    `}
           />
         </header>
 
@@ -152,7 +187,7 @@ export default function RetirementPage() {
             <RetirementCalculatorClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="retire-after-calc" type="banner" />
             </div>
 
@@ -160,49 +195,44 @@ export default function RetirementPage() {
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Planning Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border border-slate-200
+        bg-white
+        px-3 py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        hover:bg-slate-50
+        transition
+      "
                 >
                   📈 SIP Calculator
                 </Link>
+
                 <Link
                   href="/swp-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border border-slate-200
+        bg-white
+        px-3 py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        hover:bg-slate-50
+        transition
+      "
                 >
                   💸 Pension Calc
                 </Link>
@@ -211,164 +241,226 @@ export default function RetirementPage() {
 
             {/* ✅ Promo Box */}
             <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
+              className="
+    no-print
+    mt-8
+    flex
+    items-center
+    gap-3
+    rounded-lg
+    border border-emerald-200
+    bg-emerald-50
+    p-4
+  "
             >
-              <span style={{ fontSize: '24px' }}>🔥</span>
+              <span className="text-2xl">🔥</span>
+
               <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
+                <strong className="block text-sm font-semibold text-emerald-900">
                   Want to retire early?
                 </strong>
+
                 <Link
                   href="/guides/swp-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+                  className="
+        mt-1
+        inline-block
+        text-sm
+        font-semibold
+        text-emerald-600
+        underline
+        hover:text-emerald-700
+        transition
+      "
                 >
                   Read: The F.I.R.E Movement Guide →
                 </Link>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            {/* 💰 MID-CONTENT AD */}
+            <div className="no-print my-10">
               <AdSlot id="retire-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is Retirement Planning?</h2>
-              <WikiText content={introContent} />
-              [Image of retirement timeline infographic]
-              <h3>EPF vs NPS vs Mutual Funds: Where to Save?</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>EPF (Provident Fund)</th>
-                      <th>NPS (Pension System)</th>
-                      <th>Equity Mutual Funds</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Returns</strong>
-                      </td>
-                      <td>~8.15% (Fixed)</td>
-                      <td>9% - 11% (Market Linked)</td>
-                      <td>12% - 15% (High Growth)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Tax Benefit</strong>
-                      </td>
-                      <td>Sec 80C (EEE status)</td>
-                      <td>Sec 80CCD (Extra ₹50k)</td>
-                      <td>ELSS (Sec 80C)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Liquidity</strong>
-                      </td>
-                      <td>Low (Retirement/Job loss)</td>
-                      <td>Very Low (Age 60)</td>
-                      <td>High (Anytime)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+            {/* --- FULL SEO ARTICLE --- */}
+            <article className="article content-for-seo no-print space-y-10">
+              {/* INTRO */}
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  What is Retirement Planning?
+                </h2>
+                <WikiText content={introContent} />
+              </section>
+
+              {/* VISUAL CONTEXT */}
+              <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                <p className="text-sm text-slate-600">
+                  Retirement planning typically follows a{' '}
+                  <strong>3-phase journey</strong>: accumulation → consolidation
+                  → withdrawal.
+                </p>
+              </section>
+
+              {/* COMPARISON TABLE */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  EPF vs NPS vs Mutual Funds: Where to Save?
+                </h3>
+
+                <Card>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-slate-50">
+                            <TableHead>Feature</TableHead>
+                            <TableHead>EPF</TableHead>
+                            <TableHead>NPS</TableHead>
+                            <TableHead>Equity Mutual Funds</TableHead>
+                          </TableRow>
+                        </TableHeader>
+
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Returns
+                            </TableCell>
+                            <TableCell className="text-slate-700">
+                              ~8.15% (Fixed)
+                            </TableCell>
+                            <TableCell className="text-amber-600 font-semibold">
+                              9% – 11%
+                            </TableCell>
+                            <TableCell className="text-emerald-600 font-semibold">
+                              12% – 15%
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Tax Benefit
+                            </TableCell>
+                            <TableCell>80C (EEE)</TableCell>
+                            <TableCell className="text-emerald-600">
+                              80CCD (+₹50k)
+                            </TableCell>
+                            <TableCell>ELSS (80C)</TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="font-medium text-slate-700">
+                              Liquidity
+                            </TableCell>
+                            <TableCell className="text-red-600">Low</TableCell>
+                            <TableCell className="text-red-600">
+                              Very Low
+                            </TableCell>
+                            <TableCell className="text-emerald-600">
+                              High
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* 💰 AD */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
-              <h3>The Two Biggest Risks</h3>
-              <WikiText content={riskContent} />
-              <h3>Recommended Asset Allocation by Age</h3>
-              <WikiText content={allocationContent} />
-              <h3>The 4% Withdrawal Rule</h3>
-              <p>
-                A popular rule for retirement spending. It states that if you
-                invest in a balanced portfolio (50% Equity, 50% Debt), you can
-                safely withdraw <strong>4% of your corpus</strong> in the first
-                year and adjust for inflation thereafter, without running out of
-                money for 30 years.
-              </p>
-              <h3>Retirement Calculation Formula</h3>
-              <p>
-                The calculator uses two steps: First, estimating Future Expenses
-                (FV), and second, calculating the Corpus required (PV of Growing
-                Annuity).
-              </p>
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="Exp_{future} = Exp_{current} \times (1 + r_{inf})^n" />
-              </div>
-              <WikiText
-                content={`
-                  <ul style="font-size: 14px;">
-                    <li><strong>Exp</strong>: Monthly Expenses</li>
-                    <li><strong>r_inf</strong>: Inflation Rate</li>
-                    <li><strong>n</strong>: Years until Retirement</li>
-                  </ul>
-                `}
-              />
+
+              {/* RISKS */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  The Two Biggest Risks in Retirement
+                </h3>
+                <WikiText content={riskContent} />
+              </section>
+
+              {/* ALLOCATION */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Recommended Asset Allocation by Age
+                </h3>
+                <WikiText content={allocationContent} />
+              </section>
+
+              {/* 4% RULE */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  The 4% Withdrawal Rule
+                </h3>
+                <p className="text-slate-700">
+                  A widely used guideline stating that you can withdraw
+                  <strong> 4% of your retirement corpus</strong> in the first
+                  year and increase withdrawals with inflation, with a high
+                  probability of your money lasting 30+ years.
+                </p>
+              </section>
+
+              {/* FORMULA */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Retirement Calculation Formula
+                </h3>
+
+                <p className="text-slate-700">
+                  Retirement planning involves estimating future expenses and
+                  calculating the corpus required to sustain them.
+                </p>
+
+                <div className="py-6 overflow-x-auto bg-slate-50 p-4 rounded-lg border border-slate-200">
+                  <BlockMath math="Exp_{future} = Exp_{current} \times (1 + r_{inf})^n" />
+                </div>
+
+                <WikiText
+                  content={`
+        <ul class="text-sm list-disc list-inside text-slate-700">
+          <li><strong>Exp</strong>: Monthly Expenses</li>
+          <li><strong>r_inf</strong>: Inflation Rate</li>
+          <li><strong>n</strong>: Years until Retirement</li>
+        </ul>
+      `}
+                />
+              </section>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>When should I start planning?</summary>
-                  <p>
-                    Ideally, as soon as you start earning. Starting early allows
-                    you to leverage the power of compounding. For example,
-                    starting at 25 vs 35 can double your final corpus with the
-                    same monthly investment.
-                  </p>
-                </details>
-                <details>
-                  <summary>How much inflation should I assume?</summary>
-                  <p>
-                    For India, a long-term inflation rate of 6% is a standard
-                    assumption. However, medical inflation is often higher
-                    (8-10%), so account for that separately.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is NPS mandatory?</summary>
-                  <p>
-                    No, but it is highly recommended for the additional tax
-                    benefit (₹50,000 under 80CCD) and low-cost exposure to
-                    equity and debt markets.
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQs --- */}
+            <section className="article no-print space-y-6">
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Frequently Asked Questions (FAQs)
+              </h2>
+
+              <Accordion type="single" collapsible className="w-full">
+                {RETIREMENT_FAQS.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`faq-${index}`}
+                    className="border-b border-slate-200"
+                  >
+                    <AccordionTrigger className="text-left text-slate-800 font-medium">
+                      {faq.question}
+                    </AccordionTrigger>
+
+                    <AccordionContent className="text-slate-600 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="retire-sidebar" type="box" />
             </div>
+
             <FinancialNavWidget />
           </aside>
         </div>
