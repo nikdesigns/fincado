@@ -22,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Home, ArrowRight } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
 
 export default function HomeLoanPage() {
   const introContent = autoLinkContent(`
-    <p>
+    <p class="mb-4">
       A <strong>Home Loan</strong> is a secured loan provided by banks or NBFCs to purchase,
       construct, or renovate a residential property. In India, home loans offer significant 
       <strong>tax benefits</strong> and long repayment tenures of up to 30 years. Check EMI, eligibility, interest outgo, and tax savings before applying.
@@ -69,14 +70,14 @@ export default function HomeLoanPage() {
   `);
 
   const taxContent = autoLinkContent(`
-    <p>
+    <p class="mb-4">
       Home loans are the best tax-saving instruments in India. You can claim deductions under two sections:
     </p>
-    <ul>
+    <ul class="list-disc list-inside space-y-2 ">
       <li><strong>Section 80C:</strong> Deduction up to ₹1.5 Lakh on <em>Principal Repayment</em>.</li>
       <li><strong>Section 24(b):</strong> Deduction up to ₹2 Lakh on <em>Interest Payment</em> for a self-occupied property.</li>
     </ul>
-    <p>
+    <p class="mt-4">
       Use this calculator to split your EMI into principal and interest components to maximize these claims.
     </p>
   `);
@@ -187,35 +188,34 @@ export default function HomeLoanPage() {
 
             <LiveRateTable type="homeLoan" />
 
-            <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
-              <CardContent className="flex items-start gap-4 p-4 sm:p-6">
-                {/* Icon */}
-                <span className="text-2xl leading-none">🏡</span>
+            {/*Promo Content */}
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-5">
+                {/* Icon Container */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <Home className="h-5 w-5" />
+                </div>
 
                 {/* Content */}
-                <div>
-                  <strong className="block text-base font-semibold text-emerald-800">
+                <div className="flex-1 space-y-1">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     Buying your first home?
                   </strong>
 
                   <Link
                     href="/guides/home-loan-guide"
-                    className="
-              mt-1 inline-block
-              text-sm
-              font-semibold
-              text-emerald-700
-              underline
-              underline-offset-4
-              hover:text-emerald-800
-            "
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
-                    Read our Complete Home Loan Guide (2025 Edition) →
+                    <span>
+                      Read our Complete Home Loan Guide (2025 Edition)
+                    </span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
+            {/* Rich SEO content */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
                 <CardContent className="p-6 sm:p-10 space-y-10">
@@ -265,7 +265,7 @@ export default function HomeLoanPage() {
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul>
+              <ul class="list-disc list-inside space-y-2 text-sm">
                 <li><strong>P</strong> = Principal Loan Amount</li>
                 <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
                 <li><strong>n</strong> = Loan Tenure in Months</li>

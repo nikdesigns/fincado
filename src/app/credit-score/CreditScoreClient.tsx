@@ -1,9 +1,12 @@
-// src/app/credit-score/CreditScoreClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import CalculatorField from '@/components/CalculatorField';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
-// ✅ Interface for custom labels
+/* ---------------- LABELS ---------------- */
+
 interface CreditScoreLabels {
   onTimePayments: string;
   creditUtilization: string;
@@ -21,39 +24,31 @@ interface CreditScoreLabels {
   noChange: string;
   points: string;
   priorityActions: string;
-  actionReduceUtil: string;
-  actionAvoidLoans: string;
-  actionOnTime: string;
-  actionKeepOld: string;
-  actionMaintain: string;
   disclaimer: string;
 }
 
 const DEFAULT_LABELS: CreditScoreLabels = {
   onTimePayments: 'On-Time Payments (%)',
   creditUtilization: 'Credit Utilization (%)',
-  avgAge: 'Avg Age (Yrs)',
-  activeAccounts: 'Active Accounts',
-  recentEnquiries: 'Recent Enquiries',
-  loanMix: 'Loan Mix (%)',
-  hasDefaults: 'Has Defaults',
-  hasSettlements: 'Has Settlements',
-  estimatedScore: 'Estimated Score',
-  improveSimulator: '⚡ Improve Score Simulator',
-  totalCardLimit: 'Total Card Limit',
-  payDownAmount: 'Pay Down Amount',
-  newUtil: 'New Util',
+  avgAge: 'Average Account Age (Years)',
+  activeAccounts: 'Active Credit Accounts',
+  recentEnquiries: 'Recent Enquiries (Last 6 Months)',
+  loanMix: 'Installment Loan Mix (%)',
+  hasDefaults: 'Any Defaults?',
+  hasSettlements: 'Any Settlements?',
+  estimatedScore: 'Estimated Credit Score',
+  improveSimulator: 'Improve Score Simulator',
+  totalCardLimit: 'Total Card Limit (₹)',
+  payDownAmount: 'Pay Down Amount (₹)',
+  newUtil: 'New Utilization',
   noChange: 'No Change',
-  points: 'Points',
-  priorityActions: 'Priority Actions:',
-  actionReduceUtil: 'Reduce utilization below 30%',
-  actionAvoidLoans: 'Avoid applying for new loans',
-  actionOnTime: 'Ensure 100% on-time payments',
-  actionKeepOld: 'Keep old accounts open',
-  actionMaintain: 'Maintain current healthy habits!',
+  points: 'points',
+  priorityActions: 'Priority Actions',
   disclaimer:
-    '*This is an estimated score for educational purposes. Actual CIBIL or Experian scores may vary.',
+    '*This is an estimated score for educational purposes. Actual CIBIL / Experian scores may vary.',
 };
+
+/* ---------------- COMPONENT ---------------- */
 
 export default function CreditScoreClient({
   labels = DEFAULT_LABELS,
@@ -62,245 +57,131 @@ export default function CreditScoreClient({
 }) {
   const t = { ...DEFAULT_LABELS, ...labels };
 
-  // --- STATE ---
-  const [onTimePaymentsPct, setOnTimePaymentsPct] = useState<number>(95);
-  const [creditUtilizationPct, setCreditUtilizationPct] = useState<number>(45);
-  const [numActiveCreditAccounts, setNumActiveCreditAccounts] =
-    useState<number>(3);
-  const [avgAccountAgeYears, setAvgAccountAgeYears] = useState<number>(5);
-  const [numRecentEnquiries, setNumRecentEnquiries] = useState<number>(2);
-  const [percentInstallmentLoans, setPercentInstallmentLoans] =
-    useState<number>(50); // Mix
+  /* ---------------- STATE ---------------- */
 
-  const [hasDefaults, setHasDefaults] = useState<boolean>(false);
-  const [hasSettlements, setHasSettlements] = useState<boolean>(false);
+  const [onTimePayments, setOnTimePayments] = useState(95);
+  const [utilization, setUtilization] = useState(45);
+  const [avgAge, setAvgAge] = useState(5);
+  const [accounts, setAccounts] = useState(3);
+  const [enquiries, setEnquiries] = useState(2);
+  const [loanMix, setLoanMix] = useState(50);
 
-  // What-If Paydown State
-  const [paydownAmount, setPaydownAmount] = useState<number>(0);
-  const [totalCardLimit, setTotalCardLimit] = useState<number>(200000);
+  const [hasDefaults, setHasDefaults] = useState(false);
+  const [hasSettlements, setHasSettlements] = useState(false);
 
-  // --- HELPER: Range Background ---
-  const getRangeBackground = (
-    val: number,
-    min: number,
-    max: number,
-    color = '#2563eb'
-  ) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
+  const [totalLimit, setTotalLimit] = useState(200000);
+  const [payDown, setPayDown] = useState(0);
+
+  /* ---------------- SCORE CALC ---------------- */
+
+  const getScoreColorClass = (score: number) => {
+    if (score >= 750) return 'text-emerald-600';
+    if (score >= 650) return 'text-orange-500';
+    return 'text-red-600';
   };
 
-  // --- CALCULATIONS: Score Estimate ---
-  const scoreEstimate = useMemo(() => {
-    let score = 300; // Base
+  const score = useMemo(() => {
+    let s = 300;
 
-    // 1. Payment History (35%) -> Max ~210 pts
-    const payFactor = onTimePaymentsPct / 100;
-    score += Math.round(210 * payFactor);
+    s += Math.round((onTimePayments / 100) * 210);
 
-    // 2. Utilization (30%) -> Max ~180 pts
-    const util = Math.min(100, Math.max(0, creditUtilizationPct));
-    let utilScore = 0;
-    if (util <= 20) utilScore = 180;
-    else utilScore = Math.round(Math.max(0, 180 * (1 - (util - 20) / 80)));
-    score += utilScore;
+    if (utilization <= 20) s += 180;
+    else s += Math.max(0, Math.round(180 * (1 - (utilization - 20) / 80)));
 
-    // 3. Length of History (15%) -> Max ~90 pts
-    const lengthScore = Math.round(Math.min(1, avgAccountAgeYears / 10) * 90);
-    score += lengthScore;
+    s += Math.min(90, Math.round((avgAge / 10) * 90));
+    s -= Math.min(60, enquiries * 6);
+    s += Math.round((loanMix / 100) * 60);
 
-    // 4. New Credit / Enquiries (10%) -> Penalty
-    const enquiriesPenalty = Math.round(
-      Math.min(1, numRecentEnquiries / 10) * 60
-    );
-    score -= enquiriesPenalty;
+    if (accounts >= 1 && accounts <= 5) s += 20;
+    if (hasDefaults) s -= 150;
+    if (hasSettlements) s -= 80;
 
-    // 5. Credit Mix (10%) -> Max ~60 pts
-    const mixScore = Math.round((percentInstallmentLoans / 100) * 60);
-    score += mixScore;
-
-    // 6. Active Accounts Bonus/Penalty
-    if (numActiveCreditAccounts >= 1 && numActiveCreditAccounts <= 5)
-      score += 20;
-    else if (numActiveCreditAccounts > 8) score -= 10;
-
-    // 7. Negative Marks
-    if (hasDefaults) score -= 150;
-    if (hasSettlements) score -= 80;
-
-    return Math.max(300, Math.min(900, score));
+    return Math.max(300, Math.min(900, s));
   }, [
-    onTimePaymentsPct,
-    creditUtilizationPct,
-    avgAccountAgeYears,
-    numRecentEnquiries,
-    percentInstallmentLoans,
-    numActiveCreditAccounts,
+    onTimePayments,
+    utilization,
+    avgAge,
+    enquiries,
+    loanMix,
+    accounts,
     hasDefaults,
     hasSettlements,
   ]);
 
-  // --- CALCULATIONS: What-If Paydown ---
-  const paydownAnalysis = useMemo(() => {
-    const currentBalance = Math.round(
-      (creditUtilizationPct / 100) * totalCardLimit
-    );
-    const newBalance = Math.max(0, currentBalance - paydownAmount);
-    const newUtilPct =
-      totalCardLimit > 0 ? Math.round((newBalance / totalCardLimit) * 100) : 0;
+  const scoreLabel =
+    score >= 750 ? 'Excellent' : score >= 650 ? 'Good' : 'Poor';
 
-    // Calculate Util Score Delta
-    const getUtilScore = (u: number) =>
-      u <= 20 ? 180 : Math.round(Math.max(0, 180 * (1 - (u - 20) / 80)));
-    const currentUtilScore = getUtilScore(creditUtilizationPct);
-    const newUtilScore = getUtilScore(newUtilPct);
+  /* ---------------- PAYDOWN SIM ---------------- */
 
-    const scoreImprovement = newUtilScore - currentUtilScore;
+  const newUtil = useMemo(() => {
+    const balance = (utilization / 100) * totalLimit;
+    const newBal = Math.max(0, balance - payDown);
+    return totalLimit > 0 ? Math.round((newBal / totalLimit) * 100) : 0;
+  }, [utilization, totalLimit, payDown]);
 
-    return { currentBalance, newBalance, newUtilPct, scoreImprovement };
-  }, [creditUtilizationPct, totalCardLimit, paydownAmount]);
-
-  // Helper score band color
-  const getScoreColor = (s: number) => {
-    if (s >= 750) return '#16a34a'; // Green
-    if (s >= 650) return '#ea580c'; // Orange
-    return '#dc2626'; // Red
-  };
-
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
+  /* ---------------- UI ---------------- */
 
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
-        <div className="calc-inputs">
-          {/* Payment History */}
-          <div className="input-group">
-            <label>
-              {t.onTimePayments}{' '}
-              <span style={{ fontSize: 11, color: '#666' }}>(Last 24 mo)</span>
-            </label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={onTimePaymentsPct}
-                onChange={numSetter(setOnTimePaymentsPct)}
-                min={0}
-                max={100}
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={onTimePaymentsPct}
-              onChange={numSetter(setOnTimePaymentsPct)}
-              style={{
-                background: getRangeBackground(
-                  onTimePaymentsPct,
-                  0,
-                  100,
-                  '#16a34a'
-                ),
-              }}
-            />
-          </div>
+    <Card className="calculator-card">
+      <CardContent className="calc-grid">
+        {/* -------- INPUTS -------- */}
+        <div className="calc-inputs space-y-5">
+          <CalculatorField
+            label={t.onTimePayments}
+            value={onTimePayments}
+            min={0}
+            max={100}
+            step={1}
+            onChange={setOnTimePayments}
+          />
 
-          {/* Utilization */}
-          <div className="input-group">
-            <label>
-              {t.creditUtilization}{' '}
-              <span style={{ fontSize: 11, color: '#666' }}>
-                (Total Used / Limit)
-              </span>
-            </label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={creditUtilizationPct}
-                onChange={numSetter(setCreditUtilizationPct)}
-                min={0}
-                max={100}
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={creditUtilizationPct}
-              onChange={numSetter(setCreditUtilizationPct)}
-              style={{
-                background: getRangeBackground(
-                  creditUtilizationPct,
-                  0,
-                  100,
-                  '#dc2626'
-                ),
-              }}
-            />
-          </div>
+          <CalculatorField
+            label={t.creditUtilization}
+            value={utilization}
+            min={0}
+            max={100}
+            step={1}
+            onChange={setUtilization}
+          />
 
-          {/* Account Details */}
-          <div style={{ display: 'flex', gap: 16 }}>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.avgAge}</label>
-              <input
-                className="input-small"
-                type="number"
-                value={avgAccountAgeYears}
-                onChange={numSetter(setAvgAccountAgeYears)}
-              />
-            </div>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.activeAccounts}</label>
-              <input
-                className="input-small"
-                type="number"
-                value={numActiveCreditAccounts}
-                onChange={numSetter(setNumActiveCreditAccounts)}
-              />
-            </div>
-          </div>
+          <CalculatorField
+            label={t.avgAge}
+            value={avgAge}
+            min={0}
+            max={30}
+            step={1}
+            onChange={setAvgAge}
+          />
 
-          <div style={{ display: 'flex', gap: 16 }}>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.recentEnquiries}</label>
-              <input
-                className="input-small"
-                type="number"
-                value={numRecentEnquiries}
-                onChange={numSetter(setNumRecentEnquiries)}
-              />
-            </div>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.loanMix}</label>
-              <input
-                className="input-small"
-                type="number"
-                value={percentInstallmentLoans}
-                onChange={numSetter(setPercentInstallmentLoans)}
-                title="% of Installment loans vs Cards"
-              />
-            </div>
-          </div>
+          <CalculatorField
+            label={t.activeAccounts}
+            value={accounts}
+            min={0}
+            max={20}
+            step={1}
+            onChange={setAccounts}
+          />
 
-          {/* Negative Marks */}
-          <div
-            style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}
-          >
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: 13,
-                cursor: 'pointer',
-              }}
-            >
+          <CalculatorField
+            label={t.recentEnquiries}
+            value={enquiries}
+            min={0}
+            max={20}
+            step={1}
+            onChange={setEnquiries}
+          />
+
+          <CalculatorField
+            label={t.loanMix}
+            value={loanMix}
+            min={0}
+            max={100}
+            step={5}
+            onChange={setLoanMix}
+          />
+
+          <div className="flex gap-4">
+            <label className="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
                 checked={hasDefaults}
@@ -308,15 +189,8 @@ export default function CreditScoreClient({
               />
               {t.hasDefaults}
             </label>
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: 13,
-                cursor: 'pointer',
-              }}
-            >
+
+            <label className="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
                 checked={hasSettlements}
@@ -327,176 +201,70 @@ export default function CreditScoreClient({
           </div>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
-        <div className="calc-visuals">
-          {/* Score Guage / Display */}
-          <div
-            style={{
-              textAlign: 'center',
-              padding: 20,
-              background: '#fff',
-              borderRadius: 12,
-              border: '1px solid #e5e7eb',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
-            }}
-          >
-            <div style={{ fontSize: 14, color: '#6b7280', marginBottom: 8 }}>
+        {/* -------- RESULTS -------- */}
+        <div className="calc-visuals space-y-6">
+          <Card className="p-6 text-center">
+            <div className="text-sm text-slate-500 mb-1">
               {t.estimatedScore}
             </div>
-            <div
-              style={{
-                fontSize: 48,
-                fontWeight: 800,
-                color: getScoreColor(scoreEstimate),
-                lineHeight: 1,
-              }}
-            >
-              {scoreEstimate}
-            </div>
-            <div
-              style={{
-                marginTop: 8,
-                display: 'inline-block',
-                padding: '4px 12px',
-                borderRadius: 20,
-                background: getScoreColor(scoreEstimate) + '20',
-                color: getScoreColor(scoreEstimate),
-                fontWeight: 600,
-                fontSize: 13,
-              }}
-            >
-              {scoreEstimate >= 750
-                ? 'Excellent'
-                : scoreEstimate >= 650
-                ? 'Good'
-                : 'Poor'}
-            </div>
-          </div>
-
-          {/* What-If Simulator */}
-          <div
-            style={{
-              marginTop: 24,
-              padding: 16,
-              background: '#f8fafc',
-              borderRadius: 8,
-              border: '1px solid #e2e8f0',
-            }}
-          >
-            <div
-              style={{
-                fontSize: 14,
-                fontWeight: 600,
-                color: '#334155',
-                marginBottom: 12,
-              }}
-            >
-              {t.improveSimulator}
-            </div>
 
             <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                marginBottom: 12,
-              }}
+              className={`text-5xl font-extrabold leading-none ${getScoreColorClass(
+                score
+              )}`}
             >
-              <div>
-                <label style={{ fontSize: 11, color: '#64748b' }}>
-                  {t.totalCardLimit}
-                </label>
-                <input
-                  type="number"
-                  value={totalCardLimit}
-                  onChange={numSetter(setTotalCardLimit)}
-                  style={{
-                    width: '100%',
-                    padding: 6,
-                    borderRadius: 4,
-                    border: '1px solid #cbd5e1',
-                  }}
-                />
-              </div>
-              <div>
-                <label style={{ fontSize: 11, color: '#64748b' }}>
-                  {t.payDownAmount}
-                </label>
-                <input
-                  type="number"
-                  value={paydownAmount}
-                  onChange={numSetter(setPaydownAmount)}
-                  style={{
-                    width: '100%',
-                    padding: 6,
-                    borderRadius: 4,
-                    border: '1px solid #cbd5e1',
-                  }}
-                />
-              </div>
+              {score}
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                fontSize: 13,
-              }}
-            >
-              <div>
-                {t.newUtil}: <strong>{paydownAnalysis.newUtilPct}%</strong>
-              </div>
-              <div
-                style={{
-                  color:
-                    paydownAnalysis.scoreImprovement > 0
-                      ? '#16a34a'
-                      : '#64748b',
-                  fontWeight: 600,
-                }}
+            <div className="mt-3 flex justify-center">
+              <Badge
+                className={
+                  score >= 750
+                    ? 'bg-emerald-100 text-emerald-700'
+                    : score >= 650
+                    ? 'bg-orange-100 text-orange-700'
+                    : 'bg-red-100 text-red-700'
+                }
               >
-                {paydownAnalysis.scoreImprovement > 0
-                  ? `+${paydownAnalysis.scoreImprovement} ${t.points}`
-                  : t.noChange}
-              </div>
+                {scoreLabel}
+              </Badge>
             </div>
-          </div>
+          </Card>
 
-          {/* Action Checklist */}
-          <div style={{ marginTop: 16 }}>
-            <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              {t.priorityActions}
+          <Card className="p-5 bg-slate-50">
+            <div className="font-semibold mb-4">{t.improveSimulator}</div>
+
+            <CalculatorField
+              label={t.totalCardLimit}
+              value={totalLimit}
+              min={0}
+              max={5000000}
+              step={10000}
+              onChange={setTotalLimit}
+            />
+
+            <CalculatorField
+              label={t.payDownAmount}
+              value={payDown}
+              min={0}
+              max={totalLimit}
+              step={5000}
+              onChange={setPayDown}
+            />
+
+            <div className="flex justify-between text-sm mt-2">
+              <span>
+                {t.newUtil}: <strong>{newUtil}%</strong>
+              </span>
+              <span className="text-emerald-600 font-semibold">
+                {newUtil < utilization ? `+${t.points}` : t.noChange}
+              </span>
             </div>
-            <ul
-              style={{
-                fontSize: 12,
-                color: '#475569',
-                paddingLeft: 20,
-                margin: 0,
-              }}
-            >
-              {creditUtilizationPct > 30 && <li>{t.actionReduceUtil}</li>}
-              {numRecentEnquiries > 2 && <li>{t.actionAvoidLoans}</li>}
-              {onTimePaymentsPct < 100 && <li>{t.actionOnTime}</li>}
-              {avgAccountAgeYears < 2 && <li>{t.actionKeepOld}</li>}
-              {creditUtilizationPct <= 30 &&
-                numRecentEnquiries <= 2 &&
-                onTimePaymentsPct === 100 && <li>{t.actionMaintain}</li>}
-            </ul>
-          </div>
+          </Card>
+
+          <p className="text-xs text-slate-500">{t.disclaimer}</p>
         </div>
-      </div>
-      <p
-        style={{
-          fontSize: 12,
-          color: '#475569',
-          paddingLeft: 20,
-          marginTop: 10,
-        }}
-      >
-        {t.disclaimer}
-      </p>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

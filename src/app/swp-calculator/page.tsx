@@ -85,7 +85,7 @@ export default function SWPPage() {
       sum of money from their <strong>Mutual Fund</strong> investments at regular intervals 
       (monthly, quarterly, or annually).
     </p>
-    <p>
+    <p class="mt-2">
       It is essentially the reverse of an <strong>SIP</strong>. While SIP is for wealth accumulation, 
       SWP is for wealth distribution, making it the gold standard for retirees looking for a 
       regular "pension-like" income from their corpus.
@@ -97,7 +97,7 @@ export default function SWPPage() {
       SWP is highly tax-efficient because you are not taxed on the entire withdrawal amount—only on 
       the <strong>Capital Gains</strong> portion of it.
     </p>
-    <ul class="list-disc pl-5">
+    <ul class="list-disc pl-5 space-y-2 mt-2">
       <li><strong>Equity Funds (LTCG):</strong> If held for >1 year, gains above ₹1.25 Lakh/year are taxed at <strong>12.5%</strong>.</li>
       <li><strong>Debt Funds:</strong> Taxed as per your income tax slab (no indexation benefit for fresh investments after April 2023).</li>
     </ul>
@@ -419,7 +419,7 @@ export default function SWPPage() {
 
                 <WikiText
                   content={`
-        <ul class="list-disc pl-5">
+        <ul class="list-disc pl-5 text-sm">
           <li><strong>Bal</strong>: Final Balance</li>
           <li><strong>P</strong>: Initial Investment</li>
           <li><strong>W</strong>: Monthly Withdrawal</li>
@@ -438,7 +438,7 @@ export default function SWPPage() {
 
                 <WikiText
                   content={`
-        <ul class="list-disc pl-5">
+        <ul class="list-disc pl-5 space-y-2">
           <li><strong>Tax Efficient:</strong> Capital gains tax is lower than FD interest.</li>
           <li><strong>Flexible:</strong> Pause, stop, or change withdrawals anytime.</li>
           <li><strong>Cost Averaging:</strong> Units are sold gradually over market cycles.</li>

@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from '@/components/ui/accordion';
+import { Building2, FileText, TrendingUp, ShieldCheck } from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -311,112 +312,63 @@ export default function Home(): JSX.Element {
         </section>
 
         {/* --- TRUST STRIP (New Section) --- */}
-        <section>
-          <div className="container">
-            <Card
-              className="
-                border
-                border-slate-200
-                bg-white
-                px-6
-                py-6
-                md:px-8
-                md:py-8
-              "
-            >
-              <div className="flex flex-col items-center gap-6 text-center">
-                {/* TRUST BADGE */}
-                <Badge
-                  variant="secondary"
-                  className="
-            flex items-center gap-2
-            px-4 py-1.5
-            text-sm
-            font-semibold
-            text-slate-800
-          "
-                >
-                  <span className="text-lg">🇮🇳</span>
-                  Trusted by Indian Investors
-                </Badge>
+        <section className="py-10">
+          <div className="container px-4 md:px-6">
+            <Card className="relative overflow-hidden border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
+              {/* Decorative Top Accent Line (Brand Green Gradient) */}
+              <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-transparent via-[#489719] to-transparent opacity-80" />
 
-                {/* DIVIDER (kept semantic role) */}
-                <div className="h-px w-16 bg-slate-200" />
-
-                {/* TRUST TAGS */}
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                  <span
-                    className="
-             
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-slate-200
-              bg-slate-50
-              px-4
-              py-2
-              text-sm
-              font-medium
-              text-slate-700
-            "
+              <CardContent className="flex flex-col items-center gap-8 px-6 py-10 md:px-10">
+                {/* TOP ROW: Badge + Divider + Tags */}
+                <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
+                  {/* TRUST BADGE */}
+                  <Badge
+                    variant="outline"
+                    className="flex items-center gap-2 rounded-full border-slate-200 bg-slate-50/50 px-4 py-2 text-sm font-semibold text-slate-800 backdrop-blur-sm"
                   >
-                    <Icon name="homeLoan" className="trust-icon h-4 w-4" />
-                    Loans
-                  </span>
+                    <span className="text-base">🇮🇳</span>
+                    <span>Trusted by Indian Investors</span>
+                  </Badge>
 
-                  <span
-                    className="
-              trust-tag
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-slate-200
-              bg-slate-50
-              px-4
-              py-2
-              text-sm
-              font-medium
-              text-slate-700
-            "
-                  >
-                    <Icon name="tax" className="trust-icon h-4 w-4" />
-                    Tax Planning
-                  </span>
+                  {/* VERTICAL DIVIDER (Hidden on mobile, visible on desktop) */}
+                  <div className="hidden h-8 w-px bg-slate-200 md:block" />
 
-                  <span
-                    className="
-             
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-slate-200
-              bg-slate-50
-              px-4
-              py-2
-              text-sm
-              font-medium
-              text-slate-700
-            "
-                  >
-                    <Icon name="sip" className="trust-icon h-4 w-4" />
-                    Investments
-                  </span>
+                  {/* TRUST TAGS */}
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <TrustTag
+                      icon={<Building2 className="h-4 w-4" />}
+                      label="Loans"
+                    />
+                    <TrustTag
+                      icon={<FileText className="h-4 w-4" />}
+                      label="Tax Planning"
+                    />
+                    <TrustTag
+                      icon={<TrendingUp className="h-4 w-4" />}
+                      label="Investments"
+                    />
+                  </div>
                 </div>
 
-                {/* ENTITY / SEO TEXT (UNCHANGED) */}
-                <p className="homepage-entity max-w-3xl text-sm leading-relaxed text-slate-600">
-                  Fincado is a free financial calculator platform for India,
-                  helping users calculate EMI, SIP returns, income tax,
-                  retirement corpus, and investment growth using bank-grade
-                  formulas.
-                </p>
-              </div>
+                {/* Horizontal Separator */}
+                <div className="h-px w-24 bg-slate-100" />
+
+                {/* CONTENT / SEO TEXT */}
+                <div className="max-w-3xl text-center space-y-3">
+                  {/* Small Eyebrow Header */}
+                  <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#489719]">
+                    <ShieldCheck className="h-4 w-4" />
+                    <span>Bank-Grade Formulas</span>
+                  </div>
+
+                  <p className="homepage-entity text-[15px] leading-relaxed text-slate-600 md:text-base">
+                    Fincado is a free financial calculator platform for India,
+                    helping users calculate EMI, SIP returns, income tax,
+                    retirement corpus, and investment growth using verified
+                    banking formulas.
+                  </p>
+                </div>
+              </CardContent>
             </Card>
           </div>
         </section>
@@ -867,5 +819,17 @@ function ToolCard({
       <h3 className="tool-title">{title}</h3>
       <p className="tool-desc">{desc}</p>
     </Link>
+  );
+}
+
+// Helper Component for the Tags to keep code clean
+function TrustTag({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <div className="group flex cursor-default items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-all hover:border-[#489719]/30 hover:bg-[#489719]/5 hover:text-slate-900">
+      <span className="text-slate-400 transition-colors group-hover:text-[#489719]">
+        {icon}
+      </span>
+      {label}
+    </div>
   );
 }

@@ -67,7 +67,7 @@ export default function LumpsumPage() {
       in a single transaction rather than smaller recurring payments. This method is popular 
       for <strong>Mutual Funds</strong>, Fixed Deposits, and stocks.
     </p>
-    <p>
+    <p class="mt-2">
       The primary advantage is that the entire capital starts earning returns from Day 1, 
       maximizing the power of <strong>Compounding</strong> over long durations. However, it carries 
       higher risk if invested during a market peak.
@@ -439,7 +439,7 @@ export default function LumpsumPage() {
 
                 <WikiText
                   content={`
-        <ul class="mt-2 list-disc list-inside">
+        <ul class="mt-2 list-disc list-inside text-sm">
           <li><strong>FV</strong>: Future Value</li>
           <li><strong>P</strong>: Initial Investment</li>
           <li><strong>r</strong>: Annual Rate of Return</li>
@@ -457,7 +457,7 @@ export default function LumpsumPage() {
 
                 <WikiText
                   content={`
-        <ul class="mt-2 list-disc list-inside">
+        <ul class="mt-2 list-disc list-inside space-y-2">
           <li><strong>Instant Market Exposure:</strong> Your entire capital starts compounding from day one.</li>
           <li><strong>Simple Execution:</strong> One-time investment with no monthly tracking.</li>
           <li><strong>Ideal for Low Volatility Assets:</strong> Works well with debt funds and FDs.</li>

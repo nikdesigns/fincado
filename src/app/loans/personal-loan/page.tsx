@@ -22,6 +22,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import { Banknote, ArrowRight } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -58,7 +59,7 @@ export default function PersonalLoanPage() {
       provided by financial institutions to help you meet immediate financial needs. 
       Unlike home or car loans, it is not restricted to a specific purpose.
     </p>
-    <p>
+    <p class="mt-4">
       Because it is "unsecured," you do not need to pledge any <strong>collateral</strong> 
       (like property or gold). The approval is based primarily on your <strong>Credit Score</strong>, 
       income stability, and repayment capacity.
@@ -66,7 +67,7 @@ export default function PersonalLoanPage() {
   `);
 
   const eligibilityContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Employment:</strong> Salaried (MNC/Pvt Ltd/Govt) or Self-Employed.</li>
       <li><strong>Age:</strong> 21 to 60 years.</li>
       <li><strong>Credit Score:</strong> A CIBIL score of <strong>750+</strong> gets the best rates.</li>
@@ -205,35 +206,32 @@ export default function PersonalLoanPage() {
 
             <LiveRateTable type="personalLoan" />
 
-            <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
-              <CardContent className="flex items-start gap-4 p-4 sm:p-6">
-                {/* Icon */}
-                <span className="text-2xl leading-none">💸</span>
+            {/* Promo Content */}
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-5">
+                {/* Icon Container */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <Banknote className="h-5 w-5" />
+                </div>
 
                 {/* Content */}
-                <div>
-                  <strong className="block text-base font-semibold text-emerald-800">
+                <div className="flex-1 space-y-1">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     Need a loan quickly?
                   </strong>
 
                   <Link
                     href="/guides/personal-loan-guide"
-                    className="
-          mt-1 inline-block
-          text-sm
-          font-semibold
-          text-emerald-700
-          underline
-          underline-offset-4
-          hover:text-emerald-800
-        "
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
-                    Read our Guide: How to Get Approved Instantly →
+                    <span>Read our Guide: How to Get Approved Instantly</span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
+            {/* Rich seo content */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
                 <CardContent className="p-6 sm:p-10 space-y-10">
@@ -325,14 +323,14 @@ export default function PersonalLoanPage() {
                       reducing balance formula:
                     </p>
 
-                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <div className="overflow-x-auto text-sm rounded-lg border border-slate-200 bg-slate-50 p-4">
                       <BlockMath math="EMI = \frac{P \times R \times (1+R)^N}{(1+R)^N - 1}" />
                     </div>
 
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul>
+              <ul class="list-disc list-inside space-y-2 text-xs">
                 <li><strong>P</strong> = Loan Amount (Principal)</li>
                 <li><strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
                 <li><strong>N</strong> = Loan Tenure in Months</li>
@@ -356,7 +354,7 @@ export default function PersonalLoanPage() {
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText
                         content={`
-              <ul>
+              <ul class="list-disc list-inside space-y-2">
                 <li><strong>No Collateral Required:</strong> Your assets remain untouched.</li>
                 <li><strong>Quick Disbursal:</strong> Funds often credited within 24–48 hours.</li>
                 <li><strong>Flexible Usage:</strong> Weddings, travel, medical needs, or emergencies.</li>

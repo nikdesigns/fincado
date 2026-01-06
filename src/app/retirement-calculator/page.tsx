@@ -85,7 +85,7 @@ export default function RetirementPage() {
       <strong>Retirement Planning</strong> is the process of estimating your future income needs 
       and setting aside enough capital today to meet those needs when you stop working.
     </p>
-    <p>
+    <p class="mt-2">
       It is not just about saving; it's about investing wisely to beat <strong>Inflation</strong> 
       so that your corpus lasts as long as you do. Modern planning also includes concepts like 
       <strong>FIRE (Financial Independence, Retire Early)</strong>.

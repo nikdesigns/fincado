@@ -104,7 +104,7 @@ export default function SSYPage() {
       <strong>Partial Withdrawal:</strong> You can withdraw up to 50% of the balance for the girl's 
       higher education once she turns 18 or passes 10th standard.
     </p>
-    <p>
+    <p class="mt-2">
       <strong>Full Maturity:</strong> The account matures 21 years after opening. However, it can be 
       closed earlier if the girl gets married after turning 18.
     </p>

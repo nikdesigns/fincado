@@ -51,11 +51,11 @@ export const metadata: Metadata = {
 
 export default function ELSSPage() {
   const introContent = autoLinkContent(`
-    <p>
+    <p class="mt-4">
       An <strong>ELSS (Equity Linked Savings Scheme)</strong> is the only type of Mutual Fund that qualifies for 
       tax deduction under <strong>Section 80C</strong> of the Income Tax Act.
     </p>
-    <p>
+    <p class="mt-4">
       It serves a dual purpose: <strong>Tax Saving</strong> and <strong>Wealth Creation</strong>. 
       You can claim a deduction of up to ₹1.5 Lakh per year, potentially saving up to ₹46,800 in taxes 
       (for the 30% tax bracket).
@@ -63,7 +63,7 @@ export default function ELSSPage() {
   `);
 
   const featuresContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2 mt-4 pl-2">
       <li><strong>Lock-in Period:</strong> 3 Years (Shortest among all 80C options like PPF or FD).</li>
       <li><strong>Potential Returns:</strong> 12% - 15% (Historically higher than PPF/FD).</li>
       <li><strong>Investment Mode:</strong> SIP (Systematic Investment Plan) or Lump Sum.</li>
@@ -167,7 +167,7 @@ export default function ELSSPage() {
           </h1>
 
           {/* Intro */}
-          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+          <div className="max-w-3xl text-slate-600 text-base leading-relaxed mt-2">
             <WikiText
               content={`
         <p>

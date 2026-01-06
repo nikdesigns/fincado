@@ -58,7 +58,7 @@ export default function SIPPage() {
       <strong>Mutual Funds</strong>. It allows you to invest a fixed amount regularly (monthly or quarterly), 
       helping you build wealth over the long term through the power of compounding.
     </p>
-    <p>
+    <p class="mt-2">
       SIPs work on the principle of <strong>Rupee Cost Averaging</strong>—you buy more units when the market 
       is low and fewer units when the market is high, averaging out your cost of investment.
     </p>
@@ -69,7 +69,7 @@ export default function SIPPage() {
       Unlike loans, there are no strict eligibility criteria based on income or credit score. 
       Any individual can start a SIP if they meet these basic requirements:
     </p>
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>KYC Compliant:</strong> You must have a PAN Card and be KYC verified.</li>
       <li><strong>Bank Account:</strong> An active savings account is needed for auto-debit mandates.</li>
       <li><strong>Minimum Age:</strong> Anyone above 18 years can invest. Parents can also invest in the name of a minor.</li>
@@ -81,14 +81,14 @@ export default function SIPPage() {
       SIP returns are taxed based on the type of mutual fund (Equity vs Debt) and the holding period. 
       For <strong>Equity Mutual Funds</strong> (holding > 65% in stocks):
     </p>
-    <ul>
+    <ul class="list-disc list-inside space-y-2 mt-2">
       <li><strong>Short Term (STCG):</strong> If sold before 1 year, gains are taxed at 20%.</li>
       <li><strong>Long Term (LTCG):</strong> If sold after 1 year, gains above ₹1.25 Lakh/year are taxed at 12.5%.</li>
     </ul>
   `);
 
   const advantagesContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Rupee Cost Averaging:</strong> Automatically buy low and sell high.</li>
       <li><strong>Disciplined Savings:</strong> Auto-debit ensures you save first, spend later.</li>
       <li><strong>Flexibility:</strong> You can pause, stop, or increase (step-up) your investment amount anytime.</li>
@@ -311,7 +311,7 @@ export default function SIPPage() {
 
                     {/* Advantage Grid — SAME SYSTEM AS OTHER PAGES */}
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Card className="border-slate-200">
+                      <Card className="border-slate-200 bg-slate-50">
                         <CardContent className="p-4">
                           <h4 className="font-semibold text-slate-900 mb-1">
                             Visualize Growth
@@ -323,7 +323,7 @@ export default function SIPPage() {
                         </CardContent>
                       </Card>
 
-                      <Card className="border-slate-200">
+                      <Card className="border-slate-200 bg-slate-50">
                         <CardContent className="p-4">
                           <h4 className="font-semibold text-slate-900 mb-1">
                             Goal Mapping
@@ -335,7 +335,7 @@ export default function SIPPage() {
                         </CardContent>
                       </Card>
 
-                      <Card className="border-slate-200">
+                      <Card className="border-slate-200 bg-slate-50">
                         <CardContent className="p-4">
                           <h4 className="font-semibold text-slate-900 mb-1">
                             Inflation Awareness
@@ -378,14 +378,14 @@ export default function SIPPage() {
                     </div>
 
                     {/* Formula Box — EXACT EMI STYLE */}
-                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <div className="overflow-x-auto text-sm rounded-lg border border-slate-200 bg-slate-50 p-4 ">
                       <BlockMath math="FV = P \\times \\frac{(1 + i)^n - 1}{i} \\times (1 + i)" />
                     </div>
 
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul>
+              <ul class="list-disc list-inside space-y-2 text-xs sm:text-sm">
                 <li><strong>FV</strong> = Future Value</li>
                 <li><strong>P</strong> = Monthly Investment Amount</li>
                 <li><strong>i</strong> = Monthly Rate (Annual Rate ÷ 1200)</li>

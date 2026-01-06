@@ -14,6 +14,22 @@ import { autoLinkContent } from '@/utils/autoLinker';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import LanguageToggle from '@/components/LanguageToggle';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Card, CardContent } from '@/components/ui/card';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -39,6 +55,24 @@ export const metadata: Metadata = {
   },
 };
 
+const faqItems = [
+  {
+    question: 'Which investments offer compound interest?',
+    answer:
+      'Most long-term investments use compounding, including Fixed Deposits, Mutual Funds (Growth), PPF, and EPF.',
+  },
+  {
+    question: 'How can I maximize the power of compounding?',
+    answer:
+      'Start early, stay invested for long periods, reinvest returns, and prefer higher compounding frequency such as monthly.',
+  },
+  {
+    question: 'Is compound interest better than simple interest?',
+    answer:
+      'Yes. Compound interest earns interest on both principal and accumulated interest, resulting in much higher returns over time.',
+  },
+];
+
 /* ---------------- PAGE ---------------- */
 
 export default function CompoundInterestPage() {
@@ -48,7 +82,7 @@ export default function CompoundInterestPage() {
       Simple Interest, where you earn interest only on the principal, Compound Interest allows you 
       to earn <strong>interest on interest</strong>.
     </p>
-    <p>
+    <p class="mt-2">
       This compounding effect causes your wealth to grow exponentially over time, making it the 
       most powerful concept in finance and investing.
     </p>
@@ -63,40 +97,11 @@ export default function CompoundInterestPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the Compound Interest Formula?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'A = P(1 + r/n)^(nt), where P is principal, r is rate, n is compounding frequency, and t is time in years.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How is it different from Simple Interest?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'In Simple Interest, you earn interest only on the initial principal. In Compound Interest, the interest earned is added back to the principal, so you earn interest on that too.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the Rule of 72?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the interest rate to get the years. Example: 72 / 12% = 6 Years.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -111,185 +116,241 @@ export default function CompoundInterestPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/compound-interest-calculator" />
-          <h1>Compound Interest Calculator</h1>
-          <ShareTools title="Compound Interest Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="ci-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Compound Interest Calculator" />
+            <LanguageToggle path="/hi/compound-interest-calculator" />
           </div>
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Calculate the future value of your investments with monthly, quarterly, or yearly compounding. 
-              Visualize the magic of exponential growth.
-            </p>
-          `}
-          />
+
+          {/* Title */}
+          <h1 className="mb-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
+            Compound Interest Calculator
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Monthly • Quarterly • Yearly Compounding
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="mb-4 text-sm text-slate-500">
+            Visualise long-term wealth creation with exponential growth
+          </p>
+
+          {/* Intro */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Calculate the future value of your investments using
+          <strong> monthly, quarterly, or yearly compounding</strong>.
+          Understand how compounding accelerates wealth over time compared to simple interest.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <CompoundInterestClient />
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="ci-after-calc" type="banner" />
             </div>
 
             {/* ✅ Live Rates (FD/RD Context) */}
             <LiveRateTable type="fixedDeposit" />
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            <div className="no-print my-10">
               <AdSlot id="ci-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is Compound Interest?</h2>
-              <WikiText content={introContent} />
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="article content-for-seo no-print space-y-8">
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  What is Compound Interest?
+                </h2>
+                <WikiText content={introContent} />
+              </section>
 
-              <h3>The Formula Explained</h3>
-              <p>
-                The mathematical formula used to calculate the final amount (A)
-                is:
-              </p>
+              {/* --- FORMULA --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  The Formula Explained
+                </h3>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="A = P \left(1 + \frac{r}{n}\right)^{nt}" />
-              </div>
+                <p>
+                  The mathematical formula used to calculate the final amount (
+                  <strong>A</strong>) is:
+                </p>
 
-              <WikiText
-                content={`
-                  <ul style="font-size: 14px;">
-                    <li><strong>P</strong>: Principal Amount (Initial Investment)</li>
-                    <li><strong>r</strong>: Annual Interest Rate (decimal, e.g., 0.10 for 10%)</li>
-                    <li><strong>n</strong>: Number of times interest is compounded per year</li>
-                    <li><strong>t</strong>: Time period in years</li>
-                  </ul>
-                `}
-              />
+                <div className="overflow-x-auto py-4 bg-slate-50 px-4 rounded-md">
+                  <BlockMath math="A = P \left(1 + \frac{r}{n}\right)^{nt}" />
+                </div>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
+                <WikiText
+                  content={`
+        <ul class="list-disc pl-5 space-y-2 text-sm">
+          <li><strong>P</strong>: Principal Amount (Initial Investment)</li>
+          <li><strong>r</strong>: Annual Interest Rate (decimal)</li>
+          <li><strong>n</strong>: Compounding frequency per year</li>
+          <li><strong>t</strong>: Time period in years</li>
+        </ul>
+      `}
+                />
+              </section>
+
+              {/* 💰 AD 3 */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
 
-              <h3>Compounding Frequency Explained</h3>
-              <p>
-                The frequency at which interest is added to your account
-                matters. The more frequent the compounding, the higher the
-                returns.
-              </p>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Frequency</th>
-                      <th>n value</th>
-                      <th>Example Investment</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Yearly</td>
-                      <td>1</td>
-                      <td>PPF, EPF (Calculated monthly but credited yearly)</td>
-                    </tr>
-                    <tr>
-                      <td>Half-Yearly</td>
-                      <td>2</td>
-                      <td>Some Corporate Bonds</td>
-                    </tr>
-                    <tr>
-                      <td>Quarterly</td>
-                      <td>4</td>
-                      <td>Bank Fixed Deposits (FD)</td>
-                    </tr>
-                    <tr>
-                      <td>Monthly</td>
-                      <td>12</td>
-                      <td>Savings Account (Daily balance, Monthly credit)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {/* --- COMPOUNDING FREQUENCY TABLE --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Compounding Frequency Explained
+                </h3>
 
-              <h3>The Power of Compounding Example</h3>
-              <p>
-                Let&apos;s say you invest <strong>₹1 Lakh</strong> for{' '}
-                <strong>10 Years</strong> at <strong>10%</strong> returns.
-              </p>
-              <ul>
-                <li>
-                  <strong>Simple Interest:</strong> You earn ₹10,000 every year.
-                  Total Interest = ₹1 Lakh. Final Amount = ₹2 Lakhs.
-                </li>
-                <li>
-                  <strong>Compound Interest:</strong> The interest earns more
-                  interest. Final Amount = <strong>₹2.59 Lakhs</strong>.
-                </li>
-              </ul>
-              <p>
-                That extra <strong>₹59,000</strong> is purely due to the magic
-                of compounding!
-              </p>
+                <p>
+                  The frequency at which interest is added to your account
+                  significantly impacts returns.
+                </p>
 
-              <h3>Related Calculators</h3>
-              <ul>
-                <li>
-                  <Link href="/sip-calculator">SIP Calculator</Link>
-                </li>
-                <li>
-                  <Link href="/fd-calculator">Fixed Deposit Calculator</Link>
-                </li>
-                <li>
-                  <Link href="/ppf-calculator">PPF Calculator</Link>
-                </li>
-              </ul>
+                <div className="rounded-lg border border-slate-200 overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-slate-50">
+                        <TableHead>Frequency</TableHead>
+                        <TableHead>n Value</TableHead>
+                        <TableHead>Common Examples</TableHead>
+                      </TableRow>
+                    </TableHeader>
+
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-medium">Yearly</TableCell>
+                        <TableCell>1</TableCell>
+                        <TableCell>PPF, EPF (credited yearly)</TableCell>
+                      </TableRow>
+
+                      <TableRow>
+                        <TableCell className="font-medium">
+                          Half-Yearly
+                        </TableCell>
+                        <TableCell>2</TableCell>
+                        <TableCell>Corporate Bonds</TableCell>
+                      </TableRow>
+
+                      <TableRow>
+                        <TableCell className="font-medium">Quarterly</TableCell>
+                        <TableCell>4</TableCell>
+                        <TableCell>Bank Fixed Deposits</TableCell>
+                      </TableRow>
+
+                      <TableRow>
+                        <TableCell className="font-medium">Monthly</TableCell>
+                        <TableCell>12</TableCell>
+                        <TableCell>Savings Accounts</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+              </section>
+
+              {/* --- POWER OF COMPOUNDING --- */}
+              <section className="space-y-4">
+                <h3 className="text-xl font-semibold text-slate-900">
+                  The Power of Compounding (Example)
+                </h3>
+
+                <p>
+                  Suppose you invest <strong>₹1,00,000</strong> for{' '}
+                  <strong>10 years</strong> at <strong>10%</strong>:
+                </p>
+
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    <strong>Simple Interest:</strong> Final amount = ₹2,00,000
+                  </li>
+                  <li>
+                    <strong>Compound Interest:</strong> Final amount ={' '}
+                    <span className="font-semibold text-emerald-600">
+                      ₹2,59,000
+                    </span>
+                  </li>
+                </ul>
+
+                <p>
+                  That extra <strong>₹59,000</strong> is purely due to
+                  compounding — money earning money.
+                </p>
+              </section>
+
+              {/* --- RELATED CALCULATORS --- */}
+              <section className="space-y-2">
+                <h3 className="text-lg font-semibold text-slate-900">
+                  Related Calculators
+                </h3>
+                <ul className="list-disc pl-5">
+                  <li>
+                    <Link href="/sip-calculator">SIP Calculator</Link>
+                  </li>
+                  <li>
+                    <Link href="/fd-calculator">Fixed Deposit Calculator</Link>
+                  </li>
+                  <li>
+                    <Link href="/ppf-calculator">PPF Calculator</Link>
+                  </li>
+                </ul>
+              </section>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Which investments offer compound interest?</summary>
-                  <p>
-                    Almost all growth-oriented investments use compounding.
-                    Examples include Fixed Deposits (Quarterly), Mutual Funds
-                    (Growth Plan), PPF (Yearly), and EPF.
-                  </p>
-                </details>
-                <details>
-                  <summary>How can I maximize compounding?</summary>
-                  <p>
-                    1. <strong>Start Early:</strong> Time is the most important
-                    factor.
-                    <br />
-                    2. <strong>Stay Invested:</strong> Don&apos;t withdraw
-                    interest; let it grow.
-                    <br />
-                    3. <strong>Increase Frequency:</strong> Monthly compounding
-                    yields more than yearly.
-                  </p>
-                </details>
-              </div>
+            <section className="no-print mt-12">
+              <Card>
+                <CardContent className="p-6 sm:p-8">
+                  <h2 className="mb-6 text-2xl font-semibold text-slate-900">
+                    Frequently Asked Questions (FAQs)
+                  </h2>
+
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue="item-0"
+                    className="w-full space-y-2"
+                  >
+                    {faqItems.map((faq, index) => (
+                      <AccordionItem
+                        key={index}
+                        value={`item-${index}`}
+                        className="rounded-lg  px-4"
+                      >
+                        <AccordionTrigger className="text-left text-slate-900 font-medium">
+                          {faq.question}
+                        </AccordionTrigger>
+
+                        <AccordionContent className="text-sm leading-relaxed text-slate-700">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="ci-sidebar" type="box" />
             </div>
-            <FinancialNavWidget />
+
+            <div>
+              <FinancialNavWidget />
+            </div>
           </aside>
         </div>
       </main>

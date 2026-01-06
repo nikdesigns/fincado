@@ -65,14 +65,14 @@ export default function PPFPage() {
       The <strong>Public Provident Fund (PPF)</strong> is a long-term savings scheme backed by the 
       Government of India. It allows you to build a retirement corpus while saving on taxes.
     </p>
-    <p>
+    <p class="mt-2">
       It is one of the few investment options that fall under the <strong>EEE (Exempt-Exempt-Exempt)</strong> 
       category, meaning your investment, interest earned, and maturity amount are all <strong>100% Tax-Free</strong>.
     </p>
   `);
 
   const eligibilityContent = autoLinkContent(`
-    <ul class="list-disc pl-5">
+    <ul class="list-disc pl-5 space-y-2">
       <li><strong>Resident Individuals:</strong> Any Indian resident can open a PPF account.</li>
       <li><strong>Minors:</strong> Parents can open an account on behalf of a minor child.</li>
       <li><strong>Restrictions:</strong> <strong>NRIs</strong> and <strong>HUFs</strong> cannot open new PPF accounts. However, existing NRI accounts can continue until maturity.</li>
@@ -92,7 +92,7 @@ export default function PPFPage() {
       After the mandatory 15-year lock-in, you can extend your PPF account in blocks of <strong>5 years</strong>. 
       You have two options:
     </p>
-    <ul class="list-disc pl-5">
+    <ul class="list-disc pl-5 space-y-2 mt-2 text-slate-600">
       <li><strong>Extension with Contribution:</strong> Continue depositing money and earning interest. (Requires Form-H submission).</li>
       <li><strong>Extension without Contribution:</strong> Stop depositing but keep the balance in the account to earn interest.</li>
     </ul>
@@ -424,7 +424,7 @@ export default function PPFPage() {
 
                 <WikiText
                   content={`
-        <ul class="list-disc pl-5 text-slate-700">
+        <ul class="list-disc pl-5 text-slate-700 space-y-2">
           <li><strong>EEE Tax Status:</strong> No tax on investment, interest, or withdrawal.</li>
           <li><strong>Sovereign Guarantee:</strong> 100% capital safety backed by Govt of India.</li>
           <li><strong>Protection from Attachment:</strong> Cannot be claimed by creditors or courts.</li>

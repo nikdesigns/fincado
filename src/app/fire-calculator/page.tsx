@@ -14,6 +14,22 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -40,6 +56,26 @@ export const metadata: Metadata = {
   },
 };
 
+const faqItems = [
+  {
+    id: 'faq-fire-1',
+    question: 'How long does it take to achieve FIRE?',
+    answer:
+      'It depends on your savings rate. If you save around 50% of your income, FIRE can be achieved in roughly 17 years. With a 70% savings rate, it may take only 9–10 years.',
+  },
+  {
+    id: 'faq-fire-2',
+    question: 'Where should I invest for FIRE?',
+    answer:
+      'A diversified portfolio of Equity Mutual Funds for growth and Debt instruments for stability is essential. Rental real estate can also provide passive income during early retirement.',
+  },
+  {
+    id: 'faq-fire-3',
+    question: 'Does this FIRE calculation include medical expenses?',
+    answer:
+      'Standard FIRE calculations cover living expenses only. You should maintain a separate health insurance policy and emergency fund to handle medical contingencies.',
+  },
+];
 /* ---------------- PAGE ---------------- */
 
 export default function FIREPage() {
@@ -50,14 +86,14 @@ export default function FIREPage() {
       of gaining financial freedom at a young age (often in the 30s or 40s) rather than the traditional 
       retirement age of 60.
     </p>
-    <p>
+    <p class="mt-4">
       The core principle is aggressive saving (50-70% of income) and low-cost investing to build a 
       <strong>Corpus</strong> that generates enough passive income to cover living expenses forever.
     </p>
   `);
 
   const coreConceptsContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>FIRE Number:</strong> The target corpus amount. Formula: <em>Annual Expenses × 25 (or 30)</em>.</li>
       <li><strong>Safe Withdrawal Rate (SWR):</strong> The percentage of your corpus you can withdraw annually without running out of money (typically 4% globally, 3% in India).</li>
       <li><strong>Rule of 25:</strong> Based on the 4% SWR, you need 25 times your annual expenses invested to retire.</li>
@@ -83,40 +119,11 @@ export default function FIREPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the FIRE Number?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The FIRE Number is the total investment corpus required to sustain your lifestyle indefinitely without working. It is typically 25 to 30 times your annual expenses.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the 25x Rule?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The 25x Rule suggests that you need to save 25 times your annual expenses to retire comfortably, assuming a 4% annual withdrawal rate.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is the 4% rule safe for India?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Due to higher inflation in India, a withdrawal rate of 3% to 3.5% (approx 30x-33x expenses) is often considered safer than the standard 4% rule.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -131,30 +138,51 @@ export default function FIREPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/fire-calculator" />
-          <h1>FIRE Calculator (Financial Independence, Retire Early)</h1>
-          <ShareTools title="FIRE Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="fire-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="FIRE Calculator" />
+            <LanguageToggle path="/hi/fire-calculator" />
           </div>
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Stop working for money and let your money work for you. Calculate
-              your <strong>Financial Freedom Number</strong> and the exact savings
-              rate needed to retire early.
-            </p>
-          `}
-          />
+
+          {/* Title */}
+          <h1
+            className="
+      mb-4
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
+      font-semibold
+      tracking-tight
+      text-slate-900
+    "
+          >
+            FIRE Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-2">
+              Financial Independence, Retire Early
+            </span>
+          </h1>
+
+          {/* Intro text */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Stop working for money and let your money work for you.
+          Use this <strong>FIRE Calculator</strong> to find your
+          <strong>Financial Freedom Number</strong> and the exact
+          monthly savings required to retire early with confidence.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <FIRECalculatorClient />
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="fire-after-calc" type="banner" />
             </div>
 
@@ -162,49 +190,34 @@ export default function FIREPage() {
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Retirement Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        hover:bg-slate-50
+      "
                 >
                   📈 SIP Calculator
                 </Link>
+
                 <Link
                   href="/retirement-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        hover:bg-slate-50
+      "
                 >
                   👴 Retire Calc
                 </Link>
@@ -212,196 +225,261 @@ export default function FIREPage() {
             </div>
 
             {/* ✅ Promo Box */}
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>🚀</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Start Early!
-                </strong>
-                <Link
-                  href="/guides/sip-investment-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
-                >
-                  Read: How to build a 1 Cr Corpus with SIP →
-                </Link>
+            <div className="no-print mt-8">
+              <div
+                className="
+      flex items-start gap-3
+      rounded-lg border border-emerald-200
+      bg-emerald-50
+      p-4
+    "
+              >
+                {/* Icon */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
+                  🚀
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <strong className="block text-base font-semibold text-emerald-800">
+                    Start Early!
+                  </strong>
+
+                  <Link
+                    href="/guides/sip-investment-guide"
+                    className="
+          mt-1 inline-flex items-center
+          text-sm font-semibold text-emerald-700
+          underline-offset-4
+          hover:underline
+        "
+                  >
+                    Read: How to build a 1 Cr Corpus with SIP →
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            {/* 💰 MID-CONTENT AD */}
+            <div className="no-print my-10">
               <AdSlot id="fire-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is the FIRE Movement?</h2>
-              <WikiText content={introContent} />
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* WHAT IS FIRE */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is the FIRE Movement?
+                    </h2>
 
-              <h3>Types of FIRE: Which one are you?</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Type</th>
-                      <th>Lifestyle</th>
-                      <th>Corpus Required</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Lean FIRE</strong>
-                      </td>
-                      <td>Frugal / Minimalist</td>
-                      <td>&lt; 25x Expenses</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Regular FIRE</strong>
-                      </td>
-                      <td>Standard / Current</td>
-                      <td>25x - 30x Expenses</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Fat FIRE</strong>
-                      </td>
-                      <td>Lavish / Luxury</td>
-                      <td>&gt; 50x Expenses</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Barista FIRE</strong>
-                      </td>
-                      <td>Part-time work</td>
-                      <td>~15x - 20x Expenses</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* TYPES OF FIRE */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Types of FIRE: Which one are you?
+                    </h3>
 
-              <h3>Core Concepts of FIRE</h3>
-              <WikiText content={coreConceptsContent} />
+                    <div className="rounded-xl border border-slate-200">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="w-40">Type</TableHead>
+                            <TableHead>Lifestyle</TableHead>
+                            <TableHead>Corpus Required</TableHead>
+                          </TableRow>
+                        </TableHeader>
 
-              <h3>Safe Withdrawal Rate (SWR) in India</h3>
-              <WikiText content={swrContent} />
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Lean FIRE
+                            </TableCell>
+                            <TableCell>Frugal / Minimalist</TableCell>
+                            <TableCell>&lt; 25× Expenses</TableCell>
+                          </TableRow>
 
-              <h3>How This Calculator Helps You</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Reality Check</h4>
-                  <p>
-                    See if your current savings rate is enough to retire by 45,
-                    or if you need to cut expenses.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Inflation Impact</h4>
-                  <p>
-                    Expenses double every 10-12 years due to inflation. This
-                    tool adjusts your target corpus for future costs.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Gap Analysis</h4>
-                  <p>
-                    Find the exact monthly SIP required to bridge the gap
-                    between your current savings and your FIRE goal.
-                  </p>
-                </div>
-              </div>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Regular FIRE
+                            </TableCell>
+                            <TableCell>Standard Lifestyle</TableCell>
+                            <TableCell>25× – 30× Expenses</TableCell>
+                          </TableRow>
 
-              <h3>FIRE Calculation Formula</h3>
-              <p>
-                The core formula to determine your Financial Independence Number
-                is:
-              </p>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Fat FIRE
+                            </TableCell>
+                            <TableCell>Luxury Lifestyle</TableCell>
+                            <TableCell>&gt; 50× Expenses</TableCell>
+                          </TableRow>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="FIRE = \text{Annual Expenses} \times \frac{100}{SWR}" />
-              </div>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Barista FIRE
+                            </TableCell>
+                            <TableCell>Part-time Work</TableCell>
+                            <TableCell>15× – 20× Expenses</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </section>
 
-              <WikiText
-                content={`
-                  <p>Where <strong>SWR</strong> is your Safe Withdrawal Rate (e.g., 4% or 3%).</p>
-                `}
-              />
+                  {/* AD */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <h3>Why Pursue FIRE?</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Freedom of Time:</strong> Gain complete control over your schedule.</li>
-                    <li><strong>Reduced Stress:</strong> Financial security eliminates anxiety about job loss.</li>
-                    <li><strong>Passion Projects:</strong> Pursue meaningful work regardless of pay.</li>
-                  </ul>
-                `}
-              />
+                  {/* CORE CONCEPTS */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Core Concepts of FIRE
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={coreConceptsContent} />
+                    </div>
+                  </section>
+
+                  {/* SWR */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Safe Withdrawal Rate (SWR) in India
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={swrContent} />
+                    </div>
+                  </section>
+
+                  {/* HOW CALCULATOR HELPS */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This Calculator Helps You
+                    </h3>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Reality Check
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Know if your current savings rate is enough to retire
+                          by 45.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Inflation Impact
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Expenses double every 10–12 years — this calculator
+                          adjusts for it.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Gap Analysis
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Calculates the exact SIP needed to hit your FIRE goal.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* FORMULA */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      FIRE Calculation Formula
+                    </h3>
+
+                    <p className="text-slate-700">
+                      The formula used to calculate your Financial Independence
+                      number:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
+                      <BlockMath math="FIRE = \text{Annual Expenses} \times \frac{100}{SWR}" />
+                    </div>
+
+                    <p className="text-slate-700">
+                      Where <strong>SWR</strong> is your Safe Withdrawal Rate
+                      (e.g. 3%–4%).
+                    </p>
+                  </section>
+
+                  {/* WHY FIRE */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Why Pursue FIRE?
+                    </h3>
+
+                    <div className="text-slate-700">
+                      <WikiText
+                        content={`
+              <ul class="list-disc list-inside space-y-2">
+                <li><strong>Freedom of Time:</strong> Control your schedule.</li>
+                <li><strong>Reduced Stress:</strong> No dependence on a paycheck.</li>
+                <li><strong>Purpose-driven Life:</strong> Work by choice, not compulsion.</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>How long does it take to achieve FIRE?</summary>
-                  <p>
-                    It depends on your savings rate. If you save 50% of your
-                    income, it takes roughly 17 years. If you save 70%, it takes
-                    about 9-10 years to reach financial independence.
-                  </p>
-                </details>
-                <details>
-                  <summary>Where should I invest for FIRE?</summary>
-                  <p>
-                    A diversified portfolio of Equity Mutual Funds (for growth)
-                    and Debt instruments (for stability) is essential. Real
-                    Estate (Rental Yield) can also provide passive income.
-                  </p>
-                </details>
-                <details>
-                  <summary>Does this include medical expenses?</summary>
-                  <p>
-                    Standard FIRE calculations cover living expenses. You should
-                    maintain a separate, substantial Health Insurance cover and
-                    an Emergency Fund for medical contingencies.
-                  </p>
-                </details>
-              </div>
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="fire-sidebar" type="box" />
             </div>
+
             <FinancialNavWidget />
           </aside>
         </div>

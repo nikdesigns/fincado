@@ -22,6 +22,15 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import {
+  CheckCircle2,
+  GraduationCap,
+  Wallet,
+  FileText,
+  UserSquare2,
+  Plane,
+  ArrowRight,
+} from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -59,7 +68,7 @@ export default function EducationLoanPage() {
       unique feature called the <strong>Moratorium Period</strong> (or Repayment Holiday), 
       where the student is not required to pay EMIs during the course duration.
     </p>
-    <p>
+    <p class="mt-4">
       Education loans cover tuition fees, hostel charges, exam fees, and even equipment 
       costs like laptops. They are available for both domestic and international studies.
     </p>
@@ -70,7 +79,7 @@ export default function EducationLoanPage() {
       Education Loans offer the best tax benefits among all loan types. Under <strong>Section 80E</strong> 
       of the Income Tax Act, you can claim a deduction on the <strong>entire interest amount</strong> paid.
     </p>
-    <ul>
+    <ul class="mt-4 list-disc list-inside space-y-2">
       <li><strong>Limit:</strong> No upper limit on the deduction amount (unlike 80C).</li>
       <li><strong>Duration:</strong> Available for up to 8 years or until interest is fully repaid.</li>
       <li><strong>Eligibility:</strong> Only available to the individual who took the loan (Student or Parent/Legal Guardian).</li>
@@ -78,12 +87,12 @@ export default function EducationLoanPage() {
   `);
 
   const eligibilityContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2">
       <li><strong>Student:</strong> Must be an Indian citizen, aged 18-35, with confirmed admission.</li>
       <li><strong>Co-Applicant:</strong> A parent, guardian, or spouse with a stable income is mandatory.</li>
       <li><strong>Academic Record:</strong> Good grades (10th, 12th, Graduation) help in faster approval.</li>
       <li><strong>Collateral:</strong> 
-        <ul>
+        <ul class="list-disc list-inside ml-5 mt-1">
           <li>Up to ₹4 Lakhs: No Collateral.</li>
           <li>₹4 Lakhs to ₹7.5 Lakhs: Third-party Guarantor required.</li>
           <li>Above ₹7.5 Lakhs: Tangible Collateral (Property/FD) required.</li>
@@ -215,35 +224,35 @@ export default function EducationLoanPage() {
 
             <LiveRateTable type="personalLoan" />
 
-            <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
-              <CardContent className="flex items-start gap-4 p-4 sm:p-6">
-                {/* Icon */}
-                <span className="text-2xl leading-none">✈️</span>
+            {/* promo card */}
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-5">
+                {/* Icon Container */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <Plane className="h-5 w-5 -rotate-45" />{' '}
+                  {/* Rotated for 'taking off' look */}
+                </div>
 
                 {/* Content */}
-                <div>
-                  <strong className="block text-base font-semibold text-emerald-800">
+                <div className="space-y-1">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     Planning to Study Abroad?
                   </strong>
 
                   <Link
                     href="/guides/education-loan-guide"
-                    className="
-          mt-1 inline-block
-          text-sm
-          font-semibold
-          text-emerald-700
-          underline
-          underline-offset-4
-          hover:text-emerald-800
-        "
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
-                    Read our Guide: Collateral vs Non-Collateral Loans →
+                    <span>
+                      Read our Guide: Collateral vs Non-Collateral Loans
+                    </span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
+            {/* rich seo content  */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
                 <CardContent className="p-6 sm:p-10 space-y-10">
@@ -284,58 +293,85 @@ export default function EducationLoanPage() {
 
                   {/* --- DOCUMENT CHECKLIST --- */}
                   <section className="space-y-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Documents Required Checklist
-                    </h3>
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-xl font-semibold text-slate-900">
+                        Documents Required Checklist
+                      </h3>
+                    </div>
 
-                    <Card className="border-slate-200 bg-slate-50">
+                    <Card className="overflow-hidden border-slate-200 bg-white shadow-sm">
+                      {/* Sub-Header Strip */}
+                      <div className="border-b border-slate-100 bg-slate-50 px-6 py-3">
+                        <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                          <UserSquare2 className="h-4 w-4" /> For Student &
+                          Co-Applicant
+                        </h4>
+                      </div>
+
                       <CardContent className="p-6 sm:p-8">
-                        {/* Header */}
-                        <div className="mb-6 flex items-center gap-3">
-                          <h4 className="text-base font-semibold text-slate-900">
-                            For Student & Co-Applicant
-                          </h4>
-                        </div>
-
-                        {/* Checklist Grid */}
-                        <ul className="grid gap-4 sm:grid-cols-2">
-                          <li className="flex items-start gap-3">
-                            <span className="mt-1 text-emerald-600">✅</span>
-                            <p className="text-sm leading-relaxed text-slate-700">
-                              <strong className="text-slate-900">KYC:</strong>{' '}
-                              Aadhaar Card, PAN Card, Passport
-                            </p>
+                        <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+                          {/* Item 1: KYC */}
+                          <li className="flex gap-4">
+                            <div className="mt-1 shrink-0">
+                              <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                            </div>
+                            <div className="space-y-1">
+                              <strong className="block font-semibold text-slate-900">
+                                KYC Documents
+                              </strong>
+                              <p className="text-sm leading-relaxed text-slate-600">
+                                Aadhaar Card, PAN Card, Passport (Identity &
+                                Address Proof)
+                              </p>
+                            </div>
                           </li>
 
-                          <li className="flex items-start gap-3">
-                            <span className="mt-1 text-emerald-600">✅</span>
-                            <p className="text-sm leading-relaxed text-slate-700">
-                              <strong className="text-slate-900">
-                                Academic:
-                              </strong>{' '}
-                              Marksheets (10th, 12th, Degree), Entrance Exam
-                              Scorecard
-                            </p>
+                          {/* Item 2: Academic */}
+                          <li className="flex gap-4">
+                            <div className="mt-1 shrink-0">
+                              <GraduationCap className="h-5 w-5 text-emerald-600" />
+                            </div>
+                            <div className="space-y-1">
+                              <strong className="block font-semibold text-slate-900">
+                                Academic Records
+                              </strong>
+                              <p className="text-sm leading-relaxed text-slate-600">
+                                Marksheets (10th, 12th, Degree) & Entrance Exam
+                                Scorecard
+                              </p>
+                            </div>
                           </li>
 
-                          <li className="flex items-start gap-3">
-                            <span className="mt-1 text-emerald-600">✅</span>
-                            <p className="text-sm leading-relaxed text-slate-700">
-                              <strong className="text-slate-900">
-                                Admission:
-                              </strong>{' '}
-                              University Offer Letter with fee breakdown
-                            </p>
+                          {/* Item 3: Admission */}
+                          <li className="flex gap-4">
+                            <div className="mt-1 shrink-0">
+                              <FileText className="h-5 w-5 text-emerald-600" />
+                            </div>
+                            <div className="space-y-1">
+                              <strong className="block font-semibold text-slate-900">
+                                Admission Proof
+                              </strong>
+                              <p className="text-sm leading-relaxed text-slate-600">
+                                Confirmed University Offer Letter with complete
+                                fee breakdown
+                              </p>
+                            </div>
                           </li>
 
-                          <li className="flex items-start gap-3">
-                            <span className="mt-1 text-emerald-600">✅</span>
-                            <p className="text-sm leading-relaxed text-slate-700">
-                              <strong className="text-slate-900">
-                                Financial:
-                              </strong>{' '}
-                              Salary Slips, ITR (last 2 years), Bank Statements
-                            </p>
+                          {/* Item 4: Financial */}
+                          <li className="flex gap-4">
+                            <div className="mt-1 shrink-0">
+                              <Wallet className="h-5 w-5 text-emerald-600" />
+                            </div>
+                            <div className="space-y-1">
+                              <strong className="block font-semibold text-slate-900">
+                                Financial Documents
+                              </strong>
+                              <p className="text-sm leading-relaxed text-slate-600">
+                                Salary Slips, ITR (last 2 years) & Bank
+                                Statements (6 months)
+                              </p>
+                            </div>
                           </li>
                         </ul>
                       </CardContent>
@@ -364,7 +400,7 @@ export default function EducationLoanPage() {
 
                   {/* --- EMI FORMULA --- */}
                   <section className="space-y-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
+                    <h3 className="text-xl font-semibold text-slate-900 ">
                       EMI Calculation Formula
                     </h3>
 
@@ -373,14 +409,14 @@ export default function EducationLoanPage() {
                       moratorium:
                     </p>
 
-                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <div className="text-sm overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
                       <BlockMath math="EMI = [(P + I_{moratorium}) \times r \times (1+r)^N] / [(1+r)^N - 1]" />
                     </div>
 
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul>
+              <ul class="list-disc list-inside space-y-2 text-xs">
                 <li><strong>P</strong> = Original Loan Amount</li>
                 <li><strong>I<sub>moratorium</sub></strong> = Interest accrued during study period</li>
                 <li><strong>r</strong> = Monthly Interest Rate</li>

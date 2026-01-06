@@ -57,7 +57,7 @@ export default function FDPage() {
       offered by banks and NBFCs where you deposit a lump sum amount 
       for a fixed tenure at a pre-determined interest rate.
     </p>
-    <p>
+    <p class="mt-4">
       Unlike stock market investments, FDs offer <strong>guaranteed returns</strong> 
       and capital safety, making them the preferred choice for conservative investors 
       and senior citizens.
@@ -68,7 +68,7 @@ export default function FDPage() {
     <p>
       Almost any investor category can open an FD in India. Common eligibility includes:
     </p>
-    <ul>
+    <ul class="list-disc pl-5 space-y-2 list-inside mt-2">
       <li><strong>Resident Individuals:</strong> Including minors (with guardians).</li>
       <li><strong>Senior Citizens:</strong> Eligible for higher interest rates (usually 0.50% extra).</li>
       <li><strong>NRIs:</strong> Can open NRE (repatriable) or NRO (non-repatriable) FDs.</li>
@@ -81,7 +81,7 @@ export default function FDPage() {
       Interest earned on Fixed Deposits is <strong>fully taxable</strong> as per your income tax slab. 
       It is added to your annual income under "Income from Other Sources".
     </p>
-    <ul>
+    <ul class="list-disc pl-5 space-y-2 list-inside mt-2">
       <li><strong>TDS Deduction:</strong> Banks deduct 10% TDS if interest exceeds ₹40,000 in a year (₹50,000 for Senior Citizens).</li>
       <li><strong>Form 15G/15H:</strong> You can submit these forms to the bank to avoid TDS if your total income is below the taxable limit.</li>
     </ul>
@@ -375,7 +375,7 @@ export default function FDPage() {
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul class="list-disc pl-5">
+              <ul class="list-disc pl-5 text-sm">
                 <li><strong>A</strong>: Maturity Amount</li>
                 <li><strong>P</strong>: Principal Investment</li>
                 <li><strong>r</strong>: Rate of Interest (in decimals)</li>
@@ -396,7 +396,7 @@ export default function FDPage() {
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText
                         content={`
-              <ul class="list-disc pl-5">
+              <ul class="list-disc pl-5 space-y-2">
                 <li><strong>Capital Safety:</strong> FDs up to ₹5 Lakh per bank are insured by DICGC.</li>
                 <li><strong>Liquidity:</strong> Premature withdrawal allowed (with small penalty).</li>
                 <li><strong>Tax Saving:</strong> 5-Year Tax Saver FDs qualify for Section 80C.</li>

@@ -91,7 +91,7 @@ export default function APYPage() {
   `);
 
   const eligibilityContent = autoLinkContent(`
-    <ul class="list-disc list-inside space-y-2">
+    <ul class="list-disc list-inside space-y-2 mt-2">
       <li><strong>Age:</strong> Must be between 18 and 40 years.</li>
       <li><strong>Citizenship:</strong> Must be an Indian citizen.</li>
       <li><strong>Bank Account:</strong> Must have a valid savings bank account.</li>

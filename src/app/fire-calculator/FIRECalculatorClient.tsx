@@ -1,10 +1,10 @@
-// src/app/fire-calculator/FIRECalculatorClient.tsx
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import PieChart from '@/components/PieChart';
+import EMIPieChart from '@/components/EMIPieChart';
+import CalculatorField from '@/components/CalculatorField';
 
-// Helper: Format Currency
+// Helper
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -12,399 +12,205 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-// ✅ Interface for custom labels
-interface FIRELabels {
-  currentAge: string;
-  fireAge: string;
-  currentAnnualExpense: string;
-  currentCorpus: string;
-  advancedAssumptions: string;
-  inflation: string;
-  returnRate: string;
-  safeWithdrawalRate: string;
-  multiplier: string;
-  recommendedSWR: string;
-  resetDefaults: string;
-  fireNumber: string;
-  monthlySavingsNeeded: string;
-  perMonth: string;
-  futureAnnualExp: string;
-  currentCorpusFV: string;
-}
-
-const DEFAULT_LABELS: FIRELabels = {
-  currentAge: 'Current Age',
-  fireAge: 'FIRE Age',
-  currentAnnualExpense: 'Current Annual Expense (₹)',
-  currentCorpus: 'Current Savings / Corpus (₹)',
-  advancedAssumptions: 'Advanced Assumptions (SWR, Inflation)',
-  inflation: 'Inflation (%)',
-  returnRate: 'Return Rate (%)',
-  safeWithdrawalRate: 'Safe Withdrawal Rate (%)',
-  multiplier: 'Multiplier',
-  recommendedSWR: 'Recommended for India: 3.0% - 3.5%',
-  resetDefaults: 'Reset Defaults',
-  fireNumber: 'Your FIRE Number',
-  monthlySavingsNeeded: 'Monthly Savings Needed',
-  perMonth: '/mo',
-  futureAnnualExp: 'Future Annual Exp.',
-  currentCorpusFV: 'Current Corpus FV',
-};
-
-export default function FIRECalculatorClient({
-  labels = DEFAULT_LABELS,
-}: {
-  labels?: Partial<FIRELabels>;
-}) {
-  const t = { ...DEFAULT_LABELS, ...labels };
-
+export default function FIRECalculatorClient() {
   // --- STATE ---
-  const [currentAge, setCurrentAge] = useState<number>(30);
-  const [targetRetirementAge, setTargetRetirementAge] = useState<number>(45);
-  const [currentAnnualExpense, setCurrentAnnualExpense] =
-    useState<number>(1000000);
-  const [currentCorpus, setCurrentCorpus] = useState<number>(2000000);
+  const [currentAge, setCurrentAge] = useState(30);
+  const [fireAge, setFireAge] = useState(45);
+  const [annualExpense, setAnnualExpense] = useState(1_000_000);
+  const [currentCorpus, setCurrentCorpus] = useState(2_000_000);
 
-  const [preRetireReturn, setPreRetireReturn] = useState<number>(12);
-  const [inflationPct, setInflationPct] = useState<number>(6);
-  const [safeWithdrawalRate, setSafeWithdrawalRate] = useState<number>(3.5);
-
-  // --- HELPER: Background for Range Sliders ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    // Orange/Flame theme for FIRE
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
-  };
+  const [inflation, setInflation] = useState(6);
+  const [returnRate, setReturnRate] = useState(12);
+  const [swr, setSwr] = useState(3.5);
 
   // --- CALCULATIONS ---
   const results = useMemo(() => {
-    const yearsToFIRE = Math.max(1, targetRetirementAge - currentAge);
-    const monthsToFIRE = yearsToFIRE * 12;
-    const monthlyRatePre = preRetireReturn / 12 / 100;
+    const yearsToFire = Math.max(1, fireAge - currentAge);
+    const months = yearsToFire * 12;
 
-    // 1. Future Expense at FIRE Age
-    const annualExpenseAtFIRE = Math.round(
-      currentAnnualExpense * Math.pow(1 + inflationPct / 100, yearsToFIRE)
+    const futureExpense = Math.round(
+      annualExpense * Math.pow(1 + inflation / 100, yearsToFire)
     );
 
-    // 2. FIRE Number (Corpus Required)
-    const multiplier = 100 / safeWithdrawalRate;
-    const fireNumberCorpus = Math.round(annualExpenseAtFIRE * multiplier);
+    const multiplier = 100 / swr;
+    const fireNumber = Math.round(futureExpense * multiplier);
 
-    // 3. Future Value of Current Corpus
-    const futureValueOfCurrentCorpus = Math.round(
-      currentCorpus * Math.pow(1 + monthlyRatePre, monthsToFIRE)
+    const monthlyRate = returnRate / 12 / 100;
+    const futureCorpus = Math.round(
+      currentCorpus * Math.pow(1 + monthlyRate, months)
     );
 
-    // 4. Shortfall & Required SIP
-    const requiredShortfall = Math.max(
-      0,
-      fireNumberCorpus - futureValueOfCurrentCorpus
-    );
-    let requiredMonthlySIP = 0;
+    const gap = Math.max(0, fireNumber - futureCorpus);
 
-    if (requiredShortfall > 0) {
-      if (monthlyRatePre === 0) {
-        requiredMonthlySIP = Math.round(requiredShortfall / monthsToFIRE);
-      } else {
-        const annuityFactor =
-          ((Math.pow(1 + monthlyRatePre, monthsToFIRE) - 1) / monthlyRatePre) *
-          (1 + monthlyRatePre);
-        requiredMonthlySIP = Math.round(requiredShortfall / annuityFactor);
-      }
+    let monthlySIP = 0;
+    if (gap > 0) {
+      const factor =
+        ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
+        (1 + monthlyRate);
+      monthlySIP = Math.round(gap / factor);
     }
 
-    // 5. Pie Chart Data
     const achievedPct =
-      fireNumberCorpus > 0
-        ? Math.min(
-            100,
-            Math.round((futureValueOfCurrentCorpus / fireNumberCorpus) * 100)
-          )
+      fireNumber > 0
+        ? Math.min(100, Math.round((futureCorpus / fireNumber) * 100))
         : 0;
-    const gapPct = 100 - achievedPct;
 
     return {
-      annualExpenseAtFIRE,
-      fireNumberCorpus,
-      futureValueOfCurrentCorpus,
-      requiredShortfall,
-      requiredMonthlySIP,
-      yearsToFIRE,
-      multiplier: multiplier.toFixed(1),
+      yearsToFire,
+      futureExpense,
+      fireNumber,
+      futureCorpus,
+      monthlySIP,
       achievedPct,
-      gapPct,
+      gapPct: 100 - achievedPct,
+      multiplier: multiplier.toFixed(1),
     };
   }, [
     currentAge,
-    targetRetirementAge,
-    currentAnnualExpense,
+    fireAge,
+    annualExpense,
     currentCorpus,
-    preRetireReturn,
-    inflationPct,
-    safeWithdrawalRate,
+    inflation,
+    returnRate,
+    swr,
   ]);
 
-  // --- ACTIONS ---
-  const handleReset = () => {
+  const reset = () => {
     setCurrentAge(30);
-    setTargetRetirementAge(45);
-    setCurrentAnnualExpense(1000000);
-    setCurrentCorpus(2000000);
-    setPreRetireReturn(12);
-    setInflationPct(6);
-    setSafeWithdrawalRate(3.5);
+    setFireAge(45);
+    setAnnualExpense(1_000_000);
+    setCurrentCorpus(2_000_000);
+    setInflation(6);
+    setReturnRate(12);
+    setSwr(3.5);
   };
-
-  // Safe Setter
-  const numSetter =
-    (setter: React.Dispatch<React.SetStateAction<number>>) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setter(Number(e.target.value) || 0);
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
-        <div className="calc-inputs">
-          {/* Ages */}
-          <div style={{ display: 'flex', gap: 16 }}>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.currentAge}</label>
-              <div className="input-wrapper">
-                <input
-                  type="number"
-                  value={currentAge}
-                  onChange={numSetter(setCurrentAge)}
-                  min={18}
-                  max={targetRetirementAge - 1}
-                />
-              </div>
-            </div>
-            <div className="input-group" style={{ flex: 1 }}>
-              <label>{t.fireAge}</label>
-              <div className="input-wrapper">
-                <input
-                  type="number"
-                  value={targetRetirementAge}
-                  onChange={numSetter(setTargetRetirementAge)}
-                  min={currentAge + 1}
-                  max={100}
-                />
-              </div>
-            </div>
-          </div>
+        {/* LEFT */}
+        <div className="calc-inputs space-y-6">
+          <CalculatorField
+            label="Current Age"
+            value={currentAge}
+            min={18}
+            max={fireAge - 1}
+            step={1}
+            onChange={setCurrentAge}
+          />
 
-          {/* Finances */}
-          <div className="input-group">
-            <label>{t.currentAnnualExpense}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={currentAnnualExpense}
-                onChange={numSetter(setCurrentAnnualExpense)}
-              />
-            </div>
-            <input
-              type="range"
-              min="300000"
-              max="5000000"
-              step="50000"
-              value={currentAnnualExpense}
-              onChange={numSetter(setCurrentAnnualExpense)}
-              style={{
-                background: getRangeBackground(
-                  currentAnnualExpense,
-                  300000,
-                  5000000
-                ),
-              }}
-            />
-          </div>
+          <CalculatorField
+            label="Target FIRE Age"
+            value={fireAge}
+            min={currentAge + 1}
+            max={70}
+            step={1}
+            onChange={setFireAge}
+          />
 
-          <div className="input-group">
-            <label>{t.currentCorpus}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={currentCorpus}
-                onChange={numSetter(setCurrentCorpus)}
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="20000000"
-              step="100000"
-              value={currentCorpus}
-              onChange={numSetter(setCurrentCorpus)}
-              style={{
-                background: getRangeBackground(currentCorpus, 0, 20000000),
-              }}
-            />
-          </div>
+          <CalculatorField
+            label="Current Annual Expense (₹)"
+            value={annualExpense}
+            min={300000}
+            max={5000000}
+            step={50000}
+            onChange={setAnnualExpense}
+          />
 
-          {/* Advanced Assumptions */}
-          <details open className="advanced-options" style={{ marginTop: 16 }}>
-            <summary
-              style={{
-                cursor: 'pointer',
-                color: 'var(--color-text-muted)',
-                fontWeight: 500,
-              }}
-            >
-              {t.advancedAssumptions}
+          <CalculatorField
+            label="Current Savings / Corpus (₹)"
+            value={currentCorpus}
+            min={0}
+            max={50000000}
+            step={100000}
+            onChange={setCurrentCorpus}
+          />
+
+          <details className="advanced-options">
+            <summary className="cursor-pointer text-sm font-medium text-slate-600">
+              Advanced Assumptions
             </summary>
-            <div
-              style={{
-                marginTop: 16,
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 16,
-              }}
-            >
-              <div className="input-group">
-                <label>{t.inflation}</label>
-                <input
-                  className="input-small"
-                  type="number"
-                  value={inflationPct}
-                  onChange={numSetter(setInflationPct)}
-                  step="0.1"
-                />
-              </div>
-              <div className="input-group">
-                <label>{t.returnRate}</label>
-                <input
-                  className="input-small"
-                  type="number"
-                  value={preRetireReturn}
-                  onChange={numSetter(setPreRetireReturn)}
-                  step="0.1"
-                />
-              </div>
-              <div className="input-group" style={{ gridColumn: 'span 2' }}>
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <label>{t.safeWithdrawalRate}</label>
-                  <span style={{ fontSize: 11, color: '#666' }}>
-                    {t.multiplier}: {results.multiplier}x
-                  </span>
-                </div>
-                <input
-                  className="input-small"
-                  type="number"
-                  value={safeWithdrawalRate}
-                  onChange={numSetter(setSafeWithdrawalRate)}
-                  step="0.1"
-                  min={2}
-                  max={6}
-                />
-                <div style={{ fontSize: 11, color: '#666', marginTop: 4 }}>
-                  {t.recommendedSWR}
-                </div>
-              </div>
+
+            <div className="mt-4 space-y-4">
+              <CalculatorField
+                label="Inflation Rate (%)"
+                value={inflation}
+                min={3}
+                max={10}
+                step={0.1}
+                onChange={setInflation}
+              />
+
+              <CalculatorField
+                label="Expected Return (%)"
+                value={returnRate}
+                min={6}
+                max={15}
+                step={0.1}
+                onChange={setReturnRate}
+              />
+
+              <CalculatorField
+                label="Safe Withdrawal Rate (%)"
+                value={swr}
+                min={2}
+                max={6}
+                step={0.1}
+                onChange={setSwr}
+              />
+
+              <p className="text-xs text-slate-500">
+                Multiplier ≈ {results.multiplier}× · Recommended for India:
+                3–3.5%
+              </p>
             </div>
           </details>
 
           <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              marginTop: 10,
-              background: 'none',
-              border: 'none',
-              textDecoration: 'underline',
-              color: '#666',
-              cursor: 'pointer',
-              fontSize: 13,
-            }}
+            onClick={reset}
+            className="text-sm text-slate-500 underline underline-offset-4 hover:text-slate-700"
           >
-            {t.resetDefaults}
+            Reset Defaults
           </button>
         </div>
 
-        {/* --- RIGHT: VISUALS --- */}
-        <div className="calc-visuals">
-          <PieChart
+        {/* RIGHT */}
+        <div className="calc-visuals flex flex-col items-center">
+          <EMIPieChart
             principalPct={results.achievedPct}
             interestPct={results.gapPct}
-            size={200}
           />
 
-          <div style={{ marginTop: 24, width: '100%' }}>
-            {/* Main Result: FIRE Number */}
-            <div style={{ marginBottom: 12, textAlign: 'center' }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
-                {t.fireNumber}
-              </span>
-              <div
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                }}
-              >
-                {formatINR(results.fireNumberCorpus)}
-              </div>
+          <div className="mt-6 space-y-4">
+            <div className="text-center">
+              <p className="text-xs text-slate-500">Your FIRE Number</p>
+              <p className="text-2xl font-bold text-lime-600">
+                {formatINR(results.fireNumber)}
+              </p>
             </div>
 
-            {/* Main Result: SIP Required */}
-            <div
-              style={{
-                marginBottom: 16,
-                padding: 12,
-                background: '#fff7ed',
-                borderRadius: 8,
-                border: '1px solid #fed7aa',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{ fontSize: 12, color: '#c2410c', fontWeight: 600 }}>
-                {t.monthlySavingsNeeded}
-              </div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: '#ea580c' }}>
-                {formatINR(results.requiredMonthlySIP)}
-                <span style={{ fontSize: 14 }}>{t.perMonth}</span>
-              </div>
+            <div className="rounded-lg border border-lime-200 bg-lime-50 p-4 text-center">
+              <p className="text-xs font-semibold text-lime-700">
+                Monthly Savings Needed
+              </p>
+              <p className="text-xl font-bold text-lime-700">
+                {formatINR(results.monthlySIP)} /mo
+              </p>
             </div>
 
-            {/* Grid Breakdown */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 12,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 8,
-                  background: '#fff',
-                  borderRadius: 6,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b' }}>{t.futureAnnualExp}</div>
-                <div style={{ fontWeight: 600, color: '#dc2626' }}>
-                  {formatINR(results.annualExpenseAtFIRE)}
-                </div>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="rounded-md border p-3">
+                <p className="text-slate-500">Future Annual Expense</p>
+                <p className="font-semibold text-red-600">
+                  {formatINR(results.futureExpense)}
+                </p>
               </div>
-              <div
-                style={{
-                  padding: 8,
-                  background: '#fff',
-                  borderRadius: 6,
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div style={{ color: '#64748b' }}>{t.currentCorpusFV}</div>
-                <div style={{ fontWeight: 600, color: '#16a34a' }}>
-                  {formatINR(results.futureValueOfCurrentCorpus)}
-                </div>
+
+              <div className="rounded-md border p-3">
+                <p className="text-slate-500">Current Corpus FV</p>
+                <p className="font-semibold text-emerald-600">
+                  {formatINR(results.futureCorpus)}
+                </p>
               </div>
             </div>
           </div>

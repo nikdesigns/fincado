@@ -2,12 +2,21 @@
 
 import React, { useMemo, useState } from 'react';
 import PieChart from '@/components/PieChart';
+import CalculatorField from '@/components/CalculatorField';
 
-// --- TYPES ---
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+/* ---------------- TYPES ---------------- */
+
 type AssessmentYear = '2025-2026' | '2024-2025';
 type AgeGroup = '0-60' | '60-80' | '80+';
 
-// 1. Define Labels Interface
 interface LabelConfig {
   ayLabel: string;
   ageLabel: string;
@@ -30,7 +39,8 @@ interface IncomeTaxClientProps {
   labels?: LabelConfig;
 }
 
-// Helper: Format Currency
+/* ---------------- HELPERS ---------------- */
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -38,339 +48,213 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
+/* ---------------- COMPONENT ---------------- */
+
 export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
-  // --- STATE ---
-  const [ay, setAy] = useState<AssessmentYear>('2025-2026');
-  const [age, setAge] = useState<AgeGroup>('0-60');
-  const [income, setIncome] = useState(1200000);
-  const [deductions, setDeductions] = useState(150000);
-
-  // 2. Default English Labels (Memoized to prevent re-renders)
-  const t = useMemo(
-    () =>
-      labels || {
-        ayLabel: 'Assessment Year (AY)',
-        ageLabel: 'Age Category',
-        incomeLabel: 'Gross Annual Income (₹)',
-        deductionsLabel: 'Total Deductions (80C, 80D, etc.)',
-        deductionHint: '*Deductions are only applicable for Old Regime.',
-        recommendationLabel: 'RECOMMENDATION',
-        saveLabel: 'Save',
-        oldRegimeLabel: 'OLD REGIME TAX',
-        newRegimeLabel: 'NEW REGIME TAX',
-        netIncomeLabel: 'Net In-Hand Income',
-        ageOptions: {
-          regular: 'Below 60 (Regular)',
-          senior: '60 - 80 (Senior)',
-          superSenior: 'Above 80 (Super Senior)',
-        },
-      },
-    [labels]
-  );
-
-  // --- HELPER: RANGE BACKGROUND ---
-  const getRangeBackground = (val: number, min: number, max: number) => {
-    const percentage = ((val - min) / (max - min)) * 100;
-    return `linear-gradient(to right, var(--color-slider-light) 0%, var(--color-slider-light) ${percentage}%, var(--color-slider-grey) ${percentage}%, var(--color-slider-grey) 100%)`;
+  const t = {
+    ayLabel: 'Assessment Year',
+    ageLabel: 'Age Category',
+    incomeLabel: 'Gross Annual Income (₹)',
+    deductionsLabel: 'Total Deductions (80C, 80D etc.)',
+    deductionHint: '*Deductions apply only in Old Regime',
+    recommendationLabel: 'RECOMMENDED',
+    saveLabel: 'Save',
+    oldRegimeLabel: 'Old Regime Tax',
+    newRegimeLabel: 'New Regime Tax',
+    netIncomeLabel: 'Net In-Hand Income',
+    ageOptions: {
+      regular: 'Below 60',
+      senior: '60 – 80',
+      superSenior: '80+',
+    },
+    ...labels,
   };
 
-  // --- TAX LOGIC ---
-  const calculations = useMemo(() => {
-    const stdDedOld = 50000;
-    const stdDedNew = ay === '2025-2026' ? 75000 : 50000;
+  /* ---------------- STATE ---------------- */
 
-    // --- OLD REGIME ---
-    const taxableIncomeOld = Math.max(0, income - stdDedOld - deductions);
-    let taxOld = 0;
+  const [ay, setAy] = useState<AssessmentYear>('2025-2026');
+  const [age, setAge] = useState<AgeGroup>('0-60');
+  const [income, setIncome] = useState<number>(1200000);
+  const [deductions, setDeductions] = useState<number>(150000);
 
-    let slab1 = 250000;
+  /* ---------------- CALCULATIONS ---------------- */
+
+  const calc = useMemo(() => {
+    const stdOld = 50000;
+    const stdNew = ay === '2025-2026' ? 75000 : 50000;
+
+    /* OLD REGIME */
+    const slab1 = age === '60-80' ? 300000 : age === '80+' ? 500000 : 250000;
     const slab2 = 500000;
     const slab3 = 1000000;
 
-    if (age === '60-80') slab1 = 300000;
-    if (age === '80+') slab1 = 500000;
+    let taxOld = 0;
+    const taxableOld = Math.max(0, income - stdOld - deductions);
 
-    if (taxableIncomeOld > slab1) {
-      if (taxableIncomeOld <= slab2) {
-        taxOld += (taxableIncomeOld - slab1) * 0.05;
-      } else {
-        taxOld += (slab2 - slab1) * 0.05;
-        if (taxableIncomeOld <= slab3) {
-          taxOld += (taxableIncomeOld - slab2) * 0.2;
-        } else {
-          taxOld += (slab3 - slab2) * 0.2;
-          taxOld += (taxableIncomeOld - slab3) * 0.3;
-        }
-      }
+    if (taxableOld > slab1) {
+      taxOld += Math.min(taxableOld - slab1, slab2 - slab1) * 0.05;
+      taxOld += Math.min(Math.max(taxableOld - slab2, 0), slab3 - slab2) * 0.2;
+      taxOld += Math.max(taxableOld - slab3, 0) * 0.3;
     }
-    if (taxableIncomeOld <= 500000) taxOld = 0;
 
-    // --- NEW REGIME ---
-    const taxableIncomeNew = Math.max(0, income - stdDedNew);
+    if (taxableOld <= 500000) taxOld = 0;
+
+    /* NEW REGIME */
+    const taxableNew = Math.max(0, income - stdNew);
     let taxNew = 0;
 
-    if (ay === '2025-2026') {
-      if (taxableIncomeNew > 300000) {
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 700000) - 300000) * 0.05;
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 1000000) - 700000) * 0.1;
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 1200000) - 1000000) * 0.15;
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 1500000) - 1200000) * 0.2;
-        taxNew += Math.max(0, taxableIncomeNew - 1500000) * 0.3;
-      }
-      if (taxableIncomeNew <= 700000) taxNew = 0;
-    } else {
-      if (taxableIncomeNew > 300000) {
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 600000) - 300000) * 0.05;
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 900000) - 600000) * 0.1;
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 1200000) - 900000) * 0.15;
-        taxNew +=
-          Math.max(0, Math.min(taxableIncomeNew, 1500000) - 1200000) * 0.2;
-        taxNew += Math.max(0, taxableIncomeNew - 1500000) * 0.3;
-      }
-      if (taxableIncomeNew <= 700000) taxNew = 0;
-    }
+    const slabs =
+      ay === '2025-2026'
+        ? [
+            [300000, 700000, 0.05],
+            [700000, 1000000, 0.1],
+            [1000000, 1200000, 0.15],
+            [1200000, 1500000, 0.2],
+            [1500000, Infinity, 0.3],
+          ]
+        : [
+            [300000, 600000, 0.05],
+            [600000, 900000, 0.1],
+            [900000, 1200000, 0.15],
+            [1200000, 1500000, 0.2],
+            [1500000, Infinity, 0.3],
+          ];
 
-    const totalTaxOld = Math.round(taxOld * 1.04);
-    const totalTaxNew = Math.round(taxNew * 1.04);
+    slabs.forEach(([min, max, rate]) => {
+      taxNew += Math.max(0, Math.min(taxableNew, max) - min) * rate;
+    });
 
-    const savings = Math.abs(totalTaxOld - totalTaxNew);
-    const isNewBetter = totalTaxNew <= totalTaxOld;
+    if (taxableNew <= 700000) taxNew = 0;
 
-    // Use t.newRegimeLabel/oldRegimeLabel but strip " TAX" for the cleaner recommendation text
-    const recommendation = isNewBetter
-      ? labels
-        ? t.newRegimeLabel.replace(' TAX', '')
-        : 'New Regime'
-      : labels
-      ? t.oldRegimeLabel.replace(' TAX', '')
-      : 'Old Regime';
+    const totalOld = Math.round(taxOld * 1.04);
+    const totalNew = Math.round(taxNew * 1.04);
 
-    const activeTax = isNewBetter ? totalTaxNew : totalTaxOld;
-    const netIncome = income - activeTax;
-    const taxPct = Math.round((activeTax / income) * 100) || 0;
-    const incomePct = 100 - taxPct;
+    const isNewBetter = totalNew <= totalOld;
+    const activeTax = isNewBetter ? totalNew : totalOld;
 
     return {
-      taxOld: totalTaxOld,
-      taxNew: totalTaxNew,
-      savings,
-      recommendation,
+      taxOld: totalOld,
+      taxNew: totalNew,
       activeTax,
-      netIncome,
-      taxPct,
-      incomePct,
-      isNewBetter,
+      netIncome: income - activeTax,
+      savings: Math.abs(totalOld - totalNew),
+      incomePct: Math.round(((income - activeTax) / income) * 100),
+      taxPct: Math.round((activeTax / income) * 100),
+      recommended: isNewBetter ? 'New Regime' : 'Old Regime',
     };
-  }, [ay, age, income, deductions, labels, t]);
+  }, [ay, age, income, deductions]);
 
-  // Safe Setter
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const safeSet = (setter: any) => (e: any) =>
-    setter(Number(e.target.value) || 0);
+  /* ---------------- UI ---------------- */
 
   return (
     <div className="card calculator-card">
       <div className="calc-grid">
-        {/* --- INPUTS --- */}
-        <div className="calc-inputs">
-          <div className="input-group">
-            <label>{t.ayLabel}</label>
-            <div className="input-wrapper">
-              <select
-                value={ay}
-                onChange={(e) => setAy(e.target.value as AssessmentYear)}
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                }}
-              >
-                <option value="2025-2026">2025-2026</option>
-                <option value="2024-2025">2024-2025</option>
-              </select>
-            </div>
+        {/* INPUTS */}
+        <div className="calc-inputs space-y-5">
+          {/* Assessment Year */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-700">
+              {t.ayLabel}
+            </label>
+            <Select
+              value={ay}
+              onValueChange={(v) => setAy(v as AssessmentYear)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="2025-2026">FY 2025–26</SelectItem>
+                <SelectItem value="2024-2025">FY 2024–25</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
-          <div className="input-group">
-            <label>{t.ageLabel}</label>
-            <div className="input-wrapper">
-              <select
-                value={age}
-                onChange={(e) => setAge(e.target.value as AgeGroup)}
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                }}
-              >
-                <option value="0-60">{t.ageOptions.regular}</option>
-                <option value="60-80">{t.ageOptions.senior}</option>
-                <option value="80+">{t.ageOptions.superSenior}</option>
-              </select>
-            </div>
+          {/* Age */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-700">
+              {t.ageLabel}
+            </label>
+            <Select value={age} onValueChange={(v) => setAge(v as AgeGroup)}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="0-60">{t.ageOptions.regular}</SelectItem>
+                <SelectItem value="60-80">{t.ageOptions.senior}</SelectItem>
+                <SelectItem value="80+">{t.ageOptions.superSenior}</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
-          <div className="input-group">
-            <label>{t.incomeLabel}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={income}
-                onChange={safeSet(setIncome)}
-              />
-            </div>
-            <input
-              type="range"
-              min="300000"
-              max="5000000"
-              step="50000"
-              value={income}
-              onChange={safeSet(setIncome)}
-              style={{
-                background: getRangeBackground(income, 300000, 5000000),
-              }}
-            />
-          </div>
-
-          <div className="input-group">
-            <label>{t.deductionsLabel}</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={deductions}
-                onChange={safeSet(setDeductions)}
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="1000000"
-              step="10000"
-              value={deductions}
-              onChange={safeSet(setDeductions)}
-              style={{ background: getRangeBackground(deductions, 0, 1000000) }}
-            />
-            <p style={{ fontSize: '12px', color: '#64748b', marginTop: '6px' }}>
-              {t.deductionHint}
-            </p>
-          </div>
-        </div>
-
-        {/* --- VISUALS --- */}
-        <div className="calc-visuals">
-          <PieChart
-            principalPct={calculations.incomePct}
-            interestPct={calculations.taxPct}
-            size={180}
-            centerLabel="Tax"
+          <CalculatorField
+            label={t.incomeLabel}
+            value={income}
+            min={300000}
+            max={5000000}
+            step={50000}
+            onChange={setIncome}
           />
 
-          <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
-            {/* Recommendation */}
-            <div
-              style={{
-                background: '#f0fdf4',
-                border: '1px dashed #bbf7d0',
-                borderRadius: '8px',
-                padding: '12px',
-                marginBottom: '20px',
-              }}
-            >
-              <span
-                style={{ fontSize: '13px', color: '#166534', fontWeight: 600 }}
-              >
+          <CalculatorField
+            label={t.deductionsLabel}
+            value={deductions}
+            min={0}
+            max={1000000}
+            step={10000}
+            onChange={setDeductions}
+          />
+        </div>
+
+        {/* RESULTS */}
+        <div className="calc-visuals">
+          <PieChart
+            principalPct={calc.incomePct}
+            interestPct={calc.taxPct}
+            size={200}
+          />
+
+          <div className="mt-6 text-center space-y-4">
+            <div className="rounded-lg border border-lime-200 bg-lime-50 p-4">
+              <div className="text-xs font-semibold text-lime-700">
                 {t.recommendationLabel}
-              </span>
-              <div
-                style={{
-                  fontSize: '20px',
-                  fontWeight: 800,
-                  color: 'var(--color-brand-green)',
-                  marginTop: '4px',
-                }}
-              >
-                {calculations.recommendation}
               </div>
-              <div
-                style={{ fontSize: '13px', color: '#166534', marginTop: '4px' }}
-              >
-                {t.saveLabel} <strong>{formatINR(calculations.savings)}</strong>
+              <div className="text-xl font-extrabold text-lime-800">
+                {calc.recommended}
+              </div>
+              <div className="text-sm text-lime-700">
+                {t.saveLabel} <strong>{formatINR(calc.savings)}</strong>
               </div>
             </div>
 
-            {/* Comparison */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 12,
-                fontSize: 14,
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  padding: 12,
-                  background: !calculations.isNewBetter ? '#ecfccb' : '#fff',
-                  borderRadius: 8,
-                  border: !calculations.isNewBetter
-                    ? '1px solid #84cc16'
-                    : '1px solid #e2e8f0',
-                }}
-              >
-                <div
-                  style={{
-                    color: '#64748b',
-                    fontSize: 12,
-                    fontWeight: 600,
-                    marginBottom: 4,
-                  }}
-                >
+            <div className="grid grid-cols-2 gap-3 text-left">
+              <div className="rounded-lg border border-slate-200 bg-white p-3">
+                <div className="text-xs font-semibold text-slate-500 mb-1">
                   {t.oldRegimeLabel}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: '16px' }}>
-                  {formatINR(calculations.taxOld)}
+                <div className="text-lg font-bold text-slate-900">
+                  {formatINR(calc.taxOld)}
                 </div>
               </div>
 
               <div
-                style={{
-                  padding: 12,
-                  background: calculations.isNewBetter ? '#ecfccb' : '#fff',
-                  borderRadius: 8,
-                  border: calculations.isNewBetter
-                    ? '1px solid #84cc16'
-                    : '1px solid #e2e8f0',
-                }}
+                className={`rounded-lg border p-3 ${
+                  calc.recommended === 'New Regime'
+                    ? 'border-lime-300 bg-lime-50'
+                    : 'border-slate-200 bg-white'
+                }`}
               >
-                <div
-                  style={{
-                    color: '#64748b',
-                    fontSize: 12,
-                    fontWeight: 600,
-                    marginBottom: 4,
-                  }}
-                >
+                <div className="text-xs font-semibold text-slate-500 mb-1">
                   {t.newRegimeLabel}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: '16px' }}>
-                  {formatINR(calculations.taxNew)}
+                <div className="text-lg font-bold text-lime-700">
+                  {formatINR(calc.taxNew)}
                 </div>
               </div>
             </div>
 
-            <div style={{ marginTop: 16, fontSize: 12, color: '#64748b' }}>
-              {t.netIncomeLabel}:{' '}
-              <strong>{formatINR(calculations.netIncome)}</strong>
+            <div className="text-sm text-slate-600">
+              {t.netIncomeLabel}: <strong>{formatINR(calc.netIncome)}</strong>
             </div>
           </div>
         </div>

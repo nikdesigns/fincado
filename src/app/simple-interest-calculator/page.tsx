@@ -14,6 +14,22 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -40,6 +56,27 @@ export const metadata: Metadata = {
   },
 };
 
+const faqItems = [
+  {
+    id: 'faq-1',
+    question: 'Do banks use Simple Interest?',
+    answer:
+      'Most savings accounts and fixed deposits use Compound Interest. However, banks may use Simple Interest for very short-term loans or specific types of delay penalties.',
+  },
+  {
+    id: 'faq-2',
+    question: 'How do I calculate interest for months?',
+    answer:
+      'If the time is in months, divide the number of months by 12 to convert it into years for the formula (e.g., 6 months = 6/12 = 0.5 years).',
+  },
+  {
+    id: 'faq-3',
+    question: 'Is Simple Interest better for borrowers?',
+    answer:
+      'Generally, yes. Since interest doesn’t compound on unpaid interest, the total amount payable is usually lower than compound interest loans over the same period.',
+  },
+];
+
 /* ---------------- PAGE ---------------- */
 
 export default function SimpleInterestPage() {
@@ -50,7 +87,7 @@ export default function SimpleInterestPage() {
       amount is fixed and calculated only on the original <strong>Principal</strong> amount. 
       It does not earn interest on interest (unlike Compound Interest).
     </p>
-    <p>
+    <p class="mt-2">
       It is commonly used for short-term loans, car loans marketed as "Flat Rate," and informal 
       lending between friends and family.
     </p>
@@ -62,7 +99,7 @@ export default function SimpleInterestPage() {
       which sounds cheap. However, because you pay interest on the <strong>full principal</strong> 
       throughout the tenure (even as you repay it), the effective rate is almost double (approx 13-14%).
     </p>
-    <p>Always convert Flat Rate to <strong>Reducing Balance Rate</strong> before taking a loan.</p>
+    <p class="mt-4">Always convert Flat Rate to <strong>Reducing Balance Rate</strong> before taking a loan.</p>
   `);
 
   return (
@@ -74,40 +111,11 @@ export default function SimpleInterestPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the Simple Interest formula?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The formula for Simple Interest is SI = (P × R × T) / 100, where P is Principal, R is Rate per annum, and T is Time in years.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How is Simple Interest different from Compound Interest?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Simple interest is calculated only on the principal amount. Compound interest is calculated on the principal plus any accumulated interest from previous periods.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is a Flat Rate loan?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'A Flat Rate loan charges interest on the original principal for the entire tenure, ignoring the fact that you are paying back the principal monthly. It is more expensive than a Reducing Balance loan.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -122,30 +130,52 @@ export default function SimpleInterestPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/simple-interest-calculator" />
-          <h1>Simple Interest Calculator</h1>
-          <ShareTools title="Simple Interest Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="si-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Simple Interest Calculator" />
+            <LanguageToggle path="/hi/simple-interest-calculator" />
           </div>
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Calculate the interest earned or paid on a principal amount. The
-              quickest way to determine returns without the complexity of
-              <strong>Compounding</strong>.
-            </p>
-          `}
-          />
+
+          {/* Title */}
+          <h1
+            className="
+      mb-4
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
+      font-semibold
+      tracking-tight
+      text-slate-900
+    "
+          >
+            Simple Interest Calculator
+            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+              Quick & Non-Compounding Interest Calculation
+            </span>
+          </h1>
+
+          {/* Intro */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Calculate the interest earned or paid on a principal amount using the
+          <strong>Simple Interest</strong> method.
+          Ideal for short-term loans, informal lending, and quick estimates
+          without the complexity of compounding.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <SICalculatorClient />
-            {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+
+            {/* 💰 AD: AFTER CALCULATOR */}
+            <div className="no-print my-8">
               <AdSlot id="si-after-calc" type="banner" />
             </div>
 
@@ -153,49 +183,34 @@ export default function SimpleInterestPage() {
             <LiveRateTable type="personalLoan" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Interest
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/compound-interest-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        hover:bg-slate-50
+      "
                 >
                   🔄 Compound Interest
                 </Link>
+
                 <Link
                   href="/emi-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex items-center justify-center
+        rounded-lg border border-slate-200
+        bg-white px-3 py-3
+        text-sm font-medium text-slate-900
+        hover:bg-slate-50
+      "
                 >
                   🔢 EMI Calc
                 </Link>
@@ -204,183 +219,245 @@ export default function SimpleInterestPage() {
 
             {/* ✅ Promo Box */}
             <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
+              className="
+    no-print
+    mt-8
+    flex items-center gap-3
+    rounded-lg border border-emerald-200
+    bg-emerald-50
+    p-4
+  "
             >
-              <span style={{ fontSize: '24px' }}>🚗</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
+              {/* Icon */}
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
+                🚗
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <strong className="block text-sm font-semibold text-emerald-800">
                   Buying a car on Flat Rate?
                 </strong>
+
                 <Link
                   href="/loans/car-loan/"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+                  className="
+        mt-1 inline-flex items-center gap-1
+        text-sm font-semibold text-emerald-700
+        underline-offset-4 hover:underline
+      "
                 >
                   Check true EMI here →
                 </Link>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            {/* 💰 AD: MID CONTENT */}
+            <div className="no-print my-10 flex justify-center">
               <AdSlot id="si-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is Simple Interest?</h2>
-              <WikiText content={introContent} />
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS SIMPLE INTEREST --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is Simple Interest?
+                    </h2>
 
-              <h3>Simple Interest vs Compound Interest</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>Simple Interest (SI)</th>
-                      <th>Compound Interest (CI)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Formula</strong>
-                      </td>
-                      <td>Interest on Principal only</td>
-                      <td>Interest on Principal + Interest</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Growth</strong>
-                      </td>
-                      <td>Linear (Slow)</td>
-                      <td>Exponential (Fast)</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Returns</strong>
-                      </td>
-                      <td>Lower Returns</td>
-                      <td>Higher Returns</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Used In</strong>
-                      </td>
-                      <td>Car Loans (Flat), Short Loans</td>
-                      <td>Mutual Funds, FDs, Home Loans</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* --- SI vs CI TABLE --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Simple Interest vs Compound Interest
+                    </h3>
 
-              <h3>The &quot;Flat Rate&quot; Loan Trap</h3>
-              <WikiText content={flatRateContent} />
+                    <div className="rounded-lg border border-slate-200 overflow-hidden">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-slate-50">
+                            <TableHead>Feature</TableHead>
+                            <TableHead>Simple Interest (SI)</TableHead>
+                            <TableHead>Compound Interest (CI)</TableHead>
+                          </TableRow>
+                        </TableHeader>
 
-              <h3>Simple Interest Formula</h3>
-              <p>The standard formula for calculating simple interest is:</p>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Formula
+                            </TableCell>
+                            <TableCell>Interest on Principal only</TableCell>
+                            <TableCell>
+                              Interest on Principal + Interest
+                            </TableCell>
+                          </TableRow>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="SI = \frac{P \times R \times T}{100}" />
-              </div>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Growth
+                            </TableCell>
+                            <TableCell>Linear (Slow)</TableCell>
+                            <TableCell>Exponential (Fast)</TableCell>
+                          </TableRow>
 
-              <WikiText
-                content={`
-                  <ul style="font-size: 14px;">
-                    <li><strong>SI</strong>: Simple Interest Generated</li>
-                    <li><strong>P</strong>: Principal Amount</li>
-                    <li><strong>R</strong>: Rate of Interest per Annum</li>
-                    <li><strong>T</strong>: Time Period in Years</li>
-                  </ul>
-                `}
-              />
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Returns
+                            </TableCell>
+                            <TableCell>Lower Returns</TableCell>
+                            <TableCell className="text-emerald-700 font-medium">
+                              Higher Returns
+                            </TableCell>
+                          </TableRow>
 
-              <h3>How This Calculator Helps You</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>Quick Estimates</h4>
-                  <p>
-                    Rapidly calculate the cost of &quot;Flat Rate&quot; loans
-                    often advertised by lenders.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Investment Checks</h4>
-                  <p>
-                    Verify returns on non-compounding instruments like certain
-                    bonds.
-                  </p>
-                </div>
-                <div className="advantage-card">
-                  <h4>Educational Use</h4>
-                  <p>
-                    A perfect tool for students to demonstrate the linear growth
-                    of money.
-                  </p>
-                </div>
-              </div>
+                          <TableRow>
+                            <TableCell className="font-medium">
+                              Used In
+                            </TableCell>
+                            <TableCell>
+                              Car Loans (Flat), Short-Term Loans
+                            </TableCell>
+                            <TableCell>Mutual Funds, FDs, Home Loans</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </section>
+
+                  {/* --- AD SLOT --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  {/* --- FLAT RATE TRAP --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      The “Flat Rate” Loan Trap
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={flatRateContent} />
+                    </div>
+                  </section>
+
+                  {/* --- FORMULA --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Simple Interest Formula
+                    </h3>
+
+                    <p className="text-slate-700">
+                      The standard formula for calculating simple interest is:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
+                      <BlockMath math="SI = \frac{P \times R \times T}{100}" />
+                    </div>
+
+                    <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
+                      <li>
+                        <strong>SI</strong> = Simple Interest
+                      </li>
+                      <li>
+                        <strong>P</strong> = Principal Amount
+                      </li>
+                      <li>
+                        <strong>R</strong> = Rate of Interest per annum
+                      </li>
+                      <li>
+                        <strong>T</strong> = Time Period (Years)
+                      </li>
+                    </ul>
+                  </section>
+
+                  {/* --- BENEFITS GRID --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How This Calculator Helps You
+                    </h3>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Quick Estimates
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Instantly calculate the true cost of “Flat Rate”
+                          loans.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Investment Checks
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Verify returns on bonds or non-compounding
+                          instruments.
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          Educational Use
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Understand how money grows linearly without
+                          compounding.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Do banks use Simple Interest?</summary>
-                  <p>
-                    Most savings accounts and fixed deposits use Compound
-                    Interest. However, banks may use Simple Interest for very
-                    short-term loans or specific types of delay penalties.
-                  </p>
-                </details>
-                <details>
-                  <summary>How do I calculate interest for months?</summary>
-                  <p>
-                    If the time is in months, divide the number of months by 12
-                    to convert it into years for the formula (e.g., 6 months =
-                    6/12 = 0.5 years).
-                  </p>
-                </details>
-                <details>
-                  <summary>Is Simple Interest better for borrowers?</summary>
-                  <p>
-                    Generally, yes. Since interest doesn&apos;t compound on
-                    unpaid interest, the total amount payable is usually lower
-                    than compound interest loans over the same period.
-                  </p>
-                </details>
-              </div>
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="si-sidebar" type="box" />
             </div>
+
             <FinancialNavWidget />
           </aside>
         </div>

@@ -1,7 +1,16 @@
 // src/app/calculators/CalculatorsGrid.tsx
 'use client';
+
 import React, { useMemo } from 'react';
+import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 // Comprehensive list of all calculators
 const ALL_CALCULATORS = [
@@ -183,55 +192,80 @@ const ALL_CALCULATORS = [
 ];
 
 export default function CalculatorsGrid() {
+  // Group calculators by Category
   const groupedCalculators = useMemo(() => {
     return ALL_CALCULATORS.reduce((acc, calc) => {
-      if (!acc[calc.category]) {
-        acc[calc.category] = [];
+      // Handle slight category name variations if they exist in data
+      let cat = calc.category;
+      if (cat.includes('Investment')) cat = 'Investment & Savings';
+      if (cat.includes('Retirement')) cat = 'Retirement & Pension';
+
+      if (!acc[cat]) {
+        acc[cat] = [];
       }
-      acc[calc.category].push(calc);
+      acc[cat].push(calc);
       return acc;
     }, {} as Record<string, typeof ALL_CALCULATORS>);
   }, []);
 
-  const renderCalculatorTile = (calc: (typeof ALL_CALCULATORS)[0]) => (
-    <a
-      key={calc.path}
-      href={calc.path}
-      className="tool-tile"
-      style={{ textDecoration: 'none', color: 'inherit' }}
-    >
-      <div className="tool-icon-wrap">
-        <div className="tool-icon-circle">
-          <span className="tool-icon-svg" style={{ fontSize: '28px' }}>
-            {calc.icon}
-          </span>
-        </div>
-      </div>
-      <h3 className="tool-title">{calc.title}</h3>
-      <p className="tool-desc">{calc.desc}</p>
-    </a>
-  );
-
   return (
-    <div className="calculator-hub article">
-      <h2>Comprehensive Financial Calculators</h2>
-      <p className="tools-sub">
-        Access our full suite of professional calculators for loans,
-        investments, retirement planning, and tax tools. All calculators are
-        built for the Indian context.
-      </p>
+    <div className="space-y-16">
+      {/* Intro Section */}
+      <div className="article">
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">
+          Comprehensive Financial Calculators
+        </h2>
+        <p className="text-slate-600 mb-8">
+          Access our full suite of professional calculators for loans,
+          investments, retirement planning, and tax tools. All calculators are
+          built for the Indian financial system.
+        </p>
+      </div>
 
-      <div style={{ margin: '30px 0' }}>
+      <div className="my-8">
         <AdSlot id="calculators-grid-top" type="leaderboard" />
       </div>
 
+      {/* Categories Loop */}
       {Object.entries(groupedCalculators).map(([category, calculators]) => (
-        <section key={category} className="tools-section">
-          <div className="tools-header">
-            <h2>{category}</h2>
+        <section
+          key={category}
+          id={category.toLowerCase().replace(/\s+/g, '-')}
+        >
+          <div className="flex items-center gap-3 mb-6 pb-2 border-b border-slate-200">
+            <h3 className="text-2xl font-bold text-slate-800">{category}</h3>
+            <Badge
+              variant="secondary"
+              className="text-slate-600 bg-slate-100 hover:bg-slate-200"
+            >
+              {calculators.length} Tools
+            </Badge>
           </div>
-          <div className="tools-grid">
-            {calculators.map(renderCalculatorTile)}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {calculators.map((calc) => (
+              <Link
+                key={calc.path}
+                href={calc.path}
+                className="group block h-full"
+              >
+                <Card className="h-full transition-all duration-200 hover:shadow-lg hover:-translate-y-1 border-slate-200 hover:border-brand-green/50">
+                  <CardHeader className="flex flex-row items-start gap-4 space-y-0 p-6">
+                    <div className="w-12 h-12 shrink-0 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-200">
+                      {calc.icon}
+                    </div>
+                    <div className="space-y-1.5">
+                      <CardTitle className="text-lg font-bold text-slate-900 group-hover:text-brand-green transition-colors leading-tight">
+                        {calc.title}
+                      </CardTitle>
+                      <CardDescription className="text-slate-500 text-sm leading-relaxed line-clamp-3">
+                        {calc.desc}
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
+                </Card>
+              </Link>
+            ))}
           </div>
         </section>
       ))}

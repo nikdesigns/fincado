@@ -14,6 +14,22 @@ import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionTrigger,
+  AccordionItem,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA (Optimized 2025) ---------------- */
 export const metadata: Metadata = {
@@ -40,6 +56,26 @@ export const metadata: Metadata = {
   },
 };
 
+const faqItems = [
+  {
+    id: 'gst-faq-1',
+    question: 'Who needs to register for GST?',
+    answer:
+      'Businesses with an annual turnover exceeding ₹40 Lakhs (₹20 Lakhs for services) must register. E-commerce sellers and inter-state suppliers must register mandatorily.',
+  },
+  {
+    id: 'gst-faq-2',
+    question: 'What is HSN/SAC Code?',
+    answer:
+      'HSN (Harmonized System of Nomenclature) is used for goods, while SAC (Services Accounting Code) is for services. These codes determine the applicable GST rate.',
+  },
+  {
+    id: 'gst-faq-3',
+    question: 'Is there GST on exports?',
+    answer:
+      'Exports are treated as zero-rated supplies. Exporters can either pay IGST and claim a refund or export under a Bond/LUT without paying tax.',
+  },
+];
 /* ---------------- PAGE ---------------- */
 
 export default function GSTPage() {
@@ -50,14 +86,14 @@ export default function GSTPage() {
       of goods and services in India. It replaced multiple cascading taxes like VAT, Service Tax, and Excise Duty, 
       creating a "One Nation, One Tax" system.
     </p>
-    <p>
+    <p class="mt-4">
       Businesses need to calculate GST accurately to file returns and generate <strong>e-invoices</strong>. 
       Consumers use it to cross-check bills for big-ticket purchases like cars or appliances.
     </p>
   `);
 
   const componentContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc list-inside space-y-2 mt-2">
       <li><strong>CGST (Central GST):</strong> Collected by the Central Government on intra-state sales (within the same state).</li>
       <li><strong>SGST (State GST):</strong> Collected by the State Government on intra-state sales.</li>
       <li><strong>IGST (Integrated GST):</strong> Collected by the Central Government on inter-state sales (between two states) and imports.</li>
@@ -81,40 +117,11 @@ export default function GSTPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'How to calculate Reverse GST?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'To find the base price from the total amount: Net Price = Total Amount / (1 + (GST Rate/100)). For example, if Total is ₹118 and GST is 18%, Base Price = 118 / 1.18 = ₹100.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the GST rate on Gold?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Gold and Gold Jewellery attract a special GST rate of 3%. Making charges on gold jewellery are taxed separately at 5% or 18% depending on the service.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Who pays IGST?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'IGST (Integrated GST) is paid when goods or services are supplied from one state to another (Inter-state). The tax is collected by the Centre and later shared with the destination state.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={faqItems.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -129,23 +136,49 @@ export default function GSTPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/gst-calculator" />
-          <h1>GST Calculator (Goods and Services Tax)</h1>
-          <ShareTools title="GST Calculator" />
-
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="gst-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="GST Calculator" />
+            <LanguageToggle path="/hi/gst-calculator" />
           </div>
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Instantly calculate <strong>GST Inclusive</strong> and <strong>Exclusive</strong> prices.
-              Ideal for generating invoices, verifying bills, and tax compliance.
-            </p>
-          `}
-          />
+
+          {/* Title */}
+          <h1
+            className="
+      mb-3
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
+      font-semibold
+      tracking-tight
+      text-slate-900
+    "
+          >
+            GST Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-2">
+              Goods & Services Tax (India)
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="mb-4 text-sm text-slate-500">
+            Calculate GST inclusive & exclusive prices instantly • Updated for
+            2025
+          </p>
+
+          {/* Intro */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Instantly calculate <strong>GST Inclusive</strong> and
+          <strong>Exclusive</strong> prices for invoices, billing verification,
+          and GST compliance. Supports all common GST slabs used in India.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -161,49 +194,58 @@ export default function GSTPage() {
             <LiveRateTable type="personalLoan" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="no-print my-8 md:hidden">
+              <h3 className="mb-4 text-base font-semibold text-slate-900">
                 Business Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/sip-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex
+        items-center
+        justify-center
+        rounded-lg
+        border
+        border-slate-200
+        bg-white
+        px-3
+        py-3
+        text-sm
+        font-medium
+        text-slate-900
+        shadow-sm
+        transition
+        hover:bg-slate-50
+        hover:shadow
+        active:scale-[0.98]
+      "
                 >
                   📈 Investment Calc
                 </Link>
+
                 <Link
                   href="/loan-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        flex
+        items-center
+        justify-center
+        rounded-lg
+        border
+        border-slate-200
+        bg-white
+        px-3
+        py-3
+        text-sm
+        font-medium
+        text-slate-900
+        shadow-sm
+        transition
+        hover:bg-slate-50
+        hover:shadow
+        active:scale-[0.98]
+      "
                 >
                   💸 Business Loan
                 </Link>
@@ -211,182 +253,245 @@ export default function GSTPage() {
             </div>
 
             {/* ✅ Promo Box */}
-            <div
-              className="no-print"
-              style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>💼</span>
-              <div>
-                <strong style={{ display: 'block', color: '#166534' }}>
-                  Running a Business?
-                </strong>
-                <Link
-                  href="/guides/gst-guide"
-                  style={{
-                    color: '#16a34a',
-                    fontWeight: 600,
-                    textDecoration: 'underline',
-                  }}
+            <div className="no-print mt-8">
+              <div
+                className="
+      flex
+      items-center
+      gap-3
+      rounded-xl
+      border
+      border-emerald-200
+      bg-emerald-50/70
+      p-4
+    "
+              >
+                {/* Icon */}
+                <div
+                  className="
+        flex
+        h-10
+        w-10
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        bg-emerald-100
+        text-xl
+      "
                 >
-                  Read: How to file GST Returns Online →
-                </Link>
+                  💼
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <strong className="block text-sm font-semibold text-emerald-800">
+                    Running a Business?
+                  </strong>
+
+                  <Link
+                    href="/guides/gst-guide"
+                    className="
+          mt-1
+          inline-flex
+          items-center
+          gap-1
+          text-sm
+          font-semibold
+          text-emerald-700
+          underline-offset-4
+          hover:underline
+        "
+                  >
+                    Read: How to file GST Returns Online →
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            {/* 💰 AD: MID CONTENT */}
+            <div className="no-print my-10 flex justify-center">
               <AdSlot id="gst-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>Understanding GST (Goods and Services Tax)</h2>
-              <WikiText content={introContent} />
+            {/* ---------------- RICH SEO CONTENT ---------------- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- INTRO --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      Understanding GST (Goods and Services Tax)
+                    </h2>
 
-              <h3>Current GST Rate Slabs (2025)</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Rate</th>
-                      <th>Items Covered</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>0% (Exempt)</strong>
-                      </td>
-                      <td>
-                        Fresh food (milk, eggs, vegetables), Books, Newspapers.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>3%</strong>
-                      </td>
-                      <td>Gold, Silver, Platinum, Diamonds.</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>5%</strong>
-                      </td>
-                      <td>Packaged food, Medicines, Economy Air travel.</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>12%</strong>
-                      </td>
-                      <td>
-                        Mobiles, Processed food, Business Class Air travel.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>18%</strong>
-                      </td>
-                      <td>
-                        Most Electronics, IT Services, Restaurants, Banking.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>28%</strong>
-                      </td>
-                      <td>Luxury Cars, Cement, ACs, Tobacoo (+ Cess).</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* --- GST SLABS TABLE --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Current GST Rate Slabs (2025)
+                    </h3>
 
-              <h3>Components of GST</h3>
-              <WikiText content={componentContent} />
+                    <div className="overflow-x-auto rounded-lg border">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="w-30">Rate</TableHead>
+                            <TableHead>Items Covered</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-semibold">
+                              0% (Exempt)
+                            </TableCell>
+                            <TableCell>
+                              Fresh food (milk, eggs, vegetables), Books,
+                              Newspapers
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-semibold">3%</TableCell>
+                            <TableCell>
+                              Gold, Silver, Platinum, Diamonds
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-semibold">5%</TableCell>
+                            <TableCell>
+                              Packaged food, Medicines, Economy Air Travel
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-semibold">12%</TableCell>
+                            <TableCell>
+                              Mobiles, Processed Food, Business Class Air Travel
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-semibold">18%</TableCell>
+                            <TableCell>
+                              Electronics, IT Services, Restaurants, Banking
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-semibold">28%</TableCell>
+                            <TableCell>
+                              Luxury Cars, Cement, ACs, Tobacco (+ Cess)
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </section>
 
-              <h3>Reverse GST Calculation Formula</h3>
-              <WikiText content={reverseContent} />
+                  {/* --- AD SLOT --- */}
+                  <div className="no-print my-10 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <div
-                style={{
-                  padding: '20px 0',
-                  overflowX: 'auto',
-                  maxWidth: '100%',
-                }}
-              >
-                <BlockMath math="\text{Base Price} = \frac{\text{Total MRP}}{1 + (\text{GST Rate} / 100)}" />
-              </div>
+                  {/* --- COMPONENTS --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Components of GST
+                    </h3>
 
-              <WikiText
-                content={`
-                  <p>
-                    <strong>Example:</strong> If you bought a phone for ₹11,800 (inclusive of 18% GST):<br />
-                    Base Price = 11,800 / 1.18 = <strong>₹10,000</strong>.<br />
-                    GST Amount = ₹1,800.
-                  </p>
-                `}
-              />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={componentContent} />
+                    </div>
+                  </section>
 
-              <h3>Benefits of GST System</h3>
-              <WikiText
-                content={`
-                  <ul>
-                    <li><strong>Eliminates Cascading Effect:</strong> Tax on tax is removed via Input Tax Credit (ITC).</li>
-                    <li><strong>Higher Threshold:</strong> Small businesses with turnover up to ₹40 Lakhs are exempt.</li>
-                    <li><strong>Composition Scheme:</strong> Simplified compliance for businesses up to ₹1.5 Crore turnover.</li>
-                  </ul>
-                `}
-              />
+                  {/* --- REVERSE GST --- */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Reverse GST Calculation Formula
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={reverseContent} />
+                    </div>
+
+                    <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
+                      <BlockMath math="\text{Base Price} = \frac{\text{Total MRP}}{1 + (\text{GST Rate} / 100)}" />
+                    </div>
+
+                    <div className="text-slate-700 text-sm leading-relaxed">
+                      <WikiText
+                        content={`
+              <p>
+                <strong>Example:</strong> If a phone costs ₹11,800 (inclusive of 18% GST):<br />
+                Base Price = 11,800 / 1.18 = <strong>₹10,000</strong><br />
+                GST Amount = ₹1,800
+              </p>
+            `}
+                      />
+                    </div>
+                  </section>
+
+                  {/* --- BENEFITS --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Benefits of GST System
+                    </h3>
+
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText
+                        content={`
+              <ul class="list-disc list-inside space-y-2">
+                <li><strong>Eliminates Cascading Effect:</strong> Input Tax Credit avoids tax on tax.</li>
+                <li><strong>Higher Threshold:</strong> Businesses up to ₹40L turnover are exempt.</li>
+                <li><strong>Composition Scheme:</strong> Simplified compliance for turnover up to ₹1.5 Cr.</li>
+              </ul>
+            `}
+                      />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Who needs to register for GST?</summary>
-                  <p>
-                    Businesses with an annual turnover exceeding ₹40 Lakhs (₹20
-                    Lakhs for services) must register. E-commerce sellers and
-                    inter-state suppliers must register mandatorily.
-                  </p>
-                </details>
-                <details>
-                  <summary>What is HSN/SAC Code?</summary>
-                  <p>
-                    <strong>HSN</strong> (Harmonized System of Nomenclature) is
-                    for goods, and <strong>SAC</strong> (Services Accounting
-                    Code) is for services. These codes determine the tax rate.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is there GST on exports?</summary>
-                  <p>
-                    Exports are generally treated as zero-rated supplies.
-                    Exporters can either pay IGST and claim a refund or export
-                    under a Bond/LUT without paying tax.
-                  </p>
-                </details>
-              </div>
+            {/* ---------------- FAQs ---------------- */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="gst-sidebar" type="box" />
             </div>
+
             <FinancialNavWidget />
           </aside>
         </div>

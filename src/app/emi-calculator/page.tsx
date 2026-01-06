@@ -22,6 +22,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import { BookOpen, ArrowRight } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -73,7 +74,7 @@ export default function EMIPage() {
   `);
 
   const factorsContent = autoLinkContent(`
-    <ul>
+    <ul class="list-disc pl-5 space-y-2">
       <li><strong>Loan Principal:</strong> The total amount you borrow. Higher principal means higher EMI.</li>
       <li><strong>Interest Rate:</strong> A lower <strong>Personal Loan Interest Rate</strong> or Home Loan rate reduces your monthly burden significantly.</li>
       <li><strong>Tenure:</strong> Choosing a longer tenure reduces your monthly EMI but increases the total interest payout over time.</li>
@@ -183,14 +184,14 @@ export default function EMIPage() {
 
             <section className="no-print mt-8">
               <Card className="border-slate-200 bg-white">
-                <CardHeader className="pb-3">
+                <CardHeader>
                   <CardTitle className="text-lg font-semibold text-slate-900">
                     Key EMI Insights
                   </CardTitle>
                 </CardHeader>
 
                 <CardContent>
-                  <ul className="space-y-3 text-sm text-slate-600 list-disc pl-5">
+                  <ul className="space-y-3 text-base text-slate-600 list-disc pl-5">
                     <li>
                       Lower EMI often means higher total interest over time.
                     </li>
@@ -217,34 +218,28 @@ export default function EMIPage() {
 
             <LiveRateTable type="personalLoan" />
 
-            <Card className="no-print border-emerald-200 bg-emerald-50/60 my-6">
-              <CardContent className="flex items-start gap-4 p-4 sm:p-5">
-                {/* Icon */}
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
-                  📚
+            {/* promo Content */}
+            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-5">
+                {/* Icon Container */}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <BookOpen className="h-5 w-5" />
                 </div>
 
                 {/* Content */}
-                <div className="flex-1">
-                  <strong className="block text-base font-semibold text-emerald-800">
+                <div className="flex-1 space-y-1">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     Want to master your EMI?
                   </strong>
 
                   <Link
                     href="/guides/emi-calculator-guide"
-                    className="
-                    mt-1
-                    inline-flex
-                    items-center
-                    gap-1
-                    text-sm
-                    font-semibold
-                    text-emerald-700
-                    underline-offset-4
-                    hover:underline
-                  "
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
-                    Read our 2025 EMI Guide: Formulas & Smart Planning →
+                    <span>
+                      Read our 2025 EMI Guide: Formulas & Smart Planning
+                    </span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </CardContent>
@@ -310,7 +305,7 @@ export default function EMIPage() {
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-                  <ul>
+                  <ul class="list-disc pl-5 space-y-2 text-sm">
                     <li><strong>E</strong> = EMI Amount</li>
                     <li><strong>P</strong> = Principal Loan Amount</li>
                     <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>

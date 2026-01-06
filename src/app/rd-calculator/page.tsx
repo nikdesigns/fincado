@@ -57,7 +57,7 @@ export default function RDPage() {
       that allows individuals to deposit a fixed amount every month for a pre-defined tenure. 
       It is ideal for salaried people who want to save a portion of their income regularly.
     </p>
-    <p>
+    <p class="mt-4">
       Unlike a <strong>Fixed Deposit (FD)</strong> where a lump sum is required, RD brings the 
       discipline of regular savings with interest rates similar to FDs.
     </p>
@@ -68,7 +68,7 @@ export default function RDPage() {
       Interest earned on Recurring Deposits is <strong>fully taxable</strong>. It is added to your annual income 
       and taxed according to your slab.
     </p>
-    <ul class="list-disc pl-6 space-y-2">
+    <ul class="list-disc pl-6 space-y-2 mt-4 text-slate-600">
       <li><strong>TDS:</strong> Banks deduct 10% TDS if interest exceeds ₹40,000/year (₹50,000 for Seniors).</li>
       <li><strong>Form 15G/15H:</strong> You can submit these forms to avoid TDS if your total income is below the taxable limit.</li>
     </ul>
@@ -168,7 +168,7 @@ export default function RDPage() {
           {/* Intro */}
           <WikiText
             content={`
-      <p class="max-w-175 text-slate-500 mt-2">
+      <p class="max-w-175 text-slate-600 mt-2">
         Turn small monthly savings into a large corpus. Use our bank-grade
         calculator to check your maturity amount with
         <strong> quarterly compounding</strong>.

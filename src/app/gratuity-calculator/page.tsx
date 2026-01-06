@@ -12,6 +12,22 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import { autoLinkContent } from '@/utils/autoLinker';
 import LanguageToggle from '@/components/LanguageToggle';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
@@ -37,6 +53,41 @@ export const metadata: Metadata = {
   },
 };
 
+const GRATUITY_FAQS = [
+  {
+    id: 'gratuity-faq-1',
+    question: 'Can my employer refuse to pay Gratuity?',
+    answer:
+      'If you have completed 5 years of continuous service, your employer is legally bound to pay gratuity. It cannot be denied unless the employee has been terminated for riotous or disorderly conduct.',
+  },
+  {
+    id: 'gratuity-faq-2',
+    question: 'Is gratuity part of CTC?',
+    answer:
+      'Yes, most companies include gratuity (around 4.81% of Basic Salary) in your Cost to Company (CTC). However, it is paid only when you leave the company after completing 5 years of service.',
+  },
+
+  // 👇 ADDED FROM YOUR HARDCODED SCHEMA
+  {
+    id: 'gratuity-faq-3',
+    question: 'What is the eligibility for Gratuity?',
+    answer:
+      'An employee is eligible for gratuity only after completing 5 continuous years of service with the same employer.',
+  },
+  {
+    id: 'gratuity-faq-4',
+    question: 'Is Gratuity taxable?',
+    answer:
+      'Gratuity received by government employees is fully tax-free. For private sector employees, it is tax-free up to ₹20 Lakhs. Any amount above this limit is taxable.',
+  },
+  {
+    id: 'gratuity-faq-5',
+    question: 'Does 4 years and 7 months count as 5 years?',
+    answer:
+      'No. To be eligible, you must complete exactly 5 full years. However, once eligible, any service period above 6 months is rounded off to the next year for calculation.',
+  },
+];
+
 /* ---------------- PAGE ---------------- */
 
 export default function GratuityPage() {
@@ -46,7 +97,7 @@ export default function GratuityPage() {
       rendered to the company. It is a lump sum payment made at the time of retirement, resignation, 
       or termination.
     </p>
-    <p>
+    <p class="mt-4">
       In India, gratuity rules are mandated by the <strong>Payment of Gratuity Act, 1972</strong>. 
       Any organization with 10 or more employees must pay gratuity to eligible staff.
     </p>
@@ -56,7 +107,7 @@ export default function GratuityPage() {
     <p>
       The formula depends on whether your organization is covered under the Gratuity Act or not.
     </p>
-    <ul>
+    <ul class="list-disc list-inside space-y-2 mt-2">
       <li>
         <strong>Covered Employees:</strong> <br />
         <em>Gratuity = (Last Drawn Salary × 15 × Years of Service) / 26</em> <br />
@@ -81,40 +132,11 @@ export default function GratuityPage() {
       />
 
       {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the eligibility for Gratuity?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'An employee is eligible for gratuity only after completing 5 continuous years of service with the same employer.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is Gratuity taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Gratuity received by government employees is fully tax-free. For private sector employees, it is tax-free up to ₹20 Lakhs. Any amount above this limit is taxable.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Does 4 years and 7 months count as 5 years?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. To be eligible, you must complete exactly 5 full years. However, once eligible (after 5 years), any fraction of service above 6 months is rounded off to the next year for calculation.',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={GRATUITY_FAQS.map((faq) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -129,23 +151,44 @@ export default function GratuityPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 40 }} className="no-print">
-          <LanguageToggle path="/hi/gratuity-calculator" />
-          <h1>Gratuity Calculator</h1>
-
-          <ShareTools title="Gratuity Calculator" />
-          {/* 💰 AD 1: TOP LEADERBOARD */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="gratuity-top" type="leaderboard" />
+        <header className="no-print mb-10">
+          {/* Share + Language */}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Gratuity Calculator" />
+            <LanguageToggle path="/hi/gratuity-calculator" />
           </div>
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              Leaving a job or retiring? Use this tool to calculate your <strong>Gratuity Amount</strong> 
-              and see how much of it is <strong>Tax-Free</strong>.
-            </p>
-          `}
-          />
+
+          {/* Title */}
+          <h1
+            className="
+      mb-4
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
+      font-semibold
+      tracking-tight
+      text-slate-900
+    "
+          >
+            Gratuity Calculator
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-1">
+              Estimate Your Gratuity & Tax Exemption
+            </span>
+          </h1>
+
+          {/* Intro text */}
+          <div className="max-w-3xl text-base leading-relaxed text-slate-600">
+            <WikiText
+              content={`
+        <p>
+          Leaving a job or planning retirement?
+          Use Fincado’s <strong>Gratuity Calculator</strong> to instantly
+          estimate your payable gratuity amount and understand
+          how much of it is <strong>tax-free</strong> under current rules.
+        </p>
+      `}
+            />
+          </div>
         </header>
 
         <div className="layout-grid">
@@ -153,7 +196,7 @@ export default function GratuityPage() {
             <GratuityClient />
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
+            <div className="no-print my-8">
               <AdSlot id="gratuity-after-calc" type="banner" />
             </div>
 
@@ -161,161 +204,214 @@ export default function GratuityPage() {
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="mobile-only-suggestions my-8">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Retirement Tools
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/epf-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border
+        border-slate-200
+        bg-white
+        px-3
+        py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        hover:bg-slate-50
+        transition
+      "
                 >
                   🏢 EPF Calc
                 </Link>
+
                 <Link
                   href="/retirement-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+        rounded-lg
+        border
+        border-slate-200
+        bg-white
+        px-3
+        py-3
+        text-center
+        text-sm
+        font-medium
+        text-slate-900
+        hover:bg-slate-50
+        transition
+      "
                 >
                   👴 Retire Calc
                 </Link>
               </div>
             </div>
 
-            <div style={{ margin: '40px 0' }} className="no-print">
+            <div className="no-print my-8">
               <AdSlot id="gratuity-mid-content" type="leaderboard" />
             </div>
 
-            <article className="article content-for-seo no-print">
-              <h2>What is Gratuity?</h2>
-              <WikiText content={introContent} />
+            {/* --- RICH SEO CONTENT --- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* --- WHAT IS GRATUITY --- */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      What is Gratuity?
+                    </h2>
 
-              <h3>Gratuity Calculation Formula</h3>
-              <WikiText content={formulaContent} />
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
 
-              {/* 💰 AD 3: IN-CONTENT SQUARE */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+                  {/* --- FORMULA --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Gratuity Calculation Formula
+                    </h3>
 
-              <h3>Tax Rules for Gratuity (2025)</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Employee Category</th>
-                      <th>Tax Exemption Limit</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Government Employees</td>
-                      <td>Fully Tax Exempt</td>
-                    </tr>
-                    <tr>
-                      <td>Private (Covered by Act)</td>
-                      <td>₹20 Lakhs</td>
-                    </tr>
-                    <tr>
-                      <td>Private (Not Covered)</td>
-                      <td>₹20 Lakhs</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                <em>
-                  Note: The limit was increased from ₹10 Lakhs to ₹20 Lakhs in
-                  2018.
-                </em>
-              </p>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={formulaContent} />
+                    </div>
+                  </section>
 
-              <h3>Eligibility Rules</h3>
-              <ul>
-                <li>
-                  <strong>Minimum Service:</strong> 5 Years.
-                </li>
-                <li>
-                  <strong>Exceptions:</strong> The 5-year rule does not apply in
-                  case of death or disablement of the employee. The nominee
-                  receives the amount.
-                </li>
-              </ul>
+                  {/* --- AD SLOT --- */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
 
-              <h3>How to use this calculator?</h3>
-              <ol>
-                <li>
-                  Enter your <strong>Basic Salary + DA</strong> (Do not include
-                  HRA or other allowances).
-                </li>
-                <li>Enter total years of service.</li>
-                <li>
-                  Select if your company is covered under the Gratuity Act (Most
-                  private companies are).
-                </li>
-                <li>Get the exact payout amount instantly.</li>
-              </ol>
+                  {/* --- TAX RULES TABLE --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Tax Rules for Gratuity (2025)
+                    </h3>
+
+                    <div className="rounded-lg border border-slate-200 overflow-hidden">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Employee Category</TableHead>
+                            <TableHead>Tax Exemption Limit</TableHead>
+                          </TableRow>
+                        </TableHeader>
+
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>Government Employees</TableCell>
+                            <TableCell className="font-medium text-emerald-700">
+                              Fully Tax Exempt
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell>Private (Covered by Act)</TableCell>
+                            <TableCell>₹20 Lakhs</TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell>Private (Not Covered)</TableCell>
+                            <TableCell>₹20 Lakhs</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+
+                    <p className="text-sm text-slate-500">
+                      <em>
+                        Note: The tax exemption limit was increased from ₹10
+                        Lakhs to ₹20 Lakhs in 2018.
+                      </em>
+                    </p>
+                  </section>
+
+                  {/* --- ELIGIBILITY --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Eligibility Rules
+                    </h3>
+
+                    <ul className="list-disc pl-5 space-y-2 text-slate-700">
+                      <li>
+                        <strong>Minimum Service:</strong> 5 Years of continuous
+                        service.
+                      </li>
+                      <li>
+                        <strong>Exceptions:</strong> The 5-year rule does not
+                        apply in case of death or permanent disablement. The
+                        nominee receives the gratuity.
+                      </li>
+                    </ul>
+                  </section>
+
+                  {/* --- HOW TO USE --- */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      How to Use This Calculator
+                    </h3>
+
+                    <ol className="list-decimal pl-5 space-y-2 text-slate-700">
+                      <li>
+                        Enter your <strong>Basic Salary + DA</strong> (exclude
+                        HRA and allowances).
+                      </li>
+                      <li>Enter your total years of service.</li>
+                      <li>
+                        Select whether your employer is covered under the
+                        Gratuity Act (most private companies are).
+                      </li>
+                      <li>Get the exact gratuity payout instantly.</li>
+                    </ol>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Can my employer refuse to pay Gratuity?</summary>
-                  <p>
-                    If you have completed 5 years of service, your employer is
-                    legally bound to pay gratuity. It cannot be denied unless
-                    the employee has been terminated for &quot;riotous or
-                    disorderly conduct&quot;.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is gratuity part of CTC?</summary>
-                  <p>
-                    Yes, most companies include the gratuity component (approx
-                    4.81% of Basic) in your Cost to Company (CTC) structure, but
-                    it is paid out only upon exit after 5 years.
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQs --- */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={GRATUITY_FAQS[0]?.id}
+                    className="space-y-2"
+                  >
+                    {GRATUITY_FAQS.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-5 mb-6">
               <AdSlot id="gratuity-sidebar" type="box" />
             </div>
+
             <FinancialNavWidget />
           </aside>
         </div>

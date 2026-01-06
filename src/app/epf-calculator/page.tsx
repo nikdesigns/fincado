@@ -85,7 +85,7 @@ export default function EPFPage() {
       managed by the <strong>EPFO</strong> for salaried employees in India. It builds a retirement 
       corpus through regular monthly contributions from both the employee and the employer.
     </p>
-    <p class="mt-4">
+    <p class="mt-2">
       It offers a <strong>Sovereign Guarantee</strong> (backed by the Govt) and falls under the 
       EEE (Exempt-Exempt-Exempt) tax status for most employees, making it one of the safest debt instruments.
     </p>
@@ -93,7 +93,7 @@ export default function EPFPage() {
 
   const contributionContent = autoLinkContent(`
     <p class="mt-4 text-slate-600">Both you and your employer contribute <strong>12%</strong> of your (Basic Salary + DA). However, the split is different:</p>
-    <ul class="list-disc list-inside space-y-2">
+    <ul class="list-disc list-inside space-y-2 mt-2">
       <li><strong>Employee Share:</strong> 100% of your 12% goes into your EPF account.</li>
       <li><strong>Employer Share:</strong> Out of their 12%, only <strong>3.67%</strong> goes to EPF. The remaining <strong>8.33%</strong> goes to the <strong>Employee Pension Scheme (EPS)</strong>.</li>
     </ul>
