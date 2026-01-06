@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
-// Reuse the same updated client component
-import IncomeTaxClient from '../../income-tax-calculator/IncomeTaxClient';
+import IncomeTaxClient from '@/app/income-tax-calculator/IncomeTaxClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import AuthorBio from '@/components/AuthorBio';
@@ -12,6 +11,23 @@ import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import FAQSchema from '@/components/FAQSchema';
+import { TrendingUp, ArrowRight } from 'lucide-react';
 
 /* ---------------- SEO METADATA (HINDI) ---------------- */
 export const metadata: Metadata = {
@@ -38,7 +54,7 @@ export const metadata: Metadata = {
   },
 };
 
-// ✅ Define labels OUTSIDE to prevent re-renders
+// ✅ Hindi Labels for the Calculator
 const hindiLabels = {
   ayLabel: 'निर्धारण वर्ष (AY)',
   ageLabel: 'आयु वर्ग',
@@ -57,6 +73,28 @@ const hindiLabels = {
   },
 };
 
+// FAQ Items
+const taxFaqs = [
+  {
+    id: 'faq-1',
+    question: 'क्या नई व्यवस्था में HRA छूट मिलती है?',
+    answer:
+      'नहीं। नई टैक्स व्यवस्था (New Regime) में HRA (मकान किराया भत्ता), LTA और धारा 80C जैसी प्रमुख कटौती उपलब्ध नहीं हैं।',
+  },
+  {
+    id: 'faq-2',
+    question: 'क्या मैं हर साल टैक्स रिजीम बदल सकता हूं?',
+    answer:
+      'वेतनभोगी व्यक्ति (Salaried) हर साल पुरानी और नई व्यवस्था के बीच चयन कर सकते हैं। हालांकि, जिन लोगों की व्यावसायिक आय (Business Income) है, वे जीवन में केवल एक बार ही स्विच कर सकते हैं।',
+  },
+  {
+    id: 'faq-3',
+    question: 'सेस (Cess) क्या है?',
+    answer:
+      'आपके कुल इनकम टैक्स पर 4% का "स्वास्थ्य और शिक्षा उपकर" (Health & Education Cess) लगाया जाता है। यह दोनों व्यवस्थाओं में लागू है।',
+  },
+];
+
 /* ---------------- PAGE ---------------- */
 
 export default function IncomeTaxHindiPage() {
@@ -68,7 +106,7 @@ export default function IncomeTaxHindiPage() {
     <p>
       यह स्वचालित रूप से <strong>पुरानी टैक्स व्यवस्था (Old Regime)</strong> और 
       <strong>नई टैक्स व्यवस्था (New Regime)</strong> की तुलना करता है और आपको बताता है कि 
-      किसमें आपको कम टैक्स देना पड़ेगा।
+      किसमें आपको कम टैक्स देना पड़ेगा।
     </p>
   `);
 
@@ -80,41 +118,11 @@ export default function IncomeTaxHindiPage() {
         url="https://www.fincado.com/hi/income-tax-calculator"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            inLanguage: 'hi',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'AY 2025-26 के लिए स्टैंडर्ड डिडक्शन क्या है?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'नई टैक्स व्यवस्था (New Regime) के लिए, स्टैंडर्ड डिडक्शन को बढ़ाकर ₹75,000 कर दिया गया है। पुरानी व्यवस्था में यह अभी भी ₹50,000 है।',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'कौन सी टैक्स व्यवस्था बेहतर है?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'यदि आपकी कुल कटौती (80C, होम लोन आदि) ₹3.75 लाख से कम है, तो आमतौर पर नई व्यवस्था बेहतर होती है। यदि कटौती इससे अधिक है, तो पुरानी व्यवस्था फायदेमंद हो सकती है।',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'क्या 7 लाख तक की आय टैक्स फ्री है?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'हां, नई व्यवस्था के तहत धारा 87A की छूट के कारण ₹7 लाख तक की आय पर कोई टैक्स नहीं लगता है। पुरानी व्यवस्था में यह सीमा ₹5 लाख है।',
-                },
-              },
-            ],
-          }),
-        }}
+      <FAQSchema
+        faqs={taxFaqs.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+        }))}
       />
 
       <main className="container" style={{ padding: '40px 20px' }}>
@@ -132,196 +140,308 @@ export default function IncomeTaxHindiPage() {
           ]}
         />
 
-        <header style={{ marginBottom: 32 }} className="no-print">
-          <LanguageToggle path="/income-tax-calculator" />
-          <h1>इनकम टैक्स कैलकुलेटर (AY 2025-26)</h1>
-          <ShareTools title="इनकम टैक्स कैलकुलेटर - अपना टैक्स बचाएं" />
-
-          {/* 💰 AD 1 */}
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="hi-tax-top" type="leaderboard" />
+        <header className="no-print my-4">
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="इनकम टैक्स कैलकुलेटर - अपना टैक्स बचाएं" />
+            <LanguageToggle path="/income-tax-calculator" />
           </div>
 
-          <WikiText
-            content={`
-            <p style="max-width: 700px; color: var(--color-text-muted);">
-              अब टैक्स का अंदाजा लगाना छोड़ें। <strong>नई vs पुरानी व्यवस्था</strong> की तुरंत तुलना करें।
-              बजट 2024 के नवीनतम स्लैब और ₹75,000 के स्टैंडर्ड डिडक्शन के साथ अपडेटेड।
+          <h1
+            className="
+            text-[clamp(1.8rem,4vw,2.5rem)]
+            font-semibold
+            leading-tight
+            tracking-[-0.02em]
+            text-slate-900
+          "
+          >
+            <span className="block mb-2">इनकम टैक्स कैलकुलेटर</span>
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mb-4">
+              AY 2025-26 • नई vs पुरानी व्यवस्था तुलना
+            </span>
+          </h1>
+
+          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+            <p>
+              अब टैक्स का अंदाजा लगाना छोड़ें।{' '}
+              <strong>नई vs पुरानी व्यवस्था</strong> की तुरंत तुलना करें। बजट
+              2024 के नवीनतम स्लैब और <strong>₹75,000</strong> के स्टैंडर्ड
+              डिडक्शन के साथ अपडेटेड।
             </p>
-          `}
-          />
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
-            {/* Using the component with static Hindi Labels */}
+            {/* CALCULATOR */}
             <IncomeTaxClient labels={hindiLabels} />
 
-            {/* 💰 AD 2 */}
+            {/* 💰 AD: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
               <AdSlot id="hi-tax-after-calc" type="banner" />
             </div>
 
-            {/* Mobile Tools */}
-            <div
-              className="mobile-only-suggestions"
-              style={{ marginTop: 32, marginBottom: 32 }}
-            >
-              <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
+            {/* MOBILE ONLY TOOLS */}
+            <div className="mobile-only-suggestions my-8 lg:hidden no-print">
+              <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 टैक्स बचत कैलकुलेटर
               </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                }}
-              >
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/hi/elss-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+                    flex items-center justify-center gap-2
+                    rounded-lg border border-slate-200
+                    bg-white px-3 py-3
+                    text-sm font-medium text-slate-900
+                    shadow-sm transition hover:border-lime-300 hover:bg-lime-50
+                  "
                 >
                   📉 ELSS कैलकुलेटर
                 </Link>
                 <Link
                   href="/hi/ppf-calculator"
-                  style={{
-                    padding: '12px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    color: '#0f172a',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    background: '#fff',
-                  }}
+                  className="
+                    flex items-center justify-center gap-2
+                    rounded-lg border border-slate-200
+                    bg-white px-3 py-3
+                    text-sm font-medium text-slate-900
+                    shadow-sm transition hover:border-lime-300 hover:bg-lime-50
+                  "
                 >
                   🔒 PPF कैलकुलेटर
                 </Link>
               </div>
             </div>
 
-            {/* --- FULL SEO ARTICLE --- */}
-            <article className="article content-for-seo no-print">
-              <h2>नई vs पुरानी टैक्स व्यवस्था: कौन सी बेहतर है?</h2>
-              <WikiText content={introContent} />
-
-              {/* 💰 AD 3 */}
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
-
-              <h3>FY 2024-25 (New Regime) के लिए टैक्स स्लैब</h3>
-              <div className="table-responsive">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>आय सीमा (Income Range)</th>
-                      <th>टैक्स दर</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>₹3,00,000 तक</td>
-                      <td>
-                        <strong>शून्य (Nil)</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>₹3 लाख से ₹7 लाख</td>
-                      <td>5%</td>
-                    </tr>
-                    <tr>
-                      <td>₹7 लाख से ₹10 लाख</td>
-                      <td>10%</td>
-                    </tr>
-                    <tr>
-                      <td>₹10 लाख से ₹12 लाख</td>
-                      <td>15%</td>
-                    </tr>
-                    <tr>
-                      <td>₹12 लाख से ₹15 लाख</td>
-                      <td>20%</td>
-                    </tr>
-                    <tr>
-                      <td>₹15 लाख से ऊपर</td>
-                      <td>30%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <h3>2025 में टैक्स कैसे बचाएं?</h3>
-              <div className="advantage-grid">
-                <div className="advantage-card">
-                  <h4>स्टैंडर्ड डिडक्शन</h4>
-                  <p>
-                    नौकरीपेशा लोगों को नई व्यवस्था (New Regime) में बिना कोई बिल
-                    जमा किए <strong>₹75,000</strong> (पहले ₹50k था) की सीधी छूट
-                    मिलती है।
-                  </p>
+            {/* PROMO BOX */}
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+                  <TrendingUp className="h-5 w-5" />
                 </div>
-                <div className="advantage-card">
-                  <h4>धारा 87A की छूट</h4>
-                  <p>
-                    यदि आपकी कर योग्य आय ₹7 लाख तक है (नई व्यवस्था), तो आपका
-                    टैक्स <strong>शून्य</strong> होगा। पुरानी व्यवस्था में यह
-                    सीमा ₹5 लाख है।
-                  </p>
+
+                <div className="flex-1 space-y-1">
+                  <strong className="block text-base font-semibold text-emerald-900">
+                    क्या आप धारा 80C का पूरा उपयोग कर रहे हैं?
+                  </strong>
+
+                  <Link
+                    href="/guides/best-tax-saving-options-80c" // Check if Hindi guide exists
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                  >
+                    <span>पढ़ें: टैक्स बचाने के 5 स्मार्ट तरीके</span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </div>
-                <div className="advantage-card">
-                  <h4>धारा 80C निवेश</h4>
-                  <p>
-                    <Link href="/hi/elss-calculator">ELSS कैलकुलेटर</Link> का
-                    उपयोग करें और ₹1.5 लाख तक के निवेश की योजना बनाएं (केवल
-                    पुरानी व्यवस्था के लिए)।
-                  </p>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
+
+            {/* --- SEO ARTICLE --- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* SECTION 1: INTRO */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      नई vs पुरानी टैक्स व्यवस्था: कौन सी बेहतर है?
+                    </h2>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
+
+                  {/* AD SLOT */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  {/* SECTION 2: TAX SLAB TABLE */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      FY 2024-25 (New Regime) के लिए टैक्स स्लैब
+                    </h3>
+
+                    <div className="overflow-x-auto rounded-lg border border-slate-200">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-slate-50">
+                            <TableHead className="font-bold text-slate-900">
+                              आय सीमा (Income Range)
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              टैक्स दर
+                            </TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>₹3,00,000 तक</TableCell>
+                            <TableCell className="font-semibold text-emerald-600">
+                              शून्य (Nil)
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>₹3 लाख से ₹7 लाख</TableCell>
+                            <TableCell>5%</TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>₹7 लाख से ₹10 लाख</TableCell>
+                            <TableCell>10%</TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>₹10 लाख से ₹12 लाख</TableCell>
+                            <TableCell>15%</TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>₹12 लाख से ₹15 लाख</TableCell>
+                            <TableCell>20%</TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>₹15 लाख से ऊपर</TableCell>
+                            <TableCell>30%</TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </section>
+
+                  {/* SECTION 3: RECOMMENDATION TABLE */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      आपके लिए कौन सी व्यवस्था सही है?
+                    </h3>
+
+                    <div className="overflow-x-auto rounded-lg border border-slate-200">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-slate-50">
+                            <TableHead className="font-bold text-slate-900">
+                              आपकी स्थिति
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              सुझाव
+                            </TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>कुल कटौती ₹3.75 लाख से कम</TableCell>
+                            <TableCell className="font-semibold text-emerald-700">
+                              नई व्यवस्था (New)
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>होम लोन + 80C + 80D कटौती</TableCell>
+                            <TableCell className="font-semibold text-blue-700">
+                              पुरानी व्यवस्था (Old)
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>₹7 लाख तक की आय</TableCell>
+                            <TableCell className="font-semibold text-emerald-700">
+                              नई व्यवस्था (ज़ीरो टैक्स)
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </section>
+
+                  {/* SECTION 4: HOW TO SAVE TAX */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      2025 में टैक्स कैसे बचाएं?
+                    </h3>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <Card className="border-slate-200 bg-slate-50">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900 mb-1">
+                            स्टैंडर्ड डिडक्शन
+                          </h4>
+                          <p className="text-sm text-slate-600">
+                            नई व्यवस्था में नौकरीपेशा लोगों को बिना किसी प्रूफ
+                            के <strong>₹75,000</strong> की सीधी छूट मिलती है।
+                          </p>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-slate-200 bg-slate-50">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900 mb-1">
+                            धारा 87A
+                          </h4>
+                          <p className="text-sm text-slate-600">
+                            नई व्यवस्था में ₹7 लाख तक की आय पर टैक्स{' '}
+                            <strong>शून्य</strong> है। पुरानी में यह सीमा ₹5 लाख
+                            है।
+                          </p>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-slate-200 bg-slate-50">
+                        <CardContent className="p-4">
+                          <h4 className="font-semibold text-slate-900 mb-1">
+                            धारा 80C (Old Regime)
+                          </h4>
+                          <p className="text-sm text-slate-600">
+                            <Link
+                              href="/hi/elss-calculator"
+                              className="text-emerald-700 hover:underline"
+                            >
+                              ELSS
+                            </Link>{' '}
+                            और PPF में निवेश करके आप ₹1.5 लाख तक बचा सकते हैं।
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQs */}
-            <section className="article no-print">
-              <h2>अक्सर पूछे जाने वाले प्रश्न (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>क्या नई व्यवस्था में HRA छूट मिलती है?</summary>
-                  <p>
-                    नहीं। नई टैक्स व्यवस्था में HRA (मकान किराया भत्ता), LTA और
-                    धारा 80C जैसी प्रमुख कटौती <strong>उपलब्ध नहीं</strong> हैं।
-                  </p>
-                </details>
-                <details>
-                  <summary>क्या मैं हर साल टैक्स रिजीम बदल सकता हूं?</summary>
-                  <p>
-                    वेतनभोगी व्यक्ति (Salaried) हर साल पुरानी और नई व्यवस्था के
-                    बीच चयन कर सकते हैं। हालांकि, जिन लोगों की व्यावसायिक आय
-                    (Business Income) है, वे जीवन में केवल एक बार ही स्विच कर
-                    सकते हैं।
-                  </p>
-                </details>
-              </div>
+            {/* --- FAQ SECTION --- */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    अक्सर पूछे जाने वाले प्रश्न (FAQs)
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={taxFaqs[0]?.id}
+                    className="space-y-2"
+                  >
+                    {taxFaqs.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900 font-medium">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
+          {/* --- SIDEBAR --- */}
           <aside className="sidebar no-print">
-            <div style={{ marginBottom: 24, position: 'sticky', top: '20px' }}>
+            <div className="sticky top-24 space-y-6 mb-12">
               <AdSlot id="hi-tax-sidebar" type="box" />
+              <FinancialNavWidget />
             </div>
-            <FinancialNavWidget />
           </aside>
         </div>
       </main>

@@ -1,13 +1,26 @@
-// src/app/hi/loans/home-loan/page.tsx
 import type { Metadata } from 'next';
 import React from 'react';
+import Link from 'next/link';
 import HomeLoanClient from '@/app/loans/home-loan/HomeLoanClient';
 import AdSlot from '@/components/AdSlot';
-import HindiSidebar from '@/components/HindiSidebar';
+import LiveRateTable from '@/components/LiveRateTable';
+import AuthorBio from '@/components/AuthorBio';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
-import Link from 'next/link';
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
+import LanguageToggle from '@/components/LanguageToggle';
+import HindiSidebar from '@/components/HindiSidebar';
+import FAQSchema from '@/components/FAQSchema';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Home, ArrowRight } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -22,15 +35,15 @@ export const metadata: Metadata = {
     'SBI Home Loan Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/loans/home-loan/',
+    canonical: 'https://www.fincado.com/hi/loans/home-loan',
     languages: {
-      'en-IN': 'https://www.fincado.com/loans/home-loan/',
+      'en-IN': 'https://www.fincado.com/loans/home-loan',
     },
   },
   openGraph: {
     title: 'होम लोन EMI कैलकुलेटर – अपने घर का सपना पूरा करें',
     description: 'मुफ्त टूल: होम लोन EMI, ब्याज और टैक्स बचत की गणना करें।',
-    url: 'https://www.fincado.com/hi/loans/home-loan/',
+    url: 'https://www.fincado.com/hi/loans/home-loan',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -56,190 +69,316 @@ export default function HindiHomeLoanPage() {
     balance: 'बकाया राशि',
   };
 
+  // ✅ FAQ Items
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'होम लोन कैलकुलेटर कैसे मदद करता है?',
+      answer:
+        'यह आपको लोन लेने से पहले ही अपनी मासिक ईएमआई (EMI), कुल ब्याज लागत और टैक्स लाभों का सटीक अनुमान लगाने में मदद करता है, ताकि आप सही बजट बना सकें।',
+    },
+    {
+      id: 'faq-2',
+      question: 'होम लोन पर टैक्स लाभ क्या हैं?',
+      answer:
+        'आप धारा 80C के तहत मूलधन (Principal) भुगतान पर ₹1.5 लाख तक और धारा 24(b) के तहत ब्याज भुगतान पर ₹2 लाख तक की टैक्स कटौती का दावा कर सकते हैं।',
+    },
+    {
+      id: 'faq-3',
+      question: 'क्या लोन अवधि (Tenure) ब्याज को प्रभावित करती है?',
+      answer:
+        'हाँ। लंबी अवधि (जैसे 30 साल) चुनने से आपकी EMI कम हो जाती है, लेकिन बैंक को दिया जाने वाला कुल ब्याज काफी बढ़ जाता है।',
+    },
+    {
+      id: 'faq-4',
+      question: 'क्या मैं अपनी EMI बीच में बदल सकता हूँ?',
+      answer:
+        'हाँ, आप "Prepayment" करके या लोन रिफाइनेंस (Balance Transfer) कराके अपनी EMI या अवधि कम कर सकते हैं।',
+    },
+  ];
+
   return (
     <>
       <CalculatorSchema
         name="Home Loan EMI Calculator Hindi"
         description="Calculate Home Loan EMI and Tax Benefits in Hindi."
-        url="https://www.fincado.com/hi/loans/home-loan/"
+        url="https://www.fincado.com/hi/loans/home-loan"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi/' },
+          { name: 'होम', url: 'https://www.fincado.com/hi' },
+          { name: 'लोन', url: 'https://www.fincado.com/hi/loans' },
           {
             name: 'होम लोन EMI कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/loans/home-loan/',
+            url: 'https://www.fincado.com/hi/loans/home-loan',
           },
         ]}
       />
 
-      {/* Expanded FAQ Schema (Hindi) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'होम लोन कैलकुलेटर कैसे मदद करता है?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'यह आपको अपनी मासिक ईएमआई (EMI), कुल ब्याज लागत और टैक्स लाभों का अनुमान लगाने में मदद करता है।',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'होम लोन पर टैक्स लाभ क्या हैं?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'आप धारा 80C के तहत मूलधन भुगतान पर ₹1.5 लाख तक और धारा 24(b) के तहत ब्याज पर ₹2 लाख तक की कटौती का दावा कर सकते हैं।',
-                },
-              },
-            ],
-          }),
-        }}
-      />
+      <FAQSchema faqs={faqItems} />
 
-      <main className="container" style={{ padding: '40px 20px' }}>
-        {/* Header */}
-        <header style={{ marginBottom: 40 }} className="no-print">
-          {/* Language Switcher */}
-          <div style={{ marginBottom: 16 }}>
-            <Link
-              href="/loans/home-loan/"
-              style={{
-                fontSize: '14px',
-                color: '#64748b',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: '#f1f5f9',
-                padding: '6px 12px',
-                borderRadius: '99px',
-              }}
-            >
-              <span>🇬🇧</span> Switch to English
-            </Link>
+      <main className="container px-4 py-6 sm:py-8">
+        {/* --- HEADER --- */}
+        <header className="no-print my-4">
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="होम लोन EMI कैलकुलेटर – ब्याज और टैक्स छूट" />
+            <LanguageToggle path="/loans/home-loan" />
           </div>
 
           <h1
-            style={{
-              fontSize: 'clamp(28px, 4vw, 36px)',
-              color: '#0f172a',
-              marginBottom: 16,
-              lineHeight: 1.2,
-            }}
+            className="
+            text-[clamp(1.8rem,4vw,2.5rem)]
+            font-semibold
+            leading-tight
+            tracking-[-0.02em]
+            text-slate-900
+          "
           >
-            होम लोन EMI कैलकुलेटर
+            <span className="block mb-2">होम लोन EMI कैलकुलेटर</span>
+            <span className="block text-base sm:text-lg font-medium text-lime-700 mb-4">
+              EMI, ब्याज और टैक्स छूट की सटीक गणना करें
+            </span>
           </h1>
-          <ShareTools title="होम लोन EMI कैलकुलेटर (Hindi)" />
-          <div style={{ marginTop: 24, marginBottom: 24 }}>
-            <AdSlot id="hi-home-loan-top" type="leaderboard" />
-          </div>
 
-          <p
-            style={{
-              maxWidth: '700px',
-              color: '#475569',
-              fontSize: '18px',
-              marginTop: 16,
-              lineHeight: 1.6,
-            }}
-          >
-            अपने सपनों के घर की योजना बनाएं। हमारी सटीक गणना से जानें EMI, कुल
-            ब्याज और <strong>टैक्स बचत (Tax Benefits)</strong>।
-          </p>
+          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+            <p>
+              अपने सपनों के घर की योजना बनाएं। Fincado के{' '}
+              <strong>बैंक-ग्रेड कैलकुलेटर</strong> से तुरंत जानें कि आपकी मासिक
+              किस्त कितनी होगी और आप <strong>धारा 80C और 24(b)</strong> के तहत
+              कितना टैक्स बचा सकते हैं।
+            </p>
+          </div>
         </header>
 
+        {/* --- LAYOUT GRID --- */}
         <div className="layout-grid">
           <div className="main-content">
-            {/* The Calculator with Hindi Props */}
+            {/* CALCULATOR */}
             <HomeLoanClient labels={hindiLabels} />
 
+            {/* 💰 AD: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
               <AdSlot id="hi-home-loan-mid" type="banner" />
             </div>
 
-            {/* -------- SEO CONTENT (HINDI) -------- */}
-            <article className="article content-for-seo no-print">
-              <h2>होम लोन क्या है? (What is a Home Loan?)</h2>
-              <p>
-                होम लोन एक सुरक्षित ऋण (Secured Loan) है जो बैंक या वित्तीय
-                संस्थान घर खरीदने, बनाने या मरम्मत करने के लिए देते हैं। भारत
-                में, होम लोन 30 साल तक की लंबी अवधि और{' '}
-                <strong>टैक्स लाभ</strong>
-                के साथ आते हैं।
-              </p>
+            {/* LIVE RATES */}
+            <LiveRateTable type="homeLoan" />
 
-              <h3>होम लोन पर टैक्स लाभ (Tax Benefits 2025)</h3>
-              <p>
-                भारत में होम लोन सबसे अच्छे टैक्स सेविंग विकल्पों में से एक है।
-                आप दो धाराओं के तहत छूट का दावा कर सकते हैं:
-              </p>
-              <ul>
-                <li>
-                  <strong>धारा 80C:</strong> मूलधन (Principal) भुगतान पर ₹1.5
-                  लाख तक की कटौती।
-                </li>
-                <li>
-                  <strong>धारा 24(b):</strong> ब्याज (Interest) भुगतान पर ₹2 लाख
-                  तक की कटौती (स्वयं के घर के लिए)।
-                </li>
-              </ul>
-              <p>
-                इस कैलकुलेटर का उपयोग करके अपनी EMI को मूलधन और ब्याज में
-                विभाजित करें और अधिकतम टैक्स लाभ उठाएं।
-              </p>
+            {/* PROMO CARD (Hindi) */}
+            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+              <CardContent className="flex items-start gap-4 p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <Home className="h-5 w-5" />
+                </div>
+                <div className="flex-1 space-y-1">
+                  <strong className="block text-base font-semibold text-emerald-900">
+                    क्या आप अपना पहला घर खरीद रहे हैं?
+                  </strong>
+                  <Link
+                    href="/guides/home-loan-guide" // Ensure this link exists or use English fallback
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                  >
+                    <span>हमारी विस्तृत होम लोन गाइड पढ़ें (2025 Edition)</span>
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
 
-              <div className="no-print my-8 flex justify-center">
-                <AdSlot type="square" label="Advertisement" />
-              </div>
+            {/* --- SEO ARTICLE --- */}
+            <article className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  {/* Section 1: Definition */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      होम लोन क्या है? (What is a Home Loan?)
+                    </h2>
+                    <div className="text-slate-700 leading-relaxed space-y-4">
+                      <p>
+                        होम लोन एक सुरक्षित ऋण (Secured Loan) है जो बैंक या
+                        वित्तीय संस्थान घर खरीदने, बनाने या मरम्मत करने के लिए
+                        देते हैं। भारत में, होम लोन 30 साल तक की लंबी अवधि और
+                        आकर्षक <strong>टैक्स लाभ (Tax Benefits)</strong> के साथ
+                        आते हैं।
+                      </p>
+                    </div>
+                  </section>
 
-              <h3>संबंधित कैलकुलेटर</h3>
-              <ul>
-                <li>
-                  <Link href="/hi/emi-calculator/">EMI कैलकुलेटर</Link>
-                </li>
-                <li>
-                  <Link href="/hi/sip-calculator/">SIP कैलकुलेटर</Link>
-                </li>
-                <li>
-                  <Link href="/hi/ppf-calculator/">PPF कैलकुलेटर</Link>
-                </li>
-              </ul>
+                  {/* Section 2: Tax Benefits */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      होम लोन पर टैक्स लाभ (Tax Benefits 2025)
+                    </h3>
+                    <p className="text-slate-700">
+                      होम लोन भारत में टैक्स बचाने का सबसे अच्छा तरीका है। आप दो
+                      धाराओं के तहत छूट का दावा कर सकते हैं:
+                    </p>
+                    <ul className="list-disc list-inside space-y-2 text-slate-700">
+                      <li>
+                        <strong>धारा 80C:</strong> मूलधन (Principal) भुगतान पर
+                        ₹1.5 लाख तक की कटौती।
+                      </li>
+                      <li>
+                        <strong>धारा 24(b):</strong> ब्याज (Interest) भुगतान पर
+                        ₹2 लाख तक की कटौती (स्वयं के घर के लिए)।
+                      </li>
+                    </ul>
+                    <p className="text-slate-700 mt-2">
+                      नोट: इस कैलकुलेटर का उपयोग करके आप देख सकते हैं कि आपकी
+                      EMI में कितना हिस्सा ब्याज का है और कितना मूलधन का।
+                    </p>
+                  </section>
+
+                  {/* AD */}
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  {/* Section 3: Formula */}
+                  <section className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      होम लोन EMI फॉर्मूला
+                    </h3>
+                    <p className="text-slate-700">
+                      भारतीय बैंक EMI की गणना के लिए &quot;Reducing Balance
+                      Method&quot; का उपयोग करते हैं:
+                    </p>
+
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
+                    </div>
+
+                    <div className="text-slate-700">
+                      <ul className="list-disc list-inside space-y-2 text-sm">
+                        <li>
+                          <strong>E</strong> = EMI राशि
+                        </li>
+                        <li>
+                          <strong>P</strong> = लोन राशि (Principal)
+                        </li>
+                        <li>
+                          <strong>r</strong> = मासिक ब्याज दर (वार्षिक दर ÷ 12 ÷
+                          100)
+                        </li>
+                        <li>
+                          <strong>n</strong> = महीनों की संख्या
+                        </li>
+                      </ul>
+                    </div>
+                  </section>
+
+                  {/* Section 4: Related Calculators */}
+                  <section className="space-y-5">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      संबंधित कैलकुलेटर (Related Tools)
+                    </h3>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <Link href="/hi/emi-calculator" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
+                                📊
+                              </span>
+                              <div>
+                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
+                                  EMI कैलकुलेटर
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">
+                                  किसी भी लोन की EMI निकालें
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      <Link href="/hi/loans/personal-loan" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
+                                💼
+                              </span>
+                              <div>
+                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
+                                  पर्सनल लोन कैलकुलेटर
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">
+                                  ब्याज और EMI चेक करें
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      <Link href="/hi/loans/car-loan" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
+                                🚗
+                              </span>
+                              <div>
+                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
+                                  कार लोन कैलकुलेटर
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">
+                                  नई या पुरानी कार के लिए
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
             </article>
 
-            {/* FAQ Section */}
-            <section className="article no-print" style={{ marginTop: 40 }}>
-              <h2>अक्सर पूछे जाने वाले प्रश्न (FAQs)</h2>
-              <details open>
-                <summary>क्या होम लोन का ब्याज टैक्स-फ्री है?</summary>
-                <p>
-                  पूरी तरह नहीं। धारा 24(b) के तहत, आप खुद के रहने वाले घर के
-                  लिए चुकाए गए ब्याज पर प्रति वर्ष ₹2 लाख तक की कटौती का दावा कर
-                  सकते हैं।
-                </p>
-              </details>
-              <details>
-                <summary>
-                  क्या मैं अपनी EMI से ज्यादा भुगतान कर सकता हूं?
-                </summary>
-                <p>
-                  हाँ, इसे <strong>Prepayment</strong> (पूर्व भुगतान) कहा जाता
-                  है। साल में एक अतिरिक्त EMI देने से भी आपकी लोन अवधि कई साल कम
-                  हो सकती है और आप लाखों रुपये ब्याज बचा सकते हैं।
-                </p>
-              </details>
+            {/* --- FAQ SECTION --- */}
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    अक्सर पूछे जाने वाले प्रश्न (FAQs)
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
+              <AuthorBio />
             </section>
           </div>
 
+          {/* --- SIDEBAR --- */}
           <aside className="sidebar no-print">
-            <HindiSidebar adId="hi-home-loan-sidebar" />
+            <div className="sticky top-24 space-y-6 mb-12">
+              <HindiSidebar adId="hi-home-loan-sidebar" />
+            </div>
           </aside>
         </div>
       </main>

@@ -17,8 +17,12 @@ export default function EMIPieChart({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
-  const principalLength = (principalPct / 100) * circumference;
-  const interestLength = (interestPct / 100) * circumference;
+  // Clamp percentages to avoid drawing errors if logic fails elsewhere
+  const safePrincipal = Math.max(0, principalPct);
+  const safeInterest = Math.max(0, interestPct);
+
+  const principalLength = (safePrincipal / 100) * circumference;
+  const interestLength = (safeInterest / 100) * circumference;
 
   return (
     <div
@@ -33,35 +37,35 @@ export default function EMIPieChart({
         aria-label="Principal vs Interest chart"
         role="img"
       >
-        {/* Base ring */}
+        {/* Background ring (using 'muted' or 'secondary' color) */}
         <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#9ae600"
+          className="stroke-muted" // Tailwind class for theme color
           strokeWidth={strokeWidth}
         />
 
-        {/* Principal */}
+        {/* Principal Segment (Brand Color/Primary) */}
         <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#f8fee7"
+          className="text-slate-50 stroke-current transition-all duration-500 ease-out"
           strokeWidth={strokeWidth}
           strokeDasharray={`${principalLength} ${circumference}`}
           strokeLinecap="round"
         />
 
-        {/* Interest */}
+        {/* Interest Segment (Lighter Brand Color or Accent) */}
         <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#9ae600"
+          className="text-lime-400 stroke-current transition-all duration-500 ease-out"
           strokeWidth={strokeWidth}
           strokeDasharray={`${interestLength} ${circumference}`}
           strokeDashoffset={-principalLength}
@@ -71,10 +75,10 @@ export default function EMIPieChart({
 
       {/* CENTER LABEL */}
       <div className="absolute text-center">
-        <div className="text-xl sm:text-2xl font-bold text-slate-900">
-          {principalPct}% / {interestPct}%
+        <div className="text-xl sm:text-2xl font-bold text-foreground">
+          {safePrincipal}% / {safeInterest}%
         </div>
-        <div className="mt-1 text-xs sm:text-sm text-slate-500">
+        <div className="mt-1 text-xs sm:text-sm text-muted-foreground">
           Principal / Interest
         </div>
       </div>
