@@ -6,6 +6,36 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import WikiText from '@/components/WikiText';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import FAQSchema from '@/components/FAQSchema';
+
+// --- UI COMPONENTS ---
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import {
+  TrendingUp,
+  CalendarDays,
+  Clock,
+  CheckCircle2,
+  AlertTriangle,
+  ShieldCheck,
+  CreditCard,
+} from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Credit Score कैसे बढ़ाएं? 750+ Score पाने के 10 आसान तरीके | Fincado',
@@ -37,8 +67,29 @@ export const metadata: Metadata = {
 };
 
 export default function HindiCreditScoreGuide() {
+  const pageTitle =
+    'Credit Score कैसे बढ़ाएं? 750+ Score पाने के 10 आसान तरीके';
+
+  const faqData = [
+    {
+      question: 'Loan के लिए minimum credit score कितना चाहिए?',
+      answer:
+        'ज्यादातर बैंक पर्सनल लोन या क्रेडिट कार्ड के लिए 700-750+ स्कोर पसंद करते हैं। होम लोन 650+ पर भी मिल सकता है।',
+    },
+    {
+      question: 'Credit score free में कैसे check करें?',
+      answer:
+        'कई बैंक और फिनटेक ऐप्स फ्री स्कोर चेक की सुविधा देते हैं। CIBIL की वेबसाइट पर भी साल में एक बार फ्री रिपोर्ट मिल सकती है।',
+    },
+    {
+      question: 'Zero credit history हो तो क्या करें?',
+      answer:
+        'शुरुआत के लिए एक छोटा क्रेडिट कार्ड या कंज्यूमर लोन लें और उसकी EMI समय पर भरें। इससे आपकी हिस्ट्री बननी शुरू होगी।',
+    },
+  ];
+
   return (
-    <>
+    <article className="max-w-4xl mx-auto">
       {/* --- ARTICLE SCHEMA --- */}
       <script
         type="application/ld+json"
@@ -47,8 +98,7 @@ export default function HindiCreditScoreGuide() {
             '@context': 'https://schema.org',
             '@type': 'Article',
             inLanguage: 'hi',
-            headline:
-              'Credit Score कैसे बढ़ाएं? 750+ Score पाने के 10 आसान तरीके',
+            headline: pageTitle,
             description:
               'Credit Score बढ़ाने की पूरी जानकारी हिंदी में। EMI पेमेंट, क्रेडिट कार्ड यूसेज और CIBIL सुधारने के टिप्स।',
             mainEntityOfPage: {
@@ -74,41 +124,7 @@ export default function HindiCreditScoreGuide() {
       />
 
       {/* --- FAQ SCHEMA --- */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Loan के लिए minimum credit score कितना चाहिए?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'ज्यादातर बैंक पर्सनल लोन या क्रेडिट कार्ड के लिए 700-750+ स्कोर पसंद करते हैं। होम लोन 650+ पर भी मिल सकता है।',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Credit score free में कैसे check करें?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'कई बैंक और फिनटेक ऐप्स फ्री स्कोर चेक की सुविधा देते हैं। CIBIL की वेबसाइट पर भी साल में एक बार फ्री रिपोर्ट मिल सकती है।',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Zero credit history हो तो क्या करें?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'शुरुआत के लिए एक छोटा क्रेडिट कार्ड या कंज्यूमर लोन लें और उसकी EMI समय पर भरें। इससे आपकी हिस्ट्री बननी शुरू होगी।',
-                },
-              },
-            ],
-          }),
-        }}
-      />
+      <FAQSchema faqs={faqData} />
 
       <BreadcrumbJsonLd
         items={[
@@ -121,57 +137,38 @@ export default function HindiCreditScoreGuide() {
         ]}
       />
 
-      {/* --- MAIN ARTICLE CONTENT --- */}
-      <header
-        style={{
-          marginBottom: 32,
-          borderBottom: '1px solid #e2e8f0',
-          paddingBottom: 24,
-        }}
-      >
-        <span
-          className="badge-flagship"
-          style={{ background: '#dbeafe', color: '#1e40af' }}
-        >
+      {/* --- HEADER --- */}
+      <header className="mb-8 border-b border-slate-200 pb-8">
+        <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 mb-4 px-3 py-1 text-sm font-semibold">
           Banking & Loans
-        </span>
-        <h1
-          style={{
-            fontSize: 'clamp(28px, 4vw, 40px)',
-            marginTop: 16,
-            lineHeight: 1.3,
-            color: 'var(--color-text-main)',
-          }}
-        >
-          Credit Score कैसे बढ़ाएं? 750+ Score पाने के 10 आसान तरीके
+        </Badge>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">
+          {pageTitle}
         </h1>
 
-        <div
-          style={{
-            fontSize: 14,
-            color: 'var(--color-text-muted)',
-            marginTop: 12,
-            display: 'flex',
-            gap: 12,
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <span>
+        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1.5">
+            <CalendarDays className="w-4 h-4" />
             Last Updated: <strong>Dec 2025</strong>
           </span>
-          <span>•</span>
-          <span>12 Min Read</span>
-          <span>•</span>
-          <span style={{ color: 'var(--color-brand-green)' }}>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-4 h-4" />
+            12 Min Read
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1.5 text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
+            <ShieldCheck className="w-4 h-4" />
             Verified Information
           </span>
         </div>
-
-        <ShareTools title="Credit Score Guide (Hindi)" />
       </header>
 
-      <article className="article content-for-seo">
+      <div className="mb-8">
+        <ShareTools title="Credit Score Guide (Hindi)" />
+      </div>
+
+      <div className="prose prose-slate max-w-none mb-8">
         <WikiText
           content={`
           <p>
@@ -179,485 +176,580 @@ export default function HindiCreditScoreGuide() {
           </p>
         `}
         />
+      </div>
 
-        {/* [AD SLOT 1] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-1" type="leaderboard" label="Sponsored" />
-        </div>
+      {/* [AD SLOT 1] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-1" type="leaderboard" label="Sponsored" />
+      </div>
 
-        <hr
-          style={{
-            margin: '32px 0',
-            border: 0,
-            borderTop: '1px solid #eee',
-          }}
-        />
+      <hr className="my-8 border-slate-200" />
 
-        {/* --- SECTION 1 --- */}
-        <h2 id="what-is-credit-score">1. Credit Score क्या होता है?</h2>
-        <p>
-          क्रेडिट स्कोर एक <strong>3‑digit number</strong> होता है जो यह बताता
-          है कि आप उधार लिया हुआ पैसा कितनी जिम्मेदारी से वापस करते हैं।
-        </p>
-        <ul>
-          <li>
-            भारत में क्रेडिट स्कोर की रेंज आम तौर पर <strong>300 से 900</strong>{' '}
-            के बीच होती है।
-          </li>
-          <li>
-            जितना ज़्यादा स्कोर, उतना ज़्यादा भरोसा बैंक और लेंडर को आप पर होता
-            है।
-          </li>
-        </ul>
+      {/* --- SECTION 1 --- */}
+      <h2
+        id="what-is-credit-score"
+        className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"
+      >
+        1. Credit Score क्या होता है?
+      </h2>
+      <p className="text-slate-700 mb-4 leading-relaxed">
+        क्रेडिट स्कोर एक <strong>3‑digit number</strong> होता है जो यह बताता है
+        कि आप उधार लिया हुआ पैसा कितनी जिम्मेदारी से वापस करते हैं।
+      </p>
+      <ul className="list-disc pl-5 space-y-2 text-slate-700 mb-6">
+        <li>
+          भारत में क्रेडिट स्कोर की रेंज आम तौर पर <strong>300 से 900</strong>{' '}
+          के बीच होती है।
+        </li>
+        <li>
+          जितना ज़्यादा स्कोर, उतना ज़्यादा भरोसा बैंक और लेंडर को आप पर होता
+          है।
+        </li>
+      </ul>
 
-        <h3>Credit Score कौन बनाता है?</h3>
-        <p>भारत में चार प्रमुख क्रेडिट ब्यूरो हैं:</p>
-        <ul>
-          <li>
-            <strong>CIBIL (TransUnion CIBIL)</strong>
-          </li>
-          <li>Experian</li>
-          <li>Equifax</li>
-          <li>CRIF High Mark</li>
-        </ul>
-        <p>
-          ये कंपनियां आपके लोन, क्रेडिट कार्ड और EMI पेमेंट हिस्ट्री का डेटा
-          कलेक्ट करके आपकी क्रेडिट रिपोर्ट और क्रेडिट स्कोर बनाती हैं। हर बैंक
-          या NBFC जब भी आपको लोन देता है, वह आपकी repayment की जानकारी इन
-          bureaus को भेजता रहता है – उसी के आधार पर स्कोर बदलता रहता है।
-        </p>
+      <Card className="bg-slate-50 border-slate-200 mb-8">
+        <CardHeader>
+          <CardTitle className="text-lg font-bold text-slate-800">
+            Credit Score कौन बनाता है?
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-slate-600 mb-3">
+            भारत में चार प्रमुख क्रेडिट ब्यूरो हैं:
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm font-semibold text-slate-700">
+            <div className="bg-white p-2 rounded border border-slate-200 text-center">
+              CIBIL
+            </div>
+            <div className="bg-white p-2 rounded border border-slate-200 text-center">
+              Experian
+            </div>
+            <div className="bg-white p-2 rounded border border-slate-200 text-center">
+              Equifax
+            </div>
+            <div className="bg-white p-2 rounded border border-slate-200 text-center">
+              CRIF High Mark
+            </div>
+          </div>
+          <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+            ये कंपनियां आपके लोन, क्रेडिट कार्ड और EMI पेमेंट हिस्ट्री का डेटा
+            कलेक्ट करके आपकी क्रेडिट रिपोर्ट और क्रेडिट स्कोर बनाती हैं।
+          </p>
+        </CardContent>
+      </Card>
 
-        {/* [AD SLOT 2] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-2" type="leaderboard" />
-        </div>
+      {/* [AD SLOT 2] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-2" type="leaderboard" />
+      </div>
 
-        {/* --- SECTION 2 --- */}
-        <h2 id="good-score">2. अच्छा Credit Score कितना होना चाहिए?</h2>
-        <p>
-          सिर्फ &quot;अच्छा score होना चाहिए&quot; कहना काफी नहीं है, range साफ
-          समझना ज़रूरी है:
-        </p>
-        <div className="table-responsive">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Score Range</th>
-                <th>Rating</th>
-                <th>Approval Chance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  style={{
-                    fontWeight: 'bold',
-                    color: 'var(--color-brand-green)',
-                  }}
-                >
-                  750 - 900
-                </td>
-                <td style={{ color: 'var(--color-brand-green)' }}>Excellent</td>
-                <td>Best (लोन जल्दी और सस्ता मिलता है)</td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 'bold', color: '#166534' }}>
-                  700 - 749
-                </td>
-                <td style={{ color: '#166534' }}>Good</td>
-                <td>Good (ज्यादातर प्रोडक्ट्स के लिए acceptable)</td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 'bold', color: '#ca8a04' }}>
-                  650 - 699
-                </td>
-                <td style={{ color: '#ca8a04' }}>Average</td>
-                <td>Risky Zone (लोन मिल भी सकता है पर रेट ज्यादा होगा)</td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 'bold', color: '#dc2626' }}>
-                  &lt; 650
-                </td>
-                <td style={{ color: '#dc2626' }}>Poor</td>
-                <td>Rejected (Approval बहुत मुश्किल)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>
+      {/* --- SECTION 2 --- */}
+      <h2
+        id="good-score"
+        className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"
+      >
+        2. अच्छा Credit Score कितना होना चाहिए?
+      </h2>
+      <p className="text-slate-700 mb-6 leading-relaxed">
+        सिर्फ &quot;अच्छा score होना चाहिए&quot; कहना काफी नहीं है, range साफ
+        समझना ज़रूरी है:
+      </p>
+
+      <div className="border border-slate-200 rounded-lg overflow-hidden mb-6 shadow-sm">
+        <Table>
+          <TableHeader className="bg-slate-50">
+            <TableRow>
+              <TableHead className="font-bold text-slate-700">
+                Score Range
+              </TableHead>
+              <TableHead className="font-bold text-slate-700">Rating</TableHead>
+              <TableHead className="font-bold text-slate-700 hidden sm:table-cell">
+                Approval Chance
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow className="bg-emerald-50/50">
+              <TableCell className="font-bold text-emerald-700">
+                750 - 900
+              </TableCell>
+              <TableCell className="font-bold text-emerald-700">
+                Excellent
+              </TableCell>
+              <TableCell className="text-sm text-slate-600 hidden sm:table-cell">
+                Best (लोन जल्दी और सस्ता मिलता है)
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-bold text-green-600">
+                700 - 749
+              </TableCell>
+              <TableCell className="font-bold text-green-600">Good</TableCell>
+              <TableCell className="text-sm text-slate-600 hidden sm:table-cell">
+                Good (ज्यादातर प्रोडक्ट्स के लिए acceptable)
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-bold text-amber-600">
+                650 - 699
+              </TableCell>
+              <TableCell className="font-bold text-amber-600">
+                Average
+              </TableCell>
+              <TableCell className="text-sm text-slate-600 hidden sm:table-cell">
+                Risky Zone (लोन मिल भी सकता है पर रेट ज्यादा होगा)
+              </TableCell>
+            </TableRow>
+            <TableRow className="bg-red-50/50">
+              <TableCell className="font-bold text-red-600">&lt; 650</TableCell>
+              <TableCell className="font-bold text-red-600">Poor</TableCell>
+              <TableCell className="text-sm text-slate-600 hidden sm:table-cell">
+                Rejected (Approval बहुत मुश्किल)
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+
+      <Alert className="bg-indigo-50 border-indigo-200 mb-8">
+        <AlertDescription className="text-indigo-900 text-sm">
           <strong>याद रखें:</strong> 750+ स्कोर होने पर लोन और क्रेडिट कार्ड के
           ऑफर्स बेहतर आते हैं – अप्रूवल जल्दी, डॉक्यूमेंटेशन हल्का और इंटरेस्ट
           रेट आमतौर पर कम।
-        </p>
+        </AlertDescription>
+      </Alert>
 
-        {/* --- SECTION 3 --- */}
-        <h2 id="why-score-drops">
-          3. Credit Score क्यों गिरता है? (सबसे ज़रूरी सेक्शन)
-        </h2>
-        <p>
-          क्रेडिट स्कोर अचानक नहीं गिरता, ये कुछ नियमित आदतों का नतीजा होता है:
-        </p>
+      {/* --- SECTION 3 --- */}
+      <h2
+        id="why-score-drops"
+        className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"
+      >
+        <TrendingUp className="w-6 h-6 text-red-500 rotate-180" />
+        3. Credit Score क्यों गिरता है? (सबसे ज़रूरी सेक्शन)
+      </h2>
+      <p className="text-slate-700 mb-6 leading-relaxed">
+        क्रेडिट स्कोर अचानक नहीं गिरता, ये कुछ नियमित आदतों का नतीजा होता है:
+      </p>
 
-        <div className="guide-image-wrap">
-          <Image
-            src="/images/guides/credit-score/credit-score-factors.webp"
-            alt="Factors affecting Credit Score"
-            width={1200}
-            height={600}
-            className="guide-image"
-          />
-          <p className="image-caption">
+      <div className="mb-8 rounded-xl overflow-hidden border border-slate-200 shadow-sm">
+        <Image
+          src="/images/guides/credit-score/credit-score-factors.webp"
+          alt="Factors affecting Credit Score"
+          width={1200}
+          height={600}
+          className="w-full h-auto"
+        />
+        <div className="bg-slate-50 p-2 text-center border-t border-slate-100">
+          <p className="text-xs text-slate-500 font-medium">
             Infographic: क्रेडिट स्कोर प्रभावित करने वाले 5 मुख्य कारक
           </p>
         </div>
+      </div>
 
-        <ul className="checklist" style={{ listStyle: 'none' }}>
-          <li>
-            📉 <strong>1. EMI Late Payment:</strong> लोन की EMI या क्रेडिट कार्ड
-            बिल की due date मिस होना। कुछ दिन भी लेट होने पर &quot;delayed
-            payment&quot; रिपोर्ट हो जाता है।
-          </li>
-          <li>
-            💳 <strong>2. Credit Card Limit का बहुत ज़्यादा use:</strong> अगर आप
-            हर महीने अपनी लिमिट का 80–90% या पूरा 100% यूज कर रहे हैं, तो यह
-            lenders को risky लगता है। (Ideal: `{'<'}` 30%)
-          </li>
-          <li>
-            🏦 <strong>3. बार‑बार Loan या Card Apply करना:</strong> हर बार जब
-            बैंक आपका स्कोर चेक करता है (hard inquiry), तो छोटे‑छोटे पॉइंट्स कम
-            हो सकते हैं। इसे &quot;credit hungry behaviour&quot; माना जाता है।
-          </li>
-          <li>
-            💸 <strong>4. Minimum Due Trap:</strong> क्रेडिट कार्ड पर सिर्फ
-            &quot;minimum due&quot; भरते रहना। इससे प्रिंसिपल कम नहीं होता,
-            ब्याज बढ़ता है, और स्कोर खराब होता है।
-          </li>
-          <li>
-            ❌ <strong>5. पुराने Unpaid Loans / Write‑off:</strong> कोई पुराना
-            लोन जिस पर पेमेंट बंद कर दिया हो। Settlement या Write-off जैसे
-            रिमार्क्स रिपोर्ट में बहुत निगेटिव माने जाते हैं।
-          </li>
-        </ul>
-
-        {/* [AD SLOT 3] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-3" type="leaderboard" />
-        </div>
-
-        {/* --- SECTION 4 --- */}
-        <h2 id="how-to-improve">4. Credit Score बढ़ाने के 7 पक्के तरीके</h2>
-        <p>
-          नीचे दिए गए steps लगातार follow करें तो धीरे‑धीरे score improve होना
-          almost निश्चित है:
-        </p>
-
-        <ol>
-          <li>
-            <strong>EMI और Credit Card dues समय पर भरें:</strong> Auto-debit या
-            Standing Instruction लगाएँ। एक भी किश्त मिस न होने दें।
-          </li>
-          <li>
-            <strong>Credit card utilization 30% से कम रखें:</strong> अगर लिमिट
-            ₹1,00,000 है, तो ideally ₹30,000 तक का ही use करें।
-          </li>
-          <li>
-            <strong>Multiple loans एक साथ न लें:</strong> पर्सनल लोन, बाइक लोन,
-            कार्ड EMI – सब मिलकर debt burden बढ़ाते हैं। एक लोन संभल जाए, फिर
-            नया सोचें।
-          </li>
-          <li>
-            <strong>Old credit cards बंद न करें:</strong> पुराने कार्ड आपके
-            क्रेडिट हिस्ट्री की उम्र बढ़ाते हैं। पुराना क्लीन ट्रैक रिकॉर्ड
-            स्कोर के लिए पॉजिटिव होता है।
-          </li>
-          <li>
-            <strong>Credit report में गलती check करें:</strong> साल में 1–2 बार
-            रिपोर्ट निकालें। गलत एंट्री या डुप्लीकेट लोन दिखे तो डिस्प्यूट करें।
-          </li>
-          <li>
-            <strong>Minimum due से बचें:</strong> हमेशा पूरा बिल अमाउंट भरें।
-            मिनिमम अमाउंट सिर्फ इमरजेंसी में ही विकल्प होना चाहिए।
-          </li>
-          <li>
-            <strong>Secured + Unsecured mix रखें:</strong> सिर्फ पर्सनल लोन
-            (unsecured) ही न हो। होम लोन या कार लोन (secured) भी मिक्स में होने
-            से प्रोफाइल हेल्दी दिखती है।
-          </li>
-        </ol>
-
-        {/* [AD SLOT 4] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-4" type="leaderboard" />
-        </div>
-
-        {/* --- SECTION 5: 90 DAYS PLAN --- */}
-        <h2 id="90-days-plan">
-          5. 90 दिनों में Credit Score कैसे बढ़ाएं? (Practical Plan)
-        </h2>
-        <p>
-          कोई magic नहीं है जो 90 दिन में 600 से 800 कर दे – लेकिन सही steps से
-          साफ improvement दिखने लगता है।
-        </p>
-
-        <div className="timeline-box">
-          <div className="timeline-item">
-            <h4>🗓️ Month 1: सफाई (Clean-up Phase)</h4>
-            <p>
-              <strong>Overdue clear करें:</strong> सबसे पहले जिन EMIs या cards
-              पर बकाया है, उन्हें क्लियर करें।
-              <br />
-              <strong>Utilization कम करें:</strong> क्रेडिट कार्ड लिमिट का
-              इस्तेमाल 30–40% तक लाएं। एक्स्ट्रा पेमेंट करके आउटस्टैंडिंग कम
-              करें।
-            </p>
-          </div>
-          <div className="timeline-item">
-            <h4>🗓️ Month 2: Discipline (On-time Track)</h4>
-            <p>
-              <strong>No new loans:</strong> इस महीने कोई नया लोन या कार्ड
-              अप्लाई न करें।
-              <br />
-              <strong>On-time only:</strong> हर ड्यू डेट से पहले पेमेंट क्लियर
-              कर दें। ऑटो-डेबिट चेक करें।
-            </p>
-          </div>
-          <div className="timeline-item">
-            <h4>🗓️ Month 3: Stability दिखाएँ</h4>
-            <p>
-              लगातार तीन महीने समय पर पेमेंट, कम यूटिलाइजेशन और कोई नई इंक्वायरी
-              नहीं – ये पैटर्न ब्यूरो और लेंडर्स की नजर में पॉजिटिव सिग्नल है।
-              3rd महीने के अंत तक विजिबल इम्प्रूवमेंट दिखना शुरू हो सकता है।
-            </p>
-          </div>
-        </div>
-        <p style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-          <em>
-            Realistic expectation: 90 दिनों में dramatic jump की बजाय gradual
-            सुधार की सोच रखें। Strong improvement आमतौर पर 3–12 महीने की
-            consistent habit से आता है।
-          </em>
-        </p>
-
-        {/* --- SECTION 6 --- */}
-        <h2 id="credit-card-usage">
-          6. Credit Card का सही इस्तेमाल कैसे करें?
-        </h2>
-        <ul className="checklist">
-          <li>
-            <strong>1–2 cards enough हैं:</strong> बहुत सारे कार्ड्स रखने से
-            ट्रैकिंग और कंट्रोल मुश्किल हो जाता है।
-          </li>
-          <li>
-            <strong>EMI conversion सावधानी से करें:</strong> हर छोटे खर्च को EMI
-            में न बदलें। केवल बड़े और जरूरी खर्च पर ही EMI सोचें।
-          </li>
-          <li>
-            <strong>Cash withdrawal avoid करें:</strong> ATM से क्रेडिट कार्ड से
-            कैश निकालना सबसे महंगा होता है (interest + cash advance fee)।
-          </li>
-          <li>
-            <strong>Billing cycle समझें:</strong> स्टेटमेंट डेट और ड्यू डेट
-            जानकर स्मार्ट खर्च करें, ताकि ब्याज न लगे।
-          </li>
-        </ul>
-
-        {/* [AD SLOT 5] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-5" type="leaderboard" />
-        </div>
-
-        {/* --- SECTION 7 --- */}
-        <h2 id="interest-impact">
-          7. Credit Score और Loan Interest का relation
-        </h2>
-        <p>
-          High credit score सिर्फ approval आसान नहीं बनाता, वह आपको{' '}
-          <strong>लाखों रुपये की saving</strong> भी दिला सकता है।
-        </p>
-
-        <div className="example-box">
-          <strong>1% Interest Difference कितना महंगा होता है?</strong>
-          <br />
-          मान लीजिए:
-          <br />
-          <ul>
-            <li>Loan amount: ₹20,00,000 (15 साल के लिए)</li>
-            <li>
-              <strong>Option A (Score &lt; 700):</strong> Interest 11% → EMI ~
-              ₹22,800
-            </li>
-            <li>
-              <strong>Option B (Score &gt; 750):</strong> Interest 10% → EMI ~
-              ₹21,500
-            </li>
-          </ul>
-          <p>
-            <strong>Difference:</strong> ~ ₹1,300 प्रति महीना
-          </p>
-          <p
-            style={{
-              marginTop: '10px',
-              color: '#dc2626',
-              fontWeight: 'bold',
-            }}
+      <div className="space-y-4 mb-8">
+        {[
+          {
+            icon: '📉',
+            title: 'EMI Late Payment',
+            desc: "लोन की EMI या क्रेडिट कार्ड बिल की due date मिस होना। कुछ दिन भी लेट होने पर 'delayed payment' रिपोर्ट हो जाता है।",
+          },
+          {
+            icon: '💳',
+            title: 'High Credit Utilization',
+            desc: 'अगर आप हर महीने अपनी लिमिट का 80–90% या पूरा 100% यूज कर रहे हैं, तो यह lenders को risky लगता है। (Ideal: < 30%)',
+          },
+          {
+            icon: '🏦',
+            title: 'Too Many Inquiries',
+            desc: 'बार‑बार Loan या Card Apply करना: हर बार जब बैंक आपका स्कोर चेक करता है (hard inquiry), तो छोटे‑छोटे पॉइंट्स कम हो सकते हैं।',
+          },
+          {
+            icon: '💸',
+            title: 'Minimum Due Trap',
+            desc: "क्रेडिट कार्ड पर सिर्फ 'minimum due' भरते रहना। इससे प्रिंसिपल कम नहीं होता, ब्याज बढ़ता है, और स्कोर खराब होता है।",
+          },
+          {
+            icon: '❌',
+            title: 'Unpaid Loans / Write-off',
+            desc: 'कोई पुराना लोन जिस पर पेमेंट बंद कर दिया हो। Settlement या Write-off जैसे रिमार्क्स रिपोर्ट में बहुत निगेटिव माने जाते हैं।',
+          },
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="flex gap-4 p-4 bg-white border border-slate-200 rounded-xl hover:border-red-200 hover:bg-red-50/10 transition-colors"
           >
+            <div className="text-2xl shrink-0">{item.icon}</div>
+            <div>
+              <h4 className="font-bold text-slate-800 text-base mb-1">
+                {item.title}
+              </h4>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* [AD SLOT 3] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-3" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 4 --- */}
+      <h2
+        id="how-to-improve"
+        className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"
+      >
+        <ShieldCheck className="w-6 h-6 text-emerald-600" />
+        4. Credit Score बढ़ाने के 7 पक्के तरीके
+      </h2>
+      <p className="text-slate-700 mb-8 leading-relaxed">
+        नीचे दिए गए steps लगातार follow करें तो धीरे‑धीरे score improve होना
+        almost निश्चित है:
+      </p>
+
+      <div className="grid gap-4 mb-12">
+        {[
+          {
+            title: 'EMI और Credit Card dues समय पर भरें',
+            desc: 'Auto-debit या Standing Instruction लगाएँ। एक भी किश्त मिस न होने दें।',
+          },
+          {
+            title: 'Credit card utilization 30% से कम रखें',
+            desc: 'अगर लिमिट ₹1,00,000 है, तो ideally ₹30,000 तक का ही use करें।',
+          },
+          {
+            title: 'Multiple loans एक साथ न लें',
+            desc: 'पर्सनल लोन, बाइक लोन, कार्ड EMI – सब मिलकर debt burden बढ़ाते हैं। एक लोन संभल जाए, फिर नया सोचें।',
+          },
+          {
+            title: 'Old credit cards बंद न करें',
+            desc: 'पुराने कार्ड आपके क्रेडिट हिस्ट्री की उम्र बढ़ाते हैं। पुराना क्लीन ट्रैक रिकॉर्ड स्कोर के लिए पॉजिटिव होता है।',
+          },
+          {
+            title: 'Credit report में गलती check करें',
+            desc: 'साल में 1–2 बार रिपोर्ट निकालें। गलत एंट्री या डुप्लीकेट लोन दिखे तो डिस्प्यूट करें।',
+          },
+          {
+            title: 'Minimum due से बचें',
+            desc: 'हमेशा पूरा बिल अमाउंट भरें। मिनिमम अमाउंट सिर्फ इमरजेंसी में ही विकल्प होना चाहिए।',
+          },
+          {
+            title: 'Secured + Unsecured mix रखें',
+            desc: 'सिर्फ पर्सनल लोन (unsecured) ही न हो। होम लोन या कार लोन (secured) भी मिक्स में होने से प्रोफाइल हेल्दी दिखती है।',
+          },
+        ].map((step, index) => (
+          <div
+            key={index}
+            className="flex gap-4 p-5 bg-white border border-slate-200 rounded-xl hover:border-emerald-300 hover:shadow-md transition-all group"
+          >
+            <div className="shrink-0 w-10 h-10 flex items-center justify-center bg-emerald-100 text-emerald-700 font-bold rounded-full group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+              {index + 1}
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900 text-lg mb-1">
+                {step.title}
+              </h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {step.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* [AD SLOT 4] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-4" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 5: 90 DAYS PLAN --- */}
+      <h2
+        id="90-days-plan"
+        className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"
+      >
+        <CalendarDays className="w-6 h-6 text-indigo-600" />
+        5. 90 दिनों में Credit Score कैसे बढ़ाएं? (Practical Plan)
+      </h2>
+      <p className="text-slate-700 mb-6 leading-relaxed">
+        कोई magic नहीं है जो 90 दिन में 600 से 800 कर दे – लेकिन सही steps से
+        साफ improvement दिखने लगता है।
+      </p>
+
+      <div className="grid md:grid-cols-3 gap-4 mb-4">
+        {[
+          {
+            month: 'Month 1',
+            title: 'सफाई (Clean-up Phase)',
+            desc: 'Overdue clear करें और Credit Utilization कम करें। एक्स्ट्रा पेमेंट करके आउटस्टैंडिंग कम करें।',
+          },
+          {
+            month: 'Month 2',
+            title: 'Discipline (On-time Track)',
+            desc: 'No new loans. कोई नया लोन अप्लाई न करें। हर ड्यू डेट से पहले पेमेंट क्लियर कर दें।',
+          },
+          {
+            month: 'Month 3',
+            title: 'Stability दिखाएँ',
+            desc: 'लगातार तीन महीने समय पर पेमेंट और कम यूटिलाइजेशन से ब्यूरो की नजर में पॉजिटिव सिग्नल जाता है।',
+          },
+        ].map((item, i) => (
+          <Card key={i} className="border-indigo-100 bg-indigo-50/30">
+            <CardHeader className="pb-2">
+              <Badge className="w-fit mb-2 bg-indigo-100 text-indigo-700 hover:bg-indigo-200">
+                🗓️ {item.month}
+              </Badge>
+              <CardTitle className="text-base font-bold text-indigo-900">
+                {item.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {item.desc}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <p className="text-xs text-slate-500 italic mb-8">
+        *Realistic expectation: 90 दिनों में dramatic jump की बजाय gradual सुधार
+        की सोच रखें। Strong improvement आमतौर पर 3–12 महीने की consistent habit
+        से आता है।
+      </p>
+
+      {/* --- SECTION 6 --- */}
+      <h2
+        id="credit-card-usage"
+        className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"
+      >
+        <CreditCard className="w-6 h-6 text-purple-600" />
+        6. Credit Card का सही इस्तेमाल कैसे करें?
+      </h2>
+      <ul className="grid sm:grid-cols-2 gap-4 mb-8">
+        {[
+          '1–2 cards enough हैं: बहुत सारे कार्ड्स से ट्रैकिंग मुश्किल हो जाती है।',
+          'EMI conversion सावधानी से करें: हर छोटे खर्च को EMI में न बदलें।',
+          'Cash withdrawal avoid करें: ATM से कैश निकालना सबसे महंगा होता है।',
+          'Billing cycle समझें: स्टेटमेंट डेट और ड्यू डेट जानकर स्मार्ट खर्च करें।',
+        ].map((tip, i) => (
+          <li
+            key={i}
+            className="flex gap-3 p-4 bg-white border border-slate-200 rounded-lg items-start"
+          >
+            <CheckCircle2 className="w-5 h-5 text-purple-500 shrink-0 mt-0.5" />
+            <span className="text-sm text-slate-700">{tip}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* [AD SLOT 5] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-5" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 7 --- */}
+      <h2
+        id="interest-impact"
+        className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"
+      >
+        7. Credit Score और Loan Interest का relation
+      </h2>
+      <p className="text-slate-700 mb-6 leading-relaxed">
+        High credit score सिर्फ approval आसान नहीं बनाता, वह आपको{' '}
+        <strong>लाखों रुपये की saving</strong> भी दिला सकता है।
+      </p>
+
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
+        <h3 className="font-bold text-amber-900 mb-4 text-lg">
+          1% Interest Difference कितना महंगा होता है?
+        </h3>
+        <p className="text-sm text-amber-800 mb-4">
+          मान लीजिए: Loan amount: ₹20,00,000 (15 साल के लिए)
+        </p>
+
+        <div className="space-y-3 mb-6">
+          <div className="flex justify-between items-center p-3 bg-white rounded-lg border border-amber-100">
+            <span className="text-slate-600 font-medium">
+              Option A (Score &lt; 700)
+            </span>
+            <span className="text-red-600 font-bold">
+              11% Interest (EMI ~ ₹22,800)
+            </span>
+          </div>
+          <div className="flex justify-between items-center p-3 bg-white rounded-lg border border-amber-100">
+            <span className="text-slate-600 font-medium">
+              Option B (Score &gt; 750)
+            </span>
+            <span className="text-emerald-600 font-bold">
+              10% Interest (EMI ~ ₹21,500)
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-amber-200/50">
+          <p className="text-slate-700 font-medium">
+            Difference: ~ ₹1,300 प्रति महीना
+          </p>
+          <p className="text-red-600 font-extrabold text-lg mt-2 sm:mt-0">
             15 साल में Extra Payment: ₹2,34,000
           </p>
         </div>
-        <p>
-          सिर्फ 1% एक्स्ट्रा ब्याज की वजह से आपको लाखों ज्यादा चुकाने पड़ सकते
-          हैं।
-        </p>
+      </div>
 
-        <div style={{ marginTop: 24, textAlign: 'center' }}>
-          <Link
-            href="/hi/emi-calculator"
-            className="btn-primary"
-            style={{
-              display: 'inline-block',
-              padding: '12px 24px',
-              background: 'var(--color-brand-green)',
-              color: '#fff',
-              borderRadius: 8,
-              textDecoration: 'none',
-              fontWeight: 600,
-            }}
+      <div className="text-center mb-8">
+        <Link href="/hi/emi-calculator">
+          <Button
+            size="lg"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
           >
             👉 खुद चेक करें: EMI कैलकुलेटर
-          </Link>
-        </div>
+          </Button>
+        </Link>
+      </div>
 
-        {/* --- SECTION 8 --- */}
-        <h2 id="check-score">8. Credit Score check करने से score गिरता है?</h2>
-        <p>यह बहुत common confusion है।</p>
-        <ul>
-          <li>
-            <strong>Self check (soft inquiry) = NO impact:</strong> जब आप खुद
-            किसी ऐप/वेबसाइट से अपना स्कोर देखते हैं, तो इसे सॉफ्ट इंक्वायरी कहा
-            जाता है। इससे स्कोर कम नहीं होता।
-          </li>
-          <li>
-            <strong>
-              Bank / lender inquiry (hard inquiry) = थोड़ी impact:
-            </strong>{' '}
-            जब आप लोन या कार्ड के लिए अप्लाई करते हैं और बैंक आपका स्कोर चेक
-            करता है, वह हार्ड इंक्वायरी होती है। कम समय में बहुत सारी हार्ड
-            इंक्वायरीज से पॉइंट्स कम हो सकते हैं।
-          </li>
-        </ul>
-        <p>
-          इसलिए, अपना स्कोर साल में 2–3 बार खुद चेक करना बिल्कुल सेफ है। बस
-          बेवजह लोन/कार्ड अप्लाई करने से बचें।
-        </p>
-
-        {/* [AD SLOT 6] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-6" type="leaderboard" />
-        </div>
-
-        {/* --- SECTION 9 --- */}
-        <h2>9. Credit Score improve होने में कितना time लगता है?</h2>
-        <p>यह आपकी current situation और habits पर depend करता है:</p>
-        <ul>
-          <li>
-            <strong>1 month:</strong> Small change (थोड़ी हलचल, drastic नहीं)।
-          </li>
-          <li>
-            <strong>3–6 months:</strong> Visible improvement (अगर आपने overdue
-            clear किए और कोई नया लोन नहीं लिया)।
-          </li>
-          <li>
-            <strong>6–12 months:</strong> Strong profile (लगातार अच्छी हिस्ट्री
-            से प्रोफाइल काफी मजबूत बनती है)।
-          </li>
-        </ul>
-
-        {/* --- SECTION 10 --- */}
-        <h2>10. Credit Score improve करने में common mistakes</h2>
-        <ul className="checklist" style={{ listStyle: 'none' }}>
-          <li>
-            ❌ <strong>Fake apps और scams:</strong> &quot;Guaranteed 800+
-            score&quot; का दावा करने वाले फ्रॉड हो सकते हैं।
-          </li>
-          <li>
-            ❌ <strong>Credit repair scams:</strong> हाई फीस लेकर झूठे वादे करने
-            वाली एजेंसीज से बचें।
-          </li>
-          <li>
-            ❌ <strong>पुराने accounts तुरंत बंद करना:</strong> &quot;पुराना
-            कार्ड बंद कर दूँ&quot; सोचना गलत है, इससे क्रेडिट हिस्ट्री छोटी हो
-            जाती है।
-          </li>
-          <li>
-            ❌ <strong>Too many enquiries:</strong> हर WhatsApp/SMS ऑफर पर क्लिक
-            करके लोन अप्लाई करना।
-          </li>
-        </ul>
-
-        {/* --- FAQS --- */}
-        <h2 id="faqs">11. FAQs (Hindi)</h2>
-        <div className="faqs-accordion">
-          <details>
-            <summary>Q1. Loan के लिए minimum credit score कितना चाहिए?</summary>
-            <p>
-              ज़्यादातर अच्छे बैंक/NBFC पर्सनल लोन या क्रेडिट कार्ड के लिए{' '}
-              <strong>700–750+</strong> स्कोर पसंद करते हैं। होम लोन में 650–700
-              के आसपास भी कुछ केसेस में अप्रूवल मिल सकता है।
+      {/* --- SECTION 8 --- */}
+      <h2 id="check-score" className="text-2xl font-bold text-slate-900 mb-4">
+        8. Credit Score check करने से score गिरता है?
+      </h2>
+      <p className="text-slate-700 mb-4">यह बहुत common confusion है।</p>
+      <div className="grid sm:grid-cols-2 gap-4 mb-8">
+        <Card className="border-green-200 bg-green-50/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base font-bold text-green-800">
+              Self Check (Soft Inquiry)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-slate-600">
+              <strong>NO Impact:</strong> जब आप खुद किसी ऐप/वेबसाइट से अपना
+              स्कोर देखते हैं, तो इसे सॉफ्ट इंक्वायरी कहा जाता है। इससे स्कोर कम
+              नहीं होता।
             </p>
-          </details>
-          <details>
-            <summary>Q2. Credit score free में कैसे check करें?</summary>
-            <p>
-              कई बैंक, क्रेडिट कार्ड ऐप्स और फाइनेंशियल प्लेटफॉर्म्स फ्री स्कोर
-              चेकिंग ऑफर करते हैं। CIBIL भी साल में एक फ्री रिपोर्ट देता है।
-              हमेशा भरोसेमंद प्लेटफॉर्म्स का ही इस्तेमाल करें।
+          </CardContent>
+        </Card>
+        <Card className="border-amber-200 bg-amber-50/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base font-bold text-amber-800">
+              Bank Inquiry (Hard Inquiry)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-slate-600">
+              <strong>Low Impact:</strong> जब आप लोन या कार्ड के लिए अप्लाई करते
+              हैं और बैंक चेक करता है। बहुत सारी इंक्वायरीज से पॉइंट्स कम हो
+              सकते हैं。
             </p>
-          </details>
-          <details>
-            <summary>Q3. Zero credit history हो तो क्या करें?</summary>
-            <p>
-              अगर स्कोर &quot;NA&quot; या &quot;NO HIT&quot; है, तो शुरुआत के
-              लिए लो-लिमिट वाला क्रेडिट कार्ड या छोटा कंज्यूमर लोन लें। इनका
-              जिम्मेदार इस्तेमाल करके आप पॉजिटिव हिस्ट्री बना सकते हैं।
-            </p>
-          </details>
-          <details>
-            <summary>Q4. Salary कम हो तो credit score बढ़ सकता है?</summary>
-            <p>
-              हाँ। क्रेडिट स्कोर सैलरी पर नहीं, बल्कि समय पर पेमेंट, यूटिलाइजेशन
-              और अनुशासन पर निर्भर करता है। सैलरी कम होने पर लोन अमाउंट कम
-              मिलेगा, लेकिन स्कोर अच्छा रखना बिल्कुल संभव है।
-            </p>
-          </details>
-        </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* [AD SLOT 7] */}
-        <div className="ad-spacer no-print">
-          <AdSlot id="hi-cibil-7" type="leaderboard" />
-        </div>
+      {/* [AD SLOT 6] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-6" type="leaderboard" />
+      </div>
 
-        {/* --- CONCLUSION --- */}
-        <h2>12. निष्कर्ष: Credit Score – आपकी Financial Life की नींव</h2>
-        <p>
-          क्रेडिट स्कोर सिर्फ एक नंबर नहीं, आपकी{' '}
-          <strong>financial reputation</strong> है:
-          <br />
-          - अच्छा स्कोर = आसान अप्रूवल + सस्ता लोन
-          <br />- खराब स्कोर = बार‑बार रिजेक्शन + महंगा ब्याज
-        </p>
-        <div className="conclusion-box">
-          <p>
-            EMI टाइम पर भरें, यूटिलाइजेशन कम रखें और बेवजह लोन से बचें।
-            <br />
-            स्कोर धीरे‑धीरे बनता है, 6–12 महीने की अच्छी आदतें किसी भी मैजिक
-            ट्रिक से ज़्यादा पावरफुल हैं। अगर आप आज से ही कंट्रोल रखेंगे, तो आने
-            वाले सालों में आपका क्रेडिट स्कोर आपकी सबसे बड़ी फाइनेंशियल ताकत बन
-            सकता है।
+      {/* --- SECTION 9 --- */}
+      <h2 className="text-2xl font-bold text-slate-900 mb-4">
+        9. Credit Score improve होने में कितना time लगता है?
+      </h2>
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        {[
+          { time: '1 Month', desc: 'Small change (थोड़ी हलचल, drastic नहीं).' },
+          {
+            time: '3-6 Months',
+            desc: 'Visible improvement (अगर आपने overdue clear किए).',
+          },
+          {
+            time: '6-12 Months',
+            desc: 'Strong profile (लगातार अच्छी हिस्ट्री से प्रोफाइल मजबूत बनती है).',
+          },
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="flex-1 bg-slate-50 p-4 rounded-lg border border-slate-200 text-center"
+          >
+            <div className="text-lg font-bold text-slate-800 mb-1">
+              {item.time}
+            </div>
+            <div className="text-xs text-slate-500">{item.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* --- SECTION 10 --- */}
+      <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <AlertTriangle className="w-6 h-6 text-red-500" />
+        10. Credit Score improve करने में common mistakes
+      </h2>
+      <ul className="space-y-3 mb-12">
+        {[
+          "Fake apps और scams: 'Guaranteed 800+ score' का दावा करने वाले फ्रॉड हो सकते हैं。",
+          'Credit repair scams: हाई फीस लेकर झूठे वादे करने वाली एजेंसीज से बचें。',
+          'पुराने accounts तुरंत बंद करना: इससे क्रेडिट हिस्ट्री छोटी हो जाती है।',
+          'Too many enquiries: हर WhatsApp/SMS ऑफर पर क्लिक करके लोन अप्लाई करना।',
+        ].map((mistake, i) => (
+          <li
+            key={i}
+            className="flex items-start gap-3 p-3 bg-red-50 border border-red-100 rounded-lg"
+          >
+            <span className="text-red-500 font-bold shrink-0">❌</span>
+            <span className="text-sm text-red-900">{mistake}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* --- FAQS --- */}
+      <h2 id="faqs" className="text-2xl font-bold text-slate-900 mb-6">
+        11. FAQs (Hindi)
+      </h2>
+      <div className="mb-12">
+        <Accordion type="single" collapsible className="w-full">
+          {faqData.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border-slate-200"
+            >
+              <AccordionTrigger className="text-slate-800 font-semibold hover:text-blue-700 text-left">
+                Q{index + 1}. {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 leading-relaxed text-base">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+
+      {/* [AD SLOT 7] */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-cibil-7" type="leaderboard" />
+      </div>
+
+      {/* --- CONCLUSION --- */}
+      <Card className="bg-slate-900 text-slate-100 border-none mb-12">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold text-white mb-4">
+            12. निष्कर्ष: Credit Score – आपकी Financial Life की नींव
+          </h2>
+          <p className="text-slate-300 mb-6 leading-relaxed">
+            क्रेडिट स्कोर सिर्फ एक नंबर नहीं, आपकी{' '}
+            <strong>financial reputation</strong> है। अच्छा स्कोर आपको आसान
+            अप्रूवल और सस्ता लोन दिलाता है, जबकि खराब स्कोर महंगे ब्याज का कारण
+            बनता है।
           </p>
-        </div>
+          <div className="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
+            <p className="text-slate-200 italic leading-relaxed">
+              &quot;EMI टाइम पर भरें, यूटिलाइजेशन कम रखें और बेवजह लोन से बचें।
+              स्कोर धीरे‑धीरे बनता है, 6–12 महीने की अच्छी आदतें किसी भी मैजिक
+              ट्रिक से ज़्यादा पावरफुल हैं।&quot;
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
-        <AuthorBio />
-      </article>
-    </>
+      <AuthorBio />
+    </article>
   );
 }

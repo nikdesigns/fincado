@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useMemo } from 'react';
+import { Calculator, TrendingUp, Wallet } from 'lucide-react';
 
 interface Props {
   defaultSip?: number;
@@ -8,26 +9,32 @@ interface Props {
 }
 
 export default function InlineSipCalculator({
-  defaultSip = 43041, // Default fallback (matches 1 Cr in 10 Years)
+  defaultSip = 43041,
   defaultRate = 12,
   defaultYears = 10,
 }: Props) {
-  // Initialize state with the passed props
   const [monthlyInvestment, setMonthlyInvestment] = useState(defaultSip);
   const [rate, setRate] = useState(defaultRate);
   const [years, setYears] = useState(defaultYears);
 
-  // ✅ Calculate result directly (Derived State)
-  const result = useMemo(() => {
-    const r = rate / 12 / 100; // Monthly rate
-    const n = years * 12; // Total months
+  // --- LOGIC ---
+  const { invested, wealthGained, totalValue } = useMemo(() => {
+    const r = rate / 12 / 100;
+    const n = years * 12;
+    const investedAmount = monthlyInvestment * n;
 
+    let fv = 0;
     if (rate === 0 || years === 0) {
-      return monthlyInvestment * n;
+      fv = investedAmount;
+    } else {
+      fv = ((monthlyInvestment * (Math.pow(1 + r, n) - 1)) / r) * (1 + r);
     }
 
-    const fv = ((monthlyInvestment * (Math.pow(1 + r, n) - 1)) / r) * (1 + r);
-    return Math.round(fv);
+    return {
+      invested: Math.round(investedAmount),
+      wealthGained: Math.round(fv - investedAmount),
+      totalValue: Math.round(fv),
+    };
   }, [monthlyInvestment, rate, years]);
 
   const formatCurrency = (amount: number) => {
@@ -38,159 +45,149 @@ export default function InlineSipCalculator({
     }).format(amount);
   };
 
+  // Calculate percentages for the visual bar
+  const investedPercent = Math.min((invested / totalValue) * 100, 100);
+  const gainedPercent = 100 - investedPercent;
+
   return (
-    <div className="inline-calc-widget no-print">
-      {/* Header */}
-      <div className="widget-header">
-        <span>⚡</span> Quick Check: Verify the Math
+    <div className="no-print my-8 border border-slate-200 rounded-2xl shadow-sm bg-white overflow-hidden max-w-2xl mx-auto">
+      {/* --- HEADER --- */}
+      <div className="bg-slate-50 border-b border-slate-100 px-6 py-4 flex items-center gap-2">
+        <div className="p-1.5 bg-emerald-100 rounded text-emerald-600">
+          <Calculator className="w-4 h-4" />
+        </div>
+        <span className="font-bold text-slate-700 text-sm uppercase tracking-wide">
+          Quick Check: Verify the Math
+        </span>
       </div>
 
-      <div className="widget-body">
-        {/* Input Row */}
-        <div className="inputs-row">
-          <div className="input-group">
-            <label>Monthly SIP (₹)</label>
-            <input
-              type="number"
-              value={monthlyInvestment}
-              onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
-            />
+      <div className="p-6 sm:p-8">
+        {/* --- INPUTS --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+          {/* Monthly Investment */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+              Monthly SIP
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                ₹
+              </span>
+              <input
+                type="number"
+                value={monthlyInvestment}
+                onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
+                className="w-full pl-8 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-semibold text-slate-900 transition-all"
+              />
+            </div>
           </div>
-          <div className="input-group">
-            <label>Return Rate (%)</label>
-            <input
-              type="number"
-              value={rate}
-              onChange={(e) => setRate(Number(e.target.value))}
-            />
+
+          {/* Rate */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+              Return Rate (%)
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={rate}
+                onChange={(e) => setRate(Number(e.target.value))}
+                className="w-full pl-3 pr-8 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-semibold text-slate-900 transition-all"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                %
+              </span>
+            </div>
           </div>
-          <div className="input-group">
-            <label>Years</label>
-            <input
-              type="number"
-              value={years}
-              onChange={(e) => setYears(Number(e.target.value))}
-            />
+
+          {/* Years */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+              Time Period
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={years}
+                onChange={(e) => setYears(Number(e.target.value))}
+                className="w-full pl-3 pr-10 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-semibold text-slate-900 transition-all"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-medium">
+                Yrs
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Result Display */}
-        <div className="result-box">
-          <div className="result-row">
-            <span className="result-label">Invested:</span>
-            <span className="result-val-small">
-              {formatCurrency(monthlyInvestment * years * 12)}
-            </span>
+        {/* --- RESULTS BOX --- */}
+        <div className="bg-slate-900 rounded-xl p-6 text-white relative overflow-hidden">
+          {/* Background Glow Effect */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500 rounded-full blur-[60px] opacity-20 pointer-events-none"></div>
+
+          <div className="grid grid-cols-2 gap-y-6 relative z-10">
+            {/* Invested */}
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-center gap-2 mb-1 text-slate-400 text-xs uppercase font-bold tracking-wider">
+                <Wallet className="w-3 h-3" /> Invested Amount
+              </div>
+              <div className="text-xl font-medium text-slate-200">
+                {formatCurrency(invested)}
+              </div>
+            </div>
+
+            {/* Gains */}
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-center gap-2 mb-1 text-emerald-400 text-xs uppercase font-bold tracking-wider">
+                <TrendingUp className="w-3 h-3" /> Wealth Gained
+              </div>
+              <div className="text-xl font-medium text-emerald-300">
+                +{formatCurrency(wealthGained)}
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="col-span-2 h-px bg-slate-700/50 my-2"></div>
+
+            {/* Total Corpus */}
+            <div className="col-span-2">
+              <div className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">
+                Total Projected Corpus
+              </div>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white">
+                {formatCurrency(totalValue)}
+              </div>
+            </div>
           </div>
-          <div className="result-row main">
-            <span className="result-label">Projected Corpus:</span>
-            <span className="result-value">{formatCurrency(result)}</span>
+
+          {/* --- VISUAL BAR --- */}
+          <div className="mt-6 pt-6 border-t border-slate-700/50">
+            <div className="h-3 w-full bg-slate-800 rounded-full overflow-hidden flex">
+              <div
+                style={{ width: `${investedPercent}%` }}
+                className="h-full bg-slate-500 transition-all duration-500"
+              ></div>
+              <div
+                style={{ width: `${gainedPercent}%` }}
+                className="h-full bg-emerald-500 transition-all duration-500"
+              ></div>
+            </div>
+            <div className="flex justify-between mt-2 text-[10px] font-medium text-slate-400 uppercase tracking-wide">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-slate-500"></div>{' '}
+                Invested
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-emerald-500"></div>{' '}
+                Profit
+              </div>
+            </div>
           </div>
         </div>
 
-        <p className="widget-note">
-          *Change the values above to see how small tweaks affect your goal.
+        <p className="text-xs text-center text-slate-400 mt-4 italic">
+          *Tweaking these numbers helps you find a comfortable monthly goal.
         </p>
       </div>
-
-      {/* Scoped CSS */}
-      <style jsx>{`
-        .inline-calc-widget {
-          background: #ffffff;
-          border: 2px solid #e2e8f0;
-          border-radius: 16px;
-          overflow: hidden;
-          margin: 40px 0;
-          box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
-          font-family: var(--font-rubik), sans-serif;
-        }
-        .widget-header {
-          background: #f0fdf4;
-          color: #166534;
-          padding: 12px 24px;
-          font-weight: 700;
-          font-size: 15px;
-          border-bottom: 1px solid #dcfce7;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-        .widget-body {
-          padding: 24px;
-        }
-        .inputs-row {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-          gap: 20px;
-          margin-bottom: 24px;
-        }
-        .input-group label {
-          font-size: 13px;
-          font-weight: 600;
-          color: #64748b;
-          margin-bottom: 8px;
-          display: block;
-        }
-        .input-group input {
-          width: 100%;
-          padding: 12px;
-          border: 1px solid #cbd5e1;
-          border-radius: 8px;
-          font-size: 16px;
-          font-weight: 600;
-          color: #0f172a;
-          outline: none;
-          transition: all 0.2s;
-          background: #f8fafc;
-        }
-        .input-group input:focus {
-          border-color: #16a34a;
-          background: #fff;
-          box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
-        }
-        .result-box {
-          background: #0f172a;
-          color: white;
-          padding: 20px 24px;
-          border-radius: 12px;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-        .result-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .result-row.main {
-          padding-top: 8px;
-          border-top: 1px solid #334155;
-          margin-top: 4px;
-        }
-        .result-label {
-          font-size: 14px;
-          color: #94a3b8;
-        }
-        .result-val-small {
-          font-size: 14px;
-          color: #cbd5e1;
-          font-weight: 500;
-        }
-        .result-value {
-          font-size: 24px;
-          font-weight: 700;
-          color: #4ade80;
-        }
-        .widget-note {
-          font-size: 12px;
-          color: #94a3b8;
-          margin: 12px 0 0 0;
-          text-align: center;
-          font-style: italic;
-        }
-      `}</style>
     </div>
   );
 }

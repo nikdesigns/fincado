@@ -8,22 +8,21 @@ export default function HindiGuidesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="container" style={{ padding: '40px 20px' }}>
-      <div className="layout-grid">
+    <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Column: Article Content */}
-        <div className="main-content">{children}</div>
+        <div className="lg:col-span-8 min-w-0 my-12">{children}</div>
 
         {/* Right Column: Sidebar (Nav + Ads) */}
-        <aside className="sidebar">
+        <aside className="lg:col-span-4 space-y-8 my-12">
           {/* 1. Navigation / Links */}
-          <HindiSidebar />
+          <div className="sticky top-24 space-y-8">
+            <HindiSidebar />
 
-          {/* 2. Sticky Sidebar Ad */}
-          <div
-            className="no-print"
-            style={{ marginTop: 24, position: 'sticky', top: '20px' }}
-          >
-            <AdSlot id="hi-guide-sidebar" type="box" />
+            {/* 2. Sticky Sidebar Ad */}
+            <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center no-print">
+              <AdSlot id="hi-guide-sidebar" type="box" />
+            </div>
           </div>
         </aside>
       </div>

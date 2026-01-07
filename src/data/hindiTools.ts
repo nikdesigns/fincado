@@ -1,4 +1,18 @@
-export const HINDI_CALCULATOR_CATEGORIES = [
+// src/data/hindiTools.ts
+
+export interface HindiTool {
+  title: string;
+  desc: string;
+  href: string;
+  icon: string; // Emoji string
+}
+
+export interface HindiCategory {
+  name: string;
+  tools: HindiTool[];
+}
+
+export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
   {
     name: 'लोन और ईएमआई (Loans)',
     tools: [
@@ -44,7 +58,7 @@ export const HINDI_CALCULATOR_CATEGORIES = [
         icon: '📈',
       },
       {
-        title: 'ELSS कैलकुलेटर', // ✅ NEW ADDITION
+        title: 'ELSS कैलकुलेटर',
         desc: 'टैक्स बचाने वाला म्यूचुअल फंड (80C)।',
         href: '/hi/elss-calculator/',
         icon: '📉',
@@ -132,7 +146,7 @@ export const HINDI_CALCULATOR_CATEGORIES = [
     name: 'टैक्स और अन्य टूल्स (Tax & Others)',
     tools: [
       {
-        title: 'इनकम टैक्स (New!)', // ✅ NEW ADDITION
+        title: 'इनकम टैक्स (New!)',
         desc: 'नई vs पुरानी व्यवस्था की तुलना करें।',
         href: '/hi/income-tax-calculator/',
         icon: '📋',

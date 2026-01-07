@@ -6,6 +6,11 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articlesData from '@/data/articles.json';
 import LanguageToggle from '@/components/LanguageToggle';
 
+// --- UI COMPONENTS ---
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { BookOpen, CalendarDays, ArrowRight, SearchX } from 'lucide-react';
+
 // Define the type to avoid TS errors
 type Article = {
   slug: string;
@@ -14,7 +19,7 @@ type Article = {
   category: string;
   published: string;
   language: string;
-  hidden?: boolean; // ✅ Added optional hidden property
+  hidden?: boolean;
 };
 
 export default function HindiGuidesPage() {
@@ -23,12 +28,12 @@ export default function HindiGuidesPage() {
   const allGuides = useMemo(() => {
     return (articlesData as Article[])
       .filter((article) => article.language === 'hi')
-      .filter((article) => !article.hidden) // ✅ ADDED: Filter out hidden guides
+      .filter((article) => !article.hidden)
       .map((article) => ({
         slug: article.slug,
         title: article.title,
         desc:
-          article.metaDescription.replace(/<[^>]*>?/gm, '').substring(0, 150) +
+          article.metaDescription.replace(/<[^>]*>?/gm, '').substring(0, 120) +
           '...',
         href: `/hi/guides/${article.slug}/`,
         category: article.category,
@@ -47,7 +52,7 @@ export default function HindiGuidesPage() {
   }, [activeCategory, allGuides]);
 
   return (
-    <>
+    <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
           { name: 'होम', url: 'https://www.fincado.com/hi' },
@@ -58,145 +63,114 @@ export default function HindiGuidesPage() {
         ]}
       />
 
-      <header style={{ marginBottom: '32px' }}>
-        <LanguageToggle path="/guides" />
-        <h1
-          style={{
-            fontSize: '32px',
-            fontWeight: 800,
-            color: '#1e293b',
-            marginBottom: '16px',
-          }}
-        >
-          फाइनेंशियल <span style={{ color: '#16a34a' }}>ज्ञान (Guides)</span>
-        </h1>
-        <p style={{ color: '#64748b', fontSize: '18px' }}>
-          SIP, लोन और टैक्स की जटिल दुनिया को अपनी आसान भाषा में समझें।
-        </p>
-      </header>
+      {/* --- HEADER SECTION --- */}
+      <div className="mb-10 bg-linear-to-br from-orange-50 to-amber-50 border border-orange-100 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+        {/* Decorative Icon */}
+        <div className="absolute right-4 top-4 opacity-5">
+          <BookOpen className="w-32 h-32 text-orange-600" />
+        </div>
 
-      {/* CATEGORY FILTERS */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '10px',
-          flexWrap: 'wrap',
-          marginBottom: '32px',
-        }}
-      >
+        <div className="relative z-10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <Badge
+              variant="outline"
+              className="w-fit bg-white text-orange-700 border-orange-200 px-3 py-1 shadow-sm"
+            >
+              वित्तीय साक्षरता (Financial Literacy)
+            </Badge>
+            <LanguageToggle path="/guides" />
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
+            फाइनेंशियल <span className="text-orange-600">ज्ञान (Guides)</span>
+          </h1>
+
+          <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
+            SIP, लोन और टैक्स की जटिल दुनिया को अपनी आसान भाषा में समझें। हमारे
+            एक्सपर्ट्स द्वारा लिखे गए लेख।
+          </p>
+        </div>
+      </div>
+
+      {/* --- CATEGORY FILTERS --- */}
+      <div className="flex flex-wrap gap-2 mb-8">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '999px',
-              border:
+            className={`
+              px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 border
+              ${
                 activeCategory === cat
-                  ? '1px solid #16a34a'
-                  : '1px solid #e2e8f0',
-              background: activeCategory === cat ? '#16a34a' : '#fff',
-              color: activeCategory === cat ? '#fff' : '#64748b',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-emerald-300 hover:text-emerald-700'
+              }
+            `}
           >
             {cat === 'All' ? 'सभी (All)' : cat}
           </button>
         ))}
       </div>
 
-      {/* GUIDES GRID */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '24px',
-        }}
-      >
+      {/* --- GUIDES GRID --- */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {filteredGuides.length > 0 ? (
           filteredGuides.map((guide) => (
             <Link
               key={guide.href}
               href={guide.href}
-              style={{ textDecoration: 'none' }}
+              className="group h-full block"
             >
-              <article className="guide-card">
-                <div style={{ marginBottom: '12px' }}>
-                  <span className="category-pill">{guide.category}</span>
-                </div>
-                <h3 className="guide-title">{guide.title}</h3>
-                <p className="guide-desc">{guide.desc}</p>
-                <div className="guide-footer">
-                  <span>
+              <Card className="h-full flex flex-col hover:shadow-lg hover:border-emerald-400 transition-all border-slate-200 duration-200">
+                <CardContent className="p-6 grow">
+                  <div className="mb-3">
+                    <Badge
+                      variant="secondary"
+                      className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-emerald-100"
+                    >
+                      {guide.category}
+                    </Badge>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mb-3 leading-snug">
+                    {guide.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                    {guide.desc}
+                  </p>
+                </CardContent>
+
+                <CardFooter className="p-6 pt-0 mt-auto flex justify-between items-center text-xs text-slate-400 border-t border-slate-50">
+                  <div className="flex items-center gap-1.5">
+                    <CalendarDays className="w-3.5 h-3.5" />
                     {new Date(guide.published).toLocaleDateString('hi-IN', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
                     })}
+                  </div>
+                  <span className="flex items-center font-bold text-emerald-600 group-hover:translate-x-1 transition-transform text-sm">
+                    पढ़ें <ArrowRight className="w-4 h-4 ml-1" />
                   </span>
-                  <span style={{ color: '#16a34a', fontWeight: 600 }}>
-                    पढ़ें →
-                  </span>
-                </div>
-              </article>
+                </CardFooter>
+              </Card>
             </Link>
           ))
         ) : (
-          <p style={{ color: '#64748b' }}>कोई लेख उपलब्ध नहीं है।</p>
+          <div className="col-span-full py-16 flex flex-col items-center justify-center text-center bg-slate-50 border border-dashed border-slate-200 rounded-xl">
+            <div className="p-3 bg-white rounded-full mb-3 shadow-sm">
+              <SearchX className="w-8 h-8 text-slate-400" />
+            </div>
+            <p className="text-slate-600 font-medium">
+              कोई लेख उपलब्ध नहीं है।
+            </p>
+            <p className="text-slate-400 text-sm">
+              कृपया कोई अन्य श्रेणी चुनें।
+            </p>
+          </div>
         )}
       </div>
-
-      <style jsx global>{`
-        .guide-card {
-          background: #fff;
-          border: 1px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 24px;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          transition: all 0.2s ease;
-        }
-        .guide-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-          border-color: #bbf7d0;
-        }
-        .category-pill {
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          color: #15803d;
-          background: #dcfce7;
-          padding: 4px 10px;
-          border-radius: 6px;
-        }
-        .guide-title {
-          font-size: 18px;
-          font-weight: 700;
-          color: #1e293b;
-          margin: 0 0 10px 0;
-          line-height: 1.4;
-        }
-        .guide-desc {
-          font-size: 14px;
-          color: #64748b;
-          line-height: 1.6;
-          margin: 0 0 16px 0;
-          flex-grow: 1;
-        }
-        .guide-footer {
-          padding-top: 16px;
-          border-top: 1px solid #f1f5f9;
-          display: flex;
-          justify-content: space-between;
-          font-size: 12px;
-          color: #94a3b8;
-        }
-      `}</style>
-    </>
+    </main>
   );
 }

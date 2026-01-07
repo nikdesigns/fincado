@@ -1,8 +1,42 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import AdSlot from '@/components/AdSlot';
-import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import ShareTools from '@/components/ShareTools';
+import AuthorBio from '@/components/AuthorBio';
+import FAQSchema from '@/components/FAQSchema';
+
+// --- UI COMPONENTS ---
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  Calculator,
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  TrendingUp,
+  FileText,
+  Home,
+  ShieldCheck,
+  CalendarDays,
+  Clock,
+  Briefcase,
+} from 'lucide-react';
 
 export const metadata: Metadata = {
   title:
@@ -15,8 +49,69 @@ export const metadata: Metadata = {
 };
 
 export default function HindiTaxRegimeGuide() {
+  const pageTitle =
+    'New vs Old Tax Regime: आपके लिए कौन सा टैक्स स्लैब बेहतर है?';
+
+  // --- GENERATED FAQ DATA (To match structure) ---
+  const faqData = [
+    {
+      question: 'क्या मैं हर साल अपना Tax Regime बदल सकता हूँ?',
+      answer:
+        'अगर आप वेतनभोगी (Salaried) हैं, तो हाँ, आप हर साल अपनी सुविधा अनुसार New या Old Regime चुन सकते हैं। लेकिन अगर आपकी बिज़नेस इनकम है, तो आप केवल एक बार ही स्विच कर सकते हैं।',
+    },
+    {
+      question: 'New Tax Regime में 80C की छूट मिलती है या नहीं?',
+      answer:
+        'नहीं, New Tax Regime में Section 80C (PPF, LIC, ELSS आदि) की कोई छूट नहीं मिलती। यह छूट केवल पुरानी व्यवस्था (Old Regime) में उपलब्ध है।',
+    },
+    {
+      question: '7 लाख तक की आय पर टैक्स जीरो कैसे होता है?',
+      answer:
+        'New Tax Regime में अगर आपकी टैक्सेबल आय ₹7 लाख तक है, तो Section 87A के तहत आपको ₹25,000 तक की रिबेट मिलती है, जिससे आपका टैक्स जीरो हो जाता है।',
+    },
+    {
+      question: 'HRA क्लेम करने के लिए कौन सा स्लैब चुनें?',
+      answer:
+        'HRA (House Rent Allowance) का लाभ केवल पुरानी टैक्स व्यवस्था (Old Regime) में मिलता है। अगर आप किराया देते हैं, तो Old Regime आपके लिए बेहतर हो सकता है।',
+    },
+  ];
+
   return (
-    <>
+    <article className="max-w-4xl mx-auto">
+      {/* --- SCHEMAS --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            inLanguage: 'hi',
+            headline: pageTitle,
+            description:
+              'New vs Old Tax Regime 2025: स्लैब रेट्स, 80C कटौती और HRA के नियमों का हिंदी में विश्लेषण।',
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': 'https://www.fincado.com/hi/guides/new-vs-old-tax-regime',
+            },
+            author: {
+              '@type': 'Organization',
+              name: 'Fincado Research Team',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Fincado',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://www.fincado.com/logo.png',
+              },
+            },
+            datePublished: '2025-12-20',
+            dateModified: '2025-12-20',
+          }),
+        }}
+      />
+      <FAQSchema faqs={faqData} />
+
       <BreadcrumbJsonLd
         items={[
           { name: 'होम', url: 'https://www.fincado.com/hi' },
@@ -28,321 +123,516 @@ export default function HindiTaxRegimeGuide() {
         ]}
       />
 
-      <article className="article">
-        <header
-          style={{
-            marginBottom: 32,
-            borderBottom: '1px solid #e2e8f0',
-            paddingBottom: 24,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: 'var(--color-brand-green)',
-              textTransform: 'uppercase',
-              marginBottom: 12,
-            }}
-          >
-            टैक्स प्लानिंग (Tax Planning)
-          </div>
-          <h1
-            style={{
-              fontSize: 'clamp(28px, 4vw, 42px)',
-              lineHeight: 1.2,
-              marginBottom: 16,
-            }}
-          >
-            New vs Old Tax Regime: आपके लिए कौन सा टैक्स स्लैब बेहतर है?
-          </h1>
-          <p
-            style={{
-              fontSize: 18,
-              color: 'var(--color-text-muted)',
-              lineHeight: 1.6,
-            }}
-          >
-            नई और पुरानी टैक्स व्यवस्था को समझे बिना सिर्फ “कम टैक्स” के चक्कर
-            में चल देना खतरनाक हो सकता है, खासकर अगर आप 80C, HRA जैसी कटौतियाँ
-            क्लेम करते हैं। नीचे पूरा आर्टिकल हिंदी ऑडियंस और salaried Indians
-            को ध्यान में रखकर लिखा गया है।
-          </p>
-        </header>
+      {/* --- HEADER --- */}
+      <header className="mb-8 border-b border-slate-200 pb-8">
+        <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border-emerald-200 mb-4 px-3 py-1 text-sm font-semibold uppercase tracking-wide">
+          टैक्स प्लानिंग (Tax Planning)
+        </Badge>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">
+          {pageTitle}
+        </h1>
 
-        {/* 🖼️ IMAGE 1: HERO IMAGE (Save as: public/images/guides/hi/tax-regime-hero.webp) */}
-        <figure style={{ marginBottom: 32 }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#f1f5f9',
-              borderRadius: '12px',
-              overflow: 'hidden',
-            }}
-          >
-            <Image
-              src="/images/guides/tax/hero-tax-regime.webp"
-              alt="New vs Old Tax Regime India Hindi"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-        </figure>
-
-        {/* AD SLOT 1 */}
-        <div className="no-print" style={{ marginBottom: 32 }}>
-          <AdSlot id="hi-tax-guide-top" type="leaderboard" />
+        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 mb-6">
+          <span className="flex items-center gap-1.5">
+            <CalendarDays className="w-4 h-4" />
+            Last Updated: <strong>Dec 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-4 h-4" />8 Min Read
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1.5 text-blue-600 font-semibold bg-blue-50 px-2 py-0.5 rounded-full">
+            <Briefcase className="w-4 h-4" />
+            For Salaried Employees
+          </span>
         </div>
 
-        <WikiText
-          content={`
-          <h2>New vs Old Tax Regime क्या है?</h2>
-          <p>भारत में अभी individual taxpayer के लिए दो तरह की टैक्स व्यवस्था उपलब्ध हैं – <strong>पुरानी टैक्स व्यवस्था (Old Tax Regime)</strong> और <strong>नई टैक्स व्यवस्था (New Tax Regime)</strong>।</p>
-          <ul>
-            <li><strong>पुरानी व्यवस्था (Old Regime):</strong> इसमें टैक्स स्लैब की दरें थोड़ी ज़्यादा हैं, लेकिन आपको 80C, 80D, HRA, LTA, Home Loan Interest जैसी कई deductions और exemptions मिलती हैं।</li>
-            <li><strong>नई व्यवस्था (New Regime):</strong> इसमें टैक्स स्लैब की दरें आमतौर पर कम और सरल हैं, लेकिन ज़्यादातर deductions और exemptions हटा दी गई हैं, केवल कुछ limited benefit जैसे standard deduction आदि की अनुमति होती है।</li>
-          </ul>
-          <p>नई व्यवस्था आमतौर पर उन लोगों के लिए बेहतर होती है जो ज्यादा savings/investments नहीं करते या जिनके पास HRA, Home Loan आदि जैसे बड़े टैक्स फायदों के विकल्प नहीं हैं, जबकि पुरानी व्यवस्था उन लोगों के लिए फायदेमंद हो सकती है जो 80C, HRA, 80D, home loan interest आदि के ज़रिए अच्छी‑खासी टैक्स बचत निकालते हैं।</p>
-        `}
+        <ShareTools title="New vs Old Tax Regime Guide (Hindi)" />
+      </header>
+
+      {/* 🖼️ HERO IMAGE */}
+      <div className="mb-8 rounded-xl overflow-hidden border border-slate-200 shadow-sm bg-slate-50">
+        <Image
+          src="/images/guides/tax/hero-tax-regime.webp"
+          alt="New vs Old Tax Regime India Hindi"
+          width={1200}
+          height={630}
+          className="w-full h-auto"
+          priority
         />
+      </div>
 
-        <hr
-          style={{
-            margin: '40px 0',
-            border: 0,
-            borderTop: '1px solid #e2e8f0',
-          }}
-        />
+      <div className="prose prose-slate max-w-none mb-8">
+        <p className="text-lg text-slate-600 leading-relaxed">
+          नई और पुरानी टैक्स व्यवस्था को समझे बिना सिर्फ “कम टैक्स” के चक्कर में
+          चल देना खतरनाक हो सकता है, खासकर अगर आप 80C, HRA जैसी कटौतियाँ क्लेम
+          करते हैं। नीचे पूरा आर्टिकल हिंदी ऑडियंस और वेतनभोगी कर्मचारियों को
+          ध्यान में रखकर लिखा गया है।
+        </p>
+      </div>
 
-        <WikiText
-          content={`
-          <h2>नया और पुराना टैक्स स्लैब: Basic Difference</h2>
-          <p>नीचे एक सरल तुलना दी गई है (income tax slab की exact दरें हर साल budget के साथ बदल सकती हैं, इसलिए फाइन प्रिंट के लिए हमेशा income tax department की latest notification देखें):</p>
+      {/* AD SLOT 1 */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-tax-guide-top" type="leaderboard" label="Sponsored" />
+      </div>
 
-          <div class="table-container">
-            <table class="rate-table">
-              <thead>
-                <tr>
-                  <th>पॉइंट (Point)</th>
-                  <th>New Tax Regime</th>
-                  <th>Old Tax Regime</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>टैक्स स्लैब</td>
-                  <td>ज्यादा granular, कम rate वाली slabs</td>
-                  <td>पारंपरिक 5%, 20%, 30% वाली slabs</td>
-                </tr>
-                <tr>
-                  <td>Deductions/Exemptions</td>
-                  <td>बहुत सीमित, ज़्यादातर हटाई गई</td>
-                  <td>80C, 80D, HRA, LTA, Home Loan interest आदि उपलब्ध</td>
-                </tr>
-                <tr>
-                  <td>Default Status</td>
-                  <td>New regime अब default मानी जाती है</td>
-                  <td>इसे चुनने के लिए आपको अलग से opt‑in करना पड़ता है</td>
-                </tr>
-                <tr>
-                  <td>किसके लिए बेहतर</td>
-                  <td>जिनके पास ज़्यादा deductions नहीं हैं या simple tax चाहिये</td>
-                  <td>जिनके पास home loan, HRA, बड़ी 80C/80D investments हैं</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p><strong>सरल भाषा में:</strong></p>
-          <ul>
-            <li>अगर आप ज्यादा निवेश/insurance नहीं करते, किराया नहीं देते या home loan नहीं चल रहा, तो new tax regime ज़्यादातर cases में फायदेमंद साबित होती है।</li>
-            <li>अगर आपकी 80C + 80D + HRA + home loan interest जैसी deductions अच्छी मात्रा में हैं, तो पुरानी व्यवस्था से टैक्स बचत ज्यादा हो सकती है।</li>
-          </ul>
-        `}
-        />
+      <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <Card className="border-blue-200 bg-blue-50/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-bold text-blue-900 flex items-center gap-2">
+              <FileText className="w-5 h-5" /> पुरानी व्यवस्था (Old Regime)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-slate-700 text-sm leading-relaxed">
+              इसमें टैक्स स्लैब की दरें थोड़ी ज़्यादा हैं, लेकिन आपको{' '}
+              <strong>80C, 80D, HRA, LTA, Home Loan Interest</strong> जैसी कई
+              deductions और exemptions मिलती हैं।
+            </p>
+          </CardContent>
+        </Card>
 
-        {/* AD SLOT 2 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="hi-tax-guide-slabs-bottom" type="box" />
-        </div>
+        <Card className="border-emerald-200 bg-emerald-50/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-bold text-emerald-900 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5" /> नई व्यवस्था (New Regime)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-slate-700 text-sm leading-relaxed">
+              इसमें टैक्स स्लैब की दरें आमतौर पर कम और सरल हैं, लेकिन ज़्यादातर
+              deductions हटा दी गई हैं। केवल कुछ limited benefit जैसे standard
+              deduction आदि की अनुमति होती है।
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
-        <WikiText
-          content={`
-          <h2>80C और HRA की कटौती किसमें मिलेगी?</h2>
-          <p>यही सबसे बड़ा practical फर्क है – “new tax regime में 80C मिलेगा?”, “HRA exemption किसमें?” जैसे सवाल यहीं से आते हैं।</p>
+      <hr className="my-8 border-slate-200" />
 
-          <h3>80C Deduction (PF, PPF, ELSS, LIC आदि)</h3>
-          <p>Section 80C के तहत आप सालाना अधिकतम ₹1,50,000 तक की deduction claim कर सकते हैं। सामान्य investments/खर्च जो 80C में आते हैं:</p>
-          <ul>
-            <li>EPF (Employee Provident Fund)</li>
-            <li>PPF (Public Provident Fund)</li>
-            <li>ELSS (Tax Saving Mutual Funds)</li>
-            <li>Life Insurance Premium (LIC आदि)</li>
-            <li>Home Loan का principal repayment</li>
-            <li>बच्चों की ट्यूशन फीस</li>
-          </ul>
+      <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <Calculator className="w-6 h-6 text-indigo-600" />
+        नया और पुराना टैक्स स्लैब: Basic Difference
+      </h2>
+      <p className="text-slate-700 mb-6">
+        नीचे एक सरल तुलना दी गई है (income tax slab की exact दरें हर साल budget
+        के साथ बदल सकती हैं):
+      </p>
 
-          <p><strong>पुरानी टैक्स व्यवस्था (Old Regime):</strong> 80C पूरी तरह available है, इससे आपकी taxable income कम हो जाती है।</p>
-          <p><strong>नई टैक्स व्यवस्था (New Regime):</strong> 80C जैसी deductions आमतौर पर allow नहीं होतीं, इसलिए PF, PPF, ELSS, LIC लेने से भी टैक्स में अलग से benefit नहीं मिलता, बस wealth creation के लिए ही अच्छा रहता है।</p>
-        `}
-        />
+      <div className="border border-slate-200 rounded-lg overflow-hidden mb-8 shadow-sm">
+        <Table>
+          <TableHeader className="bg-slate-50">
+            <TableRow>
+              <TableHead className="font-bold text-slate-700">
+                पॉइंट (Point)
+              </TableHead>
+              <TableHead className="font-bold text-slate-700">
+                New Tax Regime
+              </TableHead>
+              <TableHead className="font-bold text-slate-700">
+                Old Tax Regime
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell className="font-medium">टैक्स स्लैब</TableCell>
+              <TableCell>ज्यादा granular, कम rate वाली slabs</TableCell>
+              <TableCell>पारंपरिक 5%, 20%, 30% वाली slabs</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">
+                Deductions/Exemptions
+              </TableCell>
+              <TableCell className="text-red-600 font-medium">
+                बहुत सीमित, ज़्यादातर हटाई गई
+              </TableCell>
+              <TableCell className="text-emerald-600 font-medium">
+                80C, 80D, HRA, LTA, Home Loan interest आदि उपलब्ध
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Default Status</TableCell>
+              <TableCell>
+                <Badge
+                  variant="outline"
+                  className="bg-emerald-50 text-emerald-700 border-emerald-200"
+                >
+                  Default Option
+                </Badge>
+              </TableCell>
+              <TableCell>
+                इसे चुनने के लिए आपको अलग से opt‑in करना पड़ता है
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">किसके लिए बेहतर</TableCell>
+              <TableCell>
+                जिनके पास ज़्यादा deductions नहीं हैं या simple tax चाहिये
+              </TableCell>
+              <TableCell>
+                जिनके पास home loan, HRA, बड़ी 80C/80D investments हैं
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
 
-        {/* 🖼️ IMAGE 2: DEDUCTIONS (Save as: public/images/guides/hi/tax-deductions-80c-hra.webp) */}
-        <figure style={{ margin: '32px 0' }}>
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-8">
+        <h4 className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wide">
+          सरल भाषा में:
+        </h4>
+        <ul className="space-y-3">
+          <li className="flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5" />
+            <span className="text-slate-700 text-sm">
+              अगर आप ज्यादा निवेश/insurance नहीं करते, किराया नहीं देते या home
+              loan नहीं चल रहा, तो{' '}
+              <strong className="text-emerald-700">new tax regime</strong>{' '}
+              ज़्यादातर cases में फायदेमंद है।
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
+            <span className="text-slate-700 text-sm">
+              अगर आपकी 80C + 80D + HRA + home loan interest जैसी deductions
+              अच्छी मात्रा में हैं, तो{' '}
+              <strong className="text-blue-700">पुरानी व्यवस्था</strong> से
+              टैक्स बचत ज्यादा हो सकती है।
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      {/* AD SLOT 2 */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-tax-guide-slabs-bottom" type="box" />
+      </div>
+
+      <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <ShieldCheck className="w-6 h-6 text-purple-600" />
+        80C और HRA की कटौती किसमें मिलेगी?
+      </h2>
+      <p className="text-slate-700 mb-6">
+        यही सबसे बड़ा practical फर्क है – “new tax regime में 80C मिलेगा?”, “HRA
+        exemption किसमें?” जैसे सवाल यहीं से आते हैं।
+      </p>
+
+      <h3 className="text-lg font-bold text-slate-900 mb-3">
+        80C Deduction (PF, PPF, ELSS, LIC आदि)
+      </h3>
+      <p className="text-slate-700 mb-4">
+        Section 80C के तहत आप सालाना अधिकतम ₹1,50,000 तक की deduction claim कर
+        सकते हैं। सामान्य investments/खर्च जो 80C में आते हैं:
+      </p>
+
+      <div className="grid sm:grid-cols-2 gap-3 mb-6">
+        {[
+          'EPF (Employee Provident Fund)',
+          'PPF (Public Provident Fund)',
+          'ELSS (Tax Saving Mutual Funds)',
+          'Life Insurance Premium (LIC आदि)',
+          'Home Loan का principal repayment',
+          'बच्चों की ट्यूशन फीस',
+        ].map((item, i) => (
           <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#f1f5f9',
-              borderRadius: '12px',
-              overflow: 'hidden',
-            }}
+            key={i}
+            className="flex items-center gap-2 p-3 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm"
           >
-            <Image
-              src="/images/guides/home-loan/tax-benefits-80c-24b.webp"
-              alt="80C and HRA Deductions in Old Tax Regime"
-              fill
-              style={{ objectFit: 'contain', padding: '16px' }}
-            />
+            <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>{' '}
+            {item}
           </div>
-          <figcaption
-            style={{
-              textAlign: 'center',
-              fontSize: '14px',
-              color: '#64748b',
-              marginTop: '8px',
-            }}
-          >
+        ))}
+      </div>
+
+      <div className="space-y-4 mb-8">
+        <Alert className="bg-blue-50 border-blue-200">
+          <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
+
+          <AlertTitle className="text-blue-900 font-bold text-sm">
+            पुरानी टैक्स व्यवस्था (Old Regime)
+          </AlertTitle>
+          <AlertDescription className="text-blue-800 text-sm">
+            80C पूरी तरह available है, इससे आपकी taxable income कम हो जाती है。
+          </AlertDescription>
+        </Alert>
+        <Alert className="bg-red-50 border-red-200">
+          <XCircle className="w-5 h-5 text-red-600 mt-0.5" />
+
+          <AlertTitle className="text-red-900 font-bold text-sm">
+            नई टैक्स व्यवस्था (New Regime)
+          </AlertTitle>
+          <AlertDescription className="text-red-800 text-sm">
+            80C जैसी deductions आमतौर पर allow नहीं होतीं। PF, PPF, ELSS लेने से
+            टैक्स में अलग से benefit नहीं मिलता।
+          </AlertDescription>
+        </Alert>
+      </div>
+
+      {/* 🖼️ IMAGE 2: DEDUCTIONS */}
+      <div className="mb-8 rounded-xl overflow-hidden border border-slate-200 shadow-sm bg-slate-50">
+        <Image
+          src="/images/guides/home-loan/tax-benefits-80c-24b.webp"
+          alt="80C and HRA Deductions in Old Tax Regime"
+          width={1200}
+          height={600}
+          className="w-full h-auto"
+        />
+        <div className="bg-slate-50 p-2 text-center border-t border-slate-100">
+          <p className="text-xs text-slate-500 font-medium">
             पुरानी व्यवस्था में 80C और HRA जैसी कटौतियों से टैक्स काफी कम हो
             सकता है।
-          </figcaption>
-        </figure>
-
-        <WikiText
-          content={`
-          <h3>HRA Exemption (House Rent Allowance)</h3>
-          <p>House Rent Allowance salaried employees के लिए बहुत बड़ा टैक्स benefit होता है, खासकर metros में रहने वालों के लिए।</p>
-
-          <p><strong>Old Tax Regime:</strong> HRA exemption fully available, इससे taxable income काफी कम हो सकती है।</p>
-          <p><strong>New Tax Regime:</strong> HRA exemption normally <strong>नहीं</strong> मिलती। इसका अर्थ: भले ही salary में HRA दिख रहा हो, tax computation में उसे अलग से exempt नहीं माना जाएगा।</p>
-        `}
-        />
-
-        {/* AD SLOT 3 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="hi-tax-guide-mid-banner" type="leaderboard" />
+          </p>
         </div>
+      </div>
 
-        <WikiText
-          content={`
-          <h2>7 लाख तक की आय पर टैक्स छूट (Rebate u/s 87A)</h2>
-          <p>Rebate under Section 87A छोटे और मध्यम आय वाले taxpayers के लिए बहुत महत्वपूर्ण प्रावधान है।</p>
+      <h3 className="text-lg font-bold text-slate-900 mb-3">
+        HRA Exemption (House Rent Allowance)
+      </h3>
+      <p className="text-slate-700 mb-4">
+        House Rent Allowance salaried employees के लिए बहुत बड़ा टैक्स benefit
+        होता है, खासकर metros में रहने वालों के लिए।
+      </p>
 
-          <h3>Old Tax Regime में 87A Rebate</h3>
-          <p>पुरानी व्यवस्था में rebate आमतौर पर उन individual residents को मिलती है जिनकी <strong>taxable income (सारी deductions के बाद)</strong> निर्धारित सीमा (जैसे ₹5 लाख) से कम है। यदि आपकी आय सीमा से कम है, तो टैक्स liability शून्य हो जाती है।</p>
+      <div className="grid sm:grid-cols-2 gap-4 mb-8">
+        <Card className="border-blue-200 bg-blue-50/50">
+          <CardContent className="p-4">
+            <h4 className="font-bold text-blue-900 text-sm mb-1">
+              Old Tax Regime
+            </h4>
+            <p className="text-sm text-blue-800">
+              HRA exemption fully available, इससे taxable income काफी कम हो सकती
+              है。
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="border-slate-200 bg-slate-50">
+          <CardContent className="p-4">
+            <h4 className="font-bold text-slate-800 text-sm mb-1">
+              New Tax Regime
+            </h4>
+            <p className="text-sm text-slate-600">
+              HRA exemption normally <strong>नहीं</strong> मिलती। salary में HRA
+              दिखने पर भी tax exempt नहीं होगा。
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
-          <h3>New Tax Regime में 87A Rebate</h3>
-          <p>नई टैक्स व्यवस्था में सरकार ने rebate u/s 87A की सीमा को और ज़्यादा attractive बनाया है। यदि आपकी <strong>taxable income</strong> नया regime चुनने पर एक निर्धारित limit (लगभग ₹7 लाख के आसपास) से कम रहती है, तो slab rates से जो tax बनता भी है, वह rebate से null हो सकता है, यानि income tax ज़ीरो हो जाता है।</p>
+      {/* AD SLOT 3 */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-tax-guide-mid-banner" type="leaderboard" />
+      </div>
 
-          <div class="callout-box">
-            <strong>Practically क्या समझें?</strong>
-            <ul>
-              <li>Salary ~₹6–7 लाख, deductions कम → new regime + 87A rebate = ज़्यादातर cases में <strong>zero tax</strong>।</li>
-              <li>Salary ~₹6–7 लाख, deductions बहुत ज़्यादा → पुरानी regime में भी 87A rebate के ज़रिए zero tax achieve किया जा सकता है।</li>
+      <h2 className="text-2xl font-bold text-slate-900 mb-4">
+        7 लाख तक की आय पर टैक्स छूट (Rebate u/s 87A)
+      </h2>
+      <p className="text-slate-700 mb-6">
+        Rebate under Section 87A छोटे और मध्यम आय वाले taxpayers के लिए बहुत
+        महत्वपूर्ण प्रावधान है।
+      </p>
+
+      <div className="space-y-6 mb-8">
+        <div>
+          <h3 className="text-lg font-bold text-slate-800 mb-2">
+            Old Tax Regime में 87A Rebate
+          </h3>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            पुरानी व्यवस्था में rebate आमतौर पर तब मिलती है जब taxable income
+            (सारी deductions के बाद) ₹5 लाख से कम हो। यदि आय सीमा से कम है, तो
+            टैक्स liability शून्य हो जाती है।
+          </p>
+        </div>
+        <div>
+          <h3 className="text-lg font-bold text-slate-800 mb-2">
+            New Tax Regime में 87A Rebate
+          </h3>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            नई टैक्स व्यवस्था में यह सीमा ₹7 लाख (लगभग) तक बढ़ा दी गई है। यदि
+            taxable income इस सीमा से कम है, तो income tax ज़ीरो हो जाता है।
+          </p>
+        </div>
+      </div>
+
+      <Alert className="bg-amber-50 border-amber-200 mb-8">
+        <HelpCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+
+        <AlertTitle className="text-amber-900 font-bold text-sm mb-2">
+          Practically क्या समझें?
+        </AlertTitle>
+        <AlertDescription>
+          <ul className="list-disc pl-4 space-y-1 text-amber-800 text-sm">
+            <li>
+              Salary ~₹6–7 लाख, deductions कम → <strong>New Regime</strong> +
+              87A rebate = Zero Tax
+            </li>
+            <li>
+              Salary ~₹6–7 लाख, deductions ज़्यादा → <strong>Old Regime</strong>{' '}
+              में भी 87A rebate से Zero Tax संभव है
+            </li>
+          </ul>
+        </AlertDescription>
+      </Alert>
+
+      {/* AD SLOT 4 */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-tax-guide-rebate-box" type="box" />
+      </div>
+
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">
+        आपके लिए कौन सा Regime बेहतर हो सकता है?
+      </h2>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <Card className="border-emerald-200 shadow-sm">
+          <CardHeader className="bg-emerald-50/50 pb-3 border-b border-emerald-100">
+            <CardTitle className="text-base font-bold text-emerald-900">
+              किसे New Regime चुनना चाहिए?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <ul className="space-y-3 text-sm text-slate-700">
+              <li className="flex gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />{' '}
+                नई नौकरी, salary मध्यम (5–10 लाख) है।
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />{' '}
+                Parents के साथ रहते हैं, rent नहीं देते।
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />{' '}
+                PPF, ELSS, Insurance जैसी investments बहुत कम हैं।
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />{' '}
+                Documentation का झंझट नहीं चाहिए।
+              </li>
             </ul>
-          </div>
-        `}
-        />
+          </CardContent>
+        </Card>
 
-        {/* AD SLOT 4 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="hi-tax-guide-rebate-box" type="box" />
-        </div>
+        <Card className="border-blue-200 shadow-sm">
+          <CardHeader className="bg-blue-50/50 pb-3 border-b border-blue-100">
+            <CardTitle className="text-base font-bold text-blue-900">
+              किसे Old Regime चुनना चाहिए?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <ul className="space-y-3 text-sm text-slate-700">
+              <li className="flex gap-2">
+                <Home className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> Home
+                loan चल रहा है (Interest deduction)।
+              </li>
+              <li className="flex gap-2">
+                <FileText className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{' '}
+                Metro में rent पर रहते हैं (High HRA)।
+              </li>
+              <li className="flex gap-2">
+                <TrendingUp className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{' '}
+                हर साल 80C limit (₹1.5 lakh) भर लेते हैं।
+              </li>
+              <li className="flex gap-2">
+                <ShieldCheck className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{' '}
+                Health insurance (80D) का अच्छा deduction है।
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
 
-        <WikiText
-          content={`
-          <h2>आपके लिए कौन सा Regime बेहतर हो सकता है?</h2>
+      {/* AD SLOT 5 */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-tax-guide-mid-content" type="leaderboard" />
+      </div>
 
-          <h3>किसे New Tax Regime पर ज्यादा ध्यान देना चाहिए?</h3>
-          <ul>
-            <li>नई नौकरी, salary अभी मध्यम (लगभग 5–10 लाख) है।</li>
-            <li>Parents के साथ रहते हैं, rent नहीं देते (HRA benefit practically नहीं है)।</li>
-            <li>अभी PPF, ELSS, Insurance जैसी tax‑saving investments बहुत कम या नहीं करते।</li>
-            <li>Documentation, investment proof संभालना नहीं चाहते।</li>
-          </ul>
-          <p>ऐसे cases में new tax regime अक्सर simple भी है और total tax भी कम हो सकता है।</p>
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-12">
+        <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <FileText className="w-5 h-5 text-slate-600" />
+          Final Practical Checklist
+        </h2>
+        <p className="text-slate-600 text-sm mb-4">
+          टैक्स भरने से पहले अपने लिए ये 5 सवाल ज़रूर पूछें:
+        </p>
+        <ol className="list-decimal pl-5 space-y-3 text-slate-700 text-sm font-medium">
+          <li>मेरी सालाना taxable आय कितनी है (सिर्फ CTC नहीं)?</li>
+          <li>
+            मैं realistically कितनी 80C/80D/अन्य deductions claim कर सकता हूँ?
+          </li>
+          <li>
+            क्या मेरे पास HRA, Home Loan Interest जैसे बड़े टैक्स फायदों वाले
+            components हैं?
+          </li>
+          <li>
+            New regime (बिना deductions) vs Old regime (सभी deductions के साथ) –
+            दोनों में actual tax कितना बन रहा है?
+          </li>
+          <li>
+            Long‑term wealth creation और investment discipline के लिए कौन‑सा
+            option मेरे behaviour के साथ better fit होता है?
+          </li>
+        </ol>
+      </div>
 
-          <h3>किसे Old Tax Regime ज़्यादातर लाभ दे सकती है?</h3>
-          <ul>
-            <li>Home loan चल रहा है, और आप Section 24(b) के तहत heavy interest deduction ले रहे हैं।</li>
-            <li>Metro में rent पर रहते हैं, and HRA exemption significant amount बनती है।</li>
-            <li>हर साल 80C limit (₹1.5 lakh) comfortably भर लेते हैं।</li>
-            <li>Health insurance premiums पर 80D में अच्छा deduction claim करते हैं।</li>
-          </ul>
-          <p>ऐसे profiles में पुरानी व्यवस्था आपकी <strong>effective tax rate</strong> को new regime से भी नीचे ला सकती है।</p>
-        `}
-        />
+      {/* --- FAQS --- */}
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">
+        अक्सर पूछे जाने वाले प्रश्न (FAQs)
+      </h2>
+      <div className="mb-12">
+        <Accordion type="single" collapsible className="w-full">
+          {faqData.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border-slate-200"
+            >
+              <AccordionTrigger className="text-slate-800 font-semibold hover:text-blue-700 text-left">
+                Q{index + 1}. {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 leading-relaxed text-base">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
 
-        {/* AD SLOT 5 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="hi-tax-guide-mid-content" type="leaderboard" />
-        </div>
+      {/* AD SLOT 6 */}
+      <div className="my-8 flex justify-center no-print bg-slate-50 border border-slate-100 rounded-lg p-2">
+        <AdSlot id="hi-tax-guide-bottom" type="leaderboard" />
+      </div>
 
-        <WikiText
-          content={`
-          <h2>Final Practical Checklist</h2>
-          <p>टैक्स भरने से पहले अपने लिए ये 5 सवाल ज़रूर पूछें:</p>
-          <ol>
-            <li>मेरी सालाना taxable आय कितनी है (सिर्फ CTC नहीं)?</li>
-            <li>मैं realistically कितनी 80C/80D/अन्य deductions claim कर सकता हूँ?</li>
-            <li>क्या मेरे पास HRA, Home Loan Interest जैसे बड़े टैक्स फायदों वाले components हैं?</li>
-            <li>New regime (बिना deductions) vs Old regime (सभी deductions के साथ) – दोनों में actual tax कितना बन रहा है?</li>
-            <li>Long‑term wealth creation और investment discipline के लिए कौन‑सा option मेरे behaviour के साथ better fit होता है?</li>
-          </ol>
-        `}
-        />
-
-        {/* AD SLOT 6 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="hi-tax-guide-bottom" type="leaderboard" />
-        </div>
-
-        <section
-          style={{
-            background: '#f0fdf4',
-            padding: 24,
-            borderRadius: 12,
-            border: '1px solid #bbf7d0',
-            marginTop: 40,
-          }}
-        >
-          <h2 style={{ fontSize: 24, marginBottom: 16 }}>
+      <Card className="bg-linear-to-br from-emerald-50 to-white border-emerald-200 shadow-md mt-12 mb-12">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold text-emerald-900 mb-4">
             निष्कर्ष: समझदारी से चुनें
           </h2>
-          <p style={{ marginBottom: 16 }}>
-            यदि आपकी deductions कम हैं और income mid‑range में है, तो अक्सर{' '}
-            <strong>
-              नई टैक्स व्यवस्था आपके लिए ज्यादा simple और tax‑efficient
-            </strong>{' '}
-            हो सकती है।
-          </p>
-          <p style={{ marginBottom: 16 }}>
-            यदि आपकी deductions heavy हैं (80C + HRA + home loan + 80D), तो{' '}
-            <strong>
-              पुरानी टैक्स व्यवस्था अभी भी ज़्यादा powerful tax‑saving tool
-            </strong>{' '}
-            साबित हो सकती है।
-          </p>
-          <p>
-            इस तरह आप सिर्फ headline या दूसरों के example देखकर नहीं, बल्कि अपने
-            numbers और goals के आधार पर सही टैक्स regime चुन पाएँगे।
-          </p>
-        </section>
-      </article>
-    </>
+          <div className="space-y-4">
+            <p className="text-slate-700 leading-relaxed">
+              यदि आपकी deductions कम हैं और income mid‑range में है, तो अक्सर
+              <strong className="text-emerald-700 bg-emerald-100 px-1 rounded ml-1">
+                नई टैक्स व्यवस्था (New Regime)
+              </strong>
+              आपके लिए ज्यादा simple और tax‑efficient हो सकती है।
+            </p>
+            <p className="text-slate-700 leading-relaxed">
+              यदि आपकी deductions heavy हैं (80C + HRA + home loan + 80D), तो
+              <strong className="text-blue-700 bg-blue-100 px-1 rounded ml-1">
+                पुरानी टैक्स व्यवस्था (Old Regime)
+              </strong>
+              अभी भी ज़्यादा powerful tax‑saving tool साबित हो सकती है।
+            </p>
+            <p className="text-slate-600 text-sm italic mt-4 pt-4 border-t border-emerald-100">
+              इस तरह आप सिर्फ headline या दूसरों के example देखकर नहीं, बल्कि
+              अपने numbers और goals के आधार पर सही टैक्स regime चुन पाएँगे।
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* --- FOOTER --- */}
+      <AuthorBio />
+    </article>
   );
 }

@@ -3,7 +3,11 @@ import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articlesData from '@/data/articles.json';
-import GuidesClient from './GuidesClient'; // ✅ Import Client Component
+import GuidesClient from './GuidesClient';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Languages } from 'lucide-react';
 
 // --- METADATA (Server Side) ---
 export const metadata: Metadata = {
@@ -29,6 +33,7 @@ export default function GuidesPage() {
   // 1. PREPARE DATA (Server Side)
   const uniqueArticles = new Map();
   articlesData.forEach((article) => {
+    // Filter for English or unspecified language
     if (!article.language || article.language === 'en') {
       uniqueArticles.set(article.slug, article);
     }
@@ -40,7 +45,7 @@ export default function GuidesPage() {
   );
 
   return (
-    <main className="container" style={{ padding: '40px 20px' }}>
+    <main className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -48,94 +53,54 @@ export default function GuidesPage() {
         ]}
       />
 
-      {/* --- HINDI PROMO --- */}
-      <div
-        className="no-print"
-        style={{
-          marginBottom: '40px',
-          padding: '16px 24px',
-          background: 'linear-gradient(to right, #fff1f2, #fff)',
-          border: '1px solid #fecdd3',
-          borderRadius: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '16px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '24px' }}>🇮🇳</span>
-          <div>
-            <strong
-              style={{ color: '#be123c', display: 'block', fontSize: '16px' }}
-            >
-              हिंदी में पढ़ना चाहते हैं?
-            </strong>
-            <span style={{ fontSize: '14px', color: '#881337' }}>
-              हमारे चुनिंदा गाइड्स अब हिंदी में भी उपलब्ध हैं।
-            </span>
-          </div>
-        </div>
-        <Link
-          href="/hi"
-          style={{
-            padding: '10px 20px',
-            background: '#e11d48',
-            color: '#fff',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            fontWeight: 600,
-            fontSize: '14px',
-          }}
-        >
-          हिंदी गाइड्स देखें →
-        </Link>
+      {/* --- HINDI PROMO BANNER --- */}
+      <div className="no-print my-10">
+        <Card className="bg-linear-to-r from-rose-50 to-white border-rose-200 shadow-sm overflow-hidden">
+          <CardContent className="p-0">
+            <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 gap-4">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+                  <Languages className="h-6 w-6" />
+                </div>
+                <div className="text-center sm:text-left">
+                  <h3 className="font-bold text-rose-800 text-lg">
+                    हिंदी में पढ़ना चाहते हैं?
+                  </h3>
+                  <p className="text-sm text-rose-700 mt-1">
+                    हमारे चुनिंदा गाइड्स अब हिंदी में भी उपलब्ध हैं।
+                  </p>
+                </div>
+              </div>
+
+              <Link href="/hi" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-semibold">
+                  हिंदी गाइड्स देखें &rarr;
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      <div style={{ marginBottom: 40 }} className="no-print">
+      {/* --- TOP AD SLOT --- */}
+      <div className="mb-10 no-print">
         <AdSlot id="guides-top-leaderboard" type="leaderboard" />
       </div>
 
       {/* --- HERO SECTION --- */}
-      <header
-        style={{
-          textAlign: 'center',
-          maxWidth: '800px',
-          margin: '0 auto 40px auto',
-        }}
-      >
-        <span
-          style={{
-            color: '#16a34a',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            fontSize: '13px',
-            letterSpacing: '1px',
-            display: 'block',
-            marginBottom: '12px',
-          }}
+      <header className="mx-auto max-w-3xl text-center mb-12">
+        <Badge
+          variant="secondary"
+          className="mb-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-3 py-1 text-xs uppercase tracking-wider font-bold"
         >
           Financial Wisdom
-        </span>
-        <h1
-          style={{
-            fontSize: 'clamp(32px, 5vw, 48px)',
-            fontWeight: 800,
-            color: '#0f172a',
-            marginBottom: '16px',
-            lineHeight: 1.2,
-          }}
-        >
-          Read. Learn. <span style={{ color: '#16a34a' }}>Grow.</span>
+        </Badge>
+
+        <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl mb-6">
+          Read. Learn. <span className="text-emerald-600">Grow.</span>
         </h1>
-        <p
-          style={{
-            fontSize: '18px',
-            color: '#64748b',
-            lineHeight: 1.6,
-          }}
-        >
+
+        <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
           Demystifying money with simple, actionable guides on Loans,
           Investments, and Tax Planning.
         </p>
@@ -144,8 +109,8 @@ export default function GuidesPage() {
       {/* --- CLIENT GRID & FILTER --- */}
       <GuidesClient articles={sortedGuides} />
 
-      <div style={{ marginTop: 60 }}>
-        {/* 🔴 FIXED: Added ID */}
+      {/* --- BOTTOM AD SLOT --- */}
+      <div className="mt-16 pt-8 border-t border-slate-200 no-print">
         <AdSlot id="guides-bottom-leaderboard" type="leaderboard" />
       </div>
     </main>

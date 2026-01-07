@@ -4,10 +4,15 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
 import ShareTools from '@/components/ShareTools';
-import HindiSidebar from '@/components/HindiSidebar'; // ✅ Added Missing Import
+import HindiSidebar from '@/components/HindiSidebar';
 import articlesData from '@/data/articles.json';
 
-// --- DATA: ALL HINDI CALCULATORS (Categorized) ---
+// --- UI COMPONENTS ---
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight, CalendarDays, CheckCircle2, BookOpen } from 'lucide-react';
+
+// --- DATA: ALL HINDI CALCULATORS (Untouched) ---
 const CALCULATOR_CATEGORIES = [
   {
     name: 'लोन और ईएमआई (Loans)',
@@ -201,112 +206,60 @@ export default function HindiHubClient() {
   }, [activeCategory, allGuides]);
 
   return (
-    <>
+    <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* --- HERO HEADER --- */}
-      <header
-        style={{
-          marginBottom: 40,
-          padding: '40px 32px',
-          background:
-            'radial-gradient(circle at 10% 20%, rgba(254, 243, 199, 0.4) 0%, rgba(255, 255, 255, 0) 80%)',
-          border: '1px solid #f3f4f6',
-          borderRadius: '20px',
-          textAlign: 'center',
-        }}
-      >
-        <span
-          style={{
-            display: 'inline-block',
-            background: '#dcfce7',
-            color: '#166534',
-            fontSize: '13px',
-            fontWeight: 700,
-            padding: '6px 12px',
-            borderRadius: '999px',
-            marginBottom: '16px',
-            letterSpacing: '0.5px',
-          }}
-        >
+      <header className="text-center mb-12 bg-linear-to-br from-orange-50 to-amber-50/50 border border-orange-100 rounded-3xl p-8 sm:p-12 shadow-sm">
+        <Badge className="mb-4 bg-orange-100 text-orange-800 hover:bg-orange-200 px-3 py-1 font-semibold border-orange-200 tracking-wide">
           FINCADO HINDI 🇮🇳
-        </span>
-        <h1
-          style={{
-            fontSize: 'clamp(32px, 5vw, 42px)',
-            fontWeight: 800,
-            color: '#1e293b',
-            marginBottom: '16px',
-            lineHeight: 1.2,
-          }}
-        >
+        </Badge>
+
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
           फाइनेंशियल{' '}
-          <span style={{ color: '#16a34a' }}>कैलकुलेटर और गाइड्स</span>
+          <span className="text-orange-600">कैलकुलेटर और गाइड्स</span>
         </h1>
-        <p
-          style={{
-            fontSize: '18px',
-            color: '#64748b',
-            maxWidth: '600px',
-            margin: '0 auto 24px auto',
-            lineHeight: 1.6,
-          }}
-        >
+
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-6">
           अब फाइनेंस को समझना हुआ आसान। अपनी भाषा में निवेश, लोन और बचत की सटीक
           गणना करें और एक्सपर्ट गाइड्स पढ़ें।
         </p>
-        <ShareTools title="Fincado हिंदी गाइड्स और टूल्स" />
+
+        <div className="flex justify-center">
+          <ShareTools title="Fincado हिंदी गाइड्स और टूल्स" />
+        </div>
       </header>
 
-      <div className="layout-grid">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* --- LEFT: CONTENT --- */}
-        <div className="main-content">
-          <div className="no-print">
-            <AdSlot type="leaderboard" />
+        <div className="lg:col-span-8 min-w-0">
+          <div className="mb-8 no-print flex justify-center bg-slate-50 border border-slate-100 rounded-lg p-2">
+            <AdSlot type="leaderboard" label="Sponsored" />
           </div>
 
           {/* --- CALCULATORS SECTION (Iterate over Categories) --- */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 40,
-              marginTop: 40,
-            }}
-          >
+          <div className="space-y-12">
             {CALCULATOR_CATEGORIES.map((cat) => (
               <section key={cat.name}>
-                <h2
-                  style={{
-                    fontSize: '22px',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    marginBottom: '20px',
-                    borderBottom: '2px solid #f1f5f9',
-                    paddingBottom: '10px',
-                  }}
-                >
+                <h2 className="text-xl font-bold text-slate-900 mb-6 pb-2 border-b-2 border-slate-100 flex items-center">
                   {cat.name}
                 </h2>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns:
-                      'repeat(auto-fill, minmax(220px, 1fr))',
-                    gap: '16px',
-                  }}
-                >
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {cat.tools.map((tool) => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <div className="tool-card">
-                        <div className="tool-icon">{tool.icon}</div>
-                        <div>
-                          <h3 className="tool-title">{tool.title}</h3>
-                          <p className="tool-desc">{tool.desc}</p>
-                        </div>
-                      </div>
+                    <Link key={tool.href} href={tool.href} className="group">
+                      <Card className="h-full hover:shadow-md hover:border-orange-300 transition-all cursor-pointer border-slate-200">
+                        <CardContent className="p-4 flex items-start gap-3">
+                          <div className="text-2xl p-2 bg-orange-50 rounded-lg shrink-0 group-hover:bg-orange-100 transition-colors">
+                            {tool.icon}
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-slate-800 text-sm group-hover:text-orange-700 transition-colors mb-1">
+                              {tool.title}
+                            </h3>
+                            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                              {tool.desc}
+                            </p>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </Link>
                   ))}
                 </div>
@@ -315,50 +268,31 @@ export default function HindiHubClient() {
           </div>
 
           {/* AD BREAK */}
-          <div style={{ margin: '50px 0' }} className="no-print">
+          <div className="my-12 no-print flex justify-center">
             <AdSlot type="leaderboard" />
           </div>
 
           {/* SECTION 2: LATEST GUIDES */}
           <section>
-            <h2
-              style={{
-                fontSize: '24px',
-                fontWeight: 700,
-                color: '#0f172a',
-                marginBottom: '24px',
-              }}
-            >
-              📚 नवीनतम लेख (Latest Guides)
+            <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <BookOpen className="w-6 h-6 text-indigo-500" />
+              नवीनतम लेख (Latest Guides)
             </h2>
 
             {/* --- FILTER PILLS --- */}
-            <div
-              style={{
-                display: 'flex',
-                gap: '10px',
-                flexWrap: 'wrap',
-                marginBottom: '32px',
-              }}
-            >
+            <div className="flex flex-wrap gap-2 mb-8">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '999px',
-                    border:
+                  className={`
+                    px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 border
+                    ${
                       activeCategory === cat
-                        ? '1px solid #16a34a'
-                        : '1px solid #e2e8f0',
-                    background: activeCategory === cat ? '#16a34a' : '#fff',
-                    color: activeCategory === cat ? '#fff' : '#64748b',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                  }}
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                        : 'bg-white text-slate-600 border-slate-200 hover:border-emerald-300 hover:text-emerald-700'
+                    }
+                  `}
                 >
                   {cat === 'All' ? 'सभी (All)' : cat}
                 </button>
@@ -366,32 +300,35 @@ export default function HindiHubClient() {
             </div>
 
             {/* --- GUIDES GRID --- */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                gap: '24px',
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredGuides.length > 0 ? (
                 filteredGuides.map((guide) => (
                   <Link
                     key={guide.href}
                     href={guide.href}
-                    style={{ textDecoration: 'none' }}
+                    className="group h-full block"
                   >
-                    <article className="guide-card">
-                      {/* Category Tag */}
-                      <div style={{ marginBottom: '12px' }}>
-                        <span className="category-pill">{guide.category}</span>
-                      </div>
+                    <Card className="h-full flex flex-col hover:shadow-lg hover:border-emerald-400 transition-all border-slate-200">
+                      <CardContent className="p-5 grow">
+                        <div className="mb-3">
+                          <Badge
+                            variant="secondary"
+                            className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-emerald-100"
+                          >
+                            {guide.category}
+                          </Badge>
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mb-2 leading-snug">
+                          {guide.title}
+                        </h3>
+                        <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                          {guide.desc}
+                        </p>
+                      </CardContent>
 
-                      <h3 className="guide-title">{guide.title}</h3>
-
-                      <p className="guide-desc">{guide.desc}</p>
-
-                      <div className="guide-footer">
-                        <span>
+                      <CardFooter className="p-5 pt-0 mt-auto flex justify-between items-center text-xs text-slate-400 border-t border-slate-50">
+                        <div className="flex items-center gap-1.5">
+                          <CalendarDays className="w-3.5 h-3.5" />
                           {new Date(guide.published).toLocaleDateString(
                             'hi-IN',
                             {
@@ -400,158 +337,63 @@ export default function HindiHubClient() {
                               day: 'numeric',
                             }
                           )}
+                        </div>
+                        <span className="flex items-center font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">
+                          पढ़ें <ArrowRight className="w-3 h-3 ml-1" />
                         </span>
-                        <span style={{ color: '#16a34a', fontWeight: 600 }}>
-                          पढ़ें →
-                        </span>
-                      </div>
-                    </article>
+                      </CardFooter>
+                    </Card>
                   </Link>
                 ))
               ) : (
-                <p style={{ color: '#64748b' }}>कोई लेख उपलब्ध नहीं है।</p>
+                <div className="col-span-full text-center py-12 text-slate-500 bg-slate-50 rounded-lg border border-dashed border-slate-300">
+                  कोई लेख उपलब्ध नहीं है।
+                </div>
               )}
             </div>
           </section>
 
           {/* SECTION 3: WHY FINCADO HINDI */}
-          <section
-            style={{
-              marginTop: 60,
-              padding: '32px',
-              background: '#f8fafc',
-              borderRadius: '16px',
-              border: '1px solid #e2e8f0',
-            }}
-          >
-            <h3
-              style={{
-                margin: '0 0 12px 0',
-                fontSize: '20px',
-                color: '#334155',
-              }}
-            >
+          <section className="mt-12 bg-indigo-50/50 border border-indigo-100 rounded-xl p-6 sm:p-8">
+            <h3 className="text-xl font-bold text-indigo-900 mb-4">
               Fincado हिंदी क्यों?
             </h3>
-            <p
-              style={{
-                color: '#475569',
-                lineHeight: '1.7',
-                fontSize: '15px',
-                margin: 0,
-              }}
-            >
+            <p className="text-indigo-800/80 leading-relaxed">
               भारत में वित्तीय साक्षरता (Financial Literacy) को बढ़ावा देने के
               लिए हमने अपने प्रमुख टूल्स को हिंदी में उपलब्ध कराया है। अक्सर
               फाइनेंस की जटिल शर्तें आम लोगों को समझ नहीं आतीं। Fincado का
-              प्रयास है कि <strong>SIP</strong>, <strong>EMI</strong> और{' '}
-              <strong>Tax</strong>
+              प्रयास है कि{' '}
+              <strong className="font-semibold text-indigo-900">SIP</strong>,
+              <strong className="font-semibold text-indigo-900"> EMI</strong> और{' '}
+              <strong className="font-semibold text-indigo-900">Tax </strong>
               जैसे विषयों को आप अपनी मातृभाषा में आसानी से समझ सकें।
             </p>
+
+            <div className="grid sm:grid-cols-2 gap-3 mt-6">
+              {['सरल भाषा', 'सटीक गणना', 'मुफ़्त टूल्स', 'एक्सपर्ट सलाह'].map(
+                (item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-indigo-600" />
+                    <span className="text-sm font-medium text-indigo-800">
+                      {item}
+                    </span>
+                  </div>
+                )
+              )}
+            </div>
           </section>
         </div>
 
         {/* --- RIGHT: SIDEBAR --- */}
-        <aside className="sidebar">
-          <HindiSidebar />
-          <div style={{ marginTop: 24, position: 'sticky', top: '24px' }}>
-            <AdSlot id="hindi-sidebar-sticky" type="box" />
+        <aside className="lg:col-span-4 space-y-8">
+          <div className="sticky top-24 space-y-8">
+            <HindiSidebar />
+            <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center">
+              <AdSlot id="hindi-sidebar-sticky" type="box" />
+            </div>
           </div>
         </aside>
       </div>
-
-      {/* --- LOCAL STYLES --- */}
-      <style jsx global>{`
-        /* TOOL CARDS */
-        .tool-card {
-          background: #fff;
-          border: 1px solid #e2e8f0;
-          border-radius: 12px;
-          padding: 16px;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          transition: all 0.2s ease;
-        }
-        .tool-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-          border-color: #cbd5e1;
-        }
-        .tool-icon {
-          width: 44px;
-          height: 44px;
-          background: #f0fdf4;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 24px;
-          flex-shrink: 0;
-        }
-        .tool-title {
-          font-size: 16px;
-          font-weight: 700;
-          color: #1e293b;
-          margin: 0 0 2px 0;
-        }
-        .tool-desc {
-          font-size: 12px;
-          color: #64748b;
-          margin: 0;
-          line-height: 1.4;
-        }
-
-        /* GUIDE CARDS */
-        .guide-card {
-          background: #fff;
-          border: 1px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 24px;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          transition: all 0.2s ease;
-        }
-        .guide-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-          border-color: #bbf7d0; /* Light Green Border */
-        }
-        .category-pill {
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          color: #15803d;
-          background: #dcfce7;
-          padding: 4px 10px;
-          border-radius: 6px;
-          letter-spacing: 0.5px;
-        }
-        .guide-title {
-          font-size: 18px;
-          font-weight: 700;
-          color: #1e293b;
-          margin: 0 0 10px 0;
-          line-height: 1.4;
-        }
-        .guide-desc {
-          font-size: 14px;
-          color: #64748b;
-          line-height: 1.6;
-          margin: 0 0 16px 0;
-          flex-grow: 1;
-        }
-        .guide-footer {
-          padding-top: 16px;
-          border-top: 1px solid #f1f5f9;
-          display: flex;
-          justify-content: space-between;
-          font-size: 12px;
-          color: #94a3b8;
-        }
-      `}</style>
-    </>
+    </main>
   );
 }

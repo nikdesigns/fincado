@@ -3,6 +3,17 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import WikiText from '@/components/WikiText';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Calendar, ArrowRight, FileText, SearchX } from 'lucide-react';
+import { cn } from '@/lib/utils'; // Assuming standard Shadcn utils exist
 
 /* ---------- TYPES ---------- */
 type Article = {
@@ -65,166 +76,104 @@ export default function GuidesGrid({
   /* Empty state */
   if (!articles.length) {
     return (
-      <div
-        style={{
-          padding: 60,
-          textAlign: 'center',
-          color: '#64748b',
-        }}
-      >
-        No guides available right now.
+      <div className="flex flex-col items-center justify-center py-20 text-center text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+        <div className="bg-white p-4 rounded-full shadow-sm mb-4">
+          <FileText className="h-8 w-8 text-slate-400" />
+        </div>
+        <h3 className="text-lg font-semibold text-slate-700">
+          No guides found
+        </h3>
+        <p className="text-sm mt-1">Check back later for new content.</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="animate-in fade-in duration-500 slide-in-from-bottom-4">
       {/* ---------- FILTER PILLS ---------- */}
-      <div
-        style={{
-          display: 'flex',
-          gap: 12,
-          flexWrap: 'wrap',
-          marginBottom: 32,
-        }}
-      >
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            style={{
-              padding: '8px 18px',
-              borderRadius: 999,
-              border:
-                activeCategory === cat
-                  ? '1px solid var(--color-brand-green)'
-                  : '1px solid var(--color-border)',
-              background:
-                activeCategory === cat ? 'var(--color-brand-green)' : '#fff',
-              color:
-                activeCategory === cat ? '#fff' : 'var(--color-text-muted)',
-              fontSize: 14,
-              fontWeight: 500,
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-          >
-            {cat}
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-2 mb-10 items-center justify-center sm:justify-start">
+        {categories.map((cat) => {
+          const isActive = activeCategory === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={cn(
+                'px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 border',
+                isActive
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-md shadow-emerald-100'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-emerald-200 hover:text-emerald-700 hover:bg-emerald-50'
+              )}
+            >
+              {cat}
+            </button>
+          );
+        })}
       </div>
 
+      {/* ---------- EMPTY STATE (FILTER) ---------- */}
+      {filteredArticles.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-16 text-center text-slate-500">
+          <SearchX className="h-10 w-10 text-slate-300 mb-3" />
+          <p>No articles found in this category.</p>
+          <Button
+            variant="link"
+            onClick={() => setActiveCategory('All')}
+            className="text-emerald-600"
+          >
+            Clear filters
+          </Button>
+        </div>
+      )}
+
       {/* ---------- GRID ---------- */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-          gap: 24,
-        }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {filteredArticles.map((guide) => (
-          // Use a unique key combining slug and language (default 'en' if missing)
           <Link
             key={`${guide.slug}-${guide.language || 'en'}`}
             href={`/guides/${guide.slug}`}
+            className="group h-full outline-none"
           >
-            <article className="guide-card">
-              {/* CATEGORY */}
-              <div style={{ marginBottom: 16 }}>
-                <span className="category-pill">{guide.category}</span>
-              </div>
+            <Card className="h-full flex flex-col border-slate-200 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-slate-100 hover:border-emerald-200 hover:-translate-y-1 overflow-hidden">
+              <CardHeader className="pb-3 pt-6 px-6">
+                <div className="flex justify-between items-start mb-3">
+                  <Badge
+                    variant="secondary"
+                    className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-emerald-100 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5"
+                  >
+                    {guide.category}
+                  </Badge>
+                </div>
 
-              {/* TITLE */}
-              <h3 className="guide-title">{guide.title}</h3>
+                <CardTitle className="text-xl font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors line-clamp-2">
+                  {guide.title}
+                </CardTitle>
+              </CardHeader>
 
-              {/* DESCRIPTION */}
-              <div className="guide-desc">
-                <WikiText content={guide.metaDescription} />
-              </div>
+              <CardContent className="grow px-6 py-0">
+                <div className="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                  {/* WikiText wrapper div to handle internal paragraphs correctly */}
+                  <div className="pointer-events-none">
+                    <WikiText content={guide.metaDescription} />
+                  </div>
+                </div>
+              </CardContent>
 
-              {/* FOOTER */}
-              <footer className="guide-footer">
-                <span>{formatDateSafe(guide.published)}</span>
-                <span className="read-more">Read →</span>
-              </footer>
-            </article>
+              <CardFooter className="px-6 py-5 mt-auto border-t border-slate-50 flex items-center justify-between bg-slate-50/30 group-hover:bg-emerald-50/10 transition-colors">
+                <div className="flex items-center text-xs font-medium text-slate-400">
+                  <Calendar className="h-3.5 w-3.5 mr-1.5" />
+                  {formatDateSafe(guide.published)}
+                </div>
+
+                <div className="flex items-center text-sm font-semibold text-emerald-600 opacity-80 group-hover:opacity-100 transition-opacity">
+                  Read{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardFooter>
+            </Card>
           </Link>
         ))}
       </div>
-
-      {/* ---------- STYLES ---------- */}
-      <style jsx global>{`
-        .guide-link {
-          text-decoration: none;
-          color: inherit;
-        }
-
-        .guide-card {
-          background: #fff;
-          border: 1px solid var(--color-border);
-          border-radius: 16px;
-          padding: 24px;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-        }
-
-        .guide-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-          border-color: var(--color-brand-light);
-        }
-
-        .category-pill {
-          display: inline-block;
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          color: var(--color-brand-green);
-          background: var(--color-success-bg);
-          padding: 4px 12px;
-          border-radius: 999px;
-          letter-spacing: 0.5px;
-        }
-
-        .guide-title {
-          font-size: 18px;
-          font-weight: 600;
-          line-height: 1.4;
-          margin-bottom: 12px;
-          color: var(--color-text-main);
-        }
-
-        .guide-desc {
-          flex-grow: 1;
-          font-size: 14px;
-          color: var(--color-text-muted);
-        }
-
-        .guide-desc p {
-          margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .guide-footer {
-          margin-top: 16px;
-          padding-top: 12px;
-          border-top: 1px solid #f1f5f9;
-          display: flex;
-          justify-content: space-between;
-          font-size: 12px;
-          color: #94a3b8;
-        }
-
-        .read-more {
-          color: var(--color-brand-green);
-          font-weight: 500;
-        }
-      `}</style>
     </div>
   );
 }

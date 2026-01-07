@@ -10,6 +10,42 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCompetitors } from '@/lib/localData';
 
+// --- UI COMPONENTS ---
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import {
+  CheckCircle2,
+  TrendingUp,
+  MapPin,
+  HelpCircle,
+  ArrowRight,
+  Percent,
+  ShieldCheck,
+} from 'lucide-react';
+
+/* ---------------- LOGIC (UNTOUCHED) ---------------- */
+
 export async function generateStaticParams() {
   return banks.map((bank) => ({ bank: bank.slug }));
 }
@@ -31,6 +67,8 @@ export async function generateMetadata({
     },
   };
 }
+
+/* ---------------- PAGE COMPONENT ---------------- */
 
 export default async function BankPage({
   params,
@@ -74,8 +112,8 @@ export default async function BankPage({
   };
 
   return (
-    <main className="container" style={{ padding: '40px 20px' }}>
-      {/* Schemas */}
+    <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      {/* --- SCHEMAS --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -96,389 +134,327 @@ export default async function BankPage({
         url={`https://www.fincado.com/bank-emi/${bank.slug}`}
       />
 
-      <div className="layout-grid">
-        <div className="main-content">
-          <header style={{ marginBottom: 32 }}>
-            <span
-              className="badge-flagship"
-              style={{
-                background: '#e0f2fe',
-                color: '#0284c7',
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '12px',
-                fontWeight: 600,
-              }}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        {/* --- LEFT COLUMN (Content) --- */}
+        <div className="lg:col-span-8 min-w-0">
+          {/* HEADER */}
+          <header className="my-10">
+            <Badge
+              variant="secondary"
+              className="mb-4 bg-sky-100 text-sky-700 hover:bg-sky-200 px-3 py-1 font-semibold uppercase tracking-wider"
             >
               Updated for 2025
-            </span>
-            <h1
-              style={{
-                fontSize: 'clamp(24px, 4vw, 32px)',
-                color: '#0f172a',
-                marginTop: '12px',
-                marginBottom: '16px',
-                lineHeight: 1.2,
-              }}
-            >
+            </Badge>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
               {bank.name} EMI Calculator
             </h1>
-            <ShareTools title={`${bank.name} EMI Calculator`} />
-            <p
-              style={{
-                color: '#475569',
-                fontSize: '18px',
-                marginTop: 16,
-                lineHeight: 1.6,
-              }}
-            >
-              Planning to take a loan from <strong>{bank.name}</strong>? Use
-              this tool to calculate your monthly EMI instantly. With interest
-              rates starting at <strong>{bank.rate}%</strong>, {bank.name} is a
-              top choice for borrowers looking for flexible repayment options.
+
+            <div className="mb-6">
+              <ShareTools title={`${bank.name} EMI Calculator`} />
+            </div>
+
+            <p className="text-lg text-slate-600 leading-relaxed">
+              Planning to take a loan from{' '}
+              <strong className="text-slate-900">{bank.name}</strong>? Use this
+              tool to calculate your monthly EMI instantly. With interest rates
+              starting at{' '}
+              <strong className="text-emerald-600">{bank.rate}%</strong>,{' '}
+              {bank.name} is a top choice for borrowers looking for flexible
+              repayment options.
             </p>
           </header>
 
-          {/* ✅ FIXED: Added unique ID */}
-          <AdSlot
-            id="bank-top-leaderboard"
-            type="leaderboard"
-            label="Bank Top Ad"
-          />
-
-          {/* CALCULATOR SECTION */}
-          <div
-            style={{
-              marginTop: 32,
-              background: '#fff',
-              borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-              padding: '4px', // Wrapper for calculator
-            }}
-          >
-            <EMIClient defaultRate={bank.rate} />
+          {/* AD SLOT: High Visibility */}
+          <div className="mb-10 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
+            <AdSlot
+              id="bank-top-leaderboard"
+              type="leaderboard"
+              label="Sponsored"
+            />
           </div>
 
+          {/* CALCULATOR SECTION */}
+          <Card className="mb-12 border-slate-200 shadow-sm overflow-hidden">
+            <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+              <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+                <Percent className="h-5 w-5 text-emerald-600" />
+                Calculate Your EMI
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-2 sm:p-6 bg-white">
+              <EMIClient defaultRate={bank.rate} />
+
+              {/* --- TRUST BUILDER: Rate Variance Explanation --- */}
+              <div className="mt-6 bg-blue-50/50 border border-blue-100 rounded-xl p-5">
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-blue-100 rounded-full shrink-0">
+                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-semibold text-blue-900">
+                      Why do interest rates vary?
+                    </h4>
+                    <p className="text-sm text-blue-800/80 leading-relaxed">
+                      The rates shown (e.g., {bank.rate}% - {bank.maxRate}%) are
+                      based on current market data. Banks determine your final
+                      rate based on your <strong>Credit Score</strong>,{' '}
+                      <strong>Income Source</strong>, and{' '}
+                      <strong>Loan Amount</strong>.
+                    </p>
+                    <p className="text-xs text-blue-600 mt-2">
+                      *Calculations are estimates for planning purposes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* CONTENT SECTION 1: Features */}
-          <section className="article" style={{ marginTop: 48 }}>
-            <h2>Why Choose {bank.name} for Your Home Loan?</h2>
-            <p>
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <CheckCircle2 className="h-6 w-6 text-sky-600" />
+              Why Choose {bank.name} for Your Home Loan?
+            </h2>
+            <p className="text-slate-600 mb-6 leading-relaxed">
               {bank.name} is one of the leading lenders in India, offering
               competitive rates and transparent processing. Key benefits
               include:
             </p>
-            <ul className="checklist">
-              <li>
-                <strong>Low Interest Rates:</strong> Starting from {bank.rate}%
-                p.a. based on CIBIL score.
-              </li>
-              <li>
-                <strong>Long Tenure:</strong> Repayment options up to 30 years
-                to reduce monthly burden.
-              </li>
-              <li>
-                <strong>No Hidden Charges:</strong> Transparent processing fees
-                (typically 0.5% - 1%).
-              </li>
-              <li>
-                <strong>Digital Sanction:</strong> Quick online approval
-                capability for pre-approved customers.
-              </li>
-            </ul>
 
-            {/* CONTENT SECTION 2: Comparison Table */}
-            <h3 style={{ marginTop: 40 }}>
-              Compare {bank.name} vs Other Banks
-            </h3>
-            <p>
-              See how {bank.name} stacks up against its main competitors in the
-              market:
-            </p>
-            <div style={{ overflowX: 'auto', margin: '24px 0' }}>
-              <table
-                className="rate-table"
-                style={{ width: '100%', borderCollapse: 'collapse' }}
-              >
-                <thead>
-                  <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
-                    <th
-                      style={{
-                        padding: '12px',
-                        borderBottom: '2px solid #e2e8f0',
-                      }}
-                    >
-                      Bank
-                    </th>
-                    <th
-                      style={{
-                        padding: '12px',
-                        borderBottom: '2px solid #e2e8f0',
-                      }}
-                    >
-                      Interest Rate
-                    </th>
-                    <th
-                      style={{
-                        padding: '12px',
-                        borderBottom: '2px solid #e2e8f0',
-                      }}
-                    >
-                      Max Tenure
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Current Bank Row */}
-                  <tr style={{ background: '#f0fdf4' }}>
-                    <td
-                      style={{
-                        padding: '12px',
-                        fontWeight: 'bold',
-                        borderBottom: '1px solid #e2e8f0',
-                      }}
-                    >
-                      {bank.name}
-                    </td>
-                    <td
-                      style={{
-                        padding: '12px',
-                        fontWeight: 'bold',
-                        borderBottom: '1px solid #e2e8f0',
-                      }}
-                    >
-                      {bank.rate}% - {(bank.rate + 2).toFixed(2)}%
-                    </td>
-                    <td
-                      style={{
-                        padding: '12px',
-                        borderBottom: '1px solid #e2e8f0',
-                      }}
-                    >
-                      30 Years
-                    </td>
-                  </tr>
-                  {/* Competitor Rows */}
-                  {competitorBanks.map((comp) => (
-                    <tr key={comp.slug}>
-                      <td
-                        style={{
-                          padding: '12px',
-                          borderBottom: '1px solid #e2e8f0',
-                        }}
-                      >
-                        <Link
-                          href={`/bank-emi/${comp.slug}`}
-                          style={{ color: '#2563eb', textDecoration: 'none' }}
-                        >
-                          {comp.name}
-                        </Link>
-                      </td>
-                      <td
-                        style={{
-                          padding: '12px',
-                          borderBottom: '1px solid #e2e8f0',
-                        }}
-                      >
-                        {comp.rate}% Onwards
-                      </td>
-                      <td
-                        style={{
-                          padding: '12px',
-                          borderBottom: '1px solid #e2e8f0',
-                        }}
-                      >
-                        30 Years
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p style={{ fontSize: '13px', color: '#64748b' }}>
-              *Interest rates are subject to change and depend on credit
-              profile.
-            </p>
-          </section>
-
-          {/* ✅ FIXED: Added unique ID */}
-          <AdSlot
-            id="bank-mid-rectangle"
-            type="rectangle"
-            label="Bank Mid Ad"
-          />
-
-          {/* CONTENT SECTION 3: Localized Links (Hub & Spoke Strategy) */}
-          <div
-            style={{
-              marginTop: 48,
-              padding: '24px',
-              background: '#f8fafc',
-              borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-            }}
-          >
-            <h3 style={{ marginTop: 0, fontSize: '20px' }}>
-              Calculate {bank.name} EMI for Your City
-            </h3>
-            <p style={{ fontSize: '15px', color: '#475569' }}>
-              Interest rates and property norms can vary by location. Select
-              your city to get precise details:
-            </p>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-                gap: '12px',
-                marginTop: '16px',
-              }}
-            >
-              {topCities.map((city) => (
-                <Link
-                  key={city.slug}
-                  href={`/bank-emi/${bank.slug}/${city.slug}`}
-                  style={{
-                    display: 'block',
-                    padding: '8px 12px',
-                    background: '#fff',
-                    borderRadius: '6px',
-                    border: '1px solid #cbd5e1',
-                    fontSize: '14px',
-                    color: '#334155',
-                    textDecoration: 'none',
-                    textAlign: 'center',
-                    fontWeight: 500,
-                  }}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                {
+                  title: 'Low Interest Rates',
+                  desc: `Starting from ${bank.rate}% p.a. based on CIBIL score.`,
+                },
+                {
+                  title: 'Long Tenure',
+                  desc: 'Repayment options up to 30 years to reduce monthly burden.',
+                },
+                {
+                  title: 'No Hidden Charges',
+                  desc: 'Transparent processing fees (typically 0.5% - 1%).',
+                },
+                {
+                  title: 'Digital Sanction',
+                  desc: 'Quick online approval capability for pre-approved customers.',
+                },
+              ].map((item, i) => (
+                <Card
+                  key={i}
+                  className="border-l-4 border-l-emerald-500 shadow-sm"
                 >
-                  {city.name}
-                </Link>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-slate-900 mb-1">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-slate-600">{item.desc}</p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
+
+            {/* CONTENT SECTION 2: Comparison Table */}
+            <div className="mt-12">
+              <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-indigo-600" />
+                Compare {bank.name} vs Other Banks
+              </h3>
+              <p className="text-slate-600 mb-6">
+                See how {bank.name} stacks up against its main competitors in
+                the market:
+              </p>
+
+              <div className="rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+                <Table>
+                  <TableHeader className="bg-slate-50">
+                    <TableRow>
+                      <TableHead className="font-bold text-slate-700">
+                        Bank
+                      </TableHead>
+                      <TableHead className="font-bold text-slate-700">
+                        Interest Rate Range
+                      </TableHead>
+                      <TableHead className="font-bold text-slate-700">
+                        Max Tenure
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Current Bank Row */}
+                    <TableRow className="bg-emerald-50/60 hover:bg-emerald-50">
+                      <TableCell className="font-bold text-slate-900">
+                        {bank.name}
+                      </TableCell>
+                      <TableCell className="font-bold text-emerald-700">
+                        {bank.rate}% - {bank.maxRate}%
+                      </TableCell>
+                      <TableCell>30 Years</TableCell>
+                    </TableRow>
+
+                    {/* Competitor Rows */}
+                    {competitorBanks.map((comp) => (
+                      <TableRow key={comp.slug}>
+                        <TableCell>
+                          <Link
+                            href={`/bank-emi/${comp.slug}`}
+                            className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
+                          >
+                            {comp.name}
+                          </Link>
+                        </TableCell>
+                        <TableCell>{comp.rate}% Onwards</TableCell>
+                        <TableCell>30 Years</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              <p className="text-xs text-slate-400 mt-3 italic">
+                *Interest rates are subject to change and depend on credit
+                profile.
+              </p>
+            </div>
+          </section>
+
+          {/* AD SLOT: Mid Content */}
+          <div className="my-10 flex justify-center no-print">
+            <AdSlot
+              id="bank-mid-rectangle"
+              type="rectangle"
+              label="Suggested"
+            />
           </div>
 
+          {/* CONTENT SECTION 3: Localized Links (Hub & Spoke Strategy) */}
+          <Card className="mb-12 bg-slate-50/50 border-slate-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <MapPin className="h-5 w-5 text-red-500" />
+                Calculate {bank.name} EMI for Your City
+              </CardTitle>
+              <CardDescription>
+                Interest rates and property norms can vary by location. Select
+                your city to get precise details:
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {topCities.map((city) => (
+                  <Link
+                    key={city.slug}
+                    href={`/bank-emi/${bank.slug}/${city.slug}`}
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full text-slate-600 hover:text-slate-900 bg-white hover:border-slate-400"
+                    >
+                      {city.name}
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
           {/* CONTENT SECTION 4: FAQs */}
-          <section style={{ marginTop: 40 }}>
-            <h3>Frequently Asked Questions</h3>
-            <div className="faqs-accordion">
-              <details
-                style={{
-                  marginBottom: '12px',
-                  padding: '16px',
-                  background: '#fff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '8px',
-                }}
+          <section className="mb-12">
+            <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <HelpCircle className="h-6 w-6 text-amber-500" />
+              Frequently Asked Questions
+            </h3>
+
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem
+                value="item-1"
+                className="bg-white border rounded-lg mb-3 px-4"
               >
-                <summary
-                  style={{
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    listStyle: 'none',
-                  }}
-                >
+                <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
                   📉 What is the current interest rate for {bank.name}?
-                </summary>
-                <p
-                  style={{
-                    marginTop: '12px',
-                    color: '#475569',
-                    lineHeight: 1.6,
-                  }}
-                >
+                </AccordionTrigger>
+                <AccordionContent className="text-slate-600 leading-relaxed pt-2">
                   As of 2025, {bank.name} offers home loan interest rates
                   starting from <strong>{bank.rate}% p.a.</strong> for salaried
                   employees with a credit score above 750. Rates may be slightly
                   higher for self-employed applicants.
-                </p>
-              </details>
-              <details
-                style={{
-                  marginBottom: '12px',
-                  padding: '16px',
-                  background: '#fff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '8px',
-                }}
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem
+                value="item-2"
+                className="bg-white border rounded-lg mb-3 px-4"
               >
-                <summary
-                  style={{
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    listStyle: 'none',
-                  }}
-                >
+                <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
                   📄 What documents are required for {bank.name} loan?
-                </summary>
-                <p
-                  style={{
-                    marginTop: '12px',
-                    color: '#475569',
-                    lineHeight: 1.6,
-                  }}
-                >
+                </AccordionTrigger>
+                <AccordionContent className="text-slate-600 leading-relaxed pt-2">
                   Standard documents include KYC (Aadhaar/PAN), Income Proof
                   (Salary Slips/ITR), Bank Statements (last 6 months), and
                   Property Documents (Agreement to Sell, Chain Deeds).
-                </p>
-              </details>
-            </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </section>
         </div>
 
-        {/* SIDEBAR */}
-        <aside className="sidebar">
-          <div
-            style={{
-              background: '#fff',
-              padding: '20px',
-              borderRadius: 12,
-              border: '1px solid #e2e8f0',
-              boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
-            }}
-          >
-            <h3
-              style={{
-                margin: '0 0 16px 0',
-                fontSize: '18px',
-                color: '#1e293b',
-              }}
-            >
-              Compare with Others
-            </h3>
-            <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}>
-              {banks
-                .filter((b) => b.slug !== bank.slug)
-                .slice(0, 8)
-                .map((other) => (
-                  <li
-                    key={other.slug}
-                    style={{
-                      marginBottom: 10,
-                      paddingBottom: 10,
-                      borderBottom: '1px solid #f1f5f9',
-                    }}
-                  >
-                    <Link
-                      href={`/bank-emi/${other.slug}`}
-                      style={{
-                        color: '#475569',
-                        textDecoration: 'none',
-                        fontSize: '14px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <span>{other.name}</span>
-                      <span style={{ color: '#16a34a', fontWeight: 600 }}>
-                        {other.rate}%
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div style={{ marginTop: 24, position: 'sticky', top: 20 }}>
-            {/* Sidebar already had ID, kept it */}
-            <AdSlot type="box" id="bank-sidebar" />
+        {/* --- RIGHT COLUMN (Sidebar) --- */}
+        <aside className="lg:col-span-4 space-y-8 mt-12">
+          {/* Comparison Card */}
+          <Card className="border-slate-200 shadow-sm">
+            <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100">
+              <CardTitle className="text-lg font-bold text-slate-800">
+                Compare with Others
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 p-0">
+              <ul className="divide-y divide-slate-100">
+                {banks
+                  .filter((b) => b.slug !== bank.slug)
+                  .slice(0, 8)
+                  .map((other) => (
+                    <li key={other.slug}>
+                      <Link
+                        href={`/bank-emi/${other.slug}`}
+                        className="flex items-center justify-between px-5 py-3 hover:bg-slate-50 transition-colors group"
+                      >
+                        <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600">
+                          {other.name}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          {/* Added 'title' for hover tooltip */}
+                          <span
+                            title="Indicative range. Actual rate depends on credit score."
+                            className="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full whitespace-nowrap cursor-help"
+                          >
+                            {other.rate} - {other.maxRate}%*
+                          </span>
+                          <ArrowRight className="h-3 w-3 text-slate-300 group-hover:text-blue-500" />
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+
+              {/* --- TRUST BUILDER: Disclaimer Footer --- */}
+              <div className="bg-slate-50 px-5 py-3 border-t border-slate-100">
+                <p className="text-[10px] text-slate-500 leading-tight">
+                  *Rates are indicative ranges based on recent market trends.
+                  <span className="hidden sm:inline">
+                    {' '}
+                    Visit the specific bank page for exact eligibility details.
+                  </span>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Sticky Sidebar Ad */}
+          <div className="sticky top-24 z-10 no-print">
+            <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center">
+              <AdSlot type="box" id="bank-sidebar" />
+            </div>
           </div>
         </aside>
       </div>
