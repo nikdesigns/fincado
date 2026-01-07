@@ -1,11 +1,42 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import {
+  Baby,
+  TrendingUp,
+  ShieldCheck,
+  Scale,
+  Wallet,
+  Clock,
+  CheckCircle2,
+  AlertTriangle,
+  Lightbulb,
+  PieChart,
+} from 'lucide-react';
 
+// --- SEO METADATA ---
 export const metadata: Metadata = {
   title: 'Sukanya Samriddhi Yojana (SSY) Guide 2025: Interest Rate & Rules',
   description:
@@ -40,56 +71,35 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SSYGuide() {
-  // 1. FAQ Schema Data
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Can NRI parents open an SSY account?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'No, only resident Indians can open SSY accounts. If the girl child or guardian becomes an NRI after opening the account, it must be closed.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I have an SSY account for 3 daughters?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Generally, the limit is 2 accounts per family. However, a third account is allowed if the second delivery results in twins or triplets, supported by medical proof.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'What happens if I deposit more than ₹1.5 lakh in a year?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Any amount deposited exceeding the ₹1.5 lakh limit in a financial year will not be accepted or will be returned to you without earning any interest.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I transfer my SSY account to another bank?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, SSY accounts can be transferred easily from a Post Office to a Bank or vice versa, and between branches anywhere in India.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Is SSY better than FD for a girl child?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, SSY is generally better because it offers a higher interest rate (8.2%), complete tax exemption (EEE status), and sovereign guarantee, unlike FDs which have taxable interest.',
-        },
-      },
-    ],
-  };
+const FAQ_ITEMS = [
+  {
+    question: 'Can NRI parents open an SSY account?',
+    answer:
+      'No, only resident Indians can open SSY accounts. If the girl child or guardian becomes an NRI after opening the account, it must be closed.',
+  },
+  {
+    question: 'Can I have an SSY account for 3 daughters?',
+    answer:
+      'Generally, the limit is 2 accounts per family. However, a third account is allowed if the second delivery results in twins or triplets, supported by medical proof.',
+  },
+  {
+    question: 'What happens if I deposit more than ₹1.5 lakh in a year?',
+    answer:
+      'Any amount deposited exceeding the ₹1.5 lakh limit in a financial year will not be accepted or will be returned to you without earning any interest.',
+  },
+  {
+    question: 'Can I transfer my SSY account to another bank?',
+    answer:
+      'Yes, SSY accounts can be transferred easily from a Post Office to a Bank or vice versa, and between branches anywhere in India.',
+  },
+  {
+    question: 'Is SSY better than FD for a girl child?',
+    answer:
+      'Yes, SSY is generally better because it offers a higher interest rate (8.2%), complete tax exemption (EEE status), and sovereign guarantee, unlike FDs which have taxable interest.',
+  },
+];
 
-  // 2. Article Schema Data
+export default function SSYGuide() {
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -114,7 +124,8 @@ export default function SSYGuide() {
   };
 
   return (
-    <>
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -126,506 +137,661 @@ export default function SSYGuide() {
         ]}
       />
 
-      {/* Inject Schemas */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <article className="article">
-        <header
-          style={{
-            marginBottom: 32,
-            borderBottom: '1px solid #e2e8f0',
-            paddingBottom: 24,
-          }}
+      {/* --- HEADER --- */}
+      <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-pink-100 text-pink-800 hover:bg-pink-200 px-3 py-1"
         >
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: 'var(--color-brand-green)',
-              textTransform: 'uppercase',
-              marginBottom: 12,
-            }}
-          >
-            Government Schemes
-          </div>
-          <h1
-            style={{
-              fontSize: 'clamp(28px, 4vw, 42px)',
-              lineHeight: 1.2,
-              marginBottom: 16,
-            }}
-          >
-            Sukanya Samriddhi Yojana 2025: Rules, Interest & Benefits
-          </h1>
-          <p
-            style={{
-              fontSize: 18,
-              color: 'var(--color-text-muted)',
-              lineHeight: 1.6,
-            }}
-          >
-            Sukanya Samriddhi Yojana (SSY) is one of India&apos;s most trusted
-            and tax-efficient savings schemes specifically designed for the girl
-            child. Launched under the Beti Bachao Beti Padhao campaign, SSY
-            offers an attractive interest rate, complete tax exemption, and
-            guaranteed returns backed by the Government of India.
-          </p>
-        </header>
-
-        {/* AD SLOT 1 */}
-        <div className="no-print" style={{ marginBottom: 32 }}>
-          <AdSlot id="ssy-guide-top" type="leaderboard" />
+          Government Schemes
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+          Sukanya Samriddhi Yojana 2025: Rules, Interest & Benefits
+        </h1>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 10 Min Read
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Updated: <strong className="text-slate-700">Jan 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Verified
+          </span>
         </div>
+        <div className="mt-6">
+          <ShareTools title="Sukanya Samriddhi Yojana 2025 Guide" />
+        </div>
+      </header>
 
-        <WikiText
-          content={`
-          <h2>What is Sukanya Samriddhi Yojana?</h2>
-          <p>Sukanya Samriddhi Yojana is a government-backed small savings scheme launched in 2015 to promote the welfare and financial security of girl children. It encourages parents and guardians to build a substantial corpus for their daughter's education and marriage expenses through systematic savings with attractive, risk-free returns.</p>
+      {/* --- INTRO CARD --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm">
+        <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          <WikiText
+            content={`<p>Choosing the <strong>best investment for your girl child</strong> is one of the most important financial decisions Indian parents face. With options like <strong>Sukanya Samriddhi Yojana (SSY)</strong> offering 8.2% guaranteed returns and Mutual Funds delivering 12-14% growth, the choice requires careful planning.</p>
+            <p>This guide compares <strong>SSY vs PPF vs Mutual Funds</strong> head-to-head, analyzes the <strong>21-year lock-in</strong>, and reveals the strategic <strong>"60-40 Rule"</strong> to secure your daughter's education and marriage goals.</p>`}
+          />
 
-          <h3>Key Highlights of SSY</h3>
-          <ul>
-            <li><strong>Current Interest Rate:</strong> 8.2% per annum (compounded annually) for Q4 FY 2024-25.</li>
-            <li><strong>Tenure:</strong> 21 years from the date of account opening or until the girl child gets married after turning 18.</li>
-            <li><strong>Minimum Deposit:</strong> ₹250 per year.</li>
-            <li><strong>Maximum Deposit:</strong> ₹1,50,000 per financial year.</li>
-            <li><strong>Tax Benefit:</strong> EEE (Exempt-Exempt-Exempt) status – deposits, interest, and maturity amount all tax-free.</li>
-            <li><strong>Government Guarantee:</strong> Backed by Government of India, making it one of the safest investment options.</li>
-          </ul>
-        `}
-        />
-
-        {/* 🖼️ IMAGE 1: HERO CONCEPT */}
-        <figure style={{ margin: '32px 0' }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#fef2f2',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #fee2e2',
-            }}
-          >
+          <div className="my-6 relative h-64 w-full sm:h-80 md:h-96 bg-pink-50 rounded-lg overflow-hidden border border-slate-100">
             <Image
               src="/images/guides/ssy/ssy-concept-hero.webp"
-              alt="Sukanya Samriddhi Yojana Benefits Illustration"
+              alt="Sukanya Samriddhi Yojana Concept Illustration"
               fill
-              style={{ objectFit: 'cover' }}
+              priority
+              className="object-cover"
             />
           </div>
-          <figcaption
-            style={{
-              textAlign: 'center',
-              fontSize: '14px',
-              color: '#64748b',
-              marginTop: '8px',
-            }}
-          >
-            Secure your daughter&apos;s future with tax-free returns and
-            government guarantee.
-          </figcaption>
-        </figure>
+        </CardContent>
+      </Card>
+
+      {/* 💰 AD SLOT 1 */}
+      <div className="no-print my-8">
+        <AdSlot id="ssy-guide-top" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 1: WHAT IS SSY --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Baby className="h-6 w-6 text-pink-600" /> What is Sukanya Samriddhi
+          Yojana?
+        </h2>
 
         <WikiText
-          content={`
-          <h2>Sukanya Samriddhi Yojana Eligibility: Age Limit & Account Rules</h2>
-          <p>Understanding eligibility criteria is crucial before opening an SSY account. Here are the complete rules:</p>
-
-          <h3>Age Limit for Girl Child</h3>
-          <ul>
-            <li>The account can be opened <strong>from the birth of a girl child until she turns 10 years old</strong>.</li>
-            <li>Example: If your daughter turns 10 on January 15, 2026, you must open the account before that date.</li>
-          </ul>
-
-          <h3>Who Can Open the Account?</h3>
-          <ul>
-            <li><strong>Parent or legal guardian</strong> of the girl child can open and operate the SSY account.</li>
-            <li>Only one account can be opened in the name of one girl child.</li>
-            <li>The girl child can operate the account herself after turning 18 years.</li>
-          </ul>
-
-          <h3>Maximum Number of Accounts</h3>
-          <p>A family can open a <strong>maximum of two SSY accounts</strong> – one for each girl child. <strong>Exception:</strong> Three accounts are permitted in case of twins or triplets born in the second delivery (with medical certificate proof).</p>
-        `}
+          content={`<p><strong>Sukanya Samriddhi Yojana (SSY)</strong> is a government-backed savings scheme launched as part of the *Beti Bachao, Beti Padhao* campaign. It is designed to build a corpus for a girl child's education and marriage expenses. It currently offers the <strong>highest interest rate</strong> among all small savings schemes in India.</p>`}
         />
 
-        {/* AD SLOT 2 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="ssy-guide-eligibility-rect" type="box" />
+        <Card className="border-slate-200 mt-6">
+          <CardContent className="pt-6">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="flex items-start gap-2">
+                <TrendingUp className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Interest Rate:</strong> 8.2% p.a. (Tax-Free)
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Clock className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Tenure:</strong> 21 Years (or until marriage)
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Wallet className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Deposit:</strong> Min ₹250 / Max ₹1.5 Lakh per year
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Tax Benefit:</strong> EEE Status (Section 80C)
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* 💰 AD SLOT 2 */}
+      <div className="no-print my-8">
+        <AdSlot id="ssy-guide-eligibility-rect" type="box" />
+      </div>
+
+      {/* --- SECTION 2: ELIGIBILITY --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <CheckCircle2 className="h-6 w-6 text-emerald-600" /> Eligibility &
+          Account Rules
+        </h2>
+
+        {/* DIAGRAM TRIGGER */}
+        <div className="mb-6"></div>
+
+        <Card className="border-slate-200">
+          <CardHeader className="bg-slate-50 border-b border-slate-100 pb-3">
+            <CardTitle className="text-lg text-slate-900">
+              Who Can Open an Account?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 text-sm text-slate-700">
+            <ul className="space-y-3">
+              <li className="flex gap-2">
+                <span className="font-bold text-slate-900">•</span>
+                <span>
+                  <strong>Girl Child:</strong> Must be below 10 years of age at
+                  the time of account opening.
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-slate-900">•</span>
+                <span>
+                  <strong>Guardian:</strong> A parent or legal guardian can open
+                  and operate the account until the girl turns 18.
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-slate-900">•</span>
+                <span>
+                  <strong>Limit:</strong> Maximum 2 accounts per family (one for
+                  each girl child). Exception: 3 accounts allowed in case of
+                  twins/triplets.
+                </span>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* --- SECTION 3: DEPOSIT RULES --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Wallet className="h-6 w-6 text-blue-600" /> Deposit Limits & Rules
+        </h2>
+
+        {/* IMAGE: Deposit Limits */}
+        <div className="mb-8 overflow-hidden rounded-xl bg-slate-50 border border-slate-200 flex justify-center shadow-sm">
+          <Image
+            src="/images/guides/ssy/ssy-deposit-rules.webp"
+            alt="SSY Deposit Limits and Tenure Explained"
+            width={800}
+            height={400}
+            className="rounded-lg w-full h-auto object-contain"
+          />
         </div>
 
-        <WikiText
-          content={`
-          <h2>Minimum and Maximum Deposit Limits</h2>
-          <p>SSY offers flexibility in contribution amounts while maintaining discipline through defined limits.</p>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className="border-blue-100 bg-blue-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-blue-800 text-lg">
+                Minimum Deposit
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <p className="mb-2 font-bold text-2xl text-blue-700">₹250</p>
+              <p>
+                Per financial year. A penalty of ₹50 is levied if the minimum
+                deposit is missed.
+              </p>
+            </CardContent>
+          </Card>
 
-          <h3>Minimum Annual Deposit: ₹250</h3>
-          <ul>
-            <li><strong>Minimum deposit required:</strong> ₹250 per financial year (April to March).</li>
-            <li>You can deposit this amount in a single installment or multiple installments.</li>
-            <li><strong>Penalty for Default:</strong> If minimum deposit isn't made, the account becomes "inactive". To reactivate, you must pay a penalty of ₹50 per year of default plus the minimum deposit of ₹250 for those years.</li>
-          </ul>
-
-          <h3>Maximum Annual Deposit: ₹1,50,000</h3>
-          <ul>
-            <li><strong>Maximum limit:</strong> ₹1,50,000 per financial year.</li>
-            <li>This limit qualifies for full tax deduction under Section 80C.</li>
-            <li>Any amount deposited above ₹1.5 lakh in a year will not earn interest and may be returned.</li>
-          </ul>
-
-          <div class="callout-box info-box">
-            <strong>Deposit Period:</strong> You need to make deposits for <strong>15 years</strong> from the date of account opening. After 15 years, no further deposits are required, but the account continues to earn interest until maturity (21 years).
-          </div>
-        `}
-        />
-
-        {/* 🖼️ IMAGE 2: DEPOSIT LIMITS */}
-        <figure style={{ margin: '32px 0' }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#f8fafc',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #e2e8f0',
-            }}
-          >
-            <Image
-              src="/images/guides/ssy/ssy-deposit-rules.webp"
-              alt="SSY Deposit Limits and Tenure Explained"
-              fill
-              style={{ objectFit: 'contain', padding: '16px' }}
-            />
-          </div>
-        </figure>
-
-        {/* AD SLOT 3 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="ssy-guide-mid-banner" type="leaderboard" />
+          <Card className="border-emerald-100 bg-emerald-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-emerald-800 text-lg">
+                Maximum Deposit
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <p className="mb-2 font-bold text-2xl text-emerald-700">
+                ₹1.5 Lakh
+              </p>
+              <p>
+                Per financial year. Amount qualifies for deduction under Section
+                80C.
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
-        <WikiText
-          content={`
-          <h2>Sukanya Samriddhi Yojana Interest Rate</h2>
-          <p>The interest rate on SSY is revised quarterly by the Government of India and is generally higher than most other small savings schemes.</p>
+        <div className="mt-4 bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm text-slate-700">
+          <strong>Important Note:</strong> You only need to make deposits for{' '}
+          <strong>15 years</strong> from the account opening date. The account
+          continues to earn interest until maturity (21 years), even without new
+          deposits in the last 6 years.
+        </div>
+      </section>
 
-          <h3>Current Interest Rate (Q4 FY 2024-25)</h3>
-          <p><strong>8.2% per annum</strong> (compounded annually). This rate is applicable from January 1, 2025, to March 31, 2025.</p>
+      {/* 💰 AD SLOT 3 */}
+      <div className="no-print my-8">
+        <AdSlot id="ssy-guide-mid-banner" type="leaderboard" />
+      </div>
 
-          <h3>Historical Interest Rate Trends</h3>
-          <div class="table-container">
-            <table class="rate-table">
-              <thead><tr><th>Period</th><th>Interest Rate (% p.a.)</th></tr></thead>
-              <tbody>
-                <tr><td>Q4 FY 2024-25 (Jan-Mar)</td><td>8.2%</td></tr>
-                <tr><td>Q3 FY 2024-25 (Oct-Dec)</td><td>8.2%</td></tr>
-                <tr><td>FY 2023-24</td><td>8.0%</td></tr>
-                <tr><td>FY 2022-23</td><td>7.6%</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p>The interest rate for SSY is typically <strong>0.4-0.8% higher than PPF</strong>, making it one of the most attractive government-backed schemes.</p>
+      {/* --- SECTION 4: INTEREST RATE --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <TrendingUp className="h-6 w-6 text-emerald-600" /> Interest Rate
+          (8.2%)
+        </h2>
 
-          <h3>Example Calculation</h3>
-          <p>If you deposit ₹1,50,000 every year for 15 years at 8.2% interest:</p>
-          <ul>
-            <li>Total deposits: ₹22,50,000</li>
-            <li>Estimated maturity amount: ~₹69-72 lakh</li>
-            <li><strong>Earnings: ~₹47-50 lakh through interest alone – completely tax-free.</strong></li>
-          </ul>
-        `}
-        />
+        {/* DIAGRAM TRIGGER */}
+        <div className="mb-6"></div>
 
-        <div
-          style={{
-            margin: '32px 0',
-            padding: '24px',
-            background: '#f0fdf4',
-            borderRadius: '12px',
-            border: '1px solid #bbf7d0',
-            textAlign: 'center',
-          }}
-        >
-          <h3 style={{ marginTop: 0, color: '#166534' }}>
-            Want to check your exact returns?
-          </h3>
-          <p style={{ color: '#166534', marginBottom: '16px' }}>
-            Use our free calculator to plan your investments based on your
-            daughter&apos;s age.
-          </p>
-          <Link href="/sukanya-samriddhi" className="primary-cta">
-            Open SSY Calculator
-          </Link>
+        <Card className="border-emerald-200 bg-emerald-50/20 mb-6">
+          <CardHeader className="pb-2 border-b border-emerald-100">
+            <CardTitle className="text-emerald-900 text-lg">
+              Current Rate: 8.2% p.a.
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 text-sm text-emerald-800">
+            Compounded annually. Rates are reviewed and revised quarterly by the
+            Government of India.
+          </CardContent>
+        </Card>
+
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Period
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Interest Rate
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Q4 FY 2024-25 (Jan-Mar)</TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  8.2%
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Q3 FY 2024-25 (Oct-Dec)</TableCell>
+                <TableCell>8.2%</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>FY 2023-24</TableCell>
+                <TableCell>8.0%</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
 
-        <WikiText
-          content={`
-          <h2>Partial Withdrawal Rules for Higher Education</h2>
-          <p>One of the most valuable features of SSY is the provision for partial withdrawal for the girl child's higher education expenses.</p>
-
-          <h3>When & How Much Can You Withdraw?</h3>
-          <ul>
-            <li><strong>Timing:</strong> After the girl child turns 18 years or passes 10th standard (whichever is earlier).</li>
-            <li><strong>Limit:</strong> Up to <strong>50% of the balance</strong> at the end of the preceding financial year.</li>
-            <li><strong>Purpose:</strong> Must be used for higher education fees (admission, college fees, hostel).</li>
-          </ul>
-          <p>After partial withdrawal, you cannot make further deposits, but the remaining balance continues to earn interest.</p>
-        `}
-        />
-
-        {/* AD SLOT 4 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="ssy-guide-withdrawal-rect" type="box" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>Premature Account Closure Rules</h2>
-          <p>While designed for 21 years, premature closure is allowed under specific circumstances:</p>
-          <ol>
-            <li><strong>Marriage of the Girl Child (After 18):</strong> The account can be closed for marriage purposes. Proof is required.</li>
-            <li><strong>Compassionate Grounds:</strong> In case of life-threatening illness of the girl child or death of the guardian, premature closure may be approved.</li>
-            <li><strong>Death of Account Holder:</strong> In the unfortunate event of the girl child's death, the account is closed immediately and balance paid to the guardian.</li>
-          </ol>
-          <p><strong>Note:</strong> Premature closure for general reasons is NOT allowed and defeats the purpose of long-term compounding.</p>
-
-          <h2>Tax Benefits of SSY (EEE Status)</h2>
-          <p>SSY enjoys the <strong>EEE (Exempt-Exempt-Exempt)</strong> status, making it highly tax-efficient:</p>
-          <ul>
-            <li><strong>Exempt at Investment:</strong> Deposits up to ₹1.5 Lakh/year qualify for Section 80C deduction.</li>
-            <li><strong>Exempt at Earning:</strong> Interest earned is completely tax-free.</li>
-            <li><strong>Exempt at Maturity:</strong> The final maturity amount is 100% tax-free.</li>
-          </ul>
-        `}
-        />
-
-        {/* 🖼️ IMAGE 3: EEE TAX BENEFIT */}
-        <figure style={{ margin: '32px 0' }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#ecfccb',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #d9f99d',
-            }}
-          >
-            <Image
-              src="/images/guides/ssy/ssy-eee-tax-benefit.webp"
-              alt="EEE Tax Benefit Explained for Sukanya Samriddhi"
-              fill
-              style={{ objectFit: 'contain', padding: '16px' }}
-            />
-          </div>
-        </figure>
-
-        {/* AD SLOT 5 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="ssy-guide-tax-banner" type="leaderboard" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>How to Open a Sukanya Samriddhi Yojana Account</h2>
-          <p>You can open an SSY account at any <strong>Post Office</strong> or authorized branches of commercial banks (SBI, HDFC, ICICI, etc.).</p>
-          
-          <h3>Documents Required</h3>
-          <ul>
-            <li><strong>Birth Certificate</strong> of the girl child (Mandatory).</li>
-            <li>Identity & Address Proof of parent/guardian (Aadhaar, PAN, Passport).</li>
-            <li>Passport-size photographs of both parent and child.</li>
-            <li>Initial deposit of ₹250 (Cash/Cheque/DD).</li>
-          </ul>
-
-          <h2>Maturity and Account Closure</h2>
-          <p>The account matures <strong>21 years from the date of opening</strong>. At maturity, you receive the Principal + Accumulated Interest tax-free. The account can also be closed earlier for marriage expenses after the girl turns 18.</p>
-        `}
-        />
-
-        {/* AD SLOT 6 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="ssy-guide-maturity-rect" type="box" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>Sukanya Samriddhi Yojana vs Other Options</h2>
-          <div class="table-container">
-            <table class="rate-table">
-              <thead><tr><th>Feature</th><th>SSY</th><th>PPF</th><th>FD (Tax Saver)</th><th>ELSS</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Interest</strong></td><td>8.2% (Govt Backed)</td><td>7.1%</td><td>6-7%</td><td>10-15% (Market)</td></tr>
-                <tr><td><strong>Lock-in</strong></td><td>21 Years</td><td>15 Years</td><td>5 Years</td><td>3 Years</td></tr>
-                <tr><td><strong>Tax Status</strong></td><td><strong>EEE</strong></td><td>EEE</td><td>Taxable Interest</td><td>LTCG Taxable</td></tr>
-                <tr><td><strong>Min Invest</strong></td><td>₹250</td><td>₹500</td><td>Varies</td><td>₹500</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p><strong>Key Takeaway:</strong> SSY is unbeatable for girl child-focused long-term savings with guaranteed returns and full tax exemption.</p>
-
-          <h2>Common Mistakes to Avoid</h2>
-          <ul>
-            <li><strong>Not Making Annual Deposits:</strong> Missing the ₹250 minimum deposit leads to penalties and loss of active status.</li>
-            <li><strong>Opening Late:</strong> Don't wait! Open the account as early as possible (before age 10) to maximize the compounding period.</li>
-            <li><strong>Premature Closure:</strong> Closing without a valid reason (like marriage/education) results in lower interest rates.</li>
-          </ul>
-        `}
-        />
-
-        {/* --- FAQ SECTION --- */}
-        <div style={{ marginTop: 40 }}>
-          <h2 style={{ marginBottom: 20 }}>FAQs: Sukanya Samriddhi Yojana</h2>
-
-          <div className="faqs-accordion">
-            <details>
-              <summary>Can NRI parents open SSY account?</summary>
-              <p>
-                No, only resident Indians can open SSY accounts. If the girl
-                child or guardian becomes NRI after opening, the account must be
-                closed.
-              </p>
-            </details>
-
-            <details>
-              <summary>Can I have SSY for 3 daughters?</summary>
-              <p>
-                Generally, maximum 2 accounts per family. However, 3 accounts
-                are allowed if the second delivery results in twins or triplets
-                (medical proof required).
-              </p>
-            </details>
-
-            <details>
-              <summary>
-                What happens if I deposit more than ₹1.5 lakh in a year?
-              </summary>
-              <p>
-                The excess amount will be returned without interest. The maximum
-                limit is strictly enforced.
-              </p>
-            </details>
-
-            <details>
-              <summary>Can I change the bank/post office?</summary>
-              <p>
-                Yes, SSY accounts are transferable across post offices and banks
-                in India free of cost.
-              </p>
-            </details>
-
-            <details>
-              <summary>Is SSY better than FD for girl child?</summary>
-              <p>
-                Yes, SSY offers higher interest (8.2% vs 6-7%), complete tax
-                exemption (EEE status), and government guarantee.
-              </p>
-            </details>
-
-            <details>
-              <summary>Can the girl child operate the account?</summary>
-              <p>
-                Yes, after turning 18 years, the girl child can operate the SSY
-                account herself.
-              </p>
-            </details>
-
-            <details>
-              <summary>
-                What if the girl child becomes NRI after marriage?
-              </summary>
-              <p>
-                If she gets married and becomes NRI, the account can be closed
-                prematurely and the balance paid out.
-              </p>
-            </details>
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: '#f8fafc',
-            padding: '24px',
-            borderRadius: '12px',
-            margin: '32px 0',
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Not eligible for SSY?</h3>
-          <p>
-            If you have a son or want to save for general goals, a Recurring
-            Deposit (RD) is the best alternative.
-          </p>
-          <ul style={{ marginBottom: '16px' }}>
-            <li>Interest rates up to 7.5%</li>
-            <li>No gender restrictions</li>
-            <li>Flexible tenure (6 months to 10 years)</li>
-          </ul>
+        <div className="mt-6 flex justify-center">
           <Link
-            href="/rd-calculator"
-            style={{
-              color: '#16a34a',
-              fontWeight: 'bold',
-              textDecoration: 'underline',
-            }}
+            href="/sukanya-samriddhi"
+            className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
           >
-            Check RD Returns Calculator →
+            Calculate SSY Returns
           </Link>
         </div>
+      </section>
 
-        <section className="conclusion-box">
-          <h2 style={{ fontSize: 24, marginBottom: 16 }}>
-            Conclusion: Is SSY Worth It?
+      {/* --- SECTION 5: WITHDRAWAL --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <AlertTriangle className="h-6 w-6 text-amber-500" /> Withdrawal Rules
+        </h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6 text-sm text-slate-700">
+            <ul className="space-y-4">
+              <li className="flex gap-3">
+                <div className="bg-amber-100 p-2 rounded-full h-8 w-8 flex items-center justify-center text-amber-700 font-bold text-xs">
+                  1
+                </div>
+                <div>
+                  <strong>Partial Withdrawal (Education):</strong> Allowed only
+                  after the girl child turns 18 or passes 10th standard. Maximum
+                  50% of the balance at the end of the preceding financial year.
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="bg-amber-100 p-2 rounded-full h-8 w-8 flex items-center justify-center text-amber-700 font-bold text-xs">
+                  2
+                </div>
+                <div>
+                  <strong>Premature Closure (Marriage):</strong> Allowed after
+                  the girl turns 18 for marriage expenses. Proof of marriage is
+                  required.
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="bg-amber-100 p-2 rounded-full h-8 w-8 flex items-center justify-center text-amber-700 font-bold text-xs">
+                  3
+                </div>
+                <div>
+                  <strong>Maturity:</strong> The account matures 21 years from
+                  the date of opening. The full amount (Principal + Interest) is
+                  paid tax-free.
+                </div>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* 💰 AD SLOT 4 */}
+      <div className="no-print my-8">
+        <AdSlot id="ssy-guide-withdrawal-rect" type="box" />
+      </div>
+
+      {/* --- SECTION 6: TAX BENEFITS --- */}
+      <section className="mb-12">
+        <h2
+          id="tax-benefits"
+          className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2"
+        >
+          <ShieldCheck className="h-6 w-6 text-emerald-600" /> Tax Benefits: EEE
+          Status
+        </h2>
+
+        {/* IMAGE: EEE Tax Benefit */}
+        <div className="mb-8 overflow-hidden rounded-xl bg-slate-50 border border-slate-200 flex justify-center shadow-sm">
+          <Image
+            src="/images/guides/ssy/ssy-eee-tax-benefit.webp"
+            alt="EEE Tax Benefit Explained for Sukanya Samriddhi"
+            width={800}
+            height={400}
+            className="rounded-lg w-full h-auto object-contain"
+          />
+        </div>
+
+        <Card className="bg-emerald-50 border-emerald-200">
+          <CardContent className="pt-6">
+            <WikiText
+              content={`<p class="mb-4 text-emerald-900">SSY falls under the <strong>EEE (Exempt-Exempt-Exempt)</strong> category, making it one of the most tax-efficient investment vehicles in India.</p>`}
+            />
+            <ul className="space-y-2 text-sm text-emerald-900">
+              <li className="flex justify-between border-b border-emerald-200 pb-2">
+                <span>
+                  <strong>Investment:</strong>
+                </span>
+                <span>Section 80C Deduction (up to ₹1.5L)</span>
+              </li>
+              <li className="flex justify-between border-b border-emerald-200 pb-2">
+                <span>
+                  <strong>Interest Earned:</strong>
+                </span>
+                <span>100% Tax-Free</span>
+              </li>
+              <li className="flex justify-between">
+                <span>
+                  <strong>Maturity Amount:</strong>
+                </span>
+                <span>100% Tax-Free</span>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* 💰 AD SLOT 5 */}
+      <div className="no-print my-8">
+        <AdSlot id="ssy-guide-tax-banner" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 7: COMPARISON --- */}
+      <section className="mb-12">
+        <h2
+          id="comparison"
+          className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2"
+        >
+          <Scale className="h-6 w-6 text-purple-600" /> Comparison: SSY vs PPF
+          vs Mutual Funds
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Feature
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">SSY</TableHead>
+                <TableHead className="font-bold text-slate-900">PPF</TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Mutual Funds
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Interest/Return
+                </TableCell>
+                <TableCell className="text-pink-600 font-bold">
+                  8.2% (Fixed)
+                </TableCell>
+                <TableCell>7.1% (Fixed)</TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  12-14% (Variable)
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Risk
+                </TableCell>
+                <TableCell className="text-emerald-600">Zero (Govt)</TableCell>
+                <TableCell className="text-emerald-600">Zero (Govt)</TableCell>
+                <TableCell className="text-amber-600">Medium-High</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Lock-In
+                </TableCell>
+                <TableCell>21 Years</TableCell>
+                <TableCell>15 Years</TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  Liquid (No Lock-in)
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Tax Benefit
+                </TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  EEE (Free)
+                </TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  EEE (Free)
+                </TableCell>
+                <TableCell>LTCG (12.5% {'>'} 1.25L)</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      {/* --- SECTION 8: 60-40 RULE --- */}
+      <section className="mb-12">
+        <h2
+          id="60-40-rule"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <PieChart className="h-6 w-6 text-purple-600" /> The &quot;60-40
+          Rule&quot; Strategy
+        </h2>
+        <Card className="border-purple-100 bg-purple-50/30 mb-6">
+          <CardHeader className="pb-2 border-b border-purple-100">
+            <CardTitle className="text-purple-900 text-lg">
+              The Plan: 60% Safe + 40% Growth
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4 text-sm text-slate-700">
+            <p className="mb-4">
+              Don&apos;t choose just one. Allocate <strong>60% to SSY</strong>{' '}
+              for safety (Education base) and{' '}
+              <strong>40% to Equity SIPs</strong> for growth (Marriage/Higher
+              Studies).
+            </p>
+            <div className="bg-white p-3 rounded border border-purple-200">
+              <strong>Projected Result (18 Years):</strong>
+              <br />
+              Invest ₹1.5L/yr → <strong>SSY Corpus:</strong> ~₹70 Lakhs (Safe)
+              <br />
+              Invest ₹1L/yr → <strong>MF Corpus:</strong> ~₹90 Lakhs (Growth @
+              12%)
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* 💰 AD SLOT 6 */}
+      <div className="no-print my-8">
+        <AdSlot id="ssy-guide-maturity-rect" type="box" />
+      </div>
+
+      {/* --- SECTION 9: MATURITY EXAMPLES --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20">
+          Maturity Corpus Examples (SSY @ 8.2%)
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Annual Deposit
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Total Invested (15 Yrs)
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Maturity Amount (21 Yrs)
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>₹50,000</TableCell>
+                <TableCell>₹7.5 Lakhs</TableCell>
+                <TableCell>~₹23 Lakhs</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>₹1,00,000</TableCell>
+                <TableCell>₹15 Lakhs</TableCell>
+                <TableCell>~₹46 Lakhs</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>₹1,50,000</TableCell>
+                <TableCell>₹22.5 Lakhs</TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  ~₹69 Lakhs
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      {/* --- FAQS --- */}
+      <section className="mb-12">
+        <h2
+          id="faqs"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Frequently Asked Questions (FAQs)
+        </h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {FAQ_ITEMS.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border rounded-lg px-4 bg-white"
+            >
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          <AccordionItem
+            value="item-custom-1"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Can I open SSY for my 12-year-old daughter?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              No. An SSY account can only be opened for a girl child{' '}
+              <strong>below 10 years</strong> of age. If she is older, consider
+              PPF or Children&apos;s Mutual Funds.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-2"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Is the interest rate fixed for 21 years?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              No. The government revises the interest rate{' '}
+              <strong>quarterly</strong>. Your balance earns the prevailing rate
+              for that quarter.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+
+      {/* --- CONCLUSION --- */}
+      <Card className="mb-8 border-slate-200 bg-slate-900 text-white">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-yellow-400" /> Final Verdict
           </h2>
-          <p style={{ marginBottom: 16 }}>
+          <p className="mb-6 text-slate-300 leading-relaxed">
             If you have a daughter below 10 years,{' '}
-            <strong>SSY should be your first choice</strong>. It offers the
-            highest government-backed interest rate (8.2%), complete tax freedom
-            (EEE), and zero risk.
+            <strong>SSY should be your first choice</strong> for the safety
+            component of her portfolio. It offers the highest government-backed
+            interest rate and zero risk.
           </p>
-          <p>
-            Even a small deposit of ₹1,000/month can grow into ~₹5.5 Lakh
-            tax-free corpus over 21 years. Start today to secure her education
-            and marriage goals.
-          </p>
-        </section>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Open SSY
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Max Out
+              ₹1.5L
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Start SIP
+              (40%)
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-        {/* AD SLOT 7 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="ssy-guide-bottom" type="leaderboard" />
-        </div>
-
-        {/* --- AUTHOR BIO --- */}
+      <div className="mb-8 border-t border-slate-200 pt-8">
         <AuthorBio />
+        <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
+          <strong>Disclaimer:</strong> Interest rates and rules are subject to
+          change by the Government of India. This guide is for educational
+          purposes. Please consult a financial advisor for personalized
+          planning.
+        </p>
+      </div>
 
-        {/* --- LEGAL DISCLAIMER --- */}
-        <div className="legal-disclaimer">
-          <p>
-            <strong>
-              Information provided on this page is for educational purposes only
-              and does not constitute financial advice.
-            </strong>{' '}
-            <br />
-            Interest rates and rules for Sukanya Samriddhi Yojana are subject to
-            change by the Government of India. Please verify current rates with
-            your bank or post office before investing. Fincado is not a
-            government entity.
+      {/* --- FINAL CTA --- */}
+      <Card className="bg-linear-to-br from-pink-600 to-rose-700 text-white border-none shadow-xl no-print">
+        <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+            Plan for her future today
+          </h2>
+          <p className="mb-8 max-w-lg text-pink-100 text-lg">
+            Calculate how much corpus you can build with SSY and SIPs.
           </p>
-        </div>
-      </article>
-    </>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/sukanya-samriddhi"
+              className="rounded-lg bg-white px-8 py-4 font-bold text-pink-700 transition hover:bg-pink-50 shadow-lg"
+            >
+              SSY Calculator
+            </Link>
+            <Link
+              href="/sip-calculator"
+              className="rounded-lg border border-pink-400 bg-pink-800/30 px-8 py-4 font-bold text-white transition hover:bg-pink-800/50"
+            >
+              SIP Calculator
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 💰 AD SLOT 7 */}
+      <div className="no-print mt-8">
+        <AdSlot id="ssy-guide-bottom" type="leaderboard" />
+      </div>
+    </article>
   );
 }

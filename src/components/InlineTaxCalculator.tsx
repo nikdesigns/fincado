@@ -1,5 +1,10 @@
 'use client';
 import React, { useState, useMemo } from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { CheckCircle2, Zap, Calculator } from 'lucide-react';
 
 interface Props {
   defaultSalary?: number;
@@ -40,7 +45,7 @@ export default function InlineTaxCalculator({
       }
     }
 
-    // Rebate 87A New Regime (Income <= 12L? No, limit is 7L)
+    // Rebate 87A New Regime (Income <= 7L)
     if (taxableNew <= 700000) tNew = 0;
 
     // --- OLD REGIME ---
@@ -90,201 +95,144 @@ export default function InlineTaxCalculator({
   const isNewBetter = savings >= 0;
 
   return (
-    <div className="inline-calc-widget no-print">
-      <div className="widget-header">
-        <span>⚡</span> Quick Tax Check (FY 25-26)
-      </div>
-
-      <div className="widget-body">
-        <div className="inputs-row">
-          <div className="input-group">
-            <label>Annual Salary (₹)</label>
-            <input
-              type="number"
-              value={income}
-              onChange={(e) => setIncome(Number(e.target.value))}
-              step={50000}
-            />
+    <Card className="border-2 border-slate-200 shadow-lg my-8 no-print overflow-hidden bg-white">
+      <CardHeader className="bg-lime-50/80 border-b border-lime-100 py-3 px-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-lime-800 font-bold text-sm uppercase tracking-wide">
+            <Zap className="h-4 w-4" /> Quick Tax Check (FY 25-26)
           </div>
-          <div className="input-group">
-            <label>Total Deductions (Old Regime)</label>
-            <input
-              type="number"
-              value={deductions}
-              onChange={(e) => setDeductions(Number(e.target.value))}
-              placeholder="e.g. 150000"
-            />
-            <small
-              style={{
-                color: '#94a3b8',
-                fontSize: '11px',
-                display: 'block',
-                marginTop: '4px',
-              }}
+          <Badge
+            variant="outline"
+            className="bg-white text-lime-700 border-lime-200 text-[10px] uppercase font-bold"
+          >
+            Budget 2025
+          </Badge>
+        </div>
+      </CardHeader>
+
+      <CardContent className="p-6">
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="space-y-2">
+            <Label
+              htmlFor="income"
+              className="text-slate-600 font-semibold text-xs uppercase tracking-wide"
             >
-              Includes 80C, 80D, HRA etc.
-            </small>
+              Annual Salary (₹)
+            </Label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                ₹
+              </span>
+              <Input
+                id="income"
+                type="number"
+                value={income}
+                onChange={(e) => setIncome(Number(e.target.value))}
+                step={50000}
+                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-lime-500 font-bold text-slate-900"
+              />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label
+              htmlFor="deductions"
+              className="text-slate-600 font-semibold text-xs uppercase tracking-wide"
+            >
+              Total Deductions (Old Regime)
+            </Label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                ₹
+              </span>
+              <Input
+                id="deductions"
+                type="number"
+                value={deductions}
+                onChange={(e) => setDeductions(Number(e.target.value))}
+                placeholder="e.g. 150000"
+                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-lime-500 font-bold text-slate-900"
+              />
+            </div>
+            <p className="text-[10px] text-slate-500">
+              Includes 80C, 80D, HRA, Home Loan Interest etc.
+            </p>
           </div>
         </div>
 
-        <div className="comparison-grid">
-          <div className={`result-card ${isNewBetter ? 'winner' : 'loser'}`}>
-            <span className="regime-label">New Regime Tax</span>
-            <span className="tax-value">{formatCurrency(taxNew)}</span>
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div
+            className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
+              isNewBetter
+                ? 'bg-lime-50 border-lime-200 shadow-sm'
+                : 'bg-slate-50 border-slate-200 opacity-70'
+            }`}
+          >
+            <span className="text-[10px] uppercase font-bold text-slate-500 mb-1">
+              New Regime Tax
+            </span>
+            <span
+              className={`text-xl sm:text-2xl font-black ${
+                isNewBetter ? 'text-lime-700' : 'text-slate-700'
+              }`}
+            >
+              {formatCurrency(taxNew)}
+            </span>
+            {isNewBetter && (
+              <CheckCircle2 className="h-4 w-4 text-lime-600 mt-2" />
+            )}
           </div>
-          <div className={`result-card ${!isNewBetter ? 'winner' : 'loser'}`}>
-            <span className="regime-label">Old Regime Tax</span>
-            <span className="tax-value">{formatCurrency(taxOld)}</span>
+
+          <div
+            className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
+              !isNewBetter
+                ? 'bg-blue-50 border-blue-200 shadow-sm'
+                : 'bg-slate-50 border-slate-200 opacity-70'
+            }`}
+          >
+            <span className="text-[10px] uppercase font-bold text-slate-500 mb-1">
+              Old Regime Tax
+            </span>
+            <span
+              className={`text-xl sm:text-2xl font-black ${
+                !isNewBetter ? 'text-blue-700' : 'text-slate-700'
+              }`}
+            >
+              {formatCurrency(taxOld)}
+            </span>
+            {!isNewBetter && (
+              <CheckCircle2 className="h-4 w-4 text-blue-600 mt-2" />
+            )}
           </div>
         </div>
 
-        <div className="verdict-banner">
+        <div
+          className={`text-center py-3 px-4 rounded-lg border-2 border-dashed ${
+            isNewBetter
+              ? 'bg-lime-50/50 border-lime-100 text-lime-900'
+              : 'bg-blue-50/50 border-blue-100 text-blue-900'
+          }`}
+        >
           {isNewBetter ? (
-            <>
-              New Regime saves you <strong>{formatCurrency(savings)}</strong> 🎉
-            </>
+            <p className="font-medium flex items-center justify-center gap-2">
+              <Calculator className="h-4 w-4 text-lime-600" />
+              New Regime saves you{' '}
+              <span className="font-bold text-lime-700">
+                {formatCurrency(savings)}
+              </span>{' '}
+              🎉
+            </p>
           ) : (
-            <>
+            <p className="font-medium flex items-center justify-center gap-2">
+              <Calculator className="h-4 w-4 text-blue-600" />
               Old Regime saves you{' '}
-              <strong>{formatCurrency(Math.abs(savings))}</strong> ✅
-            </>
+              <span className="font-bold text-blue-700">
+                {formatCurrency(Math.abs(savings))}
+              </span>{' '}
+              ✅
+            </p>
           )}
         </div>
-      </div>
-
-      <style jsx>{`
-        .inline-calc-widget {
-          background: #ffffff;
-          border: 2px solid #e2e8f0;
-          border-radius: 16px;
-          overflow: hidden;
-          margin: 32px 0;
-          box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
-          font-family: var(--font-rubik), sans-serif;
-        }
-        .widget-header {
-          background: #f0fdf4;
-          color: #166534;
-          padding: 12px 24px;
-          font-weight: 700;
-          font-size: 14px;
-          border-bottom: 1px solid #dcfce7;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-transform: uppercase;
-        }
-        .widget-body {
-          padding: 24px;
-        }
-        .inputs-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-          margin-bottom: 24px;
-        }
-        .input-group label {
-          font-size: 13px;
-          font-weight: 600;
-          color: #64748b;
-          margin-bottom: 8px;
-          display: block;
-        }
-        .input-group input {
-          width: 100%;
-          padding: 12px;
-          border: 1px solid #cbd5e1;
-          border-radius: 8px;
-          font-size: 16px;
-          font-weight: 600;
-          color: #0f172a;
-          background: #f8fafc;
-        }
-        .input-group input:focus {
-          outline: 2px solid #16a34a;
-          border-color: #16a34a;
-          background: #fff;
-        }
-        .comparison-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-          margin-bottom: 16px;
-        }
-        .result-card {
-          padding: 16px;
-          border-radius: 12px;
-          text-align: center;
-          border: 1px solid transparent;
-        }
-        .result-card.winner {
-          background: #f0fdf4;
-          border-color: #bbf7d0;
-          color: #166534;
-        }
-        .result-card.loser {
-          background: #f8fafc;
-          border-color: #e2e8f0;
-          color: #94a3b8;
-          opacity: 0.8;
-        }
-        .regime-label {
-          display: block;
-          font-size: 12px;
-          font-weight: 600;
-          margin-bottom: 4px;
-          text-transform: uppercase;
-        }
-        .tax-value {
-          font-size: 20px;
-          font-weight: 800;
-        }
-        .verdict-banner {
-          text-align: center;
-          font-size: 15px;
-          color: #0f172a;
-          padding-top: 12px;
-          border-top: 1px dashed #e2e8f0;
-        }
-        .verdict-banner strong {
-          color: #16a34a;
-        }
-
-        /* --- MOBILE RESPONSIVENESS TWEAKS --- */
-        @media (max-width: 640px) {
-          .widget-body {
-            padding: 16px;
-          }
-          .inputs-row {
-            grid-template-columns: 1fr;
-            gap: 16px;
-          }
-          .input-group {
-            display: flex;
-            flex-direction: column;
-          }
-          .input-group input {
-            font-size: 16px; /* Prevents zoom on iOS */
-          }
-          .comparison-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-          }
-          .result-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-          }
-          .regime-label {
-            margin-bottom: 0;
-            text-align: left;
-          }
-          .tax-value {
-            font-size: 18px;
-          }
-        }
-      `}</style>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

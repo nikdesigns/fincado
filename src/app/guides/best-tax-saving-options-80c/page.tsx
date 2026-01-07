@@ -7,6 +7,34 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import {
+  CheckCircle2,
+  XCircle,
+  TrendingUp,
+  ShieldCheck,
+  Clock,
+  AlertTriangle,
+  Lightbulb,
+  Briefcase,
+  Wallet,
+  Landmark,
+} from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -42,9 +70,32 @@ export const metadata: Metadata = {
   },
 };
 
+const FAQ_ITEMS = [
+  {
+    question: 'What is the maximum deduction under Section 80C in 2025?',
+    answer:
+      'The maximum deduction is ₹1.5 lakh per financial year. This limit is shared across Section 80C, 80CCC (pension funds), and 80CCD(1) (NPS).',
+  },
+  {
+    question: 'Which is the best 80C investment for 30% tax bracket?',
+    answer:
+      'ELSS (Equity Linked Savings Scheme) is the best option for wealth creation, delivering 11-13% post-tax returns with the shortest 3-year lock-in period.',
+  },
+  {
+    question: 'Can I claim Section 80C under the new tax regime?',
+    answer:
+      'No. Section 80C deductions are only available under the old tax regime. The new tax regime does not allow 80C, 80D, or HRA deductions.',
+  },
+  {
+    question: 'Is ELSS better than PPF for tax saving?',
+    answer:
+      'Yes, for investors under 50 aiming for wealth creation, as ELSS delivers significantly higher returns (12-15%) compared to PPF (7.1%). PPF is better for risk-averse investors.',
+  },
+];
+
 export default function TaxSavingOptionsGuide() {
   return (
-    <article className="article guide-body">
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* --- ARTICLE SCHEMA --- */}
       <script
         type="application/ld+json"
@@ -107,590 +158,861 @@ export default function TaxSavingOptionsGuide() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is the maximum deduction under Section 80C in 2025?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The maximum deduction is ₹1.5 lakh per financial year. This limit is shared across Section 80C, 80CCC (pension funds), and 80CCD(1) (NPS).',
-                },
+            mainEntity: FAQ_ITEMS.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
               },
-              {
-                '@type': 'Question',
-                name: 'Which is the best 80C investment for 30% tax bracket?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'ELSS (Equity Linked Savings Scheme) is the best option for wealth creation, delivering 11-13% post-tax returns with the shortest 3-year lock-in period.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Can I claim Section 80C under the new tax regime?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. Section 80C deductions are only available under the old tax regime. The new tax regime does not allow 80C, 80D, or HRA deductions.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is ELSS better than PPF for tax saving?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, for investors under 50 aiming for wealth creation, as ELSS delivers significantly higher returns (12-15%) compared to PPF (7.1%). PPF is better for risk-averse investors.',
-                },
-              },
-            ],
+            })),
           }),
         }}
       />
 
       {/* --- HEADER --- */}
-      <header
-        style={{
-          marginBottom: 32,
-          borderBottom: '1px solid #e2e8f0',
-          paddingBottom: 24,
-        }}
-      >
-        <span className="badge-flagship">Tax Planning 2025</span>
-        <h1
-          itemProp="headline"
-          style={{
-            fontSize: 'clamp(30px, 4vw, 42px)',
-            marginTop: 16,
-            lineHeight: 1.2,
-            color: 'var(--color-text-main)',
-          }}
+      <header className="mb-8 border-b border-slate-200 pb-6">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-3 py-1"
         >
+          Tax Planning 2025
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           Best Tax Saving Options Under Section 80C for 2025
         </h1>
-        <div
-          style={{
-            fontSize: 14,
-            color: 'var(--color-text-muted)',
-            marginTop: 12,
-            display: 'flex',
-            gap: 12,
-            alignItems: 'center',
-            marginBottom: 20,
-          }}
-        >
-          <span>
-            Last Updated: <strong>Dec 2025</strong>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 12 Min Read
           </span>
-          <span>•</span>
-          <span>12 Min Read</span>
-          <span>•</span>
-          <span style={{ color: 'var(--color-brand-green)' }}>
-            Verified Data
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Last Updated: <strong className="text-slate-700">Dec 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Verified Data
           </span>
         </div>
 
-        <ShareTools title="Best 80C Tax Saving Options 2025" />
+        <div className="mt-6">
+          <ShareTools title="Best 80C Tax Saving Options 2025" />
+        </div>
       </header>
 
-      {/* --- INTRO --- */}
-      <WikiText
-        content={`Choosing the <strong>best tax saving options under Section 80C</strong> can save you up to <strong>₹46,800 annually</strong> (30% tax bracket) while building long-term wealth. 
+      {/* --- INTRO CARD --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm">
+        <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          <WikiText
+            content={`Choosing the <strong>best tax saving options under Section 80C</strong> can save you up to <strong>₹46,800 annually</strong> (30% tax bracket) while building long-term wealth. 
 
 With 15+ eligible investments ranging from <strong>ELSS mutual funds</strong> (12-15% returns) to <strong>PPF</strong> (7.1% returns) and <strong>Tax Saver FDs</strong>, most taxpayers struggle to maximize the limit efficiently. The critical mistake is focusing only on the tax deduction without comparing post-tax returns—<strong>ELSS delivers 11-13% post-tax returns versus PPF's 7.1%</strong>, a difference worth ₹10-15 lakh over a decade.`}
-      />
+          />
+        </CardContent>
+      </Card>
 
-      {/* --- VERDICT BOX --- */}
-      <div className="callout-box verdict-box">
-        <h2>Quick Verdict (30-Second Answer)</h2>
-        <p>
-          <strong>ELSS is the #1 choice</strong> if you are under 50 and want to
-          build wealth. It offers the <strong>highest returns (12-15%)</strong>{' '}
-          and shortest lock-in (3 years).
-        </p>
-        <p>
-          <strong>PPF & EPF</strong> are best for conservative investors seeking
-          guaranteed safety. <strong>Tax Saver FD</strong> is suitable only for
-          senior citizens.
-        </p>
-      </div>
+      {/* --- VERDICT CARD --- */}
+      <Card className="mb-10 border-l-4 border-l-lime-500 bg-lime-50/50 shadow-sm">
+        <CardHeader className="pb-2">
+          <CardTitle className="flex items-center gap-2 text-xl text-lime-800">
+            <Lightbulb className="h-6 w-6 text-lime-600" /> Quick Verdict
+            (30-Second Answer)
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-slate-800 leading-relaxed">
+          <p className="mb-3">
+            <strong>ELSS is the #1 choice</strong> if you are under 50 and want
+            to build wealth. It offers the{' '}
+            <strong>highest returns (12-15%)</strong> and shortest lock-in (3
+            years).
+          </p>
+          <p>
+            <strong>PPF & EPF</strong> are best for conservative investors
+            seeking guaranteed safety. <strong>Tax Saver FD</strong> is suitable
+            only for senior citizens.
+          </p>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 1 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-80c-1" type="leaderboard" />
       </div>
 
-      {/* --- WHAT IS 80C --- */}
-      <h2 id="what-is-80c">What is Section 80C?</h2>
-      <p>
-        <strong>Section 80C</strong> of the Income Tax Act allows individuals
-        and HUFs to claim a deduction of up to <strong>₹1.5 lakh</strong> from
-        their total taxable income.
-      </p>
-
-      <div className="callout-box info-box">
-        <h3>Key Highlights</h3>
-        <ul>
-          <li>
-            <strong>Limit:</strong> ₹1.5 Lakh per financial year (shared across
-            80C, 80CCC, 80CCD(1)).
-          </li>
-          <li>
-            <strong>Tax Regime:</strong> Available ONLY under the{' '}
-            <strong>Old Tax Regime</strong>.
-          </li>
-          <li>
-            <strong>Savings:</strong> Up to ₹46,800 tax saved for those in the
-            30% bracket.
-          </li>
-        </ul>
-        <p style={{ fontSize: '13px', marginTop: '12px' }}>
-          Reference:{' '}
-          <a
-            href="https://www.incometax.gov.in"
-            rel="nofollow noopener"
-            target="_blank"
-            style={{
-              color: 'var(--color-action-cta)',
-              textDecoration: 'underline',
-            }}
+      {/* --- SECTION 1: WHAT IS 80C --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2
+            id="what-is-80c"
+            className="mb-4 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
           >
-            Income Tax Department (Section 80C rules)
-          </a>
-        </p>
-      </div>
+            <Briefcase className="h-6 w-6 text-blue-600" /> What is Section 80C?
+          </h2>
+          <p className="mb-6 text-slate-700 leading-relaxed">
+            <strong>Section 80C</strong> of the Income Tax Act allows
+            individuals and HUFs to claim a deduction of up to{' '}
+            <strong>₹1.5 lakh</strong> from their total taxable income. It is
+            the most popular tax-saving section in India.
+          </p>
 
-      {/* --- HOW IT WORKS --- */}
-      <h2 id="calculation">How Section 80C Deductions Work</h2>
-      <p>
-        <strong>Example Calculation (30% Tax Bracket):</strong>
-      </p>
-      <div className="table-responsive">
-        <table className="data-table">
-          <tbody>
-            <tr>
-              <td>Gross Taxable Income</td>
-              <td>₹10,00,000</td>
-            </tr>
-            <tr>
-              <td>Less: 80C Investment</td>
-              <td style={{ color: 'var(--color-brand-green)' }}>- ₹1,50,000</td>
-            </tr>
-            <tr>
-              <td>Net Taxable Income</td>
-              <td>₹8,50,000</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Tax Saved (30% + Cess)</strong>
-              </td>
-              <td style={{ fontWeight: 'bold', color: '#16a34a' }}>₹46,800</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <div className="rounded-lg bg-slate-50 border border-slate-200 p-5">
+            <h3 className="mb-3 font-semibold text-slate-900">
+              Key Highlights
+            </h3>
+            <ul className="space-y-3 text-slate-700">
+              <li className="flex items-start gap-3">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+                <span>
+                  <strong>Limit:</strong> ₹1.5 Lakh per financial year (shared
+                  across 80C, 80CCC, 80CCD(1)).
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+                <span>
+                  <strong>Tax Regime:</strong> Available ONLY under the{' '}
+                  <strong>Old Tax Regime</strong>.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+                <span>
+                  <strong>Savings:</strong> Up to ₹46,800 tax saved for those in
+                  the 30% bracket.
+                </span>
+              </li>
+            </ul>
+            <p className="mt-4 text-xs text-slate-500">
+              Reference:{' '}
+              <a
+                href="https://www.incometax.gov.in"
+                rel="nofollow noopener"
+                target="_blank"
+                className="text-blue-600 hover:underline"
+              >
+                Income Tax Department (Section 80C rules)
+              </a>
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* --- SECTION 2: CALCULATION --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2
+            id="calculation"
+            className="mb-4 text-2xl font-bold text-slate-900 scroll-mt-20"
+          >
+            How Section 80C Deductions Work
+          </h2>
+          <p className="mb-6 text-slate-700">
+            Let&apos;s see a breakdown for someone in the{' '}
+            <strong>30% tax bracket</strong>:
+          </p>
+
+          <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Gross Taxable Income
+                  </TableCell>
+                  <TableCell className="text-right">₹10,00,000</TableCell>
+                </TableRow>
+                <TableRow className="bg-red-50/50">
+                  <TableCell className="font-medium text-slate-700">
+                    Less: 80C Investment
+                  </TableCell>
+                  <TableCell className="text-right font-medium text-emerald-600">
+                    - ₹1,50,000
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Net Taxable Income
+                  </TableCell>
+                  <TableCell className="text-right">₹8,50,000</TableCell>
+                </TableRow>
+                <TableRow className="bg-emerald-100/50">
+                  <TableCell className="font-bold text-slate-900">
+                    Tax Saved (30% + Cess)
+                  </TableCell>
+                  <TableCell className="text-right font-bold text-emerald-700 text-lg">
+                    ₹46,800
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 2 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-80c-2" type="leaderboard" />
       </div>
 
-      {/* --- ELIGIBLE INVESTMENTS LIST --- */}
-      <h2 id="list">Complete List of Section 80C Eligible Investments</h2>
+      {/* --- SECTION 3: INVESTMENT LIST --- */}
+      <section className="mb-12">
+        <h2
+          id="list"
+          className="mb-6 text-3xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Complete List of Section 80C Eligible Investments
+        </h2>
 
-      <div className="guide-image-wrap">
-        <Image
-          src="/images/guides/tax/tax-benefits-80c-24b.webp"
-          alt="List of tax saving options under section 80C"
-          width={1200}
-          height={600}
-          className="guide-image"
-        />
-      </div>
+        <div className="mb-8 overflow-hidden rounded-xl bg-slate-50 border border-slate-200 flex justify-center shadow-sm">
+          <Image
+            src="/images/guides/tax/tax-benefits-80c-24b.webp"
+            alt="List of tax saving options under section 80C"
+            width={800}
+            height={400}
+            className="rounded-lg w-full h-auto"
+          />
+        </div>
 
-      <h3>1. Public Provident Fund (PPF)</h3>
-      <WikiText
-        content={`<strong>Returns:</strong> 7.1% (Tax-Free). <br/><strong>Lock-in:</strong> 15 Years. <br/>Best for risk-free retirement planning.`}
-      />
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* PPF */}
+          <Card className="hover:shadow-md transition-shadow duration-200">
+            <CardHeader className="pb-2 bg-slate-50/50 border-b border-slate-100">
+              <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-emerald-600" /> 1. Public
+                Provident Fund (PPF)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-slate-600 space-y-3">
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Returns</span>
+                <span className="font-semibold text-emerald-600">
+                  7.1% (Tax-Free)
+                </span>
+              </div>
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Lock-in</span>
+                <span className="font-medium text-slate-900">15 Years</span>
+              </div>
+              <p className="text-sm italic text-slate-500">
+                Best for risk-free retirement planning.
+              </p>
+            </CardContent>
+          </Card>
 
-      <h3>2. Employee Provident Fund (EPF)</h3>
-      <WikiText
-        content={`<strong>Returns:</strong> 8.25% (Tax-Free). <br/><strong>Lock-in:</strong> Until Retirement. <br/>Mandatory and excellent for salaried employees.`}
-      />
+          {/* EPF */}
+          <Card className="hover:shadow-md transition-shadow duration-200">
+            <CardHeader className="pb-2 bg-slate-50/50 border-b border-slate-100">
+              <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
+                <Briefcase className="h-5 w-5 text-blue-600" /> 2. Employee
+                Provident Fund (EPF)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-slate-600 space-y-3">
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Returns</span>
+                <span className="font-semibold text-emerald-600">
+                  8.25% (Tax-Free)
+                </span>
+              </div>
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Lock-in</span>
+                <span className="font-medium text-slate-900">
+                  Until Retirement
+                </span>
+              </div>
+              <p className="text-sm italic text-slate-500">
+                Mandatory and excellent for salaried employees.
+              </p>
+            </CardContent>
+          </Card>
 
-      <h3>3. ELSS (Equity Linked Savings Scheme)</h3>
-      <WikiText
-        content={`<strong>Returns:</strong> 12-15% (Market Linked). <br/><strong>Lock-in:</strong> 3 Years (Shortest). <br/>Best for wealth creation and beating inflation.`}
-      />
+          {/* ELSS */}
+          <Card className="hover:shadow-md transition-shadow duration-200 border-l-4 border-l-amber-400">
+            <CardHeader className="pb-2 bg-slate-50/50 border-b border-slate-100">
+              <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-amber-500" /> 3. ELSS Mutual
+                Funds (Top Pick)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-slate-600 space-y-3">
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Returns</span>
+                <span className="font-semibold text-emerald-600">
+                  12-15% (Market Linked)
+                </span>
+              </div>
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Lock-in</span>
+                <span className="font-medium text-emerald-600">
+                  3 Years (Shortest)
+                </span>
+              </div>
+              <p className="text-sm italic text-slate-500">
+                Best for wealth creation and beating inflation.
+              </p>
+            </CardContent>
+          </Card>
 
-      <h3>4. Tax Saver Fixed Deposit (FD)</h3>
-      <WikiText
-        content={`<strong>Returns:</strong> 6-7.5% (Taxable). <br/><strong>Lock-in:</strong> 5 Years. <br/>Best for senior citizens needing safety.`}
-      />
+          {/* FD */}
+          <Card className="hover:shadow-md transition-shadow duration-200">
+            <CardHeader className="pb-2 bg-slate-50/50 border-b border-slate-100">
+              <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
+                <Landmark className="h-5 w-5 text-slate-500" /> 4. Tax Saver FD
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-slate-600 space-y-3">
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Returns</span>
+                <span className="font-semibold text-amber-600">
+                  6-7.5% (Taxable)
+                </span>
+              </div>
+              <div className="flex justify-between text-sm border-b border-dashed border-slate-200 pb-2">
+                <span>Lock-in</span>
+                <span className="font-medium text-slate-900">5 Years</span>
+              </div>
+              <p className="text-sm italic text-slate-500">
+                Best for senior citizens needing safety.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-      <h3>5. National Pension System (NPS)</h3>
-      <WikiText
-        content={`<strong>Returns:</strong> 9-12% (Market Linked). <br/><strong>Lock-in:</strong> Until Age 60. <br/>Offers additional ₹50,000 deduction under 80CCD(1B).`}
-      />
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          {/* NPS */}
+          <Card className="bg-slate-50 border-slate-200">
+            <CardContent className="p-5">
+              <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                <Wallet className="h-4 w-4 text-slate-600" /> 5. National
+                Pension System (NPS)
+              </h3>
+              <p className="text-sm text-slate-600 mb-2">
+                <strong>Returns:</strong> 9-12% (Market Linked).
+                <br />
+                <strong>Lock-in:</strong> Until Age 60.
+              </p>
+              <Badge
+                variant="outline"
+                className="text-xs bg-white text-emerald-700 border-emerald-200"
+              >
+                Extra ₹50,000 deduction (80CCD 1B)
+              </Badge>
+            </CardContent>
+          </Card>
 
-      <h3>6. Sukanya Samriddhi Yojana (SSY)</h3>
-      <WikiText
-        content={`<strong>Returns:</strong> 8.2% (Tax-Free). <br/><strong>Lock-in:</strong> 21 Years. <br/>Dedicated scheme for girl child under 10 years.`}
-      />
+          {/* SSY */}
+          <Card className="bg-slate-50 border-slate-200">
+            <CardContent className="p-5">
+              <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-pink-500" /> 6. Sukanya
+                Samriddhi (SSY)
+              </h3>
+              <p className="text-sm text-slate-600 mb-2">
+                <strong>Returns:</strong> 8.2% (Tax-Free).
+                <br />
+                <strong>Lock-in:</strong> 21 Years.
+              </p>
+              <Badge
+                variant="outline"
+                className="text-xs bg-white text-pink-700 border-pink-200"
+              >
+                For Girl Child Only
+              </Badge>
+            </CardContent>
+          </Card>
+        </div>
 
-      <div className="callout-box info-box">
-        <strong>Others:</strong> Life Insurance Premiums (Term/LIC), NSC, SCSS,
-        Home Loan Principal Repayment, and Children&apos;s Tuition Fees.
-      </div>
+        <div className="mt-6 rounded-lg bg-blue-50/70 p-4 text-sm text-blue-800 border border-blue-100 flex items-start gap-3">
+          <Lightbulb className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+          <div>
+            <strong>Other Options:</strong> Life Insurance Premiums (Term/LIC),
+            NSC, SCSS, Home Loan Principal Repayment, and Children&apos;s
+            Tuition Fees.
+          </div>
+        </div>
+      </section>
 
       {/* 💰 AD SLOT 3 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-80c-3" type="leaderboard" />
       </div>
 
-      {/* --- RANKED BY RETURNS --- */}
-      <h2 id="returns-ranking">
-        Section 80C Investments Ranked by Returns (Post-Tax)
-      </h2>
+      {/* --- SECTION 4: RANKING TABLE --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-slate-900">
+            Investments Ranked by Returns (Post-Tax)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* High Returns */}
+            <div>
+              <h3 className="mb-3 text-lg font-semibold text-emerald-800 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5" /> High-Return Options (10%+
+                Post-Tax)
+              </h3>
+              <div className="overflow-hidden rounded-lg border border-slate-200">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-slate-50">
+                      <TableHead>Investment</TableHead>
+                      <TableHead>Pre-Tax Return</TableHead>
+                      <TableHead>Post-Tax (30% Slab)</TableHead>
+                      <TableHead>Risk</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-bold">ELSS Funds</TableCell>
+                      <TableCell>12-15%</TableCell>
+                      <TableCell className="font-bold text-emerald-600">
+                        11-13%
+                      </TableCell>
+                      <TableCell>High</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>NPS (Equity)</TableCell>
+                      <TableCell>10-12%</TableCell>
+                      <TableCell>9-11%</TableCell>
+                      <TableCell>Medium</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
 
-      <h3>High-Return Options (10%+ Post-Tax)</h3>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Investment</th>
-              <th>Pre-Tax Return</th>
-              <th>Post-Tax (30% Slab)</th>
-              <th>Risk</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>ELSS Funds</strong>
-              </td>
-              <td>12-15%</td>
-              <td
-                style={{
-                  color: 'var(--color-brand-green)',
-                  fontWeight: 'bold',
-                }}
-              >
-                11-13%
-              </td>
-              <td>High</td>
-            </tr>
-            <tr>
-              <td>NPS (Equity)</td>
-              <td>10-12%</td>
-              <td>9-11%</td>
-              <td>Medium</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            {/* Medium Returns */}
+            <div>
+              <h3 className="mb-3 text-lg font-semibold text-blue-800 flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5" /> Medium-Return Options (7-9%
+                Post-Tax)
+              </h3>
+              <div className="overflow-hidden rounded-lg border border-slate-200">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-slate-50">
+                      <TableHead>Investment</TableHead>
+                      <TableHead>Return</TableHead>
+                      <TableHead>Tax Status</TableHead>
+                      <TableHead>Risk</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">EPF</TableCell>
+                      <TableCell>8.25%</TableCell>
+                      <TableCell className="text-emerald-600 font-medium">
+                        Tax-Free
+                      </TableCell>
+                      <TableCell>Zero</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">SSY</TableCell>
+                      <TableCell>8.2%</TableCell>
+                      <TableCell className="text-emerald-600 font-medium">
+                        Tax-Free
+                      </TableCell>
+                      <TableCell>Zero</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">PPF</TableCell>
+                      <TableCell>7.1%</TableCell>
+                      <TableCell className="text-emerald-600 font-medium">
+                        Tax-Free
+                      </TableCell>
+                      <TableCell>Zero</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
 
-      <h3>Medium-Return Options (7-9% Post-Tax)</h3>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Investment</th>
-              <th>Return</th>
-              <th>Tax Status</th>
-              <th>Risk</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>EPF</strong>
-              </td>
-              <td>8.25%</td>
-              <td style={{ color: 'var(--color-brand-green)' }}>Tax-Free</td>
-              <td>Zero</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>SSY</strong>
-              </td>
-              <td>8.2%</td>
-              <td style={{ color: 'var(--color-brand-green)' }}>Tax-Free</td>
-              <td>Zero</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>PPF</strong>
-              </td>
-              <td>7.1%</td>
-              <td style={{ color: 'var(--color-brand-green)' }}>Tax-Free</td>
-              <td>Zero</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            {/* Low Returns */}
+            <div>
+              <h3 className="mb-3 text-lg font-semibold text-amber-800 flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5" /> Low-Return Options (&lt;7%
+                Post-Tax)
+              </h3>
+              <div className="overflow-hidden rounded-lg border border-slate-200">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-slate-50">
+                      <TableHead>Investment</TableHead>
+                      <TableHead>Pre-Tax</TableHead>
+                      <TableHead>Post-Tax (30% Slab)</TableHead>
+                      <TableHead>Risk</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        Tax Saver FD
+                      </TableCell>
+                      <TableCell>6-7.5%</TableCell>
+                      <TableCell className="text-red-600">4.2-5.2%</TableCell>
+                      <TableCell>Zero</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">NSC</TableCell>
+                      <TableCell>7.7%</TableCell>
+                      <TableCell className="text-red-600">5.3%</TableCell>
+                      <TableCell>Zero</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">LIC / Trad.</TableCell>
+                      <TableCell>4-6%</TableCell>
+                      <TableCell>4-6%</TableCell>
+                      <TableCell>Low</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          </div>
 
-      <h3>Low-Return Options (&lt;7% Post-Tax)</h3>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Investment</th>
-              <th>Pre-Tax</th>
-              <th>Post-Tax (30% Slab)</th>
-              <th>Risk</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Tax Saver FD</td>
-              <td>6-7.5%</td>
-              <td style={{ color: '#dc2626' }}>4.2-5.2%</td>
-              <td>Zero</td>
-            </tr>
-            <tr>
-              <td>NSC</td>
-              <td>7.7%</td>
-              <td style={{ color: '#dc2626' }}>5.3%</td>
-              <td>Zero</td>
-            </tr>
-            <tr>
-              <td>LIC / Trad.</td>
-              <td>4-6%</td>
-              <td>4-6%</td>
-              <td>Low</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="callout-box update-box">
-        <strong>Key Insight:</strong> ELSS delivers{' '}
-        <strong>2-3x higher post-tax returns</strong> than FD for investors in
-        the 30% tax bracket.
-      </div>
+          <div className="mt-6 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
+            <TrendingUp className="h-6 w-6 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="text-sm text-emerald-900">
+              <strong>Key Insight:</strong> ELSS delivers{' '}
+              <strong>2-3x higher post-tax returns</strong> than FD for
+              investors in the 30% tax bracket.
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 4 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-80c-4" type="leaderboard" />
       </div>
 
-      {/* --- COMPARISON TABLE --- */}
-      <h2 id="comparison">ELSS vs PPF vs EPF vs FD: Complete Comparison</h2>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>ELSS</th>
-              <th>PPF</th>
-              <th>EPF</th>
-              <th>FD</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Returns</strong>
-              </td>
-              <td style={{ color: 'var(--color-brand-green)' }}>12-15%</td>
-              <td>7.1%</td>
-              <td>8.25%</td>
-              <td>6-7.5%</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Lock-in</strong>
-              </td>
-              <td style={{ color: 'var(--color-brand-green)' }}>
-                3 Years (Lowest)
-              </td>
-              <td>15 Years</td>
-              <td>Retirement</td>
-              <td>5 Years</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Risk</strong>
-              </td>
-              <td>High</td>
-              <td>Zero</td>
-              <td>Zero</td>
-              <td>Zero</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Tax on Returns</strong>
-              </td>
-              <td>12.5% on gains &gt;1.25L</td>
-              <td style={{ color: 'var(--color-brand-green)' }}>Tax-Free</td>
-              <td style={{ color: 'var(--color-brand-green)' }}>Tax-Free</td>
-              <td style={{ color: '#dc2626' }}>Fully Taxable</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Best For</strong>
-              </td>
-              <td>Wealth Creation</td>
-              <td>Safety</td>
-              <td>Salaried</td>
-              <td>Seniors</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      {/* --- SECTION 5: COMPARISON --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2
+            id="comparison"
+            className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+          >
+            ELSS vs PPF vs EPF vs FD: Comparison
+          </h2>
 
-      {/* --- SALARIED STRATEGY --- */}
-      <h2 id="strategy">Best Tax Saving Strategy for Salaried Employees</h2>
+          <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-slate-100 hover:bg-slate-100">
+                  <TableHead className="w-37.5">Feature</TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    ELSS
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    PPF
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    EPF
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">FD</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium">Returns</TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    12-15%
+                  </TableCell>
+                  <TableCell>7.1%</TableCell>
+                  <TableCell>8.25%</TableCell>
+                  <TableCell>6-7.5%</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Lock-in</TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    3 Years
+                  </TableCell>
+                  <TableCell>15 Years</TableCell>
+                  <TableCell>Retirement</TableCell>
+                  <TableCell>5 Years</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Risk</TableCell>
+                  <TableCell className="text-amber-600">High</TableCell>
+                  <TableCell className="text-emerald-600">Zero</TableCell>
+                  <TableCell className="text-emerald-600">Zero</TableCell>
+                  <TableCell className="text-emerald-600">Zero</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Tax on Returns</TableCell>
+                  <TableCell>12.5% &gt; 1.25L</TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    Tax-Free
+                  </TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    Tax-Free
+                  </TableCell>
+                  <TableCell className="text-red-600">Fully Taxable</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Best For</TableCell>
+                  <TableCell>Wealth</TableCell>
+                  <TableCell>Safety</TableCell>
+                  <TableCell>Salaried</TableCell>
+                  <TableCell>Seniors</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
 
-      <h3>If You&apos;re in the 30% Tax Bracket</h3>
-      <p>
-        <strong>Goal:</strong> Maximize deductions up to ₹2 Lakh.
-      </p>
-      <ul className="checklist">
-        <li>
-          <strong>1. EPF (₹60k+):</strong> Your mandatory contribution counts.
-        </li>
-        <li>
-          <strong>2. ELSS SIP (₹60k):</strong> Start a ₹5,000/month SIP for
-          growth.
-        </li>
-        <li>
-          <strong>3. PPF (₹30k):</strong> Add balance here for stability.
-        </li>
-        <li>
-          <strong>4. NPS (₹50k):</strong> Invest extra ₹50,000 under Section
-          80CCD(1B) for <strong>extra ₹15,600 tax savings</strong>.
-        </li>
-      </ul>
+      {/* --- SECTION 6: STRATEGY --- */}
+      <section className="mb-12">
+        <h2
+          id="strategy"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Best Tax Saving Strategy for Salaried Employees
+        </h2>
 
-      <p>
-        <strong>Total Tax Saved:</strong> ₹46,800 (80C) + ₹15,600 (NPS) ={' '}
-        <strong>₹62,400/year</strong>.
-      </p>
+        <Card className="border-emerald-200 bg-linear-to-br from-white to-emerald-50/50 shadow-md">
+          <CardHeader className="border-b border-emerald-100 pb-3">
+            <CardTitle className="text-lg text-emerald-900">
+              If You&apos;re in the 30% Tax Bracket (Goal: ₹2 Lakh Deduction)
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <ul className="space-y-4">
+              <li className="flex items-start gap-4">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white shadow-sm">
+                  1
+                </div>
+                <div>
+                  <strong className="block text-slate-900 text-lg">
+                    EPF (Approx ₹60k+)
+                  </strong>
+                  <span className="text-slate-600">
+                    Your mandatory monthly contribution automatically counts
+                    towards 80C.
+                  </span>
+                </div>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white shadow-sm">
+                  2
+                </div>
+                <div>
+                  <strong className="block text-slate-900 text-lg">
+                    ELSS SIP (₹60k)
+                  </strong>
+                  <span className="text-slate-600">
+                    Start a ₹5,000/month SIP. This builds wealth while saving
+                    tax.
+                  </span>
+                </div>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white shadow-sm">
+                  3
+                </div>
+                <div>
+                  <strong className="block text-slate-900 text-lg">
+                    PPF (₹30k)
+                  </strong>
+                  <span className="text-slate-600">
+                    Add balance here for stability and debt allocation.
+                  </span>
+                </div>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-sm">
+                  4
+                </div>
+                <div>
+                  <strong className="block text-slate-900 text-lg">
+                    NPS (₹50k)
+                  </strong>
+                  <span className="text-slate-600">
+                    Invest extra ₹50,000 under Section 80CCD(1B) for
+                    <span className="text-emerald-700 font-bold px-1">
+                      extra ₹15,600 tax savings
+                    </span>
+                    over the 1.5L limit.
+                  </span>
+                </div>
+              </li>
+            </ul>
+
+            <div className="mt-8 border-t border-emerald-200 pt-4 text-center">
+              <span className="text-lg font-medium text-slate-700">
+                Total Tax Saved:
+              </span>{' '}
+              <span className="text-3xl font-bold text-emerald-700">
+                ₹62,400 / year
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
       {/* 💰 AD SLOT 5 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-80c-5" type="leaderboard" />
       </div>
 
-      {/* --- WHO SHOULD CHOOSE WHAT --- */}
-      <h2 id="recommendations">Who Should Choose What?</h2>
+      {/* --- SECTION 7: RECOMMENDATIONS --- */}
+      <section className="mb-12">
+        <h2
+          id="recommendations"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Who Should Choose What?
+        </h2>
 
-      <div className="strategy-grid">
-        <div className="strategy-card">
-          <h4>Choose ELSS If...</h4>
-          <ul>
-            <li>You are under 50 years old.</li>
-            <li>You want to beat inflation.</li>
-            <li>You can wait 3+ years.</li>
-            <li>You are in the 30% tax slab.</li>
-          </ul>
-        </div>
-        <div className="strategy-card">
-          <h4>Choose PPF If...</h4>
-          <ul>
-            <li>You want zero risk.</li>
-            <li>You are self-employed.</li>
-            <li>You are saving for long-term (15y).</li>
-            <li>You want tax-free interest.</li>
-          </ul>
-        </div>
-        <div className="strategy-card">
-          <h4>Choose FD If...</h4>
-          <ul>
-            <li>You are a Senior Citizen.</li>
-            <li>You cannot tolerate any volatility.</li>
-            <li>You are in a lower tax bracket.</li>
-          </ul>
-        </div>
-      </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card className="border-t-4 border-t-emerald-500 shadow-md">
+            <CardHeader className="pb-3 bg-slate-50">
+              <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-emerald-600" /> Choose ELSS
+                If...
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-sm text-slate-600">
+              <ul className="space-y-2 list-disc pl-4 marker:text-emerald-500">
+                <li>You are under 50 years old.</li>
+                <li>You want to beat inflation.</li>
+                <li>You can wait 3+ years.</li>
+                <li>You are in the 30% tax slab.</li>
+              </ul>
+            </CardContent>
+          </Card>
 
-      {/* --- MISTAKES --- */}
-      <h2 id="mistakes">Common Mistakes to Avoid</h2>
-      <ul>
-        <li>
-          ❌ <strong>Buying Insurance for Tax:</strong> Traditional LIC policies
-          give only 4-6% returns. Buy Term Insurance for cover and ELSS for
-          growth.
-        </li>
-        <li>
-          ❌ <strong>Ignoring NPS:</strong> Missing out on the additional
-          ₹50,000 deduction is a waste of ₹15,600 in tax savings.
-        </li>
-        <li>
-          ❌ <strong>Too Many Plans:</strong> Don&apos;t buy a new policy every
-          March. Stick to one or two solid investments (ELSS + PPF).
-        </li>
-      </ul>
+          <Card className="border-t-4 border-t-blue-500 shadow-md">
+            <CardHeader className="pb-3 bg-slate-50">
+              <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-blue-600" /> Choose PPF
+                If...
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-sm text-slate-600">
+              <ul className="space-y-2 list-disc pl-4 marker:text-blue-500">
+                <li>You want zero risk.</li>
+                <li>You are self-employed.</li>
+                <li>You are saving for long-term (15y).</li>
+                <li>You want tax-free interest.</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-t-4 border-t-amber-500 shadow-md">
+            <CardHeader className="pb-3 bg-slate-50">
+              <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <Landmark className="h-5 w-5 text-amber-600" /> Choose FD If...
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 text-sm text-slate-600">
+              <ul className="space-y-2 list-disc pl-4 marker:text-amber-500">
+                <li>You are a Senior Citizen.</li>
+                <li>You cannot tolerate any volatility.</li>
+                <li>You are in a lower tax bracket.</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* --- SECTION 8: MISTAKES --- */}
+      <section className="mb-12">
+        <h2
+          id="mistakes"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <AlertTriangle className="h-7 w-7 text-amber-500" /> Common Mistakes
+          to Avoid
+        </h2>
+        <Card className="border-red-100 bg-red-50/30">
+          <CardContent className="pt-6">
+            <ul className="space-y-4">
+              <li className="flex gap-4 items-start">
+                <XCircle className="h-6 w-6 shrink-0 text-red-500 mt-0.5" />
+                <div className="text-slate-700">
+                  <strong className="block text-slate-900 text-lg">
+                    Buying Insurance for Tax
+                  </strong>
+                  Traditional LIC policies give only 4-6% returns. Buy Term
+                  Insurance for cover and ELSS for growth.
+                </div>
+              </li>
+              <li className="flex gap-4 items-start">
+                <XCircle className="h-6 w-6 shrink-0 text-red-500 mt-0.5" />
+                <div className="text-slate-700">
+                  <strong className="block text-slate-900 text-lg">
+                    Ignoring NPS
+                  </strong>
+                  Missing out on the additional ₹50,000 deduction is a waste of
+                  ₹15,600 in tax savings.
+                </div>
+              </li>
+              <li className="flex gap-4 items-start">
+                <XCircle className="h-6 w-6 shrink-0 text-red-500 mt-0.5" />
+                <div className="text-slate-700">
+                  <strong className="block text-slate-900 text-lg">
+                    Too Many Plans
+                  </strong>
+                  Don&apos;t buy a new policy every March. Stick to one or two
+                  solid investments (ELSS + PPF).
+                </div>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
 
       {/* 💰 AD SLOT 6 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-80c-6" type="leaderboard" />
       </div>
 
-      {/* --- MINI QNA --- */}
-      <div className="mini-qna">
-        <h2>Common Questions Investors Ask</h2>
-        <ul>
-          <li>Which 80C option has the shortest lock-in? (ELSS - 3 Years)</li>
-          <li>Is 80C available in the New Tax Regime? (No)</li>
-          <li>Can I save more than ₹1.5 Lakh? (Yes, via NPS 80CCD(1B))</li>
-          <li>Is FD interest tax-free? (No, it is fully taxable)</li>
-        </ul>
+      {/* --- SECTION 9: FAQS --- */}
+      <section className="mb-12">
+        <h2
+          id="faqs"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          FAQs: Section 80C Tax Saving
+        </h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {FAQ_ITEMS.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border rounded-lg px-4 bg-white"
+            >
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          <AccordionItem
+            value="item-custom-1"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Does Home Loan Principal count under 80C?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes, the principal component of your home loan EMI is eligible for
+              deduction under Section 80C up to the ₹1.5 lakh limit.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+
+      <div className="mb-8 border-t border-slate-200 pt-8">
+        <AuthorBio />
       </div>
 
-      {/* --- FAQS --- */}
-      <h2 id="faqs">FAQs: Section 80C Tax Saving</h2>
-      <div className="faqs-accordion">
-        <details>
-          <summary>
-            Q1: What is the maximum deduction under Section 80C in 2025?
-          </summary>
-          <p>
-            The maximum deduction remains <strong>₹1.5 lakh</strong> per
-            financial year. This limit includes investments in EPF, PPF, ELSS,
-            LIC, and Principal repayment of Home Loans.
-          </p>
-        </details>
-        <details>
-          <summary>
-            Q2: How much tax can I save with ₹1.5 Lakh investment?
-          </summary>
-          <p>
-            If you are in the <strong>30% bracket</strong>, you save{' '}
-            <strong>₹46,800</strong>. In the 20% bracket, you save ₹31,200. In
-            the 5% bracket, you save ₹15,600.
-          </p>
-        </details>
-        <details>
-          <summary>Q3: Should I invest in ELSS or PPF?</summary>
-          <p>
-            If you want wealth creation and can handle some risk,{' '}
-            <strong>ELSS</strong> is better due to higher returns (12-15%). If
-            you want complete safety and tax-free returns, <strong>PPF</strong>{' '}
-            is better, though returns are lower (7.1%).
-          </p>
-        </details>
-        <details>
-          <summary>Q4: Does Home Loan Principal count under 80C?</summary>
-          <p>
-            Yes, the principal component of your home loan EMI is eligible for
-            deduction under Section 80C up to the ₹1.5 lakh limit.
-          </p>
-        </details>
-        <details>
-          <summary>
-            Q5: Can I claim 80C deduction in the New Tax Regime?
-          </summary>
-          <p>
-            No. The New Tax Regime (default) does not allow deductions under
-            Section 80C, 80D, or HRA. You must opt for the Old Tax Regime to
-            claim these.
-          </p>
-        </details>
-      </div>
-
-      <AuthorBio />
-
-      <p className="legal-disclaimer">
+      <p className="mb-8 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
         Disclaimer: This content is for informational purposes only and does not
         constitute financial or tax advice. Tax laws are subject to change.
         Please consult a Chartered Accountant (CA) or financial advisor before
@@ -698,25 +1020,34 @@ With 15+ eligible investments ranging from <strong>ELSS mutual funds</strong> (1
       </p>
 
       {/* --- FINAL CTA --- */}
-      <section className="final-cta">
-        <div className="final-cta-inner">
-          <h2>Ready to Save Tax?</h2>
-          <p>
+      <Card className="bg-slate-900 text-white border-none shadow-xl">
+        <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+            Ready to Save Tax?
+          </h2>
+          <p className="mb-8 max-w-lg text-slate-300 text-lg">
             Calculate how much your investment can grow with our free tools.
+            Compare ELSS vs PPF vs FD returns instantly.
           </p>
-          <div className="final-cta-row">
-            <Link href="/elss-calculator" className="primary-cta">
-              ELSS Calculator
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/elss-calculator"
+              className="rounded-lg bg-emerald-500 px-8 py-4 font-bold text-white transition hover:bg-emerald-600 shadow-lg hover:shadow-emerald-500/25"
+            >
+              Start ELSS Calculator
             </Link>
-            <Link href="/ppf-calculator" className="secondary-cta">
-              PPF Calculator
+            <Link
+              href="/ppf-calculator"
+              className="rounded-lg border border-slate-600 bg-slate-800 px-8 py-4 font-bold text-white transition hover:bg-slate-700 hover:border-slate-500"
+            >
+              Check PPF Returns
             </Link>
           </div>
-        </div>
-      </section>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 7 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print mt-8">
         <AdSlot id="guide-80c-7" type="leaderboard" />
       </div>
     </article>

@@ -1,11 +1,40 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import React from 'react';
 import AdSlot from '@/components/AdSlot';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import {
+  TrendingUp,
+  Clock,
+  CheckCircle2,
+  Lock,
+  BarChart3,
+  PieChart,
+  AlertTriangle,
+  FileText,
+  Lightbulb,
+} from 'lucide-react';
 
+// --- SEO METADATA ---
 export const metadata: Metadata = {
   title: 'ELSS Funds Guide 2025: Save Tax & Build Wealth (3-Year Lock-in)',
   description:
@@ -37,6 +66,34 @@ export const metadata: Metadata = {
   },
 };
 
+const FAQ_ITEMS = [
+  {
+    question: 'Can I invest more than ₹1.5 lakh in ELSS?',
+    answer:
+      'Yes, you can invest any amount. However, only ₹1,50,000 qualifies for tax deduction under Section 80C. Excess amount continues to grow but without tax benefit.',
+  },
+  {
+    question: "What happens if I don't redeem after 3 years?",
+    answer:
+      'Nothing negative. Your investment continues to grow. You can redeem anytime after 3 years whenever you need – there is no compulsion to withdraw.',
+  },
+  {
+    question: 'Can I switch ELSS funds during lock-in?',
+    answer:
+      'No. Switching is treated as redemption and purchase. Since redemption is not allowed during the 3-year lock-in, you cannot switch funds.',
+  },
+  {
+    question: 'Is ELSS better than PPF?',
+    answer:
+      'ELSS is better for wealth creation (12-15% potential) and liquidity (3 years). PPF is better for safety (Govt backed) and complete tax exemption (EEE), but has a 15-year lock-in.',
+  },
+  {
+    question: 'Do I need to file ITR if I redeem ELSS?',
+    answer:
+      'You should file ITR if your total income exceeds the basic exemption limit or if your Long Term Capital Gains exceed ₹1.25 Lakh.',
+  },
+];
+
 export default function ELSSGuide() {
   // --- Article Schema ---
   const articleSchema = {
@@ -64,7 +121,7 @@ export default function ELSSGuide() {
   };
 
   return (
-    <>
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -81,433 +138,633 @@ export default function ELSSGuide() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <article className="article">
-        <header
-          style={{
-            marginBottom: 32,
-            borderBottom: '1px solid #e2e8f0',
-            paddingBottom: 24,
-          }}
+      {/* --- HEADER --- */}
+      <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-blue-100 text-blue-800 hover:bg-blue-200 px-3 py-1"
         >
-          <span
-            className="badge-flagship"
-            style={{
-              background: '#dbeafe',
-              color: '#1e40af',
-              marginBottom: 12,
-              display: 'inline-block',
-              padding: '4px 12px',
-              borderRadius: '4px',
-              fontSize: '12px',
-              fontWeight: 600,
-            }}
-          >
-            Mutual Funds & Tax Planning
+          Mutual Funds & Tax Planning
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+          ELSS Funds Guide 2025: Save Tax & Build Wealth with 3-Year Lock-in
+        </h1>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 12 Min Read
           </span>
-          <h1
-            style={{
-              fontSize: 'clamp(28px, 4vw, 42px)',
-              lineHeight: 1.2,
-              marginBottom: 16,
-            }}
-          >
-            ELSS Funds Guide 2025: Save Tax & Build Wealth with 3-Year Lock-in
-          </h1>
-
-          <div
-            style={{
-              fontSize: 14,
-              color: 'var(--color-text-muted)',
-              marginBottom: 20,
-              display: 'flex',
-              gap: 12,
-              alignItems: 'center',
-              flexWrap: 'wrap',
-            }}
-          >
-            <span>
-              Last Updated: <strong>Jan 2025</strong>
-            </span>
-            <span>•</span>
-            <span>12 Min Read</span>
-          </div>
-
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Updated: <strong className="text-slate-700">Jan 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Verified
+          </span>
+        </div>
+        <div className="mt-6">
           <ShareTools title="ELSS Funds Guide 2025" />
-        </header>
+        </div>
+      </header>
 
-        {/* 🖼️ IMAGE 1: HERO IMAGE (Save as: public/images/guides/elss/elss-hero.webp) */}
-        {/*  */}
-        <figure style={{ marginBottom: 32 }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#f0fdf4',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #bbf7d0',
-            }}
-          >
-            <Image
-              src="/images/guides/elss/elss-hero.webp"
-              alt="ELSS Funds: Tax Saving plus Wealth Creation"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-        </figure>
-
-        <WikiText
-          content={`
+      {/* --- INTRO CARD --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm overflow-hidden">
+        <div className="relative h-64 w-full sm:h-80 md:h-96 bg-emerald-50">
+          <Image
+            src="/images/guides/elss/elss-hero.webp"
+            alt="ELSS Funds: Tax Saving plus Wealth Creation"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+        <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          <WikiText
+            content={`
           <p>Equity Linked Savings Scheme (ELSS) has become the go-to tax-saving investment choice for young Indians who want to combine tax benefits with wealth creation potential. Unlike traditional tax-saving options like PPF and fixed deposits, ELSS offers the dual advantage of equity market exposure and the shortest lock-in period of just 3 years.</p>
         `}
-        />
+          />
+        </CardContent>
+      </Card>
 
-        {/* AD SLOT 1 */}
-        <div className="no-print" style={{ marginBottom: 32 }}>
-          <AdSlot id="elss-guide-top" type="leaderboard" />
-        </div>
+      {/* 💰 AD SLOT 1 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-top" type="leaderboard" />
+      </div>
 
-        <WikiText
-          content={`
-          <h2>What is Equity Linked Savings Scheme (ELSS)?</h2>
-          <p>Equity Linked Savings Scheme (ELSS) is a type of mutual fund that primarily invests in equity and equity-related instruments while offering tax deduction benefits under Section 80C of the Income Tax Act.</p>
+      {/* --- SECTION 1: WHAT IS ELSS --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <PieChart className="h-6 w-6 text-indigo-600" /> What is Equity
+            Linked Savings Scheme (ELSS)?
+          </h2>
+          <p className="mb-6 text-slate-700 leading-relaxed">
+            Equity Linked Savings Scheme (ELSS) is a type of mutual fund that
+            primarily invests in equity and equity-related instruments while
+            offering tax deduction benefits under Section 80C of the Income Tax
+            Act.
+          </p>
 
-          <h3>Key Features of ELSS Funds</h3>
-          <ul>
-            <li><strong>Investment Type:</strong> At least 80% of the corpus must be invested in equity.</li>
-            <li><strong>Tax Benefits:</strong> Investments qualify for deduction under <strong>Section 80C</strong> (Max ₹1.5 Lakh/year).</li>
-            <li><strong>Lock-in Period:</strong> <strong>3 years</strong> (Shortest among all 80C options).</li>
-            <li><strong>Minimum Investment:</strong> As low as ₹500 via SIP.</li>
-            <li><strong>Returns:</strong> Market-linked (Historical average: 12-15%).</li>
-          </ul>
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card className="bg-slate-50 border-slate-200">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base text-slate-900">
+                  Key Features
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-700">
+                  <li className="flex gap-2">
+                    <span className="text-emerald-500 font-bold">✓</span>
+                    <strong>Investment Type:</strong> At least 80% in equity.
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-emerald-500 font-bold">✓</span>
+                    <strong>Tax Benefits:</strong> Section 80C (Max ₹1.5L).
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-emerald-500 font-bold">✓</span>
+                    <strong>Lock-in:</strong> 3 years (Shortest).
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-emerald-500 font-bold">✓</span>
+                    <strong>Returns:</strong> 12-15% (Historical).
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-          <h3>How ELSS Works</h3>
-          <ol>
-            <li><strong>Invest:</strong> Fund manager puts your money in a diversified equity portfolio.</li>
-            <li><strong>Lock:</strong> Your investment gets locked for 3 years from the date of purchase.</li>
-            <li><strong>Tax Save:</strong> You claim deduction under Section 80C.</li>
-            <li><strong>Grow:</strong> Fund value grows based on stock market performance.</li>
-            <li><strong>Redeem:</strong> After 3 years, you can sell or continue holding.</li>
-          </ol>
-        `}
-        />
-
-        {/* AD SLOT 2 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="elss-guide-basics-rect" type="box" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>Why Choose ELSS for Tax Saving?</h2>
-          
-          <h3>1. Shortest Lock-in Period</h3>
-          <div class="table-container">
-            <table class="rate-table">
-              <thead><tr><th>Investment Option</th><th>Lock-in Period</th></tr></thead>
-              <tbody>
-                <tr><td><strong>ELSS</strong></td><td><strong>3 years</strong> ✅</td></tr>
-                <tr><td>National Savings Certificate (NSC)</td><td>5 years</td></tr>
-                <tr><td>Tax Saver Fixed Deposit</td><td>5 years</td></tr>
-                <tr><td>Public Provident Fund (PPF)</td><td>15 years</td></tr>
-              </tbody>
-            </table>
+            <Card className="bg-slate-50 border-slate-200">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base text-slate-900">
+                  How ELSS Works
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 marker:font-bold">
+                  <li>
+                    <strong>Invest:</strong> Fund manager builds equity
+                    portfolio.
+                  </li>
+                  <li>
+                    <strong>Lock:</strong> Money locked for 3 years.
+                  </li>
+                  <li>
+                    <strong>Tax Save:</strong> Claim deduction in ITR.
+                  </li>
+                  <li>
+                    <strong>Grow:</strong> Wealth grows with market.
+                  </li>
+                  <li>
+                    <strong>Redeem:</strong> Sell or hold after 3 years.
+                  </li>
+                </ol>
+              </CardContent>
+            </Card>
           </div>
+        </CardContent>
+      </Card>
 
-          <h3>2. Higher Return Potential</h3>
-          <p>While past performance doesn't guarantee future returns, the equity exposure in ELSS provides growth potential that fixed-income instruments cannot match. Historical averages show ELSS delivering 12-15% vs PPF's 7.1%.</p>
+      {/* 💰 AD SLOT 2 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-basics-rect" type="box" />
+      </div>
 
-          <h3>3. Dual Benefit</h3>
-          <p>You get immediate tax savings (up to ₹46,800 in 30% slab) AND long-term wealth creation.</p>
-        `}
-        />
+      {/* --- SECTION 2: WHY CHOOSE ELSS --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+          <TrendingUp className="h-6 w-6 text-emerald-600" /> Why Choose ELSS
+          for Tax Saving?
+        </h2>
 
-        {/* 🖼️ IMAGE 2: COMPOUNDING GRAPH (Save as: public/images/guides/elss/elss-vs-ppf-growth.webp) */}
-        {/*  */}
-        <figure style={{ margin: '32px 0' }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#fffbeb',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #fde68a',
-            }}
-          >
+        <div className="space-y-6">
+          <Card className="border-slate-200">
+            <CardHeader className="bg-slate-50 border-b border-slate-100 pb-3">
+              <CardTitle className="text-base text-slate-900">
+                1. Shortest Lock-in Period
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Investment Option</TableHead>
+                    <TableHead>Lock-in Period</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className="font-bold text-emerald-700">
+                      ELSS Mutual Fund
+                    </TableCell>
+                    <TableCell className="font-bold text-emerald-700">
+                      3 years ✅
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>National Savings Certificate (NSC)</TableCell>
+                    <TableCell>5 years</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Tax Saver FD</TableCell>
+                    <TableCell>5 years</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Public Provident Fund (PPF)</TableCell>
+                    <TableCell>15 years</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base text-slate-900">
+                2. Higher Return Potential
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <p>
+                While past performance doesn&apos;t guarantee future returns,
+                the equity exposure in ELSS provides growth potential that
+                fixed-income instruments cannot match. Historical averages show
+                ELSS delivering <strong>12-15%</strong> vs PPF&apos;s 7.1%.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* 🖼️ IMAGE 2: COMPOUNDING GRAPH */}
+        <div className="my-8 overflow-hidden rounded-xl border border-amber-200 bg-amber-50">
+          <div className="relative aspect-video w-full">
             <Image
               src="/images/guides/elss/elss-vs-ppf-growth.webp"
               alt="Graph showing ELSS wealth creation potential vs PPF"
               fill
-              style={{ objectFit: 'contain', padding: '16px' }}
+              className="object-contain p-4"
             />
           </div>
-          <figcaption
-            style={{
-              textAlign: 'center',
-              fontSize: '14px',
-              color: '#64748b',
-              marginTop: '8px',
-            }}
-          >
-            The power of compounding: Equity exposure can significantly
-            outperform fixed income over 10+ years.
-          </figcaption>
-        </figure>
+          <div className="border-t border-amber-100 bg-amber-100/50 p-3 text-center text-xs font-medium text-amber-900">
+            Figure: The power of compounding (Equity vs Fixed Income)
+          </div>
+        </div>
+      </section>
 
-        <WikiText
-          content={`
-          <h2>Tax Benefits of ELSS: Section 80C Explained</h2>
-          
-          <h3>Tax Deduction at Investment</h3>
-          <p>Investments up to <strong>₹1,50,000 per financial year</strong> qualify for deduction. This amount is deducted from your gross total income before calculating tax.</p>
-          
-          <div class="callout-box info-box">
-            <strong>Example Calculation:</strong><br/>
-            If you are in the 30% tax bracket and invest ₹1,50,000 in ELSS:<br/>
-            Tax Saved = ₹46,800 (30% of ₹1.5L + Cess).<br/>
-            <strong>Effective cost of investment = ~₹1,03,000.</strong>
+      {/* --- SECTION 3: TAX BENEFITS --- */}
+      <Card className="mb-12 border-emerald-200 bg-emerald-50/30 shadow-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-xl text-emerald-800">
+            <FileText className="h-6 w-6" /> Tax Benefits: Section 80C Explained
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div>
+            <h3 className="font-semibold text-slate-900 mb-2">
+              Deduction at Investment
+            </h3>
+            <p className="text-sm text-slate-700">
+              Investments up to <strong>₹1,50,000 per financial year</strong>{' '}
+              qualify for deduction. This amount is deducted from your gross
+              total income before calculating tax.
+            </p>
           </div>
 
-          <h3>Tax on Returns (LTCG)</h3>
-          <p>ELSS taxation follows equity mutual fund rules:</p>
-          <ul>
-            <li><strong>Long-Term Capital Gains (LTCG):</strong> Gains up to ₹1.25 Lakh per year are <strong>Tax-Free</strong>.</li>
-            <li><strong>Above ₹1.25 Lakh:</strong> Taxed at 10% without indexation.</li>
-          </ul>
-        `}
-        />
-
-        {/* AD SLOT 3 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="elss-guide-mid-banner" type="leaderboard" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>ELSS vs PPF vs FD: Complete Comparison</h2>
-          <div class="table-container">
-            <table class="rate-table">
-              <thead>
-                <tr>
-                  <th>Parameter</th>
-                  <th>ELSS</th>
-                  <th>PPF</th>
-                  <th>Tax Saver FD</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><strong>Returns</strong></td><td>12-15% (Market)</td><td>7.1% (Fixed)</td><td>5.5-7% (Fixed)</td></tr>
-                <tr><td><strong>Lock-in</strong></td><td><strong>3 Years</strong> ✅</td><td>15 Years</td><td>5 Years</td></tr>
-                <tr><td><strong>Risk</strong></td><td>High (Equity)</td><td>Zero (Govt)</td><td>Low (Bank)</td></tr>
-                <tr><td><strong>Tax Status</strong></td><td>EET (LTCG Tax > 1.25L)</td><td><strong>EEE</strong> ✅</td><td>ETT (Interest Taxable)</td></tr>
-                <tr><td><strong>Best For</strong></td><td>Wealth Creation</td><td>Retirement/Safety</td><td>Capital Protection</td></tr>
-              </tbody>
-            </table>
+          <div className="bg-white p-4 rounded-lg border border-emerald-200">
+            <strong className="block text-emerald-700 mb-2">
+              Example Calculation:
+            </strong>
+            <p className="text-sm text-slate-600">
+              If you are in the 30% tax bracket and invest ₹1,50,000 in ELSS:
+              <br />
+              Tax Saved = <span className="font-bold">₹46,800</span> (30% of
+              ₹1.5L + Cess).
+              <br />
+              <strong>Effective cost of investment = ~₹1,03,000.</strong>
+            </p>
           </div>
-          
-          <h3>The Balanced Approach</h3>
-          <p>Many financial planners recommend a combination: <strong>40-50% in ELSS</strong> for growth and <strong>30-40% in PPF</strong> for stability.</p>
-        `}
-        />
 
-        {/* AD SLOT 4 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="elss-guide-comparison-rect" type="box" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>Risk Factors in ELSS Investment</h2>
-          <p>While returns are attractive, ELSS carries equity risks:</p>
-          <ul>
-            <li><strong>Market Risk:</strong> NAV can fall during market downturns. Short-term volatility is normal.</li>
-            <li><strong>Lock-in Risk:</strong> You cannot access funds for 3 years, even in emergencies.</li>
-            <li><strong>Fund Manager Risk:</strong> Performance depends on the manager's stock selection.</li>
-          </ul>
-
-          <h2>Historical Returns of ELSS Funds</h2>
-          <div class="table-container">
-            <table class="rate-table">
-              <thead><tr><th>Time Period</th><th>Category Average CAGR</th></tr></thead>
-              <tbody>
-                <tr><td>3 Years</td><td>16-20%</td></tr>
-                <tr><td>5 Years</td><td>15-19%</td></tr>
-                <tr><td>10 Years</td><td>13-16%</td></tr>
-              </tbody>
-            </table>
+          <div>
+            <h3 className="font-semibold text-slate-900 mb-2">
+              Tax on Returns (LTCG)
+            </h3>
+            <ul className="text-sm text-slate-700 list-disc pl-5 space-y-1">
+              <li>
+                <strong>Long-Term Capital Gains (LTCG):</strong> Gains up to
+                ₹1.25 Lakh per year are <strong>Tax-Free</strong>.
+              </li>
+              <li>
+                <strong>Above ₹1.25 Lakh:</strong> Taxed at 10% without
+                indexation.
+              </li>
+            </ul>
           </div>
-          <p><em>Note: Better ELSS funds often beat benchmarks by 2-4% over long periods.</em></p>
-        `}
-        />
+        </CardContent>
+      </Card>
 
-        {/* AD SLOT 5 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="elss-guide-returns-banner" type="leaderboard" />
+      {/* 💰 AD SLOT 3 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-mid-banner" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 4: COMPARISON TABLE --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20">
+          ELSS vs PPF vs FD: Complete Comparison
+        </h2>
+
+        <Card className="border-slate-200 shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-slate-100 hover:bg-slate-100">
+                  <TableHead className="font-bold text-slate-900">
+                    Parameter
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    ELSS
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    PPF
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    Tax Saver FD
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Returns
+                  </TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    12-15% (Market)
+                  </TableCell>
+                  <TableCell>7.1% (Fixed)</TableCell>
+                  <TableCell>5.5-7% (Fixed)</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Lock-in
+                  </TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    3 Years ✅
+                  </TableCell>
+                  <TableCell>15 Years</TableCell>
+                  <TableCell>5 Years</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Risk
+                  </TableCell>
+                  <TableCell className="text-amber-600">
+                    High (Equity)
+                  </TableCell>
+                  <TableCell className="text-emerald-600">
+                    Zero (Govt)
+                  </TableCell>
+                  <TableCell>Low (Bank)</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Tax Status
+                  </TableCell>
+                  <TableCell>LTCG &gt; 1.25L Taxed</TableCell>
+                  <TableCell className="text-emerald-600 font-bold">
+                    EEE (Tax Free) ✅
+                  </TableCell>
+                  <TableCell className="text-red-600">
+                    Interest Taxable
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    Best For
+                  </TableCell>
+                  <TableCell>Wealth Creation</TableCell>
+                  <TableCell>Retirement</TableCell>
+                  <TableCell>Capital Safety</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </Card>
+
+        <div className="mt-4 p-4 rounded-lg bg-blue-50 text-blue-900 text-sm border border-blue-100">
+          <strong>The Balanced Approach:</strong> Many financial planners
+          recommend a combination: <strong>40-50% in ELSS</strong> for growth
+          and <strong>30-40% in PPF</strong> for stability.
         </div>
+      </section>
 
-        <WikiText
-          content={`
-          <h2>How to Choose the Right ELSS Fund</h2>
-          <p>With 30+ funds available, use this checklist:</p>
-          <ol>
-            <li><strong>Long-Term Track Record:</strong> Look for consistent performance over 5-10 years, not just last year's topper.</li>
-            <li><strong>Expense Ratio:</strong> Lower is better. Always choose <strong>Direct Plans</strong> over Regular plans.</li>
-            <li><strong>Portfolio Quality:</strong> Ensure diversification across sectors and market caps.</li>
-            <li><strong>Fund Manager Tenure:</strong> Prefer funds where the manager has been stable for 3+ years.</li>
-          </ol>
+      {/* 💰 AD SLOT 4 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-comparison-rect" type="box" />
+      </div>
 
-          <h2>How to Invest: SIP vs Lump Sum</h2>
-          
-          <h3>SIP (Systematic Investment Plan) – Recommended ✅</h3>
-          <p>Invest a fixed amount (e.g., ₹5,000) every month.</p>
-          <ul>
-            <li><strong>Rupee Cost Averaging:</strong> Buys more units when markets are low.</li>
-            <li><strong>Discipline:</strong> Reduces timing risk and emotional decisions.</li>
-            <li><strong>Note:</strong> Each SIP installment has its own separate 3-year lock-in.</li>
-          </ul>
+      {/* --- SECTION 5: HISTORICAL RETURNS --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+          <BarChart3 className="h-6 w-6 text-indigo-600" /> Historical Returns &
+          Risk
+        </h2>
 
-          <h3>Lump Sum Investment</h3>
-          <p>One-time investment (e.g., ₹1.5 Lakh in March).</p>
-          <ul>
-            <li><strong>Pros:</strong> Full capital works from day one; simpler lock-in tracking.</li>
-            <li><strong>Cons:</strong> High timing risk if invested at market peak.</li>
-          </ul>
-        `}
-        />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="border-slate-200">
+            <CardHeader className="pb-2 bg-slate-50">
+              <CardTitle className="text-base text-slate-900">
+                Category Average CAGR
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>3 Years</TableCell>
+                    <TableCell className="font-bold text-right">
+                      16-20%
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>5 Years</TableCell>
+                    <TableCell className="font-bold text-right">
+                      15-19%
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>10 Years</TableCell>
+                    <TableCell className="font-bold text-right">
+                      13-16%
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
 
-        {/* AD SLOT 6 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="elss-guide-strategy-rect" type="box" />
+          <Card className="border-amber-100 bg-amber-50/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-amber-800 text-lg flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5" /> Risk Factors
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700 space-y-2">
+              <p>
+                <strong>Market Risk:</strong> NAV can fall during market
+                downturns.
+              </p>
+              <p>
+                <strong>Lock-in Risk:</strong> You cannot access funds for 3
+                years.
+              </p>
+              <p>
+                <strong>Manager Risk:</strong> Performance depends on stock
+                selection.
+              </p>
+            </CardContent>
+          </Card>
         </div>
+      </section>
 
-        <WikiText
-          content={`
-          <h2>How to Redeem ELSS After 3-Year Lock-in</h2>
-          <p>Once the 3-year lock-in ends, you have three options:</p>
-          <ol>
-            <li><strong>Full Redemption:</strong> Withdraw everything if you need funds.</li>
-            <li><strong>Partial Redemption:</strong> Withdraw only what you need.</li>
-            <li><strong>Continue Holding (Recommended):</strong> If fund performance is good, stay invested to let compounding work for 5-7+ years.</li>
-          </ol>
+      {/* 💰 AD SLOT 5 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-returns-banner" type="leaderboard" />
+      </div>
 
-          <h3>Tax Optimization Strategy</h3>
-          <p>If your gains exceed ₹1.25 Lakh, consider spreading redemption over 2 financial years to minimize tax liability.</p>
+      {/* --- SECTION 6: HOW TO CHOOSE & INVEST --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20">
+          How to Choose & Invest
+        </h2>
 
-          <h2>Common Mistakes to Avoid</h2>
-          <ul class="checklist">
-            <li>Investing only for tax saving and ignoring risk profile.</li>
-            <li>Waiting until March for a last-minute lump sum rush.</li>
-            <li>Redeeming immediately after 3 years, missing long-term growth.</li>
-            <li>Chasing last year's top performer without checking consistency.</li>
-            <li>Investing through Regular plans instead of Direct plans.</li>
-          </ul>
-        `}
-        />
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Checklist */}
+          <Card className="border-slate-200">
+            <CardHeader>
+              <CardTitle className="text-lg">Checklist for Selection</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3 text-sm text-slate-700">
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                  <span>
+                    <strong>Long-Term Track Record:</strong> Look for consistent
+                    performance over 5-10 years.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                  <span>
+                    <strong>Expense Ratio:</strong> Lower is better. Always
+                    choose <strong>Direct Plans</strong>.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                  <span>
+                    <strong>Portfolio Quality:</strong> Ensure diversification
+                    across sectors.
+                  </span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
 
-        {/* AD SLOT 7 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="elss-guide-bottom" type="leaderboard" />
+          {/* SIP vs Lumpsum */}
+          <Card className="border-slate-200">
+            <CardHeader>
+              <CardTitle className="text-lg">SIP vs Lump Sum</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="rounded bg-emerald-50 p-3 border border-emerald-100">
+                <strong className="text-emerald-800 block mb-1">
+                  SIP (Recommended ✅)
+                </strong>
+                <p className="text-xs text-slate-600">
+                  Invest fixed amount monthly. Reduces timing risk via Rupee
+                  Cost Averaging.
+                </p>
+              </div>
+              <div className="rounded bg-slate-50 p-3 border border-slate-100">
+                <strong className="text-slate-800 block mb-1">Lump Sum</strong>
+                <p className="text-xs text-slate-600">
+                  One-time investment. Good if you have bulk cash, but carries
+                  high market timing risk.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
+      </section>
 
-        <section className="conclusion-box" style={{ marginTop: 40 }}>
-          <h2 style={{ fontSize: 24, marginBottom: 16 }}>
-            Conclusion: Is ELSS Right for You?
+      {/* 💰 AD SLOT 6 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-strategy-rect" type="box" />
+      </div>
+
+      {/* --- SECTION 7: REDEMPTION & MISTAKES --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <Lock className="h-6 w-6 text-amber-500" /> Redemption & Mistakes
           </h2>
-          <p style={{ marginBottom: 16 }}>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <h3 className="font-semibold text-lg text-slate-900 mb-3">
+                After 3-Year Lock-in
+              </h3>
+              <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 marker:font-bold">
+                <li>
+                  <strong>Full Redemption:</strong> Withdraw everything if you
+                  need funds.
+                </li>
+                <li>
+                  <strong>Partial Redemption:</strong> Withdraw only what you
+                  need.
+                </li>
+                <li>
+                  <strong>Continue Holding (Best):</strong> Let compounding work
+                  for 5-7+ years.
+                </li>
+              </ol>
+            </div>
+
+            <div className="bg-red-50 p-4 rounded-lg border border-red-100">
+              <h3 className="font-semibold text-red-800 mb-2 flex items-center gap-2">
+                <AlertTriangle className="h-4 w-4" /> Mistakes to Avoid
+              </h3>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-red-700">
+                <li>Investing only for tax saving.</li>
+                <li>Waiting until March for lump sum.</li>
+                <li>Redeeming immediately after 3 years.</li>
+                <li>Chasing last year&apos;s top performer.</li>
+                <li>Choosing Regular plans over Direct.</li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 💰 AD SLOT 7 */}
+      <div className="no-print my-8">
+        <AdSlot id="elss-guide-bottom" type="leaderboard" />
+      </div>
+
+      {/* --- CONCLUSION --- */}
+      <Card className="mb-12 bg-slate-900 text-white border-slate-900">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-yellow-400" /> Conclusion: Is
+            ELSS Right for You?
+          </h2>
+          <p className="mb-6 text-slate-300 leading-relaxed">
             ELSS combines the best of both worlds – tax saving today and wealth
             creation for tomorrow. It is ideal for{' '}
             <strong>young professionals</strong> and investors with a{' '}
             <strong>5+ year horizon</strong>.
           </p>
-          <ul style={{ paddingLeft: 20 }}>
-            <li>
-              <strong>Start Early:</strong> Begin a monthly SIP in April to
-              avoid year-end stress.
-            </li>
-            <li>
-              <strong>Think Long Term:</strong> While lock-in is 3 years, aim to
-              hold for 7-10 years.
-            </li>
-            <li>
-              <strong>Stay Disciplined:</strong> Don&apos;t stop SIPs during
-              market downturns; that&apos;s when you accumulate more units.
-            </li>
-          </ul>
-        </section>
-
-        {/* --- FAQ Section --- */}
-        <div style={{ marginTop: 40 }}>
-          <h2 style={{ marginBottom: 20 }}>FAQs: ELSS Mutual Funds</h2>
-
-          <div className="faqs-accordion">
-            <details>
-              <summary>Can I invest more than ₹1.5 lakh in ELSS?</summary>
-              <p>
-                Yes, you can invest any amount. However, only ₹1,50,000
-                qualifies for tax deduction under Section 80C. Excess amount
-                continues to grow but without tax benefit.
-              </p>
-            </details>
-
-            <details>
-              <summary>
-                What happens if I don&apos;t redeem after 3 years?
-              </summary>
-              <p>
-                Nothing negative. Your investment continues to grow. You can
-                redeem anytime after 3 years whenever you need – there is no
-                compulsion to withdraw.
-              </p>
-            </details>
-
-            <details>
-              <summary>Can I switch ELSS funds during lock-in?</summary>
-              <p>
-                No. Switching is treated as redemption and purchase. Since
-                redemption is not allowed during the 3-year lock-in, you cannot
-                switch funds.
-              </p>
-            </details>
-
-            <details>
-              <summary>Is ELSS better than PPF?</summary>
-              <p>
-                ELSS is better for wealth creation (12-15% potential) and
-                liquidity (3 years). PPF is better for safety (Govt backed) and
-                complete tax exemption (EEE), but has a 15-year lock-in.
-              </p>
-            </details>
-
-            <details>
-              <summary>Do I need to file ITR if I redeem ELSS?</summary>
-              <p>
-                You should file ITR if your total income exceeds the basic
-                exemption limit or if your Long Term Capital Gains exceed ₹1.25
-                Lakh.
-              </p>
-            </details>
+          <div className="flex flex-col sm:flex-row gap-4 text-sm">
+            <div className="bg-slate-800 p-3 rounded border border-slate-700 flex-1">
+              <strong className="block text-emerald-400 mb-1">
+                Start Early
+              </strong>
+              Begin monthly SIP in April to avoid stress.
+            </div>
+            <div className="bg-slate-800 p-3 rounded border border-slate-700 flex-1">
+              <strong className="block text-emerald-400 mb-1">
+                Think Long Term
+              </strong>
+              Aim to hold for 7-10 years for best returns.
+            </div>
+            <div className="bg-slate-800 p-3 rounded border border-slate-700 flex-1">
+              <strong className="block text-emerald-400 mb-1">
+                Stay Disciplined
+              </strong>
+              Don&apos;t stop SIPs during market downturns.
+            </div>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
+      {/* --- FAQs --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+          FAQs: ELSS Mutual Funds
+        </h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {FAQ_ITEMS.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border rounded-lg px-4 bg-white"
+            >
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
+
+      <div className="mb-8 border-t border-slate-200 pt-8">
         <AuthorBio />
+      </div>
 
-        <div className="legal-disclaimer">
-          <p>
-            <strong>Disclaimer:</strong> Mutual Fund investments are subject to
-            market risks, read all scheme related documents carefully. The past
-            performance of mutual funds is not necessarily indicative of future
-            performance. This article is for educational purposes only and does
-            not constitute financial advice. Please consult a tax advisor before
-            making investment decisions.
-          </p>
-        </div>
-      </article>
-    </>
+      <div className="text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100 mb-8">
+        <p>
+          <strong>Disclaimer:</strong> Mutual Fund investments are subject to
+          market risks, read all scheme related documents carefully. The past
+          performance of mutual funds is not necessarily indicative of future
+          performance. This article is for educational purposes only and does
+          not constitute financial advice. Please consult a tax advisor before
+          making investment decisions.
+        </p>
+      </div>
+    </article>
   );
 }

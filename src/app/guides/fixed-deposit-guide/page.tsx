@@ -7,6 +7,36 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import {
+  TrendingUp,
+  Clock,
+  CheckCircle2,
+  ShieldCheck,
+  AlertTriangle,
+  Lightbulb,
+  FileText,
+  Info,
+  Layers,
+  Banknote,
+  MinusCircle,
+  PlusCircle,
+} from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -38,9 +68,28 @@ export const metadata: Metadata = {
   },
 };
 
+const FAQ_ITEMS = [
+  {
+    question: 'What is FD laddering?',
+    answer:
+      'FD laddering is a strategy where you split your investment into multiple fixed deposits with staggered maturity dates (e.g., 1 year, 2 years, 3 years) instead of one lumpsum FD. This provides annual liquidity and higher average returns.',
+  },
+  {
+    question: 'How can I avoid TDS on FD interest?',
+    answer:
+      'If your total income is below the taxable limit, you can submit Form 15G (below 60 years) or Form 15H (senior citizens) to your bank at the start of the financial year to prevent TDS deduction.',
+  },
+  {
+    question: 'Which is better: SCSS or Senior Citizen FD?',
+    answer:
+      'SCSS currently offers higher guaranteed returns (8.2%) and is government-backed, making it better for the first ₹30 Lakh. For amounts above that, Senior Citizen FDs are the best alternative.',
+  },
+];
+
 export default function FixedDepositGuidePage() {
   return (
-    <article className="article guide-body">
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -91,838 +140,860 @@ export default function FixedDepositGuidePage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What is FD laddering?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'FD laddering is a strategy where you split your investment into multiple fixed deposits with staggered maturity dates (e.g., 1 year, 2 years, 3 years) instead of one lumpsum FD. This provides annual liquidity and higher average returns.',
-                },
+            mainEntity: FAQ_ITEMS.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
               },
-              {
-                '@type': 'Question',
-                name: 'How can I avoid TDS on FD interest?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'If your total income is below the taxable limit, you can submit Form 15G (below 60 years) or Form 15H (senior citizens) to your bank at the start of the financial year to prevent TDS deduction.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Which is better: SCSS or Senior Citizen FD?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'SCSS currently offers higher guaranteed returns (8.2%) and is government-backed, making it better for the first ₹30 Lakh. For amounts above that, Senior Citizen FDs are the best alternative.',
-                },
-              },
-            ],
+            })),
           }),
         }}
       />
 
       {/* --- HEADER --- */}
-      <header className="guide-header no-print">
-        <span className="badge-flagship">Safe Investing</span>
-        <h1
-          style={{
-            fontSize: 'clamp(28px, 4vw, 42px)',
-            marginTop: 16,
-            lineHeight: 1.2,
-          }}
+      <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-blue-100 text-blue-800 hover:bg-blue-200 px-3 py-1"
         >
+          Safe Investing
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           FD Laddering Strategy: How to Get Higher Returns & Liquidity
         </h1>
-        <div className="guide-meta">
-          <span>
-            By <strong>Fincado Team</strong>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 12 Min Read
           </span>
-          <span>•</span>
-          <span>Updated Jan 2025</span>
-          <span>•</span>
-          <span>12 Min Read</span>
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Updated: <strong className="text-slate-700">Jan 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Verified
+          </span>
         </div>
-        <div style={{ marginTop: 20 }}>
+        <div className="mt-6">
           <ShareTools title="FD Laddering Strategy Guide" />
         </div>
       </header>
 
-      {/* --- INTRO --- */}
-      <WikiText
-        content={`
-          Fixed Deposits (FDs) are one of the most popular <strong>safe investment options</strong> in India, but many investors don't realize they can significantly improve returns and liquidity through a simple strategy called <strong>FD laddering</strong>. This technique involves splitting your investment across multiple FDs with different maturity dates instead of locking all your money into one long-term deposit, giving you the best of both worlds—higher interest rates and regular access to funds.
+      {/* --- INTRO CARD --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm">
+        <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          <WikiText
+            content={`
+            <p class="mb-4">
+              Fixed Deposits (FDs) are one of the most popular <strong>safe investment options</strong> in India, but many investors don't realize they can significantly improve returns and liquidity through a simple strategy called <strong>FD laddering</strong>.
+            </p>
+            <p>
+              This technique involves splitting your investment across multiple FDs with different maturity dates instead of locking all your money into one long-term deposit, giving you the best of both worlds—higher interest rates and regular access to funds.
+            </p>
+          `}
+          />
 
-          This comprehensive <strong>fixed deposit guide</strong> covers everything you need to know about FD laddering, compares FDs with debt mutual funds, explores senior citizen schemes like SCSS, and explains how to avoid TDS using Form 15G/15H—all designed to help you maximize returns on your safe investments in 2025.
-        `}
-      />
+          <div className="my-6 relative h-64 w-full sm:h-80 md:h-96 bg-slate-100 rounded-lg overflow-hidden">
+            <Image
+              src="/images/guides/fd/fd-laddering-hero.webp"
+              alt="Diagram showing FD laddering steps"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="guide-image-wrap">
-        <Image
-          src="/images/guides/fd/fd-laddering-hero.webp"
-          alt="Diagram showing FD laddering steps"
-          width={1200}
-          height={675}
-          priority
-          style={{
-            width: '100%',
-            height: 'auto',
-            borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          }}
-        />
-      </div>
+      {/* --- SECTION 1: WHAT IS FD LADDERING --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <Layers className="h-6 w-6 text-blue-600" /> What is Fixed Deposit
+            (FD) Laddering?
+          </h2>
+          <p className="mb-6 text-slate-700">
+            <strong>FD laddering</strong> is an investment strategy where you
+            divide your total investment amount into multiple fixed deposits
+            with staggered maturity dates rather than putting everything into a
+            single FD.
+          </p>
 
-      <h2>What is Fixed Deposit (FD) Laddering?</h2>
-      <WikiText
-        content={`
-          <strong>FD laddering</strong> is an investment strategy where you divide your total investment amount into multiple fixed deposits with staggered maturity dates rather than putting everything into a single FD.
+          <div className="rounded-lg bg-slate-50 border border-slate-200 p-5 mb-6">
+            <h3 className="mb-3 font-semibold text-slate-900">
+              Simple Definition:
+            </h3>
+            <p className="text-slate-700">
+              Instead of investing ₹5 lakh in one 5-year FD, you create a
+              &quot;ladder&quot; by splitting it into five FDs of ₹1 lakh each,
+              maturing in 1 year, 2 years, 3 years, 4 years, and 5 years
+              respectively.
+            </p>
+          </div>
 
-          <strong>Simple Definition:</strong>
-          Instead of investing ₹5 lakh in one 5-year FD, you create a "ladder" by splitting it into five FDs of ₹1 lakh each, maturing in 1 year, 2 years, 3 years, 4 years, and 5 years respectively.
-        `}
-      />
+          <div className="overflow-hidden rounded-lg border border-slate-200 mb-4">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-slate-100 hover:bg-slate-100">
+                  <TableHead className="font-bold text-slate-900">
+                    FD Split
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    Investment
+                  </TableHead>
+                  <TableHead className="font-bold text-slate-900">
+                    Maturity Tenure
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    FD 1
+                  </TableCell>
+                  <TableCell>₹1,00,000</TableCell>
+                  <TableCell>1 Year</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    FD 2
+                  </TableCell>
+                  <TableCell>₹1,00,000</TableCell>
+                  <TableCell>2 Years</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    FD 3
+                  </TableCell>
+                  <TableCell>₹1,00,000</TableCell>
+                  <TableCell>3 Years</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    FD 4
+                  </TableCell>
+                  <TableCell>₹1,00,000</TableCell>
+                  <TableCell>4 Years</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium text-slate-700">
+                    FD 5
+                  </TableCell>
+                  <TableCell>₹1,00,000</TableCell>
+                  <TableCell>5 Years</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
 
-      <div className="example-box">
-        <h3>Visual Example: FD Laddering with ₹5 Lakh</h3>
-        <p>
-          <strong>Total Investment:</strong> ₹5,00,000
-        </p>
-        <p>
-          <strong>Strategy:</strong> Split into 5 FDs of ₹1,00,000 each
-        </p>
-        <div
-          className="table-responsive"
-          style={{
-            margin: '20px 0',
-            borderRadius: '8px',
-            border: '1px solid #e2e8f0',
-            overflow: 'hidden',
-          }}
-        >
-          <table
-            className="data-table"
-            style={{ width: '100%', borderCollapse: 'collapse' }}
-          >
-            <thead>
-              <tr
-                style={{
-                  backgroundColor: '#f8fafc',
-                  borderBottom: '2px solid #e2e8f0',
-                }}
-              >
-                <th
-                  style={{
-                    padding: '12px 16px',
-                    textAlign: 'left',
-                    fontWeight: '600',
-                    color: '#1e293b',
-                  }}
-                >
-                  FD Split
-                </th>
-                <th
-                  style={{
-                    padding: '12px 16px',
-                    textAlign: 'left',
-                    fontWeight: '600',
-                    color: '#1e293b',
-                  }}
-                >
-                  Investment
-                </th>
-                <th
-                  style={{
-                    padding: '12px 16px',
-                    textAlign: 'left',
-                    fontWeight: '600',
-                    color: '#1e293b',
-                  }}
-                >
-                  Maturity Tenure
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { id: 1, amount: '₹1,00,000', tenure: '1 Year' },
-                { id: 2, amount: '₹1,00,000', tenure: '2 Years' },
-                { id: 3, amount: '₹1,00,000', tenure: '3 Years' },
-                { id: 4, amount: '₹1,00,000', tenure: '4 Years' },
-                { id: 5, amount: '₹1,00,000', tenure: '5 Years' },
-              ].map((row, index) => (
-                <tr
-                  key={row.id}
-                  style={{
-                    borderBottom: index !== 4 ? '1px solid #e2e8f0' : 'none',
-                    backgroundColor: '#fff',
-                  }}
-                >
-                  <td style={{ padding: '12px 16px', color: '#334155' }}>
-                    <strong>FD {row.id}</strong>
-                  </td>
-                  <td style={{ padding: '12px 16px', color: '#334155' }}>
-                    {row.amount}
-                  </td>
-                  <td style={{ padding: '12px 16px', color: '#334155' }}>
-                    {row.tenure}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p>
-          <strong>Result:</strong> One FD matures EVERY YEAR.
-        </p>
-        <ul>
-          <li>
-            <strong>Year 1:</strong> FD 1 (₹1 lakh) matures → You can withdraw
-            or reinvest.
-          </li>
-          <li>
-            <strong>Year 2:</strong> FD 2 (₹1 lakh) matures → Access to funds +
-            option to reinvest.
-          </li>
-          <li>
-            <strong>Year 3:</strong> FD 3 matures, and so on...
-          </li>
-        </ul>
-        <p>
-          This creates a perpetual cycle of liquidity and reinvestment
-          opportunities.
-        </p>
-      </div>
+          <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-100 text-sm text-emerald-900">
+            <strong>Result:</strong> One FD matures EVERY YEAR. This creates a
+            perpetual cycle of liquidity and reinvestment opportunities.
+          </div>
+        </CardContent>
+      </Card>
 
       {/* --- TOC --- */}
-      <nav className="toc-box no-print">
-        <p className="toc-title">Table of Contents</p>
-        <ul className="toc-list">
-          <li>
-            <a href="#how-it-works">1. How FD Laddering Works</a>
-          </li>
-          <li>
-            <a href="#benefits">2. Benefits (Liquidity + Returns)</a>
-          </li>
-          <li>
-            <a href="#eligibility">3. Eligibility & Rules</a>
-          </li>
-          <li>
-            <a href="#example-10l">4. FD Laddering Example (₹10 Lakh)</a>
-          </li>
-          <li>
-            <a href="#taxation">5. Tax Treatment & TDS</a>
-          </li>
-          <li>
-            <a href="#fd-vs-debt">6. FD vs Debt Mutual Funds</a>
-          </li>
-          <li>
-            <a href="#scss-vs-fd">7. Senior Citizens: SCSS vs FD</a>
-          </li>
-          <li>
-            <a href="#faqs">8. FAQs</a>
-          </li>
-        </ul>
-      </nav>
+      <Card className="mb-12 border-slate-200 bg-slate-50/50 no-print">
+        <CardContent className="p-6">
+          <p className="mb-4 text-lg font-bold text-slate-900">
+            Table of Contents
+          </p>
+          <ul className="grid gap-2 sm:grid-cols-2 text-sm text-slate-700">
+            <li>
+              <a
+                href="#how-it-works"
+                className="hover:text-blue-600 hover:underline"
+              >
+                1. How FD Laddering Works
+              </a>
+            </li>
+            <li>
+              <a
+                href="#benefits"
+                className="hover:text-blue-600 hover:underline"
+              >
+                2. Benefits (Liquidity + Returns)
+              </a>
+            </li>
+            <li>
+              <a
+                href="#eligibility"
+                className="hover:text-blue-600 hover:underline"
+              >
+                3. Eligibility & Rules
+              </a>
+            </li>
+            <li>
+              <a
+                href="#example-10l"
+                className="hover:text-blue-600 hover:underline"
+              >
+                4. FD Laddering Example (₹10 Lakh)
+              </a>
+            </li>
+            <li>
+              <a
+                href="#taxation"
+                className="hover:text-blue-600 hover:underline"
+              >
+                5. Tax Treatment & TDS
+              </a>
+            </li>
+            <li>
+              <a
+                href="#fd-vs-debt"
+                className="hover:text-blue-600 hover:underline"
+              >
+                6. FD vs Debt Mutual Funds
+              </a>
+            </li>
+            <li>
+              <a
+                href="#scss-vs-fd"
+                className="hover:text-blue-600 hover:underline"
+              >
+                7. Senior Citizens: SCSS vs FD
+              </a>
+            </li>
+            <li>
+              <a href="#faqs" className="hover:text-blue-600 hover:underline">
+                8. FAQs
+              </a>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 1 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-fd-1" type="leaderboard" />
       </div>
 
-      <h2 id="how-it-works">How Does FD Laddering Work?</h2>
-      <p>
-        FD laddering works by balancing liquidity (regular access to funds) with
-        higher returns (longer-tenure FDs typically offer better rates).
-      </p>
-
-      <h3>Step-by-Step Process</h3>
-      <ol>
-        <li>
-          <strong>Step 1: Determine Your Total Investment Amount</strong>
-          <br />
-          Decide how much you want to invest (e.g., ₹5 lakh, ₹10 lakh).
-        </li>
-        <li>
-          <strong>Step 2: Choose the Number of &ldquo;Rungs&quot;</strong>
-          <br />A typical ladder has 3-5 FDs. More rungs = more frequent
-          maturities.
-        </li>
-        <li>
-          <strong>Step 3: Split the Amount Equally</strong>
-          <br />
-          Divide your total by the number of FDs (e.g., ₹5 lakh ÷ 5 = ₹1 lakh
-          each).
-        </li>
-        <li>
-          <strong>Step 4: Assign Different Tenures</strong>
-          <br />
-          Open FDs with staggered maturities (1 year, 2 years, 3 years, 4 years,
-          5 years).
-        </li>
-        <li>
-          <strong>Step 5: Reinvest or Withdraw as Needed</strong>
-          <br />
-          When the first FD matures (after 1 year), you can withdraw if you need
-          liquidity, or reinvest in a new 5-year FD to maintain the ladder.
-        </li>
-      </ol>
-
-      <div className="callout-box info-box">
-        <strong>Why This Works:</strong> You capture rising interest rates by
-        reinvesting annually, and you get regular liquidity without breaking FDs
-        and paying penalties.
-      </div>
-
-      <h2 id="benefits">Key Features & Benefits of FD Laddering</h2>
-
-      <h3>Benefits</h3>
-      <ul className="checklist">
-        <li>
-          <strong>Enhanced Liquidity:</strong> Access to a portion of capital
-          every year without penalty.
-        </li>
-        <li>
-          <strong>Higher Average Returns:</strong> Longer-tenure FDs (3-5 years)
-          offer 0.25-0.75% higher interest.
-        </li>
-        <li>
-          <strong>Interest Rate Risk Mitigation:</strong> If rates rise, you
-          reinvest at higher rates. If rates fall, older FDs are locked at high
-          rates.
-        </li>
-        <li>
-          <strong>Disciplined Investment:</strong> Forces systematic savings and
-          reduces impulsive spending.
-        </li>
-        <li>
-          <strong>Flexibility:</strong> Customize the ladder based on your needs
-          (more short-term or long-term).
-        </li>
-      </ul>
-
-      <h3>Key Features</h3>
-      <ul>
-        <li>Applicable to any investment size (₹1 Lakh or ₹1 Crore).</li>
-        <li>Works with any bank offering FDs.</li>
-        <li>Can be automated via auto-renewal instructions.</li>
-        <li>
-          Suitable for risk-averse investors, retirees, and emergency funds.
-        </li>
-      </ul>
-
-      <h2 id="eligibility">Eligibility, Limits & Rules for Fixed Deposits</h2>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Criteria</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Who Can Open?</strong>
-              </td>
-              <td>
-                Residents (18+), Minors (via guardian), NRIs (NRE/NRO), Senior
-                Citizens (60+).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Investment Limits</strong>
-              </td>
-              <td>
-                Min ₹1,000. No upper limit. DICGC insures up to ₹5 Lakh/bank.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Tenure</strong>
-              </td>
-              <td>7 days to 10 years. (Laddering uses 1-5 years typically).</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Premature Withdrawal</strong>
-              </td>
-              <td>Allowed with penalty (0.5-1% interest reduction).</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      {/* 💰 AD SLOT 2 */}
-      <div className="ad-spacer no-print">
-        <AdSlot id="guide-fd-2" type="leaderboard" />
-      </div>
-
-      <h2 id="example-10l">FD Laddering Example: ₹10 Lakh Investment</h2>
-      <p>
-        Let&apos;s see how FD laddering works in practice with a ₹10 lakh corpus
-        compared to a single FD.
-      </p>
-
-      <div className="example-box">
-        <h4>Traditional Approach (Single FD)</h4>
-        <ul>
-          <li>
-            <>
-              <strong>Investment:</strong> ₹10,00,000
-            </>
-          </li>
-          <li>
-            <>
-              <strong>Tenure:</strong> 5 Years
-            </>
-          </li>
-          <li>
-            <>
-              <strong>Interest:</strong> 7% p.a.
-            </>
-          </li>
-          <li>
-            <>
-              <strong>Liquidity:</strong> None for 5 years (penalty if broken).
-            </>
-          </li>
-        </ul>
-        <hr style={{ margin: '16px 0', borderColor: '#e2e8f0' }} />
-        <h4>FD Laddering Approach (Split into 5 FDs of ₹2 Lakh)</h4>
-        <div className="table-responsive">
-          <table className="data-table" style={{ fontSize: '0.9rem' }}>
-            <thead>
-              <tr>
-                <th>FD</th>
-                <th>Amount</th>
-                <th>Tenure</th>
-                <th>Rate (approx)</th>
-                <th>Maturity Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>FD 1</td>
-                <td>₹2,00,000</td>
-                <td>1 Year</td>
-                <td>6.5%</td>
-                <td>₹2,13,000</td>
-              </tr>
-              <tr>
-                <td>FD 2</td>
-                <td>₹2,00,000</td>
-                <td>2 Years</td>
-                <td>6.75%</td>
-                <td>₹2,27,911</td>
-              </tr>
-              <tr>
-                <td>FD 3</td>
-                <td>₹2,00,000</td>
-                <td>3 Years</td>
-                <td>7.0%</td>
-                <td>₹2,45,001</td>
-              </tr>
-              <tr>
-                <td>FD 4</td>
-                <td>₹2,00,000</td>
-                <td>4 Years</td>
-                <td>7.25%</td>
-                <td>₹2,63,474</td>
-              </tr>
-              <tr>
-                <td>FD 5</td>
-                <td>₹2,00,000</td>
-                <td>5 Years</td>
-                <td>7.5%</td>
-                <td>₹2,83,696</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p style={{ marginTop: 12 }}>
-          <strong>Key Win:</strong> You get ₹2.13 Lakh liquid cash after just 1
-          year, and similar amounts every year after that.
+      {/* --- SECTION 2: HOW IT WORKS --- */}
+      <section className="mb-12">
+        <h2
+          id="how-it-works"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <TrendingUp className="h-6 w-6 text-emerald-600" /> How Does FD
+          Laddering Work?
+        </h2>
+        <p className="mb-6 text-slate-700">
+          FD laddering works by balancing liquidity (regular access to funds)
+          with higher returns (longer-tenure FDs typically offer better rates).
         </p>
-      </div>
 
-      <h2 id="taxation">Tax Treatment of Fixed Deposits (2025)</h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6">
+            <ol className="list-decimal pl-5 space-y-4 text-slate-700 marker:font-bold marker:text-slate-900">
+              <li>
+                <strong>Determine Total Amount:</strong> Decide how much you
+                want to invest (e.g., ₹5 lakh).
+              </li>
+              <li>
+                <strong>Choose &quot;Rungs&quot;:</strong> A typical ladder has
+                3-5 FDs.
+              </li>
+              <li>
+                <strong>Split Equally:</strong> Divide total by number of FDs.
+              </li>
+              <li>
+                <strong>Stagger Tenures:</strong> Open FDs for 1, 2, 3, 4, and 5
+                years.
+              </li>
+              <li>
+                <strong>Reinvest Annually:</strong> When the 1-year FD matures,
+                reinvest it for 5 years to keep the ladder going.
+              </li>
+            </ol>
+          </CardContent>
+        </Card>
 
-      <h3>Interest Income Taxation</h3>
-      <ul>
-        <li>
-          <strong>Fully Taxable:</strong> FD interest is added to your income
-          and taxed at your slab rate (5%, 20%, 30%).
-        </li>
-        <li>
-          <strong>No Exemption:</strong> Unlike equity, there is no tax-free
-          limit for FD interest.
-        </li>
-      </ul>
-
-      <h3>TDS (Tax Deducted at Source)</h3>
-      <p>Banks deduct 10% TDS if interest exceeds:</p>
-      <ul>
-        <li>
-          <strong>₹40,000</strong> for individuals below 60.
-        </li>
-        <li>
-          <strong>₹50,000</strong> for senior citizens (60+).
-        </li>
-      </ul>
-
-      <h3>Avoiding TDS: Form 15G/15H</h3>
-      <WikiText
-        content={`If your <strong>total taxable income is below the basic exemption limit</strong> (₹2.5L for individuals, ₹3L for seniors), you can submit <strong>Form 15G (below 60)</strong> or <strong>Form 15H (60+)</strong> to prevent TDS deduction.`}
-      />
-      <p>
-        <strong>Best Practice:</strong> Submit these forms at the beginning of
-        every financial year (April) to each bank where you hold FDs.
-      </p>
-
-      <h3>Returns, Interest, or Growth Potential</h3>
-      <p>
-        <strong>Current FD Rates (2025 Benchmark):</strong>
-      </p>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Tenure</th>
-              <th>General Public</th>
-              <th>Senior Citizens</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1 Year</td>
-              <td>6.0 - 6.75%</td>
-              <td>6.5 - 7.5%</td>
-            </tr>
-            <tr>
-              <td>3 Years</td>
-              <td>6.75 - 7.25%</td>
-              <td>7.25 - 8.0%</td>
-            </tr>
-            <tr>
-              <td>5 Years</td>
-              <td>7.0 - 7.75%</td>
-              <td>7.5 - 8.5%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="risks">Risks & Things to Consider</h2>
-      <ul>
-        <li>
-          ⚠️ <strong>Interest Rate Risk:</strong> If rates fall, reinvestment
-          happens at lower yields.
-        </li>
-        <li>
-          ⚠️ <strong>Inflation Risk:</strong> Post-tax FD returns (5-6%) may
-          barely beat inflation.
-        </li>
-        <li>
-          ⚠️ <strong>TDS Impact:</strong> Forgetting Form 15G/15H can block cash
-          flow until tax refund.
-        </li>
-        <li>
-          ⚠️ <strong>Opportunity Cost:</strong> FDs lag behind equity over long
-          terms (10+ years).
-        </li>
-      </ul>
-
-      {/* 💰 AD SLOT 3 */}
-      <div className="ad-spacer no-print">
-        <AdSlot id="guide-fd-3" type="leaderboard" />
-      </div>
-
-      <h2 id="fd-vs-debt">FD vs Debt Mutual Funds: Detailed Comparison</h2>
-      <p>Both are safe options, but they serve different needs.</p>
-
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Parameter</th>
-              <th>Fixed Deposit (FD)</th>
-              <th>Debt Mutual Funds</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Nature</strong>
-              </td>
-              <td>Bank Deposit (Fixed Interest)</td>
-              <td>Market-Linked (Bonds/G-Secs)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Returns</strong>
-              </td>
-              <td>Fixed (6-8%)</td>
-              <td>Variable (6-9%)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Liquidity</strong>
-              </td>
-              <td>Penalty on Premature Withdrawal</td>
-              <td>High (Redeem Anytime, T+1)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Taxation (2025)</strong>
-              </td>
-              <td>Slab Rate (TDS Applicable)</td>
-              <td>Slab Rate (No TDS)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Safety</strong>
-              </td>
-              <td>High (DICGC Insured)</td>
-              <td>Moderate (Credit Risk)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Best For</strong>
-              </td>
-              <td>Conservative / Emergency Fund</td>
-              <td>Liquidity / Tactical Allocation</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="callout-box info-box">
-        <strong>Verdict 2025:</strong> FDs remain superior for principal safety
-        and predictability. Debt funds are better for liquidity but lost their
-        tax advantage (indexation) post-April 2023.
-      </div>
-
-      <h2 id="scss-vs-fd">Senior Citizen Special Schemes: SCSS vs FD</h2>
-      <p>For those aged 60+, SCSS is a powerful competitor to standard FDs.</p>
-
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>SCSS (Govt Scheme)</th>
-              <th>Senior Citizen FD</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Interest Rate</strong>
-              </td>
-              <td>
-                <strong>8.2%</strong> (Govt backed)
-              </td>
-              <td>6.5% - 8.5% (Bank varies)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Max Investment</strong>
-              </td>
-              <td>₹30 Lakh</td>
-              <td>No Upper Limit</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Tenure</strong>
-              </td>
-              <td>5 Years (Extendable by 3)</td>
-              <td>Flexible (7 days - 10 yrs)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Payout</strong>
-              </td>
-              <td>Quarterly Only</td>
-              <td>Flexible (Monthly/Annual)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>80C Benefit</strong>
-              </td>
-              <td>Yes (up to ₹1.5L)</td>
-              <td>Only for 5-Year Tax Saver FD</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="callout-box info-box">
-        <strong>Recommendation:</strong> Senior citizens should{' '}
-        <strong>max out SCSS first (₹30 Lakh)</strong> for the best returns
-        (8.2%), then use FD laddering for any additional surplus.
-      </div>
-
-      <h2 id="who-should-use">Who Should Use FD Laddering?</h2>
-      <h3>Ideal Candidates</h3>
-      <ul>
-        <li>
-          ✅ <strong>Conservative Investors:</strong> Prioritize capital safety
-          over high returns.
-        </li>
-        <li>
-          ✅ <strong>Retirees:</strong> Need regular liquidity for expenses.
-        </li>
-        <li>
-          ✅ <strong>Emergency Fund Builders:</strong> Perfect for 6-12
-          months&apos; corpus.
-        </li>
-        <li>
-          ✅ <strong>Goal-Based Savers:</strong> Align maturities with future
-          goals (e.g., tuition fees).
-        </li>
-      </ul>
-
-      <h3>Not Ideal For</h3>
-      <ul>
-        <li>
-          ❌ <strong>Long-Term Wealth Builders:</strong> Equity is better for
-          10+ years.
-        </li>
-        <li>
-          ❌ <strong>High Tax Bracket Individuals:</strong> Post-tax returns
-          might be negative vs inflation.
-        </li>
-      </ul>
-
-      {/* --- FAQs --- */}
-      <h2 id="faqs">FAQs: FD Laddering & Fixed Deposits</h2>
-      <div className="faqs-accordion">
-        <details>
-          <summary>What is FD laddering and how does it work?</summary>
-          <p>
-            FD laddering is a strategy where you split your investment into
-            multiple fixed deposits with different maturity dates (e.g., 1 year,
-            2 years, 3 years) instead of one lumpsum FD. This provides regular
-            liquidity and captures higher rates.
-          </p>
-        </details>
-        <details>
-          <summary>What are the benefits of FD laddering?</summary>
-          <p>
-            Key benefits include enhanced liquidity without penalties, higher
-            average returns from longer tenures, and mitigation of interest rate
-            risk.
-          </p>
-        </details>
-        <details>
-          <summary>Is FD a safe investment option?</summary>
-          <p>
-            Yes. FDs are among the safest options in India. Deposits in
-            scheduled banks are insured up to ₹5 Lakh per bank by DICGC.
-          </p>
-        </details>
-        <details>
-          <summary>How can I avoid TDS on my fixed deposit interest?</summary>
-          <p>
-            Submit <strong>Form 15G</strong> (age &lt; 60) or{' '}
-            <strong>Form 15H</strong> (age 60+) to your bank at the start of the
-            financial year if your total income is below the taxable limit.
-          </p>
-        </details>
-        <details>
-          <summary>
-            What is the difference between SCSS and senior citizen FD?
-          </summary>
-          <p>
-            SCSS offers 8.2% interest, is government-backed, and has a ₹30L
-            limit with a 5-year tenure. Senior Citizen FDs offer flexible
-            tenures and no investment cap but rates vary by bank.
-          </p>
-        </details>
-        <details>
-          <summary>Can I break an FD before maturity?</summary>
-          <p>
-            Yes, but banks charge a penalty (typically 0.5-1% lower interest).
-            FD laddering minimizes the need for this by providing annual
-            maturities.
-          </p>
-        </details>
-        <details>
-          <summary>Are fixed deposits better than debt mutual funds?</summary>
-          <p>
-            FDs offer guaranteed returns and safety. Debt funds offer better
-            liquidity but carry market risk. For conservative investors in 2025,
-            FDs are often preferred.
-          </p>
-        </details>
-      </div>
-
-      {/* --- CONCLUSION --- */}
-      <h2>Final Verdict / Conclusion</h2>
-      <div className="conclusion-box">
-        <p>
-          FD laddering transforms the traditional fixed deposit from a rigid
-          instrument into a dynamic strategy.
-        </p>
-        <h4>Key Takeaways:</h4>
-        <ul className="checklist">
-          <li>
-            <strong>Split your corpus</strong> into 3-5 parts with staggered
-            maturities.
-          </li>
-          <li>
-            <strong>Maximize SCSS</strong> first if you are a senior citizen.
-          </li>
-          <li>
-            <strong>Submit Form 15G/15H</strong> annually to save TDS.
-          </li>
-          <li>
-            Use FDs for <strong>safety</strong> and Equity for{' '}
-            <strong>growth</strong>.
-          </li>
-        </ul>
-        <p>
-          Whether building an emergency fund or planning retirement, FD
-          laddering is the smart, disciplined approach to safe investing.
-        </p>
-      </div>
-
-      {/* --- AUTHOR BIO --- */}
-      <div
-        style={{
-          marginTop: 40,
-          borderTop: '1px solid var(--color-border)',
-          paddingTop: 24,
-        }}
-      >
-        <AuthorBio />
-      </div>
-
-      <div className="legal-disclaimer">
-        <strong>Disclaimer:</strong> Interest rates are subject to change by
-        banks. Tax laws can change annually. This guide is for educational
-        purposes. Please consult a financial advisor for personalized advice.
-      </div>
-
-      {/* --- FINAL CTA --- */}
-      <section className="final-cta no-print">
-        <div className="final-cta-inner">
-          <h2>Calculate your returns now</h2>
-          <p>Check how much your FD investment will grow over time.</p>
-          <div className="final-cta-row">
-            <Link href="/fd-calculator" className="primary-cta">
-              Open FD Calculator
-            </Link>
-            <Link href="/sip-calculator" className="secondary-cta">
-              Compare with SIP
-            </Link>
-          </div>
+        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100 text-sm text-blue-900">
+          <strong>Why This Works:</strong> You capture rising interest rates by
+          reinvesting annually, and you get regular liquidity without breaking
+          FDs and paying penalties.
         </div>
       </section>
 
+      {/* --- SECTION 3: BENEFITS --- */}
+      <section className="mb-12">
+        <h2
+          id="benefits"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <ShieldCheck className="h-6 w-6 text-emerald-600" /> Key Features &
+          Benefits
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="border-emerald-100 bg-emerald-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-emerald-800 text-lg flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" /> Benefits
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="space-y-2">
+                <li className="flex gap-2">
+                  <span className="text-emerald-600">•</span>
+                  <span>
+                    <strong>Enhanced Liquidity:</strong> Yearly access to cash.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-emerald-600">•</span>
+                  <span>
+                    <strong>Higher Returns:</strong> Benefit from long-term
+                    rates.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-emerald-600">•</span>
+                  <span>
+                    <strong>Risk Mitigation:</strong> Average out rate
+                    fluctuations.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-emerald-600">•</span>
+                  <span>
+                    <strong>Discipline:</strong> Reduces impulsive breaking of
+                    FDs.
+                  </span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-100 bg-blue-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-blue-800 text-lg flex items-center gap-2">
+                <Info className="h-5 w-5" /> Key Features
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="space-y-2">
+                <li className="flex gap-2">
+                  <span className="text-blue-600">•</span>
+                  <span>Applicable to any amount (₹1 Lakh+).</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-600">•</span>
+                  <span>Works with any bank.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-600">•</span>
+                  <span>Can be automated.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-600">•</span>
+                  <span>Ideal for retirees & emergency funds.</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* --- SECTION 4: ELIGIBILITY --- */}
+      <h2
+        id="eligibility"
+        className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+      >
+        Eligibility, Limits & Rules
+      </h2>
+      <div className="overflow-hidden rounded-lg border border-slate-200 mb-12 shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-slate-100 hover:bg-slate-100">
+              <TableHead className="font-bold text-slate-900">
+                Criteria
+              </TableHead>
+              <TableHead className="font-bold text-slate-900">
+                Details
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell className="font-medium text-slate-700">
+                Who Can Open?
+              </TableCell>
+              <TableCell>
+                Residents (18+), Minors, NRIs, Senior Citizens.
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium text-slate-700">
+                Limits
+              </TableCell>
+              <TableCell>Min ₹1,000. No upper limit. DICGC Insured.</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium text-slate-700">
+                Tenure
+              </TableCell>
+              <TableCell>7 days to 10 years.</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium text-slate-700">
+                Premature Withdrawal
+              </TableCell>
+              <TableCell>Allowed with penalty (0.5-1%).</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* 💰 AD SLOT 2 */}
+      <div className="no-print my-8">
+        <AdSlot id="guide-fd-2" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 5: EXAMPLE --- */}
+      <section className="mb-12">
+        <h2
+          id="example-10l"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <Banknote className="h-6 w-6 text-emerald-600" /> FD Laddering
+          Example: ₹10 Lakh
+        </h2>
+
+        <div className="space-y-6">
+          <Card className="border-red-100 bg-red-50/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-red-800 text-lg flex items-center gap-2">
+                <MinusCircle className="h-5 w-5" /> Traditional Approach (Single
+                FD)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <p>
+                <strong>Investment:</strong> ₹10,00,000 |{' '}
+                <strong>Tenure:</strong> 5 Years
+              </p>
+              <p>
+                <strong>Problem:</strong> No liquidity for 5 years. Penalty if
+                broken.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-emerald-100 bg-emerald-50/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-emerald-800 text-lg flex items-center gap-2">
+                <PlusCircle className="h-5 w-5" /> Laddering Approach (5 FDs)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-emerald-100/50 hover:bg-emerald-100/50">
+                    <TableHead className="font-bold text-emerald-900">
+                      FD
+                    </TableHead>
+                    <TableHead className="font-bold text-emerald-900">
+                      Amount
+                    </TableHead>
+                    <TableHead className="font-bold text-emerald-900">
+                      Tenure
+                    </TableHead>
+                    <TableHead className="font-bold text-emerald-900">
+                      Rate
+                    </TableHead>
+                    <TableHead className="font-bold text-emerald-900">
+                      Maturity
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>FD 1</TableCell>
+                    <TableCell>₹2,00,000</TableCell>
+                    <TableCell>1 Year</TableCell>
+                    <TableCell>6.5%</TableCell>
+                    <TableCell>₹2,13,000</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>FD 2</TableCell>
+                    <TableCell>₹2,00,000</TableCell>
+                    <TableCell>2 Years</TableCell>
+                    <TableCell>6.75%</TableCell>
+                    <TableCell>₹2,27,911</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>FD 3</TableCell>
+                    <TableCell>₹2,00,000</TableCell>
+                    <TableCell>3 Years</TableCell>
+                    <TableCell>7.0%</TableCell>
+                    <TableCell>₹2,45,001</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>FD 4</TableCell>
+                    <TableCell>₹2,00,000</TableCell>
+                    <TableCell>4 Years</TableCell>
+                    <TableCell>7.25%</TableCell>
+                    <TableCell>₹2,63,474</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>FD 5</TableCell>
+                    <TableCell>₹2,00,000</TableCell>
+                    <TableCell>5 Years</TableCell>
+                    <TableCell>7.5%</TableCell>
+                    <TableCell>₹2,83,696</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+              <div className="p-4 bg-emerald-50 text-emerald-900 text-sm font-medium border-t border-emerald-100">
+                Key Win: You get ₹2.13 Lakh liquid cash after just 1 year!
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* --- SECTION 6: TAXATION --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2
+            id="taxation"
+            className="mb-4 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          >
+            <FileText className="h-6 w-6 text-slate-600" /> Tax Treatment & TDS
+          </h2>
+
+          <div className="grid gap-6 md:grid-cols-2 mb-6">
+            <div>
+              <h3 className="font-semibold text-slate-900 mb-2">Taxation</h3>
+              <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1">
+                <li>Fully Taxable at Slab Rate.</li>
+                <li>Added to &quot;Income from Other Sources&quot;.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 mb-2">TDS Rules</h3>
+              <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1">
+                <li>10% TDS if interest &gt; ₹40k (₹50k seniors).</li>
+                <li>20% TDS if no PAN.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+            <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+              <Lightbulb className="h-4 w-4" /> Avoiding TDS: Form 15G/15H
+            </h4>
+            <p className="text-sm text-blue-800">
+              If your total income is below the taxable limit, submit Form 15G
+              (below 60) or Form 15H (60+) to your bank annually to prevent TDS
+              deduction.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* --- SECTION 7: RISKS --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+          <AlertTriangle className="h-6 w-6 text-amber-500" /> Risks & Things to
+          Consider
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card className="border-amber-100 bg-amber-50/30">
+            <CardContent className="p-4">
+              <strong className="block text-amber-900 mb-1">
+                Interest Rate Risk
+              </strong>
+              <p className="text-sm text-slate-600">
+                Reinvestment might happen at lower rates.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-amber-100 bg-amber-50/30">
+            <CardContent className="p-4">
+              <strong className="block text-amber-900 mb-1">
+                Inflation Risk
+              </strong>
+              <p className="text-sm text-slate-600">
+                Real returns might be negative.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-amber-100 bg-amber-50/30">
+            <CardContent className="p-4">
+              <strong className="block text-amber-900 mb-1">TDS Impact</strong>
+              <p className="text-sm text-slate-600">
+                Can block cash flow until refund.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-amber-100 bg-amber-50/30">
+            <CardContent className="p-4">
+              <strong className="block text-amber-900 mb-1">
+                Opportunity Cost
+              </strong>
+              <p className="text-sm text-slate-600">
+                Equity beats FDs over 10+ years.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* 💰 AD SLOT 3 */}
+      <div className="no-print my-8">
+        <AdSlot id="guide-fd-3" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 8: COMPARISONS --- */}
+      <section className="mb-12">
+        <h2
+          id="fd-vs-debt"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          FD vs Debt Mutual Funds
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 mb-8 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Parameter
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Fixed Deposit
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Debt Funds
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Returns
+                </TableCell>
+                <TableCell>Fixed (6-8%)</TableCell>
+                <TableCell>Variable (6-9%)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Liquidity
+                </TableCell>
+                <TableCell>Penalty applied</TableCell>
+                <TableCell>High (T+1)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Safety
+                </TableCell>
+                <TableCell>High (DICGC)</TableCell>
+                <TableCell>Moderate</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+
+        <h2
+          id="scss-vs-fd"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Senior Citizens: SCSS vs FD
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 mb-6 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Feature
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  SCSS (Govt)
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Senior FD
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Interest
+                </TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  8.2%
+                </TableCell>
+                <TableCell>6.5% - 8.5%</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Limit
+                </TableCell>
+                <TableCell>Max ₹30 Lakh</TableCell>
+                <TableCell>No Limit</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Payout
+                </TableCell>
+                <TableCell>Quarterly Only</TableCell>
+                <TableCell>Flexible</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      {/* --- SECTION 9: WHO SHOULD USE --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardHeader>
+          <CardTitle className="text-xl">
+            Who Should Use FD Laddering?
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div>
+              <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" /> Ideal Candidates
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600">
+                <li>Conservative Investors.</li>
+                <li>Retirees needing liquidity.</li>
+                <li>Emergency Fund builders.</li>
+                <li>Goal-based savers.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-red-800 mb-2 flex items-center gap-2">
+                <MinusCircle className="h-5 w-5" /> Not Ideal For
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600">
+                <li>Long-term wealth builders (10+ yrs).</li>
+                <li>High tax bracket individuals.</li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* --- SECTION 10: FAQS --- */}
+      <section className="mb-12">
+        <h2
+          id="faqs"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Frequently Asked Questions
+        </h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {FAQ_ITEMS.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border rounded-lg px-4 bg-white"
+            >
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          <AccordionItem
+            value="item-custom-1"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Is FD a safe investment option?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes. FDs are among the safest options in India. Deposits in
+              scheduled banks are insured up to ₹5 Lakh per bank by DICGC.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-2"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Can I break an FD before maturity?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes, but banks charge a penalty (typically 0.5-1% lower interest).
+              FD laddering minimizes the need for this.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+
+      {/* --- CONCLUSION --- */}
+      <Card className="mb-8 border-slate-200 bg-slate-900 text-white">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <ShieldCheck className="h-6 w-6 text-emerald-400" /> Final Verdict
+          </h2>
+          <p className="mb-6 text-slate-300 leading-relaxed">
+            FD laddering transforms the traditional fixed deposit from a rigid
+            instrument into a dynamic strategy.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Split Corpus
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Maximize
+              SCSS
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Form 15G/H
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="mb-8 border-t border-slate-200 pt-8">
+        <AuthorBio />
+        <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
+          <strong>Disclaimer:</strong> Interest rates are subject to change by
+          banks. Tax laws can change annually. This guide is for educational
+          purposes. Please consult a financial advisor for personalized advice.
+        </p>
+      </div>
+
+      {/* --- FINAL CTA --- */}
+      <Card className="bg-linear-to-br from-blue-600 to-indigo-700 text-white border-none shadow-xl no-print">
+        <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+            Calculate your returns now
+          </h2>
+          <p className="mb-8 max-w-lg text-blue-100 text-lg">
+            Check how much your FD investment will grow over time.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/fd-calculator"
+              className="rounded-lg bg-white px-8 py-4 font-bold text-blue-700 transition hover:bg-blue-50 shadow-lg"
+            >
+              Open FD Calculator
+            </Link>
+            <Link
+              href="/sip-calculator"
+              className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
+            >
+              Compare with SIP
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 💰 AD SLOT 4 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print mt-8">
         <AdSlot id="guide-fd-4" type="leaderboard" />
       </div>
     </article>

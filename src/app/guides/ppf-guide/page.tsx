@@ -7,6 +7,32 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import {
+  PiggyBank,
+  CheckCircle2,
+  Clock,
+  TrendingUp,
+  ShieldCheck,
+  AlertTriangle,
+  Landmark,
+  Wallet,
+} from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -39,9 +65,28 @@ export const metadata: Metadata = {
   },
 };
 
+const FAQ_ITEMS = [
+  {
+    question: 'What happens if I miss a PPF deposit?',
+    answer:
+      'Your account becomes inactive. You can revive it by paying a penalty of ₹50 per year of default plus the minimum deposit of ₹500 for each missed year.',
+  },
+  {
+    question: 'Can I have more than one PPF account?',
+    answer:
+      'No. An individual can open only one PPF account in their name. Opening a second account is illegal and will not earn interest.',
+  },
+  {
+    question: 'Is PPF interest taxable?',
+    answer:
+      'No. PPF falls under the EEE category. The interest earned and the maturity amount are completely tax-free.',
+  },
+];
+
 export default function PPFGuidePage() {
   return (
-    <article className="article guide-body">
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -92,480 +137,662 @@ export default function PPFGuidePage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'What happens if I miss a PPF deposit?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Your account becomes inactive. You can revive it by paying a penalty of ₹50 per year of default plus the minimum deposit of ₹500 for each missed year.',
-                },
+            mainEntity: FAQ_ITEMS.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
               },
-              {
-                '@type': 'Question',
-                name: 'Can I have more than one PPF account?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. An individual can open only one PPF account in their name. Opening a second account is illegal and will not earn interest.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is PPF interest taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'No. PPF falls under the EEE category. The interest earned and the maturity amount are completely tax-free.',
-                },
-              },
-            ],
+            })),
           }),
         }}
       />
 
       {/* --- HEADER --- */}
-      <header className="guide-header no-print">
-        <span className="badge-flagship">Tax Saving</span>
-        <h1
-          style={{
-            fontSize: 'clamp(28px, 4vw, 42px)',
-            marginTop: 16,
-            lineHeight: 1.2,
-          }}
+      <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-3 py-1"
         >
+          Tax Saving
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)
         </h1>
-        <div className="guide-meta">
-          <span>
-            By <strong>Fincado Team</strong>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 12 Min Read
           </span>
-          <span>•</span>
-          <span>Updated Jan 2025</span>
-          <span>•</span>
-          <span>12 Min Read</span>
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Updated: <strong className="text-slate-700">Jan 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Verified
+          </span>
         </div>
-        <div style={{ marginTop: 20 }}>
+        <div className="mt-6">
           <ShareTools title="PPF Guide 2025" />
         </div>
       </header>
 
-      {/* --- INTRO --- */}
-      <WikiText
-        content={`
-          Understanding <strong>PPF (Public Provident Fund)</strong> is essential for long-term wealth creation. With a <strong>7.1% tax-free interest rate</strong> and sovereign guarantee, it remains India's favorite tax-saving tool.
+      {/* --- INTRO CARD --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm">
+        <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          <WikiText
+            content={`
+            <p class="mb-4">
+              Understanding <strong>PPF (Public Provident Fund)</strong> is essential for long-term wealth creation. With a <strong>7.1% tax-free interest rate</strong> and sovereign guarantee, it remains India's favorite tax-saving tool.
+            </p>
+            <p>
+              However, missing the <strong>"5th of the Month" rule</strong> can cost you thousands in interest. This guide covers interest calculation, <strong>80C benefits</strong>, withdrawal rules, and how to become a <strong>Crorepati</strong> using PPF extensions.
+            </p>
+          `}
+          />
 
-          However, missing the <strong>"5th of the Month" rule</strong> can cost you thousands in interest. This guide covers interest calculation, <strong>80C benefits</strong>, withdrawal rules, and how to become a <strong>Crorepati</strong> using PPF extensions.
-        `}
-      />
+          <div className="my-6 relative h-64 w-full sm:h-80 md:h-96 bg-slate-100 rounded-lg overflow-hidden">
+            <Image
+              src="/images/guides/ppf/ppf-guide-hero.webp"
+              alt="Growth of PPF investment over 15 years"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="guide-image-wrap">
-        <Image
-          src="/images/guides/ppf/ppf-guide-hero.webp"
-          alt="Growth of PPF investment over 15 years"
-          width={1200}
-          height={675}
-          priority
-          style={{
-            width: '100%',
-            height: 'auto',
-            borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          }}
-        />
-      </div>
+      {/* --- SECTION 1: WHAT IS PPF --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <PiggyBank className="h-6 w-6 text-emerald-600" /> What is PPF
+            (Public Provident Fund)?
+          </h2>
+          <p className="mb-6 text-slate-700">
+            <strong>PPF</strong> is a government-backed savings scheme with a{' '}
+            <strong>15-year lock-in</strong>. It offers guaranteed returns and
+            complete tax exemption under the <strong>EEE</strong>{' '}
+            (Exempt-Exempt-Exempt) status.
+          </p>
 
-      <h2>What is PPF (Public Provident Fund)?</h2>
-      <WikiText
-        content={`
-          <strong>PPF</strong> is a government-backed savings scheme with a <strong>15-year lock-in</strong>. It offers guaranteed returns and complete tax exemption under the <strong>EEE</strong> (Exempt-Exempt-Exempt) status.
-        `}
-      />
-
-      <div className="callout-box info-box">
-        <h3>Key Highlights (2025):</h3>
-        <ul>
-          <li>
-            <strong>Interest Rate:</strong> 7.1% p.a. (Compounded Annually)
-          </li>
-          <li>
-            <strong>Min/Max Deposit:</strong> ₹500 / ₹1.5 Lakh per year
-          </li>
-          <li>
-            <strong>Tenure:</strong> 15 Years (Extendable by 5 years)
-          </li>
-          <li>
-            <strong>Tax Benefit:</strong> Section 80C (up to ₹1.5L)
-          </li>
-        </ul>
-      </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Card className="border-emerald-100 bg-emerald-50/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base text-emerald-800 flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4" /> Interest Rate
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-slate-700">
+                7.1% p.a. (Compounded Annually).
+              </CardContent>
+            </Card>
+            <Card className="border-emerald-100 bg-emerald-50/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base text-emerald-800 flex items-center gap-2">
+                  <Wallet className="h-4 w-4" /> Deposit
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-slate-700">
+                Min ₹500 / Max ₹1.5 Lakh per year.
+              </CardContent>
+            </Card>
+            <Card className="border-emerald-100 bg-emerald-50/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base text-emerald-800 flex items-center gap-2">
+                  <Clock className="h-4 w-4" /> Tenure
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-slate-700">
+                15 Years (Extendable by 5 years).
+              </CardContent>
+            </Card>
+            <Card className="border-emerald-100 bg-emerald-50/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base text-emerald-800 flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4" /> Tax Benefit
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-slate-700">
+                Section 80C (up to ₹1.5L).
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* --- TOC --- */}
-      <nav className="toc-box no-print">
-        <p className="toc-title">Table of Contents</p>
-        <ul className="toc-list">
-          <li>
-            <a href="#interest-rate">
-              1. Interest Rate & &quot;5th Day&quot; Rule
-            </a>
-          </li>
-          <li>
-            <a href="#eligibility">2. Eligibility & Account Rules</a>
-          </li>
-          <li>
-            <a href="#tax-benefits">3. The EEE Tax Advantage</a>
-          </li>
-          <li>
-            <a href="#withdrawal-rules">4. Withdrawal, Loan & Closure</a>
-          </li>
-          <li>
-            <a href="#ppf-vs-alternatives">5. PPF vs ELSS vs EPF</a>
-          </li>
-          <li>
-            <a href="#crorepati-strategy">6. How to build ₹1 Crore</a>
-          </li>
-          <li>
-            <a href="#faqs">7. FAQs</a>
-          </li>
-        </ul>
-      </nav>
+      <Card className="mb-12 border-slate-200 bg-slate-50/50 no-print">
+        <CardContent className="p-6">
+          <p className="mb-4 text-lg font-bold text-slate-900">
+            Table of Contents
+          </p>
+          <ul className="grid gap-2 sm:grid-cols-2 text-sm text-slate-700">
+            <li>
+              <a
+                href="#interest-rate"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                1. Interest Rate & &quot;5th Day&quot; Rule
+              </a>
+            </li>
+            <li>
+              <a
+                href="#eligibility"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                2. Eligibility & Account Rules
+              </a>
+            </li>
+            <li>
+              <a
+                href="#tax-benefits"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                3. The EEE Tax Advantage
+              </a>
+            </li>
+            <li>
+              <a
+                href="#withdrawal-rules"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                4. Withdrawal, Loan & Closure
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ppf-vs-alternatives"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                5. PPF vs ELSS vs EPF
+              </a>
+            </li>
+            <li>
+              <a
+                href="#crorepati-strategy"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                6. How to build ₹1 Crore
+              </a>
+            </li>
+            <li>
+              <a
+                href="#faqs"
+                className="hover:text-emerald-600 hover:underline"
+              >
+                7. FAQs
+              </a>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 1 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-ppf-1" type="leaderboard" />
       </div>
 
-      <h2 id="interest-rate">
-        Current Interest Rate & The &quot;5th of the Month&quot; Rule
-      </h2>
-      <p>
-        The current rate is <strong>7.1%</strong>. Interest is calculated
-        monthly but credited annually on March 31st.
-      </p>
+      {/* --- SECTION 2: 5TH DAY RULE --- */}
+      <section className="mb-12">
+        <h2
+          id="interest-rate"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <AlertTriangle className="h-6 w-6 text-amber-500" /> The &quot;5th of
+          the Month&quot; Rule
+        </h2>
+        <p className="mb-6 text-slate-700">
+          The current rate is <strong>7.1%</strong>. Interest is calculated
+          monthly but credited annually on March 31st.
+        </p>
 
-      <div className="myth-container">
-        <div className="myth-card">
-          <div className="myth-header">Crucial Rule</div>
-          <div className="myth-title">Deposit BEFORE the 5th</div>
-          <div style={{ padding: '0 20px 20px' }}>
+        <Card className="border-l-4 border-l-amber-500 bg-amber-50/50 shadow-sm">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-amber-800 text-lg">
+              Crucial Rule: Deposit BEFORE the 5th
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-slate-700 space-y-3">
             <p>
               Interest is calculated on the <strong>lowest balance</strong>{' '}
               between the 5th and the last day of the month.
             </p>
-            <p>
+            <div className="bg-white p-3 rounded border border-amber-200">
               If you deposit on the <strong>6th</strong>, you lose interest on
               that amount for the <strong>entire month</strong>.
+            </div>
+            <p className="font-medium text-amber-900">
+              Pro Tip: Set SIP date to 1st or 2nd.
             </p>
-          </div>
-          <div className="reality-box">
-            <strong>Pro Tip:</strong> Always set your SIP/Deposit date to the
-            <strong>1st or 2nd</strong> of the month.
-          </div>
-        </div>
-      </div>
+          </CardContent>
+        </Card>
+      </section>
 
-      <h2 id="eligibility">Eligibility & Account Rules</h2>
-      <ul className="checklist">
-        <li>
-          <strong>Residents Only:</strong> Only Indian residents can open a PPF.
-          NRIs cannot open *new* accounts.
-        </li>
-        <li>
-          <strong>One Account:</strong> Only one account per individual is
-          allowed.
-        </li>
-        <li>
-          <strong>Minors:</strong> Parents can open accounts for minors
-          (Guardian operated).
-        </li>
-        <li>
-          <strong>Deposit Limit:</strong> Max ₹1.5 Lakh per financial year (Self
-          + Minor combined).
-        </li>
-      </ul>
+      {/* --- SECTION 3: ELIGIBILITY --- */}
+      <section className="mb-12">
+        <h2
+          id="eligibility"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <CheckCircle2 className="h-6 w-6 text-emerald-600" /> Eligibility &
+          Rules
+        </h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6">
+            <ul className="space-y-3 text-sm text-slate-700">
+              <li className="flex gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                <span>
+                  <strong>Residents Only:</strong> Only Indian residents can
+                  open. NRIs cannot open new accounts.
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                <span>
+                  <strong>One Account:</strong> Only one account per individual
+                  is allowed.
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                <span>
+                  <strong>Minors:</strong> Parents can open for minors (Guardian
+                  operated).
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                <span>
+                  <strong>Limit:</strong> Max ₹1.5 Lakh per FY (Self + Minor
+                  combined).
+                </span>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
 
       {/* 💰 AD SLOT 2 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-ppf-2" type="leaderboard" />
       </div>
 
-      <h2 id="tax-benefits">Tax Benefits: The EEE Advantage</h2>
-      <WikiText
-        content={`<strong>EEE</strong> stands for Exempt-Exempt-Exempt. It means you pay <strong>Zero Tax</strong> at all three stages.`}
-      />
+      {/* --- SECTION 4: TAX BENEFITS --- */}
+      <section className="mb-12">
+        <h2
+          id="tax-benefits"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <ShieldCheck className="h-6 w-6 text-emerald-600" /> Tax Benefits: EEE
+          Advantage
+        </h2>
+        <p className="mb-6 text-slate-700">
+          <strong>EEE</strong> stands for Exempt-Exempt-Exempt. You pay{' '}
+          <strong>Zero Tax</strong> at all three stages.
+        </p>
 
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Stage</th>
-              <th>Tax Treatment</th>
-              <th>Benefit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Investment</strong>
-              </td>
-              <td>Section 80C</td>
-              <td>Deduction up to ₹1.5 Lakh</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Interest</strong>
-              </td>
-              <td>Tax-Free</td>
-              <td>7.1% Interest is fully exempt</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Maturity</strong>
-              </td>
-              <td>Tax-Free</td>
-              <td>Withdrawal amount is 100% exempt</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="withdrawal-rules">Withdrawal, Loan & Premature Closure</h2>
-      <p>PPF is illiquid, but offers some options in emergencies.</p>
-
-      <h3>1. Loan against PPF</h3>
-      <ul>
-        <li>
-          Available from <strong>3rd to 6th financial year</strong>.
-        </li>
-        <li>Loan amount: Up to 25% of balance.</li>
-        <li>
-          Interest: <strong>Only 1%</strong> p.a.
-        </li>
-      </ul>
-
-      <h3>2. Partial Withdrawal</h3>
-      <ul>
-        <li>
-          Allowed from <strong>7th financial year</strong>.
-        </li>
-        <li>Max 50% of the balance.</li>
-        <li>Only one withdrawal per year.</li>
-      </ul>
-
-      <h3>3. Premature Closure</h3>
-      <ul>
-        <li>
-          Allowed after <strong>5 years</strong>.
-        </li>
-        <li>Valid reasons: Medical emergency, Higher education.</li>
-        <li>
-          <strong>Penalty:</strong> 1% interest deduction for all previous
-          years.
-        </li>
-      </ul>
-
-      {/* 💰 AD SLOT 3 */}
-      <div className="ad-spacer no-print">
-        <AdSlot id="guide-ppf-3" type="leaderboard" />
-      </div>
-
-      <h2 id="ppf-vs-alternatives">PPF vs Alternatives Comparison</h2>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>PPF</th>
-              <th>ELSS (Mutual Fund)</th>
-              <th>EPF (Employee)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Returns</strong>
-              </td>
-              <td>7.1% (Fixed)</td>
-              <td>
-                <strong>12-15%</strong> (Variable)
-              </td>
-              <td>8.25% (Fixed)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Lock-In</strong>
-              </td>
-              <td>15 Years</td>
-              <td>
-                <strong>3 Years</strong>
-              </td>
-              <td>Until Retirement</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Risk</strong>
-              </td>
-              <td>Zero (Govt)</td>
-              <td>High (Market)</td>
-              <td>Zero (Govt)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Tax Status</strong>
-              </td>
-              <td>
-                <strong>EEE</strong>
-              </td>
-              <td>EET (LTCG Tax)</td>
-              <td>EEE</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="callout-box info-box">
-        <strong>Verdict:</strong> Choose <strong>PPF</strong> for guaranteed
-        safety. Choose
-        <strong>ELSS</strong> for higher growth if you can tolerate risk.
-      </div>
-
-      <h2 id="crorepati-strategy">How to Become a Crorepati with PPF</h2>
-      <WikiText
-        content={`The magic of PPF lies in <strong>Extensions</strong>. After 15 years, you can extend your account in blocks of 5 years indefinitely.`}
-      />
-
-      <h3>The Power of Compounding (Investing ₹1.5L/year)</h3>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Tenure</th>
-              <th>Total Invested</th>
-              <th>Maturity Amount (@7.1%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>15 Years</td>
-              <td>₹22.5 Lakh</td>
-              <td>₹40.7 Lakh</td>
-            </tr>
-            <tr>
-              <td>20 Years (1 Ext)</td>
-              <td>₹30 Lakh</td>
-              <td>₹66.6 Lakh</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>25 Years (2 Ext)</strong>
-              </td>
-              <td>₹37.5 Lakh</td>
-              <td>
-                <strong>₹1.03 Crore</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        By extending just twice (10 extra years), your corpus more than doubles
-        to <strong>₹1 Crore+</strong>!
-      </p>
-
-      {/* --- FAQs --- */}
-      <h2 id="faqs">Frequently Asked Questions (FAQs)</h2>
-      <div className="faqs-accordion">
-        <details>
-          <summary>What happens if I miss a deposit?</summary>
-          <p>
-            Your account becomes discontinued. You must pay a penalty of ₹50 per
-            year plus the minimum ₹500 subscription for each missed year to
-            reactivate it.
-          </p>
-        </details>
-        <details>
-          <summary>Can I open a PPF account in a private bank?</summary>
-          <p>
-            Yes, authorized private banks like HDFC, ICICI, and Axis Bank offer
-            PPF accounts. The rules and interest rates are exactly the same as
-            Post Office PPF.
-          </p>
-        </details>
-        <details>
-          <summary>Is the interest rate fixed for 15 years?</summary>
-          <p>
-            No. The government reviews and revises the interest rate
-            <strong>quarterly</strong>. Your balance earns the prevailing rate
-            for that quarter.
-          </p>
-        </details>
-        <details>
-          <summary>Can I transfer my PPF account?</summary>
-          <p>
-            Yes, you can transfer your PPF account from a Post Office to a Bank,
-            or from one bank branch to another.
-          </p>
-        </details>
-      </div>
-
-      {/* --- CONCLUSION --- */}
-      <h2>Final Verdict</h2>
-      <div className="conclusion-box">
-        <p>PPF is the cornerstone of a safe retirement portfolio.</p>
-        <h4>Your Action Plan:</h4>
-        <ul className="checklist">
-          <li>
-            {' '}
-            Open PPF for <strong>safety & tax saving</strong>.
-          </li>
-          <li>
-            {' '}
-            Deposit before the <strong>5th</strong> of every month.
-          </li>
-          <li>
-            {' '}
-            Extend after 15 years for <strong>wealth creation</strong>.
-          </li>
-          <li>
-            {' '}
-            Combine with <strong>ELSS</strong> for higher growth.
-          </li>
-        </ul>
-      </div>
-
-      {/* --- AUTHOR BIO --- */}
-      <div
-        style={{
-          marginTop: 40,
-          borderTop: '1px solid var(--color-border)',
-          paddingTop: 24,
-        }}
-      >
-        <AuthorBio />
-      </div>
-
-      <div className="legal-disclaimer">
-        <strong>Disclaimer:</strong> Interest rates are subject to change by the
-        government. This guide is for educational purposes. Please consult a
-        financial advisor for personalized advice.
-      </div>
-
-      {/* --- FINAL CTA --- */}
-      <section className="final-cta no-print">
-        <div className="final-cta-inner">
-          <h2>Plan your tax savings</h2>
-          <p>Calculate your PPF maturity amount and tax benefits.</p>
-          <div className="final-cta-row">
-            <Link href="/ppf-calculator" className="primary-cta">
-              PPF Calculator
-            </Link>
-            <Link href="/sip-calculator" className="secondary-cta">
-              Compare with ELSS
-            </Link>
-          </div>
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Stage
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Tax Treatment
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Benefit
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Investment
+                </TableCell>
+                <TableCell>Section 80C</TableCell>
+                <TableCell className="text-emerald-600">
+                  Deduction up to ₹1.5L
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Interest
+                </TableCell>
+                <TableCell>Tax-Free</TableCell>
+                <TableCell className="text-emerald-600">
+                  7.1% Fully Exempt
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Maturity
+                </TableCell>
+                <TableCell>Tax-Free</TableCell>
+                <TableCell className="text-emerald-600">100% Exempt</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       </section>
 
+      {/* --- SECTION 5: WITHDRAWAL --- */}
+      <section className="mb-12">
+        <h2
+          id="withdrawal-rules"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <Landmark className="h-6 w-6 text-blue-600" /> Withdrawal, Loan &
+          Closure
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card className="border-blue-100 bg-blue-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-blue-800 text-lg">
+                1. Loan Facility
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="list-disc pl-4 space-y-1">
+                <li>From 3rd to 6th year.</li>
+                <li>Up to 25% of balance.</li>
+                <li>
+                  Interest: <strong>1% p.a.</strong>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-100 bg-blue-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-blue-800 text-lg">
+                2. Partial Withdrawal
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="list-disc pl-4 space-y-1">
+                <li>From 7th year.</li>
+                <li>Max 50% of balance.</li>
+                <li>One withdrawal/year.</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-100 bg-blue-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-blue-800 text-lg">
+                3. Premature Closure
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="list-disc pl-4 space-y-1">
+                <li>After 5 years.</li>
+                <li>Valid reasons only.</li>
+                <li>Penalty: 1% interest cut.</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* 💰 AD SLOT 3 */}
+      <div className="no-print my-8">
+        <AdSlot id="guide-ppf-3" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 6: COMPARISON --- */}
+      <section className="mb-12">
+        <h2
+          id="ppf-vs-alternatives"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          PPF vs ELSS vs EPF
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Feature
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">PPF</TableHead>
+                <TableHead className="font-bold text-slate-900">ELSS</TableHead>
+                <TableHead className="font-bold text-slate-900">EPF</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Returns
+                </TableCell>
+                <TableCell>7.1% (Fixed)</TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  12-15% (Var)
+                </TableCell>
+                <TableCell>8.25% (Fixed)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Lock-In
+                </TableCell>
+                <TableCell>15 Years</TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  3 Years
+                </TableCell>
+                <TableCell>Retirement</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Risk
+                </TableCell>
+                <TableCell className="text-emerald-600">Zero (Govt)</TableCell>
+                <TableCell className="text-amber-600">High (Market)</TableCell>
+                <TableCell className="text-emerald-600">Zero (Govt)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Tax Status
+                </TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  EEE
+                </TableCell>
+                <TableCell>EET (LTCG)</TableCell>
+                <TableCell className="text-emerald-600">EEE</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      {/* --- SECTION 7: CROREPATI STRATEGY --- */}
+      <section className="mb-12">
+        <h2
+          id="crorepati-strategy"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <TrendingUp className="h-6 w-6 text-purple-600" /> How to Become a
+          Crorepati
+        </h2>
+        <p className="mb-6 text-slate-700">
+          The magic of PPF lies in <strong>Extensions</strong>. After 15 years,
+          you can extend indefinitely in blocks of 5 years.
+        </p>
+
+        <div className="overflow-hidden rounded-lg border border-slate-200 mb-6 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Tenure
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Total Invested
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Maturity (@7.1%)
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>15 Years</TableCell>
+                <TableCell>₹22.5 Lakh</TableCell>
+                <TableCell>₹40.7 Lakh</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>20 Years (1 Ext)</TableCell>
+                <TableCell>₹30 Lakh</TableCell>
+                <TableCell>₹66.6 Lakh</TableCell>
+              </TableRow>
+              <TableRow className="bg-purple-50">
+                <TableCell className="font-bold text-purple-900">
+                  25 Years (2 Ext)
+                </TableCell>
+                <TableCell className="font-bold text-purple-900">
+                  ₹37.5 Lakh
+                </TableCell>
+                <TableCell className="font-bold text-purple-700 text-lg">
+                  ₹1.03 Crore
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      {/* --- FAQS --- */}
+      <section className="mb-12">
+        <h2
+          id="faqs"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Frequently Asked Questions (FAQs)
+        </h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {FAQ_ITEMS.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border rounded-lg px-4 bg-white"
+            >
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          <AccordionItem
+            value="item-custom-1"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Can I open a PPF account in a private bank?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes, authorized private banks like HDFC, ICICI, and Axis Bank
+              offer PPF accounts. The rules and interest rates are exactly the
+              same as Post Office PPF.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-2"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Is the interest rate fixed for 15 years?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              No. The government reviews and revises the interest rate
+              quarterly. Your balance earns the prevailing rate for that
+              quarter.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-3"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Can I transfer my PPF account?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes, you can transfer your PPF account from a Post Office to a
+              Bank, or from one bank branch to another.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+
+      {/* --- CONCLUSION --- */}
+      <Card className="mb-8 border-slate-200 bg-slate-900 text-white">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <CheckCircle2 className="h-6 w-6 text-emerald-400" /> Final Verdict
+          </h2>
+          <p className="mb-6 text-slate-300 leading-relaxed">
+            PPF is the cornerstone of a safe retirement portfolio.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Deposit by
+              5th
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Extend for
+              Wealth
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Combine with
+              ELSS
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="mb-8 border-t border-slate-200 pt-8">
+        <AuthorBio />
+        <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
+          <strong>Disclaimer:</strong> Interest rates are subject to change by
+          the government. This guide is for educational purposes. Please consult
+          a financial advisor for personalized advice.
+        </p>
+      </div>
+
+      {/* --- FINAL CTA --- */}
+      <Card className="bg-linear-to-br from-emerald-600 to-teal-700 text-white border-none shadow-xl no-print">
+        <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+            Plan your tax savings
+          </h2>
+          <p className="mb-8 max-w-lg text-emerald-100 text-lg">
+            Calculate your PPF maturity amount and tax benefits.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/ppf-calculator"
+              className="rounded-lg bg-white px-8 py-4 font-bold text-emerald-700 transition hover:bg-emerald-50 shadow-lg"
+            >
+              PPF Calculator
+            </Link>
+            <Link
+              href="/sip-calculator"
+              className="rounded-lg border border-emerald-400 bg-emerald-800/30 px-8 py-4 font-bold text-white transition hover:bg-emerald-800/50"
+            >
+              Compare with ELSS
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 💰 AD SLOT 4 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print mt-8">
         <AdSlot id="guide-ppf-4" type="leaderboard" />
       </div>
     </article>

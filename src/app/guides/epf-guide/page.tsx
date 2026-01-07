@@ -7,6 +7,32 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import {
+  PiggyBank,
+  CheckCircle2,
+  Clock,
+  Briefcase,
+  TrendingUp,
+  ShieldCheck,
+  AlertTriangle,
+  Lightbulb,
+} from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -39,9 +65,27 @@ export const metadata: Metadata = {
   },
 };
 
+const FAQ_ITEMS = [
+  {
+    question: 'Is EPF withdrawal taxable?',
+    answer:
+      'Withdrawal is 100% tax-free if you have completed 5 years of continuous service. If withdrawn before 5 years, it is taxable at your slab rate.',
+  },
+  {
+    question: 'Can I withdraw my full EPF amount?',
+    answer:
+      'Full withdrawal is allowed only upon retirement (58 years) or if you remain unemployed for 2 months. Partial withdrawals are allowed for specific needs like housing or medical emergencies.',
+  },
+  {
+    question: 'What is the current EPF interest rate?',
+    answer: 'The EPF interest rate for FY 2024-25 is 8.25% per annum.',
+  },
+];
+
 export default function EPFGuidePage() {
   return (
-    <article className="article guide-body">
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -92,208 +136,255 @@ export default function EPFGuidePage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Is EPF withdrawal taxable?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Withdrawal is 100% tax-free if you have completed 5 years of continuous service. If withdrawn before 5 years, it is taxable at your slab rate.',
-                },
+            mainEntity: FAQ_ITEMS.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
               },
-              {
-                '@type': 'Question',
-                name: 'Can I withdraw my full EPF amount?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Full withdrawal is allowed only upon retirement (58 years) or if you remain unemployed for 2 months. Partial withdrawals are allowed for specific needs like housing or medical emergencies.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What is the current EPF interest rate?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'The EPF interest rate for FY 2024-25 is 8.25% per annum.',
-                },
-              },
-            ],
+            })),
           }),
         }}
       />
 
       {/* --- HEADER --- */}
-      <header className="guide-header no-print">
-        <span className="badge-flagship">Retirement Savings</span>
-        <h1
-          style={{
-            fontSize: 'clamp(28px, 4vw, 42px)',
-            marginTop: 16,
-            lineHeight: 1.2,
-          }}
+      <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-amber-100 text-amber-800 hover:bg-amber-200 px-3 py-1"
         >
+          Retirement Savings
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits
         </h1>
-        <div className="guide-meta">
-          <span>
-            By <strong>Fincado Team</strong>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 13 Min Read
           </span>
-          <span>•</span>
-          <span>Updated Jan 2025</span>
-          <span>•</span>
-          <span>13 Min Read</span>
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Updated: <strong className="text-slate-700">Jan 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Verified
+          </span>
         </div>
-        <div style={{ marginTop: 20 }}>
+        <div className="mt-6">
           <ShareTools title="EPF Guide 2025" />
         </div>
       </header>
 
-      {/* --- INTRO --- */}
-      <WikiText
-        content={`
-          The <strong>Employee Provident Fund (EPF)</strong> is India's largest mandatory retirement scheme, offering a government-backed <strong>8.25% interest rate</strong> (FY 2024-25) and <strong>EEE tax status</strong>.
+      {/* --- INTRO CARD --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm">
+        <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          <WikiText
+            content={`
+            <p class="mb-4">
+              The <strong>Employee Provident Fund (EPF)</strong> is India's largest mandatory retirement scheme, offering a government-backed <strong>8.25% interest rate</strong> (FY 2024-25) and <strong>EEE tax status</strong>.
+            </p>
+            <p>
+              However, most employees unknowingly lose money by ignoring the <strong>"EPS Split"</strong> or withdrawing funds prematurely, which attracts tax. This guide covers UAN activation, withdrawal rules, and how to become an EPF Crorepati.
+            </p>
+          `}
+          />
 
-          However, most employees unknowingly lose money by ignoring the <strong>"EPS Split"</strong> or withdrawing funds prematurely, which attracts tax. This guide covers UAN activation, withdrawal rules, and how to become an EPF Crorepati.
-        `}
-      />
+          <div className="my-6 relative h-64 w-full sm:h-80 md:h-96 bg-slate-100 rounded-lg overflow-hidden">
+            <Image
+              src="/images/guides/epf/epf-guide-hero.webp"
+              alt="EPF contribution breakdown pie chart"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="guide-image-wrap">
-        <Image
-          src="/images/guides/epf/epf-guide-hero.webp"
-          alt="EPF contribution breakdown pie chart"
-          width={1200}
-          height={675}
-          priority
-          style={{
-            width: '100%',
-            height: 'auto',
-            borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          }}
-        />
-      </div>
+      {/* --- SECTION 1: WHAT IS EPF --- */}
+      <Card className="mb-12 border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <PiggyBank className="h-6 w-6 text-amber-600" /> What is EPF
+            (Employee Provident Fund)?
+          </h2>
+          <WikiText
+            content={`<p class="mb-6 text-slate-700"><strong>EPF</strong> is a retirement savings scheme managed by the EPFO. Both employee and employer contribute <strong>12%</strong> of the basic salary. It offers guaranteed returns and capital protection.</p>`}
+          />
 
-      <h2>What is EPF (Employee Provident Fund)?</h2>
-      <WikiText
-        content={`
-          <strong>EPF</strong> is a retirement savings scheme managed by the EPFO. Both employee and employer contribute <strong>12%</strong> of the basic salary. It offers guaranteed returns and capital protection.
-        `}
-      />
-
-      <div className="callout-box info-box">
-        <h3>Key Highlights (2025):</h3>
-        <ul>
-          <li>
-            <strong>Interest Rate:</strong> 8.25% p.a.
-          </li>
-          <li>
-            <strong>Contribution:</strong> 12% Employee + 12% Employer.
-          </li>
-          <li>
-            <strong>Tax Status:</strong> EEE (Exempt-Exempt-Exempt) after 5
-            years.
-          </li>
-          <li>
-            <strong>Lock-In:</strong> Until Retirement (58 years).
-          </li>
-        </ul>
-      </div>
+          <div className="rounded-lg bg-slate-50 border border-slate-200 p-5">
+            <h3 className="mb-3 font-semibold text-slate-900 flex items-center gap-2">
+              <Lightbulb className="h-4 w-4 text-amber-500" /> Key Highlights
+              (2025):
+            </h3>
+            <ul className="space-y-3 text-slate-700 text-sm">
+              <li className="flex gap-2">
+                <span className="font-bold text-amber-700">Interest Rate:</span>{' '}
+                8.25% p.a.
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-amber-700">Contribution:</span>{' '}
+                12% Employee + 12% Employer.
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-amber-700">Tax Status:</span>{' '}
+                EEE (Exempt-Exempt-Exempt) after 5 years.
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-amber-700">Lock-In:</span> Until
+                Retirement (58 years).
+              </li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* --- TOC --- */}
-      <nav className="toc-box no-print">
-        <p className="toc-title">Table of Contents</p>
-        <ul className="toc-list">
-          <li>
-            <a href="#contribution-split">1. The 12% Rule (EPF vs EPS)</a>
-          </li>
-          <li>
-            <a href="#interest-rate">2. Interest Rate & Calculation</a>
-          </li>
-          <li>
-            <a href="#tax-benefits">3. Tax Benefits (The EEE Advantage)</a>
-          </li>
-          <li>
-            <a href="#withdrawal-rules">4. Withdrawal Rules (5-Year Clause)</a>
-          </li>
-          <li>
-            <a href="#epf-vs-ppf">5. EPF vs PPF vs NPS</a>
-          </li>
-          <li>
-            <a href="#faqs">6. FAQs</a>
-          </li>
-        </ul>
-      </nav>
+      <Card className="mb-12 border-slate-200 bg-slate-50/50 no-print">
+        <CardContent className="p-6">
+          <p className="mb-4 text-lg font-bold text-slate-900">
+            Table of Contents
+          </p>
+          <ul className="grid gap-2 sm:grid-cols-2 text-sm text-slate-700">
+            <li>
+              <a
+                href="#contribution-split"
+                className="hover:text-amber-600 hover:underline"
+              >
+                1. The 12% Rule (EPF vs EPS)
+              </a>
+            </li>
+            <li>
+              <a
+                href="#interest-rate"
+                className="hover:text-amber-600 hover:underline"
+              >
+                2. Interest Rate & Calculation
+              </a>
+            </li>
+            <li>
+              <a
+                href="#tax-benefits"
+                className="hover:text-amber-600 hover:underline"
+              >
+                3. Tax Benefits (The EEE Advantage)
+              </a>
+            </li>
+            <li>
+              <a
+                href="#withdrawal-rules"
+                className="hover:text-amber-600 hover:underline"
+              >
+                4. Withdrawal Rules (5-Year Clause)
+              </a>
+            </li>
+            <li>
+              <a
+                href="#epf-vs-ppf"
+                className="hover:text-amber-600 hover:underline"
+              >
+                5. EPF vs PPF vs NPS
+              </a>
+            </li>
+            <li>
+              <a href="#faqs" className="hover:text-amber-600 hover:underline">
+                6. FAQs
+              </a>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
 
       {/* 💰 AD SLOT 1 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-epf-1" type="leaderboard" />
       </div>
 
-      <h2 id="contribution-split">EPF Structure: Where Does Your Money Go?</h2>
-      <p>
-        Many believe the employer matches their contribution 100%.{' '}
-        <strong>This is a myth.</strong> Here is the real breakdown of the
-        employer&apos;s 12%:
-      </p>
+      {/* --- SECTION 2: CONTRIBUTION SPLIT --- */}
+      <section className="mb-12">
+        <h2
+          id="contribution-split"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <Briefcase className="h-6 w-6 text-blue-600" /> EPF Structure: Where
+          Does Your Money Go?
+        </h2>
+        <p className="mb-6 text-slate-700">
+          Many believe the employer matches their contribution 100%.{' '}
+          <strong>This is a myth.</strong> Here is the real breakdown of the
+          employer&apos;s 12%:
+        </p>
 
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Share</th>
-              <th>Goes To</th>
-              <th>Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Employee Share</strong>
-              </td>
-              <td>12%</td>
-              <td>
-                <strong>EPF Account</strong>
-              </td>
-              <td>Your Corpus + Interest</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Employer Share 1</strong>
-              </td>
-              <td>3.67%</td>
-              <td>
-                <strong>EPF Account</strong>
-              </td>
-              <td>Your Corpus + Interest</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Employer Share 2</strong>
-              </td>
-              <td>8.33%</td>
-              <td>
-                <strong>EPS (Pension)</strong>
-              </td>
-              <td>Monthly Pension (No Interest)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>EDLI</strong>
-              </td>
-              <td>0.5%</td>
-              <td>Insurance Fund</td>
-              <td>Life Insurance Cover</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div className="overflow-hidden rounded-lg border border-slate-200 mb-6 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Component
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Share
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Goes To
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Purpose
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Employee Share
+                </TableCell>
+                <TableCell>12%</TableCell>
+                <TableCell className="font-bold text-emerald-700">
+                  EPF Account
+                </TableCell>
+                <TableCell>Your Corpus + Interest</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Employer Share 1
+                </TableCell>
+                <TableCell>3.67%</TableCell>
+                <TableCell className="font-bold text-emerald-700">
+                  EPF Account
+                </TableCell>
+                <TableCell>Your Corpus + Interest</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Employer Share 2
+                </TableCell>
+                <TableCell>8.33%</TableCell>
+                <TableCell className="font-bold text-slate-500">
+                  EPS (Pension)
+                </TableCell>
+                <TableCell>Monthly Pension (No Interest)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  EDLI
+                </TableCell>
+                <TableCell>0.5%</TableCell>
+                <TableCell className="text-slate-500">Insurance Fund</TableCell>
+                <TableCell>Life Insurance Cover</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
 
-      <div className="myth-container">
-        <div className="myth-card">
-          <div className="myth-header">Reality Check</div>
-          <div className="myth-title">Only 15.67% goes to PF</div>
-          <div style={{ padding: '0 20px 20px' }}>
+        <Card className="border-l-4 border-l-blue-500 bg-blue-50/50">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-blue-900 text-lg">
+              Reality Check: Only 15.67% goes to PF
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-slate-700 space-y-2">
             <p>
               Your 12% + Employer&apos;s 3.67% = <strong>15.67%</strong> goes to
               your EPF account to earn 8.25% interest.
@@ -302,244 +393,392 @@ export default function EPFGuidePage() {
               The remaining <strong>8.33%</strong> goes to the Pension Scheme
               (EPS), which does not earn compound interest.
             </p>
-          </div>
-        </div>
-      </div>
+          </CardContent>
+        </Card>
+      </section>
 
-      <h2 id="interest-rate">Current EPF Interest Rate (2025)</h2>
-      <p>
-        The interest rate for FY 2024-25 is <strong>8.25% p.a.</strong> This is
-        higher than PPF (7.1%) and most Fixed Deposits.
-      </p>
-      <ul>
-        <li>
-          <strong>Calculation:</strong> Monthly (on running balance).
-        </li>
-        <li>
-          <strong>Credit:</strong> Annually (usually by March 31st).
-        </li>
-      </ul>
+      {/* --- SECTION 3: INTEREST RATE --- */}
+      <section className="mb-12">
+        <h2
+          id="interest-rate"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <TrendingUp className="h-6 w-6 text-emerald-600" /> Current EPF
+          Interest Rate (2025)
+        </h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6">
+            <p className="mb-4 text-slate-700">
+              The interest rate for FY 2024-25 is{' '}
+              <span className="text-2xl font-bold text-emerald-600">
+                8.25% p.a.
+              </span>{' '}
+              This is higher than PPF (7.1%) and most Fixed Deposits.
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600">
+              <li>
+                <strong>Calculation:</strong> Monthly (on running balance).
+              </li>
+              <li>
+                <strong>Credit:</strong> Annually (usually by March 31st).
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
 
       {/* 💰 AD SLOT 2 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print my-8">
         <AdSlot id="guide-epf-2" type="leaderboard" />
       </div>
 
-      <h2 id="tax-benefits">Tax Benefits: The EEE Advantage</h2>
-      <WikiText
-        content={`EPF enjoys <strong>EEE (Exempt-Exempt-Exempt)</strong> status, meaning no tax at contribution, accumulation, or withdrawal stages (conditions apply).`}
-      />
+      {/* --- SECTION 4: TAX BENEFITS --- */}
+      <section className="mb-12">
+        <h2
+          id="tax-benefits"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <ShieldCheck className="h-6 w-6 text-emerald-600" /> Tax Benefits: The
+          EEE Advantage
+        </h2>
+        <WikiText
+          content={`<p class="mb-6 text-slate-700">EPF enjoys <strong>EEE (Exempt-Exempt-Exempt)</strong> status, meaning no tax at contribution, accumulation, or withdrawal stages (conditions apply).</p>`}
+        />
 
-      <h3>1. Section 80C Deduction</h3>
-      <p>
-        Your 12% contribution is eligible for tax deduction under Section 80C
-        (up to ₹1.5 Lakh limit).
-      </p>
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card className="border-emerald-100 bg-emerald-50/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-emerald-800">
+                1. Contribution
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-600">
+              Your 12% contribution is eligible for tax deduction under{' '}
+              <strong>Section 80C</strong> (up to ₹1.5 Lakh limit).
+            </CardContent>
+          </Card>
 
-      <h3>2. Tax-Free Interest</h3>
-      <p>
-        Interest earned is tax-free. *Exception:* If your own contribution
-        exceeds <strong>₹2.5 Lakh/year</strong>, interest on the excess amount
-        is taxable.
-      </p>
+          <Card className="border-emerald-100 bg-emerald-50/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-emerald-800">
+                2. Interest
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-600">
+              Interest earned is tax-free.
+              <br />
+              <em className="text-xs text-slate-500">
+                (Exception: If your own contribution &gt; ₹2.5L/year, excess
+                interest is taxable).
+              </em>
+            </CardContent>
+          </Card>
 
-      <h3>3. Tax-Free Withdrawal</h3>
-      <p>
-        Withdrawal is 100% tax-free if you have completed{' '}
-        <strong>5 years of continuous service</strong>.
-      </p>
-
-      <h2 id="withdrawal-rules">Withdrawal Rules: The Critical 5-Year Rule</h2>
-      <p>Premature withdrawal is the biggest wealth killer.</p>
-
-      <h3>Withdrawal BEFORE 5 Years</h3>
-      <ul>
-        <li>
-          ❌ <strong>Taxable:</strong> Employer&apos;s share and Interest are
-          fully taxable.
-        </li>
-        <li>
-          ❌ <strong>TDS:</strong> 10% TDS deducted if amount `{'>'}` ₹50,000.
-        </li>
-      </ul>
-
-      <h3>Withdrawal AFTER 5 Years</h3>
-      <ul>
-        <li>
-          ✅ <strong>Tax-Free:</strong> Entire corpus is tax-free.
-        </li>
-        <li>
-          ✅ <strong>No TDS:</strong> Full amount credited.
-        </li>
-      </ul>
-
-      <div className="callout-box info-box">
-        <strong>Pro Tip:</strong> When changing jobs, <strong>TRANSFER</strong>{' '}
-        your EPF account (using UAN) instead of withdrawing. This maintains your
-        &quot;Continuous Service&quot; record for the 5-year rule.
-      </div>
-
-      {/* 💰 AD SLOT 3 */}
-      <div className="ad-spacer no-print">
-        <AdSlot id="guide-epf-3" type="leaderboard" />
-      </div>
-
-      <h2 id="epf-vs-ppf">EPF vs PPF vs NPS Comparison</h2>
-      <div className="table-responsive">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>EPF</th>
-              <th>PPF</th>
-              <th>NPS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Interest</strong>
-              </td>
-              <td>
-                <strong>8.25%</strong> (Fixed)
-              </td>
-              <td>7.1% (Fixed)</td>
-              <td>10-12% (Market)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Eligibility</strong>
-              </td>
-              <td>Salaried Only</td>
-              <td>All Residents</td>
-              <td>All Residents</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Employer Match</strong>
-              </td>
-              <td>
-                <strong>Yes</strong>
-              </td>
-              <td>No</td>
-              <td>Optional (Corporate)</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Tax Status</strong>
-              </td>
-              <td>EEE (Conditional)</td>
-              <td>
-                <strong>EEE</strong>
-              </td>
-              <td>EET</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Lock-In</strong>
-              </td>
-              <td>Retirement (58)</td>
-              <td>15 Years</td>
-              <td>Age 60</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      {/* --- FAQs --- */}
-      <h2 id="faqs">Frequently Asked Questions (FAQs)</h2>
-      <div className="faqs-accordion">
-        <details>
-          <summary>How do I check my EPF balance?</summary>
-          <p>
-            You can check your balance via the <strong>EPFO Portal</strong>,{' '}
-            <strong>UMANG App</strong>, or by giving a missed call to{' '}
-            <strong>011-22901406</strong> from your registered mobile number.
-          </p>
-        </details>
-        <details>
-          <summary>What is VPF (Voluntary Provident Fund)?</summary>
-          <p>
-            VPF allows you to contribute more than the mandatory 12% to your EPF
-            account. It earns the same 8.25% interest and enjoys EEE tax
-            benefits (up to ₹2.5L limit).
-          </p>
-        </details>
-        <details>
-          <summary>Can I withdraw EPF for home loan repayment?</summary>
-          <p>
-            Yes. You can make a partial withdrawal for home
-            purchase/construction or repayment of home loan after completing{' '}
-            <strong>5 years of service</strong>.
-          </p>
-        </details>
-        <details>
-          <summary>Is UAN mandatory?</summary>
-          <p>
-            Yes. The Universal Account Number (UAN) is mandatory for checking
-            balance, transferring accounts, and making withdrawal claims.
-          </p>
-        </details>
-      </div>
-
-      {/* --- CONCLUSION --- */}
-      <h2>Final Verdict</h2>
-      <div className="conclusion-box">
-        <p>
-          EPF is the backbone of retirement planning for salaried employees.
-        </p>
-        <h4>Your Action Plan:</h4>
-        <ul className="checklist">
-          <li>
-            Activate your <strong>UAN</strong>.
-          </li>
-          <li>
-            Check <strong>Passbook</strong> monthly.
-          </li>
-          <li>
-            <strong>Transfer</strong> accounts when changing jobs.
-          </li>
-          <li>
-            Avoid withdrawal before <strong>5 years</strong>.
-          </li>
-        </ul>
-      </div>
-
-      {/* --- AUTHOR BIO --- */}
-      <div
-        style={{
-          marginTop: 40,
-          borderTop: '1px solid var(--color-border)',
-          paddingTop: 24,
-        }}
-      >
-        <AuthorBio />
-      </div>
-
-      <div className="legal-disclaimer">
-        <strong>Disclaimer:</strong> Interest rates are declared annually by the
-        EPFO. Tax rules are subject to change. This guide is for educational
-        purposes. Consult a tax advisor for specific queries.
-      </div>
-
-      {/* --- FINAL CTA --- */}
-      <section className="final-cta no-print">
-        <div className="final-cta-inner">
-          <h2>Plan your retirement</h2>
-          <p>Calculate your EPF corpus growth over time.</p>
-          <div className="final-cta-row">
-            <Link href="/epf-calculator" className="primary-cta">
-              EPF Calculator
-            </Link>
-            <Link href="/ppf-calculator" className="secondary-cta">
-              Compare with PPF
-            </Link>
-          </div>
+          <Card className="border-emerald-100 bg-emerald-50/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-emerald-800">
+                3. Withdrawal
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-600">
+              Withdrawal is <strong>100% tax-free</strong> if you have completed
+              5 years of continuous service.
+            </CardContent>
+          </Card>
         </div>
       </section>
 
+      {/* --- SECTION 5: WITHDRAWAL RULES --- */}
+      <section className="mb-12">
+        <h2
+          id="withdrawal-rules"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+        >
+          <AlertTriangle className="h-6 w-6 text-amber-500" /> Withdrawal Rules:
+          The Critical 5-Year Rule
+        </h2>
+        <p className="mb-6 text-slate-700">
+          Premature withdrawal is the biggest wealth killer. Here&apos;s why:
+        </p>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="border-red-200 bg-red-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-red-800 text-lg">
+                Before 5 Years
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="space-y-2">
+                <li className="flex gap-2">
+                  <span className="text-red-600">❌</span>
+                  <span>
+                    <strong>Taxable:</strong> Employer&apos;s share and Interest
+                    are fully taxable as income.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-red-600">❌</span>
+                  <span>
+                    <strong>TDS:</strong> 10% TDS deducted if amount &gt;
+                    ₹50,000.
+                  </span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-emerald-200 bg-emerald-50/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-emerald-800 text-lg">
+                After 5 Years
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="space-y-2">
+                <li className="flex gap-2">
+                  <span className="text-emerald-600">✅</span>
+                  <span>
+                    <strong>Tax-Free:</strong> Entire corpus is tax-free.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-emerald-600">✅</span>
+                  <span>
+                    <strong>No TDS:</strong> Full amount credited to your bank.
+                  </span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-100 text-sm text-amber-900">
+          <strong>Pro Tip:</strong> When changing jobs,{' '}
+          <strong>TRANSFER</strong> your EPF account (using UAN) instead of
+          withdrawing. This maintains your &quot;Continuous Service&quot; record
+          for the 5-year rule.
+        </div>
+      </section>
+
+      {/* 💰 AD SLOT 3 */}
+      <div className="no-print my-8">
+        <AdSlot id="guide-epf-3" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 6: COMPARISON --- */}
+      <section className="mb-12">
+        <h2
+          id="epf-vs-ppf"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          EPF vs PPF vs NPS Comparison
+        </h2>
+
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Feature
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">EPF</TableHead>
+                <TableHead className="font-bold text-slate-900">PPF</TableHead>
+                <TableHead className="font-bold text-slate-900">NPS</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Interest
+                </TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  8.25% (Fixed)
+                </TableCell>
+                <TableCell>7.1% (Fixed)</TableCell>
+                <TableCell>10-12% (Market)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Eligibility
+                </TableCell>
+                <TableCell>Salaried Only</TableCell>
+                <TableCell>All Residents</TableCell>
+                <TableCell>All Residents</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Employer Match
+                </TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  Yes
+                </TableCell>
+                <TableCell>No</TableCell>
+                <TableCell>Optional</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Tax Status
+                </TableCell>
+                <TableCell>EEE (Conditional)</TableCell>
+                <TableCell className="font-bold text-emerald-600">
+                  EEE
+                </TableCell>
+                <TableCell>EET</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Lock-In
+                </TableCell>
+                <TableCell>Retirement (58)</TableCell>
+                <TableCell>15 Years</TableCell>
+                <TableCell>Age 60</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      {/* --- SECTION 7: FAQS --- */}
+      <section className="mb-12">
+        <h2
+          id="faqs"
+          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+        >
+          Frequently Asked Questions (FAQs)
+        </h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {FAQ_ITEMS.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border rounded-lg px-4 bg-white"
+            >
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          <AccordionItem
+            value="item-custom-1"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              How do I check my EPF balance?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              You can check your balance via the <strong>EPFO Portal</strong>,{' '}
+              <strong>UMANG App</strong>, or by giving a missed call to{' '}
+              <strong>011-22901406</strong> from your registered mobile number.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-2"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              What is VPF (Voluntary Provident Fund)?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              VPF allows you to contribute more than the mandatory 12% to your
+              EPF account. It earns the same 8.25% interest and enjoys EEE tax
+              benefits (up to ₹2.5L limit).
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-3"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Can I withdraw EPF for home loan repayment?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes. You can make a partial withdrawal for home
+              purchase/construction or repayment of home loan after completing{' '}
+              <strong>5 years of service</strong>.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem
+            value="item-custom-4"
+            className="border rounded-lg px-4 bg-white"
+          >
+            <AccordionTrigger className="text-left text-slate-900 font-semibold hover:no-underline">
+              Is UAN mandatory?
+            </AccordionTrigger>
+            <AccordionContent className="text-slate-700 text-base leading-relaxed">
+              Yes. The Universal Account Number (UAN) is mandatory for checking
+              balance, transferring accounts, and making withdrawal claims.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+
+      {/* --- CONCLUSION --- */}
+      <Card className="mb-8 border-slate-200 bg-slate-900 text-white">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <CheckCircle2 className="h-6 w-6 text-emerald-400" /> Final Verdict
+          </h2>
+          <p className="mb-6 text-slate-300 leading-relaxed">
+            EPF is the backbone of retirement planning for salaried employees.
+            Maximize it for risk-free, tax-efficient wealth.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Activate UAN
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Transfer,
+              Don&apos;t Withdraw
+            </div>
+            <div className="flex items-center gap-2 text-sm bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Wait 5 Years
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* --- AUTHOR & DISCLAIMER --- */}
+      <div className="mb-8 border-t border-slate-200 pt-8">
+        <AuthorBio />
+        <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
+          <strong>Disclaimer:</strong> Interest rates are declared annually by
+          the EPFO. Tax rules are subject to change. This guide is for
+          educational purposes. Consult a tax advisor for specific queries.
+        </p>
+      </div>
+
+      {/* --- FINAL CTA --- */}
+      <Card className="bg-linear-to-br from-amber-600 to-orange-700 text-white border-none shadow-xl no-print">
+        <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+            Plan your retirement
+          </h2>
+          <p className="mb-8 max-w-lg text-amber-100 text-lg">
+            Calculate your EPF corpus growth over time.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/epf-calculator"
+              className="rounded-lg bg-white px-8 py-4 font-bold text-amber-700 transition hover:bg-amber-50 shadow-lg"
+            >
+              EPF Calculator
+            </Link>
+            <Link
+              href="/ppf-calculator"
+              className="rounded-lg border border-amber-300 bg-amber-800/30 px-8 py-4 font-bold text-white transition hover:bg-amber-800/50"
+            >
+              Compare with PPF
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 💰 AD SLOT 4 */}
-      <div className="ad-spacer no-print">
+      <div className="no-print mt-8">
         <AdSlot id="guide-epf-4" type="leaderboard" />
       </div>
     </article>

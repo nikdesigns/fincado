@@ -1,12 +1,33 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import {
+  ShieldCheck,
+  Scale,
+  Landmark,
+  Wallet,
+  Clock,
+  ArrowRightLeft,
+  CheckCircle2,
+  AlertTriangle,
+  Lightbulb,
+} from 'lucide-react';
 
+// --- SEO METADATA ---
 export const metadata: Metadata = {
   title: 'Sovereign Gold Bonds (SGB) Guide 2025: Interest, Tax & Redemption',
   description:
@@ -27,7 +48,6 @@ export const metadata: Metadata = {
 };
 
 export default function SGBGuide() {
-  // --- Article Schema ---
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -53,7 +73,7 @@ export default function SGBGuide() {
   };
 
   return (
-    <>
+    <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.fincado.com' },
@@ -70,317 +90,465 @@ export default function SGBGuide() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <article className="article">
-        <header
-          style={{
-            marginBottom: 32,
-            borderBottom: '1px solid #e2e8f0',
-            paddingBottom: 24,
-          }}
+      {/* --- HEADER --- */}
+      <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        <Badge
+          variant="secondary"
+          className="mb-3 bg-amber-100 text-amber-800 hover:bg-amber-200 px-3 py-1"
         >
-          <span
-            className="badge-flagship"
-            style={{
-              background: '#dbeafe',
-              color: '#1e40af',
-              marginBottom: 12,
-              display: 'inline-block',
-              padding: '4px 12px',
-              borderRadius: '4px',
-              fontSize: '12px',
-              fontWeight: 600,
-            }}
-          >
-            Gold Investment
+          Gold Investment
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+          Sovereign Gold Bonds (SGB): Interest, Tax Benefits & Redemption (2025
+          Guide)
+        </h1>
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-4 w-4" /> 10 Min Read
           </span>
-          <h1
-            style={{
-              fontSize: 'clamp(28px, 4vw, 42px)',
-              lineHeight: 1.2,
-              marginBottom: 16,
-            }}
-          >
-            Sovereign Gold Bonds (SGB): Interest, Tax Benefits & Redemption
-            (2025 Guide)
-          </h1>
-
-          <div
-            style={{
-              fontSize: 14,
-              color: 'var(--color-text-muted)',
-              marginBottom: 20,
-              display: 'flex',
-              gap: 12,
-              alignItems: 'center',
-              flexWrap: 'wrap',
-            }}
-          >
-            <span>
-              Last Updated: <strong>Jan 2025</strong>
-            </span>
-            <span>•</span>
-            <span>10 Min Read</span>
-          </div>
-
+          <span className="hidden sm:inline">•</span>
+          <span>
+            Updated: <strong className="text-slate-700">Jan 2025</strong>
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-1 font-medium text-emerald-600">
+            <CheckCircle2 className="h-4 w-4" /> Fact-Checked
+          </span>
+        </div>
+        <div className="mt-6">
           <ShareTools title="Sovereign Gold Bonds (SGB) Guide" />
-        </header>
+        </div>
+      </header>
 
-        {/* 🖼️ IMAGE 1: HERO IMAGE (Save as: public/images/guides/sgb/sgb-hero.webp) */}
-        <figure style={{ marginBottom: 32 }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#fffbeb',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #fde68a',
-            }}
-          >
-            <Image
-              src="/images/guides/sgb/sgb-hero.webp"
-              alt="Sovereign Gold Bonds: Gold plus Interest Benefit"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-        </figure>
+      {/* --- HERO IMAGE --- */}
+      <Card className="mb-10 border-slate-200 bg-white shadow-sm overflow-hidden">
+        <div className="relative h-64 w-full sm:h-80 md:h-96 bg-amber-50">
+          <Image
+            src="/images/guides/sgb/sgb-hero.webp"
+            alt="Sovereign Gold Bonds: Gold plus Interest Benefit"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+      </Card>
 
+      <div className="prose prose-slate max-w-none text-slate-700 mb-8">
         <WikiText
           content={`
           <p>Sovereign Gold Bonds (SGB) are one of the smartest ways for Indians to invest in gold without worrying about storage, purity, or making charges. Backed by the Government of India and issued by the Reserve Bank of India (RBI), SGBs combine the price appreciation of gold with extra interest and attractive tax benefits, making them a powerful long-term wealth creation tool.</p>
           <p><em>Note: Exact interest rates, issue prices, and tranche dates change over time; always check the latest RBI or bank communication before investing.</em></p>
         `}
         />
+      </div>
 
-        {/* AD SLOT 1 */}
-        <div className="no-print" style={{ marginBottom: 32 }}>
-          <AdSlot id="sgb-guide-top" type="leaderboard" />
+      {/* 💰 AD SLOT 1 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-top" type="leaderboard" />
+      </div>
+
+      {/* --- SECTION 1: WHAT IS SGB --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Landmark className="h-6 w-6 text-amber-600" /> What Are Sovereign
+          Gold Bonds (SGB)?
+        </h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6">
+            <p className="mb-4 text-slate-700">
+              Sovereign Gold Bonds are government securities denominated in
+              grams of gold. Instead of buying physical gold, you buy these
+              bonds, and their value is linked to the market price of 24K gold
+              (999 purity).
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Issuer:</strong> Govt of India (via RBI)
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Denomination:</strong> 1 unit = 1 gram
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Tenure:</strong> 8 years (exit from 5th year)
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Interest:</strong> 2.5% p.a. (Fixed)
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* 💰 AD SLOT 2 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-features-rect" type="box" />
+      </div>
+
+      {/* --- SECTION 2: SGB VS PHYSICAL --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Scale className="h-6 w-6 text-blue-600" /> Why SGB Is Better Than
+          Physical Gold
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="border-emerald-100 bg-emerald-50/30 h-full">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-emerald-800 text-lg">
+                SGB Advantages
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="space-y-2">
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>
+                    <strong>Zero Charges:</strong> No making charges or wastage.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>
+                    <strong>100% Purity:</strong> Benchmark 999 gold.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>
+                    <strong>Zero Risk:</strong> No storage or theft worry
+                    (Demat).
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>
+                    <strong>Extra Income:</strong> Earn 2.5% interest annually.
+                  </span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-red-100 bg-red-50/20 h-full">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-red-800 text-lg">
+                Physical Gold Issues
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              <ul className="space-y-2">
+                <li className="flex gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-500 shrink-0" />
+                  <span>
+                    <strong>High Cost:</strong> Making charges (8-25%).
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-500 shrink-0" />
+                  <span>
+                    <strong>Wastage:</strong> Loss on resale/exchange.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-500 shrink-0" />
+                  <span>
+                    <strong>Storage Risk:</strong> Theft, locker charges.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-500 shrink-0" />
+                  <span>
+                    <strong>Zero Income:</strong> Does not generate passive
+                    cash.
+                  </span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
         </div>
 
-        <WikiText
-          content={`
-          <h2>What Are Sovereign Gold Bonds (SGB)?</h2>
-          <p>Sovereign Gold Bonds are government securities denominated in grams of gold. Instead of buying physical gold, you buy these bonds, and their value is linked to the market price of 24K gold (999 purity).</p>
-
-          <h3>Key features of SGB:</h3>
-          <ul>
-            <li><strong>Issuer:</strong> Government of India (through RBI).</li>
-            <li><strong>Denomination:</strong> 1 unit = 1 gram of gold.</li>
-            <li><strong>Tenure:</strong> 8 years, with exit option from 5th year.</li>
-            <li><strong>Interest:</strong> Fixed rate (commonly 2.5% per annum) on the initial investment amount.</li>
-            <li><strong>Redemption:</strong> Cash credited to bank account based on prevailing gold price.</li>
-            <li><strong>Forms:</strong> Held as a certificate or in demat form.</li>
-          </ul>
-        `}
-        />
-
-        {/* AD SLOT 2 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="sgb-guide-features-rect" type="box" />
+        <div className="mt-6 bg-amber-50 p-4 rounded-lg border border-amber-100 text-sm text-amber-900">
+          <strong>Example:</strong> If you invest ₹3 Lakh in SGB, you get{' '}
+          <strong>₹7,500 annual interest</strong> credited to your bank, PLUS
+          the bond value grows with gold prices.
         </div>
 
-        <WikiText
-          content={`
-          <h2>Why SGB Is Better Than Physical Gold</h2>
-          <p>Indians have traditionally bought gold in the form of jewellery, coins, or bars, but that comes with hidden costs and risks. Sovereign Gold Bonds solve many of these issues while adding extra benefits.</p>
-
-          <h3>1. No Making Charges, No Wastage, No Storage Risk</h3>
-          <p><strong>Physical gold issues:</strong> High making charges (8–25%), wastage on resale, purity risks, and storage/theft concerns.</p>
-          <p><strong>SGB advantages:</strong> Zero making charges, 100% purity benchmark (999 gold), and zero storage risk (digital/demat holding).</p>
-
-          <h3>2. Extra 2.5% Interest on Top of Gold Price</h3>
-          <p>Physical gold generates <strong>zero regular income</strong>. SGBs, however, pay you <strong>fixed interest plus gold price appreciation</strong>.</p>
-          <ul>
-            <li>The government pays a fixed interest rate (commonly <strong>2.5% per annum</strong>) on the initial subscription amount.</li>
-            <li>Interest is paid semi-annually directly into your bank account.</li>
-          </ul>
-          
-          <div class="callout-box info-box">
-            <strong>Example:</strong><br/>
-            If you invest ₹3,00,000 in SGB (50g @ ₹6000/g):<br/>
-            You get <strong>₹7,500 annual interest</strong> credited to your bank account, PLUS the value of your bond grows if gold prices rise.
-          </div>
-        `}
-        />
-
-        {/* 🖼️ IMAGE 2: SGB vs PHYSICAL GOLD (Save as: public/images/guides/sgb/sgb-vs-physical.webp) */}
-        <figure style={{ margin: '32px 0' }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: '16/9',
-              background: '#fef2f2',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid #fee2e2',
-            }}
-          >
-            <Image
-              src="/images/guides/sgb/sgb-vs-physical.webp"
-              alt="Comparison: Sovereign Gold Bond vs Physical Gold"
-              fill
-              style={{ objectFit: 'contain', padding: '16px' }}
-            />
-          </div>
-          <figcaption
-            style={{
-              textAlign: 'center',
-              fontSize: '14px',
-              color: '#64748b',
-              marginTop: '8px',
-            }}
-          >
-            SGB beats physical gold with interest income and tax benefits.
-          </figcaption>
-        </figure>
-
-        {/* AD SLOT 3 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="sgb-guide-mid-banner" type="leaderboard" />
+        {/* IMAGE: SGB vs Physical */}
+        <div className="mt-8 overflow-hidden rounded-xl bg-slate-50 border border-slate-200 flex justify-center shadow-sm">
+          <Image
+            src="/images/guides/sgb/sgb-vs-physical.webp"
+            alt="Comparison: Sovereign Gold Bond vs Physical Gold"
+            width={800}
+            height={400}
+            className="rounded-lg w-full h-auto object-contain"
+          />
         </div>
+      </section>
 
-        <WikiText
-          content={`
-          <h2>Tax-Free Capital Gains on Maturity (8 Years)</h2>
-          <p>One of the biggest reasons Sovereign Gold Bonds are so powerful for long-term investors is their tax treatment.</p>
+      {/* 💰 AD SLOT 3 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-mid-banner" type="leaderboard" />
+      </div>
 
-          <h3>8-Year Maturity and Redemption</h3>
-          <p>SGBs have a tenure of 8 years. On maturity, the redemption price is based on the simple average of closing price of 999 purity gold of the last few business days.</p>
+      {/* --- SECTION 3: TAX BENEFITS --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <ShieldCheck className="h-6 w-6 text-emerald-600" /> Tax-Free Capital
+          Gains (8 Years)
+        </h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6">
+            <div className="space-y-4 text-slate-700">
+              <div>
+                <h3 className="font-bold text-slate-900 mb-1">
+                  Maturity Benefit
+                </h3>
+                <p className="text-sm">
+                  Capital gains arising at redemption on maturity (after 8
+                  years) are <strong>exempt from income tax</strong> for
+                  individuals.
+                </p>
+              </div>
+              <div className="bg-emerald-50 p-3 rounded border border-emerald-100 text-sm">
+                <strong>Example:</strong> Invest ₹3 Lakh → Redeem ₹5.5 Lakh
+                after 8 years. The <strong>₹2.5 Lakh gain is Tax-Free</strong>.
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-1">Interest Tax</h3>
+                <p className="text-sm">
+                  The semi-annual interest (2.5% p.a.) is taxable as
+                  &quot;Income from Other Sources&quot; at your slab rate.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
-          <h3>Tax-Free Capital Gains</h3>
-          <p>For individual investors, <strong>capital gains arising at redemption on maturity (after 8 years) are exempt from income tax</strong>.</p>
-          <p>Example: If you invested ₹3 Lakh and redeem at ₹5.5 Lakh after 8 years, the <strong>₹2.5 Lakh gain is Tax-Free</strong>.</p>
+      {/* 💰 AD SLOT 4 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-tax-rect" type="box" />
+      </div>
 
-          <h3>Tax on Interest</h3>
-          <p>The semi-annual interest (e.g., 2.5% p.a.) is taxable as “Income from Other Sources” at your slab rate.</p>
-        `}
-        />
-
-        {/* AD SLOT 4 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="sgb-guide-tax-rect" type="box" />
+      {/* --- SECTION 4: HOW TO BUY --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Wallet className="h-6 w-6 text-purple-600" /> How to Buy SGB
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Card className="border-slate-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-slate-900">Banks</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              Log in to Net Banking or visit branch. Fill form & pay.
+            </CardContent>
+          </Card>
+          <Card className="border-slate-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-slate-900">
+                Brokers (Demat)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              Use apps like Zerodha/Upstox. Search SGB & place order.
+            </CardContent>
+          </Card>
+          <Card className="border-slate-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-slate-900">
+                Secondary Market
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-slate-700">
+              Buy existing units on NSE/BSE through Demat account.
+            </CardContent>
+          </Card>
         </div>
+      </section>
 
-        <WikiText
-          content={`
-          <h2>How to Buy SGB: Banks, Post Offices, and Demat</h2>
-          <p>RBI opens SGB subscription in <strong>tranches</strong> several times a year. Investors can apply through:</p>
+      {/* 💰 AD SLOT 5 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-buying-banner" type="leaderboard" />
+      </div>
 
-          <h3>1. Through Banks (Online/Offline)</h3>
-          <ul>
-            <li><strong>Online:</strong> Log in to Net Banking > Investments > Sovereign Gold Bonds.</li>
-            <li><strong>Offline:</strong> Visit branch, fill form, and pay via cheque/DD.</li>
-          </ul>
+      {/* --- SECTION 5: REDEMPTION --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <ArrowRightLeft className="h-6 w-6 text-orange-600" /> Premature
+          Withdrawal Rules
+        </h2>
+        <Card className="border-slate-200">
+          <CardContent className="pt-6">
+            <ul className="space-y-4 text-slate-700 text-sm">
+              <li className="flex gap-3">
+                <div className="bg-orange-100 p-2 rounded-full h-8 w-8 flex items-center justify-center text-orange-700 font-bold text-xs">
+                  1
+                </div>
+                <div>
+                  <strong>Early Redemption (RBI):</strong> From 5th year onwards
+                  on interest payment dates.
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="bg-orange-100 p-2 rounded-full h-8 w-8 flex items-center justify-center text-orange-700 font-bold text-xs">
+                  2
+                </div>
+                <div>
+                  <strong>Stock Exchanges:</strong> Sell anytime on NSE/BSE if
+                  held in Demat (High liquidity).
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="bg-orange-100 p-2 rounded-full h-8 w-8 flex items-center justify-center text-orange-700 font-bold text-xs">
+                  3
+                </div>
+                <div>
+                  <strong>Loan Against SGB:</strong> Use as collateral for loans
+                  instead of selling.
+                </div>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
 
-          <h3>2. Through Stock Brokers (Demat)</h3>
-          <ul>
-            <li>Log in to your broker app (Zerodha, Upstox, etc.).</li>
-            <li>Go to "Sovereign Gold Bonds" or "IPO/Bonds" section.</li>
-            <li>Place order during the subscription window. Units are credited to Demat.</li>
-          </ul>
+      {/* 💰 AD SLOT 6 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-redemption-rect" type="box" />
+      </div>
 
-          <h3>3. Secondary Market</h3>
-          <p>You can also buy existing SGB units from the stock exchange (NSE/BSE) through your demat account if a new tranche is not open.</p>
-        `}
-        />
-
-        {/* AD SLOT 5 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="sgb-guide-buying-banner" type="leaderboard" />
+      {/* --- SECTION 6: COMPARISON TABLE --- */}
+      <section className="mb-12">
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Scale className="h-6 w-6 text-teal-600" /> Quick Comparison
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-100 hover:bg-slate-100">
+                <TableHead className="font-bold text-slate-900">
+                  Feature
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">SGB</TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Physical Gold
+                </TableHead>
+                <TableHead className="font-bold text-slate-900">
+                  Gold ETF
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Backed by
+                </TableCell>
+                <TableCell>Govt of India</TableCell>
+                <TableCell>Self</TableCell>
+                <TableCell>Mutual Fund</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Interest
+                </TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  2.5% p.a.
+                </TableCell>
+                <TableCell>No</TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Charges
+                </TableCell>
+                <TableCell className="text-emerald-600">Zero</TableCell>
+                <TableCell className="text-red-600">Making/Storage</TableCell>
+                <TableCell>Expense Ratio</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Maturity Tax
+                </TableCell>
+                <TableCell className="text-emerald-600 font-bold">
+                  Tax-Free
+                </TableCell>
+                <TableCell>Taxable</TableCell>
+                <TableCell>Taxable</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium text-slate-700">
+                  Purity Risk
+                </TableCell>
+                <TableCell className="text-emerald-600">None</TableCell>
+                <TableCell className="text-red-600">Yes</TableCell>
+                <TableCell>None</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
+      </section>
 
-        <WikiText
-          content={`
-          <h2>Premature Withdrawal Rules (After 5 Years)</h2>
-          
-          <h3>1. Early Redemption Through RBI</h3>
-          <p>Investors can opt for premature redemption <strong>from the 5th year onwards</strong> on interest payment dates. RBI redeems these units at the prevailing gold price.</p>
+      {/* 💰 AD SLOT 7 */}
+      <div className="no-print my-8">
+        <AdSlot id="sgb-guide-bottom" type="leaderboard" />
+      </div>
 
-          <h3>2. Selling on Stock Exchanges</h3>
-          <p>SGBs are listed on stock exchanges (NSE/BSE). You can sell them anytime if you hold them in Demat form, providing high liquidity.</p>
-
-          <h3>3. Loan Against SGB</h3>
-          <p>SGBs can be used as collateral for loans, similar to physical gold loans. This provides liquidity without selling your investment.</p>
-        `}
-        />
-
-        {/* AD SLOT 6 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="sgb-guide-redemption-rect" type="box" />
-        </div>
-
-        <WikiText
-          content={`
-          <h2>SGB vs Physical Gold vs Gold ETF (Quick Comparison)</h2>
-          <div class="table-container">
-            <table class="rate-table">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>Sovereign Gold Bond (SGB)</th>
-                  <th>Physical Gold</th>
-                  <th>Gold ETF</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><strong>Backed by</strong></td><td>Govt of India (Sovereign)</td><td>Self Custody</td><td>Mutual Fund</td></tr>
-                <tr><td><strong>Interest</strong></td><td><strong>~2.5% p.a.</strong> ✅</td><td>No</td><td>No</td></tr>
-                <tr><td><strong>Charges</strong></td><td>No making/storage charges</td><td>Making charges, Storage cost</td><td>Expense Ratio</td></tr>
-                <tr><td><strong>Tax on Maturity</strong></td><td><strong>Tax-Free</strong> (8 years) ✅</td><td>Taxable</td><td>Taxable</td></tr>
-                <tr><td><strong>Liquidity</strong></td><td>Medium (5 yr exit / Exchange)</td><td>High</td><td>High</td></tr>
-                <tr><td><strong>Purity Risk</strong></td><td>None (Financial Gold)</td><td>Yes</td><td>None</td></tr>
-              </tbody>
-            </table>
-          </div>
-        `}
-        />
-
-        {/* AD SLOT 7 */}
-        <div className="no-print" style={{ margin: '32px 0' }}>
-          <AdSlot id="sgb-guide-bottom" type="leaderboard" />
-        </div>
-
-        <section className="conclusion-box" style={{ marginTop: 40 }}>
-          <h2 style={{ fontSize: 24, marginBottom: 16 }}>
-            Final Take: Who Should Invest in SGB?
+      {/* --- CONCLUSION --- */}
+      <Card className="mb-8 border-slate-200 bg-slate-900 text-white">
+        <CardContent className="p-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-yellow-400" /> Final Take
           </h2>
-          <p style={{ marginBottom: 16 }}>
+          <p className="mb-6 text-slate-300 leading-relaxed">
             Sovereign Gold Bonds are ideal if you want{' '}
             <strong>long-term exposure to gold (5–8 years)</strong> without
             storage or purity worries.
           </p>
-          <ul style={{ paddingLeft: 20 }}>
-            <li>
-              You earn <strong>2.5% extra interest</strong> on top of gold price
-              appreciation.
+          <ul className="space-y-3 mb-6 text-slate-300 text-sm">
+            <li className="flex gap-2 items-start">
+              <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+              <span>
+                Earn <strong>2.5% extra interest</strong> on top of gold price.
+              </span>
             </li>
-            <li>
-              You enjoy <strong>Tax-Free maturity</strong> after 8 years.
+            <li className="flex gap-2 items-start">
+              <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+              <span>
+                Enjoy <strong>Tax-Free maturity</strong> after 8 years.
+              </span>
             </li>
-            <li>
-              It combines the cultural comfort of gold with the financial
-              intelligence of bonds.
+            <li className="flex gap-2 items-start">
+              <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+              <span>
+                Combines cultural comfort with financial intelligence.
+              </span>
             </li>
           </ul>
-        </section>
+        </CardContent>
+      </Card>
 
+      <div className="mb-8 border-t border-slate-200 pt-8">
         <AuthorBio />
-
-        <div className="legal-disclaimer">
-          <p>
-            <strong>Disclaimer:</strong> Sovereign Gold Bond details (interest
-            rates, issue dates) are subject to RBI notifications. Gold prices
-            are subject to market risks. This article is for educational
-            purposes only and does not constitute financial advice. Please
-            consult a financial advisor before investing.
-          </p>
-        </div>
-      </article>
-    </>
+        <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
+          <strong>Disclaimer:</strong> Sovereign Gold Bond details (interest
+          rates, issue dates) are subject to RBI notifications. Gold prices are
+          subject to market risks. This article is for educational purposes only
+          and does not constitute financial advice.
+        </p>
+      </div>
+    </article>
   );
 }
