@@ -3,7 +3,8 @@ import articlesData from '@/data/articles.json';
 
 export const dynamic = 'force-static';
 
-const BASE_URL = 'https://fincado.com';
+// ✅ UPDATED: Added 'www' to match your page canonicals
+const BASE_URL = 'https://www.fincado.com';
 
 const excludedSlugs = [
   'home-loan-first-time-buyers',
@@ -11,8 +12,12 @@ const excludedSlugs = [
   'personal-loan-interest-rates-india',
 ];
 
-const getUrl = (path: string) =>
-  path === '' ? `${BASE_URL}/` : `${BASE_URL}${path}/`;
+// Helper to ensure clean URLs
+const getUrl = (path: string) => {
+  // Remove leading slash if present to avoid double slashes
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return cleanPath === '' ? `${BASE_URL}/` : `${BASE_URL}/${cleanPath}/`;
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   /* ---------------- STATIC PAGES (ENGLISH) ---------------- */
@@ -23,13 +28,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
     '/privacy-policy',
     '/disclaimer',
+
+    // Hubs
     '/calculators',
     '/guides',
+    '/loans',
     '/credit-score',
     '/mutual-funds',
-    '/loans',
 
-    // Calculators
+    // Financial Calculators
     '/emi-calculator',
     '/sip-calculator',
     '/fd-calculator',
@@ -46,10 +53,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/fire-calculator',
     '/gratuity-calculator',
     '/compound-interest-calculator',
-    '/elss-calculator', // ✅ Added
-    '/income-tax-calculator', // ✅ Added
+    '/elss-calculator',
+    '/income-tax-calculator',
 
-    // Loans
+    // Loan Pages
     '/loans/home-loan',
     '/loans/personal-loan',
     '/loans/car-loan',
@@ -64,18 +71,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   /* ---------------- HINDI PAGES ---------------- */
   const hindiRoutes = [
     '/hi',
-    '/hi/calculators', // ✅ New Hub
-    '/hi/guides', // ✅ New Hub
+    '/hi/calculators',
+    '/hi/guides',
+    '/hi/loans', // ✅ Added: Hindi Loans Hub
 
     // Investment & Saving
     '/hi/sip-calculator',
-    '/hi/elss-calculator', // ✅ Added
+    '/hi/elss-calculator',
     '/hi/fd-calculator',
     '/hi/rd-calculator',
     '/hi/ppf-calculator',
     '/hi/epf-calculator',
     '/hi/swp-calculator',
-    '/hi/lumpsum-calculator', // ✅ Added
+    '/hi/lumpsum-calculator',
     '/hi/sukanya-samriddhi',
     '/hi/mutual-funds',
 
@@ -86,19 +94,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/gratuity-calculator',
 
     // Tax & Tools
-    '/hi/income-tax-calculator', // ✅ Added
+    '/hi/income-tax-calculator',
     '/hi/inflation-calculator',
     '/hi/gst-calculator',
     '/hi/credit-score',
-    '/hi/simple-interest-calculator', // ✅ Added
-    '/hi/compound-interest-calculator', // ✅ Added
+    '/hi/simple-interest-calculator',
+    '/hi/compound-interest-calculator',
 
-    // Loans
+    // Loans (Specific)
     '/hi/emi-calculator',
-    '/hi/loans/home-loan', // ✅ Added
-    '/hi/loans/car-loan', // ✅ Added
-    '/hi/loans/personal-loan', // ✅ Added
-    '/hi/loans/education-loan', // ✅ Added
+    '/hi/loans/home-loan',
+    '/hi/loans/personal-loan',
+    '/hi/loans/car-loan',
+    '/hi/loans/education-loan',
   ].map((route) => ({
     url: getUrl(route),
     lastModified: new Date(),
@@ -106,8 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  /* ---------------- GUIDES (DYNAMIC) ---------------- */
-  // This automatically picks up the new guides from articles.json
+  /* ---------------- GUIDES (DYNAMIC FROM JSON) ---------------- */
   const articleRoutes = articlesData
     .filter((a) => !excludedSlugs.includes(a.slug))
     .map((article) => {
@@ -118,7 +125,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       return {
         url: getUrl(path),
-        lastModified: new Date(article.published),
+        // Use the actual published date for lastModified if available, else now
+        lastModified: new Date(article.published || new Date()),
         changeFrequency: 'monthly' as const,
         priority: 0.9,
       };

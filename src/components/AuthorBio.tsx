@@ -1,51 +1,72 @@
 // src/components/AuthorBio.tsx
 import React from 'react';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ShieldCheck, Users, BookOpen, CalendarDays } from 'lucide-react';
 
 export default function AuthorBio() {
   return (
-    <Card className="no-print mt-10 border-slate-200 bg-white shadow-sm">
-      <CardContent className="flex gap-5 p-6 sm:p-8">
-        {/* Avatar */}
-        <div className="shrink-0">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-2xl">
-            👨‍💻
+    <Card className="no-print mt-12 border-slate-200 bg-slate-50/50 shadow-sm overflow-hidden">
+      {/* Decorative Top Accent */}
+      <div className="h-1.5 w-full bg-linear-to-r from-emerald-500 to-emerald-300" />
+
+      <CardContent className="flex flex-col sm:flex-row gap-6 p-6 sm:p-8">
+        {/* Avatar / Icon */}
+        <div className="shrink-0 flex justify-center sm:justify-start">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm text-emerald-600">
+            <Users className="w-8 h-8" />
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1">
-          {/* Meta row */}
-          <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
+        {/* Text Content */}
+        <div className="flex-1 text-center sm:text-left">
+          {/* Header & Badges */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-3">
+            <h4 className="text-lg font-bold text-slate-900">
+              Fincado Research Team
+            </h4>
             <Badge
               variant="secondary"
-              className="bg-emerald-50 text-emerald-700 font-semibold"
+              className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 border-emerald-200 gap-1.5 px-2.5 py-0.5"
             >
-              ✔ Fact Checked
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Fact Checked
             </Badge>
-
-            <span className="text-slate-500">• Last Updated: Jan 2025</span>
           </div>
 
-          {/* Author */}
-          <h4 className="text-base font-semibold text-slate-900">
-            Fincado Research Team
-          </h4>
-
           {/* Description */}
-          <p className="mt-1 text-sm leading-relaxed text-slate-600">
-            Our tools are built using the latest{' '}
-            <strong className="font-semibold text-slate-800">
+          <p className="text-sm leading-relaxed text-slate-600 mb-5 max-w-2xl mx-auto sm:mx-0">
+            Our content is meticulously researched and built using the latest{' '}
+            <strong className="font-semibold text-slate-900">
               RBI Guidelines
             </strong>{' '}
             and{' '}
-            <strong className="font-semibold text-slate-800">
-              Income Tax Act (FY 2024–25)
+            <strong className="font-semibold text-slate-900">
+              Income Tax Act laws
             </strong>
-            . All calculations are reviewed by certified financial planners to
+            . All financial calculations are reviewed by certified experts to
             ensure bank-grade accuracy and transparency.
           </p>
+
+          {/* Footer Metadata */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-6 gap-y-2 text-xs font-medium text-slate-500 border-t border-slate-200/60 pt-4 mt-auto">
+            <div className="flex items-center gap-1.5">
+              <CalendarDays className="w-3.5 h-3.5 text-slate-400" />
+              <span>
+                Last Updated: <strong>Jan 2025</strong>
+              </span>
+            </div>
+
+            {/* Optional: Add a link to an About or Editorial page if you have one */}
+            <Link
+              href="/about"
+              className="flex items-center gap-1.5 hover:text-emerald-600 transition-colors"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-slate-400" />
+              <span>Editorial Guidelines</span>
+            </Link>
+          </div>
         </div>
       </CardContent>
     </Card>

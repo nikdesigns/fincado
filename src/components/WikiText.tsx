@@ -1,5 +1,7 @@
 /* src/components/WikiText.tsx */
-import React from 'react';
+'use client'; // Client component for useMemo optimization
+
+import React, { useMemo } from 'react';
 import AdSlot from '@/components/AdSlot';
 
 const LINK_MAP: Record<string, string> = {
@@ -31,18 +33,33 @@ const LINK_MAP: Record<string, string> = {
   'Simple Interest': '/simple-interest-calculator',
 };
 
+// Tailwind classes for the injected links
+const LINK_CLASSES =
+  'text-emerald-700 font-semibold hover:text-emerald-800 hover:underline decoration-emerald-300 underline-offset-2 transition-colors';
+
 function linkKeywords(html: string): string {
   if (!html) return '';
   let output = html;
 
-  // Sort by length to avoid replacing substrings (e.g., matching "Loan" inside "Home Loan")
+  // 1. Sort by length (longest first) to avoid partial matches (e.g. linking "Loan" inside "Home Loan")
   const keywords = Object.keys(LINK_MAP).sort((a, b) => b.length - a.length);
 
   keywords.forEach((word) => {
     const url = LINK_MAP[word];
-    // Regex: Match whole word, NOT inside existing tags or <a> links
-    const regex = new RegExp(`\\b${word}\\b(?![^<]*>|[^<>]*</a>)`, 'gi');
-    output = output.replace(regex, `<a href="${url}" class="wiki-link">$&</a>`);
+
+    // 2. REGEX EXPLANATION:
+    // \b${word}\b       -> Match the whole word boundary
+    // (?![^<]*>)        -> Lookahead: Ensure we are NOT inside an HTML tag (like <img src="...">)
+    // (?![^<>]*<\/a>)   -> Lookahead: Ensure we are NOT already inside an existing <a> tag
+    // 'i' flag only     -> Case insensitive, but removed 'g' (Global) flag to link ONLY the first occurrence
+
+    const regex = new RegExp(`\\b${word}\\b(?![^<]*>|[^<>]*<\/a>)`, 'i');
+
+    // Replace with a standard anchor tag with Tailwind classes
+    output = output.replace(
+      regex,
+      `<a href="${url}" class="${LINK_CLASSES}" title="Learn more about ${word}">$&</a>`
+    );
   });
 
   return output;
@@ -55,46 +72,55 @@ export default function WikiText({
   content: string;
   className?: string;
 }) {
-  // 1. Run the auto-linker on the full content first
-  const linkedContent = linkKeywords(content);
+  // 1. Optimization: Only re-process text if content changes
+  const { firstBlock, secondBlock, showAd } = useMemo(() => {
+    const linkedContent = linkKeywords(content);
+    const paragraphs = linkedContent.split('</p>');
 
-  // 2. Logic to split content and inject Ad
-  // We split by closing paragraph tags </p> to ensure we don't break HTML structure
-  const paragraphs = linkedContent.split('</p>');
+    // If content is short (less than 4 paragraphs), don't inject ad
+    if (paragraphs.length < 4) {
+      return {
+        firstBlock: linkedContent,
+        secondBlock: null,
+        showAd: false,
+      };
+    }
 
-  // If the article is short (less than 4 paragraphs), just show it all without insertion
-  if (paragraphs.length < 4) {
-    return (
-      <div
-        className={`wiki-content ${className}`}
-        dangerouslySetInnerHTML={{ __html: linkedContent }}
-        suppressHydrationWarning={true}
-      />
-    );
-  }
-
-  // 3. Inject Ad after the 2nd paragraph (index 0 and 1)
-  const firstBlock = paragraphs.slice(0, 2).join('</p>') + '</p>';
-  const secondBlock = paragraphs.slice(2).join('</p>');
+    // Split logic: Inject after the 2nd paragraph
+    return {
+      firstBlock: paragraphs.slice(0, 2).join('</p>') + '</p>',
+      secondBlock: paragraphs.slice(2).join('</p>'),
+      showAd: true,
+    };
+  }, [content]);
 
   return (
-    <div className={`wiki-content ${className}`}>
-      {/* First Block of Text */}
+    <div
+      className={`prose prose-slate max-w-none leading-relaxed text-slate-700 ${className}`}
+    >
+      {/* First Block */}
       <div
         dangerouslySetInnerHTML={{ __html: firstBlock }}
         suppressHydrationWarning={true}
       />
 
-      {/* ✅ IN-ARTICLE AD SLOT (Using 'square' to match your approved unit) */}
-      <div className="my-8 no-print flex justify-center">
-        <AdSlot type="square" label="Advertisement" />
-      </div>
+      {/* ✅ INJECTED AD */}
+      {showAd && (
+        <div className="my-10 flex flex-col items-center justify-center gap-2 no-print bg-slate-50 py-6 border-y border-slate-100">
+          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">
+            Advertisement
+          </span>
+          <AdSlot type="square" label="" />
+        </div>
+      )}
 
-      {/* Remaining Text */}
-      <div
-        dangerouslySetInnerHTML={{ __html: secondBlock }}
-        suppressHydrationWarning={true}
-      />
+      {/* Second Block */}
+      {secondBlock && (
+        <div
+          dangerouslySetInnerHTML={{ __html: secondBlock }}
+          suppressHydrationWarning={true}
+        />
+      )}
     </div>
   );
 }

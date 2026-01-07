@@ -1,5 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Cookie } from 'lucide-react';
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
@@ -7,8 +10,13 @@ export default function CookieBanner() {
   useEffect(() => {
     // Check if user has already accepted
     const consent = localStorage.getItem('fincado_cookie_consent');
+
+    // Add a small delay so it doesn't jar the user immediately upon load
     if (!consent) {
-      setShow(true);
+      const timer = setTimeout(() => {
+        setShow(true);
+      }, 1000);
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -20,61 +28,42 @@ export default function CookieBanner() {
   if (!show) return null;
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: '#0f172a',
-        color: '#fff',
-        padding: '16px',
-        zIndex: 9999,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '20px',
-        flexWrap: 'wrap',
-        boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.1)',
-        borderTop: '1px solid #334155',
-      }}
-      className="no-print"
-    >
-      <p
-        style={{
-          margin: 0,
-          fontSize: '14px',
-          maxWidth: '600px',
-          lineHeight: '1.5',
-          color: 'white',
-        }}
-      >
-        We use cookies to personalize content and ads to provide you with a
-        better experience. By using our site, you accept our{' '}
-        <a
-          href="/privacy-policy"
-          style={{ color: '#4ade80', textDecoration: 'underline' }}
-        >
-          Privacy Policy
-        </a>
-        .
-      </p>
-      <button
-        onClick={accept}
-        style={{
-          background: '#15803d',
-          color: 'white',
-          border: 'none',
-          padding: '8px 24px',
-          borderRadius: '6px',
-          fontWeight: 600,
-          cursor: 'pointer',
-          fontSize: '14px',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        Accept & Close
-      </button>
+    <div className="fixed bottom-4 left-4 right-4 z-100 flex justify-center no-print">
+      <div className="max-w-4xl w-full bg-slate-900/95 backdrop-blur-md text-white p-5 rounded-2xl shadow-2xl border border-slate-700/50 flex flex-col sm:flex-row items-center gap-5 sm:gap-8 animate-in slide-in-from-bottom-10 fade-in duration-700">
+        {/* Icon & Content */}
+        <div className="flex items-start gap-4 flex-1">
+          <div className="p-3 bg-slate-800 rounded-xl shrink-0 text-emerald-400 hidden sm:block">
+            <Cookie className="w-6 h-6" />
+          </div>
+          <div className="space-y-1">
+            <h4 className="font-bold text-base flex items-center gap-2 sm:block">
+              <Cookie className="w-5 h-5 text-emerald-400 sm:hidden" />
+              We value your privacy
+            </h4>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              We use cookies to enhance your browsing experience and analyze our
+              traffic. By continuing to use our site, you accept our{' '}
+              <Link
+                href="/privacy-policy"
+                className="text-white underline decoration-emerald-500 underline-offset-4 hover:text-emerald-400 transition-colors font-medium"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="w-full sm:w-auto shrink-0">
+          <Button
+            onClick={accept}
+            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-5 rounded-xl transition-all shadow-lg hover:shadow-emerald-900/20"
+          >
+            Accept Cookies
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
