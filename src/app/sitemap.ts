@@ -4,7 +4,7 @@ import articlesData from '@/data/articles.json';
 export const dynamic = 'force-static';
 
 // ✅ UPDATED: Added 'www' to match your page canonicals
-const BASE_URL = 'https://www.fincado.com';
+const BASE_URL = 'https://fincado.com';
 
 const excludedSlugs = [
   'home-loan-first-time-buyers',

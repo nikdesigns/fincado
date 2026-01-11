@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: 'GST Returns Explained: GSTR-1 vs GSTR-3B & Input Tax Credit',
     description:
       'Master GST compliance. Learn the "Golden Rule" of ITC, filing process, and how to save taxes legitimately.',
-    url: 'https://www.fincado.com/guides/gst-guide',
+    url: 'https://fincado.com/guides/gst-guide/',
     type: 'article',
     images: [
       {
@@ -90,11 +90,11 @@ export default function GSTReturnsGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'GST Returns Guide',
-            url: 'https://www.fincado.com/guides/gst-guide',
+            url: 'https://fincado.com/guides/gst-guide/',
           },
         ]}
       />
@@ -111,8 +111,7 @@ export default function GSTReturnsGuidePage() {
               'GST Returns Explained: GSTR-1 vs GSTR-3B & Input Tax Credit',
             description:
               'Comprehensive guide on GST Returns: Step-by-step filing process, ITC rules, Composition Scheme, and QRMP scheme.',
-            image:
-              'https://www.fincado.com/images/guides/gst/gst-guide-hero.webp',
+            image: 'https://fincado.com/images/guides/gst/gst-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -122,7 +121,7 @@ export default function GSTReturnsGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-08',

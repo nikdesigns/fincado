@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'NPS vs EPF vs PPF',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/retirement-calculator',
+    canonical: 'https://fincado.com/retirement-calculator/',
   },
   openGraph: {
     title: 'Retirement Calculator – Secure Your Golden Years',
     description:
       'Free tool to estimate your retirement corpus and required monthly SIP.',
-    url: 'https://www.fincado.com/retirement-calculator',
+    url: 'https://fincado.com/retirement-calculator/',
     type: 'website',
   },
 };
@@ -112,7 +112,7 @@ export default function RetirementPage() {
       <CalculatorSchema
         name="Retirement Corpus Calculator"
         description="Estimate how much money you need to retire in India. Adjust for inflation and life expectancy."
-        url="https://www.fincado.com/retirement-calculator"
+        url="https://fincado.com/retirement-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -126,11 +126,11 @@ export default function RetirementPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Retirement Calculator',
-              url: 'https://www.fincado.com/retirement-calculator',
+              url: 'https://fincado.com/retirement-calculator/',
             },
           ]}
         />

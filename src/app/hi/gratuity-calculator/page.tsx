@@ -41,16 +41,16 @@ export const metadata: Metadata = {
     'Gratuity Eligibility Rules Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/gratuity-calculator',
+    canonical: 'https://fincado.com/hi/gratuity-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/gratuity-calculator',
+      'en-IN': 'https://fincado.com/gratuity-calculator/',
     },
   },
   openGraph: {
     title: 'ग्रेच्युटी कैलकुलेटर – अपनी मेहनत की कमाई का हिसाब',
     description:
       'मुफ्त टूल: अपनी बेसिक सैलरी और सेवा के वर्षों के आधार पर ग्रेच्युटी की गणना करें।',
-    url: 'https://www.fincado.com/hi/gratuity-calculator',
+    url: 'https://fincado.com/hi/gratuity-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -106,16 +106,16 @@ export default function HindiGratuityPage() {
       <CalculatorSchema
         name="Gratuity Calculator Hindi"
         description="Calculate Gratuity amount and tax exemption in Hindi."
-        url="https://www.fincado.com/hi/gratuity-calculator"
+        url="https://fincado.com/hi/gratuity-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'ग्रेच्युटी कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/gratuity-calculator',
+            url: 'https://fincado.com/hi/gratuity-calculator/',
           },
         ]}
       />

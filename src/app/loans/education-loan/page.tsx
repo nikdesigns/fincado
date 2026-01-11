@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     'Student Loan Eligibility India',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/loans/education-loan',
+    canonical: 'https://fincado.com/loans/education-loan/',
   },
   openGraph: {
     title: 'Education Loan Calculator – Plan Your Future',
     description:
       'Accurate Student Loan EMI Calculator with Moratorium logic & Tax Savings.',
-    url: 'https://www.fincado.com/loans/education-loan',
+    url: 'https://fincado.com/loans/education-loan/',
     type: 'website',
   },
 };
@@ -139,7 +139,7 @@ export default function EducationLoanPage() {
       <CalculatorSchema
         name="Education Loan EMI Calculator"
         description="Calculate EMI for student loans. Account for moratorium periods and Section 80E tax deductions."
-        url="https://www.fincado.com/loans/education-loan"
+        url="https://fincado.com/loans/education-loan/"
       />
 
       <FAQSchema
@@ -152,11 +152,11 @@ export default function EducationLoanPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Loans', url: 'https://www.fincado.com/loans' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Loans', url: 'https://fincado.com/loans/' },
             {
               name: 'Education Loan EMI Calculator',
-              url: 'https://www.fincado.com/loans/education-loan',
+              url: 'https://fincado.com/loans/education-loan/',
             },
           ]}
         />

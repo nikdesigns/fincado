@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     'real return on FD',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/fd-truths',
+    canonical: 'https://fincado.com/guides/fd-truths/',
   },
   openGraph: {
     title: 'The Real Truth About Fixed Deposits: Safe or Wealth Destroyer?',
     description:
       'Discover the hidden impact of inflation and tax on your FD returns. A complete guide for smart savers.',
-    url: 'https://www.fincado.com/guides/fd-truths',
+    url: 'https://fincado.com/guides/fd-truths/',
     type: 'article',
   },
 };
@@ -102,7 +102,7 @@ export default function FdGuidePage() {
               'Fixed Deposit Guide (FD Truths): The Real Story Behind "Safe" Returns',
             description:
               'Complete guide to Fixed Deposits in India covering interest calculation, taxation, inflation impact, and strategic use cases.',
-            image: 'https://www.fincado.com/images/og/fd-truths.webp',
+            image: 'https://fincado.com/images/og/fd-truths.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -112,7 +112,7 @@ export default function FdGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-22',
@@ -124,11 +124,11 @@ export default function FdGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Fixed Deposit Guide',
-            url: 'https://www.fincado.com/guides/fd-truths',
+            url: 'https://fincado.com/guides/fd-truths/',
           },
         ]}
       />

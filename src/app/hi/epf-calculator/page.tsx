@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     'Pension Calculator Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/epf-calculator',
+    canonical: 'https://fincado.com/hi/epf-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/epf-calculator',
+      'en-IN': 'https://fincado.com/epf-calculator/',
     },
   },
   openGraph: {
     title: 'EPF कैलकुलेटर – आपकी रिटायरमेंट पूंजी का हिसाब',
     description:
       'जानें कि आपकी सैलरी से कटने वाला PF रिटायरमेंट तक कितना बड़ा फंड बन जाएगा।',
-    url: 'https://www.fincado.com/hi/epf-calculator',
+    url: 'https://fincado.com/hi/epf-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -116,16 +116,16 @@ export default function HindiEPFPage() {
       <CalculatorSchema
         name="EPF Calculator Hindi"
         description="Calculate EPF corpus and interest in Hindi."
-        url="https://www.fincado.com/hi/epf-calculator"
+        url="https://fincado.com/hi/epf-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'EPF कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/epf-calculator',
+            url: 'https://fincado.com/hi/epf-calculator/',
           },
         ]}
       />

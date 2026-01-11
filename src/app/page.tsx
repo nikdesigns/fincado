@@ -32,12 +32,12 @@ export const metadata: Metadata = {
     'Fincado',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com',
+    canonical: 'https://fincado.com/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://www.fincado.com',
+    url: 'https://fincado.com/',
     title: 'Fincado – Master Your Money',
     description:
       'The most comprehensive financial toolkit for Indian investors.',
@@ -74,10 +74,10 @@ export default function Home(): JSX.Element {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'Fincado',
-            url: 'https://www.fincado.com',
+            url: 'https://fincado.com/',
             potentialAction: {
               '@type': 'SearchAction',
-              target: 'https://www.fincado.com/search?q={search_term_string}',
+              target: 'https://fincado.com/search?q={search_term_string}',
               'query-input': 'required name=search_term_string',
             },
           }),
@@ -125,8 +125,8 @@ export default function Home(): JSX.Element {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'Fincado',
-            url: 'https://www.fincado.com',
-            logo: 'https://www.fincado.com/logo.png',
+            url: 'https://fincado.com',
+            logo: 'https://fincado.com/logo.png',
             sameAs: [
               'https://www.linkedin.com/company/fincado',
               'https://twitter.com/fincado',

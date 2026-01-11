@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     'Soft vs Hard Inquiry',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/credit-score/',
+    canonical: 'https://fincado.com/credit-score/',
   },
   openGraph: {
     title: 'Credit Score Estimator – Boost Your Eligibility',
     description:
       'Free tool to estimate your credit score and simulate the impact of paying down debt.',
-    url: 'https://www.fincado.com/credit-score/',
+    url: 'https://fincado.com/credit-score/',
     type: 'website',
   },
 };
@@ -107,7 +107,7 @@ export default function CreditScorePage() {
       <CalculatorSchema
         name="Credit Score Estimator"
         description="Estimate your CIBIL/Credit Score based on payment history, utilization ratio, and credit mix."
-        url="https://www.fincado.com/credit-score/"
+        url="https://fincado.com/credit-score/"
       />
 
       {/* FAQ Schema */}
@@ -121,11 +121,11 @@ export default function CreditScorePage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators' },
             {
               name: 'Credit Score Calculator',
-              url: 'https://www.fincado.com/credit-score/',
+              url: 'https://fincado.com/credit-score/',
             },
           ]}
         />

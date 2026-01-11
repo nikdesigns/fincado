@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'SI Formula',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/simple-interest-calculator',
+    canonical: 'https://fincado.com/simple-interest-calculator/',
   },
   openGraph: {
     title: 'Simple Interest Calculator – Fast & Accurate',
     description:
       'Free tool to calculate interest on loans or investments using the Simple Interest formula.',
-    url: 'https://www.fincado.com/simple-interest-calculator',
+    url: 'https://fincado.com/simple-interest-calculator/',
     type: 'website',
   },
 };
@@ -107,7 +107,7 @@ export default function SimpleInterestPage() {
       <CalculatorSchema
         name="Simple Interest Calculator"
         description="Quickly calculate simple interest and total repayment amount for personal loans or informal lending."
-        url="https://www.fincado.com/simple-interest-calculator"
+        url="https://fincado.com/simple-interest-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -121,11 +121,11 @@ export default function SimpleInterestPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Simple Interest Calculator',
-              url: 'https://www.fincado.com/simple-interest-calculator',
+              url: 'https://fincado.com/simple-interest-calculator/',
             },
           ]}
         />

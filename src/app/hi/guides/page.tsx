@@ -55,10 +55,10 @@ export default function HindiGuidesPage() {
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
           {
             name: 'आर्टिकल्स (Guides)',
-            url: 'https://www.fincado.com/hi/guides',
+            url: 'https://fincado.com/hi/guides/',
           },
         ]}
       />

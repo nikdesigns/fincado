@@ -42,14 +42,14 @@ export const metadata: Metadata = {
     'Lumpsum vs SIP Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/lumpsum-calculator',
-    languages: { 'en-IN': 'https://www.fincado.com/lumpsum-calculator' },
+    canonical: 'https://fincado.com/hi/lumpsum-calculator/',
+    languages: { 'en-IN': 'https://fincado.com/lumpsum-calculator/' },
   },
   openGraph: {
     title: 'Lumpsum कैलकुलेटर – पैसे से पैसा बनाएं',
     description:
       'मुफ्त टूल: एकमुश्त निवेश पर चक्रवृद्धि ब्याज (Compound Interest) देखें।',
-    url: 'https://www.fincado.com/hi/lumpsum-calculator',
+    url: 'https://fincado.com/hi/lumpsum-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -102,16 +102,16 @@ export default function HindiLumpsumPage() {
       <CalculatorSchema
         name="Lumpsum Calculator Hindi"
         description="Calculate one-time investment returns in Hindi."
-        url="https://www.fincado.com/hi/lumpsum-calculator"
+        url="https://fincado.com/hi/lumpsum-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'Lumpsum कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/lumpsum-calculator',
+            url: 'https://fincado.com/hi/lumpsum-calculator/',
           },
         ]}
       />

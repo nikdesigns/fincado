@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     'LTCG Tax on SIP',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/sip-calculator',
+    canonical: 'https://fincado.com/sip-calculator/',
   },
   openGraph: {
     title: 'SIP Calculator – The Power of Compounding',
     description:
       'Visualize how small monthly investments grow into a large corpus over time.',
-    url: 'https://www.fincado.com/sip-calculator',
+    url: 'https://fincado.com/sip-calculator/',
     type: 'website',
   },
 };
@@ -128,7 +128,7 @@ export default function SIPPage() {
       <CalculatorSchema
         name="SIP Calculator India"
         description="Free SIP Calculator to estimate returns on your Systematic Investment Plan (SIP) with inflation adjustment."
-        url="https://www.fincado.com/sip-calculator"
+        url="https://fincado.com/sip-calculator/"
       />
 
       <FAQSchema
@@ -141,11 +141,11 @@ export default function SIPPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'SIP Calculator',
-              url: 'https://www.fincado.com/sip-calculator',
+              url: 'https://fincado.com/sip-calculator/',
             },
           ]}
         />

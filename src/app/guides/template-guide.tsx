@@ -65,12 +65,12 @@ export const metadata: Metadata = {
     'mutual fund returns',
   ],
   alternates: {
-    canonical: `https://www.fincado.com/guides/${CONFIG.slug}`,
+    canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
     title: `How much SIP for ₹${CONFIG.amount} in ${CONFIG.years} Years?`,
     description: 'Detailed breakdown: Monthly SIP needed and Asset allocation.',
-    url: `https://www.fincado.com/guides/${CONFIG.slug}`,
+    url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     images: [CONFIG.heroImage],
   },
@@ -100,10 +100,10 @@ export default function GuideTemplate() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: `${CONFIG.amount} in ${CONFIG.years} Years`,
-            url: `https://www.fincado.com/guides/${CONFIG.slug}`,
+            url: `https://fincado.com/guides/${CONFIG.slug}`,
           },
         ]}
       />

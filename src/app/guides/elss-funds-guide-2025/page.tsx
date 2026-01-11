@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     'ELSS Lock-in period',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/elss-funds-guide-2025',
+    canonical: 'https://fincado.com/guides/elss-funds-guide-2025/',
   },
   openGraph: {
     title: 'ELSS Funds Guide 2025: Save Tax & Build Wealth',
     description:
       'Why settle for 7% returns? Save tax and aim for 12-15% returns with ELSS. Complete guide inside.',
     type: 'article',
-    url: 'https://www.fincado.com/guides/elss-funds-guide-2025',
+    url: 'https://fincado.com/guides/elss-funds-guide-2025/',
     images: [
       {
         url: '/images/guides/elss/elss-guide-hero.webp',
@@ -112,23 +112,23 @@ export default function ELSSGuide() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.fincado.com/logo.png',
+        url: 'https://fincado.com/logo.png',
       },
     },
     datePublished: '2025-01-08',
     dateModified: '2025-01-08',
-    image: 'https://www.fincado.com/images/guides/elss/elss-guide-hero.webp',
+    image: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
   };
 
   return (
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'ELSS Funds Guide',
-            url: 'https://www.fincado.com/guides/elss-funds-guide-2025',
+            url: 'https://fincado.com/guides/elss-funds-guide-2025/',
           },
         ]}
       />

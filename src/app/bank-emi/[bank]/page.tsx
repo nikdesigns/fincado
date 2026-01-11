@@ -63,7 +63,7 @@ export async function generateMetadata({
     title: `${bank.name} EMI Calculator 2025: Check Home Loan Rates`,
     description: `Calculate ${bank.name} Home Loan EMI instantly. Current interest rates start at ${bank.rate}%. Compare repayment schedules and processing fees.`,
     alternates: {
-      canonical: `https://www.fincado.com/bank-emi/${bank.slug}`,
+      canonical: `https://fincado.com/bank-emi/${bank.slug}`,
     },
   };
 }
@@ -120,18 +120,18 @@ export default async function BankPage({
       />
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Banks', url: 'https://www.fincado.com/bank-emi' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Banks', url: 'https://fincado.com/bank-emi' },
           {
             name: bank.name,
-            url: `https://www.fincado.com/bank-emi/${bank.slug}`,
+            url: `https://fincado.com/bank-emi/${bank.slug}`,
           },
         ]}
       />
       <CalculatorSchema
         name={`${bank.name} EMI Calculator`}
         description={`Official style EMI calculator for ${bank.name} loans with amortization schedule.`}
-        url={`https://www.fincado.com/bank-emi/${bank.slug}`}
+        url={`https://fincado.com/bank-emi/${bank.slug}`}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -174,7 +174,7 @@ export default async function BankPage({
           </div>
 
           {/* CALCULATOR SECTION */}
-          <Card className="mb-12 border-slate-200 shadow-sm overflow-hidden">
+          <Card className="mb-12 overflow-hidden border-none shadow-none">
             <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
               <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
                 <Percent className="h-5 w-5 text-emerald-600" />

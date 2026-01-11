@@ -51,17 +51,17 @@ export const metadata: Metadata = {
     'SGB Redemption Rules',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/sovereign-gold-bonds',
+    canonical: 'https://fincado.com/hi/guides/sovereign-gold-bonds/',
   },
   openGraph: {
     title: 'Sovereign Gold Bond (SGB): सोना खरीदने का सबसे स्मार्ट तरीका',
     description:
       'गोल्ड बॉन्ड में निवेश करें और पाएं 2.5% एक्स्ट्रा ब्याज + टैक्स फ्री रिटर्न। पूरी जानकारी हिंदी में।',
-    url: 'https://www.fincado.com/hi/guides/sovereign-gold-bonds',
+    url: 'https://fincado.com/hi/guides/sovereign-gold-bonds/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/sgb/sgb-guide-hindi.webp',
+        url: 'https://fincado.com/images/guides/sgb/sgb-guide-hindi.webp',
         width: 1200,
         height: 630,
       },
@@ -110,7 +110,7 @@ export default function HindiSGBGuide() {
               'Sovereign Gold Bond क्या है? जानें 2.5% ब्याज, टैक्स फ्री रिटर्न और मैच्योरिटी के नियम। Physical Gold vs SGB की पूरी तुलना।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/hi/guides/sovereign-gold-bonds',
+              '@id': 'https://fincado.com/hi/guides/sovereign-gold-bonds/',
             },
             author: {
               '@type': 'Organization',
@@ -121,7 +121,7 @@ export default function HindiSGBGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-21',
@@ -133,11 +133,11 @@ export default function HindiSGBGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी गाइड्स', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com/' },
+          { name: 'हिंदी गाइड्स', url: 'https://fincado.com/hi/' },
           {
             name: 'Sovereign Gold Bonds',
-            url: 'https://www.fincado.com/hi/guides/sovereign-gold-bonds',
+            url: 'https://fincado.com/hi/guides/sovereign-gold-bonds/',
           },
         ]}
       />

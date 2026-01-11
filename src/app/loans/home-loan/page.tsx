@@ -42,14 +42,14 @@ export const metadata: Metadata = {
     'PMAY Calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/loans/home-loan',
+    canonical: 'https://fincado.com/loans/home-loan/',
   },
   openGraph: {
     title:
       'Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits',
     description:
       'Free tool to calculate Home Loan EMI, Interest, and Tax Benefits.',
-    url: 'https://www.fincado.com/loans/home-loan',
+    url: 'https://fincado.com/loans/home-loan/',
     type: 'website',
   },
 };
@@ -114,16 +114,16 @@ export default function HomeLoanPage() {
       <CalculatorSchema
         name="Home Loan EMI Calculator"
         description="Calculate home loan EMI, total interest payable, and tax benefits (Sec 80C, 24b) with amortization schedule."
-        url="https://www.fincado.com/loans/home-loan"
+        url="https://fincado.com/loans/home-loan/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Loans', url: 'https://www.fincado.com/loans' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Loans', url: 'https://fincado.com/loans/' },
           {
             name: 'Home Loan EMI Calculator',
-            url: 'https://www.fincado.com/loans/home-loan',
+            url: 'https://fincado.com/loans/home-loan/',
           },
         ]}
       />

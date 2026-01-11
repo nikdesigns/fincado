@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     'Personal Loan vs Credit Card',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/loans/personal-loan',
+    canonical: 'https://fincado.com/loans/personal-loan/',
   },
   openGraph: {
     title: 'Personal Loan EMI Calculator – Plan Your Finances',
     description:
       'Free tool to calculate Personal Loan EMI, Interest, and Tenure.',
-    url: 'https://www.fincado.com/loans/personal-loan',
+    url: 'https://fincado.com/loans/personal-loan/',
     type: 'website',
   },
 };
@@ -123,7 +123,7 @@ export default function PersonalLoanPage() {
       <CalculatorSchema
         name="Personal Loan EMI Calculator"
         description="Check your personal loan EMI. Compare interest rates and repayment terms from top banks."
-        url="https://www.fincado.com/loans/personal-loan"
+        url="https://fincado.com/loans/personal-loan/"
       />
 
       <FAQSchema
@@ -136,11 +136,11 @@ export default function PersonalLoanPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Loans', url: 'https://www.fincado.com/loans' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Loans', url: 'https://fincado.com/loans/' },
             {
               name: 'Personal Loan EMI Calculator',
-              url: 'https://www.fincado.com/loans/personal-loan',
+              url: 'https://fincado.com/loans/personal-loan/',
             },
           ]}
         />

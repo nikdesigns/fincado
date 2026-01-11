@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     'Senior Citizen FD Rates',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/fd-calculator',
+    canonical: 'https://fincado.com/fd-calculator/',
   },
   openGraph: {
     title: 'FD Calculator – Secure Your Savings',
     description:
       'Free tool to calculate FD maturity amount, total interest, and effective yield.',
-    url: 'https://www.fincado.com/fd-calculator',
+    url: 'https://fincado.com/fd-calculator/',
     type: 'website',
   },
 };
@@ -120,7 +120,7 @@ export default function FDPage() {
       <CalculatorSchema
         name="Fixed Deposit (FD) Calculator"
         description="Calculate the maturity amount and interest earned on your Fixed Deposits (FD) for all Indian banks."
-        url="https://www.fincado.com/fd-calculator"
+        url="https://fincado.com/fd-calculator/"
       />
 
       <FAQSchema
@@ -133,11 +133,11 @@ export default function FDPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'FD Calculator',
-              url: 'https://www.fincado.com/fd-calculator',
+              url: 'https://fincado.com/fd-calculator/',
             },
           ]}
         />

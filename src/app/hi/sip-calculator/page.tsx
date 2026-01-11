@@ -33,16 +33,16 @@ export const metadata: Metadata = {
     'Systematic Investment Plan Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/sip-calculator',
+    canonical: 'https://fincado.com/hi/sip-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/sip-calculator',
+      'en-IN': 'https://fincado.com/sip-calculator/',
     },
   },
   openGraph: {
     title: 'SIP कैलकुलेटर – कंपाउंडिंग की शक्ति देखें',
     description:
       'मुफ्त टूल: जानें कि छोटी मासिक बचत कैसे भविष्य में बड़ा फंड बन सकती है।',
-    url: 'https://www.fincado.com/hi/sip-calculator',
+    url: 'https://fincado.com/hi/sip-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -94,16 +94,16 @@ export default function HindiSIPPage() {
       <CalculatorSchema
         name="SIP Calculator Hindi"
         description="Calculate SIP returns in Hindi with inflation adjustment."
-        url="https://www.fincado.com/hi/sip-calculator"
+        url="https://fincado.com/hi/sip-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'SIP कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/sip-calculator',
+            url: 'https://fincado.com/hi/sip-calculator/',
           },
         ]}
       />

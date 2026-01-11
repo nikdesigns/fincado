@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: 'How to Increase CIBIL Score from 650 to 750 (Step-by-Step)',
     description:
       'A low CIBIL score can cost you lakhs. Learn how to remove "Settled" status, fix errors, and boost your score fast.',
-    url: 'https://www.fincado.com/guides/credit-score-guide',
+    url: 'https://fincado.com/guides/credit-score-guide/',
     type: 'article',
     images: [
       {
@@ -99,7 +99,7 @@ export default function CreditScoreGuidePage() {
             description:
               'Complete guide to repairing credit score in India: Fixing "Settled" loans, disputing errors, and using secured cards.',
             image:
-              'https://www.fincado.com/images/guides/credit-score/credit-score-guide-hero.webp',
+              'https://fincado.com/images/guides/credit-score/credit-score-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -109,7 +109,7 @@ export default function CreditScoreGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-01-30',
@@ -121,11 +121,11 @@ export default function CreditScoreGuidePage() {
       {/* --- BREADCRUMB --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Credit Score Repair',
-            url: 'https://www.fincado.com/guides/credit-score-guide',
+            url: 'https://fincado.com/guides/credit-score-guide/',
           },
         ]}
       />

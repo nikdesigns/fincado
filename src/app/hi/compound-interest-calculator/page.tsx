@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     'Power of Compounding Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/compound-interest-calculator',
+    canonical: 'https://fincado.com/hi/compound-interest-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/compound-interest-calculator',
+      'en-IN': 'https://fincado.com/compound-interest-calculator/',
     },
   },
   openGraph: {
     title: 'कंपाउंड इंटरेस्ट कैलकुलेटर – पैसे से पैसा कमाएं',
     description:
       'मुफ्त टूल: जानें कि समय के साथ आपका छोटा निवेश कितना बड़ा बन सकता है।',
-    url: 'https://www.fincado.com/hi/compound-interest-calculator',
+    url: 'https://fincado.com/hi/compound-interest-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -104,16 +104,16 @@ export default function HindiCompoundInterestPage() {
       <CalculatorSchema
         name="Compound Interest Calculator Hindi"
         description="Calculate compound interest maturity amount in Hindi."
-        url="https://www.fincado.com/hi/compound-interest-calculator"
+        url="https://fincado.com/hi/compound-interest-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'कंपाउंड इंटरेस्ट कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/compound-interest-calculator',
+            url: 'https://fincado.com/hi/compound-interest-calculator/',
           },
         ]}
       />

@@ -40,16 +40,16 @@ export const metadata: Metadata = {
     'Pension Scheme Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/apy-calculator',
+    canonical: 'https://fincado.com/hi/apy-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/apy-calculator',
+      'en-IN': 'https://fincado.com/apy-calculator/',
     },
   },
   openGraph: {
     title: 'अटल पेंशन योजना (APY) कैलकुलेटर – बुढ़ापे का सहारा',
     description:
       'जानें कि आपको ₹1000 से ₹5000 की पेंशन के लिए हर महीने कितना जमा करना होगा।',
-    url: 'https://www.fincado.com/hi/apy-calculator',
+    url: 'https://fincado.com/hi/apy-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -105,16 +105,16 @@ export default function HindiAPYPage() {
       <CalculatorSchema
         name="Atal Pension Yojana Calculator Hindi"
         description="Calculate Atal Pension Yojana contribution in Hindi."
-        url="https://www.fincado.com/hi/apy-calculator"
+        url="https://fincado.com/hi/apy-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'APY कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/apy-calculator',
+            url: 'https://fincado.com/hi/apy-calculator/',
           },
         ]}
       />

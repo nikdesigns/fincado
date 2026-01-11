@@ -43,13 +43,13 @@ export const metadata: Metadata = {
     'ELSS vs PPF हिंदी',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/elss-calculator',
+    canonical: 'https://fincado.com/hi/elss-calculator/',
   },
   openGraph: {
     title: 'ELSS कैलकुलेटर - टैक्स बचाएं और पैसा बढ़ाएं',
     description:
       'धारा 80C के तहत ₹46,800 तक टैक्स बचाएं। अपने ELSS निवेश के रिटर्न की गणना करें।',
-    url: 'https://www.fincado.com/hi/elss-calculator',
+    url: 'https://fincado.com/hi/elss-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -129,7 +129,7 @@ export default function ELSSHindiPage() {
       <CalculatorSchema
         name="ELSS Calculator Hindi"
         description="Calculate returns and tax savings for ELSS Mutual Funds in Hindi."
-        url="https://www.fincado.com/hi/elss-calculator"
+        url="https://fincado.com/hi/elss-calculator/"
       />
 
       <FAQSchema
@@ -142,14 +142,14 @@ export default function ELSSHindiPage() {
       <main className="container px-4 py-6 sm:py-8">
         <BreadcrumbJsonLd
           items={[
-            { name: 'होम', url: 'https://www.fincado.com/hi' },
+            { name: 'होम', url: 'https://fincado.com/hi/' },
             {
               name: 'कैलकुलेटर',
-              url: 'https://www.fincado.com/hi/calculators',
+              url: 'https://fincado.com/hi/calculators/',
             },
             {
               name: 'ELSS कैलकुलेटर',
-              url: 'https://www.fincado.com/hi/elss-calculator',
+              url: 'https://fincado.com/hi/elss-calculator/',
             },
           ]}
         />

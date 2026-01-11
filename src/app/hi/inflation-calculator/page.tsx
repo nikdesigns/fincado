@@ -43,16 +43,16 @@ export const metadata: Metadata = {
     'Rule of 72 Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/inflation-calculator',
+    canonical: 'https://fincado.com/hi/inflation-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/inflation-calculator',
+      'en-IN': 'https://fincado.com/inflation-calculator/',
     },
   },
   openGraph: {
     title: 'महंगाई कैलकुलेटर – अपनी क्रय शक्ति (Purchasing Power) जानें',
     description:
       'जानें कि आज के ₹1 लाख का मूल्य 10 साल बाद क्या होगा। सटीक गणना करें।',
-    url: 'https://www.fincado.com/hi/inflation-calculator',
+    url: 'https://fincado.com/hi/inflation-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -100,16 +100,16 @@ export default function HindiInflationPage() {
       <CalculatorSchema
         name="Inflation Calculator Hindi"
         description="Calculate future value of money considering inflation in Hindi."
-        url="https://www.fincado.com/hi/inflation-calculator"
+        url="https://fincado.com/hi/inflation-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'महंगाई कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/inflation-calculator',
+            url: 'https://fincado.com/hi/inflation-calculator/',
           },
         ]}
       />

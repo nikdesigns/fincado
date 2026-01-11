@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     'reduce EMI interest',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/emi-calculator-guide',
+    canonical: 'https://fincado.com/guides/emi-calculator-guide/',
   },
   openGraph: {
     title: 'EMI Calculator Guide 2025 | Save Lakhs on Interest',
     description:
       'Master your loan EMI. Learn the formula, tax benefits, and RBI 2025 rules to save money.',
-    url: 'https://www.fincado.com/guides/emi-calculator-guide',
+    url: 'https://fincado.com/guides/emi-calculator-guide/',
     type: 'article',
   },
 };
@@ -145,7 +145,7 @@ export default function EmiGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-15',
@@ -176,11 +176,11 @@ export default function EmiGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'EMI Calculator Guide',
-            url: 'https://www.fincado.com/guides/emi-calculator-guide',
+            url: 'https://fincado.com/guides/emi-calculator-guide/',
           },
         ]}
       />

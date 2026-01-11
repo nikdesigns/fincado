@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'SWP Tax Calculation 2025',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/swp-calculator',
+    canonical: 'https://fincado.com/swp-calculator/',
   },
   openGraph: {
     title: 'SWP Calculator – Regular Income Generator',
     description:
       'Free tool to plan your monthly withdrawals from mutual fund investments.',
-    url: 'https://www.fincado.com/swp-calculator',
+    url: 'https://fincado.com/swp-calculator/',
     type: 'website',
   },
 };
@@ -116,7 +116,7 @@ export default function SWPPage() {
       <CalculatorSchema
         name="SWP Calculator"
         description="Plan your systematic withdrawals from mutual funds. Calculate how long your corpus will last with monthly payouts."
-        url="https://www.fincado.com/swp-calculator"
+        url="https://fincado.com/swp-calculator/"
       />
 
       <FAQSchema
@@ -129,11 +129,11 @@ export default function SWPPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'SWP Calculator',
-              url: 'https://www.fincado.com/swp-calculator',
+              url: 'https://fincado.com/swp-calculator/',
             },
           ]}
         />

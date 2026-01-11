@@ -52,17 +52,17 @@ export const metadata: Metadata = {
     'wealth creation strategy',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/sip-vs-fd',
+    canonical: 'https://fincado.com/guides/sip-vs-fd/',
   },
   openGraph: {
     title: 'SIP vs FD: The Battle for Your Savings (2025 Edition)',
     description:
       'Stop guessing. See the math. We compare Returns, Risk, and Taxes to help you decide.',
-    url: 'https://www.fincado.com/guides/sip-vs-fd',
+    url: 'https://fincado.com/guides/sip-vs-fd/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/sip-vs-fd.webp',
+        url: 'https://fincado.com/images/og/sip-vs-fd.webp',
         width: 1200,
         height: 630,
       },
@@ -122,12 +122,12 @@ export default function SipVsFdGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-18',
             dateModified: '2025-12-27',
-            image: 'https://www.fincado.com/images/og/sip-vs-fd.webp',
+            image: 'https://fincado.com/images/og/sip-vs-fd.webp',
           }),
         }}
       />
@@ -154,11 +154,11 @@ export default function SipVsFdGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'SIP vs FD',
-            url: 'https://www.fincado.com/guides/sip-vs-fd',
+            url: 'https://fincado.com/guides/sip-vs-fd/',
           },
         ]}
       />

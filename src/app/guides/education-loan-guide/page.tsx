@@ -51,7 +51,7 @@ export const metadata: Metadata = {
       'Study Abroad Education Loan Guide: Secured vs Unsecured & Section 80E',
     description:
       'Save lakhs on your education loan. Learn about 80E tax benefits, moratorium strategies, and how to choose between secured and unsecured loans.',
-    url: 'https://www.fincado.com/guides/education-loan-guide',
+    url: 'https://fincado.com/guides/education-loan-guide/',
     type: 'article',
     images: [
       {
@@ -87,11 +87,11 @@ export default function EducationLoanGuidePage() {
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Education Loan Guide',
-            url: 'https://www.fincado.com/guides/education-loan-guide',
+            url: 'https://fincado.com/guides/education-loan-guide/',
           },
         ]}
       />
@@ -109,7 +109,7 @@ export default function EducationLoanGuidePage() {
             description:
               'Comprehensive guide on Education Loans for studying abroad: Eligibility, Interest Rates, Section 80E Tax Benefits, and Moratorium strategies.',
             image:
-              'https://www.fincado.com/images/guides/education-loan/education-loan-guide-hero.webp',
+              'https://fincado.com/images/guides/education-loan/education-loan-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -119,7 +119,7 @@ export default function EducationLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-01-22',

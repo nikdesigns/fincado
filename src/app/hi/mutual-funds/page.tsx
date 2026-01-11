@@ -23,16 +23,16 @@ export const metadata: Metadata = {
     'Portfolio Planner Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/mutual-funds/',
+    canonical: 'https://fincado.com/hi/mutual-funds/',
     languages: {
-      'en-IN': 'https://www.fincado.com/mutual-funds/',
+      'en-IN': 'https://fincado.com/mutual-funds/',
     },
   },
   openGraph: {
     title: 'म्यूचुअल फंड कैलकुलेटर – सही निवेश, सही भविष्य',
     description:
       'जानें कि आपका पोर्टफोलियो 10-20 साल में कितना बड़ा हो सकता है।',
-    url: 'https://www.fincado.com/hi/mutual-funds/',
+    url: 'https://fincado.com/hi/mutual-funds/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -70,16 +70,16 @@ export default function HindiMutualFundPage() {
       <CalculatorSchema
         name="Mutual Fund Portfolio Calculator Hindi"
         description="Calculate Mutual Fund portfolio returns in Hindi."
-        url="https://www.fincado.com/hi/mutual-funds/"
+        url="https://fincado.com/hi/mutual-funds/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi/' },
+          { name: 'होम', url: 'https://fincado.com' },
+          { name: 'हिंदी (Hindi)', url: 'https://fincado.com/hi/' },
           {
             name: 'म्यूचुअल फंड कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/mutual-funds/',
+            url: 'https://fincado.com/hi/mutual-funds/',
           },
         ]}
       />

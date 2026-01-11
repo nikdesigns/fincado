@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   description:
     'जानें कि 2025 में नई और पुरानी टैक्स व्यवस्था में से आपके लिए कौन सी बेहतर है। 80C, HRA छूट, और 7 लाख तक टैक्स-फ्री आय के नियमों को समझें और अपना टैक्स बचाएं।',
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/new-vs-old-tax-regime',
+    canonical: 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
   },
 };
 
@@ -91,7 +91,7 @@ export default function HindiTaxRegimeGuide() {
               'New vs Old Tax Regime 2025: स्लैब रेट्स, 80C कटौती और HRA के नियमों का हिंदी में विश्लेषण।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/hi/guides/new-vs-old-tax-regime',
+              '@id': 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
             },
             author: {
               '@type': 'Organization',
@@ -102,7 +102,7 @@ export default function HindiTaxRegimeGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-20',
@@ -114,11 +114,11 @@ export default function HindiTaxRegimeGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'गाइड्स', url: 'https://www.fincado.com/hi/guides' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'गाइड्स', url: 'https://fincado.com/hi/guides/' },
           {
             name: 'New vs Old Tax Regime',
-            url: 'https://www.fincado.com/hi/guides/new-vs-old-tax-regime',
+            url: 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
           },
         ]}
       />

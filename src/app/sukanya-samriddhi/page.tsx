@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     'Tax Free Savings Scheme',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/sukanya-samriddhi/',
+    canonical: 'https://fincado.com/sukanya-samriddhi/',
   },
   openGraph: {
     title: "SSY Calculator – Secure Your Daughter's Future",
     description:
       'Free tool to calculate SSY maturity value with current government interest rates.',
-    url: 'https://www.fincado.com/sukanya-samriddhi/',
+    url: 'https://fincado.com/sukanya-samriddhi/',
     type: 'website',
   },
 };
@@ -115,7 +115,7 @@ export default function SSYPage() {
       <CalculatorSchema
         name="Sukanya Samriddhi Yojana Calculator"
         description="Calculate the maturity amount for your daughter's SSY account based on current government interest rates."
-        url="https://www.fincado.com/sukanya-samriddhi/"
+        url="https://fincado.com/sukanya-samriddhi/"
       />
 
       {/* FAQ Schema */}
@@ -129,11 +129,11 @@ export default function SSYPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'SSY Calculator',
-              url: 'https://www.fincado.com/sukanya-samriddhi/',
+              url: 'https://fincado.com/sukanya-samriddhi/',
             },
           ]}
         />

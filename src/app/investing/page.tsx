@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     'Equity vs Debt',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/investing',
+    canonical: 'https://fincado.com/investing/',
   },
   openGraph: {
     title: 'Investing Planner – Plan Your Financial Freedom',
     description:
       'Free tool to plan SIPs, lumpsum investments, and asset allocation strategies.',
-    url: 'https://www.fincado.com/investing',
+    url: 'https://fincado.com/investing/',
     type: 'website',
   },
 };
@@ -76,7 +76,7 @@ export default function InvestingPage() {
       <CalculatorSchema
         name="Investment Planner India"
         description="Plan SIPs, lumpsum investments, and asset allocation. Calculate CAGR and future portfolio value."
-        url="https://www.fincado.com/investing"
+        url="https://fincado.com/investing/"
       />
 
       <script
@@ -118,11 +118,11 @@ export default function InvestingPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Investing Planner',
-              url: 'https://www.fincado.com/investing',
+              url: 'https://fincado.com/investing/',
             },
           ]}
         />

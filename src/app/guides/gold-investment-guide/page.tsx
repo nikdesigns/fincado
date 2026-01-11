@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: 'Sovereign Gold Bond (SGB) vs Digital Gold vs Physical Gold',
     description:
       'Stop paying 3% GST on Digital Gold. Learn why SGB is the undisputed king of gold investments with 2.5% extra interest.',
-    url: 'https://www.fincado.com/guides/gold-investment-guide',
+    url: 'https://fincado.com/guides/gold-investment-guide/',
     type: 'article',
     images: [
       {
@@ -89,11 +89,11 @@ export default function GoldInvestmentGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Gold Investment Guide',
-            url: 'https://www.fincado.com/guides/gold-investment-guide',
+            url: 'https://fincado.com/guides/gold-investment-guide/',
           },
         ]}
       />
@@ -111,7 +111,7 @@ export default function GoldInvestmentGuidePage() {
             description:
               'Comprehensive comparison of gold investment options in India. Why SGB beats Digital and Physical gold in returns, tax, and safety.',
             image:
-              'https://www.fincado.com/images/guides/gold/gold-investment-hero.webp',
+              'https://fincado.com/images/guides/gold/gold-investment-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -121,7 +121,7 @@ export default function GoldInvestmentGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-12',

@@ -33,14 +33,14 @@ export const metadata: Metadata = {
     'आरडी कैलकुलेटर',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/rd-calculator',
-    languages: { 'en-IN': 'https://www.fincado.com/rd-calculator' },
+    canonical: 'https://fincado.com/hi/rd-calculator/',
+    languages: { 'en-IN': 'https://fincado.com/rd-calculator/' },
   },
   openGraph: {
     title: 'RD कैलकुलेटर – सुरक्षित और निश्चित रिटर्न',
     description:
       'मुफ्त टूल: RD परिपक्वता राशि, कुल ब्याज और टीडीएस की सटीक गणना करें।',
-    url: 'https://www.fincado.com/hi/rd-calculator',
+    url: 'https://fincado.com/hi/rd-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -98,16 +98,16 @@ export default function HindiRDPage() {
       <CalculatorSchema
         name="RD Calculator Hindi"
         description="Calculate Recurring Deposit maturity in Hindi."
-        url="https://www.fincado.com/hi/rd-calculator"
+        url="https://fincado.com/hi/rd-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'RD कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/rd-calculator',
+            url: 'https://fincado.com/hi/rd-calculator/',
           },
         ]}
       />

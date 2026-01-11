@@ -42,15 +42,15 @@ export const metadata: Metadata = {
     'सुकन्या समृद्धि योजना',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/sukanya-samriddhi',
+    canonical: 'https://fincado.com/hi/sukanya-samriddhi/',
     languages: {
-      'en-IN': 'https://www.fincado.com/sukanya-samriddhi',
+      'en-IN': 'https://fincado.com/sukanya-samriddhi/',
     },
   },
   openGraph: {
     title: 'SSY कैलकुलेटर – बेटी के भविष्य के लिए',
     description: 'मुफ्त टूल: SSY परिपक्वता राशि और ब्याज की सटीक गणना करें।',
-    url: 'https://www.fincado.com/hi/sukanya-samriddhi',
+    url: 'https://fincado.com/hi/sukanya-samriddhi/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -105,16 +105,16 @@ export default function HindiSSYPage() {
       <CalculatorSchema
         name="Sukanya Samriddhi Calculator Hindi"
         description="Calculate SSY maturity amount in Hindi."
-        url="https://www.fincado.com/hi/sukanya-samriddhi"
+        url="https://fincado.com/hi/sukanya-samriddhi/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'SSY कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/sukanya-samriddhi',
+            url: 'https://fincado.com/hi/sukanya-samriddhi/',
           },
         ]}
       />

@@ -4,7 +4,7 @@ const path = require('path');
 // -------------------------------------
 // 1. CONFIGURATION
 // -------------------------------------
-const SITE = 'https://www.fincado.com';
+const SITE = 'https://fincado.com/';
 
 const ARTICLES_PATH = path.join(process.cwd(), 'src', 'data', 'articles.json');
 const OUT = path.join(process.cwd(), 'public', 'sitemap.xml');

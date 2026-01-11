@@ -43,13 +43,13 @@ export const metadata: Metadata = {
     'Government Pension Scheme',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/apy-calculator',
+    canonical: 'https://fincado.com/apy-calculator',
   },
   openGraph: {
     title: 'APY Calculator – Guaranteed Pension for Life',
     description:
       'Free tool to calculate APY contributions based on age and desired pension amount.',
-    url: 'https://www.fincado.com/apy-calculator',
+    url: 'https://fincado.com/apy-calculator',
     type: 'website',
   },
 };
@@ -112,7 +112,7 @@ export default function APYPage() {
       <CalculatorSchema
         name="Atal Pension Yojana (APY) Calculator"
         description="Calculate the monthly contribution required to get a guaranteed pension of ₹1000 to ₹5000 under the APY scheme."
-        url="https://www.fincado.com/apy-calculator"
+        url="https://fincado.com/apy-calculator"
       />
 
       {/* FAQ Schema */}
@@ -126,11 +126,11 @@ export default function APYPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://incado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators' },
             {
               name: 'APY Calculator',
-              url: 'https://www.fincado.com/apy-calculator',
+              url: 'https://fincado.com/apy-calculator',
             },
           ]}
         />

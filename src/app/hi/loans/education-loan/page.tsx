@@ -34,15 +34,15 @@ export const metadata: Metadata = {
     'Study Abroad Loan Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/loans/education-loan',
+    canonical: 'https://fincado.com/hi/loans/education-loan/',
     languages: {
-      'en-IN': 'https://www.fincado.com/loans/education-loan',
+      'en-IN': 'https://fincado.com/loans/education-loan/',
     },
   },
   openGraph: {
     title: 'एजुकेशन लोन कैलकुलेटर – अपने भविष्य की योजना बनाएं',
     description: 'मुफ्त टूल: कोर्स के दौरान ब्याज और EMI की सटीक गणना करें।',
-    url: 'https://www.fincado.com/hi/loans/education-loan',
+    url: 'https://fincado.com/hi/loans/education-loan/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -107,16 +107,16 @@ export default function HindiEducationLoanPage() {
       <CalculatorSchema
         name="Education Loan EMI Calculator Hindi"
         description="Calculate Education Loan EMI and Section 80E benefits in Hindi."
-        url="https://www.fincado.com/hi/loans/education-loan"
+        url="https://fincado.com/hi/loans/education-loan/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'लोन', url: 'https://www.fincado.com/hi/loans' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'लोन', url: 'https://fincado.com/hi/loans/' },
           {
             name: 'एजुकेशन लोन कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/loans/education-loan',
+            url: 'https://fincado.com/hi/loans/education-loan/',
           },
         ]}
       />

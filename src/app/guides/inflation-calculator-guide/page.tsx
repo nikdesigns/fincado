@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     'purchasing power calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/inflation-calculator-guide',
+    canonical: 'https://fincado.com/guides/inflation-calculator-guide/',
   },
   openGraph: {
     title: 'Inflation: The Silent Wealth Destroyer (Complete Guide)',
     description:
       'Is your money losing value every day? Understand the math behind inflation and how to secure your financial future.',
-    url: 'https://www.fincado.com/guides/inflation-calculator-guide',
+    url: 'https://fincado.com/guides/inflation-calculator-guide/',
     type: 'article',
   },
 };
@@ -105,7 +105,7 @@ export default function InflationGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-19',
@@ -136,11 +136,11 @@ export default function InflationGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Inflation Guide',
-            url: 'https://www.fincado.com/guides/inflation-calculator-guide',
+            url: 'https://fincado.com/guides/inflation-calculator-guide/',
           },
         ]}
       />

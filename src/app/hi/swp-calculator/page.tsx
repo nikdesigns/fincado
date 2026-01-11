@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     'Mutual Fund SWP Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/swp-calculator',
-    languages: { 'en-IN': 'https://www.fincado.com/swp-calculator' },
+    canonical: 'https://fincado.com/hi/swp-calculator/',
+    languages: { 'en-IN': 'https://fincado.com/swp-calculator/' },
   },
   openGraph: {
     title: 'SWP कैलकुलेटर – नियमित मासिक आय पाएं',
     description: 'मुफ्त टूल: जानें कि आपका फंड कब तक चलेगा।',
-    url: 'https://www.fincado.com/hi/swp-calculator',
+    url: 'https://fincado.com/hi/swp-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -101,16 +101,16 @@ export default function HindiSWPPage() {
       <CalculatorSchema
         name="SWP Calculator Hindi"
         description="Calculate Systematic Withdrawal Plan in Hindi."
-        url="https://www.fincado.com/hi/swp-calculator"
+        url="https://fincado.com/hi/swp-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'SWP कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/swp-calculator',
+            url: 'https://fincado.com/hi/swp-calculator/',
           },
         ]}
       />

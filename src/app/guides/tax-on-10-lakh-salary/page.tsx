@@ -58,15 +58,15 @@ export const metadata: Metadata = {
     '10 lakh salary tax old vs new',
     'income tax slabs 2025',
   ],
-  authors: [{ name: 'Fincado Team', url: 'https://www.fincado.com' }],
+  authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
-    canonical: `https://www.fincado.com/guides/${CONFIG.slug}`,
+    canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
     title: 'Tax on ₹10 Lakh Salary: Complete Guide (2025)',
     description:
       'Detailed breakdown: New Regime (₹44k tax) vs Old Regime (₹1.06L tax). Which one saves you ₹60,000?',
-    url: `https://www.fincado.com/guides/${CONFIG.slug}`,
+    url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     authors: ['Fincado Team'],
     images: [CONFIG.heroImage],
@@ -106,11 +106,11 @@ export default function Tax10LakhGuide() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
-          { name: 'Tax Planning', url: 'https://www.fincado.com/guides/tax' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
+          { name: 'Tax Planning', url: 'https://fincado.com/guides/tax/' },
           {
             name: 'Tax on 10 Lakh Salary',
-            url: `https://www.fincado.com/guides/${CONFIG.slug}`,
+            url: `https://fincado.com/guides/${CONFIG.slug}`,
           },
         ]}
       />
@@ -129,19 +129,19 @@ export default function Tax10LakhGuide() {
             inLanguage: 'en-IN',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://www.fincado.com/guides/${CONFIG.slug}`,
+              '@id': `https://fincado.com/guides/${CONFIG.slug}`,
             },
             author: {
               '@type': 'Person',
               name: 'Fincado Research Team',
-              url: 'https://www.fincado.com/about',
+              url: 'https://fincado.com/about',
             },
             publisher: {
               '@type': 'Organization',
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',

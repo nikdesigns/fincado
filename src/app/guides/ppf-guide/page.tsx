@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       'PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
     description:
       'Turn ₹1.5 Lakh/year into ₹1 Crore tax-free. Master the 5th-of-month rule, extensions, and EEE benefits.',
-    url: 'https://www.fincado.com/guides/ppf-guide',
+    url: 'https://fincado.com/guides/ppf-guide/',
     type: 'article',
     images: [
       {
@@ -89,11 +89,11 @@ export default function PPFGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'PPF Guide 2025',
-            url: 'https://www.fincado.com/guides/ppf-guide',
+            url: 'https://fincado.com/guides/ppf-guide/',
           },
         ]}
       />
@@ -110,8 +110,7 @@ export default function PPFGuidePage() {
               'PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
             description:
               'Complete guide to Public Provident Fund (PPF): Interest calculation, withdrawal rules, loan facility, and comparison with ELSS/EPF.',
-            image:
-              'https://www.fincado.com/images/guides/ppf/ppf-guide-hero.webp',
+            image: 'https://fincado.com/images/guides/ppf/ppf-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -121,7 +120,7 @@ export default function PPFGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-18',

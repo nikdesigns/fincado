@@ -41,13 +41,13 @@ export const metadata: Metadata = {
     'Loan Repayment Schedule',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/emi-calculator',
+    canonical: 'https://fincado.com/emi-calculator/',
   },
   openGraph: {
     title: 'EMI Calculator – Plan Your Loan Repayment',
     description:
       'Free tool to calculate EMI, Interest, and Tenure for any loan.',
-    url: 'https://www.fincado.com/emi-calculator',
+    url: 'https://fincado.com/emi-calculator/',
     type: 'website',
   },
 };
@@ -118,11 +118,11 @@ export default function EMIPage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators/' },
           {
             name: 'EMI Calculator',
-            url: 'https://www.fincado.com/emi-calculator',
+            url: 'https://fincado.com/emi-calculator/',
           },
         ]}
       />
@@ -130,7 +130,7 @@ export default function EMIPage() {
       <CalculatorSchema
         name="Loan EMI Calculator"
         description="Calculate EMI for Home Loan, Car Loan, and Personal Loan. Check monthly repayment schedule and total interest."
-        url="https://www.fincado.com/emi-calculator"
+        url="https://fincado.com/emi-calculator/"
       />
 
       <FAQSchema faqs={faqItems} />

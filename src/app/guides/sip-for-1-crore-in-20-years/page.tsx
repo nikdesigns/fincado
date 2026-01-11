@@ -55,21 +55,21 @@ export const metadata: Metadata = {
     title: 'How much SIP is needed for ₹1 Crore in 20 Years?',
     description: 'Wealth on Autopilot: The ₹10k/month strategy.',
     images: [
-      'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+      'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
     ],
   },
   alternates: {
-    canonical: 'https://www.fincado.com/guides/sip-for-1-crore-in-20-years',
+    canonical: 'https://fincado.com/guides/sip-for-1-crore-in-20-years/',
   },
   openGraph: {
     title: 'How much SIP for 1 Crore in 20 Years? (2025 Guide)',
     description:
       'Detailed breakdown: Monthly SIP needed, Step-up strategy, and Asset allocation to hit ₹1 Crore.',
-    url: 'https://www.fincado.com/guides/sip-for-1-crore-in-20-years',
+    url: 'https://fincado.com/guides/sip-for-1-crore-in-20-years/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+        url: 'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
         width: 1200,
         height: 600,
         alt: 'Roadmap to 1 Crore Wealth in 20 Years',
@@ -114,10 +114,10 @@ export default function Sip1Cr20YearsPage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Guides', url: 'https://fincado.com/guides' },
           {
             name: '1 Crore in 20 Years',
-            url: 'https://www.fincado.com/guides/sip-for-1-crore-in-20-years',
+            url: 'https://fincado.com/guides/sip-for-1-crore-in-20-years/',
           },
         ]}
       />
@@ -145,13 +145,13 @@ export default function Sip1Cr20YearsPage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-28',
             dateModified: '2025-12-28',
             image:
-              'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+              'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
           }),
         }}
       />

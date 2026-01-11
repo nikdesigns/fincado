@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     'Calculate Gratuity Online',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/gratuity-calculator/',
+    canonical: 'https://fincado.com/gratuity-calculator/',
   },
   openGraph: {
     title: 'Gratuity Calculator – Know Your End-of-Service Benefit',
     description:
       'Free tool to calculate gratuity based on your salary and years of service.',
-    url: 'https://www.fincado.com/gratuity-calculator/',
+    url: 'https://fincado.com/gratuity-calculator/',
     type: 'website',
   },
 };
@@ -128,7 +128,7 @@ export default function GratuityPage() {
       <CalculatorSchema
         name="Gratuity Calculator"
         description="Calculate gratuity amount based on basic salary and tenure. Check tax-free limit of ₹20 Lakhs."
-        url="https://www.fincado.com/gratuity-calculator/"
+        url="https://fincado.com/gratuity-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -142,11 +142,11 @@ export default function GratuityPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Gratuity Calculator',
-              url: 'https://www.fincado.com/gratuity-calculator/',
+              url: 'https://fincado.com/gratuity-calculator/',
             },
           ]}
         />

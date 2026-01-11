@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     description:
       'Save lakhs on your home loan with these expert tips on tax, interest rates, and eligibility.',
     type: 'article',
-    url: 'https://www.fincado.com/guides/home-loan-guide',
+    url: 'https://fincado.com/guides/home-loan-guide/',
     images: [
       {
         url: '/images/guides/home-loan/home-loan-guide-hero.webp',
@@ -116,13 +116,13 @@ export default function HomeLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-01-15',
             dateModified: '2025-01-15',
             image:
-              'https://www.fincado.com/images/guides/home-loan/home-loan-guide-hero.webp',
+              'https://fincado.com/images/guides/home-loan/home-loan-guide-hero.webp',
           }),
         }}
       />
@@ -149,11 +149,11 @@ export default function HomeLoanGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Home Loan Guide 2025',
-            url: 'https://www.fincado.com/guides/home-loan-guide',
+            url: 'https://fincado.com/guides/home-loan-guide/',
           },
         ]}
       />

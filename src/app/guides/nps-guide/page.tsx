@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: 'NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal Rules',
     description:
       'Unlock ₹50,000 extra tax deduction. Learn how NPS builds a multi-crore retirement corpus with market-linked returns.',
-    url: 'https://www.fincado.com/guides/nps-guide',
+    url: 'https://fincado.com/guides/nps-guide/',
     type: 'article',
     images: [
       {
@@ -91,11 +91,11 @@ export default function NPSGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'NPS Guide 2025',
-            url: 'https://www.fincado.com/guides/nps-guide',
+            url: 'https://fincado.com/guides/nps-guide/',
           },
         ]}
       />
@@ -112,8 +112,7 @@ export default function NPSGuidePage() {
               'NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal Rules',
             description:
               'Comprehensive guide to the National Pension System (NPS): Tier 1 vs Tier 2 accounts, 80CCD(1B) tax benefits, asset allocation, and new withdrawal rules.',
-            image:
-              'https://www.fincado.com/images/guides/nps/nps-guide-hero.webp',
+            image: 'https://fincado.com/images/guides/nps/nps-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -123,7 +122,7 @@ export default function NPSGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-20',

@@ -37,13 +37,13 @@ export const metadata: Metadata = {
   description:
     'Compare New vs Old Tax Regime slabs for FY 2025-26. Calculate exemptions, 80C deductions, and breakeven points to save maximum tax.',
   alternates: {
-    canonical: 'https://www.fincado.com/guides/new-vs-old-tax-regime-2025',
+    canonical: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
   },
   openGraph: {
     title: 'New vs Old Tax Regime 2025: Which is Better for You?',
     description:
       'Budget 2025 has made the new regime default. Is it better for you? Check tax slabs, deductions, and breakeven analysis here.',
-    url: 'https://www.fincado.com/guides/new-vs-old-tax-regime-2025',
+    url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
     type: 'article',
     images: [
       {
@@ -85,11 +85,11 @@ export default function TaxRegimeGuide() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'New vs Old Tax Regime',
-            url: 'https://www.fincado.com/guides/new-vs-old-tax-regime-2025',
+            url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
           },
         ]}
       />

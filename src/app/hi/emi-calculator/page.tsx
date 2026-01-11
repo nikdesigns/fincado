@@ -35,16 +35,16 @@ export const metadata: Metadata = {
     'Loan Interest Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/emi-calculator',
+    canonical: 'https://fincado.com/hi/emi-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/emi-calculator',
+      'en-IN': 'https://fincado.com/emi-calculator/',
     },
   },
   openGraph: {
     title: 'EMI कैलकुलेटर – अपनी लोन EMI प्लान करें',
     description:
       'मुफ्त टूल: होम लोन, कार लोन और पर्सनल लोन की EMI और ब्याज की गणना करें।',
-    url: 'https://www.fincado.com/hi/emi-calculator',
+    url: 'https://fincado.com/hi/emi-calculator/',
     type: 'website',
   },
 };
@@ -94,11 +94,11 @@ export default function HindiEMIPage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'EMI कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/emi-calculator',
+            url: 'https://fincado.com/hi/emi-calculator/',
           },
         ]}
       />
@@ -106,7 +106,7 @@ export default function HindiEMIPage() {
       <CalculatorSchema
         name="EMI Calculator Hindi"
         description="Calculate Loan EMI in Hindi for Home, Car, and Personal Loan."
-        url="https://www.fincado.com/hi/emi-calculator"
+        url="https://fincado.com/hi/emi-calculator/"
       />
 
       <FAQSchema faqs={faqItems} />

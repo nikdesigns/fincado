@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) return {};
 
-  const baseUrl = 'https://www.fincado.com';
+  const baseUrl = 'https://fincado.com';
   // ✅ Ensure trailing slashes for Hreflang
   const enUrl = `${baseUrl}/guides/${article.slug}/`;
   const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
@@ -97,19 +97,19 @@ export default async function HindiGuidePost({ params }: Props) {
     author: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://www.fincado.com',
+      url: 'https://fincado.com',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.fincado.com/logo.png',
+        url: 'https://fincado.com/logo.png',
       },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.fincado.com/hi/guides/${article.slug}/`,
+      '@id': `https://fincado.com/hi/guides/${article.slug}/`,
     },
   };
 
@@ -117,11 +117,11 @@ export default async function HindiGuidePost({ params }: Props) {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'हिंदी (Hindi)', url: 'https://www.fincado.com/hi/' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'हिंदी (Hindi)', url: 'https://fincado.com/hi/' },
           {
             name: article.title,
-            url: `https://www.fincado.com/hi/guides/${article.slug}/`,
+            url: `https://fincado.com/hi/guides/${article.slug}/`,
           },
         ]}
       />

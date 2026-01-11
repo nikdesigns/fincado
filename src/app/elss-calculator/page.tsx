@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     'ELSS vs PPF Calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/elss-calculator',
+    canonical: 'https://fincado.com/elss-calculator/',
   },
   openGraph: {
     title: 'ELSS Calculator – Save Tax & Build Wealth',
     description:
       'Invest in ELSS to save up to ₹46,800 in tax and earn high equity returns. Calculate now.',
-    url: 'https://www.fincado.com/elss-calculator',
+    url: 'https://fincado.com/elss-calculator/',
     type: 'website',
   },
 };
@@ -109,7 +109,7 @@ export default function ELSSPage() {
       <CalculatorSchema
         name="ELSS Calculator India"
         description="Calculate returns and tax savings for ELSS Mutual Funds under Section 80C."
-        url="https://www.fincado.com/elss-calculator"
+        url="https://fincado.com/elss-calculator/"
       />
 
       <FAQSchema
@@ -122,11 +122,11 @@ export default function ELSSPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'ELSS Calculator',
-              url: 'https://www.fincado.com/elss-calculator',
+              url: 'https://fincado.com/elss-calculator/',
             },
           ]}
         />

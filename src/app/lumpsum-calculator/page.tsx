@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     'One Time Investment Plan',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/lumpsum-calculator',
+    canonical: 'https://fincado.com/lumpsum-calculator/',
   },
   openGraph: {
     title: 'Lumpsum Calculator – Watch Your Wealth Grow',
     description:
       'Free tool to estimate returns on one-time investments with compounding benefits.',
-    url: 'https://www.fincado.com/lumpsum-calculator',
+    url: 'https://fincado.com/lumpsum-calculator/',
     type: 'website',
   },
 };
@@ -137,7 +137,7 @@ export default function LumpsumPage() {
       <CalculatorSchema
         name="Lumpsum Investment Calculator"
         description="Estimate the future value of your one-time mutual fund investment using compound interest."
-        url="https://www.fincado.com/lumpsum-calculator"
+        url="https://fincado.com/lumpsum-calculator/"
       />
 
       <FAQSchema
@@ -150,11 +150,11 @@ export default function LumpsumPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Lumpsum Calculator',
-              url: 'https://www.fincado.com/lumpsum-calculator',
+              url: 'https://fincado.com/lumpsum-calculator/',
             },
           ]}
         />

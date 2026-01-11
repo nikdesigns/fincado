@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     'Zero Down Payment Car Loan',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/loans/car-loan',
+    canonical: 'https://fincado.com/loans/car-loan/',
   },
   openGraph: {
     title: 'Car Loan EMI Calculator – Drive Your Dream Car',
     description:
       'Free tool to calculate Car Loan EMI, Total Interest, and Tenure options.',
-    url: 'https://www.fincado.com/loans/car-loan',
+    url: 'https://fincado.com/loans/car-loan/',
     type: 'website',
   },
 };
@@ -122,7 +122,7 @@ export default function CarLoanPage() {
       <CalculatorSchema
         name="Car Loan EMI Calculator"
         description="Calculate monthly EMI for new or used car loans. Plan your vehicle purchase budget effectively."
-        url="https://www.fincado.com/loans/car-loan"
+        url="https://fincado.com/loans/car-loan/"
       />
 
       <FAQSchema
@@ -135,11 +135,11 @@ export default function CarLoanPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Loans', url: 'https://www.fincado.com/loans' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Loans', url: 'https://fincado.com/loans/' },
             {
               name: 'Car Loan EMI Calculator',
-              url: 'https://www.fincado.com/loans/car-loan',
+              url: 'https://fincado.com/loans/car-loan/',
             },
           ]}
         />

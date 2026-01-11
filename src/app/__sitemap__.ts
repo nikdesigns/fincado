@@ -5,7 +5,7 @@ import articlesData from '@/data/articles.json';
 export const dynamic = 'force-static';
 
 // Configuration
-const BASE_URL = 'https://www.fincado.com';
+const BASE_URL = 'https://fincado.com';
 
 const bankSlugs = [
   'sbi',

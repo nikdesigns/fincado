@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     'financial literacy india',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides',
+    canonical: 'https://fincado.com/guides/',
   },
 };
 
@@ -48,8 +48,8 @@ export default function GuidesPage() {
     <main className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
         ]}
       />
 

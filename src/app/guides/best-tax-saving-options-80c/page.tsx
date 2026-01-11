@@ -52,17 +52,17 @@ export const metadata: Metadata = {
     'NPS tax benefit 80ccd(1b)',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/best-tax-saving-options-80c',
+    canonical: 'https://fincado.com/guides/best-tax-saving-options-80c',
   },
   openGraph: {
     title: 'Best 80C Tax Saving Options 2025 | Save ₹46,800 Tax',
     description:
       'Compare ELSS, PPF, EPF, and FD. Find the best tax-saving investment to build wealth and save tax under Section 80C.',
-    url: 'https://www.fincado.com/guides/best-tax-saving-options-80c',
+    url: 'https://fincado.com/guides/best-tax-saving-options-80c',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/tax/tax-benefits-80c-24b.webp',
+        url: 'https://fincado.com/images/guides/tax/tax-benefits-80c-24b.webp',
         width: 1200,
         height: 630,
       },
@@ -105,32 +105,31 @@ export default function TaxSavingOptionsGuide() {
             '@type': 'Article',
             inLanguage: 'en-IN',
             '@id':
-              'https://www.fincado.com/guides/best-tax-saving-options-80c#article',
+              'https://fincado.com/guides/best-tax-saving-options-80c#article',
             headline: 'Best Tax Saving Options Under Section 80C for 2025',
             description:
               'Comprehensive guide comparing ELSS, PPF, EPF, FD and other Section 80C investments to maximize tax savings and wealth creation.',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id':
-                'https://www.fincado.com/guides/best-tax-saving-options-80c',
+              '@id': 'https://fincado.com/guides/best-tax-saving-options-80c',
             },
             image: {
               '@type': 'ImageObject',
-              url: 'https://www.fincado.com/images/guides/tax/tax-benefits-80c-24b.webp',
+              url: 'https://fincado.com/images/guides/tax/tax-benefits-80c-24b.webp',
               width: 1200,
               height: 630,
             },
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
-              url: 'https://www.fincado.com/about',
+              url: 'https://fincado.com/about',
             },
             publisher: {
               '@type': 'Organization',
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-30',
@@ -142,11 +141,11 @@ export default function TaxSavingOptionsGuide() {
       {/* --- BREADCRUMB --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Best 80C Options',
-            url: 'https://www.fincado.com/guides/best-tax-saving-options-80c',
+            url: 'https://fincado.com/guides/best-tax-saving-options-80c',
           },
         ]}
       />

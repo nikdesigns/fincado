@@ -60,13 +60,13 @@ export const metadata: Metadata = {
       'Complete SIP guide covering compounding, tax rules, returns & age-wise strategies.',
   },
   alternates: {
-    canonical: 'https://www.fincado.com/guides/sip-investment-guide',
+    canonical: 'https://fincado.com/guides/sip-investment-guide/',
   },
   openGraph: {
     title: 'SIP Investment Guide 2025 | Wealth Creation Strategy',
     description:
       'Master SIP investing: Returns, Taxes, and Market Crash strategies for 2025.',
-    url: 'https://www.fincado.com/guides/sip-investment-guide',
+    url: 'https://fincado.com/guides/sip-investment-guide/',
     type: 'article',
     images: [
       {
@@ -156,7 +156,7 @@ export default function SipGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-16',
@@ -187,11 +187,11 @@ export default function SipGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'SIP Investment Guide',
-            url: 'https://www.fincado.com/guides/sip-investment-guide',
+            url: 'https://fincado.com/guides/sip-investment-guide/',
           },
         ]}
       />

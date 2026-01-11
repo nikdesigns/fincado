@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     'Investment Growth Calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/compound-interest-calculator/',
+    canonical: 'https://fincado.com/compound-interest-calculator/',
   },
   openGraph: {
     title: 'Compound Interest Calculator – Watch Your Money Grow',
     description:
       'Free tool to calculate maturity amount with compound interest formula.',
-    url: 'https://www.fincado.com/compound-interest-calculator/',
+    url: 'https://fincado.com/compound-interest-calculator/',
     type: 'website',
   },
 };
@@ -93,7 +93,7 @@ export default function CompoundInterestPage() {
       <CalculatorSchema
         name="Compound Interest Calculator"
         description="Calculate the future value of an investment with compound interest."
-        url="https://www.fincado.com/compound-interest-calculator/"
+        url="https://fincado.com/compound-interest-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -107,11 +107,14 @@ export default function CompoundInterestPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            {
+              name: 'Calculators',
+              url: 'https://fincado.com/calculators/',
+            },
             {
               name: 'Compound Interest',
-              url: 'https://www.fincado.com/compound-interest-calculator/',
+              url: 'https://fincado.com/compound-interest-calculator/',
             },
           ]}
         />

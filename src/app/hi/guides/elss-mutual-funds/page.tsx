@@ -48,17 +48,17 @@ export const metadata: Metadata = {
     'Best Tax Saving Scheme',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/elss-mutual-funds',
+    canonical: 'https://fincado.com/hi/guides/elss-mutual-funds/',
   },
   openGraph: {
     title: 'ELSS म्यूचुअल फंड: टैक्स बचाने का सबसे स्मार्ट तरीका',
     description:
       'सिर्फ टैक्स मत बचाइए, वेल्थ भी बनाइए। ELSS फंड्स की पूरी जानकारी हिंदी में।',
-    url: 'https://www.fincado.com/hi/guides/elss-mutual-funds',
+    url: 'https://fincado.com/hi/guides/elss-mutual-funds/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/elss-guide-hindi.webp',
+        url: 'https://fincado.com/images/og/elss-guide-hindi.webp',
         width: 1200,
         height: 630,
       },
@@ -125,7 +125,7 @@ export default function HindiELSSGuide() {
               'ELSS फंड्स क्या हैं? 80C के तहत टैक्स छूट, लॉक-इन पीरियड और रिटर्न की पूरी जानकारी हिंदी में।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/hi/guides/elss-mutual-funds',
+              '@id': 'https://fincado.com/hi/guides/elss-mutual-funds/',
             },
             author: {
               '@type': 'Organization',
@@ -136,7 +136,7 @@ export default function HindiELSSGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-21',
@@ -151,11 +151,11 @@ export default function HindiELSSGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी गाइड्स', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com/' },
+          { name: 'हिंदी गाइड्स', url: 'https://fincado.com/hi/' },
           {
             name: 'ELSS Funds',
-            url: 'https://www.fincado.com/hi/guides/elss-mutual-funds',
+            url: 'https://fincado.com/hi/guides/elss-mutual-funds/',
           },
         ]}
       />

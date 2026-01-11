@@ -51,13 +51,13 @@ export const metadata: Metadata = {
     'personal loan EMI calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/personal-loan-interest-rates',
+    canonical: 'https://fincado.com/guides/personal-loan-interest-rates/',
   },
   openGraph: {
     title: 'Personal Loan Interest Rates 2025 | Save Lakhs on Interest',
     description:
       'Compare 20+ Banks & NBFCs. Master Flat vs Reducing rates and negotiation tricks.',
-    url: 'https://www.fincado.com/guides/personal-loan-interest-rates',
+    url: 'https://fincado.com/guides/personal-loan-interest-rates/',
     type: 'article',
   },
 };
@@ -99,11 +99,11 @@ export default function PersonalLoanGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Personal Loan Interest Rates',
-            url: 'https://www.fincado.com/guides/personal-loan-interest-rates',
+            url: 'https://fincado.com/guides/personal-loan-interest-rates/',
           },
         ]}
       />
@@ -129,7 +129,7 @@ export default function PersonalLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-15',

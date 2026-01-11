@@ -19,7 +19,7 @@ export default function SIPWidget() {
           SIP Calculator
         </h2>
         <a
-          href="https://www.fincado.com/sip-calculator"
+          href="https://fincado.com/sip-calculator/"
           target="_blank"
           rel="noopener noreferrer"
           style={{ fontSize: '12px', color: '#64748b', textDecoration: 'none' }}

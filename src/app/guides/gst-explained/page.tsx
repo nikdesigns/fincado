@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'GST registration limit',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/gst-explained',
+    canonical: 'https://fincado.com/guides/gst-explained/',
   },
   openGraph: {
     title: 'GST Explained: The Ultimate Guide for Indian Businesses',
     description:
       'Confused by GST? We break down slabs, calculations, RCM, and common mistakes in simple language.',
-    url: 'https://www.fincado.com/guides/gst-explained',
+    url: 'https://fincado.com/guides/gst-explained/',
     type: 'article',
   },
 };
@@ -103,7 +103,7 @@ export default function GstGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-21',
@@ -134,11 +134,11 @@ export default function GstGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'GST Explained',
-            url: 'https://www.fincado.com/guides/gst-explained',
+            url: 'https://fincado.com/guides/gst-explained/',
           },
         ]}
       />

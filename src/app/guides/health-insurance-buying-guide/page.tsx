@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     'Section 80D Tax Benefit',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/health-insurance-buying-guide',
+    canonical: 'https://fincado.com/guides/health-insurance-buying-guide/',
   },
   openGraph: {
     title: 'Health Insurance Buying Guide: 5 Things to Check Before Buying',
     description:
       "Don't buy a policy just for the low premium. Check room rent limits, waiting periods, and cashless network first.",
     type: 'article',
-    url: 'https://www.fincado.com/guides/health-insurance-buying-guide',
+    url: 'https://fincado.com/guides/health-insurance-buying-guide/',
     images: [
       {
         url: '/images/guides/health-insurance/health-insurance-guide-hero.webp',
@@ -95,11 +95,11 @@ export default function HealthInsuranceGuide() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Health Insurance Guide',
-            url: 'https://www.fincado.com/guides/health-insurance-buying-guide',
+            url: 'https://fincado.com/guides/health-insurance-buying-guide/',
           },
         ]}
       />
@@ -124,13 +124,13 @@ export default function HealthInsuranceGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-01-12',
             dateModified: '2025-01-12',
             image:
-              'https://www.fincado.com/images/guides/health-insurance/health-insurance-guide-hero.webp',
+              'https://fincado.com/images/guides/health-insurance/health-insurance-guide-hero.webp',
           }),
         }}
       />

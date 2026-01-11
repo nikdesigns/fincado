@@ -49,18 +49,18 @@ export const metadata: Metadata = {
     'Best tax saving scheme 2025',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/elss-vs-fd',
+    canonical: 'https://fincado.com/guides/elss-vs-fd/',
   },
   openGraph: {
     title:
       'ELSS vs FD (2025): Which Is Better for Tax Saving & Higher Returns?',
     description:
       'Compare returns, lock-in periods, and taxation to find the best Section 80C tax saver for your portfolio.',
-    url: 'https://www.fincado.com/guides/elss-vs-fd',
+    url: 'https://fincado.com/guides/elss-vs-fd/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/elss/elss-guide-hero.webp',
+        url: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
         width: 1200,
         height: 630,
       },
@@ -102,31 +102,31 @@ export default function ElssVsFdGuidePage() {
             '@context': 'https://schema.org',
             '@type': 'Article',
             inLanguage: 'en-IN',
-            '@id': 'https://www.fincado.com/guides/elss-vs-fd#article',
+            '@id': 'https://fincado.com/guides/elss-vs-fd#article',
             headline: 'ELSS vs FD: Which is Better for Tax Saving in 2025?',
             description:
               'Comprehensive comparison of Equity Linked Savings Schemes (ELSS) and Tax Saver Fixed Deposits (FD) covering returns, risk, liquidity, and taxation.',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/guides/elss-vs-fd',
+              '@id': 'https://fincado.com/guides/elss-vs-fd/',
             },
             image: {
               '@type': 'ImageObject',
-              url: 'https://www.fincado.com/images/guides/elss/elss-guide-hero.webp',
+              url: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
               width: 1200,
               height: 630,
             },
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
-              url: 'https://www.fincado.com/about',
+              url: 'https://fincado.com/about/',
             },
             publisher: {
               '@type': 'Organization',
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-29',
@@ -138,11 +138,11 @@ export default function ElssVsFdGuidePage() {
       {/* --- BREADCRUMB --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'ELSS vs FD',
-            url: 'https://www.fincado.com/guides/elss-vs-fd',
+            url: 'https://fincado.com/guides/elss-vs-fd/',
           },
         ]}
       />

@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     'Pension Contribution EPS',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/epf-calculator',
+    canonical: 'https://fincado.com/epf-calculator/',
   },
   openGraph: {
     title: 'EPF Calculator – Track Your Retirement Savings',
     description:
       'Free tool to calculate your total EPF corpus including employer contribution and interest.',
-    url: 'https://www.fincado.com/epf-calculator',
+    url: 'https://fincado.com/epf-calculator/',
     type: 'website',
   },
 };
@@ -112,7 +112,7 @@ export default function EPFPage() {
       <CalculatorSchema
         name="EPF Calculator"
         description="Calculate your Employee Provident Fund (EPF) corpus at retirement including employer contributions and interest."
-        url="https://www.fincado.com/epf-calculator"
+        url="https://fincado.com/epf-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -126,11 +126,11 @@ export default function EPFPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'EPF Calculator',
-              url: 'https://www.fincado.com/epf-calculator',
+              url: 'https://fincado.com/epf-calculator/',
             },
           ]}
         />

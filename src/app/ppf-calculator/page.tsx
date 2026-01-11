@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     'Post Office PPF Scheme',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/ppf-calculator',
+    canonical: 'https://fincado.com/ppf-calculator/',
   },
   openGraph: {
     title: 'PPF Calculator – Tax-Free Wealth Builder',
     description:
       'Free tool to calculate PPF returns with yearly compounding and tax-benefit analysis.',
-    url: 'https://www.fincado.com/ppf-calculator',
+    url: 'https://fincado.com/ppf-calculator/',
     type: 'website',
   },
 };
@@ -121,7 +121,7 @@ export default function PPFPage() {
       <CalculatorSchema
         name="PPF Calculator"
         description="Calculate Public Provident Fund (PPF) maturity amount, interest earned, and tax-free returns over 15 years."
-        url="https://www.fincado.com/ppf-calculator"
+        url="https://fincado.com/ppf-calculator/"
       />
 
       <FAQSchema
@@ -134,11 +134,11 @@ export default function PPFPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'PPF Calculator',
-              url: 'https://www.fincado.com/ppf-calculator',
+              url: 'https://fincado.com/ppf-calculator/',
             },
           ]}
         />

@@ -42,15 +42,15 @@ export const metadata: Metadata = {
     'Simple vs Compound Interest Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/simple-interest-calculator',
+    canonical: 'https://fincado.com/hi/simple-interest-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/simple-interest-calculator',
+      'en-IN': 'https://fincado.com/simple-interest-calculator/',
     },
   },
   openGraph: {
     title: 'साधारण ब्याज कैलकुलेटर – आसान और सटीक',
     description: 'मुफ्त टूल: साधारण ब्याज और कुल राशि की तुरंत गणना करें।',
-    url: 'https://www.fincado.com/hi/simple-interest-calculator',
+    url: 'https://fincado.com/hi/simple-interest-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -96,16 +96,16 @@ export default function HindiSIPage() {
       <CalculatorSchema
         name="Simple Interest Calculator Hindi"
         description="Calculate Simple Interest in Hindi."
-        url="https://www.fincado.com/hi/simple-interest-calculator"
+        url="https://fincado.com/hi/simple-interest-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'साधारण ब्याज',
-            url: 'https://www.fincado.com/hi/simple-interest-calculator',
+            url: 'https://fincado.com/hi/simple-interest-calculator/',
           },
         ]}
       />

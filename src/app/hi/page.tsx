@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: 'Fincado हिंदी: फाइनेंशियल कैलकुलेटर और गाइड्स',
   description:
     'Fincado पर हिंदी में सभी वित्तीय कैलकुलेटर और गाइड्स प्राप्त करें। SIP, EMI, PPF, Sukanya Samriddhi और होम लोन की जानकारी अपनी भाषा में।',
-  alternates: { canonical: 'https://www.fincado.com/hi/' },
+  alternates: { canonical: 'https://fincado.com/hi/' },
 };
 
 export default function HindiHubPage() {
@@ -40,8 +40,8 @@ export default function HindiHubPage() {
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'हिंदी', url: 'https://www.fincado.com/hi/' },
+          { name: 'Home', url: 'https://fincado.com' },
+          { name: 'हिंदी', url: 'https://fincado.com/hi/' },
         ]}
       />
 

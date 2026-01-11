@@ -33,14 +33,14 @@ export const metadata: Metadata = {
   description:
     'Complete guide to Sovereign Gold Bonds (SGB) in India. Learn about 2.5% interest, tax-free redemption, and why SGB is better than physical gold.',
   alternates: {
-    canonical: 'https://www.fincado.com/guides/sovereign-gold-bond-sgb-guide',
+    canonical: 'https://fincado.com/guides/sovereign-gold-bond-sgb-guide/',
   },
   openGraph: {
     title: 'Sovereign Gold Bonds (SGB) Guide 2025',
     description:
       'Invest in Gold + Earn 2.5% Interest. Tax-free maturity and government guarantee. Read the full SGB guide.',
     type: 'article',
-    url: 'https://www.fincado.com/guides/sovereign-gold-bond-sgb-guide',
+    url: 'https://fincado.com/guides/sovereign-gold-bond-sgb-guide/',
     images: [
       { url: '/images/guides/sgb/sgb-hero.webp', width: 1200, height: 630 },
     ],
@@ -64,23 +64,23 @@ export default function SGBGuide() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.fincado.com/logo.png',
+        url: 'https://fincado.com/logo.png',
       },
     },
     datePublished: '2025-01-10',
     dateModified: '2025-01-10',
-    image: 'https://www.fincado.com/images/guides/sgb/sgb-hero.webp',
+    image: 'https://fincado.com/images/guides/sgb/sgb-hero.webp',
   };
 
   return (
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'SGB Guide',
-            url: 'https://www.fincado.com/guides/sovereign-gold-bond-sgb-guide',
+            url: 'https://fincado.com/guides/sovereign-gold-bond-sgb-guide/',
           },
         ]}
       />

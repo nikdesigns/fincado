@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     'Tax Free Investment Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/ppf-calculator',
+    canonical: 'https://fincado.com/hi/ppf-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/ppf-calculator',
+      'en-IN': 'https://fincado.com/ppf-calculator/',
     },
   },
   openGraph: {
     title: 'PPF कैलकुलेटर – सुरक्षित और टैक्स-फ्री निवेश',
     description:
       'मुफ्त टूल: PPF मैच्योरिटी राशि और कुल ब्याज की सटीक गणना करें।',
-    url: 'https://www.fincado.com/hi/ppf-calculator',
+    url: 'https://fincado.com/hi/ppf-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -105,16 +105,16 @@ export default function HindiPPFPage() {
       <CalculatorSchema
         name="PPF Calculator Hindi"
         description="Calculate PPF Maturity in Hindi."
-        url="https://www.fincado.com/hi/ppf-calculator"
+        url="https://fincado.com/hi/ppf-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'PPF कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/ppf-calculator',
+            url: 'https://fincado.com/hi/ppf-calculator/',
           },
         ]}
       />

@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     'सैलरी टैक्स कैलकुलेटर',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/income-tax-calculator',
+    canonical: 'https://fincado.com/hi/income-tax-calculator/',
   },
   openGraph: {
     title: 'इनकम टैक्स कैलकुलेटर - अपना टैक्स बचाएं',
     description:
       'जानें कि आप नई व्यवस्था और 80C कटौती के साथ कितना टैक्स बचा सकते हैं।',
-    url: 'https://www.fincado.com/hi/income-tax-calculator',
+    url: 'https://fincado.com/hi/income-tax-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -115,7 +115,7 @@ export default function IncomeTaxHindiPage() {
       <CalculatorSchema
         name="Income Tax Calculator Hindi"
         description="Calculate income tax liability in Hindi. Compare New vs Old Regime."
-        url="https://www.fincado.com/hi/income-tax-calculator"
+        url="https://fincado.com/hi/income-tax-calculator/"
       />
 
       <FAQSchema
@@ -128,14 +128,14 @@ export default function IncomeTaxHindiPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'होम', url: 'https://www.fincado.com/hi' },
+            { name: 'होम', url: 'https://fincado.com/hi/' },
             {
               name: 'कैलकुलेटर',
-              url: 'https://www.fincado.com/hi/calculators',
+              url: 'https://fincado.com/hi/calculators/',
             },
             {
               name: 'इनकम टैक्स कैलकुलेटर',
-              url: 'https://www.fincado.com/hi/income-tax-calculator',
+              url: 'https://fincado.com/hi/income-tax-calculator/',
             },
           ]}
         />

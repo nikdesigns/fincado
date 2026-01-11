@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     'SIP, EMI, PPF, GST, होम लोन और इनकम टैक्स के लिए सर्वश्रेष्ठ हिंदी कैलकुलेटर। अपनी बचत और निवेश की सटीक गणना करें।',
   alternates: {
-    canonical: 'https://www.fincado.com/hi/calculators',
+    canonical: 'https://fincado.com/hi/calculators/',
   },
 };
 
@@ -26,8 +26,8 @@ export default function HindiCalculatorsPage() {
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
         ]}
       />
 

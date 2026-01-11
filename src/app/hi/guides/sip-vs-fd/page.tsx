@@ -48,20 +48,20 @@ export const metadata: Metadata = {
     'SIP returns calculation',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/sip-vs-fd',
+    canonical: 'https://fincado.com/hi/guides/sip-vs-fd/',
     languages: {
-      'en-IN': 'https://www.fincado.com/guides/sip-vs-fd',
+      'en-IN': 'https://fincado.com/guides/sip-vs-fd/',
     },
   },
   openGraph: {
     title: 'SIP vs FD: बेहतर कौन है? (2025 हिंदी गाइड)',
     description:
       'FD में पैसा सुरक्षित है या महंगाई इसे खा रही है? SIP और FD का सच जानें।',
-    url: 'https://www.fincado.com/hi/guides/sip-vs-fd',
+    url: 'https://fincado.com/hi/guides/sip-vs-fd/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/sip-vs-fd.webp',
+        url: 'https://fincado.com/images/og/sip-vs-fd.webp',
         width: 1200,
         height: 630,
       },
@@ -106,11 +106,11 @@ export default function HindiSipVsFdGuide() {
               'SIP और FD को बहुत ही आसान हिंदी में समझाया गया है ताकि आप अपने लिए सही विकल्प चुन सकें।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/hi/guides/sip-vs-fd',
+              '@id': 'https://fincado.com/hi/guides/sip-vs-fd/',
             },
             image: {
               '@type': 'ImageObject',
-              url: 'https://www.fincado.com/images/og/sip-vs-fd.webp',
+              url: 'https://fincado.com/images/og/sip-vs-fd.webp',
               width: 1200,
               height: 630,
             },
@@ -123,7 +123,7 @@ export default function HindiSipVsFdGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-18',
@@ -135,11 +135,11 @@ export default function HindiSipVsFdGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी गाइड्स', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com/' },
+          { name: 'हिंदी गाइड्स', url: 'https://fincado.com/hi/' },
           {
             name: 'SIP vs FD',
-            url: 'https://www.fincado.com/hi/guides/sip-vs-fd',
+            url: 'https://fincado.com/hi/guides/sip-vs-fd/',
           },
         ]}
       />

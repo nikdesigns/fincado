@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       'EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
     description:
       'The ultimate guide to your Employee Provident Fund. Learn about the 8.25% interest, EEE tax status, and how to avoid tax on withdrawals.',
-    url: 'https://www.fincado.com/guides/epf-guide',
+    url: 'https://fincado.com/guides/epf-guide/',
     type: 'article',
     images: [
       {
@@ -88,11 +88,11 @@ export default function EPFGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'EPF Guide 2025',
-            url: 'https://www.fincado.com/guides/epf-guide',
+            url: 'https://fincado.com/guides/epf-guide/',
           },
         ]}
       />
@@ -109,8 +109,7 @@ export default function EPFGuidePage() {
               'EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
             description:
               'Comprehensive guide to Employee Provident Fund (EPF): Interest rates, contribution split (EPF vs EPS), withdrawal rules, and tax implications.',
-            image:
-              'https://www.fincado.com/images/guides/epf/epf-guide-hero.webp',
+            image: 'https://fincado.com/images/guides/epf/epf-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -120,7 +119,7 @@ export default function EPFGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-22',

@@ -57,21 +57,21 @@ export const metadata: Metadata = {
     title: '10 साल में 1 करोड़ के लिए कितनी SIP करें?',
     description: 'जानिए एक दशक में करोड़पति बनने का सटीक गणित।',
     images: [
-      'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+      'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
     ],
   },
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/10-saal-mein-1-crore-sip',
+    canonical: 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
   },
   openGraph: {
     title: '10 साल में 1 करोड़ के लिए कितनी SIP करें? (2025 गाइड)',
     description:
       'विस्तृत जानकारी: मासिक SIP राशि, स्टेप-अप रणनीति और सही एसेट एलोकेशन।',
-    url: 'https://www.fincado.com/hi/guides/10-saal-mein-1-crore-sip',
+    url: 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+        url: 'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
         width: 1200,
         height: 600,
         alt: '1 Crore Wealth Roadmap Hindi',
@@ -117,10 +117,10 @@ export default function Sip1Cr10YearsPageHindi() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Guides', url: 'https://www.fincado.com/hi/guides' },
+          { name: 'Guides', url: 'https://fincado.com/hi/guides/' },
           {
             name: '10 साल में 1 करोड़ SIP गाइड',
-            url: 'https://www.fincado.com/hi/guides/10-saal-mein-1-crore-sip',
+            url: 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
           },
         ]}
       />
@@ -137,17 +137,16 @@ export default function Sip1Cr10YearsPageHindi() {
             '@type': 'Article',
             inLanguage: 'hi-IN',
             '@id':
-              'https://www.fincado.com/hi/guides/10-saal-mein-1-crore-sip#article',
+              'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip#article/',
             headline: pageTitle,
             description:
               '10 साल में म्यूचुअल फंड्स के जरिए 1 करोड़ रुपये का कॉर्पस बनाने की विस्तृत रणनीति।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id':
-                'https://www.fincado.com/hi/guides/10-saal-mein-1-crore-sip',
+              '@id': 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
             },
             image: [
-              'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+              'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
             ],
             author: {
               '@type': 'Person',
@@ -162,7 +161,7 @@ export default function Sip1Cr10YearsPageHindi() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-28',

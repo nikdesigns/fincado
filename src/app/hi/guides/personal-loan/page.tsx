@@ -54,17 +54,17 @@ export const metadata: Metadata = {
     'Instant Loan Apps',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/personal-loan',
+    canonical: 'https://fincado.com/hi/guides/personal-loan/',
   },
   openGraph: {
     title: 'पर्सनल लोन हिंदी गाइड: लेने से पहले सब कुछ जान लें',
     description:
       'गलत जानकारी के साथ लिया गया पर्सनल लोन बोझ बन सकता है। यहाँ पढ़ें पूरी जानकारी।',
-    url: 'https://www.fincado.com/hi/guides/personal-loan',
+    url: 'https://fincado.com/hi/guides/personal-loan/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/personal-loan-guide.webp',
+        url: 'https://fincado.com/images/og/personal-loan-guide.webp/',
         width: 1200,
         height: 630,
       },
@@ -114,7 +114,7 @@ export default function HindiPersonalLoanGuide() {
               'पर्सनल लोन की ब्याज दरें, EMI और जरूरी नियम हिंदी में।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/hi/guides/personal-loan',
+              '@id': 'https://fincado.com/hi/guides/personal-loan',
             },
             author: {
               '@type': 'Organization',
@@ -125,7 +125,7 @@ export default function HindiPersonalLoanGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-19',
@@ -137,11 +137,11 @@ export default function HindiPersonalLoanGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी गाइड्स', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com/' },
+          { name: 'हिंदी गाइड्स', url: 'https://fincado.com/hi/' },
           {
             name: 'Personal Loan',
-            url: 'https://www.fincado.com/hi/guides/personal-loan',
+            url: 'https://fincado.com/hi/guides/personal-loan/',
           },
         ]}
       />

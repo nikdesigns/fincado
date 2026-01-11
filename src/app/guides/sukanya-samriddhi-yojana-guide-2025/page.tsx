@@ -53,14 +53,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical:
-      'https://www.fincado.com/guides/sukanya-samriddhi-yojana-guide-2025',
+      'https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/',
   },
   openGraph: {
     title: 'Sukanya Samriddhi Yojana (SSY) Guide 2025',
     description:
       "Invest in your daughter's future with SSY. 8.2% Interest, EEE Tax Benefits, and complete safety. Read the 2025 rules here.",
     type: 'article',
-    url: 'https://www.fincado.com/guides/sukanya-samriddhi-yojana-guide-2025',
+    url: 'https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/',
     images: [
       {
         url: '/images/guides/ssy/ssy-guide-hero.webp',
@@ -115,12 +115,12 @@ export default function SSYGuide() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.fincado.com/logo.png',
+        url: 'https://fincado.com/logo.png',
       },
     },
     datePublished: '2025-01-05',
     dateModified: '2025-01-05',
-    image: 'https://www.fincado.com/images/guides/ssy/ssy-guide-hero.webp',
+    image: 'https://fincado.com/images/guides/ssy/ssy-guide-hero.webp',
   };
 
   return (
@@ -128,11 +128,11 @@ export default function SSYGuide() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'SSY Guide 2025',
-            url: 'https://www.fincado.com/guides/sukanya-samriddhi-yojana-guide-2025',
+            url: 'https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/',
           },
         ]}
       />

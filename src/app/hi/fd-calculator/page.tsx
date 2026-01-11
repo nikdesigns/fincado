@@ -33,16 +33,16 @@ export const metadata: Metadata = {
     'FD Maturity Calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/fd-calculator',
+    canonical: 'https://fincado.com/hi/fd-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/fd-calculator',
+      'en-IN': 'https://fincado.com/fd-calculator/',
     },
   },
   openGraph: {
     title: 'FD कैलकुलेटर – सुरक्षित निवेश और निश्चित रिटर्न',
     description:
       'मुफ्त टूल: FD मैच्योरिटी राशि, कुल ब्याज और टीडीएस की सटीक गणना करें।',
-    url: 'https://www.fincado.com/hi/fd-calculator',
+    url: 'https://fincado.com/hi/fd-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -97,16 +97,16 @@ export default function HindiFDPage() {
       <CalculatorSchema
         name="FD Calculator Hindi"
         description="Calculate Fixed Deposit returns in Hindi."
-        url="https://www.fincado.com/hi/fd-calculator"
+        url="https://fincado.com/hi/fd-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'FD कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/fd-calculator',
+            url: 'https://fincado.com/hi/fd-calculator/',
           },
         ]}
       />

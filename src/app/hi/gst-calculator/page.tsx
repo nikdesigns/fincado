@@ -42,15 +42,15 @@ export const metadata: Metadata = {
     'जीएसटी कैलकुलेटर',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/gst-calculator',
+    canonical: 'https://fincado.com/hi/gst-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/gst-calculator',
+      'en-IN': 'https://fincado.com/gst-calculator/',
     },
   },
   openGraph: {
     title: 'GST कैलकुलेटर – टैक्स गणना आसान बनाएं',
     description: 'मुफ्त टूल: GST जोड़ें या हटाएं और सही इनवॉइस बनाएं।',
-    url: 'https://www.fincado.com/hi/gst-calculator',
+    url: 'https://fincado.com/hi/gst-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -101,16 +101,16 @@ export default function HindiGSTPage() {
       <CalculatorSchema
         name="GST Calculator Hindi"
         description="Calculate GST inclusive and exclusive amounts in Hindi."
-        url="https://www.fincado.com/hi/gst-calculator"
+        url="https://fincado.com/hi/gst-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'GST कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/gst-calculator',
+            url: 'https://fincado.com/hi/gst-calculator/',
           },
         ]}
       />

@@ -50,17 +50,17 @@ export const metadata: Metadata = {
     'improve CIBIL score fast',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/how-credit-score-affects-loans',
+    canonical: 'https://fincado.com/guides/how-credit-score-affects-loans/',
   },
   openGraph: {
     title: 'Credit Score Guide 2025 | Master Your CIBIL Score',
     description:
       'Everything you need to know about CIBIL, improving your score, and getting approved for loans.',
-    url: 'https://www.fincado.com/guides/how-credit-score-affects-loans',
+    url: 'https://fincado.com/guides/how-credit-score-affects-loans/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/credit-score-guide.webp',
+        url: 'https://fincado.com/images/og/credit-score-guide.webp',
         width: 1200,
         height: 630,
         alt: 'Credit Score Guide India 2025',
@@ -131,7 +131,7 @@ export default function CreditScoreGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-15',
@@ -143,11 +143,11 @@ export default function CreditScoreGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Credit Score Guide',
-            url: 'https://www.fincado.com/guides/how-credit-score-affects-loans',
+            url: 'https://fincado.com/guides/how-credit-score-affects-loans/',
           },
         ]}
       />

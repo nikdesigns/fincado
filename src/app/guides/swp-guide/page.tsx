@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       'The Ultimate Retirement Withdrawal Guide: SWP vs Dividends vs Rental',
     description:
       'Learn how to create a tax-free monthly income from your mutual funds using SWP and the Bucketing Strategy.',
-    url: 'https://www.fincado.com/guides/swp-guide',
+    url: 'https://fincado.com/guides/swp-guide/',
     type: 'article',
     images: [
       {
@@ -92,11 +92,11 @@ export default function SWPGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'SWP & FIRE Guide',
-            url: 'https://www.fincado.com/guides/swp-guide',
+            url: 'https://fincado.com/guides/swp-guide/',
           },
         ]}
       />
@@ -122,13 +122,12 @@ export default function SWPGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-01',
             dateModified: '2025-02-01',
-            image:
-              'https://www.fincado.com/images/guides/swp/swp-guide-hero.webp',
+            image: 'https://fincado.com/images/guides/swp/swp-guide-hero.webp',
           }),
         }}
       />

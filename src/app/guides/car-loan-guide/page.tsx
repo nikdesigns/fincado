@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     'sbi car loan vs hdfc',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/car-loan-guide',
+    canonical: 'https://fincado.com/guides/car-loan-guide/',
   },
   openGraph: {
     title:
       'Car Loan Guide 2025: New vs Used Car Interest Rates & Hypothecation',
     description:
       'Don’t get trapped by Flat Rates. Learn how to save lakhs on your car loan and remove hypothecation easily.',
-    url: 'https://www.fincado.com/guides/car-loan-guide',
+    url: 'https://fincado.com/guides/car-loan-guide/',
     type: 'article',
     images: [
       {
@@ -91,11 +91,11 @@ export default function CarLoanGuidePage() {
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Car Loan Guide',
-            url: 'https://www.fincado.com/guides/car-loan-guide',
+            url: 'https://fincado.com/guides/car-loan-guide/',
           },
         ]}
       />
@@ -113,7 +113,7 @@ export default function CarLoanGuidePage() {
             description:
               'Complete guide on Car Loans in India: Interest rates, Flat vs Reducing balance, and Hypothecation removal process.',
             image:
-              'https://www.fincado.com/images/guides/car-loan/car-loan-guide-hero.webp',
+              'https://fincado.com/images/guides/car-loan/car-loan-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -123,7 +123,7 @@ export default function CarLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-01-20',

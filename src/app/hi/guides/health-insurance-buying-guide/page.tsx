@@ -48,18 +48,17 @@ export const metadata: Metadata = {
     'Health Insurance Buying Guide Hindi',
   ],
   alternates: {
-    canonical:
-      'https://www.fincado.com/hi/guides/health-insurance-buying-guide',
+    canonical: 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
   },
   openGraph: {
     title: 'Health Insurance (मेडिक्लेम) कैसे चुनें? 5 जरूरी बातें',
     description:
       'सिर्फ सस्ता प्रीमियम नहीं, ये 5 फीचर्स चेक करें वरना क्लेम के वक्त पछताना पड़ेगा। पूरी जानकारी हिंदी में।',
-    url: 'https://www.fincado.com/hi/guides/health-insurance-buying-guide',
+    url: 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/health-insurance/health-insurance-guide-hindi.webp',
+        url: 'https://fincado.com/images/guides/health-insurance/health-insurance-guide-hindi.webp',
         width: 1200,
         height: 630,
       },
@@ -110,7 +109,7 @@ export default function HindiHealthInsuranceGuide() {
             mainEntityOfPage: {
               '@type': 'WebPage',
               '@id':
-                'https://www.fincado.com/hi/guides/health-insurance-buying-guide',
+                'https://fincado.com/hi/guides/health-insurance-buying-guide/',
             },
             author: {
               '@type': 'Organization',
@@ -121,7 +120,7 @@ export default function HindiHealthInsuranceGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-21',
@@ -133,11 +132,11 @@ export default function HindiHealthInsuranceGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी गाइड्स', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com/' },
+          { name: 'हिंदी गाइड्स', url: 'https://fincado.com/hi/' },
           {
             name: 'Health Insurance Guide',
-            url: 'https://www.fincado.com/hi/guides/health-insurance-buying-guide',
+            url: 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
           },
         ]}
       />

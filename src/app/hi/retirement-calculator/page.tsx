@@ -43,16 +43,16 @@ export const metadata: Metadata = {
     'Inflation Adjusted Retirement Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/retirement-calculator',
+    canonical: 'https://fincado.com/hi/retirement-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/retirement-calculator',
+      'en-IN': 'https://fincado.com/retirement-calculator/',
     },
   },
   openGraph: {
     title: 'रिटायरमेंट कैलकुलेटर – अपने बुढ़ापे को सुरक्षित करें',
     description:
       'जानें कि महंगाई को मात देने के लिए आपको आज कितनी बचत करनी चाहिए।',
-    url: 'https://www.fincado.com/hi/retirement-calculator',
+    url: 'https://fincado.com/hi/retirement-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -112,16 +112,16 @@ export default function HindiRetirementPage() {
       <CalculatorSchema
         name="Retirement Calculator Hindi"
         description="Calculate retirement corpus and monthly SIP in Hindi."
-        url="https://www.fincado.com/hi/retirement-calculator"
+        url="https://fincado.com/hi/retirement-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'रिटायरमेंट कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/retirement-calculator',
+            url: 'https://fincado.com/hi/retirement-calculator/',
           },
         ]}
       />

@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'IGST CGST SGST Calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/gst-calculator',
+    canonical: 'https://fincado.com/gst-calculator/',
   },
   openGraph: {
     title: 'GST Calculator – Instant Tax Computation',
     description:
       'Free tool for businesses to calculate GST invoices and reverse tax amounts.',
-    url: 'https://www.fincado.com/gst-calculator',
+    url: 'https://fincado.com/gst-calculator/',
     type: 'website',
   },
 };
@@ -113,7 +113,7 @@ export default function GSTPage() {
       <CalculatorSchema
         name="GST Calculator India"
         description="Calculate GST inclusive and exclusive amounts instantly. Supports 3% (Gold), 5%, 12%, 18%, and 28% slabs."
-        url="https://www.fincado.com/gst-calculator"
+        url="https://fincado.com/gst-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -127,11 +127,11 @@ export default function GSTPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'GST Calculator',
-              url: 'https://www.fincado.com/gst-calculator',
+              url: 'https://fincado.com/gst-calculator/',
             },
           ]}
         />

@@ -47,17 +47,17 @@ export const metadata: Metadata = {
     'credit utilization ratio',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/how-credit-score-affects-loans',
+    canonical: 'https://fincado.com/guides/how-credit-score-affects-loans/',
   },
   openGraph: {
     title: '7 Proven Ways to Increase Your CIBIL Score Above 750',
     description:
       'Master your credit profile with these 7 proven strategies. Fix errors, lower utilization, and get approved fast.',
-    url: 'https://www.fincado.com/guides/how-credit-score-affects-loans',
+    url: 'https://fincado.com/guides/how-credit-score-affects-loans/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/credit-score-guide.webp',
+        url: 'https://fincado.com/images/og/credit-score-guide.webp',
         width: 1200,
         height: 630,
         alt: 'How to Improve CIBIL Score',
@@ -107,7 +107,7 @@ export default function BoostCreditScorePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-16',
@@ -119,11 +119,11 @@ export default function BoostCreditScorePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Boost Credit Score',
-            url: 'https://www.fincado.com/guides/how-credit-score-affects-loans',
+            url: 'https://fincado.com/guides/how-credit-score-affects-loans/',
           },
         ]}
       />

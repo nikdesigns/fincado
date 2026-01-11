@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'Rule of 72',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/inflation-calculator',
+    canonical: 'https://fincado.com/inflation-calculator/',
   },
   openGraph: {
     title: 'Inflation Calculator – Know the Real Value of Money',
     description:
       'Estimate how inflation reduces purchasing power and what your money will be worth in the future.',
-    url: 'https://www.fincado.com/inflation-calculator',
+    url: 'https://fincado.com/inflation-calculator/',
     type: 'website',
   },
 };
@@ -111,7 +111,7 @@ export default function InflationPage() {
       <CalculatorSchema
         name="Inflation Calculator"
         description="Calculate how inflation erodes purchasing power and estimate the future cost of goods and services."
-        url="https://www.fincado.com/inflation-calculator"
+        url="https://fincado.com/inflation-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -125,11 +125,11 @@ export default function InflationPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Inflation Calculator',
-              url: 'https://www.fincado.com/inflation-calculator',
+              url: 'https://fincado.com/inflation-calculator/',
             },
           ]}
         />

@@ -53,21 +53,21 @@ export const metadata: Metadata = {
     title: 'How much SIP is needed for ₹1 Crore in 10 Years?',
     description: 'The exact math to becoming a Crorepati in a decade.',
     images: [
-      'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+      'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
     ],
   },
   alternates: {
-    canonical: 'https://www.fincado.com/guides/sip-for-1-crore-in-10-years',
+    canonical: 'https://fincado.com/guides/sip-for-1-crore-in-10-years/',
   },
   openGraph: {
     title: 'How much SIP for 1 Crore in 10 Years? (2025 Guide)',
     description:
       'Detailed breakdown: Monthly SIP needed, Step-up strategy, and Asset allocation to hit ₹1 Crore.',
-    url: 'https://www.fincado.com/guides/sip-for-1-crore-in-10-years',
+    url: 'https://fincado.com/guides/sip-for-1-crore-in-10-years/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+        url: 'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp/',
         width: 1200,
         height: 600,
         alt: 'Roadmap to 1 Crore Wealth',
@@ -112,10 +112,10 @@ export default function Sip1Cr10YearsPage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: '1 Crore in 10 Years',
-            url: 'https://www.fincado.com/guides/sip-for-1-crore-in-10-years',
+            url: 'https://fincado.com/guides/sip-for-1-crore-in-10-years/',
           },
         ]}
       />
@@ -143,7 +143,7 @@ export default function Sip1Cr10YearsPage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://incado.com/logo.png',
               },
             },
             datePublished: '2025-12-28',

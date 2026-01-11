@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Find answers to common questions about Fincado calculators, loan comparisons, credit scores, and financial planning tools.',
   alternates: {
-    canonical: 'https://www.fincado.com/faqs',
+    canonical: 'https://fincado.com/faqs/',
   },
 };
 

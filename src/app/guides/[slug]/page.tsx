@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) return {};
 
-  const baseUrl = 'https://www.fincado.com';
+  const baseUrl = 'https://fincado.com/';
   // 2. Define URLs with trailing slashes
   const enUrl = `${baseUrl}/guides/${article.slug}/`;
   const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
@@ -91,19 +91,19 @@ export default async function GuidePost({ params }: Props) {
     author: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://www.fincado.com',
+      url: 'https://fincado.com/',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.fincado.com/logo.png',
+        url: 'https://fincado.com/logo.png',
       },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.fincado.com/guides/${article.slug}/`,
+      '@id': `https://fincado.com/guides/${article.slug}/`,
     },
   };
 
@@ -111,11 +111,11 @@ export default async function GuidePost({ params }: Props) {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: article.title,
-            url: `https://www.fincado.com/guides/${article.slug}`,
+            url: `https://fincado.com/guides/${article.slug}`,
           },
         ]}
       />

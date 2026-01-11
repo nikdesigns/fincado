@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: 'FD Laddering Strategy: How to Get Higher Returns & Liquidity',
     description:
       'Stop locking all your money in one FD. Learn the Laddering technique to get higher interest rates AND yearly liquidity.',
-    url: 'https://www.fincado.com/guides/fixed-deposit-guide',
+    url: 'https://fincado.com/guides/fixed-deposit-guide/',
     type: 'article',
     images: [
       {
@@ -92,11 +92,11 @@ export default function FixedDepositGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'FD Laddering Strategy',
-            url: 'https://www.fincado.com/guides/fixed-deposit-guide',
+            url: 'https://fincado.com/guides/fixed-deposit-guide/',
           },
         ]}
       />
@@ -114,7 +114,7 @@ export default function FixedDepositGuidePage() {
             description:
               'Comprehensive guide on Fixed Deposit Laddering, SCSS benefits, avoiding TDS with Form 15G/15H, and FD vs Debt Fund comparison.',
             image:
-              'https://www.fincado.com/images/guides/fd/fd-laddering-hero.webp',
+              'https://fincado.com/images/guides/fd/fd-laddering-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -124,7 +124,7 @@ export default function FixedDepositGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-01-28',

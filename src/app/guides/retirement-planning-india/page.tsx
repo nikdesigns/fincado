@@ -48,13 +48,13 @@ export const metadata: Metadata = {
     'early retirement India',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/guides/retirement-planning-india',
+    canonical: 'https://fincado.com/guides/retirement-planning-india/',
   },
   openGraph: {
     title: 'Retirement Planning Guide (India) | Build Your Dream Corpus',
     description:
       "Don't guess your retirement number. Use our scientific formula and asset allocation strategies to build a failsafe retirement plan.",
-    url: 'https://www.fincado.com/guides/retirement-planning-india',
+    url: 'https://fincado.com/guides/retirement-planning-india/',
     type: 'article',
   },
 };
@@ -101,13 +101,13 @@ export default function RetirementPlanningGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-10-15',
             dateModified: '2025-10-15',
             image:
-              'https://www.fincado.com/images/guides/retirement/retirement-planning.webp',
+              'https://fincado.com/images/guides/retirement/retirement-planning.webp',
           }),
         }}
       />
@@ -134,11 +134,11 @@ export default function RetirementPlanningGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Retirement Planning',
-            url: 'https://www.fincado.com/guides/retirement-planning-india',
+            url: 'https://fincado.com/guides/retirement-planning-india/',
           },
         ]}
       />

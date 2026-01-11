@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: 'Direct vs Regular Mutual Funds: How to Save 1% Commission',
     description:
       'Stop paying commissions. Learn how switching to Direct Plans can add ₹50 Lakhs to your retirement corpus.',
-    url: 'https://www.fincado.com/guides/mutual-fund-guide',
+    url: 'https://fincado.com/guides/mutual-fund-guide/',
     type: 'article',
     images: [
       {
@@ -90,11 +90,11 @@ export default function DirectMFGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Mutual Fund Guide',
-            url: 'https://www.fincado.com/guides/mutual-fund-guide',
+            url: 'https://fincado.com/guides/mutual-fund-guide/',
           },
         ]}
       />
@@ -112,7 +112,7 @@ export default function DirectMFGuidePage() {
             description:
               'Complete guide on why Direct Mutual Funds are better than Regular plans. Includes calculator examples, switching guide, and platform reviews.',
             image:
-              'https://www.fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+              'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -122,7 +122,7 @@ export default function DirectMFGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-10',

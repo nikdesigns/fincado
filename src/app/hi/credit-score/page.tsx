@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     'Loan Eligibility Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/credit-score',
+    canonical: 'https://fincado.com/hi/credit-score/',
     languages: {
-      'en-IN': 'https://www.fincado.com/credit-score',
+      'en-IN': 'https://fincado.com/credit-score/',
     },
   },
   openGraph: {
     title: 'क्रेडिट स्कोर कैलकुलेटर – लोन मिलने की संभावना जानें',
     description:
       'मुफ्त टूल: अपना अनुमानित क्रेडिट स्कोर चेक करें और उसे सुधारने के तरीके जानें।',
-    url: 'https://www.fincado.com/hi/credit-score',
+    url: 'https://fincado.com/hi/credit-score/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -114,16 +114,16 @@ export default function HindiCreditScorePage() {
       <CalculatorSchema
         name="Credit Score Calculator Hindi"
         description="Estimate credit score and get improvement tips in Hindi."
-        url="https://www.fincado.com/hi/credit-score"
+        url="https://fincado.com/hi/credit-score/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'क्रेडिट स्कोर कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/credit-score',
+            url: 'https://fincado.com/hi/credit-score/',
           },
         ]}
       />

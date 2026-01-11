@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: 'All Financial Calculators | Fincado',
     description:
       'Free calculators for loans, investments, inflation, taxes and retirement planning.',
-    url: 'https://www.fincado.com/calculators',
+    url: 'https://fincado.com/calculators',
     type: 'website',
   },
 };
@@ -41,8 +41,8 @@ export default function CalculatorsPage() {
       {/* ✅ BREADCRUMB STRUCTURED DATA */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators' },
         ]}
       />
 

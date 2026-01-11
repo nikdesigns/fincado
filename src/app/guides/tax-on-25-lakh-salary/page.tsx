@@ -58,13 +58,13 @@ export const metadata: Metadata = {
     'how to save tax on 25 lakh salary',
     'income tax calculator 2025',
   ],
-  alternates: { canonical: `https://www.fincado.com/guides/${CONFIG.slug}` },
+  alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
   openGraph: {
     title:
       'Tax on ₹25 Lakh Salary (2025): You Lose ₹4.18L in Tax – Full Breakdown',
     description:
       'Detailed breakdown of tax liability and monthly take-home pay for ₹25 LPA.',
-    url: `https://www.fincado.com/guides/${CONFIG.slug}`,
+    url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     authors: ['Fincado Team'],
     images: [CONFIG.heroImage],
@@ -104,11 +104,11 @@ export default function Tax25LakhGuide() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
-          { name: 'Tax Planning', url: 'https://www.fincado.com/guides/tax' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
+          { name: 'Tax Planning', url: 'https://fincado.com/guides/tax/' },
           {
             name: 'Tax on 25 Lakh Salary',
-            url: `https://www.fincado.com/guides/${CONFIG.slug}`,
+            url: `https://fincado.com/guides/${CONFIG.slug}`,
           },
         ]}
       />
@@ -127,19 +127,19 @@ export default function Tax25LakhGuide() {
             inLanguage: 'en-IN',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://www.fincado.com/guides/${CONFIG.slug}`,
+              '@id': `https://fincado.com/guides/${CONFIG.slug}`,
             },
             author: {
               '@type': 'Person',
               name: 'Fincado Research Team',
-              url: 'https://www.fincado.com/about',
+              url: 'https://fincado.com/about/',
             },
             publisher: {
               '@type': 'Organization',
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',

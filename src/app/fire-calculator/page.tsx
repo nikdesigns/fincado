@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'Safe Withdrawal Rate India',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/fire-calculator',
+    canonical: 'https://fincado.com/fire-calculator/',
   },
   openGraph: {
     title: 'FIRE Calculator – Plan Your Early Retirement',
     description:
       'Free tool to calculate your financial freedom number and required monthly savings.',
-    url: 'https://www.fincado.com/fire-calculator',
+    url: 'https://fincado.com/fire-calculator/',
     type: 'website',
   },
 };
@@ -115,7 +115,7 @@ export default function FIREPage() {
       <CalculatorSchema
         name="FIRE Calculator"
         description="Financial Independence, Retire Early (FIRE) calculator. Find out your 'Freedom Number' and when you can stop working."
-        url="https://www.fincado.com/fire-calculator"
+        url="https://fincado.com/fire-calculator/"
       />
 
       {/* FAQ Schema */}
@@ -129,11 +129,11 @@ export default function FIREPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'FIRE Calculator',
-              url: 'https://www.fincado.com/fire-calculator',
+              url: 'https://fincado.com/fire-calculator/',
             },
           ]}
         />

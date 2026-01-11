@@ -48,17 +48,17 @@ export const metadata: Metadata = {
     'Credit Score Check',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/credit-score',
+    canonical: 'https://fincado.com/hi/guides/credit-score/',
   },
   openGraph: {
     title: 'Credit Score कैसे बढ़ाएं? (Complete Hindi Guide)',
     description:
       'CIBIL स्कोर खराब है? इसे ठीक करने के 10 पक्के तरीके यहाँ पढ़ें।',
-    url: 'https://www.fincado.com/hi/guides/credit-score',
+    url: 'https://fincado.com/hi/guides/credit-score/',
     type: 'article',
     images: [
       {
-        url: 'https://www.fincado.com/images/og/credit-score-guide.webp',
+        url: 'https://fincado.com/images/og/credit-score-guide.webp',
         width: 1200,
         height: 630,
       },
@@ -103,7 +103,7 @@ export default function HindiCreditScoreGuide() {
               'Credit Score बढ़ाने की पूरी जानकारी हिंदी में। EMI पेमेंट, क्रेडिट कार्ड यूसेज और CIBIL सुधारने के टिप्स।',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://www.fincado.com/hi/guides/credit-score',
+              '@id': 'https://fincado.com/hi/guides/credit-score/',
             },
             author: {
               '@type': 'Organization',
@@ -114,7 +114,7 @@ export default function HindiCreditScoreGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-12-19',
@@ -128,11 +128,11 @@ export default function HindiCreditScoreGuide() {
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com' },
-          { name: 'हिंदी गाइड्स', url: 'https://www.fincado.com/hi' },
+          { name: 'होम', url: 'https://fincado.com' },
+          { name: 'हिंदी गाइड्स', url: 'https://fincado.com/hi' },
           {
             name: 'Credit Score',
-            url: 'https://www.fincado.com/hi/guides/credit-score',
+            url: 'https://fincado.com/hi/guides/credit-score/',
           },
         ]}
       />

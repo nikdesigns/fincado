@@ -57,11 +57,11 @@ export const metadata: Metadata = {
     title: 'Smart Borrowing Starts Here | Fincado Loans Hub',
     description:
       'Compare rates, calculate EMIs, and apply for the best loans in India.',
-    url: 'https://www.fincado.com/loans',
+    url: 'https://fincado.com/loans/',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://www.fincado.com/loans',
+    canonical: 'https://fincado.com/loans/',
   },
 };
 
@@ -143,8 +143,8 @@ export default function LoansPage() {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Loans', url: 'https://www.fincado.com/loans' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Loans', url: 'https://fincado.com/loans/' },
         ]}
       />
 

@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.fincado.com'),
+  metadataBase: new URL('https://fincado.com'),
   title: {
     default: 'Fincado — Smart Financial Calculators for India',
     template: '%s | Fincado',

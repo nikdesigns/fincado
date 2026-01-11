@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     'FIRE Number Formula Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/fire-calculator/',
+    canonical: 'https://fincado.com/hi/fire-calculator/',
     languages: {
-      'en-IN': 'https://www.fincado.com/fire-calculator/',
+      'en-IN': 'https://fincado.com/fire-calculator/',
     },
   },
   openGraph: {
     title: 'FIRE कैलकुलेटर – अपनी शर्तों पर जीवन जिएं',
     description:
       'जानें कि आपको काम करना बंद करने के लिए कितने पैसों (Corpus) की जरूरत है।',
-    url: 'https://www.fincado.com/hi/fire-calculator/',
+    url: 'https://fincado.com/hi/fire-calculator/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -107,16 +107,16 @@ export default function HindiFIREPage() {
       <CalculatorSchema
         name="FIRE Calculator Hindi"
         description="Calculate Financial Independence Retire Early (FIRE) corpus in Hindi."
-        url="https://www.fincado.com/hi/fire-calculator/"
+        url="https://fincado.com/hi/fire-calculator/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'कैलकुलेटर', url: 'https://www.fincado.com/hi/calculators' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
           {
             name: 'FIRE कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/fire-calculator/',
+            url: 'https://fincado.com/hi/fire-calculator/',
           },
         ]}
       />

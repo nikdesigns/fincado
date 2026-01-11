@@ -53,7 +53,7 @@ export const metadata: Metadata = {
       'Sukanya Samriddhi vs PPF vs Mutual Funds: Best Plan for Girl Child?',
     description:
       'Should you invest in SSY or Mutual Funds? Discover the 60-40 Rule to balance safety and high growth for your daughter.',
-    url: 'https://www.fincado.com/guides/ssy-guide',
+    url: 'https://fincado.com/guides/ssy-guide/',
     type: 'article',
     images: [
       {
@@ -90,11 +90,11 @@ export default function SSYGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'SSY vs PPF vs Mutual Funds',
-            url: 'https://www.fincado.com/guides/ssy-guide',
+            url: 'https://fincado.com/guides/ssy-guide/',
           },
         ]}
       />
@@ -120,13 +120,13 @@ export default function SSYGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-05',
             dateModified: '2025-02-05',
             image:
-              'https://www.fincado.com/images/guides/ssy/ssy-concept-hero.webp',
+              'https://fincado.com/images/guides/ssy/ssy-concept-hero.webp',
           }),
         }}
       />

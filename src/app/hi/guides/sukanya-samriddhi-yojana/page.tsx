@@ -44,14 +44,14 @@ export const metadata: Metadata = {
   description:
     'SSY 2025 की पूरी जानकारी: वर्तमान ब्याज दर 8.2%, खाता खोलने के नियम, डॉक्यूमेंट्स, और 21 साल बाद मिलने वाली मैच्योरिटी राशि।',
   alternates: {
-    canonical: 'https://www.fincado.com/hi/guides/sukanya-samriddhi-yojana',
+    canonical: 'https://fincado.com/hi/guides/sukanya-samriddhi-yojana/',
   },
   openGraph: {
     title: 'सुकन्या समृद्धि योजना (SSY) 2025: ब्याज दर और नियम',
     description:
       'अपनी बेटी के भविष्य के लिए SSY में निवेश करें। जानें ब्याज दर, टैक्स लाभ और निकासी के नियम।',
     type: 'article',
-    url: 'https://www.fincado.com/hi/guides/sukanya-samriddhi-yojana',
+    url: 'https://fincado.com/hi/guides/sukanya-samriddhi-yojana/',
     images: [
       { url: '/images/guides/hi/ssy-hero-2025.webp', width: 1200, height: 630 },
     ],
@@ -90,11 +90,11 @@ export default function HindiSSYGuide() {
     <article className="max-w-4xl mx-auto">
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'गाइड्स', url: 'https://www.fincado.com/hi/guides' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'गाइड्स', url: 'https://fincado.com/hi/guides/' },
           {
             name: 'सुकन्या समृद्धि योजना',
-            url: 'https://www.fincado.com/hi/guides/sukanya-samriddhi-yojana',
+            url: 'https://fincado.com/hi/guides/sukanya-samriddhi-yojana/',
           },
         ]}
       />

@@ -34,15 +34,15 @@ export const metadata: Metadata = {
     'Car Loan Eligibility Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/loans/car-loan',
+    canonical: 'https://fincado.com/hi/loans/car-loan/',
     languages: {
-      'en-IN': 'https://www.fincado.com/loans/car-loan',
+      'en-IN': 'https://fincado.com/loans/car-loan/',
     },
   },
   openGraph: {
     title: 'कार लोन EMI कैलकुलेटर – अपने सपनों की कार घर लाएं',
     description: 'मुफ्त टूल: कार लोन EMI, ब्याज और अवधि की गणना करें।',
-    url: 'https://www.fincado.com/hi/loans/car-loan',
+    url: 'https://fincado.com/hi/loans/car-loan/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -109,16 +109,16 @@ export default function HindiCarLoanPage() {
       <CalculatorSchema
         name="Car Loan EMI Calculator Hindi"
         description="Calculate Car Loan EMI in Hindi for New and Used Cars."
-        url="https://www.fincado.com/hi/loans/car-loan"
+        url="https://fincado.com/hi/loans/car-loan/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'लोन', url: 'https://www.fincado.com/hi/loans' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'लोन', url: 'https://fincado.com/hi/loans/' },
           {
             name: 'कार लोन EMI कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/loans/car-loan',
+            url: 'https://fincado.com/hi/loans/car-loan/',
           },
         ]}
       />

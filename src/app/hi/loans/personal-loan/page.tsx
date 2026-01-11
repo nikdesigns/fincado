@@ -34,15 +34,15 @@ export const metadata: Metadata = {
     'Loan Eligibility Calculator Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/loans/personal-loan',
+    canonical: 'https://fincado.com/hi/loans/personal-loan/',
     languages: {
-      'en-IN': 'https://www.fincado.com/loans/personal-loan',
+      'en-IN': 'https://fincado.com/loans/personal-loan/',
     },
   },
   openGraph: {
     title: 'पर्सनल लोन EMI कैलकुलेटर – अपनी जरूरतों को पूरा करें',
     description: 'मुफ्त टूल: पर्सनल लोन EMI, ब्याज और अवधि की गणना करें।',
-    url: 'https://www.fincado.com/hi/loans/personal-loan',
+    url: 'https://fincado.com/hi/loans/personal-loan/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -101,16 +101,16 @@ export default function HindiPersonalLoanPage() {
       <CalculatorSchema
         name="Personal Loan EMI Calculator Hindi"
         description="Calculate Personal Loan EMI in Hindi."
-        url="https://www.fincado.com/hi/loans/personal-loan"
+        url="https://fincado.com/hi/loans/personal-loan/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'लोन', url: 'https://www.fincado.com/hi/loans' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'लोन', url: 'https://fincado.com/hi/loans/' },
           {
             name: 'पर्सनल लोन EMI कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/loans/personal-loan',
+            url: 'https://fincado.com/hi/loans/personal-loan/',
           },
         ]}
       />

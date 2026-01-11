@@ -43,13 +43,13 @@ export const metadata: Metadata = {
     '80C Tax Deduction',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/income-tax-calculator',
+    canonical: 'https://fincado.com/income-tax-calculator/',
   },
   openGraph: {
     title: 'Income Tax Calculator 2025 – Compare New vs Old Regime',
     description:
       'Compare Old vs New Tax Regime and find the best option for your salary. Free online tax calculator for India.',
-    url: 'https://www.fincado.com/income-tax-calculator',
+    url: 'https://fincado.com/income-tax-calculator/',
     type: 'website',
   },
 };
@@ -98,7 +98,7 @@ export default function IncomeTaxPage() {
       <CalculatorSchema
         name="Income Tax Calculator India"
         description="Calculate income tax liability for AY 2025-26. Compare New vs Old Regime tax slabs."
-        url="https://www.fincado.com/income-tax-calculator"
+        url="https://fincado.com/income-tax-calculator/"
       />
 
       <FAQSchema
@@ -111,11 +111,11 @@ export default function IncomeTaxPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Income Tax Calculator',
-              url: 'https://www.fincado.com/income-tax-calculator',
+              url: 'https://fincado.com/income-tax-calculator/',
             },
           ]}
         />

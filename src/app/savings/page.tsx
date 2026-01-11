@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     'Inflation Adjusted Savings',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/savings',
+    canonical: 'https://fincado.com/savings/',
   },
   openGraph: {
     title: 'Savings Calculator – Plan Your Goals & Emergency Fund',
     description:
       'Visualize the growth of your monthly savings and plan for financial security.',
-    url: 'https://www.fincado.com/savings',
+    url: 'https://fincado.com/savings/',
     type: 'website',
   },
 };
@@ -74,11 +74,11 @@ export default function SavingsCalculatorPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'Savings Calculator',
-              url: 'https://www.fincado.com/savings',
+              url: 'https://fincado.com/savings/',
             },
           ]}
         />

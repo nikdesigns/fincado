@@ -35,15 +35,15 @@ export const metadata: Metadata = {
     'SBI Home Loan Hindi',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/hi/loans/home-loan',
+    canonical: 'https://fincado.com/hi/loans/home-loan/',
     languages: {
-      'en-IN': 'https://www.fincado.com/loans/home-loan',
+      'en-IN': 'https://fincado.com/loans/home-loan/',
     },
   },
   openGraph: {
     title: 'होम लोन EMI कैलकुलेटर – अपने घर का सपना पूरा करें',
     description: 'मुफ्त टूल: होम लोन EMI, ब्याज और टैक्स बचत की गणना करें।',
-    url: 'https://www.fincado.com/hi/loans/home-loan',
+    url: 'https://fincado.com/hi/loans/home-loan/',
     type: 'website',
     locale: 'hi_IN',
   },
@@ -102,16 +102,16 @@ export default function HindiHomeLoanPage() {
       <CalculatorSchema
         name="Home Loan EMI Calculator Hindi"
         description="Calculate Home Loan EMI and Tax Benefits in Hindi."
-        url="https://www.fincado.com/hi/loans/home-loan"
+        url="https://fincado.com/hi/loans/home-loan/"
       />
 
       <BreadcrumbJsonLd
         items={[
-          { name: 'होम', url: 'https://www.fincado.com/hi' },
-          { name: 'लोन', url: 'https://www.fincado.com/hi/loans' },
+          { name: 'होम', url: 'https://fincado.com/hi/' },
+          { name: 'लोन', url: 'https://fincado.com/hi/loans/' },
           {
             name: 'होम लोन EMI कैलकुलेटर',
-            url: 'https://www.fincado.com/hi/loans/home-loan',
+            url: 'https://fincado.com/hi/loans/home-loan/',
           },
         ]}
       />

@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     'Monthly Savings Calculator',
   ],
   alternates: {
-    canonical: 'https://www.fincado.com/rd-calculator',
+    canonical: 'https://fincado.com/rd-calculator/',
   },
   openGraph: {
     title: 'RD Calculator – Grow Your Monthly Savings',
     description:
       'Free tool to calculate RD maturity amount with accurate quarterly compounding logic.',
-    url: 'https://www.fincado.com/rd-calculator',
+    url: 'https://fincado.com/rd-calculator/',
     type: 'website',
   },
 };
@@ -108,7 +108,7 @@ export default function RDPage() {
       <CalculatorSchema
         name="Recurring Deposit (RD) Calculator"
         description="Calculate the maturity value of your Recurring Deposits with quarterly compounding interest."
-        url="https://www.fincado.com/rd-calculator"
+        url="https://fincado.com/rd-calculator/"
       />
 
       <FAQSchema
@@ -121,11 +121,11 @@ export default function RDPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://www.fincado.com' },
-            { name: 'Calculators', url: 'https://www.fincado.com/calculators' },
+            { name: 'Home', url: 'https://fincado.com/' },
+            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
             {
               name: 'RD Calculator',
-              url: 'https://www.fincado.com/rd-calculator',
+              url: 'https://fincado.com/rd-calculator/',
             },
           ]}
         />

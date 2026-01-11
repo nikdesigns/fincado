@@ -53,7 +53,7 @@ export const metadata: Metadata = {
       'Personal Loan Guide 2025: Interest Rates, CIBIL Score & Hidden Charges',
     description:
       'Don\'t fall for the "Flat Rate" trap. Learn how to save lakhs on interest and spot hidden charges before you sign.',
-    url: 'https://www.fincado.com/guides/personal-loan-guide',
+    url: 'https://fincado.com/guides/personal-loan-guide/',
     type: 'article',
     images: [
       {
@@ -90,11 +90,11 @@ export default function PersonalLoanGuidePage() {
       {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.fincado.com' },
-          { name: 'Guides', url: 'https://www.fincado.com/guides' },
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Personal Loan Guide',
-            url: 'https://www.fincado.com/guides/personal-loan-guide',
+            url: 'https://fincado.com/guides/personal-loan-guide/',
           },
         ]}
       />
@@ -112,7 +112,7 @@ export default function PersonalLoanGuidePage() {
             description:
               'Comprehensive guide on Personal Loans in India: Eligibility, Documents, Flat vs Reducing Rate math, and Hidden Charges.',
             image:
-              'https://www.fincado.com/images/guides/personal-loan/personal-loan-guide-hero.webp',
+              'https://fincado.com/images/guides/personal-loan/personal-loan-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -122,7 +122,7 @@ export default function PersonalLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.fincado.com/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',
