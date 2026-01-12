@@ -1,9 +1,14 @@
 import { MetadataRoute } from 'next';
 import articlesData from '@/data/articles.json';
+import { banks } from '@/lib/banks';
+import { cityDetails } from '@/lib/localData';
 
 export const dynamic = 'force-static';
 
-// ✅ UPDATED: Added 'www' to match your page canonicals
+/**
+ * ✅ Source of Truth: Non-WWW domain.
+ * This matches your server's forced redirect and fixes "Duplicate" errors in GSC.
+ */
 const BASE_URL = 'https://fincado.com';
 
 const excludedSlugs = [
@@ -12,15 +17,17 @@ const excludedSlugs = [
   'personal-loan-interest-rates-india',
 ];
 
-// Helper to ensure clean URLs
+/**
+ * Helper to ensure consistent URL structure: Non-WWW + Trailing Slash.
+ * This resolves the "Page with redirect" errors by pointing directly to the final URL.
+ */
 const getUrl = (path: string) => {
-  // Remove leading slash if present to avoid double slashes
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   return cleanPath === '' ? `${BASE_URL}/` : `${BASE_URL}/${cleanPath}/`;
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  /* ---------------- STATIC PAGES (ENGLISH) ---------------- */
+  /* ---------------- 1. STATIC PAGES (ENGLISH) ---------------- */
   const staticRoutes = [
     '',
     '/about',
@@ -28,15 +35,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
     '/privacy-policy',
     '/disclaimer',
-
-    // Hubs
     '/calculators',
     '/guides',
     '/loans',
     '/credit-score',
     '/mutual-funds',
-
-    // Financial Calculators
+    '/compare-loans',
+    '/home-loan-rates',
+    // Tools
     '/emi-calculator',
     '/sip-calculator',
     '/fd-calculator',
@@ -55,8 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/compound-interest-calculator',
     '/elss-calculator',
     '/income-tax-calculator',
-
-    // Loan Pages
+    // Loans
     '/loans/home-loan',
     '/loans/personal-loan',
     '/loans/car-loan',
@@ -68,53 +73,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1.0 : 0.8,
   }));
 
-  /* ---------------- HINDI PAGES ---------------- */
+  /* ---------------- 2. STATIC PAGES (HINDI) ---------------- */
   const hindiRoutes = [
     '/hi',
     '/hi/calculators',
     '/hi/guides',
-    '/hi/loans', // ✅ Added: Hindi Loans Hub
-
-    // Investment & Saving
+    '/hi/loans',
     '/hi/sip-calculator',
-    '/hi/elss-calculator',
+    '/hi/emi-calculator',
+    '/hi/ppf-calculator',
     '/hi/fd-calculator',
     '/hi/rd-calculator',
-    '/hi/ppf-calculator',
-    '/hi/epf-calculator',
     '/hi/swp-calculator',
-    '/hi/lumpsum-calculator',
-    '/hi/sukanya-samriddhi',
-    '/hi/mutual-funds',
-
-    // Retirement
     '/hi/retirement-calculator',
-    '/hi/apy-calculator',
-    '/hi/fire-calculator',
-    '/hi/gratuity-calculator',
-
-    // Tax & Tools
-    '/hi/income-tax-calculator',
-    '/hi/inflation-calculator',
-    '/hi/gst-calculator',
-    '/hi/credit-score',
-    '/hi/simple-interest-calculator',
-    '/hi/compound-interest-calculator',
-
-    // Loans (Specific)
-    '/hi/emi-calculator',
-    '/hi/loans/home-loan',
-    '/hi/loans/personal-loan',
-    '/hi/loans/car-loan',
-    '/hi/loans/education-loan',
   ].map((route) => ({
     url: getUrl(route),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: 0.7,
   }));
 
-  /* ---------------- GUIDES (DYNAMIC FROM JSON) ---------------- */
+  /* ---------------- 3. GUIDES (DYNAMIC FROM JSON) ---------------- */
   const articleRoutes = articlesData
     .filter((a) => !excludedSlugs.includes(a.slug))
     .map((article) => {
@@ -125,12 +104,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       return {
         url: getUrl(path),
-        // Use the actual published date for lastModified if available, else now
         lastModified: new Date(article.published || new Date()),
         changeFrequency: 'monthly' as const,
         priority: 0.9,
       };
     });
 
-  return [...staticRoutes, ...hindiRoutes, ...articleRoutes];
+  /* ---------------- 4. CITY EMI PAGES ---------------- */
+  const citySlugs = Object.keys(cityDetails).filter((s) => s !== 'default');
+  const cityRoutes = citySlugs.map((slug) => ({
+    url: getUrl(`/emi-calculator/${slug}`),
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+  /* ---------------- 5. BANK & BANK-CITY PAGES (REVENUE ENGINE) ---------------- */
+  const bankCityRoutes: MetadataRoute.Sitemap = [];
+
+  banks.forEach((bank) => {
+    // Individual Bank Hub (e.g., /bank-emi/sbi/)
+    bankCityRoutes.push({
+      url: getUrl(`/bank-emi/${bank.slug}`),
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    });
+
+    // Localized Bank-City Pages (e.g., /bank-emi/sbi/mumbai/)
+    citySlugs.forEach((city) => {
+      bankCityRoutes.push({
+        url: getUrl(`/bank-emi/${bank.slug}/${city}`),
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.5,
+      });
+    });
+  });
+
+  return [
+    ...staticRoutes,
+    ...hindiRoutes,
+    ...articleRoutes,
+    ...cityRoutes,
+    ...bankCityRoutes,
+  ];
 }

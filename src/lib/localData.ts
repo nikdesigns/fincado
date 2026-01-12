@@ -493,6 +493,173 @@ export const cityDetails: Record<string, CityData> = {
     authority: 'GMDA',
     avgPropertyRate: '₹3,500 - ₹6,500',
   },
+  /* --- MISSING CITIES FIX (Newly Added for 404 Resolution) --- */
+  thiruvananthapuram: {
+    name: 'Thiruvananthapuram',
+    slug: 'thiruvananthapuram',
+    pincodeStart: '695',
+    areas: [
+      'Kazhakkoottam',
+      'Vattiyoorkavu',
+      'Vizhinjam',
+      'Pattom',
+      'Vellayambalam',
+    ],
+    description:
+      'the capital city of Kerala, known for its IT hubs and historic landmarks',
+    authority: 'TRIDA (Trivandrum Development Authority)',
+    avgPropertyRate: '₹4,000 - ₹8,500',
+  },
+  allahabad: {
+    name: 'Allahabad',
+    slug: 'allahabad',
+    pincodeStart: '211',
+    areas: ['Civil Lines', 'Naini', 'Dhoomanganj', 'Jhunsi', 'Tagore Town'],
+    description:
+      'officially Prayagraj, a major educational and judicial hub in UP with a growing residential market',
+    authority: 'PDA (Prayagraj Development Authority)',
+    avgPropertyRate: '₹3,100 - ₹8,700',
+  },
+  raipur: {
+    name: 'Raipur',
+    slug: 'raipur',
+    pincodeStart: '492',
+    areas: ['Naya Raipur', 'Shankar Nagar', 'Tatibandh', 'VIP Road', 'Amapara'],
+    description:
+      'the capital of Chhattisgarh and a major industrial and trading hub',
+    authority: 'NRDA (Naya Raipur Development Authority)',
+    avgPropertyRate: '₹2,500 - ₹5,000',
+  },
+  udaipur: {
+    name: 'Udaipur',
+    slug: 'udaipur',
+    pincodeStart: '313',
+    areas: ['Hiran Magri', 'Fatehpura', 'Shobhagpura', 'Panchwati', 'Bhuwana'],
+    description:
+      'the City of Lakes in Rajasthan, a world-renowned tourism and heritage destination',
+    authority: 'UIT Udaipur (Urban Improvement Trust)',
+    avgPropertyRate: '₹3,000 - ₹6,500',
+  },
+  meerut: {
+    name: 'Meerut',
+    slug: 'meerut',
+    pincodeStart: '250',
+    areas: [
+      'Modipuram',
+      'Shastri Nagar',
+      'Pallavpuram',
+      'Ganga Nagar',
+      'Partapur',
+    ],
+    description:
+      'an ancient city in UP undergoing rapid growth as part of the National Capital Region (NCR)',
+    authority: 'MDA (Meerut Development Authority)',
+    avgPropertyRate: '₹2,800 - ₹5,500',
+  },
+  jalandhar: {
+    name: 'Jalandhar',
+    slug: 'jalandhar',
+    pincodeStart: '144',
+    areas: [
+      'Model Town',
+      'Rama Mandi',
+      'Adarsh Nagar',
+      'GT Road',
+      'Jalandhar Cantt',
+    ],
+    description:
+      'a major commercial and industrial center in Punjab, famous for sports goods manufacturing',
+    authority: 'JDA (Jalandhar Development Authority)',
+    avgPropertyRate: '₹2,500 - ₹5,000',
+  },
+  jabalpur: {
+    name: 'Jabalpur',
+    slug: 'jabalpur',
+    pincodeStart: '482',
+    areas: ['Vijay Nagar', 'Civil Lines', 'Wright Town', 'Adhartal', 'Ranjhi'],
+    description:
+      'an important administrative and industrial city in Madhya Pradesh near the Narmada river',
+    authority: 'JDA (Jabalpur Development Authority)',
+    avgPropertyRate: '₹2,200 - ₹4,500',
+  },
+  tirupati: {
+    name: 'Tirupati',
+    slug: 'tirupati',
+    pincodeStart: '517',
+    areas: ['Renigunta', 'Tiruchanur', 'Alipiri', 'MR Palli', 'Bairagipatteda'],
+    description:
+      'a major spiritual destination in Andhra Pradesh with a fast-growing education and tourism sector',
+    authority: 'TUDA (Tirupati Urban Development Authority)',
+    avgPropertyRate: '₹3,500 - ₹6,000',
+  },
+  nashik: {
+    name: 'Nashik',
+    slug: 'nashik',
+    pincodeStart: '422',
+    areas: [
+      'Indira Nagar',
+      'Panchavati',
+      'Gangapur Road',
+      'Pathardi Phata',
+      'Cidco',
+    ],
+    description:
+      'the Wine Capital of India and a key industrial hub in Maharashtra',
+    authority: 'NMC (Nashik Municipal Corporation)',
+    avgPropertyRate: '₹3,200 - ₹7,000',
+  },
+  jodhpur: {
+    name: 'Jodhpur',
+    slug: 'jodhpur',
+    pincodeStart: '342',
+    areas: [
+      'Shastri Nagar',
+      'Choupasni Housing Board',
+      'Paota',
+      'Ratanada',
+      'Sardarpura',
+    ],
+    description:
+      'the Sun City of Rajasthan, known for its rich culture and growing handicraft industry',
+    authority: 'JDA Jodhpur',
+    avgPropertyRate: '₹2,800 - ₹6,000',
+  },
+  kota: {
+    name: 'Kota',
+    slug: 'kota',
+    pincodeStart: '324',
+    areas: ['Vigyan Nagar', 'Talwandi', 'RK Puram', 'Kunadi', 'Mahaveer Nagar'],
+    description:
+      'the coaching hub of India, characterized by a high demand for student and residential housing',
+    authority: 'UIT Kota',
+    avgPropertyRate: '₹2,500 - ₹5,500',
+  },
+  varanasi: {
+    name: 'Varanasi',
+    slug: 'varanasi',
+    pincodeStart: '221',
+    areas: ['Sigra', 'Lanka', 'Sarnath', 'Shivpur', 'Cantonment'],
+    description:
+      'the spiritual heart of India, seeing significant infrastructure upgrades and tourism growth',
+    authority: 'VDA (Varanasi Development Authority)',
+    avgPropertyRate: '₹3,500 - ₹8,000',
+  },
+  ghaziabad: {
+    name: 'Ghaziabad',
+    slug: 'ghaziabad',
+    pincodeStart: '201',
+    areas: [
+      'Indirapuram',
+      'Vaishali',
+      'Raj Nagar Extension',
+      'Vasundhara',
+      'Crossings Republik',
+    ],
+    description:
+      'the Gateway of UP, a major residential and industrial hub within the NCR',
+    authority: 'GDA (Ghaziabad Development Authority)',
+    avgPropertyRate: '₹4,000 - ₹9,500',
+  },
 
   // --- OTHERS & FALLBACK ---
   default: {
