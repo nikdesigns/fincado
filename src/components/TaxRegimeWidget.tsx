@@ -148,7 +148,7 @@ export default function TaxRegimeWidget() {
             )}
           </Button>
 
-          <Link href="/guides/new-vs-old-tax-regime-2025" className="block">
+          <Link href="/guides/new-vs-old-tax-regime-2025/" className="block">
             <Button
               variant="outline"
               className="w-full border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 transition-all font-semibold"

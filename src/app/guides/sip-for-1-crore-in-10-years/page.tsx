@@ -217,7 +217,7 @@ export default function Sip1Cr10YearsPage() {
           </div>
           <div className="flex justify-end">
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="inline-flex items-center text-sm font-medium text-emerald-700 hover:text-emerald-800 hover:underline"
             >
               Check Your Own Goal →
@@ -623,13 +623,13 @@ export default function Sip1Cr10YearsPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-emerald-700 transition hover:bg-emerald-50 shadow-lg"
             >
               Open SIP Calculator
             </Link>
             <Link
-              href="/mutual-funds"
+              href="/mutual-funds/"
               className="rounded-lg border border-emerald-400 bg-emerald-800/30 px-8 py-4 font-bold text-white transition hover:bg-emerald-800/50"
             >
               See Top Funds

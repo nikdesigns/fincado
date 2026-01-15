@@ -212,7 +212,7 @@ export default function HindiEMIPage() {
                   </strong>
 
                   <Link
-                    href="/guides/emi-calculator-guide" // Ensure this path exists or point to English
+                    href="/guides/emi-calculator-guide/" // Ensure this path exists or point to English
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>हमारी गाइड पढ़ें: EMI कम करने के तरीके</span>
@@ -314,7 +314,7 @@ export default function HindiEMIPage() {
                       अन्य लोन कैलकुलेटर
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Link href="/hi/loans/home-loan" className="group">
+                      <Link href="/hi/loans/home-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">

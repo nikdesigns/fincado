@@ -197,7 +197,7 @@ export default function FIREPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -210,7 +210,7 @@ export default function FIREPage() {
                 </Link>
 
                 <Link
-                  href="/retirement-calculator"
+                  href="/retirement-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -246,7 +246,7 @@ export default function FIREPage() {
                   </strong>
 
                   <Link
-                    href="/guides/sip-investment-guide"
+                    href="/guides/sip-investment-guide/"
                     className="
           mt-1 inline-flex items-center
           text-sm font-semibold text-emerald-700

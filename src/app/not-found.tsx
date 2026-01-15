@@ -31,7 +31,7 @@ export default function NotFound() {
 
       {/* Quick Tools Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg mb-10">
-        <Link href="/emi-calculator" className="group">
+        <Link href="/emi-calculator/" className="group">
           <Card className="hover:border-emerald-400 hover:shadow-md transition-all cursor-pointer h-full border-slate-200">
             <CardContent className="p-4 flex items-center justify-center gap-3">
               <div className="p-2 bg-emerald-50 rounded-lg group-hover:bg-emerald-100 transition-colors">
@@ -44,7 +44,7 @@ export default function NotFound() {
           </Card>
         </Link>
 
-        <Link href="/sip-calculator" className="group">
+        <Link href="/sip-calculator/" className="group">
           <Card className="hover:border-blue-400 hover:shadow-md transition-all cursor-pointer h-full border-slate-200">
             <CardContent className="p-4 flex items-center justify-center gap-3">
               <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">

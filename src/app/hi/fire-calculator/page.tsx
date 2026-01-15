@@ -183,7 +183,7 @@ export default function HindiFIREPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -195,7 +195,7 @@ export default function HindiFIREPage() {
                   📈 SIP कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/retirement-calculator"
+                  href="/hi/retirement-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -222,7 +222,7 @@ export default function HindiFIREPage() {
                   </strong>
 
                   <Link
-                    href="/hi/guides/sip-investment-guide" // Use English or Hindi guide
+                    href="/hi/guides/sip-investment-guide/" // Use English or Hindi guide
                     className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>पढ़ें: SIP के जरिए 1 करोड़ का फंड कैसे बनाएं?</span>

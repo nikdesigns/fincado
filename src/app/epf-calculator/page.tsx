@@ -203,7 +203,7 @@ export default function EPFPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/ppf-calculator"
+                  href="/ppf-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -217,7 +217,7 @@ export default function EPFPage() {
                 </Link>
 
                 <Link
-                  href="/gratuity-calculator"
+                  href="/gratuity-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -252,7 +252,7 @@ export default function EPFPage() {
                 </strong>
 
                 <Link
-                  href="/guides/epf-guide"
+                  href="/guides/epf-guide/"
                   className="
         mt-1 inline-block
         text-emerald-600

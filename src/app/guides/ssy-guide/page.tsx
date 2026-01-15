@@ -698,13 +698,13 @@ export default function SSYGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/sukanya-samriddhi"
+              href="/sukanya-samriddhi/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-pink-700 transition hover:bg-pink-50 shadow-lg"
             >
               SSY Calculator
             </Link>
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg border border-pink-400 bg-pink-800/30 px-8 py-4 font-bold text-white transition hover:bg-pink-800/50"
             >
               SIP Calculator

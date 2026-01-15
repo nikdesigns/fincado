@@ -400,25 +400,25 @@ export default function Home(): JSX.Element {
 
           <div className="tools-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <ToolCard
-              href="/emi-calculator"
+              href="/emi-calculator/"
               icon="emi"
               title="EMI Calculator"
               desc="Calculate Loan EMI & Interest"
             />
             <ToolCard
-              href="/sip-calculator"
+              href="/sip-calculator/"
               icon="sip"
               title="SIP Calculator"
               desc="Estimate Mutual Fund Returns"
             />
             <ToolCard
-              href="/credit-score"
+              href="/credit-score/"
               icon="creditScore"
               title="Credit Score"
               desc="Check CIBIL-based credit eligibility"
             />
             <ToolCard
-              href="/income-tax-calculator"
+              href="/income-tax-calculator/"
               icon="tax"
               title="Income Tax Calc"
               desc="New vs Old Regime (FY 2025-26)"
@@ -492,25 +492,25 @@ export default function Home(): JSX.Element {
           </div>
           <div className="tools-grid container-inner">
             <ToolCard
-              href="/loans/home-loan"
+              href="/loans/home-loan/"
               icon="homeLoan"
               title="Home Loan EMI"
               desc="Check Affordability & Tax Benefits"
             />
             <ToolCard
-              href="/loans/personal-loan"
+              href="/loans/personal-loan/"
               icon="personalLoan"
               title="Personal Loan"
               desc="Compare Interest Rates"
             />
             <ToolCard
-              href="/loans/car-loan"
+              href="/loans/car-loan/"
               icon="carLoan"
               title="Car Loan EMI"
               desc="Plan your dream car purchase"
             />
             <ToolCard
-              href="/loans/education-loan"
+              href="/loans/education-loan/"
               icon="educationLoan"
               title="Education Loan"
               desc="Calculate moratorium interest"
@@ -528,25 +528,25 @@ export default function Home(): JSX.Element {
           </div>
           <div className="tools-grid container-inner">
             <ToolCard
-              href="/elss-calculator" // ✅ ADDED
+              href="/elss-calculator/" // ✅ ADDED
               icon="investing"
               title="ELSS Calculator"
               desc="Tax Saving Mutual Fund Returns"
             />
             <ToolCard
-              href="/fd-calculator"
+              href="/fd-calculator/"
               icon="fd"
               title="FD Calculator"
               desc="Fixed Deposit Maturity Value"
             />
             <ToolCard
-              href="/lumpsum-calculator"
+              href="/lumpsum-calculator/"
               icon="investing"
               title="Lumpsum Calculator"
               desc="One-time investment returns"
             />
             <ToolCard
-              href="/swp-calculator"
+              href="/swp-calculator/"
               icon="saving"
               title="SWP Calculator"
               desc="Systematic Withdrawal Plan"
@@ -569,31 +569,31 @@ export default function Home(): JSX.Element {
           </div>
           <div className="tools-grid container-inner">
             <ToolCard
-              href="/inflation-calculator"
+              href="/inflation-calculator/"
               icon="investing"
               title="Inflation Calculator"
               desc="Calculate Future Value of Money"
             />
             <ToolCard
-              href="/retirement-calculator"
+              href="/retirement-calculator/"
               icon="retirement"
               title="Retirement Planner"
               desc="How much corpus do you need?"
             />
             <ToolCard
-              href="/ppf-calculator"
+              href="/ppf-calculator/"
               icon="ppf"
               title="PPF Calculator"
               desc="Public Provident Fund Returns"
             />
             <ToolCard
-              href="/epf-calculator"
+              href="/epf-calculator/"
               icon="epf"
               title="EPF Calculator"
               desc="Employee Provident Fund Corpus"
             />
             <ToolCard
-              href="/gst-calculator" // ✅ MOVED GST HERE
+              href="/gst-calculator/" // ✅ MOVED GST HERE
               icon="tax"
               title="GST Calculator"
               desc="Calculate GST Rates (5% - 28%)"

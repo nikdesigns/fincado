@@ -318,7 +318,7 @@ export default function LoansPage() {
               <p className="text-indigo-800/80 text-sm leading-relaxed">
                 Before you submit a loan application, ensure you check your{' '}
                 <Link
-                  href="/credit-score"
+                  href="/credit-score/"
                   className="font-semibold underline decoration-indigo-400 underline-offset-2 hover:text-indigo-700"
                 >
                   Credit Score
@@ -326,7 +326,7 @@ export default function LoansPage() {
                 . A score above 750 can help you negotiate better rates. Also,
                 use our{' '}
                 <Link
-                  href="/emi-calculator"
+                  href="/emi-calculator/"
                   className="font-semibold underline decoration-indigo-400 underline-offset-2 hover:text-indigo-700"
                 >
                   EMI Calculator
@@ -428,7 +428,7 @@ export default function LoansPage() {
                 A high CIBIL score is the secret to low-interest loans. Check
                 yours for free without impacting your score.
               </p>
-              <Link href="/credit-score">
+              <Link href="/credit-score/">
                 <Button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold">
                   Check Credit Score
                 </Button>

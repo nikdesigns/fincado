@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link'; // ✅ Added Link
 import AdSlot from '@/components/AdSlot';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -235,6 +236,7 @@ export default function HealthInsuranceGuide() {
             expenses.
           </p>
 
+          {/* ✅ NEW: Internal Link to Inflation Calculator */}
           <div className="grid md:grid-cols-3 gap-4">
             <Card className="border-blue-100 bg-blue-50/50">
               <CardHeader className="pb-2">
@@ -243,7 +245,14 @@ export default function HealthInsuranceGuide() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-slate-700">
-                Maximum amount the insurer will pay in a policy year.
+                Maximum amount the insurer will pay. Use our{' '}
+                <Link
+                  href="/inflation-calculator/"
+                  className="text-blue-600 hover:underline"
+                >
+                  Inflation Calculator
+                </Link>{' '}
+                to estimate future medical costs.
               </CardContent>
             </Card>
             <Card className="border-blue-100 bg-blue-50/50">
@@ -497,6 +506,7 @@ export default function HealthInsuranceGuide() {
             </CardContent>
           </Card>
 
+          {/* ✅ NEW: Internal Link to Income Tax Calculator */}
           <Card className="border-slate-200">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg text-slate-900">
@@ -504,6 +514,16 @@ export default function HealthInsuranceGuide() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
+              <p className="px-6 pt-2 text-xs text-slate-500 mb-2">
+                Check your total tax savings on our{' '}
+                <Link
+                  href="/income-tax-calculator/"
+                  className="text-blue-600 hover:underline font-medium"
+                >
+                  Income Tax Calculator
+                </Link>
+                .
+              </p>
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50">
@@ -554,6 +574,7 @@ export default function HealthInsuranceGuide() {
           Risks & Alternatives
         </h2>
 
+        {/* ✅ NEW: Internal Link to FD Calculator */}
         <Card className="border-slate-200 mb-6">
           <CardHeader className="pb-2 bg-slate-50">
             <CardTitle className="text-base text-slate-900">
@@ -606,7 +627,16 @@ export default function HealthInsuranceGuide() {
                     </TableCell>
                     <TableCell>Long-term Safety</TableCell>
                     <TableCell>Temporary Support</TableCell>
-                    <TableCell>Small Expenses</TableCell>
+                    <TableCell>
+                      Small Expenses (Park in{' '}
+                      <Link
+                        href="/fd-calculator/"
+                        className="text-blue-600 hover:underline"
+                      >
+                        FD
+                      </Link>
+                      )
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

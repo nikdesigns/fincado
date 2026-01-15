@@ -748,7 +748,7 @@ export default function DirectMFGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-indigo-700 transition hover:bg-indigo-50 shadow-lg"
             >
               SIP Calculator

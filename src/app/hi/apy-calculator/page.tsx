@@ -179,7 +179,7 @@ export default function HindiAPYPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/gratuity-calculator"
+                  href="/hi/gratuity-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -191,7 +191,7 @@ export default function HindiAPYPage() {
                   💼 ग्रेच्युटी
                 </Link>
                 <Link
-                  href="/hi/retirement-calculator"
+                  href="/hi/retirement-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -218,7 +218,7 @@ export default function HindiAPYPage() {
                   </strong>
 
                   <Link
-                    href="/hi/guides/nps-guide" // Fallback to English if Hindi guide absent
+                    href="/guides/nps-guide/" // Fallback to English if Hindi guide absent
                     className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>पढ़ें: NPS, APY से बेहतर क्यों हो सकता है?</span>

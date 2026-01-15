@@ -67,7 +67,7 @@ export default function AuthorBio() {
               </div>
 
               <Link
-                href="/about"
+                href="/about/"
                 className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wide hover:text-lime-600 transition-colors ml-auto"
               >
                 <BookOpen className="w-4 h-4 text-slate-400" />

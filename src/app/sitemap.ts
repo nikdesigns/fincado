@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
  * ✅ Source of Truth: Non-WWW domain.
  * This matches your server's forced redirect and fixes "Duplicate" errors in GSC.
  */
-const BASE_URL = 'https://fincado.com';
+const BASE_URL = 'https://fincado.com/';
 
 const excludedSlugs = [
   'home-loan-first-time-buyers',
@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const b2 of topBanks) {
       if (b1 !== b2) {
         comparisonRoutes.push({
-          url: getUrl(`/compare/${b1}-vs-${b2}/`), // Ensure trailing slash
+          url: getUrl(`/compare/${b1}-vs-${b2}`), // Ensure trailing slash
           lastModified: new Date(),
           changeFrequency: 'monthly' as const,
           priority: 0.9,

@@ -169,7 +169,7 @@ export default function HindiFDPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/rd-calculator"
+                  href="/hi/rd-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -183,7 +183,7 @@ export default function HindiFDPage() {
                   🔄 RD कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/ppf-calculator"
+                  href="/hi/ppf-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -212,7 +212,7 @@ export default function HindiFDPage() {
                   </strong>
 
                   <Link
-                    href="/guides/fixed-deposit-guide" // Ensure this path exists or fallback to English
+                    href="/guides/fixed-deposit-guide/" // Ensure this path exists or fallback to English
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>

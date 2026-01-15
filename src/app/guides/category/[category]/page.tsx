@@ -89,7 +89,7 @@ export default async function CategoryPage({ params }: Props) {
         {guides.map((g) => (
           <Link
             key={g.slug}
-            href={`/guides/${g.slug}`}
+            href={`/guides/${g.slug}/`}
             style={{
               textDecoration: 'none',
               color: 'inherit',

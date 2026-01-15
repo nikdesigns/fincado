@@ -380,7 +380,7 @@ export default function PersonalLoanRatesGuide() {
           Before applying, check exactly how much you need to pay monthly based
           on these interest rates.
         </p>
-        <Link href="/emi-calculator">
+        <Link href="/emi-calculator/">
           <Button
             size="lg"
             className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold"

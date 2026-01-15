@@ -210,7 +210,7 @@ export default function CarLoanPage() {
                   </strong>
 
                   <Link
-                    href="/guides/car-loan-guide"
+                    href="/guides/car-loan-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>

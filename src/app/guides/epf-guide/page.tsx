@@ -761,13 +761,13 @@ export default function EPFGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/epf-calculator"
+              href="/epf-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-amber-700 transition hover:bg-amber-50 shadow-lg"
             >
               EPF Calculator
             </Link>
             <Link
-              href="/ppf-calculator"
+              href="/ppf-calculator/"
               className="rounded-lg border border-amber-300 bg-amber-800/30 px-8 py-4 font-bold text-white transition hover:bg-amber-800/50"
             >
               Compare with PPF

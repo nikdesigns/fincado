@@ -190,7 +190,7 @@ export default function HindiEPFPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/ppf-calculator"
+                  href="/hi/ppf-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -202,7 +202,7 @@ export default function HindiEPFPage() {
                   🏦 PPF कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/gratuity-calculator"
+                  href="/hi/gratuity-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -229,7 +229,7 @@ export default function HindiEPFPage() {
                   </strong>
 
                   <Link
-                    href="/guides/epf-guide" // Fallback to English if Hindi guide absent
+                    href="/guides/epf-guide/" // Fallback to English if Hindi guide absent
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>पढ़ें: ऑनलाइन PF कैसे निकालें (स्टेप-बाय-स्टेप)</span>

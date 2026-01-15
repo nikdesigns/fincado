@@ -171,7 +171,7 @@ export default function HindiSIPPage() {
                   </strong>
 
                   <Link
-                    href="/hi/guides/sip-investment-guide" // Use English guide if Hindi not available
+                    href="/hi/guides/sip-investment-guide/" // Use English guide if Hindi not available
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>हमारी गाइड पढ़ें: सर्वश्रेष्ठ SIP रणनीतियाँ</span>

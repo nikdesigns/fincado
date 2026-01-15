@@ -497,7 +497,7 @@ export default function Tax6LakhGuide() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {/* Link 1: Tax on 8L */}
-          <Link href="/guides/tax-on-8-lakh-salary" className="group">
+          <Link href="/guides/tax-on-8-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
@@ -520,7 +520,7 @@ export default function Tax6LakhGuide() {
           </Link>
 
           {/* Link 2: Tax on 10L */}
-          <Link href="/guides/tax-on-10-lakh-salary" className="group">
+          <Link href="/guides/tax-on-10-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
@@ -543,7 +543,7 @@ export default function Tax6LakhGuide() {
           </Link>
 
           {/* Link 3: SIP Calculator */}
-          <Link href="/sip-calculator" className="group">
+          <Link href="/sip-calculator/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>

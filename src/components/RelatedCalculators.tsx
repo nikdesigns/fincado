@@ -7,15 +7,15 @@ export default function RelatedCalculators() {
 
       <ul className="space-y-2 text-blue-600">
         <li>
-          <Link href="/emi-calculator">Loan EMI Calculator</Link>
+          <Link href="/emi-calculator/">Loan EMI Calculator</Link>
         </li>
 
         <li>
-          <Link href="/loans/home-loan">Home Loan EMI Calculator</Link>
+          <Link href="/loans/home-loan/">Home Loan EMI Calculator</Link>
         </li>
 
         <li>
-          <Link href="/loans/personal-loan">Personal Loan EMI Calculator</Link>
+          <Link href="/loans/personal-loan/">Personal Loan EMI Calculator</Link>
         </li>
       </ul>
     </section>

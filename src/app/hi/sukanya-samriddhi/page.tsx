@@ -182,7 +182,7 @@ export default function HindiSSYPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/ppf-calculator"
+                  href="/hi/ppf-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -194,7 +194,7 @@ export default function HindiSSYPage() {
                   🏦 PPF कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -221,7 +221,7 @@ export default function HindiSSYPage() {
                   </strong>
 
                   <Link
-                    href="/guides/ssy-guide" // Fallback to English if Hindi guide not ready
+                    href="/guides/ssy-guide/" // Fallback to English if Hindi guide not ready
                     className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>पढ़ें: SSY बनाम म्यूचुअल फंड (तुलना)</span>

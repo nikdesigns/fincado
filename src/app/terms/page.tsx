@@ -171,7 +171,7 @@ export default function TermsPage() {
             <h3>Privacy</h3>
             <p>
               Your use of the Services is subject to our{' '}
-              <a href="/privacy" className="link">
+              <a href="/privacy/" className="link">
                 Privacy Policy
               </a>
               . Please review it to understand how we collect, use and store

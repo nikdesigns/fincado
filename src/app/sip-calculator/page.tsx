@@ -206,7 +206,7 @@ export default function SIPPage() {
               </h3>
 
               <div className="grid grid-cols-2 gap-3">
-                <Link href="/step-up-sip-calculator" className="group">
+                <Link href="/sip-calculator/" className="group">
                   <Card className="border-slate-200 transition hover:-translate-y-0.5 hover:shadow-sm">
                     <CardContent className="flex flex-col items-center justify-center p-4 text-center">
                       <span className="mb-2 text-xl">📈</span>
@@ -217,7 +217,7 @@ export default function SIPPage() {
                   </Card>
                 </Link>
 
-                <Link href="/lumpsum-calculator" className="group">
+                <Link href="/lumpsum-calculator/" className="group">
                   <Card className="border-slate-200 transition hover:-translate-y-0.5 hover:shadow-sm">
                     <CardContent className="flex flex-col items-center justify-center p-4 text-center">
                       <span className="mb-2 text-xl">💰</span>
@@ -243,7 +243,7 @@ export default function SIPPage() {
                   </strong>
 
                   <Link
-                    href="/guides/sip-investment-guide"
+                    href="/guides/sip-investment-guide/"
                     className="
           mt-1 inline-block
           text-sm

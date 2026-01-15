@@ -72,7 +72,7 @@ export default function ContactPage() {
 
             <p style={{ marginTop: 12 }}>
               Before emailing, you may find answers in our{' '}
-              <a className="link" href="/faq">
+              <a className="link" href="/faq/">
                 FAQ
               </a>{' '}
               or the relevant calculator page.
@@ -132,7 +132,7 @@ export default function ContactPage() {
             <p className="muted">
               By contacting us you consent to Fincado storing your message and
               email for the purpose of responding. For details see our{' '}
-              <a className="link" href="/privacy">
+              <a className="link" href="/privacy/">
                 Privacy Policy
               </a>
               .

@@ -1030,13 +1030,13 @@ With 15+ eligible investments ranging from <strong>ELSS mutual funds</strong> (1
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/elss-calculator"
+              href="/elss-calculator/"
               className="rounded-lg bg-emerald-500 px-8 py-4 font-bold text-white transition hover:bg-emerald-600 shadow-lg hover:shadow-emerald-500/25"
             >
               Start ELSS Calculator
             </Link>
             <Link
-              href="/ppf-calculator"
+              href="/ppf-calculator/"
               className="rounded-lg border border-slate-600 bg-slate-800 px-8 py-4 font-bold text-white transition hover:bg-slate-700 hover:border-slate-500"
             >
               Check PPF Returns

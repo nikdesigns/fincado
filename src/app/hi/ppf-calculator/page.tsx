@@ -179,7 +179,7 @@ export default function HindiPPFPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/fd-calculator"
+                  href="/hi/fd-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -191,7 +191,7 @@ export default function HindiPPFPage() {
                   🏦 FD कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/sukanya-samriddhi"
+                  href="/hi/sukanya-samriddhi/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -218,7 +218,7 @@ export default function HindiPPFPage() {
                   </strong>
 
                   <Link
-                    href="/guides/ppf-guide" // Fallback to English if Hindi guide not ready
+                    href="/guides/ppf-guide/" // Fallback to English if Hindi guide not ready
                     className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>गाइड पढ़ें: PPF रिटर्न को अधिकतम कैसे करें</span>

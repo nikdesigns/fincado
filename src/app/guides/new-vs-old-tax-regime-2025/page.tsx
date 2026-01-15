@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link'; // ✅ Added Link
 import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import {
@@ -18,6 +19,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button'; // ✅ Added Button
 import {
   Calculator,
   Briefcase,
@@ -29,6 +31,7 @@ import {
   Scale,
   CheckCircle2,
   Users,
+  ArrowRight, // ✅ Added ArrowRight
 } from 'lucide-react';
 
 // --- SEO METADATA ---
@@ -125,6 +128,28 @@ export default function TaxRegimeGuide() {
           />
         </div>
       </Card>
+
+      {/* ✅ NEW: Primary Call to Action */}
+      <div className="mb-10 text-center bg-indigo-50 border border-indigo-100 rounded-xl p-6">
+        <h3 className="text-lg font-bold text-indigo-900 mb-2">
+          Confused by the slabs?
+        </h3>
+        <p className="text-slate-600 mb-4 text-sm">
+          Don&apos;t calculate manually. Use our automated tool to compare your
+          tax under both regimes instantly.
+        </p>
+        <Button
+          asChild
+          size="lg"
+          className="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200"
+        >
+          <Link href="/income-tax-calculator/">
+            {' '}
+            {/* Note the trailing slash! */}
+            Calculate My Tax Liability <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
 
       {/* 💰 AD SLOT 1 */}
       <div className="no-print my-8">
@@ -319,8 +344,29 @@ export default function TaxRegimeGuide() {
             <CardContent className="pt-4 text-sm text-slate-700">
               <p className="mb-2 font-bold text-emerald-600">Max ₹1.5 Lakh</p>
               <ul className="list-disc pl-4 space-y-1">
-                <li>EPF & PPF</li>
-                <li>ELSS Mutual Funds</li>
+                <li>
+                  <Link
+                    href="/epf-calculator/"
+                    className="text-blue-600 hover:underline"
+                  >
+                    EPF
+                  </Link>{' '}
+                  &
+                  <Link
+                    href="/ppf-calculator/"
+                    className="text-blue-600 hover:underline ml-1"
+                  >
+                    PPF
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/elss-calculator/"
+                    className="text-blue-600 hover:underline"
+                  >
+                    ELSS Mutual Funds
+                  </Link>
+                </li>
                 <li>Life Insurance</li>
                 <li>Home Loan Principal</li>
               </ul>
@@ -355,7 +401,15 @@ export default function TaxRegimeGuide() {
               </p>
               <ul className="list-disc pl-4 space-y-1">
                 <li>HRA (Rent paid)</li>
-                <li>Sec 24(b) Interest (Max ₹2L)</li>
+                <li>
+                  <Link
+                    href="/loans/home-loan/"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Sec 24(b) Interest
+                  </Link>{' '}
+                  (Max ₹2L)
+                </li>
                 <li>Standard Deduction</li>
               </ul>
             </CardContent>
@@ -595,8 +649,14 @@ export default function TaxRegimeGuide() {
                 Ignoring Future Goals
               </strong>
               <p className="text-sm text-slate-600">
-                New regime doesn&lsquo;t force investment. Don&lsquo;t stop
-                saving for goals just because there&apos;s no tax benefit.
+                New regime doesn&apos;t force investment. Don&apos;t stop
+                <Link
+                  href="/sip-calculator/"
+                  className="text-red-700 hover:underline font-medium mx-1"
+                >
+                  saving for goals (SIPs)
+                </Link>
+                just because there&apos;s no tax benefit.
               </p>
             </CardContent>
           </Card>

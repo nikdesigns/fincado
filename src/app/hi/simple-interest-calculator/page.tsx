@@ -171,7 +171,7 @@ export default function HindiSIPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/compound-interest-calculator"
+                  href="/hi/compound-interest-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -183,7 +183,7 @@ export default function HindiSIPage() {
                   🔄 चक्रवृद्धि ब्याज
                 </Link>
                 <Link
-                  href="/hi/emi-calculator"
+                  href="/hi/emi-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -210,7 +210,7 @@ export default function HindiSIPage() {
                   </strong>
 
                   <Link
-                    href="/hi/loans/car-loan" // Fallback to English if Hindi absent
+                    href="/hi/loans/car-loan/" // Fallback to English if Hindi absent
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>

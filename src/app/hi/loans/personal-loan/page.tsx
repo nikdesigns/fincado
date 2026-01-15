@@ -182,7 +182,7 @@ export default function HindiPersonalLoanPage() {
                   </strong>
 
                   <Link
-                    href="/guides/personal-loan-guide" // Make sure this page exists or redirect to English
+                    href="/guides/personal-loan-guide/" // Make sure this page exists or redirect to English
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>गाइड पढ़ें: तुरंत लोन अप्रूवल कैसे पाएं</span>

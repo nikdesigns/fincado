@@ -628,13 +628,13 @@ export default function GstGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/gst-calculator"
+              href="/gst-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-blue-700 transition hover:bg-blue-50 shadow-lg"
             >
               Use GST Calculator
             </Link>
             <Link
-              href="/income-tax-calculator"
+              href="/income-tax-calculator/"
               className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
             >
               Income Tax Tools

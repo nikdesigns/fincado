@@ -198,7 +198,7 @@ export default function ELSSPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/ppf-calculator"
+                  href="/ppf-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -213,7 +213,7 @@ export default function ELSSPage() {
                 </Link>
 
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200

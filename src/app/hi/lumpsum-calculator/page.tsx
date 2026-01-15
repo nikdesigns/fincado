@@ -177,7 +177,7 @@ export default function HindiLumpsumPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -189,7 +189,7 @@ export default function HindiLumpsumPage() {
                   📈 SIP कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/fd-calculator"
+                  href="/hi/fd-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -216,7 +216,7 @@ export default function HindiLumpsumPage() {
                   </strong>
 
                   <Link
-                    href="/guides/sip-investment-guide" // Use English guide if Hindi absent
+                    href="/guides/sip-investment-guide/" // Use English guide if Hindi absent
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>

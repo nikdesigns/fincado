@@ -221,7 +221,7 @@ export default function PersonalLoanPage() {
                   </strong>
 
                   <Link
-                    href="/guides/personal-loan-guide"
+                    href="/guides/personal-loan-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>Read our Guide: How to Get Approved Instantly</span>

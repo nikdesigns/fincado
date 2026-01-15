@@ -175,7 +175,7 @@ export default function HindiGSTPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -187,7 +187,7 @@ export default function HindiGSTPage() {
                   📈 SIP कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/loans/personal-loan"
+                  href="/hi/loans/personal-loan/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -214,7 +214,7 @@ export default function HindiGSTPage() {
                   </strong>
 
                   <Link
-                    href="/guides/gst-guide" // Fallback to English if Hindi guide absent
+                    href="/guides/gst-guide/" // Fallback to English if Hindi guide absent
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>पढ़ें: GST रिटर्न फाइलिंग की पूरी जानकारी</span>

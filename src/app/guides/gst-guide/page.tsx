@@ -789,13 +789,13 @@ export default function GSTReturnsGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/gst-calculator"
+              href="/gst-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-indigo-700 transition hover:bg-indigo-50 shadow-lg"
             >
               GST Calculator
             </Link>
             <Link
-              href="/simple-interest-calculator"
+              href="/simple-interest-calculator/"
               className="rounded-lg border border-indigo-400 bg-indigo-800/30 px-8 py-4 font-bold text-white transition hover:bg-indigo-800/50"
             >
               Interest Calculator

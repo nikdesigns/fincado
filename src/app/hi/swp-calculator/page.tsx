@@ -175,7 +175,7 @@ export default function HindiSWPPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -187,7 +187,7 @@ export default function HindiSWPPage() {
                   📈 SIP कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/fd-calculator"
+                  href="/hi/fd-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -214,7 +214,7 @@ export default function HindiSWPPage() {
                   </strong>
 
                   <Link
-                    href="/guides/swp-guide" // Use English guide if Hindi absent
+                    href="/guides/swp-guide/" // Use English guide if Hindi absent
                     className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>पढ़ें: टैक्स-फ्री पेंशन कैसे बनाएं?</span>

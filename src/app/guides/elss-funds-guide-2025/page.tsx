@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link'; // ✅ Added Link
 import React from 'react';
 import AdSlot from '@/components/AdSlot';
 import WikiText from '@/components/WikiText';
@@ -203,7 +204,14 @@ export default function ELSSGuide() {
             Equity Linked Savings Scheme (ELSS) is a type of mutual fund that
             primarily invests in equity and equity-related instruments while
             offering tax deduction benefits under Section 80C of the Income Tax
-            Act.
+            Act. You can calculate your tax benefits using our{' '}
+            <Link
+              href="/income-tax-calculator/"
+              className="text-blue-600 hover:underline font-medium"
+            >
+              Income Tax Calculator
+            </Link>
+            .
           </p>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -307,11 +315,25 @@ export default function ELSSGuide() {
                     <TableCell>5 years</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Tax Saver FD</TableCell>
+                    <TableCell>
+                      <Link
+                        href="/fd-calculator/"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Tax Saver FD
+                      </Link>
+                    </TableCell>
                     <TableCell>5 years</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Public Provident Fund (PPF)</TableCell>
+                    <TableCell>
+                      <Link
+                        href="/ppf-calculator/"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Public Provident Fund (PPF)
+                      </Link>
+                    </TableCell>
                     <TableCell>15 years</TableCell>
                   </TableRow>
                 </TableBody>
@@ -331,6 +353,14 @@ export default function ELSSGuide() {
                 the equity exposure in ELSS provides growth potential that
                 fixed-income instruments cannot match. Historical averages show
                 ELSS delivering <strong>12-15%</strong> vs PPF&apos;s 7.1%.
+                Check real returns using our{' '}
+                <Link
+                  href="/inflation-calculator/"
+                  className="text-blue-600 hover:underline"
+                >
+                  Inflation Calculator
+                </Link>
+                .
               </p>
             </CardContent>
           </Card>
@@ -494,7 +524,17 @@ export default function ELSSGuide() {
         <div className="mt-4 p-4 rounded-lg bg-blue-50 text-blue-900 text-sm border border-blue-100">
           <strong>The Balanced Approach:</strong> Many financial planners
           recommend a combination: <strong>40-50% in ELSS</strong> for growth
-          and <strong>30-40% in PPF</strong> for stability.
+          and{' '}
+          <strong>
+            30-40% in{' '}
+            <Link
+              href="/ppf-calculator/"
+              className="text-blue-700 underline hover:text-blue-900"
+            >
+              PPF
+            </Link>
+          </strong>{' '}
+          for stability.
         </div>
       </section>
 
@@ -623,7 +663,14 @@ export default function ELSSGuide() {
                 </strong>
                 <p className="text-xs text-slate-600">
                   Invest fixed amount monthly. Reduces timing risk via Rupee
-                  Cost Averaging.
+                  Cost Averaging. Use our{' '}
+                  <Link
+                    href="/sip-calculator/"
+                    className="text-emerald-700 hover:underline font-bold"
+                  >
+                    SIP Calculator
+                  </Link>{' '}
+                  to plan.
                 </p>
               </div>
               <div className="rounded bg-slate-50 p-3 border border-slate-100">

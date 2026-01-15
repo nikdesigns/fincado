@@ -194,7 +194,7 @@ export default function RDPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -207,7 +207,7 @@ export default function RDPage() {
                 </Link>
 
                 <Link
-                  href="/fd-calculator"
+                  href="/fd-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -241,7 +241,7 @@ export default function RDPage() {
                 </strong>
 
                 <Link
-                  href="/guides/fixed-deposit-guide"
+                  href="/guides/fixed-deposit-guide/"
                   className="
         mt-1 inline-block
         text-sm font-medium

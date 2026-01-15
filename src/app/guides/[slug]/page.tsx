@@ -180,7 +180,7 @@ export default async function GuidePost({ params }: Props) {
             <ul style={{ paddingLeft: 18 }}>
               {related.map((g) => (
                 <li key={g.slug} style={{ marginBottom: 8 }}>
-                  <Link href={`/guides/${g.slug}`}>{g.title}</Link>
+                  <Link href={`/guides/${g.slug}/`}>{g.title}</Link>
                 </li>
               ))}
             </ul>

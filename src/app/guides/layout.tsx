@@ -58,7 +58,7 @@ export default function GuidesLayout({
                   Explore our comprehensive library of financial guides and
                   tutorials.
                 </p>
-                <Link href="/guides" className="block w-full">
+                <Link href="/guides/" className="block w-full">
                   <Button
                     variant="outline"
                     size="sm"

@@ -903,13 +903,13 @@ export default function PersonalLoanGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/loans/personal-loan"
+              href="/loans/personal-loan/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-blue-700 transition hover:bg-blue-50 shadow-lg"
             >
               Personal Loan EMI
             </Link>
             <Link
-              href="/simple-interest-calculator"
+              href="/simple-interest-calculator/"
               className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
             >
               Check Flat Rate

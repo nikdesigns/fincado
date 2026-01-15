@@ -205,7 +205,7 @@ export default function SSYPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/ppf-calculator"
+                  href="/ppf-calculator/"
                   className="
         rounded-lg
         border border-slate-200
@@ -224,7 +224,7 @@ export default function SSYPage() {
                 </Link>
 
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         rounded-lg
         border border-slate-200
@@ -264,7 +264,7 @@ export default function SSYPage() {
                 </strong>
 
                 <Link
-                  href="/guides/ssy-guide"
+                  href="/guides/ssy-guide/"
                   className="
         mt-1 inline-block
         text-sm

@@ -202,7 +202,7 @@ export default function RetirementPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         rounded-lg
         border border-slate-200
@@ -220,7 +220,7 @@ export default function RetirementPage() {
                 </Link>
 
                 <Link
-                  href="/swp-calculator"
+                  href="/swp-calculator/"
                   className="
         rounded-lg
         border border-slate-200
@@ -261,7 +261,7 @@ export default function RetirementPage() {
                 </strong>
 
                 <Link
-                  href="/guides/swp-guide"
+                  href="/guides/swp-guide/"
                   className="
         mt-1
         inline-block

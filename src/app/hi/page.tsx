@@ -70,13 +70,13 @@ export default function HindiHubPage() {
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/hi/calculators">
+              <Link href="/hi/calculators/">
                 <Button className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-6">
                   <Calculator className="w-4 h-4 mr-2" />
                   सारे कैलकुलेटर
                 </Button>
               </Link>
-              <Link href="/hi/guides">
+              <Link href="/hi/guides/">
                 <Button
                   variant="outline"
                   className="border-orange-200 text-orange-700 hover:bg-orange-50 font-semibold px-6"
@@ -101,7 +101,7 @@ export default function HindiHubPage() {
                 लोकप्रिय टूल्स
               </h2>
               <Link
-                href="/hi/calculators"
+                href="/hi/calculators/"
                 className="text-sm font-semibold text-orange-600 hover:underline flex items-center"
               >
                 सभी देखें <ArrowRight className="w-4 h-4 ml-1" />
@@ -161,7 +161,7 @@ export default function HindiHubPage() {
                 हालिया लेख
               </h2>
               <Link
-                href="/hi/guides"
+                href="/hi/guides/"
                 className="text-sm font-semibold text-indigo-600 hover:underline flex items-center"
               >
                 सभी लेख पढ़ें <ArrowRight className="w-4 h-4 ml-1" />
@@ -172,7 +172,7 @@ export default function HindiHubPage() {
               {recentGuides.map((guide) => (
                 <Link
                   key={guide.slug}
-                  href={`/hi/guides/${guide.slug}`}
+                  href={`/hi/guides/${guide.slug}/`}
                   className="group block"
                 >
                   <Card className="hover:shadow-md hover:border-indigo-300 transition-all border-slate-200">

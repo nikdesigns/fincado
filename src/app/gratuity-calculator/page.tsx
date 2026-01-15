@@ -211,7 +211,7 @@ export default function GratuityPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/epf-calculator"
+                  href="/epf-calculator/"
                   className="
         rounded-lg
         border
@@ -231,7 +231,7 @@ export default function GratuityPage() {
                 </Link>
 
                 <Link
-                  href="/retirement-calculator"
+                  href="/retirement-calculator/"
                   className="
         rounded-lg
         border

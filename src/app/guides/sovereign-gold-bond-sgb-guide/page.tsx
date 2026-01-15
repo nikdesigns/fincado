@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link'; // ✅ Added Link
 import AdSlot from '@/components/AdSlot';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -155,11 +156,18 @@ export default function SGBGuide() {
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
+            {/* ✅ NEW: Internal Link to Inflation Calculator */}
             <p className="mb-4 text-slate-700">
               Sovereign Gold Bonds are government securities denominated in
               grams of gold. Instead of buying physical gold, you buy these
-              bonds, and their value is linked to the market price of 24K gold
-              (999 purity).
+              bonds to beat inflation. Use our{' '}
+              <Link
+                href="/inflation-calculator/"
+                className="text-blue-600 hover:underline"
+              >
+                Inflation Calculator
+              </Link>{' '}
+              to see how gold preserves your purchasing power over time.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="flex items-start gap-2">
@@ -327,9 +335,17 @@ export default function SGBGuide() {
               </div>
               <div>
                 <h3 className="font-bold text-slate-900 mb-1">Interest Tax</h3>
+                {/* ✅ NEW: Internal Link to Income Tax Calculator */}
                 <p className="text-sm">
-                  The semi-annual interest (2.5% p.a.) is taxable as
-                  &quot;Income from Other Sources&quot; at your slab rate.
+                  The semi-annual interest (2.5% p.a.) is taxable. You can check
+                  your tax slab liability using our{' '}
+                  <Link
+                    href="/income-tax-calculator/"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Income Tax Calculator
+                  </Link>
+                  .
                 </p>
               </div>
             </div>
@@ -458,7 +474,15 @@ export default function SGBGuide() {
                 </TableCell>
                 <TableCell>Govt of India</TableCell>
                 <TableCell>Self</TableCell>
-                <TableCell>Mutual Fund</TableCell>
+                <TableCell>
+                  {/* ✅ NEW: Internal Link to Mutual Funds */}
+                  <Link
+                    href="/mutual-funds/"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Mutual Fund
+                  </Link>
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium text-slate-700">

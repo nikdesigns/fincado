@@ -14,35 +14,35 @@ type NavItem = {
 
 /* ---------- DATA ---------- */
 const TOP_TOOLS: NavItem[] = [
-  { href: '/sip-calculator', label: 'SIP Calculator', icon: '📈' },
-  { href: '/emi-calculator', label: 'Loan EMI Calculator', icon: '🏠' },
-  { href: '/loans/home-loan', label: 'Home Loan EMI Calculator', icon: '🏡' },
+  { href: '/sip-calculator/', label: 'SIP Calculator', icon: '📈' },
+  { href: '/emi-calculator/', label: 'Loan EMI Calculator', icon: '🏠' },
+  { href: '/loans/home-loan/', label: 'Home Loan EMI Calculator', icon: '🏡' },
   {
-    href: '/sukanya-samriddhi',
+    href: '/sukanya-samriddhi/',
     label: 'SSY Calculator',
     icon: '👧',
     isNew: true,
   },
-  { href: '/ppf-calculator', label: 'PPF Calculator', icon: '💰' },
-  { href: '/income-tax-calculator', label: 'Tax Calculator', icon: '🧾' },
-  { href: '/credit-score', label: 'Check Credit Score', icon: '🛡️' },
+  { href: '/ppf-calculator/', label: 'PPF Calculator', icon: '💰' },
+  { href: '/income-tax-calculator/', label: 'Tax Calculator', icon: '🧾' },
+  { href: '/credit-score/', label: 'Check Credit Score', icon: '🛡️' },
 ];
 
 const TRENDING_GUIDES: NavItem[] = [
   {
-    href: '/guides/sukanya-samriddhi-yojana-guide-2025',
+    href: '/guides/sukanya-samriddhi-yojana-guide-2025/',
     label: 'Sukanya Samriddhi Yojana Guide 2025',
   },
   {
-    href: '/guides/elss-funds-guide-2025',
+    href: '/guides/elss-funds-guide-2025/',
     label: 'ELSS Funds: Save Tax (80C)',
   },
   {
-    href: '/guides/sovereign-gold-bond-sgb-guide',
+    href: '/guides/sovereign-gold-bond-sgb-guide/',
     label: 'Sovereign Gold Bonds (SGB)',
   },
   {
-    href: '/guides/health-insurance-buying-guide',
+    href: '/guides/health-insurance-buying-guide/',
     label: 'Health Insurance Checklist',
   },
 ];
@@ -95,7 +95,7 @@ export default function FinancialNavWidget() {
 
           <div className="pt-3 border-t border-slate-200">
             <Link
-              href="/calculators"
+              href="/calculators/"
               className="
                 block
                 text-center

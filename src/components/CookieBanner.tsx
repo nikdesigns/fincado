@@ -44,7 +44,7 @@ export default function CookieBanner() {
               We use cookies to enhance your browsing experience and analyze our
               traffic. By continuing to use our site, you accept our{' '}
               <Link
-                href="/privacy-policy"
+                href="/privacy-policy/"
                 className="text-white underline decoration-emerald-500 underline-offset-4 hover:text-emerald-400 transition-colors font-medium"
               >
                 Privacy Policy

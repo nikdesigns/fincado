@@ -234,7 +234,7 @@ export default function EMIPage() {
                   </strong>
 
                   <Link
-                    href="/guides/emi-calculator-guide"
+                    href="/guides/emi-calculator-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>
@@ -330,7 +330,7 @@ export default function EMIPage() {
                     </h3>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Link href="/loans/home-loan" className="group">
+                      <Link href="/loans/home-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
@@ -351,7 +351,7 @@ export default function EMIPage() {
                         </Card>
                       </Link>
 
-                      <Link href="/loans/car-loan" className="group">
+                      <Link href="/loans/car-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
@@ -372,7 +372,7 @@ export default function EMIPage() {
                         </Card>
                       </Link>
 
-                      <Link href="/loans/personal-loan" className="group">
+                      <Link href="/loans/personal-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">

@@ -188,7 +188,7 @@ export default function HindiCreditScorePage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/loans/personal-loan"
+                  href="/hi/loans/personal-loan/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -200,7 +200,7 @@ export default function HindiCreditScorePage() {
                   💸 पर्सनल लोन
                 </Link>
                 <Link
-                  href="/hi/emi-calculator"
+                  href="/hi/emi-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -227,7 +227,7 @@ export default function HindiCreditScorePage() {
                   </strong>
 
                   <Link
-                    href="/hi/guides/credit-score-guide" // Fallback to English if Hindi guide absent
+                    href="hi/guides/credit-score/" // Fallback to English if Hindi guide absent
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>पढ़ें: CIBIL विवाद (Dispute) कैसे दर्ज करें?</span>

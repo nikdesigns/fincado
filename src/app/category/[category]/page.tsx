@@ -90,7 +90,7 @@ export default async function CategoryPage({
         {filtered.map((a) => (
           <Link
             key={a.slug}
-            href={`/guides/${a.slug}`}
+            href={`/guides/${a.slug}/`}
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
             <div

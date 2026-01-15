@@ -73,7 +73,7 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
         {filteredArticles.map((guide) => (
           <Link
             key={guide.slug}
-            href={`/guides/${guide.slug}`}
+            href={`/guides/${guide.slug}/`}
             className="group h-full outline-none"
           >
             <Card className="h-full flex flex-col border-slate-200 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-slate-100 hover:border-emerald-200 hover:-translate-y-1 overflow-hidden">

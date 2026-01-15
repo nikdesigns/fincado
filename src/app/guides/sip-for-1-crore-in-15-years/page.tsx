@@ -229,7 +229,7 @@ export default function Sip1Cr15YearsPage() {
           </div>
           <div className="flex justify-end">
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="inline-flex items-center text-sm font-medium text-emerald-700 hover:text-emerald-800 hover:underline"
             >
               Check Your Own Goal <ArrowRight className="h-4 w-4 ml-1" />
@@ -392,14 +392,14 @@ export default function Sip1Cr15YearsPage() {
 
         <div className="flex flex-wrap gap-4 mt-4">
           <Link
-            href="/guides/sip-for-1-crore-in-10-years"
+            href="/guides/sip-for-1-crore-in-10-years/"
             className="text-sm font-medium text-blue-600 hover:underline flex items-center"
           >
             Want it faster? See 10-Year Plan{' '}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Link>
           <Link
-            href="/guides/sip-for-1-crore-in-20-years"
+            href="/guides/sip-for-1-crore-in-20-years/"
             className="text-sm font-medium text-blue-600 hover:underline flex items-center"
           >
             Want it easier? See 20-Year Plan{' '}
@@ -683,13 +683,13 @@ export default function Sip1Cr15YearsPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-emerald-700 transition hover:bg-emerald-50 shadow-lg"
             >
               Open SIP Calculator
             </Link>
             <Link
-              href="/mutual-funds"
+              href="/mutual-funds/"
               className="rounded-lg border border-emerald-400 bg-emerald-800/30 px-8 py-4 font-bold text-white transition hover:bg-emerald-800/50"
             >
               See Top Funds

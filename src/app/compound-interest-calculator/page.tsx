@@ -297,13 +297,13 @@ export default function CompoundInterestPage() {
                 </h3>
                 <ul className="list-disc pl-5">
                   <li>
-                    <Link href="/sip-calculator">SIP Calculator</Link>
+                    <Link href="/sip-calculator/">SIP Calculator</Link>
                   </li>
                   <li>
-                    <Link href="/fd-calculator">Fixed Deposit Calculator</Link>
+                    <Link href="/fd-calculator/">Fixed Deposit Calculator</Link>
                   </li>
                   <li>
-                    <Link href="/ppf-calculator">PPF Calculator</Link>
+                    <Link href="/ppf-calculator/">PPF Calculator</Link>
                   </li>
                 </ul>
               </section>

@@ -140,7 +140,7 @@ export default async function CityLoanPage({
                       }}
                     >
                       <Link
-                        href={`/bank-emi/${bank.slug}/${city}`}
+                        href={`/bank-emi/${bank.slug}/${city}/`}
                         style={{
                           color: '#2563eb',
                           fontWeight: 500,
@@ -165,7 +165,7 @@ export default async function CityLoanPage({
                       }}
                     >
                       <Link
-                        href={`/bank-emi/${bank.slug}/${city}`}
+                        href={`/bank-emi/${bank.slug}/${city}/`}
                         style={{
                           fontSize: '14px',
                           color: '#16a34a',
@@ -220,7 +220,7 @@ export default async function CityLoanPage({
           >
             <li>
               <Link
-                href="/emi-calculator"
+                href="/emi-calculator/"
                 className="btn-secondary"
                 style={{
                   textDecoration: 'none',
@@ -235,7 +235,7 @@ export default async function CityLoanPage({
             </li>
             <li>
               <Link
-                href="/credit-score"
+                href="/credit-score/"
                 className="btn-secondary"
                 style={{
                   textDecoration: 'none',

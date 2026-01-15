@@ -209,7 +209,7 @@ export default function PPFPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/fd-calculator"
+                  href="/fd-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -222,7 +222,7 @@ export default function PPFPage() {
                 </Link>
 
                 <Link
-                  href="/sukanya-samriddhi"
+                  href="/sukanya-samriddhi/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -253,7 +253,7 @@ export default function PPFPage() {
                 </strong>
 
                 <Link
-                  href="/guides/ppf-guide"
+                  href="/guides/ppf-guide/"
                   className="
         mt-1 inline-block
         text-sm font-semibold text-lime-700

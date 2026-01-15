@@ -176,7 +176,7 @@ export default function HindiHomeLoanPage() {
                     क्या आप अपना पहला घर खरीद रहे हैं?
                   </strong>
                   <Link
-                    href="/guides/home-loan-guide" // Ensure this link exists or use English fallback
+                    href="/guides/home-loan-guide/" // Ensure this link exists or use English fallback
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>हमारी विस्तृत होम लोन गाइड पढ़ें (2025 Edition)</span>
@@ -276,7 +276,7 @@ export default function HindiHomeLoanPage() {
                     </h3>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Link href="/hi/emi-calculator" className="group">
+                      <Link href="/hi/emi-calculator/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
@@ -296,7 +296,7 @@ export default function HindiHomeLoanPage() {
                         </Card>
                       </Link>
 
-                      <Link href="/hi/loans/personal-loan" className="group">
+                      <Link href="/hi/loans/personal-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
@@ -316,7 +316,7 @@ export default function HindiHomeLoanPage() {
                         </Card>
                       </Link>
 
-                      <Link href="/hi/loans/car-loan" className="group">
+                      <Link href="/hi/loans/car-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">

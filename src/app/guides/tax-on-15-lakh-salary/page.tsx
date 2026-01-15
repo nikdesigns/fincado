@@ -582,7 +582,7 @@ export default function Tax15LakhGuide() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {/* Link 1: ELSS Funds */}
-          <Link href="/guides/elss-funds-guide-2025" className="group">
+          <Link href="/guides/elss-funds-guide-2025/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
@@ -605,7 +605,7 @@ export default function Tax15LakhGuide() {
           </Link>
 
           {/* Link 2: SIP Calculator */}
-          <Link href="/sip-calculator" className="group">
+          <Link href="/sip-calculator/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
@@ -628,7 +628,7 @@ export default function Tax15LakhGuide() {
           </Link>
 
           {/* Link 3: 1 Crore Goal */}
-          <Link href="/guides/sip-for-1-crore-in-10-years" className="group">
+          <Link href="/guides/sip-for-1-crore-in-10-years/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>

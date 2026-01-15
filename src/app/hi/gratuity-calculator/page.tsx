@@ -180,7 +180,7 @@ export default function HindiGratuityPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/epf-calculator"
+                  href="/hi/epf-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -192,7 +192,7 @@ export default function HindiGratuityPage() {
                   🏢 EPF कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/retirement-calculator"
+                  href="/hi/retirement-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -219,7 +219,7 @@ export default function HindiGratuityPage() {
                   </strong>
 
                   <Link
-                    href="/guides/epf-guide" // Fallback to English if Hindi absent
+                    href="/guides/epf-guide/" // Fallback to English if Hindi absent
                     className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>

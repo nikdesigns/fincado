@@ -376,7 +376,7 @@ export default function HomeLoanGuidePage() {
                 afford based on your salary and existing EMIs.
               </p>
               <Link
-                href="/loans/home-loan"
+                href="/loans/home-loan/"
                 className="inline-block bg-white text-blue-700 font-semibold py-2 px-4 rounded border border-blue-200 hover:bg-blue-50 transition-colors shadow-sm"
               >
                 Home Loan EMI Calculator
@@ -775,7 +775,7 @@ export default function HomeLoanGuidePage() {
               Calculate EMI
             </Link>
             <Link
-              href="/credit-score"
+              href="/credit-score/"
               className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
             >
               Check Credit Score

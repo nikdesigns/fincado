@@ -186,7 +186,7 @@ export default function HindiEducationLoanPage() {
                     क्या विदेश में पढ़ाई की योजना बना रहे हैं?
                   </strong>
                   <Link
-                    href="/guides/education-loan-guide" // Ensure link exists or use English
+                    href="/guides/education-loan-guide/" // Ensure link exists or use English
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>गाइड पढ़ें: कोलेटरल बनाम नॉन-कोलेटरल लोन</span>
@@ -306,7 +306,7 @@ export default function HindiEducationLoanPage() {
                       संबंधित कैलकुलेटर
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Link href="/hi/emi-calculator" className="group">
+                      <Link href="/hi/emi-calculator/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
@@ -315,7 +315,7 @@ export default function HindiEducationLoanPage() {
                           </CardContent>
                         </Card>
                       </Link>
-                      <Link href="/hi/loans/personal-loan" className="group">
+                      <Link href="/hi/loans/personal-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="font-semibold text-slate-900 group-hover:text-emerald-700">

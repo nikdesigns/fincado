@@ -199,7 +199,7 @@ export default function GuideTemplate() {
         </div>
 
         <Link
-          href="/sip-calculator"
+          href="/sip-calculator/"
           className="secondary-cta"
           style={{ fontSize: '14px', padding: '10px 20px', marginTop: 16 }}
         >
@@ -338,7 +338,7 @@ export default function GuideTemplate() {
         <div className="final-cta-inner">
           <h2>Calculate Your Own Path</h2>
           <div className="final-cta-row">
-            <Link href="/sip-calculator" className="primary-cta">
+            <Link href="/sip-calculator/" className="primary-cta">
               Open SIP Calculator
             </Link>
           </div>

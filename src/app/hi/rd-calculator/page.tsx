@@ -170,7 +170,7 @@ export default function HindiRDPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -182,7 +182,7 @@ export default function HindiRDPage() {
                   📈 SIP कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/fd-calculator"
+                  href="/hi/fd-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -209,7 +209,7 @@ export default function HindiRDPage() {
                   </strong>
 
                   <Link
-                    href="/guides/fixed-deposit-guide" // Use English or Hindi guide
+                    href="/guides/fixed-deposit-guide/" // Use English or Hindi guide
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>गाइड पढ़ें: FD लैडरिंग से ब्याज कैसे बढ़ाएं</span>

@@ -201,7 +201,7 @@ export default function GSTPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         flex
         items-center
@@ -226,7 +226,7 @@ export default function GSTPage() {
                 </Link>
 
                 <Link
-                  href="/loan-calculator"
+                  href="/loan-calculator/"
                   className="
         flex
         items-center
@@ -290,7 +290,7 @@ export default function GSTPage() {
                   </strong>
 
                   <Link
-                    href="/guides/gst-guide"
+                    href="/guides/gst-guide/"
                     className="
           mt-1
           inline-flex

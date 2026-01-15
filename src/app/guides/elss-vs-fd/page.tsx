@@ -784,13 +784,13 @@ The choice can mean a difference of ₹2-5 lakh over 10 years on a ₹1.5 lakh a
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/elss-calculator"
+              href="/elss-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-emerald-700 transition hover:bg-emerald-50 shadow-lg"
             >
               ELSS Calculator
             </Link>
             <Link
-              href="/fd-calculator"
+              href="/fd-calculator/"
               className="rounded-lg border border-emerald-400 bg-emerald-800/30 px-8 py-4 font-bold text-white transition hover:bg-emerald-800/50"
             >
               FD Calculator

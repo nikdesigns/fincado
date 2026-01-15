@@ -197,7 +197,7 @@ export default function FDPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/rd-calculator"
+                  href="/rd-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -212,7 +212,7 @@ export default function FDPage() {
                 </Link>
 
                 <Link
-                  href="/ppf-calculator"
+                  href="/ppf-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200
@@ -241,7 +241,7 @@ export default function FDPage() {
                   </strong>
 
                   <Link
-                    href="/guides/fixed-deposit-guide"
+                    href="/guides/fixed-deposit-guide/"
                     className="
           mt-1 inline-block
           text-sm font-semibold

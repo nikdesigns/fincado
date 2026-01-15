@@ -485,7 +485,7 @@ export default function Tax14LakhGuide() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {/* Link 1: Tax on 12L */}
-          <Link href="/guides/tax-on-12-lakh-salary" className="group">
+          <Link href="/guides/tax-on-12-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
@@ -508,7 +508,7 @@ export default function Tax14LakhGuide() {
           </Link>
 
           {/* Link 2: Tax on 15L */}
-          <Link href="/guides/tax-on-15-lakh-salary" className="group">
+          <Link href="/guides/tax-on-15-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
@@ -531,7 +531,7 @@ export default function Tax14LakhGuide() {
           </Link>
 
           {/* Link 3: New vs Old Regime */}
-          <Link href="/guides/new-vs-old-tax-regime-2025" className="group">
+          <Link href="/guides/new-vs-old-tax-regime-2025/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>

@@ -189,7 +189,7 @@ export default function CreditScorePage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/loans/personal-loan"
+                  href="/loans/personal-loan/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -203,7 +203,7 @@ export default function CreditScorePage() {
                 </Link>
 
                 <Link
-                  href="/emi-calculator"
+                  href="/emi-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -238,7 +238,7 @@ export default function CreditScorePage() {
                   </strong>
 
                   <Link
-                    href="/guides/credit-score-guide"
+                    href="/guides/credit-score-guide/"
                     className="
           mt-1 inline-flex items-center
           text-sm font-semibold text-emerald-700

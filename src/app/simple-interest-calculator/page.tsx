@@ -190,7 +190,7 @@ export default function SimpleInterestPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/compound-interest-calculator"
+                  href="/compound-interest-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -203,7 +203,7 @@ export default function SimpleInterestPage() {
                 </Link>
 
                 <Link
-                  href="/emi-calculator"
+                  href="/emi-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200

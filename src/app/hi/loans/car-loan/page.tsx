@@ -191,7 +191,7 @@ export default function HindiCarLoanPage() {
                   </strong>
 
                   <Link
-                    href="/guides/car-loan-guide" // Check if Hindi guide exists, else point to English
+                    href="/guides/car-loan-guide/" // Check if Hindi guide exists, else point to English
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>हमारी गाइड पढ़ें: ब्याज दरें और हिडन चार्ज</span>

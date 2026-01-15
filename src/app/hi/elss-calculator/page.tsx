@@ -206,7 +206,7 @@ export default function ELSSHindiPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/ppf-calculator"
+                  href="/hi/ppf-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -220,7 +220,7 @@ export default function ELSSHindiPage() {
                   🔒 <span>PPF कैलकुलेटर</span>
                 </Link>
                 <Link
-                  href="/hi/sip-calculator"
+                  href="/hi/sip-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200

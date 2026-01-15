@@ -1039,7 +1039,7 @@ export default function EmiGuidePage() {
 
         <p className="text-slate-700 mb-4">
           Maintaining a strong{' '}
-          <Link href="/credit-score" className="text-blue-600 hover:underline">
+          <Link href="/credit-score/" className="text-blue-600 hover:underline">
             CIBIL score
           </Link>{' '}
           is crucial for securing lower EMI rates and faster approvals.
@@ -1318,13 +1318,13 @@ export default function EmiGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/emi-calculator"
+              href="/emi-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-purple-700 transition hover:bg-purple-50 shadow-lg"
             >
               Calculate EMI
             </Link>
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg border border-purple-400 bg-purple-800/30 px-8 py-4 font-bold text-white transition hover:bg-purple-800/50"
             >
               Start Investing

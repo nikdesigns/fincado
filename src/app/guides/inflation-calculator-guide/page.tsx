@@ -699,13 +699,13 @@ export default function InflationGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/inflation-calculator"
+              href="/inflation-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-red-700 transition hover:bg-red-50 shadow-lg"
             >
               Calculate Future Value
             </Link>
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg border border-red-400 bg-red-800/30 px-8 py-4 font-bold text-white transition hover:bg-red-800/50"
             >
               Plan Investment

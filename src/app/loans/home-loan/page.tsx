@@ -203,7 +203,7 @@ export default function HomeLoanPage() {
                   </strong>
 
                   <Link
-                    href="/guides/home-loan-guide"
+                    href="/guides/home-loan-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>
@@ -289,7 +289,7 @@ export default function HomeLoanPage() {
                     </h3>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Link href="/emi-calculator" className="group">
+                      <Link href="/emi-calculator/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
@@ -310,7 +310,7 @@ export default function HomeLoanPage() {
                         </Card>
                       </Link>
 
-                      <Link href="/loans/personal-loan" className="group">
+                      <Link href="/loans/personal-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
@@ -331,7 +331,7 @@ export default function HomeLoanPage() {
                         </Card>
                       </Link>
 
-                      <Link href="/loans/car-loan" className="group">
+                      <Link href="/loans/car-loan/" className="group">
                         <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">

@@ -204,7 +204,7 @@ export default function SWPPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -218,7 +218,7 @@ export default function SWPPage() {
                 </Link>
 
                 <Link
-                  href="/fd-calculator"
+                  href="/fd-calculator/"
                   className="
         flex items-center justify-center
         rounded-lg border border-slate-200
@@ -251,7 +251,7 @@ export default function SWPPage() {
                   </strong>
 
                   <Link
-                    href="/guides/swp-guide"
+                    href="/guides/swp-guide/"
                     className="
           mt-1 inline-block
           text-sm font-semibold text-lime-700

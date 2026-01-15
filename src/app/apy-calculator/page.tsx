@@ -197,7 +197,7 @@ export default function APYPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/gratuity-calculator"
+                  href="/gratuity-calculator/"
                   className="
         rounded-lg
         border
@@ -216,7 +216,7 @@ export default function APYPage() {
                 </Link>
 
                 <Link
-                  href="/retirement-calculator"
+                  href="/retirement-calculator/"
                   className="
         rounded-lg
         border
@@ -251,7 +251,7 @@ export default function APYPage() {
                   </strong>
 
                   <Link
-                    href="/guides/nps-guide"
+                    href="/guides/nps-guide/"
                     className="
           mt-1
           inline-flex

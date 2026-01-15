@@ -24,9 +24,9 @@ export default function RelatedTopicsSidebar({
 
   // popular calculators (static)
   const calculators = [
-    { title: 'EMI Calculator', href: '/emi-calculator' },
-    { title: 'SIP Calculator', href: '/sip-calculator' },
-    { title: 'FD Calculator', href: '/fd-calculator' },
+    { title: 'EMI Calculator', href: '/emi-calculator/' },
+    { title: 'SIP Calculator', href: '/sip-calculator/' },
+    { title: 'FD Calculator', href: '/fd-calculator/' },
   ];
 
   return (
@@ -39,7 +39,7 @@ export default function RelatedTopicsSidebar({
           {related.length > 0 ? (
             related.map((r) => (
               <li key={r.slug}>
-                <Link href={`/guides/${r.slug}`}>{r.title}</Link>
+                <Link href={`/guides/${r.slug}/`}>{r.title}</Link>
               </li>
             ))
           ) : (

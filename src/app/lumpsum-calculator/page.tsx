@@ -225,7 +225,7 @@ export default function LumpsumPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/sip-calculator"
+                  href="/sip-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200 bg-white
@@ -238,7 +238,7 @@ export default function LumpsumPage() {
                 </Link>
 
                 <Link
-                  href="/fd-calculator"
+                  href="/fd-calculator/"
                   className="
         flex items-center justify-center gap-2
         rounded-lg border border-slate-200 bg-white
@@ -269,7 +269,7 @@ export default function LumpsumPage() {
                 </strong>
 
                 <Link
-                  href="/guides/sip-investment-guide"
+                  href="/guides/sip-investment-guide/"
                   className="
         inline-block text-sm font-medium
         text-emerald-700 underline

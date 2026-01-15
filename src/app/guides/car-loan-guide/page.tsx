@@ -969,13 +969,13 @@ export default function CarLoanGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/loans/car-loan"
+              href="/loans/car-loan/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-lime-700 transition hover:bg-lime-50 shadow-lg"
             >
               Calculate Car EMI
             </Link>
             <Link
-              href="/simple-interest-calculator"
+              href="/simple-interest-calculator/"
               className="rounded-lg border border-lime-400 bg-lime-800/30 px-8 py-4 font-bold text-white transition hover:bg-lime-800/50"
             >
               Check Flat Rate Truth

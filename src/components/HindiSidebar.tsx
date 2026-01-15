@@ -17,35 +17,35 @@ type NavItem = {
 
 /* ---------- DATA (HINDI) ---------- */
 const HINDI_TOOLS: NavItem[] = [
-  { href: '/hi/sip-calculator', label: 'SIP कैलकुलेटर', icon: '📈' },
-  { href: '/hi/loans/home-loan', label: 'होम लोन EMI', icon: '🏠' },
+  { href: '/hi/sip-calculator/', label: 'SIP कैलकुलेटर', icon: '📈' },
+  { href: '/hi/loans/home-loan/', label: 'होम लोन EMI', icon: '🏠' },
   {
-    href: '/hi/sukanya-samriddhi',
+    href: '/hi/sukanya-samriddhi/',
     label: 'SSY (सुकन्या योजना)',
     icon: '👧',
     isNew: true,
   },
-  { href: '/hi/ppf-calculator', label: 'PPF कैलकुलेटर', icon: '💰' },
-  { href: '/hi/income-tax-calculator', label: 'इनकम टैक्स (Tax)', icon: '📋' },
-  { href: '/hi/fd-calculator', label: 'FD कैलकुलेटर', icon: '📜' },
-  { href: '/hi/credit-score', label: 'क्रेडिट स्कोर चेक', icon: '🛡️' },
+  { href: '/hi/ppf-calculator/', label: 'PPF कैलकुलेटर', icon: '💰' },
+  { href: '/hi/income-tax-calculator/', label: 'इनकम टैक्स (Tax)', icon: '📋' },
+  { href: '/hi/fd-calculator/', label: 'FD कैलकुलेटर', icon: '📜' },
+  { href: '/hi/credit-score/', label: 'क्रेडिट स्कोर चेक', icon: '🛡️' },
 ];
 
 const HINDI_GUIDES: NavItem[] = [
   {
-    href: '/hi/guides/sukanya-samriddhi-yojana',
+    href: '/hi/guides/sukanya-samriddhi-yojana/',
     label: 'सुकन्या समृद्धि योजना 2025: पूरी जानकारी',
   },
   {
-    href: '/hi/guides/new-vs-old-tax-regime',
+    href: '/hi/guides/new-vs-old-tax-regime/',
     label: 'नई vs पुरानी टैक्स व्यवस्था: क्या चुनें?',
   },
   {
-    href: '/hi/guides/elss-mutual-funds',
+    href: '/hi/guides/elss-mutual-funds/',
     label: 'ELSS: टैक्स बचाने का स्मार्ट तरीका',
   },
   {
-    href: '/hi/guides/sovereign-gold-bonds',
+    href: '/hi/guides/sovereign-gold-bonds/',
     label: 'SGB: सोना खरीदने का सही तरीका',
   },
 ];
@@ -105,7 +105,7 @@ export default function HindiSidebar({ adId }: { adId?: string }) {
 
           <div className="pt-2 mt-2 border-t border-slate-100">
             <Link
-              href="/hi/calculators"
+              href="/hi/calculators/"
               className="
                 block
                 w-full
@@ -161,7 +161,7 @@ export default function HindiSidebar({ adId }: { adId?: string }) {
       <Card className="border-slate-200 bg-slate-50 shadow-sm">
         <CardContent className="p-3">
           <Link
-            href="/calculators"
+            href="/calculators/"
             className="
               flex items-center justify-center gap-2 
               w-full rounded-md border border-slate-200 bg-white 

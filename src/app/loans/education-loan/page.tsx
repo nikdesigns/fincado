@@ -240,7 +240,7 @@ export default function EducationLoanPage() {
                   </strong>
 
                   <Link
-                    href="/guides/education-loan-guide"
+                    href="/guides/education-loan-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>

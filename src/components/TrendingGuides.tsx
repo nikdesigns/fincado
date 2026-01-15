@@ -26,7 +26,7 @@ export default function TrendingGuides() {
     <ul className="trending-list">
       {items.map((i) => (
         <li key={i.slug}>
-          <a href={`/guides/${i.slug}`}>{i.title}</a>
+          <a href={`/guides/${i.slug}/`}>{i.title}</a>
           <span className="trend-count">{i.views}</span>
         </li>
       ))}

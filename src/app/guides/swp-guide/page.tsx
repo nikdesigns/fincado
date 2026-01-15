@@ -757,13 +757,13 @@ export default function SWPGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/swp-calculator"
+              href="/swp-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-indigo-700 transition hover:bg-indigo-50 shadow-lg"
             >
               SWP Calculator
             </Link>
             <Link
-              href="/fire-calculator"
+              href="/fire-calculator/"
               className="rounded-lg border border-indigo-400 bg-indigo-800/30 px-8 py-4 font-bold text-white transition hover:bg-indigo-800/50"
             >
               FIRE Calculator

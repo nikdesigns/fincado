@@ -723,7 +723,7 @@ export default function GoldInvestmentGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/sip-calculator"
+              href="/sip-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-yellow-700 transition hover:bg-yellow-50 shadow-lg"
             >
               Compare with Mutual Funds

@@ -188,7 +188,7 @@ export default function IncomeTaxHindiPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                  href="/hi/elss-calculator"
+                  href="/hi/elss-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -200,7 +200,7 @@ export default function IncomeTaxHindiPage() {
                   📉 ELSS कैलकुलेटर
                 </Link>
                 <Link
-                  href="/hi/ppf-calculator"
+                  href="/hi/ppf-calculator/"
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg border border-slate-200
@@ -227,7 +227,7 @@ export default function IncomeTaxHindiPage() {
                   </strong>
 
                   <Link
-                    href="/guides/best-tax-saving-options-80c" // Check if Hindi guide exists
+                    href="/guides/best-tax-saving-options-80c/" // Check if Hindi guide exists
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>पढ़ें: टैक्स बचाने के 5 स्मार्ट तरीके</span>
@@ -387,7 +387,7 @@ export default function IncomeTaxHindiPage() {
                           </h4>
                           <p className="text-sm text-slate-600">
                             <Link
-                              href="/hi/elss-calculator"
+                              href="/hi/elss-calculator/"
                               className="text-emerald-700 hover:underline"
                             >
                               ELSS

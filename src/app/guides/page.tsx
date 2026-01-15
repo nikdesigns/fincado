@@ -72,7 +72,7 @@ export default function GuidesPage() {
                 </div>
               </div>
 
-              <Link href="/hi" className="w-full sm:w-auto">
+              <Link href="/hi/" className="w-full sm:w-auto">
                 <Button className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-semibold">
                   हिंदी गाइड्स देखें &rarr;
                 </Button>
