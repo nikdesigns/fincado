@@ -33,14 +33,14 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'New vs Old Tax Regime 2025: Which is Better? (Calculator & Slabs)',
+  title: 'New vs Old Tax Regime 2026: Which is Better? (Calculator & Slabs)',
   description:
     'Compare New vs Old Tax Regime slabs for FY 2025-26. Calculate exemptions, 80C deductions, and breakeven points to save maximum tax.',
   alternates: {
     canonical: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
   },
   openGraph: {
-    title: 'New vs Old Tax Regime 2025: Which is Better for You?',
+    title: 'New vs Old Tax Regime 2026: Which is Better for You?',
     description:
       'Budget 2025 has made the new regime default. Is it better for you? Check tax slabs, deductions, and breakeven analysis here.',
     url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         url: '/images/guides/tax/hero-tax-regime.webp',
         width: 1200,
         height: 630,
-        alt: 'Comparison of Old vs New Tax Regime 2025',
+        alt: 'Comparison of Old vs New Tax Regime 2026',
       },
     ],
   },
@@ -103,12 +103,12 @@ export default function TaxRegimeGuide() {
           Tax Planning
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          New vs Old Tax Regime 2025: Which is Better for You?
+          New vs Old Tax Regime 2026: Which is Better for You?
         </h1>
         <p className="mt-4 text-lg text-slate-600 leading-relaxed">
           Every year between January and March, millions of Indian taxpayers
           face the same dilemma: should I choose the new tax regime or stick
-          with the old one? With Budget 2025 making the new regime even more
+          with the old one? With Budget 2026 making the new regime even more
           attractive, this decision has become critical.
         </p>
       </header>
@@ -118,7 +118,7 @@ export default function TaxRegimeGuide() {
         <div className="relative h-64 w-full sm:h-80 md:h-96 bg-slate-100">
           <Image
             src="/images/guides/tax/hero-tax-regime.webp"
-            alt="Old vs New Tax Regime Comparison 2025"
+            alt="Old vs New Tax Regime Comparison 2026"
             fill
             priority
             className="object-cover"

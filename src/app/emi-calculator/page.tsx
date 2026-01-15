@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import EMIClient from './EMIClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
+import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
@@ -454,6 +455,8 @@ export default function EMIPage() {
           <aside className="sidebar no-print">
             <div className="sticky top-24 space-y-6">
               <AdSlot id="emi-sidebar" type="box" />
+              {/* ✅ NEW WIDGET */}
+              <SidebarCompareWidget />
               <FinancialNavWidget />
             </div>
           </aside>

@@ -6,6 +6,8 @@ import AdSlot from '@/components/AdSlot';
 import ShareTools from '@/components/ShareTools';
 import WikiText from '@/components/WikiText';
 import LegalNote from '@/components/LegalNote';
+import AuthorBio from '@/components/AuthorBio';
+import BankSelector from '@/components/BankSelector';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCityData, getCompetitors, cityDetails } from '@/lib/localData';
@@ -37,7 +39,9 @@ import {
   FileText,
   Home,
   Info,
+  GitCompare, // ✅ Added MapPin import
 } from 'lucide-react';
+import StickyCompareFooter from '@/components/StickyCompareFooter';
 
 /* ---------------- LOGIC ---------------- */
 
@@ -71,9 +75,11 @@ export async function generateMetadata({
   if (!bank) return {};
 
   return {
-    title: `${bank.name} Home Loan in ${cityData.name} 2025: Rates & EMI`,
+    // ✅ FIX 1: Updated Year to 2026
+    title: `${bank.name} Home Loan in ${cityData.name} 2026: Rates & EMI`,
     description: `Applying for ${bank.name} loan in ${cityData.name}? Check interest rates starting @ ${bank.rate}%, branches near ${cityData.areas[0]}, and processing fees.`,
     alternates: {
+      // ✅ VERIFIED: Has trailing slash (Correct)
       canonical: `https://fincado.com/bank-emi/${bank.slug}/${cityData.slug}/`,
     },
   };
@@ -103,10 +109,12 @@ export default async function BankCityPage({
           { name: 'Banks', url: 'https://fincado.com/bank-emi/' },
           {
             name: bank.name,
+            // ✅ VERIFIED: Has trailing slash
             url: `https://fincado.com/bank-emi/${bank.slug}/`,
           },
           {
             name: cityData.name,
+            // ✅ VERIFIED: Has trailing slash
             url: `https://fincado.com/bank-emi/${bank.slug}/${resolvedParams.city}/`,
           },
         ]}
@@ -120,7 +128,8 @@ export default async function BankCityPage({
               variant="secondary"
               className="mb-4 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1 font-bold uppercase tracking-wider"
             >
-              Local Real Estate Edition
+              {/* ✅ FIX 2: Dynamic Year Badge */}
+              2026 {cityData.name} Local Edition
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
               {bank.name} Home Loan in {cityData.name}
@@ -176,6 +185,17 @@ export default async function BankCityPage({
               </Alert>
             </CardContent>
           </Card>
+
+          {/* ✅ CROSS-LINKING COMPARISON SELECTOR */}
+          <section className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <GitCompare className="w-6 h-6 text-indigo-600" />
+              <h2 className="text-2xl font-bold text-slate-900">
+                Compare {bank.name} vs Others in {cityData.name}
+              </h2>
+            </div>
+            <BankSelector />
+          </section>
 
           {/* NEW SECTION: Local Market Insights */}
           <section className="mb-12">
@@ -273,6 +293,7 @@ export default async function BankCityPage({
                     <TableRow key={comp.slug}>
                       <TableCell>
                         <Link
+                          // ✅ VERIFIED: Has trailing slash. Good.
                           href={`/bank-emi/${comp.slug}/${resolvedParams.city}/`}
                           className="text-blue-600 font-medium hover:underline"
                         >
@@ -327,6 +348,7 @@ export default async function BankCityPage({
           </section>
 
           <LegalNote />
+          <AuthorBio />
         </div>
 
         {/* --- RIGHT COLUMN --- */}
@@ -345,6 +367,7 @@ export default async function BankCityPage({
                   .map((other) => (
                     <li key={other.slug}>
                       <Link
+                        // ✅ VERIFIED: Has trailing slash. Good.
                         href={`/bank-emi/${other.slug}/${resolvedParams.city}/`}
                         className="flex items-center justify-between px-5 py-3 hover:bg-slate-50 transition-colors group"
                       >
@@ -384,6 +407,8 @@ export default async function BankCityPage({
           </div>
         </aside>
       </div>
+      {/* ✅ Sticky Footer for City Pages */}
+      <StickyCompareFooter bankName={bank.name} bankSlug={bank.slug} />
     </main>
   );
 }

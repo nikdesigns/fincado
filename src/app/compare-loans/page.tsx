@@ -2,10 +2,11 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
-import LoanComparison from '@/components/LoanComparison'; // Your existing logic component
+import LoanComparison from '@/components/LoanComparison';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
 import ShareTools from '@/components/ShareTools';
+import ComparisonGrid from '@/components/ComparisonGrid'; // ✅ IMPORTED
 
 // --- UI COMPONENTS ---
 import {
@@ -29,19 +30,13 @@ import {
   TrendingDown,
   ArrowRight,
   ShieldCheck,
+  GitCompare, // Added icon
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Loan Comparison Tool – Compare Interest Rates & EMI | Fincado',
+  title: 'Loan Comparison Tool 2026 – Compare Rates & Save | Fincado', // Updated Year
   description:
-    'Compare two loan offers side-by-side. Check which loan saves you more money on interest and EMI. Best for Home Loan and Personal Loan comparison.',
-  keywords: [
-    'Loan Comparison',
-    'Compare Loans',
-    'Home Loan Comparison',
-    'Loan Calculator',
-    'EMI Difference',
-  ],
+    'Compare 10+ bank loan offers side-by-side. Check total interest difference between SBI, HDFC, ICICI, and more. Calculate real savings instantly.',
 };
 
 export default function CompareLoansPage() {
@@ -51,7 +46,7 @@ export default function CompareLoansPage() {
       <header className="text-center max-w-3xl mx-auto my-12">
         <Badge
           variant="secondary"
-          className="mb-4 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-3 py-1 font-semibold uppercase tracking-wider"
+          className="mb-4 bg-lime-100 text-lime-700 hover:bg-lime-200 px-3 py-1 font-semibold uppercase tracking-wider"
         >
           Free Savings Tool
         </Badge>
@@ -75,30 +70,28 @@ export default function CompareLoansPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
         {/* --- LEFT COLUMN (Main Tool) --- */}
-        <div className="lg:col-span-8 min-w-0 space-y-8">
-          {/* CALCULATOR CARD */}
-          <Card className="border-slate-200 shadow-md overflow-hidden bg-white">
+        <div className="lg:col-span-8 min-w-0 space-y-12">
+          {/* 1. CALCULATOR CARD */}
+          <Card className="border-slate-200 shadow-xl overflow-hidden bg-white">
             <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
               <CardTitle className="text-xl font-bold flex items-center gap-2 text-slate-800">
-                <Scale className="h-5 w-5 text-indigo-600" />
-                Side-by-Side Comparison
+                <Scale className="h-5 w-5 text-lime-600" />
+                Side-by-Side Calculator
               </CardTitle>
               <CardDescription>
                 Enter the details for two different loans to see the breakdown.
               </CardDescription>
             </CardHeader>
             <CardContent className="p-4 sm:p-6">
-              {/* Your Existing Widget Logic */}
               <LoanComparison />
 
-              {/* Micro-Trust Indicator below calculator */}
-              <div className="mt-6 flex items-start gap-3 p-4 bg-indigo-50 border border-indigo-100 rounded-lg">
-                <ShieldCheck className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
+              <div className="mt-6 flex items-start gap-3 p-4 bg-lime-50 border border-lime-100 rounded-lg">
+                <ShieldCheck className="w-5 h-5 text-lime-600 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-semibold text-indigo-900">
+                  <h4 className="text-sm font-semibold text-lime-900">
                     Smart Tip
                   </h4>
-                  <p className="text-xs text-indigo-800/80 mt-1">
+                  <p className="text-xs text-lime-800/80 mt-1">
                     A lower EMI isn&apos;t always better. Sometimes a longer
                     tenure reduces your monthly payment but drastically
                     increases the <strong>Total Interest</strong> you pay.
@@ -108,16 +101,34 @@ export default function CompareLoansPage() {
             </CardContent>
           </Card>
 
-          {/* AD SLOT: Mid Content */}
+          {/* 2. AD SLOT */}
           <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
             <AdSlot id="compare-mid" type="leaderboard" label="Sponsored" />
           </div>
 
-          {/* SEO CONTENT: Features Grid */}
+          {/* 3. ✅ NEW: COMPARISON GRID HUB (SEO ENGINE) */}
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-lime-100 rounded-lg text-lime-600">
+                <GitCompare className="w-6 h-6" />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900">
+                Browse Popular Comparisons
+              </h2>
+            </div>
+            <p className="text-slate-600 mb-6">
+              Select any two banks to see a detailed breakdown of their 2026
+              interest rates, hidden charges, and approval success rates.
+            </p>
+            {/* This component links to all your 90+ new pages */}
+            <ComparisonGrid />
+          </section>
+
+          {/* 4. FEATURES GRID */}
           <section>
             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <TrendingDown className="h-6 w-6 text-emerald-600" />
-              What to look for when comparing?
+              Comparison Checklist
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -164,7 +175,7 @@ export default function CompareLoansPage() {
               ))}
             </div>
 
-            {/* SEO CONTENT: FAQs Accordion */}
+            {/* FAQs */}
             <h3 className="text-xl font-bold text-slate-900 mb-4">
               Common Questions
             </h3>
@@ -180,7 +191,7 @@ export default function CompareLoansPage() {
                   Usually, floating rates are better for long-term loans (like
                   Home Loans) because they are cheaper and have no prepayment
                   penalties. Fixed rates offer peace of mind but often come with
-                  a premium and penalties for early closure.
+                  a premium.
                 </AccordionContent>
               </AccordionItem>
 
@@ -193,8 +204,8 @@ export default function CompareLoansPage() {
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 pt-2">
                   Yes! On a ₹50 Lakh loan for 20 years, a 0.25% difference saves
-                  you approximately ₹1.8 Lakhs. However, check if the
-                  &quot;Balance Transfer&quot; fees eat up your savings.
+                  you approximately ₹1.8 Lakhs. Check if the Balance Transfer
+                  fees eat up your savings.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -203,19 +214,9 @@ export default function CompareLoansPage() {
 
         {/* --- RIGHT COLUMN (Sidebar) --- */}
         <aside className="lg:col-span-4 space-y-8">
-          {/* Navigation Widget */}
-          <Card className="border-slate-200 shadow-sm">
-            <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100">
-              <CardTitle className="text-lg font-bold text-slate-800">
-                More Calculators
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-4">
-              <FinancialNavWidget />
-            </CardContent>
-          </Card>
+          <FinancialNavWidget />
 
-          {/* Comparison Links */}
+          {/* Quick Links */}
           <Card className="border-slate-200 shadow-sm">
             <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100">
               <CardTitle className="text-lg font-bold text-slate-800">
@@ -224,11 +225,10 @@ export default function CompareLoansPage() {
             </CardHeader>
             <CardContent className="pt-4 p-0">
               <ul className="divide-y divide-slate-100">
-                {/* Hardcoded popular links for quick access */}
                 {[
-                  { name: 'HDFC vs SBI', url: '/bank-emi/hdfc' },
-                  { name: 'ICICI vs Axis', url: '/bank-emi/icici' },
-                  { name: 'Kotak vs BoB', url: '/bank-emi/kotak' },
+                  { name: 'HDFC vs SBI', url: '/compare/hdfc-vs-sbi/' }, // Updated to use Comparison URL
+                  { name: 'ICICI vs Axis', url: '/compare/icici-vs-axis/' },
+                  { name: 'Kotak vs BoB', url: '/compare/kotak-vs-bob/' },
                 ].map((link, i) => (
                   <li key={i}>
                     <Link
@@ -246,7 +246,6 @@ export default function CompareLoansPage() {
             </CardContent>
           </Card>
 
-          {/* Sticky Sidebar Ad */}
           <div className="sticky top-24 z-10 no-print">
             <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center">
               <AdSlot type="box" id="compare-sidebar" />

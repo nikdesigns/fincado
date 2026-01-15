@@ -27,6 +27,34 @@ const getUrl = (path: string) => {
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  /* ---------------- 5. BANK COMPARISON PAGES (NEW) ---------------- */
+  const topBanks = [
+    'sbi',
+    'hdfc',
+    'icici',
+    'axis',
+    'kotak',
+    'pnb',
+    'bob',
+    'lic-housing',
+    'bajaj',
+    'idfc-first',
+  ];
+  const comparisonRoutes: MetadataRoute.Sitemap = [];
+
+  for (const b1 of topBanks) {
+    for (const b2 of topBanks) {
+      if (b1 !== b2) {
+        comparisonRoutes.push({
+          url: getUrl(`/compare/${b1}-vs-${b2}/`), // Ensure trailing slash
+          lastModified: new Date(),
+          changeFrequency: 'monthly' as const,
+          priority: 0.9,
+        });
+      }
+    }
+  }
+
   /* ---------------- 1. STATIC PAGES (ENGLISH) ---------------- */
   const staticRoutes = [
     '',
@@ -35,6 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
     '/privacy-policy',
     '/disclaimer',
+    '/editorial-guidelines',
     '/calculators',
     '/guides',
     '/loans',
@@ -147,6 +176,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...hindiRoutes,
     ...articleRoutes,
     ...cityRoutes,
+    ...comparisonRoutes,
     ...bankCityRoutes,
   ];
 }

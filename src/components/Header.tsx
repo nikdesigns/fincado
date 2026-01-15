@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { GitCompare, Menu } from 'lucide-react';
 
 import {
   NavigationMenu,
@@ -26,6 +27,7 @@ const CALCULATOR_MENU = [
   {
     category: 'Loans',
     items: [
+      { label: 'Compare Loan Rates', href: '/compare-loans/' }, // Key revenue page
       { label: 'EMI Calculator', href: '/emi-calculator/' },
       { label: 'Home Loan', href: '/loans/home-loan/' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
@@ -85,7 +87,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur ${
+      className={`sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur transition-all duration-200 ${
         scrolled ? 'shadow-sm' : ''
       }`}
     >
@@ -99,14 +101,14 @@ export default function Header() {
             Fincado
           </Link>
 
-          {/* DESKTOP NAV — NEXT TO LOGO */}
+          {/* DESKTOP NAV */}
           <NavigationMenu className="hidden lg:flex ml-16">
-            <NavigationMenuList className="gap-4">
+            <NavigationMenuList className="gap-2">
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
                   <Link
                     href="/"
-                    className={`text-sm font-medium ${
+                    className={`px-4 py-2 text-sm font-medium transition-colors hover:text-emerald-700 ${
                       isActive('/') ? 'text-emerald-700' : 'text-slate-700'
                     }`}
                   >
@@ -116,13 +118,14 @@ export default function Header() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Calculators</NavigationMenuTrigger>
-
-                <NavigationMenuContent className="rounded-xl bg-white shadow-xl">
-                  <div className="grid w-240 grid-cols-4 gap-6 p-6">
+                <NavigationMenuTrigger className="text-slate-700 hover:text-emerald-700 bg-transparent">
+                  Calculators
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="rounded-xl bg-white shadow-xl border border-slate-100">
+                  <div className="grid w-200 grid-cols-4 gap-6 p-6">
                     {CALCULATOR_MENU.map((section) => (
                       <div key={section.category}>
-                        <div className="mb-3 text-sm font-semibold text-slate-900">
+                        <div className="mb-3 text-sm font-bold text-slate-900 uppercase tracking-wider">
                           {section.category}
                         </div>
                         <ul className="space-y-2">
@@ -130,8 +133,15 @@ export default function Header() {
                             <li key={item.href}>
                               <Link
                                 href={item.href}
-                                className="block text-sm font-medium text-slate-600 hover:text-slate-900"
+                                className={`block text-sm font-medium transition-colors hover:text-emerald-700 ${
+                                  item.href === '/compare-loans/'
+                                    ? 'text-lime-600 font-bold flex items-center gap-2'
+                                    : 'text-slate-600'
+                                }`}
                               >
+                                {item.href === '/compare-loans/' && (
+                                  <GitCompare className="w-3 h-3" />
+                                )}
                                 {item.label}
                               </Link>
                             </li>
@@ -143,11 +153,27 @@ export default function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
+              {/* ✅ NEW: DIRECT COMPARE LINK (HIGH VISIBILITY) */}
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/compare-loans/"
+                    className={`px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive('/compare-loans')
+                        ? 'text-lime-600'
+                        : 'text-slate-700 hover:text-lime-600'
+                    }`}
+                  >
+                    Compare Rates
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
                   <Link
                     href="/guides/"
-                    className={`text-sm font-medium ${
+                    className={`px-4 py-2 text-sm font-medium transition-colors hover:text-emerald-700 ${
                       isActive('/guides')
                         ? 'text-emerald-700'
                         : 'text-slate-700'
@@ -162,7 +188,7 @@ export default function Header() {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/hi/"
-                    className="text-sm font-semibold text-rose-600"
+                    className="px-4 py-2 text-sm font-bold text-rose-600 hover:bg-rose-50 rounded-md transition-colors"
                   >
                     हिंदी
                   </Link>
@@ -173,7 +199,10 @@ export default function Header() {
 
           {/* ACTIONS */}
           <div className="ml-auto flex items-center gap-3">
-            <Button asChild className="hidden lg:inline-flex">
+            <Button
+              asChild
+              className="hidden lg:inline-flex bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+            >
               <Link href="/emi-calculator/">EMI Calculator</Link>
             </Button>
 
@@ -181,30 +210,48 @@ export default function Header() {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden">
-                  ☰
+                  <Menu className="h-6 w-6 text-slate-700" />
+                  <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
 
-              <SheetContent side="right" className="w-[320px] p-0 bg-white">
+              <SheetContent
+                side="right"
+                className="w-[320px] p-0 bg-white sm:max-w-xs"
+              >
                 <VisuallyHidden>
                   <SheetTitle>Mobile navigation</SheetTitle>
                 </VisuallyHidden>
 
-                <div className="h-full overflow-y-auto px-5 py-6 space-y-6">
-                  <Link href="/" className="block text-base font-semibold">
-                    Home
-                  </Link>
-
-                  <Link
-                    href="/hi/"
-                    className="block text-base font-semibold text-rose-600"
-                  >
-                    हिंदी (Hindi Calculators)
-                  </Link>
+                <div className="h-full overflow-y-auto px-5 py-6 space-y-8">
+                  <div className="space-y-4">
+                    <Link
+                      href="/"
+                      className="block text-lg font-bold text-slate-900"
+                    >
+                      Home
+                    </Link>
+                    {/* Prominent Mobile Compare Link */}
+                    <Link
+                      href="/compare-loans/"
+                      className="block text-lg font-bold text-lime-600 items-center gap-2"
+                    >
+                      <GitCompare className="w-5 h-5" /> Compare Rates
+                    </Link>
+                    <Link
+                      href="/hi/"
+                      className="block text-lg font-bold text-rose-600"
+                    >
+                      हिंदी (Hindi Calculators)
+                    </Link>
+                  </div>
 
                   {CALCULATOR_MENU.map((section) => (
-                    <div key={section.category}>
-                      <div className="mb-2 text-xs font-semibold uppercase text-slate-500">
+                    <div
+                      key={section.category}
+                      className="border-t border-slate-100 pt-6"
+                    >
+                      <div className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-400">
                         {section.category}
                       </div>
                       <div className="space-y-3">
@@ -212,7 +259,11 @@ export default function Header() {
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="block text-sm text-slate-700"
+                            className={`block text-sm font-medium ${
+                              item.href === '/compare-loans/'
+                                ? 'text-lime-600 font-bold'
+                                : 'text-slate-600'
+                            }`}
                           >
                             {item.label}
                           </Link>

@@ -36,11 +36,11 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'ELSS Funds Guide 2025: Save Tax & Build Wealth (3-Year Lock-in)',
+  title: 'ELSS Funds Guide 2026: Save Tax & Build Wealth (3-Year Lock-in)',
   description:
     'Complete guide to ELSS Mutual Funds. Learn about 3-year lock-in, Section 80C tax benefits, historical returns, and comparison with PPF/FD.',
   keywords: [
-    'ELSS Funds 2025',
+    'ELSS Funds 2026',
     'Equity Linked Savings Scheme',
     'ELSS vs PPF',
     'Tax Saving Mutual Funds',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/guides/elss-funds-guide-2025/',
   },
   openGraph: {
-    title: 'ELSS Funds Guide 2025: Save Tax & Build Wealth',
+    title: 'ELSS Funds Guide 2026: Save Tax & Build Wealth',
     description:
       'Why settle for 7% returns? Save tax and aim for 12-15% returns with ELSS. Complete guide inside.',
     type: 'article',
@@ -100,7 +100,7 @@ export default function ELSSGuide() {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline:
-      'ELSS Funds Guide 2025: Save Tax & Build Wealth with 3-Year Lock-in',
+      'ELSS Funds Guide 2026: Save Tax & Build Wealth with 3-Year Lock-in',
     description:
       'Comprehensive guide to ELSS mutual funds, covering tax benefits, lock-in periods, and comparison with PPF/FD.',
     author: {
@@ -115,8 +115,8 @@ export default function ELSSGuide() {
         url: 'https://fincado.com/logo.png',
       },
     },
-    datePublished: '2025-01-08',
-    dateModified: '2025-01-08',
+    datePublished: '2026-01-01',
+    dateModified: '2026-01-01',
     image: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
   };
 
@@ -147,7 +147,7 @@ export default function ELSSGuide() {
           Mutual Funds & Tax Planning
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          ELSS Funds Guide 2025: Save Tax & Build Wealth with 3-Year Lock-in
+          ELSS Funds Guide 2026: Save Tax & Build Wealth with 3-Year Lock-in
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
           <span className="flex items-center gap-1">
@@ -155,7 +155,7 @@ export default function ELSSGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Jan 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -163,7 +163,7 @@ export default function ELSSGuide() {
           </span>
         </div>
         <div className="mt-6">
-          <ShareTools title="ELSS Funds Guide 2025" />
+          <ShareTools title="ELSS Funds Guide 2026" />
         </div>
       </header>
 

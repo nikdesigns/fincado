@@ -13,7 +13,14 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from '@/components/ui/accordion';
-import { Building2, FileText, TrendingUp, ShieldCheck } from 'lucide-react';
+import {
+  Building2,
+  FileText,
+  TrendingUp,
+  ShieldCheck,
+  ArrowRight,
+  GitCompare,
+} from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -242,7 +249,7 @@ export default function Home(): JSX.Element {
             font-semibold
           "
                 >
-                  <Link href="/emi-calculator">Check Loan EMI</Link>
+                  <Link href="/emi-calculator/">Check Loan EMI</Link>
                 </Button>
 
                 <Button
@@ -251,7 +258,7 @@ export default function Home(): JSX.Element {
                   variant="outline"
                   className="font-semibold"
                 >
-                  <Link href="/sip-calculator">Start Investing</Link>
+                  <Link href="/sip-calculator/">Start Investing</Link>
                 </Button>
               </div>
 
@@ -387,7 +394,7 @@ export default function Home(): JSX.Element {
             </div>
 
             <Button asChild variant="outline" className="shrink-0">
-              <Link href="/calculators">View All</Link>
+              <Link href="/calculators/">View All</Link>
             </Button>
           </div>
 
@@ -423,6 +430,57 @@ export default function Home(): JSX.Element {
         <div className="midpage-ad">
           <AdSlot id="home-mid-1" type="leaderboard" />
         </div>
+
+        {/* ✅ NEW: REVENUE ENGINE SECTION (PHASE 2) - LIGHT VERSION */}
+        <section className="my-16 container-inner">
+          <div className="relative overflow-hidden rounded-3xl shadow-xs bg-white border border-slate-100 px-6 py-10 sm:px-10 sm:py-12">
+            {/* Header Area */}
+            <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
+              <div className="space-y-3">
+                <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-none px-3 py-1 uppercase tracking-widest font-bold text-[10px]">
+                  Updated Jan 2026
+                </Badge>
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+                  Compare & <span className="text-emerald-600">Save</span>
+                </h2>
+                <p className="text-slate-600 max-w-lg text-sm sm:text-base leading-relaxed">
+                  Stop overpaying on interest. Compare live rates, processing
+                  fees, and approval chances for India&apos;s top lenders.
+                </p>
+              </div>
+              <Button
+                asChild
+                className="bg-emerald-900 text-white hover:bg-emerald-800 shadow-lg"
+              >
+                <Link href="/compare-loans/">
+                  View All Banks <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+
+            {/* Light Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <ComparisonCard b1="SBI" b2="HDFC" link="/compare/sbi-vs-hdfc" />
+              <ComparisonCard
+                b1="HDFC"
+                b2="ICICI"
+                link="/compare/hdfc-vs-icici/"
+              />
+              <ComparisonCard b1="SBI" b2="Axis" link="/compare/sbi-vs-axis" />
+              <ComparisonCard
+                b1="ICICI"
+                b2="Kotak"
+                link="/compare/icici-vs-kotak/"
+              />
+              <ComparisonCard b1="PNB" b2="BOB" link="/compare/pnb-vs-bob" />
+              <ComparisonCard
+                b1="Bajaj"
+                b2="LIC Housing"
+                link="/compare/bajaj-vs-lic-housing/"
+              />
+            </div>
+          </div>
+        </section>
 
         {/* --- 2. LOAN PLANNING SECTION --- */}
         <section className="tools-section">
@@ -561,7 +619,7 @@ export default function Home(): JSX.Element {
               variant="ghost"
               className="font-semibold text-emerald-700 hover:text-emerald-800"
             >
-              <Link href="/guides">View All Guides →</Link>
+              <Link href="/guides/">View All Guides →</Link>
             </Button>
           </div>
 
@@ -569,7 +627,7 @@ export default function Home(): JSX.Element {
             {displayGuides.map((guide) => (
               <Link
                 key={guide.slug}
-                href={`/guides/${guide.slug}`}
+                href={`/guides/${guide.slug}/`}
                 className="group block"
               >
                 <Card
@@ -779,7 +837,7 @@ export default function Home(): JSX.Element {
                   size="lg"
                   className="bg-emerald-600 text-white hover:bg-emerald-700"
                 >
-                  <Link href="/emi-calculator">Calculate EMI</Link>
+                  <Link href="/emi-calculator/">Calculate EMI</Link>
                 </Button>
 
                 <Button
@@ -788,7 +846,7 @@ export default function Home(): JSX.Element {
                   variant="outline"
                   className="border-slate-300 text-slate-900 hover:bg-slate-50"
                 >
-                  <Link href="/sip-calculator">Plan Investment</Link>
+                  <Link href="/sip-calculator/">Plan Investment</Link>
                 </Button>
               </div>
             </div>
@@ -831,5 +889,46 @@ function TrustTag({ icon, label }: { icon: React.ReactNode; label: string }) {
       </span>
       {label}
     </div>
+  );
+}
+
+function ComparisonCard({
+  b1,
+  b2,
+  link,
+}: {
+  b1: string;
+  b2: string;
+  link: string;
+}) {
+  return (
+    <Link
+      href={link}
+      className="group flex items-center justify-between bg-white hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-200 rounded-xl p-4 transition-all hover:-translate-y-1 hover:shadow-md"
+    >
+      <div className="flex items-center gap-3">
+        <div className="flex -space-x-3">
+          {/* Bank 1 Icon */}
+          <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-[10px] font-black text-slate-700 border border-slate-100 shadow-sm z-10">
+            {b1.slice(0, 1)}
+          </div>
+          {/* Bank 2 Icon */}
+          <div className="h-9 w-9 rounded-full bg-emerald-50 flex items-center justify-center text-[10px] font-black text-emerald-700 border border-white shadow-sm z-0">
+            {b2.slice(0, 1)}
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <span className="font-bold text-slate-700 group-hover:text-emerald-700 text-sm transition-colors">
+            {b1} vs {b2}
+          </span>
+          <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
+            Compare Rates
+          </span>
+        </div>
+      </div>
+      <div className="h-8 w-8 rounded-full bg-slate-50 group-hover:bg-white flex items-center justify-center transition-colors">
+        <GitCompare className="h-4 w-4 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+      </div>
+    </Link>
   );
 }

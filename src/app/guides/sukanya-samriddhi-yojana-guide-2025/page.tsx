@@ -38,12 +38,12 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Sukanya Samriddhi Yojana (SSY) Guide 2025: Interest Rate & Rules',
+  title: 'Sukanya Samriddhi Yojana (SSY) Guide 2026: Interest Rate & Rules',
   description:
-    'Complete guide to SSY 2025. Check current 8.2% interest rate, eligibility, withdrawal rules, tax benefits (80C), and calculator.',
+    'Complete guide to SSY 2026. Check current 8.2% interest rate, eligibility, withdrawal rules, tax benefits (80C), and calculator.',
   keywords: [
-    'Sukanya Samriddhi Yojana 2025',
-    'SSY interest rate 2025',
+    'Sukanya Samriddhi Yojana 2026',
+    'SSY interest rate 2026',
     'SSY calculator',
     'Sukanya Samriddhi Yojana eligibility',
     'SSY withdrawal rules',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
       'https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/',
   },
   openGraph: {
-    title: 'Sukanya Samriddhi Yojana (SSY) Guide 2025',
+    title: 'Sukanya Samriddhi Yojana (SSY) Guide 2026',
     description:
       "Invest in your daughter's future with SSY. 8.2% Interest, EEE Tax Benefits, and complete safety. Read the 2025 rules here.",
     type: 'article',
@@ -103,9 +103,9 @@ export default function SSYGuide() {
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: 'Sukanya Samriddhi Yojana (SSY) Guide 2025: Rules & Interest',
+    headline: 'Sukanya Samriddhi Yojana (SSY) Guide 2026: Rules & Interest',
     description:
-      'Complete guide to SSY 2025: Eligibility, 8.2% interest rate, calculator, withdrawal rules, and tax benefits.',
+      'Complete guide to SSY 2026: Eligibility, 8.2% interest rate, calculator, withdrawal rules, and tax benefits.',
     author: {
       '@type': 'Organization',
       name: 'Fincado Research Team',
@@ -118,8 +118,8 @@ export default function SSYGuide() {
         url: 'https://fincado.com/logo.png',
       },
     },
-    datePublished: '2025-01-05',
-    dateModified: '2025-01-05',
+    datePublished: '2026-01-01',
+    dateModified: '2026-01-01',
     image: 'https://fincado.com/images/guides/ssy/ssy-guide-hero.webp',
   };
 
@@ -151,7 +151,7 @@ export default function SSYGuide() {
           Government Schemes
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          Sukanya Samriddhi Yojana 2025: Rules, Interest & Benefits
+          Sukanya Samriddhi Yojana 2026: Rules, Interest & Benefits
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
           <span className="flex items-center gap-1">
@@ -159,7 +159,7 @@ export default function SSYGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Jan 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -167,7 +167,7 @@ export default function SSYGuide() {
           </span>
         </div>
         <div className="mt-6">
-          <ShareTools title="Sukanya Samriddhi Yojana 2025 Guide" />
+          <ShareTools title="Sukanya Samriddhi Yojana 2026 Guide" />
         </div>
       </header>
 

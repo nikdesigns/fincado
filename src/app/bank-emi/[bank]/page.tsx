@@ -6,11 +6,11 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import AdSlot from '@/components/AdSlot';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
+import StickyCompareFooter from '@/components/StickyCompareFooter';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCompetitors } from '@/lib/localData';
 
-// --- UI COMPONENTS ---
 import {
   Card,
   CardContent,
@@ -44,8 +44,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
-/* ---------------- LOGIC (UNTOUCHED) ---------------- */
-
+/* ---------------- LOGIC ---------------- */
 export async function generateStaticParams() {
   return banks.map((bank) => ({ bank: bank.slug }));
 }
@@ -60,10 +59,11 @@ export async function generateMetadata({
   if (!bank) return {};
 
   return {
-    title: `${bank.name} EMI Calculator 2025: Check Home Loan Rates`,
+    title: `${bank.name} EMI Calculator 2026: Check Home Loan Rates`,
     description: `Calculate ${bank.name} Home Loan EMI instantly. Current interest rates start at ${bank.rate}%. Compare repayment schedules and processing fees.`,
     alternates: {
-      canonical: `https://fincado.com/bank-emi/${bank.slug}`,
+      // ✅ FIX 1: Added Trailing Slash to prevent redirect loop
+      canonical: `https://fincado.com/bank-emi/${bank.slug}/`,
     },
   };
 }
@@ -80,14 +80,10 @@ export default async function BankPage({
 
   if (!bank) notFound();
 
-  // 1. Get Competitor Data for Comparison Table
   const competitorSlugs = getCompetitors(bank.slug);
   const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
-
-  // 2. Select Top Cities for Internal Linking (Boosts SEO for city pages)
   const topCities = cities.slice(0, 12);
 
-  // 3. Dynamic Schema for FAQs
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -113,7 +109,6 @@ export default async function BankPage({
 
   return (
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* --- SCHEMAS --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -121,29 +116,29 @@ export default async function BankPage({
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Banks', url: 'https://fincado.com/bank-emi' },
+          { name: 'Banks', url: 'https://fincado.com/bank-emi/' }, // This usually auto-redirects, fine for breadcrumb
           {
             name: bank.name,
-            url: `https://fincado.com/bank-emi/${bank.slug}`,
+            // ✅ FIX 2: Ensure breadcrumb matches canonical
+            url: `https://fincado.com/bank-emi/${bank.slug}/`,
           },
         ]}
       />
       <CalculatorSchema
         name={`${bank.name} EMI Calculator`}
         description={`Official style EMI calculator for ${bank.name} loans with amortization schedule.`}
-        url={`https://fincado.com/bank-emi/${bank.slug}`}
+        url={`https://fincado.com/bank-emi/${bank.slug}/`}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* --- LEFT COLUMN (Content) --- */}
         <div className="lg:col-span-8 min-w-0">
-          {/* HEADER */}
           <header className="my-10">
             <Badge
               variant="secondary"
               className="mb-4 bg-sky-100 text-sky-700 hover:bg-sky-200 px-3 py-1 font-semibold uppercase tracking-wider"
             >
-              Updated for 2025
+              Updated for 2026
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
               {bank.name} EMI Calculator
@@ -164,7 +159,6 @@ export default async function BankPage({
             </p>
           </header>
 
-          {/* AD SLOT: High Visibility */}
           <div className="mb-10 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
             <AdSlot
               id="bank-top-leaderboard"
@@ -173,7 +167,6 @@ export default async function BankPage({
             />
           </div>
 
-          {/* CALCULATOR SECTION */}
           <Card className="mb-12 overflow-hidden border-none shadow-none">
             <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
               <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
@@ -184,7 +177,6 @@ export default async function BankPage({
             <CardContent className="p-2 sm:p-6 bg-white">
               <EMIClient defaultRate={bank.rate} />
 
-              {/* --- TRUST BUILDER: Rate Variance Explanation --- */}
               <div className="mt-6 bg-blue-50/50 border border-blue-100 rounded-xl p-5">
                 <div className="flex items-start gap-4">
                   <div className="p-2 bg-blue-100 rounded-full shrink-0">
@@ -211,7 +203,6 @@ export default async function BankPage({
             </CardContent>
           </Card>
 
-          {/* CONTENT SECTION 1: Features */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <CheckCircle2 className="h-6 w-6 text-sky-600" />
@@ -256,7 +247,6 @@ export default async function BankPage({
               ))}
             </div>
 
-            {/* CONTENT SECTION 2: Comparison Table */}
             <div className="mt-12">
               <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-indigo-600" />
@@ -283,7 +273,6 @@ export default async function BankPage({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {/* Current Bank Row */}
                     <TableRow className="bg-emerald-50/60 hover:bg-emerald-50">
                       <TableCell className="font-bold text-slate-900">
                         {bank.name}
@@ -294,12 +283,12 @@ export default async function BankPage({
                       <TableCell>30 Years</TableCell>
                     </TableRow>
 
-                    {/* Competitor Rows */}
                     {competitorBanks.map((comp) => (
                       <TableRow key={comp.slug}>
                         <TableCell>
                           <Link
-                            href={`/bank-emi/${comp.slug}`}
+                            // ✅ FIX 3: Added Trailing Slash to competitor links
+                            href={`/bank-emi/${comp.slug}/`}
                             className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
                           >
                             {comp.name}
@@ -319,7 +308,6 @@ export default async function BankPage({
             </div>
           </section>
 
-          {/* AD SLOT: Mid Content */}
           <div className="my-10 flex justify-center no-print">
             <AdSlot
               id="bank-mid-rectangle"
@@ -328,7 +316,6 @@ export default async function BankPage({
             />
           </div>
 
-          {/* CONTENT SECTION 3: Localized Links (Hub & Spoke Strategy) */}
           <Card className="mb-12 bg-slate-50/50 border-slate-200">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl">
@@ -345,7 +332,8 @@ export default async function BankPage({
                 {topCities.map((city) => (
                   <Link
                     key={city.slug}
-                    href={`/bank-emi/${bank.slug}/${city.slug}`}
+                    // ✅ FIX 4: Added Trailing Slash to city links (Critical for hub-spoke)
+                    href={`/bank-emi/${bank.slug}/${city.slug}/`}
                   >
                     <Button
                       variant="outline"
@@ -359,7 +347,6 @@ export default async function BankPage({
             </CardContent>
           </Card>
 
-          {/* CONTENT SECTION 4: FAQs */}
           <section className="mb-12">
             <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <HelpCircle className="h-6 w-6 text-amber-500" />
@@ -375,7 +362,7 @@ export default async function BankPage({
                   📉 What is the current interest rate for {bank.name}?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                  As of 2025, {bank.name} offers home loan interest rates
+                  As of 2026, {bank.name} offers home loan interest rates
                   starting from <strong>{bank.rate}% p.a.</strong> for salaried
                   employees with a credit score above 750. Rates may be slightly
                   higher for self-employed applicants.
@@ -400,8 +387,7 @@ export default async function BankPage({
         </div>
 
         {/* --- RIGHT COLUMN (Sidebar) --- */}
-        <aside className="lg:col-span-4 space-y-8 mt-12">
-          {/* Comparison Card */}
+        <aside className="lg:col-span-4 space-y-8 my-12">
           <Card className="border-slate-200 shadow-sm">
             <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100">
               <CardTitle className="text-lg font-bold text-slate-800">
@@ -416,14 +402,14 @@ export default async function BankPage({
                   .map((other) => (
                     <li key={other.slug}>
                       <Link
-                        href={`/bank-emi/${other.slug}`}
+                        // ✅ FIX 5: Added Trailing Slash to Sidebar Links
+                        href={`/bank-emi/${other.slug}/`}
                         className="flex items-center justify-between px-5 py-3 hover:bg-slate-50 transition-colors group"
                       >
                         <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600">
                           {other.name}
                         </span>
                         <div className="flex items-center gap-2">
-                          {/* Added 'title' for hover tooltip */}
                           <span
                             title="Indicative range. Actual rate depends on credit score."
                             className="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full whitespace-nowrap cursor-help"
@@ -437,7 +423,6 @@ export default async function BankPage({
                   ))}
               </ul>
 
-              {/* --- TRUST BUILDER: Disclaimer Footer --- */}
               <div className="bg-slate-50 px-5 py-3 border-t border-slate-100">
                 <p className="text-[10px] text-slate-500 leading-tight">
                   *Rates are indicative ranges based on recent market trends.
@@ -450,7 +435,6 @@ export default async function BankPage({
             </CardContent>
           </Card>
 
-          {/* Sticky Sidebar Ad */}
           <div className="sticky top-24 z-10 no-print">
             <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center">
               <AdSlot type="box" id="bank-sidebar" />
@@ -458,6 +442,8 @@ export default async function BankPage({
           </div>
         </aside>
       </div>
+
+      <StickyCompareFooter bankName={bank.name} bankSlug={bank.slug} />
     </main>
   );
 }
