@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
  * ✅ Source of Truth: Non-WWW domain.
  * This matches your server's forced redirect and fixes "Duplicate" errors in GSC.
  */
-const BASE_URL = 'https://fincado.com/';
+const BASE_URL = 'https://fincado.com';
 
 const excludedSlugs = [
   'home-loan-first-time-buyers',
