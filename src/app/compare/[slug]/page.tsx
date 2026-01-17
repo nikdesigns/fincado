@@ -50,24 +50,14 @@ import AuthorBio from '@/components/AuthorBio';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const topBanks = [
-    'sbi',
-    'hdfc',
-    'icici',
-    'axis',
-    'kotak',
-    'pnb',
-    'bob',
-    'lic-housing',
-    'bajaj',
-    'idfc-first',
-  ];
+  // ✅ FIX 1: Use the actual 'banks' list instead of a hardcoded array
+  // This ensures 'idfc', 'lic-housing', etc. are all included automatically
   const params: { slug: string }[] = [];
 
-  for (const b1 of topBanks) {
-    for (const b2 of topBanks) {
-      if (b1 !== b2) {
-        params.push({ slug: `${b1}-vs-${b2}` });
+  for (const b1 of banks) {
+    for (const b2 of banks) {
+      if (b1.slug !== b2.slug) {
+        params.push({ slug: `${b1.slug}-vs-${b2.slug}` });
       }
     }
   }
@@ -81,7 +71,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const [s1, , s2] = slug.split('-');
+
+  // ✅ FIX 2: Split by '-vs-' to correctly handle multi-word slugs like 'lic-housing'
+  const parts = slug.split('-vs-');
+  if (parts.length !== 2) return {};
+
+  const [s1, s2] = parts;
 
   const b1 = banks.find((b) => b.slug === s1);
   const b2 = banks.find((b) => b.slug === s2);
@@ -89,7 +84,7 @@ export async function generateMetadata({
   if (!b1 || !b2) return {};
 
   return {
-    title: `${b1.name} vs ${b2.name} Home Loan Comparison 2025 – Interest Rates & Verdict`,
+    title: `${b1.name} vs ${b2.name} Home Loan Comparison 2026 – Interest Rates & Verdict`,
     description: `Detailed ${b1.name} vs ${b2.name} home loan comparison covering interest rates (${b1.rate}% vs ${b2.rate}%), approval speed, eligibility, and long-term cost. Expert-reviewed.`,
     alternates: {
       canonical: `https://fincado.com/compare/${slug}/`,
@@ -104,7 +99,12 @@ export default async function ComparisonPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [s1, , s2] = slug.split('-');
+
+  // ✅ FIX 3: Correct splitting logic here as well
+  const parts = slug.split('-vs-');
+  if (parts.length !== 2) notFound();
+
+  const [s1, s2] = parts;
 
   const b1 = banks.find((b) => b.slug === s1);
   const b2 = banks.find((b) => b.slug === s2);
@@ -149,7 +149,7 @@ export default async function ComparisonPage({
       {/* ---------- HEADER ---------- */}
       <header className="max-w-4xl mx-auto text-center my-16">
         <Badge className="mb-4 bg-emerald-100 text-emerald-700 uppercase tracking-wider">
-          Expert Reviewed · 2025
+          Expert Reviewed · 2026
         </Badge>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 mb-6">

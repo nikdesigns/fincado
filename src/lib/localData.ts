@@ -660,6 +660,125 @@ export const cityDetails: Record<string, CityData> = {
     authority: 'GDA (Ghaziabad Development Authority)',
     avgPropertyRate: '₹4,000 - ₹9,500',
   },
+  // --- MISSING CITIES BATCH 2 (Fixes Hubli, Belgaum, etc.) ---
+  agra: {
+    name: 'Agra',
+    slug: 'agra',
+    pincodeStart: '282',
+    areas: [
+      'Taj Ganj',
+      'Sikandra',
+      'Dayal Bagh',
+      'Kamla Nagar',
+      'Fatehabad Road',
+    ],
+    description:
+      'a historic city and major tourist destination with a growing residential real estate market',
+    authority: 'ADA (Agra Development Authority)',
+    avgPropertyRate: '₹3,000 - ₹6,000',
+  },
+  faridabad: {
+    name: 'Faridabad',
+    slug: 'faridabad',
+    pincodeStart: '121',
+    areas: ['Sector 15', 'NIT', 'Neharpar', 'Sector 37', 'Greenfield Colony'],
+    description:
+      'a leading industrial hub in the NCR region with excellent connectivity to Delhi',
+    authority: 'HSVP (Haryana Shahari Vikas Pradhikaran)',
+    avgPropertyRate: '₹3,500 - ₹7,500',
+  },
+  mangalore: {
+    name: 'Mangalore',
+    slug: 'mangalore',
+    pincodeStart: '575',
+    areas: ['Bejai', 'Kadri', 'Kankanady', 'Surathkal', 'Valencia'],
+    description:
+      'a major port city and educational hub known for its high quality of life',
+    authority: 'MUDA (Mangalore Urban Development Authority)',
+    avgPropertyRate: '₹3,800 - ₹7,000',
+  },
+  madurai: {
+    name: 'Madurai',
+    slug: 'madurai',
+    pincodeStart: '625',
+    areas: [
+      'Anna Nagar',
+      'KK Nagar',
+      'Byepass Road',
+      'TVS Nagar',
+      'Vakkil New Street',
+    ],
+    description:
+      'the cultural capital of Tamil Nadu, seeing steady growth in the affordable housing sector',
+    authority: 'DTCP / LPA',
+    avgPropertyRate: '₹3,000 - ₹5,500',
+  },
+  jamshedpur: {
+    name: 'Jamshedpur',
+    slug: 'jamshedpur',
+    pincodeStart: '831',
+    areas: ['Sakchi', 'Bistupur', 'Telco Colony', 'Kadma', 'Sonari'],
+    description:
+      'the Steel City, offering one of the best planned urban infrastructures in eastern India',
+    authority: 'JNAC (Jamshedpur Notified Area Committee)',
+    avgPropertyRate: '₹2,800 - ₹5,500',
+  },
+  aurangabad: {
+    name: 'Aurangabad',
+    slug: 'aurangabad',
+    pincodeStart: '431',
+    areas: ['Cidco', 'Garkheda', 'Samarth Nagar', 'Beed Bypass', 'Chikalthana'],
+    description:
+      'a tourism and industrial hub in Maharashtra, emerging as a smart city',
+    authority: 'CIDCO Aurangabad',
+    avgPropertyRate: '₹3,000 - ₹5,500',
+  },
+  gwalior: {
+    name: 'Gwalior',
+    slug: 'gwalior',
+    pincodeStart: '474',
+    areas: ['City Center', 'Lashkar', 'Thatipur', 'Morar', 'University Road'],
+    description:
+      'a historic city in MP with a strategic location and growing counter-magnet status',
+    authority: 'GDA (Gwalior Development Authority)',
+    avgPropertyRate: '₹2,500 - ₹5,000',
+  },
+  vijayawada: {
+    name: 'Vijayawada',
+    slug: 'vijayawada',
+    pincodeStart: '520',
+    areas: ['Benz Circle', 'Patamata', 'Gunadala', 'Bhavanipuram', 'Gollapudi'],
+    description:
+      'a major commercial hub in Andhra Pradesh known for its rapid urban expansion',
+    authority: 'APCRDA',
+    avgPropertyRate: '₹4,000 - ₹8,000',
+  },
+  'hubli-dharwad': {
+    name: 'Hubli-Dharwad',
+    slug: 'hubli-dharwad',
+    pincodeStart: '580',
+    areas: ['Vidya Nagar', 'Keshwapur', 'Gokul Road', 'Sattur', 'Dharwad'],
+    description:
+      'the twin cities forming the second largest urban agglomeration in Karnataka',
+    authority: 'HDUDA',
+    avgPropertyRate: '₹2,500 - ₹4,500',
+  },
+  belgaum: {
+    name: 'Belgaum',
+    slug: 'belgaum',
+    pincodeStart: '590',
+    areas: [
+      'Tilakwadi',
+      'Sadashiv Nagar',
+      'Hanuman Nagar',
+      'Camp',
+      'Mandoli Road',
+    ],
+    description:
+      'a smart city on the Karnataka-Maharashtra border with a pleasant climate and military base',
+    authority: 'BUDA (Belgaum Urban Development Authority)',
+    avgPropertyRate: '₹2,800 - ₹5,000',
+  },
 
   // --- OTHERS & FALLBACK ---
   default: {
@@ -689,12 +808,20 @@ export const bankCompetitors: Record<string, string[]> = {
   hdfc: ['sbi', 'icici', 'axis', 'kotak'],
   icici: ['hdfc', 'sbi', 'axis', 'bajaj'],
   axis: ['icici', 'hdfc', 'sbi', 'kotak'],
-  kotak: ['hdfc', 'icici', 'axis', 'indusind'],
+
+  // ✅ UPDATED: Added idfc-first here so Kotak page links to it
+  kotak: ['hdfc', 'icici', 'axis', 'idfc-first'],
+
   pnb: ['sbi', 'bob', 'canara', 'union'],
   bob: ['sbi', 'pnb', 'boi', 'canara'],
   canara: ['union', 'pnb', 'bob', 'indian'],
-  bajaj: ['tata', 'hdfc', 'icici', 'aditya-birla'],
+  bajaj: ['tata', 'hdfc', 'icici', 'abc'],
   tata: ['bajaj', 'hdfc', 'icici', 'axis'],
+
+  // ✅ NEW ENTRY: This was missing!
+  // Without this, the page /bank-emi/idfc-first/ will have an empty sidebar
+  'idfc-first': ['hdfc', 'icici', 'axis', 'kotak'],
+
   default: ['sbi', 'hdfc', 'icici', 'bajaj'],
 };
 

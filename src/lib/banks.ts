@@ -20,7 +20,7 @@ export const banks: Bank[] = [
   { name: 'Canara Bank', slug: 'canara', rate: 8.65, maxRate: 9.55 },
   { name: 'Union Bank of India', slug: 'union', rate: 8.7, maxRate: 9.6 },
   { name: 'IndusInd Bank', slug: 'indusind', rate: 8.9, maxRate: 10.5 },
-  { name: 'IDFC First Bank', slug: 'idfc', rate: 8.75, maxRate: 10.5 },
+  { name: 'IDFC First Bank', slug: 'idfc-first', rate: 8.75, maxRate: 10.5 },
   { name: 'Yes Bank', slug: 'yes', rate: 9.05, maxRate: 10.25 },
   { name: 'Bajaj Finserv', slug: 'bajaj', rate: 8.5, maxRate: 12.0 },
   { name: 'Bank of India', slug: 'boi', rate: 8.65, maxRate: 9.45 },
