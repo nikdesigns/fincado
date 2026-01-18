@@ -74,6 +74,7 @@ export default function Footer() {
               Education Loan
             </FooterLink>
             <FooterLink href="/credit-score/">Check Credit Score</FooterLink>
+            <FooterLink href="/locations/">Browse Cities</FooterLink>
           </FooterColumn>
 
           {/* INVESTMENTS */}

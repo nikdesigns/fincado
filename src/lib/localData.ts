@@ -8,6 +8,158 @@ export interface CityData {
   avgPropertyRate: string; // Adds value for EMI Calculator
 }
 
+export interface StateDocs {
+  state: string;
+  regulator: string; // e.g., MahaRERA, TNRERA
+  documents: string[]; // e.g., "7/12 Extract", "Khata"
+}
+
+// Helper: Parse Rate String to Numbers (e.g. "₹18,000 - ₹45,000" -> {min: 18000, max: 45000, avg: 31500})
+export function parsePropertyRate(rateStr: string) {
+  try {
+    // Remove ₹ and commas, split by '-'
+    const cleanStr = rateStr.replace(/[₹,]/g, '');
+    const parts = cleanStr.split('-').map((s) => parseInt(s.trim()));
+
+    if (parts.length < 2 || isNaN(parts[0])) {
+      return { min: 3000, max: 5000, avg: 4000 }; // Safe fallback
+    }
+
+    const min = parts[0];
+    const max = parts[1];
+    return { min, max, avg: Math.round((min + max) / 2) };
+  } catch (e) {
+    return { min: 3000, max: 6000, avg: 4500 }; // Fallback
+  }
+}
+
+// Helper: Get State Info based on City Slug
+export function getStateInfo(citySlug: string): StateDocs {
+  const s = citySlug.toLowerCase();
+
+  // Maharashtra
+  if (
+    [
+      'mumbai',
+      'pune',
+      'nagpur',
+      'thane',
+      'navi-mumbai',
+      'nashik',
+      'aurangabad',
+    ].includes(s)
+  ) {
+    return {
+      state: 'Maharashtra',
+      regulator: 'MahaRERA',
+      documents: [
+        '7/12 Extract (Satbara)',
+        'Index II',
+        'Occupancy Certificate (OC)',
+      ],
+    };
+  }
+  // Karnataka
+  if (
+    ['bangalore', 'mysore', 'mangalore', 'hubli-dharwad', 'belgaum'].includes(s)
+  ) {
+    return {
+      state: 'Karnataka',
+      regulator: 'RERA Karnataka',
+      documents: [
+        'A-Khata / B-Khata',
+        'Encumbrance Certificate (EC)',
+        'Sale Deed',
+      ],
+    };
+  }
+  // Delhi NCR / UP / Haryana
+  if (
+    [
+      'delhi',
+      'noida',
+      'gurgaon',
+      'ghaziabad',
+      'faridabad',
+      'meerut',
+      'lucknow',
+      'kanpur',
+      'agra',
+      'allahabad',
+      'varanasi',
+    ].includes(s)
+  ) {
+    return {
+      state: 'Delhi NCR / UP',
+      regulator: 'UP RERA / DDA',
+      documents: [
+        'Allotment Letter',
+        'Possession Certificate',
+        'Conveyance Deed',
+      ],
+    };
+  }
+  // Tamil Nadu
+  if (['chennai', 'coimbatore', 'madurai', 'tirupati'].includes(s)) {
+    return {
+      state: 'Tamil Nadu',
+      regulator: 'TNRERA',
+      documents: [
+        'Patta Chitta',
+        'Encumbrance Certificate',
+        'Construction Agreement',
+      ],
+    };
+  }
+  // Gujarat
+  if (['ahmedabad', 'surat', 'vadodara', 'rajkot'].includes(s)) {
+    return {
+      state: 'Gujarat',
+      regulator: 'GUJRERA',
+      documents: [
+        '7/12 Extract',
+        'Property Card',
+        'BU Permission (Building Use)',
+      ],
+    };
+  }
+  // Telangana / Andhra
+  if (['hyderabad', 'visakhapatnam', 'vijayawada', 'tirupati'].includes(s)) {
+    return {
+      state: 'Telangana / Andhra',
+      regulator: 'RERA',
+      documents: ['Link Documents (30 Years)', 'LRS Approval', 'Sale Deed'],
+    };
+  }
+  // Kerala
+  if (['kochi', 'thiruvananthapuram'].includes(s)) {
+    return {
+      state: 'Kerala',
+      regulator: 'K-RERA',
+      documents: [
+        'Possession Certificate',
+        'Location Certificate',
+        'Title Deed',
+      ],
+    };
+  }
+  // West Bengal
+  if (['kolkata'].includes(s)) {
+    return {
+      state: 'West Bengal',
+      regulator: 'WBHIRA',
+      documents: ['Mutation Certificate', 'Porcha', 'Deed of Conveyance'],
+    };
+  }
+
+  // Default Fallback
+  return {
+    state: 'India',
+    regulator: 'RERA',
+    documents: ['Sale Deed', 'Possession Certificate', 'NOC from Builder'],
+  };
+}
+
 export const cityDetails: Record<string, CityData> = {
   // --- TIER 1 METROS ---
   mumbai: {
@@ -491,7 +643,7 @@ export const cityDetails: Record<string, CityData> = {
     description:
       'the gateway to North East India and a major riverine port city',
     authority: 'GMDA',
-    avgPropertyRate: '₹3,500 - ₹6,500',
+    avgPropertyRate: '₹3,500 - ₹6,000',
   },
   /* --- MISSING CITIES FIX (Newly Added for 404 Resolution) --- */
   thiruvananthapuram: {
@@ -809,9 +961,7 @@ export const bankCompetitors: Record<string, string[]> = {
   icici: ['hdfc', 'sbi', 'axis', 'bajaj'],
   axis: ['icici', 'hdfc', 'sbi', 'kotak'],
 
-  // ✅ UPDATED: Added idfc-first here so Kotak page links to it
   kotak: ['hdfc', 'icici', 'axis', 'idfc-first'],
-
   pnb: ['sbi', 'bob', 'canara', 'union'],
   bob: ['sbi', 'pnb', 'boi', 'canara'],
   canara: ['union', 'pnb', 'bob', 'indian'],

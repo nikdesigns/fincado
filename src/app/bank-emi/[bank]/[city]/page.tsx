@@ -8,9 +8,16 @@ import WikiText from '@/components/WikiText';
 import LegalNote from '@/components/LegalNote';
 import AuthorBio from '@/components/AuthorBio';
 import BankSelector from '@/components/BankSelector';
+import StickyCompareFooter from '@/components/StickyCompareFooter';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getCityData, getCompetitors, cityDetails } from '@/lib/localData';
+import {
+  getCityData,
+  getCompetitors,
+  cityDetails,
+  getStateInfo, // ✅ NEW: For State-specific text
+  parsePropertyRate, // ✅ NEW: For Real Math
+} from '@/lib/localData';
 
 // --- UI COMPONENTS ---
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,9 +46,9 @@ import {
   FileText,
   Home,
   Info,
-  GitCompare, // ✅ Added MapPin import
+  GitCompare,
+  Calculator, // ✅ NEW Icon
 } from 'lucide-react';
-import StickyCompareFooter from '@/components/StickyCompareFooter';
 
 /* ---------------- LOGIC ---------------- */
 
@@ -75,14 +82,30 @@ export async function generateMetadata({
   if (!bank) return {};
 
   return {
-    // ✅ FIX 1: Updated Year to 2026
     title: `${bank.name} Home Loan in ${cityData.name} 2026: Rates & EMI`,
-    description: `Applying for ${bank.name} loan in ${cityData.name}? Check interest rates starting @ ${bank.rate}%, branches near ${cityData.areas[0]}, and processing fees.`,
+    description: `Applying for ${bank.name} loan in ${cityData.name}? Check interest rates starting @ ${bank.rate}%, branches near ${cityData.areas[0]}, and ${cityData.authority} approval norms.`,
     alternates: {
-      // ✅ VERIFIED: Has trailing slash (Correct)
       canonical: `https://fincado.com/bank-emi/${bank.slug}/${cityData.slug}/`,
     },
   };
+}
+
+/* ---------------- HELPER FUNCTIONS (For Unique Content) ---------------- */
+
+function calculateEMI(principal: number, rate: number, years: number) {
+  const r = rate / 12 / 100;
+  const n = years * 12;
+  return Math.round(
+    (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
+  );
+}
+
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 /* ---------------- PAGE COMPONENT ---------------- */
@@ -101,6 +124,16 @@ export default async function BankCityPage({
   const competitorSlugs = getCompetitors(bank.slug);
   const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
 
+  // ✅ NEW: Fetch Dynamic Data for Content Injection
+  const stateInfo = getStateInfo(resolvedParams.city);
+  const rates = parsePropertyRate(cityData.avgPropertyRate);
+
+  // Real Estate Math
+  const avgHomeSize = 1000; // 1000 sqft standard
+  const estimatedHomeCost = rates.avg * avgHomeSize;
+  const loanAmount = Math.round(estimatedHomeCost * 0.8); // 80% LTV
+  const estimatedEMI = calculateEMI(loanAmount, bank.rate, 20);
+
   return (
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <BreadcrumbJsonLd
@@ -109,12 +142,10 @@ export default async function BankCityPage({
           { name: 'Banks', url: 'https://fincado.com/bank-emi/' },
           {
             name: bank.name,
-            // ✅ VERIFIED: Has trailing slash
             url: `https://fincado.com/bank-emi/${bank.slug}/`,
           },
           {
             name: cityData.name,
-            // ✅ VERIFIED: Has trailing slash
             url: `https://fincado.com/bank-emi/${bank.slug}/${resolvedParams.city}/`,
           },
         ]}
@@ -123,13 +154,13 @@ export default async function BankCityPage({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* --- LEFT COLUMN --- */}
         <div className="lg:col-span-8 min-w-0 my-12">
+          {/* HEADER */}
           <header className="my-10">
             <Badge
               variant="secondary"
               className="mb-4 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1 font-bold uppercase tracking-wider"
             >
-              {/* ✅ FIX 2: Dynamic Year Badge */}
-              2026 {cityData.name} Local Edition
+              2026 {cityData.name} Edition
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
               {bank.name} Home Loan in {cityData.name}
@@ -151,7 +182,10 @@ export default async function BankCityPage({
                   <strong class="text-emerald-600">${
                     bank.rate
                   }%</strong>, covering key residential hubs including 
-                  <strong> ${cityData.areas.join(', ')}</strong>.</p>`}
+                  <strong> ${cityData.areas.join(', ')}</strong>. 
+                  Properties approved by <strong>${
+                    cityData.authority
+                  }</strong> often get faster sanctioning.</p>`}
               />
             </div>
           </header>
@@ -164,16 +198,58 @@ export default async function BankCityPage({
             />
           </div>
 
+          {/* ✅ NEW: DYNAMIC AFFORDABILITY CARD (Fixes Thin Content) */}
+          <Card className="mb-12 bg-white text-slate-800 border border-slate-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-32 bg-slate-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <CardContent className="p-6 sm:p-8 relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <Calculator className="h-6 w-6 text-slate-400" />
+                <h3 className="text-xl font-bold">
+                  Real Cost in {cityData.name}
+                </h3>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-8">
+                <div>
+                  <p className="text-slate-900 text-xs uppercase tracking-wider mb-1">
+                    Avg. 2BHK Cost ({avgHomeSize} sqft)
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    {formatCurrency(estimatedHomeCost)}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-2">
+                    Based on avg rate: {cityData.avgPropertyRate}/sqft
+                  </p>
+                </div>
+                <div className="bg-lime/10 rounded-xl p-4 border border-lime/50">
+                  <p className="text-emerald-500 text-xs uppercase tracking-wider mb-1 font-bold">
+                    Est. EMI with {bank.name}
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    {formatCurrency(estimatedEMI)}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    @ {bank.rate}% for 20 Years (80% Loan)
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* CALCULATOR SECTION */}
           <Card className="mb-12 border-slate-200 shadow-sm overflow-hidden">
-            <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+            <CardHeader>
               <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
                 <Percent className="h-5 w-5 text-emerald-600" />
                 EMI Estimator for {cityData.name}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-2 sm:p-6 bg-white">
-              <EMIClient defaultRate={bank.rate} />
+              <EMIClient
+                defaultRate={bank.rate}
+                defaultPrincipal={loanAmount}
+                defaultTenure={20}
+              />
 
               <Alert className="mt-6 bg-blue-50/50 border-blue-100 rounded-xl">
                 <Info className="h-4 w-4 text-blue-600" />
@@ -186,7 +262,7 @@ export default async function BankCityPage({
             </CardContent>
           </Card>
 
-          {/* ✅ CROSS-LINKING COMPARISON SELECTOR */}
+          {/* CROSS-LINKING COMPARISON SELECTOR */}
           <section className="mb-12">
             <div className="flex items-center gap-3 mb-6">
               <GitCompare className="w-6 h-6 text-indigo-600" />
@@ -197,7 +273,7 @@ export default async function BankCityPage({
             <BankSelector />
           </section>
 
-          {/* NEW SECTION: Local Market Insights */}
+          {/* LOCAL MARKET INSIGHTS */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <Home className="h-6 w-6 text-emerald-600" />
@@ -233,25 +309,38 @@ export default async function BankCityPage({
             </div>
           </section>
 
-          {/* NEW SECTION: Documentation required locally */}
+          {/* ✅ UPDATED: DOCUMENTATION SECTION (State Specific) */}
           <section className="mb-12 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
             <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <FileText className="h-5 w-5 text-sky-600" />
-              Documents for {bank.name} in {cityData.name}
+              Documents for {stateInfo.state}
             </h3>
             <div className="prose prose-slate max-w-none text-sm text-slate-600 leading-relaxed">
               <p>
                 When applying for a loan at {bank.name} for a property in{' '}
-                {cityData.name}, ensure you have the following local documents
-                ready:
+                <strong>{cityData.name}</strong>, you must adhere to{' '}
+                <strong>{stateInfo.regulator}</strong> norms. Ensure you have
+                these documents:
               </p>
-              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2 mt-4">
-                <li>Sales Deed or Allotment Letter</li>
-                <li>Projects Approved by {cityData.authority}</li>
-                <li>Last 3 months salary slips</li>
-                <li>6 months bank statement</li>
-                <li>Occupancy Certificate (for ready-to-move)</li>
-                <li>Latest Property Tax Receipt</li>
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mt-4">
+                {stateInfo.documents.map((doc, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                    {doc}
+                  </li>
+                ))}
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                  {cityData.authority} Approved Plan
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                  Latest Property Tax Receipt
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                  6 Months Bank Statement
+                </li>
               </ul>
             </div>
           </section>

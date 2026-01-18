@@ -18,6 +18,8 @@ interface LabelConfig {
 interface EMIClientProps {
   labels?: LabelConfig;
   defaultRate?: number;
+  defaultPrincipal?: number; // ✅ Passed from Parent
+  defaultTenure?: number; // ✅ Passed from Parent
 }
 
 /* ---------- HELPERS ---------- */
@@ -29,10 +31,16 @@ const formatINR = (val: number) =>
   }).format(isNaN(val) ? 0 : val);
 
 /* ---------- COMPONENT ---------- */
-export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
-  const [amount, setAmount] = useState(5000000);
-  const [rate, setRate] = useState(defaultRate || 8.5);
-  const [tenure, setTenure] = useState(20);
+export default function EMIClient({
+  labels,
+  defaultRate = 8.5, // Set default directly here
+  defaultPrincipal = 5000000, // Default fallback if no city data
+  defaultTenure = 20, // Default fallback
+}: EMIClientProps) {
+  // ✅ NOW USING THE PROPS TO INITIALIZE STATE
+  const [amount, setAmount] = useState(defaultPrincipal);
+  const [rate, setRate] = useState(defaultRate);
+  const [tenure, setTenure] = useState(defaultTenure);
 
   const t: LabelConfig = labels || {
     loanAmount: 'Loan Amount (₹)',
@@ -78,7 +86,7 @@ export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
   }, [amount, rate, tenure]);
 
   return (
-    <Card className="border-border shadow-sm bg-card">
+    <Card className="border-none shadow-none bg-card">
       <CardContent className="p-6 sm:p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* INPUTS */}
@@ -87,7 +95,7 @@ export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
               label={t.loanAmount}
               value={amount}
               min={100000}
-              max={10000000}
+              max={20000000} // Increased max for expensive cities (Mumbai)
               step={50000}
               onChange={setAmount}
             />
@@ -95,7 +103,7 @@ export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
             <CalculatorField
               label={t.rate}
               value={rate}
-              min={1} // Prevent 0 to avoid complex edge cases, or handle 0 in calc
+              min={1}
               max={20}
               step={0.1}
               onChange={setRate}
@@ -104,7 +112,7 @@ export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
             <CalculatorField
               label={t.tenure}
               value={tenure}
-              min={1} // Prevent 0 tenure
+              min={1}
               max={30}
               step={1}
               onChange={setTenure}
@@ -123,29 +131,28 @@ export default function EMIClient({ labels, defaultRate }: EMIClientProps) {
                 {t.monthlyEMI}
               </div>
 
-              {/* Using brand color variable for consistency */}
               <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-700">
                 {formatINR(calculations.emi)}
               </div>
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
                 <Card className="border-border">
-                  <CardContent className="py-4">
-                    <div className="text-xs text-muted-foreground">
+                  <CardContent>
+                    <div className="text-xs text-muted-foreground whitespace-nowrap">
                       {t.principal}
                     </div>
-                    <div className="mt-1 font-semibold text-foreground">
+                    <div className="mt-1 font-semibold text-foreground whitespace-nowrap">
                       {formatINR(amount)}
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-900">
-                  <CardContent className="py-4">
+                  <CardContent>
                     <div className="text-xs text-red-700 dark:text-red-400">
                       {t.totalInterest}
                     </div>
-                    <div className="mt-1 font-semibold text-red-700 dark:text-red-400">
+                    <div className="mt-1 font-semibold text-red-700 dark:text-red-400 whitespace-nowrap">
                       +{formatINR(calculations.totalInterest)}
                     </div>
                   </CardContent>

@@ -9,7 +9,13 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import WikiText from '@/components/WikiText';
 import LegalNote from '@/components/LegalNote';
 import ShareTools from '@/components/ShareTools';
-import { getCityData, cityDetails } from '@/lib/localData';
+import {
+  getCityData,
+  cityDetails,
+  getStateInfo, // ✅ NEW
+  parsePropertyRate, // ✅ NEW
+} from '@/lib/localData';
+import { banks } from '@/lib/banks'; // ✅ NEW (For internal linking)
 
 // --- UI COMPONENTS ---
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,6 +31,7 @@ import {
   ChevronRight,
   Building2,
   Lightbulb,
+  Calculator, // ✅ NEW
 } from 'lucide-react';
 
 /* ---------------- TYPES ---------------- */
@@ -62,6 +69,24 @@ export async function generateMetadata({
   };
 }
 
+/* ---------------- HELPER FUNCTIONS ---------------- */
+
+function calculateEMI(principal: number, rate: number, years: number) {
+  const r = rate / 12 / 100;
+  const n = years * 12;
+  return Math.round(
+    (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
+  );
+}
+
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
 /* ---------------- PAGE COMPONENT ---------------- */
 
 export default async function CityEMIPage({
@@ -71,6 +96,15 @@ export default async function CityEMIPage({
 }) {
   const { city } = await params;
   const cityData = getCityData(city);
+
+  // ✅ NEW: Dynamic Data Calculation
+  const stateInfo = getStateInfo(city);
+  const rates = parsePropertyRate(cityData.avgPropertyRate);
+
+  const avgHomeSize = 1000; // 1000 sqft standard
+  const estimatedHomeCost = rates.avg * avgHomeSize;
+  const loanAmount = Math.round(estimatedHomeCost * 0.8); // 80% LTV
+  const estimatedEMI = calculateEMI(loanAmount, 8.75, 20); // Avg Rate 8.75%
 
   return (
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -128,7 +162,8 @@ export default async function CityEMIPage({
             <div className="prose prose-slate max-w-none">
               <WikiText
                 content={`<p class="text-xl text-slate-500 leading-relaxed">
-                  Planning to buy a vehicle or property in <strong>${cityData.name}</strong>? Given that ${cityData.name} is ${cityData.description}, 
+                  Planning to buy a vehicle or property in <strong>${cityData.name}</strong>? 
+                  With property rates averaging <strong>${cityData.avgPropertyRate} per sq. ft.</strong>, 
                   careful financial planning is key. Use this tool to calculate your monthly EMI specifically for the ${cityData.name} market.</p>`}
               />
             </div>
@@ -137,6 +172,44 @@ export default async function CityEMIPage({
           <div className="mb-10 no-print flex justify-center">
             <AdSlot id="city-top-leaderboard" type="leaderboard" />
           </div>
+
+          {/* ✅ NEW: DYNAMIC AFFORDABILITY CARD (The SEO Winner) */}
+          <Card className="mb-12 bg-white text-slate-800 border border-slate-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-32 bg-slate-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <CardContent className="p-6 sm:p-8 relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <Calculator className="h-6 w-6 text-slate-400" />
+                <h3 className="text-xl font-bold">
+                  Real Cost in {cityData.name}
+                </h3>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-8">
+                <div>
+                  <p className="text-slate-900 text-xs uppercase tracking-wider mb-1">
+                    Avg. 2BHK Cost ({avgHomeSize} sqft)
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    {formatCurrency(estimatedHomeCost)}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-2">
+                    Based on avg rate: {cityData.avgPropertyRate}/sqft
+                  </p>
+                </div>
+                <div className="bg-lime/10 rounded-xl p-4 border border-lime/50">
+                  <p className="text-emerald-500 text-xs uppercase tracking-wider mb-1 font-bold">
+                    Est. Monthly EMI
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    {formatCurrency(estimatedEMI)}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    @ 8.75% Interest (20 Years)
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* CALCULATOR CARD */}
           <Card className="mb-12 border-slate-200 shadow-sm overflow-hidden">
@@ -147,30 +220,55 @@ export default async function CityEMIPage({
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 sm:p-8 bg-white">
-              <EMIClient />
+              {/* ✅ UPDATE: Pre-fill calculator with City Values */}
+              <EMIClient defaultPrincipal={loanAmount} defaultRate={8.75} />
 
               <Alert className="mt-8 bg-blue-50/50 border-blue-100 rounded-xl">
                 <Info className="h-4 w-4 text-blue-600" />
                 <AlertDescription className="text-xs text-blue-800 leading-relaxed italic">
-                  <strong>Important:</strong> Interest rates in {cityData.name}{' '}
-                  typically range from 8.50% to 9.50% depending on the lender
-                  and your credit score.
+                  <strong>Values Pre-filled:</strong> We have set the loan
+                  amount to <strong>{formatCurrency(loanAmount)}</strong> based
+                  on {cityData.name} real estate averages.
                 </AlertDescription>
               </Alert>
             </CardContent>
           </Card>
 
-          {/* RATES SECTION */}
+          {/* ✅ NEW: INTERNAL LINKING GRID (Critical for SEO) */}
           <section className="mb-16">
             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <Building2 className="h-6 w-6 text-sky-600" />
-              Latest Interest Rates in {cityData.name}
+              Bank Offers in {cityData.name}
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-600 mb-6">
-              <p>
-                Compare offerings from major lenders active in areas like{' '}
-                {cityData.areas.slice(0, 3).join(', ')}:
-              </p>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {banks.slice(0, 6).map((bank) => (
+                <Link key={bank.slug} href={`/bank-emi/${bank.slug}/${city}/`}>
+                  <Card className="hover:border-emerald-300 transition-colors cursor-pointer h-full group">
+                    <CardContent className="p-4 flex flex-col justify-between h-full">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="font-bold text-slate-800 group-hover:text-emerald-700">
+                          {bank.name}
+                        </span>
+                        <Badge variant="outline" className="text-[10px]">
+                          {bank.rate}%
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-slate-500">
+                        View {cityData.name} Branch Rates &rarr;
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* LIVE RATES (General) */}
+          <section className="mb-16">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-slate-900">
+                National Rate Comparison
+              </h3>
             </div>
             <LiveRateTable type="homeLoan" />
           </section>
@@ -190,11 +288,12 @@ export default async function CityEMIPage({
               </p>
             </div>
 
+            {/* ✅ UPDATED: Dynamic State Documents */}
             <Card className="bg-slate-50/50 border-slate-200 rounded-2xl mb-8">
               <CardContent className="p-6">
                 <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
-                  <FileText className="w-4 h-4 text-sky-600" /> Required
-                  Documents
+                  <FileText className="w-4 h-4 text-sky-600" />
+                  Required Documents ({stateInfo.state})
                 </h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <ul className="space-y-2 text-sm text-slate-600">
@@ -202,10 +301,12 @@ export default async function CityEMIPage({
                       <ChevronRight className="w-3 h-3 text-emerald-500" /> ID
                       Proof (Aadhaar/PAN)
                     </li>
-                    <li className="flex items-center gap-2">
-                      <ChevronRight className="w-3 h-3 text-emerald-500" />{' '}
-                      Address Proof
-                    </li>
+                    {stateInfo.documents.map((doc, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <ChevronRight className="w-3 h-3 text-emerald-500" />{' '}
+                        {doc}
+                      </li>
+                    ))}
                   </ul>
                   <ul className="space-y-2 text-sm text-slate-600">
                     <li className="flex items-center gap-2">
@@ -215,6 +316,10 @@ export default async function CityEMIPage({
                     <li className="flex items-center gap-2">
                       <ChevronRight className="w-3 h-3 text-emerald-500" />{' '}
                       Salary slips or ITR
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <ChevronRight className="w-3 h-3 text-emerald-500" />{' '}
+                      {stateInfo.regulator} Registration
                     </li>
                   </ul>
                 </div>
