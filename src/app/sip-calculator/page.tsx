@@ -21,13 +21,14 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { TrendingUp, BadgeCheck } from 'lucide-react'; // ✅ Icons added
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title:
-    'SIP Calculator 2025 – Calculate Mutual Fund Returns (Inflation Adjusted)',
+  title: 'SIP Calculator – Calculate Mutual Fund Returns (Updated for 2026)',
   description:
-    'Calculate future value of monthly SIPs with our Mutual Fund Calculator. Check returns with inflation adjustment, tax implications (LTCG), and step-up growth.',
+    'Calculate future value of monthly SIPs with our Mutual Fund Calculator. Check returns with inflation adjustment, tax implications (LTCG 12.5%), and step-up growth.',
   keywords: [
     'SIP Calculator',
     'Mutual Fund Calculator',
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/sip-calculator/',
   },
   openGraph: {
-    title: 'SIP Calculator – The Power of Compounding',
+    title: 'SIP Calculator – Updated After Budget 2026',
     description:
       'Visualize how small monthly investments grow into a large corpus over time.',
     url: 'https://fincado.com/sip-calculator/',
@@ -76,16 +77,35 @@ export default function SIPPage() {
     </ul>
   `);
 
+  // ✅ UPDATED: Specific 12.5% Tax Rule added
   const taxContent = autoLinkContent(`
-    <p>
-      SIP returns are taxed based on the type of mutual fund (Equity vs Debt) and the holding period. 
-      For <strong>Equity Mutual Funds</strong> (holding > 65% in stocks):
-    </p>
-    <ul class="list-disc list-inside space-y-2 mt-2">
-      <li><strong>Short Term (STCG):</strong> If sold before 1 year, gains are taxed at 20%.</li>
-      <li><strong>Long Term (LTCG):</strong> If sold after 1 year, gains above ₹1.25 Lakh/year are taxed at 12.5%.</li>
-    </ul>
-  `);
+  <p>
+    SIP returns are taxed based on the type of mutual fund (Equity vs Debt) and
+    the holding period. Taxation rules are subject to change based on Union Budgets
+    and SEBI regulations.
+  </p>
+
+  <p class="mt-3">
+    For <strong>Equity Mutual Funds</strong> (schemes investing more than 65% in equities):
+  </p>
+
+  <ul class="list-disc list-inside space-y-2 mt-2">
+    <li>
+      <strong>Short-Term Capital Gains (STCG):</strong>
+      Applicable if units are sold within 12 months, taxed at <strong>20%</strong> (plus cess).
+    </li>
+    <li>
+      <strong>Long-Term Capital Gains (LTCG):</strong>
+      Applicable if units are held for more than 12 months. Gains exceeding <strong>₹1.25 Lakh</strong> 
+      in a financial year are taxed at <strong>12.5%</strong> without indexation.
+    </li>
+  </ul>
+
+  <p class="mt-3 text-xs text-slate-500">
+    Union Budget 2026 maintained these rates (introduced in July 2024). 
+    Investors should plan redemptions to maximize the ₹1.25 Lakh tax-free limit.
+  </p>
+`);
 
   const advantagesContent = autoLinkContent(`
     <ul class="list-disc list-inside space-y-2">
@@ -93,6 +113,7 @@ export default function SIPPage() {
       <li><strong>Disciplined Savings:</strong> Auto-debit ensures you save first, spend later.</li>
       <li><strong>Flexibility:</strong> You can pause, stop, or increase (step-up) your investment amount anytime.</li>
       <li><strong>Power of Compounding:</strong> Returns earned on your returns accelerate wealth creation over time.</li>
+      <li><strong>Budget Neutral:</strong> SIP investing rules remain unchanged after Union Budget 2026.</li>
     </ul>
   `);
 
@@ -120,6 +141,12 @@ export default function SIPPage() {
       question: 'What is a Step-Up SIP?',
       answer:
         'A Step-Up SIP allows you to increase your SIP amount every year (for example by 10%) as your income grows, significantly boosting long-term wealth.',
+    },
+    {
+      id: 'faq-5',
+      question: 'Did Budget 2026 change SIP taxation or mutual fund rules?',
+      answer:
+        'No. Union Budget 2026 did not introduce any changes to SIP investments. However, keep in mind that LTCG is now 12.5% on gains above ₹1.25 Lakh (effective from previous finance bills).',
     },
   ];
 
@@ -158,19 +185,11 @@ export default function SIPPage() {
           </div>
 
           {/* Title */}
-          <h1
-            className="
-      text-[clamp(1.9rem,4vw,2.6rem)]
-      font-semibold
-      leading-tight
-      tracking-[-0.02em]
-      text-slate-900
-    "
-          >
+          <h1 className="text-[clamp(1.9rem,4vw,2.6rem)] font-semibold leading-tight tracking-[-0.02em] text-slate-900">
             <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
               SIP Calculator
             </span>
-            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+            <span className="block mt-2 text-base sm:text-lg font-medium text-emerald-700">
               Plan your wealth creation with disciplined investing
             </span>
           </h1>
@@ -179,14 +198,30 @@ export default function SIPPage() {
           <div className="mt-4 max-w-3xl text-slate-500 text-base leading-relaxed">
             <WikiText
               content={`
-        <p>
-          See the magic of <strong>compounding</strong>. Calculate how your small
-          monthly SIP investments grow over time and plan confidently for
-          long-term goals.
-          <strong> Accurate. Free. Inflation-adjusted.</strong>
-        </p>
-      `}
+                <p>
+                  See the magic of <strong>compounding</strong>. Calculate how your small
+                  monthly SIP investments grow over time and plan confidently for
+                  long-term goals.
+                  <strong> Accurate. Free. Inflation-adjusted.</strong>
+                </p>
+              `}
             />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-white border border-slate-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-slate-900">
+                Budget 2026: SIP Status Quo
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                The Union Budget 2026 announced no changes to SIP taxation.
+                Long-term capital gains continue to be taxed at{' '}
+                <strong>12.5%</strong> (for gains &gt; ₹1.25L), maintaining
+                stability for mutual fund investors.
+              </p>
+            </div>
           </div>
         </header>
 
@@ -233,26 +268,14 @@ export default function SIPPage() {
             {/* --- PROMO BOX --- */}
             <Card className="no-print my-8 border-emerald-200 bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-4 sm:p-6">
-                {/* Icon */}
                 <span className="text-2xl leading-none">🏆</span>
-
-                {/* Content */}
                 <div>
                   <strong className="block text-base font-semibold text-emerald-800">
-                    Where to invest in 2025?
+                    Where to invest in 2026?
                   </strong>
-
                   <Link
                     href="/guides/sip-investment-guide/"
-                    className="
-          mt-1 inline-block
-          text-sm
-          font-semibold
-          text-emerald-700
-          underline
-          underline-offset-4
-          hover:text-emerald-800
-        "
+                    className="mt-1 inline-block text-sm font-semibold text-emerald-700 underline underline-offset-4 hover:text-emerald-800"
                   >
                     Read our Guide: Best SIP Investment Strategies →
                   </Link>
@@ -269,9 +292,19 @@ export default function SIPPage() {
                     <h2 className="text-2xl font-semibold text-slate-900">
                       What is a Systematic Investment Plan (SIP)?
                     </h2>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={introContent} />
+                      <Alert className="mt-4 bg-white border-l-4 border-l-emerald-500 border-y border-r border-slate-200 shadow-sm">
+                        <TrendingUp className="h-4 w-4 text-emerald-600" />
+                        <AlertTitle className="text-slate-900 font-semibold text-sm">
+                          Investment Status Update
+                        </AlertTitle>
+                        <AlertDescription className="text-xs text-slate-600 mt-1 leading-relaxed">
+                          Union Budget 2026 did not make any changes to SIP
+                          investment rules. SIP returns continue to be taxed at
+                          the standard LTCG rate of 12.5%.
+                        </AlertDescription>
+                      </Alert>
                     </div>
                   </section>
 
@@ -286,7 +319,7 @@ export default function SIPPage() {
                     </div>
                   </section>
 
-                  {/* --- AD SLOT (UNCHANGED POSITION) --- */}
+                  {/* --- AD SLOT --- */}
                   <div className="no-print my-8 flex justify-center">
                     <AdSlot type="square" label="Advertisement" />
                   </div>
@@ -296,20 +329,19 @@ export default function SIPPage() {
                     <h3 className="text-xl font-semibold text-slate-900">
                       How This SIP Calculator Helps Your Wealth Planning
                     </h3>
-
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <p>
-                Investing without a target is like driving without a destination.
-                This calculator helps you <strong>visualize long-term growth</strong>
-                and understand the impact of <strong>inflation</strong> on your wealth.
-              </p>
-            `}
+                          <p>
+                            Investing without a target is like driving without a destination.
+                            This calculator helps you <strong>visualize long-term growth</strong>
+                            and understand the impact of <strong>inflation</strong> on your wealth.
+                          </p>
+                        `}
                       />
                     </div>
 
-                    {/* Advantage Grid — SAME SYSTEM AS OTHER PAGES */}
+                    {/* Advantage Grid */}
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <Card className="border-slate-200 bg-slate-50">
                         <CardContent className="p-4">
@@ -347,14 +379,17 @@ export default function SIPPage() {
                         </CardContent>
                       </Card>
                     </div>
+                    <div className="mt-2 text-xs text-slate-500">
+                      Returns shown are illustrative and not guaranteed. SIP
+                      investments are subject to market risks.
+                    </div>
                   </section>
 
                   {/* --- TAXATION --- */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Taxation on SIP Returns (Updated 2025)
+                      Taxation on SIP Returns (Updated 2026)
                     </h3>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={taxContent} />
                     </div>
@@ -369,15 +404,14 @@ export default function SIPPage() {
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <p>
-                SIP returns are calculated using the <strong>Future Value of Annuity Due</strong>
-                formula, as investments are made at the beginning of each period.
-              </p>
-            `}
+                          <p>
+                            SIP returns are calculated using the <strong>Future Value of Annuity Due</strong>
+                            formula, as investments are made at the beginning of each period.
+                          </p>
+                        `}
                       />
                     </div>
 
-                    {/* Formula Box — EXACT EMI STYLE */}
                     <div className="overflow-x-auto text-sm rounded-lg border border-slate-200 bg-slate-50 p-4 ">
                       <BlockMath math="FV = P \\times \\frac{(1 + i)^n - 1}{i} \\times (1 + i)" />
                     </div>
@@ -385,13 +419,13 @@ export default function SIPPage() {
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul class="list-disc list-inside space-y-2 text-xs sm:text-sm">
-                <li><strong>FV</strong> = Future Value</li>
-                <li><strong>P</strong> = Monthly Investment Amount</li>
-                <li><strong>i</strong> = Monthly Rate (Annual Rate ÷ 1200)</li>
-                <li><strong>n</strong> = Total Number of Months</li>
-              </ul>
-            `}
+                          <ul class="list-disc list-inside space-y-2 text-xs sm:text-sm">
+                            <li><strong>FV</strong> = Future Value</li>
+                            <li><strong>P</strong> = Monthly Investment Amount</li>
+                            <li><strong>i</strong> = Monthly Rate (Annual Rate ÷ 1200)</li>
+                            <li><strong>n</strong> = Total Number of Months</li>
+                          </ul>
+                        `}
                       />
                     </div>
                   </section>

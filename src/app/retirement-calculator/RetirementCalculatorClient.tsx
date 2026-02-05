@@ -240,6 +240,10 @@ export default function RetirementCalculatorClient({
             </div>
           </div>
         </div>
+        <p className="mt-10 text-xs text-slate-500">
+          Assumes a 25-year retirement period. Adjust expectations if you plan
+          to retire early or expect longer longevity.
+        </p>
       </CardContent>
     </Card>
   );

@@ -23,12 +23,12 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
-import { BookOpen, ArrowRight } from 'lucide-react';
-
+import { BookOpen, ArrowRight, Info } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'EMI Calculator – Calculate Home, Car & Personal Loan EMI',
+  title: 'EMI Calculator – Calculate Loan EMI After Budget 2026',
   description:
     'Use Fincado’s accurate EMI Calculator to check monthly installments, total interest, and amortization schedule. Compare rates and plan prepayments instantly.',
   keywords: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/emi-calculator/',
   },
   openGraph: {
-    title: 'EMI Calculator – Plan Your Loan Repayment',
+    title: 'EMI Calculator – Calculate Loan EMI After Budget 2026',
     description:
       'Free tool to calculate EMI, Interest, and Tenure for any loan.',
     url: 'https://fincado.com/emi-calculator/',
@@ -113,6 +113,12 @@ export default function EMIPage() {
       answer:
         'Yes. EMI can change if interest rates change or if you make part prepayments.',
     },
+    {
+      id: 'faq-6',
+      question: 'Did Budget 2026 change EMI calculation rules?',
+      answer:
+        'No. Union Budget 2026 did not introduce any changes to EMI calculation formulas for home loans, car loans, or personal loans. EMIs are still calculated using the reducing balance method.',
+    },
   ];
 
   return (
@@ -139,7 +145,7 @@ export default function EMIPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <header style={{ marginBottom: 32 }} className="no-print">
           <div className="no-print mb-6 flex items-center justify-between gap-4">
-            <ShareTools title="EMI Calculator" />
+            <ShareTools title="EMI Calculator – Calculate Loan EMI After Budget 2026" />
             <LanguageToggle path="/hi/emi-calculator" />
           </div>
           <h1
@@ -182,6 +188,17 @@ export default function EMIPage() {
         <div className="layout-grid">
           <div className="main-content">
             <EMIClient />
+            <Alert className="mt-6 bg-slate-50/50 border-slate-200 text-slate-600">
+              <Info className="h-4 w-4 text-indigo-500 mt-0.5" />
+              <AlertDescription className="ml-2 text-sm leading-relaxed">
+                <strong className="text-slate-900 font-semibold block mb-0.5">
+                  Budget 2026 Update
+                </strong>
+                This calculator follows standard banking formulas. There were no
+                changes to EMI calculation rules for home or personal loans in
+                the Union Budget 2026.
+              </AlertDescription>
+            </Alert>
 
             <section className="no-print mt-8">
               <Card className="border-slate-200 bg-white">
@@ -237,9 +254,7 @@ export default function EMIPage() {
                     href="/guides/emi-calculator-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
-                    <span>
-                      Read our 2025 EMI Guide: Formulas & Smart Planning
-                    </span>
+                    <span>Read our EMI Guide (Updated for 2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>

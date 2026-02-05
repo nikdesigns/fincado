@@ -24,13 +24,13 @@ import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'FD Calculator 2025 – Calculate Interest & Maturity Value',
+  title: 'FD Calculator 2026 – Calculate Interest & Maturity Value',
   description:
-    'Calculate Fixed Deposit maturity amount with our accurate FD Calculator. Check monthly/quarterly payouts, TDS deduction rules, and 2025 interest rates.',
+    'Calculate Fixed Deposit maturity amount with our accurate FD Calculator. Check monthly/quarterly payouts, TDS deduction rules, and 2026 interest rates.',
   keywords: [
     'FD Calculator',
     'Fixed Deposit Calculator',
-    'FD Interest Rates 2025',
+    'FD Interest Rates 2026',
     'Term Deposit Calculator',
     'FD TDS Calculator',
     'Cumulative vs Non-Cumulative FD',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/fd-calculator/',
   },
   openGraph: {
-    title: 'FD Calculator – Secure Your Savings',
+    title: 'FD Calculator 2026 – Secure Your Savings',
     description:
       'Free tool to calculate FD maturity amount, total interest, and effective yield.',
     url: 'https://fincado.com/fd-calculator/',
@@ -348,7 +348,7 @@ export default function FDPage() {
                   {/* --- TDS SECTION --- */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      TDS on FD Interest (2025 Rules)
+                      TDS on FD Interest (2026 Rules)
                     </h3>
 
                     <div className="text-slate-700 leading-relaxed">

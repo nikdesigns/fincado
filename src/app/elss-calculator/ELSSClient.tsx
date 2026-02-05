@@ -36,8 +36,9 @@ const DEFAULT_LABELS: LabelConfig = {
   maturityValue: 'Total Maturity Value',
   invested: 'Total Invested',
   returns: 'Wealth Gain',
-  taxSaved: 'Tax Saved (Section 80C)',
+  taxSaved: 'Potential Tax Saving (Section 80C)',
 };
+const assumedTaxRate = 0.3;
 
 export default function ELSSClient({ labels = {} }: ELSSClientProps) {
   const t = { ...DEFAULT_LABELS, ...labels };
@@ -63,7 +64,7 @@ export default function ELSSClient({ labels = {} }: ELSSClientProps) {
     // Tax saving logic (₹1.5L limit)
     const annualInvestment = monthlySIP * 12;
     const eligible = Math.min(annualInvestment, 150000);
-    const yearlyTaxSaved = Math.round(eligible * 0.312); // 30% + cess
+    const yearlyTaxSaved = Math.round(eligible * assumedTaxRate);
     const totalTaxSaved = yearlyTaxSaved * years;
 
     const investedPct =
@@ -160,6 +161,10 @@ export default function ELSSClient({ labels = {} }: ELSSClientProps) {
               </div>
             </div>
           </div>
+        </div>
+        <div className="mt-8 text-xs text-slate-500 text-left">
+          Tax savings shown are indicative and depend on your tax regime and
+          slab. Section 80C benefits remain unchanged after Union Budget 2026.
         </div>
       </CardContent>
     </Card>

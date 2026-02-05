@@ -1,684 +1,488 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import CalculatorField from '@/components/CalculatorField';
+import { Slider } from '@/components/ui/slider';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import {
+  Settings2,
+  TrendingUp,
+  Wallet,
+  RefreshCcw,
+  PieChart,
+} from 'lucide-react';
 
 // --- Utility: Format Currency ---
-function formatINR(v: number) {
-  return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 });
-}
+const formatINR = (val: number) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(isNaN(val) ? 0 : val);
 
 // --- Constants ---
-const DEFAULT_ASSET_RETURNS = {
-  equity: 12,
-  debt: 7,
-  gold: 6,
-  cash: 4,
-};
+const DEFAULT_RETURNS = { equity: 12, debt: 7, gold: 8 };
 
-type PieSlice = { color: string; pct: number };
-
-// --- Sub-Component: Pie Chart ---
-function PieChart({
+// --- Donut Chart (Fixed Immutability Issue) ---
+function MultiAssetChart({
   slices,
-  size = 220,
+  totalValue,
 }: {
-  slices: PieSlice[];
-  size?: number;
+  slices: { color: string; pct: number; label: string }[];
+  totalValue: string;
 }) {
-  const strokeWidth = Math.round(size * 0.18);
+  const size = 220;
+  const strokeWidth = 24;
   const r = (size - strokeWidth) / 2;
-  const cx = size / 2;
-  const cy = size / 2;
   const circumference = 2 * Math.PI * r;
 
-  let offset = 0;
-  const segments = slices.map((s) => {
-    const len = (s.pct / 100) * circumference;
-    const seg = { ...s, len, offset };
-    // eslint-disable-next-line react-hooks/immutability
-    offset += len;
-    return seg;
-  });
+  // ✅ FIX: Use reduce to avoid mutating a variable inside map
+  const { segments: chartSegments } = slices.reduce(
+    (acc, slice) => {
+      const dashArray = (slice.pct / 100) * circumference;
+      const dashOffset = -acc.offset;
+
+      acc.segments.push({
+        color: slice.color,
+        dashArray,
+        dashOffset,
+      });
+
+      acc.offset += dashArray;
+      return acc;
+    },
+    {
+      segments: [] as {
+        color: string;
+        dashArray: number;
+        dashOffset: number;
+      }[],
+      offset: 0,
+    }
+  );
 
   return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        position: 'relative',
-        margin: '0 auto',
-      }}
-    >
-      <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-        role="img"
-        aria-label="Allocation chart"
-      >
-        <circle
-          cx={cx}
-          cy={cy}
-          r={r}
-          fill="none"
-          stroke="#f1f5f9"
-          strokeWidth={strokeWidth}
-        />
-        <g transform={`rotate(-90 ${cx} ${cy})`}>
-          {segments.map((seg, i) => (
-            <circle
-              key={i}
-              cx={cx}
-              cy={cy}
-              r={r}
-              fill="none"
-              stroke={seg.color}
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${seg.len} ${Math.max(
-                0,
-                circumference - seg.len
-              )}`}
-              strokeDashoffset={-seg.offset}
-              strokeLinecap="round"
-              style={{
-                transition:
-                  'stroke-dasharray 350ms ease, stroke-dashoffset 350ms ease',
-              }}
-            />
-          ))}
-        </g>
-        <circle cx={cx} cy={cy} r={r * 0.52} fill="#fff" />
-        <text
-          x={cx}
-          y={cy - 6}
-          textAnchor="middle"
-          fontWeight={700}
-          fontSize={18}
-          fill="#0f172a"
+    <div className="relative flex flex-col items-center justify-center py-6">
+      <div style={{ width: size, height: size }} className="relative">
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          className="-rotate-90"
         >
-          {slices.length > 0 ? `${Math.round(slices[0].pct)}%` : '—'}
-        </text>
-        <text
-          x={cx}
-          y={cy + 16}
-          textAnchor="middle"
-          fontSize={12}
-          fill="#64748b"
-        >
-          Equity
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-// --- Main Component ---
-export default function InvestingClient() {
-  // --- State ---
-  const [monthlySIP, setMonthlySIP] = useState<number>(5000);
-  const [lumpSum, setLumpSum] = useState<number>(50000);
-  const [years, setYears] = useState<number>(10);
-  const [inflationPct, setInflationPct] = useState<number>(6);
-
-  // Asset Mix (0-100)
-  const [assetEquityPct, setAssetEquityPct] = useState<number>(60);
-  const [assetDebtPct, setAssetDebtPct] = useState<number>(30);
-  const [assetGoldPct, setAssetGoldPct] = useState<number>(5);
-  const [assetCashPct, setAssetCashPct] = useState<number>(5);
-
-  // Return Assumptions
-  const [equityReturn, setEquityReturn] = useState<number>(
-    DEFAULT_ASSET_RETURNS.equity
-  );
-  const [debtReturn, setDebtReturn] = useState<number>(
-    DEFAULT_ASSET_RETURNS.debt
-  );
-  const [goldReturn, setGoldReturn] = useState<number>(
-    DEFAULT_ASSET_RETURNS.gold
-  );
-  const [cashReturn, setCashReturn] = useState<number>(
-    DEFAULT_ASSET_RETURNS.cash
-  );
-
-  // --- Derived Calculations ---
-  const months = Math.max(1, Math.round(Math.max(0.1, years) * 12));
-
-  // Normalize allocation to ensure it sums to 1 (100%)
-  const rawTotalAlloc =
-    Math.max(0, assetEquityPct) +
-    Math.max(0, assetDebtPct) +
-    Math.max(0, assetGoldPct) +
-    Math.max(0, assetCashPct);
-
-  const alloc = useMemo(() => {
-    if (rawTotalAlloc <= 0)
-      return { equity: 0.6, debt: 0.3, gold: 0.05, cash: 0.05 };
-    return {
-      equity: Math.max(0, assetEquityPct) / rawTotalAlloc,
-      debt: Math.max(0, assetDebtPct) / rawTotalAlloc,
-      gold: Math.max(0, assetGoldPct) / rawTotalAlloc,
-      cash: Math.max(0, assetCashPct) / rawTotalAlloc,
-    };
-  }, [assetEquityPct, assetDebtPct, assetGoldPct, assetCashPct, rawTotalAlloc]);
-
-  // Future Value Logic
-  function calculateFV(
-    p: number,
-    r: number,
-    n: number,
-    type: 'sip' | 'lumpsum'
-  ) {
-    if (p <= 0) return 0;
-    const monthlyRate = r / 12 / 100;
-    if (monthlyRate === 0) return p * (type === 'sip' ? n : 1);
-
-    if (type === 'lumpsum') {
-      return p * Math.pow(1 + monthlyRate, n);
-    } else {
-      // SIP Formula (Annuity Due)
-      return (
-        p *
-        ((Math.pow(1 + monthlyRate, n) - 1) / monthlyRate) *
-        (1 + monthlyRate)
-      );
-    }
-  }
-
-  const perAssetFuture = useMemo(() => {
-    const calc = (ratio: number, rate: number) => {
-      const sipPart = calculateFV(monthlySIP * ratio, rate, months, 'sip');
-      const lumpPart = calculateFV(lumpSum * ratio, rate, months, 'lumpsum');
-      return sipPart + lumpPart;
-    };
-
-    const equity = calc(alloc.equity, equityReturn);
-    const debt = calc(alloc.debt, debtReturn);
-    const gold = calc(alloc.gold, goldReturn);
-    const cash = calc(alloc.cash, cashReturn);
-
-    return { equity, debt, gold, cash, total: equity + debt + gold + cash };
-  }, [
-    monthlySIP,
-    lumpSum,
-    alloc,
-    equityReturn,
-    debtReturn,
-    goldReturn,
-    cashReturn,
-    months,
-  ]);
-
-  const totalInvested = Math.round(monthlySIP * months + lumpSum);
-  const totalFuture = Math.round(perAssetFuture.total);
-  const totalReturns = Math.max(0, totalFuture - totalInvested);
-
-  // Pie Chart Data
-  const pie = useMemo(() => {
-    const t = perAssetFuture.total || 1;
-    return {
-      equityPct: Math.round((perAssetFuture.equity / t) * 100),
-      debtPct: Math.round((perAssetFuture.debt / t) * 100),
-      goldPct: Math.round((perAssetFuture.gold / t) * 100),
-      cashPct: Math.round((perAssetFuture.cash / t) * 100), // Approximate remainder
-    };
-  }, [perAssetFuture]);
-
-  // Blended Return
-  const blendedReturn = Number(
-    (
-      alloc.equity * equityReturn +
-      alloc.debt * debtReturn +
-      alloc.gold * goldReturn +
-      alloc.cash * cashReturn
-    ).toFixed(2)
-  );
-
-  // --- Helpers ---
-  const setter =
-    (fn: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) =>
-      fn(e.target.value === '' ? 0 : Number(e.target.value));
-
-  const applyPreset = (name: 'conservative' | 'balanced' | 'growth') => {
-    if (name === 'conservative') {
-      setAssetEquityPct(30);
-      setAssetDebtPct(50);
-      setAssetGoldPct(10);
-      setAssetCashPct(10);
-    } else if (name === 'balanced') {
-      setAssetEquityPct(50);
-      setAssetDebtPct(35);
-      setAssetGoldPct(10);
-      setAssetCashPct(5);
-    } else {
-      setAssetEquityPct(70);
-      setAssetDebtPct(20);
-      setAssetGoldPct(5);
-      setAssetCashPct(5);
-    }
-  };
-
-  return (
-    <div
-      className="calculator-card"
-      style={{ boxShadow: 'none', padding: 20, border: 'none' }}
-    >
-      {/* ✅ 1. Standard Calculator Grid Layout */}
-      <div className="calc-grid">
-        {/* --- LEFT: INPUTS --- */}
-        <div className="calc-inputs">
-          {/* Section 1: Money & Time */}
-          <div className="input-group">
-            <h3
-              style={{
-                fontSize: '16px',
-                marginBottom: '16px',
-                color: '#1e293b',
-              }}
-            >
-              Investment Details
-            </h3>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '20px',
-              }}
-            >
-              <div>
-                <label>Monthly SIP (₹)</label>
-                <input
-                  type="number"
-                  value={monthlySIP}
-                  onChange={setter(setMonthlySIP)}
-                />
-              </div>
-              <div>
-                <label>Lumpsum (₹)</label>
-                <input
-                  type="number"
-                  value={lumpSum}
-                  onChange={setter(setLumpSum)}
-                />
-              </div>
-              <div>
-                <label>Period (Years)</label>
-                <input
-                  type="number"
-                  value={years}
-                  onChange={setter(setYears)}
-                  step={0.5}
-                />
-              </div>
-              <div>
-                <label>Inflation (%)</label>
-                <input
-                  type="number"
-                  value={inflationPct}
-                  onChange={setter(setInflationPct)}
-                  step={0.1}
-                />
-              </div>
-            </div>
-          </div>
-
-          <hr
-            style={{
-              margin: '24px 0',
-              border: 'none',
-              borderTop: '1px solid #e2e8f0',
-            }}
+          {/* Background Circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#f1f5f9"
+            strokeWidth={strokeWidth}
           />
 
-          {/* Section 2: Allocation */}
-          <div className="input-group">
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '16px',
-              }}
-            >
-              <h3 style={{ fontSize: '16px', margin: 0, color: '#1e293b' }}>
-                Asset Allocation
-              </h3>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button
-                  type="button"
-                  onClick={() => applyPreset('conservative')}
-                  style={{
-                    fontSize: '11px',
-                    padding: '4px 8px',
-                    borderRadius: '12px',
-                    border: '1px solid #cbd5e1',
-                    background: '#fff',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Safe
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyPreset('balanced')}
-                  style={{
-                    fontSize: '11px',
-                    padding: '4px 8px',
-                    borderRadius: '12px',
-                    border: '1px solid #cbd5e1',
-                    background: '#fff',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Balanced
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyPreset('growth')}
-                  style={{
-                    fontSize: '11px',
-                    padding: '4px 8px',
-                    borderRadius: '12px',
-                    border: '1px solid #cbd5e1',
-                    background: '#fff',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Aggressive
-                </button>
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '20px',
-              }}
-            >
-              <div>
-                <label>Equity %</label>
-                <input
-                  type="number"
-                  value={assetEquityPct}
-                  onChange={setter(setAssetEquityPct)}
-                />
-              </div>
-              <div>
-                <label>Debt %</label>
-                <input
-                  type="number"
-                  value={assetDebtPct}
-                  onChange={setter(setAssetDebtPct)}
-                />
-              </div>
-              <div>
-                <label>Gold %</label>
-                <input
-                  type="number"
-                  value={assetGoldPct}
-                  onChange={setter(setAssetGoldPct)}
-                />
-              </div>
-              <div>
-                <label>Cash %</label>
-                <input
-                  type="number"
-                  value={assetCashPct}
-                  onChange={setter(setAssetCashPct)}
-                />
-              </div>
-            </div>
-
-            {/* Rate Assumptions (Compact) */}
-            <div
-              style={{
-                marginTop: '20px',
-                background: '#f8fafc',
-                padding: '12px',
-                borderRadius: '8px',
-              }}
-            >
-              <p
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  marginBottom: '8px',
-                  color: '#64748b',
-                }}
-              >
-                EXPECTED RETURNS (P.A.)
-              </p>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '10px',
-                }}
-              >
-                <input
-                  type="number"
-                  value={equityReturn}
-                  onChange={setter(setEquityReturn)}
-                  style={{ fontSize: '13px', padding: '8px' }}
-                  title="Equity Return"
-                />
-                <input
-                  type="number"
-                  value={debtReturn}
-                  onChange={setter(setDebtReturn)}
-                  style={{ fontSize: '13px', padding: '8px' }}
-                  title="Debt Return"
-                />
-                <input
-                  type="number"
-                  value={goldReturn}
-                  onChange={setter(setGoldReturn)}
-                  style={{ fontSize: '13px', padding: '8px' }}
-                  title="Gold Return"
-                />
-                <input
-                  type="number"
-                  value={cashReturn}
-                  onChange={setter(setCashReturn)}
-                  style={{ fontSize: '13px', padding: '8px' }}
-                  title="Cash Return"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* --- RIGHT: CHART --- */}
-        <div className="calc-visuals" style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              background: '#fff',
-              borderRadius: '16px',
-              padding: '24px',
-              border: '1px solid #e2e8f0',
-            }}
-          >
-            <PieChart
-              slices={[
-                { color: '#16a34a', pct: pie.equityPct },
-                { color: '#60a5fa', pct: pie.debtPct },
-                { color: '#f59e0b', pct: pie.goldPct },
-                { color: '#94a3b8', pct: pie.cashPct },
-              ]}
+          {/* Segments */}
+          {chartSegments.map((segment, i) => (
+            <circle
+              key={i}
+              cx={size / 2}
+              cy={size / 2}
+              r={r}
+              fill="none"
+              stroke={segment.color}
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${segment.dashArray} ${circumference}`}
+              strokeDashoffset={segment.dashOffset}
+              strokeLinecap="butt"
+              className="transition-all duration-500 ease-out"
             />
+          ))}
+        </svg>
 
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '12px',
-                justifyContent: 'center',
-                marginTop: '24px',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '13px',
-                }}
-              >
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: '#16a34a',
-                  }}
-                ></span>{' '}
-                Equity
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '13px',
-                }}
-              >
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: '#60a5fa',
-                  }}
-                ></span>{' '}
-                Debt
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '13px',
-                }}
-              >
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: '#f59e0b',
-                  }}
-                ></span>{' '}
-                Gold
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '13px',
-                }}
-              >
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: '#94a3b8',
-                  }}
-                ></span>{' '}
-                Cash
-              </div>
-            </div>
-
-            <div
-              style={{
-                marginTop: '24px',
-                paddingTop: '16px',
-                borderTop: '1px dashed #e2e8f0',
-              }}
-            >
-              <div style={{ fontSize: '13px', color: '#64748b' }}>
-                Blended Annual Return
-              </div>
-              <div
-                style={{ fontSize: '24px', fontWeight: 700, color: '#0f172a' }}
-              >
-                {blendedReturn}%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ✅ 2. Standard Results Grid (Matches other calculators) */}
-      <div className="result-grid" style={{ marginTop: '40px' }}>
-        <div className="result-card">
-          <span className="result-label">Invested Amount</span>
-          <span className="result-value">{formatINR(totalInvested)}</span>
-        </div>
-
-        <div className="result-card highlight">
-          <span className="result-label">Total Portfolio Value</span>
-          <span className="result-primary">{formatINR(totalFuture)}</span>
-        </div>
-
-        <div className="result-card">
-          <span className="result-label">Total Gain</span>
-          <span
-            className="result-value"
-            style={{ color: 'var(--color-brand-green)' }}
-          >
-            {formatINR(totalReturns)}
+        {/* Center Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">
+            Total Value
+          </span>
+          <span className="text-2xl font-bold text-slate-900">
+            {totalValue}
           </span>
         </div>
       </div>
 
-      {/* Breakdown Table */}
-      <div style={{ marginTop: '40px' }}>
-        <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>
-          Projected Asset Breakdown
-        </h3>
-        <div className="schedule-wrapper">
-          <table className="rate-table">
-            <thead>
-              <tr>
-                <th>Asset Class</th>
-                <th>Allocation</th>
-                <th>Future Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ fontWeight: 500 }}>Equity (Stocks)</td>
-                <td>{Math.round(alloc.equity * 100)}%</td>
-                <td style={{ fontWeight: 600 }}>
-                  {formatINR(Math.round(perAssetFuture.equity))}
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 500 }}>Debt (Bonds/FD)</td>
-                <td>{Math.round(alloc.debt * 100)}%</td>
-                <td style={{ fontWeight: 600 }}>
-                  {formatINR(Math.round(perAssetFuture.debt))}
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 500 }}>Gold</td>
-                <td>{Math.round(alloc.gold * 100)}%</td>
-                <td style={{ fontWeight: 600 }}>
-                  {formatINR(Math.round(perAssetFuture.gold))}
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 500 }}>Cash / Liquid</td>
-                <td>{Math.round(alloc.cash * 100)}%</td>
-                <td style={{ fontWeight: 600 }}>
-                  {formatINR(Math.round(perAssetFuture.cash))}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      {/* Legend */}
+      <div className="flex flex-wrap justify-center gap-4 mt-6">
+        {slices.map((slice, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <span
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: slice.color }}
+            />
+            <span className="text-sm font-medium text-slate-600">
+              {slice.label}
+            </span>
+            <span className="text-xs text-slate-400">
+              ({Math.round(slice.pct)}%)
+            </span>
+          </div>
+        ))}
       </div>
     </div>
+  );
+}
+
+export default function InvestingClient() {
+  // --- Standard Inputs ---
+  const [monthlySIP, setMonthlySIP] = useState(10000);
+  const [lumpSum, setLumpSum] = useState(100000);
+  const [years, setYears] = useState(15);
+  const [inflation, setInflation] = useState(6);
+
+  // --- Asset Allocation (0-100) ---
+  const [equityPct, setEquityPct] = useState(60);
+  const [debtPct, setDebtPct] = useState(30);
+  const [goldPct, setGoldPct] = useState(10);
+
+  // --- Expected Returns ---
+  const [equityRet, setEquityRet] = useState(DEFAULT_RETURNS.equity);
+  const [debtRet, setDebtRet] = useState(DEFAULT_RETURNS.debt);
+  const [goldRet, setGoldRet] = useState(DEFAULT_RETURNS.gold);
+
+  // --- Logic ---
+  const totalAlloc = equityPct + debtPct + goldPct || 1;
+  const alloc = {
+    equity: equityPct / totalAlloc,
+    debt: debtPct / totalAlloc,
+    gold: goldPct / totalAlloc,
+  };
+
+  const months = years * 12;
+
+  const calculateFV = (
+    p: number,
+    r: number,
+    n: number,
+    type: 'sip' | 'lumpsum'
+  ) => {
+    const monthlyRate = r / 12 / 100;
+    if (monthlyRate === 0) return p * (type === 'sip' ? n : 1);
+    if (type === 'lumpsum') return p * Math.pow(1 + monthlyRate, n);
+    return (
+      p * ((Math.pow(1 + monthlyRate, n) - 1) / monthlyRate) * (1 + monthlyRate)
+    );
+  };
+
+  const equityFV =
+    calculateFV(monthlySIP * alloc.equity, equityRet, months, 'sip') +
+    calculateFV(lumpSum * alloc.equity, equityRet, months, 'lumpsum');
+  const debtFV =
+    calculateFV(monthlySIP * alloc.debt, debtRet, months, 'sip') +
+    calculateFV(lumpSum * alloc.debt, debtRet, months, 'lumpsum');
+  const goldFV =
+    calculateFV(monthlySIP * alloc.gold, goldRet, months, 'sip') +
+    calculateFV(lumpSum * alloc.gold, goldRet, months, 'lumpsum');
+
+  const totalFutureValue = Math.round(equityFV + debtFV + goldFV);
+  const totalInvested = Math.round(monthlySIP * months + lumpSum);
+  const totalProfit = totalFutureValue - totalInvested;
+
+  // Real Value (Inflation Adjusted)
+  const realValue = Math.round(
+    totalFutureValue / Math.pow(1 + inflation / 100, years)
+  );
+
+  const resetDefaults = () => {
+    setAsset(60, 30, 10);
+    setMonthlySIP(10000);
+    setLumpSum(100000);
+    setYears(15);
+  };
+
+  const setAsset = (e: number, d: number, g: number) => {
+    setEquityPct(e);
+    setDebtPct(d);
+    setGoldPct(g);
+  };
+
+  return (
+    <Card className="border-border shadow-sm bg-card">
+      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+            <Settings2 className="h-5 w-5 text-indigo-600" />
+            Portfolio Configuration
+          </CardTitle>
+          <button
+            onClick={resetDefaults}
+            className="text-xs text-slate-500 flex items-center gap-1 hover:text-indigo-600 transition-colors"
+          >
+            <RefreshCcw className="w-3 h-3" /> Reset
+          </button>
+        </div>
+      </CardHeader>
+
+      <CardContent className="p-6 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+          {/* --- LEFT COLUMN: INPUTS --- */}
+          <div className="lg:col-span-7 space-y-8">
+            {/* 1. Core Inputs using CalculatorField */}
+            <div className="space-y-6">
+              <CalculatorField
+                label="Monthly SIP Amount"
+                value={monthlySIP}
+                min={0}
+                max={500000}
+                step={500}
+                onChange={setMonthlySIP}
+              />
+
+              <CalculatorField
+                label="Lumpsum Investment"
+                value={lumpSum}
+                min={0}
+                max={10000000}
+                step={5000}
+                onChange={setLumpSum}
+              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <CalculatorField
+                  label="Duration (Years)"
+                  value={years}
+                  min={1}
+                  max={40}
+                  step={1}
+                  onChange={setYears}
+                />
+                <CalculatorField
+                  label="Expected Inflation (%)"
+                  value={inflation}
+                  min={0}
+                  max={15}
+                  step={0.5}
+                  onChange={setInflation}
+                />
+              </div>
+            </div>
+
+            {/* 2. Asset Allocation Mixer */}
+            <div className="rounded-xl border border-slate-200 p-5 bg-slate-50/50 space-y-5">
+              <div className="flex items-center justify-between mb-2">
+                <Label className="text-sm font-bold text-slate-700">
+                  Asset Allocation Strategy
+                </Label>
+                <div className="flex gap-2">
+                  <Badge
+                    variant="outline"
+                    className="cursor-pointer hover:bg-emerald-50 hover:text-emerald-700 bg-white"
+                    onClick={() => setAsset(80, 15, 5)}
+                  >
+                    Aggressive
+                  </Badge>
+                  <Badge
+                    variant="outline"
+                    className="cursor-pointer hover:bg-blue-50 hover:text-blue-700 bg-white"
+                    onClick={() => setAsset(50, 40, 10)}
+                  >
+                    Balanced
+                  </Badge>
+                  <Badge
+                    variant="outline"
+                    className="cursor-pointer hover:bg-amber-50 hover:text-amber-700 bg-white"
+                    onClick={() => setAsset(20, 70, 10)}
+                  >
+                    Safe
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Compact Sliders for Asset Mix */}
+              <div className="space-y-4">
+                {/* Equity */}
+                <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
+                  <span className="text-xs font-bold text-emerald-700">
+                    Equity
+                  </span>
+                  <Slider
+                    className="text-emerald-600"
+                    value={[equityPct]}
+                    max={100}
+                    step={5}
+                    onValueChange={(v) => setEquityPct(v[0])}
+                  />
+                  <div className="relative">
+                    <Input
+                      className="h-7 text-xs pr-4 text-right"
+                      value={equityRet}
+                      onChange={(e) => setEquityRet(Number(e.target.value))}
+                    />
+                    <span className="absolute right-1.5 top-1.5 text-[10px] text-slate-400">
+                      %
+                    </span>
+                  </div>
+                </div>
+
+                {/* Debt */}
+                <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
+                  <span className="text-xs font-bold text-blue-700">Debt</span>
+                  <Slider
+                    className="text-blue-600"
+                    value={[debtPct]}
+                    max={100}
+                    step={5}
+                    onValueChange={(v) => setDebtPct(v[0])}
+                  />
+                  <div className="relative">
+                    <Input
+                      className="h-7 text-xs pr-4 text-right"
+                      value={debtRet}
+                      onChange={(e) => setDebtRet(Number(e.target.value))}
+                    />
+                    <span className="absolute right-1.5 top-1.5 text-[10px] text-slate-400">
+                      %
+                    </span>
+                  </div>
+                </div>
+
+                {/* Gold */}
+                <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
+                  <span className="text-xs font-bold text-amber-700">Gold</span>
+                  <Slider
+                    className="text-amber-600"
+                    value={[goldPct]}
+                    max={100}
+                    step={5}
+                    onValueChange={(v) => setGoldPct(v[0])}
+                  />
+                  <div className="relative">
+                    <Input
+                      className="h-7 text-xs pr-4 text-right"
+                      value={goldRet}
+                      onChange={(e) => setGoldRet(Number(e.target.value))}
+                    />
+                    <span className="absolute right-1.5 top-1.5 text-[10px] text-slate-400">
+                      %
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* --- RIGHT COLUMN: VISUALS --- */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
+            {/* Chart */}
+            <MultiAssetChart
+              totalValue={formatINR(totalFutureValue)}
+              slices={[
+                { label: 'Equity', color: '#10b981', pct: alloc.equity * 100 },
+                { label: 'Debt', color: '#3b82f6', pct: alloc.debt * 100 },
+                { label: 'Gold', color: '#f59e0b', pct: alloc.gold * 100 },
+              ]}
+            />
+
+            {/* Results Grid */}
+            <div className="space-y-4">
+              <Card className="border-slate-200 bg-slate-50">
+                <CardContent className="p-4 flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <Wallet className="w-5 h-5 text-slate-500" />
+                    <span className="text-sm font-medium text-slate-600">
+                      Total Investment
+                    </span>
+                  </div>
+                  <span className="font-bold text-slate-900">
+                    {formatINR(totalInvested)}
+                  </span>
+                </CardContent>
+              </Card>
+
+              <Card className="border-emerald-200 bg-emerald-50">
+                <CardContent className="p-4 flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <TrendingUp className="w-5 h-5 text-emerald-600" />
+                    <span className="text-sm font-medium text-emerald-900">
+                      Total Profit
+                    </span>
+                  </div>
+                  <span className="font-bold text-emerald-700">
+                    +{formatINR(totalProfit)}
+                  </span>
+                </CardContent>
+              </Card>
+
+              <div className="pt-4 border-t border-slate-100 mt-2">
+                <div className="flex justify-between items-center text-xs text-slate-500 mb-1">
+                  <span>Inflation Adjusted Value (Real Value)</span>
+                  <span className="font-medium text-slate-700">
+                    {formatINR(realValue)}
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400">
+                  Assuming {inflation}% annual inflation
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* --- BOTTOM TABLE --- */}
+        <div className="mt-12">
+          <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <PieChart className="w-4 h-4 text-indigo-500" /> Breakdown by Asset
+            Class
+          </h4>
+          <div className="rounded-lg border border-slate-200 overflow-hidden">
+            <table className="w-full text-sm text-left">
+              <thead className="bg-slate-50 text-slate-500 font-medium">
+                <tr>
+                  <th className="px-4 py-3">Asset</th>
+                  <th className="px-4 py-3">Allocation</th>
+                  <th className="px-4 py-3 text-right">Future Value</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 bg-white">
+                <tr>
+                  <td className="px-4 py-3 font-medium text-emerald-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full" />{' '}
+                    Equity
+                  </td>
+                  <td className="px-4 py-3 text-slate-600">
+                    {Math.round(alloc.equity * 100)}%
+                  </td>
+                  <td className="px-4 py-3 text-right font-bold text-slate-900">
+                    {formatINR(Math.round(equityFV))}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 font-medium text-blue-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full" /> Debt
+                  </td>
+                  <td className="px-4 py-3 text-slate-600">
+                    {Math.round(alloc.debt * 100)}%
+                  </td>
+                  <td className="px-4 py-3 text-right font-bold text-slate-900">
+                    {formatINR(Math.round(debtFV))}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 font-medium text-amber-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-amber-500 rounded-full" /> Gold
+                  </td>
+                  <td className="px-4 py-3 text-slate-600">
+                    {Math.round(alloc.gold * 100)}%
+                  </td>
+                  <td className="px-4 py-3 text-right font-bold text-slate-900">
+                    {formatINR(Math.round(goldFV))}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

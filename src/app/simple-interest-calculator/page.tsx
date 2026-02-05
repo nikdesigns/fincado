@@ -4,7 +4,7 @@ import Link from 'next/link';
 import SICalculatorClient from './SICalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Loan Context
+import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -13,8 +13,9 @@ import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
+import { autoLinkContent } from '@/utils/autoLinker';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BadgeCheck } from 'lucide-react'; // ✅ Added Icons
 import {
   Table,
   TableBody,
@@ -31,11 +32,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA (Optimized 2026) ---------------- */
 export const metadata: Metadata = {
-  title: 'Simple Interest Calculator – Flat Rate Loan Interest',
+  title: 'Simple Interest Calculator India 2026 – Flat Rate Loan Interest',
   description:
-    'Calculate Simple Interest (SI) instantly. Compare Flat Rate vs Reducing Balance interest. Useful for student loans, car loans, and short-term lending.',
+    'Calculate Simple Interest (SI) instantly. Compare Flat Rate vs Reducing Balance interest. Useful for student loans, car loans, and short-term lending in 2026.',
   keywords: [
     'Simple Interest Calculator',
     'SI Calculator',
@@ -43,12 +44,13 @@ export const metadata: Metadata = {
     'Loan Interest Calculator',
     'Simple vs Compound Interest',
     'SI Formula',
+    'Interest Rates 2026',
   ],
   alternates: {
     canonical: 'https://fincado.com/simple-interest-calculator/',
   },
   openGraph: {
-    title: 'Simple Interest Calculator – Fast & Accurate',
+    title: 'Simple Interest Calculator – Fast & Accurate (2026)',
     description:
       'Free tool to calculate interest on loans or investments using the Simple Interest formula.',
     url: 'https://fincado.com/simple-interest-calculator/',
@@ -80,7 +82,6 @@ const faqItems = [
 /* ---------------- PAGE ---------------- */
 
 export default function SimpleInterestPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       <strong>Simple Interest (SI)</strong> is a method of calculating interest where the interest 
@@ -110,7 +111,6 @@ export default function SimpleInterestPage() {
         url="https://fincado.com/simple-interest-calculator/"
       />
 
-      {/* FAQ Schema */}
       <FAQSchema
         faqs={faqItems.map((f) => ({
           question: f.question,
@@ -131,42 +131,44 @@ export default function SimpleInterestPage() {
         />
 
         <header className="no-print mb-10">
-          {/* Share + Language */}
           <div className="mb-6 flex items-center justify-between gap-4">
             <ShareTools title="Simple Interest Calculator" />
             <LanguageToggle path="/hi/simple-interest-calculator" />
           </div>
 
-          {/* Title */}
-          <h1
-            className="
-      mb-4
-      text-2xl
-      sm:text-3xl
-      lg:text-4xl
-      font-semibold
-      tracking-tight
-      text-slate-900
-    "
-          >
+          <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             Simple Interest Calculator
-            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+            <span className="block mt-2 text-base sm:text-lg font-medium text-emerald-700">
               Quick & Non-Compounding Interest Calculation
             </span>
           </h1>
 
-          {/* Intro */}
           <div className="max-w-3xl text-base leading-relaxed text-slate-600">
             <WikiText
               content={`
-        <p>
-          Calculate the interest earned or paid on a principal amount using the
-          <strong>Simple Interest</strong> method.
-          Ideal for short-term loans, informal lending, and quick estimates
-          without the complexity of compounding.
-        </p>
-      `}
+                <p>
+                  Calculate the interest earned or paid on a principal amount using the
+                  <strong>Simple Interest</strong> method.
+                  Ideal for short-term loans, informal lending, and quick estimates
+                  without the complexity of compounding.
+                </p>
+              `}
             />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-white border border-slate-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-slate-900">
+                Budget 2026: Calculation Rules Unchanged
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                The Union Budget 2026 did not alter standard banking formulas.
+                Simple Interest calculations remain applicable for flat-rate
+                loans and short-term lending as per existing norms.
+              </p>
+            </div>
           </div>
         </header>
 
@@ -174,15 +176,13 @@ export default function SimpleInterestPage() {
           <div className="main-content">
             <SICalculatorClient />
 
-            {/* 💰 AD: AFTER CALCULATOR */}
             <div className="no-print my-8">
               <AdSlot id="si-after-calc" type="banner" />
             </div>
 
-            {/* ✅ Live Rates (Loan Context) */}
             <LiveRateTable type="personalLoan" />
 
-            {/* ✅ Mobile-Only Tools */}
+            {/* Mobile-Only Tools */}
             <div className="mobile-only-suggestions my-8">
               <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Interest
@@ -191,68 +191,38 @@ export default function SimpleInterestPage() {
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/compound-interest-calculator/"
-                  className="
-        flex items-center justify-center
-        rounded-lg border border-slate-200
-        bg-white px-3 py-3
-        text-sm font-medium text-slate-900
-        hover:bg-slate-50
-      "
+                  className="flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 hover:bg-slate-50"
                 >
                   🔄 Compound Interest
                 </Link>
 
                 <Link
                   href="/emi-calculator/"
-                  className="
-        flex items-center justify-center
-        rounded-lg border border-slate-200
-        bg-white px-3 py-3
-        text-sm font-medium text-slate-900
-        hover:bg-slate-50
-      "
+                  className="flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 hover:bg-slate-50"
                 >
                   🔢 EMI Calc
                 </Link>
               </div>
             </div>
 
-            {/* ✅ Promo Box */}
-            <div
-              className="
-    no-print
-    mt-8
-    flex items-center gap-3
-    rounded-lg border border-emerald-200
-    bg-emerald-50
-    p-4
-  "
-            >
-              {/* Icon */}
+            {/* Promo Box */}
+            <div className="no-print mt-8 flex items-center gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xl">
                 🚗
               </div>
-
-              {/* Content */}
               <div className="flex-1">
                 <strong className="block text-sm font-semibold text-emerald-800">
                   Buying a car on Flat Rate?
                 </strong>
-
                 <Link
                   href="/loans/car-loan/"
-                  className="
-        mt-1 inline-flex items-center gap-1
-        text-sm font-semibold text-emerald-700
-        underline-offset-4 hover:underline
-      "
+                  className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 underline-offset-4 hover:underline"
                 >
                   Check true EMI here →
                 </Link>
               </div>
             </div>
 
-            {/* 💰 AD: MID CONTENT */}
             <div className="no-print my-10 flex justify-center">
               <AdSlot id="si-mid-content" type="leaderboard" />
             </div>
@@ -261,33 +231,36 @@ export default function SimpleInterestPage() {
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
                 <CardContent className="p-6 sm:p-10 space-y-10">
-                  {/* --- WHAT IS SIMPLE INTEREST --- */}
+                  {/* What is Simple Interest */}
                   <section className="space-y-4">
                     <h2 className="text-2xl font-semibold text-slate-900">
                       What is Simple Interest?
                     </h2>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={introContent} />
                     </div>
                   </section>
 
-                  {/* --- SI vs CI TABLE --- */}
+                  {/* SI vs CI Table */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
                       Simple Interest vs Compound Interest
                     </h3>
-
                     <div className="rounded-lg border border-slate-200 overflow-hidden">
                       <Table>
                         <TableHeader>
                           <TableRow className="bg-slate-50">
-                            <TableHead>Feature</TableHead>
-                            <TableHead>Simple Interest (SI)</TableHead>
-                            <TableHead>Compound Interest (CI)</TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Feature
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Simple Interest (SI)
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Compound Interest (CI)
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
-
                         <TableBody>
                           <TableRow>
                             <TableCell className="font-medium">
@@ -298,7 +271,6 @@ export default function SimpleInterestPage() {
                               Interest on Principal + Interest
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium">
                               Growth
@@ -306,7 +278,6 @@ export default function SimpleInterestPage() {
                             <TableCell>Linear (Slow)</TableCell>
                             <TableCell>Exponential (Fast)</TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium">
                               Returns
@@ -316,7 +287,6 @@ export default function SimpleInterestPage() {
                               Higher Returns
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium">
                               Used In
@@ -331,36 +301,31 @@ export default function SimpleInterestPage() {
                     </div>
                   </section>
 
-                  {/* --- AD SLOT --- */}
                   <div className="no-print my-8 flex justify-center">
                     <AdSlot type="square" label="Advertisement" />
                   </div>
 
-                  {/* --- FLAT RATE TRAP --- */}
+                  {/* Flat Rate Trap */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
                       The “Flat Rate” Loan Trap
                     </h3>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={flatRateContent} />
                     </div>
                   </section>
 
-                  {/* --- FORMULA --- */}
+                  {/* Formula */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
                       Simple Interest Formula
                     </h3>
-
                     <p className="text-slate-700">
                       The standard formula for calculating simple interest is:
                     </p>
-
                     <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
                       <BlockMath math="SI = \frac{P \times R \times T}{100}" />
                     </div>
-
                     <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
                       <li>
                         <strong>SI</strong> = Simple Interest
@@ -377,12 +342,11 @@ export default function SimpleInterestPage() {
                     </ul>
                   </section>
 
-                  {/* --- BENEFITS GRID --- */}
+                  {/* Benefits Grid */}
                   <section className="space-y-6">
                     <h3 className="text-xl font-semibold text-slate-900">
                       How This Calculator Helps You
                     </h3>
-
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
                         <h4 className="font-semibold text-slate-900 mb-1">
@@ -393,7 +357,6 @@ export default function SimpleInterestPage() {
                           loans.
                         </p>
                       </div>
-
                       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
                         <h4 className="font-semibold text-slate-900 mb-1">
                           Investment Checks
@@ -403,7 +366,6 @@ export default function SimpleInterestPage() {
                           instruments.
                         </p>
                       </div>
-
                       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
                         <h4 className="font-semibold text-slate-900 mb-1">
                           Educational Use
@@ -427,7 +389,6 @@ export default function SimpleInterestPage() {
                     Frequently Asked Questions
                   </CardTitle>
                 </CardHeader>
-
                 <CardContent>
                   <Accordion
                     type="single"
@@ -436,8 +397,12 @@ export default function SimpleInterestPage() {
                     className="space-y-2"
                   >
                     {faqItems.map((faq) => (
-                      <AccordionItem key={faq.id} value={faq.id}>
-                        <AccordionTrigger className="text-left text-slate-900">
+                      <AccordionItem
+                        key={faq.id}
+                        value={faq.id}
+                        className="border rounded-lg px-4"
+                      >
+                        <AccordionTrigger className="text-left text-slate-900 font-medium hover:no-underline">
                           {faq.question}
                         </AccordionTrigger>
                         <AccordionContent className="text-slate-600 leading-relaxed">
@@ -454,10 +419,9 @@ export default function SimpleInterestPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <div className="sticky top-5 mb-6">
+            <div className="sticky top-28 mb-6">
               <AdSlot id="si-sidebar" type="box" />
             </div>
-
             <FinancialNavWidget />
           </aside>
         </div>

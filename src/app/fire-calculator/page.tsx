@@ -31,9 +31,9 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA (Optimized 2026) ---------------- */
 export const metadata: Metadata = {
-  title: 'FIRE Calculator 2025 – Financial Independence Retire Early',
+  title: 'FIRE Calculator – Financial Independence Retire Early',
   description:
     'Calculate your FIRE Number with our advanced FIRE Calculator. Estimate target corpus based on SWR (Safe Withdrawal Rate), inflation, and lifestyle expenses.',
   keywords: [
@@ -75,6 +75,12 @@ const faqItems = [
     answer:
       'Standard FIRE calculations cover living expenses only. You should maintain a separate health insurance policy and emergency fund to handle medical contingencies.',
   },
+  {
+    id: 'faq-fire-4',
+    question: 'Is FIRE realistic in India with healthcare and children costs?',
+    answer:
+      'FIRE is achievable in India but requires conservative planning. Healthcare inflation and children’s education costs should be planned separately and not fully relied upon from the FIRE corpus.',
+  },
 ];
 /* ---------------- PAGE ---------------- */
 
@@ -96,7 +102,11 @@ export default function FIREPage() {
     <ul class="list-disc list-inside space-y-2">
       <li><strong>FIRE Number:</strong> The target corpus amount. Formula: <em>Annual Expenses × 25 (or 30)</em>.</li>
       <li><strong>Safe Withdrawal Rate (SWR):</strong> The percentage of your corpus you can withdraw annually without running out of money (typically 4% globally, 3% in India).</li>
-      <li><strong>Rule of 25:</strong> Based on the 4% SWR, you need 25 times your annual expenses invested to retire.</li>
+      <li>
+  <strong>Rule of 25 / 33:</strong>
+  25× expenses assumes 4% SWR (US).
+  For India, many planners prefer 30×–33× using a 3%–3.5% SWR.
+</li>
     </ul>
   `);
 
@@ -187,6 +197,9 @@ export default function FIREPage() {
             </div>
 
             {/* ✅ Live Rates (Mutual Fund Context) */}
+            <h3 className="mt-8 text-lg font-semibold text-slate-900">
+              Conservative Return Reference (Fixed Deposits)
+            </h3>
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}

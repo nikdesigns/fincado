@@ -32,7 +32,7 @@ const DEFAULT_LABELS: EPFLabels = {
   employerContribution: 'Employer Contribution (%)',
   employmentPeriod: 'Employment Period (Years)',
   interestRate: 'EPF Interest Rate (% p.a)',
-  resetDefaults: 'Reset Defaults',
+  resetDefaults: 'Reset to Standard EPF Assumptions',
   estimatedCorpus: 'Estimated EPF Corpus',
   yourShare: 'Your Contribution',
   employerShare: 'Employer Contribution',
@@ -185,6 +185,10 @@ export default function EPFClient({
           </div>
         </div>
       </div>
+      <p className="mt-10 text-xs text-slate-500">
+        Employer contribution of 8.33% towards EPS is not included in the EPF
+        corpus, as EPS provides a monthly pension instead of a lump-sum payout.
+      </p>
     </div>
   );
 }

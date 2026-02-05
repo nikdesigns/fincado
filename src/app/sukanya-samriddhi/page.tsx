@@ -4,7 +4,6 @@ import Link from 'next/link';
 import SSYClient from './SSYClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison context
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -13,8 +12,8 @@ import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ SEO Boost
-import { Card, CardContent } from '@/components/ui/card';
+import { autoLinkContent } from '@/utils/autoLinker';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -30,16 +29,17 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import { BadgeCheck } from 'lucide-react'; // ✅ Icons added
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA (Optimized 2026) ---------------- */
 export const metadata: Metadata = {
-  title: 'SSY Calculator 2025 – Sukanya Samriddhi Maturity Value',
+  title: 'SSY Calculator 2026 – Sukanya Samriddhi Maturity Value',
   description:
-    "Calculate the maturity amount for your daughter's SSY account. Check 2025 interest rates (8.2%), tax benefits (EEE), and yearly growth schedule.",
+    "Calculate the maturity amount for your daughter's SSY account. Check 2026 interest rates (8.2%), tax benefits (EEE), and yearly growth schedule.",
   keywords: [
     'SSY Calculator',
     'Sukanya Samriddhi Yojana Calculator',
-    'SSY Interest Rate 2025',
+    'SSY Interest Rate 2026',
     'Girl Child Investment Plan',
     'Post Office SSY',
     'SSY vs PPF',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/sukanya-samriddhi/',
   },
   openGraph: {
-    title: "SSY Calculator – Secure Your Daughter's Future",
+    title: "SSY Calculator – Secure Your Daughter's Future (2026)",
     description:
       'Free tool to calculate SSY maturity value with current government interest rates.',
     url: 'https://fincado.com/sukanya-samriddhi/',
@@ -77,7 +77,6 @@ export const SSY_FAQS = [
 /* ---------------- PAGE ---------------- */
 
 export default function SSYPage() {
-  // 1. Prepare SEO Content with Auto-Links
   const introContent = autoLinkContent(`
     <p>
       <strong>Sukanya Samriddhi Yojana (SSY)</strong> is a government-backed savings scheme launched 
@@ -85,7 +84,7 @@ export default function SSYPage() {
       girl child to build a corpus for her higher education and marriage expenses.
     </p>
     <p class="mt-2">
-      It offers the <strong>highest interest rate</strong> among all small savings schemes and falls under 
+      It offers the <strong>highest interest rates</strong> among government-backed small savings schemes and falls under 
       the <strong>EEE (Exempt-Exempt-Exempt)</strong> tax category, making it the best investment 
       for your daughter's future.
     </p>
@@ -118,7 +117,6 @@ export default function SSYPage() {
         url="https://fincado.com/sukanya-samriddhi/"
       />
 
-      {/* FAQ Schema */}
       <FAQSchema
         faqs={SSY_FAQS.map((faq) => ({
           question: faq.question,
@@ -139,141 +137,87 @@ export default function SSYPage() {
         />
 
         <header className="no-print my-6">
-          {/* Share + Language */}
           <div className="mb-6 flex items-center justify-between gap-4">
             <ShareTools title="Sukanya Samriddhi Yojana (SSY) Calculator" />
             <LanguageToggle path="/hi/sukanya-samriddhi/" />
           </div>
 
-          {/* Title */}
-          <h1
-            className="
-      text-[clamp(1.9rem,4vw,2.6rem)]
-      font-semibold
-      leading-tight
-      tracking-[-0.02em]
-      text-slate-900
-    "
-          >
-            <span
-              className="
-        block
-        text-2xl
-        sm:text-3xl
-        lg:text-4xl
-        font-semibold
-        tracking-tight
-      "
-            >
+          <h1 className="text-[clamp(1.9rem,4vw,2.6rem)] font-semibold leading-tight tracking-[-0.02em] text-slate-900">
+            <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">
               Sukanya Samriddhi Yojana (SSY) Calculator
             </span>
-
-            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+            <span className="block mt-2 text-base sm:text-lg font-medium text-emerald-700">
               Build a tax-free corpus for your daughter’s education & marriage
             </span>
           </h1>
 
-          {/* Intro */}
-          <WikiText
-            content={`
-      <p class="max-w-2xl text-slate-600 mt-2">
-        Secure your daughter&apos;s future with India&apos;s highest-return
-        small savings scheme. Calculate the <strong>tax-free maturity amount</strong>
-        for education or marriage planning.
-      </p>
-    `}
-          />
+          <div className="mt-4 max-w-2xl text-slate-600 text-base leading-relaxed">
+            <WikiText
+              content={`
+                <p>
+                  Secure your daughter&apos;s future with India&apos;s highest-return
+                  small savings scheme. Calculate the <strong>tax-free maturity amount</strong>
+                  for education or marriage planning.
+                </p>
+              `}
+            />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-white border border-slate-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-slate-900">
+                Budget 2026: Interest Rate Update
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                The government has maintained the SSY interest rate at{' '}
+                <strong>8.2%</strong> for Q4 FY 2025-26. The EEE tax status
+                remains unchanged in the new Union Budget.
+              </p>
+            </div>
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <SSYClient />
 
-            {/* 💰 AD 2: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
               <AdSlot id="ssy-after-calc" type="banner" />
             </div>
 
-            {/* ✅ Live Rates (PPF vs SSY Comparison Context) */}
-            <LiveRateTable type="fixedDeposit" />
-
-            {/* ✅ Mobile-Only Tools */}
+            {/* Mobile-Only Tools */}
             <div className="mobile-only-suggestions my-8">
               <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Related Calculators
               </h3>
-
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/ppf-calculator/"
-                  className="
-        rounded-lg
-        border border-slate-200
-        bg-white
-        px-3 py-3
-        text-center
-        text-sm
-        font-medium
-        text-slate-900
-        transition
-        hover:border-slate-300
-        hover:bg-slate-50
-      "
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-3 text-center text-sm font-medium text-slate-900 transition hover:border-slate-300 hover:bg-slate-50"
                 >
                   🏦 PPF Calculator
                 </Link>
-
                 <Link
                   href="/sip-calculator/"
-                  className="
-        rounded-lg
-        border border-slate-200
-        bg-white
-        px-3 py-3
-        text-center
-        text-sm
-        font-medium
-        text-slate-900
-        transition
-        hover:border-slate-300
-        hover:bg-slate-50
-      "
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-3 text-center text-sm font-medium text-slate-900 transition hover:border-slate-300 hover:bg-slate-50"
                 >
                   📈 Children&apos;s Fund
                 </Link>
               </div>
             </div>
 
-            {/* ✅ Promo Box */}
-            <div
-              className="
-    no-print
-    mt-8
-    flex items-center gap-3
-    rounded-lg
-    border border-lime-200
-    bg-lime-50
-    p-4
-  "
-            >
+            {/* Promo Box */}
+            <div className="no-print mt-8 flex items-center gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
               <span className="text-2xl">👧</span>
-
               <div>
-                <strong className="block text-sm font-semibold text-lime-800">
+                <strong className="block text-sm font-semibold text-emerald-800">
                   Best Plan for Girl Child?
                 </strong>
-
                 <Link
                   href="/guides/ssy-guide/"
-                  className="
-        mt-1 inline-block
-        text-sm
-        font-semibold
-        text-lime-700
-        underline
-        underline-offset-2
-        hover:text-lime-800
-      "
+                  className="mt-1 inline-block text-sm font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-800"
                 >
                   Read: SSY vs Mutual Funds Comparison →
                 </Link>
@@ -294,7 +238,6 @@ export default function SSYPage() {
                 <WikiText content={introContent} />
               </section>
 
-              {/* AD */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
@@ -312,19 +255,23 @@ export default function SSYPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   SSY vs PPF: Which is Better?
                 </h3>
-
-                <Card>
-                  <CardContent>
+                <Card className="border-slate-200">
+                  <CardContent className="p-0">
                     <div className="overflow-x-auto">
                       <Table>
                         <TableHeader>
-                          <TableRow>
-                            <TableHead>Feature</TableHead>
-                            <TableHead>Sukanya Samriddhi (SSY)</TableHead>
-                            <TableHead>Public Provident Fund (PPF)</TableHead>
+                          <TableRow className="bg-slate-50">
+                            <TableHead className="font-bold text-slate-900">
+                              Feature
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Sukanya Samriddhi (SSY)
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Public Provident Fund (PPF)
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
-
                         <TableBody>
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
@@ -337,7 +284,6 @@ export default function SSYPage() {
                               ~7.1%
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Eligibility
@@ -349,7 +295,6 @@ export default function SSYPage() {
                               Anyone
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Tenure
@@ -359,7 +304,6 @@ export default function SSYPage() {
                             </TableCell>
                             <TableCell>15 Years</TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Deposit Period
@@ -387,41 +331,50 @@ export default function SSYPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   How This Calculator Helps Your Planning
                 </h3>
-
                 <WikiText
                   content={`
-        <p>
-          SSY involves a long <strong>21-year tenure</strong>, where deposits are
-          made for only 15 years but interest continues for the full period.
-          Calculating this manually is complex.
-        </p>
-      `}
+                    <p>
+                      SSY involves a long <strong>21-year tenure</strong>, where deposits are
+                      made for only 15 years but interest continues for the full period.
+                      Calculating this manually is complex.
+                    </p>
+                  `}
                 />
 
-                <div className="advantage-grid mt-6">
-                  <div className="advantage-card">
-                    <h4>Maturity Estimate</h4>
-                    <p>
-                      Know exactly how much corpus will be available when your
-                      daughter turns <strong>21 years old</strong>.
-                    </p>
-                  </div>
-
-                  <div className="advantage-card">
-                    <h4>Deposit Planning</h4>
-                    <p>
-                      See how increasing deposits from ₹2,000 to ₹5,000 can
-                      dramatically boost the final amount due to compounding.
-                    </p>
-                  </div>
-
-                  <div className="advantage-card">
-                    <h4>Long-Term Visibility</h4>
-                    <p>
-                      Understand the power of compounding over two decades with
-                      a government-backed scheme.
-                    </p>
-                  </div>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <Card className="border-slate-200 bg-slate-50">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-slate-900 mb-1">
+                        Maturity Estimate
+                      </h4>
+                      <p className="text-sm text-slate-600">
+                        Know exactly how much corpus will be available when your
+                        daughter turns <strong>21 years old</strong>.
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-slate-200 bg-slate-50">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-slate-900 mb-1">
+                        Deposit Planning
+                      </h4>
+                      <p className="text-sm text-slate-600">
+                        See how increasing deposits from ₹2,000 to ₹5,000 can
+                        dramatically boost the final amount due to compounding.
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-slate-200 bg-slate-50">
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-slate-900 mb-1">
+                        Long-Term Visibility
+                      </h4>
+                      <p className="text-sm text-slate-600">
+                        Understand the power of compounding over two decades
+                        with a government-backed scheme.
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
               </section>
 
@@ -430,24 +383,21 @@ export default function SSYPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   SSY Interest Calculation Logic
                 </h3>
-
-                <p>
+                <p className="text-slate-700">
                   Interest in SSY is compounded annually at the end of each
                   financial year.
                 </p>
-
-                <div className="py-6 overflow-x-auto bg-slate-50 border border-slate-200 rounded-md">
+                <div className="py-6 overflow-x-auto bg-slate-50 border border-slate-200 rounded-md px-4">
                   <BlockMath math="A = P(1 + r)^n" />
                 </div>
-
                 <WikiText
                   content={`
-        <p class="text-sm text-slate-600">
-          <em>
-            P includes accumulated principal and interest from previous years.
-          </em>
-        </p>
-      `}
+                    <p class="text-sm text-slate-600 mt-2">
+                      <em>
+                        P includes accumulated principal and interest from previous years.
+                      </em>
+                    </p>
+                  `}
                 />
               </section>
 
@@ -456,48 +406,57 @@ export default function SSYPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   Key Advantages of SSY
                 </h3>
-
                 <WikiText
                   content={`
-        <ul class="list-disc list-inside space-y-2">
-          <li><strong>Highest Small-Savings Returns:</strong> Higher than PPF and most FDs.</li>
-          <li><strong>EEE Tax Benefit:</strong> Investment, interest, and maturity are fully tax-free.</li>
-          <li><strong>Sovereign Guarantee:</strong> Backed by the Government of India.</li>
-        </ul>
-      `}
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                      <li><strong>Highest Small-Savings Returns:</strong> Higher than PPF and most FDs.</li>
+                      <li><strong>EEE Tax Benefit:</strong> Investment, interest, and maturity are fully tax-free.</li>
+                      <li><strong>Sovereign Guarantee:</strong> Backed by the Government of India.</li>
+                    </ul>
+                  `}
                 />
               </section>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-                Frequently Asked Questions (FAQs)
-              </h2>
-
-              <Accordion type="single" collapsible className="w-full">
-                {SSY_FAQS.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`ssy-faq-${index}`}
-                    className="border-b"
+            <section className="article no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions (FAQs)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={`ssy-faq-0`}
+                    className="w-full space-y-2"
                   >
-                    <AccordionTrigger className="text-left font-medium text-slate-800">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-slate-600 leading-relaxed">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+                    {SSY_FAQS.map((faq, index) => (
+                      <AccordionItem
+                        key={index}
+                        value={`ssy-faq-${index}`}
+                        className="border rounded-lg px-4"
+                      >
+                        <AccordionTrigger className="text-left font-medium text-slate-800 hover:no-underline">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div className="mb-6 sticky top-5">
+            <div className="mb-6 sticky top-28">
               <AdSlot id="ssy-sidebar" type="box" />
             </div>
             <FinancialNavWidget />

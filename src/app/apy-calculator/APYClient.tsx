@@ -282,6 +282,11 @@ export default function APYClient({ labels }: APYClientProps) {
             </div>
           </div>
         </div>
+        <p className="mt-10 text-xs text-slate-500">
+          Contribution values are based on standard APY charts published by
+          PFRDA and participating banks. Actual deductions may vary slightly by
+          bank.
+        </p>
       </CardContent>
     </Card>
   );

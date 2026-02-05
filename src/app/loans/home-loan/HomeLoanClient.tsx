@@ -116,8 +116,8 @@ export default function HomeLoanClient({
     const rows = schedule.map(
       (r) =>
         `${r.month},${Math.round(r.principal)},${Math.round(
-          r.interest
-        )},${Math.round(r.balance)}`
+          r.interest,
+        )},${Math.round(r.balance)}`,
     );
     const csv =
       'data:text/csv;charset=utf-8,' +
@@ -135,13 +135,13 @@ export default function HomeLoanClient({
       .map(
         (r) =>
           `${r.month}\t${Math.round(r.principal)}\t${Math.round(
-            r.interest
-          )}\t${Math.round(r.balance)}`
+            r.interest,
+          )}\t${Math.round(r.balance)}`,
       )
       .join('\n');
 
     navigator.clipboard.writeText(
-      `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`
+      `${t.month}\t${t.principal}\t${t.interest}\t${t.balance}\n${text}`,
     );
   };
 
@@ -197,7 +197,7 @@ export default function HomeLoanClient({
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
                 <Card className="border-slate-200">
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="text-xs text-slate-500">{t.principal}</div>
                     <div className="mt-1 font-semibold text-slate-900">
                       {formatINR(amount)}
@@ -206,7 +206,7 @@ export default function HomeLoanClient({
                 </Card>
 
                 <Card className="border-red-200 bg-red-50">
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="text-xs text-red-700">{t.interest}</div>
                     <div className="mt-1 font-semibold text-red-700">
                       {formatINR(calculations.totalInterest)}

@@ -15,7 +15,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-6">
           {/* BRAND */}
           <div className="lg:col-span-2">
-            <div className="text-xl font-bold text-slate-900">Fincado</div>
+            <Link href="/" className="text-xl font-bold text-slate-900">
+              Fincado
+            </Link>
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
               India’s most comprehensive financial planning platform. We make
@@ -58,14 +60,17 @@ export default function Footer() {
             </div>
 
             {/* TRUST */}
-            <div className="mt-5 flex gap-4 text-xs text-slate-500">
-              <span>🔒 SSL Secured</span>
-              <span>🇮🇳 Made for India</span>
+            <div className="mt-6 flex gap-4 text-xs font-medium text-slate-500">
+              <span className="flex items-center gap-1">🔒 SSL Secured</span>
+              <span className="flex items-center gap-1">🇮🇳 Made for India</span>
             </div>
           </div>
 
           {/* LOANS */}
           <FooterColumn title="Loans & EMI">
+            <FooterLink href="/compare-loans/" highlight>
+              Compare Rates
+            </FooterLink>
             <FooterLink href="/emi-calculator/">EMI Calculator</FooterLink>
             <FooterLink href="/loans/home-loan/">Home Loan</FooterLink>
             <FooterLink href="/loans/personal-loan/">Personal Loan</FooterLink>
@@ -74,46 +79,38 @@ export default function Footer() {
               Education Loan
             </FooterLink>
             <FooterLink href="/credit-score/">Check Credit Score</FooterLink>
-            <FooterLink href="/locations/">Browse Cities</FooterLink>
           </FooterColumn>
 
           {/* INVESTMENTS */}
           <FooterColumn title="Investments">
             <FooterLink href="/sip-calculator/">SIP Calculator</FooterLink>
-            <FooterLink href="/elss-calculator/">ELSS Calculator</FooterLink>
+            <FooterLink href="/swp-calculator/">SWP Calculator</FooterLink>
+            <FooterLink href="/lumpsum-calculator/">Lumpsum Returns</FooterLink>
+            <FooterLink href="/elss-calculator/">ELSS (Tax Saving)</FooterLink>
+            <FooterLink href="/ppf-calculator/">PPF Calculator</FooterLink>
             <FooterLink href="/fd-calculator/">FD Calculator</FooterLink>
             <FooterLink href="/rd-calculator/">RD Calculator</FooterLink>
-            <FooterLink href="/ppf-calculator/">PPF Calculator</FooterLink>
-            <FooterLink href="/sukanya-samriddhi/">
-              Sukanya Samriddhi (SSY)
-            </FooterLink>
-            <FooterLink href="/lumpsum-calculator/">Lumpsum Returns</FooterLink>
-            <FooterLink href="/mutual-funds/">Mutual Funds</FooterLink>
+            <FooterLink href="/sukanya-samriddhi/">SSY Calculator</FooterLink>
           </FooterColumn>
 
           {/* PLANNING */}
           <FooterColumn title="Planning & Tax">
             <FooterLink href="/income-tax-calculator/">
-              Income Tax Calculator
+              Income Tax (New vs Old)
             </FooterLink>
-            <FooterLink href="/inflation-calculator/">
-              Inflation Calculator
-            </FooterLink>
-            <FooterLink href="/retirement-calculator/">
-              Retirement Plan
-            </FooterLink>
+            <FooterLink href="/hra-calculator/">HRA Calculator</FooterLink>
+            <FooterLink href="/nps-calculator/">NPS Calculator</FooterLink>
             <FooterLink href="/epf-calculator/">EPF Calculator</FooterLink>
             <FooterLink href="/gratuity-calculator/">
               Gratuity Calculator
             </FooterLink>
             <FooterLink href="/gst-calculator/">GST Calculator</FooterLink>
-            <FooterLink href="/compound-interest-calculator/">
-              Compound Interest
+            <FooterLink href="/retirement-calculator/">
+              Retirement Planner
             </FooterLink>
-            <FooterLink href="/simple-interest-calculator/">
-              Simple Interest
+            <FooterLink href="/inflation-calculator/">
+              Inflation Calculator
             </FooterLink>
-            <FooterLink href="/apy-calculator/">APY Scheme</FooterLink>
           </FooterColumn>
 
           {/* COMPANY */}
@@ -133,9 +130,15 @@ export default function Footer() {
 
       {/* BOTTOM BAR */}
       <div className="border-t bg-white">
-        <div className="mx-auto max-w-300 px-4 py-6 text-sm text-slate-500">
-          <p>© {currentYear} Fincado. All rights reserved.</p>
-          <p className="mt-2 max-w-4xl text-xs leading-relaxed">
+        <div className="mx-auto max-w-300 px-4 py-6 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <p>© {currentYear} Fincado. All rights reserved.</p>
+            <p className="mt-1 text-xs text-slate-400">
+              Updated as per Union Budget 2026 norms.
+            </p>
+          </div>
+
+          <p className="max-w-xl text-xs leading-relaxed text-right md:text-left">
             <strong>Disclaimer:</strong> Fincado provides financial tools for
             informational purposes only. We are not a SEBI registered investment
             advisor. Please consult a certified financial planner before making
@@ -158,10 +161,10 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-900">
+      <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-900">
         {title}
       </h4>
-      <ul className="space-y-2">{children}</ul>
+      <ul className="space-y-2.5">{children}</ul>
     </div>
   );
 }
@@ -179,7 +182,7 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className={`text-sm transition hover:text-emerald-700 ${
+        className={`text-sm transition-colors hover:text-emerald-700 ${
           highlight ? 'font-semibold text-emerald-700' : 'text-slate-600'
         }`}
       >
@@ -189,7 +192,6 @@ function FooterLink({
   );
 }
 
-// SOCIAL ICON
 function SocialLink({
   href,
   label,
@@ -205,9 +207,9 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
     >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
         <path d={path} />
       </svg>
     </a>

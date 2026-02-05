@@ -3,7 +3,16 @@
 import React, { useMemo, useState } from 'react';
 import EMIPieChart from '@/components/EMIPieChart';
 import CalculatorField from '@/components/CalculatorField';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { RefreshCcw, Lock } from 'lucide-react';
 
 /* ---------- TYPES ---------- */
 interface LabelConfig {
@@ -65,10 +74,14 @@ export default function PPFClient({ labels = {} }: PPFClientProps) {
       if (monthlyRate === 0) {
         maturity = invested;
       } else {
-        maturity =
-          monthlyContribution *
-          ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-          (1 + monthlyRate);
+        // Correct Formula for Monthly PPF (Payment at beginning of month)
+        // A = P * [((1+i)^n - 1)/i] * (1+i)
+        // But typical PPF calculator simplifies to yearly compounding of monthly deposits
+        // For accurate comparison with standard online tools:
+        const n = years;
+        const i = annualRate / 100;
+        const annualDeposit = monthlyContribution * 12;
+        maturity = annualDeposit * ((Math.pow(1 + i, n) - 1) / i) * (1 + i); // Approximation for standard tools
       }
     } else {
       invested = annualContribution * years;
@@ -95,32 +108,51 @@ export default function PPFClient({ labels = {} }: PPFClientProps) {
     };
   }, [mode, monthlyContribution, annualContribution, years, annualRate]);
 
+  const handleReset = () => {
+    setMode('monthly');
+    setMonthlyContribution(1000);
+    setAnnualContribution(12000);
+    setYears(15);
+    setAnnualRate(7.1);
+  };
+
   /* ---------- UI ---------- */
   return (
-    <Card className="border-slate-200 shadow-sm">
-      <CardContent className="p-6 sm:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <Card className="border-border shadow-sm bg-card">
+      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+            <Lock className="h-5 w-5 text-emerald-600" />
+            PPF Calculator
+          </CardTitle>
+          <button
+            onClick={handleReset}
+            className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+          >
+            <RefreshCcw className="w-3 h-3" /> Reset
+          </button>
+        </div>
+      </CardHeader>
+
+      <CardContent className="p-6 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
           {/* ---------- INPUTS ---------- */}
           <div className="space-y-6">
             {/* Contribution Mode */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700">
-                {t.modeLabel}
-              </label>
-              <select
+              <Label>{t.modeLabel}</Label>
+              <Select
                 value={mode}
-                onChange={(e) =>
-                  setMode(e.target.value as 'monthly' | 'annual')
-                }
-                className="
-                  w-full rounded-md border border-slate-300
-                  bg-white px-3 py-2 text-sm
-                  focus:outline-none focus:ring-2 focus:ring-lime-500
-                "
+                onValueChange={(v) => setMode(v as 'monthly' | 'annual')}
               >
-                <option value="monthly">Monthly</option>
-                <option value="annual">Annual (Lump Sum)</option>
-              </select>
+                <SelectTrigger className="bg-white h-11">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="monthly">Monthly</SelectItem>
+                  <SelectItem value="annual">Annual (Lump Sum)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Investment Amount */}
@@ -165,6 +197,7 @@ export default function PPFClient({ labels = {} }: PPFClientProps) {
             <EMIPieChart
               principalPct={calculations.principalPct}
               interestPct={calculations.interestPct}
+              size={200}
             />
 
             <div className="mt-6 text-center">
@@ -176,7 +209,7 @@ export default function PPFClient({ labels = {} }: PPFClientProps) {
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
                 <Card className="border-slate-200">
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="text-xs text-slate-500">{t.totalInv}</div>
                     <div className="mt-1 font-semibold text-slate-900">
                       {formatINR(calculations.invested)}
@@ -185,7 +218,7 @@ export default function PPFClient({ labels = {} }: PPFClientProps) {
                 </Card>
 
                 <Card className="border-lime-200 bg-lime-50">
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="text-xs text-lime-700">{t.totalInt}</div>
                     <div className="mt-1 font-semibold text-lime-700">
                       +{formatINR(calculations.interest)}
@@ -194,10 +227,12 @@ export default function PPFClient({ labels = {} }: PPFClientProps) {
                 </Card>
               </div>
 
-              <p className="mt-4 text-xs text-slate-500">
-                🔒 PPF has a mandatory 15-year lock-in. Returns are completely
-                tax-free.
-              </p>
+              <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                <Lock className="w-3 h-3" />
+                <span>
+                  Mandatory 15-year lock-in. Returns are 100% Tax-Free.
+                </span>
+              </div>
             </div>
           </div>
         </div>

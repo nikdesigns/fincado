@@ -27,7 +27,7 @@ const CALCULATOR_MENU = [
   {
     category: 'Loans',
     items: [
-      { label: 'Compare Loan Rates', href: '/compare-loans/' }, // Key revenue page
+      { label: 'Compare Loan Rates', href: '/compare-loans/' },
       { label: 'EMI Calculator', href: '/emi-calculator/' },
       { label: 'Home Loan', href: '/loans/home-loan/' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
@@ -52,22 +52,23 @@ const CALCULATOR_MENU = [
     category: 'Retirement',
     items: [
       { label: 'Retirement Planner', href: '/retirement-calculator/' },
+      { label: 'NPS Calculator', href: '/nps-calculator/' }, // ✅ Added
       { label: 'EPF Calculator', href: '/epf-calculator/' },
-      { label: 'APY Calculator', href: '/apy-calculator/' },
       { label: 'Gratuity Calculator', href: '/gratuity-calculator/' },
+      { label: 'APY Calculator', href: '/apy-calculator/' },
       { label: 'FIRE Calculator', href: '/fire-calculator/' },
     ],
   },
   {
-    category: 'Tools & Tax',
+    category: 'Tax & Tools',
     items: [
       { label: 'Income Tax Calculator', href: '/income-tax-calculator/' },
-      { label: 'Credit Score', href: '/credit-score/' },
+      { label: 'HRA Calculator', href: '/hra-calculator/' }, // ✅ Added
       { label: 'GST Calculator', href: '/gst-calculator/' },
+      { label: 'Credit Score', href: '/credit-score/' },
       { label: 'Inflation Calculator', href: '/inflation-calculator/' },
       { label: 'Simple Interest', href: '/simple-interest-calculator/' },
       { label: 'Compound Interest', href: '/compound-interest-calculator/' },
-      { label: 'All Calculators', href: '/calculators/' },
     ],
   },
 ];
@@ -153,7 +154,6 @@ export default function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* ✅ NEW: DIRECT COMPARE LINK (HIGH VISIBILITY) */}
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
                   <Link
@@ -231,7 +231,6 @@ export default function Header() {
                     >
                       Home
                     </Link>
-                    {/* Prominent Mobile Compare Link */}
                     <Link
                       href="/compare-loans/"
                       className="block text-lg font-bold text-lime-600 items-center gap-2"

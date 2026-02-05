@@ -24,13 +24,13 @@ import {
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'RD Calculator 2025 – Recurring Deposit Maturity & Interest',
+  title: 'RD Calculator 2026 – Recurring Deposit Maturity & Interest',
   description:
     'Calculate RD maturity amount with quarterly compounding. Compare RD interest rates of SBI, HDFC, Post Office. Check TDS rules and RD vs SIP returns.',
   keywords: [
     'RD Calculator',
     'Recurring Deposit Calculator',
-    'RD Interest Rates 2025',
+    'RD Interest Rates 2026',
     'Post Office RD Calculator',
     'RD vs SIP',
     'Recurring Deposit Tax',
@@ -267,9 +267,7 @@ export default function RDPage() {
 
               {/* --- TAXATION --- */}
               <section className="space-y-4">
-                <h3 className="text-xl font-semibold text-slate-900">
-                  RD Interest Taxation (TDS Rules)
-                </h3>
+                <h3>RD Interest Taxation (TDS Rules – 2026)</h3>
                 <WikiText content={taxContent} />
               </section>
 

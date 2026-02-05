@@ -4,7 +4,6 @@ import Link from 'next/link';
 import SWPClient from './SWPClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -33,7 +32,7 @@ import FAQSchema from '@/components/FAQSchema';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'SWP Calculator 2025 – Monthly Pension from Mutual Funds',
+  title: 'SWP Calculator 2026 – Monthly Pension from Mutual Funds',
   description:
     'Calculate monthly income from Mutual Fund investments. Estimate corpus longevity, 2025 tax rules (LTCG), and compare SWP vs Dividend plans.',
   keywords: [
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
     'Monthly Income Plan',
     'Mutual Fund SWP vs Dividend',
     'Retirement Income Calculator',
-    'SWP Tax Calculation 2025',
+    'SWP Tax Calculation 2026',
   ],
   alternates: {
     canonical: 'https://fincado.com/swp-calculator/',
@@ -67,7 +66,7 @@ export const SWP_FAQS = [
   {
     question: 'Is SWP taxable?',
     answer:
-      'Yes, but it is tax-efficient. Each withdrawal contains principal (not taxed) and capital gains (taxed). For equity funds held over 1 year, gains above ₹1.25 lakh are taxed at 12.5%.',
+      'Yes, but it is tax-efficient. Each withdrawal contains principal (not taxed) and capital gains (taxed). For equity funds held over 1 year, long-term capital gains above ₹1.25 lakh are taxed at applicable LTCG rates as per current tax laws.',
   },
   {
     question: 'Can I stop my SWP anytime?',
@@ -193,8 +192,6 @@ export default function SWPPage() {
             <div className="no-print my-8">
               <AdSlot id="swp-after-calc" type="banner" />
             </div>
-
-            <LiveRateTable type="fixedDeposit" />
 
             {/* 📱 Mobile-only Related Tools */}
             <div className="mobile-only-suggestions my-8">
@@ -356,7 +353,7 @@ export default function SWPPage() {
               {/* TAX */}
               <section className="space-y-4">
                 <h3 className="text-xl font-semibold text-slate-900">
-                  Taxation on SWP (2025 Rules)
+                  Taxation on SWP (2026 Rules)
                 </h3>
                 <WikiText content={taxContent} />
               </section>

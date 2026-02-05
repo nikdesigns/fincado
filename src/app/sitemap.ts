@@ -65,31 +65,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/disclaimer',
     '/editorial-guidelines',
     '/calculators',
+    '/locations',
     '/guides',
     '/loans',
     '/credit-score',
     '/mutual-funds',
     '/compare-loans',
     '/home-loan-rates',
-    // Tools
-    '/emi-calculator',
+    // Tools - Investment
     '/sip-calculator',
+    '/lumpsum-calculator',
+    '/swp-calculator',
     '/fd-calculator',
     '/rd-calculator',
     '/ppf-calculator',
+    '/elss-calculator',
+    '/sukanya-samriddhi', // ✅ Added
+    // Tools - Retirement
     '/epf-calculator',
-    '/gst-calculator',
-    '/inflation-calculator',
-    '/simple-interest-calculator',
-    '/lumpsum-calculator',
-    '/swp-calculator',
+    '/nps-calculator', // ✅ Added
     '/retirement-calculator',
+    '/gratuity-calculator',
     '/apy-calculator',
     '/fire-calculator',
-    '/gratuity-calculator',
-    '/compound-interest-calculator',
-    '/elss-calculator',
+    // Tools - Tax & Utility
     '/income-tax-calculator',
+    '/hra-calculator', // ✅ Added
+    '/gst-calculator',
+    '/inflation-calculator',
+    '/emi-calculator',
+    '/simple-interest-calculator',
+    '/compound-interest-calculator',
     // Loans
     '/loans/home-loan',
     '/loans/personal-loan',
@@ -108,13 +114,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/calculators',
     '/hi/guides',
     '/hi/loans',
+    // Hindi Tools - Investment
     '/hi/sip-calculator',
-    '/hi/emi-calculator',
-    '/hi/ppf-calculator',
+    '/hi/lumpsum-calculator',
+    '/hi/swp-calculator',
     '/hi/fd-calculator',
     '/hi/rd-calculator',
-    '/hi/swp-calculator',
+    '/hi/ppf-calculator',
+    '/hi/elss-calculator',
+    '/hi/mutual-funds',
+    '/hi/sukanya-samriddhi', // ✅ Added
+    // Hindi Tools - Retirement
+    '/hi/epf-calculator',
+    '/hi/nps-calculator', // ✅ Added
     '/hi/retirement-calculator',
+    '/hi/gratuity-calculator', // ✅ Added
+    '/hi/apy-calculator', // ✅ Added
+    '/hi/fire-calculator', // ✅ Added
+    // Hindi Tools - Tax & Utility
+    '/hi/income-tax-calculator', // ✅ Added
+    '/hi/hra-calculator', // ✅ Added
+    '/hi/gst-calculator', // ✅ Added
+    '/hi/emi-calculator',
+    '/hi/credit-score', // ✅ Added
+    '/hi/inflation-calculator', // ✅ Added
+    '/hi/compound-interest-calculator', // ✅ Added
+    '/hi/simple-interest-calculator', // ✅ Added
+    // Hindi Loans
+    '/hi/loans/home-loan',
+    '/hi/loans/personal-loan',
+    '/hi/loans/car-loan',
+    '/hi/loans/education-loan',
   ].map((route) => ({
     url: getUrl(route),
     lastModified: new Date(),

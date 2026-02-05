@@ -4,7 +4,6 @@ import Link from 'next/link';
 import EducationLoanClient from './EducationLoanClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -30,11 +29,14 @@ import {
   UserSquare2,
   Plane,
   ArrowRight,
+  BookOpen,
 } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Education Loan EMI Calculator 2025 – Section 80E & Moratorium',
+  title:
+    'Education Loan EMI Calculator – Section 80E & Moratorium (Updated for 2026)',
   description:
     'Calculate Education Loan EMI with Moratorium period. Check tax benefits under Section 80E, Study Abroad eligibility, and repayment schedules from SBI, HDFC.',
   keywords: [
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/loans/education-loan/',
   },
   openGraph: {
-    title: 'Education Loan Calculator – Plan Your Future',
+    title: 'Education Loan EMI Calculator – Updated After Budget 2026',
     description:
       'Accurate Student Loan EMI Calculator with Moratorium logic & Tax Savings.',
     url: 'https://fincado.com/loans/education-loan/',
@@ -131,6 +133,13 @@ export default function EducationLoanPage() {
       question: 'Can I prepay or foreclose an education loan?',
       answer:
         'Most banks allow prepayment without penalty. Early repayment can significantly reduce total interest paid.',
+    },
+    {
+      id: 'faq-6',
+      question:
+        'Did Budget 2026 change education loan tax benefits under Section 80E?',
+      answer:
+        'No. Union Budget 2026 did not introduce any changes to Section 80E. Borrowers can continue to claim a full deduction on education loan interest for up to 8 years, with no upper limit.',
     },
   ];
 
@@ -222,8 +231,6 @@ export default function EducationLoanPage() {
               <AdSlot id="edu-loan-after-calc" type="banner" />
             </div>
 
-            <LiveRateTable type="personalLoan" />
-
             {/* promo card */}
             <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-5">
@@ -263,13 +270,26 @@ export default function EducationLoanPage() {
                     </h2>
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={introContent} />
+                      <Alert className="mt-4 bg-slate-50 border-slate-200">
+                        <BookOpen className="h-4 w-4 text-slate-500" />
+                        <AlertTitle className="text-slate-900 font-semibold text-sm">
+                          Budget 2026 Update
+                        </AlertTitle>
+                        <AlertDescription className="text-xs text-slate-600 mt-1 leading-relaxed">
+                          Union Budget 2026 did not make any changes to
+                          education loan tax benefits under Section 80E,
+                          moratorium rules, or repayment structures. Students
+                          and parents can continue to claim full interest
+                          deductions as per existing income tax provisions.
+                        </AlertDescription>
+                      </Alert>
                     </div>
                   </section>
 
                   {/* --- ELIGIBILITY --- */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Eligibility Criteria (2025)
+                      Eligibility Criteria (2026)
                     </h3>
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={eligibilityContent} />

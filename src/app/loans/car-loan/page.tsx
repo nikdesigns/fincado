@@ -22,12 +22,12 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
-import { Car, ArrowRight } from 'lucide-react';
+import { Car, ArrowRight, BadgeCheck } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Car Loan EMI Calculator 2025 – New & Used Car Loan Interest',
+  title: 'Car Loan EMI Calculator – New & Used Car Loans (Updated for 2026)',
   description:
     'Calculate Car Loan EMI instantly. Compare interest rates for New vs Used cars from SBI, HDFC, Axis. Check eligibility and down payment impact.',
   keywords: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/loans/car-loan/',
   },
   openGraph: {
-    title: 'Car Loan EMI Calculator – Drive Your Dream Car',
+    title: 'Car Loan EMI Calculator – Updated After Budget 2026',
     description:
       'Free tool to calculate Car Loan EMI, Total Interest, and Tenure options.',
     url: 'https://fincado.com/loans/car-loan/',
@@ -114,6 +114,12 @@ export default function CarLoanPage() {
       question: 'Which tenure is best for a car loan?',
       answer:
         'A tenure of 4–5 years usually offers the best balance between EMI affordability and total interest cost.',
+    },
+    {
+      id: 'faq-7',
+      question: 'Did Budget 2026 change car loan interest rates or EMIs?',
+      answer:
+        'No. Union Budget 2026 did not make any changes to car loan interest rates or EMI calculation methods. Rates continue to depend on bank policies, borrower credit score, and vehicle type.',
     },
   ];
 
@@ -187,6 +193,24 @@ export default function CarLoanPage() {
         <div className="layout-grid">
           <div className="main-content">
             <CarLoanClient />
+            <div className="mt-4 flex gap-3 p-3 bg-emerald-50 border border-emerald-100 rounded-lg items-start">
+              <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+              <div className="space-y-0.5">
+                <p className="text-sm font-semibold text-emerald-900">
+                  Budget 2026: Status Unchanged
+                </p>
+                <p className="text-xs text-emerald-800 leading-relaxed">
+                  Car loan calculation rules remain the same. This tool uses the
+                  standard <strong>reducing balance formula</strong> mandated
+                  for banks & NBFCs.
+                </p>
+                <strong className="text-xs text-rose-700">
+                  <u>NOTE:</u> EMI calculations are indicative and unaffected by
+                  Union Budget 2026. Actual rates may vary by lender, credit
+                  profile, and vehicle category.
+                </strong>
+              </div>
+            </div>
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
@@ -213,9 +237,7 @@ export default function CarLoanPage() {
                     href="/guides/car-loan-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
-                    <span>
-                      Read our 2025 Guide: Interest Rates & Hidden Costs
-                    </span>
+                    <span>Read our Car Loan Guide (Updated for 2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
@@ -245,6 +267,10 @@ export default function CarLoanPage() {
 
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={eligibilityContent} />
+                      <p className="mt-3 text-xs text-slate-500">
+                        Eligibility criteria may vary by lender and were not
+                        altered by Union Budget 2026.
+                      </p>
                     </div>
                   </section>
 
@@ -339,7 +365,6 @@ export default function CarLoanPage() {
               </Card>
             </article>
 
-            {/* FAQs */}
             {/* FAQs */}
             <section className="no-print mt-12">
               <Card className="border-slate-200 bg-white">

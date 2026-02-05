@@ -1,4 +1,3 @@
-// src/app/calculators/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CalculatorsGrid from './CalculatorsGrid';
@@ -10,13 +9,19 @@ import LanguageToggle from '@/components/LanguageToggle';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, ArrowRight, LineChart } from 'lucide-react';
+import {
+  CheckCircle2,
+  ArrowRight,
+  LineChart,
+  BadgeCheck,
+  TrendingUp,
+} from 'lucide-react';
 
-// --- 1. SEO METADATA ---
+// --- 1. SEO METADATA (Updated 2026) ---
 export const metadata: Metadata = {
-  title: 'All Financial Calculators | EMI, SIP, Inflation & Tax Tools',
+  title: 'All Financial Calculators | EMI, SIP, Tax & Retirement (2026)',
   description:
-    'Browse our complete suite of professional calculators for Indian investors: EMI, Home Loan, SIP, Inflation, PPF, Retirement Planner, GST Calculator and more.',
+    'Browse our complete suite of professional calculators for Indian investors: EMI, Home Loan, SIP, Inflation, PPF, Retirement Planner, GST Calculator and more. Updated for Budget 2026.',
   keywords: [
     'financial calculators',
     'EMI calculator',
@@ -25,11 +30,12 @@ export const metadata: Metadata = {
     'loan calculators india',
     'investment calculators',
     'retirement planning tools',
+    'budget 2026 calculators',
   ],
   openGraph: {
-    title: 'All Financial Calculators | Fincado',
+    title: 'All Financial Calculators | Fincado (2026 Edition)',
     description:
-      'Free calculators for loans, investments, inflation, taxes and retirement planning.',
+      'Free calculators for loans, investments, inflation, taxes and retirement planning. Verified for FY 2026-27.',
     url: 'https://fincado.com/calculators',
     type: 'website',
   },
@@ -53,12 +59,22 @@ export default function CalculatorsPage() {
             {/* --- HEADER --- */}
             <header className="relative">
               <div className="flex justify-between items-start mb-4">
-                <Badge
-                  variant="outline"
-                  className="border-emerald-200 text-emerald-700 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider"
-                >
-                  Tools & Utilities
-                </Badge>
+                <div className="flex gap-2">
+                  <Badge
+                    variant="outline"
+                    className="border-slate-200 text-slate-700 bg-slate-50 px-3 py-1 text-xs font-bold uppercase tracking-wider"
+                  >
+                    Tools & Utilities
+                  </Badge>
+                  {/* ✅ Budget 2026 Badge */}
+                  <Badge
+                    variant="outline"
+                    className="border-emerald-200 text-emerald-700 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider flex items-center gap-1"
+                  >
+                    <BadgeCheck className="w-3 h-3" />
+                    Budget 2026 Ready
+                  </Badge>
+                </div>
                 <div className="no-print">
                   <LanguageToggle path="/hi/calculators" />
                 </div>
@@ -71,7 +87,7 @@ export default function CalculatorsPage() {
               <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl">
                 Use our free financial calculators to plan loans, investments,
                 inflation impact, taxes, and retirement with clarity and
-                confidence.
+                confidence. Updated for <strong>FY 2026-27</strong>.
               </p>
             </header>
 
@@ -102,7 +118,39 @@ export default function CalculatorsPage() {
                 planning investments, or estimating inflation impact,
                 calculators remove guesswork and provide mathematical certainty.
               </p>
-              [Image of compound interest graph growth over time]
+
+              {/* ✅ VISUAL: Compounding Growth Chart (CSS Only) */}
+              <Card className="my-8 border-slate-200 bg-white not-prose">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-6">
+                    <TrendingUp className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest">
+                      The Power of Compounding
+                    </h3>
+                  </div>
+                  <div className="flex items-end gap-2 h-40 w-full sm:w-2/3 mx-auto">
+                    {/* Bars representing exponential growth */}
+                    {[10, 15, 22, 32, 45, 60, 80, 100].map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex-1 bg-emerald-100 rounded-t-sm relative group"
+                        style={{ height: `${h}%` }}
+                      >
+                        <div
+                          className="absolute bottom-0 left-0 w-full bg-emerald-500 rounded-t-sm transition-all duration-1000 group-hover:bg-emerald-600"
+                          style={{ height: `${h * 0.7}%` }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-center text-xs text-slate-500 mt-4">
+                    Visualizing how small investments grow exponentially over
+                    time
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Quick Links Card */}
               <Card className="my-8 border-slate-200 bg-slate-50/50 not-prose">
                 <CardHeader>
                   <CardTitle className="text-lg font-bold text-slate-800">
@@ -113,9 +161,15 @@ export default function CalculatorsPage() {
                   <ul className="grid sm:grid-cols-2 gap-4">
                     {[
                       {
-                        name: 'EMI Calculator',
-                        url: '/emi-calculator',
-                        label: 'Plan repayments',
+                        name: 'Compare Loan Rates',
+                        url: '/compare-loans',
+                        label: 'Save on Interest',
+                        highlight: true,
+                      },
+                      {
+                        name: 'Income Tax Calc',
+                        url: '/income-tax-calculator',
+                        label: 'New vs Old Regime',
                       },
                       {
                         name: 'SIP Calculator',
@@ -123,28 +177,38 @@ export default function CalculatorsPage() {
                         label: 'Grow wealth monthly',
                       },
                       {
-                        name: 'Inflation Tool',
-                        url: '/inflation-calculator',
-                        label: 'Protect power',
-                      },
-                      {
-                        name: 'FD Calculator',
-                        url: '/fd-calculator',
-                        label: 'Check returns',
+                        name: 'Home Loan EMI',
+                        url: '/loans/home-loan',
+                        label: 'Plan housing loan',
                       },
                       {
                         name: 'Retirement Planner',
                         url: '/retirement-calculator',
                         label: 'Long-term security',
                       },
+                      {
+                        name: 'Inflation Tool',
+                        url: '/inflation-calculator',
+                        label: 'Protect power',
+                      },
                     ].map((item) => (
                       <li key={item.url}>
                         <Link
                           href={item.url}
-                          className="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-sm transition-all group"
+                          className={`flex items-center justify-between p-3 rounded-lg border transition-all group ${
+                            item.highlight
+                              ? 'bg-white border-emerald-200 hover:border-emerald-400 shadow-sm'
+                              : 'bg-white border-slate-200 hover:border-emerald-300'
+                          }`}
                         >
                           <div>
-                            <span className="block font-bold text-slate-900 text-sm group-hover:text-emerald-700">
+                            <span
+                              className={`block font-bold text-sm group-hover:text-emerald-700 ${
+                                item.highlight
+                                  ? 'text-emerald-700'
+                                  : 'text-slate-900'
+                              }`}
+                            >
                               {item.name}
                             </span>
                             <span className="block text-xs text-slate-500">
@@ -158,6 +222,7 @@ export default function CalculatorsPage() {
                   </ul>
                 </CardContent>
               </Card>
+
               <h2 className="text-2xl font-bold text-slate-900 mt-10">
                 How EMI & Loan Calculators Help
               </h2>
@@ -167,6 +232,7 @@ export default function CalculatorsPage() {
                 but increase EMI, while longer tenures improve cash flow at a
                 higher total cost.
               </p>
+
               <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg not-prose mb-8">
                 <h4 className="font-bold text-emerald-900 mb-2 flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5" /> Pro Tip
@@ -177,6 +243,7 @@ export default function CalculatorsPage() {
                   lakhs over 20 years.
                 </p>
               </div>
+
               <Separator className="my-8" />
               <LegalNote />
             </section>
@@ -188,7 +255,7 @@ export default function CalculatorsPage() {
           </div>
 
           {/* -------- SIDEBAR (Right Column) -------- */}
-          <aside className="lg:col-span-4 space-y-8">
+          <aside className="lg:col-span-4 space-y-8 mb-10">
             <div className="sticky top-24 space-y-8">
               {/* Sidebar Ad */}
               <div className="rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-white min-h-62.5 flex items-center justify-center no-print">

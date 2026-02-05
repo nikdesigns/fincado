@@ -19,14 +19,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import FAQSchema from '@/components/FAQSchema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'ELSS Calculator 2025 – Calculate Tax Saving Mutual Fund Returns',
+  title: 'ELSS Calculator – Save Tax under Section 80C (Updated for 2026)',
   description:
-    'Calculate returns on your ELSS Mutual Fund investments. Check how much tax you save under Section 80C (up to ₹46,800) and estimate maturity value.',
+    'Calculate returns on ELSS Mutual Fund investments. Estimate tax savings under Section 80C and potential long-term wealth creation.',
   keywords: [
     'ELSS Calculator',
     'Tax Saving Mutual Fund Calculator',
@@ -39,9 +45,9 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/elss-calculator/',
   },
   openGraph: {
-    title: 'ELSS Calculator – Save Tax & Build Wealth',
+    title: 'ELSS Calculator – Updated After Budget 2026',
     description:
-      'Invest in ELSS to save up to ₹46,800 in tax and earn high equity returns. Calculate now.',
+      'Calculate returns on ELSS Mutual Fund investments. Estimate tax savings under Section 80C and potential long-term wealth creation.',
     url: 'https://fincado.com/elss-calculator/',
     type: 'website',
   },
@@ -63,13 +69,17 @@ export default function ELSSPage() {
   `);
 
   const featuresContent = autoLinkContent(`
-    <ul class="list-disc list-inside space-y-2 mt-4 pl-2">
-      <li><strong>Lock-in Period:</strong> 3 Years (Shortest among all 80C options like PPF or FD).</li>
-      <li><strong>Potential Returns:</strong> 12% - 15% (Historically higher than PPF/FD).</li>
-      <li><strong>Investment Mode:</strong> SIP (Systematic Investment Plan) or Lump Sum.</li>
-      <li><strong>Taxation:</strong> LTCG gains above ₹1.25 Lakh are taxed at 12.5%.</li>
-    </ul>
-  `);
+  <ul class="list-disc list-inside space-y-2 mt-4 pl-2">
+    <li><strong>Lock-in Period:</strong> 3 Years (Shortest among all 80C options).</li>
+    <li><strong>Investment Type:</strong> Equity-oriented Mutual Fund.</li>
+    <li><strong>Investment Mode:</strong> SIP or Lump Sum.</li>
+    <li>
+      <strong>Taxation:</strong>
+      Returns are taxed as per prevailing Long-Term Capital Gains (LTCG) rules
+      applicable to equity mutual funds.
+    </li>
+  </ul>
+`);
 
   const faqItems = [
     {
@@ -101,6 +111,13 @@ export default function ELSSPage() {
       question: 'What happens if I stop my ELSS SIP?',
       answer:
         'You can stop or pause your ELSS SIP anytime without penalty. However, the installments already invested will remain locked until each completes its individual 3-year lock-in period.',
+    },
+    {
+      id: 'faq-6',
+      question:
+        'Did Budget 2026 change ELSS tax benefits or Section 80C limits?',
+      answer:
+        'No. Union Budget 2026 did not make any changes to ELSS mutual funds or the Section 80C investment limit. Investors can continue to claim deductions up to the existing limit as per income tax rules.',
     },
   ];
 
@@ -242,6 +259,11 @@ export default function ELSSPage() {
               </h3>
 
               <WikiText content={featuresContent} />
+              <p className="mt-3 text-xs text-slate-500">
+                Union Budget 2026 did not change ELSS taxation or Section 80C
+                limits. Investors should verify prevailing tax rules at the time
+                of redemption.
+              </p>
 
               {/* 💰 AD 3 */}
               <div className="no-print my-8 flex justify-center">
@@ -307,7 +329,7 @@ export default function ELSSPage() {
                             Tax on Returns
                           </TableCell>
                           <TableCell className="text-slate-700">
-                            12.5% LTCG above ₹1.25L
+                            LTCG as per prevailing equity mutual fund tax rules
                           </TableCell>
                           <TableCell className="font-semibold text-emerald-600">
                             Fully Tax Free
@@ -354,34 +376,35 @@ export default function ELSSPage() {
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2>Frequently Asked Questions (FAQs)</h2>
-              <div className="faqs-accordion">
-                <details open>
-                  <summary>Can I withdraw money after 3 years?</summary>
-                  <p>
-                    Yes, after the 3-year lock-in period ends, you can redeem
-                    your units. However, it is recommended to stay invested for
-                    5-7 years for better returns.
-                  </p>
-                </details>
-                <details>
-                  <summary>Is SIP allowed in ELSS?</summary>
-                  <p>
-                    Yes, SIP is the best way to invest in ELSS. However,
-                    remember that <strong>each SIP installment</strong> has its
-                    own 3-year lock-in period.
-                  </p>
-                </details>
-                <details>
-                  <summary>How is ELSS taxed?</summary>
-                  <p>
-                    ELSS gains are treated as Long Term Capital Gains (LTCG).
-                    Gains up to ₹1.25 Lakh in a financial year are tax-free.
-                    Gains above this limit are taxed at 12.5%.
-                  </p>
-                </details>
-              </div>
+            <section className="no-print my-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />

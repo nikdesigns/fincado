@@ -29,15 +29,15 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA (Optimized 2026) ---------------- */
 export const metadata: Metadata = {
-  title: 'APY Calculator 2025 – Atal Pension Yojana Contribution Chart',
+  title: 'APY Calculator 2026 – Atal Pension Yojana Contribution Chart',
   description:
     'Calculate monthly contribution for Atal Pension Yojana (APY). Check guaranteed pension (₹1000-₹5000), return to nominee, and age-wise contribution chart.',
   keywords: [
     'APY Calculator',
     'Atal Pension Yojana Calculator',
-    'APY Contribution Chart 2025',
+    'APY Contribution Chart',
     'Pension Scheme for Unorganized Sector',
     'APY vs NPS',
     'Government Pension Scheme',
@@ -95,7 +95,8 @@ export default function APYPage() {
       <li><strong>Age:</strong> Must be between 18 and 40 years.</li>
       <li><strong>Citizenship:</strong> Must be an Indian citizen.</li>
       <li><strong>Bank Account:</strong> Must have a valid savings bank account.</li>
-      <li><strong>Tax Status:</strong> Should NOT be an income tax payer (Effective from Oct 1, 2022).</li>
+      <li><strong>Tax Status:</strong> Income tax payers are not eligible (as per rules
+effective from Oct 1, 2022).</li>
     </ul>
   `);
 
@@ -126,7 +127,7 @@ export default function APYPage() {
       <main className="container" style={{ padding: '40px 20px' }}>
         <BreadcrumbJsonLd
           items={[
-            { name: 'Home', url: 'https://incado.com/' },
+            { name: 'Home', url: 'https://fincado.com/' },
             { name: 'Calculators', url: 'https://fincado.com/calculators' },
             {
               name: 'APY Calculator',
@@ -187,6 +188,9 @@ export default function APYPage() {
             </div>
 
             {/* ✅ Live Rates (Using FD/NPS context) */}
+            <h3 className="mt-8 text-lg font-semibold text-slate-900">
+              Compare APY Pension with FD-based Retirement Income
+            </h3>
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
@@ -351,7 +355,9 @@ export default function APYPage() {
                                 <TableCell className="font-medium">
                                   Returns
                                 </TableCell>
-                                <TableCell>Guaranteed (~8%)</TableCell>
+                                <TableCell>
+                                  Guaranteed Pension (Govt-backed)
+                                </TableCell>
                                 <TableCell>Market Linked (9%–12%)</TableCell>
                               </TableRow>
 
@@ -412,6 +418,11 @@ export default function APYPage() {
                             </TableRow>
                           </TableBody>
                         </Table>
+                        <p className="mt-2 px-4 text-xs text-slate-500">
+                          Nominee corpus represents accumulated contributions
+                          with government-backed returns, not a lump-sum
+                          maturity benefit like NPS or EPF.
+                        </p>
                       </CardContent>
                     </Card>
                   </section>

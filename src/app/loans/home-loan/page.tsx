@@ -22,31 +22,37 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Home, ArrowRight } from 'lucide-react';
+import {
+  Home,
+  ArrowRight,
+  ReceiptIndianRupee,
+  CheckCircle2,
+  XCircle,
+  Scale,
+  BadgeCheck,
+} from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title:
-    'Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits',
+  title: 'Home Loan EMI Calculator 2026 – EMI, Eligibility & Tax Benefits',
   description:
-    'Calculate Home Loan EMI, total interest, and tax benefits under Section 24(b) and 80C. Check eligibility, PMAY subsidy, and amortization schedule instantly.',
+    'Calculate Home Loan EMI, total interest, and tax benefits under Section 24(b) and 80C. Check eligibility, PMAY subsidy status, and amortization schedule for 2026.',
   keywords: [
     'Home Loan EMI Calculator',
     'Housing Loan Calculator',
     'SBI Home Loan EMI',
     'HDFC Home Loan Interest',
-    'Home Loan Tax Benefit',
-    'Section 80C',
-    'Section 24b',
+    'Home Loan Tax Benefit 2026',
+    'Section 80C Limit 2026',
+    'Section 24b Limit 2026',
     'PMAY Calculator',
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/home-loan/',
   },
   openGraph: {
-    title:
-      'Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits',
+    title: 'Home Loan EMI Calculator – Updated After Budget 2026',
     description:
       'Free tool to calculate Home Loan EMI, Interest, and Tax Benefits.',
     url: 'https://fincado.com/loans/home-loan/',
@@ -74,11 +80,12 @@ export default function HomeLoanPage() {
       Home loans are the best tax-saving instruments in India. You can claim deductions under two sections:
     </p>
     <ul class="list-disc list-inside space-y-2 ">
-      <li><strong>Section 80C:</strong> Deduction up to ₹1.5 Lakh on <em>Principal Repayment</em>.</li>
-      <li><strong>Section 24(b):</strong> Deduction up to ₹2 Lakh on <em>Interest Payment</em> for a self-occupied property.</li>
+      <li><strong>Section 80C:</strong> Deduction up to <strong>₹1.5 Lakh</strong> on <em>Principal Repayment</em>.</li>
+      <li><strong>Section 24(b):</strong> Deduction up to <strong>₹2 Lakh</strong> on <em>Interest Payment</em> for a self-occupied property.</li>
     </ul>
-    <p class="mt-4">
-      Use this calculator to split your EMI into principal and interest components to maximize these claims.
+    <p class="mt-4 text-sm text-slate-500">
+      Note: These deductions are available only if you opt for the <strong>Old Tax Regime</strong>. 
+      The New Tax Regime does not offer deductions on home loan principal or interest (for self-occupied properties).
     </p>
   `);
 
@@ -107,13 +114,19 @@ export default function HomeLoanPage() {
       answer:
         'Home loan EMI depends on interest rate, tenure, and loan amount. PSU banks like SBI often offer lower rates, while private banks provide faster processing. Always compare EMIs using a home loan EMI calculator before choosing.',
     },
+    {
+      id: 'faq-5',
+      question: 'Did Budget 2026 increase the Section 24(b) limit?',
+      answer:
+        'No. Despite expectations, Union Budget 2026 did not increase the tax deduction limit for home loan interest. It remains capped at ₹2 Lakh for self-occupied properties under the Old Regime.',
+    },
   ];
 
   return (
     <>
       <CalculatorSchema
         name="Home Loan EMI Calculator"
-        description="Calculate home loan EMI, total interest payable, and tax benefits (Sec 80C, 24b) with amortization schedule."
+        description="Calculate home loan EMI and total interest payable. Understand applicable tax benefits under Section 80C and 24(b) with amortization schedule."
         url="https://fincado.com/loans/home-loan/"
       />
 
@@ -138,8 +151,8 @@ export default function HomeLoanPage() {
       <main className="container px-4 py-6 sm:py-8">
         <header className="no-print my-4">
           <div className="no-print mb-6 flex items-center justify-between gap-4">
-            <ShareTools title="Home Loan EMI Calculator 2025 – Check EMI, Eligibility & Tax Benefits" />
-            <LanguageToggle path="/hi/loans/home-loan" />
+            <ShareTools title="Home Loan EMI Calculator – Updated After Budget 2026" />
+            <LanguageToggle path="/hi/loans/home-loan/" />
           </div>
           <h1
             className="
@@ -161,25 +174,53 @@ export default function HomeLoanPage() {
             >
               Home Loan EMI Calculator
             </span>
-            <span className="block text-base sm:text-lg font-medium text-lime-700 mb-4">
+            <span className="block text-base sm:text-lg font-medium text-emerald-700 mb-4">
               Check EMI, eligibility & tax benefits before you apply
             </span>
           </h1>
           <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
             <WikiText
               content={`
-    <p>
-      Plan your dream home with our <strong>bank-grade accurate</strong> home loan calculator.
-      Instantly check EMI, total interest cost, and <strong>tax savings</strong> under Section 24 & 80C.
-    </p>
-  `}
+                <p>
+                  Plan your dream home with our <strong>bank-grade accurate</strong> home loan calculator.
+                  Instantly check EMI, total interest cost, and <strong>tax savings</strong> under Section 24 & 80C.
+                </p>
+              `}
             />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-emerald-50 border border-emerald-100 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-emerald-900">
+                Budget 2026: Tax Benefits Unchanged
+              </p>
+              <p className="text-xs text-emerald-800 leading-relaxed">
+                Union Budget 2026 maintained existing limits. You can claim up
+                to <strong>₹2 Lakh</strong> (Interest) and{' '}
+                <strong>₹1.5 Lakh</strong> (Principal) deductions under the Old
+                Tax Regime.
+              </p>
+            </div>
           </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <HomeLoanClient />
+            <div className="mt-6 flex gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <Scale className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong>Note:</strong> EMI calculations follow standard banking
+                formulas and are unaffected by{' '}
+                <span className="font-medium text-slate-700">
+                  Union Budget 2026
+                </span>
+                . Tax benefits depend on applicable income tax rules and
+                individual eligibility.
+              </p>
+            </div>
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
@@ -207,7 +248,7 @@ export default function HomeLoanPage() {
                     className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>
-                      Read our Complete Home Loan Guide (2025 Edition)
+                      Read our Complete Home Loan Guide (Updated for 2026)
                     </span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -233,11 +274,36 @@ export default function HomeLoanPage() {
                   {/* --- SECTION: TAX BENEFITS --- */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Tax Benefits of Home Loans (2025)
+                      Tax Benefits of Home Loans (After Budget 2026)
                     </h3>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={taxContent} />
+                      <Card className="mt-6 bg-slate-50 border-slate-200 shadow-sm">
+                        <CardContent className="p-4">
+                          <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2 mb-3">
+                            <ReceiptIndianRupee className="w-4 h-4 text-indigo-600" />
+                            Union Budget 2026: Tax & Subsidy Status
+                          </h4>
+                          <div className="grid gap-2">
+                            <div className="flex items-start gap-2.5">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                              <p className="text-sm text-slate-700">
+                                <strong>Tax Deductions:</strong> Limits for
+                                Section 80C (Principal) and Section 24(b)
+                                (Interest) remain unchanged.
+                              </p>
+                            </div>
+                            <div className="flex items-start gap-2.5">
+                              <XCircle className="w-4 h-4 text-slate-400 mt-0.5 shrink-0" />
+                              <p className="text-sm text-slate-600">
+                                <strong>PMAY Subsidy:</strong> No new subsidy
+                                benefits were announced for fresh applicants in
+                                the general category.
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </div>
                   </section>
 
@@ -251,30 +317,27 @@ export default function HomeLoanPage() {
                     <h3 className="text-xl font-semibold text-slate-900">
                       Home Loan EMI Formula
                     </h3>
-
                     <p className="text-slate-700">
                       Indian banks calculate Home Loan EMI using the standard
                       reducing balance formula:
                     </p>
-
                     {/* Formula Box — EXACT EMI STYLE */}
                     <div className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4">
                       <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
                     </div>
-
                     <div className="text-slate-700">
                       <WikiText
                         content={`
-              <ul class="list-disc list-inside space-y-2 text-sm">
-                <li><strong>P</strong> = Principal Loan Amount</li>
-                <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
-                <li><strong>n</strong> = Loan Tenure in Months</li>
-              </ul>
-            `}
+                          <ul class="list-disc list-inside space-y-2 text-sm">
+                            <li><strong>P</strong> = Principal Loan Amount</li>
+                            <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
+                            <li><strong>n</strong> = Loan Tenure in Months</li>
+                          </ul>
+                        `}
                       />
                     </div>
 
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-slate-600 mt-2">
                       This Home Loan calculator is maintained by{' '}
                       <strong>Fincado</strong> and follows RBI-aligned lending
                       formulas used by Indian banks and housing finance
@@ -282,7 +345,7 @@ export default function HomeLoanPage() {
                     </p>
                   </section>
 
-                  {/* --- RELATED CALCULATORS (CARD GRID — IMPORTANT) --- */}
+                  {/* --- RELATED CALCULATORS --- */}
                   <section className="space-y-5">
                     <h3 className="text-xl font-semibold text-slate-900">
                       Related Loan Calculators

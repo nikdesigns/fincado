@@ -3,6 +3,16 @@
 import React, { useMemo, useState } from 'react';
 import EMIPieChart from '@/components/EMIPieChart';
 import CalculatorField from '@/components/CalculatorField';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { RefreshCcw, Baby } from 'lucide-react';
 
 /* ---------- TYPES ---------- */
 interface LabelConfig {
@@ -48,7 +58,7 @@ export default function SSYClient({ labels = {} }: SSYClientProps) {
   /* ---------- STATE ---------- */
   const [currentAge, setCurrentAge] = useState(5);
   const [depositMode, setDepositMode] = useState<'monthly' | 'yearly'>(
-    'monthly'
+    'monthly',
   );
   const [monthlyDeposit, setMonthlyDeposit] = useState(5000);
   const [yearlyDeposit, setYearlyDeposit] = useState(60000);
@@ -92,96 +102,126 @@ export default function SSYClient({ labels = {} }: SSYClientProps) {
     };
   }, [currentAge, depositMode, monthlyDeposit, yearlyDeposit, annualRate]);
 
+  const handleReset = () => {
+    setCurrentAge(5);
+    setDepositMode('monthly');
+    setMonthlyDeposit(5000);
+    setYearlyDeposit(60000);
+    setAnnualRate(8.2);
+  };
+
   /* ---------- UI ---------- */
   return (
-    <div className="card calculator-card">
-      <div className="calc-grid">
-        {/* ---------- INPUTS ---------- */}
-        <div className="calc-inputs space-y-6">
-          <CalculatorField
-            label={t.girlAge}
-            value={currentAge}
-            min={0}
-            max={10}
-            step={1}
-            onChange={setCurrentAge}
-          />
+    <Card className="border-slate-200 shadow-sm bg-card">
+      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+            <Baby className="h-5 w-5 text-emerald-600" />
+            SSY Calculator
+          </CardTitle>
+          <button
+            onClick={handleReset}
+            className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+          >
+            <RefreshCcw className="w-3 h-3" /> Reset
+          </button>
+        </div>
+      </CardHeader>
 
-          {/* Deposit Frequency */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">
-              {t.depositFreq}
-            </label>
-            <select
-              value={depositMode}
-              onChange={(e) =>
-                setDepositMode(e.target.value as 'monthly' | 'yearly')
+      <CardContent className="p-6 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+          {/* ---------- INPUTS ---------- */}
+          <div className="space-y-6">
+            <CalculatorField
+              label={t.girlAge}
+              value={currentAge}
+              min={0}
+              max={10}
+              step={1}
+              onChange={setCurrentAge}
+            />
+
+            {/* Deposit Frequency */}
+            <div className="space-y-2">
+              <Label>{t.depositFreq}</Label>
+              <Select
+                value={depositMode}
+                onValueChange={(v) => setDepositMode(v as 'monthly' | 'yearly')}
+              >
+                <SelectTrigger className="bg-white h-11">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="monthly">Monthly</SelectItem>
+                  <SelectItem value="yearly">Yearly</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <CalculatorField
+              label={depositMode === 'monthly' ? t.monthlyInv : t.yearlyInv}
+              value={depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit}
+              min={depositMode === 'monthly' ? 250 : 1000}
+              max={depositMode === 'monthly' ? 12500 : 150000}
+              step={depositMode === 'monthly' ? 250 : 1000}
+              onChange={
+                depositMode === 'monthly' ? setMonthlyDeposit : setYearlyDeposit
               }
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:ring-2 focus:ring-lime-500"
-            >
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-            </select>
+            />
+
+            <CalculatorField
+              label={t.rate}
+              value={annualRate}
+              min={7}
+              max={9}
+              step={0.1}
+              onChange={setAnnualRate}
+            />
           </div>
 
-          <CalculatorField
-            label={depositMode === 'monthly' ? t.monthlyInv : t.yearlyInv}
-            value={depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit}
-            min={depositMode === 'monthly' ? 250 : 1000}
-            max={depositMode === 'monthly' ? 12500 : 150000}
-            step={depositMode === 'monthly' ? 250 : 1000}
-            onChange={
-              depositMode === 'monthly' ? setMonthlyDeposit : setYearlyDeposit
-            }
-          />
+          {/* ---------- VISUALS ---------- */}
+          <div className="flex flex-col items-center justify-center">
+            <EMIPieChart
+              principalPct={results.principalPct}
+              interestPct={results.interestPct}
+              size={200}
+            />
 
-          <CalculatorField
-            label={t.rate}
-            value={annualRate}
-            min={7}
-            max={9}
-            step={0.1}
-            onChange={setAnnualRate}
-          />
-        </div>
+            <div className="mt-6 text-center">
+              <div className="text-sm text-slate-500">{t.maturityVal}</div>
 
-        {/* ---------- VISUALS ---------- */}
-        <div className="calc-visuals flex flex-col items-center">
-          <EMIPieChart
-            principalPct={results.principalPct}
-            interestPct={results.interestPct}
-            size={200}
-          />
-
-          <div className="mt-6 text-center">
-            <div className="text-sm text-slate-500">{t.maturityVal}</div>
-
-            <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
-              {formatINR(results.maturityAmount)}
-            </div>
-
-            <div className="mt-1 text-xs text-slate-500">
-              Maturity Age: {results.maturityAge} years
-            </div>
-
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-              <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <div className="text-xs text-slate-500">{t.totalInv}</div>
-                <div className="mt-1 font-semibold text-slate-900">
-                  {formatINR(results.totalInvested)}
-                </div>
+              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                {formatINR(results.maturityAmount)}
               </div>
 
-              <div className="rounded-lg border border-lime-200 bg-lime-50 p-4">
-                <div className="text-xs text-lime-700">{t.totalInt}</div>
-                <div className="mt-1 font-semibold text-lime-700">
-                  +{formatINR(results.totalInterest)}
-                </div>
+              <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                Maturity Year: {new Date().getFullYear() + 21} (Age:{' '}
+                {results.maturityAge})
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                <Card className="border-slate-200 shadow-none">
+                  <CardContent className="p-4">
+                    <div className="text-xs text-slate-500">{t.totalInv}</div>
+                    <div className="mt-1 font-semibold text-slate-900">
+                      {formatINR(results.totalInvested)}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-lime-200 bg-lime-50 shadow-none">
+                  <CardContent className="p-4">
+                    <div className="text-xs text-lime-700">{t.totalInt}</div>
+                    <div className="mt-1 font-semibold text-lime-700">
+                      +{formatINR(results.totalInterest)}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

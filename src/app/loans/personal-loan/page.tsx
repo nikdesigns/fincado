@@ -22,12 +22,14 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
-import { Banknote, ArrowRight } from 'lucide-react';
+import { Banknote, ArrowRight, Landmark, Info } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Personal Loan EMI Calculator – Check Eligibility & Interest (2025)',
+  title:
+    'Personal Loan EMI Calculator – Check Eligibility & Interest (Updated for 2026)',
   description:
     'Calculate Personal Loan EMI instantly. Compare interest rates from HDFC, SBI, ICICI. Check eligibility, documents required, and foreclosure charges.',
   keywords: [
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/loans/personal-loan/',
   },
   openGraph: {
-    title: 'Personal Loan EMI Calculator – Plan Your Finances',
+    title: 'Personal Loan EMI Calculator – Updated After Budget 2026',
     description:
       'Free tool to calculate Personal Loan EMI, Interest, and Tenure.',
     url: 'https://fincado.com/loans/personal-loan/',
@@ -90,7 +92,7 @@ export default function PersonalLoanPage() {
       id: 'faq-1',
       question: 'Is interest on personal loan tax deductible?',
       answer:
-        'Generally, personal loan interest is not tax deductible. However, if the loan is used for home renovation (deductible under Section 24) or for business purposes, interest may be claimed as a deduction with proper documentation.',
+        'Generally, personal loan interest is not tax deductible. However, if the loan is used for home renovation (deductible under Section 24) or for business purposes, interest may be claimed as a deduction with proper documentation, subject to income tax rules unchanged in Budget 2026.',
     },
     {
       id: 'faq-2',
@@ -115,6 +117,12 @@ export default function PersonalLoanPage() {
       question: 'Does personal loan EMI change during tenure?',
       answer:
         'Personal loans usually have fixed interest rates, so EMI remains constant unless you prepay or refinance the loan.',
+    },
+    {
+      id: 'faq-6',
+      question: 'Did Budget 2026 affect personal loan interest rates or EMIs?',
+      answer:
+        'No. Union Budget 2026 did not introduce any changes to personal loan interest rates, EMI calculation methods, or eligibility rules. Rates continue to depend on lender policy, borrower credit profile, and income.',
     },
   ];
 
@@ -198,6 +206,14 @@ export default function PersonalLoanPage() {
         <div className="layout-grid">
           <div className="main-content">
             <PersonalLoanClient />
+            <div className="mt-4 pt-3 border-t border-slate-100 flex gap-2">
+              <Info className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Calculations are indicative and{' '}
+                <strong>unaffected by Budget 2026</strong>. Actual rates and
+                approval depend on lender policies and borrower profile.
+              </p>
+            </div>
 
             {/* 💰 AD 2: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
@@ -243,6 +259,17 @@ export default function PersonalLoanPage() {
 
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={introContent} />
+                      <Alert className="mt-4 bg-slate-50 border-slate-200">
+                        <Landmark className="h-4 w-4 text-slate-500" />
+                        <AlertTitle className="text-slate-900 font-semibold text-sm">
+                          Union Budget 2026 Update
+                        </AlertTitle>
+                        <AlertDescription className="text-xs text-slate-500 mt-1 leading-relaxed">
+                          No changes to EMI rules or eligibility norms were
+                          announced. Personal loans continue to follow standard
+                          lending policies.
+                        </AlertDescription>
+                      </Alert>
                     </div>
                   </section>
 
@@ -254,6 +281,10 @@ export default function PersonalLoanPage() {
 
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={eligibilityContent} />
+                      <p className="mt-3 text-xs text-slate-500">
+                        Eligibility criteria vary by lender and were not altered
+                        by Union Budget 2026.
+                      </p>
                     </div>
                   </section>
 

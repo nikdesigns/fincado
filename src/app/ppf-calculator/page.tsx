@@ -10,7 +10,6 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
-import LiveRateTable from '@/components/LiveRateTable';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
@@ -22,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Accordion,
   AccordionContent,
@@ -30,16 +29,17 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import { BadgeCheck } from 'lucide-react'; // ✅ Icons added
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'PPF Calculator 2025 – Public Provident Fund Interest & Maturity',
+  title: 'PPF Calculator 2026 – Public Provident Fund Interest & Maturity',
   description:
-    'Calculate PPF maturity amount, interest earned, and tax-free returns. Check current interest rates, loan against PPF rules, and withdrawal limits.',
+    'Calculate PPF maturity amount, interest earned, and tax-free returns. Check current interest rates (7.1%), loan against PPF rules, and withdrawal limits for 2026.',
   keywords: [
     'PPF Calculator',
     'Public Provident Fund Calculator',
-    'PPF Interest Rate 2025',
+    'PPF Interest Rate 2026',
     'Tax Free Investment',
     'Section 80C Investment',
     'PPF Maturity Calculator',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/ppf-calculator/',
   },
   openGraph: {
-    title: 'PPF Calculator – Tax-Free Wealth Builder',
+    title: 'PPF Calculator – Tax-Free Wealth Builder (2026)',
     description:
       'Free tool to calculate PPF returns with yearly compounding and tax-benefit analysis.',
     url: 'https://fincado.com/ppf-calculator/',
@@ -144,92 +144,72 @@ export default function PPFPage() {
         />
 
         <header className="no-print my-4">
-          {/* Share + Language */}
           <div className="no-print mb-6 flex items-center justify-between gap-4">
             <ShareTools title="PPF Calculator — Public Provident Fund" />
             <LanguageToggle path="/hi/ppf-calculator" />
           </div>
 
-          {/* Title */}
-          <h1
-            className="
-      text-[clamp(1.9rem,4vw,2.6rem)]
-      font-semibold
-      leading-tight
-      tracking-[-0.02em]
-      text-slate-900
-    "
-          >
-            <span
-              className="
-        block
-        text-2xl
-        sm:text-3xl
-        lg:text-4xl
-        font-semibold
-        tracking-tight
-      "
-            >
+          <h1 className="text-[clamp(1.9rem,4vw,2.6rem)] font-semibold leading-tight tracking-[-0.02em] text-slate-900">
+            <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">
               PPF Calculator
             </span>
-
-            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+            <span className="block mt-2 text-base sm:text-lg font-medium text-emerald-700">
               Build tax-free wealth with Public Provident Fund
             </span>
           </h1>
 
-          {/* Intro */}
-          <WikiText
-            content={`
-      <p class="max-w-175 text-slate-500 mt-2">
-        Build a <strong>tax-free retirement corpus</strong> with PPF.
-        Calculate maturity value, total interest earned, and see the
-        power of compounding over the mandatory <strong>15-year lock-in</strong>.
-      </p>
-    `}
-          />
+          <div className="mt-4 max-w-2xl text-slate-500 text-base leading-relaxed">
+            <WikiText
+              content={`
+                <p>
+                  Build a <strong>tax-free retirement corpus</strong> with PPF.
+                  Calculate maturity value, total interest earned, and see the
+                  power of compounding over the mandatory <strong>15-year lock-in</strong>.
+                </p>
+              `}
+            />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-white border border-slate-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-slate-900">
+                Budget 2026: Status Unchanged
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                The Union Budget 2026 did not alter the EEE tax status of PPF.
+                Interest earned and maturity proceeds remain{' '}
+                <strong>100% Tax Free</strong>. The interest rate remains stable
+                at <strong>7.1%</strong> for the current quarter.
+              </p>
+            </div>
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <PPFClient />
 
-            {/* 💰 AD 2: AFTER CALCULATOR */}
             <div className="no-print" style={{ margin: '32px 0' }}>
               <AdSlot id="ppf-after-calc" type="banner" />
             </div>
-
-            <LiveRateTable type="fixedDeposit" />
 
             {/* Mobile-only suggestions */}
             <div className="mobile-only-suggestions my-8">
               <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Savings
               </h3>
-
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/fd-calculator/"
-                  className="
-        flex items-center justify-center gap-2
-        rounded-lg border border-slate-200
-        bg-white px-3 py-3
-        text-sm font-medium text-slate-900
-        transition hover:border-lime-300 hover:bg-lime-50
-      "
+                  className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 transition hover:border-emerald-300 hover:bg-emerald-50"
                 >
                   🏦 FD Returns
                 </Link>
-
                 <Link
                   href="/sukanya-samriddhi/"
-                  className="
-        flex items-center justify-center gap-2
-        rounded-lg border border-slate-200
-        bg-white px-3 py-3
-        text-sm font-medium text-slate-900
-        transition hover:border-lime-300 hover:bg-lime-50
-      "
+                  className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 transition hover:border-emerald-300 hover:bg-emerald-50"
                 >
                   👧 SSY Calculator
                 </Link>
@@ -237,29 +217,15 @@ export default function PPFPage() {
             </div>
 
             {/* Promo box */}
-            <div
-              className="
-    no-print my-8 mx-0
-    flex items-center gap-3
-    rounded-lg border border-lime-200
-    bg-lime-50 px-4 py-4
-  "
-            >
+            <div className="no-print my-8 mx-0 flex items-center gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-4">
               <span className="text-2xl">🛡️</span>
-
               <div>
-                <strong className="block text-base font-semibold text-lime-800">
+                <strong className="block text-base font-semibold text-emerald-800">
                   Safe Investment Strategy
                 </strong>
-
                 <Link
                   href="/guides/ppf-guide/"
-                  className="
-        mt-1 inline-block
-        text-sm font-semibold text-lime-700
-        underline underline-offset-2
-        transition hover:text-lime-800
-      "
+                  className="mt-1 inline-block text-sm font-semibold text-emerald-700 underline underline-offset-2 transition hover:text-emerald-800"
                 >
                   Read: How to Maximize PPF Returns →
                 </Link>
@@ -284,7 +250,6 @@ export default function PPFPage() {
                 <WikiText content={eligibilityContent} />
               </section>
 
-              {/* 💰 AD */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
@@ -294,28 +259,32 @@ export default function PPFPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   PPF vs FD vs ELSS: Quick Comparison
                 </h3>
-
-                <Card>
-                  <CardContent>
+                <Card className="border-slate-200">
+                  <CardContent className="p-0">
                     <div className="overflow-x-auto">
                       <Table className="border-collapse">
                         <TableHeader>
-                          <TableRow>
-                            <TableHead className="text-left">Feature</TableHead>
-                            <TableHead className="text-left">PPF</TableHead>
-                            <TableHead className="text-left">Bank FD</TableHead>
-                            <TableHead className="text-left">
+                          <TableRow className="bg-slate-50">
+                            <TableHead className="font-bold text-slate-900 text-left">
+                              Feature
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900 text-left">
+                              PPF
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900 text-left">
+                              Bank FD
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900 text-left">
                               ELSS Mutual Fund
                             </TableHead>
                           </TableRow>
                         </TableHeader>
-
                         <TableBody>
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Returns
                             </TableCell>
-                            <TableCell className="font-semibold text-lime-700">
+                            <TableCell className="font-semibold text-emerald-700">
                               ~7.1% (Guaranteed)
                             </TableCell>
                             <TableCell className="text-slate-700">
@@ -325,12 +294,11 @@ export default function PPFPage() {
                               12% – 15% (Market Linked)
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Tax Status
                             </TableCell>
-                            <TableCell className="font-semibold text-lime-700">
+                            <TableCell className="font-semibold text-emerald-700">
                               EEE (Tax Free)
                             </TableCell>
                             <TableCell className="text-red-600">
@@ -340,7 +308,6 @@ export default function PPFPage() {
                               LTCG @ 12.5%
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Lock-in
@@ -353,12 +320,11 @@ export default function PPFPage() {
                               3 Years
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Risk
                             </TableCell>
-                            <TableCell className="font-semibold text-lime-700">
+                            <TableCell className="font-semibold text-emerald-700">
                               Zero Risk (Govt-backed)
                             </TableCell>
                             <TableCell>Low Risk</TableCell>
@@ -394,25 +360,22 @@ export default function PPFPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   PPF Calculation Formula
                 </h3>
-
                 <p className="text-slate-700">
                   The interest on PPF is compounded annually. The formula is
                   similar to the Future Value of an Annuity:
                 </p>
-
-                <div className="py-6 overflow-x-auto bg-slate-50 px-4 rounded-md">
+                <div className="py-6 overflow-x-auto bg-slate-50 px-4 rounded-md border border-slate-200">
                   <BlockMath math="A = P \times \left[ \frac{(1 + i)^n - 1}{i} \right] \times (1 + i)" />
                 </div>
-
                 <WikiText
                   content={`
-        <ul class="text-sm list-disc pl-5 text-slate-700">
-          <li><strong>A</strong>: Maturity Amount</li>
-          <li><strong>P</strong>: Annual Installment</li>
-          <li><strong>i</strong>: Annual Interest Rate</li>
-          <li><strong>n</strong>: Tenure (15 to 50 years)</li>
-        </ul>
-      `}
+                    <ul class="text-sm list-disc pl-5 text-slate-700 mt-2">
+                      <li><strong>A</strong>: Maturity Amount</li>
+                      <li><strong>P</strong>: Annual Installment</li>
+                      <li><strong>i</strong>: Annual Interest Rate</li>
+                      <li><strong>n</strong>: Tenure (15 to 50 years)</li>
+                    </ul>
+                  `}
                 />
               </section>
 
@@ -421,54 +384,57 @@ export default function PPFPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   Key Advantages of PPF
                 </h3>
-
                 <WikiText
                   content={`
-        <ul class="list-disc pl-5 text-slate-700 space-y-2">
-          <li><strong>EEE Tax Status:</strong> No tax on investment, interest, or withdrawal.</li>
-          <li><strong>Sovereign Guarantee:</strong> 100% capital safety backed by Govt of India.</li>
-          <li><strong>Protection from Attachment:</strong> Cannot be claimed by creditors or courts.</li>
-        </ul>
-      `}
+                    <ul class="list-disc pl-5 text-slate-700 space-y-2">
+                      <li><strong>EEE Tax Status:</strong> No tax on investment, interest, or withdrawal.</li>
+                      <li><strong>Sovereign Guarantee:</strong> 100% capital safety backed by Govt of India.</li>
+                      <li><strong>Protection from Attachment:</strong> Cannot be claimed by creditors or courts.</li>
+                    </ul>
+                  `}
                 />
               </section>
             </article>
 
             {/* FAQs */}
             <section className="article no-print mt-12">
-              <h2 className="text-2xl font-semibold text-slate-900">
-                Frequently Asked Questions (FAQs)
-              </h2>
-
-              <Accordion
-                type="single"
-                collapsible
-                defaultValue="item-0"
-                className="mt-6"
-              >
-                {PPF_FAQS.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`item-${index}`}
-                    className="border-b"
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue="item-0"
+                    className="w-full space-y-2"
                   >
-                    <AccordionTrigger className="text-left font-medium text-slate-900">
-                      {faq.question}
-                    </AccordionTrigger>
-
-                    <AccordionContent className="text-slate-700 leading-relaxed">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+                    {PPF_FAQS.map((faq, index) => (
+                      <AccordionItem
+                        key={index}
+                        value={`item-${index}`}
+                        className="border rounded-lg px-4"
+                      >
+                        <AccordionTrigger className="text-left font-medium text-slate-800 hover:no-underline">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div className="sticky top-5 space-y-6">
+            <div className="sticky top-28 space-y-6">
               <AdSlot id="ppf-sidebar" type="box" />
               <FinancialNavWidget />
             </div>

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import EPFClient from './EPFClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -31,9 +30,9 @@ import {
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA (Optimized 2026) ---------------- */
 export const metadata: Metadata = {
-  title: 'EPF Calculator 2025 – Check Corpus & Interest (Tax Rules)',
+  title: 'EPF Calculator 2026 – Check Corpus & Interest (Tax Rules)',
   description:
     'Calculate EPF maturity corpus. Check employer contribution split (EPS vs EPF), interest rates, and tax on contributions above ₹2.5 Lakh.',
   keywords: [
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
     'Employees Provident Fund Calculator',
     'EPF Interest Calculator',
     'VPF Calculator',
-    'EPF Tax Rules 2025',
+    'EPF Tax Rules',
     'Pension Contribution EPS',
   ],
   alternates: {
@@ -101,7 +100,7 @@ export default function EPFPage() {
 
   const taxContent = autoLinkContent(`
     <p class="mt-2 text-slate-600">
-      <strong>New Tax Rule (Budget 2021):</strong> If your total contribution (Employee Share + VPF) exceeds 
+      <strong>Rule Introduced in Budget 2021:</strong> If your total contribution (Employee Share + VPF) exceeds 
       <strong>₹2.5 Lakhs</strong> in a financial year, the interest earned on the excess amount is <strong>taxable</strong> 
       as per your income tax slab. The corpus accumulated up to ₹2.5 Lakhs remains tax-free.
     </p>
@@ -191,9 +190,6 @@ export default function EPFPage() {
             <div className="no-print my-8">
               <AdSlot id="epf-after-calc" type="banner" />
             </div>
-
-            {/* ✅ Live Rates (PPF Context) */}
-            <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
             <div className="mobile-only-suggestions my-8">
@@ -320,7 +316,7 @@ export default function EPFPage() {
                             Interest Rate
                           </TableCell>
                           <TableCell className="font-semibold text-emerald-600">
-                            8.25% (Higher)
+                            As notified by EPFO (varies yearly)
                           </TableCell>
                           <TableCell className="text-slate-700">7.1%</TableCell>
                         </TableRow>

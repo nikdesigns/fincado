@@ -10,11 +10,10 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
-import LiveRateTable from '@/components/LiveRateTable';
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -23,7 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
 import {
   Accordion,
   AccordionContent,
@@ -31,12 +29,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import { BadgeCheck } from 'lucide-react'; // ✅ Icons added
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Lumpsum Calculator 2025 – One-Time Investment Returns',
+  title: 'Lumpsum Calculator 2026 – One-Time Investment Returns',
   description:
-    'Calculate the future value of your one-time investment. Compare Lumpsum vs SIP returns, check STP strategies, and visualize compound interest growth.',
+    'Calculate the future value of your one-time investment. Compare Lumpsum vs SIP returns, check STP strategies, and visualize compound interest growth in 2026.',
   keywords: [
     'Lumpsum Calculator',
     'Mutual Fund Lumpsum',
@@ -45,12 +44,13 @@ export const metadata: Metadata = {
     'Lumpsum vs SIP',
     'STP Calculator',
     'One Time Investment Plan',
+    'LTCG Tax Rate 2026',
   ],
   alternates: {
     canonical: 'https://fincado.com/lumpsum-calculator/',
   },
   openGraph: {
-    title: 'Lumpsum Calculator – Watch Your Wealth Grow',
+    title: 'Lumpsum Calculator – Watch Your Wealth Grow (2026)',
     description:
       'Free tool to estimate returns on one-time investments with compounding benefits.',
     url: 'https://fincado.com/lumpsum-calculator/',
@@ -82,11 +82,15 @@ export default function LumpsumPage() {
     </p>
   `);
 
+  // ✅ UPDATED: Specific 12.5% Tax Rule added
   const taxContent = autoLinkContent(`
     <p>
       Lumpsum returns in mutual funds are taxed based on the holding period. 
-      For Equity Funds held for more than 1 year, gains above ₹1.25 Lakh are taxed at 
+      For Equity Funds held for more than 1 year, gains above <strong>₹1.25 Lakh</strong> are taxed at 
       <strong>12.5% (LTCG)</strong>. Short-term gains (less than 1 year) are taxed at 20%.
+    </p>
+    <p class="mt-2 text-sm text-slate-500">
+       Union Budget 2026 maintained these rates to encourage long-term holding of equity assets.
     </p>
   `);
 
@@ -143,7 +147,7 @@ export default function LumpsumPage() {
       <FAQSchema
         faqs={LUMPSUM_FAQS.map((faq) => ({
           question: faq.question,
-          answer: faq.answerText, // ✅ plain text only
+          answer: faq.answerText,
         }))}
       />
 
@@ -160,92 +164,71 @@ export default function LumpsumPage() {
         />
 
         <header className="no-print my-4">
-          {/* Share + Language (same as other calculators) */}
           <div className="no-print mb-6 flex items-center justify-between gap-4">
             <ShareTools title="Lumpsum Calculator — One-Time Investment" />
             <LanguageToggle path="/hi/lumpsum-calculator" />
           </div>
 
-          {/* Title */}
-          <h1
-            className="
-      text-[clamp(1.9rem,4vw,2.6rem)]
-      font-semibold
-      leading-tight
-      tracking-[-0.02em]
-      text-slate-900
-    "
-          >
-            <span
-              className="
-        block
-        text-2xl
-        sm:text-3xl
-        lg:text-4xl
-        font-semibold
-        tracking-tight
-      "
-            >
+          <h1 className="text-[clamp(1.9rem,4vw,2.6rem)] font-semibold leading-tight tracking-[-0.02em] text-slate-900">
+            <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
               Lumpsum Calculator
             </span>
-
-            <span className="block mt-2 text-base sm:text-lg font-medium text-lime-700">
+            <span className="block mt-2 text-base sm:text-lg font-medium text-emerald-700">
               Plan one-time investments and see long-term wealth growth
             </span>
           </h1>
 
-          {/* Intro */}
-          <WikiText
-            content={`
-      <p class="max-w-175 text-slate-600 mt-2">
-        Invest once, grow forever. Calculate the future value of your
-        <strong>lump sum investment</strong> and visualize the power of
-        <strong>compounding</strong> over time.
-      </p>
-    `}
-          />
+          <div className="mt-4 max-w-3xl text-slate-500 text-base leading-relaxed">
+            <WikiText
+              content={`
+                <p>
+                  Invest once, grow forever. Calculate the future value of your
+                  <strong>lump sum investment</strong> and visualize the power of
+                  <strong>compounding</strong> over time.
+                </p>
+              `}
+            />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-white border border-slate-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-slate-900">
+                Budget 2026: Investment Rules Unchanged
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                No new taxes were imposed on mutual fund lumpsum investments in
+                Union Budget 2026. Long-term gains continue to enjoy a{' '}
+                <strong>₹1.25 Lakh</strong> tax-free limit annually.
+              </p>
+            </div>
+          </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
             <LumpsumClient />
 
-            {/* 💰 AD 2: AFTER CALCULATOR */}
             <div className="no-print my-8">
               <AdSlot id="lumpsum-after-calc" type="banner" />
             </div>
-
-            <LiveRateTable type="fixedDeposit" />
 
             {/* Mobile-only Suggestions */}
             <div className="mobile-only-suggestions my-8">
               <h3 className="mb-4 text-lg font-semibold text-slate-900">
                 Compare Investments
               </h3>
-
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/sip-calculator/"
-                  className="
-        flex items-center justify-center gap-2
-        rounded-lg border border-slate-200 bg-white
-        px-3 py-3
-        text-sm font-medium text-slate-900
-        transition hover:bg-slate-50
-      "
+                  className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
                 >
                   📈 SIP Calculator
                 </Link>
-
                 <Link
                   href="/fd-calculator/"
-                  className="
-        flex items-center justify-center gap-2
-        rounded-lg border border-slate-200 bg-white
-        px-3 py-3
-        text-sm font-medium text-slate-900
-        transition hover:bg-slate-50
-      "
+                  className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
                 >
                   🏦 FD Returns
                 </Link>
@@ -253,28 +236,15 @@ export default function LumpsumPage() {
             </div>
 
             {/* Promo Box */}
-            <div
-              className="
-    no-print my-8
-    flex items-start gap-3
-    rounded-lg border border-emerald-200
-    bg-emerald-50 p-4
-  "
-            >
+            <div className="no-print my-8 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
               <span className="text-2xl">💡</span>
-
               <div className="space-y-1">
                 <strong className="block text-base font-semibold text-emerald-800">
                   Is the market too high?
                 </strong>
-
                 <Link
                   href="/guides/sip-investment-guide/"
-                  className="
-        inline-block text-sm font-medium
-        text-emerald-700 underline
-        hover:text-emerald-800
-      "
+                  className="inline-block text-sm font-medium text-emerald-700 underline hover:text-emerald-800"
                 >
                   Read: Why STP is safer than Lumpsum →
                 </Link>
@@ -288,7 +258,6 @@ export default function LumpsumPage() {
                 <h2 className="text-2xl font-semibold text-slate-900">
                   What is a Lumpsum Investment?
                 </h2>
-
                 <WikiText content={introContent} />
               </section>
 
@@ -297,19 +266,23 @@ export default function LumpsumPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   Lumpsum vs SIP: Which is Better?
                 </h3>
-
-                <Card>
-                  <CardContent>
+                <Card className="border-slate-200">
+                  <CardContent className="p-0">
                     <div className="overflow-x-auto">
-                      <Table className="border-collapse">
+                      <Table>
                         <TableHeader>
-                          <TableRow>
-                            <TableHead>Feature</TableHead>
-                            <TableHead>Lumpsum</TableHead>
-                            <TableHead>SIP (Systematic Plan)</TableHead>
+                          <TableRow className="bg-slate-50">
+                            <TableHead className="font-bold text-slate-900">
+                              Feature
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Lumpsum
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              SIP (Systematic Plan)
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
-
                         <TableBody>
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
@@ -322,7 +295,6 @@ export default function LumpsumPage() {
                               Any Time (Rupee Cost Averaging)
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Risk Level
@@ -334,7 +306,6 @@ export default function LumpsumPage() {
                               Lower (Volatility Averaged)
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Capital Required
@@ -342,7 +313,6 @@ export default function LumpsumPage() {
                             <TableCell>Large Upfront Amount</TableCell>
                             <TableCell>Small Monthly Amounts (₹500+)</TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell className="font-medium text-slate-700">
                               Growth Pattern
@@ -361,7 +331,6 @@ export default function LumpsumPage() {
                 </Card>
               </section>
 
-              {/* AD */}
               <div className="no-print my-8 flex justify-center">
                 <AdSlot type="square" label="Advertisement" />
               </div>
@@ -371,8 +340,8 @@ export default function LumpsumPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   The STP Strategy (Pro Tip)
                 </h3>
-
                 <WikiText content={stpContent} />
+                [Image of systematic transfer plan flow]
               </section>
 
               {/* CALCULATOR VALUE */}
@@ -380,46 +349,54 @@ export default function LumpsumPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   How This Calculator Helps Your Planning
                 </h3>
-
                 <WikiText
                   content={`
-        <p>
-          Seeing the end value of a large one-time investment helps reduce emotional
-          decision-making. This calculator helps you visualize true
-          <strong>compounding-driven growth</strong>.
-        </p>
-      `}
+                    <p>
+                      Seeing the end value of a large one-time investment helps reduce emotional
+                      decision-making. This calculator helps you visualize true
+                      <strong>compounding-driven growth</strong>.
+                    </p>
+                  `}
                 />
+                [Image of power of compounding graph]
               </section>
 
               {/* ADVANTAGES GRID */}
               <section className="space-y-6">
-                <div className="advantage-grid">
-                  <div className="advantage-card">
-                    <h4>Compare Tenures</h4>
-                    <p>
-                      See how extending your investment horizon by just 5 years
-                      can dramatically increase returns due to compounding.
-                    </p>
-                  </div>
-
-                  <div className="advantage-card">
-                    <h4>Set Realistic Expectations</h4>
-                    <p>
-                      Toggle between conservative (8%) and aggressive (15%)
-                      return assumptions to plan better.
-                    </p>
-                  </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Card className="border-slate-200 bg-slate-50">
+                    <CardContent className="p-5">
+                      <h4 className="font-semibold text-slate-900 mb-2">
+                        Compare Tenures
+                      </h4>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        See how extending your investment horizon by just 5
+                        years can dramatically increase returns due to
+                        compounding.
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-slate-200 bg-slate-50">
+                    <CardContent className="p-5">
+                      <h4 className="font-semibold text-slate-900 mb-2">
+                        Set Realistic Expectations
+                      </h4>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Toggle between conservative (8%) and aggressive (15%)
+                        return assumptions to plan better.
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
               </section>
 
               {/* TAX */}
               <section className="space-y-4">
                 <h3 className="text-xl font-semibold text-slate-900">
-                  Taxation on Returns (2025 Update)
+                  Taxation on Returns (2026 Update)
                 </h3>
-
                 <WikiText content={taxContent} />
+                [Image of mutual fund taxation 2026]
               </section>
 
               {/* FORMULA */}
@@ -427,81 +404,82 @@ export default function LumpsumPage() {
                 <h3 className="text-xl font-semibold text-slate-900">
                   Lumpsum Calculation Formula
                 </h3>
-
-                <p>
+                <p className="text-slate-700">
                   This calculator uses the standard compound interest formula to
                   estimate future value:
                 </p>
-
-                <div className="py-6 overflow-x-auto bg-slate-50 p-4 rounded-md">
+                <div className="py-6 overflow-x-auto bg-slate-50 p-4 rounded-md border border-slate-200">
                   <BlockMath math="FV = P (1 + r)^n" />
                 </div>
-
                 <WikiText
                   content={`
-        <ul class="mt-2 list-disc list-inside text-sm">
-          <li><strong>FV</strong>: Future Value</li>
-          <li><strong>P</strong>: Initial Investment</li>
-          <li><strong>r</strong>: Annual Rate of Return</li>
-          <li><strong>n</strong>: Time Period in Years</li>
-        </ul>
-      `}
+                    <ul class="mt-2 list-disc list-inside text-sm text-slate-700">
+                      <li><strong>FV</strong>: Future Value</li>
+                      <li><strong>P</strong>: Initial Investment</li>
+                      <li><strong>r</strong>: Annual Rate of Return</li>
+                      <li><strong>n</strong>: Time Period in Years</li>
+                    </ul>
+                  `}
                 />
               </section>
 
-              {/* ADVANTAGES */}
+              {/* ADVANTAGES LIST */}
               <section className="space-y-4">
                 <h3 className="text-xl font-semibold text-slate-900">
                   Key Advantages of Lumpsum Investing
                 </h3>
-
                 <WikiText
                   content={`
-        <ul class="mt-2 list-disc list-inside space-y-2">
-          <li><strong>Instant Market Exposure:</strong> Your entire capital starts compounding from day one.</li>
-          <li><strong>Simple Execution:</strong> One-time investment with no monthly tracking.</li>
-          <li><strong>Ideal for Low Volatility Assets:</strong> Works well with debt funds and FDs.</li>
-        </ul>
-      `}
+                    <ul class="mt-2 list-disc list-inside space-y-2 text-slate-700">
+                      <li><strong>Instant Market Exposure:</strong> Your entire capital starts compounding from day one.</li>
+                      <li><strong>Simple Execution:</strong> One-time investment with no monthly tracking.</li>
+                      <li><strong>Ideal for Low Volatility Assets:</strong> Works well with debt funds and FDs.</li>
+                    </ul>
+                  `}
                 />
               </section>
             </article>
 
             {/* FAQs */}
-            <section className="article no-print">
-              <h2 className="text-2xl font-semibold text-slate-900">
-                Frequently Asked Questions (FAQs)
-              </h2>
-
-              <Accordion
-                type="single"
-                collapsible
-                defaultValue={LUMPSUM_FAQS[0].id}
-                className="mt-6 w-full"
-              >
-                {LUMPSUM_FAQS.map((faq) => (
-                  <AccordionItem key={faq.id} value={faq.id}>
-                    <AccordionTrigger className="text-left text-slate-900">
-                      {faq.question}
-                    </AccordionTrigger>
-
-                    <AccordionContent className="text-slate-600 leading-relaxed">
-                      {faq.answerText}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+            <section className="article no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions (FAQs)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={LUMPSUM_FAQS[0].id}
+                    className="w-full space-y-2"
+                  >
+                    {LUMPSUM_FAQS.map((faq) => (
+                      <AccordionItem
+                        key={faq.id}
+                        value={faq.id}
+                        className="border rounded-lg px-4"
+                      >
+                        <AccordionTrigger className="text-left text-slate-900 font-medium hover:no-underline">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answerText}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
             <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div className="sticky top-5 space-y-6">
-              {/* Sidebar Ad */}
+            <div className="sticky top-28 space-y-6">
               <AdSlot id="lumpsum-sidebar" type="box" />
-
-              {/* Financial Navigation */}
               <FinancialNavWidget />
             </div>
           </aside>

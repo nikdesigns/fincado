@@ -1,4 +1,3 @@
-// src/app/calculators/CalculatorsGrid.tsx
 'use client';
 
 import React, { useMemo } from 'react';
@@ -37,10 +36,10 @@ import {
   Percent,
   ArrowRight,
   Coins,
+  Wallet,
 } from 'lucide-react';
 
 // --- ICON MAPPING ---
-// Helper to render icons based on the static data
 const CalculatorIcon = ({
   name,
   className,
@@ -49,11 +48,14 @@ const CalculatorIcon = ({
   className?: string;
 }) => {
   const icons: Record<string, React.ElementType> = {
+    // Loans
     'Home Loan EMI': Home,
     'Car Loan EMI': Car,
     'Personal Loan EMI': CreditCard,
     'Education Loan EMI': GraduationCap,
     'General EMI': Calculator,
+
+    // Investment
     'SIP Planner': TrendingUp,
     'ELSS Calculator': PieChart,
     'Lumpsum Calculator': Briefcase,
@@ -63,16 +65,23 @@ const CalculatorIcon = ({
     'FD Calculator': ScrollText,
     'RD Calculator': Repeat,
     'SWP Calculator': ArrowDownCircle,
+
+    // Retirement
     'Retirement Planner': Umbrella,
-    'EPF Calculator': Building2,
+    'NPS Calculator': ShieldCheck, // ✅ Added
+    'EPF Calculator': Wallet, // Changed to Wallet for distinction
+    'Gratuity Calculator': Coins, // ✅ Added
     'APY Calculator': ShieldCheck,
     'FIRE Calculator': Flame,
+
+    // Tax & Tools
     'Income Tax Calculator': FileCheck,
+    'HRA Calculator': Building2, // ✅ Added
     'Inflation Calculator': TrendingDown,
     'Credit Score Estimator': Gauge,
     'GST Calculator': Receipt,
-    'Simple Interest': Coins,
-    'Compound Interest': Percent,
+    'Simple Interest': Percent,
+    'Compound Interest': TrendingUp,
   };
 
   const IconComponent = icons[name] || Calculator;
@@ -141,13 +150,6 @@ const ALL_CALCULATORS = [
     color: 'text-emerald-600 bg-emerald-50',
   },
   {
-    title: 'Mutual Funds',
-    path: '/mutual-funds/',
-    category: 'Investment & Savings',
-    desc: 'Estimate returns on equity and debt mutual funds.',
-    color: 'text-emerald-600 bg-emerald-50',
-  },
-  {
     title: 'PPF Calculator',
     path: '/ppf-calculator/',
     category: 'Investment & Savings',
@@ -185,10 +187,10 @@ const ALL_CALCULATORS = [
 
   // --- RETIREMENT ---
   {
-    title: 'Retirement Planner',
-    path: '/retirement-calculator/',
+    title: 'NPS Calculator',
+    path: '/nps-calculator/',
     category: 'Retirement & Pension',
-    desc: 'Determine required retirement corpus and monthly SIP needed to cover inflation.',
+    desc: 'Calculate pension corpus, lump sum (tax-free), and monthly annuity.',
     color: 'text-amber-600 bg-amber-50',
   },
   {
@@ -199,17 +201,24 @@ const ALL_CALCULATORS = [
     color: 'text-amber-600 bg-amber-50',
   },
   {
-    title: 'APY Calculator',
-    path: '/apy-calculator/',
+    title: 'Gratuity Calculator',
+    path: '/gratuity-calculator/',
     category: 'Retirement & Pension',
-    desc: 'Find the required contribution for a guaranteed pension under Atal Pension Yojana.',
+    desc: 'Estimate gratuity payout based on tenure and last drawn salary.',
     color: 'text-amber-600 bg-amber-50',
   },
   {
-    title: 'FIRE Calculator',
-    path: '/fire-calculator/',
+    title: 'Retirement Planner',
+    path: '/retirement-calculator/',
     category: 'Retirement & Pension',
-    desc: 'Calculate your FIRE number (28x+ expense) for early retirement planning.',
+    desc: 'Determine required corpus and monthly SIP needed to cover inflation.',
+    color: 'text-amber-600 bg-amber-50',
+  },
+  {
+    title: 'APY Calculator',
+    path: '/apy-calculator/',
+    category: 'Retirement & Pension',
+    desc: 'Find the required contribution for a guaranteed pension under APY.',
     color: 'text-amber-600 bg-amber-50',
   },
 
@@ -218,7 +227,21 @@ const ALL_CALCULATORS = [
     title: 'Income Tax Calculator',
     path: '/income-tax-calculator/',
     category: 'Tools & Tax',
-    desc: 'Compare New vs Old Regime tax liability for FY 2024-25 & 2025-26.',
+    desc: 'Compare New vs Old Regime tax liability for FY 2026-27.',
+    color: 'text-indigo-600 bg-indigo-50',
+  },
+  {
+    title: 'HRA Calculator',
+    path: '/hra-calculator/',
+    category: 'Tools & Tax',
+    desc: 'Calculate tax-exempt House Rent Allowance (Old Regime).',
+    color: 'text-indigo-600 bg-indigo-50',
+  },
+  {
+    title: 'GST Calculator',
+    path: '/gst-calculator/',
+    category: 'Tools & Tax',
+    desc: 'Add or remove GST from a price and view the CGST/SGST split.',
     color: 'text-indigo-600 bg-indigo-50',
   },
   {
@@ -233,13 +256,6 @@ const ALL_CALCULATORS = [
     path: '/credit-score/',
     category: 'Tools & Tax',
     desc: 'Estimate your score and get an actionable plan to improve creditworthiness.',
-    color: 'text-indigo-600 bg-indigo-50',
-  },
-  {
-    title: 'GST Calculator',
-    path: '/gst-calculator/',
-    category: 'Tools & Tax',
-    desc: 'Add or remove GST from a price and view the CGST/SGST split.',
     color: 'text-indigo-600 bg-indigo-50',
   },
   {
@@ -261,23 +277,25 @@ const ALL_CALCULATORS = [
 export default function CalculatorsGrid() {
   // Group calculators by Category
   const groupedCalculators = useMemo(() => {
-    return ALL_CALCULATORS.reduce((acc, calc) => {
-      // Handle slight category name variations if they exist in data
-      let cat = calc.category;
-      if (cat.includes('Investment')) cat = 'Investment & Savings';
-      if (cat.includes('Retirement')) cat = 'Retirement & Pension';
+    return ALL_CALCULATORS.reduce(
+      (acc, calc) => {
+        let cat = calc.category;
+        // Normalizing categories
+        if (cat.includes('Investment')) cat = 'Investment & Savings';
+        if (cat.includes('Retirement')) cat = 'Retirement & Pension';
 
-      if (!acc[cat]) {
-        acc[cat] = [];
-      }
-      acc[cat].push(calc);
-      return acc;
-    }, {} as Record<string, typeof ALL_CALCULATORS>);
+        if (!acc[cat]) {
+          acc[cat] = [];
+        }
+        acc[cat].push(calc);
+        return acc;
+      },
+      {} as Record<string, typeof ALL_CALCULATORS>,
+    );
   }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl animate-in fade-in duration-500">
-      {/* --- CATEGORIES LOOP --- */}
       <div className="space-y-16">
         {Object.entries(groupedCalculators).map(([category, calculators]) => (
           <section

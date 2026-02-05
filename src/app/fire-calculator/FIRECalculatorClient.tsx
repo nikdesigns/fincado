@@ -59,7 +59,7 @@ export default function FIRECalculatorClient({
     inflation: 'Inflation Rate (%)',
     returnRate: 'Expected Return (%)',
     safeWithdrawalRate: 'Safe Withdrawal Rate (%)',
-    multiplier: 'Multiplier',
+    multiplier: 'Expense Multiplier',
     recommendedSWR: 'Recommended for India: 3–3.5%',
     resetDefaults: 'Reset Defaults',
     fireNumber: 'Your FIRE Number',
@@ -75,7 +75,7 @@ export default function FIRECalculatorClient({
     const months = yearsToFire * 12;
 
     const futureExpense = Math.round(
-      annualExpense * Math.pow(1 + inflation / 100, yearsToFire)
+      annualExpense * Math.pow(1 + inflation / 100, yearsToFire),
     );
 
     const multiplierVal = 100 / swr;
@@ -83,7 +83,7 @@ export default function FIRECalculatorClient({
 
     const monthlyRate = returnRate / 12 / 100;
     const futureCorpus = Math.round(
-      currentCorpus * Math.pow(1 + monthlyRate, months)
+      currentCorpus * Math.pow(1 + monthlyRate, months),
     );
 
     const gap = Math.max(0, fireNumber - futureCorpus);
@@ -256,11 +256,22 @@ export default function FIRECalculatorClient({
                 <p className="font-semibold text-emerald-600">
                   {formatINR(results.futureCorpus)}
                 </p>
+                {swr > 4 && (
+                  <p className="text-xs text-amber-600">
+                    ⚠ SWR above 4% significantly increases risk in long
+                    retirements.
+                  </p>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
+      <p className="mt-3 text-xs text-slate-500">
+        FIRE calculations are estimates based on assumptions of inflation,
+        returns, and withdrawal rates. Market volatility, sequence-of-returns
+        risk, and personal circumstances can significantly impact outcomes.
+      </p>
     </div>
   );
 }

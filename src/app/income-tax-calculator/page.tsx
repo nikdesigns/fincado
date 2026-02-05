@@ -27,18 +27,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { BadgeCheck, Scale, FileText } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title:
-    'Income Tax Calculator 2025 (AY 2025-26) – Compare New vs Old Regime Instantly',
+  title: 'Income Tax Calculator 2026 – Compare New vs Old Regime',
   description:
-    'Calculate your Income Tax for FY 2024-25 & FY 2025-26 with our free calculator. Compare New vs Old Regime tax liability, check tax slabs, and optimize deductions.',
+    'Calculate your Income Tax for FY 2025-26 & FY 2026-27 with our free calculator. Compare New vs Old Regime tax liability, check tax slabs, and optimize deductions.',
   keywords: [
     'Income Tax Calculator',
-    'Tax Calculator AY 2025-26',
+    'Tax Calculator AY 2026-27',
     'New vs Old Tax Regime Calculator',
-    'Income Tax Slabs 2025',
+    'Income Tax Slabs 2026',
     'Salary Tax Calculator',
     '80C Tax Deduction',
   ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/income-tax-calculator/',
   },
   openGraph: {
-    title: 'Income Tax Calculator 2025 – Compare New vs Old Regime',
+    title: 'Income Tax Calculator 2026 – Compare New vs Old Regime',
     description:
       'Compare Old vs New Tax Regime and find the best option for your salary. Free online tax calculator for India.',
     url: 'https://fincado.com/income-tax-calculator/',
@@ -81,7 +81,7 @@ export default function IncomeTaxPage() {
   const introContent = autoLinkContent(`
     <p>
       The <strong>Income Tax Calculator</strong> helps you estimate your tax liability for the 
-      Assessment Year (AY) 2025-26 and 2024-25. It automatically compares the 
+      Assessment Year (AY) 2026-27 and 2025-26. It automatically compares the 
       <strong>Old Tax Regime</strong> (with deductions like 80C, HRA) and the 
       <strong>New Tax Regime</strong> (lower rates, fewer deductions) to recommend the best option for you.
     </p>
@@ -97,7 +97,7 @@ export default function IncomeTaxPage() {
       {/* ---------------- SCHEMA ---------------- */}
       <CalculatorSchema
         name="Income Tax Calculator India"
-        description="Calculate income tax liability for AY 2025-26. Compare New vs Old Regime tax slabs."
+        description="Calculate income tax liability for AY 2026-27. Compare New vs Old Regime tax slabs."
         url="https://fincado.com/income-tax-calculator/"
       />
 
@@ -124,31 +124,21 @@ export default function IncomeTaxPage() {
         <header className="no-print mb-10">
           {/* Share + Language */}
           <div className="mb-6 flex items-center justify-between gap-4">
-            <ShareTools title="Income Tax Calculator 2025" />
+            <ShareTools title="Income Tax Calculator 2026" />
             <LanguageToggle path="/hi/income-tax-calculator" />
           </div>
 
           {/* Title */}
-          <h1
-            className="
-      mb-3
-      text-2xl
-      sm:text-3xl
-      lg:text-4xl
-      font-semibold
-      tracking-tight
-      text-slate-900
-    "
-          >
+          <h1 className="mb-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             Income Tax Calculator
-            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-2">
-              AY 2025–26 • FY 2024–25
+            <span className="block text-base sm:text-lg font-medium text-emerald-700 mt-2">
+              AY 2026–27 • FY 2025–26
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="mb-4 text-sm text-slate-500">
-            Updated as per Budget 2024 • Valid for salaried individuals,
+            Updated as per Budget 2026 • Valid for salaried individuals,
             freelancers & professionals
           </p>
 
@@ -156,13 +146,29 @@ export default function IncomeTaxPage() {
           <div className="max-w-3xl text-base leading-relaxed text-slate-600">
             <WikiText
               content={`
-        <p>
-          Stop guessing your tax. Compare <strong>New vs Old Regime</strong>
-          instantly using real slab logic and cess rules.
-          Ideal for salaried individuals, freelancers, and professionals in India.
-        </p>
-      `}
+                <p>
+                  Stop guessing your tax. Compare <strong>New vs Old Regime</strong>
+                  instantly using real slab logic and cess rules.
+                  Ideal for salaried individuals, freelancers, and professionals in India.
+                </p>
+              `}
             />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-emerald-50 border border-emerald-100 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-emerald-900">
+                Budget 2026: Tax Slabs Confirmed
+              </p>
+              <p className="text-xs text-emerald-800 leading-relaxed">
+                The Union Budget 2026 maintained the{' '}
+                <strong>New Tax Regime</strong> as the default. Standard
+                Deduction remains at <strong>₹75,000</strong> for salary income.
+                No new changes were introduced to Old Regime slabs.
+              </p>
+            </div>
           </div>
         </header>
 
@@ -209,7 +215,6 @@ export default function IncomeTaxPage() {
                       instantly.
                     </p>
                   </section>
-
                   {/* --- NEW VS OLD --- */}
                   <section className="space-y-4">
                     <h2 className="text-2xl font-semibold text-slate-900">
@@ -231,8 +236,12 @@ export default function IncomeTaxPage() {
                       <Table>
                         <TableHeader>
                           <TableRow className="bg-slate-50">
-                            <TableHead>Your Situation</TableHead>
-                            <TableHead>Recommended Regime</TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Your Situation
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Recommended Regime
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -268,23 +277,24 @@ export default function IncomeTaxPage() {
                       </Table>
                     </div>
                   </section>
-
                   {/* --- AD --- */}
                   <div className="no-print my-8 flex justify-center">
                     <AdSlot type="square" label="Advertisement" />
                   </div>
-
                   {/* --- TAX SAVING --- */}
                   <section className="space-y-6">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      How to Save Tax in 2025?
+                      How to Save Tax in 2026?
                     </h3>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-                        <h4 className="font-semibold text-slate-900 mb-1">
-                          Standard Deduction
-                        </h4>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Scale className="w-4 h-4 text-slate-500" />
+                          <h4 className="font-semibold text-slate-900">
+                            Standard Deduction
+                          </h4>
+                        </div>
                         <p className="text-sm text-slate-600 leading-relaxed">
                           Flat deduction of <strong>₹75,000</strong> under New
                           Regime without any proof.
@@ -292,9 +302,12 @@ export default function IncomeTaxPage() {
                       </div>
 
                       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-                        <h4 className="font-semibold text-slate-900 mb-1">
-                          Section 80C (Old Regime)
-                        </h4>
+                        <div className="flex items-center gap-2 mb-2">
+                          <FileText className="w-4 h-4 text-emerald-600" />
+                          <h4 className="font-semibold text-slate-900">
+                            Section 80C (Old)
+                          </h4>
+                        </div>
                         <p className="text-sm text-slate-600 leading-relaxed">
                           Investments like{' '}
                           <Link
@@ -308,9 +321,12 @@ export default function IncomeTaxPage() {
                       </div>
 
                       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-                        <h4 className="font-semibold text-slate-900 mb-1">
-                          Post-Tax Investing
-                        </h4>
+                        <div className="flex items-center gap-2 mb-2">
+                          <BadgeCheck className="w-4 h-4 text-blue-600" />
+                          <h4 className="font-semibold text-slate-900">
+                            Post-Tax Investing
+                          </h4>
+                        </div>
                         <p className="text-sm text-slate-600 leading-relaxed">
                           Compare where to invest your surplus using our{' '}
                           <Link
@@ -345,8 +361,12 @@ export default function IncomeTaxPage() {
                     className="space-y-2"
                   >
                     {faqItems.map((faq) => (
-                      <AccordionItem key={faq.id} value={faq.id}>
-                        <AccordionTrigger className="text-left text-slate-900">
+                      <AccordionItem
+                        key={faq.id}
+                        value={faq.id}
+                        className="border rounded-lg px-4"
+                      >
+                        <AccordionTrigger className="text-left text-slate-900 font-medium hover:no-underline">
                           {faq.question}
                         </AccordionTrigger>
                         <AccordionContent className="text-slate-600 leading-relaxed">
@@ -364,10 +384,9 @@ export default function IncomeTaxPage() {
 
           {/* ---------------- SIDEBAR ---------------- */}
           <aside className="sidebar no-print">
-            <div className="sticky top-5 mb-6">
+            <div className="sticky top-28 mb-6">
               <AdSlot id="tax-sidebar" type="box" />
             </div>
-
             <FinancialNavWidget />
           </aside>
         </div>

@@ -33,6 +33,12 @@ import {
   Lightbulb,
   Calculator, // ✅ NEW
 } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 /* ---------------- TYPES ---------------- */
 
@@ -61,7 +67,7 @@ export async function generateMetadata({
   const cityData = getCityData(city);
 
   return {
-    title: `EMI Calculator in ${cityData.name} 2025: Check Rates & Eligibility`,
+    title: `EMI Calculator in ${cityData.name} After Budget 2026`,
     description: `Calculate Home/Car Loan EMI in ${cityData.name}. Compare rates for properties in ${cityData.areas[0]}, ${cityData.areas[1]} and check ${cityData.authority} norms.`,
     alternates: {
       canonical: `https://fincado.com/emi-calculator/${city}/`,
@@ -75,7 +81,7 @@ function calculateEMI(principal: number, rate: number, years: number) {
   const r = rate / 12 / 100;
   const n = years * 12;
   return Math.round(
-    (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
+    (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1),
   );
 }
 
@@ -156,7 +162,9 @@ export default async function CityEMIPage({
             </h1>
 
             <div className="mb-8 pt-4 border-t border-slate-100">
-              <ShareTools title={`EMI Calculator in ${cityData.name}`} />
+              <ShareTools
+                title={`EMI Calculator in ${cityData.name} After Budget 2026`}
+              />
             </div>
 
             <div className="prose prose-slate max-w-none">
@@ -222,13 +230,27 @@ export default async function CityEMIPage({
             <CardContent className="p-4 sm:p-8 bg-white">
               {/* ✅ UPDATE: Pre-fill calculator with City Values */}
               <EMIClient defaultPrincipal={loanAmount} defaultRate={8.75} />
+              <Alert className="mt-6 bg-slate-50/50 border-slate-200 text-slate-600">
+                <Info className="h-4 w-4 text-indigo-500 mt-0.5" />
+                <AlertDescription className="ml-2 text-sm leading-relaxed">
+                  As per Union Budget 2026, there are no changes to EMI
+                  calculation rules or home loan repayment methods. EMIs in{' '}
+                  {cityData.name} continue to be calculated using standard
+                  reducing balance formulas followed by banks.
+                </AlertDescription>
+              </Alert>
 
               <Alert className="mt-8 bg-blue-50/50 border-blue-100 rounded-xl">
                 <Info className="h-4 w-4 text-blue-600" />
                 <AlertDescription className="text-xs text-blue-800 leading-relaxed italic">
-                  <strong>Values Pre-filled:</strong> We have set the loan
-                  amount to <strong>{formatCurrency(loanAmount)}</strong> based
-                  on {cityData.name} real estate averages.
+                  Values Pre-filled: We have set the loan amount to{' '}
+                  {formatCurrency(loanAmount)} based on {cityData.name} real
+                  estate averages.
+                  <strong className="block mt-1 text-rose-700">
+                    Indicative estimate based on prevailing market rates after
+                    Budget 2026. Actual EMI may vary by bank and borrower
+                    profile.
+                  </strong>
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -363,6 +385,23 @@ export default async function CityEMIPage({
           </section>
 
           <LegalNote />
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full mt-6 bg-slate-50 border border-slate-200 rounded-lg"
+          >
+            <AccordionItem value="budget-2026" className="border-none px-4">
+              <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline py-3 text-sm">
+                Did Budget 2026 impact EMIs in {cityData.name}?
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 text-sm leading-relaxed pb-4">
+                <strong className="text-emerald-700">No.</strong> The Union
+                Budget 2026 did not announce any changes to standard EMI
+                calculation formulas or repayment structures for home loans.
+                Your EMI remains based on the bank&apos;s Repo Rate linkage.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         {/* --- SIDEBAR --- */}

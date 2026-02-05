@@ -28,18 +28,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { BadgeCheck, Briefcase, Building2 } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Gratuity Calculator 2025 – Check Gratuity Amount & Tax Exemption',
+  title: 'Gratuity Calculator 2026 – Check Eligibility & Tax Exemption',
   description:
-    'Calculate your Gratuity amount online. Know the formula (15/26 vs 15/30), eligibility rules (5 years), and tax exemption limit (₹20 Lakhs).',
+    'Calculate your Gratuity amount online. Know the formula (15/26 vs 15/30), eligibility rules (5 years), and 2026 tax exemption limits (₹20L - ₹25L).',
   keywords: [
     'Gratuity Calculator',
     'Gratuity Formula India',
     'Payment of Gratuity Act 1972',
-    'Gratuity Tax Exemption Limit 2025',
+    'Gratuity Tax Exemption Limit 2026',
     'Calculate Gratuity Online',
+    'Private Sector Gratuity Limit',
   ],
   alternates: {
     canonical: 'https://fincado.com/gratuity-calculator/',
@@ -66,25 +68,23 @@ const GRATUITY_FAQS = [
     answer:
       'Yes, most companies include gratuity (around 4.81% of Basic Salary) in your Cost to Company (CTC). However, it is paid only when you leave the company after completing 5 years of service.',
   },
-
-  // 👇 ADDED FROM YOUR HARDCODED SCHEMA
   {
     id: 'gratuity-faq-3',
     question: 'What is the eligibility for Gratuity?',
     answer:
-      'An employee is eligible for gratuity only after completing 5 continuous years of service with the same employer.',
+      'An employee becomes eligible for gratuity after completing 5 years of continuous service. However, this condition does not apply in case of death or permanent disablement.',
   },
   {
     id: 'gratuity-faq-4',
     question: 'Is Gratuity taxable?',
     answer:
-      'Gratuity received by government employees is fully tax-free. For private sector employees, it is tax-free up to ₹20 Lakhs. Any amount above this limit is taxable.',
+      'For government employees, gratuity is fully tax-free. For private sector employees covered under the Gratuity Act, it is tax-free up to ₹20 Lakhs. Any amount exceeding this limit is added to income and taxed.',
   },
   {
     id: 'gratuity-faq-5',
     question: 'Does 4 years and 7 months count as 5 years?',
     answer:
-      'No. To be eligible, you must complete exactly 5 full years. However, once eligible, any service period above 6 months is rounded off to the next year for calculation.',
+      'Generally, gratuity eligibility requires 5 full years. However, in the 5th year, if you have worked more than 240 days, some court rulings have considered it as a full year, but this is subject to legal interpretation.',
   },
 ];
 
@@ -118,8 +118,8 @@ export default function GratuityPage() {
         <em>Gratuity = (Last Drawn Salary × 15 × Years of Service) / 30</em>
       </li>
     </ul>
-    <p>
-      <strong>Note:</strong> Salary = Basic Pay + Dearness Allowance (DA).
+    <p class="mt-2 text-sm text-slate-500">
+      <strong>Note:</strong> Salary = Basic Pay + Dearness Allowance (DA). HRA and other allowances are excluded.
     </p>
   `);
 
@@ -159,19 +159,9 @@ export default function GratuityPage() {
           </div>
 
           {/* Title */}
-          <h1
-            className="
-      mb-4
-      text-2xl
-      sm:text-3xl
-      lg:text-4xl
-      font-semibold
-      tracking-tight
-      text-slate-900
-    "
-          >
+          <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             Gratuity Calculator
-            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-1">
+            <span className="block text-base sm:text-lg font-medium text-emerald-700 mt-1">
               Estimate Your Gratuity & Tax Exemption
             </span>
           </h1>
@@ -180,14 +170,29 @@ export default function GratuityPage() {
           <div className="max-w-3xl text-base leading-relaxed text-slate-600">
             <WikiText
               content={`
-        <p>
-          Leaving a job or planning retirement?
-          Use Fincado’s <strong>Gratuity Calculator</strong> to instantly
-          estimate your payable gratuity amount and understand
-          how much of it is <strong>tax-free</strong> under current rules.
-        </p>
-      `}
+                <p>
+                  Leaving a job or planning retirement?
+                  Use Fincado’s <strong>Gratuity Calculator</strong> to instantly
+                  estimate your payable gratuity amount and understand
+                  how much of it is <strong>tax-free</strong> under current rules.
+                </p>
+              `}
             />
+          </div>
+
+          {/* ✅ Budget 2026 Verified Status */}
+          <div className="mt-6 flex gap-3 p-3 bg-white border border-slate-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+            <div className="space-y-0.5">
+              <p className="text-sm font-semibold text-emerald-900">
+                Limit Update (FY 2026-27)
+              </p>
+              <p className="text-xs text-emerald-800 leading-relaxed">
+                The tax-free gratuity limit stands at <strong>₹20 Lakh</strong>{' '}
+                for private sector employees. For Central Government employees,
+                the limit has been enhanced to <strong>₹25 Lakh</strong>.
+              </p>
+            </div>
           </div>
         </header>
 
@@ -201,6 +206,9 @@ export default function GratuityPage() {
             </div>
 
             {/* ✅ Live Rates (EPF/PPF Context) */}
+            <h3 className="mt-8 text-lg font-semibold text-slate-900">
+              Compare Gratuity Lump Sum with Fixed Deposit Returns
+            </h3>
             <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
@@ -212,42 +220,16 @@ export default function GratuityPage() {
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href="/epf-calculator/"
-                  className="
-        rounded-lg
-        border
-        border-slate-200
-        bg-white
-        px-3
-        py-3
-        text-center
-        text-sm
-        font-medium
-        text-slate-900
-        hover:bg-slate-50
-        transition
-      "
+                  className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
                 >
-                  🏢 EPF Calc
+                  <Briefcase className="w-4 h-4" /> EPF Calc
                 </Link>
 
                 <Link
                   href="/retirement-calculator/"
-                  className="
-        rounded-lg
-        border
-        border-slate-200
-        bg-white
-        px-3
-        py-3
-        text-center
-        text-sm
-        font-medium
-        text-slate-900
-        hover:bg-slate-50
-        transition
-      "
+                  className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
                 >
-                  👴 Retire Calc
+                  <Building2 className="w-4 h-4" /> Retire Calc
                 </Link>
               </div>
             </div>
@@ -265,7 +247,6 @@ export default function GratuityPage() {
                     <h2 className="text-2xl font-semibold text-slate-900">
                       What is Gratuity?
                     </h2>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={introContent} />
                     </div>
@@ -276,7 +257,6 @@ export default function GratuityPage() {
                     <h3 className="text-xl font-semibold text-slate-900">
                       Gratuity Calculation Formula
                     </h3>
-
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={formulaContent} />
                     </div>
@@ -290,33 +270,43 @@ export default function GratuityPage() {
                   {/* --- TAX RULES TABLE --- */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Tax Rules for Gratuity (2025)
+                      Tax Rules for Gratuity (2026)
                     </h3>
 
                     <div className="rounded-lg border border-slate-200 overflow-hidden">
                       <Table>
                         <TableHeader>
-                          <TableRow>
-                            <TableHead>Employee Category</TableHead>
-                            <TableHead>Tax Exemption Limit</TableHead>
+                          <TableRow className="bg-slate-50">
+                            <TableHead className="font-bold text-slate-900">
+                              Employee Category
+                            </TableHead>
+                            <TableHead className="font-bold text-slate-900">
+                              Tax Exemption Limit
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
 
                         <TableBody>
                           <TableRow>
-                            <TableCell>Government Employees</TableCell>
-                            <TableCell className="font-medium text-emerald-700">
-                              Fully Tax Exempt
+                            <TableCell className="font-medium text-slate-700">
+                              Government Employees
+                            </TableCell>
+                            <TableCell className="font-semibold text-emerald-700">
+                              Fully Tax Exempt (No Limit)
                             </TableCell>
                           </TableRow>
 
                           <TableRow>
-                            <TableCell>Private (Covered by Act)</TableCell>
+                            <TableCell className="font-medium text-slate-700">
+                              Private (Covered by Act)
+                            </TableCell>
                             <TableCell>₹20 Lakhs</TableCell>
                           </TableRow>
 
                           <TableRow>
-                            <TableCell>Private (Not Covered)</TableCell>
+                            <TableCell className="font-medium text-slate-700">
+                              Private (Not Covered)
+                            </TableCell>
                             <TableCell>₹20 Lakhs</TableCell>
                           </TableRow>
                         </TableBody>
@@ -325,8 +315,9 @@ export default function GratuityPage() {
 
                     <p className="text-sm text-slate-500">
                       <em>
-                        Note: The tax exemption limit was increased from ₹10
-                        Lakhs to ₹20 Lakhs in 2018.
+                        Note: For Central Government employees, the limit was
+                        enhanced to ₹25 Lakhs. Private sector limits are subject
+                        to periodic revision by notification.
                       </em>
                     </p>
                   </section>
@@ -408,7 +399,7 @@ export default function GratuityPage() {
           </div>
 
           <aside className="sidebar no-print">
-            <div className="sticky top-5 mb-6">
+            <div className="sticky top-28 mb-6">
               <AdSlot id="gratuity-sidebar" type="box" />
             </div>
 

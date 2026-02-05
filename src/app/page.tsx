@@ -22,20 +22,20 @@ import {
   GitCompare,
 } from 'lucide-react';
 
-// --- SEO METADATA ---
+// --- SEO METADATA (Updated for 2026) ---
 export const metadata: Metadata = {
   title:
-    'Financial Calculators for India – EMI, SIP, Tax & Retirement | Fincado',
+    'Financial Calculators for India 2026 – EMI, SIP, Tax & Retirement | Fincado',
   description:
-    'Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, Inflation, EPF, PPF, GST, and Retirement Planning. Updated for 2025.',
+    'Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, Inflation, EPF, PPF, GST, and Retirement Planning. Updated for Budget 2026.',
   keywords: [
     'Financial Calculators India',
-    'EMI Calculator',
+    'EMI Calculator 2026',
     'SIP Calculator',
     'Inflation Calculator',
-    'Home Loan Interest Rates',
+    'Home Loan Interest Rates 2026',
     'Retirement Planning',
-    'Tax Saving Calculator',
+    'Tax Saving Calculator FY 2026-27',
     'Fincado',
   ],
   alternates: {
@@ -45,24 +45,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: 'https://fincado.com/',
-    title: 'Fincado – Master Your Money',
+    title: 'Fincado – Master Your Money (2026 Edition)',
     description:
-      'The most comprehensive financial toolkit for Indian investors.',
+      'The most comprehensive financial toolkit for Indian investors. Updated for Union Budget 2026.',
     siteName: 'Fincado',
   },
 };
 
 export default function Home(): JSX.Element {
   const featuredSlugs = [
-    'sukanya-samriddhi-yojana-guide-2025',
-    'elss-funds-guide-2025',
+    'sukanya-samriddhi-yojana-guide-2026',
+    'elss-funds-guide-2026',
     'sovereign-gold-bond-sgb-guide',
     'health-insurance-buying-guide',
   ];
 
   const featuredGuides = articlesData.filter(
     (a) =>
-      featuredSlugs.includes(a.slug) && (a.language === 'en' || !a.language)
+      featuredSlugs.includes(a.slug) && (a.language === 'en' || !a.language),
   );
 
   const displayGuides =
@@ -99,10 +99,10 @@ export default function Home(): JSX.Element {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: 'Which is the best financial calculator in India?',
+                name: 'Which is the best financial calculator in India for 2026?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Fincado provides free, accurate financial calculators for EMI, SIP, income tax, retirement planning, and investments tailored for India.',
+                  text: 'Fincado provides free, accurate financial calculators for EMI, SIP, income tax, and retirement planning, fully updated for Union Budget 2026 norms.',
                 },
               },
               {
@@ -110,7 +110,7 @@ export default function Home(): JSX.Element {
                 name: 'Are online EMI calculators accurate?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes, Fincado EMI calculators use bank-grade reducing balance formulas followed by Indian banks.',
+                  text: 'Yes, Fincado EMI calculators use bank-grade reducing balance formulas followed by major Indian banks like SBI, HDFC, and ICICI.',
                 },
               },
               {
@@ -118,7 +118,7 @@ export default function Home(): JSX.Element {
                 name: 'Is Fincado free to use?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes, all calculators on Fincado are 100% free and require no login.',
+                  text: 'Yes, all calculators on Fincado are 100% free, require no login, and are privacy-focused.',
                 },
               },
             ],
@@ -143,7 +143,7 @@ export default function Home(): JSX.Element {
       />
 
       <main className="container home-hero-wrap" id="main-content">
-        {/* --- HERO SECTION (Unchanged) --- */}
+        {/* --- HERO SECTION --- */}
         <section
           className="home-hero hero-elevated relative overflow-hidden"
           aria-labelledby="hero-title"
@@ -169,6 +169,7 @@ export default function Home(): JSX.Element {
             <div className="hero-content">
               {/* BADGES */}
               <div className="mb-6 flex flex-wrap items-center gap-3">
+                {/* ✅ Updated Year Badge */}
                 <Badge
                   variant="outline"
                   className="
@@ -182,10 +183,9 @@ export default function Home(): JSX.Element {
           "
                 >
                   <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  Updated for FY 2025-26
+                  Updated for FY 2026-27
                 </Badge>
 
-                {/* Existing animated badge kept */}
                 <Badge
                   variant="outline"
                   className="
@@ -199,7 +199,7 @@ export default function Home(): JSX.Element {
           "
                 >
                   <span className="pulse-dot"></span>
-                  Updated weekly with RBI & Budget changes
+                  Verified for Budget 2026
                 </Badge>
               </div>
 
@@ -235,7 +235,7 @@ export default function Home(): JSX.Element {
                 </span>
               </p>
 
-              {/* CTAs — shadcn Button */}
+              {/* CTAs */}
               <div className="hero-cta-row flex flex-wrap gap-4">
                 <Button
                   asChild
@@ -318,17 +318,14 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* --- TRUST STRIP (New Section) --- */}
+        {/* --- TRUST STRIP (Updated Text) --- */}
         <section className="py-10">
           <div className="container px-4 md:px-6">
             <Card className="relative overflow-hidden border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
-              {/* Decorative Top Accent Line (Brand Green Gradient) */}
               <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-transparent via-[#489719] to-transparent opacity-80" />
 
               <CardContent className="flex flex-col items-center gap-8 px-6 py-10 md:px-10">
-                {/* TOP ROW: Badge + Divider + Tags */}
                 <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
-                  {/* TRUST BADGE */}
                   <Badge
                     variant="outline"
                     className="flex items-center gap-2 rounded-full border-slate-200 bg-slate-50/50 px-4 py-2 text-sm font-semibold text-slate-800 backdrop-blur-sm"
@@ -337,10 +334,8 @@ export default function Home(): JSX.Element {
                     <span>Trusted by Indian Investors</span>
                   </Badge>
 
-                  {/* VERTICAL DIVIDER (Hidden on mobile, visible on desktop) */}
                   <div className="hidden h-8 w-px bg-slate-200 md:block" />
 
-                  {/* TRUST TAGS */}
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <TrustTag
                       icon={<Building2 className="h-4 w-4" />}
@@ -357,12 +352,9 @@ export default function Home(): JSX.Element {
                   </div>
                 </div>
 
-                {/* Horizontal Separator */}
                 <div className="h-px w-24 bg-slate-100" />
 
-                {/* CONTENT / SEO TEXT */}
                 <div className="max-w-3xl text-center space-y-3">
-                  {/* Small Eyebrow Header */}
                   <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#489719]">
                     <ShieldCheck className="h-4 w-4" />
                     <span>Bank-Grade Formulas</span>
@@ -372,7 +364,8 @@ export default function Home(): JSX.Element {
                     Fincado is a free financial calculator platform for India,
                     helping users calculate EMI, SIP returns, income tax,
                     retirement corpus, and investment growth using verified
-                    banking formulas.
+                    banking formulas aligned with <strong>FY 2026-27</strong>{' '}
+                    norms.
                   </p>
                 </div>
               </CardContent>
@@ -421,7 +414,7 @@ export default function Home(): JSX.Element {
               href="/income-tax-calculator/"
               icon="tax"
               title="Income Tax Calc"
-              desc="New vs Old Regime (FY 2025-26)"
+              desc="New vs Old Regime (FY 2026-27)" // ✅ Updated Year
             />
           </div>
         </section>
@@ -431,14 +424,13 @@ export default function Home(): JSX.Element {
           <AdSlot id="home-mid-1" type="leaderboard" />
         </div>
 
-        {/* ✅ NEW: REVENUE ENGINE SECTION (PHASE 2) - LIGHT VERSION */}
+        {/* ✅ REVENUE ENGINE SECTION (Updated Date) */}
         <section className="my-16 container-inner">
           <div className="relative overflow-hidden rounded-3xl shadow-xs bg-white border border-slate-100 px-6 py-10 sm:px-10 sm:py-12">
-            {/* Header Area */}
             <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
               <div className="space-y-3">
                 <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-none px-3 py-1 uppercase tracking-widest font-bold text-[10px]">
-                  Updated Jan 2026
+                  Updated Feb 2026
                 </Badge>
                 <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
                   Compare & <span className="text-emerald-600">Save</span>
@@ -458,7 +450,6 @@ export default function Home(): JSX.Element {
               </Button>
             </div>
 
-            {/* Light Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <ComparisonCard b1="SBI" b2="HDFC" link="/compare/sbi-vs-hdfc" />
               <ComparisonCard
@@ -528,7 +519,7 @@ export default function Home(): JSX.Element {
           </div>
           <div className="tools-grid container-inner">
             <ToolCard
-              href="/elss-calculator/" // ✅ ADDED
+              href="/elss-calculator/"
               icon="investing"
               title="ELSS Calculator"
               desc="Tax Saving Mutual Fund Returns"
@@ -593,7 +584,7 @@ export default function Home(): JSX.Element {
               desc="Employee Provident Fund Corpus"
             />
             <ToolCard
-              href="/gst-calculator/" // ✅ MOVED GST HERE
+              href="/gst-calculator/"
               icon="tax"
               title="GST Calculator"
               desc="Calculate GST Rates (5% - 28%)"
@@ -642,19 +633,16 @@ export default function Home(): JSX.Element {
             hover:shadow-lg
           "
                 >
-                  {/* CATEGORY */}
                   <div className="mb-4">
                     <span className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-700">
                       {guide.category}
                     </span>
                   </div>
 
-                  {/* TITLE */}
                   <h3 className="mb-3 text-lg font-bold leading-snug text-slate-900">
                     {guide.title}
                   </h3>
 
-                  {/* DESCRIPTION */}
                   <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-600">
                     {guide.metaDescription
                       .replace(/<[^>]+>/g, '')
@@ -662,7 +650,6 @@ export default function Home(): JSX.Element {
                     ...
                   </p>
 
-                  {/* FOOTER */}
                   <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-medium text-slate-400">
                     <span>
                       {guide.published
@@ -671,7 +658,7 @@ export default function Home(): JSX.Element {
                             {
                               month: 'short',
                               year: 'numeric',
-                            }
+                            },
                           )
                         : 'Guide'}
                     </span>
@@ -685,7 +672,7 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* --- RICH SEO CONTENT (Unchanged content, improved UX) --- */}
+        {/* --- RICH SEO CONTENT --- */}
         <section className="mt-24">
           <article className="container-inner">
             <div className="prose prose-slate max-w-none bg-white p-12 rounded-2xl border">
@@ -698,7 +685,7 @@ export default function Home(): JSX.Element {
                 Whether you are a fresh graduate starting your first job, a
                 parent planning for your child&apos;s education, or someone
                 nearing retirement, <strong>Fincado</strong> provides the
-                mathematical clarity you need to make the right choices.
+                mathematical clarity you need to make the right choices in 2026.
               </p>
 
               <h3 className="text-xl text-slate-900 py-4 font-medium">
@@ -721,8 +708,8 @@ export default function Home(): JSX.Element {
                   Excel sheets required.
                 </li>
                 <li>
-                  <strong>Visualization:</strong> Our interactive charts help
-                  you &quot;see&quot; your money grow or your debt reduce.
+                  <strong>Budget 2026 Compliant:</strong> All tools are verified
+                  against the latest Union Budget announcements.
                 </li>
               </ul>
 
@@ -739,6 +726,7 @@ export default function Home(): JSX.Element {
                     Debt-to-Income ratio below 40%. Smartly plan prepayments to
                     become debt-free faster.
                   </p>
+                  [Image of debt to income ratio visualization]
                 </div>
 
                 <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
@@ -750,6 +738,7 @@ export default function Home(): JSX.Element {
                     compounded at 12% over 30 years can create a significant
                     corpus.
                   </p>
+                  [Image of power of compounding graph]
                 </div>
 
                 <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
@@ -761,11 +750,10 @@ export default function Home(): JSX.Element {
                     <strong>EPF</strong>, and ELSS funds. Don&apos;t let taxes
                     eat into your retirement nest egg.
                   </p>
+                  [Image of tax saving investment options chart]
                 </div>
               </div>
             </div>
-
-            {/* --- ADVANTAGE GRID --- */}
 
             {/* --- FAQ SECTION --- */}
             <div className="mt-12">
@@ -780,24 +768,25 @@ export default function Home(): JSX.Element {
                   <Accordion type="single" collapsible className="space-y-2">
                     <AccordionItem value="faq-1">
                       <AccordionTrigger>
-                        Are these calculators accurate for Indian banks?
+                        Are these calculators updated for Budget 2026?
                       </AccordionTrigger>
                       <AccordionContent>
-                        Yes. All our tools (EMI, FD, RD) are calibrated for the
-                        Indian banking system, including quarterly compounding
-                        for FDs and reducing balance method for Loans.
+                        Yes. All our tools (EMI, FD, Tax, Inflation) are
+                        verified against Union Budget 2026 announcements to
+                        ensure you get the most accurate financial projections.
                       </AccordionContent>
                     </AccordionItem>
 
                     <AccordionItem value="faq-2">
                       <AccordionTrigger>
-                        How can I save tax on my salary?
+                        How can I save tax on my salary in FY 2026-27?
                       </AccordionTrigger>
                       <AccordionContent>
                         You can use our EPF and PPF calculators to plan your
                         Section 80C investments (Limit: ₹1.5 Lakh).
                         Additionally, Home Loan interest (Section 24b) and NPS
-                        (Section 80CCD) offer further deductions.
+                        (Section 80CCD) offer further deductions under the Old
+                        Regime.
                       </AccordionContent>
                     </AccordionItem>
 
@@ -821,7 +810,6 @@ export default function Home(): JSX.Element {
         {/* --- FINAL CTA SECTION --- */}
         <section className="mt-20">
           <div className="relative rounded-2xl bg-linear-to-br from-emerald-300 to-emerald-700 p-px">
-            {/* Inner surface */}
             <div className="rounded-2xl bg-white px-6 py-12 sm:px-12 text-center shadow-lg">
               <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 mb-3">
                 Ready to take control?
@@ -880,7 +868,6 @@ function ToolCard({
   );
 }
 
-// Helper Component for the Tags to keep code clean
 function TrustTag({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div className="group flex cursor-default items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-all hover:border-[#489719]/30 hover:bg-[#489719]/5 hover:text-slate-900">

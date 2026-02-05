@@ -21,9 +21,8 @@ interface CreditScoreLabels {
   totalCardLimit: string;
   payDownAmount: string;
   newUtil: string;
+  improved: string;
   noChange: string;
-  points: string;
-  priorityActions: string;
   disclaimer: string;
 }
 
@@ -41,9 +40,8 @@ const DEFAULT_LABELS: CreditScoreLabels = {
   totalCardLimit: 'Total Card Limit (₹)',
   payDownAmount: 'Pay Down Amount (₹)',
   newUtil: 'New Utilization',
+  improved: 'Improved',
   noChange: 'No Change',
-  points: 'points',
-  priorityActions: 'Priority Actions',
   disclaimer:
     '*This is an estimated score for educational purposes. Actual CIBIL / Experian scores may vary.',
 };
@@ -51,7 +49,7 @@ const DEFAULT_LABELS: CreditScoreLabels = {
 /* ---------------- COMPONENT ---------------- */
 
 export default function CreditScoreClient({
-  labels = DEFAULT_LABELS,
+  labels = {},
 }: {
   labels?: Partial<CreditScoreLabels>;
 }) {
@@ -74,25 +72,29 @@ export default function CreditScoreClient({
 
   /* ---------------- SCORE CALC ---------------- */
 
-  const getScoreColorClass = (score: number) => {
-    if (score >= 750) return 'text-emerald-600';
-    if (score >= 650) return 'text-orange-500';
-    return 'text-red-600';
-  };
-
   const score = useMemo(() => {
     let s = 300;
 
+    // Payment History (35%)
     s += Math.round((onTimePayments / 100) * 210);
 
+    // Utilization (30%)
     if (utilization <= 20) s += 180;
     else s += Math.max(0, Math.round(180 * (1 - (utilization - 20) / 80)));
 
+    // Credit Age (15%)
     s += Math.min(90, Math.round((avgAge / 10) * 90));
+
+    // Enquiries (Penalty)
     s -= Math.min(60, enquiries * 6);
+
+    // Credit Mix (10%)
     s += Math.round((loanMix / 100) * 60);
 
+    // Account count bonus
     if (accounts >= 1 && accounts <= 5) s += 20;
+
+    // Severe negatives
     if (hasDefaults) s -= 150;
     if (hasSettlements) s -= 80;
 
@@ -111,6 +113,13 @@ export default function CreditScoreClient({
   const scoreLabel =
     score >= 750 ? 'Excellent' : score >= 650 ? 'Good' : 'Poor';
 
+  const scoreColor =
+    score >= 750
+      ? 'text-emerald-600'
+      : score >= 650
+        ? 'text-orange-500'
+        : 'text-red-600';
+
   /* ---------------- PAYDOWN SIM ---------------- */
 
   const newUtil = useMemo(() => {
@@ -119,12 +128,14 @@ export default function CreditScoreClient({
     return totalLimit > 0 ? Math.round((newBal / totalLimit) * 100) : 0;
   }, [utilization, totalLimit, payDown]);
 
+  const utilImproved = newUtil < utilization;
+
   /* ---------------- UI ---------------- */
 
   return (
     <Card className="calculator-card">
       <CardContent className="calc-grid">
-        {/* -------- INPUTS -------- */}
+        {/* INPUTS */}
         <div className="calc-inputs space-y-5">
           <CalculatorField
             label={t.onTimePayments}
@@ -180,8 +191,8 @@ export default function CreditScoreClient({
             onChange={setLoanMix}
           />
 
-          <div className="flex gap-4">
-            <label className="flex items-center gap-2 text-sm">
+          <div className="flex gap-6 pt-2">
+            <label className="flex items-center gap-2 text-sm text-slate-700">
               <input
                 type="checkbox"
                 checked={hasDefaults}
@@ -190,7 +201,7 @@ export default function CreditScoreClient({
               {t.hasDefaults}
             </label>
 
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex items-center gap-2 text-sm text-slate-700">
               <input
                 type="checkbox"
                 checked={hasSettlements}
@@ -201,18 +212,14 @@ export default function CreditScoreClient({
           </div>
         </div>
 
-        {/* -------- RESULTS -------- */}
+        {/* RESULTS */}
         <div className="calc-visuals space-y-6">
           <Card className="p-6 text-center">
             <div className="text-sm text-slate-500 mb-1">
               {t.estimatedScore}
             </div>
 
-            <div
-              className={`text-5xl font-extrabold leading-none ${getScoreColorClass(
-                score
-              )}`}
-            >
+            <div className={`text-5xl font-extrabold ${scoreColor}`}>
               {score}
             </div>
 
@@ -222,8 +229,8 @@ export default function CreditScoreClient({
                   score >= 750
                     ? 'bg-emerald-100 text-emerald-700'
                     : score >= 650
-                    ? 'bg-orange-100 text-orange-700'
-                    : 'bg-red-100 text-red-700'
+                      ? 'bg-orange-100 text-orange-700'
+                      : 'bg-red-100 text-red-700'
                 }
               >
                 {scoreLabel}
@@ -231,6 +238,7 @@ export default function CreditScoreClient({
             </div>
           </Card>
 
+          {/* PAYDOWN SIMULATOR */}
           <Card className="p-5 bg-slate-50">
             <div className="font-semibold mb-4">{t.improveSimulator}</div>
 
@@ -256,8 +264,12 @@ export default function CreditScoreClient({
               <span>
                 {t.newUtil}: <strong>{newUtil}%</strong>
               </span>
-              <span className="text-emerald-600 font-semibold">
-                {newUtil < utilization ? `+${t.points}` : t.noChange}
+              <span
+                className={`font-semibold ${
+                  utilImproved ? 'text-emerald-600' : 'text-slate-500'
+                }`}
+              >
+                {utilImproved ? t.improved : t.noChange}
               </span>
             </div>
           </Card>

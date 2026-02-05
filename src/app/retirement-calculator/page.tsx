@@ -4,7 +4,6 @@ import Link from 'next/link';
 import RetirementCalculatorClient from './RetirementCalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable'; // ✅ Added for Comparison
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -31,11 +30,11 @@ import {
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
 
-/* ---------------- SEO METADATA (Optimized 2025) ---------------- */
+/* ---------------- SEO METADATA (Optimized 2026) ---------------- */
 export const metadata: Metadata = {
-  title: 'Retirement Calculator 2025 – Plan Your Corpus & Inflation',
+  title: 'Retirement Calculator 2026 – Plan Your Corpus & Inflation',
   description:
-    'Calculate retirement corpus required in India. Adjust for 6% inflation, life expectancy, and current savings. Plan for FIRE (Financial Independence).',
+    'Calculate retirement corpus required in India. Adjust for inflation and life expectancy. Plan for FIRE (Financial Independence).',
   keywords: [
     'Retirement Calculator India',
     'Pension Calculator',
@@ -89,6 +88,9 @@ export default function RetirementPage() {
       It is not just about saving; it's about investing wisely to beat <strong>Inflation</strong> 
       so that your corpus lasts as long as you do. Modern planning also includes concepts like 
       <strong>FIRE (Financial Independence, Retire Early)</strong>.
+      <p className="mt-2 text-sm text-slate-600">
+        Early retirement requires a higher corpus and conservative withdrawal strategy due to longer retirement duration.
+      </p>
     </p>
   `);
 
@@ -190,9 +192,6 @@ export default function RetirementPage() {
             <div className="no-print my-8">
               <AdSlot id="retire-after-calc" type="banner" />
             </div>
-
-            {/* ✅ Live Rates (FD/NPS Context) */}
-            <LiveRateTable type="fixedDeposit" />
 
             {/* ✅ Mobile-Only Tools */}
             <div className="mobile-only-suggestions my-8">

@@ -2,11 +2,10 @@
 
 import React, { useMemo, useState } from 'react';
 import CalculatorField from '@/components/CalculatorField';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Button } from '@/components/ui/button';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Briefcase } from 'lucide-react';
 
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
@@ -29,8 +28,8 @@ interface GratuityLabels {
 const DEFAULT_LABELS: GratuityLabels = {
   basicSalary: 'Monthly Basic Salary + DA (₹)',
   yearsOfService: 'Years of Service',
-  coveredFlag: 'Covered under Gratuity Act?',
-  resetDefaults: 'Reset Defaults',
+  coveredFlag: 'Is your employer covered under the Gratuity Act?',
+  resetDefaults: 'Reset',
   totalGratuity: 'Total Gratuity Payable',
   exemptGratuity: 'Tax Exempt',
   taxableGratuity: 'Taxable Amount',
@@ -63,11 +62,12 @@ export default function GratuityClient({
       }
     }
 
-    const MAX_EXEMPT = 2000000; // ₹20 Lakh Limit
+    // Default to 20L for private sector. Users can infer 25L from page text if Govt.
+    const MAX_EXEMPT = 2000000;
     const exempt = Math.min(gratuity, MAX_EXEMPT);
     const taxable = Math.max(0, gratuity - MAX_EXEMPT);
 
-    // Percentages for chart (Avoid divide by zero)
+    // Percentages for chart
     const total = gratuity > 0 ? gratuity : 1;
     const exemptPct = Math.round((exempt / total) * 100);
     const taxablePct = 100 - exemptPct;
@@ -91,9 +91,24 @@ export default function GratuityClient({
   };
 
   return (
-    <Card className="border-slate-200 shadow-sm bg-white">
-      <CardContent className="p-6 sm:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <Card className="border-border shadow-sm bg-card">
+      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+            <Briefcase className="h-5 w-5 text-emerald-600" />
+            Gratuity Estimator
+          </CardTitle>
+          <button
+            onClick={handleReset}
+            className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+          >
+            <RotateCcw className="w-3 h-3" /> Reset
+          </button>
+        </div>
+      </CardHeader>
+
+      <CardContent className="p-6 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
           {/* ---------- INPUTS SECTION ---------- */}
           <div className="space-y-8">
             <CalculatorField
@@ -115,7 +130,7 @@ export default function GratuityClient({
                 onChange={setYears}
               />
               {years < 5 && (
-                <p className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded inline-block font-medium">
+                <p className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded inline-block font-medium border border-amber-100">
                   ⚠️ Minimum 5 years required
                 </p>
               )}
@@ -129,32 +144,22 @@ export default function GratuityClient({
                 defaultValue="yes"
                 value={coveredStatus}
                 onValueChange={(val) => setCoveredStatus(val as 'yes' | 'no')}
-                className="flex gap-6"
+                className="flex gap-4"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 border rounded-md px-4 py-2 bg-white w-full hover:bg-slate-50 cursor-pointer">
                   <RadioGroupItem value="yes" id="yes" />
-                  <Label htmlFor="yes" className="font-normal text-slate-600">
+                  <Label htmlFor="yes" className="cursor-pointer flex-1">
                     Yes (Covered)
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 border rounded-md px-4 py-2 bg-white w-full hover:bg-slate-50 cursor-pointer">
                   <RadioGroupItem value="no" id="no" />
-                  <Label htmlFor="no" className="font-normal text-slate-600">
+                  <Label htmlFor="no" className="cursor-pointer flex-1">
                     No (Not Covered)
                   </Label>
                 </div>
               </RadioGroup>
             </div>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleReset}
-              className="text-slate-400 hover:text-slate-600 hover:bg-slate-100 p-0 h-auto font-normal flex items-center gap-1.5"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              {t.resetDefaults}
-            </Button>
           </div>
 
           {/* ---------- VISUALS SECTION ---------- */}
@@ -169,7 +174,6 @@ export default function GratuityClient({
               <div className="text-sm font-medium text-slate-500 mb-1">
                 {t.totalGratuity}
               </div>
-              {/* BRAND COLOR: Lime-600 to match EMI/SIP */}
               <div className="text-4xl font-extrabold text-lime-600 tracking-tight">
                 {formatINR(result.gratuity)}
               </div>
@@ -177,11 +181,11 @@ export default function GratuityClient({
                 Formula: {result.formula}
               </div>
 
-              {/* Breakdown Cards - Matched to SIP Style */}
+              {/* Breakdown Cards */}
               <div className="mt-8 grid grid-cols-2 gap-4 w-full">
-                {/* Exempt - Highlighted (Green) */}
+                {/* Exempt */}
                 <Card className="bg-lime-50 border-lime-200 shadow-none">
-                  <CardContent className="text-center">
+                  <CardContent className="p-3 text-center">
                     <div className="text-xs text-lime-700 font-medium mb-1">
                       {t.exemptGratuity}
                     </div>
@@ -191,9 +195,9 @@ export default function GratuityClient({
                   </CardContent>
                 </Card>
 
-                {/* Taxable - Neutral (Slate) */}
+                {/* Taxable */}
                 <Card className="bg-white border-slate-200 shadow-none">
-                  <CardContent className="text-center">
+                  <CardContent className="p-3 text-center">
                     <div className="text-xs text-slate-500 font-medium mb-1">
                       {t.taxableGratuity}
                     </div>
@@ -203,6 +207,11 @@ export default function GratuityClient({
                   </CardContent>
                 </Card>
               </div>
+              {result.gratuity > 2000000 && (
+                <p className="mt-3 text-xs text-amber-600">
+                  Note: Tax exemption is capped at ₹20 Lakhs.
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -213,8 +222,7 @@ export default function GratuityClient({
 
 /* -------------------------------------------------
    PRIVATE COMPONENT: Custom Pie Chart for Gratuity
-   (Fixed: Hides 0% segments to prevent artifacts)
-   (Colors: Matches EMI Calculator - #9ae600 & #ecfccb)
+   (Same logic as EMIPieChart but inline for simplicity if needed)
    -------------------------------------------------
 */
 function GratuityPieChart({
@@ -229,7 +237,6 @@ function GratuityPieChart({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
-  // Length calculations
   const exemptLength = (exemptPct / 100) * circumference;
   const taxableLength = (taxablePct / 100) * circumference;
 
@@ -243,56 +250,46 @@ function GratuityPieChart({
         height={size}
         viewBox={`0 0 ${size} ${size}`}
         className="-rotate-90"
-        aria-label="Gratuity Breakdown"
       >
-        {/* Base Ring (Background) */}
         <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#f1f5f9" // slate-100
+          stroke="#f1f5f9"
           strokeWidth={strokeWidth}
         />
-
-        {/* Segment 1: Exempt (Brand Lime Green) - Only render if > 0 */}
         {exemptPct > 0 && (
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#9ae600" // BRAND COLOR from EMIPieChart
+            stroke="#65a30d" // Lime-600
             strokeWidth={strokeWidth}
             strokeDasharray={`${exemptLength} ${circumference}`}
             strokeLinecap="round"
           />
         )}
-
-        {/* Segment 2: Taxable (Light Lime / Pale) - Only render if > 0 */}
         {taxablePct > 0 && (
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#ecfccb" // lime-100 (Secondary)
+            stroke="#ecfccb" // Lime-100
             strokeWidth={strokeWidth}
             strokeDasharray={`${taxableLength} ${circumference}`}
-            strokeDashoffset={-exemptLength} // Start where green ends
+            strokeDashoffset={-exemptLength}
             strokeLinecap="round"
           />
         )}
       </svg>
-
-      {/* Center Text (Dynamic Labels) */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-        <div className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
+        <div className="text-2xl font-bold text-slate-900 leading-none">
           {exemptPct}%
         </div>
-        <div className="mt-1 text-xs sm:text-sm font-medium text-lime-600">
-          Tax Exempt
-        </div>
+        <div className="mt-1 text-sm font-medium text-lime-600">Tax Free</div>
       </div>
     </div>
   );

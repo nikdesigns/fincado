@@ -170,6 +170,10 @@ export default function SWPClient({ labels = {} }: SWPClientProps) {
             </div>
           </div>
         </div>
+        <p className="mt-10 text-xs text-slate-500">
+          This calculator assumes a fixed withdrawal amount. Inflation may
+          reduce purchasing power over time.
+        </p>
       </CardContent>
     </Card>
   );

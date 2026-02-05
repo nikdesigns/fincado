@@ -72,7 +72,7 @@ export default function SIPClient({
     const totalReturns = futureValue - totalInvested;
 
     const realValue = Math.round(
-      futureValue / Math.pow(1 + monthlyInflation, months)
+      futureValue / Math.pow(1 + monthlyInflation, months),
     );
 
     const investedPct =
@@ -166,7 +166,7 @@ export default function SIPClient({
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
                 <Card className="border-slate-200">
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="text-xs text-slate-500">{t.invested}</div>
                     <div className="mt-1 font-semibold text-slate-900">
                       {formatINR(calculations.totalInvested)}
@@ -175,7 +175,7 @@ export default function SIPClient({
                 </Card>
 
                 <Card className="border-lime-200 bg-lime-50">
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="text-xs text-lime-700">{t.returns}</div>
                     <div className="mt-1 font-semibold text-lime-700">
                       +{formatINR(calculations.totalReturns)}
