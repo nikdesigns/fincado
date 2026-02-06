@@ -3,26 +3,26 @@
 import React, { useMemo, useState } from 'react';
 import CalculatorField from '@/components/CalculatorField';
 import EMIPieChart from '@/components/EMIPieChart';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { RefreshCcw, Percent } from 'lucide-react';
 
 /* ---------- TYPES ---------- */
-interface SIPLabels {
-  monthlyInv: string;
+interface SimpleInterestLabels {
+  principal: string;
   rate: string;
-  timePeriod: string;
-  maturityValue: string;
-  invested: string;
-  returns: string;
+  time: string;
+  maturityVal: string;
+  resultPrincipal: string;
+  resultInterest: string;
 }
 
-/* ---------- DEFAULT LABELS ---------- */
-const DEFAULT_LABELS: SIPLabels = {
-  monthlyInv: 'Monthly Investment (₹)',
-  rate: 'Expected Return (% p.a)',
-  timePeriod: 'Time Period (Years)',
-  maturityValue: 'Total Maturity Value',
-  invested: 'Total Invested',
-  returns: 'Total Returns',
+const DEFAULT_LABELS: SimpleInterestLabels = {
+  principal: 'Principal Amount (₹)',
+  rate: 'Interest Rate (% p.a)',
+  time: 'Time Period (Years)',
+  maturityVal: 'Total Maturity Value',
+  resultPrincipal: 'Invested Amount',
+  resultInterest: 'Total Interest',
 };
 
 /* ---------- HELPERS ---------- */
@@ -33,160 +33,128 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SIPClient({
+/* ---------- COMPONENT ---------- */
+export default function SICalculatorClient({
   labels = {},
 }: {
-  labels?: Partial<SIPLabels>;
+  labels?: Partial<SimpleInterestLabels>;
 }) {
   const t = { ...DEFAULT_LABELS, ...labels };
 
   /* ---------- STATE ---------- */
-  const [monthlySIP, setMonthlySIP] = useState(5000);
-  const [rate, setRate] = useState(12);
-  const [years, setYears] = useState(10);
-  const [lumpSum, setLumpSum] = useState(0);
-  const [inflation, setInflation] = useState(6);
+  const [principal, setPrincipal] = useState(10000);
+  const [rate, setRate] = useState(8);
+  const [time, setTime] = useState(5);
 
   /* ---------- CALCULATIONS ---------- */
-  const calculations = useMemo(() => {
-    const months = years * 12;
-    const monthlyRate = rate / 12 / 100;
-    const monthlyInflation = inflation / 12 / 100;
+  const results = useMemo(() => {
+    // Formula: SI = (P * R * T) / 100
+    const interest = Math.round((principal * rate * time) / 100);
+    const totalAmount = principal + interest;
 
-    let fvSIP = 0;
-    if (monthlySIP > 0) {
-      if (rate === 0) {
-        fvSIP = monthlySIP * months;
-      } else {
-        fvSIP =
-          monthlySIP *
-          ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-          (1 + monthlyRate);
-      }
-    }
-
-    const fvLump = lumpSum * Math.pow(1 + monthlyRate, months);
-    const futureValue = Math.round(fvSIP + fvLump);
-
-    const totalInvested = Math.round(monthlySIP * months + lumpSum);
-    const totalReturns = futureValue - totalInvested;
-
-    const realValue = Math.round(
-      futureValue / Math.pow(1 + monthlyInflation, months),
-    );
-
-    const investedPct =
-      futureValue > 0 ? Math.round((totalInvested / futureValue) * 100) : 0;
+    const principalPct = Math.round((principal / totalAmount) * 100);
+    const interestPct = 100 - principalPct;
 
     return {
-      futureValue,
-      totalInvested,
-      totalReturns,
-      realValue,
-      investedPct,
-      returnsPct: 100 - investedPct,
+      interest,
+      totalAmount,
+      principalPct,
+      interestPct,
     };
-  }, [monthlySIP, rate, years, lumpSum, inflation]);
+  }, [principal, rate, time]);
+
+  const handleReset = () => {
+    setPrincipal(10000);
+    setRate(8);
+    setTime(5);
+  };
 
   /* ---------- UI ---------- */
   return (
-    <Card className="border-slate-200 shadow-sm">
-      <CardContent className="p-6 sm:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <Card className="border-border shadow-sm bg-card">
+      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+            <Percent className="h-5 w-5 text-emerald-600" />
+            Simple Interest
+          </CardTitle>
+          <button
+            onClick={handleReset}
+            className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+          >
+            <RefreshCcw className="w-3 h-3" /> Reset
+          </button>
+        </div>
+      </CardHeader>
+
+      <CardContent className="p-6 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
           {/* ---------- INPUTS ---------- */}
           <div className="space-y-6">
             <CalculatorField
-              label={t.monthlyInv}
-              value={monthlySIP}
-              min={500}
-              max={200000}
+              label={t.principal}
+              value={principal}
+              min={1000}
+              max={10000000}
               step={500}
-              onChange={setMonthlySIP}
+              onChange={setPrincipal}
             />
 
             <CalculatorField
               label={t.rate}
               value={rate}
               min={1}
-              max={30}
+              max={50}
               step={0.1}
               onChange={setRate}
             />
 
             <CalculatorField
-              label={t.timePeriod}
-              value={years}
+              label={t.time}
+              value={time}
               min={1}
-              max={40}
+              max={30}
               step={1}
-              onChange={setYears}
+              onChange={setTime}
             />
-
-            {/* ADVANCED OPTIONS */}
-            <details className="pt-4 border-t">
-              <summary className="cursor-pointer text-sm font-medium text-slate-600">
-                Advanced Options
-              </summary>
-
-              <div className="mt-4 space-y-4">
-                <CalculatorField
-                  label="Initial Lump Sum (₹)"
-                  value={lumpSum}
-                  min={0}
-                  max={10000000}
-                  step={10000}
-                  onChange={setLumpSum}
-                />
-
-                <CalculatorField
-                  label="Inflation Rate (%)"
-                  value={inflation}
-                  min={0}
-                  max={15}
-                  step={0.1}
-                  onChange={setInflation}
-                />
-              </div>
-            </details>
           </div>
 
-          {/* ---------- VISUAL ---------- */}
+          {/* ---------- VISUALS ---------- */}
           <div className="flex flex-col items-center justify-center">
             <EMIPieChart
-              principalPct={calculations.investedPct}
-              interestPct={calculations.returnsPct}
+              principalPct={results.principalPct}
+              interestPct={results.interestPct}
+              size={200}
             />
 
-            <div className="mt-6 text-center">
-              <div className="text-sm text-slate-500">{t.maturityValue}</div>
-
+            <div className="mt-6 w-full text-center">
+              <div className="text-sm text-slate-500">{t.maturityVal}</div>
               <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
-                {formatINR(calculations.futureValue)}
+                {formatINR(results.totalAmount)}
               </div>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm text-left">
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                 <Card className="border-slate-200">
                   <CardContent className="p-4">
-                    <div className="text-xs text-slate-500">{t.invested}</div>
+                    <div className="text-xs text-slate-500">
+                      {t.resultPrincipal}
+                    </div>
                     <div className="mt-1 font-semibold text-slate-900">
-                      {formatINR(calculations.totalInvested)}
+                      {formatINR(principal)}
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card className="border-lime-200 bg-lime-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-lime-700">{t.returns}</div>
+                    <div className="text-xs text-lime-700">
+                      {t.resultInterest}
+                    </div>
                     <div className="mt-1 font-semibold text-lime-700">
-                      +{formatINR(calculations.totalReturns)}
+                      +{formatINR(results.interest)}
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-
-              <div className="mt-4 inline-block rounded-md bg-slate-100 px-3 py-1 text-xs text-slate-600">
-                Real Value (after {inflation}% inflation):{' '}
-                <strong>{formatINR(calculations.realValue)}</strong>
               </div>
             </div>
           </div>

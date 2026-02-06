@@ -23,8 +23,50 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
+/* ---------------- TYPES ---------------- */
+interface GSTLabels {
+  modeLabel: string;
+  addMode: string;
+  removeMode: string;
+  amountLabelAdd: string;
+  amountLabelRemove: string;
+  rateLabel: string;
+  resultNet: string;
+  resultGross: string;
+  resultTax: string;
+  resultBase: string;
+  taxSplit: string;
+  finalInvoice: string;
+  exclusiveNote: string;
+  inclusiveNote: string;
+}
+
+const DEFAULT_LABELS: GSTLabels = {
+  modeLabel: 'Calculation Mode',
+  addMode: 'Exclusive (Add GST)',
+  removeMode: 'Inclusive (Remove GST)',
+  amountLabelAdd: 'Net Price (Pre-Tax)',
+  amountLabelRemove: 'Gross Price (MRP)',
+  rateLabel: 'GST Rate',
+  resultNet: 'Base Amount',
+  resultGross: 'Final Invoice Value',
+  resultTax: 'Total GST',
+  resultBase: 'Base Amount',
+  taxSplit: 'Tax Breakdown',
+  finalInvoice: 'Final Invoice Value',
+  exclusiveNote: 'Use this when you have the Net Price and need to add tax.',
+  inclusiveNote:
+    'Use this when you have the MRP and need to find the Base Price.',
+};
+
 /* ---------------- COMPONENT ---------------- */
-export default function GSTClient() {
+export default function GSTClient({
+  labels = {},
+}: {
+  labels?: Partial<GSTLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels }; // Merge defaults with passed labels
+
   const [amount, setAmount] = useState(10000);
   const [gstRate, setGstRate] = useState(18);
   const [mode, setMode] = useState<'add' | 'remove'>('add');
@@ -69,7 +111,7 @@ export default function GSTClient() {
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
             <Calculator className="h-5 w-5 text-emerald-600" />
-            Compute GST
+            {mode === 'add' ? 'Add GST' : 'Remove GST'}
           </CardTitle>
           <button
             onClick={reset}
@@ -86,30 +128,26 @@ export default function GSTClient() {
           <div className="space-y-8">
             {/* Mode Toggle */}
             <div className="space-y-3">
-              <Label>Calculation Mode</Label>
+              <Label>{t.modeLabel}</Label>
               <Tabs
                 value={mode}
                 onValueChange={(v) => setMode(v as 'add' | 'remove')}
                 className="w-full"
               >
                 <TabsList className="w-full grid grid-cols-2">
-                  <TabsTrigger value="add">Exclusive (Add GST)</TabsTrigger>
-                  <TabsTrigger value="remove">
-                    Inclusive (Remove GST)
-                  </TabsTrigger>
+                  <TabsTrigger value="add">{t.addMode}</TabsTrigger>
+                  <TabsTrigger value="remove">{t.removeMode}</TabsTrigger>
                 </TabsList>
               </Tabs>
               <p className="text-xs text-slate-500">
-                {mode === 'add'
-                  ? 'Use this when you have the Net Price and need to add tax.'
-                  : 'Use this when you have the MRP and need to find the Base Price.'}
+                {mode === 'add' ? t.exclusiveNote : t.inclusiveNote}
               </p>
             </div>
 
             {/* Amount Input */}
             <div className="space-y-3">
               <Label>
-                {mode === 'add' ? 'Net Price (Pre-Tax)' : 'Gross Price (MRP)'}
+                {mode === 'add' ? t.amountLabelAdd : t.amountLabelRemove}
               </Label>
               <div className="relative">
                 <span className="absolute left-3 top-2.5 text-slate-400 font-semibold">
@@ -129,7 +167,7 @@ export default function GSTClient() {
 
             {/* Rate Selection */}
             <div className="space-y-3">
-              <Label>GST Rate</Label>
+              <Label>{t.rateLabel}</Label>
               <Select
                 value={String(gstRate)}
                 onValueChange={(v) => setGstRate(Number(v))}
@@ -172,17 +210,15 @@ export default function GSTClient() {
             <div className="flex items-center gap-2 mb-4">
               <Receipt className="w-5 h-5 text-slate-400" />
               <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">
-                Calculation Summary
+                {t.taxSplit}
               </span>
             </div>
 
             <div className="flex-1 bg-white border border-slate-200 rounded-xl p-6 relative overflow-hidden">
-              {/* Decorative background element */}
-
               <div className="relative z-10 space-y-6">
                 {/* 1. Base Amount */}
                 <div className="flex justify-between items-center border-b border-slate-200 pb-3 border-dashed">
-                  <span className="text-sm text-slate-600">Base Amount</span>
+                  <span className="text-sm text-slate-600">{t.resultBase}</span>
                   <span className="text-lg font-medium text-slate-900">
                     {formatINR(results.net)}
                   </span>
@@ -192,7 +228,7 @@ export default function GSTClient() {
                 <div className="space-y-2 pb-3 border-b border-slate-200 border-dashed">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-slate-500">
-                      Total GST ({gstRate}%)
+                      {t.resultTax} ({gstRate}%)
                     </span>
                     <span className="text-sm font-bold text-red-600">
                       + {formatINR(results.gst)}
@@ -216,15 +252,12 @@ export default function GSTClient() {
                 <div className="pt-2">
                   <div className="flex justify-between items-end">
                     <span className="text-sm font-bold text-slate-700">
-                      Final Invoice Value
+                      {t.resultGross}
                     </span>
                     <span className="text-3xl font-extrabold text-emerald-600">
                       {formatINR(results.gross)}
                     </span>
                   </div>
-                  <p className="text-xs text-right text-slate-400 mt-1">
-                    (Inclusive of all taxes)
-                  </p>
                 </div>
               </div>
             </div>
