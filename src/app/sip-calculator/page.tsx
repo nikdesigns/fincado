@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
-import SIPCalculatorClient from './SIPCalculatorClient';
+import SIPClient from './SIPClient'; // ✅ CHANGED: was './SIPCalculatorClient'
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
@@ -310,15 +310,12 @@ export default function SIPCalculatorPage() {
                 </Card>
               </div>
             </section>
-
             {/* Calculator */}
-            <SIPCalculatorClient />
-
+            <SIPClient /> {/* ✅ CHANGED: was <SIPCalculatorClient /> */}
             {/* AD #2: AFTER CALCULATOR */}
             <div className="no-print my-8">
               <AdSlot id="sip-after-calc" type="square" />
             </div>
-
             {/* Info Alert */}
             <Alert className="mt-6 bg-indigo-50/50 border-indigo-200 text-slate-600">
               <Info className="h-4 w-4 text-indigo-500 mt-0.5" />
@@ -331,7 +328,6 @@ export default function SIPCalculatorPage() {
                 actually buy more units cheaply.
               </AlertDescription>
             </Alert>
-
             {/* SIP Formula Block */}
             <section className="no-print mt-8">
               <Card className="border-slate-200 bg-white">
@@ -503,7 +499,6 @@ export default function SIPCalculatorPage() {
                 </CardContent>
               </Card>
             </section>
-
             {/* SIP vs Lumpsum */}
             <section className="no-print mt-10">
               <Card className="border-slate-200 bg-white">
@@ -519,12 +514,10 @@ export default function SIPCalculatorPage() {
                 </CardContent>
               </Card>
             </section>
-
             {/* AD #3: IN-FEED */}
             <div className="no-print my-8">
               <AdSlot id="sip-infeed-1" type="banner" lazyLoad />
             </div>
-
             {/* Promo content */}
             <Card className="no-print my-6 border-indigo-200 bg-indigo-50/50 transition-colors hover:bg-indigo-50">
               <CardContent className="flex items-start gap-4 p-5">
@@ -545,7 +538,6 @@ export default function SIPCalculatorPage() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Benefits & SIP concepts */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
@@ -657,12 +649,10 @@ export default function SIPCalculatorPage() {
                 </CardContent>
               </Card>
             </article>
-
             {/* AD #5: BEFORE FAQ */}
             <div className="no-print my-8">
               <AdSlot id="sip-before-faq" type="leaderboard" lazyLoad />
             </div>
-
             {/* FAQ */}
             <section className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
@@ -692,12 +682,10 @@ export default function SIPCalculatorPage() {
                 </CardContent>
               </Card>
             </section>
-
             {/* AD #6: BOTTOM */}
             <div className="no-print my-8 flex justify-center">
               <AdSlot id="sip-bottom" type="square" lazyLoad />
             </div>
-
             <AuthorBio />
           </div>
 

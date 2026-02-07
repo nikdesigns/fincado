@@ -54,7 +54,7 @@ export default function AuthorBio() {
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wide">
                 <CalendarDays className="w-4 h-4 text-lime-500" />
                 <span>
-                  Verified: <span className="text-slate-900">Jan 2026</span>
+                  Verified: <span className="text-slate-900">Feb 2026</span>
                 </span>
               </div>
 

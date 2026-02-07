@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import EMIPieChart from '@/components/EMIPieChart';
 import CalculatorField from '@/components/CalculatorField';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -12,23 +13,30 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { RefreshCcw, Baby } from 'lucide-react';
+import {
+  RefreshCcw,
+  Baby,
+  BookmarkIcon,
+  Share2Icon,
+  Trash2,
+  Calculator,
+  AlertCircle,
+} from 'lucide-react';
+import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 /* ---------- TYPES ---------- */
-interface LabelConfig {
-  girlAge: string;
-  depositFreq: string;
-  monthlyInv: string;
-  yearlyInv: string;
-  rate: string;
-  maturityVal: string;
-  totalInv: string;
-  totalInt: string;
-  infoText: string;
-}
-
-interface SSYClientProps {
-  labels?: Partial<LabelConfig>;
+interface SavedCalculation {
+  id: number;
+  currentAge: number;
+  depositMode: 'monthly' | 'yearly';
+  monthlyDeposit: number;
+  yearlyDeposit: number;
+  annualRate: number;
+  maturityAmount: number;
+  totalInvested: number;
+  totalInterest: number;
+  date: string;
 }
 
 /* ---------- HELPERS ---------- */
@@ -39,22 +47,7 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-/* ---------- DEFAULT LABELS ---------- */
-const DEFAULT_LABELS: LabelConfig = {
-  girlAge: "Girl's Current Age (Years)",
-  depositFreq: 'Deposit Frequency',
-  monthlyInv: 'Monthly Investment (₹)',
-  yearlyInv: 'Yearly Investment (₹)',
-  rate: 'Interest Rate (% p.a)',
-  maturityVal: 'Maturity Value (Tax Free)',
-  totalInv: 'Total Investment',
-  totalInt: 'Total Interest',
-  infoText: 'Account can be opened until age 10.',
-};
-
-export default function SSYClient({ labels = {} }: SSYClientProps) {
-  const t = { ...DEFAULT_LABELS, ...labels };
-
+export default function SSYClient() {
   /* ---------- STATE ---------- */
   const [currentAge, setCurrentAge] = useState(5);
   const [depositMode, setDepositMode] = useState<'monthly' | 'yearly'>(
@@ -63,6 +56,37 @@ export default function SSYClient({ labels = {} }: SSYClientProps) {
   const [monthlyDeposit, setMonthlyDeposit] = useState(5000);
   const [yearlyDeposit, setYearlyDeposit] = useState(60000);
   const [annualRate, setAnnualRate] = useState(8.2);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+
+  const [isClient, setIsClient] = useState(false);
+  const [savedCalculations, setSavedCalculations] = useState<
+    SavedCalculation[]
+  >([]);
+
+  // Load saved calculations
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsClient(true);
+
+    try {
+      const saved = localStorage.getItem('ssy_calculator_history');
+      if (saved) {
+        setSavedCalculations(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error('Error loading saved SSY calculations:', error);
+    }
+  }, []);
+
+  // Track calculator load
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'calculator_loaded', {
+        calculator_type: 'SSY',
+        page_path: window.location.pathname,
+      });
+    }
+  }, []);
 
   /* ---------- CALCULATIONS ---------- */
   const results = useMemo(() => {
@@ -76,12 +100,25 @@ export default function SSYClient({ labels = {} }: SSYClientProps) {
     const annualInvestment =
       depositMode === 'monthly' ? monthlyDeposit * 12 : yearlyDeposit;
 
+    // Year-wise breakdown for first 5 years
+    const yearlyBreakdown = [];
+
     for (let year = 1; year <= maturityYears; year++) {
       if (year <= depositYears) {
         balance += annualInvestment;
         totalInvested += annualInvestment;
       }
       balance += balance * rate;
+
+      // Store yearly data for first 5 years
+      if (year <= 5) {
+        yearlyBreakdown.push({
+          year,
+          investment: year <= depositYears ? annualInvestment : 0,
+          balance: Math.round(balance),
+          interest: Math.round(balance - totalInvested),
+        });
+      }
     }
 
     const maturityAmount = Math.round(balance);
@@ -92,136 +129,409 @@ export default function SSYClient({ labels = {} }: SSYClientProps) {
       totalValue > 0 ? Math.round((totalInvested / totalValue) * 100) : 0;
     const interestPct = 100 - principalPct;
 
+    const maturityAge = currentAge + 21;
+    const maturityYear = new Date().getFullYear() + (21 - currentAge);
+    const canOpen = currentAge <= 10;
+
     return {
       maturityAmount,
       totalInvested,
       totalInterest,
       principalPct,
       interestPct,
-      maturityAge: currentAge + 21,
+      maturityAge,
+      maturityYear,
+      canOpen,
+      yearlyBreakdown,
+      annualInvestment,
     };
   }, [currentAge, depositMode, monthlyDeposit, yearlyDeposit, annualRate]);
 
+  /* ---------- HANDLERS ---------- */
   const handleReset = () => {
     setCurrentAge(5);
     setDepositMode('monthly');
     setMonthlyDeposit(5000);
     setYearlyDeposit(60000);
     setAnnualRate(8.2);
+    toast.success('Calculator reset to defaults!');
+  };
+
+  const handleSave = () => {
+    const calc: SavedCalculation = {
+      id: Date.now(),
+      currentAge,
+      depositMode,
+      monthlyDeposit,
+      yearlyDeposit,
+      annualRate,
+      maturityAmount: results.maturityAmount,
+      totalInvested: results.totalInvested,
+      totalInterest: results.totalInterest,
+      date: new Date().toISOString(),
+    };
+
+    const updated = [calc, ...savedCalculations].slice(0, 10);
+    setSavedCalculations(updated);
+
+    try {
+      localStorage.setItem('ssy_calculator_history', JSON.stringify(updated));
+    } catch (error) {
+      console.error('Error saving SSY calculation:', error);
+    }
+
+    toast.success('SSY calculation saved!');
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'ssy_calculation_saved', {
+        age: currentAge,
+        deposit_mode: depositMode,
+        annual_investment: results.annualInvestment,
+      });
+    }
+  };
+
+  const handleShare = () => {
+    const message =
+      `🎀 Sukanya Samriddhi Yojana (SSY) Calculation\n\n` +
+      `Girl's Age: ${currentAge} years\n` +
+      `Deposit: ${formatINR(results.annualInvestment)}/year (${depositMode})\n` +
+      `Interest Rate: ${annualRate}% p.a.\n\n` +
+      `📊 At Maturity (Age ${results.maturityAge}):\n` +
+      `Total Invested: ${formatINR(results.totalInvested)}\n` +
+      `Maturity Value: ${formatINR(results.maturityAmount)}\n` +
+      `Total Interest: ${formatINR(results.totalInterest)}\n\n` +
+      `💰 100% Tax-Free Returns!\n\n` +
+      `Calculate yours: https://fincado.com/sukanya-samriddhi/`;
+
+    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'ssy_calculation_shared', {
+        method: 'whatsapp',
+      });
+    }
+  };
+
+  const handleDelete = (id: number) => {
+    const updated = savedCalculations.filter((c) => c.id !== id);
+    setSavedCalculations(updated);
+
+    try {
+      localStorage.setItem('ssy_calculator_history', JSON.stringify(updated));
+    } catch (error) {
+      console.error('Error updating SSY history:', error);
+    }
+
+    toast.success('Calculation deleted!');
+  };
+
+  const handleClearAll = () => {
+    setSavedCalculations([]);
+    try {
+      localStorage.removeItem('ssy_calculator_history');
+    } catch (error) {
+      console.error('Error clearing SSY history:', error);
+    }
+    toast.success('All SSY calculations cleared!');
+  };
+
+  const handleLoad = (calc: SavedCalculation) => {
+    setCurrentAge(calc.currentAge);
+    setDepositMode(calc.depositMode);
+    setMonthlyDeposit(calc.monthlyDeposit);
+    setYearlyDeposit(calc.yearlyDeposit);
+    setAnnualRate(calc.annualRate);
+    toast.success('Calculation loaded!');
   };
 
   /* ---------- UI ---------- */
   return (
-    <Card className="border-slate-200 shadow-sm bg-card">
-      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-            <Baby className="h-5 w-5 text-emerald-600" />
-            SSY Calculator
-          </CardTitle>
-          <button
-            onClick={handleReset}
-            className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
-          >
-            <RefreshCcw className="w-3 h-3" /> Reset
-          </button>
-        </div>
-      </CardHeader>
+    <div className="space-y-6">
+      {/* Age Warning */}
+      {!results.canOpen && (
+        <Alert className="border-amber-200 bg-amber-50">
+          <AlertCircle className="h-4 w-4 text-amber-600" />
+          <AlertDescription className="ml-2 text-sm text-amber-800">
+            <strong>Note:</strong> SSY account can only be opened for girls up
+            to age 10. Adjust the age to see accurate calculations.
+          </AlertDescription>
+        </Alert>
+      )}
 
-      <CardContent className="p-6 lg:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
-          {/* ---------- INPUTS ---------- */}
-          <div className="space-y-6">
-            <CalculatorField
-              label={t.girlAge}
-              value={currentAge}
-              min={0}
-              max={10}
-              step={1}
-              onChange={setCurrentAge}
-            />
+      {/* Main Calculator */}
+      <Card className="border-slate-200 shadow-sm bg-card">
+        <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+              <Baby className="h-5 w-5 text-emerald-600" />
+              Sukanya Samriddhi Yojana Calculator
+            </CardTitle>
+            <button
+              onClick={handleReset}
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+            >
+              <RefreshCcw className="w-3 h-3" /> Reset
+            </button>
+          </div>
+        </CardHeader>
 
-            {/* Deposit Frequency */}
-            <div className="space-y-2">
-              <Label>{t.depositFreq}</Label>
-              <Select
-                value={depositMode}
-                onValueChange={(v) => setDepositMode(v as 'monthly' | 'yearly')}
-              >
-                <SelectTrigger className="bg-white h-11">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="yearly">Yearly</SelectItem>
-                </SelectContent>
-              </Select>
+        <CardContent className="p-6 lg:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+            {/* ---------- INPUTS ---------- */}
+            <div className="space-y-6">
+              <CalculatorField
+                label="Girl's Current Age (Years)"
+                value={currentAge}
+                min={0}
+                max={10}
+                step={1}
+                onChange={setCurrentAge}
+              />
+
+              {/* Deposit Frequency */}
+              <div className="space-y-2">
+                <Label>Deposit Frequency</Label>
+                <Select
+                  value={depositMode}
+                  onValueChange={(v) =>
+                    setDepositMode(v as 'monthly' | 'yearly')
+                  }
+                >
+                  <SelectTrigger className="bg-white h-11">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                    <SelectItem value="yearly">Yearly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <CalculatorField
+                label={
+                  depositMode === 'monthly'
+                    ? 'Monthly Investment (₹)'
+                    : 'Yearly Investment (₹)'
+                }
+                value={
+                  depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit
+                }
+                min={depositMode === 'monthly' ? 250 : 1000}
+                max={depositMode === 'monthly' ? 12500 : 150000}
+                step={depositMode === 'monthly' ? 250 : 1000}
+                onChange={
+                  depositMode === 'monthly'
+                    ? setMonthlyDeposit
+                    : setYearlyDeposit
+                }
+              />
+
+              <CalculatorField
+                label="Interest Rate (% p.a)"
+                value={annualRate}
+                min={7}
+                max={9}
+                step={0.1}
+                onChange={setAnnualRate}
+              />
+
+              {/* Advanced Toggle */}
+              <div className="pt-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAdvanced(!showAdvanced)}
+                  className="text-xs text-slate-600 hover:text-slate-900"
+                >
+                  <Calculator className="mr-2 h-3 w-3" />
+                  {showAdvanced ? 'Hide' : 'Show'} Year-wise Breakdown
+                </Button>
+              </div>
             </div>
 
-            <CalculatorField
-              label={depositMode === 'monthly' ? t.monthlyInv : t.yearlyInv}
-              value={depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit}
-              min={depositMode === 'monthly' ? 250 : 1000}
-              max={depositMode === 'monthly' ? 12500 : 150000}
-              step={depositMode === 'monthly' ? 250 : 1000}
-              onChange={
-                depositMode === 'monthly' ? setMonthlyDeposit : setYearlyDeposit
-              }
-            />
+            {/* ---------- VISUALS ---------- */}
+            <div className="flex flex-col items-center justify-center">
+              <EMIPieChart
+                principalPct={results.principalPct}
+                interestPct={results.interestPct}
+                size={200}
+              />
 
-            <CalculatorField
-              label={t.rate}
-              value={annualRate}
-              min={7}
-              max={9}
-              step={0.1}
-              onChange={setAnnualRate}
-            />
-          </div>
+              <div className="mt-6 text-center w-full">
+                <div className="text-sm text-slate-500">
+                  Maturity Value (Tax Free)
+                </div>
 
-          {/* ---------- VISUALS ---------- */}
-          <div className="flex flex-col items-center justify-center">
-            <EMIPieChart
-              principalPct={results.principalPct}
-              interestPct={results.interestPct}
-              size={200}
-            />
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                  {formatINR(results.maturityAmount)}
+                </div>
 
-            <div className="mt-6 text-center">
-              <div className="text-sm text-slate-500">{t.maturityVal}</div>
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
+                  Maturity: {results.maturityYear} (Age: {results.maturityAge})
+                </div>
 
-              <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
-                {formatINR(results.maturityAmount)}
-              </div>
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                  <Card className="border-slate-200 shadow-none">
+                    <CardContent className="p-4">
+                      <div className="text-xs text-slate-500">
+                        Total Investment
+                      </div>
+                      <div className="mt-1 font-semibold text-slate-900">
+                        {formatINR(results.totalInvested)}
+                      </div>
+                    </CardContent>
+                  </Card>
 
-              <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                Maturity Year: {new Date().getFullYear() + 21} (Age:{' '}
-                {results.maturityAge})
-              </div>
+                  <Card className="border-lime-200 bg-lime-50 shadow-none">
+                    <CardContent className="p-4">
+                      <div className="text-xs text-lime-700">
+                        Total Interest
+                      </div>
+                      <div className="mt-1 font-semibold text-lime-700">
+                        +{formatINR(results.totalInterest)}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                <Card className="border-slate-200 shadow-none">
-                  <CardContent className="p-4">
-                    <div className="text-xs text-slate-500">{t.totalInv}</div>
-                    <div className="mt-1 font-semibold text-slate-900">
-                      {formatINR(results.totalInvested)}
+                <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-700">Annual Investment:</span>
+                    <span className="font-bold text-blue-700">
+                      {formatINR(results.annualInvestment)}
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-slate-600 mt-1">
+                    15 years contribution + 6 years interest-only
+                  </div>
+                </div>
+
+                {/* Year-wise Breakdown */}
+                {showAdvanced && results.yearlyBreakdown.length > 0 && (
+                  <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
+                    <h4 className="text-xs font-semibold text-slate-900 mb-3">
+                      Year-wise Growth (First 5 Years)
+                    </h4>
+                    <div className="space-y-2">
+                      {results.yearlyBreakdown.map((item) => (
+                        <div
+                          key={item.year}
+                          className="flex justify-between text-xs"
+                        >
+                          <span className="text-slate-600">
+                            Year {item.year}:
+                          </span>
+                          <div className="flex gap-3">
+                            <span className="text-slate-700">
+                              Balance:{' '}
+                              <strong>{formatINR(item.balance)}</strong>
+                            </span>
+                            <span className="text-lime-700">
+                              Interest:{' '}
+                              <strong>{formatINR(item.interest)}</strong>
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                      <div className="text-[11px] text-slate-500 mt-2 pt-2 border-t">
+                        Continues compounding until maturity at age 21
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                )}
 
-                <Card className="border-lime-200 bg-lime-50 shadow-none">
-                  <CardContent className="p-4">
-                    <div className="text-xs text-lime-700">{t.totalInt}</div>
-                    <div className="mt-1 font-semibold text-lime-700">
-                      +{formatINR(results.totalInterest)}
-                    </div>
-                  </CardContent>
-                </Card>
+                <p className="mt-4 text-xs text-center text-slate-400">
+                  Lock-in: 21 years | Partial withdrawal after age 18 | 100%
+                  tax-free
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-3">
+        <Button onClick={handleSave} variant="outline" size="sm">
+          <BookmarkIcon className="mr-2 h-4 w-4" />
+          Save Calculation
+        </Button>
+
+        <Button onClick={handleShare} variant="outline" size="sm">
+          <Share2Icon className="mr-2 h-4 w-4" />
+          Share via WhatsApp
+        </Button>
+      </div>
+
+      {/* Saved Calculations */}
+      {isClient && savedCalculations.length > 0 && (
+        <Card className="border-slate-200">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-lg">Your Saved SSY Plans</CardTitle>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleClearAll}
+              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Clear All
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {savedCalculations.map((calc) => (
+                <div
+                  key={calc.id}
+                  className="group p-3 bg-slate-50 rounded-lg border border-slate-200 hover:bg-slate-100 transition relative"
+                >
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleLoad(calc)}
+                  >
+                    <div className="flex justify-between items-start pr-8">
+                      <div>
+                        <div className="font-semibold text-sm">
+                          Age {calc.currentAge} |{' '}
+                          {formatINR(
+                            calc.depositMode === 'monthly'
+                              ? calc.monthlyDeposit * 12
+                              : calc.yearlyDeposit,
+                          )}
+                          /year
+                        </div>
+                        <div className="text-xs text-slate-600 mt-1">
+                          {calc.annualRate}% | Maturity:{' '}
+                          {formatINR(calc.maturityAmount)}
+                        </div>
+                        <div className="text-[11px] text-slate-500 mt-0.5">
+                          Interest: {formatINR(calc.totalInterest)}
+                        </div>
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        {new Date(calc.date).toLocaleDateString('en-IN')}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(calc.id);
+                    }}
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 }
