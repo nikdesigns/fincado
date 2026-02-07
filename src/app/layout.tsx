@@ -106,7 +106,7 @@ export default function RootLayout({
         {/* 2. ✅ Google Analytics 4 */}
         <Script
           id="google-analytics"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
         />
         <Script id="google-analytics-config" strategy="afterInteractive">
