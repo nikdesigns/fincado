@@ -10,7 +10,6 @@ import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import 'katex/dist/katex.min.css';
-import { BlockMath } from 'react-katex';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
@@ -25,12 +24,15 @@ import {
 import FAQSchema from '@/components/FAQSchema';
 import { BookOpen, ArrowRight, Info } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { EMISchemas } from '@/components/schemas/EMISchemas';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
+
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'EMI Calculator – Calculate Loan EMI After Budget 2026',
+  title: 'EMI Calculator India - Home, Car & Personal Loan EMI Calculator 2026',
   description:
-    'Use Fincado’s accurate EMI Calculator to check monthly installments, total interest, and amortization schedule. Compare rates and plan prepayments instantly.',
+    'Free EMI Calculator for Home Loan, Car Loan & Personal Loan in India. Calculate monthly EMI, total interest & amortization schedule instantly. Used by 50,000+ borrowers. Compare bank rates & save lakhs on interest.',
   keywords: [
     'EMI Calculator',
     'Loan EMI Calculator',
@@ -51,6 +53,17 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/emi-calculator/',
     type: 'website',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 /* ---------------- PAGE ---------------- */
@@ -58,11 +71,13 @@ export const metadata: Metadata = {
 export default function EMIPage() {
   const introContent = autoLinkContent(`
     <p>
-      <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly
-      amount paid towards loan repayment, consisting of principal and interest.
-      Indian banks calculate EMI using the <strong>reducing balance method</strong>,
-      where interest is charged only on the outstanding principal.
-    </p>
+    <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly
+    amount paid towards loan repayment, consisting of principal and interest.
+    Indian banks calculate EMI using the <strong>reducing balance method</strong>,
+    where interest is charged only on the outstanding principal. 
+    Compare with our <a href="/sip-calculator/">SIP Calculator</a> to understand 
+    loan vs investment planning better.
+  </p>
   `);
 
   const benefitsContent = autoLinkContent(`
@@ -119,7 +134,33 @@ export default function EMIPage() {
       answer:
         'No. Union Budget 2026 did not introduce any changes to EMI calculation formulas for home loans, car loans, or personal loans. EMIs are still calculated using the reducing balance method.',
     },
+    {
+      id: 'faq-7',
+      question: 'What is the EMI for a 20 lakh home loan?',
+      answer:
+        'For a ₹20 lakh home loan at 8.5% interest for 20 years, the EMI would be approximately ₹17,340 per month. The total interest paid would be around ₹21.62 lakhs over the loan tenure. Use our calculator above to get exact figures for different rates and tenures.',
+    },
+    {
+      id: 'faq-8',
+      question: 'Which bank has the lowest home loan EMI in India?',
+      answer:
+        'As of February 2026, SBI offers competitive home loan rates starting from 8.50%, followed by HDFC Bank (8.60%) and Axis Bank (8.75%). However, the actual rate depends on your credit score, income, and loan amount. Always compare total cost including processing fees.',
+    },
+    {
+      id: 'faq-9',
+      question: 'How to reduce EMI amount without changing loan tenure?',
+      answer:
+        'To reduce your EMI without extending tenure: 1) Make a lump sum prepayment to reduce principal, 2) Request bank to recalculate EMI on reduced balance, 3) Transfer loan to a bank with lower interest rate (balance transfer), 4) Improve credit score to negotiate rate reduction.',
+    },
+    {
+      id: 'faq-10',
+      question: 'Is EMI calculated on reducing or flat rate?',
+      answer:
+        'All major Indian banks use the REDUCING BALANCE METHOD for home loans, car loans, and personal loans. This means interest is calculated only on the outstanding principal amount, which decreases with each EMI payment. Flat rate method is outdated and no longer used.',
+    },
   ];
+
+  const updatedLabel = getCurrentMonthYearLabel();
 
   return (
     <>
@@ -141,6 +182,8 @@ export default function EMIPage() {
       />
 
       <FAQSchema faqs={faqItems} />
+
+      <EMISchemas />
 
       <main className="container" style={{ padding: '40px 20px' }}>
         <header style={{ marginBottom: 32 }} className="no-print">
@@ -187,7 +230,64 @@ export default function EMIPage() {
 
         <div className="layout-grid">
           <div className="main-content">
+            <section className="no-print mb-8">
+              <div className="grid gap-4 md:grid-cols-3">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                  <CardContent className="p-4">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                      MOST POPULAR
+                    </div>
+                    <div className="text-sm text-slate-600 mb-2">
+                      EMI for ₹25 Lakh @ 8.5% (20Y)
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900">
+                      ₹21,675
+                      <span className="text-base font-normal text-slate-600">
+                        /month
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                  <CardContent className="p-4">
+                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                      BEST RATE TODAY
+                    </div>
+                    <div className="text-sm text-slate-600 mb-2">
+                      SBI Home Loan (Updated {updatedLabel})
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900">
+                      8.50%
+                      <span className="text-base font-normal text-slate-600">
+                        {' '}
+                        p.a.
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-amber-200 bg-linear-to-br from-amber-50 to-white">
+                  <CardContent className="p-4">
+                    <div className="text-xs font-semibold text-amber-700 mb-1">
+                      SAVE INTEREST
+                    </div>
+                    <div className="text-sm text-slate-600 mb-2">
+                      Prepay ₹1L on ₹20L loan
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900">
+                      ₹1.2L
+                      <span className="text-base font-normal text-slate-600">
+                        {' '}
+                        saved
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
             <EMIClient />
+
             <Alert className="mt-6 bg-slate-50/50 border-slate-200 text-slate-600">
               <Info className="h-4 w-4 text-indigo-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
@@ -199,6 +299,167 @@ export default function EMIPage() {
                 the Union Budget 2026.
               </AlertDescription>
             </Alert>
+
+            <section className="no-print mt-8">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-slate-900">
+                    EMI Calculation Formula
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                    <div className="text-sm text-slate-600 mb-3">
+                      The EMI (Equated Monthly Installment) for any loan (home,
+                      car, personal, education) is calculated using the reducing
+                      balance method:
+                    </div>
+
+                    {/* Formula Display */}
+                    <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                      <div className="text-center text-xl font-serif">
+                        EMI = P × [r × (1 + r)<sup>n</sup>] / [(1 + r)
+                        <sup>n</sup> − 1]
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 text-sm text-slate-700 mt-4">
+                      <div className="flex gap-3 items-start">
+                        <strong className="min-w-20">Where:</strong>
+                      </div>
+                      <div className="flex gap-3 items-start ml-4">
+                        <span className="min-w-10 font-mono font-semibold">
+                          P
+                        </span>
+                        <span>= Principal loan amount (in ₹)</span>
+                      </div>
+                      <div className="flex gap-3 items-start ml-4">
+                        <span className="min-w-10 font-mono font-semibold">
+                          r
+                        </span>
+                        <span>
+                          = Monthly interest rate = Annual Rate ÷ (12 × 100)
+                        </span>
+                      </div>
+                      <div className="flex gap-3 items-start ml-4">
+                        <span className="min-w-10 font-mono font-semibold">
+                          n
+                        </span>
+                        <span>= Loan tenure in months (years × 12)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                      <span className="text-xl">🧮</span>
+                      Example EMI Calculation
+                    </h4>
+
+                    <div className="space-y-3 text-sm text-slate-700">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <strong>Loan Amount (P):</strong>
+                        </div>
+                        <div>₹5,00,000</div>
+
+                        <div>
+                          <strong>Annual Interest Rate:</strong>
+                        </div>
+                        <div>12% p.a.</div>
+
+                        <div>
+                          <strong>Loan Tenure:</strong>
+                        </div>
+                        <div>3 years (36 months)</div>
+                      </div>
+
+                      <div className="pt-3 border-t border-blue-300">
+                        <strong className="block mb-2">
+                          Step 1: Monthly Interest Rate (r)
+                        </strong>
+                        <div className="ml-4 font-mono text-base">
+                          r = 12 ÷ (12 × 100) = 12 ÷ 1200 = 0.01
+                        </div>
+                      </div>
+
+                      <div className="pt-3">
+                        <strong className="block mb-2">
+                          Step 2: (1 + r)<sup>n</sup>
+                        </strong>
+                        <div className="ml-4 font-mono text-base">
+                          (1 + 0.01)<sup>36</sup> ≈ 1.4308
+                        </div>
+                      </div>
+
+                      <div className="pt-3">
+                        <strong className="block mb-2">
+                          Step 3: Apply EMI Formula
+                        </strong>
+                        <div className="ml-4 space-y-2 font-mono text-sm">
+                          <div>
+                            EMI = 5,00,000 × [0.01 × 1.4308] / [1.4308 − 1]
+                          </div>
+                          <div>EMI = 5,00,000 × 0.014308 / 0.4308</div>
+                          <div>EMI ≈ 5,00,000 × 0.033228</div>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                        <div className="text-base font-semibold text-slate-700 mb-1">
+                          Monthly EMI:
+                        </div>
+                        <div className="text-3xl font-bold text-emerald-700">
+                          ₹16,607
+                        </div>
+                      </div>
+
+                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                        <div className="flex justify-between">
+                          <span>Total Amount Payable:</span>
+                          <strong>₹5,97,852</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Total Interest Paid:</span>
+                          <strong className="text-red-600">₹97,852</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                    <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
+                      <span>💡</span>
+                      Understanding the EMI Formula
+                    </h4>
+                    <ul className="text-sm text-slate-700 space-y-2 list-disc pl-5">
+                      <li>
+                        EMI is calculated using the{' '}
+                        <strong>reducing balance method</strong>, the same
+                        method used by banks.
+                      </li>
+                      <li>
+                        EMI stays constant, but the{' '}
+                        <strong>interest part reduces</strong> and the{' '}
+                        <strong>principal part increases</strong> over time.
+                      </li>
+                      <li>
+                        You can use this formula for{' '}
+                        <strong>any loan type</strong> – home, car, personal,
+                        education, or business loans.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="text-xs text-slate-500 italic mt-4">
+                    This EMI calculator uses the same formula that banks and
+                    NBFCs use, so your results will closely match official loan
+                    amortization schedules.
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
 
             <section className="no-print mt-8">
               <Card className="border-slate-200 bg-white">
@@ -228,14 +489,87 @@ export default function EMIPage() {
                 </CardContent>
               </Card>
             </section>
-
             {/* 💰 AD 2: AFTER RESULT (High Engagement) */}
             <div className="no-print" style={{ margin: '32px 0' }}>
               <AdSlot id="emi-after-calc" type="banner" />
             </div>
-
             <LiveRateTable type="personalLoan" />
+            <section className="no-print mt-8">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-slate-900">
+                    Bank EMI Rates Comparison (Updated {updatedLabel})
+                  </CardTitle>
+                </CardHeader>
 
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-slate-50">
+                        <tr>
+                          <th className="p-3 text-left font-semibold">Bank</th>
+                          <th className="p-3 text-left font-semibold">
+                            Home Loan Rate
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Car Loan Rate
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Personal Loan Rate
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Processing Fee
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">HDFC Bank</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            8.60% - 9.50%
+                          </td>
+                          <td className="p-3">8.70% - 10.00%</td>
+                          <td className="p-3">10.50% - 21.00%</td>
+                          <td className="p-3">Up to 0.5%</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">SBI</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            8.50% - 9.65%
+                          </td>
+                          <td className="p-3">8.85% - 9.75%</td>
+                          <td className="p-3">11.15% - 14.45%</td>
+                          <td className="p-3">Up to 0.35%</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">ICICI Bank</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            8.75% - 9.70%
+                          </td>
+                          <td className="p-3">9.00% - 10.50%</td>
+                          <td className="p-3">10.75% - 19.00%</td>
+                          <td className="p-3">Up to 2.5%</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">Axis Bank</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            8.75% - 9.65%
+                          </td>
+                          <td className="p-3">9.25% - 11.50%</td>
+                          <td className="p-3">10.49% - 22.00%</td>
+                          <td className="p-3">Up to 2%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p className="mt-4 text-xs text-slate-500">
+                    *Rates are indicative and subject to change. (Updated{' '}
+                    {updatedLabel})
+                  </p>
+                </CardContent>
+              </Card>
+            </section>
             {/* promo Content */}
             <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-5">
@@ -260,7 +594,6 @@ export default function EMIPage() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Content Section for SEO */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
@@ -303,105 +636,142 @@ export default function EMIPage() {
                     </div>
                   </section>
 
-                  {/* --- SECTION: FORMULA --- */}
-                  <section className="space-y-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      EMI Calculation Formula
-                    </h3>
-
-                    <p className="text-slate-700">
-                      The formula used to calculate the Equated Monthly
-                      Installment (EMI) is:
-                    </p>
-
-                    <div className="overflow-x-auto rounded-lg border bg-slate-50 p-4">
-                      <BlockMath math="E = P \times r \times \frac{(1 + r)^n}{(1 + r)^n - 1}" />
-                    </div>
-
-                    <div className="text-slate-700">
-                      <WikiText
-                        content={`
-                  <ul class="list-disc pl-5 space-y-2 text-sm">
-                    <li><strong>E</strong> = EMI Amount</li>
-                    <li><strong>P</strong> = Principal Loan Amount</li>
-                    <li><strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
-                    <li><strong>n</strong> = Loan Tenure in Months</li>
-                  </ul>
-                `}
-                      />
-                    </div>
-
-                    <p className="text-sm text-slate-600">
-                      This EMI calculator is maintained by{' '}
-                      <strong>Fincado</strong>, a financial tools platform
-                      focused on accuracy and transparency for Indian borrowers.
-                    </p>
-                  </section>
-
                   {/* --- RELATED CALCULATORS --- */}
                   <section className="space-y-5">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Related Loan Calculators
+                      Related Financial Calculators
                     </h3>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Link href="/loans/home-loan/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
-                          <CardContent className="p-4">
+                      {/* SIP Calculator */}
+                      <Link href="/sip-calculator/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                          <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
-                                🏠
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                                📈
                               </span>
 
-                              <div>
-                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
-                                  Home Loan EMI Calculator
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                                  SIP Calculator
                                 </div>
-                                <p className="mt-1 text-sm text-slate-600">
-                                  Plan affordability, tenure & tax benefits
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Calculate returns from monthly SIP investments
+                                  in mutual funds
                                 </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
                               </div>
                             </div>
                           </CardContent>
                         </Card>
                       </Link>
 
-                      <Link href="/loans/car-loan/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
-                          <CardContent className="p-4">
+                      {/* Lumpsum Calculator */}
+                      <Link href="/lumpsum-calculator/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                          <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
-                                🚗
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                                💰
                               </span>
 
-                              <div>
-                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
-                                  Car Loan EMI Calculator
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                                  Lumpsum Calculator
                                 </div>
-                                <p className="mt-1 text-sm text-slate-600">
-                                  Compare new & used car loan EMIs
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Calculate returns on one-time investment in
+                                  mutual funds
                                 </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
                               </div>
                             </div>
                           </CardContent>
                         </Card>
                       </Link>
 
-                      <Link href="/loans/personal-loan/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
-                          <CardContent className="p-4">
+                      {/* PPF Calculator */}
+                      <Link href="/ppf-calculator/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-purple-300">
+                          <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 text-lg">
-                                💼
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-50 to-purple-100 text-purple-700 text-2xl">
+                                🏦
                               </span>
 
-                              <div>
-                                <div className="font-semibold text-slate-900 group-hover:text-emerald-700">
-                                  Personal Loan EMI Calculator
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-purple-700 mb-1">
+                                  PPF Calculator
                                 </div>
-                                <p className="mt-1 text-sm text-slate-600">
-                                  Estimate EMI for unsecured loans
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Calculate Public Provident Fund maturity with
+                                  tax benefits
                                 </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-purple-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      {/* FD Calculator */}
+                      <Link href="/fd-calculator/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-amber-300">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-amber-50 to-amber-100 text-amber-700 text-2xl">
+                                🎯
+                              </span>
+
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-amber-700 mb-1">
+                                  FD Calculator
+                                </div>
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Calculate Fixed Deposit maturity amount and
+                                  interest earned
+                                </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-amber-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      {/* RD Calculator */}
+                      <Link href="/rd-calculator/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-300">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-orange-50 to-orange-100 text-orange-700 text-2xl">
+                                📅
+                              </span>
+
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-orange-700 mb-1">
+                                  RD Calculator
+                                </div>
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Calculate Recurring Deposit maturity with
+                                  monthly contributions
+                                </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-orange-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
                               </div>
                             </div>
                           </CardContent>
@@ -433,6 +803,85 @@ export default function EMIPage() {
               </Card>
             </article>
 
+            {/* EMI Refrence Table */}
+            <section className="no-print mt-8">
+              <Card className="border-slate-200 bg-linear-to-br from-white to-slate-50">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-slate-900">
+                    Quick EMI Reference Guide
+                  </CardTitle>
+                  <p className="text-sm text-slate-600 mt-2">
+                    Approximate monthly EMI per ₹1 Lakh loan at different
+                    interest rates
+                  </p>
+                </CardHeader>
+
+                <CardContent>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {/* 5 Years */}
+                    <div className="p-4 bg-white rounded-lg border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-2">
+                        5 Years @ 8.5%
+                      </div>
+                      <div className="text-2xl font-bold text-emerald-700">
+                        ₹2,052
+                      </div>
+                      <div className="text-xs text-slate-600 mt-1">
+                        per lakh/month
+                      </div>
+                    </div>
+
+                    {/* 10 Years */}
+                    <div className="p-4 bg-white rounded-lg border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-2">
+                        10 Years @ 8.5%
+                      </div>
+                      <div className="text-2xl font-bold text-emerald-700">
+                        ₹1,237
+                      </div>
+                      <div className="text-xs text-slate-600 mt-1">
+                        per lakh/month
+                      </div>
+                    </div>
+
+                    {/* 15 Years */}
+                    <div className="p-4 bg-white rounded-lg border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-2">
+                        15 Years @ 8.5%
+                      </div>
+                      <div className="text-2xl font-bold text-emerald-700">
+                        ₹984
+                      </div>
+                      <div className="text-xs text-slate-600 mt-1">
+                        per lakh/month
+                      </div>
+                    </div>
+
+                    {/* 20 Years */}
+                    <div className="p-4 bg-white rounded-lg border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-2">
+                        20 Years @ 8.5%
+                      </div>
+                      <div className="text-2xl font-bold text-emerald-700">
+                        ₹867
+                      </div>
+                      <div className="text-xs text-slate-600 mt-1">
+                        per lakh/month
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <p className="text-sm text-amber-900">
+                      <strong>Example:</strong> For a ₹25 lakh home loan at 8.5%
+                      for 20 years, your EMI would be approximately{' '}
+                      <strong>₹21,675/month</strong>
+                      (₹867 × 25)
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
             {/* Faq Section */}
             <section className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
@@ -463,7 +912,6 @@ export default function EMIPage() {
                 </CardContent>
               </Card>
             </section>
-
             <AuthorBio />
           </div>
 

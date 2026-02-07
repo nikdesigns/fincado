@@ -8,6 +8,7 @@ import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
 import CookieBanner from '@/components/CookieBanner';
 import AdBlockDetector from '@/components/AdBlockDetector';
+import { Toaster } from 'sonner';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -80,6 +81,7 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
       </head>
       <body>
+        <Toaster position="top-right" richColors />
         <AdBlockDetector />
 
         {/* ✅ ADDS THE LOADING BAR */}

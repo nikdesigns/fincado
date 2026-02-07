@@ -1,18 +1,16 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
-import PersonalLoanClient from './PersonalLoanClient';
+import PersonalLoanEMIClient from './PersonalLoanEMIClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
+import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
-import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
-import 'katex/dist/katex.min.css';
-import { BlockMath } from 'react-katex';
 import { autoLinkContent } from '@/utils/autoLinker';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -22,116 +20,193 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
-import { Banknote, ArrowRight, Landmark, Info } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { BookOpen, ArrowRight, Info, CreditCard } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { PersonalLoanSchemas } from '@/components/schemas/PersonalLoanSchemas';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
   title:
-    'Personal Loan EMI Calculator – Check Eligibility & Interest (Updated for 2026)',
+    'Personal Loan EMI Calculator 2026 - Calculate Instant Personal Loan EMI',
   description:
-    'Calculate Personal Loan EMI instantly. Compare interest rates from HDFC, SBI, ICICI. Check eligibility, documents required, and foreclosure charges.',
+    'Free Personal Loan EMI Calculator for India. Calculate monthly EMI for personal loans from HDFC, SBI, ICICI, Bajaj Finserv. Compare interest rates, check eligibility & get instant approval.',
   keywords: [
-    'Personal Loan EMI Calculator',
-    'Personal Loan Interest Rate',
-    'Unsecured Loan Calculator',
-    'Loan Eligibility Calculator',
-    'Prepayment Calculator',
-    'Personal Loan vs Credit Card',
+    'personal loan emi calculator',
+    'instant personal loan',
+    'personal loan interest rate',
+    'hdfc personal loan',
+    'sbi personal loan',
+    'personal loan eligibility',
+    'personal loan online',
+    'quick personal loan',
   ],
   alternates: {
-    canonical: 'https://fincado.com/loans/personal-loan/',
+    canonical: 'https://fincado.com/emi-calculator/personal-loan/',
   },
   openGraph: {
-    title: 'Personal Loan EMI Calculator – Updated After Budget 2026',
+    title: 'Personal Loan EMI Calculator - Calculate Instant Loan EMI Online',
     description:
-      'Free tool to calculate Personal Loan EMI, Interest, and Tenure.',
-    url: 'https://fincado.com/loans/personal-loan/',
+      'Calculate personal loan EMI instantly. Compare rates from top banks & NBFCs. Get instant approval with minimal documentation.',
+    url: 'https://fincado.com/emi-calculator/personal-loan/',
     type: 'website',
+    images: [
+      {
+        url: 'https://fincado.com/og-personal-loan-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Personal Loan EMI Calculator',
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
 /* ---------------- PAGE ---------------- */
 
-export default function PersonalLoanPage() {
+export default function PersonalLoanEMIPage() {
   const introContent = autoLinkContent(`
     <p>
-      A <strong>Personal Loan</strong> is an <strong>unsecured form of credit</strong>
-      provided by financial institutions to help you meet immediate financial needs. 
-      Unlike home or car loans, it is not restricted to a specific purpose.
-    </p>
-    <p class="mt-4">
-      Because it is "unsecured," you do not need to pledge any <strong>collateral</strong> 
-      (like property or gold). The approval is based primarily on your <strong>Credit Score</strong>, 
-      income stability, and repayment capacity.
+      A <strong>Personal Loan EMI Calculator</strong> helps you calculate monthly installments 
+      for unsecured personal loans based on loan amount, interest rate, and tenure. 
+      Personal loans in India are <strong>instant, collateral-free loans</strong> with 
+      interest rates ranging from <strong>10.49% to 24%</strong> p.a., depending on your 
+      credit score and lender.
     </p>
   `);
 
-  const eligibilityContent = autoLinkContent(`
-    <ul class="list-disc list-inside space-y-2">
-      <li><strong>Employment:</strong> Salaried (MNC/Pvt Ltd/Govt) or Self-Employed.</li>
-      <li><strong>Age:</strong> 21 to 60 years.</li>
-      <li><strong>Credit Score:</strong> A CIBIL score of <strong>750+</strong> gets the best rates.</li>
-      <li><strong>Income:</strong> Minimum monthly net income of ₹25,000 (varies by city).</li>
-      <li><strong>Experience:</strong> Min 2 years total work experience.</li>
+  const benefitsContent = autoLinkContent(`
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Instant Approval:</strong> Get personal loan approval within minutes with minimal documentation.</li>
+      <li><strong>No Collateral Required:</strong> Completely unsecured loans - no property/assets needed.</li>
+      <li><strong>Flexible Usage:</strong> Use for medical emergencies, weddings, education, travel, or any personal need.</li>
+      <li><strong>Quick Disbursal:</strong> Loan amount credited to your account within 24 hours of approval.</li>
+      <li><strong>Flexible Tenure:</strong> Repayment period from 1-5 years to suit your budget.</li>
     </ul>
   `);
 
-  const comparisonContent = autoLinkContent(`
-    <p>
-      Many borrowers confuse Personal Loans with Credit Card loans. 
-      <strong>Personal Loans</strong> are generally cheaper (10.5%–14%) compared to Credit Card 
-      revolving credit (36%–42%). Always choose a personal loan for large expenses like 
-      weddings or medical emergencies.
-    </p>
+  const useCasesContent = autoLinkContent(`
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <div class="font-semibold text-blue-900 mb-2">✅ Good Use Cases</div>
+        <ul class="text-sm text-slate-700 space-y-1 list-disc pl-4">
+          <li>Medical emergencies</li>
+          <li>Wedding expenses</li>
+          <li>Home renovation</li>
+          <li>Education fees</li>
+          <li>Debt consolidation (high-interest credit cards)</li>
+        </ul>
+      </div>
+      <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+        <div class="font-semibold text-red-900 mb-2">❌ Avoid For</div>
+        <ul class="text-sm text-slate-700 space-y-1 list-disc pl-4">
+          <li>Speculative investments</li>
+          <li>Luxury purchases you can't afford</li>
+          <li>Down payment for another loan</li>
+          <li>Paying off existing personal loans</li>
+          <li>Gambling or risky ventures</li>
+        </ul>
+      </div>
+    </div>
   `);
 
   const faqItems = [
     {
       id: 'faq-1',
-      question: 'Is interest on personal loan tax deductible?',
+      question: 'What is the current personal loan interest rate in India?',
       answer:
-        'Generally, personal loan interest is not tax deductible. However, if the loan is used for home renovation (deductible under Section 24) or for business purposes, interest may be claimed as a deduction with proper documentation, subject to income tax rules unchanged in Budget 2026.',
+        'As of February 2026, personal loan interest rates range from 10.49% to 24% p.a. HDFC offers 10.50%-21%, SBI 11.15%-14.45%, and ICICI 10.75%-19%. Rates depend heavily on your credit score - 750+ gets best rates.',
     },
     {
       id: 'faq-2',
-      question: 'What are foreclosure charges on a personal loan?',
+      question: 'Can I get a personal loan with a 650 credit score?',
       answer:
-        'Most banks charge 2% to 4% of the outstanding principal if you close the loan before tenure completion. Some lenders waive foreclosure charges after a fixed period.',
+        'Yes, but expect higher interest rates (18%-24%). Credit score 650-699 is considered "fair". To get better rates, improve your score to 750+ by paying bills on time, reducing credit utilization, and clearing dues.',
     },
     {
       id: 'faq-3',
-      question: 'What is a good CIBIL score for a personal loan?',
+      question: 'What is the maximum personal loan amount I can get?',
       answer:
-        'A CIBIL score of 750 or above is considered excellent and helps you secure lower interest rates and faster approval.',
+        'Most banks offer personal loans up to ₹40 lakhs. However, your eligibility depends on monthly income (typically 5-10x your monthly salary), credit score, existing EMIs, and employment stability. Salaried employees generally get higher amounts than self-employed.',
     },
     {
       id: 'faq-4',
-      question: 'Can I prepay my personal loan anytime?',
+      question: 'How long does personal loan approval take?',
       answer:
-        'Yes, most banks allow part-prepayment or foreclosure, but charges may apply during the initial years of the loan tenure.',
+        'Digital lenders (Bajaj Finserv, HDFC Bank) offer instant approval within 5-10 minutes online. Traditional banks take 1-3 working days. Disbursal happens within 24-48 hours after approval. Pre-approved loans are credited instantly.',
     },
     {
       id: 'faq-5',
-      question: 'Does personal loan EMI change during tenure?',
+      question: 'Do I need income proof for a personal loan?',
       answer:
-        'Personal loans usually have fixed interest rates, so EMI remains constant unless you prepay or refinance the loan.',
+        'Yes, typically required. Salaried: Last 3 months salary slips + 6 months bank statements. Self-employed: Last 2 years ITR + bank statements. Some banks offer pre-approved loans to existing customers without additional income proof.',
     },
     {
       id: 'faq-6',
-      question: 'Did Budget 2026 affect personal loan interest rates or EMIs?',
+      question: 'What is the processing fee for personal loans?',
       answer:
-        'No. Union Budget 2026 did not introduce any changes to personal loan interest rates, EMI calculation methods, or eligibility rules. Rates continue to depend on lender policy, borrower credit profile, and income.',
+        'Processing fee ranges from 1-3% of loan amount, typically ₹2,000 to ₹10,000. HDFC charges up to 2.5%, SBI up to 1.5%, ICICI up to 2.5%. Some banks waive fees during festive offers. GST (18%) is extra on processing fee.',
+    },
+    {
+      id: 'faq-7',
+      question: 'Can I prepay my personal loan without penalty?',
+      answer:
+        'Most banks allow prepayment for floating rate loans without penalty. Fixed rate loans may have 2-5% prepayment charges. Check your loan agreement. Prepaying early saves significant interest, especially in first 2-3 years.',
+    },
+    {
+      id: 'faq-8',
+      question: 'Is personal loan interest tax deductible?',
+      answer:
+        'No, personal loan interest is NOT tax deductible. Only home loan (Section 24), education loan (Section 80E), and business loan interest qualify for tax deductions. Personal loans are taken for personal expenses, not covered under any tax section.',
+    },
+    {
+      id: 'faq-9',
+      question: 'What happens if I default on personal loan EMI?',
+      answer:
+        'Defaulting leads to: (1) Late payment penalty (2%) + penal interest, (2) Credit score drops (can fall below 600), (3) Loan marked as NPA after 90 days, (4) Legal notice and potential lawsuit, (5) Future loan rejections. Contact lender immediately to restructure.',
+    },
+    {
+      id: 'faq-10',
+      question: 'Can I get a personal loan as a freelancer or gig worker?',
+      answer:
+        'Yes, but requirements are stricter. You need: (1) Minimum 2 years ITR showing stable income, (2) Good credit score (750+), (3) Regular bank account credits, (4) Some lenders like Bajaj Finserv, Fullerton India cater specifically to self-employed individuals.',
     },
   ];
 
+  const updatedLabel = getCurrentMonthYearLabel();
+
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators/' },
+          {
+            name: 'EMI Calculator',
+            url: 'https://fincado.com/emi-calculator/',
+          },
+          {
+            name: 'Personal Loan EMI Calculator',
+            url: 'https://fincado.com/emi-calculator/personal-loan/',
+          },
+        ]}
+      />
+
       <CalculatorSchema
         name="Personal Loan EMI Calculator"
-        description="Check your personal loan EMI. Compare interest rates and repayment terms from top banks."
-        url="https://fincado.com/loans/personal-loan/"
+        description="Calculate personal loan EMI instantly. Check monthly repayment for unsecured personal loans from top banks & NBFCs."
+        url="https://fincado.com/emi-calculator/personal-loan/"
       />
 
       <FAQSchema
@@ -141,266 +216,623 @@ export default function PersonalLoanPage() {
         }))}
       />
 
-      <main className="container" style={{ padding: '40px 20px' }}>
-        <BreadcrumbJsonLd
-          items={[
-            { name: 'Home', url: 'https://fincado.com/' },
-            { name: 'Loans', url: 'https://fincado.com/loans/' },
-            {
-              name: 'Personal Loan EMI Calculator',
-              url: 'https://fincado.com/loans/personal-loan/',
-            },
-          ]}
-        />
+      <PersonalLoanSchemas />
 
-        <header className="no-print my-4">
-          {/* TOP ACTION ROW */}
+      <main className="container" style={{ padding: '40px 20px' }}>
+        <header style={{ marginBottom: 32 }} className="no-print">
           <div className="no-print mb-6 flex items-center justify-between gap-4">
-            <ShareTools title="Personal Loan EMI Calculator" />
+            <ShareTools title="Personal Loan EMI Calculator - Calculate Instant Personal Loan EMI" />
             <LanguageToggle path="/hi/loans/personal-loan" />
           </div>
 
-          {/* TITLE */}
-          <h1
-            className="
-      text-[clamp(1.9rem,4vw,2.6rem)]
-      font-semibold
-      leading-tight
-      tracking-[-0.02em]
-      text-slate-900
-    "
-          >
-            <span
-              className="
-        block
-        text-2xl
-        sm:text-3xl
-        lg:text-4xl
-        font-semibold
-        tracking-tight
-        text-slate-900
-      "
-            >
-              Personal Loan EMI Calculator
-            </span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-50 to-purple-100 text-purple-700">
+              <CreditCard className="h-6 w-6" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
+                Personal Loan EMI Calculator
+              </h1>
+              <p className="text-base sm:text-lg font-medium text-purple-700">
+                Calculate Instant Personal Loan EMI Online
+              </p>
+            </div>
+          </div>
 
-            <span className="block text-base sm:text-lg font-medium text-lime-700 mt-2">
-              Calculate EMI for travel, weddings & emergencies
-            </span>
-          </h1>
+          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+            <WikiText content={introContent} />
+          </div>
 
-          {/* DESCRIPTION */}
-          <div className="max-w-3xl mt-4 text-slate-600 text-base leading-relaxed">
-            <WikiText
-              content={`
-        <p>
-          Plan your expenses confidently using our <strong>Personal Loan EMI Calculator</strong>.
-          Instantly check monthly EMI, total interest cost, and repayment timeline
-          before applying for an unsecured loan.
-        </p>
-      `}
-            />
+          {/* 🎯 AD #1: TOP LEADERBOARD */}
+          <div className="no-print my-6">
+            <AdSlot id="personal-loan-top" type="leaderboard" />
           </div>
         </header>
 
         <div className="layout-grid">
           <div className="main-content">
-            <PersonalLoanClient />
-            <div className="mt-4 pt-3 border-t border-slate-100 flex gap-2">
-              <Info className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Calculations are indicative and{' '}
-                <strong>unaffected by Budget 2026</strong>. Actual rates and
-                approval depend on lender policies and borrower profile.
-              </p>
+            {/* Key Stats */}
+            <section className="no-print mb-8">
+              <div className="grid gap-4 md:grid-cols-3">
+                <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+                  <CardContent className="p-4">
+                    <div className="text-xs font-semibold text-purple-700 mb-1">
+                      BEST RATE
+                    </div>
+                    <div className="text-sm text-slate-600 mb-2">
+                      HDFC Personal Loan {updatedLabel}
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900">
+                      10.50%
+                      <span className="text-base font-normal text-slate-600">
+                        {' '}
+                        p.a.
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                  <CardContent className="p-4">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                      TYPICAL EMI
+                    </div>
+                    <div className="text-sm text-slate-600 mb-2">
+                      ₹5L @ 12% for 3 years
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900">
+                      ₹16,607
+                      <span className="text-base font-normal text-slate-600">
+                        /month
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                  <CardContent className="p-4">
+                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                      INSTANT APPROVAL
+                    </div>
+                    <div className="text-sm text-slate-600 mb-2">
+                      Digital Lenders (750+ Score)
+                    </div>
+                    <div className="text-3xl font-bold text-slate-900">
+                      5 Min
+                      <span className="text-base font-normal text-slate-600">
+                        {' '}
+                        online
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+
+            {/* Calculator */}
+            <PersonalLoanEMIClient />
+
+            {/* 🎯 AD #2: AFTER CALCULATOR */}
+            <div className="no-print my-8">
+              <AdSlot
+                id="personal-loan-after-calc"
+                type="square"
+                lazyLoad={false}
+              />
             </div>
 
-            {/* 💰 AD 2: AFTER CALCULATOR */}
-            <div className="no-print" style={{ margin: '32px 0' }}>
-              <AdSlot id="personal-loan-after-calc" type="banner" />
-            </div>
+            <section className="no-print mt-8">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-slate-900">
+                    Personal Loan EMI Calculation Formula
+                  </CardTitle>
+                </CardHeader>
 
-            <LiveRateTable type="personalLoan" />
+                <CardContent className="space-y-4">
+                  <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                    <div className="text-sm text-slate-600 mb-3">
+                      Personal loan EMI is calculated using the same standard
+                      EMI formula used by banks and NBFCs:
+                    </div>
+
+                    {/* Formula Display */}
+                    <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                      <div className="text-center text-xl font-serif">
+                        EMI = P × [r × (1 + r)<sup>n</sup>] / [(1 + r)
+                        <sup>n</sup> − 1]
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 text-sm text-slate-700 mt-4">
+                      <div className="flex gap-3 items-start">
+                        <strong className="min-w-20">Where:</strong>
+                      </div>
+                      <div className="flex gap-3 items-start ml-4">
+                        <span className="min-w-10 font-mono font-semibold">
+                          P
+                        </span>
+                        <span>= Personal loan amount (in ₹)</span>
+                      </div>
+                      <div className="flex gap-3 items-start ml-4">
+                        <span className="min-w-10 font-mono font-semibold">
+                          r
+                        </span>
+                        <span>
+                          = Monthly interest rate = Annual Rate ÷ (12 × 100)
+                        </span>
+                      </div>
+                      <div className="flex gap-3 items-start ml-4">
+                        <span className="min-w-10 font-mono font-semibold">
+                          n
+                        </span>
+                        <span>= Loan tenure in months (years × 12)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                      <span className="text-xl">🧮</span>
+                      Example: Personal Loan EMI
+                    </h4>
+
+                    <div className="space-y-3 text-sm text-slate-700">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <strong>Loan Amount (P):</strong>
+                        </div>
+                        <div>₹5,00,000</div>
+
+                        <div>
+                          <strong>Annual Interest Rate:</strong>
+                        </div>
+                        <div>12% p.a.</div>
+
+                        <div>
+                          <strong>Loan Tenure:</strong>
+                        </div>
+                        <div>3 years (36 months)</div>
+                      </div>
+
+                      <div className="pt-3 border-t border-blue-300">
+                        <strong className="block mb-2">
+                          Step 1: Monthly Interest Rate (r)
+                        </strong>
+                        <div className="ml-4 font-mono text-base">
+                          r = 12 ÷ (12 × 100) = 12 ÷ 1200 = 0.01
+                        </div>
+                      </div>
+
+                      <div className="pt-3">
+                        <strong className="block mb-2">
+                          Step 2: (1 + r)<sup>n</sup>
+                        </strong>
+                        <div className="ml-4 font-mono text-base">
+                          (1 + 0.01)<sup>36</sup> ≈ 1.4308
+                        </div>
+                      </div>
+
+                      <div className="pt-3">
+                        <strong className="block mb-2">
+                          Step 3: Apply EMI Formula
+                        </strong>
+                        <div className="ml-4 space-y-2 font-mono text-sm">
+                          <div>
+                            EMI = 5,00,000 × [0.01 × 1.4308] / [1.4308 − 1]
+                          </div>
+                          <div>EMI = 5,00,000 × 0.014308 / 0.4308</div>
+                          <div>EMI ≈ 5,00,000 × 0.033228</div>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                        <div className="text-base font-semibold text-slate-700 mb-1">
+                          Monthly EMI:
+                        </div>
+                        <div className="text-3xl font-bold text-emerald-700">
+                          ₹16,607
+                        </div>
+                      </div>
+
+                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                        <div className="flex justify-between">
+                          <span>Total Amount Payable:</span>
+                          <strong>₹5,97,852</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Total Interest Paid:</span>
+                          <strong className="text-red-600">₹97,852</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                    <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
+                      <span>💡</span>
+                      Understanding Personal Loan EMIs
+                    </h4>
+                    <ul className="text-sm text-slate-700 space-y-2 list-disc pl-5">
+                      <li>
+                        Personal loans use the <strong>same EMI formula</strong>{' '}
+                        as other loans, but interest rates are usually higher.
+                      </li>
+                      <li>
+                        EMIs remain fixed, but the{' '}
+                        <strong>
+                          interest portion is highest in the initial months
+                        </strong>
+                        .
+                      </li>
+                      <li>
+                        Prepaying in the first half of the tenure can save a
+                        significant amount of interest.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="text-xs text-slate-500 italic mt-4">
+                    This personal loan EMI calculator uses the standard reducing
+                    balance method, so results will be very close to the EMI
+                    shown by banks and NBFCs.
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
+
+            {/* Info Alert */}
+            <Alert className="mt-6 bg-amber-50/50 border-amber-200 text-slate-600">
+              <Info className="h-4 w-4 text-amber-500 mt-0.5" />
+              <AlertDescription className="ml-2 text-sm leading-relaxed">
+                <strong className="text-slate-900 font-semibold block mb-0.5">
+                  Smart Borrowing Tip
+                </strong>
+                Personal loans have the highest interest rates. Only borrow if
+                absolutely necessary. Consider alternatives like gold loans,
+                loan against FD, or borrowing from family first.
+              </AlertDescription>
+            </Alert>
+
+            {/* Bank Comparison */}
+            <section className="no-print mt-8">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-slate-900">
+                    Personal Loan Interest Rates Comparison {updatedLabel}
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-slate-50">
+                        <tr>
+                          <th className="p-3 text-left font-semibold">
+                            Bank/NBFC
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Interest Rate
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Loan Amount
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Processing Fee
+                          </th>
+                          <th className="p-3 text-left font-semibold">
+                            Tenure
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">HDFC Bank</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            10.50% - 21.00%
+                          </td>
+                          <td className="p-3">₹50k - ₹40L</td>
+                          <td className="p-3">Up to 2.5%</td>
+                          <td className="p-3">1-5 years</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">SBI</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            11.15% - 14.45%
+                          </td>
+                          <td className="p-3">₹25k - ₹20L</td>
+                          <td className="p-3">Up to 1.5%</td>
+                          <td className="p-3">1-5 years</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">ICICI Bank</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            10.75% - 19.00%
+                          </td>
+                          <td className="p-3">₹50k - ₹50L</td>
+                          <td className="p-3">Up to 2.5%</td>
+                          <td className="p-3">1-5 years</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">Axis Bank</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            10.49% - 22.00%
+                          </td>
+                          <td className="p-3">₹50k - ₹40L</td>
+                          <td className="p-3">Up to 2%</td>
+                          <td className="p-3">1-5 years</td>
+                        </tr>
+                        <tr className="hover:bg-slate-50">
+                          <td className="p-3 font-medium">Bajaj Finserv</td>
+                          <td className="p-3 text-emerald-700 font-semibold">
+                            13.00% - 24.00%
+                          </td>
+                          <td className="p-3">₹1L - ₹40L</td>
+                          <td className="p-3">Up to 3%</td>
+                          <td className="p-3">1-5 years</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p className="mt-4 text-xs text-slate-500">
+                    *Rates depend on credit score, income, and relationship with
+                    bank. Lower rates for 750+ credit score. Last updated:{' '}
+                    {updatedLabel}
+                  </p>
+                </CardContent>
+              </Card>
+            </section>
+
+            {/* 🎯 AD #3: IN-FEED */}
+            <div className="no-print my-8">
+              <AdSlot
+                id="personal-loan-infeed-1"
+                type="banner"
+                lazyLoad={true}
+              />
+            </div>
 
             {/* Promo Content */}
-            <Card className="no-print my-8 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-purple-200 bg-purple-50/50 transition-colors hover:bg-purple-50">
               <CardContent className="flex items-start gap-4 p-5">
-                {/* Icon Container */}
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                  <Banknote className="h-5 w-5" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                  <BookOpen className="h-5 w-5" />
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
-                    Need a loan quickly?
+                  <strong className="block text-base font-semibold text-purple-900">
+                    Need urgent funds?
                   </strong>
 
                   <Link
                     href="/guides/personal-loan-guide/"
-                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                    className="group inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-800"
                   >
-                    <span>Read our Guide: How to Get Approved Instantly</span>
+                    <span>Read our Complete Personal Loan Guide (2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Rich seo content */}
+            {/* Content */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
                 <CardContent className="p-6 sm:p-10 space-y-10">
-                  {/* --- SECTION: WHAT IS PERSONAL LOAN --- */}
+                  {/* Benefits */}
                   <section className="space-y-4">
                     <h2 className="text-2xl font-semibold text-slate-900">
-                      What is a Personal Loan?
+                      Benefits of Personal Loans
                     </h2>
-
                     <div className="text-slate-700 leading-relaxed">
-                      <WikiText content={introContent} />
-                      <Alert className="mt-4 bg-slate-50 border-slate-200">
-                        <Landmark className="h-4 w-4 text-slate-500" />
-                        <AlertTitle className="text-slate-900 font-semibold text-sm">
-                          Union Budget 2026 Update
-                        </AlertTitle>
-                        <AlertDescription className="text-xs text-slate-500 mt-1 leading-relaxed">
-                          No changes to EMI rules or eligibility norms were
-                          announced. Personal loans continue to follow standard
-                          lending policies.
-                        </AlertDescription>
-                      </Alert>
+                      <WikiText content={benefitsContent} />
                     </div>
                   </section>
 
-                  {/* --- SECTION: ELIGIBILITY --- */}
+                  {/* Use Cases */}
                   <section className="space-y-4">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Who is Eligible for a Personal Loan?
-                    </h3>
-
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      When to Take a Personal Loan?
+                    </h2>
                     <div className="text-slate-700 leading-relaxed">
-                      <WikiText content={eligibilityContent} />
-                      <p className="mt-3 text-xs text-slate-500">
-                        Eligibility criteria vary by lender and were not altered
-                        by Union Budget 2026.
-                      </p>
+                      <WikiText content={useCasesContent} />
                     </div>
                   </section>
 
-                  {/* --- AD SLOT (CONSISTENT POSITION) --- */}
+                  {/* 🎯 AD #4: MID-CONTENT */}
                   <div className="no-print my-8 flex justify-center">
-                    <AdSlot type="square" label="Advertisement" />
+                    <AdSlot
+                      id="personal-loan-mid-content"
+                      type="square"
+                      label="Advertisement"
+                      lazyLoad={true}
+                    />
                   </div>
 
-                  {/* --- SECTION: COMPARISON --- */}
+                  {/* Eligibility */}
                   <section className="space-y-4">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Personal Loan vs Credit Card Loan
-                    </h3>
-
-                    <div className="text-slate-700 leading-relaxed">
-                      <WikiText content={comparisonContent} />
-                    </div>
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      Personal Loan Eligibility Criteria
+                    </h2>
+                    <ul className="list-disc pl-6 space-y-2 text-slate-700">
+                      <li>
+                        <strong>Age:</strong> 21-60 years (salaried), 25-65
+                        years (self-employed)
+                      </li>
+                      <li>
+                        <strong>Income:</strong> Minimum ₹25,000/month (salaried
+                        in metro cities), ₹3-4 lakh/year (self-employed)
+                      </li>
+                      <li>
+                        <strong>Credit Score:</strong> Minimum 650 (acceptable),
+                        750+ (best rates & instant approval)
+                      </li>
+                      <li>
+                        <strong>Employment:</strong> Minimum 2 years work
+                        experience (salaried), 3 years business vintage
+                        (self-employed)
+                      </li>
+                      <li>
+                        <strong>EMI to Income Ratio:</strong> Total EMIs should
+                        not exceed 50% of monthly income
+                      </li>
+                    </ul>
                   </section>
 
-                  {/* --- SECTION: HOW CALCULATOR HELPS --- */}
-                  <section className="space-y-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      How This Personal Loan EMI Calculator Helps
-                    </h3>
+                  {/* 🎯 AD #5: AFTER ELIGIBILITY */}
+                  <div className="no-print my-8">
+                    <AdSlot
+                      id="personal-loan-infeed-2"
+                      type="banner"
+                      lazyLoad={true}
+                    />
+                  </div>
 
-                    <p className="text-slate-700">
-                      Using a <strong>Personal Loan EMI Calculator</strong>{' '}
-                      before applying helps you validate affordability, avoid
-                      over-borrowing, and plan prepayments efficiently.
-                    </p>
-
-                    <div className="advantage-grid">
-                      <div className="advantage-card">
-                        <h4>Assess Affordability</h4>
-                        <p>
-                          Ensure your EMI stays within 40–50% of your monthly
-                          take-home salary.
-                        </p>
-                      </div>
-
-                      <div className="advantage-card">
-                        <h4>Choose the Right Tenure</h4>
-                        <p>
-                          Longer tenure lowers EMI but increases total interest
-                          paid over time.
-                        </p>
-                      </div>
-
-                      <div className="advantage-card">
-                        <h4>Plan Smart Prepayments</h4>
-                        <p>
-                          Track outstanding balance reduction to plan
-                          foreclosure using bonuses or salary hikes.
-                        </p>
-                      </div>
-                    </div>
-                  </section>
-
-                  {/* --- SECTION: EMI FORMULA (EMI STYLE) --- */}
-                  <section className="space-y-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Personal Loan EMI Formula
-                    </h3>
-
-                    <p className="text-slate-700">
-                      Banks calculate Personal Loan EMI using the standard
-                      reducing balance formula:
-                    </p>
-
-                    <div className="overflow-x-auto text-sm rounded-lg border border-slate-200 bg-slate-50 p-4">
-                      <BlockMath math="EMI = \frac{P \times R \times (1+R)^N}{(1+R)^N - 1}" />
-                    </div>
-
-                    <div className="text-slate-700">
-                      <WikiText
-                        content={`
-              <ul class="list-disc list-inside space-y-2 text-xs">
-                <li><strong>P</strong> = Loan Amount (Principal)</li>
-                <li><strong>R</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)</li>
-                <li><strong>N</strong> = Loan Tenure in Months</li>
-              </ul>
-            `}
-                      />
-                    </div>
-
-                    <p className="text-sm text-slate-600">
-                      This Personal Loan calculator follows RBI-aligned EMI
-                      formulas used by Indian banks and NBFCs.
-                    </p>
-                  </section>
-
-                  {/* --- SECTION: ADVANTAGES --- */}
+                  {/* Documents */}
                   <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      Documents Required for Personal Loan
+                    </h2>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 mb-3">
+                          For Salaried
+                        </h3>
+                        <ul className="list-disc pl-6 space-y-1 text-sm text-slate-700">
+                          <li>PAN Card & Aadhaar Card</li>
+                          <li>Last 3 months salary slips</li>
+                          <li>Last 6 months bank statements</li>
+                          <li>Employment certificate/offer letter</li>
+                          <li>Form 16 (last 2 years)</li>
+                          <li>Passport-size photographs</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h3 className="font-semibold text-slate-900 mb-3">
+                          For Self-Employed
+                        </h3>
+                        <ul className="list-disc pl-6 space-y-1 text-sm text-slate-700">
+                          <li>PAN Card & Aadhaar Card</li>
+                          <li>Last 2 years ITR with computation</li>
+                          <li>Last 6-12 months bank statements</li>
+                          <li>Business proof (GST, Shop Act)</li>
+                          <li>Office address proof</li>
+                          <li>Passport-size photographs</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* Tips */}
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900">
+                      Tips to Get Best Personal Loan Deal
+                    </h2>
+                    <ul className="list-disc pl-6 space-y-2 text-slate-700">
+                      <li>
+                        Check CIBIL score (free once a year) - improve to 750+
+                        before applying
+                      </li>
+                      <li>
+                        Compare at least 4-5 lenders - rates vary significantly
+                        (10%-24%)
+                      </li>
+                      <li>
+                        Negotiate with your existing bank - relationship banking
+                        gets better rates
+                      </li>
+                      <li>
+                        Borrow only what you need - higher EMI-to-income ratio
+                        affects approvals
+                      </li>
+                      <li>
+                        Read fine print - check for hidden charges, prepayment
+                        penalties
+                      </li>
+                      <li>
+                        Avoid taking loans from multiple lenders simultaneously
+                        - red flag for credit bureaus
+                      </li>
+                    </ul>
+                  </section>
+
+                  {/* Related Calculators */}
+                  <section className="space-y-5">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Key Advantages of a Personal Loan
+                      Related Loan Calculators
                     </h3>
 
-                    <div className="text-slate-700 leading-relaxed">
-                      <WikiText
-                        content={`
-              <ul class="list-disc list-inside space-y-2">
-                <li><strong>No Collateral Required:</strong> Your assets remain untouched.</li>
-                <li><strong>Quick Disbursal:</strong> Funds often credited within 24–48 hours.</li>
-                <li><strong>Flexible Usage:</strong> Weddings, travel, medical needs, or emergencies.</li>
-                <li><strong>Fixed Interest Rates:</strong> EMIs remain constant throughout the tenure.</li>
-              </ul>
-            `}
-                      />
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <Link href="/emi-calculator/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-purple-300">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-50 to-purple-100 text-purple-700 text-2xl">
+                                💰
+                              </span>
+
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-purple-700 mb-1">
+                                  General EMI Calculator
+                                </div>
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Calculate EMI for any type of loan
+                                </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-purple-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+
+                      <Link href="/loans/home-loan/" className="group">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                                🏠
+                              </span>
+
+                              <div className="flex-1">
+                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                                  Home Loan EMI Calculator
+                                </div>
+                                <p className="text-sm text-slate-600 leading-relaxed">
+                                  Lower rates & tax benefits - better
+                                  alternative
+                                </p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                                  <span>Calculate Now</span>
+                                  <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
                     </div>
                   </section>
                 </CardContent>
               </Card>
             </article>
 
-            {/* --- FAQ SECTION --- */}
-            <section className="no-print my-12">
+            {/* 🎯 AD #6: BEFORE FAQ */}
+            <div className="no-print my-8">
+              <AdSlot
+                id="personal-loan-before-faq"
+                type="leaderboard"
+                lazyLoad={true}
+              />
+            </div>
+
+            {/* FAQ */}
+            <section className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg font-semibold text-slate-900">
@@ -428,14 +860,30 @@ export default function PersonalLoanPage() {
                   </Accordion>
                 </CardContent>
               </Card>
-
-              <AuthorBio />
             </section>
+
+            {/* 🎯 AD #7: BOTTOM */}
+            <div className="no-print my-8 flex justify-center">
+              <AdSlot id="personal-loan-bottom" type="square" lazyLoad={true} />
+            </div>
+
+            <AuthorBio />
           </div>
 
           <aside className="sidebar no-print">
-            <div className="sticky top-24 space-y-6 mb-12">
-              <AdSlot id="personal-loan-sidebar" type="box" />
+            <div className="sticky top-24 space-y-6">
+              {/* 🎯 AD #8: SIDEBAR TOP */}
+              <AdSlot id="personal-loan-sidebar-top" type="skyscraper" />
+
+              <SidebarCompareWidget />
+
+              {/* 🎯 AD #10: SIDEBAR BOTTOM */}
+              <AdSlot
+                id="personal-loan-sidebar-bottom"
+                type="box"
+                lazyLoad={true}
+              />
+
               <FinancialNavWidget />
             </div>
           </aside>
