@@ -116,7 +116,7 @@ export default async function GuidePost({ params }: Props) {
           {
             name: article.title,
             url: `https://fincado.com/guides/${article.slug}`,
-          },
+          }
         ]}
       />
 

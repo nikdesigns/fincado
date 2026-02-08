@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     'Home Loan Interest Rates 2026',
     'Retirement Planning',
     'Tax Saving Calculator FY 2026-27',
-    'Fincado',
+    'Fincado'
   ],
   alternates: {
     canonical: 'https://fincado.com/',
@@ -63,7 +63,7 @@ export default function Home(): JSX.Element {
     'sukanya-samriddhi-yojana-guide-2026',
     'elss-funds-guide-2026',
     'sovereign-gold-bond-sgb-guide',
-    'health-insurance-buying-guide',
+    'health-insurance-buying-guide'
   ];
 
   const featuredGuides = articlesData.filter(
@@ -126,7 +126,7 @@ export default function Home(): JSX.Element {
                   '@type': 'Answer',
                   text: 'Yes, all calculators on Fincado are 100% free, require no login, and are privacy-focused.',
                 },
-              },
+              }
             ],
           }),
         }}
@@ -142,7 +142,7 @@ export default function Home(): JSX.Element {
             logo: '/logo.png',
             sameAs: [
               'https://www.linkedin.com/company/fincado',
-              'https://twitter.com/fincado',
+              'https://twitter.com/fincado'
             ],
           }),
         }}

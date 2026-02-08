@@ -21,7 +21,7 @@ export function SIPSchemas() {
       'Total Investment and Wealth Gain',
       'Goal-based SIP Planning',
       'WhatsApp Share for SIP Plans',
-      'Saved SIP Calculations History',
+      'Saved SIP Calculations History'
     ],
   };
 
@@ -46,7 +46,7 @@ export function SIPSchemas() {
         position: 3,
         name: 'SIP Calculator',
         item: 'https://fincado.com/sip-calculator',
-      },
+      }
     ],
   };
 
@@ -78,7 +78,7 @@ export function SIPSchemas() {
         position: 4,
         name: 'View Maturity and Wealth Gain',
         text: 'Check total investment, maturity amount, and wealth gain calculated using the SIP formula.',
-      },
+      }
     ],
   };
 

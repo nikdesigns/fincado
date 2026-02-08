@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'RD Interest Rate Hindi',
     'आरडी कैलकुलेटर',
     'RD Maturity Calculator',
-    'Post Office RD',
+    'Post Office RD'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/rd-calculator/',
@@ -209,7 +209,7 @@ export default function HindiRDPage() {
       question: 'RD SIP से कैसे अलग है?',
       answer:
         'RD एक बैंक जमा उत्पाद है जिसमें गारंटीड रिटर्न और तिमाही चक्रवृद्धि है। SIP बाजार-लिंक्ड रिटर्न के साथ एक म्यूचुअल फंड निवेश विधि है। RD सुरक्षित है लेकिन कम रिटर्न (6.5-7.5%) प्रदान करता है, जबकि SIP उच्च रिटर्न (12-15%) उत्पन्न कर सकता है लेकिन बाजार जोखिम वहन करता है। RD अल्पकालिक लक्ष्यों के लिए आदर्श है, SIP दीर्घकालिक धन सृजन के लिए।',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -229,7 +229,7 @@ export default function HindiRDPage() {
           {
             name: 'RD कैलकुलेटर',
             url: 'https://fincado.com/hi/rd-calculator/',
-          },
+          }
         ]}
       />
 

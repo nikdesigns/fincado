@@ -25,7 +25,7 @@ export default function LocationsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Locations', url: 'https://fincado.com/locations/' },
+          { name: 'Locations', url: 'https://fincado.com/locations/' }
         ]}
       />
 

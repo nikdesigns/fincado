@@ -11,7 +11,7 @@ export function FIRESchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -106,7 +106,7 @@ export function FIRESchemas() {
         position: 8,
         name: 'Save and Track Progress',
         text: 'Save calculation, track annually, and adjust as expenses or market returns change.',
-      },
+      }
     ],
   };
 
@@ -192,7 +192,7 @@ export function FIRESchemas() {
             description:
               'See years remaining until financial independence goal',
           },
-        },
+        }
       ],
     },
   };

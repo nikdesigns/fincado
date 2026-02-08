@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'ELSS रिटर्न कैलकुलेटर',
     '80C टैक्स बचत',
     'SIP टैक्स कैलकुलेटर',
-    'ELSS vs PPF हिंदी',
+    'ELSS vs PPF हिंदी'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/elss-calculator/',
@@ -186,7 +186,7 @@ export default function ELSSHindiPage() {
         'क्या बजट 2026 ने ELSS टैक्स लाभ या धारा 80C सीमा में बदलाव किया?',
       answer:
         'नहीं। केंद्रीय बजट 2026 ने ELSS म्यूचुअल फंड या धारा 80C निवेश सीमा में कोई बदलाव नहीं किया। निवेशक आयकर नियमों के अनुसार मौजूदा सीमा तक कटौती का दावा करना जारी रख सकते हैं।',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -216,7 +216,7 @@ export default function ELSSHindiPage() {
           {
             name: 'ELSS कैलकुलेटर',
             url: 'https://fincado.com/hi/elss-calculator/',
-          },
+          }
         ]}
       />
 

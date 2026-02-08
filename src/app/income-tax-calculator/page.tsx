@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'AY 2026-27 Income Tax',
     'Section 80C Calculator',
     'Salary Tax Calculator',
-    'Budget 2026 Tax Changes',
+    'Budget 2026 Tax Changes'
   ],
   alternates: {
     canonical: 'https://fincado.com/income-tax-calculator/',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Income Tax Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -147,7 +147,7 @@ const faqItems = [
     question: 'Did Budget 2026 change income tax slabs?',
     answer:
       'Budget 2026 retained existing tax slabs for both Old and New Regime. Standard Deduction remains ₹75,000 for New Regime. No new changes were introduced for FY 2026-27.',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -241,7 +241,7 @@ export default function IncomeTaxPage() {
           {
             name: 'Income Tax Calculator',
             url: 'https://fincado.com/income-tax-calculator/',
-          },
+          }
         ]}
       />
 

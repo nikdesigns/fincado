@@ -36,7 +36,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'HFCs (Housing Finance)',
           rate: '9.00% — 11.50%',
           fee: 'Medium (0.5% - 2%)',
-        },
+        }
       ],
     },
     personalLoan: {
@@ -56,7 +56,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'NBFCs & Fintech Apps',
           rate: '14.00% — 24.00%',
           fee: '2% - 4%',
-        },
+        }
       ],
     },
     carLoan: {
@@ -76,7 +76,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'Used Car Loans',
           rate: '12.00% — 18.00%',
           fee: '1% - 2%',
-        },
+        }
       ],
     },
     educationLoan: {
@@ -96,7 +96,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'Unsecured Loans',
           rate: '11.50% — 14.00%',
           fee: '1% - 2%',
-        },
+        }
       ],
     },
   };

@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'Retirement Fund Calculator',
     'Post Retirement Planning',
     'Retirement Savings Calculator',
-    'FIRE Calculator',
+    'FIRE Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/retirement-calculator/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Retirement Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -216,7 +216,7 @@ export default function RetirementCalculatorPage() {
       question: 'Can I retire at 50 with ₹5 crore?',
       answer:
         'Yes, if expenses are ₹1.5-2 lakh/month. Using 4% rule, ₹5 crore generates ₹20 lakh/year (₹1.67L/month) safely for 25-30 years. But account for inflation - this amount will reduce in purchasing power. Keep 60% in equity initially to beat inflation.',
-    },
+    }
   ];
 
   return (
@@ -228,7 +228,7 @@ export default function RetirementCalculatorPage() {
           {
             name: 'Retirement Calculator',
             url: 'https://fincado.com/retirement-calculator/',
-          },
+          }
         ]}
       />
 

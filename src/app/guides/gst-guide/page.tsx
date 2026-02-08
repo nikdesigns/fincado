@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'input tax credit rules 2025',
     'gst composition scheme limit',
     'qrmp scheme explained',
-    'how to claim itc in gst',
+    'how to claim itc in gst'
   ],
   openGraph: {
     title: 'GST Returns Explained: GSTR-1 vs GSTR-3B & Input Tax Credit',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Business owner filing GST returns online',
-      },
+      }
     ],
   },
 };
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
     question: 'Who is eligible for the Composition Scheme?',
     answer:
       'Small businesses with an annual turnover up to ₹1.5 Crore (₹75 Lakh for service providers) can opt for the Composition Scheme to pay lower tax rates without ITC benefit.',
-  },
+  }
 ];
 
 export default function GSTReturnsGuidePage() {
@@ -95,7 +95,7 @@ export default function GSTReturnsGuidePage() {
           {
             name: 'GST Returns Guide',
             url: 'https://fincado.com/guides/gst-guide/',
-          },
+          }
         ]}
       />
 

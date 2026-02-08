@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'Early Retirement Calculator Hindi',
     '4% नियम भारत',
     'FIRE कैलकुलेटर भारत',
-    'जल्दी रिटायरमेंट योजना',
+    'जल्दी रिटायरमेंट योजना'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/fire-calculator/',
@@ -138,7 +138,7 @@ const faqItems = [
       'क्या मुझे अपने नियोक्ता को FIRE का पीछा करने के बारे में बताना चाहिए?',
     answer:
       'नहीं। FIRE योजनाओं को निजी रखें। जल्दी रिटायरमेंट इरादों को प्रकट किए बिना पेशेवर रूप से काम करना जारी रखें। एक बार जब आप FIRE नंबर पर पहुंच जाते हैं, तो उचित नोटिस दें और सुचारू रूप से संक्रमण करें। नियोक्ता अवसरों को कम कर सकता है यदि वे जानते हैं कि आप जल्द ही छोड़ने की योजना बना रहे हैं।',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -230,7 +230,7 @@ export default function FIRECalculatorPageHindi() {
           {
             name: 'FIRE कैलकुलेटर',
             url: 'https://fincado.com/hi/fire-calculator/',
-          },
+          }
         ]}
       />
 

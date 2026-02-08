@@ -21,7 +21,7 @@ export function HomeLoanSchemas() {
       'Tax Benefit Calculator (80C, 24b, 80EEA)',
       'Prepayment Analysis',
       'Bank Rate Comparison',
-      'Amortization Schedule',
+      'Amortization Schedule'
     ],
   };
 
@@ -52,7 +52,7 @@ export function HomeLoanSchemas() {
         position: 4,
         name: 'Home Loan EMI Calculator',
         item: 'https://fincado.com/emi-calculator/home-loan',
-      },
+      }
     ],
   };
 
@@ -84,7 +84,7 @@ export function HomeLoanSchemas() {
         position: 4,
         name: 'View Results with Tax Benefits',
         text: 'Get monthly EMI, total interest, and tax savings under Section 80C & 24(b)',
-      },
+      }
     ],
   };
 

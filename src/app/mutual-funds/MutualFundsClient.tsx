@@ -318,7 +318,7 @@ export default function MutualFundsClient({
         pct: alloc.cash * 100,
         label: t.cash,
         bg: 'bg-slate-400',
-      },
+      }
     ];
 
     return {
@@ -342,7 +342,7 @@ export default function MutualFundsClient({
     goldReturn,
     cashReturn,
     inflationPct,
-    t,
+    t
   ]);
 
   // Helper for dynamic badge styling
@@ -456,7 +456,7 @@ export default function MutualFundsClient({
                 ret: cashReturn,
                 setRet: setCashReturn,
                 color: 'text-slate-700',
-              },
+              }
             ].map((item, i) => (
               <div
                 key={i}

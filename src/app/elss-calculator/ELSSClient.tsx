@@ -43,7 +43,7 @@ const TAX_BRACKETS = [
   { value: 0, label: 'No Tax (Income < ₹3L)' },
   { value: 0.05, label: '5% (Old Regime)' },
   { value: 0.2, label: '20%' },
-  { value: 0.3, label: '30%' },
+  { value: 0.3, label: '30%' }
 ];
 
 export default function ELSSClient() {
@@ -175,7 +175,7 @@ export default function ELSSClient() {
     years,
     taxBracket,
     isLumpsum,
-    calculations.futureValue,
+    calculations.futureValue
   ]);
 
   /* ---------- HANDLERS ---------- */

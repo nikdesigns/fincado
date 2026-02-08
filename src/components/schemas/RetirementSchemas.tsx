@@ -11,7 +11,7 @@ export function RetirementSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -100,7 +100,7 @@ export function RetirementSchemas() {
         position: 7,
         name: 'Save or Share Plan',
         text: 'Save your retirement plan for future reference or share with family/financial advisor.',
-      },
+      }
     ],
   };
 
@@ -177,7 +177,7 @@ export function RetirementSchemas() {
             name: 'Real Return Calculation',
             description: 'Calculate inflation-adjusted post-retirement returns',
           },
-        },
+        }
       ],
     },
   };

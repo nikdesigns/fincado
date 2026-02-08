@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'nps withdrawal rules 2025',
     'nps interest rate history',
     'best pension scheme india',
-    'nps vs ppf tax benefit',
+    'nps vs ppf tax benefit'
   ],
   openGraph: {
     title: 'NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal Rules',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Growth chart showing NPS outperforming traditional savings',
-      },
+      }
     ],
   },
 };
@@ -82,7 +82,7 @@ const FAQ_ITEMS = [
     question: 'Is NPS better than PPF?',
     answer:
       'NPS has higher return potential (10-12%) due to equity exposure compared to PPF (7.1%). However, PPF offers guaranteed returns and EEE tax status, while NPS pension is taxable.',
-  },
+  }
 ];
 
 export default function NPSGuidePage() {
@@ -96,7 +96,7 @@ export default function NPSGuidePage() {
           {
             name: 'NPS Guide 2025',
             url: 'https://fincado.com/guides/nps-guide/',
-          },
+          }
         ]}
       />
 

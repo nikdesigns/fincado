@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '10 LPA in hand salary',
     'tax on 10 lakh new regime calculator',
     '10 lakh salary tax old vs new',
-    'income tax slabs 2025',
+    'income tax slabs 2025'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -98,7 +98,7 @@ export default function Tax10LakhGuide() {
       question: 'Can I save tax on 10 Lakh salary?',
       answer:
         'In the New Regime, options are limited (NPS). In the Old Regime, you can reduce tax to zero if you claim HRA, 80C (₹1.5L), NPS (₹50k), and Medical Insurance deductions totaling over ₹5 Lakhs.',
-    },
+    }
   ];
 
   return (
@@ -111,7 +111,7 @@ export default function Tax10LakhGuide() {
           {
             name: 'Tax on 10 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

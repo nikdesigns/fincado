@@ -11,7 +11,7 @@ export function FDSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function FDSchemas() {
         position: 6,
         name: 'View Results',
         text: 'Check maturity amount, interest earned, and estimated TDS deduction.',
-      },
+      }
     ],
   };
 
@@ -167,7 +167,7 @@ export function FDSchemas() {
             name: 'Senior Citizen Calculator',
             description: 'Calculate FD returns with senior citizen bonus rates',
           },
-        },
+        }
       ],
     },
   };

@@ -30,7 +30,7 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
       name: b2.name,
       rate: b2.rate,
       color: '#059669', // Emerald-600
-    },
+    }
   ];
 
   return (

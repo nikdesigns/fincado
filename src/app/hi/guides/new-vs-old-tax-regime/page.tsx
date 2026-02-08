@@ -73,7 +73,7 @@ export default function HindiTaxRegimeGuide() {
       question: 'HRA क्लेम करने के लिए कौन सा स्लैब चुनें?',
       answer:
         'HRA (House Rent Allowance) का लाभ केवल पुरानी टैक्स व्यवस्था (Old Regime) में मिलता है। अगर आप किराया देते हैं, तो Old Regime आपके लिए बेहतर हो सकता है।',
-    },
+    }
   ];
 
   return (
@@ -119,7 +119,7 @@ export default function HindiTaxRegimeGuide() {
           {
             name: 'New vs Old Tax Regime',
             url: 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
-          },
+          }
         ]}
       />
 
@@ -334,7 +334,7 @@ export default function HindiTaxRegimeGuide() {
           'ELSS (Tax Saving Mutual Funds)',
           'Life Insurance Premium (LIC आदि)',
           'Home Loan का principal repayment',
-          'बच्चों की ट्यूशन फीस',
+          'बच्चों की ट्यूशन फीस'
         ].map((item, i) => (
           <div
             key={i}

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'Education Loan Calculator Hindi',
     'Student Loan EMI Hindi',
     'Section 80E Tax Deduction Hindi',
-    'Study Abroad Loan Hindi',
+    'Study Abroad Loan Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/loans/education-loan/',
@@ -153,7 +153,7 @@ export default function HindiEducationLoanPage() {
         'क्या मैं एजुकेशन लोन प्रीपे कर सकता हूँ और Section 80E लाभ पर बचत कर सकता हूँ?',
       answer:
         'हाँ, आप अधिकांश बैंकों में बिना जुर्माने के प्रीपे कर सकते हैं। हालांकि, इस पर विचार करें: यदि आपका टैक्स ब्रैकेट 30% है, और लोन दर 10% है, तो 80E कटौती के कारण प्रभावी कर-पश्चात लागत केवल 7% है। यदि आप कहीं और >7% रिटर्न कमा सकते हैं, तो प्रीपे न करें। केवल तभी प्रीपे करें जब आपका निवेश रिटर्न कम हो।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -239,7 +239,7 @@ export default function HindiEducationLoanPage() {
           {
             name: 'एजुकेशन लोन कैलकुलेटर',
             url: 'https://fincado.com/hi/loans/education-loan/',
-          },
+          }
         ]}
       />
 

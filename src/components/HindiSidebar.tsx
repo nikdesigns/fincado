@@ -28,7 +28,7 @@ const HINDI_TOOLS: NavItem[] = [
   { href: '/hi/ppf-calculator/', label: 'PPF कैलकुलेटर', icon: '💰' },
   { href: '/hi/income-tax-calculator/', label: 'इनकम टैक्स (Tax)', icon: '📋' },
   { href: '/hi/fd-calculator/', label: 'FD कैलकुलेटर', icon: '📜' },
-  { href: '/hi/credit-score/', label: 'क्रेडिट स्कोर चेक', icon: '🛡️' },
+  { href: '/hi/credit-score/', label: 'क्रेडिट स्कोर चेक', icon: '🛡️' }
 ];
 
 const HINDI_GUIDES: NavItem[] = [
@@ -47,7 +47,7 @@ const HINDI_GUIDES: NavItem[] = [
   {
     href: '/hi/guides/sovereign-gold-bonds/',
     label: 'SGB: सोना खरीदने का सही तरीका',
-  },
+  }
 ];
 
 /* ---------- COMPONENT ---------- */

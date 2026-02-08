@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'EMI Calculator Hindi',
     'Home Loan EMI Hindi',
     'Personal Loan EMI Calculator',
-    'Loan Interest Hindi',
+    'Loan Interest Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/emi-calculator/',
@@ -138,7 +138,7 @@ export default function HindiEMIPage() {
       question: 'EMI की गणना Reducing या Flat Rate पर होती है?',
       answer:
         'सभी प्रमुख भारतीय बैंक होम लोन, कार लोन और पर्सनल लोन के लिए REDUCING BALANCE METHOD का उपयोग करते हैं। इसका मतलब है कि ब्याज केवल बकाया मूलधन पर गणना की जाती है, जो हर EMI भुगतान के साथ घटता है। Flat Rate Method पुराना है और अब उपयोग नहीं होता।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -178,7 +178,7 @@ export default function HindiEMIPage() {
           {
             name: 'EMI कैलकुलेटर',
             url: 'https://fincado.com/hi/emi-calculator/',
-          },
+          }
         ]}
       />
 

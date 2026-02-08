@@ -11,7 +11,7 @@ export function LumpsumSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function LumpsumSchemas() {
         position: 6,
         name: 'Analyze Advanced Metrics',
         text: 'Enable advanced metrics to see absolute returns, investment multiple, and detailed breakdown.',
-      },
+      }
     ],
   };
 
@@ -169,7 +169,7 @@ export function LumpsumSchemas() {
             description:
               'Compare one-time investment vs systematic monthly investing',
           },
-        },
+        }
       ],
     },
   };

@@ -11,7 +11,7 @@ export function CreditScoreSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -106,7 +106,7 @@ export function CreditScoreSchemas() {
         position: 8,
         name: 'Monitor Progress Monthly',
         text: 'Check credit score monthly using free sources (CIBIL, bank apps, fintech platforms). Track improvements. Typically takes 3-6 months to see significant positive change with consistent good behavior.',
-      },
+      }
     ],
   };
 

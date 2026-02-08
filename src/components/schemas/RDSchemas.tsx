@@ -11,7 +11,7 @@ export function RDSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function RDSchemas() {
         position: 6,
         name: 'Compare Bank Rates',
         text: 'Use the bank rate comparison feature to find the best RD rates from major banks and Post Office.',
-      },
+      }
     ],
   };
 
@@ -169,7 +169,7 @@ export function RDSchemas() {
             name: 'Senior Citizen Calculator',
             description: 'Calculate RD returns with senior citizen bonus rates',
           },
-        },
+        }
       ],
     },
   };

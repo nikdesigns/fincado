@@ -156,7 +156,7 @@ export default function CompareLoansPage() {
                   color: 'text-purple-500',
                   title: 'Repo Rate Linking',
                   desc: 'For home loans, ensure the rate is linked to the Repo Rate (RLLR) for transparency.',
-                },
+                }
               ].map((item, i) => (
                 <Card
                   key={i}
@@ -228,7 +228,7 @@ export default function CompareLoansPage() {
                 {[
                   { name: 'HDFC vs SBI', url: '/compare/hdfc-vs-sbi/' }, // Updated to use Comparison URL
                   { name: 'ICICI vs Axis', url: '/compare/icici-vs-axis/' },
-                  { name: 'Kotak vs BoB', url: '/compare/kotak-vs-bob/' },
+                  { name: 'Kotak vs BoB', url: '/compare/kotak-vs-bob/' }
                 ].map((link, i) => (
                   <li key={i}>
                     <Link

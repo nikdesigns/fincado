@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'flat interest rate vs reducing balance',
     'personal loan hidden charges',
     'personal loan eligibility calculator',
-    'gold loan vs personal loan',
+    'gold loan vs personal loan'
   ],
   openGraph: {
     title:
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Person checking loan application on mobile',
-      },
+      }
     ],
   },
 };
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
     question: 'What is the difference between flat and reducing interest rate?',
     answer:
       'Flat rate calculates interest on the full principal for the entire tenure. Reducing rate calculates interest only on the outstanding balance. A 10% Flat Rate is roughly equal to an 18% Reducing Rate.',
-  },
+  }
 ];
 
 export default function PersonalLoanGuidePage() {
@@ -95,7 +95,7 @@ export default function PersonalLoanGuidePage() {
           {
             name: 'Personal Loan Guide',
             url: 'https://fincado.com/guides/personal-loan-guide/',
-          },
+          }
         ]}
       />
 

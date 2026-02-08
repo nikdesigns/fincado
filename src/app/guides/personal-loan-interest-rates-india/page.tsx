@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'flat rate vs reducing balance',
     'best personal loan rates',
     'CIBIL score loan interest',
-    'personal loan EMI calculator',
+    'personal loan EMI calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/personal-loan-interest-rates/',
@@ -90,7 +90,7 @@ const FAQ_ITEMS = [
       'Is it wise to take a personal loan to invest in stocks or mutual funds?',
     answer:
       'No. Personal loan interest (14-24%) is a guaranteed cost, while investment returns are uncertain. This creates negative arbitrage and potential financial loss.',
-  },
+  }
 ];
 
 export default function PersonalLoanGuidePage() {
@@ -104,7 +104,7 @@ export default function PersonalLoanGuidePage() {
           {
             name: 'Personal Loan Interest Rates',
             url: 'https://fincado.com/guides/personal-loan-interest-rates/',
-          },
+          }
         ]}
       />
 

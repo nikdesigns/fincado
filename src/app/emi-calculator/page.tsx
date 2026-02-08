@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     'Personal Loan EMI',
     'Reduce Loan Interest',
     'Amortization Schedule',
-    'Loan Repayment Schedule',
+    'Loan Repayment Schedule'
   ],
   alternates: {
     canonical: 'https://fincado.com/emi-calculator/',
@@ -157,7 +157,7 @@ export default function EMIPage() {
       question: 'Is EMI calculated on reducing or flat rate?',
       answer:
         'All major Indian banks use the REDUCING BALANCE METHOD for home loans, car loans, and personal loans. This means interest is calculated only on the outstanding principal amount, which decreases with each EMI payment. Flat rate method is outdated and no longer used.',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -171,7 +171,7 @@ export default function EMIPage() {
           {
             name: 'EMI Calculator',
             url: 'https://fincado.com/emi-calculator/',
-          },
+          }
         ]}
       />
 

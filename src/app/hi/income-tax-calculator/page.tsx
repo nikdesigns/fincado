@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'AY 2026-27 इनकम टैक्स',
     'धारा 80C कैलकुलेटर',
     'वेतन टैक्स कैलकुलेटर',
-    'बजट 2026 टैक्स बदलाव',
+    'बजट 2026 टैक्स बदलाव'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/income-tax-calculator/',
@@ -143,7 +143,7 @@ const faqItems = [
     question: 'क्या बजट 2026 ने इनकम टैक्स स्लैब बदल दिए?',
     answer:
       'बजट 2026 ने पुरानी और नई दोनों व्यवस्थाओं के लिए मौजूदा टैक्स स्लैब बनाए रखे। नई व्यवस्था के लिए स्टैंडर्ड डिडक्शन ₹75,000 रहता है। FY 2026-27 के लिए कोई नए बदलाव नहीं किए गए।',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -236,7 +236,7 @@ export default function IncomeTaxPageHindi() {
           {
             name: 'इनकम टैक्स कैलकुलेटर',
             url: 'https://fincado.com/hi/income-tax-calculator/',
-          },
+          }
         ]}
       />
 

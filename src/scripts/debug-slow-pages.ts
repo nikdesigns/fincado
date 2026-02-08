@@ -7,7 +7,7 @@ const pagesToTest = [
   'http://localhost:3000/income-tax-calculator/',
   'http://localhost:3000/contact/',
   'http://localhost:3000/about/',
-  'http://localhost:3000/guides/',
+  'http://localhost:3000/guides/'
 ];
 
 async function testPageSpeed() {

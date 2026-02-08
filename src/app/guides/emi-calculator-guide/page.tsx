@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'personal loan EMI',
     'RBI EMI rules 2025',
     'prepayment calculator',
-    'reduce EMI interest',
+    'reduce EMI interest'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/emi-calculator-guide/',
@@ -118,7 +118,7 @@ const FAQ_ITEMS = [
     question: "What is the RBI's new EMI rule for 2025?",
     answer:
       'New RBI guidelines on penal charges and prepayment have made EMI structures more transparent and borrower-friendly, including replacing penal interest with clearly defined penal charges.',
-  },
+  }
 ];
 
 export default function EmiGuidePage() {
@@ -181,7 +181,7 @@ export default function EmiGuidePage() {
           {
             name: 'EMI Calculator Guide',
             url: 'https://fincado.com/guides/emi-calculator-guide/',
-          },
+          }
         ]}
       />
 

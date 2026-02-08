@@ -147,7 +147,7 @@ export default async function BankCityPage({
           {
             name: cityData.name,
             url: `https://fincado.com/bank-emi/${bank.slug}/${resolvedParams.city}/`,
-          },
+          }
         ]}
       />
 

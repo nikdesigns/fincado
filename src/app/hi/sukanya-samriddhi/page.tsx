@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     'सुकन्या समृद्धि योजना',
     'सुकन्या समृद्धि कैलकुलेटर',
     'बेटी बचाओ योजना',
-    'SSY ब्याज दर 2026',
+    'SSY ब्याज दर 2026'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/sukanya-samriddhi/',
@@ -149,7 +149,7 @@ export default function HindiSSYPage() {
       question: 'SSY में 21 वर्षों के बाद मुझे कितना मिलेगा?',
       answer:
         'यह आपकी निवेश राशि और ब्याज दर पर निर्भर करता है। उदाहरण के लिए, 15 वर्षों तक 8.2% प्रति वर्ष पर ₹1.5 लाख/वर्ष निवेश करने से परिपक्वता (21 वर्ष) पर लगभग ₹65-67 लाख मिलेंगे। सटीक अनुमान के लिए ऊपर कैलकुलेटर का उपयोग करें।',
-    },
+    }
   ];
 
   return (
@@ -167,7 +167,7 @@ export default function HindiSSYPage() {
           {
             name: 'SSY कैलकुलेटर',
             url: 'https://fincado.com/hi/sukanya-samriddhi/',
-          },
+          }
         ]}
       />
 

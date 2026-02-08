@@ -25,7 +25,7 @@ const TOP_TOOLS: NavItem[] = [
   },
   { href: '/ppf-calculator/', label: 'PPF Calculator', icon: '💰' },
   { href: '/income-tax-calculator/', label: 'Tax Calculator', icon: '🧾' },
-  { href: '/credit-score/', label: 'Check Credit Score', icon: '🛡️' },
+  { href: '/credit-score/', label: 'Check Credit Score', icon: '🛡️' }
 ];
 
 const TRENDING_GUIDES: NavItem[] = [
@@ -44,7 +44,7 @@ const TRENDING_GUIDES: NavItem[] = [
   {
     href: '/guides/health-insurance-buying-guide/',
     label: 'Health Insurance Checklist',
-  },
+  }
 ];
 
 /* ---------- COMPONENT ---------- */

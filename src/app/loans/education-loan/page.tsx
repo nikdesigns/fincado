@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     'section 80e tax benefit',
     'education loan eligibility',
     'sbi student loan',
-    'hdfc education loan',
+    'hdfc education loan'
   ],
   alternates: {
     canonical: '/loans/education-loan/',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Education Loan EMI Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -202,7 +202,7 @@ export default function EducationLoanEMIPage() {
       question: 'Can I prepay education loan and save on Section 80E benefits?',
       answer:
         "Yes, you can prepay without penalty at most banks. However, consider this: If your tax bracket is 30%, and loan rate is 10%, effective post-tax cost is only 7% (due to 80E deduction). If you can earn >7% returns elsewhere, don't prepay. Prepay only if your return on investments is lower.",
-    },
+    }
   ];
   const updatedLabel = getCurrentMonthYearLabel();
 
@@ -219,7 +219,7 @@ export default function EducationLoanEMIPage() {
           {
             name: 'Education Loan EMI Calculator',
             url: '/loans/education-loan/',
-          },
+          }
         ]}
       />
 

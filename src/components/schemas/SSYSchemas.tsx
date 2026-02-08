@@ -11,7 +11,7 @@ export function SSYSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function SSYSchemas() {
         position: 6,
         name: 'Analyze Year-wise Growth',
         text: 'Enable year-wise breakdown to track corpus growth and plan accordingly.',
-      },
+      }
     ],
   };
 
@@ -195,7 +195,7 @@ export function SSYSchemas() {
             name: 'Flexible Deposit Planning',
             description: 'Compare monthly vs yearly deposit strategies',
           },
-        },
+        }
       ],
     },
   };

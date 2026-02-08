@@ -11,7 +11,7 @@ export function SimpleInterestSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -88,7 +88,7 @@ export function SimpleInterestSchemas() {
         position: 5,
         name: 'Compare with Reducing Balance',
         text: 'If flat rate, convert to effective reducing rate (approximately 2x flat rate). Compare total interest with EMI-based reducing balance loans. Flat rate always costs more.',
-      },
+      }
     ],
   };
 

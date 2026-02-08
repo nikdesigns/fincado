@@ -160,7 +160,7 @@ export default function RetirementCalculatorClient() {
     currentSavings,
     inflation,
     preReturn,
-    postReturn,
+    postReturn
   ]);
 
   /* ---------- HANDLERS ---------- */

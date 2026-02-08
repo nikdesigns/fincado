@@ -10,7 +10,7 @@ export default function SidebarCompareWidget() {
     { b1: 'SBI', b2: 'HDFC', slug: 'sbi-vs-hdfc' },
     { b1: 'ICICI', b2: 'Axis', slug: 'icici-vs-axis' },
     { b1: 'PNB', b2: 'Bank of Baroda', slug: 'pnb-vs-bob' },
-    { b1: 'HDFC', b2: 'Kotak', slug: 'hdfc-vs-kotak' },
+    { b1: 'HDFC', b2: 'Kotak', slug: 'hdfc-vs-kotak' }
   ];
 
   return (

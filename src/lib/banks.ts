@@ -30,5 +30,5 @@ export const banks: Bank[] = [
   { name: 'Federal Bank', slug: 'federal', rate: 9.0, maxRate: 10.2 },
   { name: 'Tata Capital', slug: 'tata', rate: 9.2, maxRate: 11.5 },
   { name: 'LIC Housing', slug: 'lic-housing', rate: 8.5, maxRate: 10.35 },
-  { name: 'Aditya Birla Capital', slug: 'abc', rate: 9.25, maxRate: 11.75 },
+  { name: 'Aditya Birla Capital', slug: 'abc', rate: 9.25, maxRate: 11.75 }
 ];

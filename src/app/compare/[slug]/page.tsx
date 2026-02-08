@@ -129,7 +129,7 @@ export default async function ComparisonPage({
     {
       question: `Which bank is better for balance transfer?`,
       answer: `Private banks like ${b2.name} typically provide smoother balance transfer processes, while ${b1.name} may offer lower long-term interest savings.`,
-    },
+    }
   ];
 
   return (
@@ -144,7 +144,7 @@ export default async function ComparisonPage({
           {
             name: `${b1.name} vs ${b2.name}`,
             url: `https://fincado.com/compare/${slug}/`,
-          },
+          }
         ]}
       />
 

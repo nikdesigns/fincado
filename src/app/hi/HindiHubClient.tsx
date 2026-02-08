@@ -46,7 +46,7 @@ const CALCULATOR_CATEGORIES = [
         desc: 'किसी भी लोन की साधारण EMI गणना।',
         href: '/hi/emi-calculator/',
         icon: '🔢',
-      },
+      }
     ],
   },
   {
@@ -99,7 +99,7 @@ const CALCULATOR_CATEGORIES = [
         desc: 'निवेश से मासिक आय (पेंशन) पाएं।',
         href: '/hi/swp-calculator/',
         icon: '💧',
-      },
+      }
     ],
   },
   {
@@ -134,7 +134,7 @@ const CALCULATOR_CATEGORIES = [
         desc: 'जल्दी रिटायर होने का प्लान बनाएं।',
         href: '/hi/fire-calculator/',
         icon: '🔥',
-      },
+      }
     ],
   },
   {
@@ -169,9 +169,9 @@ const CALCULATOR_CATEGORIES = [
         desc: 'साधारण ब्याज की गणना (Simple Interest)।',
         href: '/hi/simple-interest-calculator/',
         icon: '➗',
-      },
+      }
     ],
-  },
+  }
 ];
 
 export default function HindiHubClient() {

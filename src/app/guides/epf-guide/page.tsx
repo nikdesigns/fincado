@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'epf tax on withdrawal before 5 years',
     'uan activation steps',
     'epf vs ppf interest rate',
-    'voluntary provident fund vpf',
+    'voluntary provident fund vpf'
   ],
   openGraph: {
     title:
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'EPF passbook and retirement savings growth chart',
-      },
+      }
     ],
   },
 };
@@ -79,7 +79,7 @@ const FAQ_ITEMS = [
   {
     question: 'What is the current EPF interest rate?',
     answer: 'The EPF interest rate for FY 2024-25 is 8.25% per annum.',
-  },
+  }
 ];
 
 export default function EPFGuidePage() {
@@ -93,7 +93,7 @@ export default function EPFGuidePage() {
           {
             name: 'EPF Guide 2025',
             url: 'https://fincado.com/guides/epf-guide/',
-          },
+          }
         ]}
       />
 

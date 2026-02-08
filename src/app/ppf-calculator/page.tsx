@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     'Section 80C PPF',
     'PPF Withdrawal Rules',
     'PPF Loan Calculator',
-    'Tax Free Investment',
+    'Tax Free Investment'
   ],
   alternates: {
     canonical: 'https://fincado.com/ppf-calculator/',
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado PPF Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -206,7 +206,7 @@ export default function PPFPage() {
       question: 'What is the minimum and maximum PPF deposit?',
       answer:
         'Minimum annual deposit is ₹500 (can be done in one or multiple installments). Maximum annual deposit is ₹1,50,000. If you deposit less than ₹500 in a year, the account becomes inactive and needs to be revived with a penalty of ₹50 per year plus arrears.',
-    },
+    }
   ];
 
   return (
@@ -218,7 +218,7 @@ export default function PPFPage() {
           {
             name: 'PPF Calculator',
             url: 'https://fincado.com/ppf-calculator/',
-          },
+          }
         ]}
       />
 

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     'HRA गणना फॉर्मूला',
     'किराया रसीद टैक्स लाभ',
     'पुरानी कर व्यवस्था HRA',
-    'HRA टैक्स बचत कैलकुलेटर',
+    'HRA टैक्स बचत कैलकुलेटर'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/hra-calculator/',
@@ -142,7 +142,7 @@ const faqItems = [
     question: 'यदि मेरा प्राप्त HRA वास्तविक चुकाए गए किराए से कम है तो क्या?',
     answer:
       'HRA छूट वास्तविक प्राप्त HRA पर कैप्ड है। भले ही आप अधिक किराया चुकाते हों, छूट वेतन में HRA घटक से अधिक नहीं हो सकती। उदाहरण: प्राप्त HRA = ₹1.5L, चुकाया गया किराया = ₹3L। अधिकतम छूट HRA = ₹1.5L (शर्त 1 लागू होती है)।',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -238,7 +238,7 @@ export default function HRAPageHindi() {
           {
             name: 'HRA कैलकुलेटर',
             url: 'https://fincado.com/hi/hra-calculator/',
-          },
+          }
         ]}
       />
 

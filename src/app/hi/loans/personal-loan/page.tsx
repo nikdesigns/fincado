@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'Personal Loan EMI Calculator Hindi',
     'Personal Loan Interest Rate Hindi',
     'Unsecured Loan Calculator Hindi',
-    'Loan Eligibility Calculator Hindi',
+    'Loan Eligibility Calculator Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/loans/personal-loan/',
@@ -146,7 +146,7 @@ export default function HindiPersonalLoanPage() {
         'क्या मैं फ्रीलांसर या गिग वर्कर के रूप में पर्सनल लोन ले सकता हूँ?',
       answer:
         'हाँ, लेकिन आवश्यकताएं सख्त हैं। आपको चाहिए: (1) स्थिर आय दिखाने वाला न्यूनतम 2 साल का ITR, (2) अच्छा क्रेडिट स्कोर (750+), (3) नियमित बैंक खाता क्रेडिट, (4) बजाज फिनसर्व, फुलरटन इंडिया जैसे कुछ लेंडर विशेष रूप से स्वरोजगार व्यक्तियों के लिए सेवा प्रदान करते हैं।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -211,7 +211,7 @@ export default function HindiPersonalLoanPage() {
           {
             name: 'पर्सनल लोन EMI कैलकुलेटर',
             url: 'https://fincado.com/hi/loans/personal-loan/',
-          },
+          }
         ]}
       />
 

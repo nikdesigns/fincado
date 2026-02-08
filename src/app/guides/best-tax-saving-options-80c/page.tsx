@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'ELSS mutual fund returns',
     'PPF interest rate 2025',
     'best tax saver fd',
-    'NPS tax benefit 80ccd(1b)',
+    'NPS tax benefit 80ccd(1b)'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/best-tax-saving-options-80c',
@@ -62,10 +62,10 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/tax/tax-benefits-80c-24b.webp',
+        url: '/images/guides/tax/tax-benefits-80c-24b.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -90,7 +90,7 @@ const FAQ_ITEMS = [
     question: 'Is ELSS better than PPF for tax saving?',
     answer:
       'Yes, for investors under 50 aiming for wealth creation, as ELSS delivers significantly higher returns (12-15%) compared to PPF (7.1%). PPF is better for risk-averse investors.',
-  },
+  }
 ];
 
 export default function TaxSavingOptionsGuide() {
@@ -115,7 +115,7 @@ export default function TaxSavingOptionsGuide() {
             },
             image: {
               '@type': 'ImageObject',
-              url: 'https://fincado.com/images/guides/tax/tax-benefits-80c-24b.webp',
+              url: '/images/guides/tax/tax-benefits-80c-24b.webp',
               width: 1200,
               height: 630,
             },
@@ -146,7 +146,7 @@ export default function TaxSavingOptionsGuide() {
           {
             name: 'Best 80C Options',
             url: 'https://fincado.com/guides/best-tax-saving-options-80c',
-          },
+          }
         ]}
       />
 

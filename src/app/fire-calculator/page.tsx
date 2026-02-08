@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'Lean FIRE Calculator',
     'Fat FIRE vs Lean FIRE',
     'Early Retirement Calculator',
-    '4% Rule India',
+    '4% Rule India'
   ],
   alternates: {
     canonical: 'https://fincado.com/fire-calculator/',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado FIRE Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -139,7 +139,7 @@ const faqItems = [
     question: 'Should I tell my employer about pursuing FIRE?',
     answer:
       'No. Keep FIRE plans private. Continue working professionally without revealing early retirement intentions. Once you hit FIRE number, give proper notice and transition smoothly. Employer may reduce opportunities if they know you plan to quit soon.',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -231,7 +231,7 @@ export default function FIRECalculatorPage() {
           {
             name: 'FIRE Calculator',
             url: 'https://fincado.com/fire-calculator/',
-          },
+          }
         ]}
       />
 

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'HRA Calculation Formula',
     'Rent Receipt Tax Benefit',
     'Old Tax Regime HRA',
-    'HRA Tax Saving Calculator',
+    'HRA Tax Saving Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/hra-calculator/',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado HRA Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -147,7 +147,7 @@ const faqItems = [
     question: 'What if my HRA received is less than actual rent paid?',
     answer:
       'HRA exemption is capped at actual HRA received. Even if you pay higher rent, exemption cannot exceed HRA component in salary. Example: HRA received = ₹1.5L, Rent paid = ₹3L. Maximum exempt HRA = ₹1.5L (condition 1 applies).',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -242,7 +242,7 @@ export default function HRAPage() {
           {
             name: 'HRA Calculator',
             url: 'https://fincado.com/hra-calculator/',
-          },
+          }
         ]}
       />
 

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'Rule of 72 Calculator',
     'India CPI Inflation',
     'Medical Inflation Calculator',
-    'Education Cost Calculator',
+    'Education Cost Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/inflation-calculator/',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Inflation Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -147,7 +147,7 @@ const faqItems = [
     question: 'Can salary increase keep up with inflation?',
     answer:
       'Salary increments typically lag inflation for first 10-15 years of career. Average increments: 8-10% in private sector, 3-5% in government. But "lifestyle inflation" (upgrading spending as income grows) often consumes this. Solution: Automate savings increase with every increment (Step-Up SIP), invest raises before lifestyle adjusts, maintain 30% savings rate throughout career.',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -190,7 +190,7 @@ export default function InflationPage() {
           {
             name: 'Inflation Calculator',
             url: 'https://fincado.com/inflation-calculator/',
-          },
+          }
         ]}
       />
 

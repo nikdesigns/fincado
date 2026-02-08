@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'Gratuity Tax Calculator Hindi',
     'ग्रेच्युटी गणना फॉर्मूला',
     'Gratuity Rules 2026 Hindi',
-    'Employee Gratuity Calculator Hindi',
+    'Employee Gratuity Calculator Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/gratuity-calculator/',
@@ -259,7 +259,7 @@ export default function GratuityCalculatorPageHindi() {
         'यदि कर्मचारी की मृत्यु हो जाती है तो ग्रेच्युटी का क्या होता है?',
       answer:
         'ग्रेच्युटी तुरंत नामांकित या कानूनी उत्तराधिकारी (पति/पत्नी, बच्चे, माता-पिता) को देय है। मृत्यु के लिए 5 वर्ष की सेवा नियम माफ। पूर्ण राशि कर-मुक्त है। नामांकित को मृत्यु प्रमाण पत्र, फॉर्म I दावा, और KYC जमा करना होगा। दावे से 30 दिनों के भीतर भुगतान।',
-    },
+    }
   ];
 
   return (
@@ -271,7 +271,7 @@ export default function GratuityCalculatorPageHindi() {
           {
             name: 'ग्रेच्युटी कैलकुलेटर',
             url: 'https://fincado.com/hi/gratuity-calculator/',
-          },
+          }
         ]}
       />
 

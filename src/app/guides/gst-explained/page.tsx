@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     'Input Tax Credit explained',
     'GST calculation examples',
     'freelancer GST rules',
-    'GST registration limit',
+    'GST registration limit'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/gst-explained/',
@@ -76,7 +76,7 @@ const FAQ_ITEMS = [
     question: 'Do freelancers need to pay GST?',
     answer:
       'Yes, if their aggregate turnover exceeds the threshold (usually ₹20 Lakhs for services, though limits vary by state). Voluntary registration is also possible.',
-  },
+  }
 ];
 
 export default function GstGuidePage() {
@@ -139,7 +139,7 @@ export default function GstGuidePage() {
           {
             name: 'GST Explained',
             url: 'https://fincado.com/guides/gst-explained/',
-          },
+          }
         ]}
       />
 

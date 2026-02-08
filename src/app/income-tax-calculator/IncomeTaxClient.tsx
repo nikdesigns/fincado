@@ -158,7 +158,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       [700_000, 1_000_000, 0.1],
       [1_000_000, 1_200_000, 0.15],
       [1_200_000, 1_500_000, 0.2],
-      [1_500_000, Infinity, 0.3],
+      [1_500_000, Infinity, 0.3]
     ];
 
     slabs.forEach(([min, max, rate]) => {

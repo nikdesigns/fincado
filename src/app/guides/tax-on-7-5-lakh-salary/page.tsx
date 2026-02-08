@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     '7.5 LPA in hand salary',
     'is 7.5 lakh income tax free',
     'tax on 7.5 lakh old vs new regime',
-    'income tax calculator 2025',
+    'income tax calculator 2025'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -92,7 +92,7 @@ export default function Tax7Point5LakhGuide() {
       question: 'What is the in-hand salary for 7.5 LPA?',
       answer:
         'Since there is zero tax under the New Regime, your monthly in-hand is simply Gross minus PF and Professional Tax. Expect approximately ₹58,550 per month.',
-    },
+    }
   ];
 
   return (
@@ -105,7 +105,7 @@ export default function Tax7Point5LakhGuide() {
           {
             name: 'Tax on 7.5 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

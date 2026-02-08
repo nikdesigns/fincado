@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     'credit repair tips',
     'cibil score above 750',
     'fix low credit score',
-    'credit utilization ratio',
+    'credit utilization ratio'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/how-credit-score-affects-loans/',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'How to Improve CIBIL Score',
-      },
+      }
     ],
   },
 };
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
     question: 'Can I remove a settlement status from my CIBIL report?',
     answer:
       'You can remove a "Settled" status by paying the remaining outstanding amount to the lender and obtaining a "No Due Certificate" (NDC), then asking them to update CIBIL.',
-  },
+  }
 ];
 
 export default function BoostCreditScorePage() {
@@ -124,7 +124,7 @@ export default function BoostCreditScorePage() {
           {
             name: 'Boost Credit Score',
             url: 'https://fincado.com/guides/how-credit-score-affects-loans/',
-          },
+          }
         ]}
       />
 

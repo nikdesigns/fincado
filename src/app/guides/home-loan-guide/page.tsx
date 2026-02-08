@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'RLLR vs MCLR',
     'First time home buyer guide',
     'Home Loan Process',
-    'CIBIL score for home loan',
+    'CIBIL score for home loan'
   ],
   openGraph: {
     title: 'Home Loan Guide 2025: Eligibility, Tax Benefits & Hidden Charges',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         url: '/images/guides/home-loan/home-loan-guide-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -89,7 +89,7 @@ const FAQ_ITEMS = [
     question: 'What are the tax benefits on home loans in 2025?',
     answer:
       'You can save up to ₹3.5 lakh annually: ₹1.5 lakh under Section 80C (principal), ₹2 lakh under Section 24(b) (interest), and additional ₹1.5 lakh under Section 80EEA for eligible first-time buyers.',
-  },
+  }
 ];
 
 export default function HomeLoanGuidePage() {
@@ -154,7 +154,7 @@ export default function HomeLoanGuidePage() {
           {
             name: 'Home Loan Guide 2025',
             url: 'https://fincado.com/guides/home-loan-guide/',
-          },
+          }
         ]}
       />
 

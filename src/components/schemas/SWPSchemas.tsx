@@ -11,7 +11,7 @@ export function SWPSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function SWPSchemas() {
         position: 6,
         name: 'Analyze Results',
         text: 'Check remaining corpus, total withdrawn, and year-wise breakdown. Adjust withdrawal if corpus exhausts early.',
-      },
+      }
     ],
   };
 
@@ -170,7 +170,7 @@ export function SWPSchemas() {
             description:
               'Get alerts when corpus will be exhausted based on withdrawal rate',
           },
-        },
+        }
       ],
     },
   };

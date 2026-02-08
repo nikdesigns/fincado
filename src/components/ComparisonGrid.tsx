@@ -20,7 +20,7 @@ export default function ComparisonGrid() {
     { slug: 'bob', name: 'BOB' },
     { slug: 'lic-housing', name: 'LIC Housing' },
     { slug: 'bajaj', name: 'Bajaj' },
-    { slug: 'idfc-first', name: 'IDFC First' },
+    { slug: 'idfc-first', name: 'IDFC First' }
   ];
 
   const pairs = [];

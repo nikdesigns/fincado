@@ -47,7 +47,7 @@ export default function WikiText({ content, className = '' }: WikiTextProps) {
         'tr',
         'th',
         'td',
-        'img',
+        'img'
       ],
       ALLOWED_ATTR: [
         'href',
@@ -59,7 +59,7 @@ export default function WikiText({ content, className = '' }: WikiTextProps) {
         'alt',
         'title',
         'width',
-        'height',
+        'height'
       ],
       ALLOWED_URI_REGEXP:
         /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,

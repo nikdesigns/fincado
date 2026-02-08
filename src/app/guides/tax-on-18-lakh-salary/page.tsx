@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '18 LPA in hand salary',
     'tax on 18 lakh new regime',
     'income tax calculator 2025',
-    '18 lakh salary tax old vs new',
+    '18 lakh salary tax old vs new'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -93,7 +93,7 @@ export default function Tax18LakhGuide() {
       question: 'Which tax regime is better for 18 Lakh package?',
       answer:
         'The New Tax Regime is better unless you have total deductions (HRA, 80C, 80D, Home Loan) exceeding ₹4.85 Lakhs. Most employees save ~₹1.35 Lakhs by choosing the New Regime.',
-    },
+    }
   ];
 
   return (
@@ -106,7 +106,7 @@ export default function Tax18LakhGuide() {
           {
             name: 'Tax on 18 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

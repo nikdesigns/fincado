@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'SIP Calculator Hindi',
     'Mutual Fund Calculator Hindi',
     'SIP Return Calculator Hindi',
-    'Systematic Investment Plan Hindi',
+    'Systematic Investment Plan Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/sip-calculator/',
@@ -139,7 +139,7 @@ export default function HindiSIPPage() {
       question: 'क्या मैं विभिन्न लक्ष्यों के लिए कई SIP चला सकता हूं?',
       answer:
         'हां, और यह अनुशंसित है। आप रिटायरमेंट, बाल शिक्षा और घर के डाउन पेमेंट जैसे विभिन्न लक्ष्यों के लिए अलग SIP/फंड बना सकते हैं। इससे ट्रैक करना, पुनर्संतुलन करना और प्रत्येक लक्ष्य तक पहुंचने पर निकालना आसान हो जाता है।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -220,7 +220,7 @@ export default function HindiSIPPage() {
           {
             name: 'SIP कैलकुलेटर',
             url: 'https://fincado.com/hi/sip-calculator/',
-          },
+          }
         ]}
       />
 

@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'ppf vs elss tax benefit',
     'ppf calculator 15 years',
     'loan against ppf account',
-    'ppf account extension rules',
+    'ppf account extension rules'
   ],
   openGraph: {
     title:
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Piggy bank with tax-free growth chart',
-      },
+      }
     ],
   },
 };
@@ -80,7 +80,7 @@ const FAQ_ITEMS = [
     question: 'Is PPF interest taxable?',
     answer:
       'No. PPF falls under the EEE category. The interest earned and the maturity amount are completely tax-free.',
-  },
+  }
 ];
 
 export default function PPFGuidePage() {
@@ -94,7 +94,7 @@ export default function PPFGuidePage() {
           {
             name: 'PPF Guide 2025',
             url: 'https://fincado.com/guides/ppf-guide/',
-          },
+          }
         ]}
       />
 

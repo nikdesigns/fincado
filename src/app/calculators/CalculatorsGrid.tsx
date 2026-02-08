@@ -271,7 +271,7 @@ const ALL_CALCULATORS = [
     category: 'Tools & Tax',
     desc: 'Calculate compound interest with yearly, half-yearly, or quarterly frequency.',
     color: 'text-indigo-600 bg-indigo-50',
-  },
+  }
 ];
 
 export default function CalculatorsGrid() {

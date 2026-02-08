@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'personal loan interest rates',
     'car loan emi calculator',
     'education loan india',
-    'loan against property',
+    'loan against property'
   ],
   openGraph: {
     title: 'Smart Borrowing Starts Here | Fincado Loans Hub',
@@ -106,7 +106,7 @@ const LOAN_TYPES = [
     color: 'text-slate-600',
     bg: 'bg-slate-100',
     desc: 'Calculate your exact monthly EMI before applying.',
-  },
+  }
 ];
 
 export default function LoansPage() {
@@ -130,7 +130,7 @@ export default function LoansPage() {
           '@type': 'Answer',
           text: 'Yes, Personal Loans are unsecured loans, meaning you do not need to pledge any collateral like gold or property to avail them.',
         },
-      },
+      }
     ],
   };
 
@@ -144,7 +144,7 @@ export default function LoansPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Loans', url: 'https://fincado.com/loans/' },
+          { name: 'Loans', url: 'https://fincado.com/loans/' }
         ]}
       />
 
@@ -291,7 +291,7 @@ export default function LoansPage() {
                     icon: Clock,
                     title: 'Tenure',
                     desc: 'Longer tenure = Lower EMI but Higher Total Interest.',
-                  },
+                  }
                 ].map((factor, i) => (
                   <Card key={i} className="border-slate-200">
                     <CardContent className="p-4 flex flex-col items-center text-center">

@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'NPS Maturity Calculator',
     'Tier 1 NPS Calculator',
     'NPS Investment Calculator',
-    'NPS Annuity Calculator',
+    'NPS Annuity Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/nps-calculator/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado NPS Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -252,7 +252,7 @@ export default function NPSCalculatorPage() {
       question: 'Is NPS worth it for self-employed/freelancers?',
       answer:
         'Yes! Self-employed can claim full ₹2L deduction (80C + 80CCD(1B)) + 10% of gross income as business expense. NPS fills retirement planning gap for those without EPF. Choose aggressive allocation (75% equity) if young for maximum growth. Low 0.01% charges make it most cost-effective retirement product.',
-    },
+    }
   ];
 
   return (
@@ -264,7 +264,7 @@ export default function NPSCalculatorPage() {
           {
             name: 'NPS Calculator',
             url: 'https://fincado.com/nps-calculator/',
-          },
+          }
         ]}
       />
 

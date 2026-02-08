@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'Fixed Deposit Calculator Hindi',
     'FD Interest Rates 2026',
     'FD Maturity Calculator',
-    'फिक्स्ड डिपॉजिट कैलकुलेटर',
+    'फिक्स्ड डिपॉजिट कैलकुलेटर'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/fd-calculator/',
@@ -203,7 +203,7 @@ export default function HindiFDPage() {
       question: 'FD ब्याज पर TDS कैसे बचाएं?',
       answer:
         'यदि आपकी कुल आय कर योग्य सीमा से कम है तो अपने बैंक को फॉर्म 15G (60 से कम उम्र के व्यक्तियों के लिए) या फॉर्म 15H (वरिष्ठ नागरिकों के लिए) जमा करें। आप कर योग्य ब्याज को प्रबंधित करने के लिए परिवार के सदस्यों में FD को विभाजित कर सकते हैं या मैच्योरिटी तिथियां फैला सकते हैं।',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -223,7 +223,7 @@ export default function HindiFDPage() {
           {
             name: 'FD कैलकुलेटर',
             url: 'https://fincado.com/hi/fd-calculator/',
-          },
+          }
         ]}
       />
 

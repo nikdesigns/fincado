@@ -11,7 +11,7 @@ export function GSTSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -88,7 +88,7 @@ export function GSTSchemas() {
         position: 5,
         name: 'Generate Invoice',
         text: 'Use the breakdown for GST-compliant invoicing with base price, tax components (CGST/SGST/IGST), and final taxable value.',
-      },
+      }
     ],
   };
 
@@ -174,7 +174,7 @@ export function GSTSchemas() {
             description:
               'Tax breakdown in GST-compliant invoice format with all components',
           },
-        },
+        }
       ],
     },
   };

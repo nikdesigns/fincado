@@ -379,7 +379,7 @@ export default function InvestingClient() {
               slices={[
                 { label: 'Equity', color: '#10b981', pct: alloc.equity * 100 },
                 { label: 'Debt', color: '#3b82f6', pct: alloc.debt * 100 },
-                { label: 'Gold', color: '#f59e0b', pct: alloc.gold * 100 },
+                { label: 'Gold', color: '#f59e0b', pct: alloc.gold * 100 }
               ]}
             />
 

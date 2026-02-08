@@ -129,7 +129,7 @@ export default function EducationLoanClient({
     rate,
     repayYears,
     moratoriumMonths,
-    payInterestDuringMoratorium,
+    payInterestDuringMoratorium
   ]);
 
   /* ---------- SCHEDULE ---------- */

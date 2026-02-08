@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'Car Loan EMI Calculator Hindi',
     'Auto Loan Calculator Hindi',
     'New Car vs Used Car Loan Hindi',
-    'Car Loan Eligibility Hindi',
+    'Car Loan Eligibility Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/loans/car-loan/',
@@ -147,7 +147,7 @@ export default function HindiCarLoanPage() {
       question: 'कार लोन पात्रता की गणना कैसे की जाती है?',
       answer:
         'पात्रता निर्भर करती है: (1) मासिक आय (न्यूनतम ₹25,000), (2) क्रेडिट स्कोर (न्यूनतम 650, अधिमानतः 750+), (3) आयु (21-65 वर्ष), (4) EMI से आय अनुपात (50% से अधिक नहीं होना चाहिए), और (5) रोजगार स्थिरता (2+ वर्ष का कार्य अनुभव)।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -227,7 +227,7 @@ export default function HindiCarLoanPage() {
           {
             name: 'कार लोन EMI कैलकुलेटर',
             url: 'https://fincado.com/hi/loans/car-loan/',
-          },
+          }
         ]}
       />
 

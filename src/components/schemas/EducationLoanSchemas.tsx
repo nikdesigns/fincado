@@ -21,7 +21,7 @@ export function EducationLoanSchemas() {
       'Section 80E Tax Benefit Calculator',
       'Study Abroad Loan Calculator',
       'Moratorium Period Analysis',
-      'Interest vs Principal Breakdown',
+      'Interest vs Principal Breakdown'
     ],
   };
 
@@ -52,7 +52,7 @@ export function EducationLoanSchemas() {
         position: 4,
         name: 'Education Loan EMI Calculator',
         item: 'https://fincado.com/emi-calculator/education-loan',
-      },
+      }
     ],
   };
 
@@ -84,7 +84,7 @@ export function EducationLoanSchemas() {
         position: 4,
         name: 'Calculate Tax Savings',
         text: 'View Section 80E tax deduction on interest (100% deductible for 8 years)',
-      },
+      }
     ],
   };
 

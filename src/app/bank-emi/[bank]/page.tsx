@@ -103,7 +103,7 @@ export default async function BankPage({
           '@type': 'Answer',
           text: 'You can reduce your EMI by making a partial prepayment, opting for a longer tenure, or negotiating a lower interest rate if your credit score has improved.',
         },
-      },
+      }
     ],
   };
 
@@ -121,7 +121,7 @@ export default async function BankPage({
             name: bank.name,
             // ✅ FIX 2: Ensure breadcrumb matches canonical
             url: `https://fincado.com/bank-emi/${bank.slug}/`,
-          },
+          }
         ]}
       />
       <CalculatorSchema
@@ -231,7 +231,7 @@ export default async function BankPage({
                 {
                   title: 'Digital Sanction',
                   desc: 'Quick online approval capability for pre-approved customers.',
-                },
+                }
               ].map((item, i) => (
                 <Card
                   key={i}

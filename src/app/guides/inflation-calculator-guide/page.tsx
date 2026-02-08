@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     'how to beat inflation',
     'FD vs inflation',
     'retirement planning inflation',
-    'purchasing power calculator',
+    'purchasing power calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/inflation-calculator-guide/',
@@ -78,7 +78,7 @@ const FAQ_ITEMS = [
     question: 'How does inflation affect retirement planning?',
     answer:
       'Inflation drastically increases the corpus needed. If you spend ₹50,000/month today, at 6% inflation, you will need approx ₹1.6 Lakhs/month in 20 years to maintain the same lifestyle.',
-  },
+  }
 ];
 
 export default function InflationGuidePage() {
@@ -141,7 +141,7 @@ export default function InflationGuidePage() {
           {
             name: 'Inflation Guide',
             url: 'https://fincado.com/guides/inflation-calculator-guide/',
-          },
+          }
         ]}
       />
 

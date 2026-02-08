@@ -41,7 +41,7 @@ export default function HindiHubPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com' },
-          { name: 'हिंदी', url: 'https://fincado.com/hi/' },
+          { name: 'हिंदी', url: 'https://fincado.com/hi/' }
         ]}
       />
 
@@ -141,7 +141,7 @@ export default function HindiHubPage() {
                 '100% सटीक गणना (Accurate Calculations)',
                 'सरल और स्पष्ट हिंदी भाषा',
                 'अपडेटेड ब्याज दरें (Interest Rates)',
-                'मुफ़्त उपयोग (Free to use)',
+                'मुफ़्त उपयोग (Free to use)'
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />

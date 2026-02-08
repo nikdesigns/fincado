@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     'Asset Allocation Planner',
     'Direct vs Regular Mutual Fund',
     'Mutual Fund Tax Calculator 2026',
-    'Inflation Adjusted Returns',
+    'Inflation Adjusted Returns'
   ],
   alternates: {
     canonical: 'https://fincado.com/mutual-funds/',
@@ -106,7 +106,7 @@ export default function MutualFundPage() {
       question: 'What is the 100 minus Age rule?',
       answer:
         'It is a rule of thumb for asset allocation. Subtract your age from 100 to find the percentage of your portfolio that should be in Equity. For example, at age 30, you should have 70% in Equity.',
-    },
+    }
   ];
 
   return (
@@ -131,7 +131,7 @@ export default function MutualFundPage() {
             {
               name: 'Mutual Fund Calculator',
               url: 'https://fincado.com/mutual-funds/',
-            },
+            }
           ]}
         />
 

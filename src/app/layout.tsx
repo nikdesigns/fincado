@@ -123,6 +123,13 @@ export default function RootLayout({
 
         {/* Global Header */}
         <Header />
+        <a
+          href="#main-content"
+          className="fixed top-4 left-4 z-9999 p-2 bg-blue-600 text-white rounded-md text-sm font-medium sr-only focus:not-sr-only focus:outline-none focus:ring-4 focus:ring-blue-300"
+          aria-label="Skip to main content"
+        >
+          Skip to main content
+        </a>
 
         {/* Main Content Area */}
         <main style={{ minHeight: '80vh' }}>{children}</main>

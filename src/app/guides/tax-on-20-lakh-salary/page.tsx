@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '20 LPA take home salary',
     'New vs Old regime for 20 lakh',
     'monthly in hand salary for 20 lakhs',
-    'income tax calculator 2025',
+    'income tax calculator 2025'
   ],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
@@ -101,7 +101,7 @@ export default function Tax20LakhGuide() {
       question: 'How to save tax on 20 LPA salary?',
       answer:
         'To beat the New Regime tax, you need heavy deductions. Use HRA (Rent), Section 24(b) (Home Loan Interest), 80C (₹1.5L), 80D (Health Insurance), and NPS (80CCD1B) to cross the ₹4.85 Lakh threshold.',
-    },
+    }
   ];
 
   return (
@@ -114,7 +114,7 @@ export default function Tax20LakhGuide() {
           {
             name: 'Tax on 20 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

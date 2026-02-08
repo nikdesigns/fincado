@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     'loan calculators india',
     'investment calculators',
     'retirement planning tools',
-    'budget 2026 calculators',
+    'budget 2026 calculators'
   ],
   openGraph: {
     title: 'All Financial Calculators | Fincado (2026 Edition)',
@@ -48,7 +48,7 @@ export default function CalculatorsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Calculators', url: 'https://fincado.com/calculators' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators' }
         ]}
       />
 
@@ -190,7 +190,7 @@ export default function CalculatorsPage() {
                         name: 'Inflation Tool',
                         url: '/inflation-calculator',
                         label: 'Protect power',
-                      },
+                      }
                     ].map((item) => (
                       <li key={item.url}>
                         <Link

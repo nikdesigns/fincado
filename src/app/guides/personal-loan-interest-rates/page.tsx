@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'Lowest Personal Loan Rate',
     'HDFC Personal Loan Rate',
     'SBI Personal Loan Interest Rate',
-    'Compare Bank Loan Rates',
+    'Compare Bank Loan Rates'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/personal-loan-interest-rates/',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         url: '/images/guides/personal-loan/personal-loan-interest-factors.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -92,7 +92,7 @@ export default function PersonalLoanRatesGuide() {
       question: 'Are personal loan interest rates fixed or floating?',
       answer:
         'Most personal loans come with a fixed interest rate, meaning your EMI remains the same throughout the tenure. However, some lenders may offer floating rates linked to the repo rate.',
-    },
+    }
   ];
 
   return (
@@ -137,7 +137,7 @@ export default function PersonalLoanRatesGuide() {
           {
             name: 'Personal Loan Rates',
             url: 'https://fincado.com/guides/personal-loan-interest-rates/',
-          },
+          }
         ]}
       />
 

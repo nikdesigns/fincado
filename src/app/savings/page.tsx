@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'Emergency Fund Calculator',
     'Recurring Deposit Calculator',
     'Monthly Savings Calculator',
-    'Inflation Adjusted Savings',
+    'Inflation Adjusted Savings'
   ],
   alternates: {
     canonical: 'https://fincado.com/savings/',
@@ -65,7 +65,7 @@ export default function SavingsCalculatorPage() {
                   '@type': 'Answer',
                   text: 'For emergency funds and short-term goals, choose safe options like High-Yield Savings Accounts, Fixed Deposits (FDs), or Liquid Mutual Funds. Avoid volatile assets like equity.',
                 },
-              },
+              }
             ],
           }),
         }}
@@ -79,7 +79,7 @@ export default function SavingsCalculatorPage() {
             {
               name: 'Savings Calculator',
               url: 'https://fincado.com/savings/',
-            },
+            }
           ]}
         />
 

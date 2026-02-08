@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'senior citizen savings scheme vs fd',
     'form 15g 15h to avoid tds',
     'safest investment options india 2025',
-    'fd interest rates 2025',
+    'fd interest rates 2025'
   ],
   openGraph: {
     title: 'FD Laddering Strategy: How to Get Higher Returns & Liquidity',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Visual representation of FD Laddering strategy',
-      },
+      }
     ],
   },
 };
@@ -83,7 +83,7 @@ const FAQ_ITEMS = [
     question: 'Which is better: SCSS or Senior Citizen FD?',
     answer:
       'SCSS currently offers higher guaranteed returns (8.2%) and is government-backed, making it better for the first ₹30 Lakh. For amounts above that, Senior Citizen FDs are the best alternative.',
-  },
+  }
 ];
 
 export default function FixedDepositGuidePage() {
@@ -97,7 +97,7 @@ export default function FixedDepositGuidePage() {
           {
             name: 'FD Laddering Strategy',
             url: 'https://fincado.com/guides/fixed-deposit-guide/',
-          },
+          }
         ]}
       />
 

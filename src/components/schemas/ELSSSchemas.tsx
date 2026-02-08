@@ -11,7 +11,7 @@ export function ELSSSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -62,7 +62,7 @@ export function ELSSSchemas() {
       {
         '@type': 'HowToTool',
         name: 'ELSS Calculator',
-      },
+      }
     ],
     step: [
       {
@@ -106,7 +106,7 @@ export function ELSSSchemas() {
         name: 'View Results',
         text: 'Review maturity amount, total investment, wealth gain, and tax savings. Compare with PPF if needed.',
         image: 'https://fincado.com/steps/elss-step6.jpg',
-      },
+      }
     ],
   };
 
@@ -243,7 +243,7 @@ export function ELSSSchemas() {
             name: 'Save & Share Calculations',
             description: 'Save calculations locally and share via WhatsApp',
           },
-        },
+        }
       ],
     },
   };

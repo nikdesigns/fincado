@@ -122,7 +122,7 @@ export default async function HindiGuidePost({ params }: Props) {
           {
             name: article.title,
             url: `https://fincado.com/hi/guides/${article.slug}/`,
-          },
+          }
         ]}
       />
 

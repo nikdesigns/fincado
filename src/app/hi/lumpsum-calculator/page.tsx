@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     'One Time Investment Hindi',
     'Lumpsum vs SIP Hindi',
     'CAGR Calculator Hindi',
-    'Compound Interest Calculator Hindi',
+    'Compound Interest Calculator Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/lumpsum-calculator/',
@@ -200,7 +200,7 @@ export default function HindiLumpsumPage() {
       question: 'Lumpsum निवेश से मुझे कितना रिटर्न मिल सकता है?',
       answer:
         'ऐतिहासिक डेटा दिखाता है कि इक्विटी म्यूचुअल फंड ने 10+ वर्षों में 12-15% CAGR दिया है। डेट फंड 6-8% रिटर्न देते हैं। हालांकि, पिछला प्रदर्शन गारंटीकृत नहीं है। आपका वास्तविक रिटर्न बाजार की स्थितियों और फंड के प्रदर्शन पर निर्भर करता है।',
-    },
+    }
   ];
 
   return (
@@ -218,7 +218,7 @@ export default function HindiLumpsumPage() {
           {
             name: 'Lumpsum कैलकुलेटर',
             url: 'https://fincado.com/hi/lumpsum-calculator/',
-          },
+          }
         ]}
       />
 

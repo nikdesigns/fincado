@@ -11,7 +11,7 @@ export function GratuitySchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function GratuitySchemas() {
         position: 6,
         name: 'Save or Share',
         text: 'Save your gratuity calculation for future reference or share via WhatsApp.',
-      },
+      }
     ],
   };
 
@@ -179,7 +179,7 @@ export function GratuitySchemas() {
             description:
               'Calculate for both covered (26 days) and non-covered (30 days) establishments',
           },
-        },
+        }
       ],
     },
   };

@@ -43,7 +43,7 @@ export default function HindiCalculatorsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'होम', url: 'https://fincado.com/hi/' },
-          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' }
         ]}
       />
 
@@ -195,7 +195,7 @@ export default function HindiCalculatorsPage() {
                   'बजट 2026 के अनुसार अपडेटेड',
                   '100% सटीक और मुफ़्त',
                   'बिना लॉग-इन के उपयोग करें',
-                  'मोबाइल पर भी तेज़ और आसान',
+                  'मोबाइल पर भी तेज़ और आसान'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />

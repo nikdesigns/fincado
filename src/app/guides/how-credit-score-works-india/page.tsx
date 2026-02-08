@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'CIBIL vs Experian',
     'credit utilization ratio',
     'credit score myths',
-    'improve CIBIL score fast',
+    'improve CIBIL score fast'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/how-credit-score-affects-loans/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Credit Score Guide India 2025',
-      },
+      }
     ],
   },
 };
@@ -104,7 +104,7 @@ const FAQ_ITEMS = [
     question: 'Will closing my credit card improve my credit score?',
     answer:
       'No, closing credit cards usually hurts your score because it reduces your total available credit (increasing utilization %) and decreases average credit history length.',
-  },
+  }
 ];
 
 export default function CreditScoreGuidePage() {
@@ -148,7 +148,7 @@ export default function CreditScoreGuidePage() {
           {
             name: 'Credit Score Guide',
             url: 'https://fincado.com/guides/how-credit-score-affects-loans/',
-          },
+          }
         ]}
       />
 

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'ELSS lock in period vs FD',
     'Section 80C investment options',
     'Post tax returns ELSS vs FD',
-    'Best tax saving scheme 2025',
+    'Best tax saving scheme 2025'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/elss-vs-fd/',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         url: '/images/guides/elss/elss-guide-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -88,7 +88,7 @@ const FAQ_ITEMS = [
     question: 'Which has a shorter lock-in: ELSS or tax-saver FD?',
     answer:
       'ELSS has a 3-year lock-in (shortest among Section 80C options), while tax-saver FD has a 5-year lock-in with no premature withdrawal allowed.',
-  },
+  }
 ];
 
 export default function ElssVsFdGuidePage() {
@@ -143,7 +143,7 @@ export default function ElssVsFdGuidePage() {
           {
             name: 'ELSS vs FD',
             url: 'https://fincado.com/guides/elss-vs-fd/',
-          },
+          }
         ]}
       />
 

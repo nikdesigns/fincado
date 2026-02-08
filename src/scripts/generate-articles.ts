@@ -105,7 +105,7 @@ const topics: Topic[] = [
     category: 'Investments',
     metaDescription:
       'The ultimate battle: SIP vs FD. We compare 10 & 20-year returns, taxation, and inflation impact.',
-  },
+  }
 ];
 
 /* ✅ MOCK CONTENT GENERATOR (FIXED TYPES) */

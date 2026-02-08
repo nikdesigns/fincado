@@ -26,7 +26,7 @@ export default function RelatedTopicsSidebar({
   const calculators = [
     { title: 'EMI Calculator', href: '/emi-calculator/' },
     { title: 'SIP Calculator', href: '/sip-calculator/' },
-    { title: 'FD Calculator', href: '/fd-calculator/' },
+    { title: 'FD Calculator', href: '/fd-calculator/' }
   ];
 
   return (

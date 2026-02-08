@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'रिटायरमेंट कैलकुलेटर',
     'पेंशन कैलकुलेटर',
     'रिटायरमेंट प्लानिंग',
-    'कॉर्पस कैलकुलेटर',
+    'कॉर्पस कैलकुलेटर'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/retirement-calculator/',
@@ -162,7 +162,7 @@ export default function HindiRetirementPage() {
       question: 'क्या मैं ₹5 करोड़ के साथ 50 पर रिटायर हो सकता हूं?',
       answer:
         'हाँ, यदि खर्च ₹1.5-2 लाख/माह है। 4% नियम का उपयोग करते हुए, ₹5 करोड़ 25-30 वर्षों के लिए सुरक्षित रूप से ₹20 लाख/वर्ष (₹1.67L/माह) उत्पन्न करता है। लेकिन महंगाई के लिए जिम्मेदार - यह राशि क्रय शक्ति में कम हो जाएगी। महंगाई को मात देने के लिए शुरू में 60% इक्विटी में रखें।',
-    },
+    }
   ];
 
   return (
@@ -174,7 +174,7 @@ export default function HindiRetirementPage() {
           {
             name: 'रिटायरमेंट कैलकुलेटर',
             url: 'https://fincado.com/hi/retirement-calculator/',
-          },
+          }
         ]}
       />
 

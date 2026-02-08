@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     'Rule of 72 Calculator',
     'Investment Growth Calculator',
     'Compounding Frequency Calculator',
-    'CI vs SI Comparison',
+    'CI vs SI Comparison'
   ],
   alternates: {
     canonical: 'https://fincado.com/compound-interest-calculator/',
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Compound Interest Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -150,7 +150,7 @@ const faqItems = [
     question: 'How to maximize compound interest returns?',
     answer:
       'Seven strategies: (1) Start early (20 years at 10% = 6.7x principal vs 10 years = 2.6x), (2) Choose higher compounding frequency (monthly > quarterly > yearly), (3) Never withdraw interest (reinvest for compounding), (4) Increase principal regularly (SIP/STP compounds monthly), (5) Maximize tenure (15-20 years for exponential growth), (6) Pick tax-efficient options (PPF EEE, ELSS LTCG 10%), (7) Stay in equity for 10+ years (12-15% vs 6-7% FD doubles returns).',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -239,7 +239,7 @@ export default function CompoundInterestPage() {
           {
             name: 'Compound Interest Calculator',
             url: 'https://fincado.com/compound-interest-calculator/',
-          },
+          }
         ]}
       />
 

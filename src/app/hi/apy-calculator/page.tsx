@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'Guaranteed Pension Calculator Hindi',
     'PFRDA Pension Hindi',
     'APY योगदान चार्ट',
-    'अटल पेंशन योजना लाभ',
+    'अटल पेंशन योजना लाभ'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/apy-calculator/',
@@ -231,7 +231,7 @@ export default function APYCalculatorPageHindi() {
       question: 'क्या केंद्रीय बजट 2026 ने APY नियम बदले?',
       answer:
         'केंद्रीय बजट 2026 ने APY योगदान दरों, पेंशन राशि या पात्रता मानदंड में कोई बदलाव नहीं किया। यह योजना मौजूदा PFRDA दिशानिर्देशों के अनुसार समान 5 पेंशन स्लैब (₹1,000 से ₹5,000) के साथ संचालित होती रहती है।',
-    },
+    }
   ];
 
   return (
@@ -243,7 +243,7 @@ export default function APYCalculatorPageHindi() {
           {
             name: 'APY कैलकुलेटर',
             url: 'https://fincado.com/hi/apy-calculator/',
-          },
+          }
         ]}
       />
 

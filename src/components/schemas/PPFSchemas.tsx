@@ -11,7 +11,7 @@ export function PPFSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -94,7 +94,7 @@ export function PPFSchemas() {
         position: 6,
         name: 'Analyze Year-wise Growth',
         text: 'Enable year-wise breakdown to see how your PPF corpus grows over the first 5 years.',
-      },
+      }
     ],
   };
 
@@ -174,7 +174,7 @@ export function PPFSchemas() {
             description:
               'Compare monthly SIP-style deposits vs annual lump sum contribution',
           },
-        },
+        }
       ],
     },
   };

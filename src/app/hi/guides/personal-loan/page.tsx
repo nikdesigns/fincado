@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'Personal Loan Hindi',
     'Personal Loan Interest Rates',
     'Personal Loan EMI Calculator',
-    'Instant Loan Apps',
+    'Instant Loan Apps'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/personal-loan/',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
         url: '/images/og/personal-loan-guide.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -96,7 +96,7 @@ export default function HindiPersonalLoanGuide() {
       question: 'लोन रिजेक्ट क्यों होता है?',
       answer:
         'खराब सिबिल स्कोर, बहुत सारे पुराने लोन, या बार-बार नौकरी बदलने के कारण लोन रिजेक्ट हो सकता है。',
-    },
+    }
   ];
 
   return (
@@ -142,7 +142,7 @@ export default function HindiPersonalLoanGuide() {
           {
             name: 'Personal Loan',
             url: 'https://fincado.com/hi/guides/personal-loan/',
-          },
+          }
         ]}
       />
 
@@ -279,7 +279,7 @@ export default function HindiPersonalLoanGuide() {
             icon: <CreditCard className="w-5 h-5 text-purple-500" />,
             title: 'Credit Card Repayment',
             desc: 'क्रेडिट कार्ड का 40% ब्याज चुकाने के लिए कम ब्याज वाला लोन。',
-          },
+          }
         ].map((item, i) => (
           <div
             key={i}
@@ -490,7 +490,7 @@ export default function HindiPersonalLoanGuide() {
           'Hidden Charges: लेट फीस, इंश्योरेंस चार्ज, आदि।',
           'Fixed vs Floating: पर्सनल लोन फिक्स्ड रेट पर ही लें।',
           'EMI Affordability: आपकी इनकम का 40% से ज्यादा EMI में नहीं जाना चाहिए।',
-          'Compare Offers: कम से कम 3 बैंकों से तुलना करें。',
+          'Compare Offers: कम से कम 3 बैंकों से तुलना करें。'
         ].map((item, i) => (
           <div
             key={i}
@@ -617,7 +617,7 @@ export default function HindiPersonalLoanGuide() {
           {
             title: 'Auto-Debit फेल होना',
             desc: 'खाते में बैलेंस न होने से बाउंस चार्ज लगता है, और यह आपकी क्रेडिट हिस्ट्री पर एक बड़ा "Red Flag" है।',
-          },
+          }
         ].map((item, i) => (
           <Card
             key={i}

@@ -22,7 +22,7 @@ export const loanRates = [
     rate: '8.65%',
     fee: '₹9,000',
     applyUrl: '#',
-  },
+  }
 ];
 
 export const rateLastUpdated = 'January 2025';

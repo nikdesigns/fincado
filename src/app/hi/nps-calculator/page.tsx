@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     'NPS Investment Calculator Hindi',
     'NPS Annuity Calculator Hindi',
     'राष्ट्रीय पेंशन प्रणाली कैलकुलेटर',
-    'एनपीएस कैलकुलेटर',
+    'एनपीएस कैलकुलेटर'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/nps-calculator/',
@@ -250,7 +250,7 @@ export default function NPSCalculatorPageHindi() {
       question: 'क्या NPS स्व-नियोजित/फ्रीलांसरों के लिए उपयुक्त है?',
       answer:
         'हाँ! स्व-नियोजित पूर्ण ₹2L कटौती (80C + 80CCD(1B)) + सकल आय का 10% व्यवसाय खर्च के रूप में क्लेम कर सकते हैं। NPS उन लोगों के लिए रिटायरमेंट योजना अंतर को भरती है जिनके पास EPF नहीं है। अधिकतम वृद्धि के लिए युवा होने पर आक्रामक आवंटन (75% इक्विटी) चुनें। कम 0.01% शुल्क इसे सबसे लागत प्रभावी रिटायरमेंट उत्पाद बनाता है।',
-    },
+    }
   ];
 
   return (
@@ -262,7 +262,7 @@ export default function NPSCalculatorPageHindi() {
           {
             name: 'NPS कैलकुलेटर',
             url: 'https://fincado.com/hi/nps-calculator/',
-          },
+          }
         ]}
       />
 

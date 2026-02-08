@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'inflation adjusted retirement',
     'retirement mistakes to avoid',
     'NPS tier 1 vs tier 2',
-    'early retirement India',
+    'early retirement India'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/retirement-planning-india/',
@@ -74,7 +74,7 @@ const FAQ_ITEMS = [
     question: 'What is the 4% withdrawal rule?',
     answer:
       'The 4% rule suggests you can withdraw 4% of your retirement corpus annually to cover expenses, adjusting for inflation, without running out of money for at least 30 years.',
-  },
+  }
 ];
 
 export default function RetirementPlanningGuidePage() {
@@ -139,7 +139,7 @@ export default function RetirementPlanningGuidePage() {
           {
             name: 'Retirement Planning',
             url: 'https://fincado.com/guides/retirement-planning-india/',
-          },
+          }
         ]}
       />
 

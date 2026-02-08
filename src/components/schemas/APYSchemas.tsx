@@ -31,7 +31,7 @@ export function APYSchemas() {
         name: 'View Your Contribution',
         text: 'Calculator instantly shows your periodic contribution amount, total investment till age 60, and corpus for nominee.',
         position: 4,
-      },
+      }
     ],
   };
 
@@ -55,7 +55,7 @@ export function APYSchemas() {
       'Compare pension scenarios',
       'Save calculation history',
       'Share via WhatsApp',
-      'Government-backed pension planning',
+      'Government-backed pension planning'
     ],
   };
 

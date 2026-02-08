@@ -125,7 +125,7 @@ export default async function CityEMIPage({
           {
             name: cityData.name,
             url: `https://fincado.com/emi-calculator/${city}/`,
-          },
+          }
         ]}
       />
 

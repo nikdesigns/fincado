@@ -17,7 +17,7 @@ export default function HeroWithStats({
     { value: '10+', label: 'Tools' },
     { value: '5,000+', label: 'Monthly Users' },
     { value: '₹500 Cr+', label: 'EMIs Calculated' },
-    { value: '100%', label: 'Free & Secure' },
+    { value: '100%', label: 'Free & Secure' }
   ];
 
   return (

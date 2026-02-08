@@ -21,7 +21,7 @@ export function CarLoanSchemas() {
       'Used Car Loan Calculator',
       'Prepayment Analysis',
       'Bank Rate Comparison',
-      'Down Payment Calculator',
+      'Down Payment Calculator'
     ],
   };
 
@@ -52,7 +52,7 @@ export function CarLoanSchemas() {
         position: 4,
         name: 'Car Loan EMI Calculator',
         item: 'https://fincado.com/emi-calculator/car-loan',
-      },
+      }
     ],
   };
 
@@ -90,7 +90,7 @@ export function CarLoanSchemas() {
         position: 5,
         name: 'View Results',
         text: 'Get monthly EMI, total interest, and complete repayment schedule',
-      },
+      }
     ],
   };
 

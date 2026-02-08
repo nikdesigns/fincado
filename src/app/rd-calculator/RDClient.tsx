@@ -73,7 +73,7 @@ const POPULAR_BANKS: BankRate[] = [
     generalRate: 7.1,
     seniorRate: 7.6,
     tenure: '1-3 Years',
-  },
+  }
 ];
 
 export default function RDClient() {

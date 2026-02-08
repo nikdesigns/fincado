@@ -49,7 +49,7 @@ const CONFIG = {
     {
       label: 'Plan comfortably over 15 years',
       url: '/guides/sip-for-50-lakhs-in-15-years',
-    },
+    }
   ],
 };
 
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   keywords: [
     `SIP for ${CONFIG.amount} in ${CONFIG.years} years`,
     'sip calculator',
-    'mutual fund returns',
+    'mutual fund returns'
   ],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
@@ -92,7 +92,7 @@ export default function GuideTemplate() {
       question: 'Is SIP safe for this goal?',
       answer:
         'SIP is safer than lump sum investing because it averages out market volatility over time.',
-    },
+    }
   ];
 
   return (
@@ -104,7 +104,7 @@ export default function GuideTemplate() {
           {
             name: `${CONFIG.amount} in ${CONFIG.years} Years`,
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

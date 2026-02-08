@@ -59,7 +59,7 @@ export default function HindiGuidesPage() {
           {
             name: 'आर्टिकल्स (Guides)',
             url: 'https://fincado.com/hi/guides/',
-          },
+          }
         ]}
       />
 

@@ -158,7 +158,7 @@ export default function CarLoanEMIClient() {
     loanAmount,
     rate,
     tenure,
-    calculations.emi,
+    calculations.emi
   ]);
 
   const handleSaveCalculation = () => {

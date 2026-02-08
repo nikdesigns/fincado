@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     'Portfolio Planner',
     'Lumpsum Calculator',
     'Financial Goal Planner',
-    'Equity vs Debt',
+    'Equity vs Debt'
   ],
   alternates: {
     canonical: 'https://fincado.com/investing/',
@@ -103,7 +103,7 @@ export default function InvestingPage() {
             {
               name: 'Investing Planner',
               url: 'https://fincado.com/investing/',
-            },
+            }
           ]}
         />
 

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'best investment for girl child india',
     'sukanya samriddhi interest rate 2025',
     'ssy calculator 2025',
-    '60-40 investment rule',
+    '60-40 investment rule'
   ],
   openGraph: {
     title:
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Father and daughter planning financial future',
-      },
+      }
     ],
   },
 };
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
     question: 'Can I withdraw money from SSY before 21 years?',
     answer:
       'Partial withdrawal (50%) is allowed after the girl turns 18 for higher education. Full withdrawal is allowed on maturity (21 years) or marriage after 18.',
-  },
+  }
 ];
 
 export default function SSYGuidePage() {
@@ -95,7 +95,7 @@ export default function SSYGuidePage() {
           {
             name: 'SSY vs PPF vs Mutual Funds',
             url: 'https://fincado.com/guides/ssy-guide/',
-          },
+          }
         ]}
       />
 

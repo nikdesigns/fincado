@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     'secured vs unsecured education loan',
     'education loan interest rates 2025',
     'moratorium period interest calculation',
-    'documents for education loan',
+    'documents for education loan'
   ],
   openGraph: {
     title:
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Student with luggage at airport dreaming of study abroad',
-      },
+      }
     ],
   },
 };
@@ -79,7 +79,7 @@ const FAQ_ITEMS = [
     question: 'Should I pay interest during the moratorium period?',
     answer:
       'Yes, if possible. Paying simple interest during the moratorium prevents capitalization (interest on interest) and can save ₹3-5 lakh or more over the loan tenure.',
-  },
+  }
 ];
 
 export default function EducationLoanGuidePage() {
@@ -92,7 +92,7 @@ export default function EducationLoanGuidePage() {
           {
             name: 'Education Loan Guide',
             url: 'https://fincado.com/guides/education-loan-guide/',
-          },
+          }
         ]}
       />
 

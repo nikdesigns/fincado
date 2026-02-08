@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'IGST CGST SGST Calculator',
     'GST Tax Calculator Online',
     'Add GST to Price',
-    'Remove GST from MRP',
+    'Remove GST from MRP'
   ],
   alternates: {
     canonical: 'https://fincado.com/gst-calculator/',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado GST Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -140,7 +140,7 @@ const faqItems = [
     question: 'What is HSN/SAC code in GST?',
     answer:
       'HSN (Harmonized System of Nomenclature) is 6-8 digit code for goods classification. SAC (Services Accounting Code) is 6-digit code for services. Used to determine applicable GST rate. Mandatory in invoices: 4-digit for turnover > ₹5 crore, 2-digit for ₹1.5-5 crore, optional below ₹1.5 crore.',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -242,7 +242,7 @@ export default function GSTPage() {
           {
             name: 'GST Calculator',
             url: 'https://fincado.com/gst-calculator/',
-          },
+          }
         ]}
       />
 

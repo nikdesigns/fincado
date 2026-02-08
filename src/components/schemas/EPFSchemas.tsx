@@ -11,7 +11,7 @@ export function EPFSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -100,7 +100,7 @@ export function EPFSchemas() {
         position: 7,
         name: 'Save or Share Plan',
         text: 'Save your EPF calculation for future reference or share via WhatsApp with family/advisor.',
-      },
+      }
     ],
   };
 
@@ -203,7 +203,7 @@ export function EPFSchemas() {
             description:
               '100% tax exemption analysis under EEE status after 5 years',
           },
-        },
+        }
       ],
     },
   };

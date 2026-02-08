@@ -46,14 +46,14 @@ export const metadata: Metadata = {
     '1 crore sip calculator',
     'monthly investment for 1 crore',
     'SIP step up calculator',
-    '1 crore in 10 years strategy',
+    '1 crore in 10 years strategy'
   ],
   twitter: {
     card: 'summary_large_image',
     title: 'How much SIP is needed for ₹1 Crore in 10 Years?',
     description: 'The exact math to becoming a Crorepati in a decade.',
     images: [
-      '/images/guides/mf/mutual-fund-guide-hero.webp',
+      '/images/guides/mf/mutual-fund-guide-hero.webp'
     ],
   },
   alternates: {
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 600,
         alt: 'Roadmap to 1 Crore Wealth',
-      },
+      }
     ],
   },
 };
@@ -104,7 +104,7 @@ export default function Sip1Cr10YearsPage() {
       question: 'Can I reach 1 Crore with less than ₹43k SIP?',
       answer:
         'Yes, using the Step-Up SIP method. If you start with ₹25,000/month and increase your investment by 15% every year (as your salary grows), you can still hit the ₹1 Crore target in 10 years.',
-    },
+    }
   ];
 
   return (
@@ -116,7 +116,7 @@ export default function Sip1Cr10YearsPage() {
           {
             name: '1 Crore in 10 Years',
             url: 'https://fincado.com/guides/sip-for-1-crore-in-10-years/',
-          },
+          }
         ]}
       />
 

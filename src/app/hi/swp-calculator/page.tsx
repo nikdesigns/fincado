@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'Mutual Fund SWP Hindi',
     'Retirement Income Calculator Hindi',
     'SWP vs SIP Hindi',
-    'Pension Calculator Hindi',
+    'Pension Calculator Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/swp-calculator/',
@@ -209,7 +209,7 @@ export default function HindiSWPPage() {
       question: 'क्या मैं SIP निवेश से SWP शुरू कर सकता हूं?',
       answer:
         'हां! एक बार जब आपका SIP कोष आरामदायक स्तर (जैसे, ₹20-30 लाख) तक पहुंच जाता है, तो आप SWP शुरू कर सकते हैं। कई निवेशक आय के लिए परिपक्व फंड से SWP लेते हुए ग्रोथ फंड में SIP जारी रखते हैं।',
-    },
+    }
   ];
 
   return (
@@ -227,7 +227,7 @@ export default function HindiSWPPage() {
           {
             name: 'SWP कैलकुलेटर',
             url: 'https://fincado.com/hi/swp-calculator/',
-          },
+          }
         ]}
       />
 

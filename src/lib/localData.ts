@@ -18,7 +18,7 @@ export interface StateDocs {
 export function parsePropertyRate(rateStr: string) {
   try {
     // Remove ₹ and commas, split by '-'
-    const cleanStr = rateStr.replace(/[₹,]/g, '');
+    const cleanStr = rateStr.replace(/[₹]/g, '');
     const parts = cleanStr.split('-').map((s) => parseInt(s.trim()));
 
     if (parts.length < 2 || isNaN(parts[0])) {
@@ -46,7 +46,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       'thane',
       'navi-mumbai',
       'nashik',
-      'aurangabad',
+      'aurangabad'
     ].includes(s)
   ) {
     return {
@@ -55,7 +55,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       documents: [
         '7/12 Extract (Satbara)',
         'Index II',
-        'Occupancy Certificate (OC)',
+        'Occupancy Certificate (OC)'
       ],
     };
   }
@@ -69,7 +69,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       documents: [
         'A-Khata / B-Khata',
         'Encumbrance Certificate (EC)',
-        'Sale Deed',
+        'Sale Deed'
       ],
     };
   }
@@ -86,7 +86,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       'kanpur',
       'agra',
       'allahabad',
-      'varanasi',
+      'varanasi'
     ].includes(s)
   ) {
     return {
@@ -95,7 +95,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       documents: [
         'Allotment Letter',
         'Possession Certificate',
-        'Conveyance Deed',
+        'Conveyance Deed'
       ],
     };
   }
@@ -107,7 +107,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       documents: [
         'Patta Chitta',
         'Encumbrance Certificate',
-        'Construction Agreement',
+        'Construction Agreement'
       ],
     };
   }
@@ -119,7 +119,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       documents: [
         '7/12 Extract',
         'Property Card',
-        'BU Permission (Building Use)',
+        'BU Permission (Building Use)'
       ],
     };
   }
@@ -139,7 +139,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       documents: [
         'Possession Certificate',
         'Location Certificate',
-        'Title Deed',
+        'Title Deed'
       ],
     };
   }
@@ -173,7 +173,7 @@ export const cityDetails: Record<string, CityData> = {
       'Dadar',
       'Colaba',
       'Juhu',
-      'Powai',
+      'Powai'
     ],
     description:
       'the financial capital of India, characterized by high-value property markets and a fast-paced lifestyle',
@@ -190,7 +190,7 @@ export const cityDetails: Record<string, CityData> = {
       'Rohini',
       'Saket',
       'Lajpat Nagar',
-      'Vasant Kunj',
+      'Vasant Kunj'
     ],
     description:
       'the national capital, offering a diverse mix of DDA flats, luxury independent floors, and government housing',
@@ -207,7 +207,7 @@ export const cityDetails: Record<string, CityData> = {
       'Koramangala',
       'HSR Layout',
       'Jayanagar',
-      'Electronic City',
+      'Electronic City'
     ],
     description:
       'the Silicon Valley of India, with a booming real estate market driven by the IT and startup sector',
@@ -233,7 +233,7 @@ export const cityDetails: Record<string, CityData> = {
       'Banjara Hills',
       'Jubilee Hills',
       'Kukatpally',
-      'Hitech City',
+      'Hitech City'
     ],
     description:
       'a rapidly growing IT and pharma hub known for its excellent infrastructure and affordable premium housing',
@@ -260,7 +260,7 @@ export const cityDetails: Record<string, CityData> = {
       'Wakad',
       'Baner',
       'Hadapsar',
-      'Hinjewadi',
+      'Hinjewadi'
     ],
     description:
       'a major education and auto hub, known for its pleasant weather and high demand for rental yield properties',
@@ -288,7 +288,7 @@ export const cityDetails: Record<string, CityData> = {
       'Golf Course Road',
       'Sohna Road',
       'Sector 56',
-      'Udyog Vihar',
+      'Udyog Vihar'
     ],
     description:
       'a leading financial and industrial hub with one of the highest per capita incomes in India',
@@ -304,7 +304,7 @@ export const cityDetails: Record<string, CityData> = {
       'Sector 62',
       'Sector 150',
       'Greater Noida West',
-      'Botanical Garden',
+      'Botanical Garden'
     ],
     description:
       'a systematically planned city offering wide roads, green cover, and affordable high-rise apartments',
@@ -320,7 +320,7 @@ export const cityDetails: Record<string, CityData> = {
       'Majiwada',
       'Vartak Nagar',
       'Hiranandani Estate',
-      'Teen Hath Naka',
+      'Teen Hath Naka'
     ],
     description:
       'the City of Lakes, which has evolved from an industrial town to a premium residential destination',
@@ -348,7 +348,7 @@ export const cityDetails: Record<string, CityData> = {
       'Malviya Nagar',
       'Jagatpura',
       'Mansarovar',
-      'C-Scheme',
+      'C-Scheme'
     ],
     description:
       'the Pink City, blending heritage tourism with a fast-growing IT and modern housing sector',
@@ -364,7 +364,7 @@ export const cityDetails: Record<string, CityData> = {
       'Hazratganj',
       'Aliganj',
       'Indira Nagar',
-      'Amar Shaheed Path',
+      'Amar Shaheed Path'
     ],
     description:
       'the capital of UP, seeing rapid infrastructural growth with the expansion of Metro and Expressways',
@@ -380,7 +380,7 @@ export const cityDetails: Record<string, CityData> = {
       'Civil Lines',
       'Kakadeo',
       'Kidwai Nagar',
-      'Kalyanpur',
+      'Kalyanpur'
     ],
     description:
       'a major industrial center of North India, known for its leather industry and educational institutes',
@@ -406,7 +406,7 @@ export const cityDetails: Record<string, CityData> = {
       'Clement Town',
       'Dalanwala',
       'Vasant Vihar',
-      'Sahastradhara',
+      'Sahastradhara'
     ],
     description:
       'a scenic educational hub in the foothills of the Himalayas, popular for retirement and second homes',
@@ -422,7 +422,7 @@ export const cityDetails: Record<string, CityData> = {
       'Civil Lines',
       'Model Town',
       'Ferozepur Road',
-      'Pakhowal Road',
+      'Pakhowal Road'
     ],
     description:
       'the industrial hub of Punjab, often called the Manchester of India',
@@ -438,7 +438,7 @@ export const cityDetails: Record<string, CityData> = {
       'Green Avenue',
       'Mall Road',
       'Lawrence Road',
-      'Basant Avenue',
+      'Basant Avenue'
     ],
     description:
       'a holy city with a thriving commercial market driven by tourism and trade',
@@ -456,7 +456,7 @@ export const cityDetails: Record<string, CityData> = {
       'Saket Nagar',
       'Palasia',
       'Bhawarkua',
-      'Super Corridor',
+      'Super Corridor'
     ],
     description:
       'the cleanest city in India, serving as the commercial capital of Madhya Pradesh',
@@ -472,7 +472,7 @@ export const cityDetails: Record<string, CityData> = {
       'Kolar Road',
       'Hoshangabad Road',
       'MP Nagar',
-      'Saket Nagar',
+      'Saket Nagar'
     ],
     description:
       'known as the City of Lakes, offering a green and peaceful environment for government employees',
@@ -488,7 +488,7 @@ export const cityDetails: Record<string, CityData> = {
       'Manish Nagar',
       'Wardha Road',
       'Civil Lines',
-      'Sadar',
+      'Sadar'
     ],
     description:
       'the winter capital of Maharashtra and a key logistics hub in the center of India',
@@ -524,7 +524,7 @@ export const cityDetails: Record<string, CityData> = {
       'Amin Marg',
       'University Road',
       '150 Feet Ring Road',
-      'Nana Mava',
+      'Nana Mava'
     ],
     description:
       'a key industrial city in the Saurashtra region, known for its engineering and auto parts units',
@@ -542,7 +542,7 @@ export const cityDetails: Record<string, CityData> = {
       'Seethammadhara',
       'Madhurawada',
       'Gajuwaka',
-      'Beach Road',
+      'Beach Road'
     ],
     description:
       'a port city and industrial center, also known as the Jewel of the East Coast',
@@ -558,7 +558,7 @@ export const cityDetails: Record<string, CityData> = {
       'Gandhipuram',
       'Peelamedu',
       'Saravanampatti',
-      'Avinashi Road',
+      'Avinashi Road'
     ],
     description:
       'the Manchester of South India, known for its textile, engineering, and educational institutions',
@@ -584,7 +584,7 @@ export const cityDetails: Record<string, CityData> = {
       'Gokulam',
       'Jayalakshmipuram',
       'Hebbal',
-      'Saraswathipuram',
+      'Saraswathipuram'
     ],
     description:
       'a heritage city known for its palaces, clean environment, and growing IT presence',
@@ -602,7 +602,7 @@ export const cityDetails: Record<string, CityData> = {
       'Kankarbagh',
       'Rajendra Nagar',
       'Bailey Road',
-      'Patliputra Colony',
+      'Patliputra Colony'
     ],
     description:
       'an ancient historic city and the capital of Bihar, now seeing modern infrastructural redevelopment',
@@ -618,7 +618,7 @@ export const cityDetails: Record<string, CityData> = {
       'Saheed Nagar',
       'Khandagiri',
       'Jayadev Vihar',
-      'Chandrasekharpur',
+      'Chandrasekharpur'
     ],
     description:
       'the Temple City of India, emerging as an education and IT hub in the east',
@@ -655,7 +655,7 @@ export const cityDetails: Record<string, CityData> = {
       'Vattiyoorkavu',
       'Vizhinjam',
       'Pattom',
-      'Vellayambalam',
+      'Vellayambalam'
     ],
     description:
       'the capital city of Kerala, known for its IT hubs and historic landmarks',
@@ -701,7 +701,7 @@ export const cityDetails: Record<string, CityData> = {
       'Shastri Nagar',
       'Pallavpuram',
       'Ganga Nagar',
-      'Partapur',
+      'Partapur'
     ],
     description:
       'an ancient city in UP undergoing rapid growth as part of the National Capital Region (NCR)',
@@ -717,7 +717,7 @@ export const cityDetails: Record<string, CityData> = {
       'Rama Mandi',
       'Adarsh Nagar',
       'GT Road',
-      'Jalandhar Cantt',
+      'Jalandhar Cantt'
     ],
     description:
       'a major commercial and industrial center in Punjab, famous for sports goods manufacturing',
@@ -753,7 +753,7 @@ export const cityDetails: Record<string, CityData> = {
       'Panchavati',
       'Gangapur Road',
       'Pathardi Phata',
-      'Cidco',
+      'Cidco'
     ],
     description:
       'the Wine Capital of India and a key industrial hub in Maharashtra',
@@ -769,7 +769,7 @@ export const cityDetails: Record<string, CityData> = {
       'Choupasni Housing Board',
       'Paota',
       'Ratanada',
-      'Sardarpura',
+      'Sardarpura'
     ],
     description:
       'the Sun City of Rajasthan, known for its rich culture and growing handicraft industry',
@@ -805,7 +805,7 @@ export const cityDetails: Record<string, CityData> = {
       'Vaishali',
       'Raj Nagar Extension',
       'Vasundhara',
-      'Crossings Republik',
+      'Crossings Republik'
     ],
     description:
       'the Gateway of UP, a major residential and industrial hub within the NCR',
@@ -822,7 +822,7 @@ export const cityDetails: Record<string, CityData> = {
       'Sikandra',
       'Dayal Bagh',
       'Kamla Nagar',
-      'Fatehabad Road',
+      'Fatehabad Road'
     ],
     description:
       'a historic city and major tourist destination with a growing residential real estate market',
@@ -858,7 +858,7 @@ export const cityDetails: Record<string, CityData> = {
       'KK Nagar',
       'Byepass Road',
       'TVS Nagar',
-      'Vakkil New Street',
+      'Vakkil New Street'
     ],
     description:
       'the cultural capital of Tamil Nadu, seeing steady growth in the affordable housing sector',
@@ -924,7 +924,7 @@ export const cityDetails: Record<string, CityData> = {
       'Sadashiv Nagar',
       'Hanuman Nagar',
       'Camp',
-      'Mandoli Road',
+      'Mandoli Road'
     ],
     description:
       'a smart city on the Karnataka-Maharashtra border with a pleasant climate and military base',
@@ -942,7 +942,7 @@ export const cityDetails: Record<string, CityData> = {
       'Civil Lines',
       'Market Area',
       'Railway Station Area',
-      'Industrial Area',
+      'Industrial Area'
     ],
     description:
       'a growing urban center with rising demand for housing and personal finance solutions',

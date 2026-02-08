@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'fire movement india',
     'swp vs dividend tax',
     'retirement bucketing strategy',
-    'inflation adjusted swp calculator',
+    'inflation adjusted swp calculator'
   ],
   openGraph: {
     title:
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Relaxed retired couple enjoying financial freedom',
-      },
+      }
     ],
   },
 };
@@ -83,7 +83,7 @@ const FAQ_ITEMS = [
     question: 'How does the bucketing strategy work?',
     answer:
       'Bucketing divides corpus into 3 parts: Bucket 1 (Liquid/Cash) for 1-3 years expenses, Bucket 2 (Debt) for 4-10 years, and Bucket 3 (Equity) for 10+ years growth.',
-  },
+  }
 ];
 
 export default function SWPGuidePage() {
@@ -97,7 +97,7 @@ export default function SWPGuidePage() {
           {
             name: 'SWP & FIRE Guide',
             url: 'https://fincado.com/guides/swp-guide/',
-          },
+          }
         ]}
       />
 

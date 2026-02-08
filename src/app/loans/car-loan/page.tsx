@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'vehicle loan emi',
     'hdfc car loan',
     'sbi car loan',
-    'car loan prepayment',
+    'car loan prepayment'
   ],
   alternates: {
     canonical: '/loans/car-loan/',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Car Loan EMI Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -195,7 +195,7 @@ export default function CarLoanEMIPage() {
       question: 'How is car loan eligibility calculated?',
       answer:
         'Eligibility depends on: (1) Monthly income (minimum ₹25,000), (2) Credit score (minimum 650, preferably 750+), (3) Age (21-65 years), (4) EMI to income ratio (should not exceed 50%), and (5) Employment stability (2+ years work experience).',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -213,7 +213,7 @@ export default function CarLoanEMIPage() {
           {
             name: 'Car Loan EMI Calculator',
             url: '/loans/car-loan/',
-          },
+          }
         ]}
       />
 

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'EPF Balance Calculator Hindi',
     'EPF Tax Calculator Hindi',
     'भविष्य निधि कैलकुलेटर',
-    'कर्मचारी भविष्य निधि कैलकुलेटर',
+    'कर्मचारी भविष्य निधि कैलकुलेटर'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/epf-calculator/',
@@ -238,7 +238,7 @@ export default function EPFCalculatorPageHindi() {
       question: 'मृत्यु के बाद EPF का क्या होता है?',
       answer:
         'EPF कॉर्पस तुरंत नॉमिनी (पति/पत्नी, बच्चे, या पंजीकृत नॉमिनी) को जाता है। नॉमिनी को मृत्यु प्रमाण पत्र, दावा फॉर्म (फॉर्म 20), और KYC जमा करना होगा। ब्याज सहित पूर्ण कॉर्पस टैक्स-फ्री भुगतान किया जाता है। EDLI (बीमा) भी नॉमिनी को ₹7 लाख (अधिकतम) का भुगतान करती है। मृत्यु दावा निकासी पर कोई TDS नहीं।',
-    },
+    }
   ];
 
   return (
@@ -250,7 +250,7 @@ export default function EPFCalculatorPageHindi() {
           {
             name: 'EPF कैलकुलेटर',
             url: 'https://fincado.com/hi/epf-calculator/',
-          },
+          }
         ]}
       />
 

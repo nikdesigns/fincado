@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     '6 LPA in hand salary',
     'is 6 lakh income tax free',
     'section 87a rebate limit 2025',
-    '6 lakh salary tax calculator',
+    '6 lakh salary tax calculator'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -91,7 +91,7 @@ export default function Tax6LakhGuide() {
       question: 'What is the in-hand salary for 6 LPA?',
       answer:
         'Since there is zero tax, your monthly in-hand salary is high. After deducting PF (~₹3,000) and Professional Tax (₹200), you get approximately ₹46,800 per month.',
-    },
+    }
   ];
 
   return (
@@ -104,7 +104,7 @@ export default function Tax6LakhGuide() {
           {
             name: 'Tax on 6 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

@@ -81,7 +81,7 @@ const POPULAR_BANKS: BankRate[] = [
     generalRate: 7.0,
     seniorRate: 7.5,
     tenure: '1-2 Years',
-  },
+  }
 ];
 
 export default function FDClient() {

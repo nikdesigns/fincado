@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'SIP Return Calculator Hindi',
     'Asset Allocation Hindi',
     'Equity vs Debt Hindi',
-    'Portfolio Planner Hindi',
+    'Portfolio Planner Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/mutual-funds/',
@@ -106,7 +106,7 @@ export default function HindiMutualFundPage() {
       question: 'क्या पोर्टफोलियो में सोना होना चाहिए?',
       answer:
         'हाँ, सोना महंगाई और बाजार की गिरावट के खिलाफ सुरक्षा देता है। अपने पोर्टफोलियो का 5-10% सोने में रखना एक समझदारी भरा कदम है।',
-    },
+    }
   ];
 
   return (
@@ -124,7 +124,7 @@ export default function HindiMutualFundPage() {
           {
             name: 'म्यूचुअल फंड कैलकुलेटर',
             url: 'https://fincado.com/hi/mutual-funds/',
-          },
+          }
         ]}
       />
 

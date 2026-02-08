@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'ELSS vs PPF',
     'Tax Saving Mutual Funds',
     'Section 80C Investment',
-    'ELSS Lock-in period',
+    'ELSS Lock-in period'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/elss-funds-guide-2025/',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: '/images/guides/elss/elss-guide-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -92,7 +92,7 @@ const FAQ_ITEMS = [
     question: 'Do I need to file ITR if I redeem ELSS?',
     answer:
       'You should file ITR if your total income exceeds the basic exemption limit or if your Long Term Capital Gains exceed ₹1.25 Lakh.',
-  },
+  }
 ];
 
 export default function ELSSGuide() {
@@ -130,7 +130,7 @@ export default function ELSSGuide() {
           {
             name: 'ELSS Funds Guide',
             url: 'https://fincado.com/guides/elss-funds-guide-2025/',
-          },
+          }
         ]}
       />
 

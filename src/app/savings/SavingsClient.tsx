@@ -106,7 +106,7 @@ export default function SavingsClient() {
     inflation,
     targetAmount,
     salaryMonthly,
-    emergencyMonths,
+    emergencyMonths
   ]);
 
   // Safe Setter

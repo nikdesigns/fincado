@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'sbi personal loan',
     'personal loan eligibility',
     'personal loan online',
-    'quick personal loan',
+    'quick personal loan'
   ],
   alternates: {
     canonical: '/loans/personal-loan/',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Personal Loan EMI Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -181,7 +181,7 @@ export default function PersonalLoanEMIPage() {
       question: 'Can I get a personal loan as a freelancer or gig worker?',
       answer:
         'Yes, but requirements are stricter. You need: (1) Minimum 2 years ITR showing stable income, (2) Good credit score (750+), (3) Regular bank account credits, (4) Some lenders like Bajaj Finserv, Fullerton India cater specifically to self-employed individuals.',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -199,7 +199,7 @@ export default function PersonalLoanEMIPage() {
           {
             name: 'Personal Loan EMI Calculator',
             url: '/loans/personal-loan/',
-          },
+          }
         ]}
       />
 

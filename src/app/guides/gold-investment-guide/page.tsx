@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'best way to buy gold in india',
     'is digital gold safe',
     'sgb tax benefits',
-    'gold etf vs physical gold',
+    'gold etf vs physical gold'
   ],
   openGraph: {
     title: 'Sovereign Gold Bond (SGB) vs Digital Gold vs Physical Gold',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Comparison of SGB certificate vs Digital Gold app vs Physical Coins',
-      },
+      }
     ],
   },
 };
@@ -80,7 +80,7 @@ const FAQ_ITEMS = [
     question: 'What is the interest rate on SGB?',
     answer:
       'SGB pays a fixed interest rate of 2.5% per annum on the initial investment amount, credited semi-annually to your bank account.',
-  },
+  }
 ];
 
 export default function GoldInvestmentGuidePage() {
@@ -94,7 +94,7 @@ export default function GoldInvestmentGuidePage() {
           {
             name: 'Gold Investment Guide',
             url: 'https://fincado.com/guides/gold-investment-guide/',
-          },
+          }
         ]}
       />
 

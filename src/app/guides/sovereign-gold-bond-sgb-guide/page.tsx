@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: 'article',
     url: 'https://fincado.com/guides/sovereign-gold-bond-sgb-guide/',
     images: [
-      { url: '/images/guides/sgb/sgb-hero.webp', width: 1200, height: 630 },
+      { url: '/images/guides/sgb/sgb-hero.webp', width: 1200, height: 630 }
     ],
   },
 };
@@ -82,7 +82,7 @@ export default function SGBGuide() {
           {
             name: 'SGB Guide',
             url: 'https://fincado.com/guides/sovereign-gold-bond-sgb-guide/',
-          },
+          }
         ]}
       />
 

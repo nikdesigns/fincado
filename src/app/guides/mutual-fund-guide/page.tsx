@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'switch regular to direct mf',
     'zerodha coin vs groww vs paytm money',
     'index funds vs active funds',
-    'best direct mutual fund app india',
+    'best direct mutual fund app india'
   ],
   openGraph: {
     title: 'Direct vs Regular Mutual Funds: How to Save 1% Commission',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Graph comparing direct vs regular fund growth over 20 years',
-      },
+      }
     ],
   },
 };
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
     question: 'How do I switch from regular to direct mutual funds?',
     answer:
       'You need to redeem your regular plan units (paying any applicable tax) and reinvest the proceeds into the direct plan of the same fund via a platform like Zerodha Coin or Groww.',
-  },
+  }
 ];
 
 export default function DirectMFGuidePage() {
@@ -95,7 +95,7 @@ export default function DirectMFGuidePage() {
           {
             name: 'Mutual Fund Guide',
             url: 'https://fincado.com/guides/mutual-fund-guide/',
-          },
+          }
         ]}
       />
 

@@ -21,7 +21,7 @@ export function PersonalLoanSchemas() {
       'Interest Rate Comparison',
       'Eligibility Check',
       'Prepayment Calculator',
-      'Credit Score Impact Analysis',
+      'Credit Score Impact Analysis'
     ],
   };
 
@@ -52,7 +52,7 @@ export function PersonalLoanSchemas() {
         position: 4,
         name: 'Personal Loan EMI Calculator',
         item: 'https://fincado.com/emi-calculator/personal-loan',
-      },
+      }
     ],
   };
 
@@ -84,7 +84,7 @@ export function PersonalLoanSchemas() {
         position: 4,
         name: 'View EMI & Eligibility',
         text: 'Get instant monthly EMI and check your eligibility',
-      },
+      }
     ],
   };
 

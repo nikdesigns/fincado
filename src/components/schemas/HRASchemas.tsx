@@ -11,7 +11,7 @@ export function HRASchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -106,7 +106,7 @@ export function HRASchemas() {
         position: 8,
         name: 'Save and Submit',
         text: 'Save calculation, collect rent receipts and landlord PAN (if rent > ₹1L/year), and submit to employer for tax planning.',
-      },
+      }
     ],
   };
 
@@ -193,7 +193,7 @@ export function HRASchemas() {
             description:
               'Pie chart showing exempt vs taxable HRA split with detailed condition analysis',
           },
-        },
+        }
       ],
     },
   };

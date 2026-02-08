@@ -11,7 +11,7 @@ export function InflationSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -88,7 +88,7 @@ export function InflationSchemas() {
         position: 5,
         name: 'Plan Investment Strategy',
         text: 'Ensure your investments grow faster than inflation. Equity/mutual funds (12%+) beat inflation. FDs (7%) barely keep pace. Savings account (3-4%) guarantees wealth erosion.',
-      },
+      }
     ],
   };
 

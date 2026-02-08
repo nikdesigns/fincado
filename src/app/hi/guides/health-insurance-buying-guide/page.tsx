@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'Best Health Insurance Hindi',
     'Room Rent Capping Hindi',
     'Cashless Mediclaim Process',
-    'Health Insurance Buying Guide Hindi',
+    'Health Insurance Buying Guide Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         url: '/images/guides/health-insurance/health-insurance-guide-hindi.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -90,7 +90,7 @@ export default function HindiHealthInsuranceGuide() {
       question: 'क्या employer का health insurance काफी है?',
       answer:
         'नहीं, क्योंकि नौकरी बदलने या छूटने पर वह कवर खत्म हो जाता है। अपनी पर्सनल पॉलिसी होना हमेशा सुरक्षित रहता है।',
-    },
+    }
   ];
 
   return (
@@ -137,7 +137,7 @@ export default function HindiHealthInsuranceGuide() {
           {
             name: 'Health Insurance Guide',
             url: 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
-          },
+          }
         ]}
       />
 
@@ -558,7 +558,7 @@ export default function HindiHealthInsuranceGuide() {
             {
               q: 'क्या मैं बाद में अपना कवर बढ़ा सकता हूँ?',
               a: 'हाँ, रिन्यूअल के समय आप सम इंश्योर्ड बढ़ाने की रिक्वेस्ट दे सकते हैं। या फिर आप एक सस्ती Super Top-up Policy लेकर अपना कवर बढ़ा सकते हैं।',
-            },
+            }
           ].map((item, i) => (
             <AccordionItem
               key={i}

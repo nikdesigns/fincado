@@ -11,7 +11,7 @@ export function CompoundInterestSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -88,7 +88,7 @@ export function CompoundInterestSchemas() {
         position: 5,
         name: 'Calculate and Analyze Results',
         text: 'Calculator shows maturity amount, interest earned, and year-wise breakdown. Compare with simple interest to see compounding benefit. Check inflation-adjusted real returns. Use Rule of 72 to estimate doubling time.',
-      },
+      }
     ],
   };
 

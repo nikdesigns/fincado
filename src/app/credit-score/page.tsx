@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     'Credit Utilization Calculator',
     'Soft vs Hard Inquiry Credit',
     'Free Credit Report India',
-    'CIBIL Experian Equifax Score',
+    'CIBIL Experian Equifax Score'
   ],
   alternates: {
     canonical: 'https://fincado.com/credit-score/',
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Credit Score Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -149,7 +149,7 @@ const faqItems = [
     question: 'Can I get a loan with 650 credit score?',
     answer:
       'Yes, but with limitations. 650 score: (1) Personal loans: Possible with higher interest (14-18%), lower amount, (2) Credit cards: Basic cards only, low limit, (3) Home/car loans: May require higher down payment, co-applicant. Rejection risk is high. Improve to 700+ for better terms, 750+ for best rates and instant approvals.',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -223,7 +223,7 @@ export default function CreditScorePage() {
           {
             name: 'Credit Score Calculator',
             url: 'https://fincado.com/credit-score/',
-          },
+          }
         ]}
       />
 

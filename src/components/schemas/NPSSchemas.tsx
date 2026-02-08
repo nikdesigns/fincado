@@ -11,7 +11,7 @@ export function NPSSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
+      'https://linkedin.com/company/fincado'
     ],
   };
 
@@ -106,7 +106,7 @@ export function NPSSchemas() {
         position: 8,
         name: 'Save or Share Plan',
         text: 'Save your NPS plan for future reference or share via WhatsApp with family/advisor.',
-      },
+      }
     ],
   };
 
@@ -210,7 +210,7 @@ export function NPSSchemas() {
             description:
               'Calculate ₹2L tax deduction (80C + 80CCD(1B)) savings',
           },
-        },
+        }
       ],
     },
   };

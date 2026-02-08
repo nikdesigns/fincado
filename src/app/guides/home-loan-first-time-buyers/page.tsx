@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'home loan tax benefits',
     '80C 24B deduction',
     'fixed vs floating interest rate',
-    'home loan application process',
+    'home loan application process'
   ],
   alternates: {
     canonical: '/guides/home-loan-first-time-buyers/',
@@ -84,7 +84,7 @@ const FAQ_ITEMS = [
     question: 'What are the tax benefits on home loans in 2025?',
     answer:
       'You can save up to ₹3.5 lakh annually: ₹1.5 lakh under Section 80C (principal), ₹2 lakh under Section 24(b) (interest), and additional ₹1.5 lakh under Section 80EEA for eligible first-time buyers.',
-  },
+  }
 ];
 
 export default function HomeLoanGuidePage() {
@@ -147,7 +147,7 @@ export default function HomeLoanGuidePage() {
           {
             name: 'Home Loan Guide',
             url: '/guides/home-loan-first-time-buyers/',
-          },
+          }
         ]}
       />
 

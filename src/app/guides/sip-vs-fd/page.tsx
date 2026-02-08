@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'inflation adjusted returns India',
     'SIP taxation 2025',
     'safe investment options India',
-    'wealth creation strategy',
+    'wealth creation strategy'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/sip-vs-fd/',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
         url: '/images/og/sip-vs-fd.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -95,7 +95,7 @@ const FAQ_ITEMS = [
     question: 'Which is better in 2025: SIP or FD?',
     answer:
       'In 2025, SIP is better than FD for long-term goals because it beats inflation and is more tax-efficient. FD is suitable only for short-term safety or emergency funds.',
-  },
+  }
 ];
 
 export default function SipVsFdGuidePage() {
@@ -159,7 +159,7 @@ export default function SipVsFdGuidePage() {
           {
             name: 'SIP vs FD',
             url: 'https://fincado.com/guides/sip-vs-fd/',
-          },
+          }
         ]}
       />
 

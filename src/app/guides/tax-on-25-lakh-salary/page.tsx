@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '25 LPA in hand salary',
     'tax on 25 lakh new regime',
     'how to save tax on 25 lakh salary',
-    'income tax calculator 2025',
+    'income tax calculator 2025'
   ],
   alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
   openGraph: {
@@ -96,7 +96,7 @@ export default function Tax25LakhGuide() {
       question: 'Is ₹25 Lakh salary considered high income in India?',
       answer:
         'Yes. A ₹25 LPA salary places you in roughly the top 1–2% of Indian earners. Tax planning becomes critical as a large portion of income falls under the 30% slab.',
-    },
+    }
   ];
 
   return (
@@ -109,7 +109,7 @@ export default function Tax25LakhGuide() {
           {
             name: 'Tax on 25 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

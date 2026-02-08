@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'senior citizen FD rates',
     'is FD safe',
     'FD return calculator',
-    'real return on FD',
+    'real return on FD'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/fd-truths/',
@@ -84,7 +84,7 @@ const FAQ_ITEMS = [
     question: 'Do senior citizens get extra interest on FD?',
     answer:
       'Yes, most banks offer 0.25% to 0.75% extra interest rate on FDs for senior citizens compared to general public rates.',
-  },
+  }
 ];
 
 export default function FdGuidePage() {
@@ -129,7 +129,7 @@ export default function FdGuidePage() {
           {
             name: 'Fixed Deposit Guide',
             url: 'https://fincado.com/guides/fd-truths/',
-          },
+          }
         ]}
       />
 

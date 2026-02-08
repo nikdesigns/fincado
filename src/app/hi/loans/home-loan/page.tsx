@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'Home Loan EMI Calculator Hindi',
     'Housing Loan Calculator India',
     'Home Loan Tax Benefit Hindi',
-    'SBI Home Loan Hindi',
+    'SBI Home Loan Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/loans/home-loan/',
@@ -145,7 +145,7 @@ export default function HindiHomeLoanPage() {
       question: 'क्या मैं अपना होम लोन दूसरे बैंक में ट्रांसफर कर सकता हूँ?',
       answer:
         'हाँ, आप अपने होम लोन को दूसरे बैंक में ट्रांसफर (बैलेंस ट्रांसफर) कर सकते हैं जो कम ब्याज दर ऑफर करता है। अधिकांश बैंक बकाया मूलधन का 0.5-1% प्रोसेसिंग फीस के रूप में लेते हैं। ट्रांसफर तभी फायदेमंद है जब आप ब्याज दर में कम से कम 0.75% की बचत करें।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -194,7 +194,7 @@ export default function HindiHomeLoanPage() {
           {
             name: 'होम लोन EMI कैलकुलेटर',
             url: 'https://fincado.com/hi/loans/home-loan/',
-          },
+          }
         ]}
       />
 

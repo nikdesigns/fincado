@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'Room rent capping explained',
     'No Claim Bonus Health Insurance',
     'Cashless vs Reimbursement Claim',
-    'Section 80D Tax Benefit',
+    'Section 80D Tax Benefit'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/health-insurance-buying-guide/',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: '/images/guides/health-insurance/health-insurance-guide-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -87,7 +87,7 @@ const FAQ_ITEMS = [
     question: 'Is OPD covered in health insurance?',
     answer:
       'Standard policies usually cover hospitalization expenses only. OPD coverage is available as an add-on or in specific premium plans.',
-  },
+  }
 ];
 
 export default function HealthInsuranceGuide() {
@@ -101,7 +101,7 @@ export default function HealthInsuranceGuide() {
           {
             name: 'Health Insurance Guide',
             url: 'https://fincado.com/guides/health-insurance-buying-guide/',
-          },
+          }
         ]}
       />
 

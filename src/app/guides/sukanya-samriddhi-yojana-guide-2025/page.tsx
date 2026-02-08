@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'SSY withdrawal rules',
     'girl child savings scheme',
     'post office sukanya samriddhi yojana',
-    'tax saving schemes for girl child',
+    'tax saving schemes for girl child'
   ],
   alternates: {
     canonical:
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
         url: '/images/guides/ssy/ssy-guide-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -96,7 +96,7 @@ const FAQ_ITEMS = [
     question: 'Is SSY better than FD for a girl child?',
     answer:
       'Yes, SSY is generally better because it offers a higher interest rate (8.2%), complete tax exemption (EEE status), and sovereign guarantee, unlike FDs which have taxable interest.',
-  },
+  }
 ];
 
 export default function SSYGuide() {
@@ -133,7 +133,7 @@ export default function SSYGuide() {
           {
             name: 'SSY Guide 2025',
             url: 'https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/',
-          },
+          }
         ]}
       />
 

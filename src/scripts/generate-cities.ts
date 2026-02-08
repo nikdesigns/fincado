@@ -23,7 +23,7 @@ const loanTypes = [
   {
     type: 'home-loan',
     title: 'Home Loan',
-  },
+  }
 ];
 
 /* ✅ INDIAN CITIES */
@@ -35,7 +35,7 @@ const cities = [
   'Hyderabad',
   'Pune',
   'Kolkata',
-  'Ahmedabad',
+  'Ahmedabad'
 ];
 
 function generateContent(loan: string, city: string) {

@@ -8,5 +8,5 @@ export const cities = [
   'Kolkata',
   'Ahmedabad',
   'Jaipur',
-  'Chandigarh',
+  'Chandigarh'
 ];

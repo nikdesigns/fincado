@@ -27,7 +27,7 @@ export default function ContactForm({ supportEmail, officeCity }: Props) {
       'Message:',
       message || '—',
       '',
-      `— Sent from Fincado contact form (office: ${officeCity || 'N/A'})`,
+      `— Sent from Fincado contact form (office: ${officeCity || 'N/A'})`
     ];
     const body = encodeURIComponent(bodyLines.join('\n'));
 

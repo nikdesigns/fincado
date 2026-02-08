@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '14 LPA in hand salary',
     'tax on 14 lakh new regime',
     'income tax calculator 2025',
-    '14 lakh salary tax old vs new',
+    '14 lakh salary tax old vs new'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -93,7 +93,7 @@ export default function Tax14LakhGuide() {
       question: 'Which tax regime is better for 14 Lakh package?',
       answer:
         'The New Tax Regime is significantly better unless you have total deductions (HRA, 80C, 80D, Home Loan) exceeding ₹4.40 Lakhs. Most employees will save over ₹1 Lakh by switching to the New Regime.',
-    },
+    }
   ];
 
   return (
@@ -106,7 +106,7 @@ export default function Tax14LakhGuide() {
           {
             name: 'Tax on 14 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

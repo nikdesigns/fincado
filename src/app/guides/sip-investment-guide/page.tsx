@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'SIP tax rules India',
     'best SIP amount',
     'SIP compounding',
-    'systematic investment plan',
+    'systematic investment plan'
   ],
   twitter: {
     card: 'summary_large_image',
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'SIP Investment Guide Hero Image',
-      },
+      }
     ],
   },
 };
@@ -129,7 +129,7 @@ const FAQ_ITEMS = [
     question: 'What are the biggest mistakes to avoid in SIP?',
     answer:
       "Top mistakes: (1) Stopping SIP during market falls, (2) choosing dividend over growth option, (3) over-diversification (15+ funds), (4) chasing last year's top performers, (5) not increasing SIP with salary hikes, and (6) redeeming for small expenses instead of letting it compound.",
-  },
+  }
 ];
 
 export default function SipGuidePage() {
@@ -192,7 +192,7 @@ export default function SipGuidePage() {
           {
             name: 'SIP Investment Guide',
             url: 'https://fincado.com/guides/sip-investment-guide/',
-          },
+          }
         ]}
       />
 

@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     '8 LPA in hand salary',
     'tax on 8 lakh in new regime',
     'marginal relief on 8 lakh salary',
-    'income tax calculator 2025',
+    'income tax calculator 2025'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
@@ -99,7 +99,7 @@ export default function Tax8LakhGuide() {
       question: 'How can I avoid tax on ₹8 lakh salary?',
       answer:
         'You can reduce taxable income below ₹7 lakh using Old Regime deductions like 80C, HRA, or NPS, or restructure salary components.',
-    },
+    }
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function Tax8LakhGuide() {
           {
             name: 'Tax on 8 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

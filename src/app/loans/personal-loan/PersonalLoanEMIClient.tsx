@@ -154,7 +154,7 @@ export default function PersonalLoanEMIClient() {
     amount,
     rate,
     tenure,
-    calculations.emi,
+    calculations.emi
   ]);
 
   const handleSaveCalculation = () => {

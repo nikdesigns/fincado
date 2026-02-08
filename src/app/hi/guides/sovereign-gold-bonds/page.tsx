@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'SGB Interest Rate',
     'SGB Tax Benefits Hindi',
     'How to buy SGB online',
-    'SGB Redemption Rules',
+    'SGB Redemption Rules'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/sovereign-gold-bonds/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         url: '/images/guides/sgb/sgb-guide-hindi.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -91,7 +91,7 @@ export default function HindiSGBGuide() {
       question: 'SGB कैसे खरीदें?',
       answer:
         'आप अपने बैंक (नेट बैंकिंग), पोस्ट ऑफिस, स्टॉक ब्रोकर (Zerodha, Upstox) या एजेंट के जरिए SGB खरीद सकते हैं।',
-    },
+    }
   ];
 
   return (
@@ -138,7 +138,7 @@ export default function HindiSGBGuide() {
           {
             name: 'Sovereign Gold Bonds',
             url: 'https://fincado.com/hi/guides/sovereign-gold-bonds/',
-          },
+          }
         ]}
       />
 
@@ -427,7 +427,7 @@ export default function HindiSGBGuide() {
           {
             title: 'Post Office',
             desc: 'फॉर्म भरकर ऑफलाइन आवेदन कर सकते हैं।',
-          },
+          }
         ].map((item, i) => (
           <Card key={i} className="border-slate-200 bg-slate-50">
             <CardContent className="p-4">
@@ -599,7 +599,7 @@ export default function HindiSGBGuide() {
             {
               q: 'अगर 8 साल बाद सोने का भाव गिर गया तो?',
               a: 'SGB में कैपिटल प्रोटेक्शन की गारंटी नहीं है। आपको रिडेम्पशन के समय के बाजार भाव (Market Price) के अनुसार ही पैसा मिलेगा। अगर सोना सस्ता हुआ, तो नुकसान हो सकता है。',
-            },
+            }
           ].map((item, i) => (
             <AccordionItem
               key={i}

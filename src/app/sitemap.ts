@@ -14,7 +14,7 @@ const BASE_URL = 'https://fincado.com';
 const excludedSlugs = [
   'home-loan-first-time-buyers',
   'personal-loan-interest-rates',
-  'personal-loan-interest-rates-india',
+  'personal-loan-interest-rates-india'
 ];
 
 /**
@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'bob',
     'lic-housing',
     'bajaj',
-    'idfc-first',
+    'idfc-first'
   ];
   const comparisonRoutes: MetadataRoute.Sitemap = [];
 
@@ -100,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/loans/home-loan',
     '/loans/personal-loan',
     '/loans/car-loan',
-    '/loans/education-loan',
+    '/loans/education-loan'
   ].map((route) => ({
     url: getUrl(route),
     lastModified: new Date(),
@@ -144,7 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/loans/home-loan',
     '/hi/loans/personal-loan',
     '/hi/loans/car-loan',
-    '/hi/loans/education-loan',
+    '/hi/loans/education-loan'
   ].map((route) => ({
     url: getUrl(route),
     lastModified: new Date(),
@@ -207,6 +207,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articleRoutes,
     ...cityRoutes,
     ...comparisonRoutes,
-    ...bankCityRoutes,
+    ...bankCityRoutes
   ];
 }

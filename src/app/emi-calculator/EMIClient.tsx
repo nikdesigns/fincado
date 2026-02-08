@@ -251,7 +251,7 @@ export default function EMIClient({
     amount,
     rate,
     tenure,
-    calculations.emi,
+    calculations.emi
   ]);
 
   // ✅ Save Calculation

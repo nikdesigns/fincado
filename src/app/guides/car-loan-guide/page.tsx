@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'flat rate vs reducing balance car loan',
     'remove hypothecation from rc',
     'car loan foreclosure charges',
-    'sbi car loan vs hdfc',
+    'sbi car loan vs hdfc'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/car-loan-guide/',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Happy family with new car keys',
-      },
+      }
     ],
   },
 };
@@ -83,7 +83,7 @@ const FAQ_ITEMS = [
     question: 'What is the difference between flat and reducing interest rate?',
     answer:
       'Flat rate calculates interest on the full principal for the entire tenure. Reducing rate calculates interest only on the outstanding balance. A 7% Flat Rate is roughly equal to a 13% Reducing Rate.',
-  },
+  }
 ];
 
 export default function CarLoanGuidePage() {
@@ -96,7 +96,7 @@ export default function CarLoanGuidePage() {
           {
             name: 'Car Loan Guide',
             url: 'https://fincado.com/guides/car-loan-guide/',
-          },
+          }
         ]}
       />
 

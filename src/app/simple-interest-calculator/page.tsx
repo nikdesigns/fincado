@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     'Simple Interest Formula',
     'SI vs CI Calculator',
     'Gold Loan Interest',
-    'Personal Loan Flat Rate',
+    'Personal Loan Flat Rate'
   ],
   alternates: {
     canonical: 'https://fincado.com/simple-interest-calculator/',
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Simple Interest Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -150,7 +150,7 @@ const faqItems = [
     question: 'Simple Interest vs Compound Interest - which grows faster?',
     answer:
       "Compound Interest grows exponentially faster than Simple Interest. Example: ₹1 lakh at 10% for 10 years: Simple Interest = ₹1 lakh interest (total ₹2L, linear growth). Compound Interest = ₹1.59 lakh interest (total ₹2.59L, exponential growth). Difference increases with time. For investments, always choose compound. For loans, simple (flat) might seem cheaper but usually isn't when properly compared.",
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -229,7 +229,7 @@ export default function SimpleInterestPage() {
           {
             name: 'Simple Interest Calculator',
             url: 'https://fincado.com/simple-interest-calculator/',
-          },
+          }
         ]}
       />
 

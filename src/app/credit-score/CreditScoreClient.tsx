@@ -156,7 +156,7 @@ export default function CreditScoreClient({
     loanMix,
     accounts,
     hasDefaults,
-    hasSettlements,
+    hasSettlements
   ]);
 
   const scoreLabel =

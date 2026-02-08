@@ -27,5 +27,5 @@ export const BANK_RATES: BankRate[] = [
     homeLoan: 8.5,
     carLoan: 9.3,
     updatedAt: new Date().toISOString(),
-  },
+  }
 ];

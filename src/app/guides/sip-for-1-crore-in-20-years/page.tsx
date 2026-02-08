@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     '1 crore sip calculator',
     'monthly investment for 1 crore',
     'long term wealth creation',
-    'compounding effect calculator',
+    'compounding effect calculator'
   ],
   twitter: {
     card: 'summary_large_image',
     title: 'How much SIP is needed for ₹1 Crore in 20 Years?',
     description: 'Wealth on Autopilot: The ₹10k/month strategy.',
     images: [
-      '/images/guides/mf/mutual-fund-guide-hero.webp',
+      '/images/guides/mf/mutual-fund-guide-hero.webp'
     ],
   },
   alternates: {
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 600,
         alt: 'Roadmap to 1 Crore Wealth in 20 Years',
-      },
+      }
     ],
   },
 };
@@ -106,7 +106,7 @@ export default function Sip1Cr20YearsPage() {
       question: 'Is it safe to invest in equity for 20 years?',
       answer:
         'Yes. While equity is volatile in the short term (1-3 years), historically, over any 15-20 year period in India, diversified equity indices have never given negative returns.',
-    },
+    }
   ];
 
   return (
@@ -118,7 +118,7 @@ export default function Sip1Cr20YearsPage() {
           {
             name: '1 Crore in 20 Years',
             url: 'https://fincado.com/guides/sip-for-1-crore-in-20-years/',
-          },
+          }
         ]}
       />
 
