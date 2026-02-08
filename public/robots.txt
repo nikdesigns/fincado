@@ -1,19 +1,36 @@
 # Fincado Robots.txt
+# Updated: February 2026
+
 User-agent: *
 Allow: /
 
-# Block admin/API
+# Block admin/API routes
 Disallow: /api/
 Disallow: /admin/
 Disallow: /_next/static/
+Disallow: /out/
+
+# Block query parameters
+Disallow: /*?*utm_source=
+Disallow: /*?*ref=
 
 # Sitemaps
 Sitemap: https://fincado.com/sitemap.xml
 Sitemap: https://fincado.com/sitemap-0.xml
 
-# Crawl-delay for aggressive bots
+# Crawl-delay for aggressive bots (protect server)
 User-agent: AhrefsBot
 Crawl-delay: 10
 
 User-agent: SemrushBot
 Crawl-delay: 10
+
+User-agent: DotBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+# Allow Google AdSense crawler (IMPORTANT for ads)
+User-agent: Mediapartners-Google
+Allow: /

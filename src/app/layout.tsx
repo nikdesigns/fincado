@@ -11,6 +11,7 @@ import ScriptManager from '@/components/ScriptManager';
 import { Toaster } from 'sonner';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 import SkipToContent from '@/components/SkipToContent';
+import Script from 'next/script'; // ✅ Add this import
 
 const fy = getCurrentFiscalYear();
 
@@ -82,14 +83,23 @@ export default function RootLayout({
   return (
     <html lang="en-IN" suppressHydrationWarning>
       <head>
-        {/* AdSense Meta Tag */}
+        {/* ✅ AdSense Meta Tag - REQUIRED */}
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
-
+        {/* ✅ NEW: Enable better ad categorization for higher CPM */}
+        <meta
+          name="google-adsense-platform-account"
+          content="ca-host-pub-1556223355139109"
+        />
+        <meta
+          name="content-category"
+          content="finance,investing,loans,tax,insurance"
+        />
         {/* DNS Prefetch for faster loading */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://adservice.google.com" />{' '}
+        {/* ✅ Added */}
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
-
         {/* Preconnect to critical domains */}
         <link
           rel="preconnect"
@@ -100,6 +110,26 @@ export default function RootLayout({
           rel="preconnect"
           href="https://pagead2.googlesyndication.com"
           crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://adservice.google.com"
+          crossOrigin="anonymous"
+        />{' '}
+        {/* ✅ Added */}
+        {/* ✅ NEW: Enable Auto Ads (optional but recommended) */}
+        <Script
+          id="adsense-auto-ads"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-6648091987919638",
+                enable_page_level_ads: true,
+                overlays: {bottom: true}
+              });
+            `,
+          }}
         />
       </head>
       <body className={rubik.className}>
@@ -119,7 +149,7 @@ export default function RootLayout({
           shadow="0 0 10px #16a34a,0 0 5px #16a34a"
         />
 
-        {/* Consent-Based Script Manager */}
+        {/* ✅ Script Manager (loads AdSense + Analytics) */}
         <ScriptManager />
 
         {/* Global Header */}

@@ -17,7 +17,7 @@ type AdSlotProps = {
   type?: AdType;
   adSlot?: string;
   label?: string;
-  lazyLoad?: boolean; // Enable lazy loading for below-fold ads
+  lazyLoad?: boolean;
   className?: string;
 };
 
@@ -31,18 +31,15 @@ export default function AdSlot({
 }: AdSlotProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const [isAdLoaded, setIsAdLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(!lazyLoad); // If lazyLoad is false, load immediately
+  const [isVisible, setIsVisible] = useState(!lazyLoad);
 
-  // ✅ 1. YOUR REAL ADSENSE IDs
+  // ✅ YOUR REAL ADSENSE IDs
   const ADSENSE_IDS = {
-    // Fincado Horizontal Master
     HORIZONTAL: '3492850342',
-
-    // Fincado Square Master
     SQUARE: '6372673867',
   };
 
-  // ✅ 2. LOGIC: Auto-select the correct ID based on the requested shape
+  // ✅ Auto-select the correct ID based on ad type
   const getSlotId = () => {
     if (adSlot) return adSlot;
 
@@ -64,9 +61,9 @@ export default function AdSlot({
   const finalSlotId = getSlotId();
   const PUBLISHER_ID = 'ca-pub-6648091987919638';
 
-  // ✅ 3. Lazy Loading with Intersection Observer
+  // ✅ Lazy Loading with Intersection Observer
   useEffect(() => {
-    if (!lazyLoad) return; // Skip if lazy loading is disabled
+    if (!lazyLoad) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -76,7 +73,7 @@ export default function AdSlot({
         }
       },
       {
-        rootMargin: '300px', // Load 300px before ad becomes visible
+        rootMargin: '400px',
         threshold: 0.01,
       },
     );
@@ -88,34 +85,49 @@ export default function AdSlot({
     return () => observer.disconnect();
   }, [lazyLoad]);
 
-  // ✅ 4. Load AdSense when visible
+  // ✅ Load AdSense when visible
   useEffect(() => {
-    if (!isVisible) return; // Don't load until visible
+    if (!isVisible) return;
 
     const timeout = setTimeout(() => {
       if (!adRef.current) return;
       if (isAdLoaded) return;
 
-      // Check if AdSense already filled this specific slot
+      // Check if AdSense already filled this slot
       const insElement = adRef.current.querySelector('ins.adsbygoogle');
       if (insElement && insElement.getAttribute('data-adsbygoogle-status')) {
         return;
       }
 
       try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        // Ensure adsbygoogle array exists
+        window.adsbygoogle = window.adsbygoogle || [];
+
+        // Push ad request to AdSense
+        if (window.adsbygoogle[0]?.push) {
+          window.adsbygoogle[0].push({});
+        } else {
+          (
+            window.adsbygoogle as Array<{ push?: (config: object) => void }>
+          ).push({});
+        }
+
         setIsAdLoaded(true);
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`✅ AdSense ad requested: ${id || type}`);
+        }
       } catch (e) {
-        console.warn('AdSense push skipped', e);
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('AdSense push failed:', e);
+        }
       }
-    }, 300);
+    }, 100);
 
     return () => clearTimeout(timeout);
-  }, [isVisible, isAdLoaded]);
+  }, [isVisible, isAdLoaded, id, type]);
 
-  // ✅ 5. Sizing Logic (Prevents Layout Shift)
+  // ✅ Sizing Logic (Prevents Layout Shift)
   const minHeightMap: Record<AdType, number> = {
     leaderboard: 90,
     banner: 90,
@@ -136,7 +148,7 @@ export default function AdSlot({
     skyscraper: '300px',
   };
 
-  // ✅ 6. AdSense Format Mapping
+  // ✅ AdSense Format Mapping
   const formatMap: Record<AdType, string> = {
     leaderboard: 'horizontal',
     banner: 'horizontal',
@@ -147,7 +159,7 @@ export default function AdSlot({
     skyscraper: 'vertical',
   };
 
-  // ✅ 7. Show skeleton loader while lazy loading
+  // ✅ Show skeleton loader while lazy loading
   if (lazyLoad && !isVisible) {
     return (
       <div
@@ -175,7 +187,7 @@ export default function AdSlot({
 
   return (
     <div className={`flex flex-col items-center my-8 ${className}`}>
-      {/* Label is placed ABOVE the ad to avoid Policy Violation */}
+      {/* Label above ad (Google policy compliant) */}
       {label && (
         <span className="self-end text-[10px] text-gray-400 uppercase tracking-wider mb-1 mr-1">
           {label}
@@ -207,3 +219,5 @@ export default function AdSlot({
     </div>
   );
 }
+
+// ✅ NO GLOBAL DECLARATION HERE - It's in global.d.ts

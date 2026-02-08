@@ -36,6 +36,25 @@ export default function CookieBanner() {
     }
   }, []);
 
+  // Add this useEffect after your other useEffects
+  useEffect(() => {
+    // Auto-accept cookies after 30 seconds if user hasn't interacted
+    const timer = setTimeout(() => {
+      const currentState = getConsentState();
+
+      // Only auto-accept if user hasn't made a choice
+      if (!currentState) {
+        handleAcceptAll(); // Your existing accept function
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log('✅ Auto-accepted cookies after 30s (user inactive)');
+        }
+      }
+    }, 30000); // 30 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleAcceptAll = () => {
     acceptAll();
     setShow(false);

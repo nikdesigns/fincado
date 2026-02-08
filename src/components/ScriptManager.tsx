@@ -58,7 +58,7 @@ export default function ScriptManager() {
     };
   }, []);
 
-  // Google Analytics initialization
+  // Google Analytics initialization (only with consent)
   useEffect(() => {
     if (
       consent.analytics &&
@@ -66,7 +66,6 @@ export default function ScriptManager() {
       !scriptErrors.analytics
     ) {
       try {
-        // Initialize GA4
         window.dataLayer = window.dataLayer || [];
         function gtag(...args: unknown[]) {
           window.dataLayer.push(args);
@@ -74,7 +73,7 @@ export default function ScriptManager() {
         gtag('js', new Date());
         gtag('config', 'G-KQJ4P0CM5Q', {
           page_path: window.location.pathname,
-          anonymize_ip: true, // GDPR compliance
+          anonymize_ip: true,
         });
       } catch (error) {
         console.error('Failed to initialize Google Analytics:', error);
@@ -82,42 +81,96 @@ export default function ScriptManager() {
     }
   }, [consent.analytics, scriptsLoaded.analytics, scriptErrors.analytics]);
 
+  // ✅ Handle personalized vs non-personalized ads based on consent
+  useEffect(() => {
+    if (scriptsLoaded.adsense && typeof window !== 'undefined') {
+      try {
+        // Ensure adsbygoogle array exists
+        window.adsbygoogle = window.adsbygoogle || [];
+
+        // If user gave consent, enable personalized ads
+        if (consent.advertising) {
+          // Remove non-personalized flag to allow personalized ads
+          if (window.adsbygoogle[0]) {
+            window.adsbygoogle[0].requestNonPersonalizedAds = 0;
+          }
+          if (process.env.NODE_ENV === 'development') {
+            console.log('✅ Personalized ads enabled (user consent given)');
+          }
+        } else {
+          // Keep non-personalized ads (default)
+          if (window.adsbygoogle[0]) {
+            window.adsbygoogle[0].requestNonPersonalizedAds = 1;
+          }
+          if (process.env.NODE_ENV === 'development') {
+            console.log('✅ Non-personalized ads active (GDPR compliant)');
+          }
+        }
+      } catch (error) {
+        console.warn('AdSense personalization setting failed:', error);
+      }
+    }
+  }, [consent.advertising, scriptsLoaded.adsense]);
+
   return (
     <>
-      {/* Google AdSense - Load only with advertising consent */}
-      {consent.advertising && !scriptErrors.adsense && (
+      {/* ========================================
+          ✅ GOOGLE ADSENSE - ALWAYS LOAD
+          Uses non-personalized ads by default (GDPR compliant)
+          Upgrades to personalized if user gives consent
+          ======================================== */}
+      {!scriptErrors.adsense && (
         <Script
           id="adsense-init"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6648091987919638"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          data-ad-client="ca-pub-6648091987919638"
           onLoad={() => {
             setScriptsLoaded((prev) => ({ ...prev, adsense: true }));
+
+            // Set non-personalized ads by default (GDPR)
+            try {
+              window.adsbygoogle = window.adsbygoogle || [];
+              if (window.adsbygoogle[0]) {
+                window.adsbygoogle[0].requestNonPersonalizedAds = 1;
+              }
+            } catch (e) {
+              console.warn('Could not set ad preferences:', e);
+            }
+
             if (process.env.NODE_ENV === 'development') {
-              console.log('✅ AdSense loaded');
+              console.log(
+                '✅ AdSense loaded successfully (non-personalized mode)',
+              );
             }
           }}
           onError={() => {
             setScriptErrors((prev) => ({ ...prev, adsense: true }));
-            // Only log in development, not production
             if (process.env.NODE_ENV === 'development') {
               console.warn(
-                '⚠️ AdSense failed to load. This is normal if:\n' +
-                  '  • You have an ad blocker enabled\n' +
-                  '  • AdSense account is not yet approved\n' +
-                  '  • Testing in development environment\n' +
-                  '  • Network/DNS issues',
+                '⚠️ AdSense failed to load. Common causes:\n' +
+                  '  • Ad blocker enabled\n' +
+                  '  • AdSense account not yet approved\n' +
+                  '  • Testing on localhost (ads only work on live domain)\n' +
+                  '  • Network/DNS issues\n' +
+                  '\nIf account is approved and testing on live domain, check:\n' +
+                  '  • https://adsense.google.com for account status\n' +
+                  '  • Browser console for additional errors',
               );
             }
           }}
         />
       )}
 
-      {/* Google Analytics - Load only with analytics consent */}
+      {/* ========================================
+          GOOGLE ANALYTICS - Consent Required
+          ======================================== */}
       {consent.analytics && !scriptErrors.analytics && (
         <Script
           id="google-analytics"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
           onLoad={() => {
             setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
@@ -134,11 +187,13 @@ export default function ScriptManager() {
         />
       )}
 
-      {/* Microsoft Clarity - Load only with analytics consent */}
+      {/* ========================================
+          MICROSOFT CLARITY - Consent Required
+          ======================================== */}
       {consent.analytics && !scriptErrors.clarity && (
         <Script
           id="microsoft-clarity"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           onLoad={() => {
             setScriptsLoaded((prev) => ({ ...prev, clarity: true }));
             if (process.env.NODE_ENV === 'development') {
@@ -164,3 +219,5 @@ export default function ScriptManager() {
     </>
   );
 }
+
+// ✅ NO GLOBAL DECLARATION HERE - It's in global.d.ts
