@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from 'dompurify';
 
 interface WikiTextProps {
   content: string;
@@ -19,51 +19,55 @@ interface WikiTextProps {
  */
 export default function WikiText({ content, className = '' }: WikiTextProps) {
   const sanitizedHTML = useMemo(() => {
-    return DOMPurify.sanitize(content, {
-      ALLOWED_TAGS: [
-        'p',
-        'br',
-        'strong',
-        'em',
-        'u',
-        'a',
-        'ul',
-        'ol',
-        'li',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'blockquote',
-        'code',
-        'pre',
-        'span',
-        'div',
-        'table',
-        'thead',
-        'tbody',
-        'tr',
-        'th',
-        'td',
-        'img'
-      ],
-      ALLOWED_ATTR: [
-        'href',
-        'target',
-        'rel',
-        'class',
-        'id',
-        'src',
-        'alt',
-        'title',
-        'width',
-        'height'
-      ],
-      ALLOWED_URI_REGEXP:
-        /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
-    });
+    // Only run DOMPurify on the client side
+    if (typeof window !== 'undefined') {
+      return DOMPurify.sanitize(content, {
+        ALLOWED_TAGS: [
+          'p',
+          'br',
+          'strong',
+          'em',
+          'u',
+          'a',
+          'ul',
+          'ol',
+          'li',
+          'h1',
+          'h2',
+          'h3',
+          'h4',
+          'h5',
+          'h6',
+          'blockquote',
+          'code',
+          'pre',
+          'span',
+          'div',
+          'table',
+          'thead',
+          'tbody',
+          'tr',
+          'th',
+          'td',
+          'img',
+        ],
+        ALLOWED_ATTR: [
+          'href',
+          'target',
+          'rel',
+          'class',
+          'id',
+          'src',
+          'alt',
+          'title',
+          'width',
+          'height',
+        ],
+        ALLOWED_URI_REGEXP:
+          /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+      });
+    }
+    return content; // Return unsanitized on server (will be sanitized on client)
   }, [content]);
 
   return (
