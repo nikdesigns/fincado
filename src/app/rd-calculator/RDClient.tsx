@@ -18,6 +18,83 @@ import {
 import { toast } from 'sonner';
 
 /* ---------- TYPES ---------- */
+interface RDLabels {
+  seniorCitizen: string;
+  seniorBonus: string;
+  monthlyDeposit: string;
+  interestRate: string;
+  tenure: string;
+  additionalMonths: string;
+  showDetails: string;
+  hideDetails: string;
+  maturityAmount: string;
+  totalInvestment: string;
+  netInterest: string;
+  estimatedTDS: string;
+  grossInterest: string;
+  calculationBreakdown: string;
+  monthlyDepositLabel: string;
+  totalMonths: string;
+  compounding: string;
+  quarterly: string;
+  annualInterestRate: string;
+  wealthGain: string;
+  saveCalculation: string;
+  shareWhatsApp: string;
+  compareBankRates: string;
+  hideBankRates: string;
+  popularBankRates: string;
+  bankTenure: string;
+  general: string;
+  senior: string;
+  applyRate: string;
+  ratesNote: string;
+  savedRDPlans: string;
+  clearAll: string;
+  maturity: string;
+  interest: string;
+  investment: string;
+}
+
+const DEFAULT_LABELS: RDLabels = {
+  seniorCitizen: 'Senior Citizen (60+ years)',
+  seniorBonus: 'Get extra 0.5% interest rate',
+  monthlyDeposit: 'Monthly Deposit (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  tenure: 'Tenure (Years)',
+  additionalMonths: 'Additional Months',
+  showDetails: 'Show Calculation Details',
+  hideDetails: 'Hide Calculation Details',
+  maturityAmount: 'Maturity Amount',
+  totalInvestment: 'Total Investment',
+  netInterest: 'Net Interest',
+  estimatedTDS: 'Estimated TDS (10%):',
+  grossInterest: 'Gross Interest:',
+  calculationBreakdown: 'Calculation Breakdown',
+  monthlyDepositLabel: 'Monthly Deposit:',
+  totalMonths: 'Total Months:',
+  compounding: 'Compounding:',
+  quarterly: 'Quarterly',
+  annualInterestRate: 'Annual Interest Rate:',
+  wealthGain: 'Wealth Gain:',
+  saveCalculation: 'Save Calculation',
+  shareWhatsApp: 'Share via WhatsApp',
+  compareBankRates: 'Compare Bank Rates',
+  hideBankRates: 'Hide Bank Rates',
+  popularBankRates: 'Popular Bank RD Rates (Feb 2026)',
+  bankTenure: 'Tenure:',
+  general: 'General:',
+  senior: 'Senior:',
+  applyRate: 'Apply Rate',
+  ratesNote:
+    'Rates are indicative and vary by bank, tenure, and deposit amount. Post Office RD rates are uniform across all tenures. Check with your bank for current rates.',
+  savedRDPlans: 'Your Saved RD Plans',
+  clearAll: 'Clear All',
+  maturity: 'Maturity:',
+  interest: 'Interest:',
+  investment: 'Investment:',
+};
+
 interface SavedCalculation {
   id: number;
   monthlyDeposit: number;
@@ -73,10 +150,16 @@ const POPULAR_BANKS: BankRate[] = [
     generalRate: 7.1,
     seniorRate: 7.6,
     tenure: '1-3 Years',
-  }
+  },
 ];
 
-export default function RDClient() {
+export default function RDClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<RDLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [monthlyDeposit, setMonthlyDeposit] = useState(5000);
   const [rate, setRate] = useState(7.0);
@@ -291,11 +374,11 @@ export default function RDClient() {
                 className="text-sm font-semibold text-slate-900 cursor-pointer flex items-center gap-2"
               >
                 <Users className="h-4 w-4" />
-                Senior Citizen (60+ years)
+                {t.seniorCitizen}
               </label>
             </div>
             <span className="text-xs text-slate-500 hidden sm:block">
-              Get extra 0.5% interest rate
+              {t.seniorBonus}
             </span>
           </div>
         </CardContent>
@@ -308,7 +391,7 @@ export default function RDClient() {
             {/* ---------- INPUTS ---------- */}
             <div className="space-y-6">
               <CalculatorField
-                label="Monthly Deposit (₹)"
+                label={t.monthlyDeposit}
                 value={monthlyDeposit}
                 min={500}
                 max={200000}
@@ -317,7 +400,7 @@ export default function RDClient() {
               />
 
               <CalculatorField
-                label="Interest Rate (% p.a)"
+                label={t.interestRate}
                 value={rate}
                 min={2}
                 max={15}
@@ -326,7 +409,7 @@ export default function RDClient() {
               />
 
               <CalculatorField
-                label="Tenure (Years)"
+                label={t.tenure}
                 value={years}
                 min={0}
                 max={30}
@@ -335,7 +418,7 @@ export default function RDClient() {
               />
 
               <CalculatorField
-                label="Additional Months"
+                label={t.additionalMonths}
                 value={months}
                 min={0}
                 max={11}
@@ -352,7 +435,7 @@ export default function RDClient() {
                   className="text-xs text-slate-600 hover:text-slate-900"
                 >
                   <Calculator className="mr-2 h-3 w-3" />
-                  {showAdvanced ? 'Hide' : 'Show'} Calculation Details
+                  {showAdvanced ? t.hideDetails : t.showDetails}
                 </Button>
               </div>
             </div>
@@ -365,7 +448,7 @@ export default function RDClient() {
               />
 
               <div className="mt-6 text-center w-full">
-                <div className="text-sm text-slate-500">Maturity Amount</div>
+                <div className="text-sm text-slate-500">{t.maturityAmount}</div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(results.maturity)}
@@ -375,7 +458,7 @@ export default function RDClient() {
                   <Card className="border-slate-200">
                     <CardContent className="p-4">
                       <div className="text-xs text-slate-500">
-                        Total Investment
+                        {t.totalInvestment}
                       </div>
                       <div className="mt-1 font-semibold text-slate-900">
                         {formatINR(results.investment)}
@@ -385,7 +468,9 @@ export default function RDClient() {
 
                   <Card className="border-lime-200 bg-lime-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">Net Interest</div>
+                      <div className="text-xs text-lime-700">
+                        {t.netInterest}
+                      </div>
                       <div className="mt-1 font-semibold text-lime-700">
                         +{formatINR(results.interest)}
                       </div>
@@ -399,14 +484,14 @@ export default function RDClient() {
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-700 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4 text-amber-600" />
-                        Estimated TDS (10%):
+                        {t.estimatedTDS}
                       </span>
                       <span className="font-bold text-amber-700">
                         -{formatINR(results.tds)}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-amber-300">
-                      <span className="text-slate-700">Gross Interest:</span>
+                      <span className="text-slate-700">{t.grossInterest}</span>
                       <span className="font-semibold text-slate-700">
                         {formatINR(results.grossInterest)}
                       </span>
@@ -418,27 +503,27 @@ export default function RDClient() {
                 {showAdvanced && (
                   <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
                     <h4 className="text-xs font-semibold text-slate-900 mb-3">
-                      Calculation Breakdown
+                      {t.calculationBreakdown}
                     </h4>
                     <div className="space-y-2 text-xs text-slate-700">
                       <div className="flex justify-between">
-                        <span>Monthly Deposit:</span>
+                        <span>{t.monthlyDepositLabel}</span>
                         <strong>{formatINR(monthlyDeposit)}</strong>
                       </div>
                       <div className="flex justify-between">
-                        <span>Total Months:</span>
+                        <span>{t.totalMonths}</span>
                         <strong>{years * 12 + months}</strong>
                       </div>
                       <div className="flex justify-between">
-                        <span>Compounding:</span>
-                        <strong>Quarterly</strong>
+                        <span>{t.compounding}</span>
+                        <strong>{t.quarterly}</strong>
                       </div>
                       <div className="flex justify-between">
-                        <span>Annual Interest Rate:</span>
+                        <span>{t.annualInterestRate}</span>
                         <strong>{rate}%</strong>
                       </div>
                       <div className="flex justify-between border-t border-slate-300 pt-2 mt-2">
-                        <span>Wealth Gain:</span>
+                        <span>{t.wealthGain}</span>
                         <strong className="text-green-700">
                           {formatINR(results.interest)}
                         </strong>
@@ -456,12 +541,12 @@ export default function RDClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Calculation
+          {t.saveCalculation}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
 
         <Button
@@ -470,7 +555,7 @@ export default function RDClient() {
           size="sm"
         >
           <Building2 className="mr-2 h-4 w-4" />
-          {showBankRates ? 'Hide' : 'Compare'} Bank Rates
+          {showBankRates ? t.hideBankRates : t.compareBankRates}
         </Button>
       </div>
 
@@ -480,7 +565,7 @@ export default function RDClient() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
               <Building2 className="h-5 w-5 text-indigo-600" />
-              Popular Bank RD Rates (Feb 2026)
+              {t.popularBankRates}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -495,18 +580,18 @@ export default function RDClient() {
                       {bank.name}
                     </h4>
                     <div className="text-xs text-slate-600 mt-1">
-                      Tenure: {bank.tenure}
+                      {t.bankTenure} {bank.tenure}
                     </div>
                     <div className="flex gap-4 mt-2 text-sm">
                       <div>
-                        <span className="text-slate-600">General: </span>
+                        <span className="text-slate-600">{t.general} </span>
                         <strong className="text-indigo-700">
                           {bank.generalRate}%
                         </strong>
                       </div>
                       {bank.seniorRate > bank.generalRate && (
                         <div>
-                          <span className="text-slate-600">Senior: </span>
+                          <span className="text-slate-600">{t.senior} </span>
                           <strong className="text-green-700">
                             {bank.seniorRate}%
                           </strong>
@@ -520,7 +605,7 @@ export default function RDClient() {
                     onClick={() => handleApplyBankRate(bank)}
                     className="ml-4"
                   >
-                    Apply Rate
+                    {t.applyRate}
                   </Button>
                 </div>
               </div>
@@ -528,9 +613,7 @@ export default function RDClient() {
 
             <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 mt-4">
               <p className="text-xs text-slate-700">
-                <strong>Note:</strong> Rates are indicative and vary by bank,
-                tenure, and deposit amount. Post Office RD rates are uniform
-                across all tenures. Check with your bank for current rates.
+                <strong>Note:</strong> {t.ratesNote}
               </p>
             </div>
           </CardContent>
@@ -541,14 +624,14 @@ export default function RDClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">Your Saved RD Plans</CardTitle>
+            <CardTitle className="text-lg">{t.savedRDPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -569,16 +652,16 @@ export default function RDClient() {
                           for {calc.years}y {calc.months}m
                           {calc.isSeniorCitizen && (
                             <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded">
-                              Senior Citizen
+                              {t.seniorCitizen}
                             </span>
                           )}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          Maturity: {formatINR(calc.maturity)} | Interest:{' '}
+                          {t.maturity} {formatINR(calc.maturity)} | {t.interest}{' '}
                           {formatINR(calc.interest)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Investment: {formatINR(calc.investment)}
+                          {t.investment} {formatINR(calc.investment)}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

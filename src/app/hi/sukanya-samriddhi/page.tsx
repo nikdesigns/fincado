@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     'सुकन्या समृद्धि योजना',
     'सुकन्या समृद्धि कैलकुलेटर',
     'बेटी बचाओ योजना',
-    'SSY ब्याज दर 2026'
+    'SSY ब्याज दर 2026',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/sukanya-samriddhi/',
@@ -77,15 +77,39 @@ export const metadata: Metadata = {
 export default function HindiSSYPage() {
   // ✅ Hindi Labels
   const hindiLabels = {
-    girlAge: 'बेटी की वर्तमान आयु (Current Age)',
-    depositFreq: 'निवेश का तरीका (Frequency)',
-    monthlyInv: 'मासिक निवेश (Monthly)',
-    yearlyInv: 'सालाना निवेश (Yearly)',
-    rate: 'ब्याज दर (Interest Rate %)',
-    maturityVal: 'परिपक्वता राशि (Maturity Value)',
-    totalInv: 'कुल निवेश (Total Investment)',
-    totalInt: 'कुल ब्याज (Total Interest)',
-    infoText: 'खाता 10 वर्ष की आयु तक ही खुल सकता है।',
+    ageWarning: 'नोट:',
+    ageWarningNote:
+      'SSY खाता केवल 10 वर्ष तक की लड़कियों के लिए खोला जा सकता है। सटीक गणना देखने के लिए आयु समायोजित करें।',
+    ssyCalculator: 'सुकन्या समृद्धि योजना कैलकुलेटर',
+    reset: 'रीसेट',
+    girlAge: 'लड़की की वर्तमान आयु (वर्ष)',
+    depositFrequency: 'जमा आवृत्ति',
+    monthly: 'मासिक',
+    yearly: 'वार्षिक',
+    monthlyInvestment: 'मासिक निवेश (₹)',
+    yearlyInvestment: 'वार्षिक निवेश (₹)',
+    interestRate: 'ब्याज दर (% प्रति वर्ष)',
+    showBreakdown: 'वर्षवार विवरण दिखाएं',
+    hideBreakdown: 'वर्षवार विवरण छुपाएं',
+    maturityValue: 'परिपक्वता मूल्य (कर मुक्त)',
+    taxFree: 'कर मुक्त',
+    maturity: 'परिपक्वता:',
+    age: 'आयु:',
+    totalInvestment: 'कुल निवेश',
+    totalInterest: 'कुल ब्याज',
+    annualInvestment: 'वार्षिक निवेश:',
+    contributionNote: '15 वर्ष योगदान + 6 वर्ष केवल ब्याज',
+    yearwiseGrowth: 'वर्षवार वृद्धि (पहले 5 वर्ष)',
+    year: 'वर्ष',
+    balance: 'शेष:',
+    interest: 'ब्याज:',
+    compoundingNote: '21 वर्ष की आयु में परिपक्वता तक चक्रवृद्धि जारी रहती है',
+    lockInNote: 'लॉक-इन: 21 वर्ष | 18 वर्ष के बाद आंशिक निकासी | 100% कर मुक्त',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    savedSSYPlans: 'आपकी सहेजी गई SSY योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    perYear: '/वर्ष',
   };
 
   // ✅ FAQ Items (Hindi) - Expanded to 10
@@ -149,7 +173,7 @@ export default function HindiSSYPage() {
       question: 'SSY में 21 वर्षों के बाद मुझे कितना मिलेगा?',
       answer:
         'यह आपकी निवेश राशि और ब्याज दर पर निर्भर करता है। उदाहरण के लिए, 15 वर्षों तक 8.2% प्रति वर्ष पर ₹1.5 लाख/वर्ष निवेश करने से परिपक्वता (21 वर्ष) पर लगभग ₹65-67 लाख मिलेंगे। सटीक अनुमान के लिए ऊपर कैलकुलेटर का उपयोग करें।',
-    }
+    },
   ];
 
   return (
@@ -167,7 +191,7 @@ export default function HindiSSYPage() {
           {
             name: 'SSY कैलकुलेटर',
             url: 'https://fincado.com/hi/sukanya-samriddhi/',
-          }
+          },
         ]}
       />
 

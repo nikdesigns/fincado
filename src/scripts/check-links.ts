@@ -1,4 +1,4 @@
-import { LinkChecker, LinkState, CheckOptions } from 'linkinator';
+import { LinkChecker } from 'linkinator';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -35,12 +35,11 @@ async function checkLinks(): Promise<CheckResult> {
   let skippedLinks = 0;
   let timeoutLinks = 0;
 
-  const options: Partial<CheckOptions> = {
+  const options = {
     recurse: true,
-    timeout: 60000, // ⬆️ 60 seconds (very generous)
-    concurrency: 3, // ⬇️ Only 3 at a time
-    retry: false, // ⬇️ Disable retry to avoid hanging
-
+    timeout: 60000, // 60 seconds
+    concurrency: 3,
+    retry: false,
     linksToSkip: [
       // Skip external social media
       'https://twitter.com',
@@ -64,23 +63,20 @@ async function checkLinks(): Promise<CheckResult> {
       '#',
 
       // Skip potential problem URLs
-      '{search_term_string}'
+      '{search_term_string}',
     ],
-  };
+  } as const;
 
   const checker = new LinkChecker();
 
-  // Handle individual link results
-  checker.on('link', (result) => {
+  // ✅ CORRECT EVENT HANDLERS for linkinator
+  checker.on('link:checking', (result: any) => {
     totalLinks++;
+    process.stdout.write(`\r📊 Checked ${totalLinks} links...`);
+  });
 
-    // Progress indicator
-    if (totalLinks % 25 === 0) {
-      process.stdout.write(`\r📊 Checked ${totalLinks} links...`);
-    }
-
-    if (result.state === LinkState.BROKEN) {
-      // Check if it's a timeout (status 0 usually means timeout)
+  checker.on('link:status', (result: any) => {
+    if (result.state === 'BROKEN') {
       if (result.status === 0 || !result.status) {
         timeoutLinks++;
         console.log(`\n⏱️  Timeout: ${result.url}`);
@@ -89,21 +85,29 @@ async function checkLinks(): Promise<CheckResult> {
           url: result.url || '',
           status: result.status || 0,
           parent: result.parent || 'unknown',
-          state: result.state,
+          state: result.state || 'unknown',
         });
+        console.error(`\n❌ BROKEN: ${result.url}`);
+        console.error(`   Status: ${result.status}`);
+        console.error(`   From: ${result.parent}`);
       }
-    } else if (result.state === LinkState.OK) {
+    } else if (result.state === 'OK') {
       passedLinks++;
-    } else if (result.state === LinkState.SKIPPED) {
+      console.log(`✅ ${result.url}`);
+    } else if (result.state === 'SKIPPED') {
       skippedLinks++;
     }
 
     if (result.status === 301 || result.status === 302) {
-      warnings.push(`⚠️  Redirect (${result.status}): ${result.url}`);
+      warnings.push(`⚠️ Redirect (${result.status}): ${result.url}`);
     }
   });
 
-  // ⭐ CRITICAL: Handle errors to prevent crash
+  // ✅ CORRECT ERROR HANDLERS
+  checker.on('link:error', (result: any) => {
+    console.error(`\n❌ Link error: ${result.url}`);
+  });
+
   checker.on('error', (error: Error) => {
     console.error(`\n❌ Link checker error: ${error.message}`);
     // Don't throw - just log and continue
@@ -111,7 +115,7 @@ async function checkLinks(): Promise<CheckResult> {
 
   try {
     console.log(`🌐 Target URL: ${targetUrl}\n`);
-    console.log(`⚙️  Settings: timeout=60s, concurrency=3\n`);
+    console.log(`⚙️ Settings: timeout=60s, concurrency=3\n`);
 
     await checker.check({
       path: targetUrl,
@@ -148,7 +152,7 @@ async function checkLinks(): Promise<CheckResult> {
  */
 function generateReport(result: CheckResult): void {
   console.log('═══════════════════════════════════════════════════════');
-  console.log('                   LINK CHECK REPORT                   ');
+  console.log('                    LINK CHECK REPORT                   ');
   console.log('═══════════════════════════════════════════════════════\n');
 
   console.log(`📊 Total Links Checked: ${result.totalLinks}`);
@@ -159,7 +163,7 @@ function generateReport(result: CheckResult): void {
 
   if (result.brokenLinks.length > 0) {
     console.log('═══════════════════════════════════════════════════════');
-    console.log('                     BROKEN LINKS                      ');
+    console.log('                      BROKEN LINKS                      ');
     console.log('═══════════════════════════════════════════════════════\n');
 
     result.brokenLinks.slice(0, 20).forEach((link, index) => {
@@ -176,7 +180,7 @@ function generateReport(result: CheckResult): void {
   }
 
   if (result.timeoutLinks > 0) {
-    console.log('\n⚠️  Note: Some links timed out after 60 seconds.');
+    console.log('\n⚠️ Note: Some links timed out after 60 seconds.');
     console.log('   These might be slow pages or infinite loops.\n');
   }
 
@@ -224,7 +228,7 @@ async function main() {
 
     if (result.brokenLinks.length > 0) {
       console.error(
-        `\n⚠️  Found ${result.brokenLinks.length} broken link(s).\n`,
+        `\n⚠️ Found ${result.brokenLinks.length} broken link(s).\n`,
       );
 
       if (result.timeoutLinks > 0) {
@@ -239,7 +243,7 @@ async function main() {
 
       if (result.timeoutLinks > 0) {
         console.log(
-          `⚠️  ${result.timeoutLinks} link(s) timed out. Investigate these pages:\n`,
+          `⚠️ ${result.timeoutLinks} link(s) timed out. Investigate these pages:\n`,
         );
         console.log('   They may be slow, stuck, or have infinite loops.\n');
       }

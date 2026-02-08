@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'SIP Calculator Hindi',
     'Mutual Fund Calculator Hindi',
     'SIP Return Calculator Hindi',
-    'Systematic Investment Plan Hindi'
+    'Systematic Investment Plan Hindi',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/sip-calculator/',
@@ -69,12 +69,46 @@ export const metadata: Metadata = {
 export default function HindiSIPPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    monthlyInv: 'मासिक निवेश (Monthly Investment)',
-    rate: 'ब्याज दर (Expected Return %)',
-    timePeriod: 'समय अवधि (Years)',
-    maturityValue: 'कुल राशि (Maturity Value)',
-    invested: 'कुल निवेश (Invested)',
-    returns: 'अनुमानित रिटर्न (Returns)',
+    enableStepUp: 'स्टेप-अप SIP सक्षम करें (वार्षिक निवेश बढ़ाएं)',
+    stepUpBoost: 'वार्षिक वृद्धि से अपना कोष बढ़ाएं',
+    monthlySIP: 'मासिक SIP राशि (₹)',
+    investmentPeriod: 'निवेश अवधि (वर्ष)',
+    expectedReturn: 'अपेक्षित वार्षिक रिटर्न (%)',
+    annualSIPIncrease: 'वार्षिक SIP वृद्धि (स्टेप-अप %)',
+    noIncrease: '0% (कोई वृद्धि नहीं)',
+    perYear: '% प्रति वर्ष',
+    stepUpNote: 'आपका SIP हर साल बढ़ेगा',
+    starting: 'शुरुआत',
+    ending: 'समाप्ति',
+    standardSIP: 'मानक SIP',
+    stepUpSIP: 'स्टेप-अप SIP',
+    maturityAmount: 'परिपक्वता राशि',
+    totalInvested: 'कुल निवेशित राशि',
+    wealthGain: 'धन लाभ (लाभ)',
+    returnsDisclaimer:
+      'मासिक दर में परिवर्तित स्थिर वार्षिक रिटर्न मानता है। वास्तविक म्यूचुअल फंड रिटर्न भिन्न होंगे।',
+    stepUpBenefits: 'स्टेप-अप SIP लाभ',
+    advantageOverStandard: 'मानक SIP पर लाभ',
+    extraWealthGained: 'अतिरिक्त धन अर्जित',
+    extraInvestment: 'अतिरिक्त निवेश किया गया',
+    netBenefit: 'शुद्ध लाभ:',
+    netBenefitText: 'अतिरिक्त निवेश करके',
+    compared: 'मानक SIP की तुलना में!',
+    smartTip: 'स्मार्ट टिप',
+    smartTipText:
+      'स्टेप-अप SIP तब बिल्कुल सही है जब आप आय वृद्धि की उम्मीद करते हैं (वेतन वृद्धि, व्यवसाय विकास)। एक',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    showStepUp: 'स्टेप-अप SIP दिखाएं',
+    hideStepUp: 'स्टेप-अप SIP छुपाएं',
+    savedSIPPlans: 'आपकी सहेजी गई SIP योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    month: '/ माह',
+    forYears: 'के लिए',
+    stepUp: 'स्टेप-अप',
+    invested: 'निवेशित:',
+    maturity: 'परिपक्वता:',
+    gain: 'लाभ:',
   };
 
   // ✅ FAQ Items (Hindi)
@@ -139,7 +173,7 @@ export default function HindiSIPPage() {
       question: 'क्या मैं विभिन्न लक्ष्यों के लिए कई SIP चला सकता हूं?',
       answer:
         'हां, और यह अनुशंसित है। आप रिटायरमेंट, बाल शिक्षा और घर के डाउन पेमेंट जैसे विभिन्न लक्ष्यों के लिए अलग SIP/फंड बना सकते हैं। इससे ट्रैक करना, पुनर्संतुलन करना और प्रत्येक लक्ष्य तक पहुंचने पर निकालना आसान हो जाता है।',
-    }
+    },
   ];
 
   const introContent = autoLinkContent(`
@@ -220,7 +254,7 @@ export default function HindiSIPPage() {
           {
             name: 'SIP कैलकुलेटर',
             url: 'https://fincado.com/hi/sip-calculator/',
-          }
+          },
         ]}
       />
 

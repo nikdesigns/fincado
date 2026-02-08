@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'PPF Interest Rate Hindi',
     'Tax Free Investment Hindi',
     'PPF Maturity Calculator',
-    'Section 80C PPF'
+    'Section 80C PPF',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/ppf-calculator/',
@@ -83,14 +83,30 @@ export const metadata: Metadata = {
 export default function HindiPPFPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    modeLabel: 'निवेश मोड (Mode)',
-    monthlyInv: 'मासिक निवेश (Monthly Investment)',
-    annualInv: 'सालाना निवेश (Annual Investment)',
-    rate: 'ब्याज दर (Interest Rate %)',
-    duration: 'अवधि (Years)',
-    maturity: 'परिपक्वता राशि (Maturity Value)',
-    totalInv: 'कुल निवेश (Total Investment)',
-    totalInt: 'कुल ब्याज (Total Interest)',
+    modeLabel: 'निवेश मोड',
+    monthlyInv: 'मासिक निवेश (₹)',
+    annualInv: 'वार्षिक निवेश (₹)',
+    rate: 'ब्याज दर (% प्रति वर्ष)',
+    duration: 'समय अवधि (वर्ष)',
+    maturity: 'परिपक्वता राशि',
+    totalInv: 'कुल निवेश',
+    totalInt: 'कुल ब्याज',
+    investmentMode: 'निवेश मोड',
+    monthly: 'मासिक',
+    annual: 'वार्षिक',
+    monthlyInvestment: 'मासिक निवेश (₹)',
+    annualInvestment: 'वार्षिक निवेश (₹)',
+    interestRate: 'ब्याज दर (% प्रति वर्ष)',
+    timePeriod: 'समय अवधि',
+    years: 'वर्ष',
+    maturityAmount: 'परिपक्वता राशि',
+    totalInvestment: 'कुल निवेश',
+    totalInterest: 'कुल अर्जित ब्याज',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    savedPPFPlans: 'आपकी सहेजी गई PPF योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    mode: 'मोड:',
   };
 
   const introContent = autoLinkContent(`
@@ -209,7 +225,7 @@ export default function HindiPPFPage() {
       question: 'न्यूनतम और अधिकतम PPF जमा क्या है?',
       answer:
         'न्यूनतम वार्षिक जमा ₹500 है (एक या कई किश्तों में किया जा सकता है)। अधिकतम वार्षिक जमा ₹1,50,000 है। यदि आप एक वर्ष में ₹500 से कम जमा करते हैं, तो खाता निष्क्रिय हो जाता है और इसे ₹50 प्रति वर्ष के जुर्माने और बकाया के साथ पुनर्जीवित करने की आवश्यकता होती है।',
-    }
+    },
   ];
 
   return (
@@ -227,7 +243,7 @@ export default function HindiPPFPage() {
           {
             name: 'PPF कैलकुलेटर',
             url: 'https://fincado.com/hi/ppf-calculator/',
-          }
+          },
         ]}
       />
 

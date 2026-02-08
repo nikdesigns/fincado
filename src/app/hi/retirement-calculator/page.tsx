@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'रिटायरमेंट कैलकुलेटर',
     'पेंशन कैलकुलेटर',
     'रिटायरमेंट प्लानिंग',
-    'कॉर्पस कैलकुलेटर'
+    'कॉर्पस कैलकुलेटर',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/retirement-calculator/',
@@ -84,20 +84,47 @@ export const metadata: Metadata = {
 export default function HindiRetirementPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    currentAge: 'वर्तमान आयु (Current Age)',
-    retireAge: 'रिटायरमेंट आयु (Retire Age)',
-    currentExpense: 'मासिक खर्च (Monthly Expense)',
-    currentSavings: 'मौजूदा बचत (Current Savings)',
-    advancedRates: 'उन्नत दरें दिखाएं',
-    inflation: 'महंगाई दर (Inflation %)',
-    preRetireReturn: 'सेवानिवृत्ति से पहले रिटर्न (%)',
-    postRetireReturn: 'सेवानिवृत्ति के बाद रिटर्न (%)',
-    resetDefaults: 'डिफ़ॉल्ट रीसेट करें',
-    targetCorpus: 'लक्ष्य रिटायरमेंट कॉर्पस',
-    sipNeeded: 'आवश्यक मासिक SIP',
-    perMonth: '/ महीना',
-    expenseAtRetirement: 'रिटायरमेंट पर मासिक खर्च',
-    currentSavingsFV: 'मौजूदा बचत का भविष्य मूल्य',
+    highSIPWarning: 'उच्च SIP आवश्यक:',
+    highSIPMessage:
+      'आपकी आवश्यक मासिक SIP काफी अधिक है। सेवानिवृत्ति की आयु बढ़ाने, खर्च कम करने, या वर्तमान बचत बढ़ाने पर विचार करें।',
+    retirementPlanning: 'सेवानिवृत्ति योजना कैलकुलेटर',
+    reset: 'रीसेट',
+    currentAge: 'वर्तमान आयु (वर्ष)',
+    retirementAge: 'सेवानिवृत्ति आयु (वर्ष)',
+    currentMonthlyExpense: 'वर्तमान मासिक खर्च (₹)',
+    currentSavings: 'वर्तमान बचत (₹)',
+    showAdvancedRates: 'उन्नत दरें दिखाएं',
+    hideAdvancedRates: 'उन्नत दरें छुपाएं',
+    inflationRate: 'मुद्रास्फीति दर (% प्रति वर्ष)',
+    preRetirementReturn: 'सेवानिवृत्ति पूर्व रिटर्न (% प्रति वर्ष)',
+    postRetirementReturn: 'सेवानिवृत्ति बाद रिटर्न (% प्रति वर्ष)',
+    targetRetirementCorpus: 'लक्षित सेवानिवृत्ति कोष',
+    retirementYears: '25 साल की सेवानिवृत्ति के लिए',
+    monthlySIPRequired: 'आवश्यक मासिक SIP',
+    perMonth: '/ माह',
+    forNextYears: 'अगले',
+    expenseAtRetirement: 'सेवानिवृत्ति पर खर्च',
+    monthInflationAdjusted: '/माह (मुद्रास्फीति समायोजित)',
+    currentSavingsFV: 'वर्तमान बचत भविष्य मूल्य',
+    ofTarget: 'लक्ष्य का',
+    investmentBreakdown: 'निवेश विवरण',
+    gapToFill: 'भरने योग्य अंतर:',
+    totalSIPInvestment: 'कुल SIP निवेश:',
+    expectedReturns: 'अपेक्षित रिटर्न:',
+    retirementNote:
+      '25 साल की सेवानिवृत्ति अवधि मानता है। जीवन प्रत्याशा और जीवनशैली के आधार पर समायोजित करें।',
+    savePlan: 'योजना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    savedRetirementPlans: 'आपकी सहेजी गई सेवानिवृत्ति योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    age: 'आयु',
+    corpus: 'कोष:',
+    sip: 'SIP:',
+    expense: 'खर्च:',
+    savings: 'बचत:',
+    returns: 'रिटर्न:',
+    sipRequiredMessage: 'आपको निवेश करना होगा',
+    savingsSufficient: 'आपकी वर्तमान बचत पर्याप्त है!',
   };
 
   // ✅ FAQ Items (Hindi) - Expanded to 10
@@ -162,7 +189,7 @@ export default function HindiRetirementPage() {
       question: 'क्या मैं ₹5 करोड़ के साथ 50 पर रिटायर हो सकता हूं?',
       answer:
         'हाँ, यदि खर्च ₹1.5-2 लाख/माह है। 4% नियम का उपयोग करते हुए, ₹5 करोड़ 25-30 वर्षों के लिए सुरक्षित रूप से ₹20 लाख/वर्ष (₹1.67L/माह) उत्पन्न करता है। लेकिन महंगाई के लिए जिम्मेदार - यह राशि क्रय शक्ति में कम हो जाएगी। महंगाई को मात देने के लिए शुरू में 60% इक्विटी में रखें।',
-    }
+    },
   ];
 
   return (
@@ -174,7 +201,7 @@ export default function HindiRetirementPage() {
           {
             name: 'रिटायरमेंट कैलकुलेटर',
             url: 'https://fincado.com/hi/retirement-calculator/',
-          }
+          },
         ]}
       />
 

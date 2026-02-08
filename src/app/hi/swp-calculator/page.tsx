@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'Mutual Fund SWP Hindi',
     'Retirement Income Calculator Hindi',
     'SWP vs SIP Hindi',
-    'Pension Calculator Hindi'
+    'Pension Calculator Hindi',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/swp-calculator/',
@@ -82,13 +82,42 @@ export const metadata: Metadata = {
 export default function HindiSWPPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    totalInv: 'कुल निवेश (Total Investment)',
-    monthlyWithdrawal: 'मासिक निकासी (Withdrawal)',
-    rate: 'ब्याज दर (Return %)',
-    time: 'समय अवधि (Years)',
-    remainingVal: 'बची हुई राशि (Balance)',
+    corpusExhausted: '⚠️ कोष समाप्त',
+    corpusExhaustedNote: 'आपका कोष समाप्त हो जाएगा',
+    exhaustedIn:
+      'वर्षों में। निकासी राशि कम करने या अपेक्षित रिटर्न बढ़ाने पर विचार करें।',
+    considerReducing:
+      'निकासी राशि कम करने या अपेक्षित रिटर्न बढ़ाने पर विचार करें।',
+    swpCalculator: 'SWP कैलकुलेटर',
+    reset: 'रीसेट',
+    initialInvestment: 'प्रारंभिक निवेश (₹)',
+    withdrawalAmount: 'निकासी राशि (₹)',
+    withdrawalFrequency: 'निकासी आवृत्ति',
+    monthly: 'मासिक',
+    quarterly: 'त्रैमासिक',
+    yearly: 'वार्षिक',
+    expectedReturn: 'अपेक्षित रिटर्न (% प्रति वर्ष)',
+    timePeriod: 'समय अवधि (वर्ष)',
+    showBreakdown: 'वर्षवार विवरण दिखाएं',
+    hideBreakdown: 'वर्षवार विवरण छुपाएं',
+    remainingCorpus: 'शेष कोष',
+    initialCorpus: 'प्रारंभिक कोष',
     totalWithdrawn: 'कुल निकासी',
-    warning: '⚠️ चेतावनी: आपका फंड तय समय से पहले खत्म हो जाएगा।',
+    annualWithdrawal: 'वार्षिक निकासी:',
+    yearwiseBreakdown: 'वर्षवार विवरण (पहले 5 वर्ष)',
+    year: 'वर्ष',
+    balance: 'शेष:',
+    withdrawn: 'निकासी:',
+    moreYearsRemaining: 'और वर्ष शेष',
+    inflationNote:
+      'निश्चित निकासी मानता है। मुद्रास्फीति समय के साथ क्रय शक्ति कम करती है।',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    savedSWPPlans: 'आपकी सहेजी गई SWP योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    corpus: 'कोष',
+    forYears: 'के लिए',
+    remaining: 'शेष:',
   };
 
   const introContent = autoLinkContent(`
@@ -209,7 +238,7 @@ export default function HindiSWPPage() {
       question: 'क्या मैं SIP निवेश से SWP शुरू कर सकता हूं?',
       answer:
         'हां! एक बार जब आपका SIP कोष आरामदायक स्तर (जैसे, ₹20-30 लाख) तक पहुंच जाता है, तो आप SWP शुरू कर सकते हैं। कई निवेशक आय के लिए परिपक्व फंड से SWP लेते हुए ग्रोथ फंड में SIP जारी रखते हैं।',
-    }
+    },
   ];
 
   return (
@@ -227,7 +256,7 @@ export default function HindiSWPPage() {
           {
             name: 'SWP कैलकुलेटर',
             url: 'https://fincado.com/hi/swp-calculator/',
-          }
+          },
         ]}
       />
 

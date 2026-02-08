@@ -2,84 +2,90 @@
 
 import React from 'react';
 
-interface EMIPieChartProps {
-  principalPct: number;
-  interestPct: number;
-  size?: number;
-}
-
 export default function EMIPieChart({
   principalPct,
   interestPct,
-  size = 220,
-}: EMIPieChartProps) {
-  const strokeWidth = 22;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
+  size = 200,
+}: {
+  principalPct: number;
+  interestPct: number;
+  size?: number;
+}) {
+  const strokeWidth = 24;
+  const r = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * r;
 
-  // Clamp percentages to avoid drawing errors if logic fails elsewhere
-  const safePrincipal = Math.max(0, principalPct);
-  const safeInterest = Math.max(0, interestPct);
-
-  const principalLength = (safePrincipal / 100) * circumference;
-  const interestLength = (safeInterest / 100) * circumference;
+  const dash1 = (principalPct / 100) * circumference;
+  const dash2 = (interestPct / 100) * circumference;
+  const offset2 = -dash1;
 
   return (
-    <div
-      className="relative flex items-center justify-center"
-      style={{ width: size, height: size }}
-    >
-      <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-        className="-rotate-90"
-        aria-label="Principal vs Interest chart"
-        role="img"
-      >
-        {/* Background ring (using 'muted' or 'secondary' color) */}
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          className="stroke-muted" // Tailwind class for theme color
-          strokeWidth={strokeWidth}
-        />
+    <div className="relative flex flex-col items-center justify-center py-6">
+      <div style={{ width: size, height: size }} className="relative">
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          className="-rotate-90"
+        >
+          {/* Background */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#f1f5f9"
+            strokeWidth={strokeWidth}
+          />
 
-        {/* Principal Segment (Brand Color/Primary) */}
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          className="text-slate-50 stroke-current transition-all duration-500 ease-out"
-          strokeWidth={strokeWidth}
-          strokeDasharray={`${principalLength} ${circumference}`}
-          strokeLinecap="round"
-        />
+          {/* Principal (Slate/Grey) */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#64748b"
+            strokeWidth={strokeWidth}
+            strokeDasharray={`${dash1} ${circumference}`}
+            strokeLinecap="butt"
+            className="transition-all duration-500 ease-out"
+          />
 
-        {/* Interest Segment (Lighter Brand Color or Accent) */}
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          className="text-lime-400 stroke-current transition-all duration-500 ease-out"
-          strokeWidth={strokeWidth}
-          strokeDasharray={`${interestLength} ${circumference}`}
-          strokeDashoffset={-principalLength}
-          strokeLinecap="round"
-        />
-      </svg>
+          {/* Interest (Lime/Green) */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#84cc16"
+            strokeWidth={strokeWidth}
+            strokeDasharray={`${dash2} ${circumference}`}
+            strokeDashoffset={offset2}
+            strokeLinecap="butt"
+            className="transition-all duration-500 ease-out"
+          />
+        </svg>
 
-      {/* CENTER LABEL */}
-      <div className="absolute text-center">
-        <div className="text-xl sm:text-2xl font-bold text-foreground">
-          {safePrincipal}% / {safeInterest}%
+        {/* Center Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+            Interest
+          </span>
+          <span className="text-2xl font-bold text-lime-600">
+            {interestPct}%
+          </span>
         </div>
-        <div className="mt-1 text-xs sm:text-sm text-muted-foreground">
-          Principal / Interest
+      </div>
+
+      {/* Legend */}
+      <div className="flex gap-4 mt-6">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-slate-500" />
+          <span className="text-xs font-medium text-slate-600">Principal</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-lime-500" />
+          <span className="text-xs font-medium text-slate-600">Interest</span>
         </div>
       </div>
     </div>

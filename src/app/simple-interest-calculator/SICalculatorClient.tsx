@@ -437,7 +437,11 @@ export default function SICalculatorClient({
             <Label className="mb-3 block">Calculation Mode</Label>
             <Tabs
               value={mode}
-              onValueChange={(v: unknown) => setMode(v)}
+              onValueChange={(v) =>
+                setMode(
+                  v as 'forward' | 'findPrincipal' | 'findRate' | 'findTime',
+                )
+              }
               className="w-full"
             >
               <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">

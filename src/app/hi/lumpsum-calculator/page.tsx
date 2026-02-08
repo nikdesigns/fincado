@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     'One Time Investment Hindi',
     'Lumpsum vs SIP Hindi',
     'CAGR Calculator Hindi',
-    'Compound Interest Calculator Hindi'
+    'Compound Interest Calculator Hindi',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/lumpsum-calculator/',
@@ -75,13 +75,30 @@ export const metadata: Metadata = {
 export default function HindiLumpsumPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    investment: 'निवेश राशि (Investment)',
-    rate: 'ब्याज दर (Expected Return %)',
-    time: 'समय अवधि (Years)',
-    frequency: 'ब्याज चक्र (Compounding)',
-    futureVal: 'कुल राशि (Future Value)',
-    invested: 'कुल निवेश',
-    wealthGained: 'कुल फायदा (Returns)',
+    investment: 'निवेश राशि',
+    rate: 'अपेक्षित रिटर्न दर (% प्रति वर्ष)',
+    time: 'समय अवधि (वर्ष)',
+    frequency: 'चक्रवृद्धि आवृत्ति',
+    futureVal: 'भविष्य मूल्य',
+    invested: 'निवेशित राशि',
+    wealthGained: 'अर्जित धन',
+    quarterly: 'तिमाही',
+    monthly: 'मासिक',
+    halfYearly: 'अर्धवार्षिक',
+    yearly: 'वार्षिक',
+    investmentAmount: 'निवेश राशि (₹)',
+    expectedReturn: 'अपेक्षित रिटर्न दर (% प्रति वर्ष)',
+    timePeriod: 'समय अवधि (वर्ष)',
+    compoundingFreq: 'चक्रवृद्धि आवृत्ति',
+    mostCommon: 'सबसे आम',
+    futureValue: 'भविष्य मूल्य',
+    investedAmount: 'निवेशित राशि',
+    totalWealth: 'कुल अर्जित धन',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    savedPlans: 'आपकी सहेजी गई योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    compounding: 'चक्रवृद्धि:',
   };
 
   const introContent = autoLinkContent(`
@@ -200,7 +217,7 @@ export default function HindiLumpsumPage() {
       question: 'Lumpsum निवेश से मुझे कितना रिटर्न मिल सकता है?',
       answer:
         'ऐतिहासिक डेटा दिखाता है कि इक्विटी म्यूचुअल फंड ने 10+ वर्षों में 12-15% CAGR दिया है। डेट फंड 6-8% रिटर्न देते हैं। हालांकि, पिछला प्रदर्शन गारंटीकृत नहीं है। आपका वास्तविक रिटर्न बाजार की स्थितियों और फंड के प्रदर्शन पर निर्भर करता है।',
-    }
+    },
   ];
 
   return (
@@ -218,7 +235,7 @@ export default function HindiLumpsumPage() {
           {
             name: 'Lumpsum कैलकुलेटर',
             url: 'https://fincado.com/hi/lumpsum-calculator/',
-          }
+          },
         ]}
       />
 

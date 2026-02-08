@@ -17,6 +17,93 @@ import {
 import { toast } from 'sonner';
 
 /* ---------- TYPES ---------- */
+interface FDLabels {
+  principal: string;
+  rate: string;
+  years: string;
+  months: string;
+  freq: string;
+  maturity: string;
+  totalPrincipal: string;
+  interest: string;
+  quarterly: string;
+  monthly: string;
+  halfYearly: string;
+  yearly: string;
+  maturityAmount: string;
+  invested: string;
+  interestEarned: string;
+  seniorCitizen: string;
+  seniorBonus: string;
+  depositAmount: string;
+  interestRate: string;
+  tenure: string;
+  additionalMonths: string;
+  compoundingFreq: string;
+  mostCommon: string;
+  totalInterest: string;
+  estimatedTDS: string;
+  netInterest: string;
+  afterTDS: string;
+  saveCalculation: string;
+  shareWhatsApp: string;
+  compareBankRates: string;
+  hideBankRates: string;
+  popularBankRates: string;
+  bankTenure: string;
+  general: string;
+  senior: string;
+  applyRate: string;
+  ratesNote: string;
+  savedFDPlans: string;
+  clearAll: string;
+  compounding: string;
+}
+
+const DEFAULT_LABELS: FDLabels = {
+  principal: 'Principal Amount (₹)',
+  rate: 'Interest Rate (% p.a.)',
+  years: 'Time Period (Years)',
+  months: 'Additional Months',
+  freq: 'Compounding Frequency',
+  maturity: 'Maturity Amount',
+  totalPrincipal: 'Total Principal',
+  interest: 'Interest Earned',
+  quarterly: 'Quarterly',
+  monthly: 'Monthly',
+  halfYearly: 'Half-Yearly',
+  yearly: 'Yearly',
+  maturityAmount: 'Maturity Amount',
+  invested: 'Invested',
+  interestEarned: 'Interest Earned',
+  seniorCitizen: 'Senior Citizen (60+ years)',
+  seniorBonus: 'Get extra 0.5% interest rate',
+  depositAmount: 'Deposit Amount (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  tenure: 'Tenure (Years)',
+  additionalMonths: 'Additional Months',
+  compoundingFreq: 'Compounding Frequency',
+  mostCommon: 'Most Common',
+  totalInterest: 'Total Interest',
+  estimatedTDS: 'Estimated TDS (10%):',
+  netInterest: 'Net Interest (After TDS):',
+  afterTDS: 'After TDS',
+  saveCalculation: 'Save Calculation',
+  shareWhatsApp: 'Share via WhatsApp',
+  compareBankRates: 'Compare Bank Rates',
+  hideBankRates: 'Hide Bank Rates',
+  popularBankRates: 'Popular Bank FD Rates (Feb 2026)',
+  bankTenure: 'Tenure:',
+  general: 'General:',
+  senior: 'Senior:',
+  applyRate: 'Apply Rate',
+  ratesNote:
+    'Rates are indicative and vary by bank, tenure, and deposit amount. Check with your bank for current rates. Senior citizen rates typically offer 0.25-0.5% extra.',
+  savedFDPlans: 'Your Saved FD Plans',
+  clearAll: 'Clear All',
+  compounding: 'Compounding:',
+};
+
 type CompoundingFreq = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
 
 const FREQUENCY_MAP: Record<CompoundingFreq, number> = {
@@ -81,10 +168,16 @@ const POPULAR_BANKS: BankRate[] = [
     generalRate: 7.0,
     seniorRate: 7.5,
     tenure: '1-2 Years',
-  }
+  },
 ];
 
-export default function FDClient() {
+export default function FDClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<FDLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [principal, setPrincipal] = useState(100000);
   const [rate, setRate] = useState(7.0);
@@ -99,7 +192,7 @@ export default function FDClient() {
     SavedCalculation[]
   >([]);
 
-  // ✅ FIX 1: Load saved calculations without setting state in effect
+  // Load saved calculations
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
@@ -112,7 +205,7 @@ export default function FDClient() {
     } catch (error) {
       console.error('Error loading saved FD calculations:', error);
     }
-  }, []); // Run once on mount
+  }, []);
 
   // Track calculator load
   useEffect(() => {
@@ -124,15 +217,13 @@ export default function FDClient() {
     }
   }, []);
 
-  // ✅ FIX 2: Handle senior citizen toggle without useEffect
+  // Handle senior citizen toggle
   const handleSeniorCitizenToggle = (checked: boolean) => {
     setIsSeniorCitizen(checked);
     if (checked) {
-      // Add 0.5% bonus when enabling senior citizen mode
       setRate((prev) => Math.min(prev + 0.5, 15));
       toast.success('Senior citizen bonus (+0.5%) applied!');
     } else {
-      // Remove 0.5% bonus when disabling senior citizen mode
       setRate((prev) => Math.max(prev - 0.5, 2));
     }
   };
@@ -289,11 +380,11 @@ export default function FDClient() {
                 className="text-sm font-semibold text-slate-900 cursor-pointer flex items-center gap-2"
               >
                 <Users className="h-4 w-4" />
-                Senior Citizen (60+ years)
+                {t.seniorCitizen}
               </label>
             </div>
             <span className="text-xs text-slate-500 hidden sm:block">
-              Get extra 0.5% interest rate
+              {t.seniorBonus}
             </span>
           </div>
         </CardContent>
@@ -306,7 +397,7 @@ export default function FDClient() {
             {/* ---------- INPUTS ---------- */}
             <div className="space-y-6">
               <CalculatorField
-                label="Deposit Amount (₹)"
+                label={t.depositAmount}
                 value={principal}
                 min={5000}
                 max={10000000}
@@ -315,7 +406,7 @@ export default function FDClient() {
               />
 
               <CalculatorField
-                label="Interest Rate (% p.a)"
+                label={t.interestRate}
                 value={rate}
                 min={2}
                 max={15}
@@ -324,7 +415,7 @@ export default function FDClient() {
               />
 
               <CalculatorField
-                label="Tenure (Years)"
+                label={t.tenure}
                 value={years}
                 min={0}
                 max={30}
@@ -333,7 +424,7 @@ export default function FDClient() {
               />
 
               <CalculatorField
-                label="Additional Months"
+                label={t.additionalMonths}
                 value={months}
                 min={0}
                 max={11}
@@ -344,7 +435,7 @@ export default function FDClient() {
               {/* Compounding Frequency */}
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">
-                  Compounding Frequency
+                  {t.compoundingFreq}
                 </label>
                 <select
                   value={frequency}
@@ -357,10 +448,12 @@ export default function FDClient() {
                     focus:outline-none focus:ring-2 focus:ring-lime-500
                   "
                 >
-                  <option value="monthly">Monthly</option>
-                  <option value="quarterly">Quarterly (Most Common)</option>
-                  <option value="half-yearly">Half-Yearly</option>
-                  <option value="yearly">Yearly</option>
+                  <option value="monthly">{t.monthly}</option>
+                  <option value="quarterly">
+                    {t.quarterly} ({t.mostCommon})
+                  </option>
+                  <option value="half-yearly">{t.halfYearly}</option>
+                  <option value="yearly">{t.yearly}</option>
                 </select>
               </div>
             </div>
@@ -373,7 +466,7 @@ export default function FDClient() {
               />
 
               <div className="mt-6 text-center w-full">
-                <div className="text-sm text-slate-500">Maturity Amount</div>
+                <div className="text-sm text-slate-500">{t.maturityAmount}</div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(results.maturity)}
@@ -382,7 +475,9 @@ export default function FDClient() {
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm mx-auto text-left">
                   <Card className="border-slate-200">
                     <CardContent className="p-4">
-                      <div className="text-xs text-slate-500">Principal</div>
+                      <div className="text-xs text-slate-500">
+                        {t.totalPrincipal}
+                      </div>
                       <div className="mt-1 font-semibold text-slate-900">
                         {formatINR(principal)}
                       </div>
@@ -392,7 +487,7 @@ export default function FDClient() {
                   <Card className="border-lime-200 bg-lime-50">
                     <CardContent className="p-4">
                       <div className="text-xs text-lime-700">
-                        Total Interest
+                        {t.totalInterest}
                       </div>
                       <div className="mt-1 font-semibold text-lime-700">
                         +{formatINR(results.interest)}
@@ -407,16 +502,14 @@ export default function FDClient() {
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-700 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4 text-amber-600" />
-                        Estimated TDS (10%):
+                        {t.estimatedTDS}
                       </span>
                       <span className="font-bold text-amber-700">
                         -{formatINR(results.tds)}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-amber-300">
-                      <span className="text-slate-700">
-                        Net Interest (After TDS):
-                      </span>
+                      <span className="text-slate-700">{t.netInterest}</span>
                       <span className="font-bold text-green-700">
                         {formatINR(results.netInterest)}
                       </span>
@@ -433,12 +526,12 @@ export default function FDClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Calculation
+          {t.saveCalculation}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
 
         <Button
@@ -447,7 +540,7 @@ export default function FDClient() {
           size="sm"
         >
           <Building2 className="mr-2 h-4 w-4" />
-          {showBankRates ? 'Hide' : 'Compare'} Bank Rates
+          {showBankRates ? t.hideBankRates : t.compareBankRates}
         </Button>
       </div>
 
@@ -457,7 +550,7 @@ export default function FDClient() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
               <Building2 className="h-5 w-5 text-indigo-600" />
-              Popular Bank FD Rates (Feb 2026)
+              {t.popularBankRates}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -472,17 +565,17 @@ export default function FDClient() {
                       {bank.name}
                     </h4>
                     <div className="text-xs text-slate-600 mt-1">
-                      Tenure: {bank.tenure}
+                      {t.bankTenure} {bank.tenure}
                     </div>
                     <div className="flex gap-4 mt-2 text-sm">
                       <div>
-                        <span className="text-slate-600">General: </span>
+                        <span className="text-slate-600">{t.general} </span>
                         <strong className="text-indigo-700">
                           {bank.generalRate}%
                         </strong>
                       </div>
                       <div>
-                        <span className="text-slate-600">Senior: </span>
+                        <span className="text-slate-600">{t.senior} </span>
                         <strong className="text-green-700">
                           {bank.seniorRate}%
                         </strong>
@@ -495,7 +588,7 @@ export default function FDClient() {
                     onClick={() => handleApplyBankRate(bank)}
                     className="ml-4"
                   >
-                    Apply Rate
+                    {t.applyRate}
                   </Button>
                 </div>
               </div>
@@ -503,9 +596,7 @@ export default function FDClient() {
 
             <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 mt-4">
               <p className="text-xs text-slate-700">
-                <strong>Note:</strong> Rates are indicative and vary by bank,
-                tenure, and deposit amount. Check with your bank for current
-                rates. Senior citizen rates typically offer 0.25-0.5% extra.
+                <strong>Note:</strong> {t.ratesNote}
               </p>
             </div>
           </CardContent>
@@ -516,14 +607,14 @@ export default function FDClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">Your Saved FD Plans</CardTitle>
+            <CardTitle className="text-lg">{t.savedFDPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -544,16 +635,16 @@ export default function FDClient() {
                           {calc.years}y {calc.months}m
                           {calc.isSeniorCitizen && (
                             <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded">
-                              Senior Citizen
+                              {t.seniorCitizen}
                             </span>
                           )}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          Maturity: {formatINR(calc.maturity)} | Interest:{' '}
-                          {formatINR(calc.interest)}
+                          {t.maturity}: {formatINR(calc.maturity)} |{' '}
+                          {t.interest}: {formatINR(calc.interest)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Compounding: {calc.frequency}
+                          {t.compounding} {calc.frequency}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

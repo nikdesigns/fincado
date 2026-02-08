@@ -25,6 +25,81 @@ import {
 import { toast } from 'sonner';
 
 /* ---------- TYPES ---------- */
+interface SWPLabels {
+  corpusExhausted: string;
+  corpusExhaustedNote: string;
+  exhaustedIn: string;
+  considerReducing: string;
+  swpCalculator: string;
+  reset: string;
+  initialInvestment: string;
+  withdrawalAmount: string;
+  withdrawalFrequency: string;
+  monthly: string;
+  quarterly: string;
+  yearly: string;
+  expectedReturn: string;
+  timePeriod: string;
+  showBreakdown: string;
+  hideBreakdown: string;
+  remainingCorpus: string;
+  initialCorpus: string;
+  totalWithdrawn: string;
+  annualWithdrawal: string;
+  yearwiseBreakdown: string;
+  year: string;
+  balance: string;
+  withdrawn: string;
+  moreYearsRemaining: string;
+  inflationNote: string;
+  saveCalculation: string;
+  shareWhatsApp: string;
+  savedSWPPlans: string;
+  clearAll: string;
+  corpus: string;
+  forYears: string;
+  remaining: string;
+}
+
+const DEFAULT_LABELS: SWPLabels = {
+  corpusExhausted: '⚠️ Corpus Exhausted',
+  corpusExhaustedNote: 'Your corpus will be exhausted in',
+  exhaustedIn:
+    'years. Consider reducing withdrawal amount or increasing expected returns.',
+  considerReducing:
+    'Consider reducing withdrawal amount or increasing expected returns.',
+  swpCalculator: 'SWP Calculator',
+  reset: 'Reset',
+  initialInvestment: 'Initial Investment (₹)',
+  withdrawalAmount: 'Withdrawal Amount (₹)',
+  withdrawalFrequency: 'Withdrawal Frequency',
+  monthly: 'Monthly',
+  quarterly: 'Quarterly',
+  yearly: 'Yearly',
+  expectedReturn: 'Expected Return (% p.a)',
+  timePeriod: 'Time Period (Years)',
+  showBreakdown: 'Show Year-wise Breakdown',
+  hideBreakdown: 'Hide Year-wise Breakdown',
+  remainingCorpus: 'Remaining Corpus',
+  initialCorpus: 'Initial Corpus',
+  totalWithdrawn: 'Total Withdrawn',
+  annualWithdrawal: 'Annual Withdrawal:',
+  yearwiseBreakdown: 'Year-wise Breakdown (First 5 Years)',
+  year: 'Year',
+  balance: 'Balance:',
+  withdrawn: 'Withdrawn:',
+  moreYearsRemaining: 'more years remaining',
+  inflationNote:
+    'Assumes fixed withdrawal. Inflation reduces purchasing power over time.',
+  saveCalculation: 'Save Calculation',
+  shareWhatsApp: 'Share via WhatsApp',
+  savedSWPPlans: 'Your Saved SWP Plans',
+  clearAll: 'Clear All',
+  corpus: 'corpus',
+  forYears: 'for',
+  remaining: 'Remaining:',
+};
+
 interface SavedCalculation {
   id: number;
   initialCorpus: number;
@@ -51,7 +126,13 @@ const FREQUENCY_MAP: Record<string, { label: string; months: number }> = {
   yearly: { label: 'Yearly', months: 12 },
 };
 
-export default function SWPClient() {
+export default function SWPClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<SWPLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [initialCorpus, setInitialCorpus] = useState(1000000);
   const [monthlyWithdrawal, setMonthlyWithdrawal] = useState(10000);
@@ -101,7 +182,12 @@ export default function SWPClient() {
     let monthsUntilExhausted = 0;
 
     // Year-wise breakdown for first 5 years
-    const yearlyBreakdown = [];
+    const yearlyBreakdown: Array<{
+      year: number;
+      balance: number;
+      withdrawn: number;
+      totalWithdrawn: number;
+    }> = [];
 
     for (let month = 1; month <= totalMonths; month++) {
       // Apply monthly growth
@@ -272,12 +358,12 @@ export default function SWPClient() {
               <AlertTriangle className="h-5 w-5 text-red-600 mt-0.5" />
               <div className="flex-1">
                 <h3 className="text-sm font-semibold text-red-900 mb-1">
-                  ⚠️ Corpus Exhausted
+                  {t.corpusExhausted}
                 </h3>
                 <p className="text-xs text-slate-700">
-                  Your corpus will be exhausted in{' '}
-                  <strong>{results.exhaustedInYears} years</strong>. Consider
-                  reducing withdrawal amount or increasing expected returns.
+                  {t.corpusExhaustedNote}{' '}
+                  <strong>{results.exhaustedInYears} years</strong>.{' '}
+                  {t.considerReducing}
                 </p>
               </div>
             </div>
@@ -291,13 +377,13 @@ export default function SWPClient() {
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
               <TrendingDown className="h-5 w-5 text-lime-600" />
-              SWP Calculator
+              {t.swpCalculator}
             </CardTitle>
             <button
               onClick={handleReset}
               className="text-xs text-slate-500 flex items-center gap-1 hover:text-lime-600 transition-colors"
             >
-              <RefreshCcw className="w-3 h-3" /> Reset
+              <RefreshCcw className="w-3 h-3" /> {t.reset}
             </button>
           </div>
         </CardHeader>
@@ -307,7 +393,7 @@ export default function SWPClient() {
             {/* ---------- INPUTS ---------- */}
             <div className="space-y-6">
               <CalculatorField
-                label="Initial Investment (₹)"
+                label={t.initialInvestment}
                 value={initialCorpus}
                 min={100000}
                 max={10000000}
@@ -316,7 +402,7 @@ export default function SWPClient() {
               />
 
               <CalculatorField
-                label="Withdrawal Amount (₹)"
+                label={t.withdrawalAmount}
                 value={monthlyWithdrawal}
                 min={1000}
                 max={200000}
@@ -325,21 +411,21 @@ export default function SWPClient() {
               />
 
               <div className="space-y-2">
-                <Label>Withdrawal Frequency</Label>
+                <Label>{t.withdrawalFrequency}</Label>
                 <Select value={frequency} onValueChange={setFrequency}>
                   <SelectTrigger className="h-11">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="monthly">Monthly</SelectItem>
-                    <SelectItem value="quarterly">Quarterly</SelectItem>
-                    <SelectItem value="yearly">Yearly</SelectItem>
+                    <SelectItem value="monthly">{t.monthly}</SelectItem>
+                    <SelectItem value="quarterly">{t.quarterly}</SelectItem>
+                    <SelectItem value="yearly">{t.yearly}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <CalculatorField
-                label="Expected Return (% p.a)"
+                label={t.expectedReturn}
                 value={annualRate}
                 min={1}
                 max={20}
@@ -348,7 +434,7 @@ export default function SWPClient() {
               />
 
               <CalculatorField
-                label="Time Period (Years)"
+                label={t.timePeriod}
                 value={years}
                 min={1}
                 max={30}
@@ -365,7 +451,7 @@ export default function SWPClient() {
                   className="text-xs text-slate-600 hover:text-slate-900"
                 >
                   <Calculator className="mr-2 h-3 w-3" />
-                  {showAdvanced ? 'Hide' : 'Show'} Year-wise Breakdown
+                  {showAdvanced ? t.hideBreakdown : t.showBreakdown}
                 </Button>
               </div>
             </div>
@@ -379,7 +465,9 @@ export default function SWPClient() {
               />
 
               <div className="mt-6 text-center w-full">
-                <div className="text-sm text-slate-500">Remaining Corpus</div>
+                <div className="text-sm text-slate-500">
+                  {t.remainingCorpus}
+                </div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(results.remaining)}
@@ -389,7 +477,7 @@ export default function SWPClient() {
                   <Card className="border-slate-200">
                     <CardContent className="p-4">
                       <div className="text-xs text-slate-500">
-                        Initial Corpus
+                        {t.initialCorpus}
                       </div>
                       <div className="mt-1 font-semibold text-slate-900">
                         {formatINR(initialCorpus)}
@@ -400,7 +488,7 @@ export default function SWPClient() {
                   <Card className="border-lime-200 bg-lime-50">
                     <CardContent className="p-4">
                       <div className="text-xs text-lime-700">
-                        Total Withdrawn
+                        {t.totalWithdrawn}
                       </div>
                       <div className="mt-1 font-semibold text-lime-700">
                         {formatINR(results.withdrawn)}
@@ -411,7 +499,7 @@ export default function SWPClient() {
 
                 <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-700">Annual Withdrawal:</span>
+                    <span className="text-slate-700">{t.annualWithdrawal}</span>
                     <span className="font-bold text-blue-700">
                       {formatINR(results.annualWithdrawal)}
                     </span>
@@ -422,7 +510,7 @@ export default function SWPClient() {
                 {showAdvanced && results.yearlyBreakdown.length > 0 && (
                   <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
                     <h4 className="text-xs font-semibold text-slate-900 mb-3">
-                      Year-wise Breakdown (First 5 Years)
+                      {t.yearwiseBreakdown}
                     </h4>
                     <div className="space-y-2">
                       {results.yearlyBreakdown.map((item) => (
@@ -431,15 +519,15 @@ export default function SWPClient() {
                           className="flex justify-between text-xs"
                         >
                           <span className="text-slate-600">
-                            Year {item.year}:
+                            {t.year} {item.year}:
                           </span>
                           <div className="flex gap-3">
                             <span className="text-slate-700">
-                              Balance:{' '}
+                              {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
                             <span className="text-lime-700">
-                              Withdrawn:{' '}
+                              {t.withdrawn}{' '}
                               <strong>{formatINR(item.totalWithdrawn)}</strong>
                             </span>
                           </div>
@@ -447,7 +535,7 @@ export default function SWPClient() {
                       ))}
                       {years > 5 && !results.isExhausted && (
                         <div className="text-[11px] text-slate-500 mt-2 pt-2 border-t">
-                          + {years - 5} more years remaining
+                          + {years - 5} {t.moreYearsRemaining}
                         </div>
                       )}
                     </div>
@@ -455,8 +543,7 @@ export default function SWPClient() {
                 )}
 
                 <p className="mt-4 text-xs text-center text-slate-400">
-                  Assumes fixed withdrawal. Inflation reduces purchasing power
-                  over time.
+                  {t.inflationNote}
                 </p>
               </div>
             </div>
@@ -468,12 +555,12 @@ export default function SWPClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Calculation
+          {t.saveCalculation}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
       </div>
 
@@ -481,14 +568,14 @@ export default function SWPClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">Your Saved SWP Plans</CardTitle>
+            <CardTitle className="text-lg">{t.savedSWPPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -505,16 +592,16 @@ export default function SWPClient() {
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <div className="font-semibold text-sm">
-                          {formatINR(calc.initialCorpus)} corpus |{' '}
+                          {formatINR(calc.initialCorpus)} {t.corpus} |{' '}
                           {formatINR(calc.monthlyWithdrawal)}/
                           {FREQUENCY_MAP[calc.frequency].label}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          {calc.annualRate}% for {calc.years}y | Remaining:{' '}
-                          {formatINR(calc.remaining)}
+                          {calc.annualRate}% {t.forYears} {calc.years}y |{' '}
+                          {t.remaining} {formatINR(calc.remaining)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Withdrawn: {formatINR(calc.withdrawn)}
+                          {t.withdrawn} {formatINR(calc.withdrawn)}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

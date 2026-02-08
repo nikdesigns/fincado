@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import CalculatorField from '@/components/CalculatorField';
-import EMIPieChart from '@/components/EMIPieChart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -17,6 +16,50 @@ import {
 import { toast } from 'sonner';
 
 /* ---------- TYPES ---------- */
+interface ELSSLabels {
+  monthlyInv: string;
+  lumpsumInv: string;
+  rate: string;
+  timePeriod: string;
+  taxBracket: string;
+  maturityValue: string;
+  invested: string;
+  returns: string;
+  taxSaved: string;
+  lockInNote: string;
+  toggleLabel: string;
+  compareButton: string;
+  hideButton: string;
+  elssTitle: string;
+  ppfTitle: string;
+  maturity: string;
+  lockIn: string;
+  advantage: string;
+  importantNote: string;
+}
+
+const DEFAULT_LABELS: ELSSLabels = {
+  monthlyInv: 'Monthly SIP Amount (₹)',
+  lumpsumInv: 'Lump Sum Amount (₹)',
+  rate: 'Expected Return (% p.a)',
+  timePeriod: 'Time Period (Years)',
+  taxBracket: 'Your Tax Bracket',
+  maturityValue: 'Total Maturity Value',
+  invested: 'Total Invested',
+  returns: 'Wealth Gain',
+  taxSaved: 'Tax Saved (80C)',
+  lockInNote: 'Minimum lock-in period for ELSS is 3 years',
+  toggleLabel: 'Toggle investment mode',
+  compareButton: 'Compare with',
+  hideButton: 'Hide',
+  elssTitle: 'ELSS (Your Selection)',
+  ppfTitle: 'PPF (7.1% Fixed)',
+  maturity: 'Maturity:',
+  lockIn: 'Lock-in:',
+  advantage: 'ELSS Advantage:',
+  importantNote: 'Important Note',
+};
+
 interface SavedCalculation {
   id: number;
   monthlySIP: number;
@@ -43,10 +86,106 @@ const TAX_BRACKETS = [
   { value: 0, label: 'No Tax (Income < ₹3L)' },
   { value: 0.05, label: '5% (Old Regime)' },
   { value: 0.2, label: '20%' },
-  { value: 0.3, label: '30%' }
+  { value: 0.3, label: '30%' },
 ];
 
-export default function ELSSClient() {
+/* ---------- ELSS PIE CHART ---------- */
+function ELSSPieChart({
+  investedPct,
+  returnsPct,
+}: {
+  investedPct: number;
+  returnsPct: number;
+}) {
+  const size = 200;
+  const strokeWidth = 24;
+  const r = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * r;
+
+  const dash1 = (investedPct / 100) * circumference;
+  const dash2 = (returnsPct / 100) * circumference;
+  const offset2 = -dash1;
+
+  return (
+    <div className="relative flex flex-col items-center justify-center py-6">
+      <div style={{ width: size, height: size }} className="relative">
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          className="-rotate-90"
+        >
+          {/* Background Circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#f1f5f9"
+            strokeWidth={strokeWidth}
+          />
+
+          {/* Invested Amount (Slate/Grey) */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#64748b"
+            strokeWidth={strokeWidth}
+            strokeDasharray={`${dash1} ${circumference}`}
+            strokeLinecap="butt"
+            className="transition-all duration-500 ease-out"
+          />
+
+          {/* Returns (Lime/Green) */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="#84cc16"
+            strokeWidth={strokeWidth}
+            strokeDasharray={`${dash2} ${circumference}`}
+            strokeDashoffset={offset2}
+            strokeLinecap="butt"
+            className="transition-all duration-500 ease-out"
+          />
+        </svg>
+
+        {/* Center Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+            Returns
+          </span>
+          <span className="text-2xl font-bold text-lime-600">
+            {returnsPct}%
+          </span>
+        </div>
+      </div>
+
+      {/* Legend */}
+      <div className="flex gap-4 mt-6">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-slate-500" />
+          <span className="text-xs font-medium text-slate-600">Invested</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-lime-500" />
+          <span className="text-xs font-medium text-slate-600">Returns</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ELSSClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<ELSSLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [monthlySIP, setMonthlySIP] = useState(12500);
   const [rate, setRate] = useState(14);
@@ -92,7 +231,7 @@ export default function ELSSClient() {
 
     if (isLumpsum) {
       // Lump sum calculation
-      const lumpsumAmount = monthlySIP; // Using same field for simplicity
+      const lumpsumAmount = monthlySIP;
       totalInvested = lumpsumAmount;
       const r = rate / 100;
       futureValue = lumpsumAmount * Math.pow(1 + r, years);
@@ -175,7 +314,7 @@ export default function ELSSClient() {
     years,
     taxBracket,
     isLumpsum,
-    calculations.futureValue
+    calculations.futureValue,
   ]);
 
   /* ---------- HANDLERS ---------- */
@@ -287,11 +426,11 @@ export default function ELSSClient() {
                 htmlFor="investment-mode"
                 className="text-sm font-semibold text-slate-900 cursor-pointer"
               >
-                {isLumpsum ? 'Lump Sum Investment' : 'Monthly SIP Investment'}
+                {isLumpsum ? t.lumpsumInv : t.monthlyInv}
               </label>
             </div>
             <span className="text-xs text-slate-500 hidden sm:block">
-              Toggle investment mode
+              {t.toggleLabel}
             </span>
           </div>
         </CardContent>
@@ -304,9 +443,7 @@ export default function ELSSClient() {
             {/* ---------- INPUTS ---------- */}
             <div className="space-y-6">
               <CalculatorField
-                label={
-                  isLumpsum ? 'Lump Sum Amount (₹)' : 'Monthly SIP Amount (₹)'
-                }
+                label={isLumpsum ? t.lumpsumInv : t.monthlyInv}
                 value={monthlySIP}
                 min={500}
                 max={isLumpsum ? 1500000 : 50000}
@@ -315,7 +452,7 @@ export default function ELSSClient() {
               />
 
               <CalculatorField
-                label="Expected Return (% p.a)"
+                label={t.rate}
                 value={rate}
                 min={8}
                 max={25}
@@ -324,7 +461,7 @@ export default function ELSSClient() {
               />
 
               <CalculatorField
-                label="Time Period (Years)"
+                label={t.timePeriod}
                 value={years}
                 min={3}
                 max={30}
@@ -335,7 +472,7 @@ export default function ELSSClient() {
               {/* Tax Bracket Selector */}
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">
-                  Your Tax Bracket
+                  {t.taxBracket}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {TAX_BRACKETS.map((bracket) => (
@@ -355,21 +492,19 @@ export default function ELSSClient() {
               </div>
 
               <div className="flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
-                🔒 Minimum lock-in period for ELSS is <strong>3 years</strong>
+                🔒 {t.lockInNote}
               </div>
             </div>
 
             {/* ---------- VISUAL ---------- */}
             <div className="flex flex-col items-center justify-center">
-              <EMIPieChart
-                principalPct={calculations.investedPct}
-                interestPct={calculations.returnsPct}
+              <ELSSPieChart
+                investedPct={calculations.investedPct}
+                returnsPct={calculations.returnsPct}
               />
 
               <div className="mt-6 text-center w-full">
-                <div className="text-sm text-slate-500">
-                  Total Maturity Value
-                </div>
+                <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(calculations.futureValue)}
@@ -386,9 +521,7 @@ export default function ELSSClient() {
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm mx-auto text-left">
                   <Card className="border-slate-200">
                     <CardContent className="p-4">
-                      <div className="text-xs text-slate-500">
-                        Total Invested
-                      </div>
+                      <div className="text-xs text-slate-500">{t.invested}</div>
                       <div className="mt-1 font-semibold text-slate-900">
                         {formatINR(calculations.totalInvested)}
                       </div>
@@ -398,7 +531,7 @@ export default function ELSSClient() {
                   <Card className="border-emerald-200 bg-emerald-50">
                     <CardContent className="p-4">
                       <div className="text-xs text-emerald-700">
-                        Wealth Gain
+                        {t.returns}
                       </div>
                       <div className="mt-1 font-semibold text-emerald-700">
                         +{formatINR(calculations.totalReturns)}
@@ -409,9 +542,7 @@ export default function ELSSClient() {
 
                 <div className="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-700">
-                      Total Tax Saved (80C):
-                    </span>
+                    <span className="text-slate-700">{t.taxSaved}:</span>
                     <span className="font-bold text-indigo-700">
                       {formatINR(calculations.totalTaxSaved)}
                     </span>
@@ -446,7 +577,7 @@ export default function ELSSClient() {
           size="sm"
         >
           <TrendingUp className="mr-2 h-4 w-4" />
-          {showComparison ? 'Hide' : 'Compare with'} PPF
+          {showComparison ? t.hideButton : t.compareButton} PPF
         </Button>
       </div>
 
@@ -465,29 +596,29 @@ export default function ELSSClient() {
               <div className="p-5 bg-lime-50 rounded-lg border-2 border-lime-200">
                 <h4 className="font-semibold text-lime-900 mb-3 flex items-center gap-2">
                   <IndianRupee className="h-5 w-5" />
-                  ELSS (Your Selection)
+                  {t.elssTitle}
                 </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Maturity:</span>
+                    <span className="text-slate-600">{t.maturity}</span>
                     <strong className="text-lime-700">
                       {formatINR(calculations.futureValue)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Returns:</span>
+                    <span className="text-slate-600">{t.returns}:</span>
                     <strong className="text-lime-700">
                       {formatINR(calculations.totalReturns)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Tax Saved:</span>
+                    <span className="text-slate-600">{t.taxSaved}:</span>
                     <strong className="text-lime-700">
                       {formatINR(calculations.totalTaxSaved)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Lock-in:</span>
+                    <span className="text-slate-600">{t.lockIn}</span>
                     <strong>3 Years</strong>
                   </div>
                 </div>
@@ -497,29 +628,29 @@ export default function ELSSClient() {
               <div className="p-5 bg-slate-50 rounded-lg border-2 border-slate-200">
                 <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                   <Shield className="h-5 w-5" />
-                  PPF (7.1% Fixed)
+                  {t.ppfTitle}
                 </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Maturity:</span>
+                    <span className="text-slate-600">{t.maturity}</span>
                     <strong className="text-slate-700">
                       {formatINR(ppfComparison.maturity)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Returns:</span>
+                    <span className="text-slate-600">{t.returns}:</span>
                     <strong className="text-slate-700">
                       {formatINR(ppfComparison.returns)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Tax Saved:</span>
+                    <span className="text-slate-600">{t.taxSaved}:</span>
                     <strong className="text-slate-700">
                       {formatINR(ppfComparison.taxSaved)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Lock-in:</span>
+                    <span className="text-slate-600">{t.lockIn}</span>
                     <strong>15 Years</strong>
                   </div>
                 </div>
@@ -528,7 +659,7 @@ export default function ELSSClient() {
 
             <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
               <p className="text-sm text-slate-700">
-                <strong>ELSS Advantage:</strong> You gain an extra{' '}
+                <strong>{t.advantage}</strong> You gain an extra{' '}
                 <strong className="text-emerald-700">
                   {formatINR(Math.max(0, ppfComparison.difference))}
                 </strong>{' '}
@@ -540,7 +671,7 @@ export default function ELSSClient() {
             <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
               <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
                 <span>⚠️</span>
-                Important Note
+                {t.importantNote}
               </h4>
               <p className="text-xs text-slate-700">
                 ELSS returns are market-linked and not guaranteed. PPF offers

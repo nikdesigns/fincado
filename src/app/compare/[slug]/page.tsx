@@ -101,6 +101,7 @@ export default async function ComparisonPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const fy = getCurrentFiscalYear(); // ✅ FIX: Added this line to define fy
 
   // ✅ FIX 3: Correct splitting logic here as well
   const parts = slug.split('-vs-');
@@ -129,7 +130,7 @@ export default async function ComparisonPage({
     {
       question: `Which bank is better for balance transfer?`,
       answer: `Private banks like ${b2.name} typically provide smoother balance transfer processes, while ${b1.name} may offer lower long-term interest savings.`,
-    }
+    },
   ];
 
   return (
@@ -144,7 +145,7 @@ export default async function ComparisonPage({
           {
             name: `${b1.name} vs ${b2.name}`,
             url: `https://fincado.com/compare/${slug}/`,
-          }
+          },
         ]}
       />
 

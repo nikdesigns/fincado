@@ -18,6 +18,92 @@ import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 /* ---------- TYPES ---------- */
+interface RetirementLabels {
+  highSIPWarning: string;
+  highSIPMessage: string;
+  retirementPlanning: string;
+  reset: string;
+  currentAge: string;
+  retirementAge: string;
+  currentMonthlyExpense: string;
+  currentSavings: string;
+  showAdvancedRates: string;
+  hideAdvancedRates: string;
+  inflationRate: string;
+  preRetirementReturn: string;
+  postRetirementReturn: string;
+  targetRetirementCorpus: string;
+  retirementYears: string;
+  monthlySIPRequired: string;
+  perMonth: string;
+  forNextYears: string;
+  expenseAtRetirement: string;
+  monthInflationAdjusted: string;
+  currentSavingsFV: string;
+  ofTarget: string;
+  investmentBreakdown: string;
+  gapToFill: string;
+  totalSIPInvestment: string;
+  expectedReturns: string;
+  retirementNote: string;
+  savePlan: string;
+  shareWhatsApp: string;
+  savedRetirementPlans: string;
+  clearAll: string;
+  age: string;
+  corpus: string;
+  sip: string;
+  expense: string;
+  savings: string;
+  returns: string;
+  sipRequiredMessage: string;
+  savingsSufficient: string;
+}
+
+const DEFAULT_LABELS: RetirementLabels = {
+  highSIPWarning: 'High SIP Required:',
+  highSIPMessage:
+    'Your required monthly SIP is quite high. Consider increasing retirement age, reducing expenses, or boosting current savings.',
+  retirementPlanning: 'Retirement Planning Calculator',
+  reset: 'Reset',
+  currentAge: 'Current Age (Years)',
+  retirementAge: 'Retirement Age (Years)',
+  currentMonthlyExpense: 'Current Monthly Expense (₹)',
+  currentSavings: 'Current Savings (₹)',
+  showAdvancedRates: 'Show Advanced Rates',
+  hideAdvancedRates: 'Hide Advanced Rates',
+  inflationRate: 'Inflation Rate (% p.a.)',
+  preRetirementReturn: 'Pre-Retirement Return (% p.a.)',
+  postRetirementReturn: 'Post-Retirement Return (% p.a.)',
+  targetRetirementCorpus: 'Target Retirement Corpus',
+  retirementYears: 'For 25 years of retirement',
+  monthlySIPRequired: 'Monthly SIP Required',
+  perMonth: '/ month',
+  forNextYears: 'for next',
+  expenseAtRetirement: 'Expense at Retirement',
+  monthInflationAdjusted: '/month (inflation adjusted)',
+  currentSavingsFV: 'Current Savings FV',
+  ofTarget: 'of target',
+  investmentBreakdown: 'Investment Breakdown',
+  gapToFill: 'Gap to Fill:',
+  totalSIPInvestment: 'Total SIP Investment:',
+  expectedReturns: 'Expected Returns:',
+  retirementNote:
+    'Assumes 25-year retirement period. Adjust based on life expectancy and lifestyle.',
+  savePlan: 'Save Plan',
+  shareWhatsApp: 'Share via WhatsApp',
+  savedRetirementPlans: 'Your Saved Retirement Plans',
+  clearAll: 'Clear All',
+  age: 'Age',
+  corpus: 'Corpus:',
+  sip: 'SIP:',
+  expense: 'Expense:',
+  savings: 'Savings:',
+  returns: 'Returns:',
+  sipRequiredMessage: 'You need to invest',
+  savingsSufficient: 'Your current savings are sufficient!',
+};
+
 interface SavedCalculation {
   id: number;
   currentAge: number;
@@ -40,7 +126,13 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function RetirementCalculatorClient() {
+export default function RetirementCalculatorClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<RetirementLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [currentAge, setCurrentAge] = useState(30);
   const [retireAge, setRetireAge] = useState(60);
@@ -135,8 +227,8 @@ export default function RetirementCalculatorClient() {
 
     const isShortfall = gap > 0;
     const shortfallMessage = isShortfall
-      ? `You need to invest ${formatINR(sip)}/month to reach your goal`
-      : 'Your current savings are sufficient!';
+      ? `${t.sipRequiredMessage} ${formatINR(sip)}/month to reach your goal`
+      : t.savingsSufficient;
 
     return {
       targetCorpus: Math.round(targetCorpus),
@@ -160,7 +252,9 @@ export default function RetirementCalculatorClient() {
     currentSavings,
     inflation,
     preReturn,
-    postReturn
+    postReturn,
+    t.sipRequiredMessage,
+    t.savingsSufficient,
   ]);
 
   /* ---------- HANDLERS ---------- */
@@ -282,9 +376,11 @@ export default function RetirementCalculatorClient() {
         <Alert className="border-amber-200 bg-amber-50">
           <AlertTriangle className="h-4 w-4 text-amber-600" />
           <AlertDescription className="ml-2 text-sm text-amber-800">
-            <strong>High SIP Required:</strong> Your required monthly SIP (
-            {formatINR(results.sip)}) is quite high. Consider increasing
-            retirement age, reducing expenses, or boosting current savings.
+            <strong>{t.highSIPWarning}</strong>{' '}
+            {t.highSIPMessage.replace(
+              'Your required monthly SIP',
+              `${formatINR(results.sip)}`,
+            )}
           </AlertDescription>
         </Alert>
       )}
@@ -295,13 +391,13 @@ export default function RetirementCalculatorClient() {
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
               <Palmtree className="h-5 w-5 text-emerald-600" />
-              Retirement Planning Calculator
+              {t.retirementPlanning}
             </CardTitle>
             <button
               onClick={handleReset}
               className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
             >
-              <RefreshCcw className="w-3 h-3" /> Reset
+              <RefreshCcw className="w-3 h-3" /> {t.reset}
             </button>
           </div>
         </CardHeader>
@@ -311,7 +407,7 @@ export default function RetirementCalculatorClient() {
             {/* ---------- INPUTS ---------- */}
             <div className="space-y-6">
               <CalculatorField
-                label="Current Age (Years)"
+                label={t.currentAge}
                 value={currentAge}
                 min={18}
                 max={retireAge - 1}
@@ -320,7 +416,7 @@ export default function RetirementCalculatorClient() {
               />
 
               <CalculatorField
-                label="Retirement Age (Years)"
+                label={t.retirementAge}
                 value={retireAge}
                 min={currentAge + 1}
                 max={75}
@@ -329,7 +425,7 @@ export default function RetirementCalculatorClient() {
               />
 
               <CalculatorField
-                label="Current Monthly Expense (₹)"
+                label={t.currentMonthlyExpense}
                 value={monthlyExpense}
                 min={10000}
                 max={500000}
@@ -338,7 +434,7 @@ export default function RetirementCalculatorClient() {
               />
 
               <CalculatorField
-                label="Current Savings (₹)"
+                label={t.currentSavings}
                 value={currentSavings}
                 min={0}
                 max={10000000}
@@ -355,14 +451,14 @@ export default function RetirementCalculatorClient() {
                   className="text-xs text-slate-600 hover:text-slate-900"
                 >
                   <Calculator className="mr-2 h-3 w-3" />
-                  {showAdvanced ? 'Hide' : 'Show'} Advanced Rates
+                  {showAdvanced ? t.hideAdvancedRates : t.showAdvancedRates}
                 </Button>
               </div>
 
               {showAdvanced && (
                 <div className="space-y-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
                   <CalculatorField
-                    label="Inflation Rate (% p.a.)"
+                    label={t.inflationRate}
                     value={inflation}
                     min={2}
                     max={10}
@@ -370,7 +466,7 @@ export default function RetirementCalculatorClient() {
                     onChange={setInflation}
                   />
                   <CalculatorField
-                    label="Pre-Retirement Return (% p.a.)"
+                    label={t.preRetirementReturn}
                     value={preReturn}
                     min={4}
                     max={18}
@@ -378,7 +474,7 @@ export default function RetirementCalculatorClient() {
                     onChange={setPreReturn}
                   />
                   <CalculatorField
-                    label="Post-Retirement Return (% p.a.)"
+                    label={t.postRetirementReturn}
                     value={postReturn}
                     min={3}
                     max={12}
@@ -399,26 +495,26 @@ export default function RetirementCalculatorClient() {
 
               <div>
                 <div className="text-sm text-slate-500">
-                  Target Retirement Corpus
+                  {t.targetRetirementCorpus}
                 </div>
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(results.targetCorpus)}
                 </div>
                 <div className="mt-1 text-xs text-slate-500">
-                  For 25 years of retirement
+                  {t.retirementYears}
                 </div>
               </div>
 
               <div className="rounded-xl border-2 border-lime-300 bg-lime-50 px-6 py-4 w-full max-w-xs">
                 <div className="text-xs font-semibold text-lime-700">
-                  Monthly SIP Required
+                  {t.monthlySIPRequired}
                 </div>
                 <div className="mt-1 text-2xl font-extrabold text-lime-800">
                   {formatINR(results.sip)}
-                  <span className="text-sm font-medium"> / month</span>
+                  <span className="text-sm font-medium"> {t.perMonth}</span>
                 </div>
                 <div className="text-[11px] text-lime-600 mt-1">
-                  for next {results.yearsToRetire} years
+                  {t.forNextYears} {results.yearsToRetire} years
                 </div>
               </div>
 
@@ -426,13 +522,13 @@ export default function RetirementCalculatorClient() {
                 <Card className="border-slate-200 shadow-none">
                   <CardContent className="p-4">
                     <div className="text-xs text-slate-500">
-                      Expense at Retirement
+                      {t.expenseAtRetirement}
                     </div>
                     <div className="mt-1 font-semibold text-red-600">
                       {formatINR(results.expenseAtRetirement)}
                     </div>
                     <div className="text-[11px] text-slate-500 mt-0.5">
-                      /month (inflation adjusted)
+                      {t.monthInflationAdjusted}
                     </div>
                   </CardContent>
                 </Card>
@@ -440,13 +536,13 @@ export default function RetirementCalculatorClient() {
                 <Card className="border-emerald-200 bg-emerald-50 shadow-none">
                   <CardContent className="p-4">
                     <div className="text-xs text-emerald-700">
-                      Current Savings FV
+                      {t.currentSavingsFV}
                     </div>
                     <div className="mt-1 font-semibold text-emerald-700">
                       {formatINR(results.savingsFV)}
                     </div>
                     <div className="text-[11px] text-emerald-600 mt-0.5">
-                      {results.securedPct}% of target
+                      {results.securedPct}% {t.ofTarget}
                     </div>
                   </CardContent>
                 </Card>
@@ -456,25 +552,27 @@ export default function RetirementCalculatorClient() {
               {results.isShortfall && (
                 <div className="w-full p-4 bg-blue-50 rounded-lg border border-blue-200 text-left">
                   <h4 className="text-xs font-semibold text-blue-900 mb-2">
-                    Investment Breakdown
+                    {t.investmentBreakdown}
                   </h4>
                   <div className="space-y-2 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-slate-700">Gap to Fill:</span>
+                      <span className="text-slate-700">{t.gapToFill}</span>
                       <strong className="text-blue-700">
                         {formatINR(results.gap)}
                       </strong>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-700">
-                        Total SIP Investment:
+                        {t.totalSIPInvestment}
                       </span>
                       <strong className="text-slate-900">
                         {formatINR(results.totalSIPInvestment)}
                       </strong>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-700">Expected Returns:</span>
+                      <span className="text-slate-700">
+                        {t.expectedReturns}
+                      </span>
                       <strong className="text-emerald-700">
                         {formatINR(results.sipGrowth)}
                       </strong>
@@ -484,8 +582,7 @@ export default function RetirementCalculatorClient() {
               )}
 
               <p className="text-xs text-slate-400 italic">
-                Assumes 25-year retirement period. Adjust based on life
-                expectancy and lifestyle.
+                {t.retirementNote}
               </p>
             </div>
           </div>
@@ -496,12 +593,12 @@ export default function RetirementCalculatorClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Plan
+          {t.savePlan}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
       </div>
 
@@ -509,16 +606,14 @@ export default function RetirementCalculatorClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">
-              Your Saved Retirement Plans
-            </CardTitle>
+            <CardTitle className="text-lg">{t.savedRetirementPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -535,16 +630,16 @@ export default function RetirementCalculatorClient() {
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <div className="font-semibold text-sm">
-                          Age {calc.currentAge}→{calc.retireAge} | Corpus:{' '}
-                          {formatINR(calc.targetCorpus)}
+                          {t.age} {calc.currentAge}→{calc.retireAge} |{' '}
+                          {t.corpus} {formatINR(calc.targetCorpus)}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          SIP: {formatINR(calc.sipRequired)}/mo | Expense:{' '}
+                          {t.sip} {formatINR(calc.sipRequired)}/mo | {t.expense}{' '}
                           {formatINR(calc.monthlyExpense)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Savings: {formatINR(calc.currentSavings)} | Returns:{' '}
-                          {calc.preReturn}%/{calc.postReturn}%
+                          {t.savings} {formatINR(calc.currentSavings)} |{' '}
+                          {t.returns} {calc.preReturn}%/{calc.postReturn}%
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

@@ -39,6 +39,72 @@ interface SavedCalculation {
   date: string;
 }
 
+interface PPFLabels {
+  contributionMode: string;
+  monthly: string;
+  annual: string;
+  annualLumpSum: string;
+  monthlyInvestment: string;
+  annualInvestment: string;
+  noteLabel: string;
+  noteText: string;
+  warningText: string;
+  interestRate: string;
+  duration: string;
+  showBreakdown: string;
+  hideBreakdown: string;
+  maturityValue: string;
+  taxFree: string;
+  totalInvestment: string;
+  totalInterest: string;
+  effectiveReturn: string;
+  lockInInfo: string;
+  yearwiseGrowth: string;
+  year: string;
+  balance: string;
+  interest: string;
+  moreYears: string;
+  saveCalculation: string;
+  shareWhatsApp: string;
+  savedPPFPlans: string;
+  clearAll: string;
+  maturity: string;
+  mode: string;
+}
+
+const DEFAULT_LABELS: PPFLabels = {
+  contributionMode: 'Contribution Mode',
+  monthly: 'Monthly',
+  annual: 'Annual',
+  annualLumpSum: 'Annual (Lump Sum)',
+  monthlyInvestment: 'Monthly Investment (₹)',
+  annualInvestment: 'Annual Investment (₹)',
+  noteLabel: 'Note:',
+  noteText: 'Maximum annual contribution is ₹1,50,000.',
+  warningText: '⚠️ Your monthly contribution exceeds the annual limit!',
+  interestRate: 'Interest Rate (% p.a)',
+  duration: 'Duration (Years)',
+  showBreakdown: 'Show Year-wise Breakdown',
+  hideBreakdown: 'Hide Year-wise Breakdown',
+  maturityValue: 'Maturity Value (Tax Free)',
+  taxFree: 'Tax Free',
+  totalInvestment: 'Total Investment',
+  totalInterest: 'Total Interest',
+  effectiveReturn: 'Effective Return:',
+  lockInInfo: '15-year lock-in • 100% Tax-Free (EEE)',
+  yearwiseGrowth: 'Year-wise Growth (First 5 Years)',
+  year: 'Year',
+  balance: 'Balance:',
+  interest: 'Interest:',
+  moreYears: 'more years to maturity',
+  saveCalculation: 'Save Calculation',
+  shareWhatsApp: 'Share via WhatsApp',
+  savedPPFPlans: 'Your Saved PPF Plans',
+  clearAll: 'Clear All',
+  maturity: 'Maturity:',
+  mode: 'Mode:',
+};
+
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -47,7 +113,13 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function PPFClient() {
+export default function PPFClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<PPFLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [mode, setMode] = useState<'monthly' | 'annual'>('monthly');
   const [monthlyContribution, setMonthlyContribution] = useState(1000);
@@ -203,7 +275,7 @@ export default function PPFClient() {
 
     const message =
       `🔒 PPF Calculation (Tax-Free Returns)\n\n` +
-      `Investment Mode: ${mode === 'monthly' ? 'Monthly' : 'Annual'}\n` +
+      `Investment Mode: ${mode === 'monthly' ? t.monthly : t.annual}\n` +
       `Amount: ${amount}\n` +
       `Interest Rate: ${annualRate}% p.a.\n` +
       `Duration: ${years} years\n\n` +
@@ -302,7 +374,7 @@ export default function PPFClient() {
             <div className="space-y-6">
               {/* Contribution Mode */}
               <div className="space-y-2">
-                <Label>Contribution Mode</Label>
+                <Label>{t.contributionMode}</Label>
                 <Select
                   value={mode}
                   onValueChange={(v) => setMode(v as 'monthly' | 'annual')}
@@ -311,8 +383,8 @@ export default function PPFClient() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="monthly">Monthly</SelectItem>
-                    <SelectItem value="annual">Annual (Lump Sum)</SelectItem>
+                    <SelectItem value="monthly">{t.monthly}</SelectItem>
+                    <SelectItem value="annual">{t.annualLumpSum}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -320,9 +392,7 @@ export default function PPFClient() {
               {/* Investment Amount */}
               <CalculatorField
                 label={
-                  mode === 'monthly'
-                    ? 'Monthly Investment (₹)'
-                    : 'Annual Investment (₹)'
+                  mode === 'monthly' ? t.monthlyInvestment : t.annualInvestment
                 }
                 value={
                   mode === 'monthly' ? monthlyContribution : annualContribution
@@ -339,11 +409,10 @@ export default function PPFClient() {
 
               <div className="p-3 bg-amber-50 rounded-lg border border-amber-200">
                 <p className="text-xs text-slate-700">
-                  <strong>Note:</strong> Maximum annual contribution is
-                  ₹1,50,000.
+                  <strong>{t.noteLabel}</strong> {t.noteText}
                   {mode === 'monthly' && monthlyContribution * 12 > 150000 && (
                     <span className="text-red-600 block mt-1">
-                      ⚠️ Your monthly contribution exceeds the annual limit!
+                      {t.warningText}
                     </span>
                   )}
                 </p>
@@ -351,7 +420,7 @@ export default function PPFClient() {
 
               {/* Interest Rate */}
               <CalculatorField
-                label="Interest Rate (% p.a)"
+                label={t.interestRate}
                 value={annualRate}
                 min={4}
                 max={12}
@@ -361,7 +430,7 @@ export default function PPFClient() {
 
               {/* Duration */}
               <CalculatorField
-                label="Duration (Years)"
+                label={t.duration}
                 value={years}
                 min={15}
                 max={50}
@@ -378,7 +447,7 @@ export default function PPFClient() {
                   className="text-xs text-slate-600 hover:text-slate-900"
                 >
                   <Calculator className="mr-2 h-3 w-3" />
-                  {showAdvanced ? 'Hide' : 'Show'} Year-wise Breakdown
+                  {showAdvanced ? t.hideBreakdown : t.showBreakdown}
                 </Button>
               </div>
             </div>
@@ -392,9 +461,7 @@ export default function PPFClient() {
               />
 
               <div className="mt-6 text-center w-full">
-                <div className="text-sm text-slate-500">
-                  Maturity Value (Tax Free)
-                </div>
+                <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(calculations.maturity)}
@@ -404,7 +471,7 @@ export default function PPFClient() {
                   <Card className="border-slate-200">
                     <CardContent className="p-4">
                       <div className="text-xs text-slate-500">
-                        Total Investment
+                        {t.totalInvestment}
                       </div>
                       <div className="mt-1 font-semibold text-slate-900">
                         {formatINR(calculations.invested)}
@@ -415,7 +482,7 @@ export default function PPFClient() {
                   <Card className="border-lime-200 bg-lime-50">
                     <CardContent className="p-4">
                       <div className="text-xs text-lime-700">
-                        Total Interest
+                        {t.totalInterest}
                       </div>
                       <div className="mt-1 font-semibold text-lime-700">
                         +{formatINR(calculations.interest)}
@@ -428,7 +495,7 @@ export default function PPFClient() {
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700 flex items-center gap-1">
                       <TrendingUp className="h-4 w-4 text-emerald-600" />
-                      Effective Return:
+                      {t.effectiveReturn}
                     </span>
                     <span className="font-bold text-emerald-700">
                       {calculations.effectiveReturn}%
@@ -438,14 +505,14 @@ export default function PPFClient() {
 
                 <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
                   <Lock className="w-3 h-3" />
-                  <span>15-year lock-in • 100% Tax-Free (EEE)</span>
+                  <span>{t.lockInInfo}</span>
                 </div>
 
                 {/* Year-wise Breakdown */}
                 {showAdvanced && (
                   <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
                     <h4 className="text-xs font-semibold text-slate-900 mb-3">
-                      Year-wise Growth (First 5 Years)
+                      {t.yearwiseGrowth}
                     </h4>
                     <div className="space-y-2">
                       {calculations.yearlyBreakdown.map((item) => (
@@ -454,15 +521,15 @@ export default function PPFClient() {
                           className="flex justify-between text-xs"
                         >
                           <span className="text-slate-600">
-                            Year {item.year}:
+                            {t.year} {item.year}:
                           </span>
                           <div className="flex gap-3">
                             <span className="text-slate-700">
-                              Balance:{' '}
+                              {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
                             <span className="text-green-700">
-                              Interest:{' '}
+                              {t.interest}{' '}
                               <strong>{formatINR(item.interestEarned)}</strong>
                             </span>
                           </div>
@@ -470,7 +537,7 @@ export default function PPFClient() {
                       ))}
                       {years > 5 && (
                         <div className="text-[11px] text-slate-500 mt-2 pt-2 border-t">
-                          + {years - 5} more years to maturity
+                          + {years - 5} {t.moreYears}
                         </div>
                       )}
                     </div>
@@ -486,12 +553,12 @@ export default function PPFClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Calculation
+          {t.saveCalculation}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
       </div>
 
@@ -499,14 +566,14 @@ export default function PPFClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">Your Saved PPF Plans</CardTitle>
+            <CardTitle className="text-lg">{t.savedPPFPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -529,11 +596,12 @@ export default function PPFClient() {
                           @ {calc.annualRate}% for {calc.years}y
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          Maturity: {formatINR(calc.maturity)} | Interest:{' '}
-                          {formatINR(calc.interest)}
+                          {t.maturity} {formatINR(calc.maturity)} | {t.interest}
+                          : {formatINR(calc.interest)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Mode: {calc.mode === 'monthly' ? 'Monthly' : 'Annual'}
+                          {t.mode}{' '}
+                          {calc.mode === 'monthly' ? t.monthly : t.annual}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

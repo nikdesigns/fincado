@@ -117,8 +117,8 @@ export default function SIPCalculatorClient() {
 
     toast.success('SIP calculation saved!');
 
-    if (typeof window !== 'undefined' && (window as unknown).gtag) {
-      (window as unknown).gtag('event', 'sip_calculation_saved', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag!('event', 'sip_calculation_saved', {
         monthly_sip: monthlySip,
         rate,
         years,
@@ -140,8 +140,8 @@ export default function SIPCalculatorClient() {
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 
-    if (typeof window !== 'undefined' && (window as unknown).gtag) {
-      (window as unknown).gtag('event', 'sip_calculation_shared', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag!('event', 'sip_calculation_shared', {
         method: 'whatsapp',
       });
     }

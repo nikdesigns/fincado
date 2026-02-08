@@ -80,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" suppressHydrationWarning lang="en-IN">
+    <html lang="en-IN" suppressHydrationWarning>
       <head>
         {/* AdSense Meta Tag */}
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />

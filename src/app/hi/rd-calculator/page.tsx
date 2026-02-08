@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'RD Interest Rate Hindi',
     'आरडी कैलकुलेटर',
     'RD Maturity Calculator',
-    'Post Office RD'
+    'Post Office RD',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/rd-calculator/',
@@ -83,18 +83,42 @@ export const metadata: Metadata = {
 export default function HindiRDPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    monthlyDeposit: 'मासिक जमा (Monthly Deposit)',
-    rate: 'ब्याज दर (Interest Rate %)',
-    years: 'वर्ष (Years)',
-    months: 'महीने (Months)',
-    maturityAmount: 'परिपक्वता राशि (Maturity Amount)',
-    totalInv: 'कुल जमा (Total Investment)',
-    grossInt: 'कुल ब्याज (Gross Interest)',
-    netInt: 'नेट ब्याज (Net Interest)',
-    taxDeducted: 'TDS (Tax)',
-    advancedParams: 'टैक्स विकल्प (Advanced)',
-    taxRate: 'टैक्स दर (%)',
-    ignoreTax: 'बिना टैक्स के देखें (Show Gross)',
+    seniorCitizen: 'वरिष्ठ नागरिक (60+ वर्ष)',
+    seniorBonus: 'अतिरिक्त 0.5% ब्याज दर प्राप्त करें',
+    monthlyDeposit: 'मासिक जमा (₹)',
+    interestRate: 'ब्याज दर (% प्रति वर्ष)',
+    tenure: 'अवधि (वर्ष)',
+    additionalMonths: 'अतिरिक्त महीने',
+    showDetails: 'गणना विवरण दिखाएं',
+    hideDetails: 'गणना विवरण छुपाएं',
+    maturityAmount: 'परिपक्वता राशि',
+    totalInvestment: 'कुल निवेश',
+    netInterest: 'शुद्ध ब्याज',
+    estimatedTDS: 'अनुमानित TDS (10%):',
+    grossInterest: 'सकल ब्याज:',
+    calculationBreakdown: 'गणना विवरण',
+    monthlyDepositLabel: 'मासिक जमा:',
+    totalMonths: 'कुल महीने:',
+    compounding: 'चक्रवृद्धि:',
+    quarterly: 'तिमाही',
+    annualInterestRate: 'वार्षिक ब्याज दर:',
+    wealthGain: 'धन लाभ:',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    compareBankRates: 'बैंक दरों की तुलना करें',
+    hideBankRates: 'बैंक दरें छुपाएं',
+    popularBankRates: 'लोकप्रिय बैंक RD दरें (फरवरी 2026)',
+    bankTenure: 'अवधि:',
+    general: 'सामान्य:',
+    senior: 'वरिष्ठ:',
+    applyRate: 'दर लागू करें',
+    ratesNote:
+      'दरें सांकेतिक हैं और बैंक, अवधि और जमा राशि के अनुसार भिन्न होती हैं। पोस्ट ऑफिस RD दरें सभी अवधियों में एक समान हैं। वर्तमान दरों के लिए अपने बैंक से संपर्क करें।',
+    savedRDPlans: 'आपकी सहेजी गई RD योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    maturity: 'परिपक्वता:',
+    interest: 'ब्याज:',
+    investment: 'निवेश:',
   };
 
   const introContent = autoLinkContent(`
@@ -209,7 +233,7 @@ export default function HindiRDPage() {
       question: 'RD SIP से कैसे अलग है?',
       answer:
         'RD एक बैंक जमा उत्पाद है जिसमें गारंटीड रिटर्न और तिमाही चक्रवृद्धि है। SIP बाजार-लिंक्ड रिटर्न के साथ एक म्यूचुअल फंड निवेश विधि है। RD सुरक्षित है लेकिन कम रिटर्न (6.5-7.5%) प्रदान करता है, जबकि SIP उच्च रिटर्न (12-15%) उत्पन्न कर सकता है लेकिन बाजार जोखिम वहन करता है। RD अल्पकालिक लक्ष्यों के लिए आदर्श है, SIP दीर्घकालिक धन सृजन के लिए।',
-    }
+    },
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -229,7 +253,7 @@ export default function HindiRDPage() {
           {
             name: 'RD कैलकुलेटर',
             url: 'https://fincado.com/hi/rd-calculator/',
-          }
+          },
         ]}
       />
 

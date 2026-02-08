@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'Fixed Deposit Calculator Hindi',
     'FD Interest Rates 2026',
     'FD Maturity Calculator',
-    'फिक्स्ड डिपॉजिट कैलकुलेटर'
+    'फिक्स्ड डिपॉजिट कैलकुलेटर',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/fd-calculator/',
@@ -83,14 +83,64 @@ export const metadata: Metadata = {
 export default function HindiFDPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    principal: 'जमा राशि (Principal Amount)',
-    rate: 'ब्याज दर (Interest Rate %)',
-    years: 'वर्ष (Years)',
-    months: 'महीने (Months)',
-    freq: 'ब्याज चक्र (Compounding Freq)',
-    maturity: 'परिपक्वता राशि (Maturity Amount)',
-    totalPrincipal: 'मूल राशि (Principal)',
-    interest: 'कुल ब्याज (Total Interest)',
+    // Basic fields
+    principal: 'मूलधन राशि',
+    rate: 'ब्याज दर (% प्रति वर्ष)',
+    years: 'अवधि (वर्ष)',
+    months: 'अतिरिक्त महीने',
+    freq: 'चक्रवृद्धि आवृत्ति',
+    maturity: 'परिपक्वता राशि',
+    totalPrincipal: 'मूल राशि',
+    interest: 'कुल ब्याज',
+
+    // Frequency options
+    quarterly: 'तिमाही',
+    monthly: 'मासिक',
+    halfYearly: 'अर्धवार्षिक',
+    yearly: 'वार्षिक',
+
+    // Display labels
+    maturityAmount: 'परिपक्वता राशि',
+    invested: 'निवेशित',
+    interestEarned: 'अर्जित ब्याज',
+
+    // Senior citizen
+    seniorCitizen: 'वरिष्ठ नागरिक (60+ वर्ष)',
+    seniorBonus: 'अतिरिक्त 0.5% ब्याज दर प्राप्त करें',
+
+    // Input labels
+    depositAmount: 'जमा राशि (₹)',
+    interestRate: 'ब्याज दर (% प्रति वर्ष)',
+    tenure: 'अवधि (वर्ष)',
+    additionalMonths: 'अतिरिक्त महीने',
+    compoundingFreq: 'चक्रवृद्धि आवृत्ति',
+    mostCommon: 'सबसे आम',
+
+    // Results
+    totalInterest: 'कुल ब्याज',
+    estimatedTDS: 'अनुमानित TDS (10%):',
+    netInterest: 'शुद्ध ब्याज (TDS के बाद):',
+    afterTDS: 'TDS के बाद',
+
+    // Actions
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    compareBankRates: 'बैंक दरों की तुलना करें',
+    hideBankRates: 'बैंक दरें छुपाएं',
+
+    // Bank rates section
+    popularBankRates: 'लोकप्रिय बैंक FD दरें (फरवरी 2026)',
+    bankTenure: 'अवधि:',
+    general: 'सामान्य:',
+    senior: 'वरिष्ठ:',
+    applyRate: 'दर लागू करें',
+    ratesNote:
+      'दरें सांकेतिक हैं और बैंक, अवधि और जमा राशि के अनुसार भिन्न होती हैं। वर्तमान दरों के लिए अपने बैंक से संपर्क करें। वरिष्ठ नागरिक दरें आमतौर पर 0.25-0.5% अतिरिक्त प्रदान करती हैं।',
+
+    // Saved calculations
+    savedFDPlans: 'आपकी सहेजी गई FD योजनाएं',
+    clearAll: 'सभी साफ़ करें',
+    compounding: 'चक्रवृद्धि:',
   };
 
   const introContent = autoLinkContent(`
@@ -203,7 +253,7 @@ export default function HindiFDPage() {
       question: 'FD ब्याज पर TDS कैसे बचाएं?',
       answer:
         'यदि आपकी कुल आय कर योग्य सीमा से कम है तो अपने बैंक को फॉर्म 15G (60 से कम उम्र के व्यक्तियों के लिए) या फॉर्म 15H (वरिष्ठ नागरिकों के लिए) जमा करें। आप कर योग्य ब्याज को प्रबंधित करने के लिए परिवार के सदस्यों में FD को विभाजित कर सकते हैं या मैच्योरिटी तिथियां फैला सकते हैं।',
-    }
+    },
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -223,7 +273,7 @@ export default function HindiFDPage() {
           {
             name: 'FD कैलकुलेटर',
             url: 'https://fincado.com/hi/fd-calculator/',
-          }
+          },
         ]}
       />
 

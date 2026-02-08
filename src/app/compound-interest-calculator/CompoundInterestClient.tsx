@@ -44,6 +44,8 @@ const formatINR = (val: number) =>
   }).format(val);
 
 /* ---------------- TYPES ---------------- */
+type CalculationMode = 'forward' | 'findPrincipal' | 'findRate' | 'findTime';
+
 interface CompoundLabels {
   principal: string;
   rate: string;
@@ -191,9 +193,7 @@ export default function CompoundInterestClient({
   const t = { ...DEFAULT_LABELS, ...labels };
 
   /* ---------------- STATE ---------------- */
-  const [mode, setMode] = useState<
-    'forward' | 'findPrincipal' | 'findRate' | 'findTime'
-  >('forward');
+  const [mode, setMode] = useState<CalculationMode>('forward');
   const [principal, setPrincipal] = useState(100000);
   const [rate, setRate] = useState(10);
   const [years, setYears] = useState(10);
@@ -448,14 +448,14 @@ export default function CompoundInterestClient({
       }[frequency] || 'Quarterly';
 
     const message =
-      `💰 Compound Interest Calculation\\n\\n` +
-      `Principal: ${formatINR(results.principal)}\\n` +
-      `Rate: ${results.rate}% p.a.\\n` +
-      `Time: ${results.years} years\\n` +
-      `Frequency: ${frequencyName}\\n\\n` +
-      `Maturity: ${formatINR(results.maturity)}\\n` +
-      `Interest Earned: ${formatINR(results.interest)}\\n\\n` +
-      `Power of Compounding! 🚀\\n\\n` +
+      `💰 Compound Interest Calculation\n\n` +
+      `Principal: ${formatINR(results.principal)}\n` +
+      `Rate: ${results.rate}% p.a.\n` +
+      `Time: ${results.years} years\n` +
+      `Frequency: ${frequencyName}\n\n` +
+      `Maturity: ${formatINR(results.maturity)}\n` +
+      `Interest Earned: ${formatINR(results.interest)}\n\n` +
+      `Power of Compounding! 🚀\n\n` +
       `Calculate yours: https://fincado.com/compound-interest-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
@@ -506,7 +506,7 @@ export default function CompoundInterestClient({
             <Label className="mb-3 block">Calculation Mode</Label>
             <Tabs
               value={mode}
-              onValueChange={(v: unknown) => setMode(v)}
+              onValueChange={(v) => setMode(v as CalculationMode)}
               className="w-full"
             >
               <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">

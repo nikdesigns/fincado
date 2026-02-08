@@ -1,38 +1,85 @@
 'use client';
 
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import CalculatorField from '@/components/CalculatorField';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  TrendingUp,
-  RefreshCcw,
-  BookmarkIcon,
-  Share2Icon,
-  Trash2,
-  Calculator,
-} from 'lucide-react';
+import EMIPieChart from '@/components/EMIPieChart';
+import { BookmarkIcon, Share2Icon, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 /* ---------- TYPES ---------- */
+interface LumpsumLabels {
+  investment: string;
+  rate: string;
+  time: string;
+  frequency: string;
+  futureVal: string;
+  invested: string;
+  wealthGained: string;
+  quarterly: string;
+  monthly: string;
+  halfYearly: string;
+  yearly: string;
+  investmentAmount: string;
+  expectedReturn: string;
+  timePeriod: string;
+  compoundingFreq: string;
+  mostCommon: string;
+  futureValue: string;
+  investedAmount: string;
+  totalWealth: string;
+  saveCalculation: string;
+  shareWhatsApp: string;
+  savedPlans: string;
+  clearAll: string;
+  compounding: string;
+}
+
+const DEFAULT_LABELS: LumpsumLabels = {
+  investment: 'Investment Amount (₹)',
+  rate: 'Expected Return Rate (% p.a.)',
+  time: 'Time Period (Years)',
+  frequency: 'Compounding Frequency',
+  futureVal: 'Future Value',
+  invested: 'Invested Amount',
+  wealthGained: 'Wealth Gained',
+  quarterly: 'Quarterly',
+  monthly: 'Monthly',
+  halfYearly: 'Half-Yearly',
+  yearly: 'Yearly',
+  investmentAmount: 'Investment Amount (₹)',
+  expectedReturn: 'Expected Return Rate (% p.a.)',
+  timePeriod: 'Time Period (Years)',
+  compoundingFreq: 'Compounding Frequency',
+  mostCommon: 'Most Common',
+  futureValue: 'Future Value',
+  investedAmount: 'Invested Amount',
+  totalWealth: 'Total Wealth Gained',
+  saveCalculation: 'Save Calculation',
+  shareWhatsApp: 'Share via WhatsApp',
+  savedPlans: 'Your Saved Plans',
+  clearAll: 'Clear All',
+  compounding: 'Compounding:',
+};
+
+type CompoundingFreq = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
+
+const FREQUENCY_MAP: Record<CompoundingFreq, number> = {
+  monthly: 12,
+  quarterly: 4,
+  'half-yearly': 2,
+  yearly: 1,
+};
+
 interface SavedCalculation {
   id: number;
   principal: number;
-  annualRate: number;
+  rate: number;
   years: number;
-  frequency: number;
+  frequency: CompoundingFreq;
   futureValue: number;
-  wealthGained: number;
+  wealth: number;
   date: string;
 }
 
@@ -44,117 +91,18 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-const FREQUENCY_MAP: Record<number, string> = {
-  1: 'Annually',
-  2: 'Half-Yearly',
-  4: 'Quarterly',
-  12: 'Monthly',
-};
-
-/* ---------------- CHART COMPONENT ---------------- */
-function LumpsumDonut({
-  principal,
-  wealth,
+export default function LumpsumClient({
+  labels = DEFAULT_LABELS,
 }: {
-  principal: number;
-  wealth: number;
+  labels?: Partial<LumpsumLabels>;
 }) {
-  const total = principal + wealth;
-  const principalPct = total > 0 ? (principal / total) * 100 : 0;
-  const interestPct = total > 0 ? (wealth / total) * 100 : 0;
+  const t = { ...DEFAULT_LABELS, ...labels };
 
-  const size = 200;
-  const strokeWidth = 24;
-  const r = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * r;
-
-  // Segment 1: Principal (Slate/Gray)
-  const dash1 = (principalPct / 100) * circumference;
-
-  // Segment 2: Interest (Lime - Your Brand Color)
-  const dash2 = (interestPct / 100) * circumference;
-  const offset2 = -dash1;
-
-  return (
-    <div className="relative flex flex-col items-center justify-center py-6">
-      <div style={{ width: size, height: size }} className="relative">
-        <svg
-          width={size}
-          height={size}
-          viewBox={`0 0 ${size} ${size}`}
-          className="-rotate-90"
-        >
-          {/* Background */}
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke="#f1f5f9"
-            strokeWidth={strokeWidth}
-          />
-
-          {/* Principal (Slate-300) */}
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke="#cbd5e1"
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${dash1} ${circumference}`}
-            strokeLinecap="butt"
-            className="transition-all duration-500 ease-out"
-          />
-
-          {/* Wealth Gained (Lime-600) */}
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke="#65a30d"
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${dash2} ${circumference}`}
-            strokeDashoffset={offset2}
-            strokeLinecap="butt"
-            className="transition-all duration-500 ease-out"
-          />
-        </svg>
-
-        {/* Center Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">
-            Total Value
-          </span>
-          <span className="text-xl font-bold text-slate-900">
-            {formatINR(total)}
-          </span>
-        </div>
-      </div>
-
-      {/* Legend */}
-      <div className="flex gap-4 mt-6">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-slate-300" />
-          <span className="text-xs font-medium text-slate-600">Principal</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-lime-600" />
-          <span className="text-xs font-medium text-slate-600">Returns</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function LumpsumClient() {
   /* ---------- STATE ---------- */
   const [principal, setPrincipal] = useState(100000);
-  const [annualRate, setAnnualRate] = useState(12);
+  const [rate, setRate] = useState(12);
   const [years, setYears] = useState(10);
-  const [frequency, setFrequency] = useState(1);
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [frequency, setFrequency] = useState<CompoundingFreq>('yearly');
 
   const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
@@ -172,7 +120,7 @@ export default function LumpsumClient() {
         setSavedCalculations(JSON.parse(saved));
       }
     } catch (error) {
-      console.error('Error loading saved Lumpsum calculations:', error);
+      console.error('Error loading saved lumpsum calculations:', error);
     }
   }, []);
 
@@ -187,50 +135,39 @@ export default function LumpsumClient() {
   }, []);
 
   /* ---------- CALCULATIONS ---------- */
-  const calculations = useMemo(() => {
-    const r = annualRate / 100 / frequency;
-    const n = frequency * years;
+  const results = useMemo(() => {
+    const n = FREQUENCY_MAP[frequency];
+    const r = rate / 100;
 
-    if (principal <= 0 || n <= 0) {
-      return {
-        futureValue: 0,
-        wealthGained: 0,
-        cagr: 0,
-        multipleOfInvestment: 0,
-      };
+    let futureValue = principal;
+    if (rate > 0 && years > 0) {
+      futureValue = principal * Math.pow(1 + r / n, n * years);
     }
 
-    const futureValue = Math.round(principal * Math.pow(1 + r, n));
-    const wealthGained = futureValue - principal;
-    const cagr = annualRate; // CAGR is same as annual rate for lumpsum
-    const multipleOfInvestment = (futureValue / principal).toFixed(2);
+    const wealth = futureValue - principal;
+
+    const principalPct =
+      futureValue > 0 ? Math.round((principal / futureValue) * 100) : 100;
+    const wealthPct = 100 - principalPct;
 
     return {
-      futureValue,
-      wealthGained,
-      cagr: cagr.toFixed(2),
-      multipleOfInvestment,
+      futureValue: Math.round(futureValue),
+      wealth: Math.round(wealth),
+      principalPct,
+      wealthPct,
     };
-  }, [principal, annualRate, years, frequency]);
+  }, [principal, rate, years, frequency]);
 
   /* ---------- HANDLERS ---------- */
-  const handleReset = () => {
-    setPrincipal(100000);
-    setAnnualRate(12);
-    setYears(10);
-    setFrequency(1);
-    toast.success('Calculator reset to defaults!');
-  };
-
   const handleSave = () => {
     const calc: SavedCalculation = {
       id: Date.now(),
       principal,
-      annualRate,
+      rate,
       years,
       frequency,
-      futureValue: calculations.futureValue,
-      wealthGained: calculations.wealthGained,
+      futureValue: results.futureValue,
+      wealth: results.wealth,
       date: new Date().toISOString(),
     };
 
@@ -243,15 +180,15 @@ export default function LumpsumClient() {
         JSON.stringify(updated),
       );
     } catch (error) {
-      console.error('Error saving Lumpsum calculation:', error);
+      console.error('Error saving lumpsum calculation:', error);
     }
 
-    toast.success('Lumpsum calculation saved!');
+    toast.success('Calculation saved!');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'lumpsum_calculation_saved', {
         principal,
-        rate: annualRate,
+        rate,
         years,
       });
     }
@@ -259,14 +196,13 @@ export default function LumpsumClient() {
 
   const handleShare = () => {
     const message =
-      `💰 Lumpsum Investment Calculation\n\n` +
-      `Investment Amount: ${formatINR(principal)}\n` +
-      `Expected Return: ${annualRate}% p.a.\n` +
-      `Investment Period: ${years} years\n` +
-      `Compounding: ${FREQUENCY_MAP[frequency]}\n\n` +
-      `📈 Future Value: ${formatINR(calculations.futureValue)}\n` +
-      `💵 Wealth Gained: ${formatINR(calculations.wealthGained)}\n` +
-      `🎯 Investment Multiple: ${calculations.multipleOfInvestment}x\n\n` +
+      `📈 Lumpsum Investment Calculation\n\n` +
+      `Investment: ${formatINR(principal)}\n` +
+      `Expected Return: ${rate}% p.a.\n` +
+      `Time Period: ${years} years\n` +
+      `Compounding: ${frequency.charAt(0).toUpperCase() + frequency.slice(1)}\n\n` +
+      `💰 Future Value: ${formatINR(results.futureValue)}\n` +
+      `📊 Wealth Gained: ${formatINR(results.wealth)}\n\n` +
       `Calculate yours: https://fincado.com/lumpsum-calculator/`;
 
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
@@ -289,7 +225,7 @@ export default function LumpsumClient() {
         JSON.stringify(updated),
       );
     } catch (error) {
-      console.error('Error updating Lumpsum history:', error);
+      console.error('Error updating lumpsum history:', error);
     }
 
     toast.success('Calculation deleted!');
@@ -300,14 +236,14 @@ export default function LumpsumClient() {
     try {
       localStorage.removeItem('lumpsum_calculator_history');
     } catch (error) {
-      console.error('Error clearing Lumpsum history:', error);
+      console.error('Error clearing lumpsum history:', error);
     }
-    toast.success('All Lumpsum calculations cleared!');
+    toast.success('All calculations cleared!');
   };
 
   const handleLoad = (calc: SavedCalculation) => {
     setPrincipal(calc.principal);
-    setAnnualRate(calc.annualRate);
+    setRate(calc.rate);
     setYears(calc.years);
     setFrequency(calc.frequency);
     toast.success('Calculation loaded!');
@@ -317,227 +253,102 @@ export default function LumpsumClient() {
   return (
     <div className="space-y-6">
       {/* Main Calculator */}
-      <Card className="border-border shadow-sm bg-card">
-        <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <TrendingUp className="h-5 w-5 text-lime-600" />
-              Lumpsum Returns
-            </CardTitle>
-            <button
-              onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-lime-600 transition-colors"
-            >
-              <RefreshCcw className="w-3 h-3" /> Reset
-            </button>
-          </div>
-        </CardHeader>
-
-        <CardContent className="p-6 lg:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+      <Card className="border-slate-200 shadow-sm">
+        <CardContent className="p-6 sm:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* ---------- INPUTS ---------- */}
-            <div className="space-y-8">
-              {/* 1. Investment Amount */}
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <Label>Investment Amount (₹)</Label>
-                  <Badge
-                    variant="secondary"
-                    className="font-mono text-slate-700"
-                  >
-                    {formatINR(principal)}
-                  </Badge>
-                </div>
-                <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-slate-400">
-                    ₹
-                  </span>
-                  <Input
-                    type="number"
-                    min={1000}
-                    value={principal}
-                    onChange={(e) => setPrincipal(Number(e.target.value))}
-                    className="pl-7 h-11"
-                  />
-                </div>
-                <Slider
-                  value={[principal]}
-                  min={5000}
-                  max={10000000}
-                  step={5000}
-                  onValueChange={(v) => setPrincipal(v[0])}
-                  className="text-lime-600"
-                />
-              </div>
+            <div className="space-y-6">
+              <CalculatorField
+                label={t.investmentAmount}
+                value={principal}
+                min={1000}
+                max={10000000}
+                step={1000}
+                onChange={setPrincipal}
+              />
 
-              {/* 2. Rate */}
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <Label>Expected Return (% p.a)</Label>
-                  <Badge
-                    variant="secondary"
-                    className="font-mono text-slate-700"
-                  >
-                    {annualRate}%
-                  </Badge>
-                </div>
-                <Slider
-                  value={[annualRate]}
-                  min={1}
-                  max={30}
-                  step={0.1}
-                  onValueChange={(v) => setAnnualRate(v[0])}
-                  className="text-lime-600"
-                />
-                <div className="flex gap-2 pt-1">
-                  {[8, 10, 12, 15].map((r) => (
-                    <Badge
-                      key={r}
-                      variant="outline"
-                      className="cursor-pointer hover:bg-slate-100"
-                      onClick={() => setAnnualRate(r)}
-                    >
-                      {r}%
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+              <CalculatorField
+                label={t.expectedReturn}
+                value={rate}
+                min={1}
+                max={30}
+                step={0.5}
+                onChange={setRate}
+              />
 
-              {/* 3. Time */}
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <Label>Time Period (Years)</Label>
-                  <Badge
-                    variant="secondary"
-                    className="font-mono text-slate-700"
-                  >
-                    {years} Years
-                  </Badge>
-                </div>
-                <Slider
-                  value={[years]}
-                  min={1}
-                  max={40}
-                  step={1}
-                  onValueChange={(v) => setYears(v[0])}
-                  className="text-lime-600"
-                />
-              </div>
+              <CalculatorField
+                label={t.timePeriod}
+                value={years}
+                min={1}
+                max={40}
+                step={1}
+                onChange={setYears}
+              />
 
-              {/* 4. Frequency */}
+              {/* Compounding Frequency */}
               <div className="space-y-2">
-                <Label>Compounding Frequency</Label>
-                <Select
-                  value={String(frequency)}
-                  onValueChange={(v) => setFrequency(Number(v))}
+                <label className="text-sm font-medium text-slate-700">
+                  {t.compoundingFreq}
+                </label>
+                <select
+                  value={frequency}
+                  onChange={(e) =>
+                    setFrequency(e.target.value as CompoundingFreq)
+                  }
+                  className="
+                    w-full rounded-md border border-slate-300
+                    bg-white px-3 py-2 text-sm
+                    focus:outline-none focus:ring-2 focus:ring-lime-500
+                  "
                 >
-                  <SelectTrigger className="h-11">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">Annually (Standard)</SelectItem>
-                    <SelectItem value="2">Half-Yearly</SelectItem>
-                    <SelectItem value="4">Quarterly</SelectItem>
-                    <SelectItem value="12">Monthly</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Advanced Toggle */}
-              <div className="pt-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowAdvanced(!showAdvanced)}
-                  className="text-xs text-slate-600 hover:text-slate-900"
-                >
-                  <Calculator className="mr-2 h-3 w-3" />
-                  {showAdvanced ? 'Hide' : 'Show'} Advanced Metrics
-                </Button>
+                  <option value="monthly">{t.monthly}</option>
+                  <option value="quarterly">{t.quarterly}</option>
+                  <option value="half-yearly">{t.halfYearly}</option>
+                  <option value="yearly">
+                    {t.yearly} ({t.mostCommon})
+                  </option>
+                </select>
               </div>
             </div>
 
             {/* ---------- VISUALS ---------- */}
-            <div className="flex flex-col h-full">
-              <LumpsumDonut
-                principal={principal}
-                wealth={calculations.wealthGained}
+            <div className="flex flex-col items-center justify-center">
+              <EMIPieChart
+                principalPct={results.principalPct}
+                interestPct={results.wealthPct}
               />
 
-              <div className="grid grid-cols-2 gap-3 mt-4">
-                <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-                  <div className="text-xs text-slate-500 font-medium mb-1">
-                    Invested Amount
-                  </div>
-                  <div className="text-lg font-semibold text-slate-700">
-                    {formatINR(principal)}
-                  </div>
+              <div className="mt-6 text-center w-full">
+                <div className="text-sm text-slate-500">{t.futureValue}</div>
+
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                  {formatINR(results.futureValue)}
                 </div>
 
-                <div className="bg-lime-50 border border-lime-200 rounded-lg p-3">
-                  <div className="text-xs text-lime-700 font-medium mb-1">
-                    Wealth Gained
-                  </div>
-                  <div className="text-lg font-bold text-lime-700">
-                    +{formatINR(calculations.wealthGained)}
-                  </div>
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm mx-auto text-left">
+                  <Card className="border-slate-200">
+                    <CardContent className="p-4">
+                      <div className="text-xs text-slate-500">
+                        {t.investedAmount}
+                      </div>
+                      <div className="mt-1 font-semibold text-slate-900">
+                        {formatINR(principal)}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-lime-200 bg-lime-50">
+                    <CardContent className="p-4">
+                      <div className="text-xs text-lime-700">
+                        {t.totalWealth}
+                      </div>
+                      <div className="mt-1 font-semibold text-lime-700">
+                        +{formatINR(results.wealth)}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </div>
-
-              <div className="mt-4 p-4 bg-slate-900 rounded-xl text-center text-white shadow-lg">
-                <p className="text-xs text-slate-400 uppercase tracking-widest font-medium mb-1">
-                  Estimated Future Value
-                </p>
-                <div className="text-2xl font-bold tracking-tight">
-                  {formatINR(calculations.futureValue)}
-                </div>
-              </div>
-
-              {/* Advanced Metrics */}
-              {showAdvanced && (
-                <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="text-xs font-semibold text-slate-900 mb-3">
-                    Investment Metrics
-                  </h4>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">CAGR:</span>
-                      <strong className="text-blue-700">
-                        {calculations.cagr}%
-                      </strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">
-                        Investment Multiple:
-                      </span>
-                      <strong className="text-emerald-700">
-                        {calculations.multipleOfInvestment}x
-                      </strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Compounding:</span>
-                      <strong className="text-slate-700">
-                        {FREQUENCY_MAP[frequency]}
-                      </strong>
-                    </div>
-                    <div className="flex justify-between border-t border-blue-300 pt-2 mt-2">
-                      <span className="text-slate-600">Absolute Return:</span>
-                      <strong className="text-lime-700">
-                        {(
-                          (calculations.wealthGained / principal) *
-                          100
-                        ).toFixed(2)}
-                        %
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <p className="mt-4 text-xs text-center text-slate-400">
-                Compounding set to {FREQUENCY_MAP[frequency]}. Actual returns
-                depend on fund performance & NAV.
-              </p>
             </div>
           </div>
         </CardContent>
@@ -547,12 +358,12 @@ export default function LumpsumClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Calculation
+          {t.saveCalculation}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
       </div>
 
@@ -560,14 +371,14 @@ export default function LumpsumClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">Your Saved Calculations</CardTitle>
+            <CardTitle className="text-lg">{t.savedPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -584,15 +395,15 @@ export default function LumpsumClient() {
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <div className="font-semibold text-sm">
-                          {formatINR(calc.principal)} @ {calc.annualRate}% for{' '}
+                          {formatINR(calc.principal)} @ {calc.rate}% for{' '}
                           {calc.years}y
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          Future Value: {formatINR(calc.futureValue)} | Gain:{' '}
-                          {formatINR(calc.wealthGained)}
+                          {t.futureVal}: {formatINR(calc.futureValue)} |{' '}
+                          {t.wealthGained}: {formatINR(calc.wealth)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Compounding: {FREQUENCY_MAP[calc.frequency]}
+                          {t.compounding} {calc.frequency}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

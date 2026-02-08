@@ -26,6 +26,78 @@ import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 /* ---------- TYPES ---------- */
+interface SSYLabels {
+  ageWarning: string;
+  ageWarningNote: string;
+  ssyCalculator: string;
+  reset: string;
+  girlAge: string;
+  depositFrequency: string;
+  monthly: string;
+  yearly: string;
+  monthlyInvestment: string;
+  yearlyInvestment: string;
+  interestRate: string;
+  showBreakdown: string;
+  hideBreakdown: string;
+  maturityValue: string;
+  taxFree: string;
+  maturity: string;
+  age: string;
+  totalInvestment: string;
+  totalInterest: string;
+  annualInvestment: string;
+  contributionNote: string;
+  yearwiseGrowth: string;
+  year: string;
+  balance: string;
+  interest: string;
+  compoundingNote: string;
+  lockInNote: string;
+  saveCalculation: string;
+  shareWhatsApp: string;
+  savedSSYPlans: string;
+  clearAll: string;
+  perYear: string;
+}
+
+const DEFAULT_LABELS: SSYLabels = {
+  ageWarning: 'Note:',
+  ageWarningNote:
+    'SSY account can only be opened for girls up to age 10. Adjust the age to see accurate calculations.',
+  ssyCalculator: 'Sukanya Samriddhi Yojana Calculator',
+  reset: 'Reset',
+  girlAge: "Girl's Current Age (Years)",
+  depositFrequency: 'Deposit Frequency',
+  monthly: 'Monthly',
+  yearly: 'Yearly',
+  monthlyInvestment: 'Monthly Investment (₹)',
+  yearlyInvestment: 'Yearly Investment (₹)',
+  interestRate: 'Interest Rate (% p.a)',
+  showBreakdown: 'Show Year-wise Breakdown',
+  hideBreakdown: 'Hide Year-wise Breakdown',
+  maturityValue: 'Maturity Value (Tax Free)',
+  taxFree: 'Tax Free',
+  maturity: 'Maturity:',
+  age: 'Age:',
+  totalInvestment: 'Total Investment',
+  totalInterest: 'Total Interest',
+  annualInvestment: 'Annual Investment:',
+  contributionNote: '15 years contribution + 6 years interest-only',
+  yearwiseGrowth: 'Year-wise Growth (First 5 Years)',
+  year: 'Year',
+  balance: 'Balance:',
+  interest: 'Interest:',
+  compoundingNote: 'Continues compounding until maturity at age 21',
+  lockInNote:
+    'Lock-in: 21 years | Partial withdrawal after age 18 | 100% tax-free',
+  saveCalculation: 'Save Calculation',
+  shareWhatsApp: 'Share via WhatsApp',
+  savedSSYPlans: 'Your Saved SSY Plans',
+  clearAll: 'Clear All',
+  perYear: '/year',
+};
+
 interface SavedCalculation {
   id: number;
   currentAge: number;
@@ -47,7 +119,13 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-export default function SSYClient() {
+export default function SSYClient({
+  labels = DEFAULT_LABELS,
+}: {
+  labels?: Partial<SSYLabels>;
+}) {
+  const t = { ...DEFAULT_LABELS, ...labels };
+
   /* ---------- STATE ---------- */
   const [currentAge, setCurrentAge] = useState(5);
   const [depositMode, setDepositMode] = useState<'monthly' | 'yearly'>(
@@ -254,8 +332,7 @@ export default function SSYClient() {
         <Alert className="border-amber-200 bg-amber-50">
           <AlertCircle className="h-4 w-4 text-amber-600" />
           <AlertDescription className="ml-2 text-sm text-amber-800">
-            <strong>Note:</strong> SSY account can only be opened for girls up
-            to age 10. Adjust the age to see accurate calculations.
+            <strong>{t.ageWarning}</strong> {t.ageWarningNote}
           </AlertDescription>
         </Alert>
       )}
@@ -266,13 +343,13 @@ export default function SSYClient() {
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
               <Baby className="h-5 w-5 text-emerald-600" />
-              Sukanya Samriddhi Yojana Calculator
+              {t.ssyCalculator}
             </CardTitle>
             <button
               onClick={handleReset}
               className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
             >
-              <RefreshCcw className="w-3 h-3" /> Reset
+              <RefreshCcw className="w-3 h-3" /> {t.reset}
             </button>
           </div>
         </CardHeader>
@@ -282,7 +359,7 @@ export default function SSYClient() {
             {/* ---------- INPUTS ---------- */}
             <div className="space-y-6">
               <CalculatorField
-                label="Girl's Current Age (Years)"
+                label={t.girlAge}
                 value={currentAge}
                 min={0}
                 max={10}
@@ -292,7 +369,7 @@ export default function SSYClient() {
 
               {/* Deposit Frequency */}
               <div className="space-y-2">
-                <Label>Deposit Frequency</Label>
+                <Label>{t.depositFrequency}</Label>
                 <Select
                   value={depositMode}
                   onValueChange={(v) =>
@@ -303,8 +380,8 @@ export default function SSYClient() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="monthly">Monthly</SelectItem>
-                    <SelectItem value="yearly">Yearly</SelectItem>
+                    <SelectItem value="monthly">{t.monthly}</SelectItem>
+                    <SelectItem value="yearly">{t.yearly}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -312,8 +389,8 @@ export default function SSYClient() {
               <CalculatorField
                 label={
                   depositMode === 'monthly'
-                    ? 'Monthly Investment (₹)'
-                    : 'Yearly Investment (₹)'
+                    ? t.monthlyInvestment
+                    : t.yearlyInvestment
                 }
                 value={
                   depositMode === 'monthly' ? monthlyDeposit : yearlyDeposit
@@ -329,7 +406,7 @@ export default function SSYClient() {
               />
 
               <CalculatorField
-                label="Interest Rate (% p.a)"
+                label={t.interestRate}
                 value={annualRate}
                 min={7}
                 max={9}
@@ -346,7 +423,7 @@ export default function SSYClient() {
                   className="text-xs text-slate-600 hover:text-slate-900"
                 >
                   <Calculator className="mr-2 h-3 w-3" />
-                  {showAdvanced ? 'Hide' : 'Show'} Year-wise Breakdown
+                  {showAdvanced ? t.hideBreakdown : t.showBreakdown}
                 </Button>
               </div>
             </div>
@@ -360,23 +437,22 @@ export default function SSYClient() {
               />
 
               <div className="mt-6 text-center w-full">
-                <div className="text-sm text-slate-500">
-                  Maturity Value (Tax Free)
-                </div>
+                <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
                   {formatINR(results.maturityAmount)}
                 </div>
 
                 <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
-                  Maturity: {results.maturityYear} (Age: {results.maturityAge})
+                  {t.maturity} {results.maturityYear} ({t.age}{' '}
+                  {results.maturityAge})
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                   <Card className="border-slate-200 shadow-none">
                     <CardContent className="p-4">
                       <div className="text-xs text-slate-500">
-                        Total Investment
+                        {t.totalInvestment}
                       </div>
                       <div className="mt-1 font-semibold text-slate-900">
                         {formatINR(results.totalInvested)}
@@ -387,7 +463,7 @@ export default function SSYClient() {
                   <Card className="border-lime-200 bg-lime-50 shadow-none">
                     <CardContent className="p-4">
                       <div className="text-xs text-lime-700">
-                        Total Interest
+                        {t.totalInterest}
                       </div>
                       <div className="mt-1 font-semibold text-lime-700">
                         +{formatINR(results.totalInterest)}
@@ -398,13 +474,13 @@ export default function SSYClient() {
 
                 <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-700">Annual Investment:</span>
+                    <span className="text-slate-700">{t.annualInvestment}</span>
                     <span className="font-bold text-blue-700">
                       {formatINR(results.annualInvestment)}
                     </span>
                   </div>
                   <div className="text-[11px] text-slate-600 mt-1">
-                    15 years contribution + 6 years interest-only
+                    {t.contributionNote}
                   </div>
                 </div>
 
@@ -412,7 +488,7 @@ export default function SSYClient() {
                 {showAdvanced && results.yearlyBreakdown.length > 0 && (
                   <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
                     <h4 className="text-xs font-semibold text-slate-900 mb-3">
-                      Year-wise Growth (First 5 Years)
+                      {t.yearwiseGrowth}
                     </h4>
                     <div className="space-y-2">
                       {results.yearlyBreakdown.map((item) => (
@@ -421,30 +497,29 @@ export default function SSYClient() {
                           className="flex justify-between text-xs"
                         >
                           <span className="text-slate-600">
-                            Year {item.year}:
+                            {t.year} {item.year}:
                           </span>
                           <div className="flex gap-3">
                             <span className="text-slate-700">
-                              Balance:{' '}
+                              {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
                             <span className="text-lime-700">
-                              Interest:{' '}
+                              {t.interest}{' '}
                               <strong>{formatINR(item.interest)}</strong>
                             </span>
                           </div>
                         </div>
                       ))}
                       <div className="text-[11px] text-slate-500 mt-2 pt-2 border-t">
-                        Continues compounding until maturity at age 21
+                        {t.compoundingNote}
                       </div>
                     </div>
                   </div>
                 )}
 
                 <p className="mt-4 text-xs text-center text-slate-400">
-                  Lock-in: 21 years | Partial withdrawal after age 18 | 100%
-                  tax-free
+                  {t.lockInNote}
                 </p>
               </div>
             </div>
@@ -456,12 +531,12 @@ export default function SSYClient() {
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSave} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Calculation
+          {t.saveCalculation}
         </Button>
 
         <Button onClick={handleShare} variant="outline" size="sm">
           <Share2Icon className="mr-2 h-4 w-4" />
-          Share via WhatsApp
+          {t.shareWhatsApp}
         </Button>
       </div>
 
@@ -469,14 +544,14 @@ export default function SSYClient() {
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-lg">Your Saved SSY Plans</CardTitle>
+            <CardTitle className="text-lg">{t.savedSSYPlans}</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
               className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              Clear All
+              {t.clearAll}
             </Button>
           </CardHeader>
           <CardContent>
@@ -493,20 +568,20 @@ export default function SSYClient() {
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <div className="font-semibold text-sm">
-                          Age {calc.currentAge} |{' '}
+                          {t.age} {calc.currentAge} |{' '}
                           {formatINR(
                             calc.depositMode === 'monthly'
                               ? calc.monthlyDeposit * 12
                               : calc.yearlyDeposit,
                           )}
-                          /year
+                          {t.perYear}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          {calc.annualRate}% | Maturity:{' '}
+                          {calc.annualRate}% | {t.maturity}{' '}
                           {formatINR(calc.maturityAmount)}
                         </div>
                         <div className="text-[11px] text-slate-500 mt-0.5">
-                          Interest: {formatINR(calc.totalInterest)}
+                          {t.interest} {formatINR(calc.totalInterest)}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">

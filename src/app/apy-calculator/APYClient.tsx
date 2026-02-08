@@ -461,7 +461,6 @@ export default function APYClient({ labels }: APYClientProps) {
                 <EMIPieChart
                   principalPct={calculations.investedPct}
                   interestPct={calculations.growthPct}
-                  size={220}
                 />
 
                 <div className="mt-8 w-full space-y-6">
