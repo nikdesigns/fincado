@@ -83,7 +83,6 @@ export default function RootLayout({
       </head>
       <body>
         <Toaster position="top-right" richColors />
-        <AdBlockDetector />
 
         {/* ✅ ADDS THE LOADING BAR */}
         <NextTopLoader
@@ -139,6 +138,7 @@ export default function RootLayout({
 
         {/* Main Content Area */}
         <main style={{ minHeight: '80vh' }}>{children}</main>
+        <AdBlockDetector />
 
         {/* Footer */}
         <Footer />
