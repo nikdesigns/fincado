@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const pagesToTest = [
   'http://localhost:3000/',
   'http://localhost:3000/emi-calculator/',
@@ -7,7 +5,7 @@ const pagesToTest = [
   'http://localhost:3000/income-tax-calculator/',
   'http://localhost:3000/contact/',
   'http://localhost:3000/about/',
-  'http://localhost:3000/guides/'
+  'http://localhost:3000/guides/',
 ];
 
 async function testPageSpeed() {
@@ -32,7 +30,7 @@ async function testPageSpeed() {
       } else {
         console.log(`❌ ${url} - Status ${response.status} - ${duration}ms`);
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       const duration = Date.now() - start;
 
       if (error.name === 'AbortError') {

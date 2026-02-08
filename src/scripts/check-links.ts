@@ -65,17 +65,15 @@ async function checkLinks(): Promise<CheckResult> {
       // Skip potential problem URLs
       '{search_term_string}',
     ],
-  } as const;
+  };
 
   const checker = new LinkChecker();
 
-  // ✅ CORRECT EVENT HANDLERS for linkinator
-  checker.on('link:checking', (result: any) => {
+  // ✅ CORRECT EVENT HANDLER - Use 'link' event with type assertion
+  checker.on('link' as any, (result: any) => {
     totalLinks++;
     process.stdout.write(`\r📊 Checked ${totalLinks} links...`);
-  });
 
-  checker.on('link:status', (result: any) => {
     if (result.state === 'BROKEN') {
       if (result.status === 0 || !result.status) {
         timeoutLinks++;
@@ -93,7 +91,6 @@ async function checkLinks(): Promise<CheckResult> {
       }
     } else if (result.state === 'OK') {
       passedLinks++;
-      console.log(`✅ ${result.url}`);
     } else if (result.state === 'SKIPPED') {
       skippedLinks++;
     }
@@ -101,16 +98,6 @@ async function checkLinks(): Promise<CheckResult> {
     if (result.status === 301 || result.status === 302) {
       warnings.push(`⚠️ Redirect (${result.status}): ${result.url}`);
     }
-  });
-
-  // ✅ CORRECT ERROR HANDLERS
-  checker.on('link:error', (result: any) => {
-    console.error(`\n❌ Link error: ${result.url}`);
-  });
-
-  checker.on('error', (error: Error) => {
-    console.error(`\n❌ Link checker error: ${error.message}`);
-    // Don't throw - just log and continue
   });
 
   try {
