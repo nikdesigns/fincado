@@ -1,6 +1,7 @@
 // src/components/Footer.tsx
 import React from 'react';
 import Link from 'next/link';
+import { getUnionBudgetText } from '@/lib/fiscalYear';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,16 +28,6 @@ export default function Footer() {
 
             {/* SOCIAL */}
             <div className="mt-5 flex items-center gap-3">
-              <SocialLink
-                href="https://twitter.com"
-                label="Twitter"
-                path="M23 4.5c-.7.3-1.5.6-2.3.7a4 4 0 0 0-7 2.8v1A11.4 11.4 0 0 1 3 3.8a4 4 0 0 0 1.2 5.4 4 4 0 0 1-1.8-.5v.1a4 4 0 0 0 3.2 3.9 4 4 0 0 1-1.8.1 4 4 0 0 0 3.7 2.8A8 8 0 0 1 1.5 19 11.3 11.3 0 0 0 8 21c7.5 0 11.6-6.4 11.6-12v-.6A8 8 0 0 0 23 4.5z"
-              />
-              <SocialLink
-                href="https://linkedin.com"
-                label="LinkedIn"
-                path="M4.98 3.5A2.5 2.5 0 1 1 5 8.5A2.5 2.5 0 0 1 4.98 3.5zM3 9h4v12H3zM9 9h3.7v1.7h.1c.5-1 1.8-2 3.7-2C20.6 8.7 21 11 21 14.3V21h-4v-6.2c0-1.4 0-3.1-1.9-3.1-1.9 0-2.2 1.5-2.2 3v6.3H9z"
-              />
               <Link
                 href="/contact/"
                 aria-label="Contact"
@@ -134,7 +125,7 @@ export default function Footer() {
           <div>
             <p>© {currentYear} Fincado. All rights reserved.</p>
             <p className="mt-1 text-xs text-slate-400">
-              Updated as per Union Budget 2026 norms.
+              Updated as per {getUnionBudgetText()} norms.
             </p>
           </div>
 
@@ -189,29 +180,5 @@ function FooterLink({
         {children}
       </Link>
     </li>
-  );
-}
-
-function SocialLink({
-  href,
-  label,
-  path,
-}: {
-  href: string;
-  label: string;
-  path: string;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d={path} />
-      </svg>
-    </a>
   );
 }

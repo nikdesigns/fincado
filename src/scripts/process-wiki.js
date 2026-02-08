@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs'); // ✅ Uses built-in Node.js module
+const path = require('path'); // ✅ Uses built-in Node.js module
 
 const { processWikiHtml } = require('./wikiProcessor');
 

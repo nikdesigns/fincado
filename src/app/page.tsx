@@ -21,6 +21,11 @@ import {
   ArrowRight,
   GitCompare,
 } from 'lucide-react';
+import {
+  getCurrentFiscalYear,
+  getBudgetYearText,
+  getUpdatedForFYText,
+} from '@/lib/fiscalYear';
 
 // --- SEO METADATA (Updated for 2026) ---
 export const metadata: Metadata = {
@@ -53,6 +58,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home(): JSX.Element {
+  const fy = getCurrentFiscalYear();
   const featuredSlugs = [
     'sukanya-samriddhi-yojana-guide-2026',
     'elss-funds-guide-2026',
@@ -170,36 +176,14 @@ export default function Home(): JSX.Element {
               {/* BADGES */}
               <div className="mb-6 flex flex-wrap items-center gap-3">
                 {/* ✅ Updated Year Badge */}
-                <Badge
-                  variant="outline"
-                  className="
-            flex items-center gap-2
-            border-emerald-200
-            bg-emerald-50
-            text-emerald-800
-            px-3 py-1.5
-            text-[13px]
-            font-semibold
-          "
-                >
+                <Badge variant="outline" className="...">
                   <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  Updated for FY 2026-27
+                  {getUpdatedForFYText()} {/* Dynamic! */}
                 </Badge>
 
-                <Badge
-                  variant="outline"
-                  className="
-            flex items-center gap-2
-            border-emerald-200
-            bg-emerald-50
-            text-emerald-800
-            px-3 py-1.5
-            text-[13px]
-            font-semibold
-          "
-                >
+                <Badge variant="outline" className="...">
                   <span className="pulse-dot"></span>
-                  Verified for Budget 2026
+                  Verified for {getBudgetYearText()} {/* Dynamic! */}
                 </Badge>
               </div>
 
@@ -216,7 +200,7 @@ export default function Home(): JSX.Element {
         "
               >
                 <span className="inline-block bg-linear-to-br from-emerald-800 to-emerald-600 bg-clip-text text-transparent">
-                  Financial Calculators for India
+                  Financial Calculators for India {fy.shortYear}
                 </span>
                 <br />
                 <span className="mt-3 block text-[0.45em] font-semibold tracking-[0.01em] text-slate-600">
@@ -414,7 +398,7 @@ export default function Home(): JSX.Element {
               href="/income-tax-calculator/"
               icon="tax"
               title="Income Tax Calc"
-              desc="New vs Old Regime (FY 2026-27)" // ✅ Updated Year
+              desc={`New vs Old Regime (${fy.fullFormat})`} // ✅ Updated Year
             />
           </div>
         </section>
@@ -429,8 +413,12 @@ export default function Home(): JSX.Element {
           <div className="relative overflow-hidden rounded-3xl shadow-xs bg-white border border-slate-100 px-6 py-10 sm:px-10 sm:py-12">
             <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
               <div className="space-y-3">
-                <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-none px-3 py-1 uppercase tracking-widest font-bold text-[10px]">
-                  Updated Feb 2026
+                <Badge className="...">
+                  Updated{' '}
+                  {new Date().toLocaleDateString('en-US', {
+                    month: 'short',
+                    year: 'numeric',
+                  })}
                 </Badge>
                 <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
                   Compare & <span className="text-emerald-600">Save</span>
@@ -457,13 +445,13 @@ export default function Home(): JSX.Element {
                 b2="ICICI"
                 link="/compare/hdfc-vs-icici/"
               />
-              <ComparisonCard b1="SBI" b2="Axis" link="/compare/sbi-vs-axis" />
+              <ComparisonCard b1="SBI" b2="Axis" link="/compare/sbi-vs-axis/" />
               <ComparisonCard
                 b1="ICICI"
                 b2="Kotak"
                 link="/compare/icici-vs-kotak/"
               />
-              <ComparisonCard b1="PNB" b2="BOB" link="/compare/pnb-vs-bob" />
+              <ComparisonCard b1="PNB" b2="BOB" link="/compare/pnb-vs-bob/" />
               <ComparisonCard
                 b1="Bajaj"
                 b2="LIC Housing"
@@ -726,7 +714,6 @@ export default function Home(): JSX.Element {
                     Debt-to-Income ratio below 40%. Smartly plan prepayments to
                     become debt-free faster.
                   </p>
-                  [Image of debt to income ratio visualization]
                 </div>
 
                 <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
@@ -738,7 +725,6 @@ export default function Home(): JSX.Element {
                     compounded at 12% over 30 years can create a significant
                     corpus.
                   </p>
-                  [Image of power of compounding graph]
                 </div>
 
                 <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
@@ -750,7 +736,6 @@ export default function Home(): JSX.Element {
                     <strong>EPF</strong>, and ELSS funds. Don&apos;t let taxes
                     eat into your retirement nest egg.
                   </p>
-                  [Image of tax saving investment options chart]
                 </div>
               </div>
             </div>

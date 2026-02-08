@@ -9,6 +9,8 @@ import type { Metadata, Viewport } from 'next';
 import CookieBanner from '@/components/CookieBanner';
 import AdBlockDetector from '@/components/AdBlockDetector';
 import { Toaster } from 'sonner';
+import { getCurrentFiscalYear } from '@/lib/fiscalYear';
+const fy = getCurrentFiscalYear();
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -30,8 +32,7 @@ export const metadata: Metadata = {
     default: 'Fincado — Smart Financial Calculators for India',
     template: '%s | Fincado',
   },
-  description:
-    'India’s trusted financial platform for EMI, SIP, Loan, and Tax planning. Accurate bank-grade calculators updated for 2025.',
+  description: `India's trusted financial platform for EMI, SIP, Loan, and Tax planning. Accurate bank-grade calculators updated for ${fy.shortYear}.`,
   // ✅ FIXED: Detailed Icon Configuration for Google Search
   icons: {
     icon: [

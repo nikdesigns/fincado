@@ -45,6 +45,7 @@ import {
   IndianRupee,
 } from 'lucide-react';
 import AuthorBio from '@/components/AuthorBio';
+import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 
 /* ---------------- STATIC PARAMS ---------------- */
 export const dynamicParams = false;
@@ -71,6 +72,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const fy = getCurrentFiscalYear();
 
   // ✅ FIX 2: Split by '-vs-' to correctly handle multi-word slugs like 'lic-housing'
   const parts = slug.split('-vs-');
@@ -84,7 +86,7 @@ export async function generateMetadata({
   if (!b1 || !b2) return {};
 
   return {
-    title: `${b1.name} vs ${b2.name} Home Loan Comparison 2026 – Interest Rates & Verdict`,
+    title: `${b1.name} vs ${b2.name} Home Loan Comparison ${fy.shortYear} – Interest Rates & Verdict`,
     description: `Detailed ${b1.name} vs ${b2.name} home loan comparison covering interest rates (${b1.rate}% vs ${b2.rate}%), approval speed, eligibility, and long-term cost. Expert-reviewed.`,
     alternates: {
       canonical: `https://fincado.com/compare/${slug}/`,
@@ -149,7 +151,7 @@ export default async function ComparisonPage({
       {/* ---------- HEADER ---------- */}
       <header className="max-w-4xl mx-auto text-center my-16">
         <Badge className="mb-4 bg-emerald-100 text-emerald-700 uppercase tracking-wider">
-          Expert Reviewed · 2026
+          Expert Reviewed · {fy.shortYear}
         </Badge>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 mb-6">
