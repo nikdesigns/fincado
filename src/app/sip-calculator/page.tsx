@@ -231,7 +231,7 @@ export default function SIPCalculatorPage() {
         <header style={{ marginBottom: 32 }} className="no-print">
           <div className="no-print mb-6 flex items-center justify-between gap-4">
             <ShareTools title="SIP Calculator – Calculate Mutual Fund SIP Returns" />
-            <LanguageToggle path="/hi/investments/sip-calculator" />
+            <LanguageToggle path="/hi/sip-calculator" />
           </div>
 
           <div className="flex items-center gap-3 mb-4">
