@@ -10,6 +10,7 @@ import AdBlockDetector from '@/components/AdBlockDetector';
 import ScriptManager from '@/components/ScriptManager';
 import { Toaster } from 'sonner';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
+import SkipToContent from '@/components/SkipToContent';
 
 const fy = getCurrentFiscalYear();
 
@@ -79,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className={rubik.className}>
+    <html lang="en-IN" suppressHydrationWarning lang="en-IN">
       <head>
         {/* AdSense Meta Tag */}
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
@@ -101,7 +102,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body>
+      <body className={rubik.className}>
         {/* Toast Notifications */}
         <Toaster position="top-right" richColors />
 
@@ -123,13 +124,7 @@ export default function RootLayout({
 
         {/* Global Header */}
         <Header />
-        <a
-          href="#main-content"
-          className="fixed top-4 left-4 z-9999 p-2 bg-blue-600 text-white rounded-md text-sm font-medium sr-only focus:not-sr-only focus:outline-none focus:ring-4 focus:ring-blue-300"
-          aria-label="Skip to main content"
-        >
-          Skip to main content
-        </a>
+        <SkipToContent />
 
         {/* Main Content Area */}
         <main style={{ minHeight: '80vh' }}>{children}</main>
