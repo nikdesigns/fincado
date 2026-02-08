@@ -12,11 +12,15 @@
     "lint": "eslint",
     "ping": "node src/scripts/ping-indexnow.js",
     "fix-links": "node src/scripts/fix-all-broken-links.js && node src/scripts/search-and-replace.js && node src/scripts/create-emi-redirects.js && node src/scripts/create-placeholder-images.js",
-    "check-links": "tsx src/scripts/check-links.ts",
+    "check-links": "echo 'Link checking disabled - use after deployment'",
     "check-internal": "tsx src/scripts/check-internal-links.ts",
     "link-dashboard": "tsx src/scripts/link-health-dashboard.ts",
-    "check-links:local": "tsx src/scripts/check-links.ts --local",
-    "check-links:ci": "echo 'Skipping link check in CI - run manually after deployment'"
+    "check-links:local": "echo 'Link checking disabled - use after deployment'",
+    "check-links:ci": "echo 'Skipping link check in CI - run manually after deployment'",
+    "scan:deep": "node src/scripts/deep-link-scan.js",
+    "scan:local": "node src/scripts/deep-link-scan.js http://localhost:3000",
+    "scan:prod": "node src/scripts/deep-link-scan.js https://fincado.com",
+    "audit:calculators": "node src/scripts/calculator-checker.js"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -62,6 +66,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
     "linkinator": "^7.5.3",
+    "playwright": "^1.58.2",
     "rimraf": "^6.1.2",
     "tsx": "^4.21.0",
     "tw-animate-css": "^1.4.0",

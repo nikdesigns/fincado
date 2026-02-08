@@ -37,8 +37,8 @@ async function checkLinks(): Promise<CheckResult> {
 
   const options = {
     recurse: true,
-    timeout: 60000, // 60 seconds
-    concurrency: 3,
+    timeout: 30000, // Reduced to 30 seconds
+    concurrency: 2, // Reduced concurrency to prevent overwhelming local server
     retry: false,
     linksToSkip: [
       // Skip external social media
@@ -69,7 +69,7 @@ async function checkLinks(): Promise<CheckResult> {
 
   const checker = new LinkChecker();
 
-  // ✅ CORRECT EVENT HANDLER - Use 'link' event with type assertion
+  // ✅ Handle link events
   checker.on('link' as any, (result: any) => {
     totalLinks++;
     process.stdout.write(`\r📊 Checked ${totalLinks} links...`);
@@ -100,38 +100,46 @@ async function checkLinks(): Promise<CheckResult> {
     }
   });
 
-  try {
-    console.log(`🌐 Target URL: ${targetUrl}\n`);
-    console.log(`⚙️ Settings: timeout=60s, concurrency=3\n`);
+  // ✅ Handle errors to prevent unhandled exceptions
+  checker.on('error' as any, (error: any) => {
+    console.error('\n⚠️ Checker error (continuing):', error.message);
+    // Don't throw - just log and continue
+  });
 
-    await checker.check({
-      path: targetUrl,
-      ...options,
-    });
-
-    console.log('\n\n✅ Link checking complete!\n');
-
-    return {
-      totalLinks,
-      passedLinks,
-      brokenLinks,
-      skippedLinks,
-      timeoutLinks,
-      warnings,
-    };
-  } catch (error) {
-    console.error('\n❌ Fatal error during link checking:', error);
-
-    // Return partial results instead of crashing
-    return {
-      totalLinks,
-      passedLinks,
-      brokenLinks,
-      skippedLinks,
-      timeoutLinks,
-      warnings,
-    };
-  }
+  // ✅ Wrap in Promise with proper error handling
+  return new Promise((resolve) => {
+    checker
+      .check({
+        path: targetUrl,
+        ...options,
+      })
+      .then(() => {
+        console.log('\n\n✅ Link checking complete!\n');
+        resolve({
+          totalLinks,
+          passedLinks,
+          brokenLinks,
+          skippedLinks,
+          timeoutLinks,
+          warnings,
+        });
+      })
+      .catch((error) => {
+        console.error(
+          '\n⚠️ Link checking completed with errors:',
+          error.message,
+        );
+        // Still return results even if there were errors
+        resolve({
+          totalLinks,
+          passedLinks,
+          brokenLinks,
+          skippedLinks,
+          timeoutLinks,
+          warnings,
+        });
+      });
+  });
 }
 
 /**
@@ -167,7 +175,7 @@ function generateReport(result: CheckResult): void {
   }
 
   if (result.timeoutLinks > 0) {
-    console.log('\n⚠️ Note: Some links timed out after 60 seconds.');
+    console.log('\n⚠️ Note: Some links timed out after 30 seconds.');
     console.log('   These might be slow pages or infinite loops.\n');
   }
 
