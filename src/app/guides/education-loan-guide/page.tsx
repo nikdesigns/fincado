@@ -109,7 +109,7 @@ export default function EducationLoanGuidePage() {
             description:
               'Comprehensive guide on Education Loans for studying abroad: Eligibility, Interest Rates, Section 80E Tax Benefits, and Moratorium strategies.',
             image:
-              'https://fincado.com/images/guides/education-loan/education-loan-guide-hero.webp',
+              '/images/guides/education-loan/education-loan-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -119,7 +119,7 @@ export default function EducationLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-22',

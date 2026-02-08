@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/og/credit-score-guide.webp',
+        url: '/images/og/credit-score-guide.webp',
         width: 1200,
         height: 630,
         alt: 'How to Improve CIBIL Score',
@@ -107,7 +107,7 @@ export default function BoostCreditScorePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-16',

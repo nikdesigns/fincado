@@ -7,7 +7,7 @@ export function GratuitySchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function GratuitySchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function GratuitySchemas() {
     name: 'How to Calculate Gratuity Amount',
     description:
       'Step-by-step guide to calculating gratuity as per Payment of Gratuity Act 1972 with tax exemption rules and eligibility criteria.',
-    image: 'https://fincado.com/og-gratuity-calculator.jpg',
+    image: '/og-gratuity-calculator.jpg',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -192,7 +192,7 @@ export function GratuitySchemas() {
       'Gratuity Calculator 2026 - Complete Guide to Payment of Gratuity Act',
     description:
       'Comprehensive gratuity guide with calculator, eligibility criteria, formula explanation, tax exemption rules, covered vs non-covered establishments, and payment timeline as per Act 1972.',
-    image: 'https://fincado.com/og-gratuity-calculator.jpg',
+    image: '/og-gratuity-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

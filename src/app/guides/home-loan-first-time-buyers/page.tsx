@@ -53,13 +53,13 @@ export const metadata: Metadata = {
     'home loan application process',
   ],
   alternates: {
-    canonical: 'https://fincado.com/guides/home-loan-for-first-time-buyers/',
+    canonical: '/guides/home-loan-first-time-buyers/',
   },
   openGraph: {
     title: 'Home Loan Guide 2025 | First-Time Buyer Handbook',
     description:
       'Everything you need to know about Home Loans: FOIR, Tax Hacks, and Interest Rates.',
-    url: 'https://fincado.com/guides/home-loan-for-first-time-buyers/',
+    url: '/guides/home-loan-first-time-buyers/',
     type: 'article',
   },
 };
@@ -111,7 +111,7 @@ export default function HomeLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-15',
@@ -146,7 +146,7 @@ export default function HomeLoanGuidePage() {
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Home Loan Guide',
-            url: 'https://fincado.com/guides/home-loan-for-first-time-buyers/',
+            url: '/guides/home-loan-first-time-buyers/',
           },
         ]}
       />

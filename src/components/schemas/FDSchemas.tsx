@@ -7,7 +7,7 @@ export function FDSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function FDSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function FDSchemas() {
     name: 'How to Calculate Fixed Deposit Returns',
     description:
       'Step-by-step guide to calculating FD maturity amount, interest, and TDS deductions.',
-    image: 'https://fincado.com/og-fd-calculator.jpg',
+    image: '/og-fd-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',

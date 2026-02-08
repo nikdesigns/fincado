@@ -125,13 +125,13 @@ export default function HealthInsuranceGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-12',
             dateModified: '2025-01-12',
             image:
-              'https://fincado.com/images/guides/health-insurance/health-insurance-guide-hero.webp',
+              '/images/guides/health-insurance/health-insurance-guide-hero.webp',
           }),
         }}
       />

@@ -7,7 +7,7 @@ export function IncomeTaxSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function IncomeTaxSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function IncomeTaxSchemas() {
     name: 'How to Calculate Income Tax in India',
     description:
       'Step-by-step guide to calculating income tax liability in India, comparing Old vs New Tax Regime, and choosing the best option.',
-    image: 'https://fincado.com/og-income-tax-calculator.jpg',
+    image: '/og-income-tax-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -198,7 +198,7 @@ export function IncomeTaxSchemas() {
     headline: 'Income Tax Calculator 2026 - Old vs New Regime Comparison Guide',
     description:
       'Complete guide to calculating income tax in India for FY 2025-26 & FY 2026-27. Compare Old vs New Tax Regime, understand tax slabs, deductions under Section 80C/80D, surcharge, cess, and tax planning strategies.',
-    image: 'https://fincado.com/og-income-tax-calculator.jpg',
+    image: '/og-income-tax-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

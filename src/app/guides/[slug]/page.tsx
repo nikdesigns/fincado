@@ -98,7 +98,7 @@ export default async function GuidePost({ params }: Props) {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntityOfPage: {

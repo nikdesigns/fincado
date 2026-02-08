@@ -105,7 +105,7 @@ export default function InflationGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-19',

@@ -102,7 +102,7 @@ export default function FdGuidePage() {
               'Fixed Deposit Guide (FD Truths): The Real Story Behind "Safe" Returns',
             description:
               'Complete guide to Fixed Deposits in India covering interest calculation, taxation, inflation impact, and strategic use cases.',
-            image: 'https://fincado.com/images/og/fd-truths.webp',
+            image: '/images/og/fd-truths.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -112,7 +112,7 @@ export default function FdGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-22',

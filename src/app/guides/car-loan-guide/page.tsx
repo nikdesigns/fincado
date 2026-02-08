@@ -113,7 +113,7 @@ export default function CarLoanGuidePage() {
             description:
               'Complete guide on Car Loans in India: Interest rates, Flat vs Reducing balance, and Hypothecation removal process.',
             image:
-              'https://fincado.com/images/guides/car-loan/car-loan-guide-hero.webp',
+              '/images/guides/car-loan/car-loan-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -123,7 +123,7 @@ export default function CarLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-20',

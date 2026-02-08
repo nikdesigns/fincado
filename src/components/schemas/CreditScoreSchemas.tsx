@@ -7,7 +7,7 @@ export function CreditScoreSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function CreditScoreSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function CreditScoreSchemas() {
     name: 'How to Improve Your Credit Score to 750+',
     description:
       'Step-by-step guide to improving CIBIL credit score from poor/average to excellent (750+) for better loan eligibility and lower interest rates.',
-    image: 'https://fincado.com/og-credit-score.jpg',
+    image: '/og-credit-score.jpg',
     totalTime: 'P6M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -136,7 +136,7 @@ export function CreditScoreSchemas() {
       'Credit Score Calculator 2026 - Complete Guide to CIBIL Score Improvement',
     description:
       'Complete guide to understanding, calculating, and improving credit score in India. Learn factors affecting CIBIL score, difference between credit bureaus, soft vs hard inquiry, and proven strategies to reach 750+ score.',
-    image: 'https://fincado.com/og-credit-score.jpg',
+    image: '/og-credit-score.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

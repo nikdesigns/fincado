@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-nps-calculator.jpg',
+        url: '/og-nps-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado NPS Calculator',

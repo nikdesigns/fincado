@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/personal-loan/personal-loan-interest-factors.webp',
+        url: '/images/guides/personal-loan/personal-loan-interest-factors.webp',
         width: 1200,
         height: 630,
       },
@@ -120,7 +120,7 @@ export default function PersonalLoanRatesGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-08',

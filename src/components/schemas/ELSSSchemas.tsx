@@ -7,7 +7,7 @@ export function ELSSSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function ELSSSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function ELSSSchemas() {
     name: 'How to Calculate ELSS Returns and Tax Savings',
     description:
       'Step-by-step guide to calculating ELSS mutual fund returns and Section 80C tax savings in India.',
-    image: 'https://fincado.com/og-elss-calculator.jpg',
+    image: '/og-elss-calculator.jpg',
     totalTime: 'PT5M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -140,7 +140,7 @@ export function ELSSSchemas() {
       'ELSS Calculator 2026 - Complete Guide to Tax Saving Mutual Funds',
     description:
       'Comprehensive guide to ELSS investments, returns calculation, Section 80C benefits, and comparison with other tax-saving instruments.',
-    image: 'https://fincado.com/og-elss-calculator.jpg',
+    image: '/og-elss-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

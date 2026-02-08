@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: 'How much SIP is needed for ₹1 Crore in 10 Years?',
     description: 'The exact math to becoming a Crorepati in a decade.',
     images: [
-      'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+      '/images/guides/mf/mutual-fund-guide-hero.webp',
     ],
   },
   alternates: {
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp/',
+        url: '/images/guides/mf/mutual-fund-guide-hero.webp',
         width: 1200,
         height: 600,
         alt: 'Roadmap to 1 Crore Wealth',
@@ -143,7 +143,7 @@ export default function Sip1Cr10YearsPage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://incado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-28',

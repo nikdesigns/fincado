@@ -7,7 +7,7 @@ export function SWPSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function SWPSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function SWPSchemas() {
     name: 'How to Calculate Systematic Withdrawal Plan Returns',
     description:
       'Step-by-step guide to calculating SWP returns, planning retirement income, and ensuring corpus sustainability.',
-    image: 'https://fincado.com/og-swp-calculator.jpg',
+    image: '/og-swp-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -182,7 +182,7 @@ export function SWPSchemas() {
     headline: 'SWP Calculator 2026 - Complete Guide to Systematic Withdrawals',
     description:
       'Comprehensive guide to SWP for retirement income with corpus sustainability calculation, 4% rule, tax benefits, withdrawal strategies, and best funds for SWP.',
-    image: 'https://fincado.com/og-swp-calculator.jpg',
+    image: '/og-swp-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

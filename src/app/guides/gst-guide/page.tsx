@@ -111,7 +111,7 @@ export default function GSTReturnsGuidePage() {
               'GST Returns Explained: GSTR-1 vs GSTR-3B & Input Tax Credit',
             description:
               'Comprehensive guide on GST Returns: Step-by-step filing process, ITC rules, Composition Scheme, and QRMP scheme.',
-            image: 'https://fincado.com/images/guides/gst/gst-guide-hero.webp',
+            image: '/images/guides/gst/gst-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -121,7 +121,7 @@ export default function GSTReturnsGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-08',

@@ -115,12 +115,12 @@ export default function SSYGuide() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     datePublished: '2026-01-01',
     dateModified: '2026-01-01',
-    image: 'https://fincado.com/images/guides/ssy/ssy-guide-hero.webp',
+    image: '/images/guides/ssy/ssy-guide-hero.webp',
   };
 
   return (

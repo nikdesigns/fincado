@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/health-insurance/health-insurance-guide-hindi.webp',
+        url: '/images/guides/health-insurance/health-insurance-guide-hindi.webp',
         width: 1200,
         height: 630,
       },
@@ -120,7 +120,7 @@ export default function HindiHealthInsuranceGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-21',

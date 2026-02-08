@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: 'How much SIP is needed for ₹1 Crore in 15 Years?',
     description: 'The sweet spot for wealth creation: ₹19k/month strategy.',
     images: [
-      'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+      '/images/guides/mf/mutual-fund-guide-hero.webp',
     ],
   },
   alternates: {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+        url: '/images/guides/mf/mutual-fund-guide-hero.webp',
         width: 1200,
         height: 600,
         alt: 'Roadmap to 1 Crore Wealth in 15 Years',
@@ -145,13 +145,13 @@ export default function Sip1Cr15YearsPage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-28',
             dateModified: '2025-12-28',
             image:
-              'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+              '/images/guides/mf/mutual-fund-guide-hero.webp',
           }),
         }}
       />

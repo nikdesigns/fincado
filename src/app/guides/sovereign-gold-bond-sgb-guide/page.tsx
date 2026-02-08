@@ -65,12 +65,12 @@ export default function SGBGuide() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     datePublished: '2025-01-10',
     dateModified: '2025-01-10',
-    image: 'https://fincado.com/images/guides/sgb/sgb-hero.webp',
+    image: '/images/guides/sgb/sgb-hero.webp',
   };
 
   return (

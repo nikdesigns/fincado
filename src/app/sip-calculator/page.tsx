@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-sip-calculator.jpg',
+        url: '/og-sip-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado SIP Calculator',
@@ -529,7 +529,7 @@ export default function SIPCalculatorPage() {
                     Want to build a ₹1 Crore corpus?
                   </strong>
                   <Link
-                    href="/guides/sip-investing-guide/"
+                    href="/guides/sip-investment-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-indigo-700 hover:text-indigo-800"
                   >
                     <span>Read our Complete SIP Investing Guide (2026)</span>

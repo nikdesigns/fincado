@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-fire-calculator.jpg',
+        url: '/og-fire-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado FIRE Calculator',

@@ -7,7 +7,7 @@ export function CompoundInterestSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function CompoundInterestSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function CompoundInterestSchemas() {
     name: 'How to Calculate Compound Interest for Investments',
     description:
       'Step-by-step guide to calculating compound interest on Fixed Deposits, PPF, mutual funds, and recurring deposits. Understand compounding frequency impact and maximize returns.',
-    image: 'https://fincado.com/og-compound-interest-calculator.jpg',
+    image: '/og-compound-interest-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -118,7 +118,7 @@ export function CompoundInterestSchemas() {
       'Compound Interest Calculator 2026 - Complete Guide to Power of Compounding',
     description:
       'Complete guide to compound interest in India. Learn CI formula, understand compounding frequency impact, compare CI vs simple interest, calculate FD and PPF maturity, and master wealth creation through compounding.',
-    image: 'https://fincado.com/og-compound-interest-calculator.jpg',
+    image: '/og-compound-interest-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

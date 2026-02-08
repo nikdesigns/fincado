@@ -45,18 +45,18 @@ export const metadata: Metadata = {
     'home loan prepayment',
   ],
   alternates: {
-    canonical: 'https://fincado.com/emi-calculator/home-loan/',
+    canonical: '/loans/home-loan/',
   },
   openGraph: {
     title:
       'Home Loan EMI Calculator - Calculate Housing Loan EMI & Tax Savings',
     description:
       'Calculate home loan EMI with tax benefits. Compare rates from HDFC, SBI, ICICI & save on interest.',
-    url: 'https://fincado.com/emi-calculator/home-loan/',
+    url: '/loans/home-loan/',
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-home-loan-calculator.jpg',
+        url: '/og-home-loan-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado Home Loan EMI Calculator',
@@ -185,7 +185,7 @@ export default function HomeLoanEMIPage() {
           },
           {
             name: 'Home Loan EMI Calculator',
-            url: 'https://fincado.com/emi-calculator/home-loan/',
+            url: '/loans/home-loan/',
           },
         ]}
       />
@@ -193,7 +193,7 @@ export default function HomeLoanEMIPage() {
       <CalculatorSchema
         name="Home Loan EMI Calculator"
         description="Calculate home loan EMI with tax benefits. Check monthly repayment for housing loans from HDFC, SBI, ICICI."
-        url="https://fincado.com/emi-calculator/home-loan/"
+        url="/loans/home-loan/"
       />
 
       <FAQSchema

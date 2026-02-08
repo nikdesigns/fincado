@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-ssy-calculator.jpg',
+        url: '/og-ssy-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado Sukanya Samriddhi Yojana Calculator',

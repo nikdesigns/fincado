@@ -7,7 +7,7 @@ export function InflationSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function InflationSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function InflationSchemas() {
     name: 'How to Calculate Inflation Impact on Future Expenses',
     description:
       'Step-by-step guide to calculating future value of money considering inflation. Understand purchasing power erosion and plan investments accordingly.',
-    image: 'https://fincado.com/og-inflation-calculator.jpg',
+    image: '/og-inflation-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -118,7 +118,7 @@ export function InflationSchemas() {
       'Inflation Calculator 2026 India - Complete Guide to Purchasing Power',
     description:
       'Complete guide to understanding inflation impact in India. Calculate future expenses, learn Rule of 72, compare real returns across assets, and discover inflation protection strategies for retirement planning.',
-    image: 'https://fincado.com/og-inflation-calculator.jpg',
+    image: '/og-inflation-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

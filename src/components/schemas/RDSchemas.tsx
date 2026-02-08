@@ -7,7 +7,7 @@ export function RDSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function RDSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function RDSchemas() {
     name: 'How to Calculate Recurring Deposit Returns',
     description:
       'Step-by-step guide to calculating RD maturity amount, interest, and TDS deductions with quarterly compounding.',
-    image: 'https://fincado.com/og-rd-calculator.jpg',
+    image: '/og-rd-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -181,7 +181,7 @@ export function RDSchemas() {
     headline: 'RD Calculator 2026 - Complete Guide to Recurring Deposits',
     description:
       'Comprehensive guide to RD investments, maturity calculation with quarterly compounding, bank rate comparison, and tax implications.',
-    image: 'https://fincado.com/og-rd-calculator.jpg',
+    image: '/og-rd-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

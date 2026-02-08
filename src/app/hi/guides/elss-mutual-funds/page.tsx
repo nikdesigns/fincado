@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/og/elss-guide-hindi.webp',
+        url: '/images/og/elss-guide-hindi.webp',
         width: 1200,
         height: 630,
       },
@@ -136,7 +136,7 @@ export default function HindiELSSGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-21',

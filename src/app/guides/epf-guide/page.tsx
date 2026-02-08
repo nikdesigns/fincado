@@ -109,7 +109,7 @@ export default function EPFGuidePage() {
               'EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
             description:
               'Comprehensive guide to Employee Provident Fund (EPF): Interest rates, contribution split (EPF vs EPS), withdrawal rules, and tax implications.',
-            image: 'https://fincado.com/images/guides/epf/epf-guide-hero.webp',
+            image: '/images/guides/epf/epf-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -119,7 +119,7 @@ export default function EPFGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-22',

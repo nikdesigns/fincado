@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-apy-calculator.jpg',
+        url: '/og-apy-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado APY Calculator',

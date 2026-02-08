@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-swp-calculator.jpg',
+        url: '/og-swp-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado SWP Calculator',

@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-gratuity-calculator.jpg',
+        url: '/og-gratuity-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado Gratuity Calculator',

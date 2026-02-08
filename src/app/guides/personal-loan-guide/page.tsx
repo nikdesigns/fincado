@@ -112,7 +112,7 @@ export default function PersonalLoanGuidePage() {
             description:
               'Comprehensive guide on Personal Loans in India: Eligibility, Documents, Flat vs Reducing Rate math, and Hidden Charges.',
             image:
-              'https://fincado.com/images/guides/personal-loan/personal-loan-guide-hero.webp',
+              '/images/guides/personal-loan/personal-loan-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -122,7 +122,7 @@ export default function PersonalLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-15',

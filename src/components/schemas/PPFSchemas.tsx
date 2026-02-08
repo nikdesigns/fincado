@@ -7,7 +7,7 @@ export function PPFSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function PPFSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function PPFSchemas() {
     name: 'How to Calculate PPF Maturity Returns',
     description:
       'Step-by-step guide to calculating PPF maturity amount with 7.1% tax-free interest, annual compounding, and EEE tax benefits.',
-    image: 'https://fincado.com/og-ppf-calculator.jpg',
+    image: '/og-ppf-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -186,7 +186,7 @@ export function PPFSchemas() {
     headline: 'PPF Calculator 2026 - Complete Guide to Public Provident Fund',
     description:
       'Comprehensive guide to PPF investments with 7.1% tax-free interest, EEE status, maturity calculation, withdrawal rules, and comparison with EPF, NPS, NSC.',
-    image: 'https://fincado.com/og-ppf-calculator.jpg',
+    image: '/og-ppf-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

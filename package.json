@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "ping": "node src/scripts/ping-indexnow.js",
+    "fix-links": "node src/scripts/fix-all-broken-links.js && node src/scripts/search-and-replace.js && node src/scripts/create-emi-redirects.js && node src/scripts/create-placeholder-images.js",
     "check-links": "tsx src/scripts/check-links.ts",
     "check-internal": "tsx src/scripts/check-internal-links.ts",
     "link-dashboard": "tsx src/scripts/link-health-dashboard.ts",

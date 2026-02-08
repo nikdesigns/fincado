@@ -7,7 +7,7 @@ export function GSTSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function GSTSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function GSTSchemas() {
     name: 'How to Calculate GST in India',
     description:
       'Step-by-step guide to calculating GST (Goods and Services Tax) for exclusive and inclusive prices with CGST, SGST, and IGST breakdown.',
-    image: 'https://fincado.com/og-gst-calculator.jpg',
+    image: '/og-gst-calculator.jpg',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -187,7 +187,7 @@ export function GSTSchemas() {
       'GST Calculator India 2026 - Complete Guide to Goods and Services Tax',
     description:
       'Complete guide to GST calculation in India. Learn GST rates, tax slabs, reverse GST formula, CGST/SGST/IGST difference, input tax credit, e-invoice guidelines, and GST compliance for businesses.',
-    image: 'https://fincado.com/og-gst-calculator.jpg',
+    image: '/og-gst-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

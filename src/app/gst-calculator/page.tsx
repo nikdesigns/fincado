@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-gst-calculator.jpg',
+        url: '/og-gst-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado GST Calculator',

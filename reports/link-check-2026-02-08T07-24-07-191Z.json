@@ -1,0 +1,649 @@
+{
+  "timestamp": "2026-02-08T07:24:07.191Z",
+  "summary": {
+    "totalLinks": 808,
+    "passedLinks": 697,
+    "brokenLinks": 106,
+    "timeoutLinks": 0,
+    "skippedLinks": 5
+  },
+  "brokenLinks": [
+    {
+      "url": "https://www.linkedin.com/company/fincado",
+      "status": 404,
+      "parent": "http://localhost:3000/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/faq/",
+      "status": 404,
+      "parent": "http://localhost:3000/contact/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/privacy/",
+      "status": 404,
+      "parent": "http://localhost:3000/contact/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-sip-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/sip-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/emi-calculator/car-loan/",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/car-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/emi-calculator/home-loan/",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/home-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-rd-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/rd-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/guides/sip-investing-guide/",
+      "status": 500,
+      "parent": "http://localhost:3000/sip-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/emi-calculator/personal-loan/",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/personal-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-car-loan-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/car-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-home-loan-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/home-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/emi-calculator/education-loan/",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/education-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-fd-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/fd-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-personal-loan-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/personal-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-education-loan-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/loans/education-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-elss-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/elss-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-ppf-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/ppf-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-swp-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/swp-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-lumpsum-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/lumpsum-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-credit-score.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-gst-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/gst-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-nps-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/nps-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-ssy-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/sukanya-samriddhi/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-hra-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/hra-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-epf-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/epf-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-income-tax-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/income-tax-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-gratuity-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/gratuity-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/home-loan-calculator/",
+      "status": 404,
+      "parent": "http://localhost:3000/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-inflation-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/inflation-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-retirement-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/retirement-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/credit-score-guide.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/how-credit-score-affects-loans/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://incado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sip-for-1-crore-in-10-years/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp/",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sip-for-1-crore-in-10-years/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/mf/direct-vs-regular-hero.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/mutual-fund-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/fd-truths.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/fd-truths/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/sip-vs-fd.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/ssy/ssy-guide-hero.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sukanya-samriddhi-yojana-guide-2025/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/home-loan/home-loan-guide-hero.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/home-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/guides/home-loan-for-first-time-buyers/",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/home-loan-first-time-buyers/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/elss-guide-hindi.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/elss-mutual-funds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/hi/home-loan-calculator/",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/sgb/sgb-guide-hindi.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/sovereign-gold-bonds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/hi/ssy-hero-2025.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/sukanya-samriddhi-yojana/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/retirement/retirement-planning.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/retirement-planning-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/sip/sip-guide-hero.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sip-investment-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-apy-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/apy-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-simple-interest-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/simple-interest-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/privacy/",
+      "status": 404,
+      "parent": "http://localhost:3000/terms/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sovereign-gold-bond-sgb-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/health-insurance-buying-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/how-credit-score-affects-loans/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/inflation-calculator-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/gst-explained/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/gold-investment-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/mutual-fund-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/epf-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/fd-truths/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-15-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/credit-score-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/elss-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sukanya-samriddhi-yojana-guide-2025/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/swp-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/home-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/ssy-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/personal-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/nps-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/personal-loan-interest-rates-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/elss-funds-guide-2025/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/ppf-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/gst-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/how-credit-score-works-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/credit-score-guide.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/how-credit-score-works-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/car-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/education-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/elss-mutual-funds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/home-loan-first-time-buyers/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/fixed-deposit-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/sovereign-gold-bonds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "http://localhost:3000/guides/sip-investing-guide/",
+      "status": 500,
+      "parent": "http://localhost:3000/hi/sip-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/best-tax-saving-options-80c/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/retirement-planning-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/new-vs-old-tax-regime/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/sip-investment-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/apy-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/emi-calculator-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/health-insurance-buying-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/health-insurance/health-insurance-guide-hindi.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/health-insurance-buying-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/sip-vs-fd.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/personal-loan-guide.webp/",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/personal-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-compound-interest-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/compound-interest-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/og-fire-calculator.jpg",
+      "status": 404,
+      "parent": "http://localhost:3000/fire-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/credit-score-guide.webp",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/10-saal-mein-1-crore-sip/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/guides/personal-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-9-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-8-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-6-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-7-5-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-10-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-12-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/guides/tax-on-20-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "http://localhost:3000/hi/apy-calculator/",
+      "state": "BROKEN"
+    }
+  ],
+  "warnings": []
+}

@@ -7,7 +7,7 @@ export function HRASchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function HRASchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function HRASchemas() {
     name: 'How to Calculate HRA Exemption',
     description:
       'Step-by-step guide to calculating House Rent Allowance (HRA) tax exemption under Section 10(13A) of Income Tax Act for Old Tax Regime.',
-    image: 'https://fincado.com/og-hra-calculator.jpg',
+    image: '/og-hra-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -206,7 +206,7 @@ export function HRASchemas() {
       'HRA Calculator 2026 - House Rent Allowance Exemption Guide India',
     description:
       'Complete guide to calculating HRA tax exemption under Section 10(13A). Learn Metro vs Non-Metro rates, required documents, rent receipt format, and common mistakes to avoid.',
-    image: 'https://fincado.com/og-hra-calculator.jpg',
+    image: '/og-hra-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

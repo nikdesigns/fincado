@@ -112,7 +112,7 @@ export default function NPSGuidePage() {
               'NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal Rules',
             description:
               'Comprehensive guide to the National Pension System (NPS): Tier 1 vs Tier 2 accounts, 80CCD(1B) tax benefits, asset allocation, and new withdrawal rules.',
-            image: 'https://fincado.com/images/guides/nps/nps-guide-hero.webp',
+            image: '/images/guides/nps/nps-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -122,7 +122,7 @@ export default function NPSGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-20',

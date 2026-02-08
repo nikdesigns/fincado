@@ -7,7 +7,7 @@ export function FIRESchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function FIRESchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function FIRESchemas() {
     name: 'How to Calculate Your FIRE Number',
     description:
       'Step-by-step guide to calculating Financial Independence Retire Early (FIRE) number using Safe Withdrawal Rate, expenses, and investment strategy.',
-    image: 'https://fincado.com/og-fire-calculator.jpg',
+    image: '/og-fire-calculator.jpg',
     totalTime: 'PT5M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -205,7 +205,7 @@ export function FIRESchemas() {
       'FIRE Calculator 2026 - Financial Independence Retire Early Guide',
     description:
       'Complete FIRE guide with calculator, Safe Withdrawal Rate strategies, Lean FIRE vs Fat FIRE comparison, investment allocation, and early retirement planning for India.',
-    image: 'https://fincado.com/og-fire-calculator.jpg',
+    image: '/og-fire-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

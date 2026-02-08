@@ -114,7 +114,7 @@ export default function FixedDepositGuidePage() {
             description:
               'Comprehensive guide on Fixed Deposit Laddering, SCSS benefits, avoiding TDS with Form 15G/15H, and FD vs Debt Fund comparison.',
             image:
-              'https://fincado.com/images/guides/fd/fd-laddering-hero.webp',
+              '/images/guides/fd/fd-laddering-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -124,7 +124,7 @@ export default function FixedDepositGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-28',

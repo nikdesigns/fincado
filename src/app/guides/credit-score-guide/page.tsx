@@ -99,7 +99,7 @@ export default function CreditScoreGuidePage() {
             description:
               'Complete guide to repairing credit score in India: Fixing "Settled" loans, disputing errors, and using secured cards.',
             image:
-              'https://fincado.com/images/guides/credit-score/credit-score-guide-hero.webp',
+              '/images/guides/credit-score/credit-score-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -109,7 +109,7 @@ export default function CreditScoreGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-30',

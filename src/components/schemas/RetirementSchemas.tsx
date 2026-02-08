@@ -7,7 +7,7 @@ export function RetirementSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function RetirementSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function RetirementSchemas() {
     name: 'How to Calculate Retirement Corpus',
     description:
       'Step-by-step guide to calculating retirement corpus needed, planning monthly SIP, and ensuring financial independence post-retirement.',
-    image: 'https://fincado.com/og-retirement-calculator.jpg',
+    image: '/og-retirement-calculator.jpg',
     totalTime: 'PT5M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -189,7 +189,7 @@ export function RetirementSchemas() {
     headline: 'Retirement Planning Calculator 2026 - Complete Retirement Guide',
     description:
       'Comprehensive retirement planning guide with corpus calculation, 4% rule, SIP strategies, investment allocation, common mistakes, and FIRE planning.',
-    image: 'https://fincado.com/og-retirement-calculator.jpg',
+    image: '/og-retirement-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

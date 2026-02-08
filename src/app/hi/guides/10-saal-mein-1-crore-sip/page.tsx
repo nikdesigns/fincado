@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: '10 साल में 1 करोड़ के लिए कितनी SIP करें?',
     description: 'जानिए एक दशक में करोड़पति बनने का सटीक गणित।',
     images: [
-      'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+      '/images/guides/mf/mutual-fund-guide-hero.webp',
     ],
   },
   alternates: {
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+        url: '/images/guides/mf/mutual-fund-guide-hero.webp',
         width: 1200,
         height: 600,
         alt: '1 Crore Wealth Roadmap Hindi',
@@ -146,7 +146,7 @@ export default function Sip1Cr10YearsPageHindi() {
               '@id': 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
             },
             image: [
-              'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+              '/images/guides/mf/mutual-fund-guide-hero.webp',
             ],
             author: {
               '@type': 'Person',
@@ -161,7 +161,7 @@ export default function Sip1Cr10YearsPageHindi() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-28',

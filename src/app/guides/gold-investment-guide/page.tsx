@@ -111,7 +111,7 @@ export default function GoldInvestmentGuidePage() {
             description:
               'Comprehensive comparison of gold investment options in India. Why SGB beats Digital and Physical gold in returns, tax, and safety.',
             image:
-              'https://fincado.com/images/guides/gold/gold-investment-hero.webp',
+              '/images/guides/gold/gold-investment-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -121,7 +121,7 @@ export default function GoldInvestmentGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-12',

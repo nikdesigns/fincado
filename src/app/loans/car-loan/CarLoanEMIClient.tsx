@@ -230,7 +230,7 @@ export default function CarLoanEMIClient() {
       `Tenure: ${tenure} years\n\n` +
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n\n` +
-      `Calculate yours: https://fincado.com/emi-calculator/car-loan/`;
+      `Calculate yours: /loans/car-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

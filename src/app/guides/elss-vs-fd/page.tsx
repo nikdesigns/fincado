@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
+        url: '/images/guides/elss/elss-guide-hero.webp',
         width: 1200,
         height: 630,
       },
@@ -112,7 +112,7 @@ export default function ElssVsFdGuidePage() {
             },
             image: {
               '@type': 'ImageObject',
-              url: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
+              url: '/images/guides/elss/elss-guide-hero.webp',
               width: 1200,
               height: 630,
             },
@@ -126,7 +126,7 @@ export default function ElssVsFdGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-12-29',

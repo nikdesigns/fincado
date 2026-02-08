@@ -113,12 +113,12 @@ export default function ELSSGuide() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     datePublished: '2026-01-01',
     dateModified: '2026-01-01',
-    image: 'https://fincado.com/images/guides/elss/elss-guide-hero.webp',
+    image: '/images/guides/elss/elss-guide-hero.webp',
   };
 
   return (

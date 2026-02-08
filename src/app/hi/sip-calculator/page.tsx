@@ -541,7 +541,7 @@ export default function HindiSIPPage() {
                     ₹1 करोड़ का कोष बनाना चाहते हैं?
                   </strong>
                   <Link
-                    href="/guides/sip-investing-guide/"
+                    href="/guides/sip-investment-guide/"
                     className="group inline-flex items-center text-sm font-semibold text-indigo-700 hover:text-indigo-800"
                   >
                     <span>हमारी पूर्ण SIP निवेश गाइड पढ़ें (2026)</span>

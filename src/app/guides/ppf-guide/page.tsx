@@ -110,7 +110,7 @@ export default function PPFGuidePage() {
               'PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
             description:
               'Complete guide to Public Provident Fund (PPF): Interest calculation, withdrawal rules, loan facility, and comparison with ELSS/EPF.',
-            image: 'https://fincado.com/images/guides/ppf/ppf-guide-hero.webp',
+            image: '/images/guides/ppf/ppf-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -120,7 +120,7 @@ export default function PPFGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-18',

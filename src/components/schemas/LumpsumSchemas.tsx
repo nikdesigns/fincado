@@ -7,7 +7,7 @@ export function LumpsumSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function LumpsumSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function LumpsumSchemas() {
     name: 'How to Calculate Lumpsum Investment Returns',
     description:
       'Step-by-step guide to calculating lumpsum mutual fund returns with compound interest and CAGR.',
-    image: 'https://fincado.com/og-lumpsum-calculator.jpg',
+    image: '/og-lumpsum-calculator.jpg',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -182,7 +182,7 @@ export function LumpsumSchemas() {
       'Lumpsum Calculator 2026 - Complete Guide to One-Time Investments',
     description:
       'Comprehensive guide to lumpsum investing with compound interest calculation, CAGR analysis, lumpsum vs SIP comparison, STP strategies, and taxation rules.',
-    image: 'https://fincado.com/og-lumpsum-calculator.jpg',
+    image: '/og-lumpsum-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

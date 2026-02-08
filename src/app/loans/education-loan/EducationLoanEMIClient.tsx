@@ -215,7 +215,7 @@ export default function EducationLoanEMIClient() {
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n` +
       `💰 Section 80E Tax Saving: ${formatINR(taxBenefits.totalTaxSaving)}\n\n` +
-      `Calculate yours: https://fincado.com/emi-calculator/education-loan/`;
+      `Calculate yours: /loans/education-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

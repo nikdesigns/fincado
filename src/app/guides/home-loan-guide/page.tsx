@@ -116,13 +116,13 @@ export default function HomeLoanGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-01-15',
             dateModified: '2025-01-15',
             image:
-              'https://fincado.com/images/guides/home-loan/home-loan-guide-hero.webp',
+              '/images/guides/home-loan/home-loan-guide-hero.webp',
           }),
         }}
       />

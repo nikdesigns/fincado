@@ -139,7 +139,7 @@ export default function Home(): JSX.Element {
             '@type': 'Organization',
             name: 'Fincado',
             url: 'https://fincado.com',
-            logo: 'https://fincado.com/logo.png',
+            logo: '/logo.png',
             sameAs: [
               'https://www.linkedin.com/company/fincado',
               'https://twitter.com/fincado',

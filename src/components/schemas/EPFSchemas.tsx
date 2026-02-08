@@ -7,7 +7,7 @@ export function EPFSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function EPFSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function EPFSchemas() {
     name: 'How to Calculate EPF Maturity Amount',
     description:
       'Step-by-step guide to calculating Employee Provident Fund corpus with employee and employer contributions, interest earned, and tax-free withdrawals.',
-    image: 'https://fincado.com/og-epf-calculator.jpg',
+    image: '/og-epf-calculator.jpg',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -215,7 +215,7 @@ export function EPFSchemas() {
     headline: 'EPF Calculator 2026 - Complete Employee Provident Fund Guide',
     description:
       'Comprehensive EPF guide with calculator, contribution split (employee 12% + employer 3.67%), EEE tax status, withdrawal rules, VPF benefits, and interest rate details for FY 2025-26.',
-    image: 'https://fincado.com/og-epf-calculator.jpg',
+    image: '/og-epf-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

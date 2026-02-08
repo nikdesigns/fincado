@@ -231,7 +231,7 @@ export default function PersonalLoanEMIClient() {
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n` +
       `💵 Total Payment: ${formatINR(calculations.totalPayment)}\n\n` +
-      `Calculate yours: https://fincado.com/emi-calculator/personal-loan/`;
+      `Calculate yours: /loans/personal-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

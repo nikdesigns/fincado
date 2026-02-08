@@ -7,7 +7,7 @@ export function SimpleInterestSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function SimpleInterestSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function SimpleInterestSchemas() {
     name: 'How to Calculate Simple Interest on Loans and Investments',
     description:
       'Step-by-step guide to calculating simple interest using the SI formula. Understand flat rate loans, compare with reducing balance, and avoid common loan traps.',
-    image: 'https://fincado.com/og-simple-interest-calculator.jpg',
+    image: '/og-simple-interest-calculator.jpg',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -118,7 +118,7 @@ export function SimpleInterestSchemas() {
       'Simple Interest Calculator 2026 - Complete Guide to Flat Rate Loans',
     description:
       'Complete guide to Simple Interest calculation in India. Learn SI formula, understand flat rate vs reducing balance difference, compare SI vs compound interest, and avoid common loan traps with flat rate car financing.',
-    image: 'https://fincado.com/og-simple-interest-calculator.jpg',
+    image: '/og-simple-interest-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

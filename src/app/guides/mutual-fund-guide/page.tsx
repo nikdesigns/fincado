@@ -112,7 +112,7 @@ export default function DirectMFGuidePage() {
             description:
               'Complete guide on why Direct Mutual Funds are better than Regular plans. Includes calculator examples, switching guide, and platform reviews.',
             image:
-              'https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp',
+              '/images/guides/mf/mutual-fund-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -122,7 +122,7 @@ export default function DirectMFGuidePage() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://fincado.com/logo.png',
+                url: '/logo.png',
               },
             },
             datePublished: '2025-02-10',

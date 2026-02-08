@@ -7,7 +7,7 @@ export function NPSSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function NPSSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function NPSSchemas() {
     name: 'How to Calculate NPS Returns and Pension',
     description:
       'Step-by-step guide to calculating NPS retirement corpus, 60:40 withdrawal split, lump sum amount, and monthly pension with tax benefits.',
-    image: 'https://fincado.com/og-nps-calculator.jpg',
+    image: '/og-nps-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -222,7 +222,7 @@ export function NPSSchemas() {
     headline: 'NPS Calculator 2026 - Complete National Pension System Guide',
     description:
       'Comprehensive NPS guide with calculator, 60:40 rule, Tier 1 vs Tier 2, asset allocation strategies, ₹2L tax benefits, withdrawal rules, and annuity calculation.',
-    image: 'https://fincado.com/og-nps-calculator.jpg',
+    image: '/og-nps-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',

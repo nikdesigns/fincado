@@ -250,7 +250,7 @@ export default function HomeLoanEMIClient() {
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n` +
       `💰 Tax Saving: ${formatINR(taxBenefits.taxSaved)}/year\n\n` +
-      `Calculate yours: https://fincado.com/emi-calculator/home-loan/`;
+      `Calculate yours: /loans/home-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

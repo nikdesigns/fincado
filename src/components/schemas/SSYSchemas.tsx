@@ -7,7 +7,7 @@ export function SSYSchemas() {
     '@type': 'Organization',
     name: 'Fincado',
     url: 'https://fincado.com',
-    logo: 'https://fincado.com/logo.png',
+    logo: '/logo.png',
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
@@ -28,7 +28,7 @@ export function SSYSchemas() {
       name: 'Fincado',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://fincado.com/logo.png',
+        url: '/logo.png',
       },
     },
     mainEntity: {
@@ -51,7 +51,7 @@ export function SSYSchemas() {
     name: 'How to Calculate Sukanya Samriddhi Yojana Returns',
     description:
       'Step-by-step guide to calculating SSY maturity value, planning investments, and maximizing tax-free returns for girl child.',
-    image: 'https://fincado.com/og-ssy-calculator.jpg',
+    image: '/og-ssy-calculator.jpg',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -207,7 +207,7 @@ export function SSYSchemas() {
     headline: 'Sukanya Samriddhi Yojana Calculator 2026 - Complete SSY Guide',
     description:
       'Comprehensive guide to SSY for girl child with calculator, interest rates, tax benefits, maturity value, partial withdrawal rules, and investment strategies.',
-    image: 'https://fincado.com/og-ssy-calculator.jpg',
+    image: '/og-ssy-calculator.jpg',
     author: {
       '@type': 'Organization',
       name: 'Fincado',
