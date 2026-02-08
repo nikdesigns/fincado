@@ -3,13 +3,14 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Rubik } from 'next/font/google';
-import Script from 'next/script';
 import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
 import CookieBanner from '@/components/CookieBanner';
 import AdBlockDetector from '@/components/AdBlockDetector';
+import ScriptManager from '@/components/ScriptManager';
 import { Toaster } from 'sonner';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
+
 const fy = getCurrentFiscalYear();
 
 const rubik = Rubik({
@@ -17,6 +18,8 @@ const rubik = Rubik({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
   variable: '--font-rubik',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 export const viewport: Viewport = {
@@ -33,12 +36,11 @@ export const metadata: Metadata = {
     template: '%s | Fincado',
   },
   description: `India's trusted financial platform for EMI, SIP, Loan, and Tax planning. Accurate bank-grade calculators updated for ${fy.shortYear}.`,
-  // ✅ FIXED: Detailed Icon Configuration for Google Search
   icons: {
     icon: [
-      { url: '/favicon.ico' }, // Fallback for old browsers
+      { url: '/favicon.ico' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon.png', sizes: '512x512', type: 'image/png' }, // High-Res for Google
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
     ],
     shortcut: ['/favicon-32x32.png'],
     apple: [
@@ -79,12 +81,31 @@ export default function RootLayout({
   return (
     <html lang="en-IN" className={rubik.className}>
       <head>
+        {/* AdSense Meta Tag */}
         <meta name="google-adsense-account" content="ca-pub-6648091987919638" />
+
+        {/* DNS Prefetch for faster loading */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+
+        {/* Preconnect to critical domains */}
+        <link
+          rel="preconnect"
+          href="https://www.googletagmanager.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
+        {/* Toast Notifications */}
         <Toaster position="top-right" richColors />
 
-        {/* ✅ ADDS THE LOADING BAR */}
+        {/* Loading Bar */}
         <NextTopLoader
           color="#80d843"
           initialPosition={0.08}
@@ -97,51 +118,22 @@ export default function RootLayout({
           shadow="0 0 10px #16a34a,0 0 5px #16a34a"
         />
 
-        {/* 1. ✅ Google AdSense */}
-        <Script
-          id="adsense-init"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6648091987919638"
-          strategy="afterInteractive"
-        />
-
-        {/* 2. ✅ Google Analytics 4 */}
-        <Script
-          id="google-analytics"
-          strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
-        />
-        <Script id="google-analytics-config" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-KQJ4P0CM5Q', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
-
-        {/* 3. ✅ Microsoft Clarity */}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "unxeapj33d");
-          `}
-        </Script>
+        {/* Consent-Based Script Manager */}
+        <ScriptManager />
 
         {/* Global Header */}
         <Header />
 
         {/* Main Content Area */}
         <main style={{ minHeight: '80vh' }}>{children}</main>
+
+        {/* Ad Block Detector */}
         <AdBlockDetector />
 
         {/* Footer */}
         <Footer />
+
+        {/* Cookie Consent Banner */}
         <CookieBanner />
       </body>
     </html>

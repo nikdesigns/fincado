@@ -1,0 +1,498 @@
+{
+  "timestamp": "2026-02-08T07:04:31.278Z",
+  "summary": {
+    "totalLinks": 449,
+    "passedLinks": 360,
+    "brokenLinks": 81,
+    "skippedLinks": 8
+  },
+  "brokenLinks": [
+    {
+      "url": "https://www.linkedin.com/company/fincado",
+      "status": 404,
+      "parent": "https://fincado.com/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/faq/",
+      "status": 404,
+      "parent": "https://fincado.com/contact/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/privacy/",
+      "status": 404,
+      "parent": "https://fincado.com/contact/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/search?q={search_term_string}",
+      "status": 404,
+      "parent": "https://fincado.com/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/guides/elss-funds-guide/",
+      "status": 404,
+      "parent": "https://fincado.com/income-tax-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/privacy/",
+      "status": 404,
+      "parent": "https://fincado.com/terms/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/loan-calculator/",
+      "status": 404,
+      "parent": "https://fincado.com/gst-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/sip-vs-fd.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/sip/sip-guide-hero.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sip-investment-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/ssy/ssy-guide-hero.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/hi/credit-score/hi/guides/credit-score/",
+      "status": 404,
+      "parent": "https://fincado.com/hi/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/hi/guides/sip-investment-guide/",
+      "status": 404,
+      "parent": "https://fincado.com/hi/sip-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/sgb/sgb-guide-hindi.webp",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/sovereign-gold-bonds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/elss-guide-hindi.webp",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/elss-mutual-funds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/hi/ssy-hero-2025.webp",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/sukanya-samriddhi-yojana/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sovereign-gold-bond-sgb-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/health-insurance-buying-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/guides/elss-funds-guide/",
+      "status": 404,
+      "parent": "https://fincado.com/hra-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/elss-funds-guide-2025/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/credit-score-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/credit-score-guide.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/how-credit-score-affects-loans/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/mf/mutual-fund-guide-hero.webp/",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sip-for-1-crore-in-10-years/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2025/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/mf/direct-vs-regular-hero.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/mutual-fund-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/home-loan/home-loan-guide-hero.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/home-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/fd-truths.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/fd-truths/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/guides/home-loan-for-first-time-buyers/",
+      "status": 404,
+      "parent": "https://fincado.com/guides/home-loan-first-time-buyers/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sip-investment-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/elss-mutual-funds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/sovereign-gold-bonds/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/retirement/retirement-planning.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/retirement-planning-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/new-vs-old-tax-regime/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/gold-investment-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/personal-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/best-tax-saving-options-80c/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-15-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/ssy-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/swp-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/elss-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/home-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/ppf-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/inflation-calculator-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/nps-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/how-credit-score-affects-loans/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/credit-score-guide.webp",
+      "status": 404,
+      "parent": "https://fincado.com/guides/how-credit-score-works-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/how-credit-score-works-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/education-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/gst-explained/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/fd-truths/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/mutual-fund-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/fixed-deposit-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/home-loan-first-time-buyers/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/car-loan-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/emi-calculator-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/epf-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/gst-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/retirement-planning-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/personal-loan-interest-rates-india/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://incado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/sip-for-1-crore-in-10-years/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/best-tax-saving-options-80c",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/hi/guides/sip-investment-guide/",
+      "status": 404,
+      "parent": "https://fincado.com/hi/fire-calculator/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/personal-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/health-insurance-buying-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-9-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/credit-score-guide.webp",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/credit-score/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/sip-vs-fd.webp",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/sip-vs-fd/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/og/personal-loan-guide.webp/",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/personal-loan/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-7-5-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-8-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/images/guides/health-insurance/health-insurance-guide-hindi.webp",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/health-insurance-buying-guide/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-20-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/loan-calculator/",
+      "status": 404,
+      "parent": "https://fincado.com/gst-calculator",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-10-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-6-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/tax-on-12-lakh-salary/",
+      "state": "BROKEN"
+    },
+    {
+      "url": "https://fincado.com/logo.png",
+      "status": 404,
+      "parent": "https://fincado.com/guides/personal-loan-interest-rates/",
+      "state": "BROKEN"
+    }
+  ],
+  "warnings": []
+}

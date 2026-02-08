@@ -1,67 +1,272 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Cookie } from 'lucide-react';
+import { Cookie, Settings, CheckCircle2, Shield } from 'lucide-react';
+import {
+  getConsentState,
+  saveConsent,
+  acceptAll,
+  rejectAll,
+  ConsentState,
+} from '@/lib/consent';
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [preferences, setPreferences] = useState<ConsentState>({
+    analytics: true,
+    advertising: true,
+    functional: true,
+    // eslint-disable-next-line react-hooks/purity
+    timestamp: Date.now(),
+  });
 
   useEffect(() => {
-    // Check if user has already accepted
-    const consent = localStorage.getItem('fincado_cookie_consent');
+    // Check if user has already given consent
+    const consent = getConsentState();
 
-    // Add a small delay so it doesn't jar the user immediately upon load
     if (!consent) {
+      // Add a small delay so it doesn't jar the user immediately
       const timer = setTimeout(() => {
         setShow(true);
-      }, 1000);
+      }, 2000); // Wait 2 seconds
       return () => clearTimeout(timer);
     }
   }, []);
 
-  const accept = () => {
-    localStorage.setItem('fincado_cookie_consent', 'true');
+  const handleAcceptAll = () => {
+    acceptAll();
     setShow(false);
+
+    // Track consent (only after user accepts analytics)
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'consent_granted', {
+        consent_type: 'all',
+      });
+    }
+  };
+
+  const handleRejectAll = () => {
+    rejectAll();
+    setShow(false);
+  };
+
+  const handleSavePreferences = () => {
+    saveConsent(preferences);
+    setShow(false);
+
+    // Track consent preferences
+    if (preferences.analytics && typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'consent_granted', {
+        consent_type: 'custom',
+        analytics: preferences.analytics,
+        advertising: preferences.advertising,
+      });
+    }
+  };
+
+  const togglePreference = (key: keyof ConsentState) => {
+    if (key === 'timestamp') return; // Don't toggle timestamp
+    if (key === 'functional') return; // Functional cookies are always required
+
+    setPreferences((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
   };
 
   if (!show) return null;
 
-  return (
-    <div className="fixed bottom-4 left-4 right-4 z-100 flex justify-center no-print">
-      <div className="max-w-4xl w-full bg-slate-900/95 backdrop-blur-md text-white p-5 rounded-2xl shadow-2xl border border-slate-700/50 flex flex-col sm:flex-row items-center gap-5 sm:gap-8 animate-in slide-in-from-bottom-10 fade-in duration-700">
-        {/* Icon & Content */}
-        <div className="flex items-start gap-4 flex-1">
-          <div className="p-3 bg-slate-800 rounded-xl shrink-0 text-emerald-400 hidden sm:block">
-            <Cookie className="w-6 h-6" />
+  // Settings view
+  if (showSettings) {
+    return (
+      <div className="fixed inset-0 z-200 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 no-print">
+        <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+          {/* Header */}
+          <div className="sticky top-0 bg-white border-b border-slate-200 p-6 rounded-t-2xl">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-emerald-50 rounded-lg">
+                <Settings className="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <h3 className="font-bold text-xl text-slate-900">
+                  Cookie Preferences
+                </h3>
+                <p className="text-sm text-slate-600">
+                  Manage your privacy settings
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="space-y-1">
-            <h4 className="font-bold text-base flex items-center gap-2 sm:block">
-              <Cookie className="w-5 h-5 text-emerald-400 sm:hidden" />
-              We value your privacy
-            </h4>
-            <p className="text-sm text-slate-300 leading-relaxed">
-              We use cookies to enhance your browsing experience and analyze our
-              traffic. By continuing to use our site, you accept our{' '}
-              <Link
-                href="/privacy-policy/"
-                className="text-white underline decoration-emerald-500 underline-offset-4 hover:text-emerald-400 transition-colors font-medium"
+
+          {/* Content */}
+          <div className="p-6 space-y-6">
+            {/* Essential/Functional Cookies */}
+            <div className="flex items-start gap-4">
+              <div className="shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-1" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between mb-1">
+                  <h4 className="font-semibold text-slate-900">
+                    Essential Cookies
+                  </h4>
+                  <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full font-semibold">
+                    Always Active
+                  </span>
+                </div>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Required for the website to function. These cookies enable
+                  core functionality like security, network management, and
+                  accessibility. They cannot be disabled.
+                </p>
+              </div>
+            </div>
+
+            {/* Analytics Cookies */}
+            <div className="flex items-start gap-4 p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors">
+              <div className="shrink-0">
+                <input
+                  type="checkbox"
+                  id="analytics"
+                  checked={preferences.analytics}
+                  onChange={() => togglePreference('analytics')}
+                  className="w-5 h-5 mt-1 text-emerald-600 rounded focus:ring-emerald-500"
+                />
+              </div>
+              <label htmlFor="analytics" className="flex-1 cursor-pointer">
+                <h4 className="font-semibold text-slate-900 mb-1">
+                  Analytics Cookies
+                </h4>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Help us understand how visitors interact with our website. We
+                  use Google Analytics and Microsoft Clarity to improve user
+                  experience. All data is anonymized.
+                </p>
+              </label>
+            </div>
+
+            {/* Advertising Cookies */}
+            <div className="flex items-start gap-4 p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors">
+              <div className="shrink-0">
+                <input
+                  type="checkbox"
+                  id="advertising"
+                  checked={preferences.advertising}
+                  onChange={() => togglePreference('advertising')}
+                  className="w-5 h-5 mt-1 text-emerald-600 rounded focus:ring-emerald-500"
+                />
+              </div>
+              <label htmlFor="advertising" className="flex-1 cursor-pointer">
+                <h4 className="font-semibold text-slate-900 mb-1">
+                  Advertising Cookies
+                </h4>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Allow us to show relevant ads. We use Google AdSense to keep
+                  our calculators free. These cookies don&apos;t track you
+                  across other websites.
+                </p>
+              </label>
+            </div>
+
+            {/* Privacy Promise */}
+            <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                <div>
+                  <h5 className="font-semibold text-sm text-slate-900 mb-1">
+                    Our Privacy Promise
+                  </h5>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    We never sell your data. All tracking is anonymized and used
+                    solely to improve our service. Read our{' '}
+                    <Link
+                      href="/privacy-policy/"
+                      className="text-emerald-600 hover:text-emerald-700 underline font-medium"
+                    >
+                      Privacy Policy
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Actions */}
+          <div className="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-6 rounded-b-2xl">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={handleSavePreferences}
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 font-semibold"
               >
-                Privacy Policy
-              </Link>
-              .
-            </p>
+                Save Preferences
+              </Button>
+              <Button
+                onClick={() => setShowSettings(false)}
+                variant="outline"
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+            </div>
           </div>
         </div>
+      </div>
+    );
+  }
 
-        {/* Action Button */}
-        <div className="w-full sm:w-auto shrink-0">
-          <Button
-            onClick={accept}
-            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-5 rounded-xl transition-all shadow-lg hover:shadow-emerald-900/20"
-          >
-            Accept Cookies
-          </Button>
+  // Default banner view
+  return (
+    <div className="fixed bottom-4 left-4 right-4 z-100 flex justify-center no-print">
+      <div className="max-w-4xl w-full bg-slate-900/95 backdrop-blur-md text-white p-6 rounded-2xl shadow-2xl border border-slate-700/50 animate-in slide-in-from-bottom-10 fade-in duration-700">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
+          {/* Icon & Content */}
+          <div className="flex items-start gap-4 flex-1">
+            <div className="p-3 bg-slate-800 rounded-xl shrink-0 text-emerald-400">
+              <Cookie className="w-6 h-6" />
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-bold text-lg">We value your privacy 🍪</h4>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                We use cookies to enhance your experience, analyze traffic, and
+                keep our tools free with ads. You control your data.{' '}
+                <Link
+                  href="/privacy-policy/"
+                  className="text-white underline decoration-emerald-500 underline-offset-2 hover:text-emerald-400 transition-colors font-medium"
+                >
+                  Learn more
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
+            <Button
+              onClick={handleAcceptAll}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-5 rounded-xl transition-all shadow-lg hover:shadow-emerald-900/20"
+            >
+              Accept All
+            </Button>
+            <Button
+              onClick={() => setShowSettings(true)}
+              variant="outline"
+              className="bg-white/10 hover:bg-white/20 text-white border-white/20 font-semibold px-6 py-5 rounded-xl"
+            >
+              <Settings className="w-4 h-4 mr-2" />
+              Customize
+            </Button>
+            <Button
+              onClick={handleRejectAll}
+              variant="ghost"
+              className="text-slate-300 hover:text-white hover:bg-white/10 font-medium"
+            >
+              Reject All
+            </Button>
+          </div>
         </div>
       </div>
     </div>
