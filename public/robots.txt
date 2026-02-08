@@ -1,0 +1,19 @@
+# Fincado Robots.txt
+User-agent: *
+Allow: /
+
+# Block admin/API
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/static/
+
+# Sitemaps
+Sitemap: https://fincado.com/sitemap.xml
+Sitemap: https://fincado.com/sitemap-0.xml
+
+# Crawl-delay for aggressive bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

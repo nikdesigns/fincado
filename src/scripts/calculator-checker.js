@@ -24,7 +24,6 @@ const CALCULATORS = [
   'simple-interest-calculator',
   'apy-calculator',
   'fire-calculator',
-  'home-loan-calculator',
 ];
 
 // Required components for each calculator
