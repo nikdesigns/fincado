@@ -21,6 +21,9 @@ type AdSlotProps = {
   className?: string;
 };
 
+// ✅ CRITICAL: Global tracker to prevent duplicate pushes
+const pushedSlots = new Set<string>();
+
 export default function AdSlot({
   id,
   type = 'banner',
@@ -33,13 +36,13 @@ export default function AdSlot({
   const [isAdLoaded, setIsAdLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(!lazyLoad);
 
-  // ✅ YOUR REAL ADSENSE IDs
+  // ✅ 1. YOUR REAL ADSENSE IDs
   const ADSENSE_IDS = {
     HORIZONTAL: '3492850342',
     SQUARE: '6372673867',
   };
 
-  // ✅ Auto-select the correct ID based on ad type
+  // ✅ 2. LOGIC: Auto-select the correct ID based on the requested shape
   const getSlotId = () => {
     if (adSlot) return adSlot;
 
@@ -61,7 +64,11 @@ export default function AdSlot({
   const finalSlotId = getSlotId();
   const PUBLISHER_ID = 'ca-pub-6648091987919638';
 
-  // ✅ Lazy Loading with Intersection Observer
+  // ✅ CRITICAL: Unique ID for this ad slot instance
+  // eslint-disable-next-line react-hooks/purity
+  const uniqueAdId = `${finalSlotId}-${id || Math.random().toString(36).substr(2, 9)}`;
+
+  // ✅ 3. Lazy Loading with Intersection Observer
   useEffect(() => {
     if (!lazyLoad) return;
 
@@ -73,7 +80,7 @@ export default function AdSlot({
         }
       },
       {
-        rootMargin: '400px',
+        rootMargin: '300px',
         threshold: 0.01,
       },
     );
@@ -85,49 +92,61 @@ export default function AdSlot({
     return () => observer.disconnect();
   }, [lazyLoad]);
 
-  // ✅ Load AdSense when visible
+  // ✅ 4. Load AdSense when visible - WITH DUPLICATE PREVENTION
   useEffect(() => {
     if (!isVisible) return;
+    if (isAdLoaded) return;
+
+    // ✅ CRITICAL: Prevent duplicate push for this slot
+    if (pushedSlots.has(uniqueAdId)) {
+      return;
+    }
 
     const timeout = setTimeout(() => {
       if (!adRef.current) return;
-      if (isAdLoaded) return;
 
-      // Check if AdSense already filled this slot
+      // Check if AdSense already filled this specific slot
       const insElement = adRef.current.querySelector('ins.adsbygoogle');
-      if (insElement && insElement.getAttribute('data-adsbygoogle-status')) {
+      if (!insElement) return;
+
+      // Check if already processed by AdSense
+      const alreadyProcessed = insElement.getAttribute(
+        'data-adsbygoogle-status',
+      );
+      if (alreadyProcessed) {
         return;
       }
 
       try {
-        // Ensure adsbygoogle array exists
-        window.adsbygoogle = window.adsbygoogle || [];
+        // Check if adsbygoogle is available
+        if (typeof window !== 'undefined' && window.adsbygoogle) {
+          // ✅ Mark this slot as pushed BEFORE pushing
+          pushedSlots.add(uniqueAdId);
 
-        // Push ad request to AdSense
-        if (window.adsbygoogle[0]?.push) {
-          window.adsbygoogle[0].push({});
-        } else {
-          (
-            window.adsbygoogle as Array<{ push?: (config: object) => void }>
-          ).push({});
-        }
-
-        setIsAdLoaded(true);
-
-        if (process.env.NODE_ENV === 'development') {
-          console.log(`✅ AdSense ad requested: ${id || type}`);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          setIsAdLoaded(true);
         }
       } catch (e) {
+        // Remove from set if push failed
+        pushedSlots.delete(uniqueAdId);
+
+        // Only log in development
         if (process.env.NODE_ENV === 'development') {
-          console.warn('AdSense push failed:', e);
+          console.warn('AdSense push failed for slot:', finalSlotId, e);
         }
       }
-    }, 100);
+    }, 300);
 
-    return () => clearTimeout(timeout);
-  }, [isVisible, isAdLoaded, id, type]);
+    return () => {
+      clearTimeout(timeout);
+      // Cleanup: remove from set on unmount
+      pushedSlots.delete(uniqueAdId);
+    };
+  }, [isVisible, isAdLoaded, finalSlotId, uniqueAdId]);
 
-  // ✅ Sizing Logic (Prevents Layout Shift)
+  // ✅ 5. Sizing Logic (Prevents Layout Shift)
   const minHeightMap: Record<AdType, number> = {
     leaderboard: 90,
     banner: 90,
@@ -148,7 +167,7 @@ export default function AdSlot({
     skyscraper: '300px',
   };
 
-  // ✅ AdSense Format Mapping
+  // ✅ 6. AdSense Format Mapping
   const formatMap: Record<AdType, string> = {
     leaderboard: 'horizontal',
     banner: 'horizontal',
@@ -159,7 +178,7 @@ export default function AdSlot({
     skyscraper: 'vertical',
   };
 
-  // ✅ Show skeleton loader while lazy loading
+  // ✅ 7. Show skeleton loader while lazy loading
   if (lazyLoad && !isVisible) {
     return (
       <div
@@ -187,7 +206,6 @@ export default function AdSlot({
 
   return (
     <div className={`flex flex-col items-center my-8 ${className}`}>
-      {/* Label above ad (Google policy compliant) */}
       {label && (
         <span className="self-end text-[10px] text-gray-400 uppercase tracking-wider mb-1 mr-1">
           {label}
@@ -219,5 +237,3 @@ export default function AdSlot({
     </div>
   );
 }
-
-// ✅ NO GLOBAL DECLARATION HERE - It's in global.d.ts
