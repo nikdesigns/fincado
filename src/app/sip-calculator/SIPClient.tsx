@@ -5,102 +5,125 @@ import CalculatorField from '@/components/CalculatorField';
 import EMIPieChart from '@/components/EMIPieChart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   BookmarkIcon,
   Share2Icon,
   TrendingUp,
   Trash2,
   Percent,
-  Zap,
-  IndianRupee,
+  Download,
+  Target,
+  LineChart,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  Area,
+  AreaChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 /* ---------- TYPES ---------- */
-interface SIPLabels {
-  enableStepUp: string;
-  stepUpBoost: string;
+export interface SIPLabels {
+  investmentMode: string;
+  goalBasedMode: string;
   monthlySIP: string;
   investmentPeriod: string;
   expectedReturn: string;
-  annualSIPIncrease: string;
+  stepUpSIP: string;
   noIncrease: string;
   perYear: string;
   stepUpNote: string;
-  starting: string;
-  ending: string;
-  standardSIP: string;
-  stepUpSIP: string;
-  maturityAmount: string;
-  totalInvested: string;
+  targetAmount: string;
+  timeToAchieveGoal: string;
+  requiredMonthlySIP: string;
+  investThisAmount: string;
+  yourTargetAmount: string;
+  estimatedMaturityAmount: string;
+  totalAmountInvested: string;
   wealthGain: string;
+  withAnnualStepUp: string;
   returnsDisclaimer: string;
-  stepUpBenefits: string;
-  advantageOverStandard: string;
-  extraWealthGained: string;
-  extraInvestment: string;
-  netBenefit: string;
-  netBenefitText: string;
-  compared: string;
-  smartTip: string;
-  smartTipText: string;
+  investmentGrowthOverTime: string;
+  year: string;
+  yearByYearBreakdown: string;
+  yearlyInvestment: string;
+  cumulativeInvestment: string;
+  interestEarned: string;
+  maturityAmount: string;
   saveCalculation: string;
   shareWhatsApp: string;
-  showStepUp: string;
-  hideStepUp: string;
+  downloadReport: string;
   savedSIPPlans: string;
   clearAll: string;
   month: string;
   forYears: string;
-  stepUp: string;
+  stepUpPercent: string;
   invested: string;
   maturity: string;
   gain: string;
+  calculationSaved: string;
+  reportDownloaded: string;
+  calculationDeleted: string;
+  allCalculationsCleared: string;
+  calculationLoaded: string;
+}
+
+export interface SIPClientProps {
+  labels?: Partial<SIPLabels>;
 }
 
 const DEFAULT_LABELS: SIPLabels = {
-  enableStepUp: 'Enable Step-up SIP (Increase investment annually)',
-  stepUpBoost: 'Boost your corpus with yearly increases',
+  investmentMode: 'Investment Mode',
+  goalBasedMode: 'Goal-Based Mode',
   monthlySIP: 'Monthly SIP Amount (₹)',
   investmentPeriod: 'Investment Period (Years)',
   expectedReturn: 'Expected Annual Return (%)',
-  annualSIPIncrease: 'Annual SIP Increase (Step-up %)',
+  stepUpSIP: 'Step-Up SIP (% increase per year)',
   noIncrease: '0% (No increase)',
   perYear: '% per year',
-  stepUpNote: 'Your SIP will increase by',
-  starting: 'Starting',
-  ending: 'ending',
-  standardSIP: 'Standard SIP',
-  stepUpSIP: 'Step-up SIP',
-  maturityAmount: 'Maturity Amount',
-  totalInvested: 'Total Amount Invested',
+  stepUpNote:
+    '✨ Your SIP will increase by {percent}% each year, helping you invest more as your income grows!',
+  targetAmount: 'Target Amount (₹)',
+  timeToAchieveGoal: 'Time to Achieve Goal (Years)',
+  requiredMonthlySIP: 'Required Monthly SIP',
+  investThisAmount: 'Invest this amount monthly to reach your goal of {amount}',
+  yourTargetAmount: 'Your Target Amount',
+  estimatedMaturityAmount: 'Estimated Maturity Amount',
+  totalAmountInvested: 'Total Amount Invested',
   wealthGain: 'Wealth Gain (Profit)',
+  withAnnualStepUp: 'With {percent}% annual step-up',
   returnsDisclaimer:
-    'Assumes constant annual return converted to equivalent monthly rate. Actual mutual fund returns will vary.',
-  stepUpBenefits: 'Step-up SIP Benefits',
-  advantageOverStandard: 'Advantage Over Standard SIP',
-  extraWealthGained: 'Extra Wealth Gained',
-  extraInvestment: 'Extra Investment Made',
-  netBenefit: 'Net Benefit:',
-  netBenefitText: 'By investing an extra',
-  compared: 'compared to a standard SIP!',
-  smartTip: 'Smart Tip',
-  smartTipText:
-    'Step-up SIP is perfect when you expect income growth (salary hikes, business growth). A',
+    'Returns are illustrative and subject to market conditions',
+  investmentGrowthOverTime: 'Investment Growth Over Time',
+  year: 'Year',
+  yearByYearBreakdown: 'Year-by-Year Breakdown',
+  yearlyInvestment: 'Yearly Investment',
+  cumulativeInvestment: 'Cumulative Investment',
+  interestEarned: 'Interest Earned',
+  maturityAmount: 'Maturity Amount',
   saveCalculation: 'Save Calculation',
   shareWhatsApp: 'Share via WhatsApp',
-  showStepUp: 'Show Step-up SIP',
-  hideStepUp: 'Hide Step-up SIP',
+  downloadReport: 'Download Report',
   savedSIPPlans: 'Your Saved SIP Plans',
   clearAll: 'Clear All',
   month: '/ month',
   forYears: 'for',
-  stepUp: 'step-up',
+  stepUpPercent: 'Step-up {percent}%',
   invested: 'Invested:',
   maturity: 'Maturity:',
   gain: 'Gain:',
+  calculationSaved: 'SIP calculation saved!',
+  reportDownloaded: 'Report downloaded!',
+  calculationDeleted: 'Calculation deleted!',
+  allCalculationsCleared: 'All SIP calculations cleared!',
+  calculationLoaded: 'Calculation loaded!',
 };
 
 interface SavedCalculation {
@@ -115,6 +138,24 @@ interface SavedCalculation {
   stepUpPercent?: number;
 }
 
+interface YearlyBreakdown {
+  year: number;
+  yearlyInvestment: number;
+  cumulativeInvestment: number;
+  interestEarned: number;
+  cumulativeMaturity: number;
+}
+
+interface CalculationResults {
+  totalInvested: number;
+  maturityAmount: number;
+  wealthGain: number;
+  yearlyBreakdown: YearlyBreakdown[];
+  principalPct: number;
+  gainPct: number;
+  requiredSip?: number;
+}
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -122,18 +163,23 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(isNaN(val) ? 0 : val);
 
-export default function SIPClient({
-  labels = DEFAULT_LABELS,
-}: {
-  labels?: Partial<SIPLabels>;
-}) {
+export default function SIPCalculatorClient({ labels }: SIPClientProps) {
   const t = { ...DEFAULT_LABELS, ...labels };
 
+  const [calculatorMode, setCalculatorMode] = useState<'investment' | 'goal'>(
+    'investment',
+  );
+
+  // Investment mode inputs
   const [monthlySip, setMonthlySip] = useState(10000);
   const [years, setYears] = useState(10);
   const [rate, setRate] = useState(12);
   const [stepUpPercent, setStepUpPercent] = useState(0);
-  const [showStepUp, setShowStepUp] = useState(false);
+
+  // Goal mode inputs
+  const [targetAmount, setTargetAmount] = useState(5000000);
+  const [goalYears, setGoalYears] = useState(10);
+  const [goalRate, setGoalRate] = useState(12);
 
   const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
@@ -141,124 +187,258 @@ export default function SIPClient({
   >([]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
-
-    try {
-      const saved = localStorage.getItem('sip_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved SIP calculations:', error);
-    }
   }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'calculator_loaded', {
-        calculator_type: 'SIP',
-        page_path: window.location.pathname,
+    if (!isClient) return;
+
+    const loadData = () => {
+      try {
+        const saved = localStorage.getItem('sip_calculator_history');
+        if (saved) {
+          setSavedCalculations(JSON.parse(saved));
+        }
+      } catch (error) {
+        console.error('Error loading saved SIP calculations:', error);
+      }
+    };
+    loadData();
+  }, [isClient]);
+
+  // Calculate Step-Up SIP with yearly breakdown
+  const calculateStepUpSIP = (
+    initialSip: number,
+    annualRate: number,
+    totalYears: number,
+    stepUp: number,
+  ) => {
+    const monthlyRate = annualRate / 12 / 100;
+    const yearlyBreakdown: YearlyBreakdown[] = [];
+    let cumulativeInvestment = 0;
+    let cumulativeMaturity = 0;
+
+    for (let year = 1; year <= totalYears; year++) {
+      const yearSipAmount = initialSip * Math.pow(1 + stepUp / 100, year - 1);
+      const yearlyInvestment = yearSipAmount * 12;
+
+      let yearMaturity = 0;
+      const remainingMonths = (totalYears - year + 1) * 12;
+
+      for (let month = 0; month < 12; month++) {
+        const monthsToGrow = remainingMonths - month;
+        if (monthlyRate === 0) {
+          yearMaturity += yearSipAmount;
+        } else {
+          yearMaturity +=
+            yearSipAmount * Math.pow(1 + monthlyRate, monthsToGrow);
+        }
+      }
+
+      cumulativeInvestment += yearlyInvestment;
+      cumulativeMaturity += yearMaturity;
+
+      const interestEarned = cumulativeMaturity - cumulativeInvestment;
+
+      yearlyBreakdown.push({
+        year,
+        yearlyInvestment: Math.round(yearlyInvestment),
+        cumulativeInvestment: Math.round(cumulativeInvestment),
+        interestEarned: Math.round(interestEarned),
+        cumulativeMaturity: Math.round(cumulativeMaturity),
       });
     }
-  }, []);
 
-  const standardResults = useMemo(() => {
-    const months = years * 12;
-    const monthlyRate = rate / 12 / 100;
+    return {
+      totalInvested: Math.round(cumulativeInvestment),
+      maturityAmount: Math.round(cumulativeMaturity),
+      wealthGain: Math.round(cumulativeMaturity - cumulativeInvestment),
+      yearlyBreakdown,
+    };
+  };
+
+  // Standard SIP calculation (no step-up)
+  const calculateStandardSIP = (
+    sip: number,
+    annualRate: number,
+    totalYears: number,
+  ) => {
+    const months = totalYears * 12;
+    const monthlyRate = annualRate / 12 / 100;
 
     let maturityAmount = 0;
 
     if (monthlyRate === 0) {
-      maturityAmount = monthlySip * months;
+      maturityAmount = sip * months;
     } else {
       const factor = Math.pow(1 + monthlyRate, months);
-      maturityAmount =
-        monthlySip * ((factor - 1) / monthlyRate) * (1 + monthlyRate);
+      maturityAmount = sip * ((factor - 1) / monthlyRate) * (1 + monthlyRate);
     }
 
     if (!isFinite(maturityAmount)) maturityAmount = 0;
 
-    const totalInvested = monthlySip * months;
+    const totalInvested = sip * months;
     const wealthGain = maturityAmount - totalInvested;
 
-    const principalPct =
-      maturityAmount > 0
-        ? Math.round((totalInvested / maturityAmount) * 100)
-        : 0;
-    const gainPct = 100 - principalPct;
+    const yearlyBreakdown: YearlyBreakdown[] = [];
+    for (let year = 1; year <= totalYears; year++) {
+      const monthsElapsed = year * 12;
+      const yearlyInvestment = sip * 12;
+      const cumulativeInvestment = sip * monthsElapsed;
+
+      let yearlyMaturity = 0;
+      if (monthlyRate === 0) {
+        yearlyMaturity = cumulativeInvestment;
+      } else {
+        const factor = Math.pow(1 + monthlyRate, monthsElapsed);
+        yearlyMaturity = sip * ((factor - 1) / monthlyRate) * (1 + monthlyRate);
+      }
+
+      yearlyBreakdown.push({
+        year,
+        yearlyInvestment: Math.round(yearlyInvestment),
+        cumulativeInvestment: Math.round(cumulativeInvestment),
+        interestEarned: Math.round(yearlyMaturity - cumulativeInvestment),
+        cumulativeMaturity: Math.round(yearlyMaturity),
+      });
+    }
 
     return {
       totalInvested: Math.round(totalInvested),
       maturityAmount: Math.round(maturityAmount),
       wealthGain: Math.round(wealthGain),
-      principalPct,
-      gainPct,
+      yearlyBreakdown,
     };
-  }, [monthlySip, years, rate]);
+  };
 
-  const stepUpResults = useMemo(() => {
-    if (!showStepUp || stepUpPercent === 0) return null;
+  // Reverse SIP calculation (goal-based)
+  const calculateReverseSIP = (
+    target: number,
+    annualRate: number,
+    totalYears: number,
+  ) => {
+    const months = totalYears * 12;
+    const monthlyRate = annualRate / 12 / 100;
 
-    const monthlyRate = rate / 12 / 100;
-    const annualStepUp = stepUpPercent / 100;
+    let requiredSip = 0;
 
-    let currentSip = monthlySip;
-    let totalInvested = 0;
-    let maturityAmount = 0;
-
-    for (let year = 0; year < years; year++) {
-      for (let month = 0; month < 12; month++) {
-        totalInvested += currentSip;
-
-        const remainingMonths = (years - year) * 12 - month;
-        const futureValue =
-          currentSip * Math.pow(1 + monthlyRate, remainingMonths);
-        maturityAmount += futureValue;
-      }
-
-      if (year < years - 1) {
-        currentSip = currentSip * (1 + annualStepUp);
-      }
+    if (monthlyRate === 0) {
+      requiredSip = target / months;
+    } else {
+      const factor = Math.pow(1 + monthlyRate, months);
+      requiredSip = target / (((factor - 1) / monthlyRate) * (1 + monthlyRate));
     }
 
-    if (!isFinite(maturityAmount)) maturityAmount = 0;
+    if (!isFinite(requiredSip)) requiredSip = 0;
 
-    const wealthGain = maturityAmount - totalInvested;
-    const principalPct =
-      maturityAmount > 0
-        ? Math.round((totalInvested / maturityAmount) * 100)
-        : 0;
-    const gainPct = 100 - principalPct;
-
-    const extraGain = maturityAmount - standardResults.maturityAmount;
-    const extraInvestment = totalInvested - standardResults.totalInvested;
+    const totalInvested = requiredSip * months;
+    const wealthGain = target - totalInvested;
 
     return {
+      requiredSip: Math.round(requiredSip),
       totalInvested: Math.round(totalInvested),
-      maturityAmount: Math.round(maturityAmount),
+      maturityAmount: Math.round(target),
       wealthGain: Math.round(wealthGain),
-      principalPct,
-      gainPct,
-      extraGain: Math.round(extraGain),
-      extraInvestment: Math.round(extraInvestment),
     };
-  }, [monthlySip, years, rate, stepUpPercent, showStepUp, standardResults]);
+  };
 
-  const results =
-    showStepUp && stepUpPercent > 0 ? stepUpResults! : standardResults;
+  const results: CalculationResults = useMemo(() => {
+    if (calculatorMode === 'goal') {
+      const goalResults = calculateReverseSIP(
+        targetAmount,
+        goalRate,
+        goalYears,
+      );
+      const standardCalc = calculateStandardSIP(
+        goalResults.requiredSip,
+        goalRate,
+        goalYears,
+      );
+      return {
+        ...goalResults,
+        yearlyBreakdown: standardCalc.yearlyBreakdown,
+        principalPct:
+          goalResults.maturityAmount > 0
+            ? Math.round(
+                (goalResults.totalInvested / goalResults.maturityAmount) * 100,
+              )
+            : 0,
+        gainPct:
+          goalResults.maturityAmount > 0
+            ? Math.round(
+                (goalResults.wealthGain / goalResults.maturityAmount) * 100,
+              )
+            : 0,
+      };
+    }
+
+    if (stepUpPercent > 0) {
+      const stepUpResults = calculateStepUpSIP(
+        monthlySip,
+        rate,
+        years,
+        stepUpPercent,
+      );
+      return {
+        ...stepUpResults,
+        principalPct:
+          stepUpResults.maturityAmount > 0
+            ? Math.round(
+                (stepUpResults.totalInvested / stepUpResults.maturityAmount) *
+                  100,
+              )
+            : 0,
+        gainPct:
+          stepUpResults.maturityAmount > 0
+            ? Math.round(
+                (stepUpResults.wealthGain / stepUpResults.maturityAmount) * 100,
+              )
+            : 0,
+      };
+    }
+
+    const standardResults = calculateStandardSIP(monthlySip, rate, years);
+    return {
+      ...standardResults,
+      principalPct:
+        standardResults.maturityAmount > 0
+          ? Math.round(
+              (standardResults.totalInvested / standardResults.maturityAmount) *
+                100,
+            )
+          : 0,
+      gainPct:
+        standardResults.maturityAmount > 0
+          ? Math.round(
+              (standardResults.wealthGain / standardResults.maturityAmount) *
+                100,
+            )
+          : 0,
+    };
+  }, [
+    monthlySip,
+    years,
+    rate,
+    stepUpPercent,
+    calculatorMode,
+    targetAmount,
+    goalYears,
+    goalRate,
+  ]);
 
   const handleSave = () => {
     const calc: SavedCalculation = {
+      // eslint-disable-next-line react-hooks/purity
       id: Date.now(),
-      monthlySip,
-      rate,
-      years,
+      monthlySip:
+        calculatorMode === 'goal' ? results.requiredSip || 0 : monthlySip,
+      rate: calculatorMode === 'goal' ? goalRate : rate,
+      years: calculatorMode === 'goal' ? goalYears : years,
       totalInvested: results.totalInvested,
       maturityAmount: results.maturityAmount,
       wealthGain: results.wealthGain,
       date: new Date().toISOString(),
-      stepUpPercent: showStepUp ? stepUpPercent : undefined,
+      stepUpPercent: calculatorMode === 'investment' ? stepUpPercent : 0,
     };
 
     const updated = [calc, ...savedCalculations].slice(0, 10);
@@ -270,29 +450,28 @@ export default function SIPClient({
       console.error('Error saving SIP calculation:', error);
     }
 
-    toast.success('SIP calculation saved!');
+    toast.success(t.calculationSaved);
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'sip_calculation_saved', {
-        monthly_sip: monthlySip,
-        rate,
-        years,
-        step_up: showStepUp ? stepUpPercent : 0,
+        monthly_sip: calc.monthlySip,
+        rate: calc.rate,
+        years: calc.years,
+        mode: calculatorMode,
+        step_up: stepUpPercent,
       });
     }
   };
 
   const handleShare = () => {
-    const stepUpText =
-      showStepUp && stepUpPercent > 0
-        ? `\nStep-up: ${stepUpPercent}% annually\n`
-        : '\n';
-
+    const isGoalMode = calculatorMode === 'goal';
     const message =
-      `📈 SIP Calculation\n\n` +
-      `Monthly SIP: ${formatINR(monthlySip)}${stepUpText}` +
-      `Expected Return: ${rate}% p.a.\n` +
-      `Investment Period: ${years} years\n\n` +
+      `📈 SIP Calculation ${isGoalMode ? '(Goal-Based)' : stepUpPercent > 0 ? '(Step-Up)' : ''}\n\n` +
+      `${isGoalMode ? `🎯 Target Amount: ${formatINR(targetAmount)}\n` : ''}` +
+      `Monthly SIP: ${formatINR(isGoalMode ? results.requiredSip || 0 : monthlySip)}\n` +
+      `${stepUpPercent > 0 ? `Step-Up: ${stepUpPercent}% annually\n` : ''}` +
+      `Expected Return: ${isGoalMode ? goalRate : rate}% p.a.\n` +
+      `Investment Period: ${isGoalMode ? goalYears : years} years\n\n` +
       `💼 Total Invested: ${formatINR(results.totalInvested)}\n` +
       `📊 Maturity Amount: ${formatINR(results.maturityAmount)}\n` +
       `💰 Wealth Gain: ${formatINR(results.wealthGain)}\n\n` +
@@ -304,6 +483,34 @@ export default function SIPClient({
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'sip_calculation_shared', {
         method: 'whatsapp',
+        mode: calculatorMode,
+      });
+    }
+  };
+
+  const handleDownloadReport = () => {
+    let csvContent =
+      'Year,Yearly Investment,Cumulative Investment,Interest Earned,Maturity Amount\n';
+
+    results.yearlyBreakdown.forEach((row) => {
+      csvContent += `${row.year},${row.yearlyInvestment},${row.cumulativeInvestment},${row.interestEarned},${row.cumulativeMaturity}\n`;
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sip-calculation-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+
+    toast.success(t.reportDownloaded);
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'sip_report_downloaded', {
+        mode: calculatorMode,
       });
     }
   };
@@ -318,13 +525,7 @@ export default function SIPClient({
       console.error('Error updating SIP history:', error);
     }
 
-    toast.success('Calculation deleted!');
-
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'sip_calculation_deleted', {
-        calculations_remaining: updated.length,
-      });
-    }
+    toast.success(t.calculationDeleted);
   };
 
   const handleClearAll = () => {
@@ -334,117 +535,152 @@ export default function SIPClient({
     } catch (error) {
       console.error('Error clearing SIP history:', error);
     }
-    toast.success('All SIP calculations cleared!');
-
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'sip_history_cleared', {
-        calculations_cleared: savedCalculations.length,
-      });
-    }
+    toast.success(t.allCalculationsCleared);
   };
 
   const handleLoad = (calc: SavedCalculation) => {
     setMonthlySip(calc.monthlySip);
     setRate(calc.rate);
     setYears(calc.years);
-    if (calc.stepUpPercent) {
+    if (calc.stepUpPercent !== undefined) {
       setStepUpPercent(calc.stepUpPercent);
-      setShowStepUp(true);
-    } else {
-      setStepUpPercent(0);
-      setShowStepUp(false);
     }
-    toast.success('Calculation loaded!');
+    setCalculatorMode('investment');
+    toast.success(t.calculationLoaded);
   };
 
   return (
     <div className="space-y-6">
-      {/* Step-up SIP Toggle */}
-      <Card className="border-purple-200 bg-linear-to-r from-purple-50 to-pink-50">
-        <CardContent className="py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Switch
-                checked={showStepUp}
-                onCheckedChange={setShowStepUp}
-                id="step-up-mode"
-              />
-              <label
-                htmlFor="step-up-mode"
-                className="text-sm font-semibold text-slate-900 cursor-pointer"
-              >
-                {t.enableStepUp}
-              </label>
-            </div>
-            <span className="text-xs text-slate-500 hidden sm:block">
-              {t.stepUpBoost}
-            </span>
-          </div>
+      {/* Mode Selector */}
+      <Card className="bg-card">
+        <CardContent className="p-4">
+          <Tabs
+            value={calculatorMode}
+            onValueChange={(v) => setCalculatorMode(v as 'investment' | 'goal')}
+          >
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="investment">
+                <TrendingUp className="mr-2 h-4 w-4" />
+                {t.investmentMode}
+              </TabsTrigger>
+              <TabsTrigger value="goal">
+                <Target className="mr-2 h-4 w-4" />
+                {t.goalBasedMode}
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
         </CardContent>
       </Card>
 
       {/* Main Calculator */}
-      <Card className="border-none shadow-none bg-card">
+      <Card className="bg-card">
         <CardContent className="p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* INPUTS */}
             <div className="space-y-6">
-              <CalculatorField
-                label={t.monthlySIP}
-                value={monthlySip}
-                min={500}
-                max={500000}
-                step={500}
-                onChange={setMonthlySip}
-              />
-
-              <CalculatorField
-                label={t.investmentPeriod}
-                value={years}
-                min={1}
-                max={40}
-                step={1}
-                onChange={setYears}
-              />
-
-              <CalculatorField
-                label={t.expectedReturn}
-                value={rate}
-                min={4}
-                max={20}
-                step={0.5}
-                onChange={setRate}
-              />
-
-              {/* Step-up SIP Control */}
-              {showStepUp && (
-                <div className="space-y-2 p-4 bg-purple-50 rounded-lg border border-purple-200">
-                  <label className="text-sm font-medium flex items-center gap-2 text-purple-900">
-                    <TrendingUp className="h-4 w-4" />
-                    {t.annualSIPIncrease}
-                  </label>
-                  <Slider
-                    value={[stepUpPercent]}
-                    min={0}
-                    max={20}
-                    step={1}
-                    onValueChange={([v]) => setStepUpPercent(v)}
-                    className="py-3"
+              {calculatorMode === 'investment' ? (
+                <>
+                  <CalculatorField
+                    label={t.monthlySIP}
+                    value={monthlySip}
+                    min={500}
+                    max={500000}
+                    step={500}
+                    onChange={setMonthlySip}
                   />
-                  <div className="flex justify-between text-xs text-purple-700">
-                    <span>{t.noIncrease}</span>
-                    <span className="font-semibold">
-                      {stepUpPercent}
-                      {t.perYear}
-                    </span>
+
+                  <CalculatorField
+                    label={t.investmentPeriod}
+                    value={years}
+                    min={1}
+                    max={40}
+                    step={1}
+                    onChange={setYears}
+                  />
+
+                  <CalculatorField
+                    label={t.expectedReturn}
+                    value={rate}
+                    min={4}
+                    max={20}
+                    step={0.5}
+                    onChange={setRate}
+                  />
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium flex items-center gap-1">
+                      {t.stepUpSIP}
+                      <Percent className="h-3 w-3 text-slate-400" />
+                    </label>
+                    <Slider
+                      value={[stepUpPercent]}
+                      min={0}
+                      max={20}
+                      step={1}
+                      onValueChange={([v]) => setStepUpPercent(v)}
+                      className="py-3"
+                    />
+                    <div className="flex justify-between text-xs text-slate-500">
+                      <span>{t.noIncrease}</span>
+                      <span className="font-semibold text-indigo-600">
+                        {stepUpPercent}
+                        {t.perYear}
+                      </span>
+                    </div>
+                    {stepUpPercent > 0 && (
+                      <p className="text-xs text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 p-2 rounded">
+                        {t.stepUpNote.replace(
+                          '{percent}',
+                          String(stepUpPercent),
+                        )}
+                      </p>
+                    )}
                   </div>
-                  <p className="text-xs text-purple-600 mt-2">
-                    💡 {t.stepUpNote} {stepUpPercent}% every year.
-                    {stepUpPercent > 0 &&
-                      ` ${t.starting} ₹${monthlySip.toLocaleString('en-IN')}, 
-                    ${t.ending} ₹${Math.round(monthlySip * Math.pow(1 + stepUpPercent / 100, years - 1)).toLocaleString('en-IN')}`}
-                  </p>
-                </div>
+                </>
+              ) : (
+                <>
+                  <CalculatorField
+                    label={t.targetAmount}
+                    value={targetAmount}
+                    min={100000}
+                    max={100000000}
+                    step={50000}
+                    onChange={setTargetAmount}
+                  />
+
+                  <CalculatorField
+                    label={t.timeToAchieveGoal}
+                    value={goalYears}
+                    min={1}
+                    max={40}
+                    step={1}
+                    onChange={setGoalYears}
+                  />
+
+                  <CalculatorField
+                    label={t.expectedReturn}
+                    value={goalRate}
+                    min={4}
+                    max={20}
+                    step={0.5}
+                    onChange={setGoalRate}
+                  />
+
+                  <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <div className="text-sm font-medium text-blue-900 dark:text-blue-200">
+                      {t.requiredMonthlySIP}
+                    </div>
+                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+                      {formatINR(results.requiredSip || 0)}
+                    </div>
+                    <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
+                      {t.investThisAmount.replace(
+                        '{amount}',
+                        formatINR(targetAmount),
+                      )}
+                    </p>
+                  </div>
+                </>
               )}
             </div>
 
@@ -457,10 +693,9 @@ export default function SIPClient({
 
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-muted-foreground">
-                  {showStepUp && stepUpPercent > 0
-                    ? t.stepUpSIP
-                    : t.standardSIP}{' '}
-                  {t.maturityAmount}
+                  {calculatorMode === 'goal'
+                    ? t.yourTargetAmount
+                    : t.estimatedMaturityAmount}
                 </div>
 
                 <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-indigo-700">
@@ -471,7 +706,7 @@ export default function SIPClient({
                   <Card className="border-border">
                     <CardContent className="p-4">
                       <div className="text-xs text-muted-foreground whitespace-nowrap">
-                        {t.totalInvested}
+                        {t.totalAmountInvested}
                       </div>
                       <div className="mt-1 font-semibold text-foreground whitespace-nowrap">
                         {formatINR(results.totalInvested)}
@@ -492,6 +727,15 @@ export default function SIPClient({
                 </div>
 
                 <div className="mt-3 text-xs text-slate-500">
+                  {stepUpPercent > 0 && calculatorMode === 'investment' && (
+                    <span className="text-indigo-600 font-medium">
+                      {t.withAnnualStepUp.replace(
+                        '{percent}',
+                        String(stepUpPercent),
+                      )}{' '}
+                      •{' '}
+                    </span>
+                  )}
                   {t.returnsDisclaimer}
                 </div>
               </div>
@@ -500,62 +744,143 @@ export default function SIPClient({
         </CardContent>
       </Card>
 
-      {/* Step-up Benefits Card */}
-      {showStepUp && stepUpPercent > 0 && stepUpResults && (
-        <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+      {/* Growth Chart */}
+      {isClient && results.yearlyBreakdown && (
+        <Card className="border-slate-200">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-xl">
-              <Zap className="h-5 w-5 text-purple-600" />
-              {t.stepUpBenefits}
+            <CardTitle className="text-lg flex items-center gap-2">
+              <LineChart className="h-5 w-5 text-indigo-600" />
+              {t.investmentGrowthOverTime}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-5 bg-linear-to-br from-emerald-50 to-green-50 rounded-lg border-2 border-emerald-200">
-              <h4 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2">
-                <TrendingUp className="h-5 w-5" />
-                {t.advantageOverStandard}
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <div className="text-xs text-slate-600 mb-1 flex items-center gap-1">
-                    <IndianRupee className="h-3 w-3" />
-                    {t.extraWealthGained}
-                  </div>
-                  <div className="text-3xl font-bold text-emerald-700">
-                    {formatINR(stepUpResults.extraGain)}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs text-slate-600 mb-1 flex items-center gap-1">
-                    <Percent className="h-3 w-3" />
-                    {t.extraInvestment}
-                  </div>
-                  <div className="text-3xl font-bold text-blue-700">
-                    {formatINR(stepUpResults.extraInvestment)}
-                  </div>
-                </div>
-              </div>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={results.yearlyBreakdown}>
+                <defs>
+                  <linearGradient
+                    id="colorInvested"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0.2} />
+                  </linearGradient>
+                  <linearGradient id="colorReturns" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#10b981" stopOpacity={0.2} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis
+                  dataKey="year"
+                  label={{
+                    value: t.year,
+                    position: 'insideBottom',
+                    offset: -5,
+                  }}
+                />
+                <YAxis
+                  tickFormatter={(value) => `₹${(value / 100000).toFixed(0)}L`}
+                />
+                <Tooltip
+                  formatter={(value: number | undefined) =>
+                    value !== undefined ? formatINR(value) : 'N/A'
+                  }
+                  labelFormatter={(label) => `${t.year} ${label}`}
+                />
+                <Legend />
+                <Area
+                  type="monotone"
+                  dataKey="cumulativeInvestment"
+                  name={t.totalAmountInvested}
+                  stroke="#6366f1"
+                  fillOpacity={1}
+                  fill="url(#colorInvested)"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="cumulativeMaturity"
+                  name={t.maturityAmount}
+                  stroke="#10b981"
+                  fillOpacity={1}
+                  fill="url(#colorReturns)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      )}
 
-              <div className="mt-4 p-3 bg-white rounded border border-emerald-200">
-                <p className="text-sm text-slate-700">
-                  <strong>{t.netBenefit}</strong> {t.netBenefitText}{' '}
-                  {formatINR(stepUpResults.extraInvestment)} over {years} years,
-                  you gain an additional {formatINR(stepUpResults.extraGain)}{' '}
-                  {t.compared}
-                </p>
-              </div>
-            </div>
-
-            <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-              <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
-                <span>💡</span>
-                {t.smartTip}
-              </h4>
-              <p className="text-sm text-slate-700">
-                {t.smartTipText} {stepUpPercent}% annual increase aligns with
-                typical career progression and helps you build wealth faster
-                without feeling the pinch!
-              </p>
+      {/* Year-by-Year Breakdown Table */}
+      {isClient && results.yearlyBreakdown && (
+        <Card className="border-slate-200">
+          <CardHeader>
+            <CardTitle className="text-lg">{t.yearByYearBreakdown}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="text-left p-3 font-semibold">{t.year}</th>
+                    <th className="text-right p-3 font-semibold">
+                      {t.yearlyInvestment}
+                      {stepUpPercent > 0 && (
+                        <span className="text-indigo-600 ml-1">↗</span>
+                      )}
+                    </th>
+                    <th className="text-right p-3 font-semibold">
+                      {t.cumulativeInvestment}
+                    </th>
+                    <th className="text-right p-3 font-semibold">
+                      {t.interestEarned}
+                    </th>
+                    <th className="text-right p-3 font-semibold text-indigo-600">
+                      {t.maturityAmount}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.yearlyBreakdown.map((row, idx) => (
+                    <tr
+                      key={row.year}
+                      className={`border-b border-slate-100 ${
+                        idx % 2 === 0 ? 'bg-slate-50/50' : ''
+                      }`}
+                    >
+                      <td className="p-3 font-medium">{row.year}</td>
+                      <td className="p-3 text-right">
+                        {formatINR(row.yearlyInvestment)}
+                        {stepUpPercent > 0 && idx > 0 && (
+                          <span className="text-xs text-indigo-600 ml-1">
+                            (+
+                            {(
+                              ((row.yearlyInvestment -
+                                results.yearlyBreakdown[idx - 1]
+                                  .yearlyInvestment) /
+                                results.yearlyBreakdown[idx - 1]
+                                  .yearlyInvestment) *
+                              100
+                            ).toFixed(0)}
+                            %)
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-3 text-right">
+                        {formatINR(row.cumulativeInvestment)}
+                      </td>
+                      <td className="p-3 text-right text-emerald-600">
+                        {formatINR(row.interestEarned)}
+                      </td>
+                      <td className="p-3 text-right font-semibold text-indigo-600">
+                        {formatINR(row.cumulativeMaturity)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </CardContent>
         </Card>
@@ -573,13 +898,9 @@ export default function SIPClient({
           {t.shareWhatsApp}
         </Button>
 
-        <Button
-          onClick={() => setShowStepUp(!showStepUp)}
-          variant={showStepUp ? 'default' : 'outline'}
-          size="sm"
-        >
-          <TrendingUp className="mr-2 h-4 w-4" />
-          {showStepUp ? t.hideStepUp : t.showStepUp}
+        <Button onClick={handleDownloadReport} variant="outline" size="sm">
+          <Download className="mr-2 h-4 w-4" />
+          {t.downloadReport}
         </Button>
       </div>
 
@@ -613,9 +934,14 @@ export default function SIPClient({
                         <div className="font-semibold text-sm">
                           {formatINR(calc.monthlySip)} {t.month} @ {calc.rate}%{' '}
                           {t.forYears} {calc.years} years
-                          {calc.stepUpPercent && (
-                            <span className="ml-2 text-xs text-purple-600 bg-purple-100 px-2 py-0.5 rounded">
-                              +{calc.stepUpPercent}% {t.stepUp}
+                          {calc.stepUpPercent && calc.stepUpPercent > 0 && (
+                            <span className="text-xs text-indigo-600 ml-1">
+                              (
+                              {t.stepUpPercent.replace(
+                                '{percent}',
+                                String(calc.stepUpPercent),
+                              )}
+                              )
                             </span>
                           )}
                         </div>
