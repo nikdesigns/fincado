@@ -28,6 +28,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { cn } from '@/lib/utils';
 
 /* ---------- TYPES ---------- */
 export interface SIPLabels {
@@ -558,14 +559,32 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
             value={calculatorMode}
             onValueChange={(v) => setCalculatorMode(v as 'investment' | 'goal')}
           >
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="investment">
-                <TrendingUp className="mr-2 h-4 w-4" />
-                {t.investmentMode}
+            <TabsList className="grid w-full grid-cols-2 h-14 p-1.5 bg-slate-100 rounded-xl">
+              <TabsTrigger
+                value="investment"
+                className={cn(
+                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
+                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
+                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
+                )}
+              >
+                <TrendingUp className="h-5 w-5" />
+                <span className="hidden sm:inline">{t.investmentMode}</span>
+                <span className="sm:hidden">Investment</span>
               </TabsTrigger>
-              <TabsTrigger value="goal">
-                <Target className="mr-2 h-4 w-4" />
-                {t.goalBasedMode}
+              <TabsTrigger
+                value="goal"
+                className={cn(
+                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
+                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
+                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
+                )}
+              >
+                <Target className="h-5 w-5" />
+                <span className="hidden sm:inline">{t.goalBasedMode}</span>
+                <span className="sm:hidden">Goal</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>
