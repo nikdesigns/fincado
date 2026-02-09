@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'EMI Calculator Hindi',
     'Home Loan EMI Hindi',
     'Personal Loan EMI Calculator',
-    'Loan Interest Hindi'
+    'Loan Interest Hindi',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/emi-calculator/',
@@ -69,12 +69,66 @@ export const metadata: Metadata = {
 export default function HindiEMIPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    loanAmount: 'लोन राशि (Loan Amount)',
-    rate: 'ब्याज दर (Interest Rate %)',
-    tenure: 'लोन अवधि (Years)',
-    monthlyEMI: 'मासिक किस्त (EMI)',
-    principal: 'मूल राशि (Principal)',
-    totalInterest: 'कुल ब्याज (Total Interest)',
+    calculatorMode: 'कैलकुलेटर मोड',
+    emiMode: 'EMI मोड',
+    affordabilityMode: 'वहनीयता मोड',
+    loanAmount: 'ऋण राशि (₹)',
+    interestRate: 'ब्याज दर (% प्रति वर्ष)',
+    loanTenure: 'ऋण अवधि (वर्ष)',
+    monthlyEMI: 'मासिक EMI',
+    affordableEMI: 'वहनीय मासिक EMI (₹)',
+    maxLoanAmount: 'अधिकतम ऋण राशि',
+    principalAmount: 'मूल राशि',
+    totalInterest: 'कुल ब्याज',
+    totalPayment: 'कुल भुगतान',
+    youCanBorrow: 'आप उधार ले सकते हैं',
+    withAffordableEMI: 'आपकी वहनीय EMI के साथ',
+    comparisonMode: 'दो ऋण विकल्पों की तुलना करें',
+    compareBanks: 'बैंकों की तुलना करें',
+    optionA: 'विकल्प A - वर्तमान बैंक',
+    optionB: 'विकल्प B - नया ऑफर',
+    whichBetter: 'कौन सा विकल्प बेहतर है?',
+    emiDifference: 'EMI अंतर',
+    interestDifference: 'ब्याज अंतर',
+    winner: 'विजेता',
+    optionSaves: 'आपको बचाता है',
+    inInterest: 'ब्याज में',
+    saveCalculation: 'गणना सहेजें',
+    shareWhatsApp: 'WhatsApp पर साझा करें',
+    prepaymentSimulator: 'प्रीपेमेंट सिम्युलेटर',
+    showPrepayment: 'प्रीपेमेंट सिम्युलेटर दिखाएं',
+    hidePrepayment: 'प्रीपेमेंट सिम्युलेटर छिपाएं',
+    prepaymentImpact: 'प्रीपेमेंट प्रभाव सिम्युलेटर',
+    prepaymentDescription: 'अतिरिक्त भुगतान करके आप कितना बचा सकते हैं देखें',
+    extraPaymentAmount: 'अतिरिक्त भुगतान राशि',
+    whenToPay: 'कब भुगतान करें?',
+    afterMonths: '{count} {unit} के बाद',
+    makeAfter: 'महीने के बाद प्रीपेमेंट करें',
+    yourSavings: 'आपकी बचत',
+    interestSaved: 'ब्याज बचत',
+    tenureReduced: 'अवधि में कमी',
+    month: 'महीना',
+    months: 'महीने',
+    prepaymentTip:
+      'प्रारंभिक वर्षों में प्रीपेमेंट करने से अधिकतम ब्याज की बचत होती है क्योंकि मूल राशि अभी भी अधिक है।',
+    loanBreakdown: 'वर्ष-दर-वर्ष ऋण विवरण',
+    year: 'वर्ष',
+    openingBalance: 'प्रारंभिक शेष',
+    principalPaid: 'मूलधन भुगतान',
+    interestPaid: 'ब्याज भुगतान',
+    closingBalance: 'समापन शेष',
+    downloadReport: 'रिपोर्ट डाउनलोड करें',
+    savedCalculations: 'आपकी सहेजी गई गणनाएं',
+    clearAll: 'सभी साफ़ करें',
+    calculationSaved: 'गणना सहेजी गई!',
+    calculationDeleted: 'गणना हटाई गई!',
+    allCleared: 'सभी गणनाएं साफ़ की गईं!',
+    calculationLoaded: 'गणना लोड की गई!',
+    reportDownloaded: 'रिपोर्ट डाउनलोड की गई!',
+    years: 'वर्ष',
+    returnsDisclaimer:
+      'गणना उदाहरणात्मक है। वास्तविक EMI बैंक की शर्तों के आधार पर भिन्न हो सकती है।',
+    loanGrowthOverTime: 'समय के साथ ऋण पुनर्भुगतान',
   };
 
   // ✅ Hindi FAQ Items
@@ -138,7 +192,7 @@ export default function HindiEMIPage() {
       question: 'EMI की गणना Reducing या Flat Rate पर होती है?',
       answer:
         'सभी प्रमुख भारतीय बैंक होम लोन, कार लोन और पर्सनल लोन के लिए REDUCING BALANCE METHOD का उपयोग करते हैं। इसका मतलब है कि ब्याज केवल बकाया मूलधन पर गणना की जाती है, जो हर EMI भुगतान के साथ घटता है। Flat Rate Method पुराना है और अब उपयोग नहीं होता।',
-    }
+    },
   ];
 
   const introContent = autoLinkContent(`
@@ -178,7 +232,7 @@ export default function HindiEMIPage() {
           {
             name: 'EMI कैलकुलेटर',
             url: 'https://fincado.com/hi/emi-calculator/',
-          }
+          },
         ]}
       />
 

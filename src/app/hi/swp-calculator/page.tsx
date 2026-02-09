@@ -82,10 +82,10 @@ export const metadata: Metadata = {
 export default function HindiSWPPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
+    // Existing labels
     corpusExhausted: '⚠️ कोष समाप्त',
     corpusExhaustedNote: 'आपका कोष समाप्त हो जाएगा',
-    exhaustedIn:
-      'वर्षों में। निकासी राशि कम करने या अपेक्षित रिटर्न बढ़ाने पर विचार करें।',
+    exhaustedIn: 'वर्षों में',
     considerReducing:
       'निकासी राशि कम करने या अपेक्षित रिटर्न बढ़ाने पर विचार करें।',
     swpCalculator: 'SWP कैलकुलेटर',
@@ -98,17 +98,13 @@ export default function HindiSWPPage() {
     yearly: 'वार्षिक',
     expectedReturn: 'अपेक्षित रिटर्न (% प्रति वर्ष)',
     timePeriod: 'समय अवधि (वर्ष)',
-    showBreakdown: 'वर्षवार विवरण दिखाएं',
-    hideBreakdown: 'वर्षवार विवरण छुपाएं',
     remainingCorpus: 'शेष कोष',
     initialCorpus: 'प्रारंभिक कोष',
     totalWithdrawn: 'कुल निकासी',
-    annualWithdrawal: 'वार्षिक निकासी:',
-    yearwiseBreakdown: 'वर्षवार विवरण (पहले 5 वर्ष)',
+    annualWithdrawal: 'वार्षिक निकासी',
+    yearwiseBreakdown: 'वर्ष-दर-वर्ष विवरण',
     year: 'वर्ष',
-    balance: 'शेष:',
-    withdrawn: 'निकासी:',
-    moreYearsRemaining: 'और वर्ष शेष',
+    withdrawn: 'निकासी',
     inflationNote:
       'निश्चित निकासी मानता है। मुद्रास्फीति समय के साथ क्रय शक्ति कम करती है।',
     saveCalculation: 'गणना सहेजें',
@@ -117,7 +113,69 @@ export default function HindiSWPPage() {
     clearAll: 'सभी साफ़ करें',
     corpus: 'कोष',
     forYears: 'के लिए',
-    remaining: 'शेष:',
+    remaining: 'शेष',
+
+    // ✅ NEW LABELS - ADD THESE:
+    calculatorMode: 'कैलकुलेटर मोड',
+    withdrawalMode: 'निकासी योजना',
+    goalMode: 'कोष स्थायित्व',
+    targetYears: 'लक्ष्य अवधि (वर्ष)',
+
+    // Inflation labels
+    inflationRate: 'मुद्रास्फीति दर (% प्रति वर्ष)',
+    enableInflation: 'मुद्रास्फीति समायोजन सक्षम करें',
+    inflationAdjusted: 'मुद्रास्फीति-समायोजित निकासी',
+    inflationImpact: 'मुद्रास्फीति प्रभाव',
+
+    // Corpus status labels
+    corpusWillLast: 'कोष चलेगा',
+    years: 'वर्ष',
+
+    // Table column labels
+    openingBalance: 'प्रारंभिक शेष',
+    interestEarned: 'अर्जित ब्याज',
+    closingBalance: 'समापन शेष',
+
+    // Action labels
+    downloadReport: 'रिपोर्ट डाउनलोड करें',
+    calculationSaved: 'गणना सहेजी गई!',
+    calculationDeleted: 'गणना हटाई गई!',
+    allCleared: 'सभी गणनाएं साफ़ की गईं!',
+    calculationLoaded: 'गणना लोड की गई!',
+    reportDownloaded: 'रिपोर्ट डाउनलोड की गई!',
+
+    // Chart label
+    corpusDepletionChart: 'समय के साथ कोष में कमी',
+
+    // Tax calculator labels
+    taxImpact: 'कर प्रभाव कैलकुलेटर',
+    showTaxCalculator: 'कर कैलकुलेटर दिखाएं',
+    hideTaxCalculator: 'कर कैलकुलेटर छिपाएं',
+    fundType: 'फंड प्रकार',
+    equityFund: 'इक्विटी फंड',
+    debtFund: 'डेट फंड',
+    estimatedTaxLiability: 'अनुमानित कर देयता',
+    taxOnWithdrawals: 'निकासी पर कर',
+    netWithdrawal: 'शुद्ध निकासी (कर के बाद)',
+    taxNote:
+      'कर गणना अनुमानित है। वास्तविक कर होल्डिंग अवधि और आय स्लैब के आधार पर भिन्न हो सकता है।',
+
+    // Comparison mode labels
+    comparisonMode: 'निकासी रणनीतियों की तुलना करें',
+    compareStrategies: 'दो SWP रणनीतियों की साथ-साथ तुलना करें',
+    strategyA: 'रणनीति A - वर्तमान योजना',
+    strategyB: 'रणनीति B - वैकल्पिक',
+    whichBetter: 'कौन सी रणनीति बेहतर है?',
+    lastLonger: 'अधिक समय तक चलेगा',
+    moreIncome: 'अधिक आय',
+
+    // Disclaimer
+    returnsDisclaimer:
+      'गणना उदाहरणात्मक है। वास्तविक रिटर्न बाजार स्थितियों के आधार पर भिन्न हो सकता है।',
+
+    // Inflation toggle labels
+    withInflation: 'मुद्रास्फीति के साथ',
+    withoutInflation: 'मुद्रास्फीति के बिना',
   };
 
   const introContent = autoLinkContent(`

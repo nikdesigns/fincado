@@ -44,7 +44,7 @@ export default function EMIPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#64748b"
+            stroke="#F0F5FA"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash1} ${circumference}`}
             strokeLinecap="butt"
