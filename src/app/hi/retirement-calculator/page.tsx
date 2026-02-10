@@ -84,7 +84,8 @@ export const metadata: Metadata = {
 export default function HindiRetirementPage() {
   // ✅ Hindi Labels for the Calculator
   const hindiLabels = {
-    highSIPWarning: 'उच्च SIP आवश्यक:',
+    // Existing labels
+    highSIPWarning: 'उच्च SIP आवश्यक',
     highSIPMessage:
       'आपकी आवश्यक मासिक SIP काफी अधिक है। सेवानिवृत्ति की आयु बढ़ाने, खर्च कम करने, या वर्तमान बचत बढ़ाने पर विचार करें।',
     retirementPlanning: 'सेवानिवृत्ति योजना कैलकुलेटर',
@@ -93,38 +94,101 @@ export default function HindiRetirementPage() {
     retirementAge: 'सेवानिवृत्ति आयु (वर्ष)',
     currentMonthlyExpense: 'वर्तमान मासिक खर्च (₹)',
     currentSavings: 'वर्तमान बचत (₹)',
-    showAdvancedRates: 'उन्नत दरें दिखाएं',
-    hideAdvancedRates: 'उन्नत दरें छुपाएं',
-    inflationRate: 'मुद्रास्फीति दर (% प्रति वर्ष)',
+    showAdvancedRates: 'उन्नत सेटिंग्स दिखाएं',
+    hideAdvancedRates: 'उन्नत सेटिंग्स छुपाएं',
+    inflationRate: 'सामान्य मुद्रास्फीति (% प्रति वर्ष)',
     preRetirementReturn: 'सेवानिवृत्ति पूर्व रिटर्न (% प्रति वर्ष)',
     postRetirementReturn: 'सेवानिवृत्ति बाद रिटर्न (% प्रति वर्ष)',
     targetRetirementCorpus: 'लक्षित सेवानिवृत्ति कोष',
-    retirementYears: '25 साल की सेवानिवृत्ति के लिए',
+    retirementYears: 'साल की सेवानिवृत्ति',
     monthlySIPRequired: 'आवश्यक मासिक SIP',
-    perMonth: '/ माह',
+    perMonth: '/माह',
     forNextYears: 'अगले',
     expenseAtRetirement: 'सेवानिवृत्ति पर खर्च',
     monthInflationAdjusted: '/माह (मुद्रास्फीति समायोजित)',
     currentSavingsFV: 'वर्तमान बचत भविष्य मूल्य',
     ofTarget: 'लक्ष्य का',
     investmentBreakdown: 'निवेश विवरण',
-    gapToFill: 'भरने योग्य अंतर:',
-    totalSIPInvestment: 'कुल SIP निवेश:',
-    expectedReturns: 'अपेक्षित रिटर्न:',
+    gapToFill: 'भरने योग्य अंतर',
+    totalSIPInvestment: 'कुल SIP निवेश',
+    expectedReturns: 'अपेक्षित रिटर्न',
     retirementNote:
-      '25 साल की सेवानिवृत्ति अवधि मानता है। जीवन प्रत्याशा और जीवनशैली के आधार पर समायोजित करें।',
+      'गणना आपकी जीवन प्रत्याशा और जीवनशैली धारणाओं पर आधारित है।',
     savePlan: 'योजना सहेजें',
     shareWhatsApp: 'WhatsApp पर साझा करें',
     savedRetirementPlans: 'आपकी सहेजी गई सेवानिवृत्ति योजनाएं',
     clearAll: 'सभी साफ़ करें',
     age: 'आयु',
-    corpus: 'कोष:',
-    sip: 'SIP:',
-    expense: 'खर्च:',
-    savings: 'बचत:',
-    returns: 'रिटर्न:',
+    corpus: 'कोष',
+    sip: 'SIP',
+    expense: 'खर्च',
+    savings: 'बचत',
+    returns: 'रिटर्न',
     sipRequiredMessage: 'आपको निवेश करना होगा',
     savingsSufficient: 'आपकी वर्तमान बचत पर्याप्त है!',
+
+    // ✅ NEW LABELS - ADD THESE:
+    calculatorMode: 'कैलकुलेटर मोड',
+    basicPlanning: 'बुनियादी योजना',
+    comprehensivePlanning: 'व्यापक योजना',
+
+    // Life expectancy
+    lifeExpectancy: 'जीवन प्रत्याशा (वर्ष)',
+
+    // Healthcare
+    healthcareInflation: 'स्वास्थ्य देखभाल मुद्रास्फीति (% प्रति वर्ष)',
+    healthcareCosts: 'स्वास्थ्य देखभाल लागत',
+    estimatedHealthcare: 'अनुमानित स्वास्थ्य लागत',
+    perYear: '/वर्ष',
+
+    // Additional income
+    additionalIncome: 'अतिरिक्त सेवानिवृत्ति आय',
+    pensionIncome: 'मासिक पेंशन (₹)',
+    rentalIncome: 'मासिक किराया आय (₹)',
+    otherIncome: 'अन्य मासिक आय (₹)',
+    monthlyIncomeTotal: 'कुल मासिक आय',
+    netMonthlyShortfall: 'शुद्ध मासिक कमी',
+    adjustedCorpusNeeded: 'समायोजित कोष आवश्यक',
+
+    // Emergency fund
+    emergencyFund: 'आपातकालीन निधि',
+    emergencyFundNote: '6 महीने के खर्च की सिफारिश',
+
+    // Comparison mode
+    comparisonMode: 'सेवानिवृत्ति परिदृश्यों की तुलना करें',
+    compareScenarios: 'दो सेवानिवृत्ति रणनीतियों की साथ-साथ तुलना करें',
+    scenarioA: 'परिदृश्य A - वर्तमान योजना',
+    scenarioB: 'परिदृश्य B - वैकल्पिक',
+    whichBetter: 'कौन सा परिदृश्य बेहतर है?',
+    lowerSIP: 'कम SIP आवश्यक',
+    higherCorpus: 'उच्च कोष',
+
+    // Chart and table labels
+    yearByYearProjection: 'वर्ष-दर-वर्ष प्रक्षेपण',
+    year: 'वर्ष',
+    corpusGrowth: 'समय के साथ कोष वृद्धि',
+    annualSIP: 'वार्षिक SIP',
+    corpusValue: 'कोष मूल्य',
+
+    // Action labels
+    downloadReport: 'रिपोर्ट डाउनलोड करें',
+    calculationSaved: 'सेवानिवृत्ति योजना सहेजी गई!',
+    calculationDeleted: 'गणना हटाई गई!',
+    allCleared: 'सभी योजनाएं साफ़ की गईं!',
+    calculationLoaded: 'योजना लोड की गई!',
+    reportDownloaded: 'रिपोर्ट डाउनलोड की गई!',
+
+    // Disclaimer
+    returnsDisclaimer:
+      'गणना उदाहरणात्मक है। वास्तविक रिटर्न बाजार स्थितियों के आधार पर भिन्न हो सकता है।',
+
+    // Tax labels
+    taxImpact: 'कर प्रभाव अनुमान',
+    showTaxEstimate: 'कर अनुमान दिखाएं',
+    hideTaxEstimate: 'कर अनुमान छुपाएं',
+    estimatedAnnualTax: 'अनुमानित वार्षिक कर',
+    taxNote:
+      'कर अनुमान अनुमानित हैं और वास्तविक आय और कटौतियों के आधार पर भिन्न हो सकते हैं।',
   };
 
   // ✅ FAQ Items (Hindi) - Expanded to 10

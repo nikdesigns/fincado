@@ -375,7 +375,7 @@ export default function GoalPlanningClient({
       </Card>
 
       {/* Main Calculator */}
-      <Card className="border-none shadow-none bg-card">
+      <Card className="bg-card">
         <CardContent className="p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* INPUTS */}

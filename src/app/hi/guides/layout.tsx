@@ -8,24 +8,26 @@ export default function HindiGuidesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-        {/* Left Column: Article Content */}
-        <div className="lg:col-span-8 min-w-0 my-12">{children}</div>
+    <div className="bg-slate-50/30 min-h-screen">
+      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 my-12">
+          {/* Left Column: Main Content */}
+          <div className="lg:col-span-8 min-w-0">{children}</div>
 
-        {/* Right Column: Sidebar (Nav + Ads) */}
-        <aside className="lg:col-span-4 space-y-8 my-12">
-          {/* 1. Navigation / Links */}
-          <div className="sticky top-24 space-y-8">
-            <HindiSidebar />
+          {/* Right Column: Sidebar */}
+          <aside className="lg:col-span-4 space-y-6">
+            <div className="sticky top-24 space-y-6">
+              {/* Navigation Sidebar */}
+              <HindiSidebar />
 
-            {/* 2. Sticky Sidebar Ad */}
-            <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center no-print">
-              <AdSlot id="hi-guide-sidebar" type="box" />
+              {/* Sticky Ad Box */}
+              <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center no-print">
+                <AdSlot id="hi-guide-sidebar" type="box" />
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
