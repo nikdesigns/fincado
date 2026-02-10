@@ -4,6 +4,13 @@ import { useEffect, useState } from 'react';
 import Script from 'next/script';
 import { getConsentState } from '@/lib/consent';
 
+// ========================================
+// 🔧 CONFIGURATION - Replace these values
+// ========================================
+const GOOGLE_ANALYTICS_ID = 'G-KQJ4P0CM5Q';
+const CLARITY_PROJECT_ID = 'uriyp76yk8';
+const IS_DEVELOPMENT = false; // Set to true for debugging logs
+
 export default function ScriptManager() {
   const [consent, setConsent] = useState<{
     analytics: boolean;
@@ -70,7 +77,7 @@ export default function ScriptManager() {
           window.dataLayer.push(args);
         }
         gtag('js', new Date());
-        gtag('config', 'G-KQJ4P0CM5Q', {
+        gtag('config', GOOGLE_ANALYTICS_ID, {
           page_path: window.location.pathname,
           anonymize_ip: true,
         });
@@ -87,16 +94,16 @@ export default function ScriptManager() {
         <Script
           id="google-analytics"
           strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
           onLoad={() => {
             setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
-            if (process.env.NODE_ENV === 'development') {
+            if (IS_DEVELOPMENT) {
               console.log('✅ Google Analytics loaded');
             }
           }}
           onError={() => {
             setScriptErrors((prev) => ({ ...prev, analytics: true }));
-            if (process.env.NODE_ENV === 'development') {
+            if (IS_DEVELOPMENT) {
               console.warn('⚠️ Google Analytics failed to load');
             }
           }}
@@ -110,13 +117,13 @@ export default function ScriptManager() {
           strategy="lazyOnload"
           onLoad={() => {
             setScriptsLoaded((prev) => ({ ...prev, clarity: true }));
-            if (process.env.NODE_ENV === 'development') {
+            if (IS_DEVELOPMENT) {
               console.log('✅ Microsoft Clarity loaded');
             }
           }}
           onError={() => {
             setScriptErrors((prev) => ({ ...prev, clarity: true }));
-            if (process.env.NODE_ENV === 'development') {
+            if (IS_DEVELOPMENT) {
               console.warn('⚠️ Microsoft Clarity failed to load');
             }
           }}
@@ -126,7 +133,7 @@ export default function ScriptManager() {
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "unxeapj33d");
+            })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
           `}
         </Script>
       )}
