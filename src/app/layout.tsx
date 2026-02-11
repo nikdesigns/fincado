@@ -5,9 +5,7 @@ import Footer from '@/components/Footer';
 import { Rubik } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
-import CookieBanner from '@/components/CookieBanner';
 import AdBlockDetector from '@/components/AdBlockDetector';
-import ScriptManager from '@/components/ScriptManager'; // ✅ ADD THIS
 import { Toaster } from 'sonner';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 import SkipToContent from '@/components/SkipToContent';
@@ -93,6 +91,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
+
         {/* Preconnect to critical domains */}
         <link
           rel="preconnect"
@@ -104,7 +103,35 @@ export default function RootLayout({
           href="https://pagead2.googlesyndication.com"
           crossOrigin="anonymous"
         />
+
+        {/* Google Analytics GA4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KQJ4P0CM5Q', {
+              page_path: window.location.pathname
+            });
+          `}
+        </Script>
+
+        {/* Microsoft Clarity */}
+        <Script id="clarity-script" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "pby2eqwxp8");
+          `}
+        </Script>
       </head>
+
       <body className={rubik.className}>
         {/* AdSense Script */}
         <Script
@@ -130,9 +157,6 @@ export default function RootLayout({
         {/* Notifications */}
         <Toaster position="top-right" richColors />
 
-        {/* ✅ ADD: ScriptManager for GA4 + Clarity with Consent */}
-        <ScriptManager />
-
         {/* Global Header */}
         <Header />
         <SkipToContent />
@@ -145,12 +169,6 @@ export default function RootLayout({
 
         {/* Footer */}
         <Footer />
-
-        {/* Cookie Consent Banner */}
-        <CookieBanner />
-
-        {/* ❌ REMOVE: Clarity is handled by ScriptManager */}
-        {/* Delete the manual Clarity script below */}
       </body>
     </html>
   );
