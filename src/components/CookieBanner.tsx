@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Cookie, Settings, CheckCircle2, Shield } from 'lucide-react';
@@ -23,56 +23,33 @@ export default function CookieBanner() {
     timestamp: Date.now(),
   });
 
-  useEffect(() => {
-    // Check if user has already given consent
-    const consent = getConsentState();
-
-    if (!consent) {
-      // Add a small delay so it doesn't jar the user immediately
-      const timer = setTimeout(() => {
-        setShow(true);
-      }, 2000); // Wait 2 seconds
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  // Add this useEffect after your other useEffects
-  useEffect(() => {
-    // Auto-accept cookies after 30 seconds if user hasn't interacted
-    const timer = setTimeout(() => {
-      const currentState = getConsentState();
-
-      // Only auto-accept if user hasn't made a choice
-      if (!currentState) {
-        handleAcceptAll(); // Your existing accept function
-
-        if (process.env.NODE_ENV === 'development') {
-          console.log('✅ Auto-accepted cookies after 30s (user inactive)');
-        }
-      }
-    }, 30000); // 30 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleAcceptAll = () => {
+  // ✅ Define handlers using useCallback BEFORE using them
+  const handleAcceptAll = useCallback(() => {
     acceptAll();
     setShow(false);
 
-    // Track consent (only after user accepts analytics)
+    // Track consent event
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'consent_granted', {
         consent_type: 'all',
       });
     }
-  };
 
-  const handleRejectAll = () => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('✅ User accepted all cookies');
+    }
+  }, []);
+
+  const handleRejectAll = useCallback(() => {
     rejectAll();
     setShow(false);
-  };
 
-  const handleSavePreferences = () => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('❌ User rejected all cookies');
+    }
+  }, []);
+
+  const handleSavePreferences = useCallback(() => {
     saveConsent(preferences);
     setShow(false);
 
@@ -84,11 +61,53 @@ export default function CookieBanner() {
         advertising: preferences.advertising,
       });
     }
-  };
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('⚙️ User saved custom preferences:', preferences);
+    }
+  }, [preferences]);
+
+  // Check initial consent state
+  useEffect(() => {
+    const consent = getConsentState();
+
+    if (!consent) {
+      const timer = setTimeout(() => {
+        setShow(true);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🍪 Cookie banner shown (no previous consent)');
+        }
+      }, 2000);
+      return () => clearTimeout(timer);
+    } else {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('✅ Previous consent found:', consent);
+      }
+    }
+  }, []);
+
+  // Auto-accept after 30 seconds if user doesn't interact
+  useEffect(() => {
+    if (!show) return;
+
+    const timer = setTimeout(() => {
+      const currentState = getConsentState();
+
+      if (!currentState) {
+        handleAcceptAll();
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log('⏰ Auto-accepted cookies after 30s (user inactive)');
+        }
+      }
+    }, 30000);
+
+    return () => clearTimeout(timer);
+  }, [show, handleAcceptAll]);
 
   const togglePreference = (key: keyof ConsentState) => {
-    if (key === 'timestamp') return; // Don't toggle timestamp
-    if (key === 'functional') return; // Functional cookies are always required
+    if (key === 'timestamp') return;
+    if (key === 'functional') return;
 
     setPreferences((prev) => ({
       ...prev,
@@ -103,7 +122,6 @@ export default function CookieBanner() {
     return (
       <div className="fixed inset-0 z-200 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 no-print">
         <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
-          {/* Header */}
           <div className="sticky top-0 bg-white border-b border-slate-200 p-6 rounded-t-2xl">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-emerald-50 rounded-lg">
@@ -120,9 +138,8 @@ export default function CookieBanner() {
             </div>
           </div>
 
-          {/* Content */}
           <div className="p-6 space-y-6">
-            {/* Essential/Functional Cookies */}
+            {/* Essential Cookies */}
             <div className="flex items-start gap-4">
               <div className="shrink-0">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-1" />
@@ -214,7 +231,6 @@ export default function CookieBanner() {
             </div>
           </div>
 
-          {/* Footer Actions */}
           <div className="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-6 rounded-b-2xl">
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
@@ -242,7 +258,6 @@ export default function CookieBanner() {
     <div className="fixed bottom-4 left-4 right-4 z-100 flex justify-center no-print">
       <div className="max-w-4xl w-full bg-slate-900/95 backdrop-blur-md text-white p-6 rounded-2xl shadow-2xl border border-slate-700/50 animate-in slide-in-from-bottom-10 fade-in duration-700">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          {/* Icon & Content */}
           <div className="flex items-start gap-4 flex-1">
             <div className="p-3 bg-slate-800 rounded-xl shrink-0 text-emerald-400">
               <Cookie className="w-6 h-6" />
@@ -262,7 +277,6 @@ export default function CookieBanner() {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
             <Button
               onClick={handleAcceptAll}

@@ -1,23 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Script from 'next/script';
 import { getConsentState } from '@/lib/consent';
 
 // ========================================
-// 🔧 CONFIGURATION - Replace these values
+// 🔧 CONFIGURATION
 // ========================================
 const GOOGLE_ANALYTICS_ID = 'G-KQJ4P0CM5Q';
 const CLARITY_PROJECT_ID = 'uriyp76yk8';
-const IS_DEVELOPMENT = false; // Set to true for debugging logs
+const IS_DEVELOPMENT = false;
 
 export default function ScriptManager() {
+  // ✅ FIX: Initialize consent state directly from getConsentState
   const [consent, setConsent] = useState<{
     analytics: boolean;
     advertising: boolean;
-  }>({
-    analytics: false,
-    advertising: false,
+  }>(() => {
+    // This runs only once during component mount
+    const state = getConsentState();
+    return {
+      analytics: state?.analytics ?? false,
+      advertising: state?.advertising ?? false,
+    };
   });
 
   const [scriptsLoaded, setScriptsLoaded] = useState({
@@ -30,24 +35,39 @@ export default function ScriptManager() {
     clarity: false,
   });
 
-  useEffect(() => {
-    // Check initial consent state
-    const state = getConsentState();
-    if (state) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setConsent({
-        analytics: state.analytics,
-        advertising: state.advertising,
-      });
-    }
+  // ✅ Define updateGoogleConsent using useCallback BEFORE using it
+  const updateGoogleConsent = useCallback(
+    (analytics: boolean, advertising: boolean) => {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('consent', 'update', {
+          analytics_storage: analytics ? 'granted' : 'denied',
+          ad_storage: advertising ? 'granted' : 'denied',
+          ad_user_data: advertising ? 'granted' : 'denied',
+          ad_personalization: advertising ? 'granted' : 'denied',
+        });
 
-    // Listen for consent updates
+        if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
+          console.log('✅ Google Consent Mode updated:', {
+            analytics_storage: analytics ? 'granted' : 'denied',
+            ad_storage: advertising ? 'granted' : 'denied',
+          });
+        }
+      }
+    },
+    [],
+  );
+
+  // ✅ Listen for consent updates (no setState on mount)
+  useEffect(() => {
     const handleConsentUpdate = (event: CustomEvent) => {
       const state = event.detail;
       setConsent({
         analytics: state.analytics,
         advertising: state.advertising,
       });
+
+      // Update Google Consent Mode
+      updateGoogleConsent(state.analytics, state.advertising);
     };
 
     window.addEventListener(
@@ -61,65 +81,81 @@ export default function ScriptManager() {
         handleConsentUpdate as EventListener,
       );
     };
-  }, []);
+  }, [updateGoogleConsent]);
 
-  // Google Analytics initialization
+  // ✅ Google Consent Mode V2 Implementation
   useEffect(() => {
-    if (
-      consent.analytics &&
-      scriptsLoaded.analytics &&
-      !scriptErrors.analytics
-    ) {
+    if (scriptsLoaded.analytics && !scriptErrors.analytics) {
       try {
         // Initialize dataLayer
         window.dataLayer = window.dataLayer || [];
 
-        // ✅ FIX: Changed from 'arguments' to rest parameters '...args'
+        // Define gtag function
         window.gtag = function gtag(...args: unknown[]) {
           window.dataLayer.push(args);
         };
 
-        // Initialize GA4
         window.gtag('js', new Date());
+
+        // ✅ Set default consent state BEFORE GA4 initialization
+        // All tracking starts in 'denied' state (cookieless mode)
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'granted', // Essential cookies always granted
+          personalization_storage: 'denied',
+          security_storage: 'granted', // Security cookies always granted
+          wait_for_update: 500, // Wait 500ms for consent banner interaction
+        });
+
+        // Initialize GA4
         window.gtag('config', GOOGLE_ANALYTICS_ID, {
           page_path: window.location.pathname,
           anonymize_ip: true,
           send_page_view: true,
         });
 
-        if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
-          console.log(
-            `✅ Google Analytics initialized with ID: ${GOOGLE_ANALYTICS_ID}`,
-          );
+        // If user already consented (returning visitor), update immediately
+        const state = getConsentState();
+        if (state) {
+          updateGoogleConsent(state.analytics, state.advertising);
+
+          if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
+            console.log('✅ GA4 initialized with existing consent:', state);
+          }
+        } else {
+          if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
+            console.log(
+              '✅ GA4 initialized in cookieless mode (awaiting consent)',
+            );
+          }
         }
       } catch (error) {
         console.error('Failed to initialize Google Analytics:', error);
       }
     }
-  }, [consent.analytics, scriptsLoaded.analytics, scriptErrors.analytics]);
+  }, [scriptsLoaded.analytics, scriptErrors.analytics, updateGoogleConsent]);
 
   return (
     <>
-      {/* Google Analytics - Load only with analytics consent */}
-      {consent.analytics && !scriptErrors.analytics && (
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
-          onLoad={() => {
-            setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
-            if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
-              console.log('✅ Google Analytics script loaded');
-            }
-          }}
-          onError={() => {
-            setScriptErrors((prev) => ({ ...prev, analytics: true }));
-            if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
-              console.error('❌ Google Analytics script failed to load');
-            }
-          }}
-        />
-      )}
+      {/* ✅ Google Analytics - ALWAYS LOADS (Consent Mode V2) */}
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+        onLoad={() => {
+          setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
+          if (IS_DEVELOPMENT || process.env.NODE_ENV === 'development') {
+            console.log('✅ Google Analytics script loaded');
+          }
+        }}
+        onError={() => {
+          setScriptErrors((prev) => ({ ...prev, analytics: true }));
+          console.error('❌ Google Analytics script failed to load');
+        }}
+      />
 
       {/* Microsoft Clarity - Load only with analytics consent */}
       {consent.analytics && !scriptErrors.clarity && (
