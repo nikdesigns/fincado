@@ -7,7 +7,7 @@ import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
 import CookieBanner from '@/components/CookieBanner';
 import AdBlockDetector from '@/components/AdBlockDetector';
-import ScriptManager from '@/components/ScriptManager';
+import ScriptManager from '@/components/ScriptManager'; // ✅ ADD THIS
 import { Toaster } from 'sonner';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 import SkipToContent from '@/components/SkipToContent';
@@ -73,6 +73,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: 'YOUR_GSC_VERIFICATION_CODE_HERE',
+  },
   other: {
     'google-adsense-account': 'ca-pub-6648091987919638',
   },
@@ -103,17 +106,13 @@ export default function RootLayout({
         />
       </head>
       <body className={rubik.className}>
-        {/* ✅ AdSense Script - ONLY LOADED ONCE HERE */}
+        {/* AdSense Script */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6648091987919638"
           crossOrigin="anonymous"
           strategy="afterInteractive"
-          data-adbreak-test="on"
         />
-
-        {/* Toast Notifications */}
-        <Toaster position="top-right" richColors />
 
         {/* Loading Bar */}
         <NextTopLoader
@@ -128,7 +127,10 @@ export default function RootLayout({
           shadow="0 0 10px #16a34a,0 0 5px #16a34a"
         />
 
-        {/* Consent-Based Script Manager */}
+        {/* Notifications */}
+        <Toaster position="top-right" richColors />
+
+        {/* ✅ ADD: ScriptManager for GA4 + Clarity with Consent */}
         <ScriptManager />
 
         {/* Global Header */}
@@ -146,6 +148,9 @@ export default function RootLayout({
 
         {/* Cookie Consent Banner */}
         <CookieBanner />
+
+        {/* ❌ REMOVE: Clarity is handled by ScriptManager */}
+        {/* Delete the manual Clarity script below */}
       </body>
     </html>
   );
