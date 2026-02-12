@@ -803,15 +803,6 @@ b {
   border-color: #d1fae5; /* Light green accent on hover */
 }
 
-.stat-value {
-  display: block;
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--color-action-cta);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
 .stat-label {
   display: block;
   font-size: 14px;

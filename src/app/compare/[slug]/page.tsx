@@ -1,3 +1,5 @@
+// src/app/compare/[slug]/page.tsx
+
 import { banks } from '@/lib/banks';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -10,6 +12,7 @@ import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AuthorBio from '@/components/AuthorBio';
 import ShareTools from '@/components/ShareTools';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 import {
   Card,
@@ -74,6 +77,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fy = getCurrentFiscalYear();
+  const monthYear = getCurrentMonthYearLabel();
 
   const parts = slug.split('-vs-');
   if (parts.length !== 2) return {};
@@ -92,8 +96,8 @@ export async function generateMetadata({
   const rateDiff = Math.abs(b1.rate - b2.rate).toFixed(2);
 
   return {
-    title: `${b1.name} vs ${b2.name} Home Loan ${fy.shortYear} | Rate ${b1.rate}% vs ${b2.rate}% | Expert Review`,
-    description: `${b1.name} vs ${b2.name} home loan comparison ${fy.shortYear}: Interest rates (${b1.rate}% vs ${b2.rate}%), processing fees, approval time, and eligibility. ${rateComparison} by ${rateDiff}%. Expert verdict with real borrower data.`,
+    title: `${b1.name} vs ${b2.name} Home Loan ${monthYear} | Rate ${b1.rate}% vs ${b2.rate}% | Expert Review`,
+    description: `${b1.name} vs ${b2.name} home loan comparison ${monthYear}: Interest rates (${b1.rate}% vs ${b2.rate}%), processing fees, approval time, and eligibility. ${rateComparison} by ${rateDiff}%. Expert verdict with real borrower data.`,
     keywords: [
       `${b1.name} vs ${b2.name}`,
       `${b1.name} ${b2.name} comparison`,
@@ -112,7 +116,7 @@ export async function generateMetadata({
       canonical: `https://fincado.com/compare/${slug}/`,
     },
     openGraph: {
-      title: `${b1.name} vs ${b2.name} Home Loan Comparison ${fy.shortYear}`,
+      title: `${b1.name} vs ${b2.name} Home Loan Comparison ${monthYear}`,
       description: `Compare ${b1.name} (${b1.rate}%) vs ${b2.name} (${b2.rate}%) home loans. Expert analysis of rates, fees, and approval speed.`,
       url: `https://fincado.com/compare/${slug}/`,
       siteName: 'Fincado',
@@ -128,7 +132,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${b1.name} vs ${b2.name} Home Loan ${fy.shortYear}`,
+      title: `${b1.name} vs ${b2.name} Home Loan ${monthYear}`,
       description: `Rate: ${b1.rate}% vs ${b2.rate}%. Expert comparison.`,
     },
     robots: {
@@ -153,6 +157,8 @@ export default async function ComparisonPage({
 }) {
   const { slug } = await params;
   const fy = getCurrentFiscalYear();
+  const monthYear = getCurrentMonthYearLabel();
+  const currentYear = new Date().getFullYear();
 
   const parts = slug.split('-vs-');
   if (parts.length !== 2) notFound();
@@ -199,58 +205,17 @@ export default async function ComparisonPage({
     },
   ];
 
-  // Structured Data - Comparison Schema
-  const comparisonSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ComparisonPage',
-    name: `${b1.name} vs ${b2.name} Home Loan Comparison`,
-    description: `Detailed comparison of ${b1.name} and ${b2.name} home loan interest rates, fees, and features for ${fy.shortYear}.`,
-    url: `https://fincado.com/compare/${slug}/`,
-    datePublished: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
-    author: {
-      '@type': 'Organization',
-      name: 'Fincado Research Team',
-    },
-    mainEntity: {
-      '@type': 'Product',
-      name: `${b1.name} vs ${b2.name} Home Loan`,
-      offers: [
-        {
-          '@type': 'Offer',
-          name: `${b1.name} Home Loan`,
-          price: b1.rate,
-          priceCurrency: 'INR',
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            valueAddedTaxIncluded: false,
-          },
-        },
-        {
-          '@type': 'Offer',
-          name: `${b2.name} Home Loan`,
-          price: b2.rate,
-          priceCurrency: 'INR',
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            valueAddedTaxIncluded: false,
-          },
-        },
-      ],
-    },
-  };
-
-  // Article Schema
+  // ✅ FIXED - Article Schema (NOT Product)
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: `${b1.name} vs ${b2.name} Home Loan Comparison ${fy.shortYear}`,
-    description: `Expert comparison of ${b1.name} and ${b2.name} home loans covering interest rates, processing fees, and eligibility criteria.`,
-    datePublished: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
+    headline: `${b1.name} vs ${b2.name} Home Loan Comparison ${currentYear}`,
+    description: `Expert comparison of ${b1.name} and ${b2.name} home loans covering interest rates, processing fees, and eligibility criteria for ${monthYear}.`,
+    datePublished: '2025-01-15',
+    dateModified: new Date().toISOString().split('T')[0],
     author: {
       '@type': 'Organization',
-      name: 'Fincado',
+      name: 'Fincado Research Team',
       url: 'https://fincado.com',
     },
     publisher: {
@@ -261,6 +226,33 @@ export default async function ComparisonPage({
         url: 'https://fincado.com/logo.png',
       },
     },
+    image: `https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://fincado.com/compare/${slug}/`,
+    },
+  };
+
+  // ✅ OPTIONAL - ItemList Schema for Comparison
+  const comparisonListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${b1.name} vs ${b2.name} Home Loan Comparison`,
+    description: `Side-by-side comparison of ${b1.name} and ${b2.name} home loan features`,
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: `${b1.name} Home Loan`,
+        description: `Interest Rate: ${b1.rate}%, Max Rate: ${b1.maxRate}%, Processing Fee: Up to 0.50%`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: `${b2.name} Home Loan`,
+        description: `Interest Rate: ${b2.rate}%, Max Rate: ${b2.maxRate}%, Processing Fee: Up to 0.50%`,
+      },
+    ],
   };
 
   return (
@@ -280,14 +272,18 @@ export default async function ComparisonPage({
         ]}
       />
 
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(comparisonSchema) }}
-      />
+      {/* ✅ FIXED - Article Schema (NO Product Schema) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+
+      {/* ✅ OPTIONAL - ItemList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(comparisonListSchema),
+        }}
       />
 
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -302,7 +298,7 @@ export default async function ComparisonPage({
             <div className="relative z-10">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                 <Badge className="bg-white border-emerald-300 text-emerald-700 px-4 py-1.5 font-bold uppercase tracking-wider shadow-sm">
-                  Expert Reviewed · {fy.shortYear}
+                  Expert Reviewed · {monthYear}
                 </Badge>
                 <div className="no-print">
                   <ShareTools
@@ -375,8 +371,7 @@ export default async function ComparisonPage({
               </div>
 
               <p className="mt-4 text-xs text-slate-500 italic">
-                Reviewed by Fincado Research Team · Updated{' '}
-                {new Date().toLocaleDateString('en-IN')}
+                Reviewed by Fincado Research Team · Updated {monthYear}
               </p>
             </div>
           </div>
@@ -522,9 +517,9 @@ export default async function ComparisonPage({
             {/* RATE CHART */}
             <RateComparisonChart b1={b1} b2={b2} />
 
-            {/* Ad Slot */}
+            {/* Ad Slot 1 */}
             <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
-              <AdSlot id="compare-mid" type="leaderboard" />
+              <AdSlot id="compare-mid-1" type="leaderboard" />
             </div>
 
             {/* PROFILE-BASED VERDICT */}
@@ -584,6 +579,11 @@ export default async function ComparisonPage({
                 ))}
               </div>
             </section>
+
+            {/* Ad Slot 2 */}
+            <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
+              <AdSlot id="compare-mid-2" type="leaderboard" />
+            </div>
 
             {/* Pros & Cons Section */}
             <section>
@@ -783,7 +783,7 @@ export default async function ComparisonPage({
                 <CardHeader className="bg-linear-to-r from-emerald-50 to-teal-50 border-b border-slate-200">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shadow-sm">
-                      <Calculator className="w-5 h-5 text-white" />
+                      <Calculator className="w-5 text-white" />
                     </div>
                     <CardTitle className="text-base font-bold">
                       Calculate Your EMI
