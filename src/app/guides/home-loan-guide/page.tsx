@@ -41,6 +41,7 @@ import {
   BadgePercent,
 } from 'lucide-react';
 import HomeLoanCalculatorEmbed from '@/components/HomeLoanCalculatorEmbed';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
@@ -96,6 +97,8 @@ const FAQ_ITEMS = [
 ];
 
 export default function HomeLoanGuidePage() {
+  const updatedLabel = getCurrentMonthYearLabel();
+
   return (
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* --- ARTICLE SCHEMA --- */}
@@ -191,7 +194,7 @@ export default function HomeLoanGuidePage() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Feb 2026</strong>
+            Updated: <strong className="text-slate-700">{updatedLabel}</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-lime-700">
@@ -724,7 +727,7 @@ export default function HomeLoanGuidePage() {
       <section id="best-banks" className="mb-12 scroll-mt-20">
         <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
           <Building2 className="h-6 w-6 text-lime-600" />
-          Top 5 Home Loan Banks in India (Feb 2026)
+          Top 5 Home Loan Banks in India (Updated {updatedLabel})
         </h2>
 
         <div className="overflow-x-auto -mx-4 sm:mx-0">
@@ -815,8 +818,8 @@ export default function HomeLoanGuidePage() {
         </div>
 
         <p className="text-xs text-slate-500 italic mt-4">
-          *Rates as of Feb 2026. Subject to change. Final rates depend on CIBIL
-          score and loan amount.
+          *Rates as of {updatedLabel}. Subject to change. Final rates depend on
+          CIBIL score and loan amount.
         </p>
 
         <div className="mt-6 bg-lime-50 p-5 rounded-xl border-2 border-lime-200">
