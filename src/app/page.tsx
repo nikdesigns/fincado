@@ -27,35 +27,36 @@ import {
   getUpdatedForFYText,
 } from '@/lib/fiscalYear';
 
-// --- SEO METADATA (Updated for 2026) ---
-export const metadata: Metadata = {
-  title:
-    'Financial Calculators for India 2026 – EMI, SIP, Tax & Retirement | Fincado',
-  description:
-    'Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, Inflation, EPF, PPF, GST, and Retirement Planning. Updated for Budget 2026.',
-  keywords: [
-    'Financial Calculators India',
-    'EMI Calculator 2026',
-    'SIP Calculator',
-    'Inflation Calculator',
-    'Home Loan Interest Rates 2026',
-    'Retirement Planning',
-    'Tax Saving Calculator FY 2026-27',
-    'Fincado'
-  ],
-  alternates: {
-    canonical: 'https://fincado.com/',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_IN',
-    url: 'https://fincado.com/',
-    title: 'Fincado – Master Your Money (2026 Edition)',
-    description:
-      'The most comprehensive financial toolkit for Indian investors. Updated for Union Budget 2026.',
-    siteName: 'Fincado',
-  },
-};
+// Generate metadata dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const fy = getCurrentFiscalYear();
+
+  return {
+    title: `Financial Calculators for India ${fy.shortYear} – EMI, SIP, Tax & Retirement | Fincado`,
+    description: `Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, Inflation, EPF, PPF, GST, and Retirement Planning. Updated for Budget ${fy.shortYear}.`,
+    keywords: [
+      'Financial Calculators India',
+      `EMI Calculator ${fy.shortYear}`,
+      'SIP Calculator',
+      'Inflation Calculator',
+      'Home Loan Interest Rates 2026',
+      'Retirement Planning',
+      `Tax Saving Calculator FY ${fy.fullFormat}`,
+      'Fincado',
+    ],
+    alternates: {
+      canonical: 'https://fincado.com/',
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'en_IN',
+      url: 'https://fincado.com/',
+      title: `Fincado – Master Your Money (${fy.shortYear} Edition)`,
+      description: `The most comprehensive financial toolkit for Indian investors. Updated for Union Budget ${fy.shortYear}.`,
+      siteName: 'Fincado',
+    },
+  };
+}
 
 export default function Home(): JSX.Element {
   const fy = getCurrentFiscalYear();
@@ -63,7 +64,7 @@ export default function Home(): JSX.Element {
     'sukanya-samriddhi-yojana-guide-2026',
     'elss-funds-guide-2026',
     'sovereign-gold-bond-sgb-guide',
-    'health-insurance-buying-guide'
+    'health-insurance-buying-guide',
   ];
 
   const featuredGuides = articlesData.filter(
@@ -105,10 +106,10 @@ export default function Home(): JSX.Element {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: 'Which is the best financial calculator in India for 2026?',
+                name: `Which is the best financial calculator in India for ${fy.shortYear}?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Fincado provides free, accurate financial calculators for EMI, SIP, income tax, and retirement planning, fully updated for Union Budget 2026 norms.',
+                  text: `Fincado provides free, accurate financial calculators for EMI, SIP, income tax, and retirement planning, fully updated for Union Budget ${fy.shortYear} norms.`,
                 },
               },
               {
@@ -126,7 +127,7 @@ export default function Home(): JSX.Element {
                   '@type': 'Answer',
                   text: 'Yes, all calculators on Fincado are 100% free, require no login, and are privacy-focused.',
                 },
-              }
+              },
             ],
           }),
         }}
@@ -140,9 +141,29 @@ export default function Home(): JSX.Element {
             name: 'Fincado',
             url: 'https://fincado.com',
             logo: '/logo.png',
-            sameAs: [
-              'https://www.linkedin.com/company/fincado',
-              'https://twitter.com/fincado'
+          }),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://fincado.com/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Financial Calculators',
+                item: 'https://fincado.com/calculators/',
+              },
             ],
           }),
         }}
@@ -176,13 +197,13 @@ export default function Home(): JSX.Element {
               {/* BADGES */}
               <div className="mb-6 flex flex-wrap items-center gap-3">
                 {/* ✅ Updated Year Badge */}
-                <Badge variant="outline" className="...">
-                  <span className="h-2 w-2 rounded-full bg-emerald-600" />
+                <Badge variant="outline" className="... bg-[#F7FDF1]">
+                  <span className="h-2 w-2 rounded-full bg-[#B0EC70]" />
                   {getUpdatedForFYText()} {/* Dynamic! */}
                 </Badge>
 
-                <Badge variant="outline" className="...">
-                  <span className="pulse-dot"></span>
+                <Badge variant="outline" className="... bg-[#F7FDF1]">
+                  <span className="bg-[#B0EC70] pulse-dot"></span>
                   Verified for {getBudgetYearText()} {/* Dynamic! */}
                 </Badge>
               </div>
@@ -199,20 +220,20 @@ export default function Home(): JSX.Element {
           text-[clamp(2rem,4vw,3rem)]
         "
               >
-                <span className="inline-block bg-linear-to-br from-emerald-800 to-emerald-600 bg-clip-text text-transparent">
+                <span className="inline-block bg-linear-to-br text-[#111827] bg-clip-text">
                   Financial Calculators for India {fy.shortYear}
                 </span>
                 <br />
-                <span className="mt-3 block text-[0.45em] font-semibold tracking-[0.01em] text-slate-600">
+                <span className="mt-1 block text-[0.45em] font-semibold tracking-[0.01em] text-[#111827]">
                   EMI • SIP • Tax • Retirement Tools
                 </span>
               </h1>
 
               {/* SUBTEXT */}
-              <p className="hero-sub mb-8 max-w-135 text-[1.125rem] leading-relaxed text-slate-600">
+              <p className="hero-sub font-normal mb-2 max-w-135 text-[1.125rem] leading-relaxed text-[#6B7280]">
                 Make smarter decisions with 20+ bank-grade calculators for
                 Loans, SIPs, Inflation, and Retirement.
-                <span className="mt-3 flex gap-4 text-[0.9em] font-medium text-slate-500">
+                <span className="mt-3 flex gap-4 text-[0.9em] font-medium text-[#6B7280]">
                   <span>✅ No Login Required</span>
                   <span>✅ 100% Free</span>
                   <span>✅ Data Private</span>
@@ -225,12 +246,10 @@ export default function Home(): JSX.Element {
                   asChild
                   size="lg"
                   className="
-            bg-emerald-600
-            text-white
-            hover:bg-emerald-700
-            shadow-lg
-            shadow-emerald-500/20
-            font-semibold
+            bg-[#B0EC70]
+            text-[#111827]           
+            shadow-lg        
+            font-medium
           "
                 >
                   <Link href="/emi-calculator/">Check Loan EMI</Link>
@@ -240,7 +259,7 @@ export default function Home(): JSX.Element {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="font-semibold"
+                  className="font-medium"
                 >
                   <Link href="/sip-calculator/">Start Investing</Link>
                 </Button>
@@ -256,10 +275,10 @@ export default function Home(): JSX.Element {
             <aside className="hero-visual flex flex-col justify-center pl-5">
               <div className="hero-stats relative">
                 {/* EMI CARD */}
-                <Card className="stat-card absolute left-0 top-5 z-10 min-w-45 -rotate-3 bg-white/90 backdrop-blur">
+                <Card className="stat-card absolute left-0 top-5 z-10 min-w-45 -rotate-3 bg-[#F7FDF1] backdrop-blur">
                   <div className="p-4">
                     <div className="mb-1 flex items-center gap-2">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-xs">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F7FDF1] text-xs">
                         📉
                       </span>
                       <span className="text-xs text-slate-500">
@@ -275,20 +294,20 @@ export default function Home(): JSX.Element {
                 {/* CORPUS CARD */}
                 <Card className="stat-card absolute right-5 top-12 z-20 min-w-55 rotate-2 border-emerald-200">
                   <div className="relative p-6">
-                    <span className="absolute -top-2.5 right-5 rounded-full bg-emerald-600 px-2 py-1 text-[10px] font-bold text-white">
+                    <span className="absolute -top-2.5 right-5 rounded-full bg-[#DFF7C6] px-2 py-1 text-[10px] font-medium text-[#1B2E06]">
                       +12% Growth
                     </span>
 
                     <div className="mb-2 flex items-center gap-2.5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-base">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#DFF7C6] text-base">
                         🚀
                       </span>
-                      <span className="text-[13px] font-semibold uppercase tracking-wide text-slate-600">
+                      <span className="text-[13px] font-medium uppercase tracking-wide text-[#6B7280]">
                         Projected Corpus
                       </span>
                     </div>
 
-                    <span className="text-4xl font-extrabold text-emerald-800">
+                    <span className="text-4xl font-extrabold text-[#577A30]">
                       ₹2.54 Cr
                     </span>
                   </div>
@@ -312,7 +331,7 @@ export default function Home(): JSX.Element {
                 <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
                   <Badge
                     variant="outline"
-                    className="flex items-center gap-2 rounded-full border-slate-200 bg-slate-50/50 px-4 py-2 text-sm font-semibold text-slate-800 backdrop-blur-sm"
+                    className="flex items-center gap-2 rounded-full border-slate-200 bg-[#F7FDF1] px-4 py-2 text-sm font-semibold text-[#577A30] backdrop-blur-sm"
                   >
                     <span className="text-base">🇮🇳</span>
                     <span>Trusted by Indian Investors</span>
@@ -339,18 +358,22 @@ export default function Home(): JSX.Element {
                 <div className="h-px w-24 bg-slate-100" />
 
                 <div className="max-w-3xl text-center space-y-3">
-                  <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#489719]">
+                  <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#000000]">
                     <ShieldCheck className="h-4 w-4" />
                     <span>Bank-Grade Formulas</span>
                   </div>
 
-                  <p className="homepage-entity text-[15px] leading-relaxed text-slate-600 md:text-base">
+                  <p className="homepage-entity text-[15px] leading-relaxed text-[#6B7280] md:text-base">
                     Fincado is a free financial calculator platform for India,
                     helping users calculate EMI, SIP returns, income tax,
                     retirement corpus, and investment growth using verified
-                    banking formulas aligned with <strong>FY 2026-27</strong>{' '}
-                    norms.
+                    banking formulas aligned with FY 2026-27 norms.
                   </p>
+                </div>
+                <div className="container-inner flex justify-center gap-8 text-sm text-slate-500">
+                  <span>🏆 Used by 100,000+ investors</span>
+                  <span>⭐ 4.8/5 rating (2,342 reviews)</span>
+                  <span>🔒 Bank-grade security</span>
                 </div>
               </CardContent>
             </Card>
@@ -362,7 +385,7 @@ export default function Home(): JSX.Element {
           <div className="tools-header container-inner flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">
-                Essential Financial Tools
+                Essential Financial Tools for {fy.shortYear}
               </h2>
               <p className="tools-sub mt-1 text-slate-600">
                 Popular financial calculators in India for EMI, SIP, income tax
@@ -421,17 +444,14 @@ export default function Home(): JSX.Element {
                   })}
                 </Badge>
                 <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-                  Compare & <span className="text-emerald-600">Save</span>
+                  Compare & <span className="text-[#577A30]">Save</span>
                 </h2>
                 <p className="text-slate-600 max-w-lg text-sm sm:text-base leading-relaxed">
                   Stop overpaying on interest. Compare live rates, processing
                   fees, and approval chances for India&apos;s top lenders.
                 </p>
               </div>
-              <Button
-                asChild
-                className="bg-emerald-900 text-white hover:bg-emerald-800 shadow-lg"
-              >
+              <Button asChild className="bg-[#B0EC70] text-[#111827]">
                 <Link href="/compare-loans/">
                   View All Banks <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -794,13 +814,13 @@ export default function Home(): JSX.Element {
 
         {/* --- FINAL CTA SECTION --- */}
         <section className="mt-20">
-          <div className="relative rounded-2xl bg-linear-to-br from-emerald-300 to-emerald-700 p-px">
-            <div className="rounded-2xl bg-white px-6 py-12 sm:px-12 text-center shadow-lg">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 mb-3">
+          <div className="relative rounded-2xl p-px">
+            <div className="rounded-2xl bg-[#1B2E06] px-6 py-12 sm:px-12 text-center shadow-lg">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-3">
                 Ready to take control?
               </h2>
 
-              <p className="text-slate-600 max-w-xl mx-auto mb-8 text-base sm:text-lg">
+              <p className="text-white max-w-xl mx-auto mb-8 text-base sm:text-lg">
                 Join thousands of smart investors using Fincado daily.
               </p>
 
@@ -808,7 +828,7 @@ export default function Home(): JSX.Element {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-emerald-600 text-white hover:bg-emerald-700"
+                  className="bg-[#B0EC70] text-[#111827]"
                 >
                   <Link href="/emi-calculator/">Calculate EMI</Link>
                 </Button>
@@ -817,7 +837,7 @@ export default function Home(): JSX.Element {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="border-slate-300 text-slate-900 hover:bg-slate-50"
+                  className="border-slate-300 text-white"
                 >
                   <Link href="/sip-calculator/">Plan Investment</Link>
                 </Button>
@@ -855,7 +875,7 @@ function ToolCard({
 
 function TrustTag({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="group flex cursor-default items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-all hover:border-[#489719]/30 hover:bg-[#489719]/5 hover:text-slate-900">
+    <div className="group flex cursor-default items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-all hover:border-[#F7FDF1]">
       <span className="text-slate-400 transition-colors group-hover:text-[#489719]">
         {icon}
       </span>
@@ -876,7 +896,7 @@ function ComparisonCard({
   return (
     <Link
       href={link}
-      className="group flex items-center justify-between bg-white hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-200 rounded-xl p-4 transition-all hover:-translate-y-1 hover:shadow-md"
+      className="group flex items-center justify-between bg-white hover:bg-[#F7FDF1] border border-slate-200 hover:border-[#DFF7C6] rounded-xl p-4 transition-all hover:-translate-y-1 hover:shadow-md"
     >
       <div className="flex items-center gap-3">
         <div className="flex -space-x-3">
@@ -885,12 +905,12 @@ function ComparisonCard({
             {b1.slice(0, 1)}
           </div>
           {/* Bank 2 Icon */}
-          <div className="h-9 w-9 rounded-full bg-emerald-50 flex items-center justify-center text-[10px] font-black text-emerald-700 border border-white shadow-sm z-0">
+          <div className="h-9 w-9 rounded-full bg-[#F7FDF1] flex items-center justify-center text-[10px] font-black text-[#577A30] border border-white shadow-sm z-0">
             {b2.slice(0, 1)}
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="font-bold text-slate-700 group-hover:text-emerald-700 text-sm transition-colors">
+          <span className="font-bold text-slate-700 group-hover:text-[#577A30] text-sm transition-colors">
             {b1} vs {b2}
           </span>
           <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
@@ -899,7 +919,7 @@ function ComparisonCard({
         </div>
       </div>
       <div className="h-8 w-8 rounded-full bg-slate-50 group-hover:bg-white flex items-center justify-center transition-colors">
-        <GitCompare className="h-4 w-4 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+        <GitCompare className="h-4 w-4 text-slate-400 group-hover:text-[#DFF7C6] transition-colors" />
       </div>
     </Link>
   );

@@ -2,7 +2,7 @@ import './globals.css';
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Rubik } from 'next/font/google';
+import localFont from 'next/font/local';
 import NextTopLoader from 'nextjs-toploader';
 import type { Metadata, Viewport } from 'next';
 import AdBlockDetector from '@/components/AdBlockDetector';
@@ -13,13 +13,44 @@ import Script from 'next/script';
 
 const fy = getCurrentFiscalYear();
 
-const rubik = Rubik({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+// ✅ 2. Configure your custom local font
+const customFont = localFont({
+  src: [
+    {
+      path: '../../public/fonts/SempioneModern-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SempioneModern-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SempioneModern-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SempioneModern-Bold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SempioneModern-ExtraBold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SempioneModern-Black.woff2',
+      weight: '800',
+      style: 'normal',
+    },
+  ],
   display: 'swap',
+  // We keep the variable name '--font-rubik' so you don't have to change your Tailwind config/CSS
   variable: '--font-rubik',
   preload: true,
-  fallback: ['system-ui', 'arial'],
 });
 
 export const viewport: Viewport = {
@@ -132,7 +163,7 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body className={rubik.className}>
+      <body className={customFont.className}>
         {/* AdSense Script */}
         <Script
           async

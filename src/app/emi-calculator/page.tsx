@@ -32,24 +32,32 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 export const metadata: Metadata = {
   title: 'EMI Calculator India - Home, Car & Personal Loan EMI Calculator 2026',
   description:
-    'Free EMI Calculator for Home Loan, Car Loan & Personal Loan in India. Calculate monthly EMI, total interest & amortization schedule instantly. Used by 50,000+ borrowers. Compare bank rates & save lakhs on interest.',
+    'Free EMI Calculator for ₹1L to ₹5Cr loans. Check EMI for 8.5% interest rates. Used by 50,000+ borrowers. Compare SBI, HDFC, ICICI rates & save ₹2.5L on interest.',
   keywords: [
     'EMI Calculator',
-    'Loan EMI Calculator',
-    'Home Loan EMI',
-    'Car Loan EMI',
+    'Loan EMI Calculator India',
+    'Home Loan EMI 2026',
+    'Car Loan EMI Calculator',
     'Personal Loan EMI',
-    'Reduce Loan Interest',
+    'SBI EMI Calculator',
+    'HDFC Loan Calculator',
     'Amortization Schedule',
     'Loan Repayment Schedule',
+    'Reduce Loan Interest',
+    'EMI Formula',
+    'Monthly Installment Calculator',
   ],
   alternates: {
     canonical: 'https://fincado.com/emi-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/emi-calculator/',
+      'hi-IN': 'https://fincado.com/hi/emi-calculator',
+    },
   },
   openGraph: {
     title: 'EMI Calculator – Calculate Loan EMI After Budget 2026',
     description:
-      'Free tool to calculate EMI, Interest, and Tenure for any loan.',
+      'Free EMI Calculator for ₹1L to ₹5Cr loans. Check EMI for 8.5% interest rates. Used by 50,000+ borrowers. Compare SBI, HDFC, ICICI rates & save ₹2.5L on interest.',
     url: 'https://fincado.com/emi-calculator/',
     type: 'website',
   },
@@ -177,7 +185,7 @@ export default function EMIPage() {
 
       <CalculatorSchema
         name="Loan EMI Calculator"
-        description="Calculate EMI for Home Loan, Car Loan, and Personal Loan. Check monthly repayment schedule and total interest."
+        description="Free EMI Calculator for ₹1L to ₹5Cr loans. Check EMI for 8.5% interest rates. Used by 50,000+ borrowers. Compare SBI, HDFC, ICICI rates & save ₹2.5L on interest."
         url="https://fincado.com/emi-calculator/"
       />
 
@@ -209,9 +217,9 @@ export default function EMIPage() {
           </h1>
 
           {/* 💰 AD 1: TOP LEADERBOARD (High Viewability) */}
-          {/* <div style={{ marginTop: 24, marginBottom: 24 }}>
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
             <AdSlot id="emi-top" type="leaderboard" />
-          </div> */}
+          </div>
 
           <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
             <WikiText
@@ -287,6 +295,32 @@ export default function EMIPage() {
               </div>
             </section>
             <EMIClient />
+            {/* // Add after the calculator */}
+            <Card className="border-slate-200 mt-10 bg-white">
+              <CardHeader>
+                <CardTitle className="text-lg">
+                  Today&apos;s Best Loan Rates (Feb 2026)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="flex justify-between p-2 bg-emerald-50 rounded">
+                    <span>SBI Home Loan</span>
+                    <span className="font-bold text-emerald-700">
+                      8.50% - 9.65%
+                    </span>
+                  </div>
+                  <div className="flex justify-between p-2">
+                    <span>HDFC Bank</span>
+                    <span className="font-bold">8.60% - 9.50%</span>
+                  </div>
+                  <div className="flex justify-between p-2 bg-blue-50 rounded">
+                    <span>ICICI Bank</span>
+                    <span className="font-bold">8.75% - 9.70%</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
             <Alert className="mt-6 bg-slate-50/50 border-slate-200 text-slate-600">
               <Info className="h-4 w-4 text-indigo-500 mt-0.5" />

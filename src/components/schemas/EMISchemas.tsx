@@ -20,7 +20,7 @@ export function EMISchemas() {
         position: 3,
         name: 'EMI Calculator',
         item: 'https://fincado.com/emi-calculator',
-      }
+      },
     ],
   };
 
@@ -46,7 +46,7 @@ export function EMISchemas() {
       'Car Loan EMI Calculation',
       'Personal Loan EMI Calculation',
       'Amortization Schedule',
-      'Prepayment Analysis'
+      'Prepayment Analysis',
     ],
   };
 
@@ -78,12 +78,36 @@ export function EMISchemas() {
         position: 4,
         name: 'View Results',
         text: 'Get instant EMI amount, total interest, and amortization schedule',
-      }
+      },
     ],
   };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'Popular EMI Calculators',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home Loan EMI Calculator',
+                url: 'https://fincado.com/loans/home-loan/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Car Loan EMI Calculator',
+                url: 'https://fincado.com/loans/car-loan/',
+              },
+            ],
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

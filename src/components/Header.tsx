@@ -146,8 +146,8 @@ export default function Header() {
                     aria-current={isActive('/') ? 'page' : undefined}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/')
-                        ? 'text-emerald-700 bg-emerald-50 shadow-sm'
-                        : 'text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/70'
+                        ? 'text-[#1B2E06] bg-[#DFF7C6]'
+                        : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
                     }`}
                   >
                     Home
@@ -156,7 +156,7 @@ export default function Header() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/70 bg-transparent data-[state=open]:bg-emerald-50 data-[state=open]:text-emerald-700 data-[state=open]:shadow-sm rounded-lg transition-all">
+                <NavigationMenuTrigger className="text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]">
                   Calculators
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="rounded-2xl bg-white shadow-2xl border border-slate-200/80 overflow-hidden">
@@ -195,8 +195,8 @@ export default function Header() {
                                   href={item.href}
                                   className={`group flex items-center gap-2 text-sm font-medium transition-all duration-200 py-1 px-2 -mx-2 rounded-md hover:translate-x-0.5 ${
                                     item.featured
-                                      ? 'text-emerald-600 font-bold hover:bg-emerald-50'
-                                      : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50'
+                                      ? 'text-[#1B2E06] bg-[#DFF7C6]'
+                                      : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
                                   }`}
                                 >
                                   {item.featured && (
@@ -204,7 +204,7 @@ export default function Header() {
                                   )}
                                   <span className="relative">
                                     {item.label}
-                                    <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300" />
+                                    <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#1B2E06] group-hover:w-full transition-all duration-300" />
                                   </span>
                                 </Link>
                               </li>
@@ -215,17 +215,17 @@ export default function Header() {
                     })}
                   </div>
                   {/* Bottom CTA Strip */}
-                  <div className="bg-linear-to-r from-emerald-50 to-teal-50 border-t border-emerald-100 px-6 py-3 flex items-center justify-between">
-                    <p className="text-xs text-slate-600 font-medium">
+                  <div className="bg-[#DFF7C6] border-emerald-100 px-6 py-3 flex items-center justify-between">
+                    <p className="text-xs text-[#1B2E06] font-medium">
                       💡 All calculators are{' '}
-                      <span className="text-emerald-700 font-semibold">
+                      <span className="text-[#1B2E06] font-semibold">
                         100% Free
                       </span>{' '}
                       and updated with latest rates
                     </p>
                     <Link
                       href="/calculators/"
-                      className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 hover:gap-2 transition-all"
+                      className="text-xs font-semibold text-[#1B2E06]  flex items-center gap-1 hover:gap-2 transition-all"
                     >
                       View All Calculators
                       <ChevronDown className="w-3 h-3 -rotate-90" />
@@ -243,8 +243,8 @@ export default function Header() {
                     }
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2 ${
                       isActive('/compare-loans')
-                        ? 'text-emerald-700 bg-emerald-50 shadow-sm'
-                        : 'text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/70'
+                        ? 'text-[#1B2E06] bg-[#DFF7C6]'
+                        : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
                     }`}
                   >
                     Compare Rates
@@ -259,8 +259,8 @@ export default function Header() {
                     aria-current={isActive('/guides') ? 'page' : undefined}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/guides')
-                        ? 'text-emerald-700 bg-emerald-50 shadow-sm'
-                        : 'text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/70'
+                        ? 'text-[#1B2E06] bg-[#DFF7C6]'
+                        : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
                     }`}
                   >
                     Guides
@@ -272,7 +272,7 @@ export default function Header() {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/hi/"
-                    className="px-4 py-2 text-sm font-bold text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+                    className="px-4 py-2 text-sm font-bold text-[#ff7722] hover:bg-rose-50 hover:text-[#ff7722] rounded-lg transition-all duration-200"
                     lang="hi"
                     aria-label="Switch to Hindi calculators"
                   >
@@ -287,7 +287,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Button
               asChild
-              className="hidden lg:inline-flex bg-linear-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold shadow-lg shadow-emerald-600/30 hover:shadow-emerald-700/40 hover:scale-105 transition-all duration-200 rounded-lg"
+              className="hidden lg:inline-flex bg-[#C0F08D] text-[#111827] font-medium hover:scale-105 transition-all duration-200 rounded-lg"
             >
               <Link href="/emi-calculator/" className="flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
@@ -412,7 +412,7 @@ export default function Header() {
                     <div className="pt-4 border-t border-slate-200 space-y-3">
                       <Button
                         asChild
-                        className="w-full bg-linear-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold shadow-lg rounded-lg h-12"
+                        className="w-full bg-[#C0F08D] text-[#111827] font-semibold shadow-lg rounded-lg h-12"
                       >
                         <Link
                           href="/emi-calculator/"

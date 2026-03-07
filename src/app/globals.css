@@ -477,14 +477,14 @@ b {
 .tool-icon-wrap {
   width: 64px;
   height: 64px;
-  background: #c6f2a4;
-  border: 1px solid #a1e76f;
+  background: #f7fdf1;
+  border: 1px solid #dff7c6;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  color: #2f5c18;
+  color: #577a30;
 }
 .tool-icon-svg {
   width: 32px;
@@ -1537,18 +1537,6 @@ b {
   border-color: #86efac; /* Green-300 */
 }
 
-.tool-icon-wrap {
-  width: 48px;
-  height: 48px;
-  background: #f0fdf4;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
-  color: #16a34a;
-}
-
 .tool-title {
   font-size: 17px;
   font-weight: 700;
@@ -1876,7 +1864,7 @@ b {
 .pulse-dot {
   width: 6px;
   height: 6px;
-  background-color: #059669; /* Emerald-600 */
+  background-color: #b0ec70; /* Emerald-600 */
   border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
   animation: pulse-green 2s infinite;
