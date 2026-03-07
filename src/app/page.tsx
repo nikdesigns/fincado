@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Icon, { IconName } from '@/components/Icon';
 import AdSlot from '@/components/AdSlot';
 import articlesData from '@/data/articles.json';
@@ -197,12 +198,18 @@ export default function Home(): JSX.Element {
               {/* BADGES */}
               <div className="mb-6 flex flex-wrap items-center gap-3">
                 {/* ✅ Updated Year Badge */}
-                <Badge variant="outline" className="... bg-[#F7FDF1]">
+                <Badge
+                  variant="outline"
+                  className="... bg-[#F7FDF1] font-semibold"
+                >
                   <span className="h-2 w-2 rounded-full bg-[#B0EC70]" />
                   {getUpdatedForFYText()} {/* Dynamic! */}
                 </Badge>
 
-                <Badge variant="outline" className="... bg-[#F7FDF1]">
+                <Badge
+                  variant="outline"
+                  className="... bg-[#F7FDF1] font-semibold"
+                >
                   <span className="bg-[#B0EC70] pulse-dot"></span>
                   Verified for {getBudgetYearText()} {/* Dynamic! */}
                 </Badge>
@@ -214,7 +221,7 @@ export default function Home(): JSX.Element {
                 className="
           mb-6
           font-semibold
-          leading-[1.15]
+          leading-none
           tracking-[-0.03em]
           text-slate-900
           text-[clamp(2rem,4vw,3rem)]
@@ -230,7 +237,7 @@ export default function Home(): JSX.Element {
               </h1>
 
               {/* SUBTEXT */}
-              <p className="hero-sub font-normal mb-2 max-w-135 text-[1.125rem] leading-relaxed text-[#6B7280]">
+              <p className="hero-sub font-medium mb-2 max-w-135 text-[1.125rem] leading-relaxed text-[#6B7280]">
                 Make smarter decisions with 20+ bank-grade calculators for
                 Loans, SIPs, Inflation, and Retirement.
                 <span className="mt-3 flex gap-4 text-[0.9em] font-medium text-[#6B7280]">
@@ -249,7 +256,7 @@ export default function Home(): JSX.Element {
             bg-[#B0EC70]
             text-[#111827]           
             shadow-lg        
-            font-medium
+            font-semibold
           "
                 >
                   <Link href="/emi-calculator/">Check Loan EMI</Link>
@@ -281,7 +288,7 @@ export default function Home(): JSX.Element {
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F7FDF1] text-xs">
                         📉
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-slate-500 font-semibold uppercase tracking-wide">
                         Monthly EMI
                       </span>
                     </div>
@@ -294,7 +301,7 @@ export default function Home(): JSX.Element {
                 {/* CORPUS CARD */}
                 <Card className="stat-card absolute right-5 top-12 z-20 min-w-55 rotate-2 border-emerald-200">
                   <div className="relative p-6">
-                    <span className="absolute -top-2.5 right-5 rounded-full bg-[#DFF7C6] px-2 py-1 text-[10px] font-medium text-[#1B2E06]">
+                    <span className="absolute -top-2.5 right-5 rounded-full bg-[#DFF7C6] px-2 py-1 text-[10px] font-semibold text-[#1B2E06]">
                       +12% Growth
                     </span>
 
@@ -302,12 +309,12 @@ export default function Home(): JSX.Element {
                       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#DFF7C6] text-base">
                         🚀
                       </span>
-                      <span className="text-[13px] font-medium uppercase tracking-wide text-[#6B7280]">
+                      <span className="text-[13px] font-semibold uppercase tracking-wide text-[#6B7280]">
                         Projected Corpus
                       </span>
                     </div>
 
-                    <span className="text-4xl font-extrabold text-[#577A30]">
+                    <span className="text-4xl font-bold text-[#577A30]">
                       ₹2.54 Cr
                     </span>
                   </div>
@@ -333,7 +340,13 @@ export default function Home(): JSX.Element {
                     variant="outline"
                     className="flex items-center gap-2 rounded-full border-slate-200 bg-[#F7FDF1] px-4 py-2 text-sm font-semibold text-[#577A30] backdrop-blur-sm"
                   >
-                    <span className="text-base">🇮🇳</span>
+                    <Image
+                      src="/images/india.svg"
+                      alt="India flag"
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                    />
                     <span>Trusted by Indian Investors</span>
                   </Badge>
 
@@ -370,7 +383,7 @@ export default function Home(): JSX.Element {
                     banking formulas aligned with FY 2026-27 norms.
                   </p>
                 </div>
-                <div className="container-inner flex justify-center gap-8 text-sm text-slate-500">
+                <div className="container-inner flex justify-center font-medium gap-8 text-sm text-slate-500">
                   <span>🏆 Used by 100,000+ investors</span>
                   <span>⭐ 4.8/5 rating (2,342 reviews)</span>
                   <span>🔒 Bank-grade security</span>
@@ -387,7 +400,7 @@ export default function Home(): JSX.Element {
               <h2 className="text-xl font-semibold text-slate-900">
                 Essential Financial Tools for {fy.shortYear}
               </h2>
-              <p className="tools-sub mt-1 text-slate-600">
+              <p className="tools-sub mt-1 text-slate-600 font-medium">
                 Popular financial calculators in India for EMI, SIP, income tax
                 and credit planning.
               </p>
@@ -443,15 +456,18 @@ export default function Home(): JSX.Element {
                     year: 'numeric',
                   })}
                 </Badge>
-                <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+                <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight">
                   Compare & <span className="text-[#577A30]">Save</span>
                 </h2>
-                <p className="text-slate-600 max-w-lg text-sm sm:text-base leading-relaxed">
+                <p className="text-slate-600 max-w-lg text-sm sm:text-base leading-relaxed font-medium">
                   Stop overpaying on interest. Compare live rates, processing
                   fees, and approval chances for India&apos;s top lenders.
                 </p>
               </div>
-              <Button asChild className="bg-[#B0EC70] text-[#111827]">
+              <Button
+                asChild
+                className="bg-[#B0EC70] text-[#111827] font-semibold"
+              >
                 <Link href="/compare-loans/">
                   View All Banks <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -607,7 +623,7 @@ export default function Home(): JSX.Element {
               <h2 className="text-xl font-semibold text-slate-900">
                 Financial Wisdom
               </h2>
-              <p className="mt-1 text-base text-slate-500">
+              <p className="mt-1 text-base text-slate-500 font-medium">
                 Expert-written guides backed by real calculations, updated for
                 Indian laws.
               </p>
@@ -622,12 +638,12 @@ export default function Home(): JSX.Element {
             </Button>
           </div>
 
-          <div className="guide-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="guide-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-3 bg-white">
             {displayGuides.map((guide) => (
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}/`}
-                className="group block"
+                className="group block font-medium text-slate-900 transition"
               >
                 <Card
                   className="
@@ -642,12 +658,12 @@ export default function Home(): JSX.Element {
           "
                 >
                   <div className="mb-4">
-                    <span className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-700">
+                    <span className="inline-block rounded-full bg-[#F7FDF1] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#577A30]">
                       {guide.category}
                     </span>
                   </div>
 
-                  <h3 className="mb-3 text-lg font-bold leading-snug text-slate-900">
+                  <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900">
                     {guide.title}
                   </h3>
 
@@ -688,7 +704,7 @@ export default function Home(): JSX.Element {
                 Your All-In-One Financial Planning Platform
               </h2>
 
-              <p className="pb-2">
+              <p className="pb-2 font-normal">
                 Financial freedom isn&apos;t a dream; it&apos;s a calculation.
                 Whether you are a fresh graduate starting your first job, a
                 parent planning for your child&apos;s education, or someone
@@ -901,16 +917,16 @@ function ComparisonCard({
       <div className="flex items-center gap-3">
         <div className="flex -space-x-3">
           {/* Bank 1 Icon */}
-          <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-[10px] font-black text-slate-700 border border-slate-100 shadow-sm z-10">
+          <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-[10px] font-semibold text-slate-700 border border-slate-100 shadow-sm z-10">
             {b1.slice(0, 1)}
           </div>
           {/* Bank 2 Icon */}
-          <div className="h-9 w-9 rounded-full bg-[#F7FDF1] flex items-center justify-center text-[10px] font-black text-[#577A30] border border-white shadow-sm z-0">
+          <div className="h-9 w-9 rounded-full bg-[#F7FDF1] flex items-center justify-center text-[10px] font-semibold text-[#577A30] border border-white shadow-sm z-0">
             {b2.slice(0, 1)}
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="font-bold text-slate-700 group-hover:text-[#577A30] text-sm transition-colors">
+          <span className="font-semibold text-slate-700 group-hover:text-[#577A30] text-sm transition-colors">
             {b1} vs {b2}
           </span>
           <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
@@ -918,8 +934,8 @@ function ComparisonCard({
           </span>
         </div>
       </div>
-      <div className="h-8 w-8 rounded-full bg-slate-50 group-hover:bg-white flex items-center justify-center transition-colors">
-        <GitCompare className="h-4 w-4 text-slate-400 group-hover:text-[#DFF7C6] transition-colors" />
+      <div className="h-8 w-8 rounded-full bg-slate-50 group-hover:bg-[#DFF7C6] flex items-center justify-center transition-colors">
+        <GitCompare className="h-4 w-4 text-slate-400 group-hover:text-[#1B2E06] transition-colors" />
       </div>
     </Link>
   );

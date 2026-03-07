@@ -1,6 +1,7 @@
 // src/components/Footer.tsx
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getUnionBudgetText } from '@/lib/fiscalYear';
 import {
   Calculator,
@@ -30,7 +31,7 @@ export default function Footer() {
               Fincado
             </Link>
 
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed font-medium text-slate-600">
               India&apos;s most comprehensive financial planning platform.
               Bank-grade calculators for Loans, Investments, Retirement, and Tax
               Planning — all 100% free.
@@ -38,19 +39,19 @@ export default function Footer() {
 
             {/* KEY FEATURES */}
             <div className="mt-5 space-y-2">
-              <div className="flex items-center gap-2 text-xs text-slate-600">
+              <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700">
                   ✓
                 </span>
                 <span>Updated with latest rates & regulations</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-600">
+              <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700">
                   ✓
                 </span>
                 <span>30+ Financial Calculators</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-600">
+              <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700">
                   ✓
                 </span>
@@ -75,7 +76,14 @@ export default function Footer() {
                 🔒 SSL Secured
               </span>
               <span className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full border border-slate-200">
-                🇮🇳 Made for India
+                <Image
+                  src="/images/india.svg"
+                  alt="India flag"
+                  width={20}
+                  height={20}
+                  className="object-contain"
+                />
+                Made for India
               </span>
             </div>
           </div>
@@ -185,14 +193,14 @@ export default function Footer() {
               <p className="text-sm font-medium text-slate-900">
                 © {currentYear} Fincado. All rights reserved.
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 font-medium">
                 Updated as per {getUnionBudgetText()} norms.
               </p>
             </div>
 
             {/* DISCLAIMER */}
             <div className="max-w-2xl">
-              <p className="text-xs leading-relaxed text-slate-500">
+              <p className="text-xs leading-relaxed text-slate-500 font-medium">
                 <strong className="text-slate-700">Disclaimer:</strong> Fincado
                 provides financial calculators and educational content for
                 informational purposes only. We are not SEBI registered
@@ -220,13 +228,13 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <div className="mb-4 flex items-center gap-2">
+      <div className="mb-4 flex items-center gap-2 font-medium">
         <Icon className="w-4 h-4 text-emerald-600" />
         <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900">
           {title}
         </h4>
       </div>
-      <ul className="space-y-2.5">{children}</ul>
+      <ul className="space-y-2.5 font-medium">{children}</ul>
     </div>
   );
 }

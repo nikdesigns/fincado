@@ -287,7 +287,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Button
               asChild
-              className="hidden lg:inline-flex bg-[#C0F08D] text-[#111827] font-medium hover:scale-105 transition-all duration-200 rounded-lg"
+              className="hidden lg:inline-flex bg-[#C0F08D] text-[#111827] font-semibold hover:scale-105 transition-all duration-200 rounded-lg"
             >
               <Link href="/emi-calculator/" className="flex items-center gap-2">
                 <Calculator className="w-4 h-4" />

@@ -17,32 +17,32 @@ const fy = getCurrentFiscalYear();
 const customFont = localFont({
   src: [
     {
-      path: '../../public/fonts/SempioneModern-Light.woff2',
+      path: '../../public/fonts/DupletRounded-Extralight.woff',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/SempioneModern-Regular.woff2',
+      path: '../../public/fonts/DupletRounded-Light.woff',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/SempioneModern-Medium.woff2',
+      path: '../../public/fonts/DupletRounded-Regular.woff',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/SempioneModern-Bold.woff2',
+      path: '../../public/fonts/DupletRounded-Semibold.woff',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/SempioneModern-ExtraBold.woff2',
-      weight: '700',
+      path: '../../public/fonts/DupletRounded-Bold.woff',
+      weight: '800',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/SempioneModern-Black.woff2',
+      path: '../../public/fonts/DupletRounded-Extrabold.woff',
       weight: '800',
       style: 'normal',
     },
