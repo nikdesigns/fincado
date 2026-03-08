@@ -475,21 +475,13 @@ b {
   border-color: var(--color-brand-light);
 }
 .tool-icon-wrap {
-  width: 64px;
-  height: 64px;
-  background: #f7fdf1;
-  border: 1px solid #577a30;
   border-radius: 14px;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
   margin-bottom: 16px;
-  color: #577a30;
-}
-.tool-icon-svg {
-  width: 32px;
-  height: 32px;
-  fill: currentColor;
+  display: flex;
 }
 
 .guide-grid {

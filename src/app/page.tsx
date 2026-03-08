@@ -880,8 +880,8 @@ function ToolCard({
 }) {
   return (
     <Link href={href} className="tool-tile">
-      <div className="tool-icon-wrap">
-        <Icon name={icon} className="tool-icon-svg" />
+      <div className="tool-icon-wrap place-self-center">
+        <Icon name={icon} className="tool-icon-svg " />
       </div>
       <h3 className="tool-title">{title}</h3>
       <p className="tool-desc">{desc}</p>
