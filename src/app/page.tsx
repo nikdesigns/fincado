@@ -544,9 +544,9 @@ export default function Home(): JSX.Element {
           <div className="tools-grid container-inner">
             <ToolCard
               href="/elss-calculator/"
-              icon="investing"
+              icon="elss"
               title="ELSS Calculator"
-              desc="Tax Saving Mutual Fund Returns"
+              desc="Save Tax and Grow Your Wealth"
             />
             <ToolCard
               href="/fd-calculator/"
@@ -556,13 +556,13 @@ export default function Home(): JSX.Element {
             />
             <ToolCard
               href="/lumpsum-calculator/"
-              icon="investing"
+              icon="lumpsum"
               title="Lumpsum Calculator"
               desc="One-time investment returns"
             />
             <ToolCard
               href="/swp-calculator/"
-              icon="saving"
+              icon="swp"
               title="SWP Calculator"
               desc="Systematic Withdrawal Plan"
             />
@@ -585,7 +585,7 @@ export default function Home(): JSX.Element {
           <div className="tools-grid container-inner">
             <ToolCard
               href="/inflation-calculator/"
-              icon="investing"
+              icon="inflation"
               title="Inflation Calculator"
               desc="Calculate Future Value of Money"
             />
@@ -609,7 +609,7 @@ export default function Home(): JSX.Element {
             />
             <ToolCard
               href="/gst-calculator/"
-              icon="tax"
+              icon="gst"
               title="GST Calculator"
               desc="Calculate GST Rates (5% - 28%)"
             />

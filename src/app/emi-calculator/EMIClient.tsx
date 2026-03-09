@@ -706,7 +706,7 @@ export default function EMIClient({
               <TabsTrigger
                 value="emi"
                 className={cn(
-                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
+                  'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
                   'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
                   'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
@@ -719,7 +719,7 @@ export default function EMIClient({
               <TabsTrigger
                 value="affordability"
                 className={cn(
-                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
+                  'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
                   'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
                   'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
@@ -766,7 +766,7 @@ export default function EMIClient({
                 <div>
                   <label
                     htmlFor="comparison-mode"
-                    className="text-base font-bold text-slate-900 cursor-pointer flex items-center gap-2"
+                    className="text-base font-semibold text-slate-900 cursor-pointer flex items-center gap-2"
                   >
                     <span>{t.comparisonMode}</span>
                   </label>
@@ -862,7 +862,7 @@ export default function EMIClient({
                       <div className="text-sm font-medium text-blue-900 dark:text-blue-200">
                         {t.maxLoanAmount}
                       </div>
-                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+                      <div className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mt-1">
                         {formatINR(calculations.maxLoan || 0)}
                       </div>
                       <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
@@ -935,7 +935,7 @@ export default function EMIClient({
           <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-semibold">
                   A
                 </span>
                 {t.optionA}
@@ -990,7 +990,7 @@ export default function EMIClient({
           <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
                   B
                 </span>
                 {t.optionB}
