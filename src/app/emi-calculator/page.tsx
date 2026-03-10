@@ -26,6 +26,7 @@ import { BookOpen, ArrowRight, Info } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { EMISchemas } from '@/components/schemas/EMISchemas';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
+import Image from 'next/image';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -211,7 +212,7 @@ export default function EMIPage() {
             "
           >
             EMI Calculator
-            <span className="block text-base sm:text-lg font-medium text-lime-700 mb-4">
+            <span className="block max-w-fit text-base sm:text-lg font-medium bg-[#F7FDF1] text-[#577A30] mb-4">
               Plan Your Loan Smartly
             </span>
           </h1>
@@ -221,7 +222,7 @@ export default function EMIPage() {
             <AdSlot id="emi-top" type="leaderboard" />
           </div>
 
-          <div className="max-w-3xl text-slate-600 text-base leading-relaxed">
+          <div className="max-w-3xl text-slate-600 text-base font-medium leading-relaxed">
             <WikiText
               content={`
       <p>
@@ -304,19 +305,19 @@ export default function EMIPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="flex justify-between p-2 bg-emerald-50 rounded">
+                  <div className="flex justify-between p-2 bg-[#F7FDF1] rounded">
                     <span>SBI Home Loan</span>
-                    <span className="font-bold text-emerald-700">
+                    <span className="font-semibold text-emerald-700">
                       8.50% - 9.65%
                     </span>
                   </div>
                   <div className="flex justify-between p-2">
                     <span>HDFC Bank</span>
-                    <span className="font-bold">8.60% - 9.50%</span>
+                    <span className="font-semibold">8.60% - 9.50%</span>
                   </div>
-                  <div className="flex justify-between p-2 bg-blue-50 rounded">
+                  <div className="flex justify-between p-2 bg-[#fdf2f8] rounded">
                     <span>ICICI Bank</span>
-                    <span className="font-bold">8.75% - 9.70%</span>
+                    <span className="font-semibold">8.75% - 9.70%</span>
                   </div>
                 </div>
               </CardContent>
@@ -385,8 +386,8 @@ export default function EMIPage() {
                     </div>
                   </div>
 
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#B0EC70]">
+                    <h4 className="font-semibold text-[#577A30] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example EMI Calculation
                     </h4>
@@ -440,30 +441,30 @@ export default function EMIPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#B0EC70]">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Monthly EMI:
                         </div>
-                        <div className="text-3xl font-bold text-emerald-700">
+                        <div className="text-3xl font-semibold text-[#74A046]">
                           ₹16,607
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-[#B0EC70] space-y-2">
                         <div className="flex justify-between">
                           <span>Total Amount Payable:</span>
                           <strong>₹5,97,852</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Total Interest Paid:</span>
-                          <strong className="text-red-600">₹97,852</strong>
+                          <strong className="text-[#FF568E]">₹97,852</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-                    <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-[#F9FAFB] rounded-lg border border-[#E5E7EB]">
+                    <h4 className="font-semibold text-[#111827] mb-2 flex items-center gap-2">
                       <span>💡</span>
                       Understanding the EMI Formula
                     </h4>
@@ -486,7 +487,7 @@ export default function EMIPage() {
                     </ul>
                   </div>
 
-                  <div className="text-xs text-slate-500 italic mt-4">
+                  <div className="text-xs text-slate-500 italic mt-4 font-medium">
                     This EMI calculator uses the same formula that banks and
                     NBFCs use, so your results will closely match official loan
                     amortization schedules.
@@ -559,7 +560,7 @@ export default function EMIPage() {
                       <tbody className="divide-y divide-slate-100">
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">HDFC Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.60% - 9.50%
                           </td>
                           <td className="p-3">8.70% - 10.00%</td>
@@ -568,7 +569,7 @@ export default function EMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">SBI</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.50% - 9.65%
                           </td>
                           <td className="p-3">8.85% - 9.75%</td>
@@ -577,7 +578,7 @@ export default function EMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">ICICI Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.75% - 9.70%
                           </td>
                           <td className="p-3">9.00% - 10.50%</td>
@@ -586,7 +587,7 @@ export default function EMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Axis Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.75% - 9.65%
                           </td>
                           <td className="p-3">9.25% - 11.50%</td>
@@ -605,22 +606,22 @@ export default function EMIPage() {
               </Card>
             </section>
             {/* promo Content */}
-            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1] transition-colors hover:bg-[#EFFBE2]">
               <CardContent className="flex items-start gap-4 p-5">
                 {/* Icon Container */}
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#92C65B]">
                   <BookOpen className="h-5 w-5" />
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Want to master your EMI?
                   </strong>
 
                   <Link
                     href="/guides/emi-calculator-guide/"
-                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#577A30]"
                   >
                     <span>Read our EMI Guide (Updated for 2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -676,25 +677,31 @@ export default function EMIPage() {
                       Related Financial Calculators
                     </h3>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
                       {/* SIP Calculator */}
                       <Link href="/sip-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
-                                📈
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl">
+                                <Image
+                                  src="/images/icons/sip.svg"
+                                  alt="SIP icon"
+                                  width={24}
+                                  height={24}
+                                  className="w-12 h-12"
+                                />
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                                   SIP Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate returns from monthly SIP investments
                                   in mutual funds
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -706,22 +713,28 @@ export default function EMIPage() {
 
                       {/* Lumpsum Calculator */}
                       <Link href="/lumpsum-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
-                                💰
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl">
+                                <Image
+                                  src="/images/icons/lumpsum.svg"
+                                  alt="Lumpsum icon"
+                                  width={24}
+                                  height={24}
+                                  className="w-12 h-12"
+                                />
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                                   Lumpsum Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate returns on one-time investment in
                                   mutual funds
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -733,22 +746,26 @@ export default function EMIPage() {
 
                       {/* PPF Calculator */}
                       <Link href="/ppf-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-purple-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-50 to-purple-100 text-purple-700 text-2xl">
-                                🏦
-                              </span>
+                              <Image
+                                src="/images/icons/ppf.svg"
+                                alt="PPF icon"
+                                width={24}
+                                height={24}
+                                className="w-12 h-12"
+                              />
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-purple-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                                   PPF Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate Public Provident Fund maturity with
                                   tax benefits
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-purple-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -760,22 +777,26 @@ export default function EMIPage() {
 
                       {/* FD Calculator */}
                       <Link href="/fd-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-amber-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-amber-50 to-amber-100 text-amber-700 text-2xl">
-                                🎯
-                              </span>
+                              <Image
+                                src="/images/icons/fd.svg"
+                                alt="FD icon"
+                                width={24}
+                                height={24}
+                                className="w-12 h-12"
+                              />
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-amber-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                                   FD Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate Fixed Deposit maturity amount and
                                   interest earned
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-amber-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -787,22 +808,26 @@ export default function EMIPage() {
 
                       {/* RD Calculator */}
                       <Link href="/rd-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-orange-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-orange-50 to-orange-100 text-orange-700 text-2xl">
-                                📅
-                              </span>
+                              <Image
+                                src="/images/icons/rd.svg"
+                                alt="RD icon"
+                                width={24}
+                                height={24}
+                                className="w-12 h-12"
+                              />
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-orange-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                                   RD Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate Recurring Deposit maturity with
                                   monthly contributions
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-orange-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -857,7 +882,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         5 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-bold text-emerald-700">
+                      <div className="text-2xl font-semibold text-[#74A046]">
                         ₹2,052
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -870,7 +895,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         10 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-bold text-emerald-700">
+                      <div className="text-2xl font-semibold text-[#74A046]">
                         ₹1,237
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -883,7 +908,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         15 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-bold text-emerald-700">
+                      <div className="text-2xl font-semibold text-[#74A046]">
                         ₹984
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -896,7 +921,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         20 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-bold text-emerald-700">
+                      <div className="text-2xl font-semibold text-[#74A046]">
                         ₹867
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -905,8 +930,8 @@ export default function EMIPage() {
                     </div>
                   </div>
 
-                  <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                    <p className="text-sm text-amber-900">
+                  <div className="mt-4 p-3 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg">
+                    <p className="text-sm text-[#111827]">
                       <strong>Example:</strong> For a ₹25 lakh home loan at 8.5%
                       for 20 years, your EMI would be approximately{' '}
                       <strong>₹21,675/month</strong>

@@ -852,14 +852,14 @@ export default function EMIClient({
                       onChange={setAffordabilityTenure}
                     />
 
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                      <div className="text-sm font-medium text-blue-900 dark:text-blue-200">
+                    <div className="bg-[#F7FDF1]  p-4 rounded-lg border border-[#B0EC70]">
+                      <div className="text-sm font-medium text-[#577A30] ">
                         {t.maxLoanAmount}
                       </div>
-                      <div className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                      <div className="text-2xl font-semibold text-[#74A046]  mt-1">
                         {formatINR(calculations.maxLoan || 0)}
                       </div>
-                      <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
+                      <p className="text-xs text-[#577A30] mt-2 font-medium">
                         {t.youCanBorrow} {formatINR(calculations.maxLoan || 0)}{' '}
                         {t.withAffordableEMI} {formatINR(affordableEMI)}
                       </p>
@@ -876,13 +876,13 @@ export default function EMIClient({
                 />
 
                 <div className="mt-6 text-center w-full">
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-[#6B7280] font-semibold">
                     {calculatorMode === 'affordability'
                       ? t.affordableEMI
                       : t.monthlyEMI}
                   </div>
 
-                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74C635]">
+                  <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#74A046]">
                     {formatINR(calculations.emi)}
                   </div>
 
@@ -902,12 +902,12 @@ export default function EMIClient({
                       </CardContent>
                     </Card>
 
-                    <Card className="border-red-200 bg-[#FFDFDD] dark:bg-red-900/20 dark:border-red-900">
+                    <Card className="border-red-200 bg-[#FFDFDD]">
                       <CardContent className="p-4">
-                        <div className="text-xs text-[#DB3E82] font-semibold dark:text-red-400">
+                        <div className="text-xs text-[#DB3E82] font-semibold">
                           {t.totalInterest}
                         </div>
-                        <div className="mt-1 font-semibold text-[#DB3E82] dark:text-red-400 whitespace-nowrap">
+                        <div className="mt-1 font-semibold text-[#DB3E82] whitespace-nowrap">
                           + {formatINR(calculations.totalInterest)}
                         </div>
                       </CardContent>
@@ -926,10 +926,10 @@ export default function EMIClient({
         // Comparison Mode - Two Calculators
         <div className="grid md:grid-cols-2 gap-6">
           {/* Calculator 1 */}
-          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+          <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-semibold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-sm font-semibold">
                   A
                 </span>
                 {t.optionA}
@@ -963,16 +963,16 @@ export default function EMIClient({
                 onChange={setTenure}
               />
 
-              <div className="pt-4 border-t border-emerald-200">
+              <div className="pt-4 border-t border-slate-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">{t.monthlyEMI}</div>
-                  <div className="text-2xl font-bold text-emerald-700 mt-1">
+                  <div className="text-2xl font-semibold text-[#74A046] mt-1">
                     {formatINR(calculations.emi)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
                     {t.totalInterest}
                   </div>
-                  <div className="text-lg font-semibold text-red-600">
+                  <div className="text-lg font-semibold text-[#FF568E]">
                     {formatINR(calculations.totalInterest)}
                   </div>
                 </div>
@@ -981,10 +981,10 @@ export default function EMIClient({
           </Card>
 
           {/* Calculator 2 */}
-          <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+          <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-slate-900 text-sm font-semibold">
                   B
                 </span>
                 {t.optionB}
@@ -1021,13 +1021,13 @@ export default function EMIClient({
               <div className="pt-4 border-t border-blue-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">{t.monthlyEMI}</div>
-                  <div className="text-2xl font-bold text-blue-700 mt-1">
+                  <div className="text-2xl font-semibold text-[#74A046] mt-1">
                     {formatINR(calculations2?.emi || 0)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
                     {t.totalInterest}
                   </div>
-                  <div className="text-lg font-semibold text-red-600">
+                  <div className="text-lg font-semibold text-[#FF568E]">
                     {formatINR(calculations2?.totalInterest || 0)}
                   </div>
                 </div>
@@ -1039,7 +1039,7 @@ export default function EMIClient({
 
       {/* ✅ Comparison Summary */}
       {comparisonMode && calculations2 && (
-        <Card className="border-purple-200 bg-linear-to-r from-purple-50 to-pink-50">
+        <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg">{t.whichBetter}</CardTitle>
           </CardHeader>
@@ -1050,7 +1050,7 @@ export default function EMIClient({
                   {t.emiDifference}
                 </div>
                 <div
-                  className={`text-xl font-bold ${calculations.emi < calculations2.emi ? 'text-emerald-600' : 'text-blue-600'}`}
+                  className={`text-xl font-semibold ${calculations.emi < calculations2.emi ? 'text-[#74A046]' : 'text-[#FF568E]'}`}
                 >
                   {formatINR(Math.abs(calculations.emi - calculations2.emi))}
                 </div>
@@ -1060,7 +1060,7 @@ export default function EMIClient({
                   {t.interestDifference}
                 </div>
                 <div
-                  className={`text-xl font-bold ${calculations.totalInterest < calculations2.totalInterest ? 'text-emerald-600' : 'text-blue-600'}`}
+                  className={`text-xl font-semibold ${calculations.totalInterest < calculations2.totalInterest ? 'text-[#74A046]' : 'text-[#FF568E]'}`}
                 >
                   {formatINR(
                     Math.abs(
@@ -1071,17 +1071,17 @@ export default function EMIClient({
               </div>
               <div>
                 <div className="text-xs text-slate-600 mb-1">{t.winner}</div>
-                <div className="text-xl font-bold">
+                <div className="text-xl font-semibold">
                   {calculations.totalInterest < calculations2.totalInterest ? (
-                    <span className="text-emerald-600">{t.optionA} 🏆</span>
+                    <span className="text-[#74A046]">{t.optionA} 🏆</span>
                   ) : (
-                    <span className="text-blue-600">{t.optionB} 🏆</span>
+                    <span className="text-[#74A046]">{t.optionB} 🏆</span>
                   )}
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-center text-slate-600 pt-2 border-t">
+            <p className="text-xs text-center text-slate-600 font-semibold pt-2 border-t">
               {calculations.totalInterest < calculations2.totalInterest
                 ? `${t.optionA} ${t.optionSaves} ${formatINR(calculations2.totalInterest - calculations.totalInterest)} ${t.inInterest}`
                 : `${t.optionB} ${t.optionSaves} ${formatINR(calculations.totalInterest - calculations2.totalInterest)} ${t.inInterest}`}
@@ -1097,7 +1097,7 @@ export default function EMIClient({
           <Card className="border-slate-200">
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
-                <LineChart className="h-5 w-5 text-indigo-600" />
+                <LineChart className="h-5 w-5" />
                 {t.loanGrowthOverTime}
               </CardTitle>
             </CardHeader>
@@ -1112,10 +1112,10 @@ export default function EMIClient({
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
+                      <stop offset="5%" stopColor="#B0EC70" stopOpacity={0.8} />
                       <stop
                         offset="95%"
-                        stopColor="#6366f1"
+                        stopColor="#B0EC70"
                         stopOpacity={0.2}
                       />
                     </linearGradient>
@@ -1126,15 +1126,15 @@ export default function EMIClient({
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8} />
+                      <stop offset="5%" stopColor="#FF99A7" stopOpacity={0.8} />
                       <stop
                         offset="95%"
-                        stopColor="#ef4444"
+                        stopColor="#FF99A7"
                         stopOpacity={0.2}
                       />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#FF99A7" />
                   <XAxis
                     dataKey="year"
                     label={{
@@ -1160,7 +1160,7 @@ export default function EMIClient({
                     dataKey="principalPaid"
                     name={t.principalPaid}
                     stackId="1"
-                    stroke="#6366f1"
+                    stroke="#92C65B"
                     fillOpacity={1}
                     fill="url(#colorPrincipal)"
                   />
@@ -1202,7 +1202,7 @@ export default function EMIClient({
                       <th className="text-right p-3 font-semibold">
                         {t.interestPaid}
                       </th>
-                      <th className="text-right p-3 font-semibold text-indigo-600">
+                      <th className="text-right p-3 font-semibold">
                         {t.closingBalance}
                       </th>
                     </tr>
@@ -1216,16 +1216,16 @@ export default function EMIClient({
                         }`}
                       >
                         <td className="p-3 font-medium">{row.year}</td>
-                        <td className="p-3 text-right">
+                        <td className="p-3 text-right text-[#2874A6]">
                           {formatINR(row.openingBalance)}
                         </td>
-                        <td className="p-3 text-right text-emerald-600">
+                        <td className="p-3 text-right text-[#2E7D32]">
                           {formatINR(row.principalPaid)}
                         </td>
-                        <td className="p-3 text-right text-red-600">
+                        <td className="p-3 text-right text-[#C45D2C]">
                           {formatINR(row.interestPaid)}
                         </td>
-                        <td className="p-3 text-right font-semibold text-indigo-600">
+                        <td className="p-3 text-right font-semibold text-[#1E4A6F]">
                           {formatINR(row.closingBalance)}
                         </td>
                       </tr>

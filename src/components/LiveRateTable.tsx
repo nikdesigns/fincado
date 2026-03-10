@@ -20,7 +20,7 @@ interface Props {
 export default function LiveRateTable({ type = 'homeLoan' }: Props) {
   const ranges = {
     homeLoan: {
-      title: 'Home Loan Interest Rates 2025',
+      title: 'Home Loan Interest Rates 2026',
       data: [
         {
           category: 'Public Sector Banks',
@@ -36,11 +36,11 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'HFCs (Housing Finance)',
           rate: '9.00% — 11.50%',
           fee: 'Medium (0.5% - 2%)',
-        }
+        },
       ],
     },
     personalLoan: {
-      title: 'Personal Loan Interest Rates 2025',
+      title: 'Personal Loan Interest Rates 2026',
       data: [
         {
           category: 'PSU Banks (Salary Account)',
@@ -56,11 +56,11 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'NBFCs & Fintech Apps',
           rate: '14.00% — 24.00%',
           fee: '2% - 4%',
-        }
+        },
       ],
     },
     carLoan: {
-      title: 'Car Loan Interest Rates 2025',
+      title: 'Car Loan Interest Rates 2026',
       data: [
         {
           category: 'New Car (PSU Banks)',
@@ -76,11 +76,11 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'Used Car Loans',
           rate: '12.00% — 18.00%',
           fee: '1% - 2%',
-        }
+        },
       ],
     },
     educationLoan: {
-      title: 'Education Loan Rates 2025',
+      title: 'Education Loan Rates 2026',
       data: [
         {
           category: 'Public Banks (India)',
@@ -96,7 +96,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           category: 'Unsecured Loans',
           rate: '11.50% — 14.00%',
           fee: '1% - 2%',
-        }
+        },
       ],
     },
   };
@@ -133,7 +133,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
                     <TableCell className="font-medium text-slate-700">
                       {row.category}
                     </TableCell>
-                    <TableCell className="font-semibold text-emerald-600">
+                    <TableCell className="font-semibold text-[#74A046]">
                       {row.rate}
                     </TableCell>
                     <TableCell className="text-slate-600">{row.fee}</TableCell>
