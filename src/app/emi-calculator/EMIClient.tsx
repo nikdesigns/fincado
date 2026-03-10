@@ -702,13 +702,13 @@ export default function EMIClient({
               setCalculatorMode(v as 'emi' | 'affordability')
             }
           >
-            <TabsList className="grid w-full grid-cols-2 h-14 p-1.5 bg-slate-100 rounded-xl">
+            <TabsList className="grid w-full grid-cols-2 h-14 p-1.5 bg-white rounded-xl">
               <TabsTrigger
                 value="emi"
                 className={cn(
                   'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
-                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
-                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-[#B0EC70] data-[state=active]:to-[#B0EC70]',
+                  'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
               >
@@ -720,8 +720,8 @@ export default function EMIClient({
                 value="affordability"
                 className={cn(
                   'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
-                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
-                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-[#B0EC70] data-[state=active]:to-[#B0EC70]',
+                  'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
               >
@@ -736,18 +736,13 @@ export default function EMIClient({
 
       {/* ✅ Comparison Mode Toggle - ENHANCED VISIBILITY */}
       {calculatorMode === 'emi' && (
-        <Card className="border-2 border-slate-200 bg-white">
+        <Card className="bg-white">
           <CardContent className="py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   {/* Visual indicator background */}
-                  <div
-                    className={cn(
-                      'absolute inset-0 rounded-full blur-md transition-all',
-                      comparisonMode ? 'bg-indigo-300' : 'bg-slate-200',
-                    )}
-                  />
+                  <div className={cn('', comparisonMode ? '' : '')} />
 
                   {/* Switch with better contrast */}
                   <Switch
@@ -755,10 +750,9 @@ export default function EMIClient({
                     onCheckedChange={setComparisonMode}
                     id="comparison-mode"
                     className={cn(
-                      'relative scale-125',
-                      'data-[state=checked]:bg-indigo-600',
-                      'data-[state=unchecked]:bg-slate-400',
-                      'shadow-lg',
+                      'relative scale-100',
+                      'data-[state=checked]:bg-[#B0EC70]',
+                      'data-[state=unchecked]:bg-[#D1D5DB]',
                     )}
                   />
                 </div>
@@ -781,7 +775,7 @@ export default function EMIClient({
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-semibold transition-all',
                   comparisonMode
-                    ? 'bg-indigo-100 text-indigo-700 border-2 border-indigo-200'
+                    ? 'bg-[#C0F08D] text-[#111827] border-2 border-lime-200'
                     : 'bg-slate-100 text-slate-500 border-2 border-slate-200',
                 )}
               >
@@ -888,7 +882,7 @@ export default function EMIClient({
                       : t.monthlyEMI}
                   </div>
 
-                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-700">
+                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74C635]">
                     {formatINR(calculations.emi)}
                   </div>
 
@@ -908,13 +902,13 @@ export default function EMIClient({
                       </CardContent>
                     </Card>
 
-                    <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-900">
+                    <Card className="border-red-200 bg-[#FFDFDD] dark:bg-red-900/20 dark:border-red-900">
                       <CardContent className="p-4">
-                        <div className="text-xs text-red-700 dark:text-red-400">
+                        <div className="text-xs text-[#DB3E82] font-semibold dark:text-red-400">
                           {t.totalInterest}
                         </div>
-                        <div className="mt-1 font-semibold text-red-700 dark:text-red-400 whitespace-nowrap">
-                          +{formatINR(calculations.totalInterest)}
+                        <div className="mt-1 font-semibold text-[#DB3E82] dark:text-red-400 whitespace-nowrap">
+                          + {formatINR(calculations.totalInterest)}
                         </div>
                       </CardContent>
                     </Card>

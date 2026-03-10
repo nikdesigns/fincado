@@ -72,7 +72,7 @@ export default function CalculatorField({
             value={localVal}
             onChange={(e) => handleInputChange(e.target.value)}
             onBlur={handleBlur}
-            className={`text-right bg-background text-foreground ${
+            className={`text-right font-medium bg-background text-foreground ${
               prefix ? 'pl-7' : ''
             } ${suffix ? 'pr-7' : ''}`}
           />
@@ -94,7 +94,7 @@ export default function CalculatorField({
         className="pt-1"
       />
 
-      <div className="flex justify-between text-xs text-muted-foreground">
+      <div className="flex justify-between text-xs font-medium text-[#9CA3AF]">
         <span>{min.toLocaleString()}</span>
         <span>{max.toLocaleString()}</span>
       </div>

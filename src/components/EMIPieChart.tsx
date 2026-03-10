@@ -34,7 +34,7 @@ export default function EMIPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#f1f5f9"
+            stroke="#F3F4F6"
             strokeWidth={strokeWidth}
           />
 
@@ -44,7 +44,7 @@ export default function EMIPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#F0F5FA"
+            stroke="#F3F4F6"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash1} ${circumference}`}
             strokeLinecap="butt"
@@ -57,7 +57,7 @@ export default function EMIPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#84cc16"
+            stroke="#B0EC70"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash2} ${circumference}`}
             strokeDashoffset={offset2}
@@ -68,10 +68,10 @@ export default function EMIPieChart({
 
         {/* Center Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+          <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
             Interest
           </span>
-          <span className="text-2xl font-bold text-lime-600">
+          <span className="text-2xl font-bold text-[#74C635]">
             {interestPct}%
           </span>
         </div>
@@ -80,11 +80,11 @@ export default function EMIPieChart({
       {/* Legend */}
       <div className="flex gap-4 mt-6">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-slate-500" />
+          <div className="w-3 h-3 rounded-full bg-slate-300" />
           <span className="text-xs font-medium text-slate-600">Principal</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-lime-500" />
+          <div className="w-3 h-3 rounded-full bg-[#74C635]" />
           <span className="text-xs font-medium text-slate-600">Interest</span>
         </div>
       </div>
