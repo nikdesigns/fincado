@@ -49,6 +49,14 @@ export default function AuthorBio() {
               highest level of accuracy for Indian home buyers.
             </p>
 
+            <p className="text-[15px] leading-relaxed text-[#D1D5DB] mb-6">
+              <strong className="text-white">Disclaimer:</strong> Fincado
+              provides financial calculators and educational content for
+              informational purposes only. We are not SEBI registered investment
+              advisors. Always consult a certified financial planner before
+              making investment or loan decisions.
+            </p>
+
             {/* Trust Signals Footer */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-5 border-t border-[#577A30]">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#D1D5DB] uppercase tracking-wide">

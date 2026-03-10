@@ -10,13 +10,13 @@ export default function SidebarCompareWidget() {
     { b1: 'SBI', b2: 'HDFC', slug: 'sbi-vs-hdfc' },
     { b1: 'ICICI', b2: 'Axis', slug: 'icici-vs-axis' },
     { b1: 'PNB', b2: 'Bank of Baroda', slug: 'pnb-vs-bob' },
-    { b1: 'HDFC', b2: 'Kotak', slug: 'hdfc-vs-kotak' }
+    { b1: 'HDFC', b2: 'Kotak', slug: 'hdfc-vs-kotak' },
   ];
 
   return (
     <Card className="border-slate-100 bg-white shadow-sm overflow-hidden mt-8 no-print">
       <CardHeader className="pb-3 border-b border-slate-100/50">
-        <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+        <CardTitle className="text-base font-semibold text-slate-900 flex items-center gap-2">
           <GitCompare className="w-4 h-4 text-lime-600" />
           Compare & Save
         </CardTitle>
@@ -45,11 +45,11 @@ export default function SidebarCompareWidget() {
             ))}
           </ul>
         </div>
-        <div className="bg-lime-100/50 p-3 text-center">
+        <div className="bg-[#F7FDF1] p-3 text-center">
           <Button
             asChild
             variant="link"
-            className="text-[10px] font-bold text-lime-700 h-auto p-0 hover:no-underline"
+            className="text-[10px] font-semibold text-[#577A30] h-auto p-0 hover:no-underline"
           >
             <Link href="/compare-loans/">View All 90+ Comparisons →</Link>
           </Button>

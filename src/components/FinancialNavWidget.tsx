@@ -100,12 +100,12 @@ export default function FinancialNavWidget() {
     <aside className="space-y-6">
       {/* --- POPULAR TOOLS --- */}
       <Card className="border-slate-200 shadow-sm overflow-hidden">
-        <CardHeader className="bg-linear-to-r from-emerald-50 to-teal-50 border-b border-slate-200 pb-4">
+        <CardHeader className="bg-linear-to-r bg-[#F7FDF1] border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center shadow-sm">
+            <div className="w-8 h-8 rounded-lg bg-[#92C65B] flex items-center justify-center shadow-sm">
               <Calculator className="w-4 h-4 text-white" />
             </div>
-            <CardTitle className="text-base font-bold text-slate-900">
+            <CardTitle className="text-base font-semibold text-slate-900">
               Popular Tools
             </CardTitle>
           </div>
@@ -122,12 +122,12 @@ export default function FinancialNavWidget() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-700 transition-all hover:bg-emerald-50 hover:text-emerald-700"
+                  className="group flex items-center justify-between px-4 py-3 text-sm font-medium text-[#111827] transition-all hover:bg-[#F7FDF1] hover:text-[#111827]"
                 >
                   <span className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-emerald-100 flex items-center justify-center transition-colors shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-[#EFFBE2] flex items-center justify-center transition-colors shrink-0">
                       {IconComponent ? (
-                        <IconComponent className="w-4 h-4 text-slate-600 group-hover:text-emerald-600 transition-colors" />
+                        <IconComponent className="w-4 h-4 text-[#111827] group-hover:text-[#111827] transition-colors" />
                       ) : (
                         <span className="text-base leading-none">
                           {item.icon}
@@ -141,7 +141,7 @@ export default function FinancialNavWidget() {
 
                   <div className="flex items-center gap-2">
                     {item.isNew && (
-                      <Badge className="bg-rose-500 hover:bg-rose-600 text-white text-[10px] px-2 py-0.5 font-bold shadow-sm">
+                      <Badge className="bg-rose-500 hover:bg-rose-600 text-white text-[10px] px-2 py-0.5 font-semibold shadow-sm">
                         NEW
                       </Badge>
                     )}
@@ -160,7 +160,7 @@ export default function FinancialNavWidget() {
           <div className="p-4 border-t border-slate-200 bg-slate-50/50">
             <Link
               href="/calculators/"
-              className="flex items-center justify-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors group"
+              className="flex items-center justify-center gap-2 text-sm font-semibold text-[#74A046] hover:text-[#577A30] transition-colors group"
             >
               <span>View All Calculators</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -171,12 +171,12 @@ export default function FinancialNavWidget() {
 
       {/* --- TRENDING GUIDES --- */}
       <Card className="border-slate-200 shadow-sm overflow-hidden">
-        <CardHeader className="bg-linear-to-r from-amber-50 to-orange-50 border-b border-slate-200 pb-4">
+        <CardHeader className="bg-linear-to-r bg-[#F7FDF1] border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-amber-600 flex items-center justify-center shadow-sm">
+            <div className="w-8 h-8 rounded-lg bg-[#92C65B] flex items-center justify-center shadow-sm">
               <BookOpen className="w-4 h-4 text-white" />
             </div>
-            <CardTitle className="text-base font-bold text-slate-900">
+            <CardTitle className="text-base font-semibold text-slate-900">
               Trending Guides
             </CardTitle>
           </div>
@@ -214,7 +214,7 @@ export default function FinancialNavWidget() {
           <div className="mt-4 pt-4 border-t border-slate-200">
             <Link
               href="/guides/"
-              className="flex items-center justify-center gap-2 text-sm font-bold text-amber-700 hover:text-amber-800 transition-colors group"
+              className="flex items-center justify-center gap-2 text-sm font-semibold text-[#74A046] hover:text-[#577A30] transition-colors group"
             >
               <span>Browse All Guides</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -224,21 +224,21 @@ export default function FinancialNavWidget() {
       </Card>
 
       {/* --- QUICK STATS (Optional Bonus) --- */}
-      <Card className="border-slate-200 shadow-sm bg-linear-to-br from-blue-50 to-indigo-50">
+      <Card className="border-slate-200 shadow-sm bg-[#F7FDF1]">
         <CardContent className="p-4">
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mx-auto shadow-md">
+            <div className="w-12 h-12 rounded-full bg-[#92C65B] flex items-center justify-center mx-auto shadow-md">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <h3 className="font-bold text-slate-900 text-sm">
+            <h3 className="font-semibold text-[#1B2E06] text-sm">
               Need Expert Advice?
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-[#1B2E06] leading-relaxed font-medium">
               Get personalized financial planning from certified advisors
             </p>
             <Link
               href="/contact/"
-              className="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold text-blue-700 hover:text-blue-800 transition-colors"
+              className="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold text-[#74A046] hover:text-[#577A30] transition-colors"
             >
               Contact Us
               <ArrowRight className="w-3 h-3" />

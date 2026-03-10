@@ -212,7 +212,7 @@ export default function EMIPage() {
             "
           >
             EMI Calculator
-            <span className="block max-w-fit text-base sm:text-lg font-medium bg-[#F7FDF1] text-[#577A30] mb-4">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4">
               Plan Your Loan Smartly
             </span>
           </h1>
@@ -241,34 +241,34 @@ export default function EMIPage() {
           <div className="main-content">
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       MOST POPULAR
                     </div>
-                    <div className="text-sm text-slate-600 mb-2">
+                    <div className="text-sm font-medium text-[#74A046] mb-2">
                       EMI for ₹25 Lakh @ 8.5% (20Y)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-[#577A30]">
                       ₹21,675
-                      <span className="text-base font-normal text-slate-600">
+                      <span className="text-base font-medium text-[#74A046]">
                         /month
                       </span>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       BEST RATE TODAY
                     </div>
-                    <div className="text-sm text-slate-600 mb-2">
+                    <div className="text-sm font-medium text-[#74A046] mb-2">
                       SBI Home Loan (Updated {updatedLabel})
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-[#577A30]">
                       8.50%
-                      <span className="text-base font-normal text-slate-600">
+                      <span className="text-base font-medium text-[#74A046]">
                         {' '}
                         p.a.
                       </span>
@@ -276,17 +276,17 @@ export default function EMIPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-amber-200 bg-linear-to-br from-amber-50 to-white">
+                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-amber-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       SAVE INTEREST
                     </div>
-                    <div className="text-sm text-slate-600 mb-2">
+                    <div className="text-sm font-medium text-[#74A046] mb-2">
                       Prepay ₹1L on ₹20L loan
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-[#577A30]">
                       ₹1.2L
-                      <span className="text-base font-normal text-slate-600">
+                      <span className="text-base font-medium text-[#74A046]">
                         {' '}
                         saved
                       </span>
@@ -445,7 +445,7 @@ export default function EMIPage() {
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Monthly EMI:
                         </div>
-                        <div className="text-3xl font-semibold text-[#74A046]">
+                        <div className="text-3xl font-semibold text-[#577A30]">
                           ₹16,607
                         </div>
                       </div>
@@ -560,7 +560,7 @@ export default function EMIPage() {
                       <tbody className="divide-y divide-slate-100">
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">HDFC Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-[#577A30] font-semibold">
                             8.60% - 9.50%
                           </td>
                           <td className="p-3">8.70% - 10.00%</td>
@@ -569,7 +569,7 @@ export default function EMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">SBI</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-[#577A30] font-semibold">
                             8.50% - 9.65%
                           </td>
                           <td className="p-3">8.85% - 9.75%</td>
@@ -578,7 +578,7 @@ export default function EMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">ICICI Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-[#577A30] font-semibold">
                             8.75% - 9.70%
                           </td>
                           <td className="p-3">9.00% - 10.50%</td>
@@ -587,7 +587,7 @@ export default function EMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Axis Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-[#577A30] font-semibold">
                             8.75% - 9.65%
                           </td>
                           <td className="p-3">9.25% - 11.50%</td>
@@ -882,7 +882,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         5 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-semibold text-[#74A046]">
+                      <div className="text-2xl font-semibold text-[#577A30]">
                         ₹2,052
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -895,7 +895,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         10 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-semibold text-[#74A046]">
+                      <div className="text-2xl font-semibold text-[#577A30]">
                         ₹1,237
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -908,7 +908,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         15 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-semibold text-[#74A046]">
+                      <div className="text-2xl font-semibold text-[#577A30]">
                         ₹984
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -921,7 +921,7 @@ export default function EMIPage() {
                       <div className="text-xs text-slate-500 mb-2">
                         20 Years @ 8.5%
                       </div>
-                      <div className="text-2xl font-semibold text-[#74A046]">
+                      <div className="text-2xl font-semibold text-[#577A30]">
                         ₹867
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
