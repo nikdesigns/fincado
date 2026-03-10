@@ -127,12 +127,12 @@ export default function Header() {
           {/* LOGO - Enhanced with icon */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 text-xl font-bold tracking-tight text-slate-900 hover:text-emerald-600 transition-colors"
+            className="group flex items-center gap-2.5 text-xl font-semibold tracking-tight text-slate-900 hover:text-[#74A046] transition-colors"
             aria-label="Fincado home"
           >
             <span className="relative">
               Fincado
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-emerald-600 to-emerald-500 group-hover:w-full transition-all duration-300" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#74A046] group-hover:w-full transition-all duration-300" />
             </span>
           </Link>
 

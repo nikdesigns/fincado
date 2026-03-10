@@ -26,7 +26,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xl font-bold text-slate-900 hover:text-emerald-700 transition-colors"
+              className="inline-flex items-center gap-2 text-xl font-semibold text-slate-900 hover:text-[#74A046] transition-colors"
             >
               Fincado
             </Link>
@@ -40,19 +40,19 @@ export default function Footer() {
             {/* KEY FEATURES */}
             <div className="mt-5 space-y-2">
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
                   ✓
                 </span>
                 <span>Updated with latest rates & regulations</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
                   ✓
                 </span>
                 <span>30+ Financial Calculators</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
                   ✓
                 </span>
                 <span>Available in Hindi & English</span>
@@ -175,7 +175,7 @@ export default function Footer() {
               <Link
                 key={calc.href}
                 href={calc.href}
-                className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white rounded-full border border-slate-200 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200 transition-all"
+                className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white rounded-full border border-slate-200 hover:bg-emerald-50 hover:text-[#577A30] hover:border-emerald-200 transition-all"
               >
                 {calc.label}
               </Link>
