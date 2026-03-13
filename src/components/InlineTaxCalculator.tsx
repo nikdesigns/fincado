@@ -25,12 +25,13 @@ export default function InlineTaxCalculator({
 
     // Slabs 2025-26
     const slabsNew = [
-      { limit: 300000, rate: 0 },
-      { limit: 700000, rate: 0.05 },
-      { limit: 1000000, rate: 0.1 },
-      { limit: 1200000, rate: 0.15 },
-      { limit: 1500000, rate: 0.2 },
-      { limit: Infinity, rate: 0.3 }
+      { limit: 400000, rate: 0 },
+      { limit: 800000, rate: 0.05 },
+      { limit: 1200000, rate: 0.1 },
+      { limit: 1600000, rate: 0.15 },
+      { limit: 2000000, rate: 0.2 },
+      { limit: 2400000, rate: 0.25 },
+      { limit: Infinity, rate: 0.3 },
     ];
 
     const tempInc = taxableNew;
@@ -45,8 +46,12 @@ export default function InlineTaxCalculator({
       }
     }
 
-    // Rebate 87A New Regime (Income <= 7L)
-    if (taxableNew <= 700000) tNew = 0;
+    // Rebate 87A + marginal relief (New Regime)
+    if (taxableNew <= 1200000) {
+      tNew = 0;
+    } else {
+      tNew = Math.min(tNew, taxableNew - 1200000);
+    }
 
     // --- OLD REGIME ---
     // Std Deduction: 50k

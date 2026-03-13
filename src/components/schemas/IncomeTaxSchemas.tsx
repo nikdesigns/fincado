@@ -176,7 +176,7 @@ export function IncomeTaxSchemas() {
             '@type': 'Service',
             name: 'Section 87A Rebate',
             description:
-              'Automatic rebate calculation for income up to ₹7 lakhs (New) or ₹5 lakhs (Old)',
+              'Automatic rebate calculation for income up to ₹12 lakhs (New) or ₹5 lakhs (Old) with marginal relief',
           },
         },
         {

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'AY 2026-27 Income Tax',
     'Section 80C Calculator',
     'Salary Tax Calculator',
-    'Budget 2026 Tax Changes'
+    'Latest Budget Tax Changes'
   ],
   alternates: {
     canonical: 'https://fincado.com/income-tax-calculator/',
@@ -116,7 +116,7 @@ const faqItems = [
     id: 'tax-faq-5',
     question: 'What is Section 87A rebate?',
     answer:
-      'Section 87A provides tax rebate for low-income taxpayers. New Regime: Full tax rebate if taxable income ≤ ₹7 lakhs (zero tax). Old Regime: Full tax rebate if taxable income ≤ ₹5 lakhs (zero tax).',
+      'Section 87A provides tax rebate for low-income taxpayers. New Regime: Full tax rebate if taxable income ≤ ₹12 lakhs (zero tax). Old Regime: Full tax rebate if taxable income ≤ ₹5 lakhs (zero tax).',
   },
   {
     id: 'tax-faq-6',
@@ -144,9 +144,9 @@ const faqItems = [
   },
   {
     id: 'tax-faq-10',
-    question: 'Did Budget 2026 change income tax slabs?',
+    question: 'Did the latest Budget change income tax slabs?',
     answer:
-      'Budget 2026 retained existing tax slabs for both Old and New Regime. Standard Deduction remains ₹75,000 for New Regime. No new changes were introduced for FY 2026-27.',
+      'Yes. The new regime slabs were revised to 0-4L (Nil), 4-8L (5%), 8-12L (10%), 12-16L (15%), 16-20L (20%), 20-24L (25%), and above 24L (30%). Standard Deduction remains ₹75,000 and Section 87A rebate applies up to ₹12 lakhs taxable income in the new regime.',
   }
 ];
 
@@ -177,8 +177,8 @@ export default function IncomeTaxPage() {
       <li><strong>Deduct Standard Deduction:</strong> ₹50,000 (Old) or ₹75,000 (New) for salaried individuals</li>
       <li><strong>Apply Chapter VIA Deductions:</strong> 80C (₹1.5L), 80D (₹25-50k), HRA, home loan interest (Old Regime only)</li>
       <li><strong>Calculate Taxable Income:</strong> Gross Income - Standard Deduction - Chapter VIA Deductions</li>
-      <li><strong>Apply Tax Slabs:</strong> Calculate tax on each slab portion (5%, 10%, 15%, 20%, 30%)</li>
-      <li><strong>Check Section 87A Rebate:</strong> Full rebate if income ≤ ₹7L (New) or ≤ ₹5L (Old)</li>
+      <li><strong>Apply Tax Slabs:</strong> Calculate tax on each slab portion (5%, 10%, 15%, 20%, 25%, 30%)</li>
+      <li><strong>Check Section 87A Rebate:</strong> Full rebate if income ≤ ₹12L (New) or ≤ ₹5L (Old)</li>
       <li><strong>Add Surcharge:</strong> If income exceeds ₹50 lakhs (10-37% depending on income)</li>
       <li><strong>Add Health & Education Cess:</strong> 4% on (Tax + Surcharge)</li>
     </ol>
@@ -287,24 +287,23 @@ export default function IncomeTaxPage() {
                 <p>
                   Compare <strong>Old vs New Tax Regime</strong> instantly with accurate 
                   slab calculations. Find out which regime saves you more tax based on your 
-                  deductions and income level. Updated as per Budget 2026.
+                  deductions and income level. Updated as per the latest Budget tax slabs and rebate rules.
                 </p>
               `}
             />
           </div>
 
-          {/* Budget 2026 Status */}
+          {/* Budget Update */}
           <div className="mt-6 flex gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-lg items-start shadow-sm max-w-2xl">
             <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
             <div className="space-y-1">
               <p className="text-sm font-semibold text-emerald-900">
-                Budget 2026: Tax Slabs Unchanged
+                Latest Budget Update: New Regime Slabs Revised
               </p>
               <p className="text-xs text-emerald-800 leading-relaxed">
-                Union Budget 2026 maintained the <strong>New Tax Regime</strong>{' '}
-                as default with ₹75,000 Standard Deduction. Old Regime slabs
-                remain unchanged. Calculator updated for FY 2026-27 (AY
-                2027-28).
+                Updated with new regime slab ranges and <strong>₹12L rebate</strong>{' '}
+                (Section 87A) along with ₹75,000 standard deduction. Old
+                regime slabs remain unchanged for side-by-side comparison.
               </p>
             </div>
           </div>
@@ -329,7 +328,7 @@ export default function IncomeTaxPage() {
                       New Regime (with rebate)
                     </div>
                     <div className="text-3xl font-bold text-slate-900">
-                      ₹7L
+                      ₹12L
                       <span className="text-base font-normal text-slate-600">
                         {' '}
                         /year
@@ -362,7 +361,7 @@ export default function IncomeTaxPage() {
                       MAX TAX RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
-                      Above ₹15L income
+                      Above ₹24L income
                     </div>
                     <div className="text-3xl font-bold text-slate-900">
                       30%
@@ -391,8 +390,7 @@ export default function IncomeTaxPage() {
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Regime Selection Tip
                 </strong>
-                New Regime is usually better for income up to ₹12 lakhs with low
-                deductions. Old Regime benefits those with home loan, high HRA,
+                New Regime is usually better for income up to ₹12 lakhs (with rebate) and for many taxpayers even beyond that when deductions are low. Old Regime benefits those with home loan, high HRA,
                 and maxed-out 80C investments. Use calculator to confirm!
               </AlertDescription>
             </Alert>
@@ -493,37 +491,43 @@ export default function IncomeTaxPage() {
                           </TableHeader>
                           <TableBody className="text-sm">
                             <TableRow>
-                              <TableCell>Up to ₹3L</TableCell>
+                              <TableCell>Up to ₹4L</TableCell>
                               <TableCell className="font-semibold">
                                 Nil
                               </TableCell>
                             </TableRow>
                             <TableRow>
-                              <TableCell>₹3L - ₹7L</TableCell>
+                              <TableCell>₹4L - ₹8L</TableCell>
                               <TableCell className="font-semibold">
                                 5%
                               </TableCell>
                             </TableRow>
                             <TableRow>
-                              <TableCell>₹7L - ₹10L</TableCell>
+                              <TableCell>₹8L - ₹12L</TableCell>
                               <TableCell className="font-semibold">
                                 10%
                               </TableCell>
                             </TableRow>
                             <TableRow>
-                              <TableCell>₹10L - ₹12L</TableCell>
+                              <TableCell>₹12L - ₹16L</TableCell>
                               <TableCell className="font-semibold">
                                 15%
                               </TableCell>
                             </TableRow>
                             <TableRow>
-                              <TableCell>₹12L - ₹15L</TableCell>
+                              <TableCell>₹16L - ₹20L</TableCell>
                               <TableCell className="font-semibold">
                                 20%
                               </TableCell>
                             </TableRow>
                             <TableRow>
-                              <TableCell>Above ₹15L</TableCell>
+                              <TableCell>₹20L - ₹24L</TableCell>
+                              <TableCell className="font-semibold">
+                                25%
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Above ₹24L</TableCell>
                               <TableCell className="font-semibold">
                                 30%
                               </TableCell>
@@ -538,7 +542,7 @@ export default function IncomeTaxPage() {
                         </p>
                         <p>
                           <strong>Section 87A Rebate:</strong> Full rebate if
-                          taxable income ≤ ₹7L
+                          taxable income ≤ ₹12L (with marginal relief beyond this threshold)
                         </p>
                         <p>
                           <strong>Deductions NOT Allowed:</strong> 80C, 80D,
@@ -634,16 +638,13 @@ export default function IncomeTaxPage() {
                     <div className="pt-3 border-t border-blue-300">
                       <div className="font-semibold mb-2">Tax Calculation:</div>
                       <div className="space-y-1 text-xs font-mono">
-                        <div>Up to ₹3L: Nil = ₹0</div>
-                        <div>₹3L - ₹7L (₹4L × 5%): = ₹20,000</div>
-                        <div>₹7L - ₹10L (₹3L × 10%): = ₹30,000</div>
-                        <div>₹10L - ₹11.25L (₹1.25L × 15%): = ₹18,750</div>
-                        <div className="border-t pt-1 mt-2 font-semibold">
-                          Total Tax: = ₹68,750
-                        </div>
-                        <div>Add: Health & Education Cess (4%): = ₹2,750</div>
+                        <div>Up to ₹4L: Nil = ₹0</div>
+                        <div>₹4L - ₹8L (₹4L × 5%): = ₹20,000</div>
+                        <div>₹8L - ₹11.25L (₹3.25L × 10%): = ₹32,500</div>
+                        <div>Total tax before cess: = ₹52,500</div>
+                        <div>Add: Health & Education Cess (4%): = ₹2,100</div>
                         <div className="font-bold text-base mt-2 text-emerald-700">
-                          Final Tax Liability: = ₹71,500
+                          Final Tax Liability: = ₹54,600
                         </div>
                       </div>
                     </div>
@@ -651,11 +652,11 @@ export default function IncomeTaxPage() {
                     <div className="mt-3 p-3 bg-white rounded border border-blue-200">
                       <div className="text-sm">
                         <strong>Net Income After Tax:</strong> ₹12,00,000 -
-                        ₹71,500 ={' '}
-                        <strong className="text-emerald-700">₹11,28,500</strong>
+                        ₹54,600 ={' '}
+                        <strong className="text-emerald-700">₹11,45,400</strong>
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
-                        Effective Tax Rate: 5.96%
+                        Effective Tax Rate: 4.55%
                       </div>
                     </div>
                   </div>
@@ -710,7 +711,7 @@ export default function IncomeTaxPage() {
                         <TableCell className="font-medium">Tax Slabs</TableCell>
                         <TableCell>4 slabs (5%, 20%, 30%)</TableCell>
                         <TableCell className="font-semibold text-emerald-600">
-                          6 slabs (5%, 10%, 15%, 20%, 30%)
+                          7 slabs (5%, 10%, 15%, 20%, 25%, 30%)
                         </TableCell>
                       </TableRow>
 
@@ -760,7 +761,7 @@ export default function IncomeTaxPage() {
                         </TableCell>
                         <TableCell>Up to ₹5L income</TableCell>
                         <TableCell className="font-semibold text-emerald-600">
-                          Up to ₹7L income
+                          Up to ₹12L income
                         </TableCell>
                       </TableRow>
 
@@ -811,7 +812,7 @@ export default function IncomeTaxPage() {
                       Choose New Regime If:
                     </h4>
                     <ul className="text-sm text-slate-700 space-y-1 list-disc pl-5">
-                      <li>Income below ₹7 lakhs (zero tax with rebate)</li>
+                      <li>Taxable income up to ₹12 lakhs (zero tax with rebate)</li>
                       <li>No home loan or HRA benefits</li>
                       <li>Deductions less than ₹3.75 lakhs</li>
                       <li>Want simplicity without proof submission</li>
@@ -837,7 +838,7 @@ export default function IncomeTaxPage() {
                 <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
                   <p className="text-sm text-slate-700">
                     <strong>General Rule:</strong> New Regime saves more tax for
-                    income up to ₹12 lakhs with minimal deductions. Old Regime
+                    income up to ₹12 lakhs (zero-tax zone) and often beyond that with minimal deductions. Old Regime
                     is better when total deductions (HRA + 80C + home loan)
                     exceed ₹3.75 lakhs. Always use calculator for accurate
                     comparison!

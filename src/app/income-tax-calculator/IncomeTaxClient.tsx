@@ -154,19 +154,24 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
     let taxNew = 0;
 
     const slabs = [
-      [300_000, 700_000, 0.05],
-      [700_000, 1_000_000, 0.1],
-      [1_000_000, 1_200_000, 0.15],
-      [1_200_000, 1_500_000, 0.2],
-      [1_500_000, Infinity, 0.3]
+      [400_000, 800_000, 0.05],
+      [800_000, 1_200_000, 0.1],
+      [1_200_000, 1_600_000, 0.15],
+      [1_600_000, 2_000_000, 0.2],
+      [2_000_000, 2_400_000, 0.25],
+      [2_400_000, Infinity, 0.3],
     ];
 
     slabs.forEach(([min, max, rate]) => {
       taxNew += Math.max(0, Math.min(taxableNew, max) - min) * rate;
     });
 
-    // Section 87A rebate for New Regime
-    if (taxableNew <= 700_000) taxNew = 0;
+    // Section 87A rebate + marginal relief for New Regime
+    if (taxableNew <= 1_200_000) {
+      taxNew = 0;
+    } else {
+      taxNew = Math.min(taxNew, taxableNew - 1_200_000);
+    }
 
     /* ---------- CESS ---------- */
     const totalOld = Math.round(taxOld * 1.04);
