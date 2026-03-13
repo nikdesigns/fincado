@@ -100,7 +100,7 @@ export default function GratuityCalculatorPageHindi() {
       <li><strong>इस्तीफा:</strong> 5 वर्ष के बाद स्वैच्छिक इस्तीफे पर भी ग्रेच्युटी देय होती है</li>
       <li><strong>दुराचार के लिए समाप्ति:</strong> नियोक्ता ग्रेच्युटी रोक सकता है यदि कर्मचारी को जानबूझकर क्षति, हिंसा, नैतिक पतन के लिए समाप्त किया गया है</li>
     </ul>
-    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
       <p class="text-sm text-slate-700">
         <strong>महत्वपूर्ण:</strong> एक वर्ष में 240 कार्य दिवस 1 पूर्ण वर्ष के रूप में योग्य हैं। मौसमी श्रमिकों के लिए, 190 दिन 1 वर्ष के रूप में गिने जाते हैं। मातृत्व अवकाश कार्य दिवसों के रूप में गिना जाता है।
       </p>
@@ -362,9 +362,9 @@ export default function GratuityCalculatorPageHindi() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       भुगतान समयरेखा
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -481,7 +481,7 @@ export default function GratuityCalculatorPageHindi() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>नोट:</strong> HRA, विशेष भत्ते, बोनस, और अन्य
                         घटक ग्रेच्युटी गणना में शामिल नहीं हैं - केवल मूल + DA।
@@ -490,8 +490,8 @@ export default function GratuityCalculatorPageHindi() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       उदाहरण: 10 वर्षों के लिए ₹50,000 मूल वेतन (कवर्ड
                       प्रतिष्ठान)
@@ -515,7 +515,7 @@ export default function GratuityCalculatorPageHindi() {
                         <div>कवर्ड (26 कार्य दिवस)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">गणना चरण:</strong>
                         <div className="ml-4 space-y-2 font-mono text-sm">
                           <div>ग्रेच्युटी = (50,000 × 15 × 10) / 26</div>
@@ -619,18 +619,18 @@ export default function GratuityCalculatorPageHindi() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-blue-200 bg-blue-50/50 transition-colors hover:bg-blue-50">
+            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-blue-900">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     अपने EPF कॉर्पस की गणना करना चाहते हैं?
                   </strong>
                   <Link
                     href="/hi/epf-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-800"
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>
                       रिटायरमेंट बचत योजना के लिए EPF कैलकुलेटर का उपयोग करें
@@ -900,21 +900,21 @@ export default function GratuityCalculatorPageHindi() {
                   </Link>
 
                   <Link href="/hi/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               रिटायरमेंट कैलकुलेटर
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               पूर्ण रिटायरमेंट कॉर्पस और मासिक SIP की योजना
                               बनाएं।
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>रिटायरमेंट की योजना बनाएं</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

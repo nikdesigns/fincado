@@ -191,8 +191,8 @@ export default function CompoundInterestPageHindi() {
     </p>
     
     <div class="mt-4 space-y-3">
-      <div class="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-        <p class="font-semibold text-blue-900">राहुल (10 वर्षों के लिए निवेश करते हैं)</p>
+      <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+        <p class="font-semibold text-emerald-900">राहुल (10 वर्षों के लिए निवेश करते हैं)</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• मूलधन: ₹1,00,000</li>
           <li>• 10 वर्षों के बाद: <strong>₹2,68,506</strong></li>
@@ -211,8 +211,8 @@ export default function CompoundInterestPageHindi() {
         </ul>
       </div>
 
-      <div class="p-3 mt-6 bg-linear-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg">
-        <p class="font-semibold text-purple-900">प्रिया का अतिरिक्त 10 वर्ष लाभ</p>
+      <div class="p-3 mt-6 bg-linear-to-r from-lime-50 to-pink-50 border border-lime-200 rounded-lg">
+        <p class="font-semibold text-lime-900">प्रिया का अतिरिक्त 10 वर्ष लाभ</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• अतिरिक्त परिपक्वता मूल्य: <strong>₹4,52,451</strong></li>
           <li>• प्रिया ने राहुल द्वारा अर्जित प्रत्येक ₹1 के लिए <strong>₹3.69</strong> अर्जित किया</li>
@@ -264,7 +264,7 @@ export default function CompoundInterestPageHindi() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-lime-100 text-lime-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-lime-100 text-lime-700">
               <TrendingUp className="h-6 w-6" />
             </div>
             <div>
@@ -315,9 +315,9 @@ export default function CompoundInterestPageHindi() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-indigo-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       बैंक FD दर
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -357,9 +357,9 @@ export default function CompoundInterestPageHindi() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-purple-700 mb-1">
+                    <div className="text-xs font-semibold text-lime-700 mb-1">
                       इक्विटी MF CAGR
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -389,8 +389,8 @@ export default function CompoundInterestPageHindi() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-blue-50/50 border-blue-200 text-slate-600">
-              <Info className="h-4 w-4 text-blue-500 mt-0.5" />
+            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
+              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   कंपाउंडिंग आवृत्ति मायने रखती है
@@ -403,13 +403,13 @@ export default function CompoundInterestPageHindi() {
             </Alert>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-purple-200 bg-linear-to-br from-purple-50 to-white transition-colors hover:shadow-md">
+            <Card className="no-print my-6 border-lime-200 bg-linear-to-br from-lime-50 to-white transition-colors hover:shadow-md">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lime-100 text-lime-600">
                   <Sparkles className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-purple-900">
+                  <strong className="block text-base font-semibold text-lime-900">
                     कंपाउंडिंग को अधिकतम करना चाहते हैं? मासिक SIP निवेश आज़माएं
                   </strong>
                   <p className="text-sm text-slate-700">
@@ -418,7 +418,7 @@ export default function CompoundInterestPageHindi() {
                   </p>
                   <Link
                     href="/hi/sip-calculator/"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-purple-700 hover:text-purple-800"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     SIP रिटर्न की गणना करें →
                   </Link>
@@ -457,8 +457,8 @@ export default function CompoundInterestPageHindi() {
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
-                  <h4 className="font-semibold text-indigo-900 mb-2">
+                <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <h4 className="font-semibold text-emerald-900 mb-2">
                     उदाहरण गणना
                   </h4>
                   <p className="text-sm text-slate-700 mb-3">
@@ -474,11 +474,11 @@ export default function CompoundInterestPageHindi() {
                       A = <InlineMath math="100000 \times (1.025)^{40}" />
                     </p>
                     <p>
-                      A = <strong className="text-indigo-900">₹2,68,506</strong>
+                      A = <strong className="text-emerald-900">₹2,68,506</strong>
                     </p>
                     <p className="mt-3">
                       चक्रवृद्धि ब्याज = ₹2,68,506 - ₹1,00,000 =
-                      <strong className="text-indigo-900"> ₹1,68,506</strong>
+                      <strong className="text-emerald-900"> ₹1,68,506</strong>
                     </p>
                   </div>
                 </div>

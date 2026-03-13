@@ -302,9 +302,9 @@ export default function ELSSHindiPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       अपडेट किया गया डेटा
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -450,8 +450,8 @@ export default function ELSSHindiPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       उदाहरण: ELSS SIP गणना
                     </h4>
@@ -474,7 +474,7 @@ export default function ELSSHindiPage() {
                         <div>5 वर्ष (60 महीने)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           चरण 1: मासिक रिटर्न दर (r)
                         </strong>
@@ -519,7 +519,7 @@ export default function ELSSHindiPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
                         <div className="flex justify-between">
                           <span>कुल निवेशित राशि:</span>
                           <strong>₹7,50,000</strong>
@@ -888,21 +888,21 @@ export default function ELSSHindiPage() {
                       </Link>
 
                       <Link href="/hi/sip-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                                 📈
                               </span>
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                                   SIP कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   धन सृजन के लिए नियमित म्यूचुअल फंड निवेश की
                                   योजना बनाएं।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-indigo-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                                   <span>अभी आजमाएं</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

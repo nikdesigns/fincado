@@ -249,14 +249,14 @@ export default function HindiCAGRPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-50 to-purple-100 text-purple-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-lime-50 to-lime-100 text-lime-700">
               <TrendingUp className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 CAGR कैलकुलेटर
               </h1>
-              <p className="text-base sm:text-lg font-medium text-purple-700">
+              <p className="text-base sm:text-lg font-medium text-lime-700">
                 अपने निवेश की चक्रवृद्धि वार्षिक वृद्धि दर की गणना करें
               </p>
             </div>
@@ -278,9 +278,9 @@ export default function HindiCAGRPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-indigo-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       सामान्य इक्विटी CAGR
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -310,9 +310,9 @@ export default function HindiCAGRPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       अपडेट किया गया डेटा
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -335,8 +335,8 @@ export default function HindiCAGRPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-purple-50/50 border-purple-200 text-slate-600">
-              <Info className="h-4 w-4 text-purple-500 mt-0.5" />
+            <Alert className="mt-6 bg-lime-50/50 border-lime-200 text-slate-600">
+              <Info className="h-4 w-4 text-lime-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   CAGR बनाम वास्तविक रिटर्न
@@ -398,8 +398,8 @@ export default function HindiCAGRPage() {
                     </div>
                   </div>
 
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       उदाहरण: CAGR गणना
                     </h4>
@@ -422,7 +422,7 @@ export default function HindiCAGRPage() {
                         <div>5 वर्ष</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           चरण 1: अनुपात की गणना करें
                         </strong>
@@ -459,7 +459,7 @@ export default function HindiCAGRPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
                         <div className="flex justify-between">
                           <span>कुल लाभ:</span>
                           <strong>₹1,50,000</strong>
@@ -527,18 +527,18 @@ export default function HindiCAGRPage() {
             </div>
 
             {/* Promo content */}
-            <Card className="no-print my-6 border-purple-200 bg-purple-50/50 transition-colors hover:bg-purple-50">
+            <Card className="no-print my-6 border-lime-200 bg-lime-50/50 transition-colors hover:bg-lime-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lime-100 text-lime-600">
                   <TrendingUp className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-purple-900">
+                  <strong className="block text-base font-semibold text-lime-900">
                     अपने निवेश पोर्टफोलियो का विश्लेषण करें
                   </strong>
                   <Link
                     href="/guides/investment-basics/"
-                    className="group inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-800"
+                    className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
                   >
                     <span>निवेश की मूल बातें गाइड पढ़ें</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -631,21 +631,21 @@ export default function HindiCAGRPage() {
                       </Link>
 
                       <Link href="/hi/lumpsum-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                                 📈
                               </span>
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                                   एकमुश्त कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   एकमुश्त निवेश की वृद्धि को CAGR के साथ
                                   प्रोजेक्ट करें।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                                   <span>अभी योजना बनाएं</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

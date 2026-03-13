@@ -360,7 +360,7 @@ export default function RDClient({
   return (
     <div className="space-y-6">
       {/* Senior Citizen Toggle */}
-      <Card className="border-blue-200 bg-linear-to-r from-blue-50 to-indigo-50">
+      <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 to-emerald-50">
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -561,10 +561,10 @@ export default function RDClient({
 
       {/* Bank Rates Comparison */}
       {showBankRates && (
-        <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Building2 className="h-5 w-5 text-indigo-600" />
+              <Building2 className="h-5 w-5 text-emerald-600" />
               {t.popularBankRates}
             </CardTitle>
           </CardHeader>
@@ -572,7 +572,7 @@ export default function RDClient({
             {POPULAR_BANKS.map((bank) => (
               <div
                 key={bank.name}
-                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-indigo-300 transition"
+                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-emerald-300 transition"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
@@ -585,7 +585,7 @@ export default function RDClient({
                     <div className="flex gap-4 mt-2 text-sm">
                       <div>
                         <span className="text-slate-600">{t.general} </span>
-                        <strong className="text-indigo-700">
+                        <strong className="text-emerald-700">
                           {bank.generalRate}%
                         </strong>
                       </div>
@@ -611,7 +611,7 @@ export default function RDClient({
               </div>
             ))}
 
-            <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 mt-4">
+            <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
               <p className="text-xs text-slate-700">
                 <strong>Note:</strong> {t.ratesNote}
               </p>
@@ -651,7 +651,7 @@ export default function RDClient({
                           {formatINR(calc.monthlyDeposit)}/month @ {calc.rate}%
                           for {calc.years}y {calc.months}m
                           {calc.isSeniorCitizen && (
-                            <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded">
+                            <span className="ml-2 text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded">
                               {t.seniorCitizen}
                             </span>
                           )}

@@ -230,9 +230,9 @@ export default function EPFClient() {
   return (
     <div className="space-y-6">
       {/* Info Alert */}
-      <Alert className="border-blue-200 bg-blue-50">
-        <Info className="h-4 w-4 text-blue-600" />
-        <AlertDescription className="ml-2 text-sm text-blue-800">
+      <Alert className="border-emerald-200 bg-emerald-50">
+        <Info className="h-4 w-4 text-emerald-600" />
+        <AlertDescription className="ml-2 text-sm text-emerald-800">
           <strong>Note:</strong> Employer&apos;s 8.33% contribution to EPS
           (Employee Pension Scheme) is not included in EPF corpus as it provides
           monthly pension separately.
@@ -339,8 +339,8 @@ export default function EPFClient() {
               </div>
 
               {/* Monthly Contributions */}
-              <div className="mt-6 w-full p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h4 className="text-xs font-semibold text-blue-900 mb-3">
+              <div className="mt-6 w-full p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                <h4 className="text-xs font-semibold text-emerald-900 mb-3">
                   Monthly Contributions
                 </h4>
                 <div className="space-y-2 text-sm">
@@ -359,10 +359,10 @@ export default function EPFClient() {
                     </strong>
                   </div>
                   <div className="flex justify-between border-t pt-2 text-base">
-                    <span className="font-semibold text-blue-900">
+                    <span className="font-semibold text-emerald-900">
                       Total/Month:
                     </span>
-                    <strong className="text-blue-700">
+                    <strong className="text-emerald-700">
                       {formatINR(results.totalMonthlyContribution)}
                     </strong>
                   </div>

@@ -290,9 +290,9 @@ export default function RDPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       POST OFFICE RD
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -411,7 +411,7 @@ export default function RDPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> This formula is similar to the
                         Future Value of Annuity formula but adjusted for
@@ -421,8 +421,8 @@ export default function RDPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: RD Calculation (Quarterly Compounding)
                     </h4>
@@ -450,7 +450,7 @@ export default function RDPage() {
                         <div>Quarterly (4 times/year)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           Step 1: Convert Rate to Decimal
                         </strong>
@@ -504,7 +504,7 @@ export default function RDPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
                         <div className="flex justify-between">
                           <span>Total Deposited (36 months):</span>
                           <strong>₹1,80,000</strong>
@@ -522,8 +522,8 @@ export default function RDPage() {
                   </div>
 
                   {/* Alternative Method */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <CalendarCheck className="h-4 w-4" />
                       Alternative: Month-by-Month Calculation
                     </h4>
@@ -761,7 +761,7 @@ export default function RDPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 mt-4">
+                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Tip:</strong> Use RD for short-term goals and
                     emergency funds. For retirement or long-term wealth, combine
@@ -817,21 +817,21 @@ export default function RDPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/fd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               FD Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate fixed deposit returns with lump sum
                               investment.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-indigo-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>Calculate Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

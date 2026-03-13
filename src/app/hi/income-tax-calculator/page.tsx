@@ -333,9 +333,9 @@ export default function IncomeTaxPageHindi() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       स्टैंडर्ड डिडक्शन
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -380,8 +380,8 @@ export default function IncomeTaxPageHindi() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-blue-50/50 border-blue-200 text-slate-600">
-              <Info className="h-4 w-4 text-blue-500 mt-0.5" />
+            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
+              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   व्यवस्था चयन टिप
@@ -406,7 +406,7 @@ export default function IncomeTaxPageHindi() {
                   <div className="grid md:grid-cols-2 gap-6">
                     {/* Old Regime Slabs */}
                     <div className="space-y-3">
-                      <h3 className="text-lg font-semibold text-blue-700 flex items-center gap-2">
+                      <h3 className="text-lg font-semibold text-emerald-700 flex items-center gap-2">
                         <FileText className="h-5 w-5" />
                         पुरानी टैक्स व्यवस्था
                       </h3>
@@ -414,7 +414,7 @@ export default function IncomeTaxPageHindi() {
                       <div className="overflow-hidden rounded-lg border border-slate-200">
                         <Table>
                           <TableHeader>
-                            <TableRow className="bg-blue-50">
+                            <TableRow className="bg-emerald-50">
                               <TableHead className="font-bold">
                                 आय स्लैब
                               </TableHead>
@@ -548,7 +548,7 @@ export default function IncomeTaxPageHindi() {
                     </div>
                   </div>
 
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
                     <p className="text-sm text-slate-700">
                       <strong>मुख्य अंतर:</strong> नई व्यवस्था में अधिक स्लैब (6
                       vs 4) कम दरों के साथ लेकिन कम कटौतियों के साथ। पुरानी
@@ -562,18 +562,18 @@ export default function IncomeTaxPageHindi() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-blue-200 bg-blue-50/50 transition-colors hover:bg-blue-50">
+            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                   <TrendingDown className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-blue-900">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     ELSS म्यूचुअल फंड (धारा 80C) से टैक्स बचाएं
                   </strong>
                   <Link
                     href="/hi/elss-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-800"
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>
                       ELSS कैलकुलेटर के साथ ELSS रिटर्न और टैक्स बचत क्षमता गणना
@@ -605,8 +605,8 @@ export default function IncomeTaxPageHindi() {
                 </div>
 
                 {/* Example Calculation */}
-                <div className="mt-6 p-5 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                <div className="mt-6 p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                     <span className="text-xl">🧮</span>
                     उदाहरण: ₹12 लाख वेतन टैक्स गणना (नई व्यवस्था)
                   </h4>
@@ -627,7 +627,7 @@ export default function IncomeTaxPageHindi() {
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-blue-300">
+                    <div className="pt-3 border-t border-emerald-300">
                       <div className="font-semibold mb-2">टैक्स गणना:</div>
                       <div className="space-y-1 text-xs font-mono">
                         <div>₹3L तक: शून्य = ₹0</div>
@@ -646,7 +646,7 @@ export default function IncomeTaxPageHindi() {
                       </div>
                     </div>
 
-                    <div className="mt-3 p-3 bg-white rounded border border-blue-200">
+                    <div className="mt-3 p-3 bg-white rounded border border-emerald-200">
                       <div className="text-sm">
                         <strong>टैक्स के बाद शुद्ध आय:</strong> ₹12,00,000 -
                         ₹71,500 ={' '}
@@ -728,7 +728,7 @@ export default function IncomeTaxPageHindi() {
                         <TableCell className="font-medium">
                           धारा 80C (₹1.5L)
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           अनुमति
                         </TableCell>
                         <TableCell>अनुमति नहीं</TableCell>
@@ -736,7 +736,7 @@ export default function IncomeTaxPageHindi() {
 
                       <TableRow>
                         <TableCell className="font-medium">HRA छूट</TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           अनुमति
                         </TableCell>
                         <TableCell>अनुमति नहीं</TableCell>
@@ -746,7 +746,7 @@ export default function IncomeTaxPageHindi() {
                         <TableCell className="font-medium">
                           होम लोन ब्याज
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           अनुमति (₹2L)
                         </TableCell>
                         <TableCell>अनुमति नहीं</TableCell>
@@ -766,7 +766,7 @@ export default function IncomeTaxPageHindi() {
                         <TableCell className="font-medium">
                           LTA (अवकाश यात्रा)
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           अनुमति
                         </TableCell>
                         <TableCell>अनुमति नहीं</TableCell>
@@ -786,7 +786,7 @@ export default function IncomeTaxPageHindi() {
                         <TableCell className="font-medium">
                           के लिए सर्वोत्तम
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           उच्च कटौतियां (होम लोन, HRA, 80C सभी अधिकतम)
                         </TableCell>
                         <TableCell className="font-semibold text-emerald-600">
@@ -819,8 +819,8 @@ export default function IncomeTaxPageHindi() {
                     </ul>
                   </div>
 
-                  <div className="p-5 rounded-xl border-2 border-blue-200 bg-blue-50">
-                    <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                  <div className="p-5 rounded-xl border-2 border-emerald-200 bg-emerald-50">
+                    <h4 className="font-bold text-emerald-900 mb-2 flex items-center gap-2">
                       <FileText className="h-5 w-5" />
                       पुरानी व्यवस्था चुनें यदि:
                     </h4>
@@ -834,7 +834,7 @@ export default function IncomeTaxPageHindi() {
                   </div>
                 </div>
 
-                <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
                   <p className="text-sm text-slate-700">
                     <strong>सामान्य नियम:</strong> नई व्यवस्था न्यूनतम कटौतियों
                     के साथ ₹12 लाख तक की आय के लिए अधिक टैक्स बचाती है। पुरानी
@@ -917,21 +917,21 @@ export default function IncomeTaxPageHindi() {
                   </Link>
 
                   <Link href="/hi/hra-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏠
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               HRA कैलकुलेटर
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               पुरानी टैक्स व्यवस्था योजना के लिए मकान किराया
                               भत्ता छूट गणना करें।
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>HRA छूट कैलकुलेट करें</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

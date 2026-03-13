@@ -316,9 +316,9 @@ export default function HindiPPFPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       टैक्स स्टेटस
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -432,7 +432,7 @@ export default function HindiPPFPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>नोट:</strong> फॉर्मूला में अंत में (1 + r) से
                         गुणा शामिल है क्योंकि PPF जमा वर्ष की शुरुआत में की जाती
@@ -442,8 +442,8 @@ export default function HindiPPFPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       उदाहरण: PPF गणना (15 वर्ष)
                     </h4>
@@ -466,7 +466,7 @@ export default function HindiPPFPage() {
                         <div>15 वर्ष (न्यूनतम लॉक-इन)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           चरण 1: दर को दशमलव में बदलें
                         </strong>
@@ -510,7 +510,7 @@ export default function HindiPPFPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
                         <div className="flex justify-between">
                           <span>कुल जमा (15 वर्ष):</span>
                           <strong>₹22,50,000</strong>
@@ -525,15 +525,15 @@ export default function HindiPPFPage() {
                         </div>
                         <div className="flex justify-between">
                           <span>Section 80C टैक्स बचा (30% स्लैब):</span>
-                          <strong className="text-blue-700">₹6,75,000</strong>
+                          <strong className="text-emerald-700">₹6,75,000</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Interest Calculation Note */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <Lock className="h-4 w-4" />
                       PPF ब्याज की गणना कैसे की जाती है
                     </h4>
@@ -799,7 +799,7 @@ export default function HindiPPFPage() {
                       </Table>
                     </div>
 
-                    <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 mt-4">
+                    <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
                       <p className="text-sm text-slate-700">
                         <strong>विशेषज्ञ टिप:</strong> PPF जोखिम-मुक्त,
                         टैक्स-फ्री रिटायरमेंट बचत के लिए आदर्श है। संतुलित
@@ -931,21 +931,21 @@ export default function HindiPPFPage() {
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Link href="/hi/elss-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                                 📊
                               </span>
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                                   ELSS कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   3 साल के लॉक-इन के साथ टैक्स-सेविंग म्यूचुअल
                                   फंड से रिटर्न की गणना करें।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-indigo-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                                   <span>अभी गणना करें</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

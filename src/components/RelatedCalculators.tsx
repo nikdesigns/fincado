@@ -5,7 +5,7 @@ export default function RelatedCalculators() {
     <section className="mt-10 border-t pt-6">
       <h3 className="text-lg font-semibold mb-4">Related Loan Calculators</h3>
 
-      <ul className="space-y-2 text-blue-600">
+      <ul className="space-y-2 text-emerald-600">
         <li>
           <Link href="/emi-calculator/">Loan EMI Calculator</Link>
         </li>

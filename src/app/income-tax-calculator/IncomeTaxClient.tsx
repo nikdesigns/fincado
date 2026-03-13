@@ -396,14 +396,14 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                 className={`p-6 rounded-xl border-2 text-center transition-all ${
                   calc.recommended === 'New Regime'
                     ? 'border-emerald-200 bg-emerald-50 shadow-emerald-100 shadow-lg'
-                    : 'border-blue-200 bg-blue-50 shadow-blue-100 shadow-lg'
+                    : 'border-emerald-200 bg-emerald-50 shadow-emerald-100 shadow-lg'
                 }`}
               >
                 <p
                   className={`text-xs font-bold tracking-widest uppercase mb-2 ${
                     calc.recommended === 'New Regime'
                       ? 'text-emerald-600'
-                      : 'text-blue-600'
+                      : 'text-emerald-600'
                   }`}
                 >
                   {t.recommendationLabel}
@@ -437,7 +437,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
                         calc.recommended === 'Old Regime'
-                          ? 'bg-blue-500'
+                          ? 'bg-emerald-500'
                           : 'bg-slate-300'
                       }`}
                       style={{
@@ -521,10 +521,10 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       </div>
 
       {/* ✅ Tax Breakdown Card */}
-      <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+      <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Calculator className="h-5 w-5 text-purple-600" />
+            <Calculator className="h-5 w-5 text-lime-600" />
             Tax Breakdown
           </CardTitle>
         </CardHeader>
@@ -533,8 +533,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               {/* Old Regime Details */}
-              <div className="p-4 bg-white rounded-lg border-2 border-blue-200">
-                <div className="text-sm font-semibold text-blue-700 mb-2">
+              <div className="p-4 bg-white rounded-lg border-2 border-emerald-200">
+                <div className="text-sm font-semibold text-emerald-700 mb-2">
                   Old Regime
                 </div>
                 <div className="space-y-2 text-xs text-slate-600">
@@ -554,7 +554,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableOld)}</span>
                   </div>
-                  <div className="border-t pt-2 flex justify-between font-bold text-blue-700">
+                  <div className="border-t pt-2 flex justify-between font-bold text-emerald-700">
                     <span>Tax + Cess:</span>
                     <span>{formatINR(calc.taxOld)}</span>
                   </div>

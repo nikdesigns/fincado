@@ -350,7 +350,7 @@ export default function GoalPlanningClient({
   return (
     <div className="space-y-6">
       {/* Goal Type Selection */}
-      <Card className="border-indigo-200 bg-linear-to-r from-indigo-50 to-purple-50">
+      <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 to-lime-50">
         <CardContent className="py-5">
           <label className="text-sm font-semibold text-slate-900 mb-3 block">
             {t.selectGoalType}
@@ -362,8 +362,8 @@ export default function GoalPlanningClient({
                 onClick={() => handleGoalTypeChange(preset.value)}
                 className={`p-3 rounded-lg border-2 transition-all text-center ${
                   goalType === preset.value
-                    ? 'border-indigo-600 bg-indigo-100 text-indigo-900 font-semibold'
-                    : 'border-slate-200 bg-white hover:border-indigo-300'
+                    ? 'border-emerald-600 bg-emerald-100 text-emerald-900 font-semibold'
+                    : 'border-slate-200 bg-white hover:border-emerald-300'
                 }`}
               >
                 <div className="text-2xl mb-1">{preset.icon}</div>
@@ -438,7 +438,7 @@ export default function GoalPlanningClient({
                   {t.futureGoalValue}
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-indigo-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
                   {formatINR(results.futureValue)}
                 </div>
 
@@ -457,12 +457,12 @@ export default function GoalPlanningClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-blue-200 bg-blue-50 dark:bg-blue-900/15 dark:border-blue-900">
+                  <Card className="border-emerald-200 bg-emerald-50 dark:bg-emerald-900/15 dark:border-emerald-900">
                     <CardContent className="p-4">
-                      <div className="text-xs text-blue-700 dark:text-blue-400 mb-1">
+                      <div className="text-xs text-emerald-700 dark:text-emerald-400 mb-1">
                         {t.orLumpSumToday}
                       </div>
-                      <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">
+                      <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">
                         {formatINR(results.lumpSumToday)}
                       </div>
                       <div className="text-[10px] text-slate-600 mt-1">
@@ -485,7 +485,7 @@ export default function GoalPlanningClient({
       <Card className="border-slate-200">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Target className="h-5 w-5 text-indigo-600" />
+            <Target className="h-5 w-5 text-emerald-600" />
             Goal Breakdown & Investment Options
           </CardTitle>
         </CardHeader>
@@ -498,13 +498,13 @@ export default function GoalPlanningClient({
 
             <TabsContent value="breakdown" className="space-y-4 mt-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card className="border-indigo-200">
+                <Card className="border-emerald-200">
                   <CardContent className="p-4">
                     <div className="text-xs text-slate-600 mb-1 flex items-center gap-1">
                       <TrendingUp className="h-3 w-3" />
                       {t.futureGoalValue}
                     </div>
-                    <div className="text-2xl font-bold text-indigo-700">
+                    <div className="text-2xl font-bold text-emerald-700">
                       {formatINR(results.futureValue)}
                     </div>
                     <div className="text-xs text-slate-500 mt-1">
@@ -513,13 +513,13 @@ export default function GoalPlanningClient({
                   </CardContent>
                 </Card>
 
-                <Card className="border-purple-200">
+                <Card className="border-lime-200">
                   <CardContent className="p-4">
                     <div className="text-xs text-slate-600 mb-1 flex items-center gap-1">
                       <Zap className="h-3 w-3" />
                       {t.existingCorpusGrowth}
                     </div>
-                    <div className="text-2xl font-bold text-purple-700">
+                    <div className="text-2xl font-bold text-lime-700">
                       {formatINR(results.existingGrowth)}
                     </div>
                     <div className="text-xs text-slate-500 mt-1">
@@ -588,11 +588,11 @@ export default function GoalPlanningClient({
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-blue-50">
+                <Card className="border-emerald-200 bg-emerald-50">
                   <CardContent className="p-5">
                     <div className="flex items-center gap-2 mb-3">
-                      <IndianRupee className="h-5 w-5 text-blue-700" />
-                      <h4 className="font-semibold text-blue-900">
+                      <IndianRupee className="h-5 w-5 text-emerald-700" />
+                      <h4 className="font-semibold text-emerald-900">
                         {t.lumpSumInvestment}
                       </h4>
                     </div>
@@ -602,12 +602,12 @@ export default function GoalPlanningClient({
                         <div className="text-xs text-slate-600 mb-1">
                           One-Time Investment Today
                         </div>
-                        <div className="text-3xl font-bold text-blue-700">
+                        <div className="text-3xl font-bold text-emerald-700">
                           {formatINR(results.lumpSumToday)}
                         </div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-200">
+                      <div className="pt-3 border-t border-emerald-200">
                         <div className="text-xs text-slate-600 mb-1">
                           Future Value
                         </div>
@@ -619,7 +619,7 @@ export default function GoalPlanningClient({
                         </div>
                       </div>
 
-                      <div className="p-3 bg-white rounded border border-blue-200">
+                      <div className="p-3 bg-white rounded border border-emerald-200">
                         <p className="text-xs text-slate-700">
                           ✅ <strong>Best for:</strong> Large idle corpus,
                           windfall gains, immediate investment capacity
@@ -648,10 +648,10 @@ export default function GoalPlanningClient({
       </Card>
 
       {/* Planning Insights */}
-      <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+      <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <TrendingUp className="h-5 w-5 text-purple-600" />
+            <TrendingUp className="h-5 w-5 text-lime-600" />
             {t.planningInsights}
           </CardTitle>
         </CardHeader>
@@ -665,8 +665,8 @@ export default function GoalPlanningClient({
               <p className="text-sm text-slate-700">{t.startEarlyText}</p>
             </div>
 
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+            <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+              <h4 className="font-semibold text-emerald-900 mb-2 flex items-center gap-2">
                 <span>💰</span>
                 {t.existingHelps}
               </h4>
@@ -724,7 +724,7 @@ export default function GoalPlanningClient({
                           {t.required} {formatINR(goal.monthlySip)} {t.per}{' '}
                           {goal.years} years
                         </div>
-                        <div className="text-[11px] text-blue-700 mt-0.5">
+                        <div className="text-[11px] text-emerald-700 mt-0.5">
                           OR Lump Sum: {formatINR(goal.lumpSum)}
                         </div>
                       </div>

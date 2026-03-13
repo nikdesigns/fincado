@@ -172,7 +172,7 @@ function CompoundInterestDonut({
       {/* Legend */}
       <div className="flex gap-4 mt-6">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-indigo-500" />
+          <div className="w-3 h-3 rounded-full bg-emerald-500" />
           <span className="text-xs font-medium text-slate-600">Principal</span>
         </div>
         <div className="flex items-center gap-2">
@@ -485,7 +485,7 @@ export default function CompoundInterestClient({
     <div className="space-y-6">
       {/* ============ MAIN CALCULATOR ============ */}
       <Card className="border-border shadow-sm bg-card">
-        <CardHeader className="bg-linear-to-r from-indigo-50 to-lime-50 border-b border-slate-100 pb-4">
+        <CardHeader className="bg-linear-to-r from-emerald-50 to-lime-50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
               <TrendingUp className="h-5 w-5 text-lime-600" />
@@ -899,12 +899,12 @@ export default function CompoundInterestClient({
 
               {/* Breakdown Cards */}
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <Card className="border-indigo-200 bg-indigo-50">
+                <Card className="border-emerald-200 bg-emerald-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-indigo-700 mb-1">
+                    <div className="text-xs text-emerald-700 mb-1">
                       Principal
                     </div>
-                    <div className="font-semibold text-indigo-900">
+                    <div className="font-semibold text-emerald-900">
                       {formatINR(results.principal)}
                     </div>
                   </CardContent>
@@ -924,16 +924,16 @@ export default function CompoundInterestClient({
 
               {/* Rule of 72 */}
               {mode === 'forward' && (
-                <div className="mt-4 p-3 bg-linear-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+                <div className="mt-4 p-3 bg-linear-to-r from-lime-50 to-pink-50 rounded-lg border border-lime-200">
                   <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="h-4 w-4 text-purple-600" />
-                    <span className="text-xs font-semibold text-purple-900">
+                    <Sparkles className="h-4 w-4 text-lime-600" />
+                    <span className="text-xs font-semibold text-lime-900">
                       Rule of 72
                     </span>
                   </div>
                   <p className="text-xs text-slate-700">
                     Your money will <strong>double</strong> in approximately{' '}
-                    <strong className="text-purple-700">
+                    <strong className="text-lime-700">
                       {doublingTime} years
                     </strong>{' '}
                     at {rate}% annual return.
@@ -942,8 +942,8 @@ export default function CompoundInterestClient({
               )}
 
               {/* Insight Box */}
-              <div className="mt-4 flex gap-3 items-start p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-800">
-                <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+              <div className="mt-4 flex gap-3 items-start p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800">
+                <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <p>
                   {mode === 'forward' && (
                     <>

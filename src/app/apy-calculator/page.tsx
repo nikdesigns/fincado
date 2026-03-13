@@ -150,7 +150,7 @@ export default function APYCalculatorPage() {
       <li>Must pay differential amount for past period with accrued interest</li>
       <li>Example: Upgrading from ₹1,000 to ₹5,000 requires paying difference retrospectively</li>
     </ul>
-    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
       <p class="text-sm text-slate-700">
         <strong>Example:</strong> Age 25 subscriber wants ₹5,000 pension. Monthly contribution 
         is ₹376 for 35 years. Total investment = ₹1,58,760. Nominee receives ₹8.5 lakh corpus 
@@ -328,9 +328,9 @@ export default function APYCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       JOINING AGE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -346,9 +346,9 @@ export default function APYCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-purple-700 mb-1">
+                    <div className="text-xs font-semibold text-lime-700 mb-1">
                       MAX CORPUS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -455,7 +455,7 @@ export default function APYCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> APY uses actuarial tables
                         considering life expectancy, interest rates, and
@@ -466,8 +466,8 @@ export default function APYCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Age 25 Subscriber for ₹5,000 Pension
                     </h4>
@@ -495,7 +495,7 @@ export default function APYCalculatorPage() {
                         <div>₹5,000/month</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           Step 1: Get Base Amount for Age 25
                         </strong>
@@ -568,7 +568,7 @@ export default function APYCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300">
+                      <div className="mt-3 pt-3 border-t border-emerald-300">
                         <p className="text-xs text-slate-600">
                           <strong>Benefit Analysis:</strong> For ₹1.58 lakh
                           investment over 35 years, you get ₹5,000/month
@@ -582,13 +582,13 @@ export default function APYCalculatorPage() {
                   </div>
 
                   {/* Age vs Contribution */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Impact of Joining Age (₹5,000 Pension)
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-purple-200">
+                      <div className="p-3 bg-white rounded border border-lime-200">
                         <div className="font-mono text-sm space-y-1">
                           <div>Age 18: ₹210/month × 504 months = ₹1,05,840</div>
                           <div>Age 25: ₹376/month × 420 months = ₹1,57,920</div>
@@ -597,7 +597,7 @@ export default function APYCalculatorPage() {
                           <div>
                             Age 40: ₹1,454/month × 240 months = ₹3,48,960
                           </div>
-                          <div className="mt-2 font-semibold text-purple-700">
+                          <div className="mt-2 font-semibold text-lime-700">
                             Joining at 18 vs 40: Save ₹2.43 lakh (70% less!)
                           </div>
                         </div>
@@ -951,21 +951,21 @@ export default function APYCalculatorPage() {
                   </Link>
 
                   <Link href="/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               Retirement Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Plan complete retirement corpus for comfortable
                               post-retirement life.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>Plan Retirement</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

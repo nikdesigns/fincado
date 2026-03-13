@@ -290,7 +290,7 @@ export default function CAGRClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.cagrResult}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-indigo-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
                   {results.cagr.toFixed(2)}%
                 </div>
                 <div className="text-sm text-slate-500 mt-1">{t.perYear}</div>
@@ -370,7 +370,7 @@ export default function CAGRClient({
                       <div>
                         <div className="font-semibold text-sm">
                           {formatINR(calc.initial)} → {formatINR(calc.final)}{' '}
-                          <span className="text-xs text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded ml-1">
+                          <span className="text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded ml-1">
                             {calc.years}y
                           </span>
                         </div>

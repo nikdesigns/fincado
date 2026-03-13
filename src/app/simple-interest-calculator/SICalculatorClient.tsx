@@ -137,7 +137,7 @@ function InterestPieChart({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
             Principal
           </span>
-          <span className="text-2xl font-bold text-blue-600">
+          <span className="text-2xl font-bold text-emerald-600">
             {principalPct}%
           </span>
         </div>
@@ -146,7 +146,7 @@ function InterestPieChart({
       {/* Legend */}
       <div className="flex gap-4 mt-6">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-blue-500" />
+          <div className="w-3 h-3 rounded-full bg-emerald-500" />
           <span className="text-xs font-medium text-slate-600">Principal</span>
         </div>
         <div className="flex items-center gap-2">
@@ -758,10 +758,10 @@ export default function SICalculatorClient({
 
               {/* Breakdown Cards */}
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <Card className="border-blue-200 bg-blue-50">
+                <Card className="border-emerald-200 bg-emerald-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-blue-700 mb-1">Principal</div>
-                    <div className="font-semibold text-blue-900">
+                    <div className="text-xs text-emerald-700 mb-1">Principal</div>
+                    <div className="font-semibold text-emerald-900">
                       {formatINR(results.principal)}
                     </div>
                   </CardContent>
@@ -780,8 +780,8 @@ export default function SICalculatorClient({
               </div>
 
               {/* Insight Box */}
-              <div className="mt-4 flex gap-3 items-start p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-800">
-                <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+              <div className="mt-4 flex gap-3 items-start p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800">
+                <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <p>
                   {mode === 'forward' && (
                     <>

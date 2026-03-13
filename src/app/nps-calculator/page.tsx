@@ -126,7 +126,7 @@ export default function NPSCalculatorPage() {
       <li>Can be opened only if Tier 1 account exists</li>
       <li>Withdraw anytime without restrictions - acts like liquid fund</li>
     </ul>
-    <p class="mt-4 font-semibold text-blue-700">
+    <p class="mt-4 font-semibold text-emerald-700">
       Most investors focus on Tier 1 for retirement planning due to tax benefits and disciplined saving.
     </p>
   `);
@@ -337,9 +337,9 @@ export default function NPSCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       EXPENSE RATIO
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -355,9 +355,9 @@ export default function NPSCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-purple-700 mb-1">
+                    <div className="text-xs font-semibold text-lime-700 mb-1">
                       WITHDRAWAL RULE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -470,7 +470,7 @@ export default function NPSCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>60:40 Rule:</strong> At retirement, minimum 60%
                         can be withdrawn as tax-free lump sum. Remaining 40%
@@ -481,8 +481,8 @@ export default function NPSCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: 30-Year-Old Investing ₹10,000/Month
                     </h4>
@@ -520,7 +520,7 @@ export default function NPSCalculatorPage() {
                         <div>6% p.a.</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           Step 1: Calculate Monthly Return Rate
                         </strong>
@@ -585,7 +585,7 @@ export default function NPSCalculatorPage() {
                           </div>
                           <div className="flex justify-between">
                             <span>Total Corpus at 60:</span>
-                            <strong className="text-blue-700">
+                            <strong className="text-emerald-700">
                               ₹2,28,08,400
                             </strong>
                           </div>
@@ -608,13 +608,13 @@ export default function NPSCalculatorPage() {
                               <span className="font-semibold">
                                 Monthly Pension (Lifelong):
                               </span>
-                              <strong className="text-blue-700">₹45,617</strong>
+                              <strong className="text-emerald-700">₹45,617</strong>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300">
+                      <div className="mt-3 pt-3 border-t border-emerald-300">
                         <p className="text-xs text-slate-600">
                           <strong>Tax Savings:</strong> Investing ₹1.2L annually
                           saves ₹36,000/year in taxes (at 30% bracket). Over 30
@@ -625,13 +625,13 @@ export default function NPSCalculatorPage() {
                   </div>
 
                   {/* Investment vs Returns */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <Percent className="h-4 w-4" />
                       Total Invested vs Total Returns
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-purple-200">
+                      <div className="p-3 bg-white rounded border border-lime-200">
                         <div className="font-mono text-sm space-y-1">
                           <div>Total Invested = Monthly SIP × Total Months</div>
                           <div>Total Invested = ₹10,000 × 360 = ₹36,00,000</div>
@@ -1019,21 +1019,21 @@ export default function NPSCalculatorPage() {
                   </Link>
 
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate Public Provident Fund with 100% tax-free
                               returns.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-indigo-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>Calculate PPF</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

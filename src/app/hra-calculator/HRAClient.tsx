@@ -436,7 +436,7 @@ export default function HRAClient({
                       </span>
                     </li>
                   </ul>
-                  <div className="mt-3 p-2 bg-purple-50 rounded text-xs text-slate-600">
+                  <div className="mt-3 p-2 bg-lime-50 rounded text-xs text-slate-600">
                     <strong>Salary:</strong> {formatINR(results.salary)} (Basic
                     + DA)
                   </div>
