@@ -289,7 +289,7 @@ export default function CalculatorsPage() {
           {/* -------- MAIN CONTENT (Left Column) -------- */}
           <div className="lg:col-span-8 min-w-0 space-y-12 mt-12">
             {/* --- HERO HEADER --- */}
-            <header className="relative bg-linear-to-br from-emerald-50 via-teal-50 to-cyan-50 rounded-3xl p-8 border border-emerald-200 shadow-lg overflow-hidden">
+            <header className="relative bg-linear-to-br from-emerald-50 via-teal-50 to-emerald-50 rounded-3xl p-8 border border-emerald-200 shadow-lg overflow-hidden">
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-600 rounded-full blur-3xl" />
@@ -329,7 +329,7 @@ export default function CalculatorsPage() {
                     {
                       icon: Shield,
                       label: 'Bank-Grade Accuracy',
-                      color: 'text-blue-600 bg-blue-100',
+                      color: 'text-emerald-600 bg-emerald-100',
                     },
                     {
                       icon: Zap,

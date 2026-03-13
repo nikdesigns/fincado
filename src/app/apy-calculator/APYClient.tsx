@@ -347,7 +347,7 @@ export default function APYClient({ labels }: APYClientProps) {
   return (
     <div className="space-y-6">
       {/* ✅ Comparison Mode Toggle */}
-      <Card className="border-slate-200 bg-linear-to-r from-blue-50 to-indigo-50">
+      <Card className="border-slate-200 bg-linear-to-r from-emerald-50 to-emerald-50">
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -598,10 +598,10 @@ export default function APYClient({ labels }: APYClientProps) {
           </Card>
 
           {/* Calculator 2 */}
-          <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
                   B
                 </span>
                 Scenario B - Late Start
@@ -654,12 +654,12 @@ export default function APYClient({ labels }: APYClientProps) {
                 </Select>
               </div>
 
-              <div className="pt-4 border-t border-blue-200">
+              <div className="pt-4 border-t border-emerald-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {frequency2} Contribution
                   </div>
-                  <div className="text-2xl font-bold text-blue-700 mt-1">
+                  <div className="text-2xl font-bold text-emerald-700 mt-1">
                     {formatINR(calculations2?.periodicContribution || 0)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
@@ -677,7 +677,7 @@ export default function APYClient({ labels }: APYClientProps) {
 
       {/* ✅ Comparison Summary */}
       {comparisonMode && calculations2 && (
-        <Card className="border-purple-200 bg-linear-to-r from-purple-50 to-pink-50">
+        <Card className="border-lime-200 bg-linear-to-r from-lime-50 to-pink-50">
           <CardHeader>
             <CardTitle className="text-lg">Comparison Summary</CardTitle>
           </CardHeader>
@@ -687,7 +687,7 @@ export default function APYClient({ labels }: APYClientProps) {
                 <div className="text-xs text-slate-600 mb-1">
                   Monthly Contribution Difference
                 </div>
-                <div className="text-xl font-bold text-purple-700">
+                <div className="text-xl font-bold text-lime-700">
                   {formatINR(
                     Math.abs(
                       calculations.monthlyBase - calculations2.monthlyBase,
@@ -699,7 +699,7 @@ export default function APYClient({ labels }: APYClientProps) {
                 <div className="text-xs text-slate-600 mb-1">
                   Total Investment Difference
                 </div>
-                <div className="text-xl font-bold text-purple-700">
+                <div className="text-xl font-bold text-lime-700">
                   {formatINR(
                     Math.abs(
                       calculations.totalInvestment -
@@ -715,7 +715,7 @@ export default function APYClient({ labels }: APYClientProps) {
                   calculations2.totalInvestment ? (
                     <span className="text-emerald-600">Scenario A 🏆</span>
                   ) : (
-                    <span className="text-blue-600">Scenario B 🏆</span>
+                    <span className="text-emerald-600">Scenario B 🏆</span>
                   )}
                 </div>
               </div>

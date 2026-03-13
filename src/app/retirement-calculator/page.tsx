@@ -301,9 +301,9 @@ export default function RetirementCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       SAFE WITHDRAWAL RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -451,7 +451,7 @@ export default function RetirementCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> Real return adjusts
                         post-retirement returns for inflation to calculate
@@ -461,8 +461,8 @@ export default function RetirementCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Retirement Planning at Age 30
                     </h4>
@@ -500,7 +500,7 @@ export default function RetirementCalculatorPage() {
                         <div>8% p.a.</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           Step 1: Calculate Monthly Inflation Rate
                         </strong>
@@ -570,7 +570,7 @@ export default function RetirementCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300">
+                      <div className="mt-3 pt-3 border-t border-emerald-300">
                         <p className="text-xs text-slate-600">
                           <strong>Key Insight:</strong> Your ₹50,000/month
                           expense today becomes ₹3 lakh/month in 30 years due to
@@ -582,8 +582,8 @@ export default function RetirementCalculatorPage() {
                   </div>
 
                   {/* SIP Calculation */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Required Monthly SIP Calculation
                     </h4>
@@ -593,7 +593,7 @@ export default function RetirementCalculatorPage() {
                         monthly SIP to bridge the gap between current savings
                         and target:
                       </p>
-                      <div className="p-3 bg-white rounded border border-purple-200 mt-2">
+                      <div className="p-3 bg-white rounded border border-lime-200 mt-2">
                         <div className="font-mono text-sm space-y-1">
                           <div>
                             Gap = Target Corpus - Future Value of Current
@@ -967,21 +967,21 @@ export default function RetirementCalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate monthly SIP needed to build your
                               retirement corpus.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-indigo-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>Build Corpus</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

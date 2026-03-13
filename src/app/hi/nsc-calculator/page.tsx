@@ -309,9 +309,9 @@ export default function HindiNSCPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       लॉक-इन अवधि
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -413,7 +413,7 @@ export default function HindiNSCPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>नोट:</strong> ब्याज सालाना चक्रवृद्धि होता है
                         (वर्ष में एक बार) और संपूर्ण परिपक्वता राशि 5 साल के अंत
@@ -423,8 +423,8 @@ export default function HindiNSCPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       उदाहरण: NSC गणना (5 वर्ष)
                     </h4>
@@ -447,7 +447,7 @@ export default function HindiNSCPage() {
                         <div>5 वर्ष (निश्चित)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           चरण 1: दर को दशमलव में बदलें
                         </strong>
@@ -487,7 +487,7 @@ export default function HindiNSCPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
                         <div className="flex justify-between">
                           <span>मूलधन निवेशित:</span>
                           <strong>₹1,00,000</strong>
@@ -502,15 +502,15 @@ export default function HindiNSCPage() {
                         </div>
                         <div className="flex justify-between">
                           <span>Section 80C लाभ (30% स्लैब):</span>
-                          <strong className="text-blue-700">₹30,000</strong>
+                          <strong className="text-emerald-700">₹30,000</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Tax Calculation Note */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <FileText className="h-4 w-4" />
                       Section 80C कर लाभ विस्तार से
                     </h4>
@@ -538,7 +538,7 @@ export default function HindiNSCPage() {
                           ₹24,924 (अर्जित ब्याज Y2-Y4) ≈ ₹1,24,924
                         </li>
                       </ul>
-                      <p className="text-xs font-semibold text-purple-800 mt-2">
+                      <p className="text-xs font-semibold text-lime-800 mt-2">
                         💡 टिप: अर्जित ब्याज हर साल आपकी 80C सीमा में जुड़ता है,
                         जो मूलधन निवेश से परे अतिरिक्त कर बचत देता है।
                       </p>
@@ -738,7 +738,7 @@ export default function HindiNSCPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 mt-4">
+                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>विशेषज्ञ सुझाव:</strong> NSC गारंटीकृत रिटर्न के साथ
                     5 साल की कर-बचत के लिए आदर्श है। संतुलित पोर्टफोलियो के लिए
@@ -897,21 +897,21 @@ export default function HindiNSCPage() {
                   </Link>
 
                   <Link href="/hi/fd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               FD कैलकुलेटर
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               लचीली अवधि के साथ फिक्स्ड डिपॉजिट रिटर्न की तुलना
                               करें।
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-indigo-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>अभी आज़माएं</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

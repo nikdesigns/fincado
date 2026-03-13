@@ -401,26 +401,26 @@ export default function NPSClient() {
                   </div>
 
                   {/* Pension */}
-                  <div className="flex flex-col gap-1 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <div className="flex items-center gap-1.5 text-blue-700">
+                  <div className="flex flex-col gap-1 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <div className="flex items-center gap-1.5 text-emerald-700">
                       <Coins className="w-4 h-4" />
                       <span className="text-xs font-semibold">
                         Monthly Pension
                       </span>
                     </div>
-                    <span className="text-lg font-bold text-blue-900">
+                    <span className="text-lg font-bold text-emerald-900">
                       {formatINR(calculations.monthlyPension)}
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit text-[10px] border-blue-300 text-blue-700 bg-white"
+                      className="w-fit text-[10px] border-emerald-300 text-emerald-700 bg-white"
                     >
                       Taxable
                     </Badge>
                   </div>
                 </div>
 
-                <div className="mt-3 p-3 bg-purple-50 rounded border border-purple-200">
+                <div className="mt-3 p-3 bg-lime-50 rounded border border-lime-200">
                   <p className="text-xs text-slate-700">
                     <strong>Annuity Corpus (40%):</strong>{' '}
                     {formatINR(calculations.annuityCorpus)}

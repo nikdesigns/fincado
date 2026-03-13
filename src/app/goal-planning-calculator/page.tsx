@@ -243,14 +243,14 @@ export default function GoalPlanningCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-50 to-indigo-100 text-indigo-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700">
               <Target className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Goal Planning Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-indigo-700">
+              <p className="text-base sm:text-lg font-medium text-emerald-700">
                 Plan Financial Goals with Inflation-Adjusted Targets
               </p>
             </div>
@@ -272,9 +272,9 @@ export default function GoalPlanningCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-indigo-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       Average Inflation (India)
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -308,9 +308,9 @@ export default function GoalPlanningCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       Updated Data
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -333,8 +333,8 @@ export default function GoalPlanningCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-indigo-50/50 border-indigo-200 text-slate-600">
-              <Info className="h-4 w-4 text-indigo-500 mt-0.5" />
+            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
+              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Start Early, Stay Consistent
@@ -431,21 +431,21 @@ export default function GoalPlanningCalculatorPage() {
                       </Link>
 
                       <Link href="/retirement-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                                 🧓
                               </span>
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                                   Retirement Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Plan your retirement corpus with detailed
                                   analysis.
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                                   <span>Plan Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

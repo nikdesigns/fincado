@@ -641,13 +641,13 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     />
                     <div className="flex justify-between text-xs text-slate-500">
                       <span>{t.noIncrease}</span>
-                      <span className="font-semibold text-indigo-600">
+                      <span className="font-semibold text-emerald-600">
                         {stepUpPercent}
                         {t.perYear}
                       </span>
                     </div>
                     {stepUpPercent > 0 && (
-                      <p className="text-xs text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 p-2 rounded">
+                      <p className="text-xs text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded">
                         {t.stepUpNote.replace(
                           '{percent}',
                           String(stepUpPercent),
@@ -685,14 +685,14 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     onChange={setGoalRate}
                   />
 
-                  <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                    <div className="text-sm font-medium text-blue-900 dark:text-blue-200">
+                  <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                    <div className="text-sm font-medium text-emerald-900 dark:text-emerald-200">
                       {t.requiredMonthlySIP}
                     </div>
-                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+                    <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
                       {formatINR(results.requiredSip || 0)}
                     </div>
-                    <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
+                    <p className="text-xs text-emerald-700 dark:text-emerald-300 mt-2">
                       {t.investThisAmount.replace(
                         '{amount}',
                         formatINR(targetAmount),
@@ -717,7 +717,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     : t.estimatedMaturityAmount}
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-indigo-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
                   {formatINR(results.maturityAmount)}
                 </div>
 
@@ -747,7 +747,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
 
                 <div className="mt-3 text-xs text-slate-500">
                   {stepUpPercent > 0 && calculatorMode === 'investment' && (
-                    <span className="text-indigo-600 font-medium">
+                    <span className="text-emerald-600 font-medium">
                       {t.withAnnualStepUp.replace(
                         '{percent}',
                         String(stepUpPercent),
@@ -768,7 +768,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
         <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <LineChart className="h-5 w-5 text-indigo-600" />
+              <LineChart className="h-5 w-5 text-emerald-600" />
               {t.investmentGrowthOverTime}
             </CardTitle>
           </CardHeader>
@@ -847,7 +847,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     <th className="text-right p-3 font-semibold">
                       {t.yearlyInvestment}
                       {stepUpPercent > 0 && (
-                        <span className="text-indigo-600 ml-1">↗</span>
+                        <span className="text-emerald-600 ml-1">↗</span>
                       )}
                     </th>
                     <th className="text-right p-3 font-semibold">
@@ -856,7 +856,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     <th className="text-right p-3 font-semibold">
                       {t.interestEarned}
                     </th>
-                    <th className="text-right p-3 font-semibold text-indigo-600">
+                    <th className="text-right p-3 font-semibold text-emerald-600">
                       {t.maturityAmount}
                     </th>
                   </tr>
@@ -873,7 +873,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                       <td className="p-3 text-right">
                         {formatINR(row.yearlyInvestment)}
                         {stepUpPercent > 0 && idx > 0 && (
-                          <span className="text-xs text-indigo-600 ml-1">
+                          <span className="text-xs text-emerald-600 ml-1">
                             (+
                             {(
                               ((row.yearlyInvestment -
@@ -893,7 +893,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                       <td className="p-3 text-right text-emerald-600">
                         {formatINR(row.interestEarned)}
                       </td>
-                      <td className="p-3 text-right font-semibold text-indigo-600">
+                      <td className="p-3 text-right font-semibold text-emerald-600">
                         {formatINR(row.cumulativeMaturity)}
                       </td>
                     </tr>
@@ -954,7 +954,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                           {formatINR(calc.monthlySip)} {t.month} @ {calc.rate}%{' '}
                           {t.forYears} {calc.years} years
                           {calc.stepUpPercent && calc.stepUpPercent > 0 && (
-                            <span className="text-xs text-indigo-600 ml-1">
+                            <span className="text-xs text-emerald-600 ml-1">
                               (
                               {t.stepUpPercent.replace(
                                 '{percent}',

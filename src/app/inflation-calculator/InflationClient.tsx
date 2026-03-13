@@ -556,7 +556,7 @@ export default function InflationClient({
                     </Badge>
                   </div>
 
-                  <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200 w-full">
+                  <div className="mt-8 p-4 bg-emerald-50 rounded-lg border border-emerald-200 w-full">
                     <p className="text-sm text-slate-700">
                       <strong>What this means:</strong> If you needed{' '}
                       {formatINR(amount)} in {new Date().getFullYear()}, you
@@ -684,7 +684,7 @@ export default function InflationClient({
                         className={
                           calc.mode === 'forward'
                             ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-blue-50 text-blue-700 border-blue-200'
+                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                         }
                       >
                         {calc.mode === 'forward' ? 'Forward' : 'Reverse'}

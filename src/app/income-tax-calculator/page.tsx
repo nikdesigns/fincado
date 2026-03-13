@@ -337,9 +337,9 @@ export default function IncomeTaxPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       STD DEDUCTION
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -384,8 +384,8 @@ export default function IncomeTaxPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-blue-50/50 border-blue-200 text-slate-600">
-              <Info className="h-4 w-4 text-blue-500 mt-0.5" />
+            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
+              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Regime Selection Tip
@@ -408,7 +408,7 @@ export default function IncomeTaxPage() {
                   <div className="grid md:grid-cols-2 gap-6">
                     {/* Old Regime Slabs */}
                     <div className="space-y-3">
-                      <h3 className="text-lg font-semibold text-blue-700 flex items-center gap-2">
+                      <h3 className="text-lg font-semibold text-emerald-700 flex items-center gap-2">
                         <FileText className="h-5 w-5" />
                         Old Tax Regime
                       </h3>
@@ -416,7 +416,7 @@ export default function IncomeTaxPage() {
                       <div className="overflow-hidden rounded-lg border border-slate-200">
                         <Table>
                           <TableHeader>
-                            <TableRow className="bg-blue-50">
+                            <TableRow className="bg-emerald-50">
                               <TableHead className="font-bold">
                                 Income Slab
                               </TableHead>
@@ -556,7 +556,7 @@ export default function IncomeTaxPage() {
                     </div>
                   </div>
 
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
                     <p className="text-sm text-slate-700">
                       <strong>Key Difference:</strong> New Regime has more slabs
                       (6 vs 4) with lower rates but fewer deductions. Old Regime
@@ -570,18 +570,18 @@ export default function IncomeTaxPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-blue-200 bg-blue-50/50 transition-colors hover:bg-blue-50">
+            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                   <TrendingDown className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-blue-900">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     Save tax with ELSS mutual funds (Section 80C)
                   </strong>
                   <Link
                     href="/elss-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-800"
+                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     <span>
                       Calculate ELSS returns and tax saving potential with ELSS
@@ -613,8 +613,8 @@ export default function IncomeTaxPage() {
                 </div>
 
                 {/* Example Calculation */}
-                <div className="mt-6 p-5 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                <div className="mt-6 p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                     <span className="text-xl">🧮</span>
                     Example: ₹12 Lakh Salary Tax Calculation (New Regime)
                   </h4>
@@ -635,7 +635,7 @@ export default function IncomeTaxPage() {
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-blue-300">
+                    <div className="pt-3 border-t border-emerald-300">
                       <div className="font-semibold mb-2">Tax Calculation:</div>
                       <div className="space-y-1 text-xs font-mono">
                         <div>Up to ₹4L: Nil = ₹0</div>
@@ -649,7 +649,7 @@ export default function IncomeTaxPage() {
                       </div>
                     </div>
 
-                    <div className="mt-3 p-3 bg-white rounded border border-blue-200">
+                    <div className="mt-3 p-3 bg-white rounded border border-emerald-200">
                       <div className="text-sm">
                         <strong>Net Income After Tax:</strong> ₹12,00,000 -
                         ₹54,600 ={' '}
@@ -729,7 +729,7 @@ export default function IncomeTaxPage() {
                         <TableCell className="font-medium">
                           Section 80C (₹1.5L)
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           Allowed
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -739,7 +739,7 @@ export default function IncomeTaxPage() {
                         <TableCell className="font-medium">
                           HRA Exemption
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           Allowed
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -749,7 +749,7 @@ export default function IncomeTaxPage() {
                         <TableCell className="font-medium">
                           Home Loan Interest
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           Allowed (₹2L)
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -769,7 +769,7 @@ export default function IncomeTaxPage() {
                         <TableCell className="font-medium">
                           LTA (Leave Travel)
                         </TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           Allowed
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -787,7 +787,7 @@ export default function IncomeTaxPage() {
 
                       <TableRow>
                         <TableCell className="font-medium">Best For</TableCell>
-                        <TableCell className="font-semibold text-blue-600">
+                        <TableCell className="font-semibold text-emerald-600">
                           High deductions (home loan, HRA, 80C all maxed)
                         </TableCell>
                         <TableCell className="font-semibold text-emerald-600">
@@ -820,8 +820,8 @@ export default function IncomeTaxPage() {
                     </ul>
                   </div>
 
-                  <div className="p-5 rounded-xl border-2 border-blue-200 bg-blue-50">
-                    <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                  <div className="p-5 rounded-xl border-2 border-emerald-200 bg-emerald-50">
+                    <h4 className="font-bold text-emerald-900 mb-2 flex items-center gap-2">
                       <FileText className="h-5 w-5" />
                       Choose Old Regime If:
                     </h4>
@@ -835,7 +835,7 @@ export default function IncomeTaxPage() {
                   </div>
                 </div>
 
-                <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
                   <p className="text-sm text-slate-700">
                     <strong>General Rule:</strong> New Regime saves more tax for
                     income up to ₹12 lakhs (zero-tax zone) and often beyond that with minimal deductions. Old Regime
@@ -917,21 +917,21 @@ export default function IncomeTaxPage() {
                   </Link>
 
                   <Link href="/hra-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏠
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               HRA Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate House Rent Allowance exemption for Old
                               Tax Regime planning.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>Calculate HRA Exemption</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

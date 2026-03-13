@@ -249,7 +249,7 @@ export default function SIPCalculatorClient() {
                   Estimated Maturity Amount
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-indigo-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
                   {formatINR(results.maturityAmount)}
                 </div>
 

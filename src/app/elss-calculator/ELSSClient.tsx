@@ -540,10 +540,10 @@ export default function ELSSClient({
                   </Card>
                 </div>
 
-                <div className="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700">{t.taxSaved}:</span>
-                    <span className="font-bold text-indigo-700">
+                    <span className="font-bold text-emerald-700">
                       {formatINR(calculations.totalTaxSaved)}
                     </span>
                   </div>
@@ -583,10 +583,10 @@ export default function ELSSClient({
 
       {/* ELSS vs PPF Comparison */}
       {showComparison && ppfComparison && (
-        <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <TrendingUp className="h-5 w-5 text-blue-600" />
+              <TrendingUp className="h-5 w-5 text-emerald-600" />
               ELSS vs PPF Comparison
             </CardTitle>
           </CardHeader>

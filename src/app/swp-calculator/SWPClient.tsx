@@ -704,7 +704,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   <div
                     className={cn(
                       'absolute inset-0 rounded-full blur-md transition-all',
-                      comparisonMode ? 'bg-purple-300' : 'bg-slate-200',
+                      comparisonMode ? 'bg-lime-300' : 'bg-slate-200',
                     )}
                   />
                   <Switch
@@ -713,7 +713,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                     id="comparison-mode"
                     className={cn(
                       'relative scale-125',
-                      'data-[state=checked]:bg-purple-600',
+                      'data-[state=checked]:bg-lime-600',
                       'data-[state=unchecked]:bg-slate-400',
                       'shadow-lg',
                     )}
@@ -737,7 +737,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-semibold transition-all',
                   comparisonMode
-                    ? 'bg-purple-100 text-purple-700 border-2 border-purple-200'
+                    ? 'bg-lime-100 text-lime-700 border-2 border-lime-200'
                     : 'bg-slate-100 text-slate-500 border-2 border-slate-200',
                 )}
               >
@@ -944,17 +944,17 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   </div>
 
                   {/* ✅ ANNUAL WITHDRAWAL DISPLAY - FIXED */}
-                  <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-700">
                         {t.annualWithdrawal}:
                       </span>
-                      <span className="font-bold text-blue-700">
+                      <span className="font-bold text-emerald-700">
                         {formatINR(results.annualWithdrawal)}
                       </span>
                     </div>
                     {inflationEnabled && (
-                      <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-blue-200">
+                      <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-emerald-200">
                         💡 {t.inflationImpact}: Year 1:{' '}
                         {formatINR(results.annualWithdrawal)} → Year {years}:{' '}
                         {formatINR(
@@ -1048,10 +1048,10 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
           </Card>
 
           {/* Strategy B */}
-          <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
                   B
                 </span>
                 {t.strategyB}
@@ -1094,12 +1094,12 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 onChange={setYears2}
               />
 
-              <div className="pt-4 border-t border-blue-200">
+              <div className="pt-4 border-t border-emerald-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {t.remainingCorpus}
                   </div>
-                  <div className="text-2xl font-bold text-blue-700 mt-1">
+                  <div className="text-2xl font-bold text-emerald-700 mt-1">
                     {formatINR(results2?.finalBalance || 0)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
@@ -1122,7 +1122,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
 
       {/* ✅ Comparison Summary */}
       {comparisonMode && results2 && (
-        <Card className="border-purple-200 bg-linear-to-r from-purple-50 to-pink-50">
+        <Card className="border-lime-200 bg-linear-to-r from-lime-50 to-pink-50">
           <CardHeader>
             <CardTitle className="text-lg">{t.whichBetter}</CardTitle>
           </CardHeader>
@@ -1133,7 +1133,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   {t.totalWithdrawn}
                 </div>
                 <div
-                  className={`text-xl font-bold ${results.totalWithdrawn > results2.totalWithdrawn ? 'text-emerald-600' : 'text-blue-600'}`}
+                  className={`text-xl font-bold ${results.totalWithdrawn > results2.totalWithdrawn ? 'text-emerald-600' : 'text-emerald-600'}`}
                 >
                   {formatINR(
                     Math.abs(results.totalWithdrawn - results2.totalWithdrawn),
@@ -1148,7 +1148,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   {t.remainingCorpus}
                 </div>
                 <div
-                  className={`text-xl font-bold ${results.finalBalance > results2.finalBalance ? 'text-emerald-600' : 'text-blue-600'}`}
+                  className={`text-xl font-bold ${results.finalBalance > results2.finalBalance ? 'text-emerald-600' : 'text-emerald-600'}`}
                 >
                   {formatINR(
                     Math.abs(results.finalBalance - results2.finalBalance),
@@ -1161,7 +1161,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   {results.finalBalance > results2.finalBalance ? (
                     <span className="text-emerald-600">{t.strategyA} 🏆</span>
                   ) : (
-                    <span className="text-blue-600">{t.strategyB} 🏆</span>
+                    <span className="text-emerald-600">{t.strategyB} 🏆</span>
                   )}
                 </div>
               </div>
@@ -1183,7 +1183,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
         <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <LineChart className="h-5 w-5 text-purple-600" />
+              <LineChart className="h-5 w-5 text-lime-600" />
               {t.corpusDepletionChart}
             </CardTitle>
           </CardHeader>
@@ -1293,7 +1293,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Receipt className="h-5 w-5 text-indigo-600" />
+                <Receipt className="h-5 w-5 text-emerald-600" />
                 {t.taxImpact}
               </CardTitle>
               <Button
@@ -1328,19 +1328,19 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
               {taxCalculations && (
                 <>
                   {/* ✅ ADD THIS - Shows Annual Withdrawal in Tax Section */}
-                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-700">
                         {t.annualWithdrawal}:
                       </span>
-                      <span className="font-bold text-blue-700">
+                      <span className="font-bold text-emerald-700">
                         {formatINR(results.totalWithdrawn / years)}
                       </span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <Card className="border-indigo-200 bg-white">
+                    <Card className="border-emerald-200 bg-white">
                       <CardContent className="p-4">
                         <div className="text-xs text-slate-600">
                           {t.totalWithdrawn}

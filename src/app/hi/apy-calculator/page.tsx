@@ -140,7 +140,7 @@ export default function APYCalculatorPageHindi() {
       <li>अर्जित ब्याज के साथ पिछली अवधि के लिए अंतर राशि का भुगतान करना होगा</li>
       <li>उदाहरण: ₹1,000 से ₹5,000 तक अपग्रेड करने के लिए पूर्वव्यापी भुगतान आवश्यक है</li>
     </ul>
-    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
       <p class="text-sm text-slate-700">
         <strong>उदाहरण:</strong> 25 वर्ष का ग्राहक ₹5,000 पेंशन चाहता है। मासिक योगदान 35 वर्षों के लिए ₹376 है। कुल निवेश = ₹1,58,760। दोनों अभिदाता और पति/पत्नी के गुजर जाने के बाद नॉमिनी को ₹8.5 लाख कॉर्पस मिलता है।
       </p>
@@ -316,9 +316,9 @@ export default function APYCalculatorPageHindi() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       शामिल होने की आयु
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -334,9 +334,9 @@ export default function APYCalculatorPageHindi() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-purple-700 mb-1">
+                    <div className="text-xs font-semibold text-lime-700 mb-1">
                       अधिकतम कॉर्पस
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -441,7 +441,7 @@ export default function APYCalculatorPageHindi() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                       <p className="text-xs text-slate-700">
                         <strong>नोट:</strong> APY जीवन प्रत्याशा, ब्याज दरों और
                         सरकारी समर्थन पर विचार करने वाली एक्चुअरियल टेबल का
@@ -453,8 +453,8 @@ export default function APYCalculatorPageHindi() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       उदाहरण: ₹5,000 पेंशन के लिए 25 वर्ष का ग्राहक
                     </h4>
@@ -482,7 +482,7 @@ export default function APYCalculatorPageHindi() {
                         <div>₹5,000/माह</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           चरण 1: 25 वर्ष के लिए आधार राशि प्राप्त करें
                         </strong>
@@ -555,7 +555,7 @@ export default function APYCalculatorPageHindi() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300">
+                      <div className="mt-3 pt-3 border-t border-emerald-300">
                         <p className="text-xs text-slate-600">
                           <strong>लाभ विश्लेषण:</strong> 35 वर्षों में ₹1.58 लाख
                           निवेश के लिए, आपको ₹5,000/माह आजीवन पेंशन
@@ -569,20 +569,20 @@ export default function APYCalculatorPageHindi() {
                   </div>
 
                   {/* Age vs Contribution */}
-                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
+                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       शामिल होने की आयु का प्रभाव (₹5,000 पेंशन)
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-purple-200">
+                      <div className="p-3 bg-white rounded border border-lime-200">
                         <div className="font-mono text-sm space-y-1">
                           <div>18 वर्ष: ₹210/माह × 504 महीने = ₹1,05,840</div>
                           <div>25 वर्ष: ₹376/माह × 420 महीने = ₹1,57,920</div>
                           <div>30 वर्ष: ₹577/माह × 360 महीने = ₹2,07,720</div>
                           <div>35 वर्ष: ₹902/माह × 300 महीने = ₹2,70,600</div>
                           <div>40 वर्ष: ₹1,454/माह × 240 महीने = ₹3,48,960</div>
-                          <div className="mt-2 font-semibold text-purple-700">
+                          <div className="mt-2 font-semibold text-lime-700">
                             18 बनाम 40 में शामिल होना: ₹2.43 लाख बचाएं (70% कम!)
                           </div>
                         </div>
@@ -932,21 +932,21 @@ export default function APYCalculatorPageHindi() {
                   </Link>
 
                   <Link href="/hi/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               रिटायरमेंट कैलकुलेटर
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               आरामदायक सेवानिवृत्ति जीवन के लिए पूर्ण
                               सेवानिवृत्ति कॉर्पस की योजना बनाएं।
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>रिटायरमेंट की योजना बनाएं</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

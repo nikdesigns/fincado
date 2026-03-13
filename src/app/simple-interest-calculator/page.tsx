@@ -256,14 +256,14 @@ export default function SimpleInterestPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-brrom-blue-50 to-indigo-100 text-blue-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-brrom-emerald-50 to-emerald-100 text-emerald-700">
               <Percent className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Simple Interest Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-blue-700">
+              <p className="text-base sm:text-lg font-medium text-emerald-700">
                 Flat Rate Loan & Investment Interest Calculator
               </p>
             </div>
@@ -306,9 +306,9 @@ export default function SimpleInterestPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       CAR LOAN FLAT RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -394,13 +394,13 @@ export default function SimpleInterestPage() {
             </Alert>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-blue-200 bg-blue-50/50 transition-colors hover:bg-blue-50">
+            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                   <Calculator className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-blue-900">
+                  <strong className="block text-base font-semibold text-emerald-900">
                     Planning to buy a car? Check true EMI cost
                   </strong>
                   <p className="text-sm text-slate-700">
@@ -409,7 +409,7 @@ export default function SimpleInterestPage() {
                   </p>
                   <Link
                     href="/emi-calculator/"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-blue-700 hover:text-blue-800"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:text-emerald-800"
                   >
                     Calculate EMI →
                   </Link>
@@ -448,8 +448,8 @@ export default function SimpleInterestPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-semibold text-blue-900 mb-2">
+                <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <h4 className="font-semibold text-emerald-900 mb-2">
                     Example Calculation
                   </h4>
                   <p className="text-sm text-slate-700 mb-3">
@@ -459,11 +459,11 @@ export default function SimpleInterestPage() {
                     <p>
                       SI ={' '}
                       <InlineMath math="\frac{100000 \times 8 \times 5}{100}" />{' '}
-                      =<strong className="text-blue-900"> ₹40,000</strong>
+                      =<strong className="text-emerald-900"> ₹40,000</strong>
                     </p>
                     <p>
                       Total Amount = ₹1,00,000 + ₹40,000 =
-                      <strong className="text-blue-900"> ₹1,40,000</strong>
+                      <strong className="text-emerald-900"> ₹1,40,000</strong>
                     </p>
                   </div>
                 </div>
@@ -571,8 +571,8 @@ export default function SimpleInterestPage() {
                   </Table>
                 </div>
 
-                <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-semibold text-blue-900 mb-2">
+                <div className="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <h4 className="font-semibold text-emerald-900 mb-2">
                     Comparison Example: ₹1,00,000 at 10% for 10 years
                   </h4>
                   <div className="grid sm:grid-cols-2 gap-4 mt-3">
@@ -823,10 +823,10 @@ export default function SimpleInterestPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-blue-200 bg-blue-50/30">
+                  <Card className="border-emerald-200 bg-emerald-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-blue-600 text-white shrink-0">
+                        <Badge className="bg-emerald-600 text-white shrink-0">
                           2
                         </Badge>
                         <div>
@@ -942,21 +942,21 @@ export default function SimpleInterestPage() {
                   </Link>
 
                   <Link href="/emi-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
                             📊
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
                               EMI Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate reducing balance EMI for home, car,
                               personal loans. Compare with flat rate offers.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-blue-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
                               <span>Calculate EMI</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

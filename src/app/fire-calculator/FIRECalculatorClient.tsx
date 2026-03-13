@@ -446,20 +446,20 @@ export default function FIRECalculatorClient({
       </div>
 
       {/* ✅ FIRE Timeline Visualization */}
-      <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+      <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <TrendingUp className="h-5 w-5 text-purple-600" />
+            <TrendingUp className="h-5 w-5 text-lime-600" />
             Your FIRE Journey Timeline
           </CardTitle>
         </CardHeader>
 
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-purple-200">
+            <div className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-lime-200">
               <div>
                 <div className="text-sm text-slate-600">Years to FIRE</div>
-                <div className="text-3xl font-bold text-purple-700">
+                <div className="text-3xl font-bold text-lime-700">
                   {results.yearsToFire} years
                 </div>
               </div>
@@ -488,7 +488,7 @@ export default function FIRECalculatorClient({
               </div>
             </div>
 
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
               <p className="text-sm text-slate-700">
                 <strong>Progress:</strong> You&apos;re currently{' '}
                 {results.achievedPct}% towards your FIRE goal. Keep investing{' '}

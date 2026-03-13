@@ -188,7 +188,7 @@ export default function HRAPage() {
         </ul>
       </li>
     </ol>
-    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
       <p class="text-sm text-slate-700">
         <strong>Key Formula:</strong> Salary for HRA = Basic Salary + Dearness Allowance (DA). 
         Other allowances like Special Allowance, Conveyance, Medical are NOT included.
@@ -269,14 +269,14 @@ export default function HRAPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-50 to-indigo-100 text-blue-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700">
               <Building2 className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 HRA Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-blue-700">
+              <p className="text-base sm:text-lg font-medium text-emerald-700">
                 House Rent Allowance Exemption
               </p>
             </div>
@@ -321,9 +321,9 @@ export default function HRAPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       METRO RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -339,9 +339,9 @@ export default function HRAPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-indigo-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       NON-METRO RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -386,8 +386,8 @@ export default function HRAPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-blue-50/50 border-blue-200 text-slate-600">
-              <Info className="h-4 w-4 text-blue-500 mt-0.5" />
+            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
+              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Calculation Note
@@ -422,8 +422,8 @@ export default function HRAPage() {
                       </div>
 
                       <div className="space-y-3 text-sm">
-                        <div className="p-3 bg-blue-50 rounded border border-blue-200">
-                          <div className="font-semibold text-blue-900 mb-1">
+                        <div className="p-3 bg-emerald-50 rounded border border-emerald-200">
+                          <div className="font-semibold text-emerald-900 mb-1">
                             Condition 1: Actual HRA Received
                           </div>
                           <div className="font-mono text-xs text-slate-700">
@@ -431,8 +431,8 @@ export default function HRAPage() {
                           </div>
                         </div>
 
-                        <div className="p-3 bg-indigo-50 rounded border border-indigo-200">
-                          <div className="font-semibold text-indigo-900 mb-1">
+                        <div className="p-3 bg-emerald-50 rounded border border-emerald-200">
+                          <div className="font-semibold text-emerald-900 mb-1">
                             Condition 2: Rent Paid - 10% of Salary
                           </div>
                           <div className="font-mono text-xs text-slate-700">
@@ -440,8 +440,8 @@ export default function HRAPage() {
                           </div>
                         </div>
 
-                        <div className="p-3 bg-purple-50 rounded border border-purple-200">
-                          <div className="font-semibold text-purple-900 mb-1">
+                        <div className="p-3 bg-lime-50 rounded border border-lime-200">
+                          <div className="font-semibold text-lime-900 mb-1">
                             Condition 3: 50% or 40% of Salary
                           </div>
                           <div className="font-mono text-xs text-slate-700">
@@ -495,8 +495,8 @@ export default function HRAPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Metro City HRA Calculation
                     </h4>
@@ -529,7 +529,7 @@ export default function HRAPage() {
                         <div>Mumbai (Metro - 50%)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           Step 1: Calculate Three Conditions
                         </strong>
@@ -549,7 +549,7 @@ export default function HRAPage() {
                         </div>
                       </div>
 
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-emerald-300">
                         <strong className="block mb-2">
                           Step 2: Choose Minimum Value
                         </strong>
@@ -591,7 +591,7 @@ export default function HRAPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300">
+                      <div className="mt-3 pt-3 border-t border-emerald-300">
                         <p className="text-xs text-slate-600">
                           <strong>Note:</strong> Condition 2 (₹1,20,000) is the
                           lowest, so that becomes the exempt HRA. Remaining
@@ -651,27 +651,27 @@ export default function HRAPage() {
 
                       <TableBody>
                         <TableRow>
-                          <TableCell className="font-semibold text-blue-700">
+                          <TableCell className="font-semibold text-emerald-700">
                             Metro
                           </TableCell>
                           <TableCell>
                             Delhi, Mumbai, Kolkata, Chennai only
                           </TableCell>
-                          <TableCell className="font-semibold text-blue-700">
+                          <TableCell className="font-semibold text-emerald-700">
                             50% of Salary
                           </TableCell>
                           <TableCell>₹3,00,000 max</TableCell>
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-indigo-700">
+                          <TableCell className="font-semibold text-emerald-700">
                             Non-Metro
                           </TableCell>
                           <TableCell>
                             Bangalore, Hyderabad, Pune, Gurgaon, Noida, and all
                             other cities
                           </TableCell>
-                          <TableCell className="font-semibold text-indigo-700">
+                          <TableCell className="font-semibold text-emerald-700">
                             40% of Salary
                           </TableCell>
                           <TableCell>₹2,40,000 max</TableCell>

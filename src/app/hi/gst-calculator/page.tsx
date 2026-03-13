@@ -160,11 +160,11 @@ export default function GSTPageHindi() {
     <p class="mt-2">
       जब आपके पास शुद्ध/मूल कीमत है और GST सहित अंतिम चालान मूल्य की गणना करनी है:
     </p>
-    <div class="mt-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+    <div class="mt-3 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
       <div class="space-y-2 text-sm">
         <div><strong>GST राशि</strong> = मूल कीमत × (GST दर ÷ 100)</div>
         <div><strong>अंतिम चालान</strong> = मूल कीमत + GST राशि</div>
-        <div class="mt-3 pt-3 border-t border-blue-300">
+        <div class="mt-3 pt-3 border-t border-emerald-300">
           <strong>उदाहरण:</strong> वस्तु कीमत = ₹10,000, GST = 18%<br/>
           GST राशि = ₹10,000 × 0.18 = ₹1,800<br/>
           अंतिम चालान = ₹10,000 + ₹1,800 = <strong>₹11,800</strong>
@@ -176,11 +176,11 @@ export default function GSTPageHindi() {
     <p class="mt-2">
       जब आपके पास MRP/अंतिम चालान मूल्य है और मूल कीमत और GST राशि जानने की आवश्यकता है:
     </p>
-    <div class="mt-3 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+    <div class="mt-3 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
       <div class="space-y-2 text-sm">
         <div><strong>मूल कीमत</strong> = MRP ÷ (1 + GST दर ÷ 100)</div>
         <div><strong>GST राशि</strong> = MRP - मूल कीमत</div>
-        <div class="mt-3 pt-3 border-t border-indigo-300">
+        <div class="mt-3 pt-3 border-t border-emerald-300">
           <strong>उदाहरण:</strong> MRP = ₹11,800, GST = 18%<br/>
           मूल कीमत = ₹11,800 ÷ 1.18 = ₹10,000<br/>
           GST राशि = ₹11,800 - ₹10,000 = <strong>₹1,800</strong>
@@ -316,9 +316,9 @@ export default function GSTPageHindi() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       पंजीकरण सीमा
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -337,9 +337,9 @@ export default function GSTPageHindi() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-indigo-700 mb-1">
+                    <div className="text-xs font-semibold text-emerald-700 mb-1">
                       सबसे आम दर
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -390,8 +390,8 @@ export default function GSTPageHindi() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-blue-50/50 border-blue-200 text-slate-600">
-              <Info className="h-4 w-4 text-blue-500 mt-0.5" />
+            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
+              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   गणना नोट
@@ -456,7 +456,7 @@ export default function GSTPageHindi() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-purple-700">
+                          <TableCell className="font-semibold text-lime-700">
                             0.25%
                           </TableCell>
                           <TableCell>कच्चे हीरे</TableCell>
@@ -477,7 +477,7 @@ export default function GSTPageHindi() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-blue-700">
+                          <TableCell className="font-semibold text-emerald-700">
                             5%
                           </TableCell>
                           <TableCell>आवश्यक वस्तुएं, खाद्य उत्पाद</TableCell>
@@ -488,7 +488,7 @@ export default function GSTPageHindi() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-indigo-700">
+                          <TableCell className="font-semibold text-emerald-700">
                             12%
                           </TableCell>
                           <TableCell>मानक सामान</TableCell>
@@ -665,8 +665,8 @@ export default function GSTPageHindi() {
                   GST के लिए ई-चालान दिशानिर्देश
                 </h3>
 
-                <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-semibold text-blue-900 mb-3">
+                <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <h4 className="font-semibold text-emerald-900 mb-3">
                     ई-चालान क्या है?
                   </h4>
                   <p className="text-sm text-slate-700">

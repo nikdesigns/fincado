@@ -401,11 +401,11 @@ export default function NSCClient({
                 </div>
 
                 {/* Section 80C Info */}
-                <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <div className="text-xs font-semibold text-blue-900 mb-1">
+                <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                  <div className="text-xs font-semibold text-emerald-900 mb-1">
                     {t.section80C}
                   </div>
-                  <div className="text-sm font-bold text-blue-700">
+                  <div className="text-sm font-bold text-emerald-700">
                     {formatINR(results.section80CEligible)}
                   </div>
                   <div className="text-xs text-slate-600 mt-1">
