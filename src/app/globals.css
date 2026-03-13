@@ -161,9 +161,44 @@ body {
 body {
   font-family: 'Rubik', system-ui, sans-serif;
   background: var(--color-bg-soft);
+  color: var(--color-text-main);
+  font-weight: 500;
   margin: 0;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   GLOBAL STYLE HARMONIZATION
+   ========================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #1e4a6f;
+  font-weight: 600;
+}
+
+p,
+li,
+label,
+input,
+textarea,
+select,
+button {
+  color: var(--color-text-main);
+  font-weight: 500;
+}
+
+a {
+  color: #577a30;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #486629;
 }
 
 /* =========================================
