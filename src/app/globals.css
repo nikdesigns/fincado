@@ -84,6 +84,7 @@
   --color-cyan-700: #486629;
   --color-cyan-800: #395122;
   --color-cyan-900: #2b3d1b;
+  --text-emerald-700: #74a046;
 }
 
 :root {
@@ -177,7 +178,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #1e4a6f;
+  color: #111827;
   font-weight: 600;
 }
 
@@ -193,7 +194,7 @@ button {
 }
 
 a {
-  color: #577a30;
+  color: #111827;
   font-weight: 500;
 }
 
