@@ -249,9 +249,9 @@ export default function EMIPage() {
                     <div className="text-sm font-medium text-[#74A046] mb-2">
                       EMI for ₹25 Lakh @ 8.5% (20Y)
                     </div>
-                    <div className="text-3xl font-semibold text-[#577A30]">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹21,675
-                      <span className="text-base font-medium text-[#74A046]">
+                      <span className="text-base font-medium text-slate-600">
                         /month
                       </span>
                     </div>
@@ -266,9 +266,9 @@ export default function EMIPage() {
                     <div className="text-sm font-medium text-[#74A046] mb-2">
                       SBI Home Loan (Updated {updatedLabel})
                     </div>
-                    <div className="text-3xl font-semibold text-[#577A30]">
+                    <div className="text-3xl font-semibold text-slate-900">
                       8.50%
-                      <span className="text-base font-medium text-[#74A046]">
+                      <span className="text-base font-medium text-slate-600">
                         {' '}
                         p.a.
                       </span>
@@ -284,9 +284,9 @@ export default function EMIPage() {
                     <div className="text-sm font-medium text-[#74A046] mb-2">
                       Prepay ₹1L on ₹20L loan
                     </div>
-                    <div className="text-3xl font-semibold text-[#577A30]">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹1.2L
-                      <span className="text-base font-medium text-[#74A046]">
+                      <span className="text-base font-medium text-slate-600">
                         {' '}
                         saved
                       </span>

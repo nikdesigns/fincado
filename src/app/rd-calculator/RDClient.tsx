@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import EMIPieChart from '@/components/EMIPieChart';
 import CalculatorField from '@/components/CalculatorField';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -121,7 +121,7 @@ const formatINR = (val: number) =>
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(isNaN(val) ? 0 : val);
 
 // Sample bank RD rates (Feb 2026)
 const POPULAR_BANKS: BankRate[] = [
@@ -158,7 +158,7 @@ export default function RDClient({
 }: {
   labels?: Partial<RDLabels>;
 }) {
-  const t = { ...DEFAULT_LABELS, ...labels };
+  const t = useMemo(() => ({ ...DEFAULT_LABELS, ...labels }), [labels]);
 
   /* ---------- STATE ---------- */
   const [monthlyDeposit, setMonthlyDeposit] = useState(5000);
@@ -169,25 +169,19 @@ export default function RDClient({
   const [showBankRates, setShowBankRates] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const [isClient, setIsClient] = useState(false);
+  const isClient = typeof window !== 'undefined';
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
+  >(() => {
+    if (typeof window === 'undefined') return [];
     try {
       const saved = localStorage.getItem('rd_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
+      return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
     } catch (error) {
       console.error('Error loading saved RD calculations:', error);
+      return [];
     }
-  }, []);
+  });
 
   // Track calculator load
   useEffect(() => {
@@ -213,31 +207,37 @@ export default function RDClient({
   /* ---------- CALCULATIONS ---------- */
   const results = useMemo(() => {
     const totalMonths = years * 12 + months;
+    const durationYears = totalMonths / 12;
     const r = rate / 100;
     const n = 4; // Quarterly compounding
 
     let maturityAmount = 0;
 
-    if (rate === 0) {
+    if (totalMonths <= 0) {
+      maturityAmount = 0;
+    } else if (rate === 0) {
       maturityAmount = monthlyDeposit * totalMonths;
     } else {
       // Calculate maturity for each monthly installment
       for (let i = 0; i < totalMonths; i++) {
         const monthsRemaining = totalMonths - i;
-        const t = monthsRemaining / 12;
-        maturityAmount += monthlyDeposit * Math.pow(1 + r / n, n * t);
+        const tYears = monthsRemaining / 12;
+        maturityAmount += monthlyDeposit * Math.pow(1 + r / n, n * tYears);
       }
     }
+
+    if (!isFinite(maturityAmount) || maturityAmount < 0) maturityAmount = 0;
 
     const totalInvestment = monthlyDeposit * totalMonths;
     const totalInterest = maturityAmount - totalInvestment;
 
-    // TDS Calculation (10% if interest > threshold)
-    const annualInterest = totalInterest / Math.max(years + months / 12, 1);
+    // TDS Calculation (10% if annual interest > threshold)
+    const safeDuration = Math.max(durationYears, 0.0001);
+    const annualInterest = totalInterest / safeDuration;
     const tdsThreshold = isSeniorCitizen ? 50000 : 40000;
     const tdsDeducted =
       annualInterest > tdsThreshold ? annualInterest * 0.1 : 0;
-    const totalTDS = tdsDeducted * (years + months / 12);
+    const totalTDS = tdsDeducted * durationYears;
 
     const netInterest = totalInterest - totalTDS;
     const finalMaturity = totalInvestment + netInterest;
@@ -245,7 +245,7 @@ export default function RDClient({
     const principalPct =
       finalMaturity > 0
         ? Math.round((totalInvestment / finalMaturity) * 100)
-        : 0;
+        : 100;
 
     return {
       maturity: Math.round(finalMaturity),
@@ -260,8 +260,13 @@ export default function RDClient({
 
   /* ---------- HANDLERS ---------- */
   const handleSave = () => {
+    const nextId =
+      savedCalculations.length > 0
+        ? Math.max(...savedCalculations.map((c) => c.id)) + 1
+        : 1;
+
     const calc: SavedCalculation = {
-      id: Date.now(),
+      id: nextId,
       monthlyDeposit,
       rate,
       years,
@@ -360,7 +365,7 @@ export default function RDClient({
   return (
     <div className="space-y-6">
       {/* Senior Citizen Toggle */}
-      <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 to-emerald-50">
+      <Card className="border-slate-200">
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -368,6 +373,7 @@ export default function RDClient({
                 checked={isSeniorCitizen}
                 onCheckedChange={handleSeniorCitizenToggle}
                 id="rd-senior-citizen-mode"
+                className="data-[state=checked]:bg-[#B0EC70] data-[state=unchecked]:bg-slate-300"
               />
               <label
                 htmlFor="rd-senior-citizen-mode"
@@ -450,7 +456,7 @@ export default function RDClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityAmount}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(results.maturity)}
                 </div>
 
@@ -466,12 +472,12 @@ export default function RDClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-lime-200 bg-lime-50">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">
+                      <div className="text-xs text-[#577A30]">
                         {t.netInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-lime-700">
+                      <div className="mt-1 font-semibold text-[#577A30]">
                         +{formatINR(results.interest)}
                       </div>
                     </CardContent>
@@ -561,10 +567,10 @@ export default function RDClient({
 
       {/* Bank Rates Comparison */}
       {showBankRates && (
-        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Building2 className="h-5 w-5 text-emerald-600" />
+              <Building2 className="h-5 w-5 text-[#577A30]" />
               {t.popularBankRates}
             </CardTitle>
           </CardHeader>
@@ -572,7 +578,7 @@ export default function RDClient({
             {POPULAR_BANKS.map((bank) => (
               <div
                 key={bank.name}
-                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-emerald-300 transition"
+                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-[#577A30] transition"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
@@ -585,7 +591,7 @@ export default function RDClient({
                     <div className="flex gap-4 mt-2 text-sm">
                       <div>
                         <span className="text-slate-600">{t.general} </span>
-                        <strong className="text-emerald-700">
+                        <strong className="text-[#577A30]">
                           {bank.generalRate}%
                         </strong>
                       </div>
@@ -611,7 +617,7 @@ export default function RDClient({
               </div>
             ))}
 
-            <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+            <div className="p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
               <p className="text-xs text-slate-700">
                 <strong>Note:</strong> {t.ratesNote}
               </p>
@@ -651,7 +657,7 @@ export default function RDClient({
                           {formatINR(calc.monthlyDeposit)}/month @ {calc.rate}%
                           for {calc.years}y {calc.months}m
                           {calc.isSeniorCitizen && (
-                            <span className="ml-2 text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded">
+                            <span className="ml-2 text-xs text-[#577A30] bg-[#F7FDF1] px-2 py-0.5 rounded">
                               {t.seniorCitizen}
                             </span>
                           )}

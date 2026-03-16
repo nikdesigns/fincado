@@ -131,7 +131,7 @@ function ELSSPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#64748b"
+            stroke="#E5E7EB"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash1} ${circumference}`}
             strokeLinecap="butt"
@@ -144,7 +144,7 @@ function ELSSPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#84cc16"
+            stroke="#B0EC70"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash2} ${circumference}`}
             strokeDashoffset={offset2}
@@ -158,7 +158,7 @@ function ELSSPieChart({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
             Returns
           </span>
-          <span className="text-2xl font-bold text-lime-600">
+          <span className="text-2xl font-semibold text-[#92C65B]">
             {returnsPct}%
           </span>
         </div>
@@ -171,7 +171,7 @@ function ELSSPieChart({
           <span className="text-xs font-medium text-slate-600">Invested</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-lime-500" />
+          <div className="w-3 h-3 rounded-full bg-[#B0EC70]" />
           <span className="text-xs font-medium text-slate-600">Returns</span>
         </div>
       </div>
@@ -413,7 +413,7 @@ export default function ELSSClient({
   return (
     <div className="space-y-6">
       {/* Investment Mode Toggle */}
-      <Card className="border-lime-200 bg-linear-to-r from-lime-50 to-emerald-50">
+      <Card>
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -421,6 +421,7 @@ export default function ELSSClient({
                 checked={isLumpsum}
                 onCheckedChange={setIsLumpsum}
                 id="investment-mode"
+                className="data-[state=checked]:bg-[#B0EC70] data-[state=unchecked]:bg-slate-300"
               />
               <label
                 htmlFor="investment-mode"
@@ -481,8 +482,8 @@ export default function ELSSClient({
                       onClick={() => setTaxBracket(bracket.value)}
                       className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
                         taxBracket === bracket.value
-                          ? 'border-lime-600 bg-lime-50 text-lime-900 font-semibold'
-                          : 'border-slate-200 hover:border-lime-300'
+                          ? 'border-[#74A046] bg-[#F7FDF1] text-[#74A046] font-semibold'
+                          : 'border-slate-200 hover:border-[#74A046]'
                       }`}
                     >
                       {bracket.label}
@@ -506,12 +507,12 @@ export default function ELSSClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#92C65B]">
                   {formatINR(calculations.futureValue)}
                 </div>
 
                 {/* TAX SAVED */}
-                <div className="mt-4 inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-800">
+                <div className="mt-4 inline-flex items-center gap-2 rounded-md border border-[#DFF7C6] bg-[#F7FDF1] px-3 py-1.5 text-sm text-[#577A30]">
                   <Shield className="h-4 w-4" />
                   Save ~
                   <strong>{formatINR(calculations.yearlyTaxSaved)}</strong>
@@ -528,22 +529,20 @@ export default function ELSSClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-emerald-200 bg-emerald-50">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-emerald-700">
-                        {t.returns}
-                      </div>
-                      <div className="mt-1 font-semibold text-emerald-700">
+                      <div className="text-xs text-[#74A046]">{t.returns}</div>
+                      <div className="mt-1 font-semibold text-[#74A046]">
                         +{formatINR(calculations.totalReturns)}
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="mt-4 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700">{t.taxSaved}:</span>
-                    <span className="font-bold text-emerald-700">
+                    <span className="font-semibold text-[#74A046]">
                       {formatINR(calculations.totalTaxSaved)}
                     </span>
                   </div>
@@ -583,37 +582,37 @@ export default function ELSSClient({
 
       {/* ELSS vs PPF Comparison */}
       {showComparison && ppfComparison && (
-        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <TrendingUp className="h-5 w-5 text-emerald-600" />
+              <TrendingUp className="h-5 w-5 text-[#92C65B]" />
               ELSS vs PPF Comparison
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* ELSS Card */}
-              <div className="p-5 bg-lime-50 rounded-lg border-2 border-lime-200">
-                <h4 className="font-semibold text-lime-900 mb-3 flex items-center gap-2">
+              <div className="p-5 bg-[#F7FDF1] rounded-lg border-2 border-[#DFF7C6]">
+                <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                   <IndianRupee className="h-5 w-5" />
                   {t.elssTitle}
                 </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-slate-600">{t.maturity}</span>
-                    <strong className="text-lime-700">
+                    <strong className="text-[#74A046]">
                       {formatINR(calculations.futureValue)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-600">{t.returns}:</span>
-                    <strong className="text-lime-700">
+                    <strong className="text-[#74A046]">
                       {formatINR(calculations.totalReturns)}
                     </strong>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-600">{t.taxSaved}:</span>
-                    <strong className="text-lime-700">
+                    <strong className="text-[#74A046]">
                       {formatINR(calculations.totalTaxSaved)}
                     </strong>
                   </div>
@@ -657,10 +656,10 @@ export default function ELSSClient({
               </div>
             </div>
 
-            <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+            <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
               <p className="text-sm text-slate-700">
                 <strong>{t.advantage}</strong> You gain an extra{' '}
-                <strong className="text-emerald-700">
+                <strong className="text-[#74A046]">
                   {formatINR(Math.max(0, ppfComparison.difference))}
                 </strong>{' '}
                 with ELSS compared to PPF, plus enjoy a much shorter lock-in
@@ -715,7 +714,7 @@ export default function ELSSClient({
                           {formatINR(calc.monthlySIP)}{' '}
                           {calc.isLumpsum ? '(Lump Sum)' : '/ month'} @{' '}
                           {calc.rate}% for {calc.years} years
-                          <span className="ml-2 text-xs text-lime-600 bg-lime-100 px-2 py-0.5 rounded">
+                          <span className="ml-2 text-xs text-[#92C65B] bg-[#EFFBE2] px-2 py-0.5 rounded">
                             Tax: {calc.taxBracket * 100}%
                           </span>
                         </div>
@@ -723,7 +722,7 @@ export default function ELSSClient({
                           Maturity: {formatINR(calc.futureValue)} | Tax Saved:{' '}
                           {formatINR(calc.totalTaxSaved)}
                         </div>
-                        <div className="text-[11px] text-emerald-700 mt-0.5">
+                        <div className="text-[11px] text-[#74A046] mt-0.5">
                           Returns: {formatINR(calc.totalReturns)}
                         </div>
                       </div>

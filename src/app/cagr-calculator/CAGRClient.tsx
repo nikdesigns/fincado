@@ -123,11 +123,15 @@ export default function CAGRClient({
         ((finalValue - initialInvestment) / initialInvestment) * 100;
 
       // For pie chart: investment vs gain
-      const principalPct =
-        finalValue > 0
-          ? Math.round((initialInvestment / finalValue) * 100)
-          : 100;
-      const gainPct = 100 - principalPct;
+      // For pie chart: principal vs outcome (gain/loss-safe)
+      // Clamp values to [0, 100] so chart segments never become negative/invalid.
+      const principalPctRaw =
+        (initialInvestment / Math.max(finalValue, 1)) * 100;
+      const principalPct = Math.min(
+        100,
+        Math.max(0, Math.round(principalPctRaw)),
+      );
+      const gainPct = Math.min(100, Math.max(0, 100 - principalPct));
 
       return {
         cagr: cagrValue,
@@ -290,7 +294,7 @@ export default function CAGRClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.cagrResult}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#577A30]">
                   {results.cagr.toFixed(2)}%
                 </div>
                 <div className="text-sm text-slate-500 mt-1">{t.perYear}</div>
@@ -307,12 +311,12 @@ export default function CAGRClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-emerald-200 bg-emerald-50 dark:bg-emerald-900/15 dark:border-emerald-900">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-emerald-700 dark:text-emerald-400">
+                      <div className="text-xs text-[#577A30]">
                         {t.totalGainPercent}
                       </div>
-                      <div className="mt-1 font-semibold text-emerald-700 dark:text-emerald-400 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-[#577A30] whitespace-nowrap">
                         {results.gainPercent.toFixed(2)}%
                       </div>
                     </CardContent>
@@ -370,7 +374,7 @@ export default function CAGRClient({
                       <div>
                         <div className="font-semibold text-sm">
                           {formatINR(calc.initial)} → {formatINR(calc.final)}{' '}
-                          <span className="text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded ml-1">
+                          <span className="text-xs text-[#577A30] bg-[#EFFBE2] px-2 py-0.5 rounded ml-1">
                             {calc.years}y
                           </span>
                         </div>

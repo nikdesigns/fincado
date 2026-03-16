@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     'section 80e tax benefit',
     'education loan eligibility',
     'sbi student loan',
-    'hdfc education loan'
+    'hdfc education loan',
   ],
   alternates: {
     canonical: '/loans/education-loan/',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Education Loan EMI Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -108,7 +108,7 @@ export default function EducationLoanEMIPage() {
         <tbody>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Interest Rate</td>
-            <td class="p-3 border text-emerald-700">8.50% - 11.50%</td>
+            <td class="p-3 border text-[#74A046]">8.50% - 11.50%</td>
             <td class="p-3 border">9.50% - 13.50%</td>
           </tr>
           <tr class="hover:bg-slate-50">
@@ -202,7 +202,7 @@ export default function EducationLoanEMIPage() {
       question: 'Can I prepay education loan and save on Section 80E benefits?',
       answer:
         "Yes, you can prepay without penalty at most banks. However, consider this: If your tax bracket is 30%, and loan rate is 10%, effective post-tax cost is only 7% (due to 80E deduction). If you can earn >7% returns elsewhere, don't prepay. Prepay only if your return on investments is lower.",
-    }
+    },
   ];
   const updatedLabel = getCurrentMonthYearLabel();
 
@@ -219,7 +219,7 @@ export default function EducationLoanEMIPage() {
           {
             name: 'Education Loan EMI Calculator',
             url: '/loans/education-loan/',
-          }
+          },
         ]}
       />
 
@@ -282,7 +282,7 @@ export default function EducationLoanEMIPage() {
                     <div className="text-sm text-slate-600 mb-2">
                       SBI Scholar Loan {updatedLabel}
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       8.50%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -292,15 +292,15 @@ export default function EducationLoanEMIPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       TAX BENEFIT (80E)
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Interest Deduction (8 Years)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       100%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -310,15 +310,15 @@ export default function EducationLoanEMIPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-linear-to-br from-blue-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-blue-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       MORATORIUM PERIOD
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Grace Period Before EMI
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       Course
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -401,8 +401,8 @@ export default function EducationLoanEMIPage() {
                     </div>
                   </div>
 
-                  <div className="p-5 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Education Loan with Moratorium
                     </h4>
@@ -431,7 +431,7 @@ export default function EducationLoanEMIPage() {
                       </div>
 
                       {/* Step 1: Moratorium interest */}
-                      <div className="pt-3 border-t border-blue-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Step 1: Interest Accrued During Moratorium (Simple
                           Interest)
@@ -472,16 +472,16 @@ export default function EducationLoanEMIPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]0">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Monthly EMI (approx):
                         </div>
-                        <div className="text-3xl font-bold text-emerald-700">
+                        <div className="text-3xl font-semibold text-[#74A046]">
                           ≈ ₹19,800
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-blue-300 space-y-2 text-xs">
+                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2 text-xs">
                         <div className="flex justify-between">
                           <span>Total Interest (moratorium + EMI period):</span>
                           <strong className="text-red-600">
@@ -535,8 +535,8 @@ export default function EducationLoanEMIPage() {
             </section>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
-              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1]0 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Section 80E Tax Benefit
@@ -580,7 +580,7 @@ export default function EducationLoanEMIPage() {
                       <tbody className="divide-y divide-slate-100">
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">SBI</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.50% - 10.50%
                           </td>
                           <td className="p-3">9.50% - 11.50%</td>
@@ -589,7 +589,7 @@ export default function EducationLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">HDFC Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             9.50% - 11.00%
                           </td>
                           <td className="p-3">10.50% - 12.50%</td>
@@ -598,7 +598,7 @@ export default function EducationLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">ICICI Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             10.50% - 11.50%
                           </td>
                           <td className="p-3">11.50% - 13.00%</td>
@@ -607,7 +607,7 @@ export default function EducationLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Axis Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             13.70% - 15.20%
                           </td>
                           <td className="p-3">14.50% - 16.00%</td>
@@ -616,7 +616,7 @@ export default function EducationLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Bank of Baroda</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.85% - 10.15%
                           </td>
                           <td className="p-3">9.85% - 11.50%</td>
@@ -843,7 +843,7 @@ export default function EducationLoanEMIPage() {
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-indigo-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-indigo-700 mb-1">
                                   General EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -868,7 +868,7 @@ export default function EducationLoanEMIPage() {
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-purple-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-purple-700 mb-1">
                                   Personal Loan Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">

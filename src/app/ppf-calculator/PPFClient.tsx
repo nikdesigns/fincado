@@ -39,6 +39,12 @@ interface SavedCalculation {
   date: string;
 }
 
+interface YearlyBreakdown {
+  year: number;
+  balance: number;
+  interestEarned: number;
+}
+
 interface PPFLabels {
   contributionMode: string;
   monthly: string;
@@ -113,6 +119,86 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
+const PPF_ANNUAL_LIMIT = 150000;
+const PPF_STORAGE_KEY = 'ppf_calculator_history';
+
+const getSavedCalculations = (): SavedCalculation[] => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const saved = localStorage.getItem(PPF_STORAGE_KEY);
+    return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
+  } catch (error) {
+    console.error('Error loading saved PPF calculations:', error);
+    return [];
+  }
+};
+
+const simulatePPF = ({
+  mode,
+  monthlyContribution,
+  annualContribution,
+  years,
+  annualRate,
+}: {
+  mode: 'monthly' | 'annual';
+  monthlyContribution: number;
+  annualContribution: number;
+  years: number;
+  annualRate: number;
+}) => {
+  let balance = 0;
+  let invested = 0;
+  const monthlyRate = annualRate / 100 / 12;
+  const yearlyBreakdown: YearlyBreakdown[] = [];
+
+  for (let year = 1; year <= years; year++) {
+    const openingBalance = balance;
+    let yearlyInvested = 0;
+
+    if (mode === 'annual') {
+      const yearlyDeposit = Math.min(annualContribution, PPF_ANNUAL_LIMIT);
+      balance += yearlyDeposit;
+      invested += yearlyDeposit;
+      yearlyInvested = yearlyDeposit;
+
+      for (let month = 0; month < 12; month++) {
+        balance *= 1 + monthlyRate;
+      }
+    } else {
+      let capRemaining = PPF_ANNUAL_LIMIT;
+
+      for (let month = 0; month < 12; month++) {
+        const deposit = Math.min(monthlyContribution, capRemaining);
+        balance += deposit;
+        invested += deposit;
+        yearlyInvested += deposit;
+        capRemaining -= deposit;
+        balance *= 1 + monthlyRate;
+      }
+    }
+
+    if (year <= 5) {
+      yearlyBreakdown.push({
+        year,
+        balance: Math.round(balance),
+        interestEarned: Math.round(balance - openingBalance - yearlyInvested),
+      });
+    }
+  }
+
+  const maturity = Math.round(balance);
+  const totalInvested = Math.round(invested);
+  const interest = Math.max(0, maturity - totalInvested);
+
+  return {
+    maturity,
+    invested: totalInvested,
+    interest,
+    yearlyBreakdown,
+  };
+};
+
 export default function PPFClient({
   labels = DEFAULT_LABELS,
 }: {
@@ -127,26 +213,9 @@ export default function PPFClient({
   const [years, setYears] = useState(15);
   const [annualRate, setAnnualRate] = useState(7.1);
   const [showAdvanced, setShowAdvanced] = useState(false);
-
-  const [isClient, setIsClient] = useState(false);
-  const [savedCalculations, setSavedCalculations] = useState<
-    SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
-    try {
-      const saved = localStorage.getItem('ppf_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved PPF calculations:', error);
-    }
-  }, []);
+  const isClient = typeof window !== 'undefined';
+  const [savedCalculations, setSavedCalculations] =
+    useState<SavedCalculation[]>(getSavedCalculations);
 
   // Track calculator load
   useEffect(() => {
@@ -160,61 +229,21 @@ export default function PPFClient({
 
   /* ---------- CALCULATIONS ---------- */
   const calculations = useMemo(() => {
-    const months = years * 12;
-    const yearlyRate = annualRate / 100;
+    const { maturity, invested, interest, yearlyBreakdown } = simulatePPF({
+      mode,
+      monthlyContribution,
+      annualContribution,
+      years,
+      annualRate,
+    });
 
-    let maturity = 0;
-    let invested = 0;
-
-    if (mode === 'monthly') {
-      invested = monthlyContribution * months;
-      const annualDeposit = monthlyContribution * 12;
-
-      if (yearlyRate === 0) {
-        maturity = invested;
-      } else {
-        // PPF formula: Future Value of Annuity Due (deposits at beginning of year)
-        maturity =
-          annualDeposit *
-          ((Math.pow(1 + yearlyRate, years) - 1) / yearlyRate) *
-          (1 + yearlyRate);
-      }
-    } else {
-      invested = annualContribution * years;
-
-      if (yearlyRate === 0) {
-        maturity = invested;
-      } else {
-        maturity =
-          annualContribution *
-          ((Math.pow(1 + yearlyRate, years) - 1) / yearlyRate) *
-          (1 + yearlyRate);
-      }
-    }
-
-    const interest = Math.max(0, maturity - invested);
     const principalPct =
       maturity > 0 ? Math.round((invested / maturity) * 100) : 0;
 
-    // Calculate year-wise breakdown for advanced view
-    const yearlyBreakdown = [];
-    let runningBalance = 0;
-    const deposit =
-      mode === 'monthly' ? monthlyContribution * 12 : annualContribution;
-
-    for (let year = 1; year <= Math.min(years, 5); year++) {
-      runningBalance = (runningBalance + deposit) * (1 + yearlyRate);
-      yearlyBreakdown.push({
-        year,
-        balance: Math.round(runningBalance),
-        interestEarned: Math.round(runningBalance - deposit * year),
-      });
-    }
-
     return {
-      maturity: Math.round(maturity),
-      invested: Math.round(invested),
-      interest: Math.round(interest),
+      maturity,
+      invested,
+      interest,
       principalPct,
       interestPct: 100 - principalPct,
       yearlyBreakdown,
@@ -234,8 +263,12 @@ export default function PPFClient({
   };
 
   const handleSave = () => {
+    const nextId = savedCalculations.length
+      ? Math.max(...savedCalculations.map((item) => item.id)) + 1
+      : 1;
+
     const calc: SavedCalculation = {
-      id: Date.now(),
+      id: nextId,
       mode,
       monthlyContribution,
       annualContribution,
@@ -251,7 +284,7 @@ export default function PPFClient({
     setSavedCalculations(updated);
 
     try {
-      localStorage.setItem('ppf_calculator_history', JSON.stringify(updated));
+      localStorage.setItem(PPF_STORAGE_KEY, JSON.stringify(updated));
     } catch (error) {
       console.error('Error saving PPF calculation:', error);
     }
@@ -301,7 +334,7 @@ export default function PPFClient({
     setSavedCalculations(updated);
 
     try {
-      localStorage.setItem('ppf_calculator_history', JSON.stringify(updated));
+      localStorage.setItem(PPF_STORAGE_KEY, JSON.stringify(updated));
     } catch (error) {
       console.error('Error updating PPF history:', error);
     }
@@ -312,7 +345,7 @@ export default function PPFClient({
   const handleClearAll = () => {
     setSavedCalculations([]);
     try {
-      localStorage.removeItem('ppf_calculator_history');
+      localStorage.removeItem(PPF_STORAGE_KEY);
     } catch (error) {
       console.error('Error clearing PPF history:', error);
     }
@@ -332,17 +365,17 @@ export default function PPFClient({
   return (
     <div className="space-y-6">
       {/* PPF Info Card */}
-      <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 to-green-50">
+      <Card className="border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1]">
         <CardContent className="py-4">
           <div className="flex items-start gap-3">
-            <Shield className="h-5 w-5 text-emerald-600 mt-0.5" />
+            <Shield className="h-5 w-5 text-[#577A30] mt-0.5" />
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-emerald-900 mb-1">
+              <h3 className="text-sm font-semibold text-[#1B2E06] mb-1">
                 Tax-Free Returns • EEE Status • Government Backed
               </h3>
               <p className="text-xs text-slate-700">
                 Current PPF rate:{' '}
-                <strong className="text-emerald-700">{annualRate}%</strong> |
+                <strong className="text-[#577A30]">{annualRate}%</strong> |
                 15-year lock-in | Max investment: ₹1.5L/year | Section 80C
                 benefit
               </p>
@@ -355,13 +388,13 @@ export default function PPFClient({
       <Card className="border-border shadow-sm bg-card">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Lock className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Lock className="h-5 w-5 text-[#577A30]" />
               PPF Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -410,11 +443,12 @@ export default function PPFClient({
               <div className="p-3 bg-amber-50 rounded-lg border border-amber-200">
                 <p className="text-xs text-slate-700">
                   <strong>{t.noteLabel}</strong> {t.noteText}
-                  {mode === 'monthly' && monthlyContribution * 12 > 150000 && (
-                    <span className="text-red-600 block mt-1">
-                      {t.warningText}
-                    </span>
-                  )}
+                  {mode === 'monthly' &&
+                    monthlyContribution * 12 > PPF_ANNUAL_LIMIT && (
+                      <span className="text-red-600 block mt-1">
+                        {t.warningText}
+                      </span>
+                    )}
                 </p>
               </div>
 
@@ -463,7 +497,7 @@ export default function PPFClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(calculations.maturity)}
                 </div>
 
@@ -479,25 +513,25 @@ export default function PPFClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-lime-200 bg-lime-50">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">
+                      <div className="text-xs text-[#577A30]">
                         {t.totalInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-lime-700">
+                      <div className="mt-1 font-semibold text-[#577A30]">
                         +{formatINR(calculations.interest)}
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="mt-4 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700 flex items-center gap-1">
-                      <TrendingUp className="h-4 w-4 text-emerald-600" />
+                      <TrendingUp className="h-4 w-4 text-[#577A30]" />
                       {t.effectiveReturn}
                     </span>
-                    <span className="font-bold text-emerald-700">
+                    <span className="font-semibold text-[#577A30]">
                       {calculations.effectiveReturn}%
                     </span>
                   </div>
@@ -528,7 +562,7 @@ export default function PPFClient({
                               {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
-                            <span className="text-green-700">
+                            <span className="text-[#577A30]">
                               {t.interest}{' '}
                               <strong>{formatINR(item.interestEarned)}</strong>
                             </span>

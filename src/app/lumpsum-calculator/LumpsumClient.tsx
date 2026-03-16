@@ -89,14 +89,14 @@ const formatINR = (val: number) =>
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(isNaN(val) ? 0 : val);
 
 export default function LumpsumClient({
   labels = DEFAULT_LABELS,
 }: {
   labels?: Partial<LumpsumLabels>;
 }) {
-  const t = { ...DEFAULT_LABELS, ...labels };
+  const t = useMemo(() => ({ ...DEFAULT_LABELS, ...labels }), [labels]);
 
   /* ---------- STATE ---------- */
   const [principal, setPrincipal] = useState(100000);
@@ -104,25 +104,20 @@ export default function LumpsumClient({
   const [years, setYears] = useState(10);
   const [frequency, setFrequency] = useState<CompoundingFreq>('yearly');
 
-  const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
+  >(() => {
+    if (typeof window === 'undefined') return [];
     try {
       const saved = localStorage.getItem('lumpsum_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
+      return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
     } catch (error) {
       console.error('Error loading saved lumpsum calculations:', error);
+      return [];
     }
-  }, []);
+  });
+
+  const isClient = typeof window !== 'undefined';
 
   // Track calculator load
   useEffect(() => {
@@ -144,6 +139,8 @@ export default function LumpsumClient({
       futureValue = principal * Math.pow(1 + r / n, n * years);
     }
 
+    if (!isFinite(futureValue) || futureValue < 0) futureValue = 0;
+
     const wealth = futureValue - principal;
 
     const principalPct =
@@ -160,8 +157,13 @@ export default function LumpsumClient({
 
   /* ---------- HANDLERS ---------- */
   const handleSave = () => {
+    const nextId =
+      savedCalculations.length > 0
+        ? Math.max(...savedCalculations.map((c) => c.id)) + 1
+        : 1;
+
     const calc: SavedCalculation = {
-      id: Date.now(),
+      id: nextId,
       principal,
       rate,
       years,
@@ -195,12 +197,17 @@ export default function LumpsumClient({
   };
 
   const handleShare = () => {
+    const prettyFrequency =
+      frequency === 'half-yearly'
+        ? 'Half-Yearly'
+        : frequency.charAt(0).toUpperCase() + frequency.slice(1);
+
     const message =
       `📈 Lumpsum Investment Calculation\n\n` +
       `Investment: ${formatINR(principal)}\n` +
       `Expected Return: ${rate}% p.a.\n` +
       `Time Period: ${years} years\n` +
-      `Compounding: ${frequency.charAt(0).toUpperCase() + frequency.slice(1)}\n\n` +
+      `Compounding: ${prettyFrequency}\n\n` +
       `💰 Future Value: ${formatINR(results.futureValue)}\n` +
       `📊 Wealth Gained: ${formatINR(results.wealth)}\n\n` +
       `Calculate yours: https://fincado.com/lumpsum-calculator/`;
@@ -298,7 +305,7 @@ export default function LumpsumClient({
                   className="
                     w-full rounded-md border border-slate-300
                     bg-white px-3 py-2 text-sm
-                    focus:outline-none focus:ring-2 focus:ring-lime-500
+                    focus:outline-none focus:ring-2 focus:ring-[#B0EC70]
                   "
                 >
                   <option value="monthly">{t.monthly}</option>
@@ -321,7 +328,7 @@ export default function LumpsumClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.futureValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(results.futureValue)}
                 </div>
 
@@ -337,12 +344,12 @@ export default function LumpsumClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-lime-200 bg-lime-50">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">
+                      <div className="text-xs text-[#577A30]">
                         {t.totalWealth}
                       </div>
-                      <div className="mt-1 font-semibold text-lime-700">
+                      <div className="mt-1 font-semibold text-[#577A30]">
                         +{formatINR(results.wealth)}
                       </div>
                     </CardContent>

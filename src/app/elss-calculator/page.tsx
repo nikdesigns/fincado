@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'SIP Tax Saving',
     'ELSS vs PPF Calculator',
     'ELSS maturity calculator',
-    'tax saving calculator india'
+    'tax saving calculator india',
   ],
   alternates: {
     canonical: 'https://fincado.com/elss-calculator/',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado ELSS Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -183,7 +183,7 @@ export default function ELSSPage() {
       question: 'Can I switch from one ELSS fund to another?',
       answer:
         'You cannot directly switch between ELSS funds during the 3-year lock-in period. After lock-in expires, you can redeem and reinvest in another ELSS fund, but this will trigger tax on gains and reset the lock-in period for new investments.',
-    }
+    },
   ];
 
   return (
@@ -195,7 +195,7 @@ export default function ELSSPage() {
           {
             name: 'ELSS Calculator',
             url: 'https://fincado.com/elss-calculator/',
-          }
+          },
         ]}
       />
       <CalculatorSchema
@@ -218,14 +218,14 @@ export default function ELSSPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-lime-50 to-emerald-100 text-lime-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046]">
               <Shield className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 ELSS Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-lime-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Save tax under Section 80C and grow long-term wealth
               </p>
             </div>
@@ -246,15 +246,15 @@ export default function ELSSPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-lime-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       TYPICAL RETURN (ELSS)
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Long-term average (5+ years)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       12–15%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -264,29 +264,29 @@ export default function ELSSPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       MAX TAX SAVING (30%)
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       On ₹1.5L investment annually
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹46,800
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       UPDATED DATA
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Lock-in & tax rules as of
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       {updatedLabel}
                     </div>
                   </CardContent>
@@ -303,8 +303,8 @@ export default function ELSSPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-lime-50/50 border-lime-200 text-slate-600">
-              <Info className="h-4 w-4 text-lime-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1]0 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Investment Tip
@@ -430,8 +430,8 @@ export default function ELSSPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: ELSS SIP Calculation
                     </h4>
@@ -454,7 +454,7 @@ export default function ELSSPage() {
                         <div>5 years (60 months)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-emerald-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Step 1: Monthly Return Rate (r)
                         </strong>
@@ -490,42 +490,44 @@ export default function ELSSPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]0">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Approx. Maturity Value:
                         </div>
-                        <div className="text-3xl font-bold text-emerald-700">
+                        <div className="text-3xl font-semibold text-[#74A046]">
                           ≈ ₹10,88,000
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
                         <div className="flex justify-between">
                           <span>Total Amount Invested:</span>
                           <strong>₹7,50,000</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Wealth Gain:</span>
-                          <strong className="text-green-700">
+                          <strong className="text-[#74A046]">
                             ≈ ₹3,38,000
                           </strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Tax Saved (Section 80C @ 30%):</span>
-                          <strong className="text-lime-700">≈ ₹2,25,000</strong>
+                          <strong className="text-[#74A046]">
+                            ≈ ₹2,25,000
+                          </strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Tax Saving Calculation */}
-                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
-                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
                       <Shield className="h-4 w-4" />
                       Section 80C Tax Saving Calculation
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-lime-200">
+                      <div className="p-3 bg-white rounded border border-[#DFF7C6]">
                         <strong>Annual Tax Saving = </strong>
                         <span className="font-mono">
                           min(Annual Investment, ₹1,50,000) × Tax Rate
@@ -575,18 +577,18 @@ export default function ELSSPage() {
             </section>
 
             {/* Promo content */}
-            <Card className="no-print my-6 border-lime-200 bg-lime-50/50 transition-colors hover:bg-lime-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lime-100 text-lime-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#92C65B]">
                   <TrendingUp className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-lime-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Want to maximize your Section 80C benefits?
                   </strong>
                   <Link
                     href="/sip-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#577A30]"
                   >
                     <span>Try our SIP Calculator for regular investing</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -663,7 +665,7 @@ export default function ELSSPage() {
                         <TableCell className="font-medium text-slate-700">
                           Returns (Expected)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           12% – 15% p.a.
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -678,7 +680,7 @@ export default function ELSSPage() {
                         <TableCell className="font-medium text-slate-700">
                           Lock-in Period
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           3 Years
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -696,10 +698,10 @@ export default function ELSSPage() {
                         <TableCell className="font-semibold text-amber-600">
                           Moderate to High
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Risk Free
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Risk Free
                         </TableCell>
                       </TableRow>
@@ -711,7 +713,7 @@ export default function ELSSPage() {
                         <TableCell className="text-slate-700">
                           LTCG: ₹1.25L free, then 12.5%
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Fully Tax Free (EEE)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -776,20 +778,20 @@ export default function ELSSPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
                             🔒
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Risk-free tax saving with guaranteed 7.1% returns.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                               <span>Calculate Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -800,21 +802,21 @@ export default function ELSSPage() {
                   </Link>
 
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Plan regular mutual fund investments for wealth
                               creation.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                               <span>Try Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

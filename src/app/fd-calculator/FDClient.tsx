@@ -139,7 +139,7 @@ const formatINR = (val: number) =>
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(isNaN(val) ? 0 : val);
 
 // Sample bank rates (Feb 2026)
 const POPULAR_BANKS: BankRate[] = [
@@ -176,7 +176,7 @@ export default function FDClient({
 }: {
   labels?: Partial<FDLabels>;
 }) {
-  const t = { ...DEFAULT_LABELS, ...labels };
+  const t = useMemo(() => ({ ...DEFAULT_LABELS, ...labels }), [labels]);
 
   /* ---------- STATE ---------- */
   const [principal, setPrincipal] = useState(100000);
@@ -187,25 +187,20 @@ export default function FDClient({
   const [isSeniorCitizen, setIsSeniorCitizen] = useState(false);
   const [showBankRates, setShowBankRates] = useState(false);
 
-  const [isClient, setIsClient] = useState(false);
+  // Avoid setState-in-effect lint by lazy init from localStorage
+  const isClient = typeof window !== 'undefined';
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
+  >(() => {
+    if (typeof window === 'undefined') return [];
     try {
       const saved = localStorage.getItem('fd_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
+      return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
     } catch (error) {
       console.error('Error loading saved FD calculations:', error);
+      return [];
     }
-  }, []);
+  });
 
   // Track calculator load
   useEffect(() => {
@@ -239,10 +234,13 @@ export default function FDClient({
       maturityAmount = principal * Math.pow(1 + r / n, n * timeInYears);
     }
 
+    if (!isFinite(maturityAmount) || maturityAmount < 0) maturityAmount = 0;
+
     const totalInterest = maturityAmount - principal;
 
-    // TDS Calculation (10% if interest > threshold)
-    const annualInterest = totalInterest / Math.max(timeInYears, 1);
+    // TDS Calculation (10% if annual interest > threshold)
+    const safeYears = Math.max(timeInYears, 0.0001);
+    const annualInterest = totalInterest / safeYears;
     const tdsThreshold = isSeniorCitizen ? 50000 : 40000;
     const tdsDeducted =
       annualInterest > tdsThreshold ? annualInterest * 0.1 : 0;
@@ -264,8 +262,13 @@ export default function FDClient({
 
   /* ---------- HANDLERS ---------- */
   const handleSave = () => {
+    const nextId =
+      savedCalculations.length > 0
+        ? Math.max(...savedCalculations.map((c) => c.id)) + 1
+        : 1;
+
     const calc: SavedCalculation = {
-      id: Date.now(),
+      id: nextId,
       principal,
       rate,
       years,
@@ -302,12 +305,17 @@ export default function FDClient({
       months > 0 ? `${years} years ${months} months` : `${years} years`;
     const seniorText = isSeniorCitizen ? ' (Senior Citizen Rate)' : '';
 
+    const prettyFrequency =
+      frequency === 'half-yearly'
+        ? 'Half-Yearly'
+        : frequency.charAt(0).toUpperCase() + frequency.slice(1);
+
     const message =
       `🏦 Fixed Deposit Calculation\n\n` +
       `Principal: ${formatINR(principal)}\n` +
       `Interest Rate: ${rate}% p.a.${seniorText}\n` +
       `Tenure: ${tenure}\n` +
-      `Compounding: ${frequency.charAt(0).toUpperCase() + frequency.slice(1)}\n\n` +
+      `Compounding: ${prettyFrequency}\n\n` +
       `💰 Maturity Amount: ${formatINR(results.maturity)}\n` +
       `📊 Interest Earned: ${formatINR(results.interest)}\n` +
       `💼 After TDS: ${formatINR(results.netInterest)}\n\n` +
@@ -366,7 +374,7 @@ export default function FDClient({
   return (
     <div className="space-y-6">
       {/* Senior Citizen Toggle */}
-      <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 to-emerald-50">
+      <Card className="border-slate-200">
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -374,6 +382,7 @@ export default function FDClient({
                 checked={isSeniorCitizen}
                 onCheckedChange={handleSeniorCitizenToggle}
                 id="senior-citizen-mode"
+                className="data-[state=checked]:bg-[#B0EC70] data-[state=unchecked]:bg-slate-300"
               />
               <label
                 htmlFor="senior-citizen-mode"
@@ -445,7 +454,7 @@ export default function FDClient({
                   className="
                     w-full rounded-md border border-slate-300
                     bg-white px-3 py-2 text-sm
-                    focus:outline-none focus:ring-2 focus:ring-lime-500
+                    focus:outline-none focus:ring-2 focus:ring-[#B0EC70]
                   "
                 >
                   <option value="monthly">{t.monthly}</option>
@@ -468,7 +477,7 @@ export default function FDClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityAmount}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#92C65B]">
                   {formatINR(results.maturity)}
                 </div>
 
@@ -484,12 +493,12 @@ export default function FDClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-lime-200 bg-lime-50">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">
+                      <div className="text-xs text-[#577A30]">
                         {t.totalInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-lime-700">
+                      <div className="mt-1 font-semibold text-[#577A30]">
                         +{formatINR(results.interest)}
                       </div>
                     </CardContent>
@@ -546,10 +555,10 @@ export default function FDClient({
 
       {/* Bank Rates Comparison */}
       {showBankRates && (
-        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Building2 className="h-5 w-5 text-emerald-600" />
+              <Building2 className="h-5 w-5 text-[#74A046]" />
               {t.popularBankRates}
             </CardTitle>
           </CardHeader>
@@ -557,7 +566,7 @@ export default function FDClient({
             {POPULAR_BANKS.map((bank) => (
               <div
                 key={bank.name}
-                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-emerald-300 transition"
+                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-[#D0F4A9] transition"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
@@ -570,7 +579,7 @@ export default function FDClient({
                     <div className="flex gap-4 mt-2 text-sm">
                       <div>
                         <span className="text-slate-600">{t.general} </span>
-                        <strong className="text-emerald-700">
+                        <strong className="text-[#577A30]">
                           {bank.generalRate}%
                         </strong>
                       </div>
@@ -594,7 +603,7 @@ export default function FDClient({
               </div>
             ))}
 
-            <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+            <div className="p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
               <p className="text-xs text-slate-700">
                 <strong>Note:</strong> {t.ratesNote}
               </p>
@@ -634,7 +643,7 @@ export default function FDClient({
                           {formatINR(calc.principal)} @ {calc.rate}% for{' '}
                           {calc.years}y {calc.months}m
                           {calc.isSeniorCitizen && (
-                            <span className="ml-2 text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded">
+                            <span className="ml-2 text-xs text-[#74A046] bg-[#EFFBE2] px-2 py-0.5 rounded">
                               {t.seniorCitizen}
                             </span>
                           )}

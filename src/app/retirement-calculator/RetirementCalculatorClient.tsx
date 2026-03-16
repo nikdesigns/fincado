@@ -245,6 +245,20 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(isNaN(val) ? 0 : val);
 
+const RETIREMENT_STORAGE_KEY = 'retirement_calculator_history';
+
+const getSavedCalculations = (): SavedCalculation[] => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const saved = localStorage.getItem(RETIREMENT_STORAGE_KEY);
+    return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
+  } catch (error) {
+    console.error('Error loading saved retirement calculations:', error);
+    return [];
+  }
+};
+
 /* ---------- COMPONENT ---------- */
 export default function RetirementCalculatorClient({
   labels,
@@ -287,24 +301,9 @@ export default function RetirementCalculatorClient({
   const [currentSavings2, setCurrentSavings2] = useState(750000);
 
   // ✅ Saved Calculations
-  const [isClient, setIsClient] = useState(false);
-  const [savedCalculations, setSavedCalculations] = useState<
-    SavedCalculation[]
-  >([]);
-
-  // ✅ Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('retirement_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved retirement calculations:', error);
-    }
-  }, []);
+  const isClient = typeof window !== 'undefined';
+  const [savedCalculations, setSavedCalculations] =
+    useState<SavedCalculation[]>(getSavedCalculations);
 
   // Track calculator load
   useEffect(() => {
@@ -388,11 +387,15 @@ export default function RetirementCalculatorClient({
       // Required monthly SIP
       let sip = 0;
       if (gap > 0 && monthsToRetire > 0) {
-        sip =
-          gap /
-          (((Math.pow(1 + monthlyPreReturn, monthsToRetire) - 1) /
-            monthlyPreReturn) *
-            (1 + monthlyPreReturn));
+        if (monthlyPreReturn <= 0) {
+          sip = gap / monthsToRetire;
+        } else {
+          sip =
+            gap /
+            (((Math.pow(1 + monthlyPreReturn, monthsToRetire) - 1) /
+              monthlyPreReturn) *
+              (1 + monthlyPreReturn));
+        }
       }
 
       const securedPct =
@@ -545,7 +548,9 @@ export default function RetirementCalculatorClient({
 
   const handleSave = useCallback(() => {
     const calc: SavedCalculation = {
-      id: Date.now(),
+      id: savedCalculations.length
+        ? Math.max(...savedCalculations.map((item) => item.id)) + 1
+        : 1,
       currentAge,
       retireAge,
       lifeExpectancy,
@@ -567,10 +572,7 @@ export default function RetirementCalculatorClient({
     setSavedCalculations((prev) => {
       const updated = [calc, ...prev].slice(0, 10);
       try {
-        localStorage.setItem(
-          'retirement_calculator_history',
-          JSON.stringify(updated),
-        );
+        localStorage.setItem(RETIREMENT_STORAGE_KEY, JSON.stringify(updated));
       } catch (error) {
         console.error('Error saving retirement calculation:', error);
       }
@@ -602,6 +604,7 @@ export default function RetirementCalculatorClient({
     otherIncome,
     results.targetCorpus,
     results.sip,
+    savedCalculations,
     calculatorMode,
     t.calculationSaved,
   ]);
@@ -674,10 +677,7 @@ export default function RetirementCalculatorClient({
       setSavedCalculations((prev) => {
         const updated = prev.filter((c) => c.id !== id);
         try {
-          localStorage.setItem(
-            'retirement_calculator_history',
-            JSON.stringify(updated),
-          );
+          localStorage.setItem(RETIREMENT_STORAGE_KEY, JSON.stringify(updated));
         } catch (error) {
           console.error('Error updating retirement history:', error);
         }
@@ -692,7 +692,7 @@ export default function RetirementCalculatorClient({
   const handleClearAll = useCallback(() => {
     setSavedCalculations([]);
     try {
-      localStorage.removeItem('retirement_calculator_history');
+      localStorage.removeItem(RETIREMENT_STORAGE_KEY);
     } catch (error) {
       console.error('Error clearing retirement history:', error);
     }
@@ -734,9 +734,9 @@ export default function RetirementCalculatorClient({
               <TabsTrigger
                 value="basic"
                 className={cn(
-                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
-                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
-                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
+                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
               >
@@ -747,9 +747,9 @@ export default function RetirementCalculatorClient({
               <TabsTrigger
                 value="comprehensive"
                 className={cn(
-                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
-                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
-                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
+                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
               >
@@ -774,7 +774,7 @@ export default function RetirementCalculatorClient({
                   <div
                     className={cn(
                       'absolute inset-0 rounded-full blur-md transition-all',
-                      comparisonMode ? 'bg-lime-300' : 'bg-slate-200',
+                      comparisonMode ? 'bg-[#D0F4A9]' : 'bg-slate-200',
                     )}
                   />
                   <Switch
@@ -783,7 +783,7 @@ export default function RetirementCalculatorClient({
                     id="comparison-mode"
                     className={cn(
                       'relative scale-110',
-                      'data-[state=checked]:bg-lime-600',
+                      'data-[state=checked]:bg-[#B0EC70]',
                       'data-[state=unchecked]:bg-slate-400',
                       'shadow-md',
                     )}
@@ -793,7 +793,7 @@ export default function RetirementCalculatorClient({
                 <div>
                   <label
                     htmlFor="comparison-mode"
-                    className="text-base font-bold text-slate-900 cursor-pointer flex items-center gap-2"
+                    className="text-base font-semibold text-slate-900 cursor-pointer flex items-center gap-2"
                   >
                     <span>{t.comparisonMode}</span>
                   </label>
@@ -802,7 +802,7 @@ export default function RetirementCalculatorClient({
               </div>
 
               {comparisonMode && (
-                <span className="text-xs font-semibold text-lime-700 bg-lime-100 px-2 py-1 rounded-full">
+                <span className="text-xs font-semibold text-[#111827] bg-[#B0EC70] px-2 py-1 rounded-full">
                   Active
                 </span>
               )}
@@ -830,13 +830,13 @@ export default function RetirementCalculatorClient({
         <Card className="bg-card">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-                <Palmtree className="h-5 w-5 text-emerald-600" />
+              <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+                <Palmtree className="h-5 w-5 text-[#577A30]" />
                 {t.retirementPlanning}
               </CardTitle>
               <button
                 onClick={handleReset}
-                className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+                className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
               >
                 <RefreshCcw className="w-3 h-3" /> {t.reset}
               </button>
@@ -894,10 +894,10 @@ export default function RetirementCalculatorClient({
 
                 {/* Comprehensive Mode - Additional Income */}
                 {calculatorMode === 'comprehensive' && (
-                  <Card className="border-emerald-200 bg-linear-to-r from-emerald-50/50 to-emerald-50/50">
+                  <Card className="border-[#DFF7C6] bg-white">
                     <CardContent className="py-4 space-y-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <Briefcase className="h-4 w-4 text-emerald-600" />
+                        <Briefcase className="h-4 w-4 text-[#577A30]" />
                         <h4 className="text-sm font-semibold text-slate-900">
                           {t.additionalIncome}
                         </h4>
@@ -931,12 +931,12 @@ export default function RetirementCalculatorClient({
                       />
 
                       {results.totalAdditionalIncome > 0 && (
-                        <div className="pt-2 border-t border-emerald-200">
+                        <div className="pt-2 border-t border-[#DFF7C6]">
                           <div className="flex justify-between text-sm">
                             <span className="text-slate-700">
                               {t.monthlyIncomeTotal}:
                             </span>
-                            <span className="font-bold text-emerald-700">
+                            <span className="font-semibold text-[#577A30]">
                               {formatINR(results.totalAdditionalIncome)}
                             </span>
                           </div>
@@ -960,7 +960,7 @@ export default function RetirementCalculatorClient({
                 </div>
 
                 {showAdvanced && (
-                  <div className="space-y-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                  <div className="space-y-6 p-4 bg-white rounded-lg border border-[#DFF7C6]">
                     <CalculatorField
                       label={t.inflationRate}
                       value={inflation}
@@ -1009,7 +1009,7 @@ export default function RetirementCalculatorClient({
                   <div className="text-sm text-muted-foreground">
                     {t.targetRetirementCorpus}
                   </div>
-                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-700">
+                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                     {formatINR(results.targetCorpus)}
                   </div>
                   <div className="mt-1 text-xs text-slate-500">
@@ -1018,26 +1018,26 @@ export default function RetirementCalculatorClient({
                 </div>
 
                 {results.isShortfall && (
-                  <div className="rounded-xl border-2 border-lime-300 bg-lime-50 px-6 py-4 w-full max-w-xs">
-                    <div className="text-xs font-semibold text-lime-700">
+                  <div className="rounded-xl border-2 border-[#D0F4A9] bg-[#F7FDF1] px-6 py-4 w-full max-w-xs">
+                    <div className="text-xs font-semibold text-[#577A30]">
                       {t.monthlySIPRequired}
                     </div>
-                    <div className="mt-1 text-2xl font-extrabold text-lime-800">
+                    <div className="mt-1 text-2xl font-extrabold text-[#577A30]">
                       {formatINR(results.sip)}
                       <span className="text-sm font-medium"> {t.perMonth}</span>
                     </div>
-                    <div className="text-[11px] text-lime-600 mt-1">
+                    <div className="text-[11px] text-[#577A30] mt-1">
                       {t.forNextYears} {results.yearsToRetire} years
                     </div>
                   </div>
                 )}
 
                 {!results.isShortfall && (
-                  <div className="rounded-xl border-2 border-emerald-300 bg-emerald-50 px-6 py-4 w-full max-w-xs">
-                    <div className="text-sm font-bold text-emerald-700">
+                  <div className="rounded-xl border-2 border-[#D0F4A9] bg-[#F7FDF1] px-6 py-4 w-full max-w-xs">
+                    <div className="text-sm font-semibold text-[#577A30]">
                       🎉 {t.savingsSufficient}
                     </div>
-                    <div className="text-xs text-emerald-600 mt-2">
+                    <div className="text-xs text-[#577A30] mt-2">
                       Your current savings will grow to{' '}
                       {formatINR(results.savingsFV)}, which exceeds your target
                       corpus.
@@ -1046,29 +1046,29 @@ export default function RetirementCalculatorClient({
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                  <Card className="border-border shadow-none">
+                  <Card className="border-border bg-white shadow-none">
                     <CardContent className="p-4">
                       <div className="text-xs text-muted-foreground">
                         {t.expenseAtRetirement}
                       </div>
-                      <div className="mt-1 font-semibold text-red-600 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-[#DB3E82] whitespace-nowrap">
                         {formatINR(results.expenseAtRetirement)}
                       </div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">
+                      <div className="text-[11px] text-muted-foreground mt-0.5">
                         {t.monthInflationAdjusted}
                       </div>
                     </CardContent>
                   </Card>
 
-                  <Card className="border-emerald-200 bg-emerald-50 shadow-none">
+                  <Card className="border-border bg-white shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-emerald-700">
+                      <div className="text-xs text-muted-foreground">
                         {t.currentSavingsFV}
                       </div>
-                      <div className="mt-1 font-semibold text-emerald-700 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-muted-foreground whitespace-nowrap">
                         {formatINR(results.savingsFV)}
                       </div>
-                      <div className="text-[11px] text-emerald-600 mt-0.5">
+                      <div className="text-[11px] text-muted-foreground mt-0.5">
                         {results.securedPct}% {t.ofTarget}
                       </div>
                     </CardContent>
@@ -1077,31 +1077,31 @@ export default function RetirementCalculatorClient({
 
                 {/* Emergency Fund & Healthcare */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                  <Card className="border-orange-200 bg-orange-50 shadow-none">
+                  <Card className="border-border bg-white shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-orange-700 flex items-center gap-1">
+                      <div className="text-xs text-muted-foreground flex items-center gap-1">
                         <Home className="h-3 w-3" />
                         {t.emergencyFund}
                       </div>
-                      <div className="mt-1 font-semibold text-orange-700 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-muted-foreground whitespace-nowrap">
                         {formatINR(results.emergencyFund)}
                       </div>
-                      <div className="text-[11px] text-orange-600 mt-0.5">
+                      <div className="text-[11px] text-muted-foreground mt-0.5">
                         {t.emergencyFundNote}
                       </div>
                     </CardContent>
                   </Card>
 
-                  <Card className="border-pink-200 bg-pink-50 shadow-none">
+                  <Card className="border-border bg-white shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-pink-700 flex items-center gap-1">
+                      <div className="text-xs text-muted-foreground flex items-center gap-1">
                         <Heart className="h-3 w-3" />
                         {t.healthcareCosts}
                       </div>
-                      <div className="mt-1 font-semibold text-pink-700 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-muted-foreground whitespace-nowrap">
                         {formatINR(results.healthcareCostAtRetirement * 12)}
                       </div>
-                      <div className="text-[11px] text-pink-600 mt-0.5">
+                      <div className="text-[11px] text-muted-foreground mt-0.5">
                         {t.perYear}
                       </div>
                     </CardContent>
@@ -1110,14 +1110,14 @@ export default function RetirementCalculatorClient({
 
                 {/* Investment Breakdown */}
                 {results.isShortfall && (
-                  <div className="w-full p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-left">
-                    <h4 className="text-xs font-semibold text-emerald-900 mb-2">
+                  <div className="w-full p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] text-left">
+                    <h4 className="text-xs font-semibold text-[#1B2E06] mb-2">
                       {t.investmentBreakdown}
                     </h4>
                     <div className="space-y-2 text-xs">
                       <div className="flex justify-between">
                         <span className="text-slate-700">{t.gapToFill}:</span>
-                        <strong className="text-emerald-700">
+                        <strong className="text-[#577A30]">
                           {formatINR(results.gap)}
                         </strong>
                       </div>
@@ -1133,7 +1133,7 @@ export default function RetirementCalculatorClient({
                         <span className="text-slate-700">
                           {t.expectedReturns}:
                         </span>
-                        <strong className="text-emerald-700">
+                        <strong className="text-[#577A30]">
                           {formatINR(results.sipGrowth)}
                         </strong>
                       </div>
@@ -1152,10 +1152,10 @@ export default function RetirementCalculatorClient({
         // Comparison Mode - Two Scenarios
         <div className="grid md:grid-cols-2 gap-6">
           {/* Scenario A */}
-          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+          <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30] text-sm font-semibold">
                   A
                 </span>
                 {t.scenarioA}
@@ -1189,13 +1189,13 @@ export default function RetirementCalculatorClient({
                 onChange={setCurrentSavings}
               />
 
-              <div className="pt-4 border-t border-emerald-200">
+              <div className="pt-4 border-t border-[#DFF7C6]">
                 <div className="text-center space-y-3">
                   <div>
                     <div className="text-xs text-slate-600">
                       {t.targetRetirementCorpus}
                     </div>
-                    <div className="text-2xl font-bold text-emerald-700 mt-1">
+                    <div className="text-2xl font-semibold text-[#577A30] mt-1">
                       {formatINR(results.targetCorpus)}
                     </div>
                   </div>
@@ -1203,7 +1203,7 @@ export default function RetirementCalculatorClient({
                     <div className="text-xs text-slate-600">
                       {t.monthlySIPRequired}
                     </div>
-                    <div className="text-lg font-semibold text-lime-600">
+                    <div className="text-lg font-semibold text-[#577A30]">
                       {formatINR(results.sip)}
                     </div>
                   </div>
@@ -1213,10 +1213,10 @@ export default function RetirementCalculatorClient({
           </Card>
 
           {/* Scenario B */}
-          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+          <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30] text-sm font-semibold">
                   B
                 </span>
                 {t.scenarioB}
@@ -1250,13 +1250,13 @@ export default function RetirementCalculatorClient({
                 onChange={setCurrentSavings2}
               />
 
-              <div className="pt-4 border-t border-emerald-200">
+              <div className="pt-4 border-t border-[#DFF7C6]">
                 <div className="text-center space-y-3">
                   <div>
                     <div className="text-xs text-slate-600">
                       {t.targetRetirementCorpus}
                     </div>
-                    <div className="text-2xl font-bold text-emerald-700 mt-1">
+                    <div className="text-2xl font-semibold text-[#577A30] mt-1">
                       {formatINR(results2?.targetCorpus || 0)}
                     </div>
                   </div>
@@ -1264,7 +1264,7 @@ export default function RetirementCalculatorClient({
                     <div className="text-xs text-slate-600">
                       {t.monthlySIPRequired}
                     </div>
-                    <div className="text-lg font-semibold text-lime-600">
+                    <div className="text-lg font-semibold text-[#577A30]">
                       {formatINR(results2?.sip || 0)}
                     </div>
                   </div>
@@ -1277,27 +1277,31 @@ export default function RetirementCalculatorClient({
 
       {/* ✅ Comparison Summary */}
       {comparisonMode && results2 && (
-        <Card className="border-lime-200 bg-linear-to-r from-lime-50 to-pink-50">
+        <Card className="border-[#B0EC70] bg-[#1B2E06]">
           <CardHeader>
-            <CardTitle className="text-lg">{t.whichBetter}</CardTitle>
+            <CardTitle className="text-lg text-[#FFFFFF]">
+              {t.whichBetter}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-xs text-slate-600 mb-1">{t.lowerSIP}</div>
+                <div className="text-xs font-medium text-[#D1D5DB] mb-1">
+                  {t.lowerSIP}
+                </div>
                 <div
-                  className={`text-xl font-bold ${results.sip < results2.sip ? 'text-emerald-600' : 'text-emerald-600'}`}
+                  className={`text-xl font-semibold ${results.sip < results2.sip ? 'text-[#B0EC70]' : 'text-[#B0EC70]'}`}
                 >
                   {formatINR(Math.abs(results.sip - results2.sip))}
                 </div>
-                <div className="text-xs text-slate-500 mt-1">per month</div>
+                <div className="text-xs text-[#D1D5DB] mt-1">per month</div>
               </div>
               <div>
-                <div className="text-xs text-slate-600 mb-1">
+                <div className="text-xs font-medium text-[#D1D5DB] mb-1">
                   {t.higherCorpus}
                 </div>
                 <div
-                  className={`text-xl font-bold ${results.targetCorpus > results2.targetCorpus ? 'text-emerald-600' : 'text-emerald-600'}`}
+                  className={`text-xl font-semibold ${results.targetCorpus > results2.targetCorpus ? 'text-[#B0EC70]' : 'text-[#B0EC70]'}`}
                 >
                   {formatINR(
                     Math.abs(results.targetCorpus - results2.targetCorpus),
@@ -1305,12 +1309,14 @@ export default function RetirementCalculatorClient({
                 </div>
               </div>
               <div>
-                <div className="text-xs text-slate-600 mb-1">Winner</div>
-                <div className="text-xl font-bold">
+                <div className="text-xs font-medium text-[#D1D5DB] mb-1">
+                  Winner
+                </div>
+                <div className="text-xl font-semibold">
                   {results.sip < results2.sip ? (
-                    <span className="text-emerald-600">{t.scenarioA} 🏆</span>
+                    <span className="text-[#B0EC70]">🏆 {t.scenarioA}</span>
                   ) : (
-                    <span className="text-emerald-600">{t.scenarioB} 🏆</span>
+                    <span className="text-[#B0EC70]">🏆 {t.scenarioB}</span>
                   )}
                 </div>
               </div>
@@ -1321,11 +1327,11 @@ export default function RetirementCalculatorClient({
 
       {/* ✅ Tax Estimate */}
       {!comparisonMode && calculatorMode === 'comprehensive' && (
-        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Calculator className="h-5 w-5 text-emerald-600" />
+                <Calculator className="h-5 w-5 text-[#577A30]" />
                 {t.taxImpact}
               </CardTitle>
               <Button
@@ -1341,12 +1347,12 @@ export default function RetirementCalculatorClient({
 
           {showTaxEstimate && (
             <CardContent className="space-y-3">
-              <div className="p-3 bg-white rounded-lg border border-emerald-200">
+              <div className="p-3 bg-white rounded-lg border border-[#DFF7C6]">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-slate-700">
                     {t.estimatedAnnualTax}:
                   </span>
-                  <span className="font-bold text-red-600">
+                  <span className="font-semibold text-[#FF568E]">
                     {formatINR(results.estimatedTax)}
                   </span>
                 </div>
@@ -1367,7 +1373,7 @@ export default function RetirementCalculatorClient({
           <Card className="border-slate-200">
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
-                <LineChart className="h-5 w-5 text-lime-600" />
+                <LineChart className="h-5 w-5 text-[#577A30]" />
                 {t.corpusGrowth}
               </CardTitle>
             </CardHeader>
@@ -1382,8 +1388,8 @@ export default function RetirementCalculatorClient({
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#B0EC70" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#B0EC70" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -1411,7 +1417,7 @@ export default function RetirementCalculatorClient({
                     type="monotone"
                     dataKey="corpusValue"
                     name={t.corpusValue}
-                    stroke="#8b5cf6"
+                    stroke="#577A30"
                     strokeWidth={2}
                     fillOpacity={1}
                     fill="url(#colorCorpus)"
@@ -1445,7 +1451,7 @@ export default function RetirementCalculatorClient({
                       <th className="text-right p-3 font-semibold">
                         Growth Earned
                       </th>
-                      <th className="text-right p-3 font-semibold text-emerald-600">
+                      <th className="text-right p-3 font-semibold text-[#577A30]">
                         {t.corpusValue}
                       </th>
                     </tr>
@@ -1460,13 +1466,13 @@ export default function RetirementCalculatorClient({
                       >
                         <td className="p-3 font-medium">{row.year}</td>
                         <td className="p-3">{row.age}</td>
-                        <td className="p-3 text-right text-lime-600">
+                        <td className="p-3 text-right text-[#577A30]">
                           {formatINR(row.annualSIP)}
                         </td>
-                        <td className="p-3 text-right text-emerald-600">
+                        <td className="p-3 text-right text-[#577A30]">
                           {formatINR(row.growthEarned)}
                         </td>
-                        <td className="p-3 text-right font-semibold text-emerald-600">
+                        <td className="p-3 text-right font-semibold text-[#577A30]">
                           {formatINR(row.corpusValue)}
                         </td>
                       </tr>
@@ -1511,7 +1517,7 @@ export default function RetirementCalculatorClient({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               {t.clearAll}
             </Button>
@@ -1555,7 +1561,7 @@ export default function RetirementCalculatorClient({
                       e.stopPropagation();
                       handleDelete(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

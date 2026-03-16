@@ -19,6 +19,8 @@ import { toast } from 'sonner';
 
 interface SavedCalculation {
   id: number;
+  carPrice: number;
+  downPayment: number;
   amount: number;
   rate: number;
   tenure: number;
@@ -67,7 +69,7 @@ export default function CarLoanEMIClient() {
   }, []);
 
   const calculations = useMemo(() => {
-    if (tenure === 0 || loanAmount <= 0)
+    if (tenure <= 0 || loanAmount <= 0)
       return {
         emi: 0,
         totalInterest: 0,
@@ -86,7 +88,7 @@ export default function CarLoanEMIClient() {
       emi = (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     }
 
-    if (!isFinite(emi)) emi = 0;
+    if (!isFinite(emi) || emi < 0) emi = 0;
 
     const totalPayment = emi * n;
     const totalInterest = totalPayment - loanAmount;
@@ -105,32 +107,52 @@ export default function CarLoanEMIClient() {
   }, [loanAmount, rate, tenure]);
 
   const prepaymentImpact = useMemo(() => {
-    if (!showPrepayment || prepaymentAmount <= 0 || loanAmount <= 0) {
+    if (
+      !showPrepayment ||
+      prepaymentAmount <= 0 ||
+      loanAmount <= 0 ||
+      tenure <= 0
+    ) {
       return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
     }
 
     const r = rate / 12 / 100;
     const n = tenure * 12;
 
-    const emi = calculations.emi;
+    // Use exact EMI (not rounded) for better simulation accuracy
+    const emi =
+      rate === 0
+        ? loanAmount / n
+        : (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+    if (!isFinite(emi) || emi <= 0) {
+      return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
+    }
+
+    const effectivePrepaymentMonth = Math.min(prepaymentMonth, n);
     let remainingPrincipal = loanAmount;
 
-    for (let i = 0; i < prepaymentMonth; i++) {
+    for (let i = 0; i < effectivePrepaymentMonth; i++) {
+      if (remainingPrincipal <= 0) break;
       const interestForMonth = remainingPrincipal * r;
-      const principalForMonth = emi - interestForMonth;
+      const principalForMonth = Math.min(
+        remainingPrincipal,
+        emi - interestForMonth,
+      );
       remainingPrincipal -= principalForMonth;
     }
 
     const newPrincipal = Math.max(0, remainingPrincipal - prepaymentAmount);
-    const remainingMonths = n - prepaymentMonth;
+    const remainingMonths = Math.max(0, n - effectivePrepaymentMonth);
 
     let totalInterestWithout = 0;
     let balance = remainingPrincipal;
     for (let i = 0; i < remainingMonths; i++) {
+      if (balance <= 0) break;
       const interest = balance * r;
       totalInterestWithout += interest;
-      balance -= emi - interest;
-      if (balance <= 0) break;
+      const principalPay = Math.min(balance, emi - interest);
+      balance -= principalPay;
     }
 
     let totalInterestWith = 0;
@@ -139,7 +161,8 @@ export default function CarLoanEMIClient() {
     while (balanceWith > 0 && monthsNeeded < remainingMonths) {
       const interest = balanceWith * r;
       totalInterestWith += interest;
-      balanceWith -= emi - interest;
+      const principalPay = Math.min(balanceWith, emi - interest);
+      balanceWith -= principalPay;
       monthsNeeded++;
     }
 
@@ -149,7 +172,7 @@ export default function CarLoanEMIClient() {
     return {
       interestSaved: Math.max(0, interestSaved),
       tenureReduction: Math.max(0, tenureReduction),
-      newEmi: emi,
+      newEmi: Math.round(emi),
     };
   }, [
     showPrepayment,
@@ -158,12 +181,13 @@ export default function CarLoanEMIClient() {
     loanAmount,
     rate,
     tenure,
-    calculations.emi
   ]);
 
   const handleSaveCalculation = () => {
     const calculation: SavedCalculation = {
       id: Date.now(),
+      carPrice,
+      downPayment,
       amount: loanAmount,
       rate,
       tenure,
@@ -230,7 +254,7 @@ export default function CarLoanEMIClient() {
       `Tenure: ${tenure} years\n\n` +
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n\n` +
-      `Calculate yours: /loans/car-loan/`;
+      `Calculate yours: https://fincado.com/loans/car-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -243,8 +267,9 @@ export default function CarLoanEMIClient() {
   };
 
   const handleLoadCalculation = (calc: SavedCalculation) => {
-    const newCarPrice = calc.amount + downPayment;
-    setCarPrice(newCarPrice);
+    // Restore exact saved scenario
+    setCarPrice(calc.carPrice);
+    setDownPayment(calc.downPayment);
     setRate(calc.rate);
     setTenure(calc.tenure);
     toast.success('Calculation loaded!');
@@ -253,7 +278,7 @@ export default function CarLoanEMIClient() {
   return (
     <div className="space-y-6">
       {/* Main Calculator */}
-      <Card className="border-none shadow-none bg-card">
+      <Card className="bg-card">
         <CardContent className="p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* INPUTS */}
@@ -280,11 +305,14 @@ export default function CarLoanEMIClient() {
                 <div className="text-sm text-blue-900 font-medium mb-1">
                   Loan Amount
                 </div>
-                <div className="text-2xl font-bold text-blue-700">
+                <div className="text-2xl font-semibold text-blue-700">
                   {formatINR(loanAmount)}
                 </div>
                 <div className="text-xs text-blue-600 mt-1">
-                  {((downPayment / carPrice) * 100).toFixed(1)}% down payment
+                  {carPrice > 0
+                    ? ((downPayment / carPrice) * 100).toFixed(1)
+                    : '0.0'}
+                  % down payment
                 </div>
               </div>
 
@@ -317,7 +345,7 @@ export default function CarLoanEMIClient() {
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-muted-foreground">Monthly EMI</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-blue-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#74A046]">
                   {formatINR(calculations.emi)}
                 </div>
 
@@ -333,12 +361,10 @@ export default function CarLoanEMIClient() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-900">
+                  <Card className="border-red-200 bg-red-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-red-700 dark:text-red-400">
-                        Total Interest
-                      </div>
-                      <div className="mt-1 font-semibold text-red-700 dark:text-red-400 whitespace-nowrap">
+                      <div className="text-xs text-red-700">Total Interest</div>
+                      <div className="mt-1 font-semibold text-red-700 whitespace-nowrap">
                         +{formatINR(calculations.totalInterest)}
                       </div>
                     </CardContent>
@@ -418,8 +444,8 @@ export default function CarLoanEMIClient() {
               </div>
             </div>
 
-            <div className="p-5 bg-linear-to-br from-emerald-50 to-green-50 rounded-lg border-2 border-emerald-200">
-              <h4 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2">
+            <div className="p-5 bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] rounded-lg border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-[#1B2E06] mb-4 flex items-center gap-2">
                 <TrendingDown className="h-5 w-5" />
                 Your Savings
               </h4>
@@ -429,7 +455,7 @@ export default function CarLoanEMIClient() {
                     <IndianRupee className="h-3 w-3" />
                     Interest Saved
                   </div>
-                  <div className="text-3xl font-bold text-emerald-700">
+                  <div className="text-3xl font-semibold text-[#74A046]">
                     {formatINR(prepaymentImpact.interestSaved)}
                   </div>
                 </div>
@@ -438,7 +464,7 @@ export default function CarLoanEMIClient() {
                     <Calendar className="h-3 w-3" />
                     Tenure Reduced By
                   </div>
-                  <div className="text-3xl font-bold text-emerald-700">
+                  <div className="text-3xl font-semibold text-[#74A046]">
                     {prepaymentImpact.tenureReduction}{' '}
                     {prepaymentImpact.tenureReduction === 1
                       ? 'month'
@@ -447,7 +473,7 @@ export default function CarLoanEMIClient() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-emerald-200">
+              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
                 💡 <strong>Tip:</strong> Prepaying car loans early saves
                 significant interest, especially if your loan rate is above 10%.
               </p>

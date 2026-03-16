@@ -45,7 +45,7 @@ export default function HomeLoanEMIClient() {
   const [prepaymentAmount, setPrepaymentAmount] = useState(100000);
   const [prepaymentMonth, setPrepaymentMonth] = useState(12);
 
-  const [showTaxBenefits, setShowTaxBenefits] = useState(true);
+  const [showTaxBenefits] = useState(true);
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
   >([]);
@@ -65,7 +65,7 @@ export default function HomeLoanEMIClient() {
   }, []);
 
   const calculations = useMemo(() => {
-    if (tenure === 0)
+    if (tenure <= 0)
       return {
         emi: 0,
         totalInterest: 0,
@@ -84,7 +84,7 @@ export default function HomeLoanEMIClient() {
       emi = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     }
 
-    if (!isFinite(emi)) emi = 0;
+    if (!isFinite(emi) || emi < 0) emi = 0;
 
     const totalPayment = emi * n;
     const totalInterest = totalPayment - amount;
@@ -102,15 +102,23 @@ export default function HomeLoanEMIClient() {
     };
   }, [amount, rate, tenure]);
 
-  // Tax benefits calculation
+  // Tax benefits calculation (approximate yearly estimate)
   const taxBenefits = useMemo(() => {
+    if (tenure <= 0) {
+      return {
+        principalDeduction: 0,
+        interestDeduction: 0,
+        totalDeduction: 0,
+        taxSaved: 0,
+      };
+    }
+
     const yearlyEMI = calculations.emi * 12;
-    const yearlyInterest = Math.min(
-      calculations.totalInterest / tenure,
-      200000,
-    ); // Max 2L under 24(b)
+    const avgYearlyInterest = calculations.totalInterest / tenure;
+
+    const yearlyInterest = Math.min(avgYearlyInterest, 200000); // Max 2L under 24(b)
     const yearlyPrincipal = Math.min(
-      yearlyEMI - calculations.totalInterest / tenure,
+      Math.max(0, yearlyEMI - avgYearlyInterest),
       150000,
     ); // Max 1.5L under 80C
 
@@ -126,32 +134,47 @@ export default function HomeLoanEMIClient() {
   }, [calculations, tenure]);
 
   const prepaymentImpact = useMemo(() => {
-    if (!showPrepayment || prepaymentAmount <= 0) {
+    if (!showPrepayment || prepaymentAmount <= 0 || tenure <= 0) {
       return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
     }
 
     const r = rate / 12 / 100;
     const n = tenure * 12;
 
-    const emi = calculations.emi;
+    // Use exact EMI (not rounded) for simulation precision
+    const emi =
+      rate === 0
+        ? amount / n
+        : (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+    if (!isFinite(emi) || emi <= 0) {
+      return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
+    }
+
+    const effectivePrepaymentMonth = Math.min(prepaymentMonth, n);
     let remainingPrincipal = amount;
 
-    for (let i = 0; i < prepaymentMonth; i++) {
+    for (let i = 0; i < effectivePrepaymentMonth; i++) {
+      if (remainingPrincipal <= 0) break;
       const interestForMonth = remainingPrincipal * r;
-      const principalForMonth = emi - interestForMonth;
+      const principalForMonth = Math.min(
+        remainingPrincipal,
+        emi - interestForMonth,
+      );
       remainingPrincipal -= principalForMonth;
     }
 
     const newPrincipal = Math.max(0, remainingPrincipal - prepaymentAmount);
-    const remainingMonths = n - prepaymentMonth;
+    const remainingMonths = Math.max(0, n - effectivePrepaymentMonth);
 
     let totalInterestWithout = 0;
     let balance = remainingPrincipal;
     for (let i = 0; i < remainingMonths; i++) {
+      if (balance <= 0) break;
       const interest = balance * r;
       totalInterestWithout += interest;
-      balance -= emi - interest;
-      if (balance <= 0) break;
+      const principalPay = Math.min(balance, emi - interest);
+      balance -= principalPay;
     }
 
     let totalInterestWith = 0;
@@ -160,7 +183,8 @@ export default function HomeLoanEMIClient() {
     while (balanceWith > 0 && monthsNeeded < remainingMonths) {
       const interest = balanceWith * r;
       totalInterestWith += interest;
-      balanceWith -= emi - interest;
+      const principalPay = Math.min(balanceWith, emi - interest);
+      balanceWith -= principalPay;
       monthsNeeded++;
     }
 
@@ -170,17 +194,9 @@ export default function HomeLoanEMIClient() {
     return {
       interestSaved: Math.max(0, interestSaved),
       tenureReduction: Math.max(0, tenureReduction),
-      newEmi: emi,
+      newEmi: Math.round(emi),
     };
-  }, [
-    showPrepayment,
-    prepaymentAmount,
-    prepaymentMonth,
-    amount,
-    rate,
-    tenure,
-    calculations.emi,
-  ]);
+  }, [showPrepayment, prepaymentAmount, prepaymentMonth, amount, rate, tenure]);
 
   const handleSaveCalculation = () => {
     const calculation: SavedCalculation = {
@@ -250,7 +266,7 @@ export default function HomeLoanEMIClient() {
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n` +
       `💰 Tax Saving: ${formatINR(taxBenefits.taxSaved)}/year\n\n` +
-      `Calculate yours: /loans/home-loan/`;
+      `Calculate yours: https://fincado.com/loans/home-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -315,7 +331,7 @@ export default function HomeLoanEMIClient() {
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-muted-foreground">Monthly EMI</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74A046]">
                   {formatINR(calculations.emi)}
                 </div>
 
@@ -331,12 +347,10 @@ export default function HomeLoanEMIClient() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-900">
+                  <Card className="border-red-200 bg-red-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-red-700 dark:text-red-400">
-                        Total Interest
-                      </div>
-                      <div className="mt-1 font-semibold text-red-700 dark:text-red-400 whitespace-nowrap">
+                      <div className="text-xs text-red-700">Total Interest</div>
+                      <div className="mt-1 font-semibold text-red-700 whitespace-nowrap">
                         +{formatINR(calculations.totalInterest)}
                       </div>
                     </CardContent>
@@ -350,10 +364,10 @@ export default function HomeLoanEMIClient() {
 
       {/* Tax Benefits Section */}
       {showTaxBenefits && (
-        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <PiggyBank className="h-5 w-5 text-emerald-600" />
+              <PiggyBank className="h-5 w-5 text-[#92C65B]" />
               Tax Benefits on Home Loan
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -363,30 +377,30 @@ export default function HomeLoanEMIClient() {
 
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 bg-white rounded-lg border border-emerald-200">
+              <div className="p-4 bg-white rounded-lg border border-[#DFF7C6]">
                 <div className="text-xs text-slate-600 mb-1">
                   Section 80C (Principal)
                 </div>
-                <div className="text-2xl font-bold text-emerald-700">
+                <div className="text-2xl font-semibold text-[#74A046]">
                   {formatINR(taxBenefits.principalDeduction)}
                 </div>
               </div>
 
-              <div className="p-4 bg-white rounded-lg border border-emerald-200">
+              <div className="p-4 bg-white rounded-lg border border-[#DFF7C6]">
                 <div className="text-xs text-slate-600 mb-1">
                   Section 24(b) (Interest)
                 </div>
-                <div className="text-2xl font-bold text-emerald-700">
+                <div className="text-2xl font-semibold text-[#74A046]">
                   {formatINR(taxBenefits.interestDeduction)}
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-emerald-100 rounded-lg">
-              <div className="text-sm text-emerald-900 mb-1 font-semibold">
+            <div className="p-4 bg-[#EFFBE2] rounded-lg">
+              <div className="text-sm text-[#1B2E06] mb-1 font-semibold">
                 Total Annual Tax Saving (30% bracket)
               </div>
-              <div className="text-3xl font-bold text-emerald-700">
+              <div className="text-3xl font-semibold text-[#74A046]">
                 {formatINR(taxBenefits.taxSaved)}
               </div>
             </div>
@@ -467,8 +481,8 @@ export default function HomeLoanEMIClient() {
               </div>
             </div>
 
-            <div className="p-5 bg-linear-to-br from-emerald-50 to-green-50 rounded-lg border-2 border-emerald-200">
-              <h4 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2">
+            <div className="p-5 bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] rounded-lg border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-[#1B2E06] mb-4 flex items-center gap-2">
                 <TrendingDown className="h-5 w-5" />
                 Your Savings
               </h4>
@@ -478,7 +492,7 @@ export default function HomeLoanEMIClient() {
                     <IndianRupee className="h-3 w-3" />
                     Interest Saved
                   </div>
-                  <div className="text-3xl font-bold text-emerald-700">
+                  <div className="text-3xl font-semibold text-[#74A046]">
                     {formatINR(prepaymentImpact.interestSaved)}
                   </div>
                 </div>
@@ -487,7 +501,7 @@ export default function HomeLoanEMIClient() {
                     <Calendar className="h-3 w-3" />
                     Tenure Reduced By
                   </div>
-                  <div className="text-3xl font-bold text-emerald-700">
+                  <div className="text-3xl font-semibold text-[#74A046]">
                     {prepaymentImpact.tenureReduction}{' '}
                     {prepaymentImpact.tenureReduction === 1
                       ? 'month'
@@ -496,7 +510,7 @@ export default function HomeLoanEMIClient() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-emerald-200">
+              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
                 💡 <strong>Tip:</strong> Making prepayments in the early years
                 saves maximum interest because the principal is still high.
               </p>

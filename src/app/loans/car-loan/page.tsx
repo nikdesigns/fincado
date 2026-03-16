@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'vehicle loan emi',
     'hdfc car loan',
     'sbi car loan',
-    'car loan prepayment'
+    'car loan prepayment',
   ],
   alternates: {
     canonical: '/loans/car-loan/',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Car Loan EMI Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -107,7 +107,7 @@ export default function CarLoanEMIPage() {
         <tbody>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Interest Rate</td>
-            <td class="p-3 border text-emerald-700">8.70% - 10.00%</td>
+            <td class="p-3 border text-[#74A046]">8.70% - 10.00%</td>
             <td class="p-3 border">11.00% - 14.00%</td>
           </tr>
           <tr class="hover:bg-slate-50">
@@ -195,7 +195,7 @@ export default function CarLoanEMIPage() {
       question: 'How is car loan eligibility calculated?',
       answer:
         'Eligibility depends on: (1) Monthly income (minimum ₹25,000), (2) Credit score (minimum 650, preferably 750+), (3) Age (21-65 years), (4) EMI to income ratio (should not exceed 50%), and (5) Employment stability (2+ years work experience).',
-    }
+    },
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -213,7 +213,7 @@ export default function CarLoanEMIPage() {
           {
             name: 'Car Loan EMI Calculator',
             url: '/loans/car-loan/',
-          }
+          },
         ]}
       />
 
@@ -276,7 +276,7 @@ export default function CarLoanEMIPage() {
                     <div className="text-sm text-slate-600 mb-2">
                       HDFC Bank Car Loan {updatedLabel}
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       8.70%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -286,15 +286,15 @@ export default function CarLoanEMIPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       TYPICAL EMI
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       ₹10L @ 9% for 5 years
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹20,758
                       <span className="text-base font-normal text-slate-600">
                         /month
@@ -311,7 +311,7 @@ export default function CarLoanEMIPage() {
                     <div className="text-sm text-slate-600 mb-2">
                       Finance up to (New Car)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       90%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -378,7 +378,7 @@ export default function CarLoanEMIPage() {
                       <tbody className="divide-y divide-slate-100">
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">HDFC Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.70% - 10.00%
                           </td>
                           <td className="p-3">11.00% - 13.00%</td>
@@ -387,7 +387,7 @@ export default function CarLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">SBI</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             8.85% - 9.75%
                           </td>
                           <td className="p-3">11.25% - 13.50%</td>
@@ -396,7 +396,7 @@ export default function CarLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">ICICI Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             9.00% - 10.50%
                           </td>
                           <td className="p-3">11.50% - 14.00%</td>
@@ -405,7 +405,7 @@ export default function CarLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Axis Bank</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             9.25% - 11.50%
                           </td>
                           <td className="p-3">12.00% - 14.50%</td>
@@ -414,7 +414,7 @@ export default function CarLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Bajaj Finserv</td>
-                          <td className="p-3 text-emerald-700 font-semibold">
+                          <td className="p-3 text-[#74A046] font-semibold">
                             9.50% - 12.00%
                           </td>
                           <td className="p-3">12.50% - 15.00%</td>
@@ -578,7 +578,7 @@ export default function CarLoanEMIPage() {
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-blue-700 mb-1">
                                   General EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -595,21 +595,21 @@ export default function CarLoanEMIPage() {
                       </Link>
 
                       <Link href="/loans/home-loan/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
                                 🏠
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
                                   Home Loan EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate home loan EMI with tax benefits
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

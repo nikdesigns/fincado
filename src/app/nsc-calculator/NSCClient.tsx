@@ -53,7 +53,7 @@ const DEFAULT_LABELS: NSCLabels = {
   effectiveGain: 'Effective Gain:',
   section80C: 'Section 80C Benefits',
   section80CInfo:
-    'Principal + Accrued interest (first 4 years) eligible for tax deduction',
+    'Principal + first 4 years interest (reinvested) can be claimed under Section 80C in respective years',
   showBreakdown: 'Show Year-wise Breakdown',
   hideBreakdown: 'Hide Year-wise Breakdown',
   yearwiseGrowth: 'Year-wise Growth',
@@ -80,6 +80,13 @@ interface SavedCalculation {
   date: string;
 }
 
+interface YearlyBreakdown {
+  year: number;
+  balance: number;
+  yearInterest: number;
+  totalAccruedInterest: number;
+}
+
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -87,6 +94,22 @@ const formatINR = (val: number) =>
     currency: 'INR',
     maximumFractionDigits: 0,
   }).format(val);
+
+const NSC_YEARS = 5;
+const SECTION_80C_LIMIT = 150000;
+const NSC_STORAGE_KEY = 'nsc_calculator_history';
+
+const getSavedCalculations = (): SavedCalculation[] => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const saved = localStorage.getItem(NSC_STORAGE_KEY);
+    return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
+  } catch (error) {
+    console.error('Error loading saved NSC calculations:', error);
+    return [];
+  }
+};
 
 export default function NSCClient({
   labels = DEFAULT_LABELS,
@@ -100,28 +123,9 @@ export default function NSCClient({
   const [rate, setRate] = useState(7.7);
   const [showBreakdown, setShowBreakdown] = useState(false);
 
-  const [isClient, setIsClient] = useState(false);
-  const [savedCalculations, setSavedCalculations] = useState<
-    SavedCalculation[]
-  >([]);
-
-  // NSC has fixed 5-year tenure
-  const years = 5;
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
-    try {
-      const saved = localStorage.getItem('nsc_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved NSC calculations:', error);
-    }
-  }, []);
+  const isClient = typeof window !== 'undefined';
+  const [savedCalculations, setSavedCalculations] =
+    useState<SavedCalculation[]>(getSavedCalculations);
 
   // Track calculator load
   useEffect(() => {
@@ -138,11 +142,7 @@ export default function NSCClient({
     const r = rate / 100;
 
     // Compound Interest Formula: A = P(1 + r)^n
-    let maturityAmount = principal;
-    if (rate > 0) {
-      maturityAmount = principal * Math.pow(1 + r, years);
-    }
-
+    const maturityAmount = principal * Math.pow(1 + r, NSC_YEARS);
     const totalInterest = maturityAmount - principal;
 
     const principalPct =
@@ -150,10 +150,10 @@ export default function NSCClient({
     const interestPct = 100 - principalPct;
 
     // Calculate year-wise breakdown
-    const yearlyBreakdown = [];
+    const yearlyBreakdown: YearlyBreakdown[] = [];
     let runningBalance = principal;
 
-    for (let year = 1; year <= years; year++) {
+    for (let year = 1; year <= NSC_YEARS; year++) {
       const yearEndBalance = runningBalance * (1 + r);
       const yearInterest = yearEndBalance - runningBalance;
       const totalAccruedInterest = yearEndBalance - principal;
@@ -168,12 +168,17 @@ export default function NSCClient({
       runningBalance = yearEndBalance;
     }
 
-    // Section 80C eligible amount (principal + accrued interest for first 4 years)
-    const year4AccruedInterest = yearlyBreakdown[3]?.totalAccruedInterest || 0;
-    const section80CEligible = Math.min(
-      principal + year4AccruedInterest,
-      150000,
-    );
+    // Indicative cumulative 80C potential over the full NSC tenure:
+    // Year 1 principal + Year 2-5 reinvested interest of first 4 years.
+    const principalEligible = Math.min(principal, SECTION_80C_LIMIT);
+    const reinvestedInterestEligible = yearlyBreakdown
+      .slice(0, 4)
+      .reduce(
+        (sum, yearItem) =>
+          sum + Math.min(yearItem.yearInterest, SECTION_80C_LIMIT),
+        0,
+      );
+    const section80CEligible = principalEligible + reinvestedInterestEligible;
 
     return {
       maturity: Math.round(maturityAmount),
@@ -185,12 +190,16 @@ export default function NSCClient({
       effectiveReturn:
         principal > 0 ? ((totalInterest / principal) * 100).toFixed(2) : '0',
     };
-  }, [principal, rate, years]);
+  }, [principal, rate]);
 
   /* ---------- HANDLERS ---------- */
   const handleSave = () => {
+    const nextId = savedCalculations.length
+      ? Math.max(...savedCalculations.map((item) => item.id)) + 1
+      : 1;
+
     const calc: SavedCalculation = {
-      id: Date.now(),
+      id: nextId,
       principal,
       rate,
       maturity: results.maturity,
@@ -202,7 +211,7 @@ export default function NSCClient({
     setSavedCalculations(updated);
 
     try {
-      localStorage.setItem('nsc_calculator_history', JSON.stringify(updated));
+      localStorage.setItem(NSC_STORAGE_KEY, JSON.stringify(updated));
     } catch (error) {
       console.error('Error saving NSC calculation:', error);
     }
@@ -222,7 +231,7 @@ export default function NSCClient({
       `🏛️ NSC Calculation (National Savings Certificate)\n\n` +
       `Investment: ${formatINR(principal)}\n` +
       `Interest Rate: ${rate}% p.a. (Government rate)\n` +
-      `Tenure: 5 years (Fixed)\n\n` +
+      `Tenure: ${NSC_YEARS} years (Fixed)\n\n` +
       `💰 Maturity Amount: ${formatINR(results.maturity)}\n` +
       `📊 Interest Earned: ${formatINR(results.interest)}\n` +
       `🎯 Effective Gain: ${results.effectiveReturn}%\n` +
@@ -245,7 +254,7 @@ export default function NSCClient({
     setSavedCalculations(updated);
 
     try {
-      localStorage.setItem('nsc_calculator_history', JSON.stringify(updated));
+      localStorage.setItem(NSC_STORAGE_KEY, JSON.stringify(updated));
     } catch (error) {
       console.error('Error updating NSC history:', error);
     }
@@ -256,7 +265,7 @@ export default function NSCClient({
   const handleClearAll = () => {
     setSavedCalculations([]);
     try {
-      localStorage.removeItem('nsc_calculator_history');
+      localStorage.removeItem(NSC_STORAGE_KEY);
     } catch (error) {
       console.error('Error clearing NSC history:', error);
     }
@@ -273,17 +282,17 @@ export default function NSCClient({
   return (
     <div className="space-y-6">
       {/* NSC Info Card */}
-      <Card className="border-green-200 bg-linear-to-r from-green-50 to-emerald-50">
+      <Card className="border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1]">
         <CardContent className="py-4">
           <div className="flex items-start gap-3">
-            <Shield className="h-5 w-5 text-green-600 mt-0.5" />
+            <Shield className="h-5 w-5 text-[#577A30] mt-0.5" />
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-green-900 mb-1">
+              <h3 className="text-sm font-semibold text-[#1B2E06] mb-1">
                 {t.governmentBacked}
               </h3>
               <p className="text-xs text-slate-700">
                 Current NSC rate:{' '}
-                <strong className="text-green-700">{rate}%</strong> | 5-year
+                <strong className="text-[#577A30]">{rate}%</strong> | 5-year
                 fixed tenure | Min: ₹1,000 | Max 80C benefit: ₹1.5L
               </p>
             </div>
@@ -294,8 +303,8 @@ export default function NSCClient({
       {/* Main Calculator */}
       <Card className="border-slate-200 shadow-sm">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
-          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-            <Shield className="h-5 w-5 text-green-600" />
+          <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+            <Shield className="h-5 w-5 text-[#577A30]" />
             NSC Calculator
           </CardTitle>
         </CardHeader>
@@ -328,10 +337,10 @@ export default function NSCClient({
                   {t.tenure}
                 </label>
                 <div className="w-full rounded-md border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 cursor-not-allowed">
-                  5 Years (Fixed)
+                  {NSC_YEARS} Years (Fixed)
                 </div>
                 <p className="text-xs text-slate-500">
-                  NSC has a mandatory 5-year lock-in period
+                  NSC has a mandatory {NSC_YEARS}-year lock-in period
                 </p>
               </div>
 
@@ -347,6 +356,49 @@ export default function NSCClient({
                   {showBreakdown ? t.hideBreakdown : t.showBreakdown}
                 </Button>
               </div>
+
+              {/* Year-wise Breakdown */}
+              {showBreakdown && (
+                <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
+                  <h4 className="text-xs font-semibold text-slate-900 mb-3">
+                    {t.yearwiseGrowth}
+                  </h4>
+                  <div className="space-y-2">
+                    {results.yearlyBreakdown.map((item) => (
+                      <div
+                        key={item.year}
+                        className="flex flex-col text-xs border-b border-slate-200 pb-2 last:border-0"
+                      >
+                        <div className="flex justify-between font-semibold mb-1">
+                          <span className="text-slate-700">
+                            {t.year} {item.year}:
+                          </span>
+                          <span className="text-slate-900">
+                            {formatINR(item.balance)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-slate-600 ml-4">
+                          <span>
+                            {t.interest} (Year {item.year}):
+                          </span>
+                          <span className="text-[#577A30]">
+                            +{formatINR(item.yearInterest)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-slate-600 ml-4">
+                          <span>{t.accruedInterest}:</span>
+                          <span className="text-[#577A30]">
+                            {formatINR(item.totalAccruedInterest)}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-[11px] text-slate-500 mt-3 pt-2 border-t">
+                    {t.taxNote}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* ---------- VISUALS ---------- */}
@@ -360,7 +412,7 @@ export default function NSCClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityAmount}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(results.maturity)}
                 </div>
 
@@ -376,85 +428,42 @@ export default function NSCClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-lime-200 bg-lime-50">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">
+                      <div className="text-xs text-[#577A30]">
                         {t.interestEarned}
                       </div>
-                      <div className="mt-1 font-semibold text-lime-700">
+                      <div className="mt-1 font-semibold text-[#577A30]">
                         +{formatINR(results.interest)}
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="mt-4 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700 flex items-center gap-1">
-                      <TrendingUp className="h-4 w-4 text-emerald-600" />
+                      <TrendingUp className="h-4 w-4 text-[#577A30]" />
                       {t.effectiveGain}
                     </span>
-                    <span className="font-bold text-emerald-700">
+                    <span className="font-semibold text-[#577A30]">
                       {results.effectiveReturn}%
                     </span>
                   </div>
                 </div>
 
                 {/* Section 80C Info */}
-                <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-                  <div className="text-xs font-semibold text-emerald-900 mb-1">
+                <div className="mt-4 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <div className="text-xs font-semibold text-[#577A30] mb-1">
                     {t.section80C}
                   </div>
-                  <div className="text-sm font-bold text-emerald-700">
+                  <div className="text-sm font-semibold text-[#577A30]">
                     {formatINR(results.section80CEligible)}
                   </div>
                   <div className="text-xs text-slate-600 mt-1">
                     {t.section80CInfo}
                   </div>
                 </div>
-
-                {/* Year-wise Breakdown */}
-                {showBreakdown && (
-                  <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 text-left">
-                    <h4 className="text-xs font-semibold text-slate-900 mb-3">
-                      {t.yearwiseGrowth}
-                    </h4>
-                    <div className="space-y-2">
-                      {results.yearlyBreakdown.map((item) => (
-                        <div
-                          key={item.year}
-                          className="flex flex-col text-xs border-b border-slate-200 pb-2 last:border-0"
-                        >
-                          <div className="flex justify-between font-semibold mb-1">
-                            <span className="text-slate-700">
-                              {t.year} {item.year}:
-                            </span>
-                            <span className="text-slate-900">
-                              {formatINR(item.balance)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-slate-600 ml-4">
-                            <span>
-                              {t.interest} (Year {item.year}):
-                            </span>
-                            <span className="text-green-600">
-                              +{formatINR(item.yearInterest)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-slate-600 ml-4">
-                            <span>{t.accruedInterest}:</span>
-                            <span className="text-emerald-600">
-                              {formatINR(item.totalAccruedInterest)}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="text-[11px] text-slate-500 mt-3 pt-2 border-t">
-                      {t.taxNote}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -502,7 +511,8 @@ export default function NSCClient({
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <div className="font-semibold text-sm">
-                          {formatINR(calc.principal)} @ {calc.rate}% for 5 years
+                          {formatINR(calc.principal)} @ {calc.rate}% for{' '}
+                          {NSC_YEARS} years
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
                           {t.maturity} {formatINR(calc.maturity)} |{' '}

@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     'Recurring Deposit Tax',
     'Monthly Savings Calculator',
     'Senior Citizen RD Rates',
-    'Bank RD Rates India'
+    'Bank RD Rates India',
   ],
   alternates: {
     canonical: 'https://fincado.com/rd-calculator/',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado RD Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -205,7 +205,7 @@ export default function RDPage() {
       question: 'How is RD different from SIP?',
       answer:
         'RD is a bank deposit product with guaranteed returns and quarterly compounding. SIP is a mutual fund investment method with market-linked returns. RD is safer but offers lower returns (6.5-7.5%), while SIP can generate higher returns (12-15%) but carries market risk. RD is ideal for short-term goals, SIP for long-term wealth creation.',
-    }
+    },
   ];
 
   return (
@@ -217,7 +217,7 @@ export default function RDPage() {
           {
             name: 'RD Calculator',
             url: 'https://fincado.com/rd-calculator/',
-          }
+          },
         ]}
       />
 
@@ -244,14 +244,14 @@ export default function RDPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-lime-50 to-emerald-100 text-lime-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
               <Repeat className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Recurring Deposit Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-lime-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Grow disciplined monthly savings with guaranteed returns
               </p>
             </div>
@@ -272,15 +272,15 @@ export default function RDPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-lime-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       AVERAGE RD RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Major banks (1-3 years)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       6.7–7.5%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -290,15 +290,15 @@ export default function RDPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       POST OFFICE RD
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       5-year tenure (Government backed)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       6.7%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -308,15 +308,15 @@ export default function RDPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       UPDATED DATA
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Bank rates as of
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       {updatedLabel}
                     </div>
                   </CardContent>
@@ -333,8 +333,8 @@ export default function RDPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-lime-50/50 border-lime-200 text-slate-600">
-              <Info className="h-4 w-4 text-lime-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1]0 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Investment Tip
@@ -411,7 +411,7 @@ export default function RDPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> This formula is similar to the
                         Future Value of Annuity formula but adjusted for
@@ -421,8 +421,8 @@ export default function RDPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: RD Calculation (Quarterly Compounding)
                     </h4>
@@ -450,7 +450,7 @@ export default function RDPage() {
                         <div>Quarterly (4 times/year)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-emerald-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Step 1: Convert Rate to Decimal
                         </strong>
@@ -495,16 +495,16 @@ export default function RDPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]0">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Approx. Maturity Value:
                         </div>
-                        <div className="text-3xl font-bold text-emerald-700">
+                        <div className="text-3xl font-semibold text-[#577A30]">
                           ≈ ₹1,97,271
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-emerald-300 space-y-2">
+                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
                         <div className="flex justify-between">
                           <span>Total Deposited (36 months):</span>
                           <strong>₹1,80,000</strong>
@@ -515,15 +515,15 @@ export default function RDPage() {
                         </div>
                         <div className="flex justify-between">
                           <span>Effective Gain:</span>
-                          <strong className="text-lime-700">9.6%</strong>
+                          <strong className="text-[#577A30]">9.6%</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Alternative Method */}
-                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
-                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
                       <CalendarCheck className="h-4 w-4" />
                       Alternative: Month-by-Month Calculation
                     </h4>
@@ -589,18 +589,18 @@ export default function RDPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-lime-200 bg-lime-50/50 transition-colors hover:bg-lime-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lime-100 text-lime-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#74A046]">
                   <TrendingUp className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-lime-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Looking for market-linked returns?
                   </strong>
                   <Link
                     href="/sip-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
                   >
                     <span>
                       Compare with SIP Calculator for higher growth potential
@@ -672,13 +672,13 @@ export default function RDPage() {
                         <TableCell className="font-medium text-slate-700">
                           Returns
                         </TableCell>
-                        <TableCell className="font-semibold text-lime-600">
+                        <TableCell className="font-semibold text-[#74A046]">
                           6.7% – 7.5%
                         </TableCell>
                         <TableCell className="text-slate-700">
                           6.5% – 7.5%
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           12% – 15%
                         </TableCell>
                       </TableRow>
@@ -687,13 +687,13 @@ export default function RDPage() {
                         <TableCell className="font-medium text-slate-700">
                           Investment Mode
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Monthly
                         </TableCell>
                         <TableCell className="text-slate-700">
                           Lump Sum
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Monthly
                         </TableCell>
                       </TableRow>
@@ -702,10 +702,10 @@ export default function RDPage() {
                         <TableCell className="font-medium text-slate-700">
                           Risk Level
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Zero Risk
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Zero Risk
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -723,7 +723,7 @@ export default function RDPage() {
                         <TableCell className="text-slate-700">
                           Lump sum parking
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Long-term wealth (10+ years)
                         </TableCell>
                       </TableRow>
@@ -735,10 +735,10 @@ export default function RDPage() {
                         <TableCell className="text-slate-700">
                           Medium (with penalty)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           High (with penalty)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           High (can redeem anytime)
                         </TableCell>
                       </TableRow>
@@ -761,7 +761,7 @@ export default function RDPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Tip:</strong> Use RD for short-term goals and
                     emergency funds. For retirement or long-term wealth, combine
@@ -817,21 +817,21 @@ export default function RDPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/fd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               FD Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate fixed deposit returns with lump sum
                               investment.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -842,21 +842,21 @@ export default function RDPage() {
                   </Link>
 
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate SIP returns with market-linked growth
                               potential.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Try Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

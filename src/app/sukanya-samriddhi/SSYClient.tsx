@@ -181,21 +181,53 @@ export default function SSYClient({
     // Year-wise breakdown for first 5 years
     const yearlyBreakdown = [];
 
-    for (let year = 1; year <= maturityYears; year++) {
-      if (year <= depositYears) {
-        balance += annualInvestment;
-        totalInvested += annualInvestment;
-      }
-      balance += balance * rate;
+    if (depositMode === 'yearly') {
+      // Existing yearly model: one annual deposit + annual compounding
+      for (let year = 1; year <= maturityYears; year++) {
+        if (year <= depositYears) {
+          balance += yearlyDeposit;
+          totalInvested += yearlyDeposit;
+        }
 
-      // Store yearly data for first 5 years
-      if (year <= 5) {
-        yearlyBreakdown.push({
-          year,
-          investment: year <= depositYears ? annualInvestment : 0,
-          balance: Math.round(balance),
-          interest: Math.round(balance - totalInvested),
-        });
+        balance += balance * rate;
+
+        if (year <= 5) {
+          yearlyBreakdown.push({
+            year,
+            investment: year <= depositYears ? yearlyDeposit : 0,
+            balance: Math.round(balance),
+            interest: Math.round(balance - totalInvested),
+          });
+        }
+      }
+    } else {
+      // More accurate monthly model:
+      // - monthly deposits for first 15 years
+      // - monthly compounding for full 21 years
+      const monthlyRate = Math.pow(1 + rate, 1 / 12) - 1;
+      const totalMonths = maturityYears * 12;
+      const depositMonths = depositYears * 12;
+
+      for (let month = 1; month <= totalMonths; month++) {
+        if (month <= depositMonths) {
+          balance += monthlyDeposit;
+          totalInvested += monthlyDeposit;
+        }
+
+        balance += balance * monthlyRate;
+
+        // Store year-end snapshots for first 5 years
+        if (month % 12 === 0) {
+          const year = month / 12;
+          if (year <= 5) {
+            yearlyBreakdown.push({
+              year,
+              investment: year <= depositYears ? monthlyDeposit * 12 : 0,
+              balance: Math.round(balance),
+              interest: Math.round(balance - totalInvested),
+            });
+          }
+        }
       }
     }
 
@@ -208,7 +240,10 @@ export default function SSYClient({
     const interestPct = 100 - principalPct;
 
     const maturityAge = currentAge + 21;
-    const maturityYear = new Date().getFullYear() + (21 - currentAge);
+
+    // FIX: maturity is 21 years from opening (now), not (21 - currentAge)
+    const maturityYear = new Date().getFullYear() + 21;
+
     const canOpen = currentAge <= 10;
 
     return {
@@ -329,9 +364,9 @@ export default function SSYClient({
     <div className="space-y-6">
       {/* Age Warning */}
       {!results.canOpen && (
-        <Alert className="border-amber-200 bg-amber-50">
-          <AlertCircle className="h-4 w-4 text-amber-600" />
-          <AlertDescription className="ml-2 text-sm text-amber-800">
+        <Alert className="border-[#DFF7C6] bg-[#F7FDF1]">
+          <AlertCircle className="h-4 w-4 text-[#577A30]" />
+          <AlertDescription className="ml-2 text-sm text-[#577A30]">
             <strong>{t.ageWarning}</strong> {t.ageWarningNote}
           </AlertDescription>
         </Alert>
@@ -341,13 +376,13 @@ export default function SSYClient({
       <Card className="border-slate-200 shadow-sm bg-card">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Baby className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Baby className="h-5 w-5 text-[#577A30]" />
               {t.ssyCalculator}
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> {t.reset}
             </button>
@@ -362,7 +397,7 @@ export default function SSYClient({
                 label={t.girlAge}
                 value={currentAge}
                 min={0}
-                max={10}
+                max={21}
                 step={1}
                 onChange={setCurrentAge}
               />
@@ -379,7 +414,7 @@ export default function SSYClient({
                   <SelectTrigger className="bg-white h-11">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white z-20">
                     <SelectItem value="monthly">{t.monthly}</SelectItem>
                     <SelectItem value="yearly">{t.yearly}</SelectItem>
                   </SelectContent>
@@ -439,11 +474,11 @@ export default function SSYClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#577A30]">
                   {formatINR(results.maturityAmount)}
                 </div>
 
-                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#EFFBE2] px-3 py-1 text-xs font-medium text-[#577A30]">
                   {t.maturity} {results.maturityYear} ({t.age}{' '}
                   {results.maturityAge})
                 </div>
@@ -460,12 +495,12 @@ export default function SSYClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-lime-200 bg-lime-50 shadow-none">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1] shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-lime-700">
+                      <div className="text-xs text-[#577A30]">
                         {t.totalInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-lime-700">
+                      <div className="mt-1 font-semibold text-[#577A30]">
                         +{formatINR(results.totalInterest)}
                       </div>
                     </CardContent>
@@ -475,12 +510,14 @@ export default function SSYClient({
                 <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700">{t.annualInvestment}</span>
-                    <span className="font-bold text-blue-700">
+                    <span className="font-semibold text-blue-700">
                       {formatINR(results.annualInvestment)}
                     </span>
                   </div>
                   <div className="text-[11px] text-slate-600 mt-1">
-                    {t.contributionNote}
+                    {depositMode === 'monthly'
+                      ? 'Monthly contributions for 15 years + 6 years growth only'
+                      : t.contributionNote}
                   </div>
                 </div>
 
@@ -504,7 +541,7 @@ export default function SSYClient({
                               {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
-                            <span className="text-lime-700">
+                            <span className="text-[#577A30]">
                               {t.interest}{' '}
                               <strong>{formatINR(item.interest)}</strong>
                             </span>

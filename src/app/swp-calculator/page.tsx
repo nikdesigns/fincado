@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'SWP Tax Calculator',
     'Withdrawal Plan Calculator',
     'Pension Calculator',
-    'Post Retirement Income'
+    'Post Retirement Income',
   ],
   alternates: {
     canonical: 'https://fincado.com/swp-calculator/',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado SWP Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -140,7 +140,7 @@ export default function SWPPage() {
     <ul class="list-disc pl-5 space-y-2 mt-2">
       <li><strong>All gains taxed as per your income tax slab</strong> (no LTCG benefit from April 2023)</li>
     </ul>
-    <p class="mt-4 font-semibold text-emerald-700">
+    <p class="mt-4 font-semibold text-[#577A30]">
       Example: If you withdraw ₹50,000 monthly and only ₹10,000 is capital gain, tax applies 
       only on ₹10,000, not the full ₹50,000.
     </p>
@@ -206,7 +206,7 @@ export default function SWPPage() {
       question: 'Can I start SWP from SIP investments?',
       answer:
         'Yes! Once your SIP corpus reaches a comfortable level (e.g., ₹20-30 lakhs), you can start SWP. Many investors continue SIP in growth funds while taking SWP from mature funds for income.',
-    }
+    },
   ];
 
   return (
@@ -218,7 +218,7 @@ export default function SWPPage() {
           {
             name: 'SWP Calculator',
             url: 'https://fincado.com/swp-calculator/',
-          }
+          },
         ]}
       />
 
@@ -245,14 +245,14 @@ export default function SWPPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-lime-50 to-green-100 text-lime-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046]">
               <TrendingDown className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 SWP Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-lime-700">
+              <p className="text-base sm:text-lg font-medium text-[#74A046]">
                 Plan systematic withdrawals for retirement income
               </p>
             </div>
@@ -273,15 +273,15 @@ export default function SWPPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-lime-700 mb-1">
+                    <div className="text-xs font-semibold text-[#74A046] mb-1">
                       SAFE WITHDRAWAL RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Annual (for 25-30 year sustainability)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       4–5%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -291,15 +291,15 @@ export default function SWPPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       TAX ON SWP
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Only on capital gains, not full withdrawal
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       12.5%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -309,15 +309,15 @@ export default function SWPPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       MINIMUM CORPUS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       For ₹25,000 monthly income (5% rule)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹60L
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -338,8 +338,8 @@ export default function SWPPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-lime-50/50 border-lime-200 text-slate-600">
-              <Info className="h-4 w-4 text-lime-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1]0 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Retirement Planning Tip
@@ -413,7 +413,7 @@ export default function SWPPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> Unlike simple interest
                         calculations, SWP requires iterative month-by-month
@@ -424,8 +424,8 @@ export default function SWPPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Monthly SWP Calculation
                     </h4>
@@ -453,7 +453,7 @@ export default function SWPPage() {
                         <div>10 years (120 months)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-emerald-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Step 1: Calculate Monthly Return Rate
                         </strong>
@@ -500,27 +500,27 @@ export default function SWPPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]0">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           After 10 Years:
                         </div>
                         <div className="space-y-2">
                           <div className="flex justify-between">
                             <span>Total Withdrawn:</span>
-                            <strong className="text-lime-700">
+                            <strong className="text-[#74A046]">
                               ₹12,00,000
                             </strong>
                           </div>
                           <div className="flex justify-between">
                             <span>Remaining Corpus:</span>
-                            <strong className="text-emerald-700">
+                            <strong className="text-[#577A30]">
                               ₹8,33,945
                             </strong>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-emerald-300">
+                      <div className="mt-3 pt-3 border-t border-[#D0F4A9]">
                         <p className="text-xs text-slate-600">
                           <strong>Key Insight:</strong> Despite withdrawing ₹12L
                           over 10 years, you still have ₹8.34L remaining because
@@ -531,8 +531,8 @@ export default function SWPPage() {
                   </div>
 
                   {/* 4% Rule Explanation */}
-                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
-                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#74A046] mb-2 flex items-center gap-2">
                       <Wallet className="h-4 w-4" />
                       The 4% Rule for Safe Withdrawal
                     </h4>
@@ -543,7 +543,7 @@ export default function SWPPage() {
                         sustain it for 25-30 years. This is based on historical
                         data assuming 7-10% returns.
                       </p>
-                      <div className="p-3 bg-white rounded border border-lime-200 mt-2">
+                      <div className="p-3 bg-white rounded border border-[#DFF7C6] mt-2">
                         <div className="font-mono text-sm space-y-1">
                           <div>Safe Annual Withdrawal = Corpus × 4%</div>
                           <div>
@@ -600,18 +600,18 @@ export default function SWPPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-lime-200 bg-lime-50/50 transition-colors hover:bg-lime-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lime-100 text-lime-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#74A046]">
                   <PiggyBank className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-lime-900">
+                  <strong className="block text-base font-semibold text-[#74A046]">
                     Building retirement corpus?
                   </strong>
                   <Link
                     href="/sip-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-lime-700 hover:text-lime-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#74A046]"
                   >
                     <span>
                       Use SIP Calculator to plan your wealth accumulation
@@ -684,13 +684,13 @@ export default function SWPPage() {
                         <TableCell className="font-medium text-slate-700">
                           Regularity
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Fixed (You control)
                         </TableCell>
                         <TableCell className="text-slate-700">
                           Uncertain (Fund decides)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Fixed (Guaranteed)
                         </TableCell>
                       </TableRow>
@@ -699,7 +699,7 @@ export default function SWPPage() {
                         <TableCell className="font-medium text-slate-700">
                           Taxation
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Only on capital gains
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -714,7 +714,7 @@ export default function SWPPage() {
                         <TableCell className="font-medium text-slate-700">
                           Flexibility
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Change/pause/stop anytime
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -729,7 +729,7 @@ export default function SWPPage() {
                         <TableCell className="font-medium text-slate-700">
                           Corpus Growth
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Remaining balance grows
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -744,7 +744,7 @@ export default function SWPPage() {
                         <TableCell className="font-medium text-slate-700">
                           Inflation Protection
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Can increase withdrawal
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -759,10 +759,10 @@ export default function SWPPage() {
                         <TableCell className="font-medium text-slate-700">
                           Liquidity
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Full access anytime
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#92C65B]">
                           Full access anytime
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -788,7 +788,7 @@ export default function SWPPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Verdict:</strong> SWP offers superior
                     flexibility and tax efficiency compared to dividends and FD
@@ -915,7 +915,7 @@ export default function SWPPage() {
                       Expected: 5-7% returns.
                     </li>
                   </ul>
-                  <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
                     <p className="text-sm text-slate-700">
                       <strong>Pro Tip:</strong> Avoid high-volatility funds like
                       small-cap or sector funds for SWP. Volatility can deplete
@@ -932,21 +932,21 @@ export default function SWPPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Build retirement corpus with systematic monthly
                               investments.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Build Corpus</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -957,21 +957,21 @@ export default function SWPPage() {
                   </Link>
 
                   <Link href="/lumpsum-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               Lumpsum Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate returns from one-time retirement corpus
                               investment.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Try Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

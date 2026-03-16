@@ -22,6 +22,8 @@ interface SavedCalculation {
   amount: number;
   rate: number;
   tenure: number;
+  moratoriumPeriod: number;
+  taxBracket: number;
   emi: number;
   totalInterest: number;
   date: string;
@@ -62,7 +64,7 @@ export default function EducationLoanEMIClient() {
   }, []);
 
   const calculations = useMemo(() => {
-    if (tenure === 0)
+    if (tenure <= 0)
       return {
         emi: 0,
         totalInterest: 0,
@@ -77,7 +79,6 @@ export default function EducationLoanEMIClient() {
     const n = tenure * 12;
 
     // Calculate simple interest during moratorium
-    const moratoriumMonths = moratoriumPeriod * 12;
     const moratoriumInterest = amount * (rate / 100) * moratoriumPeriod;
 
     // New principal after moratorium (if interest is capitalized)
@@ -92,10 +93,10 @@ export default function EducationLoanEMIClient() {
         (Math.pow(1 + r, n) - 1);
     }
 
-    if (!isFinite(emi)) emi = 0;
+    if (!isFinite(emi) || emi < 0) emi = 0;
 
     const totalPayment = emi * n;
-    const totalInterest = totalPayment - amount; // Total interest including moratorium
+    const totalInterest = totalPayment - amount; // Includes moratorium impact
 
     const principalPct =
       totalPayment > 0 ? Math.round((amount / totalPayment) * 100) : 0;
@@ -111,12 +112,12 @@ export default function EducationLoanEMIClient() {
       principalPct,
       interestPct,
       moratoriumInterest: Math.round(moratoriumInterest),
-      effectiveRate: effectiveRate.toFixed(2),
+      effectiveRate,
     };
   }, [amount, rate, tenure, moratoriumPeriod, taxBracket]);
 
   const taxBenefits = useMemo(() => {
-    if (!showTaxBenefit) {
+    if (!showTaxBenefit || tenure <= 0) {
       return { annualTaxSaving: 0, totalTaxSaving: 0, effectiveCost: 0 };
     }
 
@@ -146,6 +147,8 @@ export default function EducationLoanEMIClient() {
       amount,
       rate,
       tenure,
+      moratoriumPeriod,
+      taxBracket,
       emi: calculations.emi,
       totalInterest: calculations.totalInterest,
       date: new Date().toISOString(),
@@ -215,7 +218,7 @@ export default function EducationLoanEMIClient() {
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n` +
       `💰 Section 80E Tax Saving: ${formatINR(taxBenefits.totalTaxSaving)}\n\n` +
-      `Calculate yours: /loans/education-loan/`;
+      `Calculate yours: https://fincado.com/loans/education-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -231,19 +234,21 @@ export default function EducationLoanEMIClient() {
     setAmount(calc.amount);
     setRate(calc.rate);
     setTenure(calc.tenure);
+    setMoratoriumPeriod(calc.moratoriumPeriod ?? 5);
+    setTaxBracket(calc.taxBracket ?? 30);
     toast.success('Calculation loaded!');
   };
 
   return (
     <div className="space-y-6">
       {/* Main Calculator */}
-      <Card className="border-none shadow-none bg-card">
+      <Card className="bg-card">
         <CardContent className="p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* INPUTS */}
             <div className="space-y-6">
               <CalculatorField
-                label="Loan Amount (₹)"
+                label="Loan Amount ()"
                 value={amount}
                 min={100000}
                 max={15000000}
@@ -282,7 +287,7 @@ export default function EducationLoanEMIClient() {
                 <div className="text-xs text-indigo-900 font-medium mb-2">
                   Moratorium Interest (Simple Interest)
                 </div>
-                <div className="text-2xl font-bold text-indigo-700">
+                <div className="text-2xl font-semibold text-indigo-700">
                   {formatINR(calculations.moratoriumInterest)}
                 </div>
                 <div className="text-xs text-indigo-600 mt-1">
@@ -303,7 +308,7 @@ export default function EducationLoanEMIClient() {
                   Monthly EMI (After Moratorium)
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-indigo-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-indigo-700">
                   {formatINR(calculations.emi)}
                 </div>
 
@@ -319,12 +324,12 @@ export default function EducationLoanEMIClient() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-900">
+                  <Card className="border-[#FFDFDD] bg-red-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-red-700 dark:text-red-400">
+                      <div className="text-xs text-[#DB3E82]">
                         Total Interest
                       </div>
-                      <div className="mt-1 font-semibold text-red-700 dark:text-red-400 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-[#DB3E82] whitespace-nowrap">
                         +{formatINR(calculations.totalInterest)}
                       </div>
                     </CardContent>
@@ -360,10 +365,10 @@ export default function EducationLoanEMIClient() {
 
       {/* Section 80E Tax Benefits */}
       {showTaxBenefit && (
-        <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Sparkles className="h-5 w-5 text-emerald-600" />
+              <Sparkles className="h-5 w-5 text-[#92C65B]" />
               Section 80E Tax Benefits Calculator
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -393,8 +398,8 @@ export default function EducationLoanEMIClient() {
               </div>
             </div>
 
-            <div className="p-5 bg-linear-to-br from-emerald-50 to-green-50 rounded-lg border-2 border-emerald-200">
-              <h4 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2">
+            <div className="p-5 bg-linear-to-br from-[#F7FDF1] to-green-50 rounded-lg border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-[#1B2E06] mb-4 flex items-center gap-2">
                 <TrendingUp className="h-5 w-5" />
                 Your Tax Savings (Section 80E)
               </h4>
@@ -404,7 +409,7 @@ export default function EducationLoanEMIClient() {
                     <Calendar className="h-3 w-3" />
                     Annual Tax Saving
                   </div>
-                  <div className="text-2xl font-bold text-emerald-700">
+                  <div className="text-2xl font-semibold text-[#74A046]">
                     {formatINR(taxBenefits.annualTaxSaving)}
                   </div>
                 </div>
@@ -413,7 +418,7 @@ export default function EducationLoanEMIClient() {
                     <IndianRupee className="h-3 w-3" />
                     Total Tax Saving (8 yrs)
                   </div>
-                  <div className="text-2xl font-bold text-emerald-700">
+                  <div className="text-2xl font-semibold text-[#74A046]">
                     {formatINR(taxBenefits.totalTaxSaving)}
                   </div>
                 </div>
@@ -422,19 +427,19 @@ export default function EducationLoanEMIClient() {
                     <TrendingUp className="h-3 w-3" />
                     Effective Interest Cost
                   </div>
-                  <div className="text-2xl font-bold text-emerald-700">
+                  <div className="text-2xl font-semibold text-[#74A046]">
                     {formatINR(taxBenefits.effectiveCost)}
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 p-3 bg-white/70 rounded border border-emerald-200">
+              <div className="mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
                 <div className="text-sm font-semibold text-slate-900 mb-2">
                   Effective Interest Rate After Tax Benefit
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-emerald-700">
-                    {calculations.effectiveRate}%
+                  <span className="text-3xl font-semibold text-[#74A046]">
+                    {calculations.effectiveRate.toFixed(2)}%
                   </span>
                   <span className="text-sm text-slate-600">
                     (Original: {rate}%)
@@ -442,7 +447,7 @@ export default function EducationLoanEMIClient() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-emerald-200">
+              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
                 💡 <strong>Pro Tip:</strong> With 30% tax bracket and 10% loan
                 rate, your effective cost is only 7%. This makes education loans
                 one of the cheapest loans in India. Don&apos;t rush to prepay if
@@ -462,7 +467,7 @@ export default function EducationLoanEMIClient() {
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -502,7 +507,7 @@ export default function EducationLoanEMIClient() {
                       e.stopPropagation();
                       handleDeleteCalculation(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

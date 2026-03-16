@@ -201,42 +201,34 @@ export default function EMIClient({
   defaultPrincipal = 5000000,
   defaultTenure = 20,
 }: EMIClientProps) {
-  // ✅ Memoize merged labels to prevent recreation
   const t = useMemo(() => ({ ...DEFAULT_LABELS, ...labels }), [labels]);
 
-  // ✅ Calculator Mode
   const [calculatorMode, setCalculatorMode] = useState<'emi' | 'affordability'>(
     'emi',
   );
 
-  // ✅ EMI Mode States
   const [amount, setAmount] = useState(defaultPrincipal);
   const [rate, setRate] = useState(defaultRate);
   const [tenure, setTenure] = useState(defaultTenure);
 
-  // ✅ Affordability Mode States
   const [affordableEMI, setAffordableEMI] = useState(50000);
   const [affordabilityRate, setAffordabilityRate] = useState(defaultRate);
   const [affordabilityTenure, setAffordabilityTenure] = useState(defaultTenure);
 
-  // ✅ Prepayment Simulator States
   const [showPrepayment, setShowPrepayment] = useState(false);
   const [prepaymentAmount, setPrepaymentAmount] = useState(100000);
   const [prepaymentMonth, setPrepaymentMonth] = useState(12);
 
-  // ✅ Comparison Mode States
   const [comparisonMode, setComparisonMode] = useState(false);
   const [amount2, setAmount2] = useState(defaultPrincipal);
   const [rate2, setRate2] = useState(9.5);
   const [tenure2, setTenure2] = useState(defaultTenure);
 
-  // ✅ Saved Calculations
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
   >([]);
   const [isClient, setIsClient] = useState(false);
 
-  // ✅ Load saved calculations after mount
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
@@ -250,7 +242,6 @@ export default function EMIClient({
     }
   }, []);
 
-  // Track calculator load
   useEffect(() => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'calculator_loaded', {
@@ -260,7 +251,6 @@ export default function EMIClient({
     }
   }, []);
 
-  // ✅ Calculate Year-by-Year Breakdown - Memoized function
   const calculateYearlyBreakdown = useCallback(
     (
       principal: number,
@@ -288,16 +278,18 @@ export default function EMIClient({
         const openingBalance = balance;
         let yearlyPrincipal = 0;
         let yearlyInterest = 0;
+        let monthsPaidThisYear = 0;
 
         for (let month = 0; month < 12; month++) {
           if (balance <= 0) break;
 
           const interest = balance * monthlyRate;
-          const principalPayment = emi - interest;
+          const principalPayment = Math.min(balance, emi - interest);
 
           yearlyInterest += interest;
           yearlyPrincipal += principalPayment;
           balance -= principalPayment;
+          monthsPaidThisYear++;
         }
 
         balance = Math.max(0, balance);
@@ -308,7 +300,7 @@ export default function EMIClient({
           principalPaid: Math.round(yearlyPrincipal),
           interestPaid: Math.round(yearlyInterest),
           closingBalance: Math.round(balance),
-          emiPaid: Math.round(emi * 12),
+          emiPaid: Math.round(emi * monthsPaidThisYear),
         });
 
         if (balance <= 0) break;
@@ -319,7 +311,6 @@ export default function EMIClient({
     [],
   );
 
-  // ✅ EMI Mode Calculations
   const calculations = useMemo(() => {
     if (calculatorMode === 'affordability') {
       const monthlyRate = affordabilityRate / 12 / 100;
@@ -410,7 +401,6 @@ export default function EMIClient({
     calculateYearlyBreakdown,
   ]);
 
-  // ✅ Comparison Calculations
   const calculations2 = useMemo(() => {
     if (!comparisonMode) return null;
 
@@ -451,7 +441,6 @@ export default function EMIClient({
     };
   }, [comparisonMode, amount2, rate2, tenure2]);
 
-  // ✅ Prepayment Calculations
   const prepaymentImpact = useMemo(() => {
     if (
       !showPrepayment ||
@@ -464,25 +453,39 @@ export default function EMIClient({
     const r = rate / 12 / 100;
     const n = tenure * 12;
 
-    const emi = calculations.emi;
-    let remainingPrincipal = amount;
+    const emi =
+      rate === 0
+        ? amount / n
+        : (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 
-    for (let i = 0; i < prepaymentMonth; i++) {
+    if (!isFinite(emi) || emi <= 0) {
+      return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
+    }
+
+    let remainingPrincipal = amount;
+    const effectivePrepayMonth = Math.min(prepaymentMonth, n);
+
+    for (let i = 0; i < effectivePrepayMonth; i++) {
+      if (remainingPrincipal <= 0) break;
       const interestForMonth = remainingPrincipal * r;
-      const principalForMonth = emi - interestForMonth;
+      const principalForMonth = Math.min(
+        remainingPrincipal,
+        emi - interestForMonth,
+      );
       remainingPrincipal -= principalForMonth;
     }
 
     const newPrincipal = Math.max(0, remainingPrincipal - prepaymentAmount);
-    const remainingMonths = n - prepaymentMonth;
+    const remainingMonths = Math.max(0, n - effectivePrepayMonth);
 
     let totalInterestWithout = 0;
     let balance = remainingPrincipal;
     for (let i = 0; i < remainingMonths; i++) {
+      if (balance <= 0) break;
       const interest = balance * r;
       totalInterestWithout += interest;
-      balance -= emi - interest;
-      if (balance <= 0) break;
+      const principalPay = Math.min(balance, emi - interest);
+      balance -= principalPay;
     }
 
     let totalInterestWith = 0;
@@ -491,7 +494,8 @@ export default function EMIClient({
     while (balanceWith > 0 && monthsNeeded < remainingMonths) {
       const interest = balanceWith * r;
       totalInterestWith += interest;
-      balanceWith -= emi - interest;
+      const principalPay = Math.min(balanceWith, emi - interest);
+      balanceWith -= principalPay;
       monthsNeeded++;
     }
 
@@ -501,7 +505,7 @@ export default function EMIClient({
     return {
       interestSaved: Math.max(0, interestSaved),
       tenureReduction: Math.max(0, tenureReduction),
-      newEmi: emi,
+      newEmi: Math.round(emi),
     };
   }, [
     showPrepayment,
@@ -510,11 +514,9 @@ export default function EMIClient({
     amount,
     rate,
     tenure,
-    calculations.emi,
     calculatorMode,
   ]);
 
-  // ✅ Memoized callback functions
   const handleSaveCalculation = useCallback(() => {
     const calculation: SavedCalculation = {
       id: Date.now(),
@@ -563,8 +565,11 @@ export default function EMIClient({
 
   const handleDeleteCalculation = useCallback(
     (id: number) => {
+      let remainingCount = 0;
+
       setSavedCalculations((prev) => {
         const updated = prev.filter((c) => c.id !== id);
+        remainingCount = updated.length;
         try {
           localStorage.setItem('emi_history', JSON.stringify(updated));
         } catch (error) {
@@ -577,14 +582,15 @@ export default function EMIClient({
 
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'emi_calculation_deleted', {
-          calculations_remaining: savedCalculations.length - 1,
+          calculations_remaining: remainingCount,
         });
       }
     },
-    [savedCalculations.length, t.calculationDeleted],
+    [t.calculationDeleted],
   );
 
   const handleClearAll = useCallback(() => {
+    const clearedCount = savedCalculations.length;
     setSavedCalculations([]);
 
     try {
@@ -597,7 +603,7 @@ export default function EMIClient({
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'emi_history_cleared', {
-        calculations_cleared: savedCalculations.length,
+        calculations_cleared: clearedCount,
       });
     }
   }, [savedCalculations.length, t.allCleared]);
@@ -741,10 +747,7 @@ export default function EMIClient({
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  {/* Visual indicator background */}
                   <div className={cn('', comparisonMode ? '' : '')} />
-
-                  {/* Switch with better contrast */}
                   <Switch
                     checked={comparisonMode}
                     onCheckedChange={setComparisonMode}
@@ -770,7 +773,6 @@ export default function EMIClient({
                 </div>
               </div>
 
-              {/* Visual status */}
               <div
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-semibold transition-all',
@@ -788,11 +790,9 @@ export default function EMIClient({
 
       {/* ✅ Main Calculator(s) */}
       {!comparisonMode ? (
-        // Single Calculator
         <Card className="bg-card">
           <CardContent className="p-6 sm:p-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-              {/* INPUTS */}
               <div className="space-y-6">
                 {calculatorMode === 'emi' ? (
                   <>
@@ -868,7 +868,6 @@ export default function EMIClient({
                 )}
               </div>
 
-              {/* VISUALS */}
               <div className="flex flex-col items-center justify-center">
                 <EMIPieChart
                   principalPct={calculations.principalPct}
@@ -923,9 +922,7 @@ export default function EMIClient({
           </CardContent>
         </Card>
       ) : (
-        // Comparison Mode - Two Calculators
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Calculator 1 */}
           <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
@@ -980,7 +977,6 @@ export default function EMIClient({
             </CardContent>
           </Card>
 
-          {/* Calculator 2 */}
           <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
@@ -1037,16 +1033,17 @@ export default function EMIClient({
         </div>
       )}
 
-      {/* ✅ Comparison Summary */}
       {comparisonMode && calculations2 && (
-        <Card className="border-slate-200">
+        <Card className="bg-[#1B2E06]">
           <CardHeader>
-            <CardTitle className="text-lg">{t.whichBetter}</CardTitle>
+            <CardTitle className="text-lg text-[#B0EC70]">
+              {t.whichBetter}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-xs text-slate-600 mb-1">
+                <div className="text-xs text-[#D1D5DB] mb-1">
                   {t.emiDifference}
                 </div>
                 <div
@@ -1056,7 +1053,7 @@ export default function EMIClient({
                 </div>
               </div>
               <div>
-                <div className="text-xs text-slate-600 mb-1">
+                <div className="text-xs text-[#D1D5DB] mb-1">
                   {t.interestDifference}
                 </div>
                 <div
@@ -1070,18 +1067,18 @@ export default function EMIClient({
                 </div>
               </div>
               <div>
-                <div className="text-xs text-slate-600 mb-1">{t.winner}</div>
+                <div className="text-xs text-[#D1D5DB] mb-1">{t.winner}</div>
                 <div className="text-xl font-semibold">
                   {calculations.totalInterest < calculations2.totalInterest ? (
-                    <span className="text-[#74A046]">{t.optionA} 🏆</span>
+                    <span className="text-[#B0EC70]">🏆 {t.optionA}</span>
                   ) : (
-                    <span className="text-[#74A046]">{t.optionB} 🏆</span>
+                    <span className="text-[#B0EC70]">🏆 {t.optionB}</span>
                   )}
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-center text-slate-600 font-semibold pt-2 border-t">
+            <p className="text-xs text-center text-[#D1D5DB] font-semibold pt-2 border-t">
               {calculations.totalInterest < calculations2.totalInterest
                 ? `${t.optionA} ${t.optionSaves} ${formatINR(calculations2.totalInterest - calculations.totalInterest)} ${t.inInterest}`
                 : `${t.optionB} ${t.optionSaves} ${formatINR(calculations.totalInterest - calculations2.totalInterest)} ${t.inInterest}`}
@@ -1090,7 +1087,6 @@ export default function EMIClient({
         </Card>
       )}
 
-      {/* ✅ Growth Chart */}
       {isClient &&
         calculations.yearlyBreakdown &&
         calculations.yearlyBreakdown.length > 0 && (
@@ -1179,7 +1175,6 @@ export default function EMIClient({
           </Card>
         )}
 
-      {/* ✅ Year-by-Year Breakdown Table */}
       {isClient &&
         calculations.yearlyBreakdown &&
         calculations.yearlyBreakdown.length > 0 && (
@@ -1237,7 +1232,6 @@ export default function EMIClient({
           </Card>
         )}
 
-      {/* ✅ Action Buttons */}
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSaveCalculation} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
@@ -1266,7 +1260,6 @@ export default function EMIClient({
         )}
       </div>
 
-      {/* ✅ Prepayment Impact Simulator */}
       {showPrepayment && calculatorMode === 'emi' && !comparisonMode && (
         <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
           <CardHeader>
@@ -1355,7 +1348,6 @@ export default function EMIClient({
         </Card>
       )}
 
-      {/* ✅ Saved Calculations History */}
       {isClient && savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">

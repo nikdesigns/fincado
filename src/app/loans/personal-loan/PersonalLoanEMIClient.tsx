@@ -63,7 +63,7 @@ export default function PersonalLoanEMIClient() {
   }, []);
 
   const calculations = useMemo(() => {
-    if (tenure === 0)
+    if (tenure <= 0)
       return {
         emi: 0,
         totalInterest: 0,
@@ -82,7 +82,7 @@ export default function PersonalLoanEMIClient() {
       emi = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     }
 
-    if (!isFinite(emi)) emi = 0;
+    if (!isFinite(emi) || emi < 0) emi = 0;
 
     const totalPayment = emi * n;
     const totalInterest = totalPayment - amount;
@@ -101,32 +101,47 @@ export default function PersonalLoanEMIClient() {
   }, [amount, rate, tenure]);
 
   const prepaymentImpact = useMemo(() => {
-    if (!showPrepayment || prepaymentAmount <= 0) {
+    if (!showPrepayment || prepaymentAmount <= 0 || tenure <= 0) {
       return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
     }
 
     const r = rate / 12 / 100;
     const n = tenure * 12;
 
-    const emi = calculations.emi;
+    // Use exact EMI (not rounded) for simulation accuracy
+    const emi =
+      rate === 0
+        ? amount / n
+        : (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+    if (!isFinite(emi) || emi <= 0) {
+      return { interestSaved: 0, tenureReduction: 0, newEmi: 0 };
+    }
+
+    const effectivePrepaymentMonth = Math.min(prepaymentMonth, n);
     let remainingPrincipal = amount;
 
-    for (let i = 0; i < prepaymentMonth; i++) {
+    for (let i = 0; i < effectivePrepaymentMonth; i++) {
+      if (remainingPrincipal <= 0) break;
       const interestForMonth = remainingPrincipal * r;
-      const principalForMonth = emi - interestForMonth;
+      const principalForMonth = Math.min(
+        remainingPrincipal,
+        emi - interestForMonth,
+      );
       remainingPrincipal -= principalForMonth;
     }
 
     const newPrincipal = Math.max(0, remainingPrincipal - prepaymentAmount);
-    const remainingMonths = n - prepaymentMonth;
+    const remainingMonths = Math.max(0, n - effectivePrepaymentMonth);
 
     let totalInterestWithout = 0;
     let balance = remainingPrincipal;
     for (let i = 0; i < remainingMonths; i++) {
+      if (balance <= 0) break;
       const interest = balance * r;
       totalInterestWithout += interest;
-      balance -= emi - interest;
-      if (balance <= 0) break;
+      const principalPay = Math.min(balance, emi - interest);
+      balance -= principalPay;
     }
 
     let totalInterestWith = 0;
@@ -135,7 +150,8 @@ export default function PersonalLoanEMIClient() {
     while (balanceWith > 0 && monthsNeeded < remainingMonths) {
       const interest = balanceWith * r;
       totalInterestWith += interest;
-      balanceWith -= emi - interest;
+      const principalPay = Math.min(balanceWith, emi - interest);
+      balanceWith -= principalPay;
       monthsNeeded++;
     }
 
@@ -145,17 +161,9 @@ export default function PersonalLoanEMIClient() {
     return {
       interestSaved: Math.max(0, interestSaved),
       tenureReduction: Math.max(0, tenureReduction),
-      newEmi: emi,
+      newEmi: Math.round(emi),
     };
-  }, [
-    showPrepayment,
-    prepaymentAmount,
-    prepaymentMonth,
-    amount,
-    rate,
-    tenure,
-    calculations.emi
-  ]);
+  }, [showPrepayment, prepaymentAmount, prepaymentMonth, amount, rate, tenure]);
 
   const handleSaveCalculation = () => {
     const calculation: SavedCalculation = {
@@ -231,7 +239,7 @@ export default function PersonalLoanEMIClient() {
       `📊 Monthly EMI: ${formatINR(calculations.emi)}\n` +
       `💸 Total Interest: ${formatINR(calculations.totalInterest)}\n` +
       `💵 Total Payment: ${formatINR(calculations.totalPayment)}\n\n` +
-      `Calculate yours: /loans/personal-loan/`;
+      `Calculate yours: https://fincado.com/loans/personal-loan/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -253,7 +261,7 @@ export default function PersonalLoanEMIClient() {
   return (
     <div className="space-y-6">
       {/* Main Calculator */}
-      <Card className="border-none shadow-none bg-card">
+      <Card className="bg-card">
         <CardContent className="p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* INPUTS */}
@@ -296,7 +304,7 @@ export default function PersonalLoanEMIClient() {
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-muted-foreground">Monthly EMI</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-purple-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#577A30]">
                   {formatINR(calculations.emi)}
                 </div>
 
@@ -312,12 +320,12 @@ export default function PersonalLoanEMIClient() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-900">
+                  <Card className="border-red-200 bg-red-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-red-700 dark:text-red-400">
+                      <div className="text-xs text-[#DB3E82]">
                         Total Interest
                       </div>
-                      <div className="mt-1 font-semibold text-red-700 dark:text-red-400 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-[#DB3E82] whitespace-nowrap">
                         +{formatINR(calculations.totalInterest)}
                       </div>
                     </CardContent>
@@ -353,10 +361,10 @@ export default function PersonalLoanEMIClient() {
 
       {/* Prepayment Impact Simulator */}
       {showPrepayment && (
-        <Card className="border-purple-200 bg-linear-to-br from-purple-50 to-white">
+        <Card className="border-[#D0F4A9] bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1]">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Zap className="h-5 w-5 text-purple-600" />
+              <Zap className="h-5 w-5 text-[#74A046]" />
               Prepayment Impact Simulator
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -397,8 +405,8 @@ export default function PersonalLoanEMIClient() {
               </div>
             </div>
 
-            <div className="p-5 bg-linear-to-br from-emerald-50 to-green-50 rounded-lg border-2 border-emerald-200">
-              <h4 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2">
+            <div className="p-5 bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] rounded-lg border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-[#1B2E06] mb-4 flex items-center gap-2">
                 <TrendingDown className="h-5 w-5" />
                 Your Savings
               </h4>
@@ -408,7 +416,7 @@ export default function PersonalLoanEMIClient() {
                     <IndianRupee className="h-3 w-3" />
                     Interest Saved
                   </div>
-                  <div className="text-3xl font-bold text-emerald-700">
+                  <div className="text-3xl font-bold text-[#74A046]">
                     {formatINR(prepaymentImpact.interestSaved)}
                   </div>
                 </div>
@@ -417,7 +425,7 @@ export default function PersonalLoanEMIClient() {
                     <Calendar className="h-3 w-3" />
                     Tenure Reduced By
                   </div>
-                  <div className="text-3xl font-bold text-emerald-700">
+                  <div className="text-3xl font-bold text-[#74A046]">
                     {prepaymentImpact.tenureReduction}{' '}
                     {prepaymentImpact.tenureReduction === 1
                       ? 'month'
@@ -426,7 +434,7 @@ export default function PersonalLoanEMIClient() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-emerald-200">
+              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
                 💡 <strong>Tip:</strong> Personal loans have the highest
                 interest rates. Prepaying early can save you thousands in
                 interest charges.
@@ -445,7 +453,7 @@ export default function PersonalLoanEMIClient() {
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -485,7 +493,7 @@ export default function PersonalLoanEMIClient() {
                       e.stopPropagation();
                       handleDeleteCalculation(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

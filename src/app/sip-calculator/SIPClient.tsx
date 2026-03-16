@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import CalculatorField from '@/components/CalculatorField';
 import EMIPieChart from '@/components/EMIPieChart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -155,6 +155,7 @@ interface CalculationResults {
   principalPct: number;
   gainPct: number;
   requiredSip?: number;
+  requiredSipExact?: number;
 }
 
 const formatINR = (val: number) =>
@@ -164,6 +165,121 @@ const formatINR = (val: number) =>
     maximumFractionDigits: 0,
   }).format(isNaN(val) ? 0 : val);
 
+/* ---------- PURE CALC HELPERS ---------- */
+const simulateSIP = (
+  initialSip: number,
+  annualRate: number,
+  totalYears: number,
+  stepUp: number,
+) => {
+  if (totalYears <= 0) {
+    return {
+      totalInvested: 0,
+      maturityAmount: 0,
+      wealthGain: 0,
+      yearlyBreakdown: [] as YearlyBreakdown[],
+    };
+  }
+
+  const totalMonths = totalYears * 12;
+  const monthlyRate = annualRate / 12 / 100;
+  const yearlyBreakdown: YearlyBreakdown[] = [];
+
+  let balance = 0;
+  let cumulativeInvestment = 0;
+  let yearlyInvestment = 0;
+
+  for (let month = 1; month <= totalMonths; month++) {
+    const yearIndex = Math.floor((month - 1) / 12); // 0-based
+    const sipForThisMonth = initialSip * Math.pow(1 + stepUp / 100, yearIndex);
+
+    // SIP at start of month (annuity due)
+    balance += sipForThisMonth;
+    yearlyInvestment += sipForThisMonth;
+    cumulativeInvestment += sipForThisMonth;
+
+    // Monthly growth
+    if (monthlyRate !== 0) {
+      balance *= 1 + monthlyRate;
+    }
+
+    // Year-end snapshot
+    if (month % 12 === 0) {
+      yearlyBreakdown.push({
+        year: month / 12,
+        yearlyInvestment: Math.round(yearlyInvestment),
+        cumulativeInvestment: Math.round(cumulativeInvestment),
+        interestEarned: Math.round(balance - cumulativeInvestment),
+        cumulativeMaturity: Math.round(balance),
+      });
+      yearlyInvestment = 0;
+    }
+  }
+
+  return {
+    totalInvested: Math.round(cumulativeInvestment),
+    maturityAmount: Math.round(balance),
+    wealthGain: Math.round(balance - cumulativeInvestment),
+    yearlyBreakdown,
+  };
+};
+
+const calculateStandardSIP = (
+  sip: number,
+  annualRate: number,
+  totalYears: number,
+) => simulateSIP(sip, annualRate, totalYears, 0);
+
+const calculateStepUpSIP = (
+  initialSip: number,
+  annualRate: number,
+  totalYears: number,
+  stepUp: number,
+) => simulateSIP(initialSip, annualRate, totalYears, stepUp);
+
+const calculateReverseSIP = (
+  target: number,
+  annualRate: number,
+  totalYears: number,
+) => {
+  const months = totalYears * 12;
+  if (months <= 0) {
+    return {
+      requiredSipExact: 0,
+      requiredSip: 0,
+      totalInvested: 0,
+      maturityAmount: Math.round(target),
+      wealthGain: 0,
+    };
+  }
+
+  const monthlyRate = annualRate / 12 / 100;
+  let requiredSipExact = 0;
+
+  if (monthlyRate === 0) {
+    requiredSipExact = target / months;
+  } else {
+    const factor = Math.pow(1 + monthlyRate, months);
+    requiredSipExact =
+      target / (((factor - 1) / monthlyRate) * (1 + monthlyRate));
+  }
+
+  if (!isFinite(requiredSipExact) || requiredSipExact < 0) {
+    requiredSipExact = 0;
+  }
+
+  const totalInvested = requiredSipExact * months;
+
+  return {
+    requiredSipExact,
+    requiredSip: Math.round(requiredSipExact),
+    totalInvested: Math.round(totalInvested),
+    maturityAmount: Math.round(target),
+    wealthGain: Math.round(target - totalInvested),
+  };
+};
+
+/* ---------- COMPONENT ---------- */
 export default function SIPCalculatorClient({ labels }: SIPClientProps) {
   const t = { ...DEFAULT_LABELS, ...labels };
 
@@ -182,166 +298,20 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
   const [goalYears, setGoalYears] = useState(10);
   const [goalRate, setGoalRate] = useState(12);
 
-  const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    const loadData = () => {
-      try {
-        const saved = localStorage.getItem('sip_calculator_history');
-        if (saved) {
-          setSavedCalculations(JSON.parse(saved));
-        }
-      } catch (error) {
-        console.error('Error loading saved SIP calculations:', error);
-      }
-    };
-    loadData();
-  }, [isClient]);
-
-  // Calculate Step-Up SIP with yearly breakdown
-  const calculateStepUpSIP = (
-    initialSip: number,
-    annualRate: number,
-    totalYears: number,
-    stepUp: number,
-  ) => {
-    const monthlyRate = annualRate / 12 / 100;
-    const yearlyBreakdown: YearlyBreakdown[] = [];
-    let cumulativeInvestment = 0;
-    let cumulativeMaturity = 0;
-
-    for (let year = 1; year <= totalYears; year++) {
-      const yearSipAmount = initialSip * Math.pow(1 + stepUp / 100, year - 1);
-      const yearlyInvestment = yearSipAmount * 12;
-
-      let yearMaturity = 0;
-      const remainingMonths = (totalYears - year + 1) * 12;
-
-      for (let month = 0; month < 12; month++) {
-        const monthsToGrow = remainingMonths - month;
-        if (monthlyRate === 0) {
-          yearMaturity += yearSipAmount;
-        } else {
-          yearMaturity +=
-            yearSipAmount * Math.pow(1 + monthlyRate, monthsToGrow);
-        }
-      }
-
-      cumulativeInvestment += yearlyInvestment;
-      cumulativeMaturity += yearMaturity;
-
-      const interestEarned = cumulativeMaturity - cumulativeInvestment;
-
-      yearlyBreakdown.push({
-        year,
-        yearlyInvestment: Math.round(yearlyInvestment),
-        cumulativeInvestment: Math.round(cumulativeInvestment),
-        interestEarned: Math.round(interestEarned),
-        cumulativeMaturity: Math.round(cumulativeMaturity),
-      });
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('sip_calculator_history');
+      return saved ? (JSON.parse(saved) as SavedCalculation[]) : [];
+    } catch (error) {
+      console.error('Error loading saved SIP calculations:', error);
+      return [];
     }
+  });
 
-    return {
-      totalInvested: Math.round(cumulativeInvestment),
-      maturityAmount: Math.round(cumulativeMaturity),
-      wealthGain: Math.round(cumulativeMaturity - cumulativeInvestment),
-      yearlyBreakdown,
-    };
-  };
-
-  // Standard SIP calculation (no step-up)
-  const calculateStandardSIP = (
-    sip: number,
-    annualRate: number,
-    totalYears: number,
-  ) => {
-    const months = totalYears * 12;
-    const monthlyRate = annualRate / 12 / 100;
-
-    let maturityAmount = 0;
-
-    if (monthlyRate === 0) {
-      maturityAmount = sip * months;
-    } else {
-      const factor = Math.pow(1 + monthlyRate, months);
-      maturityAmount = sip * ((factor - 1) / monthlyRate) * (1 + monthlyRate);
-    }
-
-    if (!isFinite(maturityAmount)) maturityAmount = 0;
-
-    const totalInvested = sip * months;
-    const wealthGain = maturityAmount - totalInvested;
-
-    const yearlyBreakdown: YearlyBreakdown[] = [];
-    for (let year = 1; year <= totalYears; year++) {
-      const monthsElapsed = year * 12;
-      const yearlyInvestment = sip * 12;
-      const cumulativeInvestment = sip * monthsElapsed;
-
-      let yearlyMaturity = 0;
-      if (monthlyRate === 0) {
-        yearlyMaturity = cumulativeInvestment;
-      } else {
-        const factor = Math.pow(1 + monthlyRate, monthsElapsed);
-        yearlyMaturity = sip * ((factor - 1) / monthlyRate) * (1 + monthlyRate);
-      }
-
-      yearlyBreakdown.push({
-        year,
-        yearlyInvestment: Math.round(yearlyInvestment),
-        cumulativeInvestment: Math.round(cumulativeInvestment),
-        interestEarned: Math.round(yearlyMaturity - cumulativeInvestment),
-        cumulativeMaturity: Math.round(yearlyMaturity),
-      });
-    }
-
-    return {
-      totalInvested: Math.round(totalInvested),
-      maturityAmount: Math.round(maturityAmount),
-      wealthGain: Math.round(wealthGain),
-      yearlyBreakdown,
-    };
-  };
-
-  // Reverse SIP calculation (goal-based)
-  const calculateReverseSIP = (
-    target: number,
-    annualRate: number,
-    totalYears: number,
-  ) => {
-    const months = totalYears * 12;
-    const monthlyRate = annualRate / 12 / 100;
-
-    let requiredSip = 0;
-
-    if (monthlyRate === 0) {
-      requiredSip = target / months;
-    } else {
-      const factor = Math.pow(1 + monthlyRate, months);
-      requiredSip = target / (((factor - 1) / monthlyRate) * (1 + monthlyRate));
-    }
-
-    if (!isFinite(requiredSip)) requiredSip = 0;
-
-    const totalInvested = requiredSip * months;
-    const wealthGain = target - totalInvested;
-
-    return {
-      requiredSip: Math.round(requiredSip),
-      totalInvested: Math.round(totalInvested),
-      maturityAmount: Math.round(target),
-      wealthGain: Math.round(wealthGain),
-    };
-  };
+  const isClient = typeof window !== 'undefined';
 
   const results: CalculationResults = useMemo(() => {
     if (calculatorMode === 'goal') {
@@ -350,24 +320,31 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
         goalRate,
         goalYears,
       );
+
+      // Use exact SIP for accurate breakdown
       const standardCalc = calculateStandardSIP(
-        goalResults.requiredSip,
+        goalResults.requiredSipExact,
         goalRate,
         goalYears,
       );
+
       return {
         ...goalResults,
+        totalInvested: standardCalc.totalInvested,
+        wealthGain: standardCalc.wealthGain,
+        maturityAmount: standardCalc.maturityAmount,
         yearlyBreakdown: standardCalc.yearlyBreakdown,
         principalPct:
-          goalResults.maturityAmount > 0
+          standardCalc.maturityAmount > 0
             ? Math.round(
-                (goalResults.totalInvested / goalResults.maturityAmount) * 100,
+                (standardCalc.totalInvested / standardCalc.maturityAmount) *
+                  100,
               )
             : 0,
         gainPct:
-          goalResults.maturityAmount > 0
+          standardCalc.maturityAmount > 0
             ? Math.round(
-                (goalResults.wealthGain / goalResults.maturityAmount) * 100,
+                (standardCalc.wealthGain / standardCalc.maturityAmount) * 100,
               )
             : 0,
       };
@@ -428,9 +405,14 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
   ]);
 
   const handleSave = () => {
+    // deterministic ID (no Date.now impurity warning)
+    const nextId =
+      savedCalculations.length > 0
+        ? Math.max(...savedCalculations.map((c) => c.id)) + 1
+        : 1;
+
     const calc: SavedCalculation = {
-      // eslint-disable-next-line react-hooks/purity
-      id: Date.now(),
+      id: nextId,
       monthlySip:
         calculatorMode === 'goal' ? results.requiredSip || 0 : monthlySip,
       rate: calculatorMode === 'goal' ? goalRate : rate,
@@ -563,9 +545,9 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
               <TabsTrigger
                 value="investment"
                 className={cn(
-                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
-                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
-                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
+                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
               >
@@ -576,9 +558,9 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
               <TabsTrigger
                 value="goal"
                 className={cn(
-                  'flex items-center justify-center gap-2 font-bold transition-all rounded-lg',
-                  'data-[state=active]:bg-linear-to-r data-[state=active]:from-lime-500 data-[state=active]:to-lime-600',
-                  'data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
+                  'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
+                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
               >
@@ -641,13 +623,13 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     />
                     <div className="flex justify-between text-xs text-slate-500">
                       <span>{t.noIncrease}</span>
-                      <span className="font-semibold text-emerald-600">
+                      <span className="font-semibold text-[#92C65B]">
                         {stepUpPercent}
                         {t.perYear}
                       </span>
                     </div>
                     {stepUpPercent > 0 && (
-                      <p className="text-xs text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded">
+                      <p className="text-xs text-[#111827] bg-[#F7FDF1]  p-2 rounded">
                         {t.stepUpNote.replace(
                           '{percent}',
                           String(stepUpPercent),
@@ -685,14 +667,14 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     onChange={setGoalRate}
                   />
 
-                  <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
-                    <div className="text-sm font-medium text-emerald-900 dark:text-emerald-200">
+                  <div className="bg-[#F7FDF1] p-4 rounded-lg border border-[#DFF7C6]">
+                    <div className="text-sm font-medium text-[#1B2E06]">
                       {t.requiredMonthlySIP}
                     </div>
-                    <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+                    <div className="text-2xl font-semibold text-[#577A30] mt-1">
                       {formatINR(results.requiredSip || 0)}
                     </div>
-                    <p className="text-xs text-emerald-700 dark:text-emerald-300 mt-2">
+                    <p className="text-xs text-[#577A30] font-medium mt-2">
                       {t.investThisAmount.replace(
                         '{amount}',
                         formatINR(targetAmount),
@@ -717,7 +699,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     : t.estimatedMaturityAmount}
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-emerald-700">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74A046]">
                   {formatINR(results.maturityAmount)}
                 </div>
 
@@ -733,12 +715,12 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-emerald-200 bg-emerald-50 dark:bg-emerald-900/15 dark:border-emerald-900">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                     <CardContent className="p-4">
-                      <div className="text-xs text-emerald-700 dark:text-emerald-400">
+                      <div className="text-xs text-[#74A046]">
                         {t.wealthGain}
                       </div>
-                      <div className="mt-1 font-semibold text-emerald-700 dark:text-emerald-400 whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-[#74A046] whitespace-nowrap">
                         +{formatINR(results.wealthGain)}
                       </div>
                     </CardContent>
@@ -747,7 +729,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
 
                 <div className="mt-3 text-xs text-slate-500">
                   {stepUpPercent > 0 && calculatorMode === 'investment' && (
-                    <span className="text-emerald-600 font-medium">
+                    <span className="text-[#92C65B] font-medium">
                       {t.withAnnualStepUp.replace(
                         '{percent}',
                         String(stepUpPercent),
@@ -768,7 +750,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
         <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <LineChart className="h-5 w-5 text-emerald-600" />
+              <LineChart className="h-5 w-5 text-[#92C65B]" />
               {t.investmentGrowthOverTime}
             </CardTitle>
           </CardHeader>
@@ -847,7 +829,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     <th className="text-right p-3 font-semibold">
                       {t.yearlyInvestment}
                       {stepUpPercent > 0 && (
-                        <span className="text-emerald-600 ml-1">↗</span>
+                        <span className="text-[#92C65B] ml-1">↗</span>
                       )}
                     </th>
                     <th className="text-right p-3 font-semibold">
@@ -856,7 +838,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     <th className="text-right p-3 font-semibold">
                       {t.interestEarned}
                     </th>
-                    <th className="text-right p-3 font-semibold text-emerald-600">
+                    <th className="text-right p-3 font-semibold text-[#92C65B]">
                       {t.maturityAmount}
                     </th>
                   </tr>
@@ -873,7 +855,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                       <td className="p-3 text-right">
                         {formatINR(row.yearlyInvestment)}
                         {stepUpPercent > 0 && idx > 0 && (
-                          <span className="text-xs text-emerald-600 ml-1">
+                          <span className="text-xs text-[#92C65B] ml-1">
                             (+
                             {(
                               ((row.yearlyInvestment -
@@ -890,10 +872,10 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                       <td className="p-3 text-right">
                         {formatINR(row.cumulativeInvestment)}
                       </td>
-                      <td className="p-3 text-right text-emerald-600">
+                      <td className="p-3 text-right text-[#92C65B]">
                         {formatINR(row.interestEarned)}
                       </td>
-                      <td className="p-3 text-right font-semibold text-emerald-600">
+                      <td className="p-3 text-right font-semibold text-[#92C65B]">
                         {formatINR(row.cumulativeMaturity)}
                       </td>
                     </tr>
@@ -954,7 +936,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                           {formatINR(calc.monthlySip)} {t.month} @ {calc.rate}%{' '}
                           {t.forYears} {calc.years} years
                           {calc.stepUpPercent && calc.stepUpPercent > 0 && (
-                            <span className="text-xs text-emerald-600 ml-1">
+                            <span className="text-xs text-[#92C65B] ml-1">
                               (
                               {t.stepUpPercent.replace(
                                 '{percent}',
@@ -968,7 +950,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                           {t.invested} {formatINR(calc.totalInvested)} |{' '}
                           {t.maturity} {formatINR(calc.maturityAmount)}
                         </div>
-                        <div className="text-[11px] text-emerald-700 mt-0.5">
+                        <div className="text-[11px] text-[#74A046] mt-0.5">
                           {t.gain} {formatINR(calc.wealthGain)}
                         </div>
                       </div>
