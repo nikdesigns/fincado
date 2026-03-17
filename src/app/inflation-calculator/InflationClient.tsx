@@ -28,12 +28,20 @@ import {
 import { toast } from 'sonner';
 
 /* ---------------- HELPERS ---------------- */
+const MAX_SAVED_CALCULATIONS = 10;
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(Number.isFinite(val) ? val : 0);
+
+const toNonNegativeNumber = (value: string) => {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) return 0;
+  return parsed;
+};
 
 /* ---------------- TYPES ---------------- */
 interface InflationLabels {
@@ -68,6 +76,37 @@ interface SavedCalculation {
   date: string;
 }
 
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const calc = value as Partial<SavedCalculation>;
+  return (
+    typeof calc.id === 'number' &&
+    (calc.mode === 'forward' || calc.mode === 'reverse') &&
+    typeof calc.amount === 'number' &&
+    typeof calc.rate === 'number' &&
+    typeof calc.years === 'number' &&
+    typeof calc.result === 'number' &&
+    typeof calc.category === 'string' &&
+    typeof calc.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('inflation_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation).slice(0, MAX_SAVED_CALCULATIONS);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
+
 /* ---------------- CHART COMPONENT ---------------- */
 function FutureValueDonut({
   original,
@@ -77,8 +116,8 @@ function FutureValueDonut({
   extra: number;
 }) {
   const total = original + extra;
-  const originalPct = (original / total) * 100;
-  const extraPct = (extra / total) * 100;
+  const originalPct = total > 0 ? (original / total) * 100 : 0;
+  const extraPct = total > 0 ? (extra / total) * 100 : 0;
 
   const size = 200;
   const strokeWidth = 24;
@@ -114,7 +153,7 @@ function FutureValueDonut({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#10b981"
+            stroke="#B0EC70"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash1} ${circumference}`}
             strokeLinecap="butt"
@@ -127,7 +166,7 @@ function FutureValueDonut({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#ef4444"
+            stroke="#FF568E"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash2} ${circumference}`}
             strokeDashoffset={offset2}
@@ -141,7 +180,7 @@ function FutureValueDonut({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">
             Total Future Cost
           </span>
-          <span className="text-xl font-bold text-slate-900">
+          <span className="text-xl font-semibold text-slate-900">
             {formatINR(total)}
           </span>
         </div>
@@ -150,13 +189,13 @@ function FutureValueDonut({
       {/* Legend */}
       <div className="flex gap-4 mt-6">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-emerald-500" />
+          <div className="w-3 h-3 rounded-full bg-[#B0EC70]" />
           <span className="text-xs font-medium text-slate-600">
             Today&apos;s Value
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-red-500" />
+          <div className="w-3 h-3 rounded-full bg-[#FF568E]" />
           <span className="text-xs font-medium text-slate-600">Inflation</span>
         </div>
       </div>
@@ -182,22 +221,10 @@ export default function InflationClient({
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('inflation_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -221,17 +248,17 @@ export default function InflationClient({
         extraCost: Math.round(extraCost),
         todayValue: amount,
       };
-    } else {
-      // Reverse: Future → Current (Present Value)
-      const todayValue = amount / Math.pow(1 + rate / 100, years);
-      const inflation = amount - todayValue;
-
-      return {
-        futureValue: amount,
-        extraCost: Math.round(inflation),
-        todayValue: Math.round(todayValue),
-      };
     }
+
+    // Reverse: Future → Current (Present Value)
+    const todayValue = amount / Math.pow(1 + rate / 100, years);
+    const inflation = amount - todayValue;
+
+    return {
+      futureValue: amount,
+      extraCost: Math.round(inflation),
+      todayValue: Math.round(todayValue),
+    };
   }, [amount, rate, years, mode]);
 
   /* ---------- CATEGORY PRESETS ---------- */
@@ -248,8 +275,11 @@ export default function InflationClient({
   };
 
   const handleCategoryChange = (cat: string) => {
+    const preset = categoryPresets[cat];
+    if (!preset) return;
+
     setCategory(cat);
-    setRate(categoryPresets[cat].rate);
+    setRate(preset.rate);
   };
 
   const reset = () => {
@@ -279,9 +309,10 @@ export default function InflationClient({
       date: new Date().toISOString(),
     };
 
-    const saved = [...savedCalculations];
-    saved.unshift(calculation);
-    const trimmed = saved.slice(0, 10);
+    const trimmed = [calculation, ...savedCalculations].slice(
+      0,
+      MAX_SAVED_CALCULATIONS,
+    );
 
     setSavedCalculations(trimmed);
 
@@ -346,7 +377,7 @@ export default function InflationClient({
           `Calculate yours: https://fincado.com/inflation-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'inflation_shared', {
@@ -362,15 +393,15 @@ export default function InflationClient({
       <Card className="border-border shadow-sm bg-card">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <TrendingUp className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <TrendingUp className="h-5 w-5 text-[#577A30]" />
               {mode === 'forward'
                 ? 'Calculate Future Cost'
                 : "Calculate Today's Value"}
             </CardTitle>
             <button
               onClick={reset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -383,23 +414,58 @@ export default function InflationClient({
             <div className="space-y-8">
               {/* Mode Toggle */}
               <div className="space-y-3">
-                <Label>Calculation Mode</Label>
+                <Label className="text-sm font-medium text-slate-700">
+                  Calculation Mode
+                </Label>
+
                 <Tabs
                   value={mode}
                   onValueChange={(v) => setMode(v as 'forward' | 'reverse')}
                   className="w-full"
                 >
-                  <TabsList className="w-full grid grid-cols-2">
-                    <TabsTrigger value="forward">
-                      <Calculator className="h-4 w-4 mr-2" />
+                  <TabsList className="w-full grid grid-cols-2 gap-2 bg-transparent p-0 border border-slate-200 rounded-md">
+                    <TabsTrigger
+                      value="forward"
+                      className="
+          w-full px-4 py-2 text-sm font-semibold rounded-md
+          flex items-center justify-center
+          gap-2
+          border border-transparent
+          text-slate-600
+          hover:bg-slate-50
+          transition
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#577A30]
+          data-[state=active]:border-[#B0EC70]
+          data-[state=active]:shadow-sm
+        "
+                    >
+                      <Calculator className="h-4 w-4" />
                       Forward
                     </TabsTrigger>
-                    <TabsTrigger value="reverse">
-                      <TrendingDown className="h-4 w-4 mr-2" />
+
+                    <TabsTrigger
+                      value="reverse"
+                      className="
+          w-full px-4 py-2 text-sm font-semibold rounded-md
+          flex items-center justify-center
+          gap-2
+          border border-transparent
+          text-slate-600
+          hover:bg-slate-50
+          transition
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#577A30]
+          data-[state=active]:border-[#B0EC70]
+          data-[state=active]:shadow-sm
+        "
+                    >
+                      <TrendingDown className="h-4 w-4" />
                       Reverse
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
+
                 <p className="text-xs text-slate-500">
                   {mode === 'forward'
                     ? 'Calculate what current expense will cost in future'
@@ -414,9 +480,13 @@ export default function InflationClient({
                   <SelectTrigger className="h-11">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     {Object.entries(categoryPresets).map(([key, val]) => (
-                      <SelectItem key={key} value={key}>
+                      <SelectItem
+                        className="hover:bg-[#F7FDF1]"
+                        key={key}
+                        value={key}
+                      >
                         {val.icon} {val.label} ({val.rate}%)
                       </SelectItem>
                     ))}
@@ -445,7 +515,7 @@ export default function InflationClient({
                     type="number"
                     value={amount}
                     onChange={(e) =>
-                      setAmount(Math.max(0, Number(e.target.value) || 0))
+                      setAmount(toNonNegativeNumber(e.target.value))
                     }
                     className="pl-8 h-11"
                   />
@@ -456,7 +526,7 @@ export default function InflationClient({
                   max={1000000}
                   step={1000}
                   onValueChange={(v) => setAmount(v[0])}
-                  className="text-emerald-600"
+                  className="text-[#577A30]"
                 />
               </div>
 
@@ -477,7 +547,7 @@ export default function InflationClient({
                   max={15}
                   step={0.5}
                   onValueChange={(v) => setRate(v[0])}
-                  className="text-emerald-600"
+                  className="text-[#577A30]"
                 />
                 <div className="flex flex-wrap gap-2">
                   {[5, 6, 7, 10, 12].map((r) => (
@@ -486,7 +556,7 @@ export default function InflationClient({
                       variant={rate === r ? 'default' : 'outline'}
                       className={`cursor-pointer transition ${
                         rate === r
-                          ? 'bg-emerald-600 hover:bg-emerald-700'
+                          ? 'bg-[#B0EC70] hover:bg-[#92C65B]'
                           : 'hover:bg-slate-50'
                       }`}
                       onClick={() => setRate(r)}
@@ -514,7 +584,7 @@ export default function InflationClient({
                   max={40}
                   step={1}
                   onValueChange={(v) => setYears(v[0])}
-                  className="text-emerald-600"
+                  className="text-[#577A30]"
                 />
                 <div className="flex flex-wrap gap-2">
                   {[5, 10, 15, 20, 30].map((y) => (
@@ -523,7 +593,7 @@ export default function InflationClient({
                       variant={years === y ? 'default' : 'outline'}
                       className={`cursor-pointer transition ${
                         years === y
-                          ? 'bg-emerald-600 hover:bg-emerald-700'
+                          ? 'bg-[#B0EC70] hover:bg-[#92C65B]'
                           : 'hover:bg-slate-50'
                       }`}
                       onClick={() => setYears(y)}
@@ -548,15 +618,15 @@ export default function InflationClient({
                     <div className="text-sm text-slate-500 font-medium mb-2">
                       Value {years} Years Ago
                     </div>
-                    <div className="text-4xl font-extrabold text-emerald-600 mb-2">
+                    <div className="text-4xl font-extrabold text-[#577A30] mb-2">
                       {formatINR(result.todayValue)}
                     </div>
-                    <Badge className="bg-emerald-100 text-emerald-800">
+                    <Badge className="bg-[#EFFBE2] text-[#577A30]">
                       Purchasing Power Equivalent
                     </Badge>
                   </div>
 
-                  <div className="mt-8 p-4 bg-emerald-50 rounded-lg border border-emerald-200 w-full">
+                  <div className="mt-8 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] w-full">
                     <p className="text-sm text-slate-700">
                       <strong>What this means:</strong> If you needed{' '}
                       {formatINR(amount)} in {new Date().getFullYear()}, you
@@ -571,7 +641,7 @@ export default function InflationClient({
               <div className="grid grid-cols-2 gap-4 mt-6">
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#B0EC70]"></span>
                     <span className="text-xs text-slate-500 font-medium">
                       {mode === 'forward' ? t.todaysValue : 'Value Years Ago'}
                     </span>
@@ -588,16 +658,16 @@ export default function InflationClient({
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <TrendingDown
-                      className={`w-3 h-3 ${mode === 'forward' ? 'text-red-500' : 'text-orange-500'}`}
+                      className={`w-3 h-3 ${mode === 'forward' ? 'text-[#FF568E]' : 'text-[#DB7A37]'}`}
                     />
                     <span
-                      className={`text-xs font-medium ${mode === 'forward' ? 'text-red-600' : 'text-orange-600'}`}
+                      className={`text-xs font-medium ${mode === 'forward' ? 'text-[#FF568E]' : 'text-[#DB7A37]'}`}
                     >
                       {t.inflationImpact}
                     </span>
                   </div>
                   <div
-                    className={`text-lg font-bold ${mode === 'forward' ? 'text-red-600' : 'text-orange-600'}`}
+                    className={`text-lg font-semibold ${mode === 'forward' ? 'text-[#FF568E]' : 'text-[#DB7A37]'}`}
                   >
                     +{formatINR(result.extraCost)}
                   </div>
@@ -605,8 +675,8 @@ export default function InflationClient({
               </div>
 
               {/* Insight Box */}
-              <div className="mt-4 flex gap-3 items-start p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800">
-                <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div className="mt-4 flex gap-3 items-start p-3 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg text-xs text-[#577A30]">
+                <Info className="w-4 h-4 text-[#577A30] shrink-0 mt-0.5" />
                 <p>
                   {mode === 'forward' ? (
                     <>
@@ -656,7 +726,7 @@ export default function InflationClient({
       </div>
 
       {/* Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved Calculations</CardTitle>
@@ -664,7 +734,7 @@ export default function InflationClient({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -681,11 +751,7 @@ export default function InflationClient({
                     <div className="flex items-center gap-2 mb-1">
                       <Badge
                         variant="outline"
-                        className={
-                          calc.mode === 'forward'
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        }
+                        className="bg-[#F7FDF1] text-[#577A30] border-[#DFF7C6]"
                       >
                         {calc.mode === 'forward' ? 'Forward' : 'Reverse'}
                       </Badge>
@@ -712,7 +778,7 @@ export default function InflationClient({
                       e.stopPropagation();
                       handleDeleteCalculation(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

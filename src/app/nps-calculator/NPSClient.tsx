@@ -33,6 +33,38 @@ interface SavedCalculation {
   date: string;
 }
 
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    typeof entry.contribution === 'number' &&
+    typeof entry.currentAge === 'number' &&
+    typeof entry.roi === 'number' &&
+    typeof entry.annuityRate === 'number' &&
+    typeof entry.corpus === 'number' &&
+    typeof entry.lumpSum === 'number' &&
+    typeof entry.monthlyPension === 'number' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('nps_calculator_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation);
+  } catch (error) {
+    console.error('Error loading saved NPS calculations:', error);
+    return [];
+  }
+};
+
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -49,25 +81,12 @@ export default function NPSClient() {
   const [annuityRate, setAnnuityRate] = useState(6);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
-    try {
-      const saved = localStorage.getItem('nps_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved NPS calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   // Track calculator load
   useEffect(() => {
@@ -202,7 +221,7 @@ export default function NPSClient() {
       `Plan your NPS: https://fincado.com/nps-calculator/`;
 
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'nps_calculation_shared', {
@@ -260,13 +279,13 @@ export default function NPSClient() {
       <Card className="border-slate-200 shadow-sm">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <TrendingUp className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <TrendingUp className="h-5 w-5 text-[#577A30]" />
               National Pension System (NPS) Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -318,7 +337,7 @@ export default function NPSClient() {
               </div>
 
               {showAdvanced && (
-                <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <div className="p-4 bg-white rounded-lg border border-slate-200">
                   <CalculatorField
                     label="Annuity Rate (% p.a.)"
                     value={annuityRate}
@@ -346,7 +365,7 @@ export default function NPSClient() {
                 <div className="text-sm text-slate-500">
                   Total Corpus at Age 60
                 </div>
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(calculations.corpus)}
                 </div>
                 <div className="mt-1 text-xs text-slate-500">
@@ -365,10 +384,10 @@ export default function NPSClient() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-lime-200 bg-lime-50 shadow-none">
+                <Card className="border-[#DFF7C6] bg-[#F7FDF1] shadow-none">
                   <CardContent className="p-4">
-                    <div className="text-xs text-lime-700">Total Gains</div>
-                    <div className="mt-1 font-semibold text-lime-700">
+                    <div className="text-xs text-[#577A30]">Total Gains</div>
+                    <div className="mt-1 font-semibold text-[#577A30]">
                       +{formatINR(calculations.gains)}
                     </div>
                   </CardContent>
@@ -377,50 +396,50 @@ export default function NPSClient() {
 
               {/* Withdrawal Split */}
               <div className="mt-6 border-t border-slate-100 pt-6 w-full">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 text-center">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3 text-center">
                   Withdrawal Distribution (60:40 Rule)
                 </p>
                 <div className="grid grid-cols-2 gap-4 text-left">
                   {/* Lump Sum */}
-                  <div className="flex flex-col gap-1 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <div className="flex items-center gap-1.5 text-emerald-700">
+                  <div className="flex flex-col gap-1 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <div className="flex items-center gap-1.5 text-[#577A30]">
                       <Wallet className="w-4 h-4" />
                       <span className="text-xs font-semibold">
                         Lump Sum (60%)
                       </span>
                     </div>
-                    <span className="text-lg font-bold text-emerald-900">
+                    <span className="text-lg font-semibold text-[#1B2E06]">
                       {formatINR(calculations.lumpSum)}
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit text-[10px] border-emerald-300 text-emerald-700 bg-white"
+                      className="w-fit text-[10px] border-[#D0F4A9] text-[#577A30] bg-white"
                     >
                       Tax Free
                     </Badge>
                   </div>
 
                   {/* Pension */}
-                  <div className="flex flex-col gap-1 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <div className="flex items-center gap-1.5 text-emerald-700">
+                  <div className="flex flex-col gap-1 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <div className="flex items-center gap-1.5 text-[#577A30]">
                       <Coins className="w-4 h-4" />
                       <span className="text-xs font-semibold">
                         Monthly Pension
                       </span>
                     </div>
-                    <span className="text-lg font-bold text-emerald-900">
+                    <span className="text-lg font-semibold text-[#1B2E06]">
                       {formatINR(calculations.monthlyPension)}
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit text-[10px] border-emerald-300 text-emerald-700 bg-white"
+                      className="w-fit text-[10px] border-[#D0F4A9] text-[#577A30] bg-white"
                     >
                       Taxable
                     </Badge>
                   </div>
                 </div>
 
-                <div className="mt-3 p-3 bg-lime-50 rounded border border-lime-200">
+                <div className="mt-3 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
                   <p className="text-xs text-slate-700">
                     <strong>Annuity Corpus (40%):</strong>{' '}
                     {formatINR(calculations.annuityCorpus)}
@@ -452,7 +471,7 @@ export default function NPSClient() {
       </div>
 
       {/* Saved Calculations */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved NPS Plans</CardTitle>

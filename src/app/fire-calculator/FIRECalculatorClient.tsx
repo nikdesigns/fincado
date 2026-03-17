@@ -14,7 +14,7 @@ const formatINR = (val: number) =>
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(Number.isFinite(val) ? val : 0);
 
 // Define the shape of the labels object
 interface LabelConfig {
@@ -51,6 +51,37 @@ interface SavedCalculation {
   date: string;
 }
 
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    typeof entry.currentAge === 'number' &&
+    typeof entry.fireAge === 'number' &&
+    typeof entry.annualExpense === 'number' &&
+    typeof entry.currentCorpus === 'number' &&
+    typeof entry.fireNumber === 'number' &&
+    typeof entry.monthlySIP === 'number' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('fire_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
+
 export default function FIRECalculatorClient({
   labels,
 }: FIRECalculatorClientProps) {
@@ -67,22 +98,10 @@ export default function FIRECalculatorClient({
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS AFTER MOUNT ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('fire_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -116,7 +135,7 @@ export default function FIRECalculatorClient({
 
   // --- CALCULATIONS ---
   const results = useMemo(() => {
-    const yearsToFire = Math.max(1, fireAge - currentAge);
+    const yearsToFire = Math.max(0, fireAge - currentAge);
     const months = yearsToFire * 12;
 
     const futureExpense = Math.round(
@@ -135,10 +154,14 @@ export default function FIRECalculatorClient({
 
     let monthlySIP = 0;
     if (gap > 0) {
-      const factor =
-        ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-        (1 + monthlyRate);
-      monthlySIP = Math.round(gap / factor);
+      if (monthlyRate === 0) {
+        monthlySIP = months > 0 ? Math.round(gap / months) : gap;
+      } else {
+        const factor =
+          ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
+          (1 + monthlyRate);
+        monthlySIP = Math.round(gap / factor);
+      }
     }
 
     const achievedPct =
@@ -163,7 +186,7 @@ export default function FIRECalculatorClient({
     currentCorpus,
     inflation,
     returnRate,
-    swr
+    swr,
   ]);
 
   const reset = () => {
@@ -258,7 +281,7 @@ export default function FIRECalculatorClient({
       `Calculate yours: https://fincado.com/fire-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'fire_shared', {
@@ -278,7 +301,7 @@ export default function FIRECalculatorClient({
 
   return (
     <div className="space-y-6">
-      <Card className="border-none shadow-none bg-card">
+      <Card className="bg-card">
         <CardContent className="p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* LEFT */}
@@ -379,16 +402,16 @@ export default function FIRECalculatorClient({
                   <div className="text-sm text-muted-foreground">
                     {t.fireNumber}
                   </div>
-                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                     {formatINR(results.fireNumber)}
                   </div>
                 </div>
 
-                <div className="rounded-xl border-2 border-lime-200 bg-lime-50 p-4 text-center">
-                  <div className="text-xs font-semibold text-lime-700">
+                <div className="rounded-xl border-2 border-[#DFF7C6] bg-[#F7FDF1] p-4 text-center">
+                  <div className="text-xs font-semibold text-[#577A30]">
                     {t.monthlySavingsNeeded}
                   </div>
-                  <div className="mt-1 text-2xl font-bold text-lime-700">
+                  <div className="mt-1 text-2xl font-semibold text-[#577A30]">
                     {formatINR(results.monthlySIP)}
                     <span className="text-base font-normal"> {t.perMonth}</span>
                   </div>
@@ -400,18 +423,18 @@ export default function FIRECalculatorClient({
                       <div className="text-xs text-muted-foreground truncate">
                         {t.futureAnnualExp}
                       </div>
-                      <div className="mt-1 text-lg font-semibold text-red-600">
+                      <div className="mt-1 text-lg font-semibold text-[#FF568E]">
                         {formatINR(results.futureExpense)}
                       </div>
                     </CardContent>
                   </Card>
 
-                  <Card className="border-emerald-100 bg-emerald-50/50 shadow-none">
+                  <Card className="border-[#C0F08D] bg-[#F7FDF1] shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-emerald-700 truncate">
+                      <div className="text-xs text-[#577A30] truncate">
                         {t.currentCorpusFV}
                       </div>
-                      <div className="mt-1 text-lg font-bold text-emerald-800">
+                      <div className="mt-1 text-lg font-semibold text-[#577A30]">
                         {formatINR(results.futureCorpus)}
                       </div>
                     </CardContent>
@@ -446,20 +469,20 @@ export default function FIRECalculatorClient({
       </div>
 
       {/* ✅ FIRE Timeline Visualization */}
-      <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <TrendingUp className="h-5 w-5 text-lime-600" />
+            <TrendingUp className="h-5 w-5 text-[#577A30]" />
             Your FIRE Journey Timeline
           </CardTitle>
         </CardHeader>
 
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-lime-200">
+            <div className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-[#DFF7C6]">
               <div>
                 <div className="text-sm text-slate-600">Years to FIRE</div>
-                <div className="text-3xl font-bold text-lime-700">
+                <div className="text-3xl font-semibold text-[#577A30]">
                   {results.yearsToFire} years
                 </div>
               </div>
@@ -475,20 +498,20 @@ export default function FIRECalculatorClient({
                 </div>
               </div>
 
-              <div className="p-3 bg-linear-to-br from-lime-50 to-emerald-50 rounded-lg border-2 border-lime-300">
-                <div className="text-xs text-lime-700 font-semibold">
+              <div className="p-3 bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] rounded-lg border-2 border-[#D0F4A9]">
+                <div className="text-xs text-[#577A30] font-semibold">
                   FIRE Goal
                 </div>
-                <div className="text-lg font-bold text-lime-700">
+                <div className="text-lg font-semibold text-[#577A30]">
                   Age {fireAge}
                 </div>
-                <div className="text-xs text-lime-600 mt-1">
+                <div className="text-xs text-[#577A30] mt-1">
                   {formatINR(results.fireNumber)} needed
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+            <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
               <p className="text-sm text-slate-700">
                 <strong>Progress:</strong> You&apos;re currently{' '}
                 {results.achievedPct}% towards your FIRE goal. Keep investing{' '}
@@ -501,7 +524,7 @@ export default function FIRECalculatorClient({
       </Card>
 
       {/* ✅ Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved Scenarios</CardTitle>
@@ -509,7 +532,7 @@ export default function FIRECalculatorClient({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -550,7 +573,7 @@ export default function FIRECalculatorClient({
                       e.stopPropagation();
                       handleDeleteCalculation(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

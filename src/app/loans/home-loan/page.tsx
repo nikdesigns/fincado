@@ -416,7 +416,7 @@ export default function HomeLoanEMIPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]0">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Monthly EMI:
                         </div>

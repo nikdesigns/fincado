@@ -308,7 +308,7 @@ export default function CreditScorePage() {
                     <div className="text-sm text-slate-600 mb-2">
                       For best loan rates
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       750+
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -329,7 +329,7 @@ export default function CreditScorePage() {
                     <div className="text-sm text-slate-600 mb-2">
                       Credit card usage limit
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       30%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -350,7 +350,7 @@ export default function CreditScorePage() {
                     <div className="text-sm text-slate-600 mb-2">
                       Stays on credit report
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       7
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -860,7 +860,7 @@ export default function CreditScorePage() {
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-emerald-700 mb-1">
                               Personal Loan Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
@@ -885,7 +885,7 @@ export default function CreditScorePage() {
                             🏠
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-blue-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-blue-700 mb-1">
                               Home Loan Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'IGST CGST SGST Calculator',
     'GST Tax Calculator Online',
     'Add GST to Price',
-    'Remove GST from MRP'
+    'Remove GST from MRP',
   ],
   alternates: {
     canonical: 'https://fincado.com/gst-calculator/',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado GST Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -140,7 +140,7 @@ const faqItems = [
     question: 'What is HSN/SAC code in GST?',
     answer:
       'HSN (Harmonized System of Nomenclature) is 6-8 digit code for goods classification. SAC (Services Accounting Code) is 6-digit code for services. Used to determine applicable GST rate. Mandatory in invoices: 4-digit for turnover > ₹5 crore, 2-digit for ₹1.5-5 crore, optional below ₹1.5 crore.',
-  }
+  },
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -164,11 +164,11 @@ export default function GSTPage() {
     <p class="mt-2">
       When you have the net/base price and need to calculate final invoice value including GST:
     </p>
-    <div class="mt-3 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+    <div class="mt-3 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
       <div class="space-y-2 text-sm">
         <div><strong>GST Amount</strong> = Base Price × (GST Rate ÷ 100)</div>
         <div><strong>Final Invoice</strong> = Base Price + GST Amount</div>
-        <div class="mt-3 pt-3 border-t border-emerald-300">
+        <div class="mt-3 pt-3 border-t border-[#D0F4A9]">
           <strong>Example:</strong> Item price = ₹10,000, GST = 18%<br/>
           GST Amount = ₹10,000 × 0.18 = ₹1,800<br/>
           Final Invoice = ₹10,000 + ₹1,800 = <strong>₹11,800</strong>
@@ -180,11 +180,11 @@ export default function GSTPage() {
     <p class="mt-2">
       When you have the MRP/final invoice value and need to find base price and GST amount:
     </p>
-    <div class="mt-3 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+    <div class="mt-3 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
       <div class="space-y-2 text-sm">
         <div><strong>Base Price</strong> = MRP ÷ (1 + GST Rate ÷ 100)</div>
         <div><strong>GST Amount</strong> = MRP - Base Price</div>
-        <div class="mt-3 pt-3 border-t border-emerald-300">
+        <div class="mt-3 pt-3 border-t border-[#D0F4A9]">
           <strong>Example:</strong> MRP = ₹11,800, GST = 18%<br/>
           Base Price = ₹11,800 ÷ 1.18 = ₹10,000<br/>
           GST Amount = ₹11,800 - ₹10,000 = <strong>₹1,800</strong>
@@ -242,7 +242,7 @@ export default function GSTPage() {
           {
             name: 'GST Calculator',
             url: 'https://fincado.com/gst-calculator/',
-          }
+          },
         ]}
       />
 
@@ -269,14 +269,14 @@ export default function GSTPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-green-100 text-emerald-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-green-100 text-[#577A30]">
               <Receipt className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 GST Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-emerald-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Goods & Services Tax India
               </p>
             </div>
@@ -295,13 +295,13 @@ export default function GSTPage() {
           </div>
 
           {/* Budget 2026 Status */}
-          <div className="mt-6 flex gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-lg items-start shadow-sm max-w-2xl">
-            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+          <div className="mt-6 flex gap-3 p-4 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-[#577A30] mt-0.5 shrink-0" />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-emerald-900">
+              <p className="text-sm font-semibold text-[#1B2E06]">
                 Budget 2026: GST Slabs Unchanged
               </p>
-              <p className="text-xs text-emerald-800 leading-relaxed">
+              <p className="text-xs font-medium text-[#577A30] leading-relaxed">
                 The Union Budget 2026 did not announce any changes to standard
                 GST rates (5%, 12%, 18%, 28%). All rate revisions continue to be
                 governed by the GST Council.
@@ -320,15 +320,15 @@ export default function GSTPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       REGISTRATION THRESHOLD
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Mandatory for businesses
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹40L
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -341,15 +341,15 @@ export default function GSTPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       MOST COMMON RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Services, Electronics, IT
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       18%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -362,15 +362,15 @@ export default function GSTPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       PRECIOUS METALS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Gold, Silver, Platinum
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       3%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -394,8 +394,8 @@ export default function GSTPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
-              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Calculation Note
@@ -408,13 +408,13 @@ export default function GSTPage() {
             </Alert>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
                   <Building className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Running a GST-registered business?
                   </strong>
                   <p className="text-sm text-slate-700">
@@ -447,7 +447,7 @@ export default function GSTPage() {
 
                       <TableBody>
                         <TableRow>
-                          <TableCell className="font-semibold text-emerald-700">
+                          <TableCell className="font-semibold text-[#577A30]">
                             0% (Exempt)
                           </TableCell>
                           <TableCell>
@@ -460,7 +460,7 @@ export default function GSTPage() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-lime-700">
+                          <TableCell className="font-semibold text-[#577A30]">
                             0.25%
                           </TableCell>
                           <TableCell>Rough diamonds</TableCell>
@@ -481,7 +481,7 @@ export default function GSTPage() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-emerald-700">
+                          <TableCell className="font-semibold text-[#577A30]">
                             5%
                           </TableCell>
                           <TableCell>Essentials, Food products</TableCell>
@@ -492,7 +492,7 @@ export default function GSTPage() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-emerald-700">
+                          <TableCell className="font-semibold text-[#577A30]">
                             12%
                           </TableCell>
                           <TableCell>Standard goods</TableCell>
@@ -514,7 +514,7 @@ export default function GSTPage() {
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-red-700">
+                          <TableCell className="font-semibold text-[#DB3E82]">
                             28%
                           </TableCell>
                           <TableCell>Luxury goods, Sin goods</TableCell>
@@ -603,7 +603,7 @@ export default function GSTPage() {
                           Multiple taxes: VAT, Service Tax, Excise, Entry Tax,
                           Octroi
                         </TableCell>
-                        <TableCell className="text-emerald-700 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           Single unified tax: GST (CGST + SGST + IGST)
                         </TableCell>
                       </TableRow>
@@ -615,7 +615,7 @@ export default function GSTPage() {
                         <TableCell>
                           Tax on tax (no credit for previous taxes)
                         </TableCell>
-                        <TableCell className="text-emerald-700 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           Eliminated through Input Tax Credit (ITC)
                         </TableCell>
                       </TableRow>
@@ -627,7 +627,7 @@ export default function GSTPage() {
                         <TableCell>
                           Multiple returns to Centre and State separately
                         </TableCell>
-                        <TableCell className="text-emerald-700 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           Single online portal (GST Network)
                         </TableCell>
                       </TableRow>
@@ -639,7 +639,7 @@ export default function GSTPage() {
                         <TableCell>
                           Varied by state (₹5-10 lakhs for VAT)
                         </TableCell>
-                        <TableCell className="text-emerald-700 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           Uniform ₹40L goods / ₹20L services
                         </TableCell>
                       </TableRow>
@@ -651,7 +651,7 @@ export default function GSTPage() {
                         <TableCell>
                           CST 2% (no input credit), entry tax
                         </TableCell>
-                        <TableCell className="text-emerald-700 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           IGST with full ITC available
                         </TableCell>
                       </TableRow>
@@ -661,7 +661,7 @@ export default function GSTPage() {
                           E-commerce
                         </TableCell>
                         <TableCell>No specific provisions, complex</TableCell>
-                        <TableCell className="text-emerald-700 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           Specific TCS provisions, simplified compliance
                         </TableCell>
                       </TableRow>
@@ -676,8 +676,8 @@ export default function GSTPage() {
                   E-Invoice Guidelines for GST
                 </h3>
 
-                <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                  <h4 className="font-semibold text-emerald-900 mb-3">
+                <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <h4 className="font-semibold text-[#1B2E06] mb-3">
                     What is E-Invoice?
                   </h4>
                   <p className="text-sm text-slate-700">
@@ -770,12 +770,12 @@ export default function GSTPage() {
                 </h3>
 
                 <div className="space-y-3">
-                  <Card className="border-red-200 bg-red-50/30">
+                  <Card className="border-[#FFDFDD] bg-red-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <span className="text-2xl">❌</span>
                         <div>
-                          <h4 className="font-semibold text-red-900 mb-1">
+                          <h4 className="font-semibold text-[#931B66] mb-1">
                             Wrong GST Rate Selection
                           </h4>
                           <p className="text-sm text-slate-700">
@@ -788,12 +788,12 @@ export default function GSTPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50/30">
+                  <Card className="border-[#FFDFDD] bg-red-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <span className="text-2xl">❌</span>
                         <div>
-                          <h4 className="font-semibold text-red-900 mb-1">
+                          <h4 className="font-semibold text-[#931B66] mb-1">
                             Rounding Errors in Invoices
                           </h4>
                           <p className="text-sm text-slate-700">
@@ -806,12 +806,12 @@ export default function GSTPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50/30">
+                  <Card className="border-[#FFDFDD] bg-red-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <span className="text-2xl">❌</span>
                         <div>
-                          <h4 className="font-semibold text-red-900 mb-1">
+                          <h4 className="font-semibold text-[#931B66] mb-1">
                             Claiming ITC Without Valid Documents
                           </h4>
                           <p className="text-sm text-slate-700">
@@ -824,12 +824,12 @@ export default function GSTPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50/30">
+                  <Card className="border-[#FFDFDD] bg-red-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <span className="text-2xl">❌</span>
                         <div>
-                          <h4 className="font-semibold text-red-900 mb-1">
+                          <h4 className="font-semibold text-[#931B66] mb-1">
                             Incorrect Place of Supply
                           </h4>
                           <p className="text-sm text-slate-700">
@@ -843,12 +843,12 @@ export default function GSTPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-red-200 bg-red-50/30">
+                  <Card className="border-[#FFDFDD] bg-red-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <span className="text-2xl">❌</span>
                         <div>
-                          <h4 className="font-semibold text-red-900 mb-1">
+                          <h4 className="font-semibold text-[#931B66] mb-1">
                             Late Return Filing
                           </h4>
                           <p className="text-sm text-slate-700">
@@ -870,21 +870,21 @@ export default function GSTPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/income-tax-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               Income Tax Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate income tax liability for businesses and
                               professionals. Compare Old vs New Tax Regime.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate Tax</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

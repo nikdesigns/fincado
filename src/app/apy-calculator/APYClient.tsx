@@ -53,6 +53,44 @@ interface SavedCalculation {
 
 type Frequency = 'Monthly' | 'Quarterly' | 'Half-Yearly';
 
+const isFrequency = (value: unknown): value is Frequency =>
+  value === 'Monthly' || value === 'Quarterly' || value === 'Half-Yearly';
+
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    typeof entry.age === 'number' &&
+    typeof entry.pension === 'string' &&
+    isFrequency(entry.frequency) &&
+    typeof entry.periodicContribution === 'number' &&
+    typeof entry.totalInvestment === 'number' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('apy_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
+
+const toPensionNumber = (value: string): number => {
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : 1000;
+};
+
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -127,22 +165,10 @@ export default function APYClient({ labels }: APYClientProps) {
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS AFTER MOUNT ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('apy_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -161,7 +187,7 @@ export default function APYClient({ labels }: APYClientProps) {
     const months = years * 12;
 
     const base5000 = APY_BASE_5000[joiningAge] ?? 210;
-    const pensionVal = parseInt(pension);
+    const pensionVal = toPensionNumber(pension);
     const scale = pensionVal / 5000;
 
     const monthlyBase = Math.round(base5000 * scale);
@@ -198,7 +224,7 @@ export default function APYClient({ labels }: APYClientProps) {
     const months = years * 12;
 
     const base5000 = APY_BASE_5000[joiningAge2] ?? 210;
-    const pensionVal = parseInt(pension2);
+    const pensionVal = toPensionNumber(pension2);
     const scale = pensionVal / 5000;
 
     const monthlyBase = Math.round(base5000 * scale);
@@ -318,7 +344,7 @@ export default function APYClient({ labels }: APYClientProps) {
     const message =
       `🏛️ Atal Pension Yojana (APY) Calculation\n\n` +
       `Joining Age: ${joiningAge} years\n` +
-      `Desired Pension: ${formatINR(parseInt(pension))}/month\n` +
+      `Desired Pension: ${formatINR(toPensionNumber(pension))}/month\n` +
       `Contribution Frequency: ${frequency}\n\n` +
       `📊 You need to pay: ${formatINR(calculations.periodicContribution)}/${frequency === 'Monthly' ? 'month' : frequency === 'Quarterly' ? 'quarter' : 'half-year'}\n` +
       `💰 Total Investment: ${formatINR(calculations.totalInvestment)}\n` +
@@ -326,7 +352,7 @@ export default function APYClient({ labels }: APYClientProps) {
       `Calculate yours: https://fincado.com/apy-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'apy_shared', {
@@ -347,13 +373,14 @@ export default function APYClient({ labels }: APYClientProps) {
   return (
     <div className="space-y-6">
       {/* ✅ Comparison Mode Toggle */}
-      <Card className="border-slate-200 bg-linear-to-r from-emerald-50 to-emerald-50">
+      <Card className="border-slate-200">
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Switch
                 checked={comparisonMode}
                 onCheckedChange={setComparisonMode}
+                className="data-[state=checked]:bg-[#B0EC70] data-[state=unchecked]:bg-slate-300"
                 id="comparison-mode"
               />
               <label
@@ -373,7 +400,7 @@ export default function APYClient({ labels }: APYClientProps) {
       {/* ✅ Main Calculator(s) */}
       {!comparisonMode ? (
         // Single Calculator
-        <Card className="border-none shadow-none bg-card">
+        <Card className="bg-card">
           <CardContent className="p-6 sm:p-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
               {/* INPUTS */}
@@ -468,7 +495,7 @@ export default function APYClient({ labels }: APYClientProps) {
                     <div className="text-sm text-muted-foreground">
                       {t.youNeedToPay}
                     </div>
-                    <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                    <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                       {formatINR(calculations.periodicContribution)}
                       <span className="ml-1 text-lg font-medium text-muted-foreground">
                         {t.per}{' '}
@@ -492,26 +519,26 @@ export default function APYClient({ labels }: APYClientProps) {
                         </div>
                       </CardContent>
                     </Card>
-                    <Card className="border-emerald-100 bg-emerald-50/50 shadow-none">
+                    <Card className="border-[#C0F08D] bg-[#F7FDF1] shadow-none">
                       <CardContent className="p-4">
-                        <div className="text-xs text-emerald-700 truncate">
+                        <div className="text-xs text-[#577A30] truncate">
                           {t.corpusToNominee}
                         </div>
-                        <div className="mt-1 text-lg font-bold text-emerald-800">
+                        <div className="mt-1 text-lg font-semibold text-[#1B2E06]">
                           {formatINR(calculations.nomineeCorpus)}
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
-                  <div className="rounded-xl border border-lime-200 bg-lime-50 p-4 text-center">
-                    <div className="text-xs font-bold uppercase tracking-wider text-lime-700">
+                  <div className="rounded-xl border border-[#B0EC70] bg-[#F7FDF1] p-4 text-center">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-[#577A30]">
                       {t.guaranteedPension}
                     </div>
-                    <div className="mt-1 text-2xl font-black text-lime-900">
-                      {formatINR(parseInt(pension))}
+                    <div className="mt-1 text-2xl font-black text-[#1B2E06]">
+                      {formatINR(toPensionNumber(pension))}
                     </div>
-                    <div className="text-xs text-lime-600">{t.forSpouse}</div>
+                    <div className="text-xs text-[#577A30]">{t.forSpouse}</div>
                   </div>
                 </div>
               </div>
@@ -522,10 +549,10 @@ export default function APYClient({ labels }: APYClientProps) {
         // Comparison Mode - Two Calculators
         <div className="grid md:grid-cols-2 gap-6">
           {/* Calculator 1 */}
-          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+          <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30] text-sm font-semibold">
                   A
                 </span>
                 Scenario A - Early Start
@@ -578,12 +605,12 @@ export default function APYClient({ labels }: APYClientProps) {
                 </Select>
               </div>
 
-              <div className="pt-4 border-t border-emerald-200">
+              <div className="pt-4 border-t border-[#DFF7C6]">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {frequency} Contribution
                   </div>
-                  <div className="text-2xl font-bold text-emerald-700 mt-1">
+                  <div className="text-2xl font-semibold text-[#577A30] mt-1">
                     {formatINR(calculations.periodicContribution)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
@@ -598,10 +625,10 @@ export default function APYClient({ labels }: APYClientProps) {
           </Card>
 
           {/* Calculator 2 */}
-          <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+          <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30] text-sm font-semibold">
                   B
                 </span>
                 Scenario B - Late Start
@@ -654,12 +681,12 @@ export default function APYClient({ labels }: APYClientProps) {
                 </Select>
               </div>
 
-              <div className="pt-4 border-t border-emerald-200">
+              <div className="pt-4 border-t border-[#DFF7C6]">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {frequency2} Contribution
                   </div>
-                  <div className="text-2xl font-bold text-emerald-700 mt-1">
+                  <div className="text-2xl font-semibold text-[#577A30] mt-1">
                     {formatINR(calculations2?.periodicContribution || 0)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
@@ -677,17 +704,19 @@ export default function APYClient({ labels }: APYClientProps) {
 
       {/* ✅ Comparison Summary */}
       {comparisonMode && calculations2 && (
-        <Card className="border-lime-200 bg-linear-to-r from-lime-50 to-pink-50">
+        <Card className="border-[#DFF7C6] bg-[#1B2E06]">
           <CardHeader>
-            <CardTitle className="text-lg">Comparison Summary</CardTitle>
+            <CardTitle className="text-lg text-white">
+              Comparison Summary
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-xs text-slate-600 mb-1">
+                <div className="text-xs text-[#D1D5DB] mb-1">
                   Monthly Contribution Difference
                 </div>
-                <div className="text-xl font-bold text-lime-700">
+                <div className="text-xl font-semibold text-[#B0EC70]">
                   {formatINR(
                     Math.abs(
                       calculations.monthlyBase - calculations2.monthlyBase,
@@ -696,10 +725,10 @@ export default function APYClient({ labels }: APYClientProps) {
                 </div>
               </div>
               <div>
-                <div className="text-xs text-slate-600 mb-1">
+                <div className="text-xs text-[#D1D5DB] mb-1">
                   Total Investment Difference
                 </div>
-                <div className="text-xl font-bold text-lime-700">
+                <div className="text-xl font-semibold text-[#B0EC70]">
                   {formatINR(
                     Math.abs(
                       calculations.totalInvestment -
@@ -709,19 +738,22 @@ export default function APYClient({ labels }: APYClientProps) {
                 </div>
               </div>
               <div>
-                <div className="text-xs text-slate-600 mb-1">Better Option</div>
-                <div className="text-xl font-bold">
+                <div className="text-xs text-[#D1D5DB] mb-1">Better Option</div>
+                <div className="text-xl font-semibold">
                   {calculations.totalInvestment <
                   calculations2.totalInvestment ? (
-                    <span className="text-emerald-600">Scenario A 🏆</span>
+                    <span className="text-[#B0EC70]">🏆 Scenario A</span>
+                  ) : calculations.totalInvestment >
+                    calculations2.totalInvestment ? (
+                    <span className="text-[#B0EC70]">🏆 Scenario B</span>
                   ) : (
-                    <span className="text-emerald-600">Scenario B 🏆</span>
+                    <span className="text-[#B0EC70]">Both Equal</span>
                   )}
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-center text-slate-600 pt-2 border-t">
+            <p className="text-xs text-center text-[#D1D5DB] pt-2 border-t">
               💡 Starting earlier means{' '}
               <strong>
                 {formatINR(
@@ -752,10 +784,10 @@ export default function APYClient({ labels }: APYClientProps) {
 
       {/* ✅ Age Impact Simulator */}
       {!comparisonMode && (
-        <Card className="border-amber-200 bg-linear-to-br from-amber-50 to-white">
+        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <TrendingUp className="h-5 w-5 text-amber-600" />
+              <TrendingUp className="h-5 w-5 text-[#577A30]" />
               Impact of Joining Age
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -768,7 +800,7 @@ export default function APYClient({ labels }: APYClientProps) {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[20, 25, 30, 35].map((age) => {
                 const base = APY_BASE_5000[age] ?? 210;
-                const scale = parseInt(pension) / 5000;
+                const scale = toPensionNumber(pension) / 5000;
                 const monthly = Math.round(base * scale);
 
                 return (
@@ -776,12 +808,12 @@ export default function APYClient({ labels }: APYClientProps) {
                     key={age}
                     className={`p-4 rounded-lg border-2 transition ${
                       age === joiningAge
-                        ? 'border-amber-500 bg-amber-100'
+                        ? 'border-[#F7FDF1] bg-[#EFFBE2]'
                         : 'border-slate-200 bg-white'
                     }`}
                   >
                     <div className="text-xs text-slate-600 mb-1">Age {age}</div>
-                    <div className="text-2xl font-bold text-amber-700">
+                    <div className="text-2xl font-semibold text-[#577A30]">
                       {formatINR(monthly)}
                     </div>
                     <div className="text-xs text-slate-600 mt-1">/month</div>
@@ -790,7 +822,7 @@ export default function APYClient({ labels }: APYClientProps) {
               })}
             </div>
 
-            <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-amber-200">
+            <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
               💡 <strong>Tip:</strong> Joining 5 years earlier can reduce your
               monthly contribution by up to 30-40%!
             </p>
@@ -799,7 +831,7 @@ export default function APYClient({ labels }: APYClientProps) {
       )}
 
       {/* ✅ Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved Calculations</CardTitle>
@@ -827,7 +859,7 @@ export default function APYClient({ labels }: APYClientProps) {
                       <div>
                         <div className="font-semibold text-sm">
                           Age {calc.age} | Pension:{' '}
-                          {formatINR(parseInt(calc.pension))}
+                          {formatINR(toPensionNumber(calc.pension))}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
                           Contribution: {formatINR(calc.periodicContribution)} /{' '}

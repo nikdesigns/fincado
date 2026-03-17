@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     'Simple Interest Formula',
     'SI vs CI Calculator',
     'Gold Loan Interest',
-    'Personal Loan Flat Rate'
+    'Personal Loan Flat Rate',
   ],
   alternates: {
     canonical: 'https://fincado.com/simple-interest-calculator/',
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Simple Interest Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -150,7 +150,7 @@ const faqItems = [
     question: 'Simple Interest vs Compound Interest - which grows faster?',
     answer:
       "Compound Interest grows exponentially faster than Simple Interest. Example: ₹1 lakh at 10% for 10 years: Simple Interest = ₹1 lakh interest (total ₹2L, linear growth). Compound Interest = ₹1.59 lakh interest (total ₹2.59L, exponential growth). Difference increases with time. For investments, always choose compound. For loans, simple (flat) might seem cheaper but usually isn't when properly compared.",
-  }
+  },
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -193,8 +193,8 @@ export default function SimpleInterestPage() {
     </p>
     
     <div class="mt-4 space-y-3">
-      <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
-        <p class="font-semibold text-red-900">Dealer Offer: 7% Flat Rate</p>
+      <div class="p-3 bg-red-50 border border-[#FFDFDD] rounded-lg">
+        <p class="font-semibold text-[#931B66]">Dealer Offer: 7% Flat Rate</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• Interest = (5,00,000 × 7 × 5) / 100 = <strong>₹1,75,000</strong></li>
           <li>• Total Payable = ₹5,00,000 + ₹1,75,000 = <strong>₹6,75,000</strong></li>
@@ -203,8 +203,8 @@ export default function SimpleInterestPage() {
         </ul>
       </div>
 
-      <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
-        <p class="font-semibold text-emerald-900">Bank Offer: 8.5% Reducing Balance</p>
+      <div class="p-3 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg">
+        <p class="font-semibold text-[#1B2E06]">Bank Offer: 8.5% Reducing Balance</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• Total Interest = <strong>₹1,17,539</strong> (reduces as you pay)</li>
           <li>• Total Payable = <strong>₹6,17,539</strong></li>
@@ -229,7 +229,7 @@ export default function SimpleInterestPage() {
           {
             name: 'Simple Interest Calculator',
             url: 'https://fincado.com/simple-interest-calculator/',
-          }
+          },
         ]}
       />
 
@@ -256,14 +256,14 @@ export default function SimpleInterestPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-brrom-emerald-50 to-emerald-100 text-emerald-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-brrom-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
               <Percent className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Simple Interest Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-emerald-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Flat Rate Loan & Investment Interest Calculator
               </p>
             </div>
@@ -281,13 +281,13 @@ export default function SimpleInterestPage() {
           </div>
 
           {/* Budget 2026 Status */}
-          <div className="mt-6 flex gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-lg items-start shadow-sm max-w-2xl">
-            <BadgeCheck className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+          <div className="mt-6 flex gap-3 p-4 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-[#577A30] mt-0.5 shrink-0" />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-emerald-900">
+              <p className="text-sm font-semibold text-[#1B2E06]">
                 Budget 2026: Interest Calculation Rules Unchanged
               </p>
-              <p className="text-xs text-emerald-800 leading-relaxed">
+              <p className="text-xs text-[#577A30] leading-relaxed">
                 The Union Budget 2026 did not modify standard interest
                 calculation methods. Simple Interest formulas remain applicable
                 for flat-rate loans as per existing RBI guidelines.
@@ -306,15 +306,15 @@ export default function SimpleInterestPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       CAR LOAN FLAT RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Common dealer offer
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       7-10%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -327,15 +327,15 @@ export default function SimpleInterestPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-orange-200 bg-linear-to-br from-orange-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-orange-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       GOLD LOAN RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       NBFCs & local lenders
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       7-12%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -348,15 +348,15 @@ export default function SimpleInterestPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-red-200 bg-linear-to-br from-red-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-red-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       FLAT RATE TRAP
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Actual cost multiplier
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       1.8-2x
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -394,13 +394,13 @@ export default function SimpleInterestPage() {
             </Alert>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
                   <Calculator className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Planning to buy a car? Check true EMI cost
                   </strong>
                   <p className="text-sm text-slate-700">
@@ -409,7 +409,7 @@ export default function SimpleInterestPage() {
                   </p>
                   <Link
                     href="/emi-calculator/"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
                   >
                     Calculate EMI →
                   </Link>
@@ -448,8 +448,8 @@ export default function SimpleInterestPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                  <h4 className="font-semibold text-emerald-900 mb-2">
+                <div className="mt-6 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <h4 className="font-semibold text-[#1B2E06] mb-2">
                     Example Calculation
                   </h4>
                   <p className="text-sm text-slate-700 mb-3">
@@ -459,11 +459,11 @@ export default function SimpleInterestPage() {
                     <p>
                       SI ={' '}
                       <InlineMath math="\frac{100000 \times 8 \times 5}{100}" />{' '}
-                      =<strong className="text-emerald-900"> ₹40,000</strong>
+                      =<strong className="text-[#1B2E06]"> ₹40,000</strong>
                     </p>
                     <p>
                       Total Amount = ₹1,00,000 + ₹40,000 =
-                      <strong className="text-emerald-900"> ₹1,40,000</strong>
+                      <strong className="text-[#1B2E06]"> ₹1,40,000</strong>
                     </p>
                   </div>
                 </div>
@@ -508,7 +508,7 @@ export default function SimpleInterestPage() {
                         <TableCell className="font-medium">
                           Formula Complexity
                         </TableCell>
-                        <TableCell className="text-emerald-600">
+                        <TableCell className="text-[#577A30]">
                           Simple: (P×R×T)/100
                         </TableCell>
                         <TableCell className="text-orange-600">
@@ -521,7 +521,7 @@ export default function SimpleInterestPage() {
                           Returns (10 years)
                         </TableCell>
                         <TableCell>100% return (₹1L → ₹2L)</TableCell>
-                        <TableCell className="text-emerald-600 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           159% return (₹1L → ₹2.59L)
                         </TableCell>
                       </TableRow>
@@ -529,7 +529,7 @@ export default function SimpleInterestPage() {
                       <TableRow>
                         <TableCell className="font-medium">Best For</TableCell>
                         <TableCell>Short-term loans (1-2 years)</TableCell>
-                        <TableCell className="text-emerald-600">
+                        <TableCell className="text-[#577A30]">
                           Long-term investments (5+ years)
                         </TableCell>
                       </TableRow>
@@ -548,7 +548,7 @@ export default function SimpleInterestPage() {
                         <TableCell className="font-medium">
                           Borrower Advantage
                         </TableCell>
-                        <TableCell className="text-emerald-600">
+                        <TableCell className="text-[#577A30]">
                           Looks simpler, but often costs more
                         </TableCell>
                         <TableCell>
@@ -560,10 +560,10 @@ export default function SimpleInterestPage() {
                         <TableCell className="font-medium">
                           Investor Advantage
                         </TableCell>
-                        <TableCell className="text-red-600">
+                        <TableCell className="text-[#FF568E]">
                           Lower returns
                         </TableCell>
-                        <TableCell className="text-emerald-600 font-semibold">
+                        <TableCell className="text-[#577A30] font-semibold">
                           Higher returns (power of compounding)
                         </TableCell>
                       </TableRow>
@@ -571,8 +571,8 @@ export default function SimpleInterestPage() {
                   </Table>
                 </div>
 
-                <div className="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                  <h4 className="font-semibold text-emerald-900 mb-2">
+                <div className="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <h4 className="font-semibold text-[#1B2E06] mb-2">
                     Comparison Example: ₹1,00,000 at 10% for 10 years
                   </h4>
                   <div className="grid sm:grid-cols-2 gap-4 mt-3">
@@ -580,7 +580,7 @@ export default function SimpleInterestPage() {
                       <div className="text-xs text-slate-600 mb-1">
                         Simple Interest
                       </div>
-                      <div className="text-lg font-bold text-slate-900">
+                      <div className="text-lg font-semibold text-slate-900">
                         ₹2,00,000
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
@@ -588,14 +588,14 @@ export default function SimpleInterestPage() {
                       </div>
                     </div>
 
-                    <div className="p-3 bg-emerald-50 rounded border border-emerald-200">
-                      <div className="text-xs text-emerald-700 mb-1">
+                    <div className="p-3 bg-[#F7FDF1] rounded border border-[#C0F08D]">
+                      <div className="text-xs text-[#577A30] mb-1 font-medium">
                         Compound Interest
                       </div>
-                      <div className="text-lg font-bold text-emerald-900">
+                      <div className="text-lg font-semibold text-[#1B2E06]">
                         ₹2,59,374
                       </div>
-                      <div className="text-xs text-emerald-700 mt-1">
+                      <div className="text-xs text-[#577A30] mt-1 font-medium">
                         ₹59,374 MORE due to compounding
                       </div>
                     </div>
@@ -642,7 +642,7 @@ export default function SimpleInterestPage() {
                       <TableRow>
                         <TableCell className="font-semibold">5% flat</TableCell>
                         <TableCell>≈ 9.5% reducing</TableCell>
-                        <TableCell className="text-red-600">
+                        <TableCell className="text-[#FF568E]">
                           90% higher
                         </TableCell>
                       </TableRow>
@@ -650,7 +650,7 @@ export default function SimpleInterestPage() {
                       <TableRow>
                         <TableCell className="font-semibold">7% flat</TableCell>
                         <TableCell>≈ 13.3% reducing</TableCell>
-                        <TableCell className="text-red-600">
+                        <TableCell className="text-[#FF568E]">
                           90% higher
                         </TableCell>
                       </TableRow>
@@ -658,7 +658,7 @@ export default function SimpleInterestPage() {
                       <TableRow>
                         <TableCell className="font-semibold">8% flat</TableCell>
                         <TableCell>≈ 15.2% reducing</TableCell>
-                        <TableCell className="text-red-600">
+                        <TableCell className="text-[#FF568E]">
                           90% higher
                         </TableCell>
                       </TableRow>
@@ -668,7 +668,7 @@ export default function SimpleInterestPage() {
                           10% flat
                         </TableCell>
                         <TableCell>≈ 19% reducing</TableCell>
-                        <TableCell className="text-red-600">
+                        <TableCell className="text-[#FF568E]">
                           90% higher
                         </TableCell>
                       </TableRow>
@@ -678,7 +678,7 @@ export default function SimpleInterestPage() {
                           12% flat
                         </TableCell>
                         <TableCell>≈ 22.8% reducing</TableCell>
-                        <TableCell className="text-red-600">
+                        <TableCell className="text-[#FF568E]">
                           90% higher
                         </TableCell>
                       </TableRow>
@@ -686,9 +686,9 @@ export default function SimpleInterestPage() {
                   </Table>
                 </div>
 
-                <div className="mt-4 p-4 bg-red-50 rounded-lg border border-red-200">
+                <div className="mt-4 p-4 bg-red-50 rounded-lg border border-[#FFDFDD]">
                   <p className="text-sm text-slate-700">
-                    <strong className="text-red-900">Key Takeaway:</strong> A
+                    <strong className="text-[#931B66]">Key Takeaway:</strong> A
                     flat rate is approximately{' '}
                     <strong>1.9x the reducing balance equivalent</strong>.
                     Always convert flat rate to reducing rate before comparing
@@ -802,10 +802,10 @@ export default function SimpleInterestPage() {
                 </h3>
 
                 <div className="space-y-4">
-                  <Card className="border-emerald-200 bg-emerald-50/30">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-emerald-600 text-white shrink-0">
+                        <Badge className="bg-[#577A30] text-white shrink-0">
                           1
                         </Badge>
                         <div>
@@ -823,10 +823,10 @@ export default function SimpleInterestPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-emerald-200 bg-emerald-50/30">
+                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-emerald-600 text-white shrink-0">
+                        <Badge className="bg-[#577A30] text-white shrink-0">
                           2
                         </Badge>
                         <div>
@@ -916,14 +916,14 @@ export default function SimpleInterestPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/compound-interest-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             🔄
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               Compound Interest Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
@@ -931,7 +931,7 @@ export default function SimpleInterestPage() {
                               the power of interest-on-interest for long-term
                               wealth.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate CI</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -942,21 +942,21 @@ export default function SimpleInterestPage() {
                   </Link>
 
                   <Link href="/emi-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             📊
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               EMI Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate reducing balance EMI for home, car,
                               personal loans. Compare with flat rate offers.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate EMI</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

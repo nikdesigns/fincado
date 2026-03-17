@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'APY vs NPS',
     'Government Pension Scheme',
     'Guaranteed Pension Calculator',
-    'PFRDA Pension'
+    'PFRDA Pension',
   ],
   alternates: {
     canonical: 'https://fincado.com/apy-calculator/',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado APY Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -150,7 +150,7 @@ export default function APYCalculatorPage() {
       <li>Must pay differential amount for past period with accrued interest</li>
       <li>Example: Upgrading from ₹1,000 to ₹5,000 requires paying difference retrospectively</li>
     </ul>
-    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
       <p class="text-sm text-slate-700">
         <strong>Example:</strong> Age 25 subscriber wants ₹5,000 pension. Monthly contribution 
         is ₹376 for 35 years. Total investment = ₹1,58,760. Nominee receives ₹8.5 lakh corpus 
@@ -243,7 +243,7 @@ export default function APYCalculatorPage() {
       question: 'Did Union Budget 2026 change APY rules?',
       answer:
         'Union Budget 2026 did not introduce any changes to APY contribution rates, pension amounts, or eligibility criteria. The scheme continues to operate as per existing PFRDA guidelines with the same 5 pension slabs (₹1,000 to ₹5,000).',
-    }
+    },
   ];
 
   return (
@@ -255,7 +255,7 @@ export default function APYCalculatorPage() {
           {
             name: 'APY Calculator',
             url: 'https://fincado.com/apy-calculator/',
-          }
+          },
         ]}
       />
 
@@ -282,14 +282,14 @@ export default function APYCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-teal-100 text-emerald-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
               <Users className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 APY Calculator (Atal Pension Yojana)
               </h1>
-              <p className="text-base sm:text-lg font-medium text-emerald-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Calculate guaranteed government pension
               </p>
             </div>
@@ -310,15 +310,15 @@ export default function APYCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       MOST POPULAR
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       ₹5,000 Pension (Age 25)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹376
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -328,15 +328,15 @@ export default function APYCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       JOINING AGE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Eligible age range
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       18-40
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -346,15 +346,15 @@ export default function APYCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-lime-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       MAX CORPUS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Nominee receives
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹8.5L
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -375,8 +375,8 @@ export default function APYCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
-              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Government Guarantee
@@ -455,7 +455,7 @@ export default function APYCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> APY uses actuarial tables
                         considering life expectancy, interest rates, and
@@ -466,8 +466,8 @@ export default function APYCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Age 25 Subscriber for ₹5,000 Pension
                     </h4>
@@ -495,7 +495,7 @@ export default function APYCalculatorPage() {
                         <div>₹5,000/month</div>
                       </div>
 
-                      <div className="pt-3 border-t border-emerald-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Step 1: Get Base Amount for Age 25
                         </strong>
@@ -536,7 +536,7 @@ export default function APYCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
                         <div className="space-y-2">
                           <div className="text-lg font-semibold text-slate-700 mb-2">
                             APY Benefits Summary:
@@ -549,18 +549,18 @@ export default function APYCalculatorPage() {
                           </div>
                           <div className="flex justify-between">
                             <span>Guaranteed Monthly Pension:</span>
-                            <strong className="text-emerald-700">₹5,000</strong>
+                            <strong className="text-[#577A30]">₹5,000</strong>
                           </div>
                           <div className="flex justify-between">
                             <span>Spouse Gets Same Pension:</span>
-                            <strong className="text-emerald-700">₹5,000</strong>
+                            <strong className="text-[#577A30]">₹5,000</strong>
                           </div>
                           <div className="border-t pt-2 mt-2">
                             <div className="flex justify-between text-base">
                               <span className="font-semibold">
                                 Nominee Receives Corpus:
                               </span>
-                              <strong className="text-emerald-700">
+                              <strong className="text-[#577A30]">
                                 ₹8,50,000
                               </strong>
                             </div>
@@ -568,7 +568,7 @@ export default function APYCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-emerald-300">
+                      <div className="mt-3 pt-3 border-t border-[#D0F4A9]">
                         <p className="text-xs text-slate-600">
                           <strong>Benefit Analysis:</strong> For ₹1.58 lakh
                           investment over 35 years, you get ₹5,000/month
@@ -582,13 +582,13 @@ export default function APYCalculatorPage() {
                   </div>
 
                   {/* Age vs Contribution */}
-                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
-                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Impact of Joining Age (₹5,000 Pension)
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-lime-200">
+                      <div className="p-3 bg-white rounded border border-[#DFF7C6]">
                         <div className="font-mono text-sm space-y-1">
                           <div>Age 18: ₹210/month × 504 months = ₹1,05,840</div>
                           <div>Age 25: ₹376/month × 420 months = ₹1,57,920</div>
@@ -597,7 +597,7 @@ export default function APYCalculatorPage() {
                           <div>
                             Age 40: ₹1,454/month × 240 months = ₹3,48,960
                           </div>
-                          <div className="mt-2 font-semibold text-lime-700">
+                          <div className="mt-2 font-semibold text-[#577A30]">
                             Joining at 18 vs 40: Save ₹2.43 lakh (70% less!)
                           </div>
                         </div>
@@ -616,18 +616,18 @@ export default function APYCalculatorPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Want higher retirement corpus?
                   </strong>
                   <Link
                     href="/nps-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
                   >
                     <span>
                       Try NPS Calculator for market-linked pension with tax
@@ -700,7 +700,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Pension Amount
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Fixed (₹1k-₹5k)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -715,13 +715,13 @@ export default function APYCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Government Guarantee
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Yes (100% guaranteed)
                         </TableCell>
                         <TableCell className="text-slate-700">
                           No (Market risk)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Yes (Fixed 8.25%)
                         </TableCell>
                       </TableRow>
@@ -733,7 +733,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="text-slate-700">
                           Non-tax payers 18-40
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           All citizens 18-70
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -748,7 +748,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="text-slate-700">
                           No (for non-tax payers)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹2L (80C + 80CCD(1B))
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -766,7 +766,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="text-slate-700">
                           Minimum ₹500/year
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           12% + 3.67% (employer)
                         </TableCell>
                       </TableRow>
@@ -775,7 +775,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Spouse Benefit
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Yes (Same pension)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -796,7 +796,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="text-slate-700">
                           Allowed (Partial 25%)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Yes (after conditions)
                         </TableCell>
                       </TableRow>
@@ -805,7 +805,7 @@ export default function APYCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Best For
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Unorganized sector
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -819,7 +819,7 @@ export default function APYCalculatorPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Verdict:</strong> APY is ideal for low-income
                     workers in unorganized sector seeking guaranteed pension
@@ -926,21 +926,21 @@ export default function APYCalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/nps-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             💼
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               NPS Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate National Pension System with ₹2L tax
                               benefits and market-linked returns.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate NPS</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -951,21 +951,21 @@ export default function APYCalculatorPage() {
                   </Link>
 
                   <Link href="/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               Retirement Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Plan complete retirement corpus for comfortable
                               post-retirement life.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Plan Retirement</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

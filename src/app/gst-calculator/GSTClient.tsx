@@ -28,12 +28,23 @@ import {
 import { toast } from 'sonner';
 
 /* ---------------- HELPERS ---------------- */
+const MAX_SAVED_CALCULATIONS = 10;
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 2,
-  }).format(val);
+  }).format(Number.isFinite(val) ? val : 0);
+
+const toNonNegativeNumber = (value: unknown) => {
+  const parsed = typeof value === 'number' ? value : Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return 0;
+  }
+
+  return parsed;
+};
 
 /* ---------------- TYPES ---------------- */
 interface GSTLabels {
@@ -75,7 +86,7 @@ interface SavedGSTCalculation {
   id: number;
   amount: number;
   gstRate: number;
-  mode: string;
+  mode: 'add' | 'remove';
   net: number;
   gst: number;
   gross: number;
@@ -88,6 +99,47 @@ interface BulkItem {
   amount: number;
   gstRate: number;
 }
+
+const isSavedGSTCalculation = (
+  value: unknown,
+): value is SavedGSTCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const item = value as Partial<SavedGSTCalculation>;
+  return (
+    typeof item.id === 'number' &&
+    Number.isFinite(item.id) &&
+    typeof item.amount === 'number' &&
+    Number.isFinite(item.amount) &&
+    typeof item.gstRate === 'number' &&
+    Number.isFinite(item.gstRate) &&
+    (item.mode === 'add' || item.mode === 'remove') &&
+    typeof item.net === 'number' &&
+    Number.isFinite(item.net) &&
+    typeof item.gst === 'number' &&
+    Number.isFinite(item.gst) &&
+    typeof item.gross === 'number' &&
+    Number.isFinite(item.gross) &&
+    typeof item.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedGSTCalculation[] => {
+  try {
+    const saved = localStorage.getItem('gst_history');
+    if (!saved) return [];
+
+    const parsed: unknown = JSON.parse(saved);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .filter(isSavedGSTCalculation)
+      .slice(0, MAX_SAVED_CALCULATIONS);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
 
 /* ---------------- COMPONENT ---------------- */
 export default function GSTClient({
@@ -104,27 +156,13 @@ export default function GSTClient({
   /* ---------- BULK CALCULATION STATE ---------- */
   const [showBulk, setShowBulk] = useState(false);
   const [bulkItems, setBulkItems] = useState<BulkItem[]>([
-    { id: 1, name: 'Item 1', amount: 10000, gstRate: 18 }
+    { id: 1, name: 'Item 1', amount: 10000, gstRate: 18 },
   ]);
 
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedGSTCalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS ---------- */
-  useEffect(() => {
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('gst_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => (typeof window === 'undefined' ? [] : readSavedCalculations()));
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -221,9 +259,10 @@ export default function GSTClient({
       date: new Date().toISOString(),
     };
 
-    const saved = [...savedCalculations];
-    saved.unshift(calculation);
-    const trimmed = saved.slice(0, 10);
+    const trimmed = [calculation, ...savedCalculations].slice(
+      0,
+      MAX_SAVED_CALCULATIONS,
+    );
 
     setSavedCalculations(trimmed);
 
@@ -285,7 +324,7 @@ export default function GSTClient({
       `Calculate yours: https://fincado.com/gst-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'gst_shared', {
@@ -304,20 +343,20 @@ export default function GSTClient({
 
   /* ---------- BULK ITEM MANAGEMENT ---------- */
   const addBulkItem = () => {
-    setBulkItems([
-      ...bulkItems,
+    setBulkItems((prev) => [
+      ...prev,
       {
         id: Date.now(),
-        name: `Item ${bulkItems.length + 1}`,
+        name: `Item ${prev.length + 1}`,
         amount: 10000,
         gstRate: 18,
-      }
+      },
     ]);
   };
 
   const removeBulkItem = (id: number) => {
     if (bulkItems.length > 1) {
-      setBulkItems(bulkItems.filter((item) => item.id !== id));
+      setBulkItems((prev) => prev.filter((item) => item.id !== id));
     }
   };
 
@@ -326,10 +365,16 @@ export default function GSTClient({
     field: keyof BulkItem,
     value: string | number,
   ) => {
-    setBulkItems(
-      bulkItems.map((item) =>
-        item.id === id ? { ...item, [field]: value } : item,
-      ),
+    setBulkItems((prev) =>
+      prev.map((item) => {
+        if (item.id !== id) return item;
+
+        if (field === 'amount' || field === 'gstRate') {
+          return { ...item, [field]: toNonNegativeNumber(value) };
+        }
+
+        return { ...item, [field]: String(value) };
+      }),
     );
   };
 
@@ -351,13 +396,13 @@ export default function GSTClient({
         <Card className="border-border shadow-sm bg-card">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-                <Calculator className="h-5 w-5 text-emerald-600" />
+              <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+                <Calculator className="h-5 w-5 text-[#92C65B]" />
                 {mode === 'add' ? 'Add GST' : 'Remove GST'}
               </CardTitle>
               <button
                 onClick={reset}
-                className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+                className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#92C65B] transition-colors"
               >
                 <RefreshCcw className="w-3 h-3" /> Reset
               </button>
@@ -370,18 +415,52 @@ export default function GSTClient({
               <div className="space-y-8">
                 {/* Mode Toggle */}
                 <div className="space-y-3">
-                  <Label>{t.modeLabel}</Label>
+                  <Label className="text-sm font-medium text-slate-700">
+                    {t.modeLabel}
+                  </Label>
+
                   <Tabs
                     value={mode}
                     onValueChange={(v) => setMode(v as 'add' | 'remove')}
                     className="w-full"
                   >
-                    <TabsList className="w-full grid grid-cols-2">
-                      <TabsTrigger value="add">{t.addMode}</TabsTrigger>
-                      <TabsTrigger value="remove">{t.removeMode}</TabsTrigger>
+                    <TabsList className="w-full grid grid-cols-2 gap-2 bg-transparent p-0 border border-slate-200 rounded-md">
+                      <TabsTrigger
+                        value="add"
+                        className="
+          w-full px-4 py-2 text-sm font-semibold rounded-md
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#74A046]
+          data-[state=active]:border-[#B0EC70]
+          data-[state=active]:shadow-sm
+          border border-transparent
+          text-slate-600
+          hover:bg-slate-50
+          transition
+        "
+                      >
+                        {t.addMode}
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="remove"
+                        className="
+          w-full px-4 py-2 text-sm font-semibold rounded-md
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#74A046]
+          data-[state=active]:border-[#B0EC70]
+          data-[state=active]:shadow-sm
+          border border-transparent
+          text-slate-600
+          hover:bg-slate-50
+          transition
+        "
+                      >
+                        {t.removeMode}
+                      </TabsTrigger>
                     </TabsList>
                   </Tabs>
-                  <p className="text-xs text-slate-500">
+
+                  <p className="text-xs text-slate-600">
                     {mode === 'add' ? t.exclusiveNote : t.inclusiveNote}
                   </p>
                 </div>
@@ -417,18 +496,28 @@ export default function GSTClient({
                     <SelectTrigger className="h-11">
                       <SelectValue placeholder="Select Rate" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="0">0% (Exempt)</SelectItem>
-                      <SelectItem value="0.25">
+                    <SelectContent className="bg-white">
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="0">
+                        0% (Exempt)
+                      </SelectItem>
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="0.25">
                         0.25% (Rough Diamonds)
                       </SelectItem>
-                      <SelectItem value="3">3% (Gold/Jewellery)</SelectItem>
-                      <SelectItem value="5">5% (Essentials)</SelectItem>
-                      <SelectItem value="12">12% (Standard)</SelectItem>
-                      <SelectItem value="18">
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="3">
+                        3% (Gold/Jewellery)
+                      </SelectItem>
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="5">
+                        5% (Essentials)
+                      </SelectItem>
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                        12% (Standard)
+                      </SelectItem>
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="18">
                         18% (Services/Electronics)
                       </SelectItem>
-                      <SelectItem value="28">28% (Luxury Goods)</SelectItem>
+                      <SelectItem className="hover:bg-[#F7FDF1]" value="28">
+                        28% (Luxury Goods)
+                      </SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -438,10 +527,10 @@ export default function GSTClient({
                       <Badge
                         key={r}
                         variant={gstRate === r ? 'default' : 'outline'}
-                        className={`cursor-pointer px-3 py-1.5 transition ${
+                        className={`cursor-pointer px-3 py-1.5 transition bg-[#577A30] text-[#B0EC70]  ${
                           gstRate === r
-                            ? 'bg-emerald-600 hover:bg-emerald-700'
-                            : 'hover:bg-slate-50'
+                            ? 'bg-[#B0EC70] hover:bg-[#B0EC70] text-[#111827]'
+                            : 'hover:bg-[#B0EC70] hover:text-[#111827]'
                         }`}
                         onClick={() => setGstRate(r)}
                       >
@@ -456,7 +545,7 @@ export default function GSTClient({
               <div className="flex flex-col h-full">
                 <div className="flex items-center gap-2 mb-4">
                   <Receipt className="w-5 h-5 text-slate-400" />
-                  <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+                  <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
                     {t.taxSplit}
                   </span>
                 </div>
@@ -476,15 +565,15 @@ export default function GSTClient({
                     {/* 2. Tax Breakdown */}
                     <div className="space-y-2 pb-3 border-b border-slate-200 border-dashed">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-slate-500">
+                        <span className="text-sm text-slate-800">
                           {t.resultTax} ({gstRate}%)
                         </span>
-                        <span className="text-sm font-bold text-red-600">
+                        <span className="text-sm font-semibold text-[#FF568E]">
                           + {formatINR(results.gst)}
                         </span>
                       </div>
                       {gstRate > 0 && (
-                        <div className="pl-4 text-xs text-slate-400 space-y-1 border-l-2 border-slate-200 ml-1">
+                        <div className="pl-4 text-xs text-slate-600 space-y-1 border-l-2 border-slate-200 ml-1">
                           <div className="flex justify-between">
                             <span>CGST ({gstRate / 2}%)</span>
                             <span>{formatINR(results.cgst)}</span>
@@ -500,10 +589,10 @@ export default function GSTClient({
                     {/* 3. Final Total */}
                     <div className="pt-2">
                       <div className="flex justify-between items-end">
-                        <span className="text-sm font-bold text-slate-700">
+                        <span className="text-sm font-semibold text-slate-700">
                           {t.resultGross}
                         </span>
-                        <span className="text-3xl font-extrabold text-emerald-600">
+                        <span className="text-xl font-semibold text-[#92C65B]">
                           {formatINR(results.gross)}
                         </span>
                       </div>
@@ -512,8 +601,8 @@ export default function GSTClient({
                 </div>
 
                 {/* Helpful Note */}
-                <div className="mt-4 flex gap-2 items-start text-xs text-slate-500 bg-white border border-slate-100 p-3 rounded-lg shadow-sm">
-                  <ArrowRight className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <div className="mt-4 flex gap-2 items-start text-xs text-slate-800 bg-white border border-slate-100 p-3 rounded-lg shadow-sm">
+                  <ArrowRight className="w-4 h-4 text-[#B0EC70] shrink-0 mt-0.5" />
                   <p>
                     {mode === 'add'
                       ? `For an item costing ${formatINR(
@@ -536,8 +625,8 @@ export default function GSTClient({
         /* ============ BULK CALCULATOR ============ */
         <Card className="border-border shadow-sm bg-card">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Calculator className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Calculator className="h-5 w-5 text-[#92C65B]" />
               Bulk GST Calculator
             </CardTitle>
           </CardHeader>
@@ -587,13 +676,25 @@ export default function GSTClient({
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="0">0%</SelectItem>
-                        <SelectItem value="3">3%</SelectItem>
-                        <SelectItem value="5">5%</SelectItem>
-                        <SelectItem value="12">12%</SelectItem>
-                        <SelectItem value="18">18%</SelectItem>
-                        <SelectItem value="28">28%</SelectItem>
+                      <SelectContent className="bg-white">
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="0">
+                          0%
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="3">
+                          3%
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="5">
+                          5%
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                          12%
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="18">
+                          18%
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="28">
+                          28%
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -611,7 +712,7 @@ export default function GSTClient({
                         variant="ghost"
                         size="icon"
                         onClick={() => removeBulkItem(item.id)}
-                        className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                        className="h-8 w-8 text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -631,7 +732,7 @@ export default function GSTClient({
               </Button>
 
               {/* Bulk Results Summary */}
-              <Card className="border-emerald-200 bg-emerald-50/30 mt-6">
+              <Card className="border-[#DFF7C6] bg-[#F7FDF1] mt-6">
                 <CardContent className="p-5">
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
@@ -642,15 +743,15 @@ export default function GSTClient({
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-slate-600">Total GST:</span>
-                      <span className="font-semibold text-red-600">
+                      <span className="font-semibold text-[#FF568E]">
                         {formatINR(bulkResults.totalGst)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-lg border-t border-emerald-200 pt-3">
-                      <span className="font-bold text-slate-700">
+                    <div className="flex justify-between text-lg border-t border-[#DFF7C6] pt-3">
+                      <span className="font-semibold text-slate-700">
                         Grand Total:
                       </span>
-                      <span className="font-extrabold text-emerald-700">
+                      <span className="font-bold text-[#74A046]">
                         {formatINR(bulkResults.totalGross)}
                       </span>
                     </div>
@@ -678,7 +779,7 @@ export default function GSTClient({
       )}
 
       {/* Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && !showBulk && (
+      {savedCalculations.length > 0 && !showBulk && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">
@@ -688,7 +789,7 @@ export default function GSTClient({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -729,7 +830,7 @@ export default function GSTClient({
                       e.stopPropagation();
                       handleDeleteCalculation(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

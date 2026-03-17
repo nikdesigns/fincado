@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'Lean FIRE Calculator',
     'Fat FIRE vs Lean FIRE',
     'Early Retirement Calculator',
-    '4% Rule India'
+    '4% Rule India',
   ],
   alternates: {
     canonical: 'https://fincado.com/fire-calculator/',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado FIRE Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -139,7 +139,7 @@ const faqItems = [
     question: 'Should I tell my employer about pursuing FIRE?',
     answer:
       'No. Keep FIRE plans private. Continue working professionally without revealing early retirement intentions. Once you hit FIRE number, give proper notice and transition smoothly. Employer may reduce opportunities if they know you plan to quit soon.',
-  }
+  },
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -231,7 +231,7 @@ export default function FIRECalculatorPage() {
           {
             name: 'FIRE Calculator',
             url: 'https://fincado.com/fire-calculator/',
-          }
+          },
         ]}
       />
 
@@ -258,14 +258,14 @@ export default function FIRECalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-orange-50 to-red-100 text-orange-600">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
               <Flame className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 FIRE Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-orange-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Financial Independence, Retire Early
               </p>
             </div>
@@ -294,15 +294,15 @@ export default function FIRECalculatorPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-orange-200 bg-linear-to-br from-orange-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-orange-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       TYPICAL FIRE AGE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Most FIRE followers retire
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       40-45
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -312,15 +312,15 @@ export default function FIRECalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       SAVINGS RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       For aggressive FIRE
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       50-70%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -330,15 +330,15 @@ export default function FIRECalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-lime-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       INDIA SWR
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Safe withdrawal rate
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       3-3.5%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -359,8 +359,8 @@ export default function FIRECalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-orange-50/50 border-orange-200 text-slate-600">
-              <Info className="h-4 w-4 text-orange-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   India-Specific Adjustment
@@ -456,7 +456,7 @@ export default function FIRECalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> SWR assumes balanced portfolio
                         (60-70% equity, 30-40% debt) with diversification.
@@ -468,8 +468,8 @@ export default function FIRECalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: 30-Year-Old Targeting FIRE at 45
                     </h4>
@@ -502,7 +502,7 @@ export default function FIRECalculatorPage() {
                         <div>₹20,00,000</div>
                       </div>
 
-                      <div className="pt-3 border-t border-emerald-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Step 1: Calculate Future Annual Expense
                         </strong>
@@ -556,14 +556,14 @@ export default function FIRECalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
                         <div className="space-y-2">
                           <div className="text-lg font-semibold text-slate-700 mb-2">
                             FIRE Summary:
                           </div>
                           <div className="flex justify-between">
                             <span>Target FIRE Number:</span>
-                            <strong className="text-emerald-700">
+                            <strong className="text-[#577A30]">
                               ₹4.11 Crore
                             </strong>
                           </div>
@@ -578,7 +578,7 @@ export default function FIRECalculatorPage() {
                               <span className="font-semibold">
                                 Monthly SIP Needed:
                               </span>
-                              <strong className="text-emerald-700">
+                              <strong className="text-[#577A30]">
                                 ₹48,217/month
                               </strong>
                             </div>
@@ -590,7 +590,7 @@ export default function FIRECalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-emerald-300">
+                      <div className="mt-3 pt-3 border-t border-[#D0F4A9]">
                         <p className="text-xs text-slate-600">
                           <strong>Reality Check:</strong> With ₹48k/month SIP,
                           your total monthly investment is significant.
@@ -603,20 +603,20 @@ export default function FIRECalculatorPage() {
                   </div>
 
                   {/* SWR Comparison */}
-                  <div className="p-4 bg-lime-50 rounded-lg border border-lime-200">
-                    <h4 className="font-semibold text-lime-900 mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Impact of Safe Withdrawal Rate (₹10L Annual Expense)
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-lime-200">
+                      <div className="p-3 bg-white rounded border border-[#DFF7C6]">
                         <div className="font-mono text-sm space-y-1">
                           <div>4.0% SWR (US Standard): ₹2.50 Crore corpus</div>
                           <div>
                             3.5% SWR (India Conservative): ₹2.86 Crore corpus
                           </div>
                           <div>3.0% SWR (Ultra Safe): ₹3.33 Crore corpus</div>
-                          <div className="mt-2 font-semibold text-lime-700">
+                          <div className="mt-2 font-semibold text-[#577A30]">
                             Lower SWR = Higher safety, but needs larger corpus
                           </div>
                         </div>
@@ -635,18 +635,18 @@ export default function FIRECalculatorPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
                   <DollarSign className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Plan systematic investments for FIRE
                   </strong>
                   <Link
                     href="/sip-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#1B2E06]"
                   >
                     <span>
                       Use SIP Calculator to plan monthly investments for FIRE
@@ -690,7 +690,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">Lean FIRE</TableCell>
                         <TableCell>Frugal, minimalist living</TableCell>
                         <TableCell>₹25-30k/month</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹85L-₹1Cr
                         </TableCell>
                       </TableRow>
@@ -701,7 +701,7 @@ export default function FIRECalculatorPage() {
                         </TableCell>
                         <TableCell>Standard middle-class</TableCell>
                         <TableCell>₹50-70k/month</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹1.7-₹2.4Cr
                         </TableCell>
                       </TableRow>
@@ -710,7 +710,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">Fat FIRE</TableCell>
                         <TableCell>Luxury lifestyle</TableCell>
                         <TableCell>₹1L+/month</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹3.5Cr+
                         </TableCell>
                       </TableRow>
@@ -721,7 +721,7 @@ export default function FIRECalculatorPage() {
                         </TableCell>
                         <TableCell>Part-time work + investments</TableCell>
                         <TableCell>₹40-50k/month</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹1.2-₹1.5Cr
                         </TableCell>
                       </TableRow>
@@ -732,7 +732,7 @@ export default function FIRECalculatorPage() {
                         </TableCell>
                         <TableCell>Work until 60, no new savings</TableCell>
                         <TableCell>Varies</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Lower initial corpus
                         </TableCell>
                       </TableRow>
@@ -740,7 +740,7 @@ export default function FIRECalculatorPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Most Popular in India:</strong> Regular FIRE with
                     ₹1.7-2.5 crore corpus for ₹50-70k/month expenses. Lean FIRE
@@ -809,7 +809,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">
                           Retirement Age
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           35-45 years
                         </TableCell>
                         <TableCell>60-65 years</TableCell>
@@ -819,7 +819,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">
                           Savings Rate
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           50-70% of income
                         </TableCell>
                         <TableCell>10-20% of income</TableCell>
@@ -829,7 +829,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">
                           Time to Retire
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           10-20 years
                         </TableCell>
                         <TableCell>40-45 years</TableCell>
@@ -838,7 +838,7 @@ export default function FIRECalculatorPage() {
                       <TableRow>
                         <TableCell className="font-medium">Lifestyle</TableCell>
                         <TableCell>Frugal during accumulation</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Normal spending
                         </TableCell>
                       </TableRow>
@@ -848,7 +848,7 @@ export default function FIRECalculatorPage() {
                           Retirement Duration
                         </TableCell>
                         <TableCell>40-50 years (higher risk)</TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           20-25 years (lower risk)
                         </TableCell>
                       </TableRow>
@@ -857,7 +857,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">
                           Investment Focus
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Index funds, low-cost
                         </TableCell>
                         <TableCell>EPF, PPF, conservative</TableCell>
@@ -867,7 +867,7 @@ export default function FIRECalculatorPage() {
                         <TableCell className="font-medium">
                           Work Philosophy
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Work optional (by choice)
                         </TableCell>
                         <TableCell>Work necessary (till 60)</TableCell>
@@ -878,7 +878,7 @@ export default function FIRECalculatorPage() {
                         <TableCell>
                           Higher (long retirement, market risk)
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Lower (pension, gratuity, short retirement)
                         </TableCell>
                       </TableRow>
@@ -954,21 +954,21 @@ export default function FIRECalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-lime-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-lime-50 to-lime-100 text-lime-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-lime-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               Retirement Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate traditional retirement corpus for age 60
                               with comprehensive planning.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-lime-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Plan Retirement</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -979,21 +979,21 @@ export default function FIRECalculatorPage() {
                   </Link>
 
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate systematic investment plan returns for
                               building FIRE corpus.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate SIP</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

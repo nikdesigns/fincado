@@ -28,8 +28,47 @@ interface SavedCalculation {
   totalEmp: number;
   totalEmployer: number;
   interest: number;
+  employerWageCeilingEnabled?: boolean;
   date: string;
 }
+
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    typeof entry.basicSalary === 'number' &&
+    typeof entry.employeePct === 'number' &&
+    typeof entry.years === 'number' &&
+    typeof entry.annualRate === 'number' &&
+    typeof entry.maturity === 'number' &&
+    typeof entry.totalEmp === 'number' &&
+    typeof entry.totalEmployer === 'number' &&
+    typeof entry.interest === 'number' &&
+    (typeof entry.employerWageCeilingEnabled === 'undefined' ||
+      typeof entry.employerWageCeilingEnabled === 'boolean') &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('epf_calculator_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation).map((entry) => ({
+      ...entry,
+      employerWageCeilingEnabled: Boolean(entry.employerWageCeilingEnabled),
+    }));
+  } catch (error) {
+    console.error('Error loading saved EPF calculations:', error);
+    return [];
+  }
+};
 
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
@@ -45,27 +84,16 @@ export default function EPFClient() {
   const [employeePct, setEmployeePct] = useState(12);
   const [years, setYears] = useState(20);
   const [annualRate, setAnnualRate] = useState(8.25);
+  const [employerWageCeilingEnabled, setEmployerWageCeilingEnabled] =
+    useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
-    try {
-      const saved = localStorage.getItem('epf_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved EPF calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   // Track calculator load
   useEffect(() => {
@@ -81,7 +109,10 @@ export default function EPFClient() {
   const results = useMemo(() => {
     const empMonthly = (basicSalary * employeePct) / 100;
     // Employer contributes 3.67% to EPF (remaining 8.33% goes to EPS)
-    const employerMonthly = (basicSalary * 3.67) / 100;
+    const employerContributionBase = employerWageCeilingEnabled
+      ? Math.min(basicSalary, 15000)
+      : basicSalary;
+    const employerMonthly = (employerContributionBase * 3.67) / 100;
 
     let balance = 0;
     let totalEmp = 0;
@@ -124,7 +155,7 @@ export default function EPFClient() {
       totalMonthlyContribution,
       invested,
     };
-  }, [basicSalary, employeePct, years, annualRate]);
+  }, [basicSalary, employeePct, years, annualRate, employerWageCeilingEnabled]);
 
   /* ---------- HANDLERS ---------- */
   const handleReset = () => {
@@ -132,6 +163,7 @@ export default function EPFClient() {
     setEmployeePct(12);
     setYears(20);
     setAnnualRate(8.25);
+    setEmployerWageCeilingEnabled(false);
     toast.success('Calculator reset to defaults!');
   };
 
@@ -146,6 +178,7 @@ export default function EPFClient() {
       totalEmp: results.totalEmp,
       totalEmployer: results.totalEmployer,
       interest: results.interest,
+      employerWageCeilingEnabled,
       date: new Date().toISOString(),
     };
 
@@ -165,6 +198,7 @@ export default function EPFClient() {
         basic_salary: basicSalary,
         years: years,
         maturity: results.maturity,
+        employer_wage_ceiling_enabled: employerWageCeilingEnabled,
       });
     }
   };
@@ -174,7 +208,7 @@ export default function EPFClient() {
       `💼 Employee Provident Fund (EPF) Calculation\n\n` +
       `Basic Salary + DA: ${formatINR(basicSalary)}/month\n` +
       `Your Contribution: ${employeePct}% (${formatINR(results.monthlyEmpContribution)}/mo)\n` +
-      `Employer Contribution: 3.67% (${formatINR(results.monthlyEmployerContribution)}/mo)\n` +
+      `Employer Contribution: 3.67% (${formatINR(results.monthlyEmployerContribution)}/mo${employerWageCeilingEnabled ? ', capped at ₹15,000 base' : ''})\n` +
       `Employment Period: ${years} years\n` +
       `Interest Rate: ${annualRate}% p.a.\n\n` +
       `📊 EPF Maturity:\n` +
@@ -186,7 +220,7 @@ export default function EPFClient() {
       `Calculate yours: https://fincado.com/epf-calculator/`;
 
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'epf_calculation_shared', {
@@ -223,6 +257,7 @@ export default function EPFClient() {
     setEmployeePct(calc.employeePct);
     setYears(calc.years);
     setAnnualRate(calc.annualRate);
+    setEmployerWageCeilingEnabled(Boolean(calc.employerWageCeilingEnabled));
     toast.success('EPF plan loaded!');
   };
 
@@ -230,9 +265,9 @@ export default function EPFClient() {
   return (
     <div className="space-y-6">
       {/* Info Alert */}
-      <Alert className="border-emerald-200 bg-emerald-50">
-        <Info className="h-4 w-4 text-emerald-600" />
-        <AlertDescription className="ml-2 text-sm text-emerald-800">
+      <Alert className="border-[#DFF7C6] bg-[#F7FDF1]">
+        <Info className="h-4 w-4 text-[#577A30]" />
+        <AlertDescription className="ml-2 text-sm text-[#1B2E06]">
           <strong>Note:</strong> Employer&apos;s 8.33% contribution to EPS
           (Employee Pension Scheme) is not included in EPF corpus as it provides
           monthly pension separately.
@@ -243,13 +278,13 @@ export default function EPFClient() {
       <Card className="border-slate-200 shadow-sm">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Briefcase className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Briefcase className="h-5 w-5 text-[#577A30]" />
               Employee Provident Fund (EPF) Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -314,6 +349,21 @@ export default function EPFClient() {
                     Current EPF rate: 8.25% (FY 2025-26). Rates are revised
                     annually by EPFO.
                   </p>
+
+                  <label className="mt-3 flex items-start gap-2 text-xs text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={employerWageCeilingEnabled}
+                      onChange={(e) =>
+                        setEmployerWageCeilingEnabled(e.target.checked)
+                      }
+                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#577A30] focus:ring-[#F7FDF1]"
+                    />
+                    <span>
+                      Apply statutory ₹15,000 wage ceiling to employer EPF share
+                      (3.67%).
+                    </span>
+                  </label>
                 </div>
               )}
             </div>
@@ -330,7 +380,7 @@ export default function EPFClient() {
                 <div className="text-sm text-slate-500">
                   Estimated EPF Corpus
                 </div>
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-lime-600">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(results.maturity)}
                 </div>
                 <div className="mt-1 text-xs text-slate-500">
@@ -339,8 +389,8 @@ export default function EPFClient() {
               </div>
 
               {/* Monthly Contributions */}
-              <div className="mt-6 w-full p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                <h4 className="text-xs font-semibold text-emerald-900 mb-3">
+              <div className="mt-6 w-full p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <h4 className="text-xs font-semibold text-[#577A30] mb-3">
                   Monthly Contributions
                 </h4>
                 <div className="space-y-2 text-sm">
@@ -358,11 +408,16 @@ export default function EPFClient() {
                       {formatINR(results.monthlyEmployerContribution)}
                     </strong>
                   </div>
+                  {employerWageCeilingEnabled && (
+                    <div className="text-[11px] text-slate-500">
+                      Employer share calculated on capped ₹15,000 wage base.
+                    </div>
+                  )}
                   <div className="flex justify-between border-t pt-2 text-base">
-                    <span className="font-semibold text-emerald-900">
+                    <span className="font-semibold text-[#577A30]">
                       Total/Month:
                     </span>
-                    <strong className="text-emerald-700">
+                    <strong className="text-[#577A30]">
                       {formatINR(results.totalMonthlyContribution)}
                     </strong>
                   </div>
@@ -391,11 +446,11 @@ export default function EPFClient() {
               </div>
 
               {/* Interest Card */}
-              <div className="mt-4 w-full rounded-lg border-2 border-lime-300 bg-lime-50 p-4 text-center">
-                <div className="text-xs text-lime-700 font-semibold">
+              <div className="mt-4 w-full rounded-lg border-2 border-[#D0F4A9] bg-[#F7FDF1] p-4 text-center">
+                <div className="text-xs text-[#577A30] font-semibold">
                   Total Interest Earned
                 </div>
-                <div className="mt-1 text-2xl font-bold text-lime-700">
+                <div className="mt-1 text-2xl font-semibold text-[#577A30]">
                   +{formatINR(results.interest)}
                 </div>
               </div>
@@ -423,7 +478,7 @@ export default function EPFClient() {
       </div>
 
       {/* Saved Calculations */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved EPF Plans</CardTitle>
@@ -431,7 +486,7 @@ export default function EPFClient() {
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -475,7 +530,7 @@ export default function EPFClient() {
                       e.stopPropagation();
                       handleDelete(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

@@ -68,7 +68,45 @@ const formatINR = (val: number) =>
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(Number.isFinite(val) ? val : 0);
+
+const isFinancialYear = (value: unknown): value is FinancialYear =>
+  value === '2026-2027' || value === '2025-2026';
+
+const isAgeGroup = (value: unknown): value is AgeGroup =>
+  value === '0-60' || value === '60-80' || value === '80+';
+
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    isFinancialYear(entry.fy) &&
+    isAgeGroup(entry.age) &&
+    typeof entry.income === 'number' &&
+    typeof entry.deductions === 'number' &&
+    typeof entry.taxOld === 'number' &&
+    typeof entry.taxNew === 'number' &&
+    typeof entry.recommended === 'string' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('tax_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
 
 /* ---------------- COMPONENT ---------------- */
 export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
@@ -100,22 +138,10 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('tax_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -153,24 +179,34 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
     const taxableNew = Math.max(0, income - STD_NEW);
     let taxNew = 0;
 
-    const slabs = [
-      [400_000, 800_000, 0.05],
-      [800_000, 1_200_000, 0.1],
-      [1_200_000, 1_600_000, 0.15],
-      [1_600_000, 2_000_000, 0.2],
-      [2_000_000, 2_400_000, 0.25],
-      [2_400_000, Infinity, 0.3],
-    ];
+    const slabs =
+      fy === '2026-2027'
+        ? [
+            [400_000, 800_000, 0.05],
+            [800_000, 1_200_000, 0.1],
+            [1_200_000, 1_600_000, 0.15],
+            [1_600_000, 2_000_000, 0.2],
+            [2_000_000, 2_400_000, 0.25],
+            [2_400_000, Infinity, 0.3],
+          ]
+        : [
+            [300_000, 700_000, 0.05],
+            [700_000, 1_000_000, 0.1],
+            [1_000_000, 1_200_000, 0.15],
+            [1_200_000, 1_500_000, 0.2],
+            [1_500_000, Infinity, 0.3],
+          ];
 
     slabs.forEach(([min, max, rate]) => {
       taxNew += Math.max(0, Math.min(taxableNew, max) - min) * rate;
     });
 
     // Section 87A rebate + marginal relief for New Regime
-    if (taxableNew <= 1_200_000) {
+    const rebateLimit = fy === '2026-2027' ? 1_200_000 : 700_000;
+    if (taxableNew <= rebateLimit) {
       taxNew = 0;
     } else {
-      taxNew = Math.min(taxNew, taxableNew - 1_200_000);
+      taxNew = Math.min(taxNew, taxableNew - rebateLimit);
     }
 
     /* ---------- CESS ---------- */
@@ -190,7 +226,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       taxableOld,
       taxableNew,
     };
-  }, [age, income, deductions]);
+  }, [fy, age, income, deductions]);
 
   const handleReset = () => {
     setIncome(1_200_000);
@@ -284,7 +320,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       `Calculate yours: https://fincado.com/income-tax-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'tax_shared', {
@@ -308,13 +344,13 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       <Card className="border-border shadow-sm bg-card">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Scale className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Scale className="h-5 w-5 text-[#577A30]" />
               Tax Estimator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -337,7 +373,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                   <SelectTrigger className="bg-white h-11">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     <SelectItem value="2026-2027">
                       FY 2026–27 (AY 2027–28)
                     </SelectItem>
@@ -400,25 +436,25 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
               <div
                 className={`p-6 rounded-xl border-2 text-center transition-all ${
                   calc.recommended === 'New Regime'
-                    ? 'border-emerald-200 bg-emerald-50 shadow-emerald-100 shadow-lg'
-                    : 'border-emerald-200 bg-emerald-50 shadow-emerald-100 shadow-lg'
+                    ? 'border-[#DFF7C6] bg-[#F7FDF1] shadow-[#EFFBE2] shadow-lg'
+                    : 'border-[#DFF7C6] bg-[#F7FDF1] shadow-[#EFFBE2] shadow-lg'
                 }`}
               >
                 <p
-                  className={`text-xs font-bold tracking-widest uppercase mb-2 ${
+                  className={`text-xs font-semibold tracking-widest uppercase mb-2 ${
                     calc.recommended === 'New Regime'
-                      ? 'text-emerald-600'
-                      : 'text-emerald-600'
+                      ? 'text-[#577A30]'
+                      : 'text-[#577A30]'
                   }`}
                 >
                   {t.recommendationLabel}
                 </p>
-                <h3 className="text-2xl font-black text-slate-800">
+                <h3 className="text-2xl font-bold text-[#1B2E06]">
                   {calc.recommended}
                 </h3>
                 {calc.savings > 0 ? (
                   <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm text-slate-700">
-                    <TrendingDown className="h-4 w-4 text-emerald-600" />
+                    <TrendingDown className="h-4 w-4 text-[#577A30]" />
                     Save <strong>{formatINR(calc.savings)}</strong>
                   </div>
                 ) : (
@@ -442,7 +478,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
                         calc.recommended === 'Old Regime'
-                          ? 'bg-emerald-500'
+                          ? 'bg-[#B0EC70]'
                           : 'bg-slate-300'
                       }`}
                       style={{
@@ -470,7 +506,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
                         calc.recommended === 'New Regime'
-                          ? 'bg-emerald-500'
+                          ? 'bg-[#B0EC70]'
                           : 'bg-slate-300'
                       }`}
                       style={{
@@ -488,19 +524,19 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
               </div>
 
               {/* Final Takehome */}
-              <div className="rounded-lg bg-slate-900 p-5 text-center text-white shadow-lg">
-                <p className="text-xs text-slate-400 uppercase tracking-widest font-medium mb-1">
+              <div className="rounded-lg bg-[#1B2E06] p-5 text-center text-white shadow-lg">
+                <p className="text-xs text-[#D1D5DB] uppercase tracking-widest font-medium mb-1">
                   {t.netIncomeLabel}
                 </p>
-                <div className="text-3xl font-bold tracking-tight">
+                <div className="text-3xl text-[#B0EC70] font-semibold tracking-tight">
                   {formatINR(calc.netIncome)}
                 </div>
-                <div className="mt-2 text-xs text-slate-400">
+                <div className="mt-2 text-xs text-[#D1D5DB]">
                   After {calc.recommended} tax
                 </div>
               </div>
 
-              <div className="flex items-start gap-2 text-xs text-slate-400">
+              <div className="flex items-start gap-2 text-xs text-slate-700">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <p>
                   Calculations include Health & Education Cess (4%). Surcharge
@@ -526,10 +562,10 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       </div>
 
       {/* ✅ Tax Breakdown Card */}
-      <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Calculator className="h-5 w-5 text-lime-600" />
+            <Calculator className="h-5 w-5 text-[#577A30]" />
             Tax Breakdown
           </CardTitle>
         </CardHeader>
@@ -538,8 +574,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               {/* Old Regime Details */}
-              <div className="p-4 bg-white rounded-lg border-2 border-emerald-200">
-                <div className="text-sm font-semibold text-emerald-700 mb-2">
+              <div className="p-4 bg-white rounded-lg border-2 border-[#DFF7C6]">
+                <div className="text-sm font-semibold text-[#577A30] mb-2">
                   Old Regime
                 </div>
                 <div className="space-y-2 text-xs text-slate-600">
@@ -559,7 +595,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableOld)}</span>
                   </div>
-                  <div className="border-t pt-2 flex justify-between font-bold text-emerald-700">
+                  <div className="border-t pt-2 flex justify-between font-semibold text-[#577A30]">
                     <span>Tax + Cess:</span>
                     <span>{formatINR(calc.taxOld)}</span>
                   </div>
@@ -567,8 +603,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
               </div>
 
               {/* New Regime Details */}
-              <div className="p-4 bg-white rounded-lg border-2 border-emerald-200">
-                <div className="text-sm font-semibold text-emerald-700 mb-2">
+              <div className="p-4 bg-white rounded-lg border-2 border-[#DFF7C6]">
+                <div className="text-sm font-semibold text-[#577A30] mb-2">
                   New Regime
                 </div>
                 <div className="space-y-2 text-xs text-slate-600">
@@ -588,7 +624,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableNew)}</span>
                   </div>
-                  <div className="border-t pt-2 flex justify-between font-bold text-emerald-700">
+                  <div className="border-t pt-2 flex justify-between font-semibold text-[#577A30]">
                     <span>Tax + Cess:</span>
                     <span>{formatINR(calc.taxNew)}</span>
                   </div>
@@ -600,7 +636,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       </Card>
 
       {/* ✅ Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved Scenarios</CardTitle>

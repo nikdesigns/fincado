@@ -50,11 +50,45 @@ interface SavedHRACalculation {
   da: number;
   hraReceived: number;
   rentPaid: number;
-  isMetro: string;
+  isMetro: 'yes' | 'no';
   exemptHRA: number;
   taxableHRA: number;
   date: string;
 }
+
+const isSavedHRACalculation = (
+  value: unknown,
+): value is SavedHRACalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedHRACalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    typeof entry.basic === 'number' &&
+    typeof entry.da === 'number' &&
+    typeof entry.hraReceived === 'number' &&
+    typeof entry.rentPaid === 'number' &&
+    (entry.isMetro === 'yes' || entry.isMetro === 'no') &&
+    typeof entry.exemptHRA === 'number' &&
+    typeof entry.taxableHRA === 'number' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedHRACalculation[] => {
+  try {
+    const saved = localStorage.getItem('hra_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedHRACalculation);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
 
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
@@ -62,7 +96,7 @@ const formatINR = (val: number) =>
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(Number.isFinite(val) ? val : 0);
 
 export default function HRAClient({
   labels = {},
@@ -81,22 +115,10 @@ export default function HRAClient({
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedHRACalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('hra_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -233,7 +255,7 @@ export default function HRAClient({
       `Calculate yours: https://fincado.com/hra-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'hra_shared', {
@@ -248,7 +270,7 @@ export default function HRAClient({
     setDA(calc.da);
     setHraReceived(calc.hraReceived);
     setRentPaid(calc.rentPaid);
-    setIsMetro(calc.isMetro as 'yes' | 'no');
+    setIsMetro(calc.isMetro);
     toast.success('Calculation loaded!');
   };
 
@@ -258,13 +280,13 @@ export default function HRAClient({
       <Card className="border-border shadow-sm bg-card">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Building2 className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Building2 className="h-5 w-5 text-[#577A30]" />
               HRA Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -316,24 +338,53 @@ export default function HRAClient({
                 <Label className="text-sm font-medium text-slate-700">
                   {t.cityType}
                 </Label>
+
                 <RadioGroup
                   value={isMetro}
                   onValueChange={(v) => setIsMetro(v as 'yes' | 'no')}
-                  className="flex gap-4"
+                  className="grid grid-cols-2 gap-3"
                 >
-                  <div className="flex items-center space-x-2 border rounded-md px-4 py-2 bg-white w-full hover:bg-slate-50 cursor-pointer transition">
-                    <RadioGroupItem value="yes" id="m-yes" />
-                    <Label htmlFor="m-yes" className="cursor-pointer flex-1">
+                  <div
+                    className="group flex items-center gap-2 rounded-md border px-4 py-3 cursor-pointer transition
+                 data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#F7FDF1]
+                 hover:bg-slate-50"
+                    data-state={isMetro === 'yes' ? 'checked' : 'unchecked'}
+                    onClick={() => setIsMetro('yes')}
+                  >
+                    <RadioGroupItem
+                      value="yes"
+                      id="m-yes"
+                      className="data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#B0EC70]"
+                    />
+                    <Label
+                      htmlFor="m-yes"
+                      className="cursor-pointer text-sm font-semibold text-slate-800 flex-1"
+                    >
                       {t.metro}
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-2 border rounded-md px-4 py-2 bg-white w-full hover:bg-slate-50 cursor-pointer transition">
-                    <RadioGroupItem value="no" id="m-no" />
-                    <Label htmlFor="m-no" className="cursor-pointer flex-1">
+
+                  <div
+                    className="group flex items-center gap-2 rounded-md border px-4 py-3 cursor-pointer transition
+                 data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#F7FDF1]
+                 hover:bg-slate-50"
+                    data-state={isMetro === 'no' ? 'checked' : 'unchecked'}
+                    onClick={() => setIsMetro('no')}
+                  >
+                    <RadioGroupItem
+                      value="no"
+                      id="m-no"
+                      className="data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#B0EC70]"
+                    />
+                    <Label
+                      htmlFor="m-no"
+                      className="cursor-pointer text-sm font-semibold text-slate-800 flex-1"
+                    >
                       {t.nonMetro}
                     </Label>
                   </div>
                 </RadioGroup>
+
                 <p className="text-[10px] text-slate-400">
                   *Metro cities: Delhi, Mumbai, Kolkata, Chennai only
                 </p>
@@ -351,23 +402,23 @@ export default function HRAClient({
 
               <div className="mt-6 w-full max-w-sm text-center">
                 <div className="text-sm text-slate-500 mb-1">{t.exemptHRA}</div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-emerald-600">
+                <div className="text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {formatINR(results.exemptHRA)}
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-4 text-left">
-                  <Card className="border-emerald-100 bg-emerald-50">
+                  <Card className="border-[#EFFBE2] bg-[#F7FDF1]">
                     <CardContent className="p-3">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                        <span className="text-xs font-semibold text-emerald-800">
+                        <CheckCircle2 className="w-3 h-3 text-[#577A30]" />
+                        <span className="text-xs font-semibold text-[#577A30]">
                           Exempt
                         </span>
                       </div>
-                      <div className="text-sm font-bold text-emerald-900">
+                      <div className="text-sm font-semibold text-[#1B2E06]">
                         {formatINR(results.exemptHRA)}
                       </div>
-                      <div className="text-xs text-emerald-700 mt-0.5">
+                      <div className="text-xs text-[#577A30] mt-0.5">
                         Tax Free
                       </div>
                     </CardContent>
@@ -381,7 +432,7 @@ export default function HRAClient({
                           Taxable
                         </span>
                       </div>
-                      <div className="text-sm font-bold text-slate-800">
+                      <div className="text-sm font-semibold text-slate-800">
                         {formatINR(results.taxableHRA)}
                       </div>
                       <div className="text-xs text-slate-600 mt-0.5">
@@ -400,7 +451,7 @@ export default function HRAClient({
                     <li
                       className={`flex justify-between p-2 rounded ${
                         results.exemptHRA === results.breakdown.cond1
-                          ? 'bg-emerald-50 font-semibold'
+                          ? 'bg-[#F7FDF1] font-semibold'
                           : ''
                       }`}
                     >
@@ -412,7 +463,7 @@ export default function HRAClient({
                     <li
                       className={`flex justify-between p-2 rounded ${
                         results.exemptHRA === results.breakdown.cond2
-                          ? 'bg-emerald-50 font-semibold'
+                          ? 'bg-[#F7FDF1] font-semibold'
                           : ''
                       }`}
                     >
@@ -426,7 +477,7 @@ export default function HRAClient({
                     <li
                       className={`flex justify-between p-2 rounded ${
                         results.exemptHRA === results.breakdown.cond3
-                          ? 'bg-emerald-50 font-semibold'
+                          ? 'bg-[#F7FDF1] font-semibold'
                           : ''
                       }`}
                     >
@@ -436,7 +487,7 @@ export default function HRAClient({
                       </span>
                     </li>
                   </ul>
-                  <div className="mt-3 p-2 bg-lime-50 rounded text-xs text-slate-600">
+                  <div className="mt-3 p-2 bg-[#F7FDF1] rounded text-xs text-slate-600">
                     <strong>Salary:</strong> {formatINR(results.salary)} (Basic
                     + DA)
                   </div>
@@ -461,21 +512,21 @@ export default function HRAClient({
       </div>
 
       {/* ✅ Tax Saving Insight */}
-      <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
         <CardContent className="p-5">
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
               <TrendingUp className="h-5 w-5" />
             </div>
             <div>
-              <div className="font-semibold text-emerald-900 mb-1">
+              <div className="font-semibold text-[#1B2E06] mb-1">
                 Tax Saving Impact
               </div>
               <div className="text-sm text-slate-700">
                 Your exempt HRA of{' '}
                 <strong>{formatINR(results.exemptHRA)}</strong> reduces taxable
                 income. At 30% tax slab, you save approximately{' '}
-                <strong className="text-emerald-700">
+                <strong className="text-[#577A30]">
                   {formatINR(results.exemptHRA * 0.3)}
                 </strong>{' '}
                 in taxes annually.
@@ -486,7 +537,7 @@ export default function HRAClient({
       </Card>
 
       {/* ✅ Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved HRA Scenarios</CardTitle>
@@ -494,7 +545,7 @@ export default function HRAClient({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-xs text-[#FF568E] hover:text-[#DB3E82] hover:bg-red-50"
             >
               Clear All
             </Button>
@@ -536,7 +587,7 @@ export default function HRAClient({
                       e.stopPropagation();
                       handleDeleteCalculation(calc.id);
                     }}
-                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-[#FF568E] hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

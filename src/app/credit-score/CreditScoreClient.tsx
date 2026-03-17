@@ -21,6 +21,13 @@ import {
 import { toast } from 'sonner';
 
 /* ---------------- HELPERS ---------------- */
+const MAX_SAVED_SCORES = 10;
+
+const toNonNegativeNumber = (value: string) => {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) return 0;
+  return parsed;
+};
 
 /* ---------------- TYPES ---------------- */
 interface CreditScoreLabels {
@@ -70,6 +77,34 @@ interface SavedScore {
   date: string;
 }
 
+const isSavedScore = (value: unknown): value is SavedScore => {
+  if (!value || typeof value !== 'object') return false;
+
+  const score = value as Partial<SavedScore>;
+  return (
+    typeof score.id === 'number' &&
+    typeof score.score === 'number' &&
+    typeof score.onTimePayments === 'number' &&
+    typeof score.utilization === 'number' &&
+    typeof score.date === 'string'
+  );
+};
+
+const readSavedScores = (): SavedScore[] => {
+  try {
+    const saved = localStorage.getItem('credit_score_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedScore).slice(0, MAX_SAVED_SCORES);
+  } catch (error) {
+    console.error('Error loading saved scores:', error);
+    return [];
+  }
+};
+
 /* ---------------- COMPONENT ---------------- */
 export default function CreditScoreClient({
   labels = {},
@@ -93,22 +128,10 @@ export default function CreditScoreClient({
   const [payDown, setPayDown] = useState(0);
 
   /* ---------- SAVED SCORES STATE ---------- */
-  const [savedScores, setSavedScores] = useState<SavedScore[]>([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED SCORES ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('credit_score_history');
-      if (saved) {
-        setSavedScores(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved scores:', error);
-    }
-  }, []);
+  const [savedScores, setSavedScores] = useState<SavedScore[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedScores();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -156,7 +179,7 @@ export default function CreditScoreClient({
     loanMix,
     accounts,
     hasDefaults,
-    hasSettlements
+    hasSettlements,
   ]);
 
   const scoreLabel =
@@ -202,11 +225,16 @@ export default function CreditScoreClient({
   const utilImproved = newUtil < utilization;
 
   /* ---------- IMPACT ANALYSIS ---------- */
-  const getScoreImpact = () => {
-    const impacts = [];
+  const impacts = useMemo(() => {
+    const scoreImpacts: {
+      factor: string;
+      impact: string;
+      suggestion: string;
+      severity: 'critical' | 'high' | 'medium' | 'low';
+    }[] = [];
 
     if (utilization > 30) {
-      impacts.push({
+      scoreImpacts.push({
         factor: 'High Credit Utilization',
         impact: `Using ${utilization}% of credit limit`,
         suggestion: 'Reduce to below 30% for immediate boost',
@@ -215,7 +243,7 @@ export default function CreditScoreClient({
     }
 
     if (onTimePayments < 100) {
-      impacts.push({
+      scoreImpacts.push({
         factor: 'Missed Payments',
         impact: `${100 - onTimePayments}% payment delays`,
         suggestion: 'Set up auto-pay to never miss EMI',
@@ -224,7 +252,7 @@ export default function CreditScoreClient({
     }
 
     if (enquiries > 3) {
-      impacts.push({
+      scoreImpacts.push({
         factor: 'Too Many Enquiries',
         impact: `${enquiries} hard inquiries in 6 months`,
         suggestion: 'Avoid new applications for 6 months',
@@ -233,7 +261,7 @@ export default function CreditScoreClient({
     }
 
     if (avgAge < 3) {
-      impacts.push({
+      scoreImpacts.push({
         factor: 'Short Credit History',
         impact: `Average age only ${avgAge} years`,
         suggestion: 'Keep oldest accounts active',
@@ -242,7 +270,7 @@ export default function CreditScoreClient({
     }
 
     if (hasDefaults) {
-      impacts.push({
+      scoreImpacts.push({
         factor: 'Account Defaults',
         impact: 'Default mark on credit report',
         suggestion: 'Clear dues immediately, raise dispute if incorrect',
@@ -251,7 +279,7 @@ export default function CreditScoreClient({
     }
 
     if (hasSettlements) {
-      impacts.push({
+      scoreImpacts.push({
         factor: 'Settled Accounts',
         impact: 'Settlement status (not closed)',
         suggestion: 'Pay remaining amount for "closed" status',
@@ -259,10 +287,15 @@ export default function CreditScoreClient({
       });
     }
 
-    return impacts;
-  };
-
-  const impacts = getScoreImpact();
+    return scoreImpacts;
+  }, [
+    avgAge,
+    enquiries,
+    hasDefaults,
+    hasSettlements,
+    onTimePayments,
+    utilization,
+  ]);
 
   const reset = () => {
     setOnTimePayments(95);
@@ -293,9 +326,7 @@ export default function CreditScoreClient({
       date: new Date().toISOString(),
     };
 
-    const saved = [...savedScores];
-    saved.unshift(savedScore);
-    const trimmed = saved.slice(0, 10);
+    const trimmed = [savedScore, ...savedScores].slice(0, MAX_SAVED_SCORES);
 
     setSavedScores(trimmed);
 
@@ -353,7 +384,7 @@ export default function CreditScoreClient({
       `Check yours: https://fincado.com/credit-score/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'credit_score_shared', {
@@ -369,7 +400,7 @@ export default function CreditScoreClient({
       <Card className="border-border shadow-sm bg-card">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
               <TrendingUp className="h-5 w-5 text-emerald-600" />
               Credit Score Estimator
             </CardTitle>
@@ -648,7 +679,7 @@ export default function CreditScoreClient({
                               ? 'bg-orange-50 border-orange-200'
                               : impact.severity === 'medium'
                                 ? 'bg-yellow-50 border-yellow-200'
-                                : 'bg-blue-50 border-blue-200'
+                                : 'bg-[#F7FDF1] border-blue-200'
                         }`}
                       >
                         <div className="font-semibold text-slate-900 mb-1">
@@ -675,10 +706,10 @@ export default function CreditScoreClient({
       </Card>
 
       {/* PAYDOWN SIMULATOR */}
-      <Card className="border-slate-200 bg-linear-to-br from-blue-50 to-white">
+      <Card className="border-slate-200 bg-linear-to-br from-[#F7FDF1] to-white">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-blue-600" />
+            <TrendingUp className="h-5 w-5 text-[#577A30]" />
             {t.improveSimulator}
           </CardTitle>
         </CardHeader>
@@ -695,7 +726,7 @@ export default function CreditScoreClient({
                 min={0}
                 value={totalLimit}
                 onChange={(e) =>
-                  setTotalLimit(Math.max(0, Number(e.target.value) || 0))
+                  setTotalLimit(toNonNegativeNumber(e.target.value))
                 }
                 className="pl-8 h-11"
               />
@@ -715,10 +746,7 @@ export default function CreditScoreClient({
                 value={payDown}
                 onChange={(e) =>
                   setPayDown(
-                    Math.min(
-                      totalLimit,
-                      Math.max(0, Number(e.target.value) || 0),
-                    ),
+                    Math.min(totalLimit, toNonNegativeNumber(e.target.value)),
                   )
                 }
                 className="pl-8 h-11"
@@ -781,7 +809,7 @@ export default function CreditScoreClient({
       </div>
 
       {/* Progress Tracking */}
-      {isClient && savedScores.length > 0 && (
+      {savedScores.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Credit Score Journey</CardTitle>
@@ -810,7 +838,7 @@ export default function CreditScoreClient({
                       <div className="flex items-center gap-4">
                         <div className="text-center">
                           <div
-                            className={`text-2xl font-bold ${
+                            className={`text-2xl font-semibold ${
                               saved.score >= 750
                                 ? 'text-emerald-600'
                                 : saved.score >= 700

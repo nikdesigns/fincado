@@ -29,6 +29,37 @@ interface SavedCalculation {
   date: string;
 }
 
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    typeof entry.basicSalary === 'number' &&
+    typeof entry.years === 'number' &&
+    (entry.coveredStatus === 'yes' || entry.coveredStatus === 'no') &&
+    typeof entry.gratuity === 'number' &&
+    typeof entry.exempt === 'number' &&
+    typeof entry.taxable === 'number' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('gratuity_calculator_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation);
+  } catch (error) {
+    console.error('Error loading saved gratuity calculations:', error);
+    return [];
+  }
+};
+
 /* ---------- HELPERS ---------- */
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
@@ -43,25 +74,12 @@ export default function GratuityClient() {
   const [years, setYears] = useState(5);
   const [coveredStatus, setCoveredStatus] = useState<'yes' | 'no'>('yes');
 
-  const [isClient, setIsClient] = useState(false);
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-
-  // Load saved calculations
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-
-    try {
-      const saved = localStorage.getItem('gratuity_calculator_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved gratuity calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   // Track calculator load
   useEffect(() => {
@@ -185,7 +203,7 @@ export default function GratuityClient() {
       `Calculate yours: https://fincado.com/gratuity-calculator/`;
 
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'gratuity_calculation_shared', {
@@ -246,13 +264,13 @@ export default function GratuityClient() {
       <Card className="border-slate-200 shadow-sm">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Briefcase className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Briefcase className="h-5 w-5 text-[#577A30]" />
               Gratuity Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RotateCcw className="w-3 h-3" /> Reset
             </button>
@@ -295,20 +313,39 @@ export default function GratuityClient() {
                 <RadioGroup
                   value={coveredStatus}
                   onValueChange={(val) => setCoveredStatus(val as 'yes' | 'no')}
-                  className="flex gap-4"
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-3"
                 >
-                  <div className="flex items-center space-x-2 border rounded-md px-4 py-2 bg-white w-full hover:bg-slate-50 cursor-pointer transition">
-                    <RadioGroupItem value="yes" id="yes" />
-                    <Label htmlFor="yes" className="cursor-pointer flex-1">
-                      Yes (Covered) - 26 days
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2 border rounded-md px-4 py-2 bg-white w-full hover:bg-slate-50 cursor-pointer transition">
-                    <RadioGroupItem value="no" id="no" />
-                    <Label htmlFor="no" className="cursor-pointer flex-1">
-                      No (Not Covered) - 30 days
-                    </Label>
-                  </div>
+                  <Label
+                    htmlFor="yes"
+                    className={`cursor-pointer rounded-lg border px-4 py-3 transition-all ${
+                      coveredStatus === 'yes'
+                        ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-200'
+                        : 'border-slate-200 bg-white hover:bg-slate-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="yes" id="yes" />
+                      <span className="font-medium text-slate-800">
+                        Yes (Covered)
+                      </span>
+                    </div>
+                  </Label>
+
+                  <Label
+                    htmlFor="no"
+                    className={`cursor-pointer rounded-lg border px-4 py-3 transition-all ${
+                      coveredStatus === 'no'
+                        ? 'border-amber-500 bg-amber-50 ring-1 ring-amber-200'
+                        : 'border-slate-200 bg-white hover:bg-slate-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value="no" id="no" />
+                      <span className="font-medium text-slate-800">
+                        No (Not Covered)
+                      </span>
+                    </div>
+                  </Label>
                 </RadioGroup>
                 <p className="text-xs text-slate-500 mt-2">
                   Most private companies with 10+ employees are covered under
@@ -329,9 +366,14 @@ export default function GratuityClient() {
                 <div className="text-sm font-medium text-slate-500 mb-1">
                   Total Gratuity Payable
                 </div>
-                <div className="text-4xl font-extrabold text-lime-600 tracking-tight">
+                <div className="text-4xl font-extrabold text-[#577A30] tracking-tight">
                   {formatINR(result.gratuity)}
                 </div>
+                {years < 5 && (
+                  <div className="mt-2 text-xs text-amber-700">
+                    Not eligible yet (minimum 5 years required)
+                  </div>
+                )}
                 <div className="mt-2 text-xs font-mono text-slate-400 bg-slate-50 inline-block px-3 py-1.5 rounded">
                   Formula: {result.formula}
                 </div>
@@ -339,12 +381,12 @@ export default function GratuityClient() {
                 {/* Breakdown Cards */}
                 <div className="mt-8 grid grid-cols-2 gap-4 w-full">
                   {/* Exempt */}
-                  <Card className="bg-lime-50 border-lime-200 shadow-none">
+                  <Card className="bg-[#F7FDF1] border-[#DFF7C6] shadow-none">
                     <CardContent className="p-4 text-center">
-                      <div className="text-xs text-lime-700 font-medium mb-1">
+                      <div className="text-xs text-[#577A30] font-medium mb-1">
                         Tax Exempt (Max ₹20L)
                       </div>
-                      <div className="font-bold text-lime-800 text-lg">
+                      <div className="font-semibold text-[#577A30] text-lg">
                         {formatINR(result.exempt)}
                       </div>
                     </CardContent>
@@ -356,7 +398,7 @@ export default function GratuityClient() {
                       <div className="text-xs text-slate-500 font-medium mb-1">
                         Taxable Amount
                       </div>
-                      <div className="font-bold text-slate-700 text-lg">
+                      <div className="font-semibold text-slate-700 text-lg">
                         {formatINR(result.taxable)}
                       </div>
                     </CardContent>
@@ -402,7 +444,7 @@ export default function GratuityClient() {
       </div>
 
       {/* Saved Calculations */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">
@@ -518,7 +560,7 @@ function GratuityPieChart({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#65a30d" // Lime-600
+            stroke="#B0EC70" // [#577A30]
             strokeWidth={strokeWidth}
             strokeDasharray={`${exemptLength} ${circumference}`}
             strokeLinecap="round"
@@ -530,7 +572,7 @@ function GratuityPieChart({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#fed7aa" // Orange-200
+            stroke="#D1D5DB" // Orange-200
             strokeWidth={strokeWidth}
             strokeDasharray={`${taxableLength} ${circumference}`}
             strokeDashoffset={-exemptLength}
@@ -539,10 +581,10 @@ function GratuityPieChart({
         )}
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-        <div className="text-2xl font-bold text-slate-900 leading-none">
+        <div className="text-2xl font-semibold text-slate-900 leading-none">
           {exemptPct}%
         </div>
-        <div className="mt-1 text-sm font-medium text-lime-600">Tax Free</div>
+        <div className="mt-1 text-sm font-medium text-[#577A30]">Tax Free</div>
       </div>
     </div>
   );

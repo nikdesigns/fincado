@@ -31,12 +31,20 @@ import {
 import { toast } from 'sonner';
 
 /* ---------------- HELPERS ---------------- */
+const MAX_SAVED_CALCULATIONS = 10;
+
 const formatINR = (val: number) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(val);
+  }).format(Number.isFinite(val) ? val : 0);
+
+const toNonNegativeNumber = (value: string) => {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) return 0;
+  return parsed;
+};
 
 /* ---------------- TYPES ---------------- */
 interface SimpleInterestLabels {
@@ -57,9 +65,11 @@ const DEFAULT_LABELS: SimpleInterestLabels = {
   resultInterest: 'Total Interest',
 };
 
+type CalculationMode = 'forward' | 'findPrincipal' | 'findRate' | 'findTime';
+
 interface SavedCalculation {
   id: number;
-  mode: string;
+  mode: CalculationMode;
   principal: number;
   rate: number;
   time: number;
@@ -67,6 +77,43 @@ interface SavedCalculation {
   total: number;
   date: string;
 }
+
+const isMode = (value: unknown): value is CalculationMode =>
+  value === 'forward' ||
+  value === 'findPrincipal' ||
+  value === 'findRate' ||
+  value === 'findTime';
+
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const calc = value as Partial<SavedCalculation>;
+  return (
+    typeof calc.id === 'number' &&
+    isMode(calc.mode) &&
+    typeof calc.principal === 'number' &&
+    typeof calc.rate === 'number' &&
+    typeof calc.time === 'number' &&
+    typeof calc.interest === 'number' &&
+    typeof calc.total === 'number' &&
+    typeof calc.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('si_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation).slice(0, MAX_SAVED_CALCULATIONS);
+  } catch (error) {
+    console.error('Error loading saved calculations:', error);
+    return [];
+  }
+};
 
 /* ---------------- PIE CHART COMPONENT ---------------- */
 function InterestPieChart({
@@ -110,7 +157,7 @@ function InterestPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#3b82f6"
+            stroke="#D1D5DB"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash1} ${circumference}`}
             strokeLinecap="butt"
@@ -123,7 +170,7 @@ function InterestPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#10b981"
+            stroke="#B0EC70"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash2} ${circumference}`}
             strokeDashoffset={offset2}
@@ -137,7 +184,7 @@ function InterestPieChart({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
             Principal
           </span>
-          <span className="text-2xl font-bold text-emerald-600">
+          <span className="text-2xl font-bold text-[#577A30]">
             {principalPct}%
           </span>
         </div>
@@ -146,11 +193,11 @@ function InterestPieChart({
       {/* Legend */}
       <div className="flex gap-4 mt-6">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-emerald-500" />
+          <div className="w-3 h-3 rounded-full bg-blue-500" />
           <span className="text-xs font-medium text-slate-600">Principal</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-emerald-500" />
+          <div className="w-3 h-3 rounded-full bg-[#F7FDF1]" />
           <span className="text-xs font-medium text-slate-600">Interest</span>
         </div>
       </div>
@@ -167,9 +214,7 @@ export default function SICalculatorClient({
   const t = { ...DEFAULT_LABELS, ...labels };
 
   /* ---------------- STATE ---------------- */
-  const [mode, setMode] = useState<
-    'forward' | 'findPrincipal' | 'findRate' | 'findTime'
-  >('forward');
+  const [mode, setMode] = useState<CalculationMode>('forward');
   const [principal, setPrincipal] = useState(100000);
   const [rate, setRate] = useState(8);
   const [time, setTime] = useState(5);
@@ -181,22 +226,10 @@ export default function SICalculatorClient({
   /* ---------- SAVED CALCULATIONS STATE ---------- */
   const [savedCalculations, setSavedCalculations] = useState<
     SavedCalculation[]
-  >([]);
-  const [isClient, setIsClient] = useState(false);
-
-  /* ---------- LOAD SAVED CALCULATIONS ---------- */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-    try {
-      const saved = localStorage.getItem('si_history');
-      if (saved) {
-        setSavedCalculations(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error('Error loading saved calculations:', error);
-    }
-  }, []);
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
 
   /* ---------- TRACK CALCULATOR LOAD ---------- */
   useEffect(() => {
@@ -214,7 +247,8 @@ export default function SICalculatorClient({
       // Standard: SI = (P * R * T) / 100
       const interest = Math.round((principal * rate * time) / 100);
       const totalAmount = principal + interest;
-      const principalPct = Math.round((principal / totalAmount) * 100);
+      const principalPct =
+        totalAmount > 0 ? Math.round((principal / totalAmount) * 100) : 0;
       const interestPct = 100 - principalPct;
 
       return {
@@ -226,15 +260,18 @@ export default function SICalculatorClient({
         rate,
         time,
       };
-    } else if (mode === 'findPrincipal') {
+    }
+
+    if (mode === 'findPrincipal') {
       // Find P: P = (SI * 100) / (R * T)
-      const calculatedPrincipal = Math.round(
-        (targetInterest * 100) / (rate * time),
-      );
+      const denominator = rate * time;
+      const calculatedPrincipal =
+        denominator > 0 ? Math.round((targetInterest * 100) / denominator) : 0;
       const totalAmount = calculatedPrincipal + targetInterest;
-      const principalPct = Math.round(
-        (calculatedPrincipal / totalAmount) * 100,
-      );
+      const principalPct =
+        totalAmount > 0
+          ? Math.round((calculatedPrincipal / totalAmount) * 100)
+          : 0;
       const interestPct = 100 - principalPct;
 
       return {
@@ -246,14 +283,18 @@ export default function SICalculatorClient({
         rate,
         time,
       };
-    } else if (mode === 'findRate') {
+    }
+
+    if (mode === 'findRate') {
       // Find R: R = (SI * 100) / (P * T)
-      const calculatedRate = (
-        (targetInterest * 100) /
-        (principal * time)
-      ).toFixed(2);
+      const denominator = principal * time;
+      const calculatedRate =
+        denominator > 0
+          ? Number(((targetInterest * 100) / denominator).toFixed(2))
+          : 0;
       const totalAmount = principal + targetInterest;
-      const principalPct = Math.round((principal / totalAmount) * 100);
+      const principalPct =
+        totalAmount > 0 ? Math.round((principal / totalAmount) * 100) : 0;
       const interestPct = 100 - principalPct;
 
       return {
@@ -262,29 +303,31 @@ export default function SICalculatorClient({
         totalAmount,
         principalPct,
         interestPct,
-        rate: parseFloat(calculatedRate),
+        rate: calculatedRate,
         time,
       };
-    } else {
-      // Find T: T = (SI * 100) / (P * R)
-      const calculatedTime = (
-        (targetInterest * 100) /
-        (principal * rate)
-      ).toFixed(2);
-      const totalAmount = principal + targetInterest;
-      const principalPct = Math.round((principal / totalAmount) * 100);
-      const interestPct = 100 - principalPct;
-
-      return {
-        principal,
-        interest: targetInterest,
-        totalAmount,
-        principalPct,
-        interestPct,
-        rate,
-        time: parseFloat(calculatedTime),
-      };
     }
+
+    // Find T: T = (SI * 100) / (P * R)
+    const denominator = principal * rate;
+    const calculatedTime =
+      denominator > 0
+        ? Number(((targetInterest * 100) / denominator).toFixed(2))
+        : 0;
+    const totalAmount = principal + targetInterest;
+    const principalPct =
+      totalAmount > 0 ? Math.round((principal / totalAmount) * 100) : 0;
+    const interestPct = 100 - principalPct;
+
+    return {
+      principal,
+      interest: targetInterest,
+      totalAmount,
+      principalPct,
+      interestPct,
+      rate,
+      time: calculatedTime,
+    };
   }, [mode, principal, rate, time, targetInterest]);
 
   /* ---------------- YEAR-WISE BREAKDOWN ---------------- */
@@ -340,9 +383,10 @@ export default function SICalculatorClient({
       date: new Date().toISOString(),
     };
 
-    const saved = [...savedCalculations];
-    saved.unshift(calculation);
-    const trimmed = saved.slice(0, 10);
+    const trimmed = [calculation, ...savedCalculations].slice(
+      0,
+      MAX_SAVED_CALCULATIONS,
+    );
 
     setSavedCalculations(trimmed);
 
@@ -402,7 +446,7 @@ export default function SICalculatorClient({
       `Calculate yours: https://fincado.com/simple-interest-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'si_shared', {
@@ -419,12 +463,12 @@ export default function SICalculatorClient({
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Percent className="h-5 w-5 text-emerald-600" />
+              <Percent className="h-5 w-5 text-[#577A30]" />
               Simple Interest Calculator
             </CardTitle>
             <button
               onClick={reset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-emerald-600 transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -433,8 +477,11 @@ export default function SICalculatorClient({
 
         <CardContent className="p-6 lg:p-8">
           {/* Mode Selection */}
-          <div className="mb-8">
-            <Label className="mb-3 block">Calculation Mode</Label>
+          <div className="mb-8 space-y-3">
+            <Label className="text-sm font-medium text-slate-700">
+              Calculation Mode
+            </Label>
+
             <Tabs
               value={mode}
               onValueChange={(v) =>
@@ -444,14 +491,76 @@ export default function SICalculatorClient({
               }
               className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
-                <TabsTrigger value="forward">
-                  <Calculator className="h-4 w-4 mr-2" />
+              <TabsList
+                className="
+        grid w-full grid-cols-2 lg:grid-cols-4 gap-2
+        bg-transparent p-0 border border-slate-200 rounded-md
+      "
+              >
+                <TabsTrigger
+                  value="forward"
+                  className="
+          w-full px-4 py-2 text-xs sm:text-sm font-semibold rounded-md
+          flex items-center justify-center gap-2
+          border border-transparent text-slate-600
+          hover:bg-slate-50 transition
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#577A30]
+          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:shadow-sm
+        "
+                >
+                  <Calculator className="h-4 w-4" />
                   Find Interest
                 </TabsTrigger>
-                <TabsTrigger value="findPrincipal">Find Principal</TabsTrigger>
-                <TabsTrigger value="findRate">Find Rate</TabsTrigger>
-                <TabsTrigger value="findTime">Find Time</TabsTrigger>
+
+                <TabsTrigger
+                  value="findPrincipal"
+                  className="
+          w-full px-4 py-2 text-xs sm:text-sm font-semibold rounded-md
+          flex items-center justify-center
+          border border-transparent text-slate-600
+          hover:bg-slate-50 transition
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#577A30]
+          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:shadow-sm
+        "
+                >
+                  Find Principal
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="findRate"
+                  className="
+          w-full px-4 py-2 text-xs sm:text-sm font-semibold rounded-md
+          flex items-center justify-center
+          border border-transparent text-slate-600
+          hover:bg-slate-50 transition
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#577A30]
+          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:shadow-sm
+        "
+                >
+                  Find Rate
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="findTime"
+                  className="
+          w-full px-4 py-2 text-xs sm:text-sm font-semibold rounded-md
+          flex items-center justify-center
+          border border-transparent text-slate-600
+          hover:bg-slate-50 transition
+          data-[state=active]:bg-[#F7FDF1]
+          data-[state=active]:text-[#577A30]
+          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:shadow-sm
+        "
+                >
+                  Find Time
+                </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
@@ -480,7 +589,7 @@ export default function SICalculatorClient({
                         type="number"
                         value={principal}
                         onChange={(e) =>
-                          setPrincipal(Math.max(0, Number(e.target.value) || 0))
+                          setPrincipal(toNonNegativeNumber(e.target.value))
                         }
                         className="pl-8 h-11"
                       />
@@ -491,7 +600,7 @@ export default function SICalculatorClient({
                       max={10000000}
                       step={1000}
                       onValueChange={(v) => setPrincipal(v[0])}
-                      className="text-emerald-600"
+                      className="text-[#577A30]"
                     />
                   </div>
 
@@ -511,7 +620,7 @@ export default function SICalculatorClient({
                       max={30}
                       step={0.1}
                       onValueChange={(v) => setRate(v[0])}
-                      className="text-emerald-600"
+                      className="text-[#577A30]"
                     />
                     <div className="flex flex-wrap gap-2">
                       {[6, 8, 10, 12, 15].map((r) => (
@@ -520,7 +629,7 @@ export default function SICalculatorClient({
                           variant={rate === r ? 'default' : 'outline'}
                           className={`cursor-pointer transition ${
                             rate === r
-                              ? 'bg-emerald-600 hover:bg-emerald-700'
+                              ? 'bg-[#B0EC70] hover:bg-[#B0EC70]'
                               : 'hover:bg-slate-50'
                           }`}
                           onClick={() => setRate(r)}
@@ -547,7 +656,7 @@ export default function SICalculatorClient({
                       max={30}
                       step={1}
                       onValueChange={(v) => setTime(v[0])}
-                      className="text-emerald-600"
+                      className="text-[#577A30]"
                     />
                     <div className="flex flex-wrap gap-2">
                       {[1, 3, 5, 7, 10].map((y) => (
@@ -556,7 +665,7 @@ export default function SICalculatorClient({
                           variant={time === y ? 'default' : 'outline'}
                           className={`cursor-pointer transition ${
                             time === y
-                              ? 'bg-emerald-600 hover:bg-emerald-700'
+                              ? 'bg-[#B0EC70] hover:bg-[#B0EC70]'
                               : 'hover:bg-slate-50'
                           }`}
                           onClick={() => setTime(y)}
@@ -582,9 +691,7 @@ export default function SICalculatorClient({
                         type="number"
                         value={targetInterest}
                         onChange={(e) =>
-                          setTargetInterest(
-                            Math.max(0, Number(e.target.value) || 0),
-                          )
+                          setTargetInterest(toNonNegativeNumber(e.target.value))
                         }
                         className="pl-8 h-11"
                       />
@@ -634,7 +741,7 @@ export default function SICalculatorClient({
                         type="number"
                         value={principal}
                         onChange={(e) =>
-                          setPrincipal(Math.max(0, Number(e.target.value) || 0))
+                          setPrincipal(toNonNegativeNumber(e.target.value))
                         }
                         className="pl-8 h-11"
                       />
@@ -651,9 +758,7 @@ export default function SICalculatorClient({
                         type="number"
                         value={targetInterest}
                         onChange={(e) =>
-                          setTargetInterest(
-                            Math.max(0, Number(e.target.value) || 0),
-                          )
+                          setTargetInterest(toNonNegativeNumber(e.target.value))
                         }
                         className="pl-8 h-11"
                       />
@@ -689,7 +794,7 @@ export default function SICalculatorClient({
                         type="number"
                         value={principal}
                         onChange={(e) =>
-                          setPrincipal(Math.max(0, Number(e.target.value) || 0))
+                          setPrincipal(toNonNegativeNumber(e.target.value))
                         }
                         className="pl-8 h-11"
                       />
@@ -706,9 +811,7 @@ export default function SICalculatorClient({
                         type="number"
                         value={targetInterest}
                         onChange={(e) =>
-                          setTargetInterest(
-                            Math.max(0, Number(e.target.value) || 0),
-                          )
+                          setTargetInterest(toNonNegativeNumber(e.target.value))
                         }
                         className="pl-8 h-11"
                       />
@@ -748,7 +851,7 @@ export default function SICalculatorClient({
                   {mode === 'findRate' && 'Required Interest Rate'}
                   {mode === 'findTime' && 'Required Time Period'}
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-emerald-600">
+                <div className="text-3xl sm:text-4xl font-extrabold text-[#577A30]">
                   {mode === 'forward' && formatINR(results.totalAmount)}
                   {mode === 'findPrincipal' && formatINR(results.principal)}
                   {mode === 'findRate' && `${results.rate}% p.a.`}
@@ -758,21 +861,21 @@ export default function SICalculatorClient({
 
               {/* Breakdown Cards */}
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <Card className="border-emerald-200 bg-emerald-50">
+                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                   <CardContent className="p-4">
-                    <div className="text-xs text-emerald-700 mb-1">Principal</div>
-                    <div className="font-semibold text-emerald-900">
+                    <div className="text-xs text-[#577A30] mb-1">Principal</div>
+                    <div className="font-semibold text-[#1B2E06]">
                       {formatINR(results.principal)}
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-emerald-50">
+                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
                   <CardContent className="p-4">
-                    <div className="text-xs text-emerald-700 mb-1">
+                    <div className="text-xs text-[#577A30] mb-1">
                       Total Interest
                     </div>
-                    <div className="font-semibold text-emerald-900">
+                    <div className="font-semibold text-[#1B2E06]">
                       +{formatINR(results.interest)}
                     </div>
                   </CardContent>
@@ -780,8 +883,8 @@ export default function SICalculatorClient({
               </div>
 
               {/* Insight Box */}
-              <div className="mt-4 flex gap-3 items-start p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800">
-                <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div className="mt-4 flex gap-3 items-start p-3 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg text-xs text-[#577A30]">
+                <Info className="w-4 h-4 text-[#577A30] shrink-0 mt-0.5" />
                 <p>
                   {mode === 'forward' && (
                     <>
@@ -845,7 +948,7 @@ export default function SICalculatorClient({
                         Year {row.year}
                       </TableCell>
                       <TableCell>{formatINR(row.interest)}</TableCell>
-                      <TableCell className="font-semibold text-emerald-700">
+                      <TableCell className="font-semibold text-[#577A30]">
                         {formatINR(row.total)}
                       </TableCell>
                     </TableRow>
@@ -920,7 +1023,7 @@ export default function SICalculatorClient({
       </div>
 
       {/* Saved Calculations History */}
-      {isClient && savedCalculations.length > 0 && (
+      {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg">Your Saved Calculations</CardTitle>

@@ -333,7 +333,7 @@ export default function NSCPage() {
 
             {/* Info Alert */}
             <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1]0 mt-0.5" />
+              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Tax-Saving Tip
@@ -468,7 +468,7 @@ export default function NSCPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]0">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Maturity Value (5 Years):
                         </div>

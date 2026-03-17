@@ -113,31 +113,31 @@ export default function GoalPlanningCalculatorPage() {
             <td class="p-3 border font-medium">Retirement</td>
             <td class="p-3 border">20-40 years</td>
             <td class="p-3 border">Equity SIP + PPF + NPS</td>
-            <td class="p-3 border text-emerald-700">10-12% p.a.</td>
+            <td class="p-3 border text-[#577A30]">10-12% p.a.</td>
           </tr>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Child Education</td>
             <td class="p-3 border">10-18 years</td>
             <td class="p-3 border">Balanced Mutual Funds + SIP</td>
-            <td class="p-3 border text-emerald-700">9-11% p.a.</td>
+            <td class="p-3 border text-[#577A30]">9-11% p.a.</td>
           </tr>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">House Purchase</td>
             <td class="p-3 border">5-15 years</td>
             <td class="p-3 border">Debt + Equity Mix</td>
-            <td class="p-3 border text-emerald-700">8-10% p.a.</td>
+            <td class="p-3 border text-[#577A30]">8-10% p.a.</td>
           </tr>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Marriage</td>
             <td class="p-3 border">5-10 years</td>
             <td class="p-3 border">Hybrid Funds + SIP</td>
-            <td class="p-3 border text-emerald-700">9-10% p.a.</td>
+            <td class="p-3 border text-[#577A30]">9-10% p.a.</td>
           </tr>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Vacation / Car</td>
             <td class="p-3 border">1-5 years</td>
             <td class="p-3 border">Debt Funds + FD + RD</td>
-            <td class="p-3 border text-emerald-700">6-8% p.a.</td>
+            <td class="p-3 border text-[#577A30]">6-8% p.a.</td>
           </tr>
         </tbody>
       </table>
@@ -243,14 +243,14 @@ export default function GoalPlanningCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
               <Target className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Goal Planning Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-emerald-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Plan Financial Goals with Inflation-Adjusted Targets
               </p>
             </div>
@@ -272,15 +272,15 @@ export default function GoalPlanningCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       Average Inflation (India)
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       General expenses (2015-2025)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       5–6%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -290,15 +290,15 @@ export default function GoalPlanningCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       Education Inflation
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       School and college fees (India)
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       8–10%
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -308,15 +308,15 @@ export default function GoalPlanningCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       Updated Data
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Last reviewed calculation
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       {updatedLabel}
                     </div>
                   </CardContent>
@@ -333,8 +333,8 @@ export default function GoalPlanningCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-emerald-50/50 border-emerald-200 text-slate-600">
-              <Info className="h-4 w-4 text-emerald-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Start Early, Stay Consistent
@@ -406,21 +406,21 @@ export default function GoalPlanningCalculatorPage() {
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Link href="/sip-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                                 📊
                               </span>
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                                   SIP Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate SIP returns and plan systematic
                                   investments.
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -431,21 +431,21 @@ export default function GoalPlanningCalculatorPage() {
                       </Link>
 
                       <Link href="/retirement-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                                 🧓
                               </span>
                               <div className="flex-1">
-                                <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                                   Retirement Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Plan your retirement corpus with detailed
                                   analysis.
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                                   <span>Plan Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

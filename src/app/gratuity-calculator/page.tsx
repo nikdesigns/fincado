@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'How to Calculate Gratuity',
     'Gratuity Rules 2026',
     'Gratuity Payment Calculator',
-    'Employee Gratuity Calculator'
+    'Employee Gratuity Calculator',
   ],
   alternates: {
     canonical: 'https://fincado.com/gratuity-calculator/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Gratuity Calculator',
-      }
+      },
     ],
   },
   robots: {
@@ -110,7 +110,7 @@ export default function GratuityCalculatorPage() {
       <li><strong>Resignation:</strong> Gratuity payable even on voluntary resignation after 5 years</li>
       <li><strong>Termination for Misconduct:</strong> Employer can withhold gratuity if employee terminated for willful damage, violence, moral turpitude</li>
     </ul>
-    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
       <p class="text-sm text-slate-700">
         <strong>Important:</strong> 240 working days in a year qualifies as 1 completed year. 
         For seasonal workers, 190 days count as 1 year. Maternity leave counts as working days.
@@ -174,7 +174,7 @@ export default function GratuityCalculatorPage() {
       <li className="ml-6">c) (15 × Last Salary × Years) / 30</li>
       <li className="ml-6">d) ½ month salary × years of service</li>
     </ul>
-    <div class="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
       <p class="text-sm text-slate-700">
         <strong>Example:</strong> Gratuity received = ₹25 lakh. Tax-free = ₹20 lakh. 
         Taxable = ₹5 lakh (taxed as per your income tax slab - 30% bracket = ₹1.5L tax).
@@ -269,7 +269,7 @@ export default function GratuityCalculatorPage() {
       question: 'What happens to gratuity if employee dies?',
       answer:
         'Gratuity is immediately payable to nominee or legal heir (spouse, children, parents). 5-year service rule waived for death. Full amount is tax-free. Nominee must submit death certificate, Form I claim, and KYC. Payment within 30 days from claim.',
-    }
+    },
   ];
 
   return (
@@ -281,7 +281,7 @@ export default function GratuityCalculatorPage() {
           {
             name: 'Gratuity Calculator',
             url: 'https://fincado.com/gratuity-calculator/',
-          }
+          },
         ]}
       />
 
@@ -308,14 +308,14 @@ export default function GratuityCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-lime-50 to-emerald-100 text-lime-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
               <Award className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Gratuity Calculator (Payment of Gratuity Act 1972)
               </h1>
-              <p className="text-base sm:text-lg font-medium text-lime-700">
+              <p className="text-base sm:text-lg font-medium text-[#577A30]">
                 Calculate gratuity amount with ₹20 lakh tax exemption
               </p>
             </div>
@@ -336,15 +336,15 @@ export default function GratuityCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-lime-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       MINIMUM SERVICE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Required for eligibility
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       5 years
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -354,15 +354,15 @@ export default function GratuityCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       TAX EXEMPTION
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Tax-free gratuity limit
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       ₹20L
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -372,15 +372,15 @@ export default function GratuityCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white">
+                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-emerald-700 mb-1">
+                    <div className="text-xs font-semibold text-[#577A30] mb-1">
                       PAYMENT TIMELINE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
                       Employer must pay within
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">
+                    <div className="text-3xl font-semibold text-slate-900">
                       30 days
                       <span className="text-base font-normal text-slate-600">
                         {' '}
@@ -401,8 +401,8 @@ export default function GratuityCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-lime-50/50 border-lime-200 text-slate-600">
-              <Info className="h-4 w-4 text-lime-500 mt-0.5" />
+            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
+              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Eligibility Requirement
@@ -494,7 +494,7 @@ export default function GratuityCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> HRA, Special Allowances, Bonuses,
                         and other components are NOT included in gratuity
@@ -504,8 +504,8 @@ export default function GratuityCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: ₹50,000 Basic Salary for 10 Years (Covered
                       Establishment)
@@ -529,7 +529,7 @@ export default function GratuityCalculatorPage() {
                         <div>Covered (26 working days)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-emerald-300">
+                      <div className="pt-3 border-t border-[#D0F4A9]">
                         <strong className="block mb-2">
                           Calculation Steps:
                         </strong>
@@ -549,7 +549,7 @@ export default function GratuityCalculatorPage() {
                           </div>
                           <div className="flex justify-between">
                             <span>Tax Exempt (Max ₹20L):</span>
-                            <strong className="text-emerald-700">
+                            <strong className="text-[#577A30]">
                               ₹2,88,462
                             </strong>
                           </div>
@@ -560,8 +560,8 @@ export default function GratuityCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-emerald-500">
-                        <div className="text-base font-semibold text-emerald-900">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                        <div className="text-base font-semibold text-[#1B2E06]">
                           Result: 100% Tax-Free Gratuity
                         </div>
                         <p className="text-xs text-slate-600 mt-1">
@@ -596,7 +596,7 @@ export default function GratuityCalculatorPage() {
                           </div>
                           <div className="flex justify-between">
                             <span>Tax Exempt (Max ₹20L):</span>
-                            <strong className="text-emerald-700">
+                            <strong className="text-[#577A30]">
                               ₹20,00,000
                             </strong>
                           </div>
@@ -636,18 +636,18 @@ export default function GratuityCalculatorPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-emerald-200 bg-emerald-50/50 transition-colors hover:bg-emerald-50">
+            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-emerald-900">
+                  <strong className="block text-base font-semibold text-[#1B2E06]">
                     Want to calculate your EPF corpus?
                   </strong>
                   <Link
                     href="/epf-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
                   >
                     <span>
                       Use EPF Calculator for retirement savings planning
@@ -722,7 +722,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Applicability
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           10+ employees
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -734,7 +734,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Formula
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           (Salary × 15/26 × Years)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -746,7 +746,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Working Days/Month
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           26 days
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -758,7 +758,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Gratuity Amount
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Higher (26 days basis)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -782,7 +782,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Maximum Limit
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           No ceiling
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -794,10 +794,10 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Tax Exemption
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹20L (Section 10(10))
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           ₹20L (Section 10(10))
                         </TableCell>
                       </TableRow>
@@ -806,7 +806,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Payment Timeline
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           Within 30 days (mandatory)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -818,7 +818,7 @@ export default function GratuityCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Death/Disability
                         </TableCell>
-                        <TableCell className="font-semibold text-emerald-600">
+                        <TableCell className="font-semibold text-[#577A30]">
                           5-year rule waived
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -829,7 +829,7 @@ export default function GratuityCalculatorPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mt-4">
+                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Key Difference:</strong> Covered establishments use
                     26 working days resulting in ~15% higher gratuity compared
@@ -897,21 +897,21 @@ export default function GratuityCalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/epf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             💼
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               EPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate Employee Provident Fund with 8.25%
                               interest.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Calculate EPF</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -922,21 +922,21 @@ export default function GratuityCalculatorPage() {
                   </Link>
 
                   <Link href="/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-emerald-300">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-700 text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-bold text-slate-900 group-hover:text-emerald-700 mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
                               Retirement Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Plan complete retirement corpus and monthly SIP
                               needed.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-emerald-700">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
                               <span>Plan Retirement</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
