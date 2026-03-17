@@ -837,14 +837,24 @@ export default function CompoundInterestClient({
                       }
                     >
                       <SelectTrigger className="h-11">
-                        <SelectValue />
+                        <SelectValue className="bg-white" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">Yearly</SelectItem>
-                        <SelectItem value="2">Half-yearly</SelectItem>
-                        <SelectItem value="4">Quarterly</SelectItem>
-                        <SelectItem value="12">Monthly</SelectItem>
-                        <SelectItem value="365">Daily</SelectItem>
+                      <SelectContent className="bg-white">
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                          Yearly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                          Half-yearly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                          Quarterly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                          Monthly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                          Daily
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -913,12 +923,22 @@ export default function CompoundInterestClient({
                       <SelectTrigger className="h-11">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">Yearly</SelectItem>
-                        <SelectItem value="2">Half-yearly</SelectItem>
-                        <SelectItem value="4">Quarterly</SelectItem>
-                        <SelectItem value="12">Monthly</SelectItem>
-                        <SelectItem value="365">Daily</SelectItem>
+                      <SelectContent className="bg-white">
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                          Yearly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                          Half-yearly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                          Quarterly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                          Monthly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                          Daily
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -987,12 +1007,22 @@ export default function CompoundInterestClient({
                       <SelectTrigger className="h-11">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">Yearly</SelectItem>
-                        <SelectItem value="2">Half-yearly</SelectItem>
-                        <SelectItem value="4">Quarterly</SelectItem>
-                        <SelectItem value="12">Monthly</SelectItem>
-                        <SelectItem value="365">Daily</SelectItem>
+                      <SelectContent className="bg-white">
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                          Yearly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                          Half-yearly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                          Quarterly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                          Monthly
+                        </SelectItem>
+                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                          Daily
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

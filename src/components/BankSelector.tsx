@@ -17,7 +17,7 @@ const banks = [
   { slug: 'hdfc', name: 'HDFC' },
   { slug: 'icici', name: 'ICICI' },
   { slug: 'axis', name: 'Axis' },
-  { slug: 'kotak', name: 'Kotak' }
+  { slug: 'kotak', name: 'Kotak' },
 ];
 
 export default function BankSelector() {
@@ -36,16 +36,20 @@ export default function BankSelector() {
       <div className="flex flex-col sm:flex-row items-center gap-4">
         {/* Bank 1 Selection */}
         <div className="w-full">
-          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2 block">
             First Bank
           </label>
           <Select onValueChange={setBank1}>
-            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-lime-500 rounded-xl">
+            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-[#B0EC70] rounded-xl">
               <SelectValue placeholder="Select Bank" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {banks.map((b) => (
-                <SelectItem key={b.slug} value={b.slug}>
+                <SelectItem
+                  className="hover:bg-[#F7FDF1] font-medium"
+                  key={b.slug}
+                  value={b.slug}
+                >
                   {b.name}
                 </SelectItem>
               ))}
@@ -59,16 +63,20 @@ export default function BankSelector() {
 
         {/* Bank 2 Selection */}
         <div className="w-full">
-          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2 block">
             Second Bank
           </label>
           <Select onValueChange={setBank2}>
-            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-lime-500 rounded-xl">
+            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-[#B0EC70] rounded-xl">
               <SelectValue placeholder="Select Bank" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {banks.map((b) => (
-                <SelectItem key={b.slug} value={b.slug}>
+                <SelectItem
+                  className="hover:bg-[#F7FDF1] font-medium"
+                  key={b.slug}
+                  value={b.slug}
+                >
                   {b.name}
                 </SelectItem>
               ))}
@@ -80,13 +88,13 @@ export default function BankSelector() {
       <Button
         onClick={handleCompare}
         disabled={!bank1 || !bank2 || bank1 === bank2}
-        className="w-full bg-lime-600 hover:bg-lime-700 text-white font-bold h-12 rounded-xl transition-all disabled:opacity-50"
+        className="w-full bg-[#92C65B] hover:bg-[#74A046] text-[#111827] font-semibold h-12 rounded-xl transition-all disabled:opacity-50"
       >
         Start Comparison <ArrowRight className="ml-2 w-4 h-4" />
       </Button>
 
       {bank1 && bank2 && bank1 === bank2 && (
-        <p className="text-[11px] text-red-500 font-medium text-center italic">
+        <p className="text-[11px] text-[#FF568E] font-medium text-center italic">
           Please select two different banks to compare.
         </p>
       )}
