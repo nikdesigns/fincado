@@ -44,9 +44,8 @@ const CALCULATOR_MENU = [
     icon: Landmark,
     color: 'text-blue-600',
     items: [
-      { label: 'Compare Loan Rates', href: '/compare-loans/', featured: true },
-      { label: 'EMI Calculator', href: '/emi-calculator/' },
-      { label: 'Home Loan', href: '/home-loan-calculator/' },
+      { label: 'EMI Calculator', href: '/emi-calculator/', featured: false },
+      { label: 'Home Loan', href: '/loans/home-loan' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
       { label: 'Personal Loan', href: '/loans/personal-loan/' },
       { label: 'Education Loan', href: '/loans/education-loan/' },
@@ -184,7 +183,7 @@ export default function Header() {
                             >
                               <Icon className="w-4 h-4" />
                             </div>
-                            <span className="text-xs font-bold uppercase tracking-wider">
+                            <span className="text-xs font-semibold uppercase tracking-wider">
                               {section.category}
                             </span>
                           </div>
@@ -272,7 +271,7 @@ export default function Header() {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/hi/"
-                    className="px-4 py-2 text-sm font-bold text-[#ff7722] hover:bg-rose-50 hover:text-[#ff7722] rounded-lg transition-all duration-200"
+                    className="px-4 py-2 text-sm font-semibold text-[#ff7722] hover:bg-rose-50 hover:text-[#ff7722] rounded-lg transition-all duration-200"
                     lang="hi"
                     aria-label="Switch to Hindi calculators"
                   >
@@ -325,7 +324,7 @@ export default function Header() {
                   <div className="sticky top-0 bg-linear-to-r from-emerald-600 to-emerald-700 px-6 py-4 z-10">
                     <Link
                       href="/"
-                      className="flex items-center gap-2.5 text-xl font-bold text-white"
+                      className="flex items-center gap-2.5 text-xl font-semibold text-white"
                       onClick={() => setMobileOpen(false)}
                     >
                       <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm">
@@ -363,7 +362,7 @@ export default function Header() {
                       <Link
                         href="/hi/"
                         onClick={() => setMobileOpen(false)}
-                        className="block text-base font-bold text-rose-600 hover:text-rose-700 hover:bg-rose-50 transition-colors py-2.5 px-3 rounded-lg"
+                        className="block text-base font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 transition-colors py-2.5 px-3 rounded-lg"
                         lang="hi"
                       >
                         🇮🇳 हिंदी
@@ -381,7 +380,7 @@ export default function Header() {
                         >
                           <CollapsibleTrigger className="flex w-full items-center justify-between text-left group hover:bg-slate-50 px-3 py-2 rounded-lg transition-colors">
                             <div
-                              className={`flex items-center gap-2.5 text-sm font-bold uppercase tracking-wider ${section.color}`}
+                              className={`flex items-center gap-2.5 text-sm font-semibold uppercase tracking-wider ${section.color}`}
                             >
                               <Icon className="w-4 h-4" />
                               {section.category}
@@ -396,7 +395,7 @@ export default function Header() {
                                 onClick={() => setMobileOpen(false)}
                                 className={`block text-sm font-medium transition-colors py-2 px-3 rounded-lg ${
                                   item.featured
-                                    ? 'text-emerald-600 font-bold hover:bg-emerald-50'
+                                    ? 'text-emerald-600 font-semibold hover:bg-emerald-50'
                                     : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50'
                                 }`}
                               >

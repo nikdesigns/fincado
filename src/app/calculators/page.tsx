@@ -18,14 +18,21 @@ import {
   Shield,
   Zap,
   Users,
+  ListChecks,
+  HelpCircle,
 } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
-// --- 1. ENHANCED SEO METADATA (2026 Best Practices) ---
 export const metadata: Metadata = {
   title:
     '30+ Free Financial Calculators for India | EMI, SIP, Tax & Retirement (2026)',
   description:
-    "India's most trusted financial calculator hub with 30+ free tools: EMI Calculator, SIP Calculator, Income Tax Calculator, Home Loan, PPF, Retirement Planning & more. Updated for Budget 2026 & FY 2026-27.",
+    "India's trusted financial calculator hub with 30+ free tools: EMI Calculator, SIP Calculator, Income Tax Calculator, Home Loan, PPF, Retirement Planning and more. Updated for FY 2026-27.",
   keywords: [
     'financial calculators india',
     'EMI calculator',
@@ -54,7 +61,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '30+ Free Financial Calculators for India (2026)',
     description:
-      'Free calculators for loans, investments, taxes and retirement planning. EMI, SIP, Home Loan, Income Tax & more. Verified for FY 2026-27.',
+      'Free calculators for loans, investments, taxes and retirement planning. EMI, SIP, Home Loan, Income Tax and more. Updated for FY 2026-27.',
     url: 'https://fincado.com/calculators',
     siteName: 'Fincado',
     type: 'website',
@@ -72,7 +79,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '30+ Free Financial Calculators for India',
     description:
-      'EMI, SIP, Tax & Retirement calculators. Updated for Budget 2026.',
+      'EMI, SIP, Tax and Retirement calculators. Updated for FY 2026-27.',
     images: ['https://fincado.com/og-calculators.jpg'],
   },
   robots: {
@@ -86,13 +93,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
 };
 
 export default function CalculatorsPage() {
-  // Structured Data - CollectionPage Schema
   const collectionSchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -108,10 +111,6 @@ export default function CalculatorsPage() {
       name: 'Fincado',
       url: 'https://fincado.com',
     },
-    about: {
-      '@type': 'Thing',
-      name: 'Financial Planning',
-    },
     mainEntity: {
       '@type': 'ItemList',
       itemListElement: [
@@ -124,11 +123,7 @@ export default function CalculatorsPage() {
             url: 'https://fincado.com/emi-calculator/',
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Web',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
           },
         },
         {
@@ -140,11 +135,7 @@ export default function CalculatorsPage() {
             url: 'https://fincado.com/sip-calculator/',
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Web',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
           },
         },
         {
@@ -156,11 +147,7 @@ export default function CalculatorsPage() {
             url: 'https://fincado.com/income-tax-calculator/',
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Web',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
           },
         },
         {
@@ -172,11 +159,7 @@ export default function CalculatorsPage() {
             url: 'https://fincado.com/home-loan-calculator/',
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Web',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
           },
         },
         {
@@ -188,18 +171,13 @@ export default function CalculatorsPage() {
             url: 'https://fincado.com/retirement-calculator/',
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Web',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'INR',
-            },
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
           },
         },
       ],
     },
   };
 
-  // FAQ Schema for Rich Snippets
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -209,7 +187,7 @@ export default function CalculatorsPage() {
         name: 'What financial calculators are available on Fincado?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Fincado offers 30+ free financial calculators including EMI Calculator, SIP Calculator, Income Tax Calculator, Home Loan Calculator, PPF Calculator, Retirement Planner, NPS Calculator, and many more for loans, investments, and tax planning.',
+          text: 'Fincado offers 30+ free calculators including EMI, SIP, Income Tax, Home Loan, PPF, Retirement, NPS and more.',
         },
       },
       {
@@ -217,29 +195,28 @@ export default function CalculatorsPage() {
         name: 'Are these calculators free to use?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes, all calculators on Fincado are 100% free to use with no registration required. They are updated regularly with the latest interest rates and tax regulations for FY 2026-27.',
+          text: 'Yes. All calculators are free to use and do not require registration.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How accurate are the calculator results?',
+        name: 'How accurate are the results?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Our calculators use bank-grade formulas and are updated with the latest Budget 2026 regulations, RBI rates, and tax slabs to ensure accurate results. However, final figures may vary based on individual bank policies and terms.',
+          text: 'Calculators use standard formulas and up-to-date assumptions. Final numbers may vary by lender and policy details.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Which is the most popular calculator on Fincado?',
+        name: 'Which tools are most used?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The EMI Calculator and SIP Calculator are our most popular tools, followed by the Income Tax Calculator and Home Loan Calculator. These help users plan their monthly payments and investment returns effectively.',
+          text: 'The most used tools are EMI Calculator, SIP Calculator, Income Tax Calculator and Home Loan Calculator.',
         },
       },
     ],
   };
 
-  // Organization Schema
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'FinancialService',
@@ -247,7 +224,7 @@ export default function CalculatorsPage() {
     url: 'https://fincado.com',
     logo: 'https://fincado.com/logo.png',
     description:
-      "India's most comprehensive financial planning platform with free calculators for loans, investments, and retirement.",
+      'Financial planning platform with free calculators for loans, investments and retirement.',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IN',
@@ -258,7 +235,6 @@ export default function CalculatorsPage() {
 
   return (
     <>
-      {/* ✅ BREADCRUMB STRUCTURED DATA */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
@@ -266,19 +242,14 @@ export default function CalculatorsPage() {
         ]}
       />
 
-      {/* ✅ COLLECTION PAGE SCHEMA */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-
-      {/* ✅ FAQ SCHEMA */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-
-      {/* ✅ ORGANIZATION SCHEMA */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -286,25 +257,22 @@ export default function CalculatorsPage() {
 
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* -------- MAIN CONTENT (Left Column) -------- */}
           <div className="lg:col-span-8 min-w-0 space-y-12 mt-12">
-            {/* --- HERO HEADER --- */}
-            <header className="relative bg-linear-to-br from-emerald-50 via-teal-50 to-emerald-50 rounded-3xl p-8 border border-emerald-200 shadow-lg overflow-hidden">
-              {/* Background Pattern */}
+            <header className="relative bg-linear-to-br from-[#F7FDF1] via-[#F7FDF1] to-[#F7FDF1] rounded-3xl p-8 border border-[#DFF7C6] shadow-lg overflow-hidden">
               <div className="absolute inset-0 opacity-5">
-                <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-600 rounded-full blur-3xl" />
+                <div className="absolute top-0 left-0 w-64 h-64 bg-[#577A30] rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-600 rounded-full blur-3xl" />
               </div>
 
               <div className="relative z-10">
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-white border-emerald-300 text-emerald-700 px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
+                    <Badge className="bg-white border-[#D0F4A9] text-[#1B2E06] px-3 py-1 text-xs font-semibold uppercase tracking-wider shadow-sm">
                       30+ Free Tools
                     </Badge>
-                    <Badge className="bg-emerald-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider flex items-center gap-1 shadow-md">
+                    <Badge className="bg-[#577A30] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1 shadow-md">
                       <BadgeCheck className="w-3 h-3" />
-                      Budget 2026
+                      FY 2026-27
                     </Badge>
                   </div>
                   <div className="no-print">
@@ -312,24 +280,23 @@ export default function CalculatorsPage() {
                   </div>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-4 leading-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-900 mb-4 leading-tight">
                   Financial Calculators for India
                 </h1>
 
                 <p className="text-lg sm:text-xl text-slate-700 leading-relaxed max-w-3xl mb-8">
-                  Professional-grade calculators for <strong>Loans</strong>,{' '}
+                  Professional calculators for <strong>Loans</strong>,{' '}
                   <strong>Investments</strong>, <strong>Tax Planning</strong>,
-                  and <strong>Retirement</strong>. All free, accurate, and
-                  updated for <strong>FY 2026-27</strong>.
+                  and <strong>Retirement</strong>. Free to use, easy to compare,
+                  and designed for Indian users.
                 </p>
 
-                {/* Key Features */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {[
                     {
                       icon: Shield,
-                      label: 'Bank-Grade Accuracy',
-                      color: 'text-emerald-600 bg-emerald-100',
+                      label: 'Bank-Grade Formulas',
+                      color: 'text-[#577A30] bg-[#EFFBE2]',
                     },
                     {
                       icon: Zap,
@@ -338,8 +305,8 @@ export default function CalculatorsPage() {
                     },
                     {
                       icon: Users,
-                      label: 'Trusted by 1M+ Users',
-                      color: 'text-emerald-600 bg-emerald-100',
+                      label: 'Used by Indian Planners',
+                      color: 'text-[#577A30] bg-[#EFFBE2]',
                     },
                   ].map((feature) => (
                     <div
@@ -360,75 +327,108 @@ export default function CalculatorsPage() {
               </div>
             </header>
 
-            {/* Top Ad */}
+            <Card className="border-slate-200">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <ListChecks className="h-5 w-5 text-[#577A30]" />
+                  Jump to section
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid sm:grid-cols-2 gap-2 text-sm">
+                <Link
+                  className="text-blue-600 hover:underline font-medium"
+                  href="#all-calculators"
+                >
+                  All calculators
+                </Link>
+                <Link
+                  className="text-blue-600 hover:underline font-medium"
+                  href="#popular-tools"
+                >
+                  Popular tools
+                </Link>
+                <Link
+                  className="text-blue-600 hover:underline font-medium"
+                  href="#loan-calculators"
+                >
+                  Loan calculators
+                </Link>
+                <Link
+                  className="text-blue-600 hover:underline font-medium"
+                  href="#investment-calculators"
+                >
+                  Investment calculators
+                </Link>
+                <Link
+                  className="text-blue-600 hover:underline font-medium"
+                  href="#hub-faqs"
+                >
+                  FAQs
+                </Link>
+              </CardContent>
+            </Card>
+
             <div className="no-print w-full bg-slate-50 min-h-22.5 rounded-lg border border-slate-100 flex items-center justify-center overflow-hidden">
               <AdSlot id="calc-hub-top" type="leaderboard" />
             </div>
 
-            {/* --- CALCULATORS GRID COMPONENT --- */}
-            <section>
+            <section id="all-calculators" className="scroll-mt-24">
               <CalculatorsGrid />
             </section>
 
-            {/* Mid Ad */}
             <div className="no-print w-full bg-slate-50 min-h-22.5 rounded-lg border border-slate-100 flex items-center justify-center overflow-hidden my-8">
               <AdSlot id="calc-hub-mid" type="leaderboard" />
             </div>
 
-            {/* --- SEO CONTENT SECTION --- */}
             <article className="prose prose-slate prose-lg max-w-none">
-              <h2 className="flex items-center gap-3 text-2xl font-bold text-slate-900">
-                <LineChart className="h-7 w-7 text-emerald-600" />
-                Why Use Financial Calculators?
+              <h2 className="flex items-center gap-3 text-2xl font-semibold text-slate-900">
+                <LineChart className="h-7 w-7 text-[#577A30]" />
+                Why use financial calculators?
               </h2>
               <p className="text-slate-600">
-                Financial calculators help you make informed money decisions by
-                visualizing real outcomes. Whether you are comparing{' '}
+                Financial calculators help you compare outcomes before making
+                money decisions. Whether you are planning{' '}
                 <Link
                   href="/emi-calculator/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
                   EMIs
                 </Link>
-                , planning{' '}
+                , monthly{' '}
                 <Link
                   href="/sip-calculator/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
-                  investments
+                  SIPs
                 </Link>
-                , or estimating{' '}
+                , or{' '}
                 <Link
-                  href="/inflation-calculator/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  href="/income-tax-calculator/"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
-                  inflation impact
+                  tax outgo
                 </Link>
-                , calculators remove guesswork and provide mathematical
-                certainty.
+                , a calculator gives consistency and removes guesswork.
               </p>
 
-              {/* ✅ VISUAL: Compounding Growth Chart (Fixed) */}
-              <Card className="my-8 border-slate-200 bg-linear-to-br from-emerald-50 to-teal-50 not-prose">
+              <Card className="my-8 border-slate-200 bg-linear-to-br from-[#F7FDF1] to-teal-50 not-prose">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shadow-lg">
+                    <div className="w-10 h-10 rounded-xl bg-[#577A30] flex items-center justify-center shadow-lg">
                       <TrendingUp className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest">
+                      <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-widest">
                         The Power of Compounding
                       </h3>
                       <p className="text-xs text-slate-600">
-                        See how investments grow exponentially over time
+                        See how regular investing grows over long periods
                       </p>
                     </div>
                   </div>
 
-                  {/* Chart Container with proper min-height */}
                   <div className="bg-white rounded-xl p-6 shadow-inner min-h-62.5">
                     <div className="flex items-end justify-between gap-2 h-48">
-                      {/* Bars representing exponential growth */}
                       {[
                         { h: 15, label: 'Y1', value: '₹1.5L' },
                         { h: 22, label: 'Y3', value: '₹3.2L' },
@@ -443,23 +443,20 @@ export default function CalculatorsPage() {
                           key={i}
                           className="flex-1 flex flex-col items-center gap-2 group"
                         >
-                          {/* Tooltip on hover */}
                           <div className="relative w-full flex flex-col items-center">
                             <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                              <div className="bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap">
+                              <div className="bg-slate-900 text-white text-xs font-semibold px-2 py-1 rounded shadow-lg whitespace-nowrap">
                                 {bar.value}
                                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45" />
                               </div>
                             </div>
 
-                            {/* Bar */}
                             <div
-                              className="w-full bg-linear-to-t from-emerald-600 via-emerald-500 to-emerald-400 rounded-t-lg transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:from-emerald-700 hover:via-emerald-600 hover:to-emerald-500"
+                              className="w-full bg-linear-to-t from-[#577A30] via-[#F7FDF1]0 to-[#C0F08D] rounded-t-lg transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:from-[#1B2E06] hover:via-[#577A30] hover:to-[#F7FDF1]0"
                               style={{ height: `${bar.h * 1.92}px` }}
                             />
                           </div>
 
-                          {/* Label */}
                           <span className="text-xs text-slate-600 font-semibold">
                             {bar.label}
                           </span>
@@ -467,7 +464,6 @@ export default function CalculatorsPage() {
                       ))}
                     </div>
 
-                    {/* Y-axis labels */}
                     <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-200">
                       <span className="text-xs text-slate-500">
                         Investment Growth
@@ -478,23 +474,24 @@ export default function CalculatorsPage() {
                     </div>
                   </div>
 
-                  {/* Caption */}
                   <p className="text-center text-xs text-slate-600 mt-4 leading-relaxed">
                     Example: Monthly SIP of ₹10,000 at 12% annual returns.
-                    <span className="font-semibold text-emerald-700">
+                    <span className="font-semibold text-[#1B2E06]">
                       {' '}
-                      Compound interest makes your money work for you!
+                      Compounding rewards discipline.
                     </span>
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Quick Links Card with Internal Linking */}
-              <Card className="my-8 border-emerald-200 bg-white not-prose shadow-lg">
-                <CardHeader className="bg-linear-to-rrom-emerald-50 to-teal-50 border-b border-emerald-100">
-                  <CardTitle className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-emerald-600" />
-                    Quick Access: Most Popular Tools
+              <Card
+                id="popular-tools"
+                className="my-8 border-[#DFF7C6] bg-white not-prose shadow-lg scroll-mt-24"
+              >
+                <CardHeader className="bg-linear-to-r from-[#F7FDF1] to-teal-50 border-b border-[#EFFBE2]">
+                  <CardTitle className="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-[#577A30]" />
+                    Quick access: most popular tools
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
@@ -503,23 +500,23 @@ export default function CalculatorsPage() {
                       {
                         name: 'Compare Loan Rates',
                         url: '/compare-loans/',
-                        label: 'Save on Interest',
+                        label: 'Save on interest',
                         highlight: true,
                       },
                       {
                         name: 'Income Tax Calculator',
                         url: '/income-tax-calculator/',
-                        label: 'New vs Old Regime',
+                        label: 'New vs old regime',
                       },
                       {
                         name: 'SIP Calculator',
                         url: '/sip-calculator/',
-                        label: 'Grow wealth monthly',
+                        label: 'Monthly wealth plan',
                       },
                       {
                         name: 'Home Loan Calculator',
                         url: '/home-loan-calculator/',
-                        label: 'Plan housing loan',
+                        label: 'Housing EMI planning',
                       },
                       {
                         name: 'Retirement Planner',
@@ -537,15 +534,15 @@ export default function CalculatorsPage() {
                           href={item.url}
                           className={`flex items-center justify-between p-4 rounded-xl border transition-all group ${
                             item.highlight
-                              ? 'bg-emerald-50 border-emerald-300 hover:border-emerald-500 hover:shadow-lg'
-                              : 'bg-slate-50 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50'
+                              ? 'bg-[#F7FDF1] border-[#D0F4A9] hover:border-[#F7FDF1]0 hover:shadow-lg'
+                              : 'bg-slate-50 border-slate-200 hover:border-[#D0F4A9] hover:bg-[#F7FDF1]'
                           }`}
                         >
                           <div>
                             <span
-                              className={`block font-bold text-sm group-hover:text-emerald-700 transition-colors ${
+                              className={`block font-semibold text-sm group-hover:text-[#1B2E06] transition-colors ${
                                 item.highlight
-                                  ? 'text-emerald-700'
+                                  ? 'text-[#1B2E06]'
                                   : 'text-slate-900'
                               }`}
                             >
@@ -555,7 +552,7 @@ export default function CalculatorsPage() {
                               {item.label}
                             </span>
                           </div>
-                          <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
+                          <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#F7FDF1]0 group-hover:translate-x-1 transition-all" />
                         </Link>
                       </li>
                     ))}
@@ -565,95 +562,123 @@ export default function CalculatorsPage() {
 
               <h2
                 id="loan-calculators"
-                className="text-2xl font-bold text-slate-900 mt-12"
+                className="text-2xl font-semibold text-slate-900 mt-12 scroll-mt-24"
               >
-                How EMI & Loan Calculators Help
+                How EMI & loan calculators help
               </h2>
               <p className="text-slate-600 mb-6">
-                <Link
-                  href="/loans/home-loan/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
-                >
-                  Loan calculators
-                </Link>{' '}
-                show how interest rate and tenure affect your monthly EMI and
+                Loan calculators show how rate and tenure affect monthly EMI and
                 total interest. Shorter tenures reduce interest but increase
-                EMI, while longer tenures improve cash flow at a higher total
+                EMI, while longer tenures ease cash flow at a higher overall
                 cost. Use our{' '}
                 <Link
                   href="/compare-loans/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
                   loan comparison tool
                 </Link>{' '}
-                to find the best rates.
+                to evaluate lenders side-by-side.
               </p>
 
-              <div className="bg-linear-to-r from-emerald-50 to-teal-50 border-l-4 border-emerald-500 p-5 rounded-r-xl not-prose mb-8 shadow-sm">
-                <h4 className="font-bold text-emerald-900 mb-2 flex items-center gap-2 text-base">
+              <div className="bg-linear-to-r from-[#F7FDF1] to-teal-50 border-l-4 border-[#F7FDF1]0 p-5 rounded-r-xl not-prose mb-8 shadow-sm">
+                <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2 text-base">
                   <CheckCircle2 className="h-5 w-5" /> Pro Tip
                 </h4>
-                <p className="text-sm text-emerald-800 leading-relaxed">
-                  Always check the{' '}
-                  <strong>&ldquo;Total Interest Payable&quot;</strong> field in
-                  our calculators. Small changes in interest rates can save you
-                  lakhs over 20 years. A 0.5% rate reduction on a ₹50L home loan
-                  saves ₹5-6 lakhs!
+                <p className="text-sm text-[#577A30] leading-relaxed">
+                  Always compare{' '}
+                  <strong>&ldquo;Total Interest Payable&rdquo;</strong> along
+                  with EMI. Even a small reduction in interest rate can save
+                  lakhs over long tenures.
                 </p>
               </div>
 
               <h2
                 id="investment-calculators"
-                className="text-2xl font-bold text-slate-900 mt-12"
+                className="text-2xl font-semibold text-slate-900 mt-12 scroll-mt-24"
               >
-                Investment & Retirement Calculators
+                Investment & retirement calculators
               </h2>
               <p className="text-slate-600 mb-6">
-                Plan your financial future with our{' '}
+                Plan long-term goals with{' '}
                 <Link
                   href="/sip-calculator/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
-                  SIP Calculator
+                  SIP
                 </Link>
                 ,{' '}
                 <Link
                   href="/ppf-calculator/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
-                  PPF Calculator
+                  PPF
                 </Link>
                 , and{' '}
                 <Link
                   href="/retirement-calculator/"
-                  className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
                 >
-                  Retirement Planner
-                </Link>
-                . These tools help you understand the power of compounding and
-                determine how much you need to invest monthly to reach your
-                financial goals.
+                  retirement
+                </Link>{' '}
+                calculators. These tools help estimate monthly contributions and
+                goal timelines with realistic assumptions.
               </p>
+
+              <section id="hub-faqs" className="not-prose mt-10 scroll-mt-24">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                  <HelpCircle className="h-5 w-5 text-amber-500" />
+                  Frequently asked questions
+                </h3>
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg"
+                >
+                  <AccordionItem value="faq-1" className="border-none px-4">
+                    <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline py-3 text-sm">
+                      Are all calculators free?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-600 text-sm leading-relaxed pb-4">
+                      Yes. All calculators are free, and no sign-up is required.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="faq-2" className="border-none px-4">
+                    <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline py-3 text-sm">
+                      Can I use these for final bank decisions?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-600 text-sm leading-relaxed pb-4">
+                      Use them for planning and comparison. Final sanction
+                      terms, fees, and rates depend on lender policy and your
+                      profile.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="faq-3" className="border-none px-4">
+                    <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline py-3 text-sm">
+                      Which calculator should I start with?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-600 text-sm leading-relaxed pb-4">
+                      Start with EMI calculator for debt planning, SIP
+                      calculator for investing, and income tax calculator for
+                      annual tax planning.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </section>
 
               <Separator className="my-8" />
               <LegalNote />
             </article>
 
-            {/* Bottom Ad */}
             <div className="no-print w-full bg-slate-50 min-h-22.5 rounded-lg border border-slate-100 flex items-center justify-center overflow-hidden mt-8">
               <AdSlot id="calc-hub-bottom" type="leaderboard" />
             </div>
           </div>
 
-          {/* -------- SIDEBAR (Right Column) -------- */}
           <aside className="lg:col-span-4 space-y-8 mb-12">
             <div className="sticky top-24 space-y-8">
-              {/* Sidebar Ad */}
               <div className="rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-white min-h-62.5 flex items-center justify-center no-print">
                 <AdSlot id="calc-hub-sidebar" type="box" />
               </div>
-
-              {/* Financial Nav Widget */}
               <FinancialNavWidget />
             </div>
           </aside>

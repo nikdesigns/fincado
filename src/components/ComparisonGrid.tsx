@@ -127,7 +127,7 @@ export default function ComparisonGrid() {
     <section className="py-8" aria-label="Bank Loan Comparison Directory">
       {/* Section Header */}
       <div className="mb-8 text-center max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2 className="text-2xl font-semibold text-slate-900 mb-3">
           Compare {pairs.length}+ Bank Combinations
         </h2>
         <p className="text-sm text-slate-600 leading-relaxed">
@@ -146,7 +146,7 @@ export default function ComparisonGrid() {
           return (
             <Card
               key={`${pair.b1.slug}-${pair.b2.slug}`}
-              className="group border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 overflow-hidden bg-white"
+              className="group border-slate-200 hover:border-[#D0F4A9] hover:shadow-lg transition-all duration-300 overflow-hidden bg-white"
             >
               <CardContent className="p-5">
                 {/* Header Section */}
@@ -155,26 +155,24 @@ export default function ComparisonGrid() {
                     <div className="flex items-center gap-2 mb-2">
                       <Badge
                         variant="secondary"
-                        className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2 py-0.5"
+                        className="text-[10px] font-semibold uppercase tracking-wider bg-slate-100 text-slate-600 px-2 py-0.5"
                       >
                         {pair.b1.type} vs {pair.b2.type}
                       </Badge>
                       {isCrossType && (
-                        <Badge className="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5">
+                        <Badge className="text-[10px] font-semibold bg-amber-100 text-amber-700 px-2 py-0.5">
                           Popular
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 leading-tight">
+                    <h3 className="text-lg font-semibold text-slate-900 leading-tight">
                       {pair.b1.name}{' '}
-                      <span className="text-emerald-600 font-extrabold">
-                        vs
-                      </span>{' '}
+                      <span className="text-[#577A30] font-extrabold">vs</span>{' '}
                       {pair.b2.name}
                     </h3>
                   </div>
 
-                  <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shrink-0 shadow-sm">
+                  <div className="w-10 h-10 rounded-lg bg-[#F7FDF1] flex items-center justify-center text-[#577A30] group-hover:bg-[#577A30] group-hover:text-white transition-all duration-300 shrink-0 shadow-sm">
                     <GitCompare className="w-5 h-5" />
                   </div>
                 </div>
@@ -183,12 +181,10 @@ export default function ComparisonGrid() {
                 <div className="mb-4 space-y-2">
                   {rateDiff && (
                     <div className="flex items-center gap-2 text-xs">
-                      <TrendingDown className="w-3.5 h-3.5 text-emerald-600" />
+                      <TrendingDown className="w-3.5 h-3.5 text-[#577A30]" />
                       <span className="text-slate-600">
                         Rate difference:{' '}
-                        <strong className="text-emerald-700">
-                          {rateDiff}%
-                        </strong>
+                        <strong className="text-[#577A30]">{rateDiff}%</strong>
                       </span>
                     </div>
                   )}
@@ -216,7 +212,7 @@ export default function ComparisonGrid() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-slate-200 text-slate-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 font-semibold h-10 transition-all flex items-center justify-center group/btn"
+                  className="w-full border-slate-200 text-slate-700 hover:bg-[#577A30] hover:text-white hover:border-[#577A30] font-semibold h-10 transition-all flex items-center justify-center group/btn"
                 >
                   <Link
                     href={`/compare/${pair.b1.slug}-vs-${pair.b2.slug}/`}

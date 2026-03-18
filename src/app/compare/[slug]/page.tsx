@@ -1,9 +1,23 @@
-// src/app/compare/[slug]/page.tsx
-
-import { banks } from '@/lib/banks';
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import {
+  Calculator,
+  CheckCircle2,
+  Clock,
+  HelpCircle,
+  IndianRupee,
+  Info,
+  Percent,
+  Scale,
+  TrendingDown,
+  Users,
+  XCircle,
+  Zap,
+} from 'lucide-react';
+import { banks } from '@/lib/banks';
+import { getCurrentFiscalYear } from '@/lib/fiscalYear';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 import RateComparisonChart from '@/components/RateComparisonChart';
 import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -11,15 +25,20 @@ import FAQSchema from '@/components/FAQSchema';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import AuthorBio from '@/components/AuthorBio';
 import ShareTools from '@/components/ShareTools';
-import { getCurrentFiscalYear } from '@/lib/fiscalYear';
-import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
-
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from '@/components/ui/card';
 import {
   Table,
@@ -29,32 +48,63 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 
-import {
-  Scale,
-  Zap,
-  TrendingDown,
-  HelpCircle,
-  Users,
-  Clock,
-  IndianRupee,
-  CheckCircle2,
-  XCircle,
-  Info,
-  Calculator,
-  Percent,
-} from 'lucide-react';
-
-/* ---------------- STATIC PARAMS ---------------- */
 export const dynamicParams = false;
+
+type ComparisonPageParams = { slug: string };
+
+const PSU_SLUG_HINTS = ['sbi', 'pnb', 'bob', 'canara', 'union', 'iob'];
+const PRIVATE_SLUG_HINTS = ['hdfc', 'icici', 'axis', 'kotak', 'yes', 'idfc'];
+
+function isPsuBank(slug: string): boolean {
+  return PSU_SLUG_HINTS.some((hint) => slug.includes(hint));
+}
+
+function isPrivateBank(slug: string): boolean {
+  return PRIVATE_SLUG_HINTS.some((hint) => slug.includes(hint));
+}
+
+function parseCompareSlug(slug: string) {
+  const parts = slug.split('-vs-');
+  if (parts.length !== 2 || parts[0] === parts[1]) return null;
+
+  const [s1, s2] = parts;
+  const b1 = banks.find((b) => b.slug === s1);
+  const b2 = banks.find((b) => b.slug === s2);
+  if (!b1 || !b2) return null;
+
+  return { b1, b2 };
+}
+
+function calculateEMI(
+  principal: number,
+  annualRate: number,
+  years: number,
+): number {
+  if (principal <= 0 || annualRate <= 0 || years <= 0) return 0;
+
+  const monthlyRate = annualRate / (12 * 100);
+  const months = years * 12;
+  const growth = Math.pow(1 + monthlyRate, months);
+  const denominator = growth - 1;
+
+  if (!Number.isFinite(growth) || denominator <= 0) return 0;
+  return (principal * monthlyRate * growth) / denominator;
+}
+
+function formatINR(value: number): string {
+  if (!Number.isFinite(value)) return '₹0';
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(Math.round(value));
+}
+
+function formatLakhs(value: number): string {
+  if (!Number.isFinite(value)) return '0.0';
+  return (value / 100000).toFixed(1);
+}
 
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
@@ -66,48 +116,38 @@ export async function generateStaticParams() {
       }
     }
   }
+
   return params;
 }
 
-/* ---------------- ENHANCED METADATA ---------------- */
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<ComparisonPageParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
   const fy = getCurrentFiscalYear();
   const monthYear = getCurrentMonthYearLabel();
+  const parsed = parseCompareSlug(slug);
 
-  const parts = slug.split('-vs-');
-  if (parts.length !== 2) return {};
+  if (!parsed) return {};
 
-  const [s1, s2] = parts;
-
-  const b1 = banks.find((b) => b.slug === s1);
-  const b2 = banks.find((b) => b.slug === s2);
-
-  if (!b1 || !b2) return {};
-
-  const rateComparison =
-    b1.rate < b2.rate
-      ? `${b1.name} offers lower rates`
-      : `${b2.name} offers lower rates`;
+  const { b1, b2 } = parsed;
+  const lowerRateBank = b1.rate <= b2.rate ? b1 : b2;
   const rateDiff = Math.abs(b1.rate - b2.rate).toFixed(2);
 
   return {
-    title: `${b1.name} vs ${b2.name} Home Loan ${monthYear} | Rate ${b1.rate}% vs ${b2.rate}% | Expert Review`,
-    description: `${b1.name} vs ${b2.name} home loan comparison ${monthYear}: Interest rates (${b1.rate}% vs ${b2.rate}%), processing fees, approval time, and eligibility. ${rateComparison} by ${rateDiff}%. Expert verdict with real borrower data.`,
+    title: `${b1.name} vs ${b2.name} Home Loan Comparison (${monthYear}) | Fincado`,
+    description: `${b1.name} vs ${b2.name} home loan comparison (${monthYear}): rate (${b1.rate}% vs ${b2.rate}%), max rate, approval style, and borrower-fit guidance. Current lower-rate lender: ${lowerRateBank.name} by ${rateDiff}%.`,
     keywords: [
       `${b1.name} vs ${b2.name}`,
-      `${b1.name} ${b2.name} comparison`,
-      `${b1.name} home loan`,
-      `${b2.name} home loan`,
+      `${b1.name} ${b2.name} home loan comparison`,
       `${b1.name} interest rate ${fy.shortYear}`,
       `${b2.name} interest rate ${fy.shortYear}`,
-      'home loan comparison',
+      `${b1.name} vs ${b2.name} which is better`,
+      'home loan comparison india',
       'best bank for home loan',
-      `${b1.name} ${b2.name} which is better`,
+      'home loan rate comparison',
     ],
     authors: [{ name: 'Fincado Research Team' }],
     creator: 'Fincado',
@@ -116,8 +156,8 @@ export async function generateMetadata({
       canonical: `https://fincado.com/compare/${slug}/`,
     },
     openGraph: {
-      title: `${b1.name} vs ${b2.name} Home Loan Comparison ${monthYear}`,
-      description: `Compare ${b1.name} (${b1.rate}%) vs ${b2.name} (${b2.rate}%) home loans. Expert analysis of rates, fees, and approval speed.`,
+      title: `${b1.name} vs ${b2.name} Home Loan Comparison (${monthYear})`,
+      description: `Compare ${b1.name} (${b1.rate}%) vs ${b2.name} (${b2.rate}%) with practical borrower-focused insights and total repayment impact.`,
       url: `https://fincado.com/compare/${slug}/`,
       siteName: 'Fincado',
       type: 'article',
@@ -126,14 +166,15 @@ export async function generateMetadata({
           url: `https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`,
           width: 1200,
           height: 630,
-          alt: `${b1.name} vs ${b2.name} Comparison`,
+          alt: `${b1.name} vs ${b2.name} Home Loan Comparison`,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${b1.name} vs ${b2.name} Home Loan ${monthYear}`,
-      description: `Rate: ${b1.rate}% vs ${b2.rate}%. Expert comparison.`,
+      title: `${b1.name} vs ${b2.name} Home Loan Comparison`,
+      description: `${b1.rate}% vs ${b2.rate}% — compare total cost, approval style, and borrower fit.`,
+      images: [`https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`],
     },
     robots: {
       index: true,
@@ -149,70 +190,70 @@ export async function generateMetadata({
   };
 }
 
-/* ---------------- PAGE ---------------- */
 export default async function ComparisonPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<ComparisonPageParams>;
 }) {
   const { slug } = await params;
   const fy = getCurrentFiscalYear();
   const monthYear = getCurrentMonthYearLabel();
-  const currentYear = new Date().getFullYear();
+  const parsed = parseCompareSlug(slug);
 
-  const parts = slug.split('-vs-');
-  if (parts.length !== 2) notFound();
+  if (!parsed) notFound();
 
-  const [s1, s2] = parts;
+  const { b1, b2 } = parsed;
+  const currentDateISO = new Date().toISOString().split('T')[0];
+  const lowerRateBank = b1.rate <= b2.rate ? b1 : b2;
+  const higherRateBank = b1.rate <= b2.rate ? b2 : b1;
+  const rateDiff = Math.abs(b1.rate - b2.rate);
 
-  const b1 = banks.find((b) => b.slug === s1);
-  const b2 = banks.find((b) => b.slug === s2);
+  const samplePrincipal = 5000000; // ₹50 lakh
+  const sampleYears = 20;
 
-  if (!b1 || !b2) notFound();
+  const emi1 = calculateEMI(samplePrincipal, b1.rate, sampleYears);
+  const emi2 = calculateEMI(samplePrincipal, b2.rate, sampleYears);
+  const monthlySaving = Math.abs(emi1 - emi2);
+  const lifetimeSaving = monthlySaving * sampleYears * 12;
 
-  // Calculate differences
-  const rateDiff = (b1.rate - b2.rate).toFixed(2);
-  const lowerRateBank = b1.rate < b2.rate ? b1 : b2;
-  const higherRateBank = b1.rate < b2.rate ? b2 : b1;
-
-  // Example: Calculate savings on ₹50L loan over 20 years
-  const principal = 5000000;
-  const years = 20;
-  const savings = Math.abs(
-    (principal * Math.abs(b1.rate - b2.rate) * years) / 100,
-  );
+  const likelyPsu = isPsuBank(b1.slug) ? b1 : isPsuBank(b2.slug) ? b2 : null;
+  const likelyPrivate = isPrivateBank(b1.slug)
+    ? b1
+    : isPrivateBank(b2.slug)
+      ? b2
+      : null;
 
   const faqs = [
     {
-      question: `Which is better for long-term home loans: ${b1.name} or ${b2.name}?`,
-      answer: `${lowerRateBank.name} offers a lower interest rate (${lowerRateBank.rate}% vs ${higherRateBank.rate}%), which can save you approximately ₹${(savings / 100000).toFixed(1)} lakhs on a ₹50 lakh loan over 20 years. However, consider approval speed, customer service, and prepayment flexibility before deciding.`,
+      question: `Which is better for long-tenure home loans: ${b1.name} or ${b2.name}?`,
+      answer: `${lowerRateBank.name} currently has the lower starting rate (${lowerRateBank.rate}% vs ${higherRateBank.rate}%). On a ₹50 lakh, 20-year example, that can mean roughly ${formatINR(lifetimeSaving)} lower total repayment. Compare this with processing speed, service quality, and sanction terms before deciding.`,
     },
     {
-      question: `Does CIBIL score impact ${b1.name} and ${b2.name} differently?`,
-      answer: `Yes. Both banks offer rate concessions for higher CIBIL scores (750+). PSU banks like ${b1.slug.includes('sbi') || b1.slug.includes('pnb') || b1.slug.includes('bob') || b1.slug.includes('canara') ? b1.name : b2.name} may be stricter for scores below 700, while private banks offer more flexibility.`,
+      question: `How much does a ${rateDiff.toFixed(2)}% rate difference matter in practice?`,
+      answer: `Even a small rate gap matters over long tenures. In this comparison, the monthly EMI difference is about ${formatINR(monthlySaving)}, which compounds significantly over 20 years.`,
     },
     {
-      question: `Which bank is better for self-employed borrowers?`,
-      answer: `Private banks like ${b1.slug.includes('hdfc') || b1.slug.includes('icici') || b1.slug.includes('axis') || b1.slug.includes('kotak') ? b1.name : b2.name} typically offer more flexible income assessment for self-employed applicants, with digital documentation and faster underwriting.`,
+      question: `Does CIBIL score affect ${b1.name} and ${b2.name} similarly?`,
+      answer: `Both lenders generally reward higher credit scores (usually 750+) with better terms. If your score is below 700, approval terms can tighten and your offered rate may move toward the upper band.`,
     },
     {
-      question: `Can I get a balance transfer from ${b1.name} to ${b2.name}?`,
-      answer: `Yes, both banks accept balance transfers. ${lowerRateBank.name} currently offers better rates (${lowerRateBank.rate}%), but check for processing fees (typically 0.25%-0.50% of loan amount) and ensure zero prepayment charges on your existing loan.`,
+      question: 'Which lender is usually faster for approval?',
+      answer: `${likelyPrivate ? `${likelyPrivate.name} (private-bank style)` : 'Private-bank style lenders'} often move faster on digital workflows (frequently 3–7 days), while ${likelyPsu ? `${likelyPsu.name} (PSU style)` : 'PSU style lenders'} may take longer but can be competitive on long-term rates. Actual timelines vary by city and property profile.`,
     },
     {
-      question: `Which bank has faster loan approval?`,
-      answer: `Private banks like ${b1.slug.includes('hdfc') || b1.slug.includes('icici') || b1.slug.includes('axis') || b1.slug.includes('kotak') ? b1.name : b2.name} generally offer faster approvals (3-7 days) with digital documentation. PSU banks may take 10-15 days but offer more competitive long-term rates.`,
+      question: 'Should I evaluate only headline interest rates?',
+      answer:
+        'No. Compare effective borrowing cost: starting rate, reset behavior, fees, legal/valuation costs, insurance bundling, prepayment flexibility, and processing time. The cheapest headline rate is not always the cheapest end-to-end loan.',
     },
   ];
 
-  // ✅ FIXED - Article Schema (NOT Product)
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: `${b1.name} vs ${b2.name} Home Loan Comparison ${currentYear}`,
-    description: `Expert comparison of ${b1.name} and ${b2.name} home loans covering interest rates, processing fees, and eligibility criteria for ${monthYear}.`,
-    datePublished: '2025-01-15',
-    dateModified: new Date().toISOString().split('T')[0],
+    headline: `${b1.name} vs ${b2.name} Home Loan Comparison (${monthYear})`,
+    description: `Data-backed comparison of ${b1.name} and ${b2.name} on rates, repayment impact, and borrower fit for ${monthYear}.`,
+    datePublished: currentDateISO,
+    dateModified: currentDateISO,
     author: {
       '@type': 'Organization',
       name: 'Fincado Research Team',
@@ -233,31 +274,29 @@ export default async function ComparisonPage({
     },
   };
 
-  // ✅ OPTIONAL - ItemList Schema for Comparison
   const comparisonListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `${b1.name} vs ${b2.name} Home Loan Comparison`,
-    description: `Side-by-side comparison of ${b1.name} and ${b2.name} home loan features`,
+    description: `Side-by-side comparison for ${b1.name} and ${b2.name} home loan benchmarks.`,
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
         name: `${b1.name} Home Loan`,
-        description: `Interest Rate: ${b1.rate}%, Max Rate: ${b1.maxRate}%, Processing Fee: Up to 0.50%`,
+        description: `Rate: ${b1.rate}%, max rate: ${b1.maxRate}%, indicative processing fee up to 0.50%`,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: `${b2.name} Home Loan`,
-        description: `Interest Rate: ${b2.rate}%, Max Rate: ${b2.maxRate}%, Processing Fee: Up to 0.50%`,
+        description: `Rate: ${b2.rate}%, max rate: ${b2.maxRate}%, indicative processing fee up to 0.50%`,
       },
     ],
   };
 
   return (
     <>
-      {/* Breadcrumb Schema */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
@@ -272,13 +311,10 @@ export default async function ComparisonPage({
         ]}
       />
 
-      {/* ✅ FIXED - Article Schema (NO Product Schema) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-
-      {/* ✅ OPTIONAL - ItemList Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -287,17 +323,15 @@ export default async function ComparisonPage({
       />
 
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* ---------- ENHANCED HEADER ---------- */}
-        <header className="max-w-5xl mx-auto my-12">
-          <div className="relative bg-linear-to-br from-emerald-50 via-teal-50 to-cyan-50/30 border border-emerald-200/50 rounded-2xl p-8 overflow-hidden shadow-sm">
-            {/* Decorative Elements */}
+        <header className="mx-auto my-12 max-w-5xl">
+          <div className="relative overflow-hidden rounded-2xl border border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] via-[#F7FDF1] to-[#F7FDF1]/30 p-8 shadow-sm">
             <div className="absolute -right-12 -top-12 opacity-5">
-              <Scale className="w-64 h-64 text-emerald-600" />
+              <Scale className="h-64 w-64 text-[#577A30]" />
             </div>
 
             <div className="relative z-10">
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                <Badge className="bg-white border-emerald-300 text-emerald-700 px-4 py-1.5 font-bold uppercase tracking-wider shadow-sm">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+                <Badge className="border-[#D0F4A9] bg-white px-4 py-1.5 font-semibold tracking-wider text-[#577A30] uppercase shadow-sm">
                   Expert Reviewed · {monthYear}
                 </Badge>
                 <div className="no-print">
@@ -307,115 +341,113 @@ export default async function ComparisonPage({
                 </div>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
+              <h1 className="mb-4 text-3xl leading-tight font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
                 {b1.name}{' '}
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-600">
+                <span className="bg-linear-to-r from-[#577A30] to-[#92C65B] bg-clip-text text-transparent">
                   vs
                 </span>{' '}
                 {b2.name}
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed mb-5">
-                Independent comparison based on RBI benchmarks, lender
-                disclosures, and real borrower approval patterns for FY{' '}
-                {fy.startYear}-{String(fy.endYear).slice(-2)}.
+              <p className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg">
+                Practical home-loan comparison for FY {fy.startYear}-
+                {String(fy.endYear).slice(-2)} using rate bands, estimated
+                repayment impact, and borrower-fit guidance.
               </p>
 
-              {/* Key Stats Row */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-emerald-100 shadow-sm">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Percent className="w-4 h-4 text-emerald-600" />
-                    <span className="text-xs text-slate-600 font-medium">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div className="rounded-lg border border-[#EFFBE2] bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                  <div className="mb-1 flex items-center gap-2">
+                    <Percent className="h-4 w-4 text-[#577A30]" />
+                    <span className="text-xs font-medium text-slate-600">
                       {b1.name}
                     </span>
                   </div>
-                  <p className="text-xl font-bold text-emerald-600">
+                  <p className="text-xl font-semibold text-[#577A30]">
                     {b1.rate}%
                   </p>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-teal-100 shadow-sm">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Percent className="w-4 h-4 text-teal-600" />
-                    <span className="text-xs text-slate-600 font-medium">
+                <div className="rounded-lg border border-teal-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                  <div className="mb-1 flex items-center gap-2">
+                    <Percent className="h-4 w-4 text-[#92C65B]" />
+                    <span className="text-xs font-medium text-slate-600">
                       {b2.name}
                     </span>
                   </div>
-                  <p className="text-xl font-bold text-teal-600">{b2.rate}%</p>
-                </div>
-
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-amber-100 shadow-sm">
-                  <div className="flex items-center gap-2 mb-1">
-                    <TrendingDown className="w-4 h-4 text-amber-600" />
-                    <span className="text-xs text-slate-600 font-medium">
-                      Rate Diff
-                    </span>
-                  </div>
-                  <p className="text-xl font-bold text-amber-600">
-                    {Math.abs(parseFloat(rateDiff))}%
+                  <p className="text-xl font-semibold text-[#FF9F4C]">
+                    {b2.rate}%
                   </p>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-blue-100 shadow-sm">
-                  <div className="flex items-center gap-2 mb-1">
-                    <IndianRupee className="w-4 h-4 text-blue-600" />
-                    <span className="text-xs text-slate-600 font-medium">
-                      Savings
+                <div className="rounded-lg border border-amber-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                  <div className="mb-1 flex items-center gap-2">
+                    <TrendingDown className="h-4 w-4 text-amber-600" />
+                    <span className="text-xs font-medium text-slate-600">
+                      Rate Gap
                     </span>
                   </div>
-                  <p className="text-xl font-bold text-blue-600">
-                    ₹{(savings / 100000).toFixed(1)}L
+                  <p className="text-xl font-semibold text-amber-600">
+                    {rateDiff.toFixed(2)}%
+                  </p>
+                </div>
+
+                <div className="rounded-lg border border-[#EFFBE2] bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                  <div className="mb-1 flex items-center gap-2">
+                    <IndianRupee className="h-4 w-4 text-[#577A30]" />
+                    <span className="text-xs font-medium text-slate-600">
+                      20Y Impact*
+                    </span>
+                  </div>
+                  <p className="text-xl font-semibold text-[#577A30]">
+                    ₹{formatLakhs(lifetimeSaving)}L
                   </p>
                 </div>
               </div>
 
-              <p className="mt-4 text-xs text-slate-500 italic">
-                Reviewed by Fincado Research Team · Updated {monthYear}
+              <p className="mt-4 text-xs italic text-slate-500">
+                *Illustration on ₹50 lakh for 20 years. Your actual offer can
+                vary by profile, location, and policy updates.
               </p>
             </div>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* ---------- MAIN CONTENT ---------- */}
-          <div className="lg:col-span-8 space-y-10 mb-12">
-            {/* Quick Winner Badge */}
-            {Math.abs(parseFloat(rateDiff)) > 0 && (
-              <div className="bg-linear-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-5 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shrink-0 shadow-md">
-                  <CheckCircle2 className="w-5 h-5 text-white" />
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="mb-12 space-y-10 lg:col-span-8">
+            {rateDiff > 0 && (
+              <div className="flex items-start gap-4 rounded-xl border border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1] p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#577A30] shadow-md">
+                  <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-emerald-900 mb-1">
-                    Lower Rate Winner
-                  </h3>
-                  <p className="text-sm text-emerald-800 leading-relaxed">
-                    <strong>{lowerRateBank.name}</strong> offers a lower
-                    interest rate of <strong>{lowerRateBank.rate}%</strong>{' '}
-                    compared to {higherRateBank.name}&apos;s{' '}
-                    <strong>{higherRateBank.rate}%</strong>. This can save you
-                    approximately{' '}
-                    <strong>₹{(savings / 100000).toFixed(1)} lakhs</strong> on a
-                    ₹50 lakh loan over 20 years.
+                  <h2 className="mb-1 font-semibold text-[#1B2E06]">
+                    Lower-Rate Leader
+                  </h2>
+                  <p className="text-sm leading-relaxed text-[#577A30]">
+                    <strong>{lowerRateBank.name}</strong> is currently lower at{' '}
+                    <strong>{lowerRateBank.rate}%</strong> vs{' '}
+                    <strong>{higherRateBank.rate}%</strong> from{' '}
+                    {higherRateBank.name}. Estimated EMI difference:{' '}
+                    <strong>{formatINR(monthlySaving)}/month</strong> (₹50 lakh,
+                    20 years).
                   </p>
                 </div>
               </div>
             )}
 
-            {/* SNAPSHOT TABLE */}
             <Card className="border-slate-200 shadow-md">
-              <CardHeader className="bg-slate-50 border-b border-slate-200">
+              <CardHeader className="border-b border-slate-200 bg-slate-50">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shadow-sm">
-                    <Scale className="w-5 h-5 text-white" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#577A30] shadow-sm">
+                    <Scale className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg font-bold">
+                    <CardTitle className="text-lg font-semibold">
                       Comparison Snapshot
                     </CardTitle>
                     <CardDescription>
-                      Key loan metrics at a glance
+                      Core metrics and practical decision indicators.
                     </CardDescription>
                   </div>
                 </div>
@@ -425,9 +457,15 @@ export default async function ComparisonPage({
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="font-bold">Parameter</TableHead>
-                        <TableHead className="font-bold">{b1.name}</TableHead>
-                        <TableHead className="font-bold">{b2.name}</TableHead>
+                        <TableHead className="font-semibold">
+                          Parameter
+                        </TableHead>
+                        <TableHead className="font-semibold">
+                          {b1.name}
+                        </TableHead>
+                        <TableHead className="font-semibold">
+                          {b2.name}
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -436,28 +474,22 @@ export default async function ComparisonPage({
                           Starting Interest Rate
                         </TableCell>
                         <TableCell
-                          className={`font-bold ${
-                            b1.rate < b2.rate
-                              ? 'text-emerald-600'
-                              : 'text-slate-600'
-                          }`}
+                          className={
+                            b1.rate <= b2.rate
+                              ? 'font-semibold text-[#577A30]'
+                              : 'font-semibold text-slate-700'
+                          }
                         >
                           {b1.rate}% p.a.
-                          {b1.rate < b2.rate && (
-                            <CheckCircle2 className="inline ml-2 w-4 h-4" />
-                          )}
                         </TableCell>
                         <TableCell
-                          className={`font-bold ${
-                            b2.rate < b1.rate
-                              ? 'text-emerald-600'
-                              : 'text-slate-600'
-                          }`}
+                          className={
+                            b2.rate <= b1.rate
+                              ? 'font-semibold text-[#577A30]'
+                              : 'font-semibold text-slate-700'
+                          }
                         >
                           {b2.rate}% p.a.
-                          {b2.rate < b1.rate && (
-                            <CheckCircle2 className="inline ml-2 w-4 h-4" />
-                          )}
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -469,229 +501,209 @@ export default async function ComparisonPage({
                       </TableRow>
                       <TableRow>
                         <TableCell className="font-medium">
-                          Processing Fee
+                          Illustrative EMI (₹50L, 20Y)
+                        </TableCell>
+                        <TableCell>{formatINR(emi1)}</TableCell>
+                        <TableCell>{formatINR(emi2)}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">
+                          Processing Fee (indicative)
                         </TableCell>
                         <TableCell>Up to 0.50%</TableCell>
                         <TableCell>Up to 0.50%</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className="font-medium">
-                          Digital Approval
+                          Digital Journey
                         </TableCell>
                         <TableCell>
-                          {b1.slug.includes('sbi') ||
-                          b1.slug.includes('pnb') ||
-                          b1.slug.includes('bob')
-                            ? 'Partial'
-                            : 'Yes'}
+                          {isPsuBank(b1.slug) ? 'Moderate' : 'Strong'}
                         </TableCell>
                         <TableCell>
-                          {b2.slug.includes('sbi') ||
-                          b2.slug.includes('pnb') ||
-                          b2.slug.includes('bob')
-                            ? 'Partial'
-                            : 'Yes'}
+                          {isPsuBank(b2.slug) ? 'Moderate' : 'Strong'}
                         </TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className="font-medium">
-                          Prepayment Charges
+                          Prepayment on floating HL
                         </TableCell>
                         <TableCell>
-                          <span className="text-emerald-600 font-medium">
-                            Zero
+                          <span className="font-medium text-[#577A30]">
+                            Typically Nil*
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className="text-emerald-600 font-medium">
-                            Zero
+                          <span className="font-medium text-[#577A30]">
+                            Typically Nil*
                           </span>
                         </TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
                 </div>
+                <p className="px-6 pb-5 text-xs text-slate-500">
+                  *Subject to product terms and latest lender policy.
+                </p>
               </CardContent>
             </Card>
 
-            {/* RATE CHART */}
             <RateComparisonChart b1={b1} b2={b2} />
 
-            {/* Ad Slot 1 */}
-            <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
+            <div className="no-print flex justify-center rounded-lg border border-slate-100 bg-slate-50 p-2">
               <AdSlot id="compare-mid-1" type="leaderboard" />
             </div>
 
-            {/* PROFILE-BASED VERDICT */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <Users className="w-6 h-6 text-emerald-600" />
-                Which Bank Is Better for Your Profile?
+            <section aria-labelledby="profile-fit-heading">
+              <h2
+                id="profile-fit-heading"
+                className="mb-6 flex items-center gap-2 text-2xl font-semibold"
+              >
+                <Users className="h-6 w-6 text-[#577A30]" />
+                Borrower Profile Fit
               </h2>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                {[
-                  {
-                    icon: Users,
-                    color: 'emerald',
-                    title: 'Salaried Employees',
-                    desc: `Both banks favor stable income profiles. ${lowerRateBank.name} offers better long-term rates.`,
-                  },
-                  {
-                    icon: Clock,
-                    color: 'blue',
-                    title: 'Faster Disbursal',
-                    desc: `Private banks typically offer 3-7 day approvals vs 10-15 days for PSU banks.`,
-                  },
-                  {
-                    icon: IndianRupee,
-                    color: 'amber',
-                    title: 'Lowest Total Cost',
-                    desc: `${lowerRateBank.name}'s ${lowerRateBank.rate}% rate results in lower lifetime interest.`,
-                  },
-                  {
-                    icon: Zap,
-                    color: 'purple',
-                    title: 'Self-Employed',
-                    desc: `Private banks offer flexible income assessment and digital documentation.`,
-                  },
-                ].map((item, i) => (
-                  <Card
-                    key={i}
-                    className="border-slate-200 hover:shadow-md transition-shadow"
-                  >
-                    <CardContent className="p-5">
-                      <div
-                        className={`w-10 h-10 rounded-xl bg-${item.color}-50 flex items-center justify-center mb-3 shadow-sm`}
-                      >
-                        <item.icon
-                          className={`w-5 h-5 text-${item.color}-600`}
-                        />
-                      </div>
-                      <p className="font-bold text-slate-900 mb-2">
-                        {item.title}
-                      </p>
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Card className="border-slate-200 transition-shadow hover:shadow-md">
+                  <CardContent className="p-5">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7FDF1] shadow-sm">
+                      <Users className="h-5 w-5 text-[#577A30]" />
+                    </div>
+                    <p className="mb-2 font-semibold text-slate-900">
+                      Salaried Borrowers
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      Prioritize stability of income proof and clean bureau
+                      history. Rate leader is currently{' '}
+                      <strong>{lowerRateBank.name}</strong>.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-slate-200 transition-shadow hover:shadow-md">
+                  <CardContent className="p-5">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7FDF1] shadow-sm">
+                      <Clock className="h-5 w-5 text-[#577A30]" />
+                    </div>
+                    <p className="mb-2 font-semibold text-slate-900">
+                      Faster Disbursal Need
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      Private-bank workflows can be faster with digital docs;
+                      PSU banks can be slower but sometimes more conservative on
+                      underwriting.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-slate-200 transition-shadow hover:shadow-md">
+                  <CardContent className="p-5">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 shadow-sm">
+                      <IndianRupee className="h-5 w-5 text-amber-600" />
+                    </div>
+                    <p className="mb-2 font-semibold text-slate-900">
+                      Lowest Lifetime Cost
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      For long tenure, small rate differences compound
+                      meaningfully. Estimate total cost before choosing, not
+                      just month-1 EMI.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-slate-200 transition-shadow hover:shadow-md">
+                  <CardContent className="p-5">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 shadow-sm">
+                      <Zap className="h-5 w-5 text-purple-600" />
+                    </div>
+                    <p className="mb-2 font-semibold text-slate-900">
+                      Self-Employed Cases
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      Evaluate income assessment flexibility, additional
+                      documentation load, and consistency of bank statement
+                      treatment.
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
             </section>
 
-            {/* Ad Slot 2 */}
-            <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
+            <div className="no-print flex justify-center rounded-lg border border-slate-100 bg-slate-50 p-2">
               <AdSlot id="compare-mid-2" type="leaderboard" />
             </div>
 
-            {/* Pros & Cons Section */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6">Pros & Cons</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {/* Bank 1 */}
+            <section aria-labelledby="pros-cons-heading">
+              <h2
+                id="pros-cons-heading"
+                className="mb-6 text-2xl font-semibold"
+              >
+                Pros & Cons
+              </h2>
+              <div className="grid gap-6 sm:grid-cols-2">
                 <Card className="border-slate-200">
-                  <CardHeader className="bg-slate-50 border-b border-slate-200">
+                  <CardHeader className="border-b border-slate-200 bg-slate-50">
                     <CardTitle className="text-lg">{b1.name}</CardTitle>
                   </CardHeader>
-                  <CardContent className="p-5 space-y-4">
+                  <CardContent className="space-y-4 p-5">
                     <div>
-                      <h4 className="font-semibold text-emerald-700 mb-2 flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4" />
-                        Pros
-                      </h4>
+                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-[#577A30]">
+                        <CheckCircle2 className="h-4 w-4" /> Pros
+                      </h3>
                       <ul className="space-y-1 text-sm text-slate-600">
-                        <li>• Interest rate: {b1.rate}%</li>
-                        <li>• Wide branch network</li>
+                        <li>• Current starting rate: {b1.rate}%</li>
+                        <li>• Max published band: {b1.maxRate}%</li>
                         <li>
                           •{' '}
-                          {b1.slug.includes('sbi') ||
-                          b1.slug.includes('pnb') ||
-                          b1.slug.includes('bob')
-                            ? 'Government backing'
-                            : 'Fast digital approval'}
+                          {isPsuBank(b1.slug)
+                            ? 'Strong branch-led service footprint'
+                            : 'Generally strong digital customer journey'}
                         </li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-2">
-                        <XCircle className="w-4 h-4" />
-                        Cons
-                      </h4>
+                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-red-700">
+                        <XCircle className="h-4 w-4" /> Cons
+                      </h3>
                       <ul className="space-y-1 text-sm text-slate-600">
+                        <li>• Final offered rate depends on profile quality</li>
                         <li>
-                          •{' '}
-                          {b1.slug.includes('sbi') ||
-                          b1.slug.includes('pnb') ||
-                          b1.slug.includes('bob')
-                            ? 'Slower approval process'
-                            : 'Higher processing fees'}
-                        </li>
-                        <li>
-                          •{' '}
-                          {b1.slug.includes('sbi') ||
-                          b1.slug.includes('pnb') ||
-                          b1.slug.includes('bob')
-                            ? 'More documentation required'
-                            : 'Stricter eligibility'}
+                          • Turnaround can vary by city/property complexity
                         </li>
                       </ul>
                     </div>
                   </CardContent>
                 </Card>
 
-                {/* Bank 2 */}
                 <Card className="border-slate-200">
-                  <CardHeader className="bg-slate-50 border-b border-slate-200">
+                  <CardHeader className="border-b border-slate-200 bg-slate-50">
                     <CardTitle className="text-lg">{b2.name}</CardTitle>
                   </CardHeader>
-                  <CardContent className="p-5 space-y-4">
+                  <CardContent className="space-y-4 p-5">
                     <div>
-                      <h4 className="font-semibold text-emerald-700 mb-2 flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4" />
-                        Pros
-                      </h4>
+                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-[#577A30]">
+                        <CheckCircle2 className="h-4 w-4" /> Pros
+                      </h3>
                       <ul className="space-y-1 text-sm text-slate-600">
-                        <li>• Interest rate: {b2.rate}%</li>
+                        <li>• Current starting rate: {b2.rate}%</li>
+                        <li>• Max published band: {b2.maxRate}%</li>
                         <li>
                           •{' '}
-                          {b2.slug.includes('sbi') ||
-                          b2.slug.includes('pnb') ||
-                          b2.slug.includes('bob')
-                            ? 'Trusted PSU bank'
-                            : 'Faster approval (3-7 days)'}
-                        </li>
-                        <li>
-                          •{' '}
-                          {b2.slug.includes('sbi') ||
-                          b2.slug.includes('pnb') ||
-                          b2.slug.includes('bob')
-                            ? 'Lower processing fees'
-                            : 'Digital documentation'}
+                          {isPsuBank(b2.slug)
+                            ? 'Strong branch-led service footprint'
+                            : 'Generally strong digital customer journey'}
                         </li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-2">
-                        <XCircle className="w-4 h-4" />
-                        Cons
-                      </h4>
+                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-red-700">
+                        <XCircle className="h-4 w-4" /> Cons
+                      </h3>
                       <ul className="space-y-1 text-sm text-slate-600">
+                        <li>• Final offered rate depends on profile quality</li>
                         <li>
-                          •{' '}
-                          {b2.slug.includes('sbi') ||
-                          b2.slug.includes('pnb') ||
-                          b2.slug.includes('bob')
-                            ? 'Limited digital services'
-                            : 'Higher interest rate'}
-                        </li>
-                        <li>
-                          •{' '}
-                          {b2.slug.includes('sbi') ||
-                          b2.slug.includes('pnb') ||
-                          b2.slug.includes('bob')
-                            ? 'Longer processing time'
-                            : 'Stricter CIBIL requirements'}
+                          • Turnaround can vary by city/property complexity
                         </li>
                       </ul>
                     </div>
@@ -700,24 +712,26 @@ export default async function ComparisonPage({
               </div>
             </section>
 
-            {/* FAQ Section */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <HelpCircle className="w-6 h-6 text-emerald-600" />
+            <section aria-labelledby="comparison-faq-heading">
+              <h2
+                id="comparison-faq-heading"
+                className="mb-6 flex items-center gap-2 text-2xl font-semibold"
+              >
+                <HelpCircle className="h-6 w-6 text-[#577A30]" />
                 Frequently Asked Questions
               </h2>
 
               <Accordion type="single" collapsible className="space-y-3">
                 {faqs.map((faq, i) => (
                   <AccordionItem
-                    key={i}
+                    key={faq.question}
                     value={`faq-${i}`}
-                    className="bg-white border border-slate-200 rounded-lg px-5"
+                    className="rounded-lg border border-slate-200 bg-white px-5"
                   >
-                    <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline text-left">
+                    <AccordionTrigger className="text-left font-semibold text-slate-800 hover:no-underline">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-slate-600 pt-2 leading-relaxed">
+                    <AccordionContent className="pt-2 leading-relaxed text-slate-600">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -727,44 +741,42 @@ export default async function ComparisonPage({
               <FAQSchema faqs={faqs} />
             </section>
 
-            {/* FINAL VERDICT */}
-            <Card className="bg-linear-to-br from-lime-50 to-emerald-50 border-lime-200 shadow-md">
-              <CardContent className="p-8 space-y-5">
+            <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] shadow-md">
+              <CardContent className="space-y-5 p-8">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-lime-600 flex items-center justify-center shadow-lg">
-                    <TrendingDown className="w-6 h-6 text-white" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#92C65B] shadow-lg">
+                    <TrendingDown className="h-6 w-6 text-white" />
                   </div>
-                  <h2 className="text-2xl font-bold text-lime-900">
+                  <h2 className="text-2xl font-semibold text-[#1B2E06]">
                     Final Verdict
                   </h2>
                 </div>
 
-                <p className="text-lime-900 leading-relaxed">
-                  Choose <strong>{lowerRateBank.name}</strong> if your priority
-                  is long-term cost efficiency with the lowest interest rate (
-                  {lowerRateBank.rate}%). Choose{' '}
-                  <strong>{higherRateBank.name}</strong> if approval speed,
-                  digital convenience, and premium customer service matter more
-                  to you.
+                <p className="leading-relaxed text-[#1B2E06]">
+                  If your top priority is minimizing long-term repayment,{' '}
+                  <strong>{lowerRateBank.name}</strong> currently leads on rate.
+                  If your top priority is faster process and app-driven
+                  servicing, compare turnaround and digital journey quality
+                  before finalizing.
                 </p>
 
                 <div className="flex flex-wrap gap-3">
                   <Button
                     asChild
-                    className="bg-lime-700 hover:bg-lime-800 text-white shadow-md"
+                    className="bg-[#74A046] text-white shadow-md hover:bg-[#577A30]"
                   >
                     <Link href="/emi-calculator/">
-                      <Calculator className="mr-2 w-4 h-4" />
+                      <Calculator className="mr-2 h-4 w-4" />
                       Calculate EMI Impact
                     </Link>
                   </Button>
                   <Button
                     asChild
                     variant="outline"
-                    className="border-lime-600 text-lime-700 hover:bg-lime-50"
+                    className="border-[#92C65B] text-[#74A046] hover:bg-[#F7FDF1]"
                   >
                     <Link href="/compare-loans/">
-                      <Scale className="mr-2 w-4 h-4" />
+                      <Scale className="mr-2 h-4 w-4" />
                       Compare More Banks
                     </Link>
                   </Button>
@@ -775,65 +787,63 @@ export default async function ComparisonPage({
             <AuthorBio />
           </div>
 
-          {/* ---------- SIDEBAR ---------- */}
-          <aside className="lg:col-span-4 space-y-6 mb-12">
+          <aside className="mb-12 space-y-6 lg:col-span-4">
             <div className="sticky top-24 space-y-6">
-              {/* Quick Action Card */}
               <Card className="border-slate-200 shadow-md">
-                <CardHeader className="bg-linear-to-r from-emerald-50 to-teal-50 border-b border-slate-200">
+                <CardHeader className="border-b border-slate-200 bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1]">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shadow-sm">
-                      <Calculator className="w-5 text-white" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#577A30] shadow-sm">
+                      <Calculator className="h-5 w-5 text-white" />
                     </div>
-                    <CardTitle className="text-base font-bold">
+                    <CardTitle className="text-base font-semibold">
                       Calculate Your EMI
                     </CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="p-5 space-y-4">
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    See the exact EMI difference between {b1.name} and {b2.name}{' '}
-                    based on your loan amount.
+                <CardContent className="space-y-4 p-5">
+                  <p className="text-sm leading-relaxed text-slate-600">
+                    Check exact EMI impact between {b1.name} and {b2.name} using
+                    your own amount, tenure, and expected rate.
                   </p>
                   <Button
                     asChild
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="w-full bg-[#577A30] text-white hover:bg-[#577A30]"
                   >
                     <Link href="/emi-calculator/">
-                      <Calculator className="mr-2 w-4 h-4" />
+                      <Calculator className="mr-2 h-4 w-4" />
                       Open EMI Calculator
                     </Link>
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Key Stats */}
               <Card className="border-slate-200">
-                <CardHeader className="bg-slate-50 border-b border-slate-200">
-                  <CardTitle className="text-base font-bold flex items-center gap-2">
-                    <Info className="w-4 h-4 text-emerald-600" />
+                <CardHeader className="border-b border-slate-200 bg-slate-50">
+                  <CardTitle className="flex items-center gap-2 text-base font-semibold">
+                    <Info className="h-4 w-4 text-[#577A30]" />
                     Key Takeaways
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 space-y-3">
+                <CardContent className="space-y-3 p-5">
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#577A30]" />
                     <p className="text-sm text-slate-600">
-                      <strong>{lowerRateBank.name}</strong> offers{' '}
-                      {Math.abs(parseFloat(rateDiff))}% lower rate
+                      <strong>{lowerRateBank.name}</strong> has the lower
+                      published starting rate by {rateDiff.toFixed(2)}%.
                     </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#577A30]" />
                     <p className="text-sm text-slate-600">
-                      Potential savings: ₹{(savings / 100000).toFixed(1)} lakhs
-                      on ₹50L loan
+                      Illustrative savings: {formatINR(lifetimeSaving)} over 20
+                      years (₹50 lakh sample).
                     </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#577A30]" />
                     <p className="text-sm text-slate-600">
-                      Both banks offer zero prepayment charges
+                      Compare sanction terms, reset frequency, and all fees
+                      before locking your lender.
                     </p>
                   </div>
                 </CardContent>
@@ -841,8 +851,7 @@ export default async function ComparisonPage({
 
               <FinancialNavWidget />
 
-              {/* Sticky Ad */}
-              <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center no-print">
+              <div className="no-print flex min-h-62.5 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                 <AdSlot id="compare-sidebar" type="box" />
               </div>
             </div>
