@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Privacy Policy for Fincado — how we collect, store, protect and use your data when you use calculators, tools, and financial guides.',
 };
 
-const LAST_UPDATED = 'January 2025';
+const LAST_UPDATED = 'March 2026';
 const SUPPORT_EMAIL = 'support@fincado.com';
 
 export default function PrivacyPolicyPage() {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Disclaimer for Fincado — financial education only, no professional or investment advice, no liability for calculators or content.',
 };
 
-const LAST_UPDATED = 'January 2026';
+const LAST_UPDATED = 'March 2026';
 const SUPPORT_EMAIL = 'support@fincado.com';
 const JURISDICTION_CITY = 'Mumbai';
 

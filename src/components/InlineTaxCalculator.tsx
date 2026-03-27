@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, Zap, Calculator } from 'lucide-react';
 
+import { getCurrentFiscalYear, getBudgetYearText } from '@/lib/fiscalYear';
+
 interface Props {
   defaultSalary?: number;
 }
@@ -15,6 +17,9 @@ export default function InlineTaxCalculator({
 }: Props) {
   const [income, setIncome] = useState(defaultSalary);
   const [deductions, setDeductions] = useState(0);
+
+  const fy = getCurrentFiscalYear();
+  const budgetText = getBudgetYearText();
 
   // Logic for Tax Calculation
   const { taxNew, taxOld } = useMemo(() => {
@@ -62,7 +67,7 @@ export default function InlineTaxCalculator({
       { limit: 250000, rate: 0 },
       { limit: 500000, rate: 0.05 },
       { limit: 1000000, rate: 0.2 },
-      { limit: Infinity, rate: 0.3 }
+      { limit: Infinity, rate: 0.3 },
     ];
 
     const tempIncOld = taxableOld;
@@ -104,13 +109,13 @@ export default function InlineTaxCalculator({
       <CardHeader className="bg-lime-50/80 border-b border-lime-100 py-3 px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-lime-800 font-bold text-sm uppercase tracking-wide">
-            <Zap className="h-4 w-4" /> Quick Tax Check (FY 25-26)
+            <Zap className="h-4 w-4" /> Quick Tax Check ({fy.fullFormat})
           </div>
           <Badge
             variant="outline"
             className="bg-white text-lime-700 border-lime-200 text-[10px] uppercase font-bold"
           >
-            Budget 2025
+            {budgetText}
           </Badge>
         </div>
       </CardHeader>

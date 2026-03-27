@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const SUPPORT_EMAIL = 'support@fincado.com';
 const JURISDICTION_CITY = 'Mumbai';
-const LAST_UPDATED = 'January 2025';
+const LAST_UPDATED = 'March 2026';
 
 export default function TermsPage() {
   return (
@@ -19,7 +19,7 @@ export default function TermsPage() {
         <div className="terms-hero-inner">
           <h1 className="terms-title">Terms of Use</h1>
           <p className="terms-sub">
-            Last updated: <time dateTime="2025-01-01">{LAST_UPDATED}</time>
+            Last updated: <time dateTime="2026-03-27">{LAST_UPDATED}</time>
           </p>
           <p className="terms-lead">
             These terms govern your access to and use of Fincado’s website,

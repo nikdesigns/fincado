@@ -16,6 +16,9 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
+import { getCurrentFiscalYear } from '@/lib/fiscalYear';
+const { budgetYear } = getCurrentFiscalYear();
+
 /* ---------- TYPES ---------- */
 type NavItem = {
   href: string;
@@ -64,7 +67,7 @@ const TOP_TOOLS: NavItem[] = [
     label: 'Tax Calculator',
     icon: '🧾',
     lucideIcon: FileText,
-    badge: '2026',
+    badge: String(budgetYear),
   },
   {
     href: '/credit-score/',

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Cookie Policy for Fincado — learn how cookies, tracking technologies and AdSense are used on the site.',
 };
 
-const LAST_UPDATED = 'January 2025';
+const LAST_UPDATED = 'March 2026';
 
 export default function CookiePolicyPage() {
   return (
