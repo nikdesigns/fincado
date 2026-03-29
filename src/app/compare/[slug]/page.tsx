@@ -137,29 +137,24 @@ export async function generateMetadata({
   const rateDiff = Math.abs(b1.rate - b2.rate).toFixed(2);
 
   return {
-    title: `${b1.name} vs ${b2.name} Home Loan Comparison (${monthYear}) | Fincado`,
-    description: `${b1.name} vs ${b2.name} home loan comparison (${monthYear}): rate (${b1.rate}% vs ${b2.rate}%), max rate, approval style, and borrower-fit guidance. Current lower-rate lender: ${lowerRateBank.name} by ${rateDiff}%.`,
+    title: `${b1.name} vs ${b2.name} Home Loan (${fy.shortYear}): Rates, EMI Difference & Best Choice`,
+    description: `Compare ${b1.name} and ${b2.name} on interest rate, 20-year EMI impact, approval speed, and borrower fit. Current lower-rate option: ${lowerRateBank.name} by ${rateDiff}%. Updated for ${monthYear}.`,
     keywords: [
       `${b1.name} vs ${b2.name}`,
       `${b1.name} ${b2.name} home loan comparison`,
       `${b1.name} interest rate ${fy.shortYear}`,
       `${b2.name} interest rate ${fy.shortYear}`,
-      `${b1.name} vs ${b2.name} which is better`,
       'home loan comparison india',
+      'EMI difference calculator',
       'best bank for home loan',
-      'home loan rate comparison',
     ],
-    authors: [{ name: 'Fincado Research Team' }],
-    creator: 'Fincado',
-    publisher: 'Fincado',
     alternates: {
       canonical: `https://fincado.com/compare/${slug}/`,
     },
     openGraph: {
-      title: `${b1.name} vs ${b2.name} Home Loan Comparison (${monthYear})`,
-      description: `Compare ${b1.name} (${b1.rate}%) vs ${b2.name} (${b2.rate}%) with practical borrower-focused insights and total repayment impact.`,
+      title: `${b1.name} vs ${b2.name} Home Loan (${fy.shortYear}): Rates, EMI Difference & Best Choice`,
+      description: `Compare ${b1.name} (${b1.rate}%) vs ${b2.name} (${b2.rate}%) with EMI impact, approval speed, and borrower-fit guidance.`,
       url: `https://fincado.com/compare/${slug}/`,
-      siteName: 'Fincado',
       type: 'article',
       images: [
         {
@@ -169,23 +164,6 @@ export async function generateMetadata({
           alt: `${b1.name} vs ${b2.name} Home Loan Comparison`,
         },
       ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${b1.name} vs ${b2.name} Home Loan Comparison`,
-      description: `${b1.rate}% vs ${b2.rate}% — compare total cost, approval style, and borrower fit.`,
-      images: [`https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`],
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
     },
   };
 }
@@ -244,6 +222,17 @@ export default async function ComparisonPage({
       question: 'Should I evaluate only headline interest rates?',
       answer:
         'No. Compare effective borrowing cost: starting rate, reset behavior, fees, legal/valuation costs, insurance bundling, prepayment flexibility, and processing time. The cheapest headline rate is not always the cheapest end-to-end loan.',
+    },
+    {
+      question: 'What is reset-period risk in floating home loans?',
+      answer:
+        'Floating-rate loans do not always reprice instantly with policy rate changes. Different lenders may reset monthly/quarterly/half-yearly and use different benchmark spreads. Slower or less transparent reset mechanics can increase your effective borrowing cost even when market rates soften.',
+    },
+    {
+      question:
+        'How should I compare total effective cost beyond headline rate?',
+      answer:
+        'Use a full-cost checklist: interest rate, processing fee, legal/valuation charges, mandatory insurance, reset spread, prepayment terms, and turnaround delay cost. Always compare total repayment and not just first-month EMI.',
     },
   ];
 
@@ -413,6 +402,76 @@ export default async function ComparisonPage({
           </div>
         </header>
 
+        {/* --- QUICK VERDICT TABLE (NEW, ABOVE FOLD) --- */}
+        <section className="mx-auto mb-8 max-w-5xl">
+          <Card className="border-[#DFF7C6] bg-white shadow-sm">
+            <CardHeader className="border-b border-slate-200 bg-[#F7FDF1]">
+              <CardTitle className="text-lg font-semibold text-[#1B2E06]">
+                Quick Verdict: {b1.name} vs {b2.name}
+              </CardTitle>
+              <CardDescription>
+                Fast decision summary for a ₹50L / 20-year illustration.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Decision Factor</TableHead>
+                      <TableHead>Current Winner</TableHead>
+                      <TableHead>Details</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        Lowest rate now
+                      </TableCell>
+                      <TableCell className="font-semibold text-[#577A30]">
+                        {lowerRateBank.name}
+                      </TableCell>
+                      <TableCell>
+                        {lowerRateBank.rate}% vs {higherRateBank.rate}% (
+                        {rateDiff.toFixed(2)}% gap)
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        EMI difference (₹50L/20Y)
+                      </TableCell>
+                      <TableCell className="font-semibold text-[#577A30]">
+                        {formatINR(monthlySaving)}/month
+                      </TableCell>
+                      <TableCell>
+                        Approx {formatINR(lifetimeSaving)} lifetime repayment
+                        difference
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        Processing fee band
+                      </TableCell>
+                      <TableCell>Similar</TableCell>
+                      <TableCell>
+                        Typically up to ~0.50% (lender policy dependent)
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Best for</TableCell>
+                      <TableCell>{lowerRateBank.name}</TableCell>
+                      <TableCell>
+                        Low-cost focus; for faster approval, verify digital
+                        workflow and local branch turnaround.
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="mb-12 space-y-10 lg:col-span-8">
             {rateDiff > 0 && (
@@ -549,6 +608,65 @@ export default async function ComparisonPage({
             </Card>
 
             <RateComparisonChart b1={b1} b2={b2} />
+
+            {/* --- RELATED PAGES (NEW INTERNAL LINKS) --- */}
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader className="border-b border-slate-200 bg-slate-50">
+                <CardTitle className="text-lg font-semibold">
+                  Related Tools & Guides
+                </CardTitle>
+                <CardDescription>
+                  Use these pages to validate rate choice, EMI impact, and
+                  borrower readiness.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-5">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/compare-loans/"
+                  >
+                    Compare Loans Hub
+                  </Link>
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/loans/home-loan/"
+                  >
+                    Home Loan EMI Calculator
+                  </Link>
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/emi-calculator/"
+                  >
+                    General EMI Calculator
+                  </Link>
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/guides/home-loan-guide/"
+                  >
+                    Home Loan Guide
+                  </Link>
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/guides/home-loan-first-time-buyers/"
+                  >
+                    First-Time Home Buyer Guide
+                  </Link>
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/guides/personal-loan-interest-rates-india/"
+                  >
+                    Personal Loan Rates India Guide
+                  </Link>
+                  <Link
+                    className="text-sm text-[#577A30] hover:underline"
+                    href="/credit-score/"
+                  >
+                    Credit Score Estimator
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
 
             <div className="no-print flex justify-center rounded-lg border border-slate-100 bg-slate-50 p-2">
               <AdSlot id="compare-mid-1" type="leaderboard" />

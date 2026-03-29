@@ -45,30 +45,23 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 // --- SEO METADATA (IMPROVED) ---
 export const metadata: Metadata = {
   title:
-    'SIP Investment Guide 2026: Complete Strategy, Returns Calculator & Tax Rules',
+    'SIP Investment Guide India (2026): Returns, Tax Rules & Best Strategy',
   description:
-    'Complete SIP Investment Guide 2026: How SIP works, rupee cost averaging benefits, compounding calculator, SIP vs lump sum comparison, age-wise investment amounts (₹5K-₹50K), LTCG/STCG tax rules, market crash strategies, step-by-step guide & 10 common mistakes to avoid.',
+    'Learn how SIP works, expected returns, tax treatment, and how to choose funds by goal and age. Includes practical examples and mistakes to avoid.',
   keywords: [
-    'SIP investment guide 2026',
-    'what is SIP mutual fund',
-    'SIP vs lump sum comparison',
-    'SIP returns calculator India',
-    'SIP tax rules 2026',
-    'best SIP amount by age',
-    'rupee cost averaging explained',
-    'SIP compounding calculator',
-    'systematic investment plan India',
-    'SIP during market crash strategy',
-    'ELSS tax benefits 80C',
-    'SIP LTCG STCG taxation',
-    'how to start SIP online',
-    'SIP step up strategy',
+    'SIP investment guide India',
+    'SIP returns calculator',
+    'SIP tax rules India',
+    'SIP vs lump sum',
+    'best SIP strategy',
+    'mutual fund SIP guide',
+    'SIP by age',
   ],
   openGraph: {
     title:
-      'SIP Investment Guide 2026: Complete Strategy, Returns Calculator & Tax Rules',
+      'SIP Investment Guide India (2026): Returns, Tax Rules & Best Strategy',
     description:
-      'Master SIP investing with our complete guide covering returns, taxation, age-wise strategies, and market crash tactics for 2026.',
+      'Practical SIP guide with returns expectations, tax rules, fund selection strategy, and common mistakes to avoid.',
     type: 'article',
     url: 'https://fincado.com/guides/sip-investment-guide/',
     images: [
@@ -76,15 +69,15 @@ export const metadata: Metadata = {
         url: '/images/guides/sip/sip-guide-hero.webp',
         width: 1200,
         height: 630,
-        alt: 'SIP Investment Guide 2026 Hero Image',
+        alt: 'SIP Investment Guide India',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SIP Investment Guide 2026: Complete Strategy & Returns',
+    title: 'SIP Investment Guide India (2026)',
     description:
-      'Complete SIP guide covering compounding, tax rules, returns & age-wise strategies for wealth creation.',
+      'Understand SIP returns, taxes, and fund strategy with practical examples.',
   },
   alternates: {
     canonical: 'https://fincado.com/guides/sip-investment-guide/',
@@ -141,6 +134,16 @@ const FAQ_ITEMS = [
     question: 'What are the biggest mistakes to avoid in SIP?',
     answer:
       "Top mistakes: (1) Stopping SIP during market falls, (2) choosing dividend over growth option, (3) over-diversification (15+ funds), (4) chasing last year's top performers, (5) not increasing SIP with salary hikes, and (6) redeeming for small expenses instead of letting it compound.",
+  },
+  {
+    question: 'Best SIP date: does timing matter?',
+    answer:
+      'For long-term investors, SIP date has minimal impact compared to staying invested consistently. Pick a date close to salary credit for discipline and cash-flow ease. Consistency, annual step-up, and holding period matter far more than exact monthly date.',
+  },
+  {
+    question: 'SIP in index funds vs active funds — when to choose what?',
+    answer:
+      'Index fund SIPs suit investors who want low cost, market-matching returns, and minimal fund-manager risk. Active fund SIPs may suit investors willing to monitor fund quality for potential alpha. A practical approach is core (index) + satellite (selected active) based on risk and review capacity.',
   },
 ];
 
@@ -274,7 +277,7 @@ export default function SipGuidePage() {
         >
           Flagship Guide
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           The Complete SIP Investment Guide 2026: Strategy, Returns & Tax Rules
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
@@ -303,7 +306,7 @@ export default function SipGuidePage() {
               <Lightbulb className="h-6 w-6 text-blue-700" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-slate-900">
+              <CardTitle className="text-2xl font-semibold text-slate-900">
                 Quick Answer
               </CardTitle>
               <Badge className="mt-1 bg-blue-600 text-white hover:bg-blue-700">
@@ -324,19 +327,23 @@ export default function SipGuidePage() {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
               <div className="bg-linear-to-br from-blue-50 to-blue-100/50 p-3 rounded-lg border-2 border-blue-200 text-center">
-                <div className="font-bold text-2xl text-blue-800">₹500</div>
+                <div className="font-semibold text-2xl text-blue-800">₹500</div>
                 <div className="text-slate-600 text-xs">Min Investment</div>
               </div>
               <div className="bg-linear-to-br from-blue-50 to-blue-100/50 p-3 rounded-lg border-2 border-blue-200 text-center">
-                <div className="font-bold text-2xl text-blue-800">12-15%</div>
+                <div className="font-semibold text-2xl text-blue-800">
+                  12-15%
+                </div>
                 <div className="text-slate-600 text-xs">Avg Returns*</div>
               </div>
               <div className="bg-linear-to-br from-blue-50 to-blue-100/50 p-3 rounded-lg border-2 border-blue-200 text-center">
-                <div className="font-bold text-2xl text-blue-800">Zero</div>
+                <div className="font-semibold text-2xl text-blue-800">Zero</div>
                 <div className="text-slate-600 text-xs">Lock-in**</div>
               </div>
               <div className="bg-linear-to-br from-blue-50 to-blue-100/50 p-3 rounded-lg border-2 border-blue-200 text-center">
-                <div className="font-bold text-2xl text-blue-800">12.5%</div>
+                <div className="font-semibold text-2xl text-blue-800">
+                  12.5%
+                </div>
                 <div className="text-slate-600 text-xs">LTCG Tax</div>
               </div>
             </div>
@@ -361,6 +368,59 @@ export default function SipGuidePage() {
               Calculate My SIP Returns
             </Link>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* --- SIP DURATION COMPARISON TABLE (NEW) --- */}
+      <Card className="mb-8 border-slate-200 bg-white shadow-sm">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-xl font-semibold text-slate-900">
+            SIP Outcome Snapshot (Illustrative)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto rounded-lg border border-slate-200">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>SIP Duration</TableHead>
+                  <TableHead>Monthly Amount</TableHead>
+                  <TableHead>Assumed Return</TableHead>
+                  <TableHead>Future Value (Approx)</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium">5 years</TableCell>
+                  <TableCell>₹10,000</TableCell>
+                  <TableCell>12% CAGR</TableCell>
+                  <TableCell>₹8.2L</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">10 years</TableCell>
+                  <TableCell>₹10,000</TableCell>
+                  <TableCell>12% CAGR</TableCell>
+                  <TableCell>₹23.2L</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">15 years</TableCell>
+                  <TableCell>₹10,000</TableCell>
+                  <TableCell>12% CAGR</TableCell>
+                  <TableCell>₹50.5L</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">20 years</TableCell>
+                  <TableCell>₹10,000</TableCell>
+                  <TableCell>12% CAGR</TableCell>
+                  <TableCell>₹99.9L</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Illustrative only. Actual returns vary by fund category, market
+            cycle, and holding behavior.
+          </p>
         </CardContent>
       </Card>
 
@@ -505,7 +565,7 @@ export default function SipGuidePage() {
         className="mb-12 border border-slate-200 shadow-sm scroll-mt-20"
       >
         <CardContent className="p-6 sm:p-8">
-          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <h2 className="mb-4 text-2xl font-semibold text-slate-900 flex items-center gap-2">
             <PiggyBank className="h-6 w-6 text-blue-600" /> What is SIP?
             (Systematic Investment Plan)
           </h2>
@@ -579,7 +639,7 @@ export default function SipGuidePage() {
       {/* --- SECTION 1.5: SIP VS TRADITIONAL (Improved Table) --- */}
       <Card className="mb-12 border border-slate-200 shadow-sm">
         <CardContent className="p-6 sm:p-8">
-          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <h2 className="mb-4 text-2xl font-semibold text-slate-900 flex items-center gap-2">
             <TrendingUp className="h-6 w-6 text-blue-600" /> SIP vs Traditional
             Investing
           </h2>
@@ -595,16 +655,16 @@ export default function SipGuidePage() {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-slate-50 hover:bg-slate-50">
-                      <TableHead className="font-bold text-slate-900">
+                      <TableHead className="font-semibold text-slate-900">
                         Feature
                       </TableHead>
-                      <TableHead className="font-bold text-slate-900">
+                      <TableHead className="font-semibold text-slate-900">
                         SIP (Mutual Funds)
                       </TableHead>
-                      <TableHead className="font-bold text-slate-900">
+                      <TableHead className="font-semibold text-slate-900">
                         Lump Sum
                       </TableHead>
-                      <TableHead className="font-bold text-slate-900">
+                      <TableHead className="font-semibold text-slate-900">
                         RD (Recurring Deposit)
                       </TableHead>
                     </TableRow>
@@ -622,7 +682,7 @@ export default function SipGuidePage() {
                       <TableCell className="font-medium text-slate-700">
                         Expected Returns
                       </TableCell>
-                      <TableCell className="text-blue-600 font-bold">
+                      <TableCell className="text-blue-600 font-semibold">
                         12-15% (Equity)*
                       </TableCell>
                       <TableCell>Variable (Timing dependent)</TableCell>
@@ -642,7 +702,9 @@ export default function SipGuidePage() {
                       <TableCell className="font-medium text-slate-700">
                         Minimum Amount
                       </TableCell>
-                      <TableCell className="font-bold">₹500/month</TableCell>
+                      <TableCell className="font-semibold">
+                        ₹500/month
+                      </TableCell>
                       <TableCell>₹5,000+</TableCell>
                       <TableCell>₹100/month</TableCell>
                     </TableRow>
@@ -710,7 +772,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 2: HOW TO START SIP (NEW) --- */}
       <section id="how-to-start" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <ClipboardCheck className="h-6 w-6 text-blue-600" /> How to Start Your
           First SIP (Step-by-Step)
         </h2>
@@ -725,11 +787,11 @@ export default function SipGuidePage() {
           <Card className="border-l-4 border-l-blue-600">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-700">
+                <div className="shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-semibold text-blue-700">
                   1
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Complete KYC (One-Time Process)
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -754,11 +816,11 @@ export default function SipGuidePage() {
           <Card className="border-l-4 border-l-green-500">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-700">
+                <div className="shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-semibold text-green-700">
                   2
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Choose Investment Platform
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -784,11 +846,11 @@ export default function SipGuidePage() {
           <Card className="border-l-4 border-l-amber-500">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-bold text-amber-700">
+                <div className="shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-semibold text-amber-700">
                   3
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Select Fund Category & Scheme
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -814,11 +876,11 @@ export default function SipGuidePage() {
           <Card className="border-l-4 border-l-purple-500">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-700">
+                <div className="shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center font-semibold text-purple-700">
                   4
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Decide SIP Amount & Date
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -842,11 +904,11 @@ export default function SipGuidePage() {
           <Card className="border-l-4 border-l-indigo-500">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center font-bold text-indigo-700">
+                <div className="shrink-0 w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center font-semibold text-indigo-700">
                   5
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Set Up Auto-Debit Mandate
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -870,11 +932,11 @@ export default function SipGuidePage() {
           <Card className="border-l-4 border-l-blue-600">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-700">
+                <div className="shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-semibold text-blue-700">
                   6
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Monitor & Step-Up Annually
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -915,7 +977,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 3: HOW SIP WORKS - COMPOUNDING --- */}
       <section id="how-it-works" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <Calculator className="h-6 w-6 text-indigo-600" /> How SIP Works: The
           Magic of Compounding
         </h2>
@@ -950,19 +1012,19 @@ export default function SipGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent bg-indigo-50">
-                    <TableHead className="font-bold text-indigo-900">
+                    <TableHead className="font-semibold text-indigo-900">
                       Period
                     </TableHead>
-                    <TableHead className="font-bold text-indigo-900">
+                    <TableHead className="font-semibold text-indigo-900">
                       Total Invested
                     </TableHead>
-                    <TableHead className="font-bold text-indigo-900">
+                    <TableHead className="font-semibold text-indigo-900">
                       Maturity Value
                     </TableHead>
-                    <TableHead className="font-bold text-indigo-900">
+                    <TableHead className="font-semibold text-indigo-900">
                       Wealth Gain
                     </TableHead>
-                    <TableHead className="font-bold text-indigo-900">
+                    <TableHead className="font-semibold text-indigo-900">
                       Multiple
                     </TableHead>
                   </TableRow>
@@ -1004,15 +1066,15 @@ export default function SipGuidePage() {
                     <TableCell>6.30x</TableCell>
                   </TableRow>
                   <TableRow className="bg-indigo-100 hover:bg-indigo-100">
-                    <TableCell className="font-bold">30 Years</TableCell>
-                    <TableCell className="font-bold">₹36,00,000</TableCell>
-                    <TableCell className="font-bold text-blue-700 text-lg">
+                    <TableCell className="font-semibold">30 Years</TableCell>
+                    <TableCell className="font-semibold">₹36,00,000</TableCell>
+                    <TableCell className="font-semibold text-blue-700 text-lg">
                       ₹3,53,00,000
                     </TableCell>
-                    <TableCell className="font-bold text-blue-700 text-lg">
+                    <TableCell className="font-semibold text-blue-700 text-lg">
                       ₹3,17,00,000
                     </TableCell>
-                    <TableCell className="font-bold">9.81x</TableCell>
+                    <TableCell className="font-semibold">9.81x</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -1045,7 +1107,7 @@ export default function SipGuidePage() {
             </p>
 
             <div className="bg-blue-50 p-5 rounded-lg border-2 border-blue-200">
-              <h4 className="font-bold text-slate-900 mb-3">
+              <h4 className="font-semibold text-slate-900 mb-3">
                 Example: ₹10,000 Monthly SIP Over 6 Months
               </h4>
               <div className="overflow-x-auto">
@@ -1069,7 +1131,7 @@ export default function SipGuidePage() {
                       <TableCell>Feb</TableCell>
                       <TableCell>₹90</TableCell>
                       <TableCell>₹10,000</TableCell>
-                      <TableCell className="text-green-700 font-bold">
+                      <TableCell className="text-green-700 font-semibold">
                         111.11
                       </TableCell>
                     </TableRow>
@@ -1077,7 +1139,7 @@ export default function SipGuidePage() {
                       <TableCell>Mar</TableCell>
                       <TableCell>₹80</TableCell>
                       <TableCell>₹10,000</TableCell>
-                      <TableCell className="text-green-700 font-bold">
+                      <TableCell className="text-green-700 font-semibold">
                         125
                       </TableCell>
                     </TableRow>
@@ -1099,7 +1161,7 @@ export default function SipGuidePage() {
                       <TableCell>₹10,000</TableCell>
                       <TableCell>95.24</TableCell>
                     </TableRow>
-                    <TableRow className="bg-blue-100 font-bold">
+                    <TableRow className="bg-blue-100 font-semibold">
                       <TableCell colSpan={2}>Total</TableCell>
                       <TableCell>₹60,000</TableCell>
                       <TableCell>654.26 units</TableCell>
@@ -1113,7 +1175,7 @@ export default function SipGuidePage() {
                   <p className="text-xs text-slate-600 mb-1">
                     Average NAV (Simple)
                   </p>
-                  <p className="text-lg font-bold text-slate-900">
+                  <p className="text-lg font-semibold text-slate-900">
                     ₹92.50 (₹555/6)
                   </p>
                 </div>
@@ -1121,7 +1183,7 @@ export default function SipGuidePage() {
                   <p className="text-xs text-green-800 mb-1">
                     Your Average Cost (SIP)
                   </p>
-                  <p className="text-lg font-bold text-green-700">
+                  <p className="text-lg font-semibold text-green-700">
                     ₹91.70 (₹60K/654 units)
                   </p>
                 </div>
@@ -1143,7 +1205,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 4: SIP VS LUMP SUM --- */}
       <section id="sip-vs-lumpsum" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <Scale className="h-6 w-6 text-amber-500" /> SIP vs Lump Sum: The
           Verdict
         </h2>
@@ -1165,16 +1227,16 @@ export default function SipGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50 hover:bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Market Scenario
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       SIP Return
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Lump Sum Return
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Winner
                     </TableHead>
                   </TableRow>
@@ -1185,8 +1247,8 @@ export default function SipGuidePage() {
                       <strong>Bull Market</strong> (Steady Rise)
                     </TableCell>
                     <TableCell>38-45%</TableCell>
-                    <TableCell className="font-bold">52-68%</TableCell>
-                    <TableCell className="text-green-600 font-bold">
+                    <TableCell className="font-semibold">52-68%</TableCell>
+                    <TableCell className="text-green-600 font-semibold">
                       Lump Sum ✓
                     </TableCell>
                   </TableRow>
@@ -1194,9 +1256,9 @@ export default function SipGuidePage() {
                     <TableCell>
                       <strong>Bear Market</strong> (Crash -20%+)
                     </TableCell>
-                    <TableCell className="font-bold">12-15%</TableCell>
+                    <TableCell className="font-semibold">12-15%</TableCell>
                     <TableCell className="text-red-600">-10 to +5%</TableCell>
-                    <TableCell className="text-green-600 font-bold">
+                    <TableCell className="text-green-600 font-semibold">
                       SIP ✓ (Big Win)
                     </TableCell>
                   </TableRow>
@@ -1204,9 +1266,9 @@ export default function SipGuidePage() {
                     <TableCell>
                       <strong>Volatile Market</strong> (Up & Down)
                     </TableCell>
-                    <TableCell className="font-bold">14-17%</TableCell>
+                    <TableCell className="font-semibold">14-17%</TableCell>
                     <TableCell>11-13%</TableCell>
-                    <TableCell className="text-green-600 font-bold">
+                    <TableCell className="text-green-600 font-semibold">
                       SIP ✓
                     </TableCell>
                   </TableRow>
@@ -1214,11 +1276,11 @@ export default function SipGuidePage() {
                     <TableCell>
                       <strong>20-Year Average</strong> (All Conditions)
                     </TableCell>
-                    <TableCell className="font-bold text-blue-700">
+                    <TableCell className="font-semibold text-blue-700">
                       12.8%
                     </TableCell>
                     <TableCell>11.9%</TableCell>
-                    <TableCell className="font-bold text-blue-700">
+                    <TableCell className="font-semibold text-blue-700">
                       SIP ✓ (Slight Edge)
                     </TableCell>
                   </TableRow>
@@ -1305,7 +1367,7 @@ export default function SipGuidePage() {
         </div>
 
         <div className="bg-blue-50 p-5 rounded-xl border-2 border-blue-200">
-          <h4 className="font-bold text-slate-900 mb-3 text-lg flex items-center gap-2">
+          <h4 className="font-semibold text-slate-900 mb-3 text-lg flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-blue-600" /> The Hybrid Strategy
             (Recommended for Windfalls)
           </h4>
@@ -1315,21 +1377,27 @@ export default function SipGuidePage() {
           </p>
           <div className="grid md:grid-cols-3 gap-4 text-sm">
             <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
-              <div className="font-bold text-2xl text-blue-700 mb-1">50%</div>
+              <div className="font-semibold text-2xl text-blue-700 mb-1">
+                50%
+              </div>
               <p className="text-slate-700">
                 Invest immediately as <strong>Lump Sum</strong> in Index/Large
                 Cap funds
               </p>
             </div>
             <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
-              <div className="font-bold text-2xl text-blue-700 mb-1">30%</div>
+              <div className="font-semibold text-2xl text-blue-700 mb-1">
+                30%
+              </div>
               <p className="text-slate-700">
                 Park in <strong>Liquid Fund</strong>, then STP (Systematic
                 Transfer) to equity over 6-12 months
               </p>
             </div>
             <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
-              <div className="font-bold text-2xl text-blue-700 mb-1">20%</div>
+              <div className="font-semibold text-2xl text-blue-700 mb-1">
+                20%
+              </div>
               <p className="text-slate-700">
                 Continue your regular <strong>salary SIP</strong> for discipline
               </p>
@@ -1349,7 +1417,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 5: AGE STRATEGY --- */}
       <section id="age-strategy" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <Clock className="h-6 w-6 text-purple-600" /> Best SIP Amount by Age &
           Income
         </h2>
@@ -1392,14 +1460,14 @@ export default function SipGuidePage() {
                   <TableBody>
                     <TableRow>
                       <TableCell>₹25,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹2,500-₹5,000 (10-20%)
                       </TableCell>
                       <TableCell>₹10-18L corpus</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>₹35,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹5,000-₹7,000 (15-20%)
                       </TableCell>
                       <TableCell>₹18-25L corpus</TableCell>
@@ -1467,21 +1535,21 @@ export default function SipGuidePage() {
                   <TableBody>
                     <TableRow>
                       <TableCell>₹50,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹10,000-₹15,000 (20-30%)
                       </TableCell>
                       <TableCell>₹50-75L corpus</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>₹75,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹18,000-₹25,000 (25-35%)
                       </TableCell>
                       <TableCell>₹90L-₹1.25Cr corpus</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>₹1,00,000+</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹25,000-₹40,000 (25-40%)
                       </TableCell>
                       <TableCell>₹1.25-₹2Cr corpus</TableCell>
@@ -1549,21 +1617,21 @@ export default function SipGuidePage() {
                   <TableBody>
                     <TableRow>
                       <TableCell>₹1,50,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹50,000-₹75,000 (33-50%)
                       </TableCell>
                       <TableCell>₹2-₹3Cr corpus</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>₹2,50,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹85,000-₹1,25,000 (35-50%)
                       </TableCell>
                       <TableCell>₹3.5-₹5Cr corpus</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>₹3,00,000+</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹1,20,000-₹1,80,000 (40-60%)
                       </TableCell>
                       <TableCell>₹5-₹7Cr corpus</TableCell>
@@ -1632,14 +1700,14 @@ export default function SipGuidePage() {
                   <TableBody>
                     <TableRow>
                       <TableCell>₹2,00,000</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹80,000-₹1,20,000 (40-60%)
                       </TableCell>
                       <TableCell>Conservative growth</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>₹3,50,000+</TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹1,40,000-₹2,10,000 (40-60%)
                       </TableCell>
                       <TableCell>Capital preservation focus</TableCell>
@@ -1677,7 +1745,7 @@ export default function SipGuidePage() {
         </div>
 
         <div className="mt-6 bg-blue-50 p-5 rounded-xl border-2 border-blue-200">
-          <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-blue-600" /> Universal Rule
             Across All Ages
           </h4>
@@ -1718,7 +1786,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 6: RETURNS MATRIX --- */}
       <section id="returns-examples" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <Coins className="h-6 w-6 text-yellow-600" /> SIP Returns Matrix (12%
           CAGR Projection)
         </h2>
@@ -1732,7 +1800,7 @@ export default function SipGuidePage() {
           {/* ₹5,000 SIP */}
           <Card className="border border-slate-200 shadow-sm overflow-hidden">
             <div className="bg-slate-50 p-4 border-b border-slate-200">
-              <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-slate-900 text-lg flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-slate-600" /> ₹5,000 Monthly
                 SIP @ 12%
               </h3>
@@ -1755,43 +1823,43 @@ export default function SipGuidePage() {
                   <TableRow>
                     <TableCell className="font-medium">5</TableCell>
                     <TableCell>₹3,00,000</TableCell>
-                    <TableCell className="font-bold">₹4,08,000</TableCell>
+                    <TableCell className="font-semibold">₹4,08,000</TableCell>
                     <TableCell>₹1,08,000</TableCell>
                     <TableCell>36%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">10</TableCell>
                     <TableCell>₹6,00,000</TableCell>
-                    <TableCell className="font-bold">₹11,50,000</TableCell>
+                    <TableCell className="font-semibold">₹11,50,000</TableCell>
                     <TableCell>₹5,50,000</TableCell>
                     <TableCell>92%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">15</TableCell>
                     <TableCell>₹9,00,000</TableCell>
-                    <TableCell className="font-bold">₹25,00,000</TableCell>
+                    <TableCell className="font-semibold">₹25,00,000</TableCell>
                     <TableCell>₹16,00,000</TableCell>
                     <TableCell>178%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">20</TableCell>
                     <TableCell>₹12,00,000</TableCell>
-                    <TableCell className="font-bold text-blue-700">
+                    <TableCell className="font-semibold text-blue-700">
                       ₹49,50,000
                     </TableCell>
                     <TableCell>₹37,50,000</TableCell>
                     <TableCell>313%</TableCell>
                   </TableRow>
                   <TableRow className="bg-green-50">
-                    <TableCell className="font-bold">30</TableCell>
-                    <TableCell className="font-bold">₹18,00,000</TableCell>
-                    <TableCell className="font-bold text-green-700 text-lg">
+                    <TableCell className="font-semibold">30</TableCell>
+                    <TableCell className="font-semibold">₹18,00,000</TableCell>
+                    <TableCell className="font-semibold text-green-700 text-lg">
                       ₹1,76,00,000
                     </TableCell>
-                    <TableCell className="font-bold text-green-700">
+                    <TableCell className="font-semibold text-green-700">
                       ₹1,58,00,000
                     </TableCell>
-                    <TableCell className="font-bold">878%</TableCell>
+                    <TableCell className="font-semibold">878%</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -1801,7 +1869,7 @@ export default function SipGuidePage() {
           {/* ₹10,000 SIP */}
           <Card className="border border-slate-200 shadow-sm overflow-hidden">
             <div className="bg-slate-50 p-4 border-b border-slate-200">
-              <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-slate-900 text-lg flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-slate-600" /> ₹10,000
                 Monthly SIP @ 12%
               </h3>
@@ -1824,43 +1892,43 @@ export default function SipGuidePage() {
                   <TableRow>
                     <TableCell className="font-medium">5</TableCell>
                     <TableCell>₹6,00,000</TableCell>
-                    <TableCell className="font-bold">₹8,16,000</TableCell>
+                    <TableCell className="font-semibold">₹8,16,000</TableCell>
                     <TableCell>₹2,16,000</TableCell>
                     <TableCell>36%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">10</TableCell>
                     <TableCell>₹12,00,000</TableCell>
-                    <TableCell className="font-bold">₹23,00,000</TableCell>
+                    <TableCell className="font-semibold">₹23,00,000</TableCell>
                     <TableCell>₹11,00,000</TableCell>
                     <TableCell>92%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">15</TableCell>
                     <TableCell>₹18,00,000</TableCell>
-                    <TableCell className="font-bold">₹50,00,000</TableCell>
+                    <TableCell className="font-semibold">₹50,00,000</TableCell>
                     <TableCell>₹32,00,000</TableCell>
                     <TableCell>178%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">20</TableCell>
                     <TableCell>₹24,00,000</TableCell>
-                    <TableCell className="font-bold text-blue-700">
+                    <TableCell className="font-semibold text-blue-700">
                       ₹99,00,000
                     </TableCell>
                     <TableCell>₹75,00,000</TableCell>
                     <TableCell>313%</TableCell>
                   </TableRow>
                   <TableRow className="bg-green-50">
-                    <TableCell className="font-bold">30</TableCell>
-                    <TableCell className="font-bold">₹36,00,000</TableCell>
-                    <TableCell className="font-bold text-green-700 text-lg">
+                    <TableCell className="font-semibold">30</TableCell>
+                    <TableCell className="font-semibold">₹36,00,000</TableCell>
+                    <TableCell className="font-semibold text-green-700 text-lg">
                       ₹3,53,00,000
                     </TableCell>
-                    <TableCell className="font-bold text-green-700">
+                    <TableCell className="font-semibold text-green-700">
                       ₹3,17,00,000
                     </TableCell>
-                    <TableCell className="font-bold">881%</TableCell>
+                    <TableCell className="font-semibold">881%</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -1870,7 +1938,7 @@ export default function SipGuidePage() {
           {/* ₹25,000 SIP */}
           <Card className="border border-slate-200 shadow-sm overflow-hidden">
             <div className="bg-slate-50 p-4 border-b border-slate-200">
-              <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-slate-900 text-lg flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-slate-600" /> ₹25,000
                 Monthly SIP @ 12%
               </h3>
@@ -1893,36 +1961,38 @@ export default function SipGuidePage() {
                   <TableRow>
                     <TableCell className="font-medium">10</TableCell>
                     <TableCell>₹30,00,000</TableCell>
-                    <TableCell className="font-bold">₹57,50,000</TableCell>
+                    <TableCell className="font-semibold">₹57,50,000</TableCell>
                     <TableCell>₹27,50,000</TableCell>
                     <TableCell>92%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">15</TableCell>
                     <TableCell>₹45,00,000</TableCell>
-                    <TableCell className="font-bold">₹1,25,00,000</TableCell>
+                    <TableCell className="font-semibold">
+                      ₹1,25,00,000
+                    </TableCell>
                     <TableCell>₹80,00,000</TableCell>
                     <TableCell>178%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">20</TableCell>
                     <TableCell>₹60,00,000</TableCell>
-                    <TableCell className="font-bold text-blue-700">
+                    <TableCell className="font-semibold text-blue-700">
                       ₹2,47,50,000
                     </TableCell>
                     <TableCell>₹1,87,50,000</TableCell>
                     <TableCell>313%</TableCell>
                   </TableRow>
                   <TableRow className="bg-green-50">
-                    <TableCell className="font-bold">25</TableCell>
-                    <TableCell className="font-bold">₹75,00,000</TableCell>
-                    <TableCell className="font-bold text-green-700 text-lg">
+                    <TableCell className="font-semibold">25</TableCell>
+                    <TableCell className="font-semibold">₹75,00,000</TableCell>
+                    <TableCell className="font-semibold text-green-700 text-lg">
                       ₹4,72,50,000
                     </TableCell>
-                    <TableCell className="font-bold text-green-700">
+                    <TableCell className="font-semibold text-green-700">
                       ₹3,97,50,000
                     </TableCell>
-                    <TableCell className="font-bold">530%</TableCell>
+                    <TableCell className="font-semibold">530%</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -1970,7 +2040,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 7: TAX RULES 2026 --- */}
       <section id="tax-rules" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <ShieldCheck className="h-6 w-6 text-teal-600" /> SIP Tax Rules 2026:
           Complete Taxation Guide
         </h2>
@@ -2004,7 +2074,7 @@ export default function SipGuidePage() {
             <CardContent className="pt-4 text-sm text-slate-700">
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded-lg border border-teal-200">
-                  <p className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                  <p className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
                     <Clock className="h-4 w-4 text-slate-600" /> Short-Term
                     Capital Gains (STCG)
                   </p>
@@ -2014,7 +2084,7 @@ export default function SipGuidePage() {
                     </li>
                     <li>
                       <strong>Tax Rate:</strong>{' '}
-                      <span className="text-red-600 font-bold">20%</span> on
+                      <span className="text-red-600 font-semibold">20%</span> on
                       gains
                     </li>
                     <li>
@@ -2024,7 +2094,7 @@ export default function SipGuidePage() {
                 </div>
 
                 <div className="bg-white p-4 rounded-lg border border-teal-200">
-                  <p className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                  <p className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
                     <History className="h-4 w-4 text-slate-600" /> Long-Term
                     Capital Gains (LTCG)
                   </p>
@@ -2034,8 +2104,8 @@ export default function SipGuidePage() {
                     </li>
                     <li>
                       <strong>Tax Rate:</strong>{' '}
-                      <span className="text-blue-600 font-bold">12.5%</span> on
-                      gains
+                      <span className="text-blue-600 font-semibold">12.5%</span>{' '}
+                      on gains
                     </li>
                     <li>
                       <strong>Exemption:</strong> First ₹1.25 lakh gains per
@@ -2064,7 +2134,7 @@ export default function SipGuidePage() {
             <CardContent className="pt-4 text-sm text-slate-700">
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded-lg border border-slate-300">
-                  <p className="font-bold text-slate-900 mb-2">
+                  <p className="font-semibold text-slate-900 mb-2">
                     Taxation (All Durations)
                   </p>
                   <ul className="space-y-2 text-xs">
@@ -2074,7 +2144,7 @@ export default function SipGuidePage() {
                     </li>
                     <li>
                       <strong>Tax Rate:</strong> As per your{' '}
-                      <span className="font-bold">Income Tax Slab</span>
+                      <span className="font-semibold">Income Tax Slab</span>
                     </li>
                     <li>
                       <strong>No LTCG/STCG Benefits</strong> (from April 2023)
@@ -2083,7 +2153,7 @@ export default function SipGuidePage() {
                 </div>
 
                 <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-                  <p className="font-bold text-amber-900 mb-2 flex items-center gap-2">
+                  <p className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4" /> Tax Slab Rates (2026)
                   </p>
                   <ul className="space-y-1 text-xs text-slate-700">
@@ -2118,7 +2188,7 @@ export default function SipGuidePage() {
           </CardHeader>
           <CardContent className="pt-6 space-y-6">
             <div>
-              <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <History className="h-4 w-4 text-blue-600" /> FIFO Method (First
                 In, First Out)
               </h4>
@@ -2149,7 +2219,7 @@ export default function SipGuidePage() {
             </div>
 
             <div>
-              <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-green-600" /> ELSS (Equity
                 Linked Savings Scheme)
               </h4>
@@ -2196,7 +2266,7 @@ export default function SipGuidePage() {
           <CardContent className="pt-6">
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div className="bg-white p-4 rounded-lg border border-blue-200">
-                <p className="font-bold text-slate-900 mb-2">
+                <p className="font-semibold text-slate-900 mb-2">
                   1. Hold for 12+ Months
                 </p>
                 <p className="text-xs text-slate-700">
@@ -2206,7 +2276,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-blue-200">
-                <p className="font-bold text-slate-900 mb-2">
+                <p className="font-semibold text-slate-900 mb-2">
                   2. Utilize ₹1.25L Exemption
                 </p>
                 <p className="text-xs text-slate-700">
@@ -2216,7 +2286,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-blue-200">
-                <p className="font-bold text-slate-900 mb-2">
+                <p className="font-semibold text-slate-900 mb-2">
                   3. Tax Loss Harvesting
                 </p>
                 <p className="text-xs text-slate-700">
@@ -2226,7 +2296,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-blue-200">
-                <p className="font-bold text-slate-900 mb-2">
+                <p className="font-semibold text-slate-900 mb-2">
                   4. ELSS for 80C Benefits
                 </p>
                 <p className="text-xs text-slate-700">
@@ -2241,7 +2311,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 8: FUND SELECTION (NEW) --- */}
       <section id="fund-selection" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <Target className="h-6 w-6 text-purple-600" /> Choosing the Right SIP
           Funds
         </h2>
@@ -2260,7 +2330,7 @@ export default function SipGuidePage() {
                   <ShieldCheck className="h-6 w-6 text-blue-700" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Index Funds (Low Risk)
                   </h3>
                   <p className="text-sm text-slate-700 mb-3">
@@ -2291,7 +2361,7 @@ export default function SipGuidePage() {
                   <TrendingUp className="h-6 w-6 text-green-700" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Large Cap Funds (Low-Medium Risk)
                   </h3>
                   <p className="text-sm text-slate-700 mb-3">
@@ -2322,7 +2392,7 @@ export default function SipGuidePage() {
                   <Scale className="h-6 w-6 text-indigo-700" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Flexi Cap / Multi Cap Funds (Medium Risk)
                   </h3>
                   <p className="text-sm text-slate-700 mb-3">
@@ -2353,7 +2423,7 @@ export default function SipGuidePage() {
                   <TrendingUp className="h-6 w-6 text-amber-700" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Mid Cap Funds (Medium-High Risk)
                   </h3>
                   <p className="text-sm text-slate-700 mb-3">
@@ -2384,7 +2454,7 @@ export default function SipGuidePage() {
                   <AlertTriangle className="h-6 w-6 text-red-700" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Small Cap Funds (High Risk)
                   </h3>
                   <p className="text-sm text-slate-700 mb-3">
@@ -2421,7 +2491,7 @@ export default function SipGuidePage() {
             <div className="grid md:grid-cols-3 gap-4">
               {/* Conservative */}
               <div className="bg-white p-4 rounded-lg border-2 border-green-200">
-                <h4 className="font-bold text-green-800 mb-3 text-center">
+                <h4 className="font-semibold text-green-800 mb-3 text-center">
                   Conservative (Age 45+)
                 </h4>
                 <div className="space-y-2 text-xs text-slate-700">
@@ -2449,7 +2519,7 @@ export default function SipGuidePage() {
 
               {/* Moderate */}
               <div className="bg-white p-4 rounded-lg border-2 border-blue-200">
-                <h4 className="font-bold text-blue-800 mb-3 text-center">
+                <h4 className="font-semibold text-blue-800 mb-3 text-center">
                   Moderate (Age 30-45)
                 </h4>
                 <div className="space-y-2 text-xs text-slate-700">
@@ -2481,7 +2551,7 @@ export default function SipGuidePage() {
 
               {/* Aggressive */}
               <div className="bg-white p-4 rounded-lg border-2 border-red-200">
-                <h4 className="font-bold text-red-800 mb-3 text-center">
+                <h4 className="font-semibold text-red-800 mb-3 text-center">
                   Aggressive (Age 20-30)
                 </h4>
                 <div className="space-y-2 text-xs text-slate-700">
@@ -2515,7 +2585,7 @@ export default function SipGuidePage() {
         </Card>
 
         <div className="mt-6 bg-blue-50 p-5 rounded-xl border-2 border-blue-200">
-          <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-blue-600" /> Fund Selection
             Checklist
           </h4>
@@ -2565,7 +2635,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 9: MARKET CRASH STRATEGY --- */}
       <section id="market-crash" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <TrendingDown className="h-6 w-6 text-red-500" /> SIP During Market
           Crash: Your Winning Strategy
         </h2>
@@ -2595,16 +2665,16 @@ export default function SipGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50 hover:bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Strategy
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Units Accumulated
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Portfolio Value (Jan 2014)
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       CAGR
                     </TableHead>
                   </TableRow>
@@ -2633,11 +2703,11 @@ export default function SipGuidePage() {
                       <strong className="text-green-700">Doubled SIP</strong>{' '}
                       during crash (smart)
                     </TableCell>
-                    <TableCell className="font-bold">1,240 units</TableCell>
-                    <TableCell className="font-bold text-green-700 text-lg">
+                    <TableCell className="font-semibold">1,240 units</TableCell>
+                    <TableCell className="font-semibold text-green-700 text-lg">
                       ₹26.04 Lakh
                     </TableCell>
-                    <TableCell className="font-bold text-green-700">
+                    <TableCell className="font-semibold text-green-700">
                       23.1%
                     </TableCell>
                   </TableRow>
@@ -2718,7 +2788,7 @@ export default function SipGuidePage() {
           <CardContent className="pt-6">
             <div className="space-y-4">
               <div className="bg-white p-5 rounded-lg border-2 border-red-300">
-                <h4 className="font-bold text-red-900 mb-2 text-lg flex items-center gap-2">
+                <h4 className="font-semibold text-red-900 mb-2 text-lg flex items-center gap-2">
                   <span className="bg-red-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">
                     1
                   </span>
@@ -2733,7 +2803,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-5 rounded-lg border-2 border-amber-300">
-                <h4 className="font-bold text-amber-900 mb-2 text-lg flex items-center gap-2">
+                <h4 className="font-semibold text-amber-900 mb-2 text-lg flex items-center gap-2">
                   <span className="bg-amber-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">
                     2
                   </span>
@@ -2748,7 +2818,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-5 rounded-lg border-2 border-green-300">
-                <h4 className="font-bold text-green-900 mb-2 text-lg flex items-center gap-2">
+                <h4 className="font-semibold text-green-900 mb-2 text-lg flex items-center gap-2">
                   <span className="bg-green-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">
                     3
                   </span>
@@ -2766,7 +2836,7 @@ export default function SipGuidePage() {
         </Card>
 
         <div className="mt-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
-          <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-blue-600" /> Mindset Shift
             Required
           </h4>
@@ -2790,7 +2860,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 10: DURATION GUIDE --- */}
       <section id="duration" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <History className="h-6 w-6 text-slate-600" /> Minimum Investment
           Duration by Fund Type
         </h2>
@@ -2806,16 +2876,16 @@ export default function SipGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50 hover:bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Fund Category
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Minimum Duration
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Ideal Duration
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Reason
                     </TableHead>
                   </TableRow>
@@ -2825,7 +2895,7 @@ export default function SipGuidePage() {
                     <TableCell className="font-medium">
                       Large Cap / Index
                     </TableCell>
-                    <TableCell className="font-bold text-blue-600">
+                    <TableCell className="font-semibold text-blue-600">
                       5-7 Years
                     </TableCell>
                     <TableCell>10+ Years</TableCell>
@@ -2837,7 +2907,7 @@ export default function SipGuidePage() {
                     <TableCell className="font-medium">
                       Flexi Cap / Multi Cap
                     </TableCell>
-                    <TableCell className="font-bold text-blue-600">
+                    <TableCell className="font-semibold text-blue-600">
                       7-10 Years
                     </TableCell>
                     <TableCell>12+ Years</TableCell>
@@ -2847,7 +2917,7 @@ export default function SipGuidePage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Mid Cap</TableCell>
-                    <TableCell className="font-bold text-amber-600">
+                    <TableCell className="font-semibold text-amber-600">
                       7-10 Years
                     </TableCell>
                     <TableCell>15+ Years</TableCell>
@@ -2857,7 +2927,7 @@ export default function SipGuidePage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Small Cap</TableCell>
-                    <TableCell className="font-bold text-red-600">
+                    <TableCell className="font-semibold text-red-600">
                       10-15 Years
                     </TableCell>
                     <TableCell>20+ Years</TableCell>
@@ -2867,7 +2937,7 @@ export default function SipGuidePage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">ELSS</TableCell>
-                    <TableCell className="font-bold text-green-600">
+                    <TableCell className="font-semibold text-green-600">
                       3 Years (Lock-in)
                     </TableCell>
                     <TableCell>7-10 Years</TableCell>
@@ -2877,7 +2947,7 @@ export default function SipGuidePage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Debt Funds</TableCell>
-                    <TableCell className="font-bold text-slate-600">
+                    <TableCell className="font-semibold text-slate-600">
                       3-5 Years
                     </TableCell>
                     <TableCell>5-7 Years</TableCell>
@@ -2906,7 +2976,7 @@ export default function SipGuidePage() {
 
             <div className="grid md:grid-cols-4 gap-4 text-sm">
               <div className="bg-white p-4 rounded-lg border-2 border-red-200 text-center">
-                <div className="font-bold text-3xl text-red-600 mb-2">
+                <div className="font-semibold text-3xl text-red-600 mb-2">
                   1-3 Yr
                 </div>
                 <p className="text-slate-700 mb-1">-5% to +18% range</p>
@@ -2916,7 +2986,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-4 rounded-lg border-2 border-amber-200 text-center">
-                <div className="font-bold text-3xl text-amber-600 mb-2">
+                <div className="font-semibold text-3xl text-amber-600 mb-2">
                   5-7 Yr
                 </div>
                 <p className="text-slate-700 mb-1">8-14% CAGR</p>
@@ -2926,7 +2996,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-4 rounded-lg border-2 border-green-200 text-center">
-                <div className="font-bold text-3xl text-green-600 mb-2">
+                <div className="font-semibold text-3xl text-green-600 mb-2">
                   10-15 Yr
                 </div>
                 <p className="text-slate-700 mb-1">11-14% CAGR</p>
@@ -2936,7 +3006,7 @@ export default function SipGuidePage() {
               </div>
 
               <div className="bg-white p-4 rounded-lg border-2 border-blue-200 text-center">
-                <div className="font-bold text-3xl text-blue-600 mb-2">
+                <div className="font-semibold text-3xl text-blue-600 mb-2">
                   15+ Yr
                 </div>
                 <p className="text-slate-700 mb-1">12-16% CAGR</p>
@@ -2959,7 +3029,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 11: COMMON MISTAKES --- */}
       <section id="mistakes" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <AlertTriangle className="h-6 w-6 text-red-500" /> 10 Common SIP
           Mistakes to Avoid
         </h2>
@@ -2973,11 +3043,11 @@ export default function SipGuidePage() {
           <Card className="border-red-200 bg-red-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center font-bold text-red-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center font-semibold text-red-700 text-sm">
                   1
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Stopping SIP During Market Falls
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -2995,11 +3065,11 @@ export default function SipGuidePage() {
           <Card className="border-orange-200 bg-orange-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center font-bold text-orange-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center font-semibold text-orange-700 text-sm">
                   2
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Choosing Dividend Over Growth Option
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3018,11 +3088,11 @@ export default function SipGuidePage() {
           <Card className="border-amber-200 bg-amber-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center font-bold text-amber-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center font-semibold text-amber-700 text-sm">
                   3
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Over-Diversification (15+ Funds)
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3041,11 +3111,11 @@ export default function SipGuidePage() {
           <Card className="border-yellow-200 bg-yellow-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center font-bold text-yellow-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center font-semibold text-yellow-700 text-sm">
                   4
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Not Increasing SIP with Salary Hikes
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3064,11 +3134,11 @@ export default function SipGuidePage() {
           <Card className="border-lime-200 bg-lime-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center font-bold text-lime-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center font-semibold text-lime-700 text-sm">
                   5
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Chasing Last Year&apos;s Top Performers
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3087,11 +3157,11 @@ export default function SipGuidePage() {
           <Card className="border-green-200 bg-green-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center font-semibold text-green-700 text-sm">
                   6
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Redeeming for Small Expenses
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3110,11 +3180,11 @@ export default function SipGuidePage() {
           <Card className="border-teal-200 bg-teal-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center font-bold text-teal-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center font-semibold text-teal-700 text-sm">
                   7
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Investing Without Clear Goal
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3133,11 +3203,11 @@ export default function SipGuidePage() {
           <Card className="border-cyan-200 bg-cyan-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center font-bold text-cyan-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center font-semibold text-cyan-700 text-sm">
                   8
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Choosing Regular Plans Over Direct
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3156,11 +3226,11 @@ export default function SipGuidePage() {
           <Card className="border-blue-200 bg-blue-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center font-semibold text-blue-700 text-sm">
                   9
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Ignoring Asset Allocation Rebalancing
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3179,11 +3249,11 @@ export default function SipGuidePage() {
           <Card className="border-indigo-200 bg-indigo-50/20">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center font-bold text-indigo-700 text-sm">
+                <div className="shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center font-semibold text-indigo-700 text-sm">
                   10
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-2">
+                  <h4 className="font-semibold text-slate-900 mb-2">
                     Starting Too Late (After 35-40)
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
@@ -3201,7 +3271,7 @@ export default function SipGuidePage() {
         </div>
 
         <div className="mt-6 bg-red-50 p-5 rounded-xl border-2 border-red-200">
-          <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
             <Ban className="h-5 w-5 text-red-600" /> The Costliest Mistake
           </h4>
           <p className="text-sm text-slate-700">
@@ -3222,7 +3292,7 @@ export default function SipGuidePage() {
 
       {/* --- SECTION 12: MYTHS DEBUNKED --- */}
       <section id="myths" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <Ban className="h-6 w-6 text-amber-500" /> SIP Myths Debunked
         </h2>
         <p className="mb-6 text-slate-700">
@@ -3238,7 +3308,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-red-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-red-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-red-700 mb-2 text-lg">
                     Myth #1: &quot;SIP Guarantees Returns&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3263,7 +3333,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-orange-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-orange-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-orange-700 mb-2 text-lg">
                     Myth #2: &quot;I Need Large Amount to Start&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3286,7 +3356,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-amber-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-amber-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-amber-700 mb-2 text-lg">
                     Myth #3: &quot;I Can&apos;t Withdraw My Money&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3310,7 +3380,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-yellow-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-yellow-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-yellow-700 mb-2 text-lg">
                     Myth #4: &quot;Lump Sum is Always Better Than SIP&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3334,7 +3404,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-lime-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lime-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-lime-700 mb-2 text-lg">
                     Myth #5: &quot;SIP is Only for Young People&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3358,7 +3428,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-green-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-green-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-green-700 mb-2 text-lg">
                     Myth #6: &quot;Market Timing is Essential&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3382,7 +3452,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-teal-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-teal-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-teal-700 mb-2 text-lg">
                     Myth #7: &quot;SIP Works Only in Bull Markets&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3406,7 +3476,7 @@ export default function SipGuidePage() {
                   <Ban className="h-8 w-8 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-blue-700 mb-2 text-lg">
+                  <h4 className="font-semibold text-blue-700 mb-2 text-lg">
                     Myth #8: &ldquo;I Need Expert Knowledge to Start&quot;
                   </h4>
                   <div className="bg-green-50 p-3 rounded-lg border border-green-200">
@@ -3425,9 +3495,86 @@ export default function SipGuidePage() {
         </div>
       </section>
 
+      {/* --- RELATED TOOLS & GUIDES (NEW INTERNAL LINKS) --- */}
+      <Card className="mb-10 border-slate-200 bg-slate-50/40 no-print">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg font-semibold text-slate-900">
+            Related Calculators & Guides
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="grid gap-2 sm:grid-cols-2 text-sm">
+            <li>
+              <Link
+                href="/sip-calculator/"
+                className="text-blue-700 hover:underline"
+              >
+                SIP Calculator
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/lumpsum-calculator/"
+                className="text-blue-700 hover:underline"
+              >
+                Lumpsum Calculator
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/inflation-calculator/"
+                className="text-blue-700 hover:underline"
+              >
+                Inflation Calculator
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/elss-calculator/"
+                className="text-blue-700 hover:underline"
+              >
+                ELSS Calculator
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/guides/sip-vs-fd/"
+                className="text-blue-700 hover:underline"
+              >
+                SIP vs FD Guide
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/guides/mutual-fund-guide/"
+                className="text-blue-700 hover:underline"
+              >
+                Mutual Fund Guide
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/guides/tax-on-12-lakh-salary/"
+                className="text-blue-700 hover:underline"
+              >
+                Tax on ₹12 Lakh Salary
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/retirement-calculator/"
+                className="text-blue-700 hover:underline"
+              >
+                Retirement Calculator
+              </Link>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+
       {/* --- SECTION 13: FAQs --- */}
       <section id="faqs" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Frequently Asked Questions (FAQs)
         </h2>
         <Accordion type="single" collapsible className="w-full space-y-2">
@@ -3451,7 +3598,7 @@ export default function SipGuidePage() {
       {/* --- CONCLUSION --- */}
       <Card className="mb-8 border border-slate-900 bg-slate-900 text-white shadow-lg">
         <CardContent className="p-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
             <Lightbulb className="h-6 w-6 text-yellow-400" /> Final Verdict:
             Your SIP Action Plan
           </h2>
@@ -3463,7 +3610,9 @@ export default function SipGuidePage() {
 
           <div className="grid md:grid-cols-3 gap-4 mb-6">
             <div className="bg-slate-800 p-4 rounded-lg border border-slate-700">
-              <div className="text-3xl font-bold text-blue-400 mb-2">Start</div>
+              <div className="text-3xl font-semibold text-blue-400 mb-2">
+                Start
+              </div>
               <p className="text-sm text-slate-300">
                 Begin with ₹500-₹5,000 based on income. Don&apos;t wait for
                 &quot;perfect timing&quot;—there isn&apos;t one.
@@ -3471,7 +3620,7 @@ export default function SipGuidePage() {
             </div>
 
             <div className="bg-slate-800 p-4 rounded-lg border border-slate-700">
-              <div className="text-3xl font-bold text-green-400 mb-2">
+              <div className="text-3xl font-semibold text-green-400 mb-2">
                 Automate
               </div>
               <p className="text-sm text-slate-300">
@@ -3481,7 +3630,7 @@ export default function SipGuidePage() {
             </div>
 
             <div className="bg-slate-800 p-4 rounded-lg border border-slate-700">
-              <div className="text-3xl font-bold text-purple-400 mb-2">
+              <div className="text-3xl font-semibold text-purple-400 mb-2">
                 Step-Up
               </div>
               <p className="text-sm text-slate-300">
@@ -3492,7 +3641,7 @@ export default function SipGuidePage() {
           </div>
 
           <div className="bg-slate-800 p-5 rounded-lg border border-slate-700">
-            <h3 className="font-bold text-lg mb-3 text-white">
+            <h3 className="font-semibold text-lg mb-3 text-white">
               The 3 Non-Negotiables
             </h3>
             <div className="space-y-2">
@@ -3525,7 +3674,7 @@ export default function SipGuidePage() {
       {/* Author Bio */}
       <div className="mb-8 border-t border-slate-200 pt-8">
         <div className="prose prose-slate max-w-none">
-          <h3 className="text-lg font-bold text-slate-900 mb-3">
+          <h3 className="text-lg font-semibold text-slate-900 mb-3">
             About Fincado Research Team
           </h3>
           <p className="text-sm text-slate-700 leading-relaxed">
@@ -3560,7 +3709,7 @@ export default function SipGuidePage() {
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-blue-600 to-indigo-700 text-white border-none shadow-xl no-print">
         <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
-          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">
             Ready to Start Your Wealth Journey?
           </h2>
           <p className="mb-8 max-w-2xl text-blue-100 text-lg">
@@ -3570,14 +3719,14 @@ export default function SipGuidePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/sip-calculator/"
-              className="rounded-lg bg-white px-8 py-4 font-bold text-blue-700 transition hover:bg-blue-50 shadow-lg flex items-center gap-2"
+              className="rounded-lg bg-white px-8 py-4 font-semibold text-blue-700 transition hover:bg-blue-50 shadow-lg flex items-center gap-2"
             >
               <Calculator className="h-5 w-5" />
               Calculate My SIP Returns
             </Link>
             <Link
               href="/mutual-funds/"
-              className="rounded-lg border-2 border-blue-300 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50 flex items-center gap-2"
+              className="rounded-lg border-2 border-blue-300 bg-blue-800/30 px-8 py-4 font-semibold text-white transition hover:bg-blue-800/50 flex items-center gap-2"
             >
               <TrendingUp className="h-5 w-5" />
               Explore Top Mutual Funds

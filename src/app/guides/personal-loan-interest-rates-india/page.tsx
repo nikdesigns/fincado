@@ -7,6 +7,7 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear'; // ✅ add
 import {
   Table,
   TableBody,
@@ -35,29 +36,33 @@ import {
   Calculator,
   ArrowDownUp,
   Ban,
+  Link as LinkIcon, // ✅ optional icon for internal links block
 } from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Personal Loan Interest Rates India 2025: Complete Comparison Guide',
+  title:
+    'Personal Loan Interest Rates in India (2026): Bank vs NBFC Comparison',
   description:
-    'Personal Loan Interest Rates India 2025: Compare rates from 10.5%-24% across banks & NBFCs. Learn flat vs reducing balance, negotiation tips, CIBIL impact & save ₹lakhs on your loan!',
+    'Compare personal loan rates from top banks/NBFCs, flat vs reducing rate cost, CIBIL impact, and negotiation tips to reduce total interest.',
   keywords: [
-    'personal loan interest rate 2025 India',
-    'personal loan rates comparison',
-    'flat rate vs reducing balance',
-    'best personal loan rates',
-    'CIBIL score loan interest',
-    'personal loan EMI calculator'
+    'personal loan interest rates india',
+    'bank vs nbfc personal loan',
+    'personal loan rate comparison',
+    'flat vs reducing interest rate',
+    'CIBIL score personal loan rate',
+    'balance transfer personal loan',
+    'personal loan EMI calculator',
   ],
   alternates: {
-    canonical: 'https://fincado.com/guides/personal-loan-interest-rates/',
+    canonical: 'https://fincado.com/guides/personal-loan-interest-rates-india/',
   },
   openGraph: {
-    title: 'Personal Loan Interest Rates 2025 | Save Lakhs on Interest',
+    title:
+      'Personal Loan Interest Rates in India (2026): Bank vs NBFC Comparison',
     description:
-      'Compare 20+ Banks & NBFCs. Master Flat vs Reducing rates and negotiation tricks.',
-    url: 'https://fincado.com/guides/personal-loan-interest-rates/',
+      'Compare bank vs NBFC personal loan rates, understand true borrowing cost, and reduce interest with practical negotiation tips.',
+    url: 'https://fincado.com/guides/personal-loan-interest-rates-india/',
     type: 'article',
   },
 };
@@ -90,10 +95,25 @@ const FAQ_ITEMS = [
       'Is it wise to take a personal loan to invest in stocks or mutual funds?',
     answer:
       'No. Personal loan interest (14-24%) is a guaranteed cost, while investment returns are uncertain. This creates negative arbitrage and potential financial loss.',
-  }
+  },
+  {
+    question:
+      'What is a good personal loan rate for salaried borrowers in 2026?',
+    answer:
+      'For salaried borrowers with strong profiles (typically 750+ CIBIL, stable income, low FOIR), rates in the lower band of lender offers are generally considered good. In practical terms, compare at least 3 lenders and focus on total cost (rate + processing fee + insurance + prepayment terms), not just headline APR.',
+  },
+  {
+    question: 'How much can balance transfer save on a ₹5 lakh personal loan?',
+    answer:
+      'If you shift from a higher rate to a meaningfully lower rate and the remaining tenure is sufficient, balance transfer can save thousands to lakhs depending on tenure and fee structure. Always compare: (old remaining interest) vs (new interest + transfer fees + foreclosure charges).',
+  },
 ];
 
 export default function PersonalLoanGuidePage() {
+  const updatedLabel = getCurrentMonthYearLabel(); // ✅ dynamic fresh label
+  const currentYear = new Date().getFullYear();
+  const todayISO = new Date().toISOString().split('T')[0];
+
   return (
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* --- BREADCRUMBS --- */}
@@ -103,8 +123,8 @@ export default function PersonalLoanGuidePage() {
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Personal Loan Interest Rates',
-            url: 'https://fincado.com/guides/personal-loan-interest-rates/',
-          }
+            url: 'https://fincado.com/guides/personal-loan-interest-rates-india/', // ✅ fixed
+          },
         ]}
       />
 
@@ -117,9 +137,9 @@ export default function PersonalLoanGuidePage() {
             '@type': 'Article',
             inLanguage: 'en-IN',
             headline:
-              'Personal Loan Interest Rates in India 2025: Complete Comparison Guide',
+              'Personal Loan Interest Rates in India (2026): Bank vs NBFC Comparison',
             description:
-              'Compare Personal Loan rates, understand flat vs reducing balance, and learn negotiation strategies.',
+              'Compare personal loan rates from top banks/NBFCs, flat vs reducing rate cost, CIBIL impact, and negotiation tips to reduce total interest.',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -133,7 +153,7 @@ export default function PersonalLoanGuidePage() {
               },
             },
             datePublished: '2025-12-15',
-            dateModified: '2025-12-15',
+            dateModified: todayISO, // ✅ dynamic
           }),
         }}
       />
@@ -165,8 +185,9 @@ export default function PersonalLoanGuidePage() {
         >
           Flagship Guide
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          Personal Loan Rates India 2025-26: Comparison Guide
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+          Personal Loan Interest Rates in India ({currentYear}): Bank vs NBFC
+          Comparison
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
           <span className="flex items-center gap-1">
@@ -174,7 +195,8 @@ export default function PersonalLoanGuidePage() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Dec 2025</strong>
+            Updated: <strong className="text-slate-700">{updatedLabel}</strong>{' '}
+            {/* ✅ dynamic */}
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -182,7 +204,9 @@ export default function PersonalLoanGuidePage() {
           </span>
         </div>
         <div className="mt-6">
-          <ShareTools title="Personal Loan Interest Rates Guide 2025" />
+          <ShareTools
+            title={`Personal Loan Interest Rates Guide (${currentYear})`}
+          />
         </div>
       </header>
 
@@ -216,10 +240,64 @@ export default function PersonalLoanGuidePage() {
         </CardContent>
       </Card>
 
+      {/* Summary Table */}
+      {/* --- QUICK DECISION TABLE (NEW) --- */}
+      <Card className="mb-10 border-slate-200 bg-slate-50/40 shadow-sm">
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold text-slate-900">
+            Quick Snapshot: Best Rate Range by Credit Profile
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Credit Score Band</TableHead>
+                  <TableHead>Typical Rate Range</TableHead>
+                  <TableHead>Best Lender Type</TableHead>
+                  <TableHead>Expected Approval Speed</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium">750+</TableCell>
+                  <TableCell>~10.5% – 13.5%</TableCell>
+                  <TableCell>Top Banks / Prime NBFCs</TableCell>
+                  <TableCell>24–72 hours</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">700–749</TableCell>
+                  <TableCell>~12.5% – 16.5%</TableCell>
+                  <TableCell>Banks + Large NBFCs</TableCell>
+                  <TableCell>2–5 days</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">650–699</TableCell>
+                  <TableCell>~15% – 20%</TableCell>
+                  <TableCell>NBFC-focused</TableCell>
+                  <TableCell>3–7 days</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">&lt;650</TableCell>
+                  <TableCell>~18% – 24%+</TableCell>
+                  <TableCell>Limited / Risk-based</TableCell>
+                  <TableCell>Varies, stricter checks</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Ranges are indicative and vary by lender policy, income stability,
+            FOIR, and city profile.
+          </p>
+        </CardContent>
+      </Card>
+
       {/* --- TOC --- */}
       <Card className="mb-12 border-slate-200 bg-slate-50/50 no-print">
         <CardContent className="p-6">
-          <p className="mb-4 text-lg font-bold text-slate-900">
+          <p className="mb-4 text-lg font-semibold text-slate-900">
             Table of Contents
           </p>
           <ul className="grid gap-2 sm:grid-cols-2 text-sm text-slate-700">
@@ -296,6 +374,84 @@ export default function PersonalLoanGuidePage() {
         </CardContent>
       </Card>
 
+      {/* --- RELATED TOOLS & GUIDES (NEW INTERNAL LINKS) --- */}
+      <Card className="mb-12 border-slate-200 bg-white no-print">
+        <CardHeader>
+          <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+            <LinkIcon className="h-5 w-5 text-blue-600" />
+            Related Tools & Guides
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="grid gap-2 sm:grid-cols-2 text-sm">
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/loans/personal-loan/"
+              >
+                Personal Loan EMI Calculator
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/emi-calculator/"
+              >
+                General EMI Calculator
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/credit-score/"
+              >
+                Check Credit Score (Estimator)
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/guides/how-credit-score-affects-loans/"
+              >
+                How Credit Score Affects Loans
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/guides/personal-loan-guide/"
+              >
+                Personal Loan Guide
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/guides/personal-loan-interest-rates/"
+              >
+                Personal Loan Interest Rates (Legacy Guide)
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/compare-loans/"
+              >
+                Loan Comparison Hub
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/guides/emi-calculator-guide/"
+              >
+                EMI Calculator Guide
+              </Link>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+
       {/* 💰 AD SLOT 1 */}
       <div className="no-print my-8">
         <AdSlot id="guide-pl-1" type="leaderboard" />
@@ -305,7 +461,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="rates-comparison"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Percent className="h-6 w-6 text-emerald-600" /> Current Interest
           Rates (2025)
@@ -320,11 +476,13 @@ export default function PersonalLoanGuidePage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">Bank</TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
+                  Bank
+                </TableHead>
+                <TableHead className="font-semibold text-slate-900">
                   Rate Range
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Processing Fee
                 </TableHead>
               </TableRow>
@@ -359,11 +517,13 @@ export default function PersonalLoanGuidePage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">NBFC</TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
+                  NBFC
+                </TableHead>
+                <TableHead className="font-semibold text-slate-900">
                   Rate Range
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Processing Fee
                 </TableHead>
               </TableRow>
@@ -403,7 +563,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="cibil-impact"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <TrendingUp className="h-6 w-6 text-blue-600" /> Credit Score Impact
         </h2>
@@ -428,20 +588,20 @@ export default function PersonalLoanGuidePage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   CIBIL Score
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Rate Impact
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Approval Chance
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-bold text-emerald-600">
+                <TableCell className="font-semibold text-emerald-600">
                   800-900
                 </TableCell>
                 <TableCell className="text-emerald-600">
@@ -491,7 +651,7 @@ export default function PersonalLoanGuidePage() {
             <p className="mb-4">
               <strong>Rate Difference:</strong> 24% vs 11%.
             </p>
-            <div className="bg-white p-3 rounded border border-red-200 text-center font-bold text-red-800">
+            <div className="bg-white p-3 rounded border border-red-200 text-center font-semibold text-red-800">
               Extra Interest Paid: ₹1.12 Lakh!
             </div>
           </CardContent>
@@ -507,7 +667,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="employment-type"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Briefcase className="h-6 w-6 text-indigo-600" /> Salary vs
           Self-Employed Rates
@@ -522,13 +682,13 @@ export default function PersonalLoanGuidePage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Lender
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Salaried Rate
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Self-Employed Rate
                 </TableHead>
               </TableRow>
@@ -563,7 +723,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="flat-vs-reducing"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <AlertTriangle className="h-6 w-6 text-red-600" /> The &quot;Flat
           Rate&quot; Trap
@@ -617,7 +777,7 @@ export default function PersonalLoanGuidePage() {
           </Card>
         </div>
 
-        <div className="bg-red-50 p-4 rounded-lg border border-red-100 text-sm text-red-900 text-center font-bold">
+        <div className="bg-red-50 p-4 rounded-lg border border-red-100 text-sm text-red-900 text-center font-semibold">
           Verdict: Always ask for the Reducing Balance Rate (APR).
         </div>
       </section>
@@ -631,7 +791,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="emi-tables"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-slate-600" /> EMI Comparison Table
           (₹5 Lakh)
@@ -640,14 +800,16 @@ export default function PersonalLoanGuidePage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">Rate</TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
+                  Rate
+                </TableHead>
+                <TableHead className="font-semibold text-slate-900">
                   1 Year EMI
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   3 Years EMI
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   5 Years EMI
                 </TableHead>
               </TableRow>
@@ -697,7 +859,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="negotiation"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <User className="h-6 w-6 text-purple-600" /> Negotiation Playbook
         </h2>
@@ -737,7 +899,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="prepayment"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <ArrowDownUp className="h-6 w-6 text-orange-600" /> Prepayment &
           Foreclosure
@@ -750,13 +912,13 @@ export default function PersonalLoanGuidePage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Lender
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Lock-in
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Penalty
                 </TableHead>
               </TableRow>
@@ -791,7 +953,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="red-flags"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Ban className="h-6 w-6 text-red-600" /> When NOT to Take a Personal
           Loan
@@ -837,7 +999,7 @@ export default function PersonalLoanGuidePage() {
       <section className="mb-12">
         <h2
           id="faqs"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20"
         >
           Frequently Asked Questions (FAQs)
         </h2>
@@ -862,7 +1024,7 @@ export default function PersonalLoanGuidePage() {
       {/* --- CONCLUSION --- */}
       <Card className="mb-8 border-slate-200 bg-slate-900 text-white">
         <CardContent className="p-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
             <CheckCircle2 className="h-6 w-6 text-emerald-400" /> Final Verdict
           </h2>
           <p className="mb-6 text-slate-300 leading-relaxed">
@@ -897,20 +1059,22 @@ export default function PersonalLoanGuidePage() {
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-blue-600 to-indigo-700 text-white border-none shadow-xl no-print">
         <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">
-          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">Need a loan?</h2>
+          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">
+            Need a loan?
+          </h2>
           <p className="mb-8 max-w-lg text-blue-100 text-lg">
             Check your eligibility and calculate your EMI first.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/loans/personal-loan/"
-              className="rounded-lg bg-white px-8 py-4 font-bold text-blue-700 transition hover:bg-blue-50 shadow-lg"
+              className="rounded-lg bg-white px-8 py-4 font-semibold text-blue-700 transition hover:bg-blue-50 shadow-lg"
             >
               Personal Loan EMI
             </Link>
             <Link
               href="/simple-interest-calculator/"
-              className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
+              className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-semibold text-white transition hover:bg-blue-800/50"
             >
               Check Flat Rate
             </Link>

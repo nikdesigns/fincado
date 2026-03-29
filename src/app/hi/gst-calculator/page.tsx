@@ -34,19 +34,20 @@ import { BadgeCheck, Info, ArrowRight, Receipt, Building } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'GST कैलकुलेटर भारत 2026 – ऑनलाइन GST टैक्स गणना करें | रिवर्स GST',
+  title:
+    'GST कैलकुलेटर हिंदी (2026) – रिवर्स GST, Inclusive/Exclusive टैक्स कैलकुलेशन',
   description:
-    'भारत के लिए मुफ्त GST कैलकुलेटर। CGST/SGST विभाजन के साथ GST Exclusive (टैक्स जोड़ें) और Inclusive (टैक्स हटाएं) गणना करें। 3%, 5%, 12%, 18%, 28% दरों का समर्थन। व्यवसायों के लिए तुरंत परिणाम।',
+    'मुफ्त GST कैलकुलेटर: GST Exclusive (टैक्स जोड़ें) और Inclusive/रिवर्स GST (टैक्स हटाएं) तुरंत गणना करें। CGST/SGST/IGST ब्रेकअप, 3%, 5%, 12%, 18%, 28% दरों के साथ।',
   keywords: [
-    'GST कैलकुलेटर भारत',
+    'GST कैलकुलेटर हिंदी',
     'रिवर्स GST कैलकुलेटर',
-    'GST गणना फॉर्मूला',
-    'GST दरें 2026',
-    'सोने पर GST गणना',
-    'IGST CGST SGST कैलकुलेटर',
+    'GST inclusive calculator',
+    'GST exclusive calculator',
+    'GST जोड़ें हटाएं कैलकुलेटर',
+    'CGST SGST IGST कैलकुलेटर',
+    'GST फॉर्मूला हिंदी',
+    'MRP से GST कैसे निकालें',
     'GST टैक्स कैलकुलेटर ऑनलाइन',
-    'कीमत में GST जोड़ें',
-    'MRP से GST हटाएं'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/gst-calculator/',
@@ -55,9 +56,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'GST कैलकुलेटर 2026 – तुरंत GST टैक्स गणना करें',
+    title: 'GST कैलकुलेटर हिंदी (2026): Inclusive/Exclusive + रिवर्स GST',
     description:
-      'व्यवसायों और उपभोक्ताओं के लिए मुफ्त ऑनलाइन GST कैलकुलेटर। CGST, SGST, IGST विभाजन के साथ GST exclusive/inclusive कीमतें गणना करें।',
+      'GST जोड़ें/हटाएं, CGST/SGST/IGST ब्रेकअप देखें, और रिवर्स GST फॉर्मूला से बेस प्राइस निकालें।',
     url: 'https://fincado.com/hi/gst-calculator/',
     type: 'website',
     locale: 'hi_IN',
@@ -136,7 +137,7 @@ const faqItems = [
     question: 'GST में HSN/SAC कोड क्या है?',
     answer:
       'HSN (Harmonized System of Nomenclature) माल वर्गीकरण के लिए 6-8 अंकों का कोड है। SAC (Services Accounting Code) सेवाओं के लिए 6 अंकों का कोड है। लागू GST दर निर्धारित करने के लिए उपयोग किया जाता है। चालान में अनिवार्य: कारोबार > ₹5 करोड़ के लिए 4-अंक, ₹1.5-5 करोड़ के लिए 2-अंक, ₹1.5 करोड़ से नीचे वैकल्पिक।',
-  }
+  },
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -238,7 +239,7 @@ export default function GSTPageHindi() {
           {
             name: 'GST कैलकुलेटर',
             url: 'https://fincado.com/hi/gst-calculator/',
-          }
+          },
         ]}
       />
 
@@ -289,6 +290,67 @@ export default function GSTPageHindi() {
               `}
             />
           </div>
+
+          {/* --- GST FORMULA SUMMARY TABLE (NEW) --- */}
+          <Card className="mt-6 max-w-4xl border-emerald-200 bg-white shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg font-semibold text-slate-900">
+                GST फॉर्मूला सारांश (Quick Reference)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Input Type</TableHead>
+                      <TableHead>Formula</TableHead>
+                      <TableHead>Quick Example</TableHead>
+                      <TableHead>Output Fields</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        GST Exclusive
+                      </TableCell>
+                      <TableCell>
+                        GST = Base × (Rate/100),
+                        <br />
+                        Total = Base + GST
+                      </TableCell>
+                      <TableCell>
+                        ₹10,000 @18% → GST ₹1,800,
+                        <br />
+                        Total ₹11,800
+                      </TableCell>
+                      <TableCell>GST राशि, अंतिम चालान</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        GST Inclusive (Reverse)
+                      </TableCell>
+                      <TableCell>
+                        Base = MRP ÷ (1 + Rate/100),
+                        <br />
+                        GST = MRP - Base
+                      </TableCell>
+                      <TableCell>
+                        ₹11,800 @18% → Base ₹10,000,
+                        <br />
+                        GST ₹1,800
+                      </TableCell>
+                      <TableCell>मूल कीमत, GST राशि</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+              <p className="mt-3 text-xs text-slate-500">
+                नोट: अंतर-राज्य लेनदेन में IGST, और एक ही राज्य के भीतर
+                CGST+SGST लागू होता है।
+              </p>
+            </CardContent>
+          </Card>
 
           {/* Budget 2026 Status */}
           <div className="mt-6 flex gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-lg items-start shadow-sm max-w-2xl">
@@ -888,6 +950,67 @@ export default function GSTPageHindi() {
             <div className="no-print my-8">
               <AdSlot id="hi-gst-before-faq" type="leaderboard" lazyLoad />
             </div>
+
+            {/* --- RELATED TOOLS & GUIDES (NEW INTERNAL LINKS) --- */}
+            <Card className="mb-8 border-slate-200 bg-slate-50/40 no-print">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold text-slate-900">
+                  संबंधित कैलकुलेटर और गाइड
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="grid gap-2 sm:grid-cols-2 text-sm">
+                  <li>
+                    <Link
+                      href="/hi/calculators/"
+                      className="text-emerald-700 hover:underline"
+                    >
+                      सभी हिंदी कैलकुलेटर
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/hi/income-tax-calculator/"
+                      className="text-emerald-700 hover:underline"
+                    >
+                      इनकम टैक्स कैलकुलेटर
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/hi/simple-interest-calculator/"
+                      className="text-emerald-700 hover:underline"
+                    >
+                      साधारण ब्याज कैलकुलेटर
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/hi/credit-score/"
+                      className="text-emerald-700 hover:underline"
+                    >
+                      क्रेडिट स्कोर कैलकुलेटर
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/hi/guides/new-vs-old-tax-regime/"
+                      className="text-emerald-700 hover:underline"
+                    >
+                      नई vs पुरानी टैक्स व्यवस्था गाइड
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/gst-calculator/"
+                      className="text-emerald-700 hover:underline"
+                    >
+                      English GST Calculator
+                    </Link>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
             {/* FAQs */}
             <section className="no-print mt-12">
