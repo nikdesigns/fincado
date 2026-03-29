@@ -32,12 +32,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // 1. Find the article (Safely filter for English to avoid grabbing Hindi by mistake)
   const article = (articles as Article[]).find(
-    (a) => a.slug === slug && (!a.language || a.language === 'en')
+    (a) => a.slug === slug && (!a.language || a.language === 'en'),
   );
 
   if (!article) return {};
 
-  const baseUrl = 'https://fincado.com/';
+  const baseUrl = 'https://fincado.com';
   // 2. Define URLs with trailing slashes
   const enUrl = `${baseUrl}/guides/${article.slug}/`;
   const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
@@ -116,7 +116,7 @@ export default async function GuidePost({ params }: Props) {
           {
             name: article.title,
             url: `https://fincado.com/guides/${article.slug}`,
-          }
+          },
         ]}
       />
 

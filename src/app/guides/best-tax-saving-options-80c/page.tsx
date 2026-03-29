@@ -55,13 +55,13 @@ export const metadata: Metadata = {
     'tax planning for 30 percent slab',
   ],
   alternates: {
-    canonical: 'https://fincado.com/guides/best-tax-saving-options-80c',
+    canonical: 'https://fincado.com/guides/best-tax-saving-options-80c/',
   },
   openGraph: {
     title: 'Best 80C Tax Saving Options 2026 | Save ₹46,800 Tax',
     description:
       'Compare ELSS, PPF, EPF, and FD. Find the best tax-saving investment to build wealth and save tax under Section 80C in 2026.',
-    url: 'https://fincado.com/guides/best-tax-saving-options-80c',
+    url: 'https://fincado.com/guides/best-tax-saving-options-80c/',
     type: 'article',
     images: [
       {
@@ -123,7 +123,7 @@ export default function TaxSavingOptionsGuide() {
               'Comprehensive guide comparing ELSS, PPF, EPF, FD and other Section 80C investments to maximize tax savings and wealth creation in 2026.',
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': 'https://fincado.com/guides/best-tax-saving-options-80c',
+              '@id': 'https://fincado.com/guides/best-tax-saving-options-80c/',
             },
             image: {
               '@type': 'ImageObject',
@@ -136,7 +136,7 @@ export default function TaxSavingOptionsGuide() {
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
-              url: 'https://fincado.com/about',
+              url: 'https://fincado.com/about/',
             },
             publisher: {
               '@type': 'Organization',
@@ -207,7 +207,7 @@ export default function TaxSavingOptionsGuide() {
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'Best 80C Options',
-            url: 'https://fincado.com/guides/best-tax-saving-options-80c',
+            url: 'https://fincado.com/guides/best-tax-saving-options-80c/',
           },
         ]}
       />

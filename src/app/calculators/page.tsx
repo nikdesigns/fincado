@@ -52,17 +52,17 @@ export const metadata: Metadata = {
   creator: 'Fincado',
   publisher: 'Fincado',
   alternates: {
-    canonical: 'https://fincado.com/calculators',
+    canonical: 'https://fincado.com/calculators/',
     languages: {
-      hi: 'https://fincado.com/hi/calculators',
-      en: 'https://fincado.com/calculators',
+      hi: 'https://fincado.com/hi/calculators/',
+      en: 'https://fincado.com/calculators/',
     },
   },
   openGraph: {
     title: '30+ Free Financial Calculators for India (2026)',
     description:
       'Free calculators for loans, investments, taxes and retirement planning. EMI, SIP, Home Loan, Income Tax and more. Updated for FY 2026-27.',
-    url: 'https://fincado.com/calculators',
+    url: 'https://fincado.com/calculators/',
     siteName: 'Fincado',
     type: 'website',
     locale: 'en_IN',
@@ -99,17 +99,17 @@ export default function CalculatorsPage() {
   const collectionSchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    '@id': 'https://fincado.com/calculators',
+    '@id': 'https://fincado.com/calculators/',
     name: '30+ Free Financial Calculators for India',
     description:
       'Complete suite of financial calculators for loans, investments, taxes and retirement planning. Updated for FY 2026-27.',
-    url: 'https://fincado.com/calculators',
+    url: 'https://fincado.com/calculators/',
     inLanguage: 'en-IN',
     isPartOf: {
       '@type': 'WebSite',
       '@id': 'https://fincado.com/#website',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     mainEntity: {
       '@type': 'ItemList',
@@ -221,7 +221,7 @@ export default function CalculatorsPage() {
     '@context': 'https://schema.org',
     '@type': 'FinancialService',
     name: 'Fincado',
-    url: 'https://fincado.com',
+    url: 'https://fincado.com/',
     logo: 'https://fincado.com/logo.png',
     description:
       'Financial planning platform with free calculators for loans, investments and retirement.',
@@ -238,7 +238,7 @@ export default function CalculatorsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Calculators', url: 'https://fincado.com/calculators' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators/' },
         ]}
       />
 

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/emi-calculator/',
     languages: {
       'en-IN': 'https://fincado.com/emi-calculator/',
-      'hi-IN': 'https://fincado.com/hi/emi-calculator',
+      'hi-IN': 'https://fincado.com/hi/emi-calculator/',
     },
   },
   openGraph: {
