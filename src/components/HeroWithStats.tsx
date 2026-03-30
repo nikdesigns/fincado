@@ -1,6 +1,7 @@
 // src/components/HeroWithStats.tsx
 'use client';
 import React from 'react';
+import Image from 'next/image';
 
 export default function HeroWithStats({
   imageSrc,
@@ -17,15 +18,22 @@ export default function HeroWithStats({
     { value: '10+', label: 'Tools' },
     { value: '5,000+', label: 'Monthly Users' },
     { value: '₹500 Cr+', label: 'EMIs Calculated' },
-    { value: '100%', label: 'Free & Secure' }
+    { value: '100%', label: 'Free & Secure' },
   ];
 
   return (
     <section className="hero-stats-block" aria-label="Fincado site stats">
       <div className="hero-stats-inner container">
         <div className="hero-left">
-          <div className="image-wrap" aria-hidden>
-            <img src={imageSrc} alt={imageAlt} className="hero-photo" />
+          <div className="image-wrap relative" aria-hidden>
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              className="hero-photo"
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              priority={false}
+            />
           </div>
         </div>
 
