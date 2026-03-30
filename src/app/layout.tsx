@@ -138,7 +138,6 @@ export default function RootLayout({
       </head>
 
       <body className={customFont.className}>
-        {/* AdSense Script */}
         {/* Consent-aware analytics and ad scripts */}
         <React.Suspense fallback={null}>
           <ScriptManager />

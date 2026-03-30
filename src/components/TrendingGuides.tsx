@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type ViewRecord = { slug: string; title: string; views: number };
 
@@ -13,7 +14,7 @@ export default function TrendingGuides() {
         if (!res.ok) return;
         const json = await res.json();
         setItems(json.top || []);
-      } catch (e) {
+      } catch {
         // ignore
       }
     }
@@ -26,7 +27,7 @@ export default function TrendingGuides() {
     <ul className="trending-list">
       {items.map((i) => (
         <li key={i.slug}>
-          <a href={`/guides/${i.slug}/`}>{i.title}</a>
+          <Link href={`/guides/${i.slug}/`}>{i.title}</Link>
           <span className="trend-count">{i.views}</span>
         </li>
       ))}

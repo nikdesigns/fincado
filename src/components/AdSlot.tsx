@@ -1,7 +1,7 @@
 /* src/components/AdSlot.tsx */
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 type AdType =
   | 'leaderboard'
@@ -33,6 +33,7 @@ export default function AdSlot({
   className = '',
 }: AdSlotProps) {
   const adRef = useRef<HTMLDivElement>(null);
+  const reactId = useId();
   const [isAdLoaded, setIsAdLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(!lazyLoad);
 
@@ -63,10 +64,10 @@ export default function AdSlot({
 
   const finalSlotId = getSlotId();
   const PUBLISHER_ID = 'ca-pub-6648091987919638';
+  const fallbackId = id ?? reactId.replace(/:/g, '');
 
-  // ✅ CRITICAL: Unique ID for this ad slot instance
-  // eslint-disable-next-line react-hooks/purity
-  const uniqueAdId = `${finalSlotId}-${id || Math.random().toString(36).substr(2, 9)}`;
+  // ✅ CRITICAL: Stable unique ID for this ad slot instance
+  const uniqueAdId = `${finalSlotId}-${fallbackId}`;
 
   // ✅ 3. Lazy Loading with Intersection Observer
   useEffect(() => {
