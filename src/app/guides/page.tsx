@@ -11,9 +11,9 @@ import { Languages } from 'lucide-react';
 
 // --- METADATA (Server Side) ---
 export const metadata: Metadata = {
-  title: 'Financial Guides & Wisdom | Fincado',
+  title: 'Financial Guides in English | Loans, SIP, Tax & Credit Score (2026)',
   description:
-    'Expert guides on Home Loans, SIP, Income Tax, and Credit Scores. Simplify your financial decisions with Fincado.',
+    'Read updated personal finance guides in English on home loans, SIP, mutual funds, taxes, insurance, and credit scores for India.',
   keywords: [
     'financial guides',
     'personal finance articles',
@@ -22,10 +22,14 @@ export const metadata: Metadata = {
     'SIP investment tips',
     'tax planning guides',
     'credit score tips',
-    'financial literacy india'
+    'financial literacy india',
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/',
+    languages: {
+      en: 'https://fincado.com/guides/',
+      hi: 'https://fincado.com/hi/guides/',
+    },
   },
 };
 
@@ -41,39 +45,61 @@ export default function GuidesPage() {
 
   // Sort by Newest
   const sortedGuides = Array.from(uniqueArticles.values()).sort(
-    (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
+    (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime(),
   );
+
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': 'https://fincado.com/guides/',
+    name: 'Financial Guides in English',
+    description:
+      'In-depth guides on loans, SIP, mutual funds, taxation, insurance and credit scores in India.',
+    url: 'https://fincado.com/guides/',
+    inLanguage: 'en-IN',
+    numberOfItems: sortedGuides.length,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': 'https://fincado.com/#website',
+      name: 'Fincado',
+      url: 'https://fincado.com/',
+    },
+  };
 
   return (
     <main className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Guides', url: 'https://fincado.com/guides/' }
+          { name: 'Guides', url: 'https://fincado.com/guides/' },
         ]}
       />
 
       {/* --- HINDI PROMO BANNER --- */}
       <div className="no-print my-10">
-        <Card className="bg-linear-to-r from-rose-50 to-white border-rose-200 shadow-sm overflow-hidden">
+        <Card className="bg-linear-to-r from-[#fff7ed] to-white border-[#FFE4B7] shadow-sm overflow-hidden">
           <CardContent className="p-0">
             <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 gap-4">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#ffedd5] text-[#FF9F4C]">
                   <Languages className="h-6 w-6" />
                 </div>
                 <div className="text-center sm:text-left">
-                  <h3 className="font-bold text-rose-800 text-lg">
+                  <h3 className="font-semibold text-[#933D18] text-lg">
                     हिंदी में पढ़ना चाहते हैं?
                   </h3>
-                  <p className="text-sm text-rose-700 mt-1">
+                  <p className="text-sm text-[#933D18] mt-1">
                     हमारे चुनिंदा गाइड्स अब हिंदी में भी उपलब्ध हैं।
                   </p>
                 </div>
               </div>
 
               <Link href="/hi/" className="w-full sm:w-auto">
-                <Button className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-semibold">
+                <Button className="w-full sm:w-auto bg-[#FFD093] hover:bg-[#FFE4B7] text-[#933D18] font-semibold">
                   हिंदी गाइड्स देखें &rarr;
                 </Button>
               </Link>
@@ -91,13 +117,13 @@ export default function GuidesPage() {
       <header className="mx-auto max-w-3xl text-center mb-12">
         <Badge
           variant="secondary"
-          className="mb-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-3 py-1 text-xs uppercase tracking-wider font-bold"
+          className="mb-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1 text-xs uppercase tracking-wider font-semibold"
         >
           Financial Wisdom
         </Badge>
 
-        <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl mb-6">
-          Read. Learn. <span className="text-emerald-600">Grow.</span>
+        <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl md:text-6xl mb-6">
+          Read. Learn. <span className="text-[#577A30]">Grow.</span>
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
