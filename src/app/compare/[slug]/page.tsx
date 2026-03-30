@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import {
   Calculator,
   CheckCircle2,
@@ -76,6 +76,10 @@ function parseCompareSlug(slug: string) {
   return { b1, b2 };
 }
 
+function toCanonicalCompareSlug(s1: string, s2: string): string {
+  return [s1, s2].sort().join('-vs-');
+}
+
 function calculateEMI(
   principal: number,
   annualRate: number,
@@ -106,14 +110,42 @@ function formatLakhs(value: number): string {
   return (value / 100000).toFixed(1);
 }
 
+function getComparisonAngle(opts: {
+  b1Name: string;
+  b2Name: string;
+  rateDiff: number;
+  likelyPrivate: string | null;
+  likelyPsu: string | null;
+}): { label: string; body: string } {
+  const { b1Name, b2Name, rateDiff, likelyPrivate, likelyPsu } = opts;
+
+  if (rateDiff < 0.15) {
+    return {
+      label: 'Close-rate matchup',
+      body: `${b1Name} and ${b2Name} are currently in a tight rate band. In close-rate cases, processing speed, sanction consistency, and reset behavior often matter more than headline rate alone.`,
+    };
+  }
+
+  if (likelyPrivate && likelyPsu) {
+    return {
+      label: 'Speed vs cost trade-off',
+      body: `This is a classic private-vs-PSU decision profile: ${likelyPrivate} may be faster on digital journey, while ${likelyPsu} can remain competitive on long-tenure repayment cost.`,
+    };
+  }
+
+  return {
+    label: 'Rate-led decision setup',
+    body: `The current rate gap is meaningful enough to justify a repayment-first decision. Still compare total cost levers like fees, reset frequency, and prepayment flexibility before finalizing.`,
+  };
+}
+
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
 
-  for (const b1 of banks) {
-    for (const b2 of banks) {
-      if (b1.slug !== b2.slug) {
-        params.push({ slug: `${b1.slug}-vs-${b2.slug}` });
-      }
+  for (let i = 0; i < banks.length; i++) {
+    for (let j = 0; j < banks.length; j++) {
+      if (i !== j)
+        params.push({ slug: `${banks[i].slug}-vs-${banks[j].slug}` });
     }
   }
 
@@ -133,6 +165,7 @@ export async function generateMetadata({
   if (!parsed) return {};
 
   const { b1, b2 } = parsed;
+  const canonicalSlug = toCanonicalCompareSlug(b1.slug, b2.slug);
   const lowerRateBank = b1.rate <= b2.rate ? b1 : b2;
   const rateDiff = Math.abs(b1.rate - b2.rate).toFixed(2);
 
@@ -144,17 +177,23 @@ export async function generateMetadata({
       `${b1.name} ${b2.name} home loan comparison`,
       `${b1.name} interest rate ${fy.shortYear}`,
       `${b2.name} interest rate ${fy.shortYear}`,
+      `${b1.name} vs ${b2.name} which is better`,
       'home loan comparison india',
-      'EMI difference calculator',
       'best bank for home loan',
+      'home loan rate comparison',
+      'EMI difference calculator',
     ],
+    authors: [{ name: 'Fincado Research Team' }],
+    creator: 'Fincado',
+    publisher: 'Fincado',
     alternates: {
-      canonical: `https://fincado.com/compare/${slug}/`,
+      canonical: `https://fincado.com/compare/${canonicalSlug}/`,
     },
     openGraph: {
-      title: `${b1.name} vs ${b2.name} Home Loan (${fy.shortYear}): Rates, EMI Difference & Best Choice`,
+      title: `${b1.name} vs ${b2.name} Home Loan (${fy.shortYear})`,
       description: `Compare ${b1.name} (${b1.rate}%) vs ${b2.name} (${b2.rate}%) with EMI impact, approval speed, and borrower-fit guidance.`,
-      url: `https://fincado.com/compare/${slug}/`,
+      url: `https://fincado.com/compare/${canonicalSlug}/`,
+      siteName: 'Fincado',
       type: 'article',
       images: [
         {
@@ -164,6 +203,23 @@ export async function generateMetadata({
           alt: `${b1.name} vs ${b2.name} Home Loan Comparison`,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${b1.name} vs ${b2.name} Home Loan Comparison`,
+      description: `${b1.rate}% vs ${b2.rate}% — compare EMI impact, fees, and approval speed.`,
+      images: [`https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   };
 }
@@ -177,10 +233,16 @@ export default async function ComparisonPage({
   const fy = getCurrentFiscalYear();
   const monthYear = getCurrentMonthYearLabel();
   const parsed = parseCompareSlug(slug);
-
   if (!parsed) notFound();
 
   const { b1, b2 } = parsed;
+  const canonicalSlug = toCanonicalCompareSlug(b1.slug, b2.slug);
+
+  // Redirect reverse-order slug to canonical slug
+  if (slug !== canonicalSlug) {
+    redirect(`/compare/${canonicalSlug}/`);
+  }
+
   const currentDateISO = new Date().toISOString().split('T')[0];
   const lowerRateBank = b1.rate <= b2.rate ? b1 : b2;
   const higherRateBank = b1.rate <= b2.rate ? b2 : b1;
@@ -200,6 +262,13 @@ export default async function ComparisonPage({
     : isPrivateBank(b2.slug)
       ? b2
       : null;
+  const comparisonAngle = getComparisonAngle({
+    b1Name: b1.name,
+    b2Name: b2.name,
+    rateDiff,
+    likelyPrivate: likelyPrivate?.name ?? null,
+    likelyPsu: likelyPsu?.name ?? null,
+  });
 
   const faqs = [
     {
@@ -259,7 +328,7 @@ export default async function ComparisonPage({
     image: `https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://fincado.com/compare/${slug}/`,
+      '@id': `https://fincado.com/compare/${canonicalSlug}/`,
     },
   };
 
@@ -295,7 +364,7 @@ export default async function ComparisonPage({
           },
           {
             name: `${b1.name} vs ${b2.name}`,
-            url: `https://fincado.com/compare/${slug}/`,
+            url: `https://fincado.com/compare/${canonicalSlug}/`,
           },
         ]}
       />
@@ -342,6 +411,10 @@ export default async function ComparisonPage({
                 Practical home-loan comparison for FY {fy.startYear}-
                 {String(fy.endYear).slice(-2)} using rate bands, estimated
                 repayment impact, and borrower-fit guidance.
+              </p>
+
+              <p className="mb-5 text-sm leading-relaxed text-slate-600 sm:text-base">
+                <strong>{comparisonAngle.label}:</strong> {comparisonAngle.body}
               </p>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -402,78 +475,80 @@ export default async function ComparisonPage({
           </div>
         </header>
 
-        {/* --- QUICK VERDICT TABLE (NEW, ABOVE FOLD) --- */}
-        <section className="mx-auto mb-8 max-w-5xl">
-          <Card className="border-[#DFF7C6] bg-white shadow-sm">
-            <CardHeader className="border-b border-slate-200 bg-[#F7FDF1]">
-              <CardTitle className="text-lg font-semibold text-[#1B2E06]">
-                Quick Verdict: {b1.name} vs {b2.name}
-              </CardTitle>
-              <CardDescription>
-                Fast decision summary for a ₹50L / 20-year illustration.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Decision Factor</TableHead>
-                      <TableHead>Current Winner</TableHead>
-                      <TableHead>Details</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="font-medium">
-                        Lowest rate now
-                      </TableCell>
-                      <TableCell className="font-semibold text-[#577A30]">
-                        {lowerRateBank.name}
-                      </TableCell>
-                      <TableCell>
-                        {lowerRateBank.rate}% vs {higherRateBank.rate}% (
-                        {rateDiff.toFixed(2)}% gap)
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-medium">
-                        EMI difference (₹50L/20Y)
-                      </TableCell>
-                      <TableCell className="font-semibold text-[#577A30]">
-                        {formatINR(monthlySaving)}/month
-                      </TableCell>
-                      <TableCell>
-                        Approx {formatINR(lifetimeSaving)} lifetime repayment
-                        difference
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-medium">
-                        Processing fee band
-                      </TableCell>
-                      <TableCell>Similar</TableCell>
-                      <TableCell>
-                        Typically up to ~0.50% (lender policy dependent)
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-medium">Best for</TableCell>
-                      <TableCell>{lowerRateBank.name}</TableCell>
-                      <TableCell>
-                        Low-cost focus; for faster approval, verify digital
-                        workflow and local branch turnaround.
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="mb-12 space-y-10 lg:col-span-8">
+            {/* --- QUICK VERDICT TABLE (NEW, ABOVE FOLD) --- */}
+            <section className="mx-auto mb-8 max-w-5xl">
+              <Card className="border-[#DFF7C6] bg-white shadow-sm">
+                <CardHeader className="border-b border-slate-200 bg-[#F7FDF1]">
+                  <CardTitle className="text-lg font-semibold text-[#1B2E06]">
+                    Quick Verdict: {b1.name} vs {b2.name}
+                  </CardTitle>
+                  <CardDescription>
+                    Fast decision summary for a ₹50L / 20-year illustration.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Decision Factor</TableHead>
+                          <TableHead>Current Winner</TableHead>
+                          <TableHead>Details</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className="font-medium">
+                            Lowest rate now
+                          </TableCell>
+                          <TableCell className="font-semibold text-[#577A30]">
+                            {lowerRateBank.name}
+                          </TableCell>
+                          <TableCell>
+                            {lowerRateBank.rate}% vs {higherRateBank.rate}% (
+                            {rateDiff.toFixed(2)}% gap)
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className="font-medium">
+                            EMI difference (₹50L/20Y)
+                          </TableCell>
+                          <TableCell className="font-semibold text-[#577A30]">
+                            {formatINR(monthlySaving)}/month
+                          </TableCell>
+                          <TableCell>
+                            Approx {formatINR(lifetimeSaving)} lifetime
+                            repayment difference
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className="font-medium">
+                            Processing fee band
+                          </TableCell>
+                          <TableCell>Similar</TableCell>
+                          <TableCell>
+                            Typically up to ~0.50% (lender policy dependent)
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className="font-medium">
+                            Best for
+                          </TableCell>
+                          <TableCell>{lowerRateBank.name}</TableCell>
+                          <TableCell>
+                            Low-cost focus; for faster approval, verify digital
+                            workflow and local branch turnaround.
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
+
             {rateDiff > 0 && (
               <div className="flex items-start gap-4 rounded-xl border border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1] p-5">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#577A30] shadow-md">
@@ -830,6 +905,85 @@ export default async function ComparisonPage({
               </div>
             </section>
 
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader className="border-b border-slate-200 bg-slate-50">
+                <CardTitle className="text-lg font-semibold">
+                  Choose Your Next Step by Intent
+                </CardTitle>
+                <CardDescription>
+                  Follow the path that matches your stage: discovery,
+                  validation, or decision.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 p-5">
+                <div className="rounded-lg border border-slate-200 p-4">
+                  <p className="mb-2 text-sm font-semibold text-slate-900">
+                    1) I&apos;m still shortlisting lenders
+                  </p>
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/compare-loans/"
+                    >
+                      Compare Loans Hub
+                    </Link>
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/home-loan-rates/"
+                    >
+                      Current Home Loan Rates
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-slate-200 p-4">
+                  <p className="mb-2 text-sm font-semibold text-slate-900">
+                    2) I want to validate affordability
+                  </p>
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/loans/home-loan/"
+                    >
+                      Home Loan EMI Calculator
+                    </Link>
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/emi-calculator/"
+                    >
+                      General EMI Calculator
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-slate-200 p-4">
+                  <p className="mb-2 text-sm font-semibold text-slate-900">
+                    3) I&apos;m close to decision and documentation
+                  </p>
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/guides/home-loan-guide/"
+                    >
+                      Home Loan Guide
+                    </Link>
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/guides/home-loan-first-time-buyers/"
+                    >
+                      First-Time Buyer Checklist
+                    </Link>
+                    <Link
+                      className="text-[#577A30] hover:underline"
+                      href="/credit-score/"
+                    >
+                      Credit Score Estimator
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             <section aria-labelledby="comparison-faq-heading">
               <h2
                 id="comparison-faq-heading"
@@ -875,7 +1029,8 @@ export default async function ComparisonPage({
                   <strong>{lowerRateBank.name}</strong> currently leads on rate.
                   If your top priority is faster process and app-driven
                   servicing, compare turnaround and digital journey quality
-                  before finalizing.
+                  before finalizing. <strong>Pair-specific lens:</strong>{' '}
+                  {comparisonAngle.body}
                 </p>
 
                 <div className="flex flex-wrap gap-3">

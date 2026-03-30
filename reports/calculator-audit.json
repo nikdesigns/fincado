@@ -26,7 +26,7 @@
       "Accordion": true,
       "clientState": true,
       "clientInputs": true,
-      "clientCalculation": false,
+      "clientCalculation": true,
       "clientResults": true
     },
     "content": {
@@ -37,10 +37,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing calculation logic"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "sip-calculator": {
     "name": "sip-calculator",
@@ -285,7 +283,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -297,10 +295,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "gst-calculator": {
     "name": "gst-calculator",
@@ -899,52 +895,5 @@
       "❌ Client: Missing input fields"
     ],
     "score": 95
-  },
-  "home-loan-calculator": {
-    "name": "home-loan-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": false,
-    "metadata": {},
-    "components": {
-      "BreadcrumbJsonLd": false,
-      "CalculatorSchema": false,
-      "FAQSchema": false,
-      "ShareTools": false,
-      "LanguageToggle": false,
-      "AdSlot": false,
-      "AuthorBio": false,
-      "WikiText": false,
-      "Card": false,
-      "Accordion": false
-    },
-    "content": {
-      "hasH1": false,
-      "hasFormula": false,
-      "hasExample": false,
-      "hasFAQ": false,
-      "hasRelatedCalcs": false,
-      "hasInternalLinks": false
-    },
-    "issues": [
-      "⚠️  Client component not found",
-      "❌ Missing metadata export",
-      "⚠️  Missing component: BreadcrumbJsonLd",
-      "⚠️  Missing component: CalculatorSchema",
-      "⚠️  Missing component: FAQSchema",
-      "⚠️  Missing component: ShareTools",
-      "⚠️  Missing component: LanguageToggle",
-      "⚠️  Missing component: AdSlot",
-      "⚠️  Missing component: AuthorBio",
-      "⚠️  Missing component: WikiText",
-      "⚠️  Missing component: Card",
-      "⚠️  Missing: hasH1",
-      "⚠️  Missing: hasFormula",
-      "⚠️  Missing: hasExample",
-      "⚠️  Missing: hasFAQ",
-      "⚠️  Missing: hasRelatedCalcs",
-      "⚠️  Missing: hasInternalLinks"
-    ],
-    "score": 0
   }
 }

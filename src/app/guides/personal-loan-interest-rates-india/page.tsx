@@ -70,7 +70,7 @@ export const metadata: Metadata = {
 const FAQ_ITEMS = [
   {
     question:
-      'What is the current personal loan interest rate range in India for 2025?',
+      'What is the current personal loan interest rate range in India for 2026?',
     answer:
       'Personal loan interest rates in India range from 10.5% to 24% annually, depending on your credit score, income level, employment type, and lender category.',
   },
@@ -220,7 +220,7 @@ export default function PersonalLoanGuidePage() {
           <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-blue-600" /> Key
-              Characteristics (2025)
+              Characteristics ({currentYear})
             </h3>
             <ul className="space-y-1 text-sm text-slate-600 list-disc pl-4">
               <li>
@@ -464,11 +464,11 @@ export default function PersonalLoanGuidePage() {
           className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Percent className="h-6 w-6 text-emerald-600" /> Current Interest
-          Rates (2025)
+          Rates ({currentYear})
         </h2>
         <p className="mb-6 text-slate-700">
           Interest rates vary significantly based on lender type. Here is the
-          landscape for March 2025.
+          landscape for {updatedLabel}.
         </p>
 
         <h3 className="text-lg font-semibold text-slate-900 mb-3">Top Banks</h3>
@@ -994,6 +994,78 @@ export default function PersonalLoanGuidePage() {
           </Card>
         </div>
       </section>
+
+      <Card className="mb-12 border-slate-200 bg-slate-50/60">
+        <CardHeader>
+          <CardTitle className="text-lg font-semibold text-slate-900">
+            What Next? Follow the Right Journey
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm">
+          <div className="rounded-lg border border-slate-200 bg-white p-4">
+            <p className="mb-2 font-semibold text-slate-900">
+              1) Discovery stage: find the right lender band
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/compare-loans/"
+              >
+                Compare Loans Hub
+              </Link>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/guides/personal-loan-guide/"
+              >
+                Personal Loan Guide
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 bg-white p-4">
+            <p className="mb-2 font-semibold text-slate-900">
+              2) Validation stage: check EMI + profile readiness
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/loans/personal-loan/"
+              >
+                Personal Loan EMI Calculator
+              </Link>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="/credit-score/"
+              >
+                Credit Score Estimator
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 bg-white p-4">
+            <p className="mb-2 font-semibold text-slate-900">
+              3) Decision stage: reduce borrowing cost before applying
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                className="text-blue-700 hover:underline"
+                href="#negotiation"
+              >
+                Negotiation checklist
+              </Link>
+              <Link
+                className="text-blue-700 hover:underline"
+                href="#prepayment"
+              >
+                Prepayment rules
+              </Link>
+              <Link className="text-blue-700 hover:underline" href="#red-flags">
+                Red-flag checks
+              </Link>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* --- FAQS --- */}
       <section className="mb-12">
