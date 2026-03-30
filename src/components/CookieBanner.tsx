@@ -16,8 +16,8 @@ export default function CookieBanner() {
   const [show, setShow] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [preferences, setPreferences] = useState<ConsentState>({
-    analytics: true,
-    advertising: true,
+    analytics: false,
+    advertising: false,
     functional: true,
     // eslint-disable-next-line react-hooks/purity
     timestamp: Date.now(),
@@ -80,6 +80,7 @@ export default function CookieBanner() {
       }, 2000);
       return () => clearTimeout(timer);
     } else {
+      setPreferences(consent);
       if (process.env.NODE_ENV === 'development') {
         console.log('✅ Previous consent found:', consent);
       }
@@ -87,23 +88,23 @@ export default function CookieBanner() {
   }, []);
 
   // Auto-accept after 30 seconds if user doesn't interact
-  useEffect(() => {
-    if (!show) return;
+  // useEffect(() => {
+  //   if (!show) return;
 
-    const timer = setTimeout(() => {
-      const currentState = getConsentState();
+  //   const timer = setTimeout(() => {
+  //     const currentState = getConsentState();
 
-      if (!currentState) {
-        handleAcceptAll();
+  //     if (!currentState) {
+  //       handleAcceptAll();
 
-        if (process.env.NODE_ENV === 'development') {
-          console.log('⏰ Auto-accepted cookies after 30s (user inactive)');
-        }
-      }
-    }, 30000);
+  //       if (process.env.NODE_ENV === 'development') {
+  //         console.log('⏰ Auto-accepted cookies after 30s (user inactive)');
+  //       }
+  //     }
+  //   }, 30000);
 
-    return () => clearTimeout(timer);
-  }, [show, handleAcceptAll]);
+  //   return () => clearTimeout(timer);
+  // }, [show, handleAcceptAll]);
 
   const togglePreference = (key: keyof ConsentState) => {
     if (key === 'timestamp') return;

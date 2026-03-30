@@ -9,7 +9,8 @@ import AdBlockDetector from '@/components/AdBlockDetector';
 import { Toaster } from 'sonner';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 import SkipToContent from '@/components/SkipToContent';
-import Script from 'next/script';
+import CookieBanner from '@/components/CookieBanner';
+import ScriptManager from '@/components/ScriptManager';
 
 const fy = getCurrentFiscalYear();
 
@@ -134,43 +135,14 @@ export default function RootLayout({
           href="https://pagead2.googlesyndication.com"
           crossOrigin="anonymous"
         />
-
-        {/* Google Analytics GA4 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-KQJ4P0CM5Q"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-KQJ4P0CM5Q', {
-              page_path: window.location.pathname
-            });
-          `}
-        </Script>
-
-        {/* Microsoft Clarity */}
-        <Script id="clarity-script" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "pby2eqwxp8");
-          `}
-        </Script>
       </head>
 
       <body className={customFont.className}>
         {/* AdSense Script */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6648091987919638"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        {/* Consent-aware analytics and ad scripts */}
+        <React.Suspense fallback={null}>
+          <ScriptManager />
+        </React.Suspense>
 
         {/* Loading Bar */}
         <NextTopLoader
@@ -197,7 +169,8 @@ export default function RootLayout({
 
         {/* Ad Block Detector */}
         <AdBlockDetector />
-
+        {/* Cookie Consent */}
+        <CookieBanner />
         {/* Footer */}
         <Footer />
       </body>

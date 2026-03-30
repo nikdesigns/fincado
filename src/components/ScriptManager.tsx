@@ -9,7 +9,8 @@ import { getConsentState } from '@/lib/consent';
 // 🔧 CONFIGURATION
 // ========================================
 const GOOGLE_ANALYTICS_ID = 'G-KQJ4P0CM5Q';
-const CLARITY_PROJECT_ID = 'uriyp76yk8';
+const CLARITY_PROJECT_ID = 'pby2eqwxp8';
+const ADSENSE_CLIENT_ID = 'ca-pub-6648091987919638';
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 export default function ScriptManager() {
@@ -34,8 +35,20 @@ export default function ScriptManager() {
     analytics: false,
   });
 
-  // ✅ Initialize GA4 once script loads
+  // ✅ Configure AdSense personalization mode based on consent
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    window.adsbygoogle = window.adsbygoogle || [];
+    // 1 = non-personalized ads, 0 = personalized ads
+    (
+      window.adsbygoogle as unknown as { requestNonPersonalizedAds?: 0 | 1 }
+    ).requestNonPersonalizedAds = consent.advertising ? 0 : 1;
+  }, [consent.advertising]);
+
+  // ✅ Initialize GA4 once script loads and consent is granted
+  useEffect(() => {
+    if (!consent.analytics) return;
     if (!scriptsLoaded.analytics) return;
 
     if (typeof window !== 'undefined') {
@@ -55,7 +68,7 @@ export default function ScriptManager() {
         ad_storage: 'denied',
         ad_user_data: 'denied',
         ad_personalization: 'denied',
-        analytics_storage: 'granted', // ✅ Changed to 'granted'
+        analytics_storage: 'denied',
         functionality_storage: 'granted',
         personalization_storage: 'denied',
         security_storage: 'granted',
@@ -83,11 +96,11 @@ export default function ScriptManager() {
         console.log('✅ GA4 initialized');
       }
     }
-  }, [scriptsLoaded.analytics, pathname]);
+  }, [consent.analytics, scriptsLoaded.analytics, pathname]);
 
   // ✅ Track page views on navigation
   useEffect(() => {
-    if (scriptsLoaded.analytics && window.gtag) {
+    if (consent.analytics && scriptsLoaded.analytics && window.gtag) {
       const url =
         pathname +
         (searchParams?.toString() ? `?${searchParams.toString()}` : '');
@@ -100,7 +113,7 @@ export default function ScriptManager() {
         console.log('📍 Page View:', url);
       }
     }
-  }, [pathname, searchParams, scriptsLoaded.analytics]);
+  }, [pathname, searchParams, consent.analytics, scriptsLoaded.analytics]);
 
   // ✅ Listen for consent updates
   useEffect(() => {
@@ -140,14 +153,16 @@ export default function ScriptManager() {
   return (
     <>
       {/* Google Analytics */}
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
-        onLoad={() => {
-          setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
-        }}
-      />
+      {consent.analytics && (
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+          onLoad={() => {
+            setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
+          }}
+        />
+      )}
 
       {/* Microsoft Clarity - Only if analytics consent granted */}
       {consent.analytics && (
@@ -165,6 +180,14 @@ export default function ScriptManager() {
           }}
         />
       )}
+      {/* Google AdSense - always loaded; personalization controlled by consent */}
+      <Script
+        id="google-adsense"
+        strategy="afterInteractive"
+        async
+        crossOrigin="anonymous"
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+      />
     </>
   );
 }
