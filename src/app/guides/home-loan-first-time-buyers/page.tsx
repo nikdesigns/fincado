@@ -1,4 +1,4 @@
-// src/app/guides/first-time-home-buyer-guide/page.tsx
+// src/app/guides/home-loan-first-time-buyers/page.tsx
 
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -64,14 +64,14 @@ export const metadata: Metadata = {
     'first home tax benefits India',
   ],
   alternates: {
-    canonical: 'https://fincado.com/guides/first-time-home-buyer-guide/',
+    canonical: 'https://fincado.com/guides/home-loan-first-time-buyers/',
   },
   openGraph: {
     title:
       'First-Time Home Buyer Guide India 2026 | Complete Beginner Handbook',
     description:
       'Your first home loan in India? Avoid 7 costly mistakes, get PMAY subsidy, and learn the complete step-by-step process from pre-approval to possession.',
-    url: 'https://fincado.com/guides/first-time-home-buyer-guide/',
+    url: 'https://fincado.com/guides/home-loan-first-time-buyers/',
     type: 'article',
     images: [
       {
@@ -280,7 +280,7 @@ export default function FirstTimeHomeBuyerGuidePage() {
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'First-Time Home Buyer Guide',
-            url: 'https://fincado.com/guides/first-time-home-buyer-guide/',
+            url: 'https://fincado.com/guides/home-loan-first-time-buyers/',
           },
         ]}
       />
