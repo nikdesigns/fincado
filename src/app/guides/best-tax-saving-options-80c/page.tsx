@@ -422,7 +422,7 @@ With 15+ eligible investments ranging from <strong>ELSS mutual funds</strong> (1
                 <span>Want personalized recommendations?</span>
               </p>
               <Link
-                href="/elss-calculator"
+                href="/elss-calculator/"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition-colors duration-200 text-sm"
               >
                 Calculate Your Savings

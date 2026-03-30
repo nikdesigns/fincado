@@ -50,15 +50,13 @@ export const metadata: Metadata = {
     '1 crore ke liye SIP',
     '1 crore SIP kaise banaye',
     '1 crore mutual fund SIP',
-    '1 crore banane ke liye SIP'
+    '1 crore banane ke liye SIP',
   ],
   twitter: {
     card: 'summary_large_image',
     title: '10 साल में 1 करोड़ के लिए कितनी SIP करें?',
     description: 'जानिए एक दशक में करोड़पति बनने का सटीक गणित।',
-    images: [
-      '/images/guides/mf/mutual-fund-guide-hero.webp'
-    ],
+    images: ['/images/guides/mf/mutual-fund-guide-hero.webp'],
   },
   alternates: {
     canonical: 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
@@ -75,7 +73,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 600,
         alt: '1 Crore Wealth Roadmap Hindi',
-      }
+      },
     ],
   },
 };
@@ -109,7 +107,7 @@ export default function Sip1Cr10YearsPageHindi() {
       question: 'क्या ₹43,000 से कम की SIP में 1 करोड़ बन सकते हैं?',
       answer:
         'जी हाँ, "Step-Up SIP" के जरिए। यदि आप ₹25,000 प्रति माह से शुरू करते हैं और हर साल अपनी राशि में 15% की वृद्धि करते हैं, तो भी आप 10 साल में 1 करोड़ का लक्ष्य पा सकते हैं।',
-    }
+    },
   ];
 
   return (
@@ -121,7 +119,7 @@ export default function Sip1Cr10YearsPageHindi() {
           {
             name: '10 साल में 1 करोड़ SIP गाइड',
             url: 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
-          }
+          },
         ]}
       />
 
@@ -145,9 +143,7 @@ export default function Sip1Cr10YearsPageHindi() {
               '@type': 'WebPage',
               '@id': 'https://fincado.com/hi/guides/10-saal-mein-1-crore-sip/',
             },
-            image: [
-              '/images/guides/mf/mutual-fund-guide-hero.webp'
-            ],
+            image: ['/images/guides/mf/mutual-fund-guide-hero.webp'],
             author: {
               '@type': 'Person',
               name: 'Fincado Research Team',
@@ -279,7 +275,7 @@ export default function Sip1Cr10YearsPageHindi() {
             </p>
           </div>
 
-          <Link href="/hi/sip-calculator">
+          <Link href="/hi/sip-calculator/">
             <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
               अपना गोल चेक करें <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
@@ -582,7 +578,7 @@ export default function Sip1Cr10YearsPageHindi() {
       <p className="text-slate-700 mb-8 leading-relaxed">
         यदि आप निवेश के साथ टैक्स भी बचाना चाहते हैं, तो{' '}
         <Link
-          href="/hi/guides/elss-mutual-funds"
+          href="/hi/guides/elss-mutual-funds/"
           className="text-blue-600 hover:underline font-medium"
         >
           ELSS Mutual Funds
@@ -671,7 +667,7 @@ export default function Sip1Cr10YearsPageHindi() {
             title: '3. बहुत सारे फंड्स खरीदना',
             desc: "10 अलग-अलग फंड्स खरीदने से आपका पोर्टफोलियो 'Over-diversified' हो जाता है, जिससे रिटर्न कम हो सकते हैं। आपको केवल 3 अच्छे फंड्स की जरूरत है।",
             fix: '1 Index + 1 Flexi + 1 Midcap फंड ही काफी है।',
-          }
+          },
         ].map((mistake, i) => (
           <Card key={i} className="border-slate-200">
             <CardHeader className="pb-2">
@@ -792,7 +788,7 @@ export default function Sip1Cr10YearsPageHindi() {
           निवेश करना चाहिए? हमारे फ्री कैलकुलेटर का उपयोग करें।
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/hi/sip-calculator">
+          <Link href="/hi/sip-calculator/">
             <Button
               size="lg"
               className="w-full sm:w-auto bg-white text-emerald-700 hover:bg-emerald-50 font-bold border-0"
@@ -800,7 +796,7 @@ export default function Sip1Cr10YearsPageHindi() {
               SIP कैलकुलेटर खोलें
             </Button>
           </Link>
-          <Link href="/hi/mutual-funds">
+          <Link href="/hi/mutual-funds/">
             <Button
               size="lg"
               variant="outline"

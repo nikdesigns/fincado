@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     type: 'article',
     url: 'https://fincado.com/hi/guides/sukanya-samriddhi-yojana/',
     images: [
-      { url: '/images/guides/hi/ssy-hero-2025.webp', width: 1200, height: 630 }
+      { url: '/images/guides/hi/ssy-hero-2025.webp', width: 1200, height: 630 },
     ],
   },
 };
@@ -83,7 +83,7 @@ export default function HindiSSYGuide() {
       question: 'क्या बेटी खुद खाता operate कर सकती है?',
       answer:
         'हां, 18 वर्ष की आयु पूरी करने के बाद बेटी आवश्यक दस्तावेज जमा करके अपने खाते का संचालन खुद कर सकती है。',
-    }
+    },
   ];
 
   return (
@@ -95,7 +95,7 @@ export default function HindiSSYGuide() {
           {
             name: 'सुकन्या समृद्धि योजना',
             url: 'https://fincado.com/hi/guides/sukanya-samriddhi-yojana/',
-          }
+          },
         ]}
       />
 
@@ -436,7 +436,7 @@ export default function HindiSSYGuide() {
         <p className="text-emerald-800 text-sm mb-4">
           जानें कि आपको अपनी जमा राशि पर कितना ब्याज मिलेगा。
         </p>
-        <Link href="/hi/sukanya-samriddhi">
+        <Link href="/hi/sukanya-samriddhi/">
           <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
             <Calculator className="w-4 h-4 mr-2" /> SSY कैलकुलेटर खोलें
           </Button>

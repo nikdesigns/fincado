@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     'Portfolio Planner',
     'Lumpsum Calculator',
     'Financial Goal Planner',
-    'Equity vs Debt'
+    'Equity vs Debt',
   ],
   alternates: {
     canonical: 'https://fincado.com/investing/',
@@ -73,9 +73,9 @@ export default function InvestingPage() {
 
   const allocationContent = autoLinkContent(`
     <ul class="space-y-3 mt-4 text-slate-700">
-      <li class="flex gap-2"><span class="text-emerald-600 font-bold">• Equity (Stocks/Mutual Funds):</span> High risk, high reward (12-15%). Best for long-term goals (>7 years).</li>
-      <li class="flex gap-2"><span class="text-blue-600 font-bold">• Debt (FD/Bonds/PPF):</span> Low risk, moderate reward (6-8%). Best for short-term goals and stability.</li>
-      <li class="flex gap-2"><span class="text-amber-600 font-bold">• Gold:</span> Acts as a hedge against inflation and market crashes. Experts recommend 5-10% allocation.</li>
+      <li class="flex gap-2"><span class="text-emerald-600 font-semibold">• Equity (Stocks/Mutual Funds):</span> High risk, high reward (12-15%). Best for long-term goals (>7 years).</li>
+      <li class="flex gap-2"><span class="text-blue-600 font-semibold">• Debt (FD/Bonds/PPF):</span> Low risk, moderate reward (6-8%). Best for short-term goals and stability.</li>
+      <li class="flex gap-2"><span class="text-amber-600 font-semibold">• Gold:</span> Acts as a hedge against inflation and market crashes. Experts recommend 5-10% allocation.</li>
     </ul>
   `);
 
@@ -103,7 +103,7 @@ export default function InvestingPage() {
             {
               name: 'Investing Planner',
               url: 'https://fincado.com/investing/',
-            }
+            },
           ]}
         />
 
@@ -114,7 +114,7 @@ export default function InvestingPage() {
             <header className="mb-10">
               <Badge
                 variant="secondary"
-                className="mb-4 bg-purple-50 text-purple-700 hover:bg-purple-100 px-3 py-1 font-bold uppercase tracking-wider"
+                className="mb-4 bg-purple-50 text-purple-700 hover:bg-purple-100 px-3 py-1 font-semibold uppercase tracking-wider"
               >
                 Wealth Builder 2026
               </Badge>
@@ -152,7 +152,7 @@ export default function InvestingPage() {
 
             {/* Live Rates */}
             <section className="mb-16">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
                 <TrendingUp className="h-6 w-6 text-emerald-600" />
                 Current Fixed Deposit Rates
               </h2>
@@ -169,7 +169,7 @@ export default function InvestingPage() {
                   New to Investing?
                 </strong>
                 <Link
-                  href="/guides/sip-investment-guide"
+                  href="/guides/sip-investment-guide/"
                   className="text-emerald-700 font-semibold hover:underline flex items-center gap-1"
                 >
                   Read: The Ultimate Beginner&apos;s Guide{' '}
@@ -180,36 +180,36 @@ export default function InvestingPage() {
 
             {/* SEO Content */}
             <article className="prose prose-slate max-w-none mb-16">
-              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+              <h2 className="text-2xl font-semibold text-slate-900 flex items-center gap-2">
                 <PieChart className="w-6 h-6 text-indigo-600" />
                 What is Investment Planning?
               </h2>
               <WikiText content={introContent} />
 
-              <h3 className="text-xl font-bold text-slate-900 mt-8">
+              <h3 className="text-xl font-semibold text-slate-900 mt-8">
                 Asset Allocation Strategies
               </h3>
               <div className="overflow-hidden rounded-lg border border-slate-200 my-6 shadow-sm">
                 <table className="min-w-full divide-y divide-slate-200">
                   <thead className="bg-slate-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                         Profile
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                         Equity
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                         Debt
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                         Risk Level
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-slate-200">
                     <tr>
-                      <td className="px-6 py-4 font-bold text-slate-900">
+                      <td className="px-6 py-4 font-semibold text-slate-900">
                         Aggressive
                       </td>
                       <td className="px-6 py-4 text-emerald-600 font-medium">
@@ -221,7 +221,7 @@ export default function InvestingPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 font-bold text-slate-900">
+                      <td className="px-6 py-4 font-semibold text-slate-900">
                         Moderate
                       </td>
                       <td className="px-6 py-4 text-emerald-600 font-medium">
@@ -235,7 +235,7 @@ export default function InvestingPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 font-bold text-slate-900">
+                      <td className="px-6 py-4 font-semibold text-slate-900">
                         Conservative
                       </td>
                       <td className="px-6 py-4 text-emerald-600 font-medium">
@@ -261,17 +261,17 @@ export default function InvestingPage() {
                 />
               </div>
 
-              <h3 className="text-xl font-bold text-slate-900">
+              <h3 className="text-xl font-semibold text-slate-900">
                 Understanding Asset Classes
               </h3>
               <WikiText content={allocationContent} />
 
-              <h3 className="text-xl font-bold text-slate-900 mt-8">
+              <h3 className="text-xl font-semibold text-slate-900 mt-8">
                 The Power of Compounding
               </h3>
               <WikiText content={compoundingContent} />
 
-              <h3 className="text-xl font-bold text-slate-900 mt-8">
+              <h3 className="text-xl font-semibold text-slate-900 mt-8">
                 Future Value Formula
               </h3>
               <p className="text-slate-600">
@@ -296,7 +296,7 @@ export default function InvestingPage() {
 
             {/* FAQs Accordion */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
                 <HelpCircle className="h-6 w-6 text-amber-500" />
                 Frequently Asked Questions
               </h2>

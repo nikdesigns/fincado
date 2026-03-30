@@ -10,5 +10,5 @@ type AdUnitProps = {
 
 // Redirecting AdUnit to use the working AdSlot logic
 export default function AdUnit({ slot, className }: AdUnitProps) {
-  return <AdSlot type="rectangle" adSlot={slot} />;
+  return <AdSlot type="rectangle" adSlot={slot} className={className} />;
 }

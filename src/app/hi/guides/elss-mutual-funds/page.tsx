@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'Tax Saving Mutual Funds',
     'ELSS vs PPF Hindi',
     'Section 80C Investment',
-    'Best Tax Saving Scheme'
+    'Best Tax Saving Scheme',
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/elss-mutual-funds/',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         url: '/images/og/elss-guide-hindi.webp',
         width: 1200,
         height: 630,
-      }
+      },
     ],
   },
 };
@@ -106,7 +106,7 @@ export default function HindiELSSGuide() {
           '@type': 'Answer',
           text: 'अगर आप रिस्क नहीं लेना चाहते तो PPF बेहतर है। लेकिन अगर आप थोड़ा रिस्क लेकर ज्यादा रिटर्न (12-15%) कमाना चाहते हैं, तो ELSS बेहतर है।',
         },
-      }
+      },
     ],
   };
 
@@ -156,7 +156,7 @@ export default function HindiELSSGuide() {
           {
             name: 'ELSS Funds',
             url: 'https://fincado.com/hi/guides/elss-mutual-funds/',
-          }
+          },
         ]}
       />
 
@@ -568,7 +568,7 @@ export default function HindiELSSGuide() {
             {
               q: 'क्या मुझे हर साल नया ELSS लेना चाहिए?',
               a: 'नहीं, एक या दो अच्छे फंड्स चुनें और उनमें ही SIP जारी रखें। ज्यादा फंड्स जमा करने से पोर्टफोलियो संभालना मुश्किल हो जाता है।',
-            }
+            },
           ].map((item, i) => (
             <AccordionItem
               key={i}
@@ -593,7 +593,7 @@ export default function HindiELSSGuide() {
         6. Tools & Internal Links
       </h2>
       <div className="grid sm:grid-cols-2 gap-4 mb-12">
-        <Link href="/hi/sip-calculator">
+        <Link href="/hi/sip-calculator/">
           <Card className="hover:border-emerald-300 hover:shadow-md transition-all cursor-pointer group">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-2">
@@ -608,7 +608,7 @@ export default function HindiELSSGuide() {
             </CardContent>
           </Card>
         </Link>
-        <Link href="/hi/guides/sip-vs-fd">
+        <Link href="/hi/guides/sip-vs-fd/">
           <Card className="hover:border-emerald-300 hover:shadow-md transition-all cursor-pointer group">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-2">

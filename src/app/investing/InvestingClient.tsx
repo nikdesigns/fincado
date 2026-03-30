@@ -61,7 +61,7 @@ function MultiAssetChart({
         dashOffset: number;
       }[],
       offset: 0,
-    }
+    },
   );
 
   return (
@@ -106,7 +106,7 @@ function MultiAssetChart({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">
             Total Value
           </span>
-          <span className="text-2xl font-bold text-slate-900">
+          <span className="text-2xl font-semibold text-slate-900">
             {totalValue}
           </span>
         </div>
@@ -164,7 +164,7 @@ export default function InvestingClient() {
     p: number,
     r: number,
     n: number,
-    type: 'sip' | 'lumpsum'
+    type: 'sip' | 'lumpsum',
   ) => {
     const monthlyRate = r / 12 / 100;
     if (monthlyRate === 0) return p * (type === 'sip' ? n : 1);
@@ -190,7 +190,7 @@ export default function InvestingClient() {
 
   // Real Value (Inflation Adjusted)
   const realValue = Math.round(
-    totalFutureValue / Math.pow(1 + inflation / 100, years)
+    totalFutureValue / Math.pow(1 + inflation / 100, years),
   );
 
   const resetDefaults = () => {
@@ -210,7 +210,7 @@ export default function InvestingClient() {
     <Card className="border-border shadow-sm bg-card">
       <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
+          <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
             <Settings2 className="h-5 w-5 text-indigo-600" />
             Portfolio Configuration
           </CardTitle>
@@ -270,7 +270,7 @@ export default function InvestingClient() {
             {/* 2. Asset Allocation Mixer */}
             <div className="rounded-xl border border-slate-200 p-5 bg-slate-50/50 space-y-5">
               <div className="flex items-center justify-between mb-2">
-                <Label className="text-sm font-bold text-slate-700">
+                <Label className="text-sm font-semibold text-slate-700">
                   Asset Allocation Strategy
                 </Label>
                 <div className="flex gap-2">
@@ -302,7 +302,7 @@ export default function InvestingClient() {
               <div className="space-y-4">
                 {/* Equity */}
                 <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
-                  <span className="text-xs font-bold text-emerald-700">
+                  <span className="text-xs font-semibold text-emerald-700">
                     Equity
                   </span>
                   <Slider
@@ -326,7 +326,9 @@ export default function InvestingClient() {
 
                 {/* Debt */}
                 <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
-                  <span className="text-xs font-bold text-blue-700">Debt</span>
+                  <span className="text-xs font-semibold text-blue-700">
+                    Debt
+                  </span>
                   <Slider
                     className="text-blue-600"
                     value={[debtPct]}
@@ -348,7 +350,9 @@ export default function InvestingClient() {
 
                 {/* Gold */}
                 <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
-                  <span className="text-xs font-bold text-amber-700">Gold</span>
+                  <span className="text-xs font-semibold text-amber-700">
+                    Gold
+                  </span>
                   <Slider
                     className="text-amber-600"
                     value={[goldPct]}
@@ -379,7 +383,7 @@ export default function InvestingClient() {
               slices={[
                 { label: 'Equity', color: '#10b981', pct: alloc.equity * 100 },
                 { label: 'Debt', color: '#3b82f6', pct: alloc.debt * 100 },
-                { label: 'Gold', color: '#f59e0b', pct: alloc.gold * 100 }
+                { label: 'Gold', color: '#f59e0b', pct: alloc.gold * 100 },
               ]}
             />
 
@@ -393,7 +397,7 @@ export default function InvestingClient() {
                       Total Investment
                     </span>
                   </div>
-                  <span className="font-bold text-slate-900">
+                  <span className="font-semibold text-slate-900">
                     {formatINR(totalInvested)}
                   </span>
                 </CardContent>
@@ -407,7 +411,7 @@ export default function InvestingClient() {
                       Total Profit
                     </span>
                   </div>
-                  <span className="font-bold text-emerald-700">
+                  <span className="font-semibold text-emerald-700">
                     +{formatINR(totalProfit)}
                   </span>
                 </CardContent>
@@ -430,7 +434,7 @@ export default function InvestingClient() {
 
         {/* --- BOTTOM TABLE --- */}
         <div className="mt-12">
-          <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <h4 className="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
             <PieChart className="w-4 h-4 text-indigo-500" /> Breakdown by Asset
             Class
           </h4>
@@ -452,7 +456,7 @@ export default function InvestingClient() {
                   <td className="px-4 py-3 text-slate-600">
                     {Math.round(alloc.equity * 100)}%
                   </td>
-                  <td className="px-4 py-3 text-right font-bold text-slate-900">
+                  <td className="px-4 py-3 text-right font-semibold text-slate-900">
                     {formatINR(Math.round(equityFV))}
                   </td>
                 </tr>
@@ -463,7 +467,7 @@ export default function InvestingClient() {
                   <td className="px-4 py-3 text-slate-600">
                     {Math.round(alloc.debt * 100)}%
                   </td>
-                  <td className="px-4 py-3 text-right font-bold text-slate-900">
+                  <td className="px-4 py-3 text-right font-semibold text-slate-900">
                     {formatINR(Math.round(debtFV))}
                   </td>
                 </tr>
@@ -474,7 +478,7 @@ export default function InvestingClient() {
                   <td className="px-4 py-3 text-slate-600">
                     {Math.round(alloc.gold * 100)}%
                   </td>
-                  <td className="px-4 py-3 text-right font-bold text-slate-900">
+                  <td className="px-4 py-3 text-right font-semibold text-slate-900">
                     {formatINR(Math.round(goldFV))}
                   </td>
                 </tr>

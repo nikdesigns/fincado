@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'Credit Score Check',
   ],
   alternates: {
-    canonical: 'https://fincado.com/hi/guides/credit-score/',
+    canonical: '<https://fincado.com/hi>/guides/credit-score/',
   },
   openGraph: {
     title: 'Credit Score कैसे बढ़ाएं? (Complete Hindi Guide)',
@@ -598,7 +598,7 @@ export default function HindiCreditScoreGuide() {
       </div>
 
       <div className="text-center mb-8">
-        <Link href="/hi/emi-calculator">
+        <Link href="/hi/emi-calculator/">
           <Button
             size="lg"
             className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
