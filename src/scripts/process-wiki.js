@@ -13,7 +13,7 @@ const stripHtml = (value = '') =>
 
 const normalizeMeta = (value = '') => {
   const clean = stripHtml(value);
-  // Optional: keep snippets readable for SERP
+  // Keep meta descriptions plain text and reasonably short for SERP snippets
   return clean.length > 180 ? `${clean.slice(0, 177).trimEnd()}...` : clean;
 };
 
@@ -22,15 +22,15 @@ const articles = JSON.parse(raw);
 
 const processed = articles.map((a) => ({
   ...a,
-  // ✅ process full article HTML content
+  // Process full article content for internal wiki links
   content: processWikiHtml(a.content || ''),
-  // ✅ keep meta description plain text only
+  // Keep metaDescription plain text only (no wiki linking)
   metaDescription: normalizeMeta(a.metaDescription || ''),
 }));
 
 const nextJson = `${JSON.stringify(processed, null, 2)}\n`;
 
-// Optional: avoid unnecessary rewrite
+// Avoid rewriting file when no changes
 if (nextJson !== raw) {
   fs.writeFileSync(DATA_PATH, nextJson, 'utf8');
   console.log('✅ Wiki content processed + metaDescription normalized');

@@ -6,33 +6,13 @@ import { cityDetails } from '@/lib/localData';
 export const dynamic = 'force-static';
 export const revalidate = 86400; // Revalidate once per day (24 hours)
 
-/**
- * ✅ Source of Truth: Non-WWW domain.
- * This matches your server's forced redirect and fixes "Duplicate" errors in GSC.
- */
 const BASE_URL = 'https://fincado.com';
 
-/**
- * Excluded slugs from sitemap (duplicates, redirects, or unpublished content)
- */
-const excludedSlugs = [
-  'home-loan-first-time-buyers',
-  'personal-loan-interest-rates',
-  'personal-loan-interest-rates-india',
-];
-
-/**
- * Helper to ensure consistent URL structure: Non-WWW + Trailing Slash.
- * This resolves the "Page with redirect" errors by pointing directly to the final URL.
- */
 const getUrl = (path: string): string => {
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   return cleanPath === '' ? `${BASE_URL}/` : `${BASE_URL}/${cleanPath}/`;
 };
 
-/**
- * Priority levels for different page types (SEO optimization)
- */
 const PRIORITY = {
   HOMEPAGE: 1.0,
   HIGH: 0.9,
@@ -42,14 +22,10 @@ const PRIORITY = {
   LOW: 0.5,
 } as const;
 
-/**
- * Change frequency for different page types
- */
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
 
-  /* ---------------- 1. STATIC PAGES (ENGLISH) - HIGH PRIORITY ---------------- */
+  /* ---------------- 1. STATIC PAGES (ENGLISH) ---------------- */
   const coreCalculators = [
     '/emi-calculator',
     '/sip-calculator',
@@ -155,7 +131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi',
     '/hi/calculators',
     '/hi/guides',
-    '/hi/loans',
+    // '/hi/loans', // removed: include only if actual route exists
   ].map((route) => ({
     url: getUrl(route),
     lastModified: currentDate,
@@ -164,7 +140,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const hindiCalculators = [
-    // Investment
     '/hi/sip-calculator',
     '/hi/lumpsum-calculator',
     '/hi/swp-calculator',
@@ -175,7 +150,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/nsc-calculator',
     '/hi/cagr-calculator',
     '/hi/sukanya-samriddhi',
-    // Retirement
+
     '/hi/epf-calculator',
     '/hi/nps-calculator',
     '/hi/retirement-calculator',
@@ -183,7 +158,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/apy-calculator',
     '/hi/fire-calculator',
     '/hi/goal-planning-calculator',
-    // Tax & Utility
+
     '/hi/income-tax-calculator',
     '/hi/hra-calculator',
     '/hi/gst-calculator',
@@ -214,25 +189,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   /* ---------------- 3. GUIDES (DYNAMIC FROM JSON) ---------------- */
+  const seenArticleUrls = new Set<string>();
+
   const articleRoutes = articlesData
-    .filter((a) => !excludedSlugs.includes(a.slug))
+    .filter((article) => !article.hidden)
     .map((article) => {
       const path =
         article.language === 'hi'
           ? `/hi/guides/${article.slug}`
           : `/guides/${article.slug}`;
 
+      const url = getUrl(path);
+
+      // Deduplicate exact URLs
+      if (seenArticleUrls.has(url)) return null;
+      seenArticleUrls.add(url);
+
+      const parsedDate = article.published
+        ? new Date(article.published)
+        : currentDate;
+      const lastModified = Number.isNaN(parsedDate.getTime())
+        ? currentDate
+        : parsedDate;
+
       return {
-        url: getUrl(path),
-        lastModified: article.published
-          ? new Date(article.published)
-          : currentDate,
+        url,
+        lastModified,
         changeFrequency: 'monthly' as const,
         priority: PRIORITY.MEDIUM_HIGH,
       };
-    });
+    })
+    .filter(Boolean) as MetadataRoute.Sitemap;
 
-  /* ---------------- 4. BANK COMPARISON PAGES (HIGH VALUE) ---------------- */
+  /* ---------------- 4. BANK COMPARISON PAGES ---------------- */
   const topBanks = [
     'sbi',
     'hdfc',
@@ -249,7 +238,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const comparisonRoutes: MetadataRoute.Sitemap = [];
   for (let i = 0; i < topBanks.length; i++) {
     for (let j = i + 1; j < topBanks.length; j++) {
-      // Only create one comparison per pair (avoid duplicates like sbi-vs-hdfc and hdfc-vs-sbi)
       comparisonRoutes.push({
         url: getUrl(`/compare/${topBanks[i]}-vs-${topBanks[j]}`),
         lastModified: currentDate,
@@ -261,6 +249,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   /* ---------------- 5. CITY EMI PAGES ---------------- */
   const citySlugs = Object.keys(cityDetails).filter((s) => s !== 'default');
+
   const cityRoutes = citySlugs.map((slug) => ({
     url: getUrl(`/emi-calculator/${slug}`),
     lastModified: currentDate,
@@ -268,7 +257,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: PRIORITY.MEDIUM_LOW,
   }));
 
-  /* ---------------- 6. BANK & BANK-CITY PAGES (REVENUE ENGINE) ---------------- */
+  /* ---------------- 6. BANK & BANK-CITY PAGES ---------------- */
   const bankHubRoutes: MetadataRoute.Sitemap = banks.map((bank) => ({
     url: getUrl(`/bank-emi/${bank.slug}`),
     lastModified: currentDate,
@@ -288,37 +277,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  /* ---------------- COMBINE ALL ROUTES (ORGANIZED BY PRIORITY) ---------------- */
+  /* ---------------- COMBINE ALL ROUTES ---------------- */
   return [
-    // Tier 1: Homepage & Core Calculators (Highest Priority)
     ...mainPages,
     ...coreCalculators,
 
-    // Tier 2: High-Value Comparison & Loan Pages
     ...comparisonRoutes,
     ...loanPages,
 
-    // Tier 3: All Other Calculators
     ...investmentCalculators,
     ...retirementCalculators,
     ...taxUtilityCalculators,
 
-    // Tier 4: Content & Guides
     ...articleRoutes,
 
-    // Tier 5: Bank Hub Pages
     ...bankHubRoutes,
 
-    // Tier 6: Hindi Content
     ...hindiCorePages,
     ...hindiCalculators,
     ...hindiOtherPages,
 
-    // Tier 7: Location-Based Pages
     ...cityRoutes,
     ...bankCityRoutes,
 
-    // Tier 8: Informational/Legal Pages (Lowest Priority)
     ...informationalPages,
   ];
 }
