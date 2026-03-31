@@ -45,11 +45,11 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
         {/* Header */}
         <div className="mb-8 pb-6 border-b border-slate-100">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-emerald-50 rounded-lg">
-              <Calculator className="h-5 w-5 text-emerald-600" />
+            <div className="p-2 bg-[#F7FDF1] rounded-lg">
+              <Calculator className="h-5 w-5 text-[#577A30]" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-xl">
+              <h3 className="font-semibold text-slate-900 text-xl">
                 Calculate Your EMI
               </h3>
               <p className="text-sm text-slate-600">
@@ -67,7 +67,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
               <Label className="text-sm font-semibold text-slate-700">
                 Loan Amount
               </Label>
-              <span className="text-lg font-bold text-slate-900">
+              <span className="text-lg font-semibold text-slate-900">
                 {formatAmount(loanAmount)}
               </span>
             </div>
@@ -91,7 +91,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
               <Label className="text-sm font-semibold text-slate-700">
                 Interest Rate (per annum)
               </Label>
-              <span className="text-lg font-bold text-slate-900">
+              <span className="text-lg font-semibold text-slate-900">
                 {interestRate.toFixed(2)}%
               </span>
             </div>
@@ -115,7 +115,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
               <Label className="text-sm font-semibold text-slate-700">
                 Loan Tenure
               </Label>
-              <span className="text-lg font-bold text-slate-900">
+              <span className="text-lg font-semibold text-slate-900">
                 {tenure} years
               </span>
             </div>
@@ -140,16 +140,16 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
         {/* Results */}
         <div className="space-y-6">
           {/* Primary EMI Result */}
-          <div className="bg-linear-to-br from-emerald-50 via-emerald-50/50 to-white border border-emerald-100 rounded-xl p-6">
+          <div className="bg-linear-to-br from-[#F7FDF1] via-[#F7FDF1]/50 to-white border border-[#EFFBE2] rounded-xl p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <IndianRupee className="h-4 w-4 text-emerald-600" />
-                  <p className="text-xs font-semibold text-emerald-800 uppercase tracking-wide">
+                  <IndianRupee className="h-4 w-4 text-[#577A30]" />
+                  <p className="text-xs font-semibold text-[#577A30] uppercase tracking-wide">
                     Monthly EMI
                   </p>
                 </div>
-                <p className="text-4xl font-bold text-emerald-700 mb-1">
+                <p className="text-4xl font-semibold text-[#577A30] mb-1">
                   {formatAmount(emi)}
                 </p>
                 <div className="flex items-center gap-1.5 text-xs text-slate-600">
@@ -169,7 +169,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
               <p className="text-xs text-slate-600 font-medium mb-2">
                 Total Interest
               </p>
-              <p className="text-xl font-bold text-slate-900">
+              <p className="text-xl font-semibold text-slate-900">
                 {formatAmount(totalInterest)}
               </p>
             </div>
@@ -179,7 +179,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
               <p className="text-xs text-slate-600 font-medium mb-2">
                 Total Payment
               </p>
-              <p className="text-xl font-bold text-slate-900">
+              <p className="text-xl font-semibold text-slate-900">
                 {formatAmount(emi * tenure * 12)}
               </p>
             </div>
@@ -192,24 +192,24 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
             </p>
             <div className="relative h-10 w-full rounded-lg overflow-hidden bg-slate-100 border border-slate-200">
               <div
-                className="absolute top-0 left-0 h-full bg-linear-to-r from-blue-500 to-blue-600 flex items-center justify-center transition-all duration-300"
+                className="absolute top-0 left-0 h-full bg-linear-to-r from-[#C0F08D] to-[#C0F08D] flex items-center justify-center transition-all duration-300"
                 style={{
                   width: `${(loanAmount / (emi * tenure * 12)) * 100}%`,
                 }}
               >
-                <span className="text-white text-xs font-semibold">
+                <span className="text-[#111827] text-xs font-semibold">
                   Principal{' '}
                   {((loanAmount / (emi * tenure * 12)) * 100).toFixed(0)}%
                 </span>
               </div>
               <div
-                className="absolute top-0 h-full bg-linear-to-r from-amber-500 to-amber-600 flex items-center justify-center transition-all duration-300"
+                className="absolute top-0 h-full bg-linear-to-r from-[#FF9F4C] to-[#FF9F4C] flex items-center justify-center transition-all duration-300"
                 style={{
                   left: `${(loanAmount / (emi * tenure * 12)) * 100}%`,
                   width: `${(totalInterest / (emi * tenure * 12)) * 100}%`,
                 }}
               >
-                <span className="text-white text-xs font-semibold">
+                <span className="text-[#111827] text-xs font-semibold">
                   Interest{' '}
                   {((totalInterest / (emi * tenure * 12)) * 100).toFixed(0)}%
                 </span>
@@ -219,27 +219,27 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
             {/* Legend */}
             <div className="flex items-center justify-center gap-6 mt-4 text-xs text-slate-600">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm bg-linear-to-r from-blue-500 to-blue-600" />
+                <div className="w-3 h-3 rounded-sm bg-linear-to-r from-[#B0EC70] to-[#B0EC70]" />
                 <span>Principal: {formatAmount(loanAmount)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm bg-linear-to-r from-amber-500 to-amber-600" />
+                <div className="w-3 h-3 rounded-sm bg-linear-to-r from-[#FF9F4C] to-[#FF9F4C]" />
                 <span>Interest: {formatAmount(totalInterest)}</span>
               </div>
             </div>
           </div>
 
           {/* Pro Tip */}
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+          <div className="bg-[#F7FDF1] border border-[#EFFBE2] rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <div className="p-1.5 bg-blue-100 rounded-lg shrink-0 mt-0.5">
-                <TrendingUp className="h-4 w-4 text-blue-600" />
+              <div className="p-1.5 bg-[#EFFBE2] rounded-lg shrink-0 mt-0.5">
+                <TrendingUp className="h-4 w-4 text-[#B0EC70]" />
               </div>
               <div className="text-xs text-slate-700 leading-relaxed">
                 <span className="font-semibold text-slate-900">Pro Tip: </span>
                 Reducing your loan tenure from {tenure} to{' '}
                 {Math.max(5, tenure - 5)} years saves{' '}
-                <span className="font-bold text-blue-700">
+                <span className="font-semibold text-blue-700">
                   {formatAmount(
                     totalInterest -
                       (((loanAmount *
@@ -267,7 +267,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
           <div className="pt-2">
             <a
               href="/loans/home-loan/"
-              className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-colors text-sm shadow-sm"
+              className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-[#B0EC70] text-[#111827] rounded-lg font-semibold hover:bg-[#92C65B] transition-colors text-sm shadow-sm"
             >
               <Calculator className="h-4 w-4" />
               View Detailed Amortization Schedule

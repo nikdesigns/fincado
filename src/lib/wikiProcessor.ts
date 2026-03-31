@@ -20,7 +20,7 @@ export function processWikiHtml(html: string): string {
     const regex = new RegExp(`\\b${keyword}\\b`, 'g');
     output = output.replace(
       regex,
-      `<a href="${url}" class="wiki-link">${keyword}</a>`
+      `<a href="${url}" class="wiki-link">${keyword}</a>`,
     );
   });
 

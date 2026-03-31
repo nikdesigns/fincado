@@ -7,6 +7,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
 import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Imported
+import { addHeadingIds } from '@/utils/addHeadingIds';
 
 /* ---------------- TYPES ---------------- */
 
@@ -76,7 +77,7 @@ export default async function GuidePost({ params }: Props) {
   if (!article) notFound();
 
   // ✅ ACTION: Process the content to inject internal links automatically
-  const processedContent = autoLinkContent(article.content);
+  const processedContent = addHeadingIds(autoLinkContent(article.content));
 
   const related = getRelatedGuides(article.slug, article.category);
 

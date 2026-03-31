@@ -49,9 +49,9 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 // --- SEO METADATA (IMPROVED) ---
 export const metadata: Metadata = {
   title:
-    'Home Loan Guide 2026: Complete Eligibility, Tax Benefits & Application Process',
+    'Home Loan Guide India 2026: Eligibility, Interest Rates, EMI & Tax Benefits | Fincado',
   description:
-    'Complete home loan guide for India 2026: CIBIL score requirements, FOIR calculation, tax benefits under 80C & 24b, RLLR vs MCLR comparison, hidden charges, stamp duty by state, and step-by-step application process for first-time buyers.',
+    'Complete home loan guide for India: eligibility, FOIR, down payment, EMI calculation, and tax deductions under Sections 80C and 24(b).',
   keywords: [
     'Home Loan Guide India 2026',
     'Home Loan Tax Benefit',
@@ -67,9 +67,9 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      'Home Loan Guide 2026: Complete Eligibility, Tax Benefits & Application Process',
+      'Home Loan Guide India 2026: Eligibility, Interest Rates, EMI & Tax Benefits | Fincado',
     description:
-      'Save lakhs on your home loan with expert tips on tax benefits, interest rates, eligibility criteria, and step-by-step application guidance.',
+      'Complete home loan guide for India: eligibility, FOIR, down payment, EMI calculation, and tax deductions under Sections 80C and 24(b).',
     type: 'article',
     url: 'https://fincado.com/guides/home-loan-guide/',
     images: [
@@ -122,6 +122,20 @@ const FAQ_ITEMS = [
     question: 'Why do home loan applications get rejected?',
     answer:
       'Common rejection reasons include: Low CIBIL score (below 650), high FOIR (above 60%), insufficient income documentation, property legal issues, unstable employment, high existing debt, or discrepancies in application documents.',
+  },
+  {
+    question: 'What credit score is ideal for a home loan in India?',
+    answer:
+      'Most lenders prefer around 750+ for better approval odds and rates.',
+  },
+  {
+    question: 'Is fixed or floating home loan rate better?',
+    answer: 'Floating can help if rates fall; fixed gives repayment certainty.',
+  },
+  {
+    question: 'How much tax benefit is available on home loans?',
+    answer:
+      'Principal may qualify under 80C and interest under 24(b), subject to limits.',
   },
 ];
 
@@ -241,11 +255,14 @@ export default function HomeLoanGuidePage() {
 
       {/* Breadcrumb Visual */}
       <nav className="flex items-center gap-2 text-sm text-slate-600 mb-4">
-        <Link href="/" className="hover:text-lime-600 transition-colors">
+        <Link href="/" className="hover:text-[#577A30] transition-colors">
           Home
         </Link>
         <span>›</span>
-        <Link href="/guides/" className="hover:text-lime-600 transition-colors">
+        <Link
+          href="/guides/"
+          className="hover:text-[#577A30] transition-colors"
+        >
           Guides
         </Link>
         <span>›</span>
@@ -256,11 +273,11 @@ export default function HomeLoanGuidePage() {
       <header className="mb-8 border-b border-slate-200 pb-6 no-print">
         <Badge
           variant="secondary"
-          className="mb-3 bg-lime-100 text-lime-800 hover:bg-lime-200 px-3 py-1"
+          className="mb-3 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1"
         >
           Flagship Guide
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           The Complete Home Loan Guide 2026: Eligibility, Tax Benefits &
           Application Process
         </h1>
@@ -273,7 +290,7 @@ export default function HomeLoanGuidePage() {
             Updated: <strong className="text-slate-700">{updatedLabel}</strong>
           </span>
           <span className="hidden sm:inline">•</span>
-          <span className="flex items-center gap-1 font-medium text-lime-700">
+          <span className="flex items-center gap-1 font-medium text-[#577A30]">
             <CheckCircle2 className="h-4 w-4" /> Expert Reviewed
           </span>
         </div>
@@ -283,17 +300,17 @@ export default function HomeLoanGuidePage() {
       </header>
 
       {/* Quick Answer - WITH LIME ACCENT */}
-      <Card className="mb-8 border-l-4 border-l-lime-600 bg-linear-to-br from-lime-50/50 via-white to-slate-50/30 shadow-sm">
+      <Card className="mb-8 border-l-4 border-l-[#577A30] bg-linear-to-br from-[#F7FDF1]/50 via-white to-slate-50/30 shadow-sm">
         <CardHeader className="pb-4 border-b border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-lime-100 rounded-lg">
-              <Lightbulb className="h-6 w-6 text-lime-700" />
+            <div className="p-2 bg-[#EFFBE2] rounded-lg">
+              <Lightbulb className="h-6 w-6 text-[#577A30]" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-slate-900">
+              <CardTitle className="text-2xl font-semibold text-slate-900">
                 Quick Answer
               </CardTitle>
-              <Badge className="mt-1 bg-lime-600 text-white hover:bg-lime-700">
+              <Badge className="mt-1 bg-[#577A30] text-white hover:bg-[#577A30]">
                 30-Second Read
               </Badge>
             </div>
@@ -309,20 +326,28 @@ export default function HomeLoanGuidePage() {
               only under the old tax regime.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-              <div className="bg-linear-to-br from-lime-50 to-lime-100/50 p-3 rounded-lg border-2 border-lime-200 text-center">
-                <div className="font-bold text-2xl text-lime-800">8.5%</div>
+              <div className="bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2]/50 p-3 rounded-lg border-2 border-[#DFF7C6] text-center">
+                <div className="font-semibold text-2xl text-[#577A30]">
+                  8.5%
+                </div>
                 <div className="text-slate-600 text-xs">Starting Rate</div>
               </div>
-              <div className="bg-linear-to-br from-lime-50 to-lime-100/50 p-3 rounded-lg border-2 border-lime-200 text-center">
-                <div className="font-bold text-2xl text-lime-800">750+</div>
+              <div className="bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2]/50 p-3 rounded-lg border-2 border-[#DFF7C6] text-center">
+                <div className="font-semibold text-2xl text-[#577A30]">
+                  750+
+                </div>
                 <div className="text-slate-600 text-xs">Min CIBIL</div>
               </div>
-              <div className="bg-linear-to-br from-lime-50 to-lime-100/50 p-3 rounded-lg border-2 border-lime-200 text-center">
-                <div className="font-bold text-2xl text-lime-800">₹3.5L</div>
+              <div className="bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2]/50 p-3 rounded-lg border-2 border-[#DFF7C6] text-center">
+                <div className="font-semibold text-2xl text-[#577A30]">
+                  ₹3.5L
+                </div>
                 <div className="text-slate-600 text-xs">Tax Savings*</div>
               </div>
-              <div className="bg-linear-to-br from-lime-50 to-lime-100/50 p-3 rounded-lg border-2 border-lime-200 text-center">
-                <div className="font-bold text-2xl text-lime-800">30 yrs</div>
+              <div className="bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2]/50 p-3 rounded-lg border-2 border-[#DFF7C6] text-center">
+                <div className="font-semibold text-2xl text-[#577A30]">
+                  30 yrs
+                </div>
                 <div className="text-slate-600 text-xs">Max Tenure</div>
               </div>
             </div>
@@ -341,7 +366,7 @@ export default function HomeLoanGuidePage() {
             </p>
             <Link
               href="/loans/home-loan/"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-lime-600 text-white rounded-lg font-semibold hover:bg-lime-700 transition-colors text-sm w-full justify-center shadow-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#577A30] text-white rounded-lg font-semibold hover:bg-[#577A30] transition-colors text-sm w-full justify-center shadow-sm"
             >
               <Calculator className="h-4 w-4" />
               Calculate My Home Loan EMI
@@ -363,42 +388,42 @@ export default function HomeLoanGuidePage() {
             <a
               href="#what-is"
               aria-label="Jump to What is a Home Loan section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">01</span> What is a Home Loan?
             </a>
             <a
               href="#application-process"
               aria-label="Jump to Application Process section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">02</span> Application Process
             </a>
             <a
               href="#eligibility"
               aria-label="Jump to Eligibility Checklist section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">03</span> Eligibility Checklist
             </a>
             <a
               href="#documents"
               aria-label="Jump to Document Checklist section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">04</span> Document Checklist
             </a>
             <a
               href="#tax-benefits"
               aria-label="Jump to Tax Benefits section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">05</span> Tax Benefits (80C, 24b)
             </a>
             <a
               href="#interest-rates"
               aria-label="Jump to Interest Rates section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">06</span> Interest Rates (RLLR vs
               MCLR)
@@ -406,42 +431,42 @@ export default function HomeLoanGuidePage() {
             <a
               href="#best-banks"
               aria-label="Jump to Best Banks section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">07</span> Top 5 Banks
             </a>
             <a
               href="#hidden-charges"
               aria-label="Jump to Hidden Charges section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">08</span> Hidden Charges
             </a>
             <a
               href="#stamp-duty"
               aria-label="Jump to Stamp Duty section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">09</span> Stamp Duty by State
             </a>
             <a
               href="#prepayment"
               aria-label="Jump to Prepayment Strategy section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">10</span> Prepayment Strategy
             </a>
             <a
               href="#rejection-reasons"
               aria-label="Jump to Rejection Reasons section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">11</span> Common Rejections
             </a>
             <a
               href="#buy-vs-rent"
               aria-label="Jump to Buy vs Rent section"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <span className="text-slate-400">12</span> Buy vs Rent Analysis
             </a>
@@ -455,7 +480,7 @@ export default function HomeLoanGuidePage() {
           <WikiText
             content={`
             <p class="mb-4">
-              Buying your first home in India is one of the biggest financial decisions you'll ever make, and choosing the right <strong>Home Loan</strong> can save you lakhs of rupees over the loan tenure. This comprehensive guide covers everything from CIBIL score requirements and tax benefits to the complete application process and hidden charges, helping you make an informed decision before signing on the dotted line.
+              Buying a home is one of the biggest money decisions you’ll make. This guide explains home loan eligibility, FOIR limits, down payment rules, fixed vs floating rates, and tax benefits. If you are planning your first property purchase, use this to compare offers and reduce total interest cost.
             </p>
             <p>
               Whether you're a first-time home buyer or looking to refinance, understanding <strong>home loan eligibility criteria</strong>, <strong>tax deductions under Section 80C and 24(b)</strong>, the difference between <strong>RLLR vs MCLR</strong>, and the step-by-step application process will put you in control of your home-buying journey. Also learn about <strong>stamp duty variations across states</strong> and smart prepayment strategies.
@@ -468,7 +493,7 @@ export default function HomeLoanGuidePage() {
               src="/images/guides/home-loan/happy-couple-new-home.webp"
               alt="First-time home buyers in India celebrating home loan approval with house keys in modern apartment | Home Loan Guide 2026"
               priority
-              quality={85}
+              quality={75}
               fill
               sizes="(max-width: 768px) 100vw, 800px"
               className="object-cover"
@@ -491,8 +516,8 @@ export default function HomeLoanGuidePage() {
         className="mb-12 border border-slate-200 shadow-sm scroll-mt-20"
       >
         <CardContent className="p-6 sm:p-8">
-          <h2 className="mb-4 text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <Home className="h-6 w-6 text-lime-600" /> What is a Home Loan?
+          <h2 className="mb-4 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+            <Home className="h-6 w-6 text-[#577A30]" /> What is a Home Loan?
           </h2>
           <p className="mb-6 text-slate-700">
             A <strong>home loan (also called housing loan or mortgage)</strong>{' '}
@@ -563,8 +588,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- NEW SECTION: APPLICATION PROCESS --- */}
       <section id="application-process" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <ClipboardCheck className="h-6 w-6 text-lime-600" /> Step-by-Step
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <ClipboardCheck className="h-6 w-6 text-[#577A30]" /> Step-by-Step
           Application Process
         </h2>
         <p className="mb-6 text-slate-700">
@@ -575,14 +600,14 @@ export default function HomeLoanGuidePage() {
 
         <div className="space-y-4">
           {/* Step 1 */}
-          <Card className="border-l-4 border-l-lime-600">
+          <Card className="border-l-4 border-l-[#577A30]">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center font-bold text-lime-700">
+                <div className="shrink-0 w-10 h-10 bg-[#EFFBE2] rounded-full flex items-center justify-center font-semibold text-[#577A30]">
                   1
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Check Eligibility & Get Pre-Approval
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -603,14 +628,14 @@ export default function HomeLoanGuidePage() {
           </Card>
 
           {/* Step 2 */}
-          <Card className="border-l-4 border-l-blue-500">
+          <Card className="border-l-4 border-l-[#B0EC70]">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-700">
+                <div className="shrink-0 w-10 h-10 bg-[#EFFBE2] rounded-full flex items-center justify-center font-semibold text-[#577A30]">
                   2
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Property Selection & Agreement
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -633,11 +658,11 @@ export default function HomeLoanGuidePage() {
           <Card className="border-l-4 border-l-amber-500">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-bold text-amber-700">
+                <div className="shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-semibold text-amber-700">
                   3
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Submit Complete Documentation
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -662,11 +687,11 @@ export default function HomeLoanGuidePage() {
           <Card className="border-l-4 border-l-purple-500">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-700">
+                <div className="shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center font-semibold text-purple-700">
                   4
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Property Verification (Legal & Technical)
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -687,14 +712,14 @@ export default function HomeLoanGuidePage() {
           </Card>
 
           {/* Step 5 */}
-          <Card className="border-l-4 border-l-green-500">
+          <Card className="border-l-4 border-l-[#F7FDF1]0">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-700">
+                <div className="shrink-0 w-10 h-10 bg-[#EFFBE2] rounded-full flex items-center justify-center font-semibold text-[#577A30]">
                   5
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Final Sanction & Agreement Signing
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -714,14 +739,14 @@ export default function HomeLoanGuidePage() {
           </Card>
 
           {/* Step 6 */}
-          <Card className="border-l-4 border-l-lime-600">
+          <Card className="border-l-4 border-l-[#577A30]">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center font-bold text-lime-700">
+                <div className="shrink-0 w-10 h-10 bg-[#EFFBE2] rounded-full flex items-center justify-center font-semibold text-[#577A30]">
                   6
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     Disbursement & Property Registration
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -743,9 +768,9 @@ export default function HomeLoanGuidePage() {
           </Card>
         </div>
 
-        <div className="mt-6 bg-lime-50 p-5 rounded-xl border-2 border-lime-200">
+        <div className="mt-6 bg-[#F7FDF1] p-5 rounded-xl border-2 border-[#DFF7C6]">
           <p className="text-sm text-slate-900 flex items-start gap-2">
-            <Clock className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+            <Clock className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
             <span>
               <strong>Total Timeline:</strong> Expect 15-30 days from
               application to disbursement if all documents are in order.
@@ -757,8 +782,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- SECTION 2: ELIGIBILITY --- */}
       <section id="eligibility" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <UserCheck className="h-6 w-6 text-lime-600" /> Eligibility Checklist
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <UserCheck className="h-6 w-6 text-[#577A30]" /> Eligibility Checklist
         </h2>
         <p className="mb-6 text-slate-700">
           Before you apply, make sure you meet these critical eligibility
@@ -769,7 +794,7 @@ export default function HomeLoanGuidePage() {
         <Card className="border border-slate-200 mb-6 shadow-sm">
           <CardHeader className="bg-slate-50 border-b border-slate-200 pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-lime-600" /> 1. CIBIL Score
+              <ShieldCheck className="h-5 w-5 text-[#577A30]" /> 1. CIBIL Score
               Requirements
             </CardTitle>
           </CardHeader>
@@ -778,23 +803,23 @@ export default function HomeLoanGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50 hover:bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Score Range
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Eligibility Status
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Interest Rate Impact
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="font-bold text-lime-700">
+                    <TableCell className="font-semibold text-[#577A30]">
                       750+ (Excellent)
                     </TableCell>
-                    <TableCell className="text-lime-700">
+                    <TableCell className="text-[#577A30]">
                       Very high chance of approval
                     </TableCell>
                     <TableCell>Lowest rates (8.5%-8.75%)</TableCell>
@@ -832,7 +857,7 @@ export default function HomeLoanGuidePage() {
         <Card className="border border-slate-200 mb-6 shadow-sm">
           <CardHeader className="bg-slate-50 border-b border-slate-200 pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-lime-600" /> 2. Fixed
+              <Calculator className="h-5 w-5 text-[#577A30]" /> 2. Fixed
               Obligation to Income Ratio (FOIR)
             </CardTitle>
           </CardHeader>
@@ -843,8 +868,10 @@ export default function HomeLoanGuidePage() {
               <strong>50-60% FOIR</strong>.
             </p>
 
-            <div className="bg-lime-50 p-5 rounded-xl border-2 border-lime-200 mb-4">
-              <h4 className="font-bold text-slate-900 mb-3">FOIR Formula</h4>
+            <div className="bg-[#F7FDF1] p-5 rounded-xl border-2 border-[#DFF7C6] mb-4">
+              <h4 className="font-semibold text-slate-900 mb-3">
+                FOIR Formula
+              </h4>
               <div className="bg-white p-4 rounded-lg border-2 border-slate-200 font-mono text-sm">
                 FOIR = (Total Monthly EMIs + Credit Card Dues) ÷ Gross Monthly
                 Income × 100
@@ -880,13 +907,13 @@ export default function HomeLoanGuidePage() {
                 </h5>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30]" />
                     <span>
                       <strong>Below 50%:</strong> Excellent eligibility
                     </span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30]" />
                     <span>
                       <strong>50-60%:</strong> Good eligibility
                     </span>
@@ -924,27 +951,29 @@ export default function HomeLoanGuidePage() {
         <Card className="border border-slate-200 mb-6 shadow-sm">
           <CardHeader className="bg-slate-50 border-b border-slate-200 pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
-              <UserCheck className="h-5 w-5 text-lime-600" /> 3. Age & Income
+              <UserCheck className="h-5 w-5 text-[#577A30]" /> 3. Age & Income
               Criteria
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h4 className="font-bold text-slate-900 mb-3">
+                <h4 className="font-semibold text-slate-900 mb-3">
                   Age Requirements
                 </h4>
                 <Table>
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">Minimum Age</TableCell>
-                      <TableCell className="font-bold">21 years</TableCell>
+                      <TableCell className="font-semibold">21 years</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">
                         Maximum Age (at maturity)
                       </TableCell>
-                      <TableCell className="font-bold">65-70 years</TableCell>
+                      <TableCell className="font-semibold">
+                        65-70 years
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Salaried</TableCell>
@@ -961,7 +990,7 @@ export default function HomeLoanGuidePage() {
               </div>
 
               <div>
-                <h4 className="font-bold text-slate-900 mb-3">
+                <h4 className="font-semibold text-slate-900 mb-3">
                   Income Requirements
                 </h4>
                 <Table>
@@ -970,7 +999,7 @@ export default function HomeLoanGuidePage() {
                       <TableCell className="font-medium">
                         Salaried (Metro)
                       </TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹25,000+/month
                       </TableCell>
                     </TableRow>
@@ -978,7 +1007,7 @@ export default function HomeLoanGuidePage() {
                       <TableCell className="font-medium">
                         Salaried (Non-Metro)
                       </TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹15,000+/month
                       </TableCell>
                     </TableRow>
@@ -986,7 +1015,7 @@ export default function HomeLoanGuidePage() {
                       <TableCell className="font-medium">
                         Self-Employed
                       </TableCell>
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         ₹2-3 LPA net profit
                       </TableCell>
                     </TableRow>
@@ -1011,7 +1040,7 @@ export default function HomeLoanGuidePage() {
           your credit score to estimate eligibility accurately.{' '}
           <Link
             href="/loans/home-loan/"
-            className="text-lime-600 hover:underline"
+            className="text-[#577A30] hover:underline"
           >
             Open full calculator →
           </Link>
@@ -1028,81 +1057,81 @@ export default function HomeLoanGuidePage() {
         <Card className="border border-slate-200 shadow-sm">
           <CardHeader className="bg-slate-50 border-b border-slate-200">
             <CardTitle className="text-xl flex items-center gap-2 text-slate-900">
-              <FileText className="h-6 w-6 text-lime-600" />
+              <FileText className="h-6 w-6 text-[#577A30]" />
               Document Checklist for Home Loan Application
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
-                <h3 className="font-bold text-slate-900 mb-3 text-lg flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-lime-600" />
+                <h3 className="font-semibold text-slate-900 mb-3 text-lg flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-[#577A30]" />
                   For Salaried Individuals
                 </h3>
                 <ul className="space-y-2 text-sm text-slate-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Last 6 months&apos; salary slips
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Form 16 (last 2 years)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Last 6 months&apos; bank statements (salary account)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     PAN card & Aadhaar card
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Property documents (sale agreement, builder NOC)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Employment letter or offer letter
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Passport-size photographs
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-bold text-slate-900 mb-3 text-lg flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-lime-600" />
+                <h3 className="font-semibold text-slate-900 mb-3 text-lg flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-[#577A30]" />
                   For Self-Employed
                 </h3>
                 <ul className="space-y-2 text-sm text-slate-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     ITR (last 2-3 years) with computation sheets
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Audited financial statements (P&L, Balance Sheet)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Business proof (GST registration, Shop Act license)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Last 12 months&apos; bank statements (business account)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     PAN, Aadhaar & property documents
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Business continuity proof (2-3 years minimum)
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                     Passport-size photographs
                   </li>
                 </ul>
@@ -1110,7 +1139,7 @@ export default function HomeLoanGuidePage() {
             </div>
 
             <div className="bg-slate-50 p-5 rounded-lg border border-slate-200 mb-4">
-              <h4 className="font-bold text-slate-900 mb-3">
+              <h4 className="font-semibold text-slate-900 mb-3">
                 Property Documents Required
               </h4>
               <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-700">
@@ -1170,8 +1199,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- SECTION 3: TAX BENEFITS (UPDATED) --- */}
       <section id="tax-benefits" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <BadgePercent className="h-6 w-6 text-lime-600" /> Tax Benefits Under
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <BadgePercent className="h-6 w-6 text-[#577A30]" /> Tax Benefits Under
           Old Tax Regime
         </h2>
 
@@ -1180,7 +1209,7 @@ export default function HomeLoanGuidePage() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="h-6 w-6 text-red-600 shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-bold text-red-900 mb-2">
+              <h3 className="font-semibold text-red-900 mb-2">
                 Critical: Tax Regime Selection Matters!
               </h3>
               <p className="text-sm text-red-800 leading-relaxed">
@@ -1212,16 +1241,16 @@ export default function HomeLoanGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50 hover:bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Section
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Covers
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Max Deduction
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Eligibility
                     </TableHead>
                   </TableRow>
@@ -1232,7 +1261,7 @@ export default function HomeLoanGuidePage() {
                       Section 80C
                     </TableCell>
                     <TableCell>Principal Repayment</TableCell>
-                    <TableCell className="font-bold text-lime-700">
+                    <TableCell className="font-semibold text-[#577A30]">
                       ₹1,50,000
                     </TableCell>
                     <TableCell>All borrowers (old regime only)</TableCell>
@@ -1242,7 +1271,7 @@ export default function HomeLoanGuidePage() {
                       Section 24(b)
                     </TableCell>
                     <TableCell>Interest on loan</TableCell>
-                    <TableCell className="font-bold text-lime-700">
+                    <TableCell className="font-semibold text-[#577A30]">
                       ₹2,00,000
                     </TableCell>
                     <TableCell>Self-occupied property (old regime)</TableCell>
@@ -1255,7 +1284,7 @@ export default function HomeLoanGuidePage() {
                       </Badge>
                     </TableCell>
                     <TableCell>Additional Interest</TableCell>
-                    <TableCell className="font-bold text-slate-600 line-through">
+                    <TableCell className="font-semibold text-slate-600 line-through">
                       ₹1,50,000
                     </TableCell>
                     <TableCell className="text-slate-600">
@@ -1280,16 +1309,16 @@ export default function HomeLoanGuidePage() {
         </p>
 
         {/* Tax Savings Calculation Example */}
-        <Card className="bg-linear-to-br from-lime-50 to-white border-2 border-lime-200 shadow-sm mb-6">
+        <Card className="bg-linear-to-br from-[#F7FDF1] to-white border-2 border-[#DFF7C6] shadow-sm mb-6">
           <CardHeader className="pb-2">
             <CardTitle className="text-slate-900 text-lg flex items-center gap-2">
-              <IndianRupee className="h-5 w-5 text-lime-600" />
+              <IndianRupee className="h-5 w-5 text-[#577A30]" />
               Tax Savings Calculation Example (Old Regime)
             </CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-slate-700">
             <div className="bg-white p-5 rounded-lg border-2 border-slate-200 mb-4">
-              <h4 className="font-bold text-slate-900 mb-3">
+              <h4 className="font-semibold text-slate-900 mb-3">
                 Annual Deductions Available
               </h4>
               <Table>
@@ -1298,7 +1327,7 @@ export default function HomeLoanGuidePage() {
                     <TableCell className="font-medium">
                       Principal Repayment (80C)
                     </TableCell>
-                    <TableCell className="text-right font-bold text-lime-700">
+                    <TableCell className="text-right font-semibold text-[#577A30]">
                       ₹1,50,000
                     </TableCell>
                   </TableRow>
@@ -1306,15 +1335,15 @@ export default function HomeLoanGuidePage() {
                     <TableCell className="font-medium">
                       Interest Payment (24b)
                     </TableCell>
-                    <TableCell className="text-right font-bold text-lime-700">
+                    <TableCell className="text-right font-semibold text-[#577A30]">
                       ₹2,00,000
                     </TableCell>
                   </TableRow>
-                  <TableRow className="bg-lime-100">
-                    <TableCell className="font-bold text-slate-900">
+                  <TableRow className="bg-[#EFFBE2]">
+                    <TableCell className="font-semibold text-slate-900">
                       Total Annual Deduction
                     </TableCell>
-                    <TableCell className="text-right font-bold text-lime-800 text-lg">
+                    <TableCell className="text-right font-semibold text-[#577A30] text-lg">
                       ₹3,50,000
                     </TableCell>
                   </TableRow>
@@ -1322,8 +1351,8 @@ export default function HomeLoanGuidePage() {
               </Table>
             </div>
 
-            <div className="bg-lime-50 p-5 rounded-lg border-2 border-lime-200">
-              <h4 className="font-bold text-slate-900 mb-3">
+            <div className="bg-[#F7FDF1] p-5 rounded-lg border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-slate-900 mb-3">
                 Tax Savings by Income Bracket
               </h4>
               <Table className="text-sm">
@@ -1339,28 +1368,28 @@ export default function HomeLoanGuidePage() {
                 <TableBody>
                   <TableRow>
                     <TableCell>30% bracket (income above ₹15L)</TableCell>
-                    <TableCell className="text-right font-bold">
+                    <TableCell className="text-right font-semibold">
                       ₹1,05,000
                     </TableCell>
-                    <TableCell className="text-right font-bold text-lime-700">
+                    <TableCell className="text-right font-semibold text-[#577A30]">
                       ₹21,00,000
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>20% bracket (₹10-15L)</TableCell>
-                    <TableCell className="text-right font-bold">
+                    <TableCell className="text-right font-semibold">
                       ₹70,000
                     </TableCell>
-                    <TableCell className="text-right font-bold text-lime-700">
+                    <TableCell className="text-right font-semibold text-[#577A30]">
                       ₹14,00,000
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>10% bracket (₹5-10L)</TableCell>
-                    <TableCell className="text-right font-bold">
+                    <TableCell className="text-right font-semibold">
                       ₹35,000
                     </TableCell>
-                    <TableCell className="text-right font-bold text-lime-700">
+                    <TableCell className="text-right font-semibold text-[#577A30]">
                       ₹7,00,000
                     </TableCell>
                   </TableRow>
@@ -1371,10 +1400,10 @@ export default function HomeLoanGuidePage() {
         </Card>
 
         {/* Joint Loan Tax Benefit */}
-        <Card className="bg-linear-to-br from-lime-50 to-white border-2 border-lime-200 shadow-sm mb-6">
+        <Card className="bg-linear-to-br from-[#F7FDF1] to-white border-2 border-[#DFF7C6] shadow-sm mb-6">
           <CardHeader className="pb-2">
             <CardTitle className="text-slate-900 text-lg flex items-center gap-2">
-              <Lightbulb className="h-5 w-5 text-lime-600" />
+              <Lightbulb className="h-5 w-5 text-[#577A30]" />
               Joint Home Loan: Double Tax Benefit Hack
             </CardTitle>
           </CardHeader>
@@ -1390,7 +1419,7 @@ export default function HomeLoanGuidePage() {
             </p>
 
             <div className="bg-white p-5 rounded-lg border-2 border-slate-200">
-              <h4 className="font-bold text-slate-900 mb-3">
+              <h4 className="font-semibold text-slate-900 mb-3">
                 Joint Loan Tax Math
               </h4>
               <div className="grid md:grid-cols-2 gap-4 text-sm">
@@ -1401,7 +1430,7 @@ export default function HomeLoanGuidePage() {
                   <ul className="space-y-1 text-slate-700">
                     <li>80C: ₹1.5 lakh</li>
                     <li>24(b): ₹2 lakh</li>
-                    <li className="pt-2 border-t border-slate-200 font-bold">
+                    <li className="pt-2 border-t border-slate-200 font-semibold">
                       Total: ₹3.5 lakh/year
                     </li>
                   </ul>
@@ -1413,7 +1442,7 @@ export default function HomeLoanGuidePage() {
                   <ul className="space-y-1 text-slate-700">
                     <li>Borrower 1: ₹3.5 lakh</li>
                     <li>Borrower 2: ₹3.5 lakh</li>
-                    <li className="pt-2 border-t border-slate-200 font-bold text-lime-700">
+                    <li className="pt-2 border-t border-slate-200 font-semibold text-[#577A30]">
                       Total: ₹7 lakh/year 🎉
                     </li>
                   </ul>
@@ -1421,8 +1450,8 @@ export default function HomeLoanGuidePage() {
               </div>
             </div>
 
-            <div className="mt-4 bg-lime-100 p-4 rounded-lg border border-lime-300">
-              <p className="text-xs text-lime-900 font-medium flex items-start gap-2">
+            <div className="mt-4 bg-[#EFFBE2] p-4 rounded-lg border border-[#D0F4A9]">
+              <p className="text-xs text-[#1B2E06] font-medium flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
                 <span>
                   <strong>Pro Tip:</strong> Ensure both co-borrowers contribute
@@ -1446,7 +1475,7 @@ export default function HomeLoanGuidePage() {
           </p>
           <Link
             href="/income-tax-calculator/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-lime-600 text-white rounded-lg font-semibold hover:bg-lime-700 transition-colors text-sm shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#577A30] text-white rounded-lg font-semibold hover:bg-[#577A30] transition-colors text-sm shadow-sm"
           >
             <Calculator className="h-4 w-4" />
             Compare Tax Regimes Now
@@ -1461,8 +1490,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- SECTION 4: INTEREST RATES --- */}
       <section id="interest-rates" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <TrendingUp className="h-6 w-6 text-lime-600" /> Interest Rates: RLLR
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <TrendingUp className="h-6 w-6 text-[#577A30]" /> Interest Rates: RLLR
           vs MCLR vs Fixed
         </h2>
         <Card className="border border-slate-200 mb-8 shadow-sm">
@@ -1481,16 +1510,16 @@ export default function HomeLoanGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Feature
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       RLLR (Best)
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       MCLR
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Fixed Rate
                     </TableHead>
                   </TableRow>
@@ -1500,7 +1529,7 @@ export default function HomeLoanGuidePage() {
                     <TableCell className="font-medium">
                       Rate Adjustment
                     </TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       Immediate (quarterly)
                     </TableCell>
                     <TableCell>Slow (1-3 months lag)</TableCell>
@@ -1508,7 +1537,7 @@ export default function HomeLoanGuidePage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Transparency</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       High (tied to RBI repo)
                     </TableCell>
                     <TableCell>Moderate</TableCell>
@@ -1516,13 +1545,13 @@ export default function HomeLoanGuidePage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Current Range</TableCell>
-                    <TableCell className="font-bold">8.5-9.0%</TableCell>
+                    <TableCell className="font-semibold">8.5-9.0%</TableCell>
                     <TableCell>8.75-9.25%</TableCell>
                     <TableCell>9.5-10.5%</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Best For</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       Long-term borrowers
                     </TableCell>
                     <TableCell>Medium-term loans</TableCell>
@@ -1553,8 +1582,8 @@ export default function HomeLoanGuidePage() {
 
       {/* Competitor Comparison */}
       <section id="best-banks" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <Building2 className="h-6 w-6 text-lime-600" />
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <Building2 className="h-6 w-6 text-[#577A30]" />
           Top 5 Home Loan Banks in India (Updated {updatedLabel})
         </h2>
 
@@ -1564,29 +1593,29 @@ export default function HomeLoanGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Bank
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Interest Rate
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Processing Fee
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Max Tenure
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Best For
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="font-bold text-slate-900">
+                    <TableCell className="font-semibold text-slate-900">
                       SBI
                     </TableCell>
-                    <TableCell className="font-medium text-lime-700">
+                    <TableCell className="font-medium text-[#577A30]">
                       8.50%*
                     </TableCell>
                     <TableCell>₹10,000</TableCell>
@@ -1596,10 +1625,10 @@ export default function HomeLoanGuidePage() {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-bold text-slate-900">
+                    <TableCell className="font-semibold text-slate-900">
                       HDFC
                     </TableCell>
-                    <TableCell className="font-medium text-lime-700">
+                    <TableCell className="font-medium text-[#577A30]">
                       8.60%*
                     </TableCell>
                     <TableCell>0.50% of loan</TableCell>
@@ -1609,10 +1638,10 @@ export default function HomeLoanGuidePage() {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-bold text-slate-900">
+                    <TableCell className="font-semibold text-slate-900">
                       ICICI
                     </TableCell>
-                    <TableCell className="font-medium text-lime-700">
+                    <TableCell className="font-medium text-[#577A30]">
                       8.75%*
                     </TableCell>
                     <TableCell>0.50% of loan</TableCell>
@@ -1622,10 +1651,10 @@ export default function HomeLoanGuidePage() {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-bold text-slate-900">
+                    <TableCell className="font-semibold text-slate-900">
                       Axis Bank
                     </TableCell>
-                    <TableCell className="font-medium text-lime-700">
+                    <TableCell className="font-medium text-[#577A30]">
                       8.75%*
                     </TableCell>
                     <TableCell>₹10,000</TableCell>
@@ -1635,10 +1664,10 @@ export default function HomeLoanGuidePage() {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-bold text-slate-900">
+                    <TableCell className="font-semibold text-slate-900">
                       LIC Housing
                     </TableCell>
-                    <TableCell className="font-medium text-lime-700">
+                    <TableCell className="font-medium text-[#577A30]">
                       8.40%*
                     </TableCell>
                     <TableCell>0.25% of loan</TableCell>
@@ -1658,14 +1687,14 @@ export default function HomeLoanGuidePage() {
           CIBIL score, loan amount, and relationship with bank.
         </p>
 
-        <div className="mt-6 bg-lime-50 p-5 rounded-xl border-2 border-lime-200">
+        <div className="mt-6 bg-[#F7FDF1] p-5 rounded-xl border-2 border-[#DFF7C6]">
           <p className="text-sm text-slate-900 mb-3 flex items-center gap-2">
-            <Calculator className="h-5 w-5 text-lime-600" />
+            <Calculator className="h-5 w-5 text-[#577A30]" />
             <strong>Compare these banks instantly with our calculator:</strong>
           </p>
           <Link
-            href="/loans/home-loan/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-lime-600 text-white rounded-lg font-semibold hover:bg-lime-700 transition-colors text-sm shadow-sm"
+            href="/compare-loans/"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#577A30] text-white rounded-lg font-semibold hover:bg-[#577A30] transition-colors text-sm shadow-sm"
           >
             Compare Bank EMIs Now
           </Link>
@@ -1674,7 +1703,7 @@ export default function HomeLoanGuidePage() {
 
       {/* --- SECTION 5: HIDDEN CHARGES --- */}
       <section id="hidden-charges" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <AlertTriangle className="h-6 w-6 text-amber-600" /> Hidden Charges to
           Watch Out For
         </h2>
@@ -1689,16 +1718,16 @@ export default function HomeLoanGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50 hover:bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Charge Type
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Typical Amount
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Negotiable?
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Notes
                     </TableHead>
                   </TableRow>
@@ -1709,7 +1738,7 @@ export default function HomeLoanGuidePage() {
                       Processing Fees
                     </TableCell>
                     <TableCell>0.25% - 1% of loan amount</TableCell>
-                    <TableCell className="font-bold text-lime-700">
+                    <TableCell className="font-semibold text-[#577A30]">
                       ✅ Yes
                     </TableCell>
                     <TableCell className="text-sm">
@@ -1721,7 +1750,7 @@ export default function HomeLoanGuidePage() {
                       MODT Charges
                     </TableCell>
                     <TableCell>₹2,000 - ₹10,000</TableCell>
-                    <TableCell className="font-bold text-slate-700">
+                    <TableCell className="font-semibold text-slate-700">
                       ❌ No
                     </TableCell>
                     <TableCell className="text-sm">
@@ -1748,14 +1777,14 @@ export default function HomeLoanGuidePage() {
                       One-time application fee
                     </TableCell>
                   </TableRow>
-                  <TableRow className="bg-green-50">
+                  <TableRow className="bg-[#F7FDF1]">
                     <TableCell className="font-medium text-slate-700">
                       Prepayment Penalty (Floating Rate)
                     </TableCell>
-                    <TableCell className="font-bold text-green-700">
+                    <TableCell className="font-semibold text-[#577A30]">
                       Zero (₹0)
                     </TableCell>
-                    <TableCell className="font-bold text-green-700">
+                    <TableCell className="font-semibold text-[#577A30]">
                       N/A
                     </TableCell>
                     <TableCell className="text-sm">
@@ -1767,7 +1796,7 @@ export default function HomeLoanGuidePage() {
                       Prepayment Penalty (Fixed Rate)
                     </TableCell>
                     <TableCell>2-4% of outstanding</TableCell>
-                    <TableCell className="font-bold text-slate-700">
+                    <TableCell className="font-semibold text-slate-700">
                       ❌ No
                     </TableCell>
                     <TableCell className="text-sm">
@@ -1779,7 +1808,7 @@ export default function HomeLoanGuidePage() {
                       Late Payment Charges
                     </TableCell>
                     <TableCell>2-3% + ₹500 per default</TableCell>
-                    <TableCell className="font-bold text-slate-700">
+                    <TableCell className="font-semibold text-slate-700">
                       ❌ No
                     </TableCell>
                     <TableCell className="text-sm">
@@ -1817,8 +1846,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- NEW SECTION: STAMP DUTY BY STATE --- */}
       <section id="stamp-duty" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <Stamp className="h-6 w-6 text-lime-600" /> Stamp Duty & Registration
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <Stamp className="h-6 w-6 text-[#577A30]" /> Stamp Duty & Registration
           Costs by State
         </h2>
         <p className="mb-6 text-slate-700">
@@ -1832,7 +1861,7 @@ export default function HomeLoanGuidePage() {
         <Card className="border border-slate-200 shadow-sm mb-6">
           <CardHeader className="bg-slate-50 border-b border-slate-200">
             <CardTitle className="text-lg flex items-center gap-2 text-slate-900">
-              <MapPin className="h-5 w-5 text-lime-600" />
+              <MapPin className="h-5 w-5 text-[#577A30]" />
               Stamp Duty Rates Across Major Indian States (2026)
             </CardTitle>
           </CardHeader>
@@ -1841,16 +1870,16 @@ export default function HomeLoanGuidePage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-50">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       State
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Stamp Duty (Men)
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Stamp Duty (Women)
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Registration Charge
                     </TableHead>
                   </TableRow>
@@ -1861,7 +1890,7 @@ export default function HomeLoanGuidePage() {
                       Maharashtra (Mumbai)
                     </TableCell>
                     <TableCell>5-6%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       4%
                     </TableCell>
                     <TableCell>1%</TableCell>
@@ -1869,7 +1898,7 @@ export default function HomeLoanGuidePage() {
                   <TableRow>
                     <TableCell className="font-medium">Delhi</TableCell>
                     <TableCell>6%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       4%
                     </TableCell>
                     <TableCell>1%</TableCell>
@@ -1879,7 +1908,7 @@ export default function HomeLoanGuidePage() {
                       Karnataka (Bangalore)
                     </TableCell>
                     <TableCell>5%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       3%
                     </TableCell>
                     <TableCell>1%</TableCell>
@@ -1889,7 +1918,7 @@ export default function HomeLoanGuidePage() {
                       Tamil Nadu (Chennai)
                     </TableCell>
                     <TableCell>7%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       7%
                     </TableCell>
                     <TableCell>1-4%</TableCell>
@@ -1899,7 +1928,7 @@ export default function HomeLoanGuidePage() {
                       Telangana (Hyderabad)
                     </TableCell>
                     <TableCell>5%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       5%
                     </TableCell>
                     <TableCell>0.5-1%</TableCell>
@@ -1909,7 +1938,7 @@ export default function HomeLoanGuidePage() {
                       Gujarat (Ahmedabad)
                     </TableCell>
                     <TableCell>4.9%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       4.9%
                     </TableCell>
                     <TableCell>1%</TableCell>
@@ -1919,7 +1948,7 @@ export default function HomeLoanGuidePage() {
                       Uttar Pradesh (Noida)
                     </TableCell>
                     <TableCell>7%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       6%
                     </TableCell>
                     <TableCell>1%</TableCell>
@@ -1929,7 +1958,7 @@ export default function HomeLoanGuidePage() {
                       West Bengal (Kolkata)
                     </TableCell>
                     <TableCell>6-7%</TableCell>
-                    <TableCell className="text-lime-700 font-semibold">
+                    <TableCell className="text-[#577A30] font-semibold">
                       6-7%
                     </TableCell>
                     <TableCell>1%</TableCell>
@@ -1940,9 +1969,9 @@ export default function HomeLoanGuidePage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-linear-to-br from-lime-50 to-white border-2 border-lime-200 shadow-sm">
+        <Card className="bg-linear-to-br from-[#F7FDF1] to-white border-2 border-[#DFF7C6] shadow-sm">
           <CardContent className="p-6">
-            <h3 className="font-bold text-slate-900 mb-4 text-lg">
+            <h3 className="font-semibold text-slate-900 mb-4 text-lg">
               Cost Calculation Example
             </h3>
             <div className="bg-white p-5 rounded-lg border-2 border-slate-200">
@@ -1953,31 +1982,35 @@ export default function HomeLoanGuidePage() {
                 <TableBody>
                   <TableRow>
                     <TableCell>Stamp Duty (Male)</TableCell>
-                    <TableCell className="text-right font-bold">
+                    <TableCell className="text-right font-semibold">
                       ₹6,00,000
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Stamp Duty (Female owner)</TableCell>
-                    <TableCell className="text-right font-bold text-lime-700">
+                    <TableCell className="text-right font-semibold text-[#577A30]">
                       ₹4,00,000 (Save ₹2L!)
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Registration Charge</TableCell>
-                    <TableCell className="text-right font-bold">
+                    <TableCell className="text-right font-semibold">
                       ₹1,00,000
                     </TableCell>
                   </TableRow>
                   <TableRow className="bg-slate-50">
-                    <TableCell className="font-bold">Total (Male)</TableCell>
-                    <TableCell className="text-right font-bold text-lg">
+                    <TableCell className="font-semibold">
+                      Total (Male)
+                    </TableCell>
+                    <TableCell className="text-right font-semibold text-lg">
                       ₹7,00,000
                     </TableCell>
                   </TableRow>
-                  <TableRow className="bg-lime-100">
-                    <TableCell className="font-bold">Total (Female)</TableCell>
-                    <TableCell className="text-right font-bold text-lime-800 text-lg">
+                  <TableRow className="bg-[#EFFBE2]">
+                    <TableCell className="font-semibold">
+                      Total (Female)
+                    </TableCell>
+                    <TableCell className="text-right font-semibold text-[#577A30] text-lg">
                       ₹5,00,000
                     </TableCell>
                   </TableRow>
@@ -1985,9 +2018,9 @@ export default function HomeLoanGuidePage() {
               </Table>
             </div>
 
-            <div className="mt-4 bg-lime-100 p-4 rounded-lg border border-lime-300">
-              <p className="text-sm text-lime-900 font-medium flex items-start gap-2">
-                <Lightbulb className="h-5 w-5 shrink-0 mt-0.5 text-lime-600" />
+            <div className="mt-4 bg-[#EFFBE2] p-4 rounded-lg border border-[#D0F4A9]">
+              <p className="text-sm text-[#1B2E06] font-medium flex items-start gap-2">
+                <Lightbulb className="h-5 w-5 shrink-0 mt-0.5 text-[#577A30]" />
                 <span>
                   <strong>Tax Saving Hack:</strong> Register the property in a
                   female family member&apos;s name where applicable to save 1-2%
@@ -2007,8 +2040,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- NEW SECTION: PREPAYMENT STRATEGY --- */}
       <section id="prepayment" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <IndianRupee className="h-6 w-6 text-lime-600" /> Smart Prepayment
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <IndianRupee className="h-6 w-6 text-[#577A30]" /> Smart Prepayment
           Strategy
         </h2>
         <p className="mb-6 text-slate-700">
@@ -2023,7 +2056,7 @@ export default function HomeLoanGuidePage() {
           <Card className="border-2 border-slate-200 shadow-sm">
             <CardHeader className="bg-slate-50 border-b border-slate-200">
               <CardTitle className="text-lg flex items-center gap-2 text-slate-900">
-                <CheckCircle2 className="h-5 w-5 text-lime-600" />
+                <CheckCircle2 className="h-5 w-5 text-[#577A30]" />
                 Part Prepayment
               </CardTitle>
             </CardHeader>
@@ -2034,22 +2067,22 @@ export default function HomeLoanGuidePage() {
               </p>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                   <span>
                     <strong>Reduce tenure:</strong> Keep EMI same, finish loan
                     faster
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                   <span>
                     <strong>Reduce EMI:</strong> Keep tenure same, lower monthly
                     burden
                   </span>
                 </li>
               </ul>
-              <div className="mt-4 bg-lime-50 p-3 rounded-lg border border-lime-200">
-                <p className="text-xs text-lime-900 font-medium">
+              <div className="mt-4 bg-[#F7FDF1] p-3 rounded-lg border border-[#DFF7C6]">
+                <p className="text-xs text-[#1B2E06] font-medium">
                   <strong>Recommended:</strong> Reduce tenure for maximum
                   interest savings
                 </p>
@@ -2095,16 +2128,18 @@ export default function HomeLoanGuidePage() {
         </div>
 
         {/* Prepayment Impact Example */}
-        <Card className="border-2 border-lime-200 bg-linear-to-br from-lime-50 to-white shadow-sm mb-6">
+        <Card className="border-2 border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white shadow-sm mb-6">
           <CardHeader>
             <CardTitle className="text-xl flex items-center gap-2 text-slate-900">
-              <IndianRupee className="h-6 w-6 text-lime-600" />
+              <IndianRupee className="h-6 w-6 text-[#577A30]" />
               Prepayment Impact Example
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="bg-white p-5 rounded-lg border-2 border-slate-200 mb-4">
-              <h4 className="font-bold text-slate-900 mb-3">Loan Details</h4>
+              <h4 className="font-semibold text-slate-900 mb-3">
+                Loan Details
+              </h4>
               <ul className="grid md:grid-cols-2 gap-3 text-sm text-slate-700">
                 <li>
                   Loan Amount: <strong>₹50 Lakh</strong>
@@ -2121,19 +2156,19 @@ export default function HomeLoanGuidePage() {
               </ul>
             </div>
 
-            <div className="bg-lime-50 p-5 rounded-lg border-2 border-lime-200">
-              <h4 className="font-bold text-slate-900 mb-3">
+            <div className="bg-[#F7FDF1] p-5 rounded-lg border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-slate-900 mb-3">
                 Scenario: ₹5 Lakh prepayment after 5 years
               </h4>
               <div className="overflow-x-auto">
                 <Table className="text-sm">
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-bold">Option</TableHead>
-                      <TableHead className="text-right font-bold">
+                      <TableHead className="font-semibold">Option</TableHead>
+                      <TableHead className="text-right font-semibold">
                         New Tenure
                       </TableHead>
-                      <TableHead className="text-right font-bold">
+                      <TableHead className="text-right font-semibold">
                         Total Interest Saved
                       </TableHead>
                     </TableRow>
@@ -2147,20 +2182,20 @@ export default function HomeLoanGuidePage() {
                       <TableCell className="text-right">-</TableCell>
                     </TableRow>
                     <TableRow className="bg-white">
-                      <TableCell className="font-bold">
+                      <TableCell className="font-semibold">
                         With Prepayment (Reduce Tenure)
                       </TableCell>
-                      <TableCell className="text-right font-bold text-lime-700">
+                      <TableCell className="text-right font-semibold text-[#577A30]">
                         14 years
                       </TableCell>
-                      <TableCell className="text-right font-bold text-lime-700">
+                      <TableCell className="text-right font-semibold text-[#577A30]">
                         ₹12,50,000
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
-              <p className="text-xs text-lime-900 mt-3 italic font-medium">
+              <p className="text-xs text-[#1B2E06] mt-3 italic font-medium">
                 A ₹5L prepayment saves you ₹12.5L in interest and reduces tenure
                 by 6 years!
               </p>
@@ -2172,14 +2207,14 @@ export default function HomeLoanGuidePage() {
         <Card className="border border-slate-200 shadow-sm">
           <CardHeader className="bg-slate-50 border-b border-slate-200">
             <CardTitle className="text-lg flex items-center gap-2 text-slate-900">
-              <Lightbulb className="h-5 w-5 text-lime-600" />
+              <Lightbulb className="h-5 w-5 text-[#577A30]" />
               When to Prepay Your Home Loan
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-4">
             <div className="space-y-3 text-sm text-slate-700">
-              <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
-                <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-slate-900 mb-1">
                     Early Years (First 10 years)
@@ -2191,8 +2226,8 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-3 bg-lime-50 rounded-lg border border-lime-200">
-                <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-slate-900 mb-1">
                     When You Get Windfall Income
@@ -2235,7 +2270,7 @@ export default function HomeLoanGuidePage() {
 
       {/* --- NEW SECTION: COMMON REJECTION REASONS --- */}
       <section id="rejection-reasons" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
           <XCircle className="h-6 w-6 text-red-600" /> Why Home Loan
           Applications Get Rejected
         </h2>
@@ -2253,7 +2288,7 @@ export default function HomeLoanGuidePage() {
                   <XCircle className="h-6 w-6 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     1. Low CIBIL Score (Below 650)
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -2279,7 +2314,7 @@ export default function HomeLoanGuidePage() {
                   <AlertTriangle className="h-6 w-6 text-amber-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     2. High FOIR (Above 60%)
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -2305,7 +2340,7 @@ export default function HomeLoanGuidePage() {
                   <FileText className="h-6 w-6 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     3. Property Legal Issues
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -2325,22 +2360,22 @@ export default function HomeLoanGuidePage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-blue-500 shadow-sm">
+          <Card className="border-l-4 border-l-[#B0EC70] shadow-sm">
             <CardContent className="p-5">
               <div className="flex items-start gap-4">
-                <div className="shrink-0 p-2 bg-blue-100 rounded-lg">
-                  <UserCheck className="h-6 w-6 text-blue-600" />
+                <div className="shrink-0 p-2 bg-[#EFFBE2] rounded-lg">
+                  <UserCheck className="h-6 w-6 text-[#577A30]" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     4. Insufficient or Inconsistent Income Proof
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
                     Self-employed with fluctuating income, cash-based business,
                     or incomplete ITR filings.
                   </p>
-                  <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                    <p className="text-xs text-blue-900">
+                  <div className="bg-[#F7FDF1] p-3 rounded-lg border border-[#DFF7C6]">
+                    <p className="text-xs text-[#1B2E06]">
                       <strong>Solution:</strong> File ITR regularly for 3 years,
                       maintain proper business accounts, show consistent profit
                       trends, get CA-certified financial statements, provide GST
@@ -2359,7 +2394,7 @@ export default function HomeLoanGuidePage() {
                   <Building2 className="h-6 w-6 text-slate-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     5. Job Instability or Frequent Job Changes
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -2386,7 +2421,7 @@ export default function HomeLoanGuidePage() {
                   <AlertTriangle className="h-6 w-6 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                  <h3 className="font-semibold text-slate-900 mb-2 text-lg">
                     6. Age Factor (Too Young or Too Old)
                   </h3>
                   <p className="text-slate-700 text-sm mb-3">
@@ -2407,9 +2442,9 @@ export default function HomeLoanGuidePage() {
           </Card>
         </div>
 
-        <div className="mt-6 bg-lime-50 p-5 rounded-xl border-2 border-lime-200">
+        <div className="mt-6 bg-[#F7FDF1] p-5 rounded-xl border-2 border-[#DFF7C6]">
           <p className="text-sm text-slate-900 flex items-start gap-2 mb-3">
-            <Lightbulb className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+            <Lightbulb className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
             <span>
               <strong>Pro Tip:</strong> If your application gets rejected, wait
               at least 3-6 months before reapplying. Use this time to fix the
@@ -2421,16 +2456,18 @@ export default function HomeLoanGuidePage() {
       </section>
 
       {/* Real Example */}
-      <Card className="mb-12 border-l-4 border-l-lime-600 bg-linear-to-br from-lime-50/30 to-white shadow-sm">
+      <Card className="mb-12 border-l-4 border-l-[#577A30] bg-linear-to-br from-[#F7FDF1]/30 to-white shadow-sm">
         <CardHeader>
           <CardTitle className="text-xl text-slate-900 flex items-center gap-2">
-            <UserCheck className="h-6 w-6 text-lime-600" />
+            <UserCheck className="h-6 w-6 text-[#577A30]" />
             Real Example: Amit&apos;s ₹50 Lakh Home Loan Journey
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="bg-white p-5 rounded-lg border-2 border-slate-200">
-            <h4 className="font-bold text-slate-900 mb-3">Borrower Profile</h4>
+            <h4 className="font-semibold text-slate-900 mb-3">
+              Borrower Profile
+            </h4>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
                 <span className="text-slate-600">Annual Salary:</span>{' '}
@@ -2459,50 +2496,52 @@ export default function HomeLoanGuidePage() {
             </div>
           </div>
 
-          <div className="bg-lime-50 p-5 rounded-lg border-2 border-lime-200">
-            <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <BadgePercent className="h-5 w-5 text-lime-600" />
+          <div className="bg-[#F7FDF1] p-5 rounded-lg border-2 border-[#DFF7C6]">
+            <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+              <BadgePercent className="h-5 w-5 text-[#577A30]" />
               Annual Tax Savings Breakdown (Old Tax Regime)
             </h4>
             <Table className="text-sm">
               <TableBody>
                 <TableRow>
                   <TableCell>Principal Repayment (80C)</TableCell>
-                  <TableCell className="text-right font-bold">
+                  <TableCell className="text-right font-semibold">
                     ₹1,50,000
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Interest Payment (24b)</TableCell>
-                  <TableCell className="text-right font-bold">
+                  <TableCell className="text-right font-semibold">
                     ₹2,00,000
                   </TableCell>
                 </TableRow>
-                <TableRow className="bg-lime-100">
-                  <TableCell className="font-bold">Total Deduction</TableCell>
-                  <TableCell className="text-right font-bold text-lime-800">
+                <TableRow className="bg-[#EFFBE2]">
+                  <TableCell className="font-semibold">
+                    Total Deduction
+                  </TableCell>
+                  <TableCell className="text-right font-semibold text-[#577A30]">
                     ₹3,50,000
                   </TableCell>
                 </TableRow>
-                <TableRow className="bg-lime-100">
-                  <TableCell className="font-bold">
+                <TableRow className="bg-[#EFFBE2]">
+                  <TableCell className="font-semibold">
                     Tax Saved (30% bracket)
                   </TableCell>
-                  <TableCell className="text-right font-bold text-lime-800">
+                  <TableCell className="text-right font-semibold text-[#577A30]">
                     ₹1,05,000/year
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
 
-            <p className="text-xs text-lime-900 mt-3 italic font-medium">
+            <p className="text-xs text-[#1B2E06] mt-3 italic font-medium">
               Over 20 years, Amit saves <strong>₹21 lakhs in taxes</strong>{' '}
               while building ₹50L+ equity in his property!
             </p>
           </div>
 
           <div className="bg-white p-5 rounded-lg border-2 border-slate-200">
-            <h4 className="font-bold text-slate-900 mb-3">
+            <h4 className="font-semibold text-slate-900 mb-3">
               Total Cost Breakdown
             </h4>
             <Table className="text-sm">
@@ -2524,24 +2563,24 @@ export default function HomeLoanGuidePage() {
                   <TableCell className="text-right">₹6,00,000</TableCell>
                 </TableRow>
                 <TableRow className="bg-slate-50">
-                  <TableCell className="font-bold">Total Cost</TableCell>
-                  <TableCell className="text-right font-bold text-lg">
+                  <TableCell className="font-semibold">Total Cost</TableCell>
+                  <TableCell className="text-right font-semibold text-lg">
                     ₹1,10,38,840
                   </TableCell>
                 </TableRow>
-                <TableRow className="bg-green-50">
-                  <TableCell className="font-bold text-green-900">
+                <TableRow className="bg-[#F7FDF1]">
+                  <TableCell className="font-semibold text-[#1B2E06]">
                     Minus Tax Savings (20 years)
                   </TableCell>
-                  <TableCell className="text-right font-bold text-green-700">
+                  <TableCell className="text-right font-semibold text-[#577A30]">
                     - ₹21,00,000
                   </TableCell>
                 </TableRow>
-                <TableRow className="bg-lime-100">
-                  <TableCell className="font-bold text-slate-900">
+                <TableRow className="bg-[#EFFBE2]">
+                  <TableCell className="font-semibold text-slate-900">
                     Effective Cost
                   </TableCell>
-                  <TableCell className="text-right font-bold text-lime-800 text-lg">
+                  <TableCell className="text-right font-semibold text-[#577A30] text-lg">
                     ₹89,38,840
                   </TableCell>
                 </TableRow>
@@ -2558,8 +2597,8 @@ export default function HomeLoanGuidePage() {
 
       {/* --- SECTION 6: BUY VS RENT (IMPROVED) --- */}
       <section id="buy-vs-rent" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <Building2 className="h-6 w-6 text-lime-600" /> Buy vs Rent: Which
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
+          <Building2 className="h-6 w-6 text-[#577A30]" /> Buy vs Rent: Which
           Makes Financial Sense?
         </h2>
         <p className="mb-6 text-slate-700">
@@ -2570,16 +2609,16 @@ export default function HomeLoanGuidePage() {
         </p>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <Card className="border-2 border-lime-200 bg-white shadow-sm hover:border-lime-300 transition-colors">
-            <CardHeader className="pb-2 border-b border-slate-100 bg-lime-50">
+          <Card className="border-2 border-[#DFF7C6] bg-white shadow-sm hover:border-[#D0F4A9] transition-colors">
+            <CardHeader className="pb-2 border-b border-slate-100 bg-[#F7FDF1]">
               <CardTitle className="text-slate-900 text-lg flex items-center gap-2">
-                <Home className="h-5 w-5 text-lime-600" />
+                <Home className="h-5 w-5 text-[#577A30]" />
                 Buying (Home Loan)
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4 text-sm space-y-3">
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">
                     Ownership & Equity Building
@@ -2590,7 +2629,7 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">Tax Benefits</p>
                   <p className="text-slate-600 text-xs">
@@ -2599,7 +2638,7 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">Forced Savings</p>
                   <p className="text-slate-600 text-xs">
@@ -2608,7 +2647,7 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">
                     Appreciation Potential
@@ -2650,7 +2689,7 @@ export default function HomeLoanGuidePage() {
             </CardHeader>
             <CardContent className="pt-4 text-sm space-y-3">
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">High Flexibility</p>
                   <p className="text-slate-600 text-xs">
@@ -2659,7 +2698,7 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">
                     Lower Upfront Cost
@@ -2670,7 +2709,7 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">HRA Tax Benefit</p>
                   <p className="text-slate-600 text-xs">
@@ -2679,7 +2718,7 @@ export default function HomeLoanGuidePage() {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-lime-600 shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#577A30] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-900">
                     No Maintenance Hassle
@@ -2712,20 +2751,20 @@ export default function HomeLoanGuidePage() {
         </div>
 
         {/* When to Buy vs Rent */}
-        <Card className="border-2 border-lime-200 bg-linear-to-br from-lime-50 to-white shadow-sm">
+        <Card className="border-2 border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white shadow-sm">
           <CardHeader>
             <CardTitle className="text-xl flex items-center gap-2 text-slate-900">
-              <Lightbulb className="h-6 w-6 text-lime-600" />
+              <Lightbulb className="h-6 w-6 text-[#577A30]" />
               Decision Framework: When to Buy vs Rent
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-green-50 p-5 rounded-xl border-2 border-green-200">
-                <h4 className="font-bold text-green-900 mb-3 text-lg">
+              <div className="bg-[#F7FDF1] p-5 rounded-xl border-2 border-[#DFF7C6]">
+                <h4 className="font-semibold text-[#1B2E06] mb-3 text-lg">
                   ✅ Buy If...
                 </h4>
-                <ul className="space-y-2 text-sm text-green-900">
+                <ul className="space-y-2 text-sm text-[#1B2E06]">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
                     <span>Settled in one city for 7+ years</span>
@@ -2754,7 +2793,7 @@ export default function HomeLoanGuidePage() {
               </div>
 
               <div className="bg-amber-50 p-5 rounded-xl border-2 border-amber-200">
-                <h4 className="font-bold text-amber-900 mb-3 text-lg">
+                <h4 className="font-semibold text-amber-900 mb-3 text-lg">
                   🤔 Rent If...
                 </h4>
                 <ul className="space-y-2 text-sm text-amber-900">
@@ -2786,11 +2825,11 @@ export default function HomeLoanGuidePage() {
               </div>
             </div>
 
-            <div className="mt-6 bg-blue-50 p-5 rounded-xl border-2 border-blue-200">
-              <h4 className="font-bold text-blue-900 mb-3 text-lg">
+            <div className="mt-6 bg-[#F7FDF1] p-5 rounded-xl border-2 border-[#DFF7C6]">
+              <h4 className="font-semibold text-[#1B2E06] mb-3 text-lg">
                 💡 Smart Strategy: Rent Where You Live, Own Where You Can
               </h4>
-              <p className="text-sm text-blue-900 leading-relaxed">
+              <p className="text-sm text-[#1B2E06] leading-relaxed">
                 If you work in expensive metros like Mumbai or Bangalore,
                 consider{' '}
                 <strong>
@@ -2808,7 +2847,7 @@ export default function HomeLoanGuidePage() {
 
       {/* --- FAQ SECTION --- */}
       <section id="faq" className="mb-12 scroll-mt-20">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="w-full space-y-2">
@@ -2818,7 +2857,7 @@ export default function HomeLoanGuidePage() {
               value={`item-${idx}`}
               className="border border-slate-200 rounded-lg px-5 bg-white shadow-sm"
             >
-              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:text-lime-700 hover:no-underline py-4">
+              <AccordionTrigger className="text-left text-slate-900 font-semibold hover:text-[#577A30] hover:no-underline py-4">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-slate-700 pb-4 leading-relaxed">
@@ -2835,9 +2874,9 @@ export default function HomeLoanGuidePage() {
       </div>
 
       {/* Final CTA */}
-      <Card className="mb-12 bg-linear-to-br from-lime-50 via-white to-slate-50 border-2 border-lime-300 shadow-lg">
+      <Card className="mb-12 bg-linear-to-br from-[#F7FDF1] via-white to-slate-50 border-2 border-[#D0F4A9] shadow-lg">
         <CardContent className="p-8 text-center">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">
+          <h3 className="text-2xl font-semibold text-slate-900 mb-4">
             Ready to Calculate Your Home Loan EMI?
           </h3>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
@@ -2847,7 +2886,7 @@ export default function HomeLoanGuidePage() {
           </p>
           <Link
             href="/loans/home-loan/"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-lime-600 text-white text-lg rounded-lg font-bold hover:bg-lime-700 transition-all shadow-md hover:shadow-lg"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#577A30] text-white text-lg rounded-lg font-semibold hover:bg-[#577A30] transition-all shadow-md hover:shadow-lg"
           >
             <Calculator className="h-6 w-6" />
             Calculate My Home Loan Now
@@ -2862,7 +2901,7 @@ export default function HomeLoanGuidePage() {
       <Card className="mb-12 border border-slate-200 bg-white shadow-sm">
         <CardHeader className="bg-slate-50 border-b border-slate-200">
           <CardTitle className="text-xl text-slate-900 flex items-center gap-2">
-            <Calculator className="h-6 w-6 text-lime-600" />
+            <Calculator className="h-6 w-6 text-[#577A30]" />
             Related Calculators & Tools
           </CardTitle>
         </CardHeader>
@@ -2870,9 +2909,9 @@ export default function HomeLoanGuidePage() {
           <div className="grid md:grid-cols-3 gap-4">
             <Link
               href="/loans/home-loan/"
-              className="p-4 rounded-lg border-2 border-slate-200 hover:border-lime-300 hover:bg-lime-50 transition-all group"
+              className="p-4 rounded-lg border-2 border-slate-200 hover:border-[#D0F4A9] hover:bg-[#F7FDF1] transition-all group"
             >
-              <h4 className="font-bold text-slate-900 mb-2 group-hover:text-lime-700">
+              <h4 className="font-semibold text-slate-900 mb-2 group-hover:text-[#577A30]">
                 Home Loan EMI Calculator
               </h4>
               <p className="text-sm text-slate-600">
@@ -2882,9 +2921,9 @@ export default function HomeLoanGuidePage() {
 
             <Link
               href="/income-tax-calculator/"
-              className="p-4 rounded-lg border-2 border-slate-200 hover:border-lime-300 hover:bg-lime-50 transition-all group"
+              className="p-4 rounded-lg border-2 border-slate-200 hover:border-[#D0F4A9] hover:bg-[#F7FDF1] transition-all group"
             >
-              <h4 className="font-bold text-slate-900 mb-2 group-hover:text-lime-700">
+              <h4 className="font-semibold text-slate-900 mb-2 group-hover:text-[#577A30]">
                 Income Tax Calculator
               </h4>
               <p className="text-sm text-slate-600">
@@ -2894,9 +2933,9 @@ export default function HomeLoanGuidePage() {
 
             <Link
               href="/emi-calculator/"
-              className="p-4 rounded-lg border-2 border-slate-200 hover:border-lime-300 hover:bg-lime-50 transition-all group"
+              className="p-4 rounded-lg border-2 border-slate-200 hover:border-[#D0F4A9] hover:bg-[#F7FDF1] transition-all group"
             >
-              <h4 className="font-bold text-slate-900 mb-2 group-hover:text-lime-700">
+              <h4 className="font-semibold text-slate-900 mb-2 group-hover:text-[#577A30]">
                 Universal EMI Calculator
               </h4>
               <p className="text-sm text-slate-600">
@@ -2908,17 +2947,17 @@ export default function HomeLoanGuidePage() {
       </Card>
 
       {/* Summary Box */}
-      <Card className="mb-12 border-l-4 border-l-lime-600 bg-linear-to-br from-lime-50/50 to-white shadow-sm">
+      <Card className="mb-12 border-l-4 border-l-[#577A30] bg-linear-to-br from-[#F7FDF1]/50 to-white shadow-sm">
         <CardHeader className="pb-3">
           <CardTitle className="text-xl text-slate-900 flex items-center gap-2">
-            <CheckCircle2 className="h-6 w-6 text-lime-600" />
+            <CheckCircle2 className="h-6 w-6 text-[#577A30]" />
             Key Takeaways
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-3 text-slate-700">
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>CIBIL score of 750+</strong> gets you the best interest
                 rates (8.5-8.75%). Work on improving your credit score before
@@ -2926,7 +2965,7 @@ export default function HomeLoanGuidePage() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>Tax benefits up to ₹3.5 lakh/year</strong> are available
                 only under the old tax regime (Sections 80C and 24b). Calculate
@@ -2934,7 +2973,7 @@ export default function HomeLoanGuidePage() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>RLLR-linked loans</strong> offer better transparency and
                 faster rate adjustments compared to MCLR. Most experts recommend
@@ -2942,7 +2981,7 @@ export default function HomeLoanGuidePage() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>Prepayment in early years</strong> saves maximum
                 interest since 70-80% of initial EMI goes towards interest. No
@@ -2950,7 +2989,7 @@ export default function HomeLoanGuidePage() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>Joint home loans with co-owners</strong> can double your
                 tax benefits to ₹7 lakh/year if both borrowers are in the 30%
@@ -2958,7 +2997,7 @@ export default function HomeLoanGuidePage() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>Stamp duty varies by state</strong> (4-7%) and is lower
                 for women in several states. Factor this 5-8% additional cost
@@ -2966,7 +3005,7 @@ export default function HomeLoanGuidePage() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-lime-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-[#577A30] shrink-0 mt-0.5" />
               <span>
                 <strong>Keep FOIR below 50-60%</strong> by closing unnecessary
                 loans before applying. High FOIR is a major rejection reason.
@@ -2987,28 +3026,28 @@ export default function HomeLoanGuidePage() {
           <div className="grid md:grid-cols-2 gap-3">
             <Link
               href="/guides/personal-loan-guide/"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <FileText className="h-5 w-5 shrink-0" />
               <span className="font-medium">Personal Loan Guide</span>
             </Link>
             <Link
               href="/guides/credit-card-guide/"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <FileText className="h-5 w-5 shrink-0" />
               <span className="font-medium">Credit Card Guide</span>
             </Link>
             <Link
               href="/guides/investment-guide/"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <FileText className="h-5 w-5 shrink-0" />
               <span className="font-medium">Investment Planning Guide</span>
             </Link>
             <Link
               href="/guides/"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-lime-700"
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-[#577A30]"
             >
               <FileText className="h-5 w-5 shrink-0" />
               <span className="font-medium">View All Guides →</span>
@@ -3022,11 +3061,11 @@ export default function HomeLoanGuidePage() {
       <Card className="mb-12 border border-slate-200 bg-white shadow-sm">
         <CardContent className="p-6">
           <div className="flex items-start gap-4">
-            <div className="shrink-0 w-16 h-16 bg-lime-100 rounded-full flex items-center justify-center">
-              <UserCheck className="h-8 w-8 text-lime-600" />
+            <div className="shrink-0 w-16 h-16 bg-[#EFFBE2] rounded-full flex items-center justify-center">
+              <UserCheck className="h-8 w-8 text-[#577A30]" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-lg mb-2">
+              <h3 className="font-semibold text-slate-900 text-lg mb-2">
                 Written by Fincado Research Team
               </h3>
               <p className="text-sm text-slate-700 mb-3">
@@ -3065,7 +3104,9 @@ export default function HomeLoanGuidePage() {
 
       {/* Disclaimer */}
       <div className="mt-12 p-6 bg-slate-50 rounded-lg border border-slate-200">
-        <h4 className="font-bold text-slate-900 mb-2 text-sm">Disclaimer</h4>
+        <h4 className="font-semibold text-slate-900 mb-2 text-sm">
+          Disclaimer
+        </h4>
         <p className="text-xs text-slate-600 leading-relaxed">
           This guide is for informational purposes only and should not be
           considered financial advice. Home loan interest rates, eligibility
