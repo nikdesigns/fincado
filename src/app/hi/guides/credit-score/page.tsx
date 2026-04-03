@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     'Credit Score Check',
   ],
   alternates: {
-    canonical: '<https://fincado.com/hi>/guides/credit-score/',
+    canonical: 'https://fincado.com/hi/guides/credit-score/',
   },
   openGraph: {
     title: 'Credit Score कैसे बढ़ाएं? (Complete Hindi Guide)',

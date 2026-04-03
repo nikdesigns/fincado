@@ -46,9 +46,8 @@ export default function ScriptManager() {
     ).requestNonPersonalizedAds = consent.advertising ? 0 : 1;
   }, [consent.advertising]);
 
-  // ✅ Initialize GA4 once script loads and consent is granted
+  // ✅ Initialize GA4 once script loads
   useEffect(() => {
-    if (!consent.analytics) return;
     if (!scriptsLoaded.analytics) return;
 
     if (typeof window !== 'undefined') {
@@ -68,7 +67,7 @@ export default function ScriptManager() {
         ad_storage: 'denied',
         ad_user_data: 'denied',
         ad_personalization: 'denied',
-        analytics_storage: 'denied',
+        analytics_storage: 'granted',
         functionality_storage: 'granted',
         personalization_storage: 'denied',
         security_storage: 'granted',
@@ -85,7 +84,7 @@ export default function ScriptManager() {
       const state = getConsentState();
       if (state) {
         window.gtag('consent', 'update', {
-          analytics_storage: state.analytics ? 'granted' : 'denied',
+          analytics_storage: 'granted',
           ad_storage: state.advertising ? 'granted' : 'denied',
           ad_user_data: state.advertising ? 'granted' : 'denied',
           ad_personalization: state.advertising ? 'granted' : 'denied',
@@ -96,11 +95,11 @@ export default function ScriptManager() {
         console.log('✅ GA4 initialized');
       }
     }
-  }, [consent.analytics, scriptsLoaded.analytics, pathname]);
+  }, [scriptsLoaded.analytics, pathname]);
 
   // ✅ Track page views on navigation
   useEffect(() => {
-    if (consent.analytics && scriptsLoaded.analytics && window.gtag) {
+    if (scriptsLoaded.analytics && window.gtag) {
       const url =
         pathname +
         (searchParams?.toString() ? `?${searchParams.toString()}` : '');
@@ -113,7 +112,7 @@ export default function ScriptManager() {
         console.log('📍 Page View:', url);
       }
     }
-  }, [pathname, searchParams, consent.analytics, scriptsLoaded.analytics]);
+  }, [pathname, searchParams, scriptsLoaded.analytics]);
 
   // ✅ Listen for consent updates
   useEffect(() => {
@@ -126,7 +125,7 @@ export default function ScriptManager() {
 
       if (window.gtag) {
         window.gtag('consent', 'update', {
-          analytics_storage: state.analytics ? 'granted' : 'denied',
+          analytics_storage: 'granted',
           ad_storage: state.advertising ? 'granted' : 'denied',
           ad_user_data: state.advertising ? 'granted' : 'denied',
           ad_personalization: state.advertising ? 'granted' : 'denied',
@@ -153,33 +152,29 @@ export default function ScriptManager() {
   return (
     <>
       {/* Google Analytics */}
-      {consent.analytics && (
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
-          onLoad={() => {
-            setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
-          }}
-        />
-      )}
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+        onLoad={() => {
+          setScriptsLoaded((prev) => ({ ...prev, analytics: true }));
+        }}
+      />
 
       {/* Microsoft Clarity - Only if analytics consent granted */}
-      {consent.analytics && (
-        <Script
-          id="microsoft-clarity"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `
+      <Script
+        id="microsoft-clarity"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{
+          __html: `
               (function(c,l,a,r,i,t,y){
                   c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                   t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                   y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
             `,
-          }}
-        />
-      )}
+        }}
+      />
       {/* Google AdSense - always loaded; personalization controlled by consent */}
       <Script
         id="google-adsense"
