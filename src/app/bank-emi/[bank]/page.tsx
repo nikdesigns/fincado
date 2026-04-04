@@ -11,6 +11,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCompetitors } from '@/lib/localData';
 import { getBankRates } from '@/lib/getBankRates';
+import AuthorBio from '@/components/AuthorBio';
+import DataSourcesCard from '@/components/DataSourcesCard';
+import HelpfulWidget from '@/components/HelpfulWidget';
 
 import {
   Card,
@@ -122,6 +125,16 @@ export default async function BankPage({
   const bankHomeRate = getLatestHomeRate(bank.slug, bank.rate);
   const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
   const avgRate = ((bankHomeRate + bankMaxRate) / 2).toFixed(2);
+
+  const BANK_SOURCE_URLS: Record<string, string> = {
+    sbi: 'https://sbi.co.in/',
+    hdfc: 'https://www.hdfcbank.com/',
+    icici: 'https://www.icicibank.com/',
+    axis: 'https://www.axisbank.com/',
+    kotak: 'https://www.kotak.com/',
+    pnb: 'https://www.pnbindia.in/',
+    bob: 'https://www.bankofbaroda.in/',
+  };
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -527,6 +540,16 @@ export default async function BankPage({
                 </TableBody>
               </Table>
             </div>
+
+            <DataSourcesCard
+              bankName={bank.name}
+              bankRateUrl={BANK_SOURCE_URLS[bank.slug]}
+              updatedAt={latestUpdatedAt}
+            />
+
+            <HelpfulWidget pageKey={`bank-emi-${bank.slug}`} />
+
+            <AuthorBio />
             <p className="text-xs text-slate-400 mt-3 italic">
               {RATE_DISCLAIMER}
             </p>

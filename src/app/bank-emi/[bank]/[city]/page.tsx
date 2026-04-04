@@ -9,6 +9,8 @@ import AuthorBio from '@/components/AuthorBio';
 import BankSelector from '@/components/BankSelector';
 import StickyCompareFooter from '@/components/StickyCompareFooter';
 import CalculatorSchema from '@/components/CalculatorSchema';
+import DataSourcesCard from '@/components/DataSourcesCard';
+import HelpfulWidget from '@/components/HelpfulWidget';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -79,10 +81,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
-  const cityData = getCityData(resolvedParams.city);
-
   if (!bank) return {};
+
+  const cityData = getCityData(resolvedParams.city);
   const liveRates = await getBankRates();
+
   const latestHomeRate =
     liveRates.find((r) => r.bank === bank.slug)?.homeLoan ?? bank.rate;
   const upperRate = Math.max(bank.maxRate, latestHomeRate);
@@ -146,16 +149,23 @@ export default async function BankCityPage({
 }) {
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
+  if (!bank) return notFound();
 
-  if (!bank) notFound();
+  const cityData = getCityData(resolvedParams.city);
   const liveRates = await getBankRates();
+
   const getLatestHomeRate = (slug: string, fallback: number) =>
     liveRates.find((r) => r.bank === slug)?.homeLoan ?? fallback;
-  const latestUpdatedAt = liveRates.length > 0 ? liveRates[0].updatedAt : 'N/A';
+
+  const latestUpdatedAt =
+    liveRates.length > 0
+      ? [...liveRates].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0]
+          .updatedAt
+      : 'N/A';
+
   const bankHomeRate = getLatestHomeRate(bank.slug, bank.rate);
   const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
 
-  const cityData = getCityData(resolvedParams.city);
   const competitorSlugs = getCompetitors(bank.slug);
   const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
   const stateInfo = getStateInfo(resolvedParams.city);
@@ -167,6 +177,34 @@ export default async function BankCityPage({
   const estimatedEMI = calculateEMI(loanAmount, bankHomeRate, 20);
   const allInInterest = estimatedEMI * 12 * 20 - loanAmount;
   const otherArea = cityData.areas[1] || cityData.areas[0] || cityData.name;
+
+  const BANK_SOURCE_URLS: Record<string, string> = {
+    sbi: 'https://sbi.co.in/',
+    hdfc: 'https://www.hdfcbank.com/',
+    icici: 'https://www.icicibank.com/',
+    axis: 'https://www.axisbank.com/',
+    kotak: 'https://www.kotak.com/',
+    pnb: 'https://www.pnbindia.in/',
+    bob: 'https://www.bankofbaroda.in/',
+  };
+
+  const bankRateSourceUrl =
+    BANK_SOURCE_URLS[bank.slug] ?? 'https://fincado.com/';
+
+  const financialProductSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LoanOrCredit',
+    name: `${bank.name} Home Loan in ${cityData.name}`,
+    provider: {
+      '@type': 'BankOrCreditUnion',
+      name: bank.name,
+    },
+    areaServed: cityData.name,
+    interestRate: `${bankHomeRate}%`,
+    loanTerm: 'P20Y',
+    url: `https://fincado.com/bank-emi/${bank.slug}/${cityData.slug}/`,
+    description: `Home loan EMI and rate comparison for ${cityData.name}.`,
+  };
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -220,6 +258,12 @@ export default async function BankCityPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(financialProductSchema),
+        }}
+      />
 
       <BreadcrumbJsonLd
         items={[
@@ -231,10 +275,11 @@ export default async function BankCityPage({
           },
           {
             name: cityData.name,
-            url: `https://fincado.com/bank-emi/${bank.slug}/${resolvedParams.city}/`,
+            url: `https://fincado.com/bank-emi/${bank.slug}/${cityData.slug}/`,
           },
         ]}
       />
+
       <CalculatorSchema
         name={`${bank.name} EMI Calculator in ${cityData.name}`}
         description={`EMI calculator for ${bank.name} home loans in ${cityData.name} with local affordability and documentation insights.`}
@@ -250,6 +295,7 @@ export default async function BankCityPage({
             >
               2026 {cityData.name} Edition
             </Badge>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight leading-tight mb-4">
               {bank.name} Home Loan in {cityData.name}
             </h1>
@@ -258,12 +304,14 @@ export default async function BankCityPage({
               <ShareTools title={`${bank.name} Loan in ${cityData.name}`} />
             </div>
 
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Planning to buy in <strong>{cityData.name}</strong>? This page
-              gives you a practical EMI view using local property-rate context,
-              authority-level approval cues, and repayment strategy checks for{' '}
-              <strong>{bank.name}</strong>.
+            <p className="text-base text-slate-700 leading-relaxed">
+              Looking for the best home loan option in {cityData.name}? Current
+              tracked rates start around {bankHomeRate}% for eligible borrowers,
+              but final pricing depends on credit score, income, and property
+              profile. Use this page to compare major lenders, estimate EMI
+              instantly, and review local document requirements before applying.
             </p>
+
             <p className="text-sm text-slate-500 mt-2">
               Latest tracked home-loan rate refresh: {latestUpdatedAt}
             </p>
@@ -277,6 +325,7 @@ export default async function BankCityPage({
                   </p>
                 </CardContent>
               </Card>
+
               <Card className="border-slate-200">
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Rate can go up to</p>
@@ -285,6 +334,7 @@ export default async function BankCityPage({
                   </p>
                 </CardContent>
               </Card>
+
               <Card className="border-slate-200">
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Avg city rate</p>
@@ -367,6 +417,7 @@ export default async function BankCityPage({
                     Computed from average city range {cityData.avgPropertyRate}
                   </p>
                 </div>
+
                 <div>
                   <p className="text-slate-900 text-xs uppercase tracking-wider mb-1">
                     Estimated loan amount (80% LTV)
@@ -378,6 +429,7 @@ export default async function BankCityPage({
                     Higher down payment can reduce both EMI and total interest
                   </p>
                 </div>
+
                 <div className="bg-[#F7FDF1] rounded-xl p-4 border border-[#DFF7C6]">
                   <p className="text-[#577A30] text-xs uppercase tracking-wider mb-1 font-semibold">
                     Estimated EMI (20 years)
@@ -493,6 +545,7 @@ export default async function BankCityPage({
               <ListChecks className="h-6 w-6 text-indigo-600" />
               Smart repayment strategy in {cityData.name}
             </h2>
+
             <div className="grid sm:grid-cols-2 gap-4">
               {[
                 'Choose EMI under 35-40% of monthly take-home for flexibility.',
@@ -526,6 +579,7 @@ export default async function BankCityPage({
               <FileText className="h-5 w-5 text-sky-600" />
               Documents for {stateInfo.state}
             </h3>
+
             <div className="prose prose-slate max-w-none text-sm text-slate-600 leading-relaxed">
               <p>
                 For {bank.name} file processing in{' '}
@@ -533,6 +587,7 @@ export default async function BankCityPage({
                 papers ready as per <strong>{stateInfo.regulator}</strong> and
                 local authority requirements.
               </p>
+
               <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mt-4">
                 {stateInfo.documents.map((doc) => (
                   <li key={doc} className="flex items-start gap-2">
@@ -561,6 +616,7 @@ export default async function BankCityPage({
               <TrendingUp className="h-5 w-5 text-indigo-600" />
               Bank rate comparison in {cityData.name}
             </h3>
+
             <div className="rounded-lg border border-slate-200 overflow-hidden shadow-sm">
               <Table>
                 <TableHeader className="bg-slate-50">
@@ -588,6 +644,7 @@ export default async function BankCityPage({
                       {cityData.areas[0]}, {otherArea}
                     </TableCell>
                   </TableRow>
+
                   {competitorBanks.map((comp) => (
                     <TableRow key={comp.slug}>
                       <TableCell>
@@ -614,6 +671,7 @@ export default async function BankCityPage({
                 </TableBody>
               </Table>
             </div>
+
             <p className="text-xs text-slate-500 mt-3">{RATE_DISCLAIMER}</p>
           </section>
 
@@ -622,6 +680,7 @@ export default async function BankCityPage({
               <HelpCircle className="h-6 w-6 text-amber-500" />
               {cityData.name} home loan FAQs
             </h3>
+
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem
                 value="item-1"
@@ -666,6 +725,14 @@ export default async function BankCityPage({
               </AccordionItem>
             </Accordion>
           </section>
+
+          <DataSourcesCard
+            bankName={bank.name}
+            bankRateUrl={bankRateSourceUrl}
+            updatedAt={latestUpdatedAt}
+          />
+
+          <HelpfulWidget pageKey={`bank-emi-${bank.slug}-${cityData.slug}`} />
 
           <LegalNote />
           <AuthorBio />

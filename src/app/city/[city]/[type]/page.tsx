@@ -1,18 +1,29 @@
 /* src/app/city/[city]/[type]/page.tsx */
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
 import { getCityData, cityDetails } from '@/lib/localData';
-import { banks } from '@/lib/banks'; // ✅ Import Banks
+import { banks } from '@/lib/banks';
+import { getBankRates } from '@/lib/getBankRates';
 import AdSlot from '@/components/AdSlot';
 import EMIClient from '@/app/emi-calculator/EMIClient';
-import type { Metadata } from 'next';
-import { getBankRates } from '@/lib/getBankRates';
+import AuthorBio from '@/components/AuthorBio';
+import type { BankRate } from '@/data/live-rates';
 
 const loanTypes: Record<string, string> = {
   'personal-loan': 'Personal Loan',
   'home-loan': 'Home Loan',
   'car-loan': 'Car Loan',
   'credit-score': 'Credit Score Check',
+};
+
+type LoanRateField = 'personalLoan' | 'homeLoan' | 'carLoan';
+
+const loanRateFieldMap: Partial<Record<string, LoanRateField>> = {
+  'personal-loan': 'personalLoan',
+  'home-loan': 'homeLoan',
+  'car-loan': 'carLoan',
 };
 
 export const dynamicParams = false;
@@ -28,6 +39,7 @@ export async function generateStaticParams() {
       });
     }
   });
+
   return params;
 }
 
@@ -41,6 +53,7 @@ export async function generateMetadata({
   const loanName = loanTypes[type as keyof typeof loanTypes];
 
   if (!cityData || !loanName) return {};
+
   const slug = `/city/${cityData.slug}/${type}/`;
   const canonical = `https://fincado.com${slug}`;
 
@@ -67,24 +80,38 @@ export default async function CityLoanPage({
   const loanName = loanTypes[type as keyof typeof loanTypes];
 
   if (!cityData || !loanName) return notFound();
-  const liveRates = await getBankRates();
-  const getLatestRate = (slug: string, fallback: number) =>
-    liveRates.find((r) => r.bank === slug)?.homeLoan ?? fallback;
-  const latestUpdatedAt = liveRates.length > 0 ? liveRates[0].updatedAt : 'N/A';
 
-  // ✅ SORT BANKS BY RATE TO SHOW "BEST" OFFERS FIRST
+  const liveRates = await getBankRates();
+  const rateField = loanRateFieldMap[type];
+
+  const getLatestRate = (slug: string, fallback: number) => {
+    const bankRates = liveRates.find((rate) => rate.bank === slug) as
+      | BankRate
+      | undefined;
+
+    if (!bankRates || !rateField) return fallback;
+    return bankRates[rateField] ?? fallback;
+  };
+
+  const latestUpdatedAt =
+    liveRates.length > 0
+      ? [...liveRates].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0]
+          .updatedAt
+      : 'N/A';
+
   const topBanks = [...banks]
     .sort(
       (a, b) => getLatestRate(a.slug, a.rate) - getLatestRate(b.slug, b.rate),
     )
     .slice(0, 6);
+
   return (
     <main
       style={{
         maxWidth: 1180,
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: '1fr 320px', // Responsive check handled in CSS usually
+        gridTemplateColumns: '1fr 320px',
         gap: 20,
         padding: '32px 16px',
       }}
@@ -101,12 +128,12 @@ export default async function CityLoanPage({
           <strong>{cityData.areas.slice(0, 3).join(', ')}</strong>. Compare
           interest rates and apply online.
         </p>
+
         <p style={{ fontSize: '14px', color: '#64748b', marginTop: 8 }}>
           Latest tracked rate refresh: {latestUpdatedAt}
         </p>
 
         <div style={{ margin: '24px 0' }}>
-          {/* 🔴 FIXED: Added ID */}
           <AdSlot
             id="city-loan-type-top"
             type="leaderboard"
@@ -121,11 +148,11 @@ export default async function CityLoanPage({
           />
         </section>
 
-        {/* ✅ NEW: DATA-RICH TABLE (SEO GOLD) */}
         <section className="article">
           <h2>
             Top Banks for {loanName} in {cityData.name}
           </h2>
+
           <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
             <table
               className="rate-table"
@@ -159,62 +186,67 @@ export default async function CityLoanPage({
                   </th>
                 </tr>
               </thead>
+
               <tbody>
-                {topBanks.map((bank) => (
-                  <tr key={bank.slug}>
-                    <td
-                      style={{
-                        padding: '12px',
-                        borderBottom: '1px solid #e2e8f0',
-                      }}
-                    >
-                      <Link
-                        href={`/bank-emi/${bank.slug}/${city}/`}
+                {topBanks.map((bank) => {
+                  const currentRate = getLatestRate(bank.slug, bank.rate);
+                  const upperRate = Math.max(bank.maxRate, currentRate);
+
+                  return (
+                    <tr key={bank.slug}>
+                      <td
                         style={{
-                          color: '#2563eb',
-                          fontWeight: 500,
-                          textDecoration: 'none',
+                          padding: '12px',
+                          borderBottom: '1px solid #e2e8f0',
                         }}
                       >
-                        {bank.name}
-                      </Link>
-                    </td>
-                    <td
-                      style={{
-                        padding: '12px',
-                        borderBottom: '1px solid #e2e8f0',
-                      }}
-                    >
-                      {getLatestRate(bank.slug, bank.rate)}% -{' '}
-                      {Math.max(
-                        bank.maxRate,
-                        getLatestRate(bank.slug, bank.rate),
-                      )}
-                      %
-                    </td>
-                    <td
-                      style={{
-                        padding: '12px',
-                        borderBottom: '1px solid #e2e8f0',
-                      }}
-                    >
-                      <Link
-                        href={`/bank-emi/${bank.slug}/${city}/`}
+                        <Link
+                          href={`/bank-emi/${bank.slug}/${city}/`}
+                          style={{
+                            color: '#2563eb',
+                            fontWeight: 500,
+                            textDecoration: 'none',
+                          }}
+                        >
+                          {bank.name}
+                        </Link>
+                      </td>
+
+                      <td
                         style={{
-                          fontSize: '14px',
-                          color: '#16a34a',
-                          fontWeight: 'bold',
-                          textDecoration: 'none',
+                          padding: '12px',
+                          borderBottom: '1px solid #e2e8f0',
                         }}
                       >
-                        Check EMI &rarr;
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                        {currentRate}% - {upperRate}%
+                      </td>
+
+                      <td
+                        style={{
+                          padding: '12px',
+                          borderBottom: '1px solid #e2e8f0',
+                        }}
+                      >
+                        <Link
+                          href={`/bank-emi/${bank.slug}/${city}/`}
+                          style={{
+                            fontSize: '14px',
+                            color: '#16a34a',
+                            fontWeight: 'bold',
+                            textDecoration: 'none',
+                          }}
+                        >
+                          Check EMI &rarr;
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+
+          <AuthorBio />
 
           <h2>
             Why Apply for {loanName} in {cityData.name}?
@@ -222,7 +254,7 @@ export default async function CityLoanPage({
           <p>
             With property costs in {cityData.name} averaging around{' '}
             <strong>{cityData.avgPropertyRate}</strong>, securing a low-interest
-            loan is vital. Banks servicing <strong>{cityData.name}</strong>
+            loan is vital. Banks servicing <strong>{cityData.name}</strong>{' '}
             (Pincodes starting with {cityData.pincodeStart}) often provide
             doorstep service.
           </p>
@@ -267,6 +299,7 @@ export default async function CityLoanPage({
                 🔢 EMI Calculator
               </Link>
             </li>
+
             <li>
               <Link
                 href="/credit-score/"
@@ -286,7 +319,6 @@ export default async function CityLoanPage({
         </section>
 
         <div style={{ margin: '32px 0' }}>
-          {/* 🔴 FIXED: Added ID */}
           <AdSlot id="city-loan-type-bottom" type="rectangle" />
         </div>
       </div>
