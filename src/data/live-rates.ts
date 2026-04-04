@@ -12,20 +12,20 @@ export const BANK_RATES: BankRate[] = [
     personalLoan: 10.49,
     homeLoan: 8.35,
     carLoan: 9.1,
-    updatedAt: new Date().toISOString(),
+    updatedAt: '2026-04-01',
   },
   {
     bank: 'hdfc',
     personalLoan: 10.75,
     homeLoan: 8.4,
     carLoan: 9.2,
-    updatedAt: new Date().toISOString(),
+    updatedAt: '2026-04-01',
   },
   {
     bank: 'icici',
     personalLoan: 10.99,
     homeLoan: 8.5,
     carLoan: 9.3,
-    updatedAt: new Date().toISOString(),
-  }
+    updatedAt: '2026-04-01',
+  },
 ];
