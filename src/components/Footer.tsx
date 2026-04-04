@@ -64,7 +64,7 @@ export default function Footer() {
               <Link
                 href="/contact/"
                 aria-label="Contact us"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm transition hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm transition hover:bg-[#F7FDF1] hover:text-[#577A30] hover:border-[#DFF7C6]"
               >
                 <Mail className="w-4 h-4" />
               </Link>
@@ -175,7 +175,7 @@ export default function Footer() {
               <Link
                 key={calc.href}
                 href={calc.href}
-                className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white rounded-full border border-slate-200 hover:bg-emerald-50 hover:text-[#577A30] hover:border-emerald-200 transition-all"
+                className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white rounded-full border border-slate-200 hover:bg-[#F7FDF1] hover:text-[#577A30] hover:border-[#DFF7C6] transition-all"
               >
                 {calc.label}
               </Link>
@@ -229,7 +229,7 @@ function FooterColumn({
   return (
     <div>
       <div className="mb-4 flex items-center gap-2 font-medium">
-        <Icon className="w-4 h-4 text-emerald-600" />
+        <Icon className="w-4 h-4 text-[#577A30]" />
         <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900">
           {title}
         </h4>
@@ -252,15 +252,15 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className={`text-sm transition-colors hover:text-emerald-700 inline-flex items-center gap-1 group ${
+        className={`text-sm transition-colors hover:text-[#577A30] inline-flex items-center gap-1 group ${
           highlight
-            ? 'font-semibold text-emerald-700'
+            ? 'font-semibold text-[#577A30]'
             : 'text-slate-600 hover:translate-x-0.5'
         }`}
       >
         {children}
         {highlight && (
-          <span className="text-xs bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-bold">
+          <span className="text-xs bg-[#EFFBE2] text-[#577A30] px-1.5 py-0.5 rounded font-bold">
             NEW
           </span>
         )}
