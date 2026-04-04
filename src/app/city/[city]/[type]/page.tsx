@@ -9,7 +9,6 @@ import { getBankRates } from '@/lib/getBankRates';
 import AdSlot from '@/components/AdSlot';
 import EMIClient from '@/app/emi-calculator/EMIClient';
 import AuthorBio from '@/components/AuthorBio';
-import type { BankRate } from '@/data/live-rates';
 
 const loanTypes: Record<string, string> = {
   'personal-loan': 'Personal Loan',
@@ -84,10 +83,8 @@ export default async function CityLoanPage({
   const liveRates = await getBankRates();
   const rateField = loanRateFieldMap[type];
 
-  const getLatestRate = (slug: string, fallback: number) => {
-    const bankRates = liveRates.find((rate) => rate.bank === slug) as
-      | BankRate
-      | undefined;
+  const getLatestRate = (slug: string, fallback: number): number => {
+    const bankRates = liveRates.find((rate) => rate.bank === slug);
 
     if (!bankRates || !rateField) return fallback;
     return bankRates[rateField] ?? fallback;
