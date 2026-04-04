@@ -18,6 +18,7 @@ import {
   getStateInfo,
   parsePropertyRate,
 } from '@/lib/localData';
+import { getBankRates } from '@/lib/getBankRates';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -81,9 +82,13 @@ export async function generateMetadata({
   const cityData = getCityData(resolvedParams.city);
 
   if (!bank) return {};
+  const liveRates = await getBankRates();
+  const latestHomeRate =
+    liveRates.find((r) => r.bank === bank.slug)?.homeLoan ?? bank.rate;
+  const upperRate = Math.max(bank.maxRate, latestHomeRate);
 
   const title = `${bank.name} Home Loan in ${cityData.name} 2026: EMI, Rates, Eligibility & Local Guide`;
-  const description = `Calculate ${bank.name} home loan EMI in ${cityData.name} with updated rates from ${bank.rate}% to ${bank.maxRate}%. Explore ${cityData.authority} approvals, local property rates, documents, and smart repayment tips.`;
+  const description = `Calculate ${bank.name} home loan EMI in ${cityData.name} with updated rates from ${latestHomeRate}% to ${upperRate}%. Explore ${cityData.authority} approvals, local property rates, documents, and smart repayment tips.`;
   const url = `https://fincado.com/bank-emi/${bank.slug}/${cityData.slug}/`;
 
   return {
@@ -143,6 +148,12 @@ export default async function BankCityPage({
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
 
   if (!bank) notFound();
+  const liveRates = await getBankRates();
+  const getLatestHomeRate = (slug: string, fallback: number) =>
+    liveRates.find((r) => r.bank === slug)?.homeLoan ?? fallback;
+  const latestUpdatedAt = liveRates.length > 0 ? liveRates[0].updatedAt : 'N/A';
+  const bankHomeRate = getLatestHomeRate(bank.slug, bank.rate);
+  const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
 
   const cityData = getCityData(resolvedParams.city);
   const competitorSlugs = getCompetitors(bank.slug);
@@ -153,7 +164,7 @@ export default async function BankCityPage({
   const avgHomeSize = 1000;
   const estimatedHomeCost = rates.avg * avgHomeSize;
   const loanAmount = Math.round(estimatedHomeCost * 0.8);
-  const estimatedEMI = calculateEMI(loanAmount, bank.rate, 20);
+  const estimatedEMI = calculateEMI(loanAmount, bankHomeRate, 20);
   const allInInterest = estimatedEMI * 12 * 20 - loanAmount;
   const otherArea = cityData.areas[1] || cityData.areas[0] || cityData.name;
 
@@ -166,7 +177,7 @@ export default async function BankCityPage({
         name: `What is ${bank.name} home loan interest rate in ${cityData.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${bank.name} rates in ${cityData.name} generally start from ${bank.rate}% and may go up to ${bank.maxRate}% based on credit score, income, and property profile.`,
+          text: `${bank.name} rates in ${cityData.name} generally start from ${bankHomeRate}% and may go up to ${bankMaxRate}% based on credit score, income, and property profile.`,
         },
       },
       {
@@ -174,7 +185,7 @@ export default async function BankCityPage({
         name: `How much EMI for a typical home in ${cityData.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `At an estimated property value based on ${cityData.avgPropertyRate} and 80% LTV, EMI works out to around ${formatCurrency(estimatedEMI)} for 20 years at ${bank.rate}%.`,
+          text: `At an estimated property value based on ${cityData.avgPropertyRate} and 80% LTV, EMI works out to around ${formatCurrency(estimatedEMI)} for 20 years at ${bankHomeRate}%.`,
         },
       },
       {
@@ -253,13 +264,16 @@ export default async function BankCityPage({
               authority-level approval cues, and repayment strategy checks for{' '}
               <strong>{bank.name}</strong>.
             </p>
+            <p className="text-sm text-slate-500 mt-2">
+              Latest tracked home-loan rate refresh: {latestUpdatedAt}
+            </p>
 
             <div className="mt-6 grid sm:grid-cols-3 gap-3">
               <Card className="border-slate-200">
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Rate starts from</p>
                   <p className="text-xl font-semibold text-[#577A30]">
-                    {bank.rate}%
+                    {bankHomeRate}%
                   </p>
                 </CardContent>
               </Card>
@@ -267,7 +281,7 @@ export default async function BankCityPage({
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Rate can go up to</p>
                   <p className="text-xl font-semibold text-slate-900">
-                    {bank.maxRate}%
+                    {bankMaxRate}%
                   </p>
                 </CardContent>
               </Card>
@@ -372,7 +386,7 @@ export default async function BankCityPage({
                     {formatCurrency(estimatedEMI)}
                   </p>
                   <p className="text-xs text-[#577A30] mt-1">
-                    At {bank.rate}% p.a. with {bank.name}
+                    At {bankHomeRate}% p.a. with {bank.name}
                   </p>
                 </div>
               </div>
@@ -397,7 +411,7 @@ export default async function BankCityPage({
             </CardHeader>
             <CardContent className="p-2 sm:p-6 bg-white">
               <EMIClient
-                defaultRate={bank.rate}
+                defaultRate={bankHomeRate}
                 defaultPrincipal={loanAmount}
                 defaultTenure={20}
               />
@@ -406,8 +420,8 @@ export default async function BankCityPage({
                 <Info className="h-4 w-4 text-blue-600" />
                 <AlertDescription className="text-xs text-blue-800 leading-relaxed italic">
                   <strong>Planning tip:</strong> Run this calculator at both{' '}
-                  {bank.rate}% and {bank.maxRate}% to prepare for best-case and
-                  conservative EMI scenarios.
+                  {bankHomeRate}% and {bankMaxRate}% to prepare for best-case
+                  and conservative EMI scenarios.
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -568,7 +582,7 @@ export default async function BankCityPage({
                       {bank.name}
                     </TableCell>
                     <TableCell className="font-semibold text-[#577A30]">
-                      {bank.rate}% - {bank.maxRate}%
+                      {bankHomeRate}% - {bankMaxRate}%
                     </TableCell>
                     <TableCell className="text-xs text-slate-600">
                       {cityData.areas[0]}, {otherArea}
@@ -585,7 +599,12 @@ export default async function BankCityPage({
                         </Link>
                       </TableCell>
                       <TableCell>
-                        {comp.rate}% - {comp.maxRate}%
+                        {getLatestHomeRate(comp.slug, comp.rate)}% -{' '}
+                        {Math.max(
+                          comp.maxRate,
+                          getLatestHomeRate(comp.slug, comp.rate),
+                        )}
+                        %
                       </TableCell>
                       <TableCell className="text-xs text-slate-500">
                         City-wide

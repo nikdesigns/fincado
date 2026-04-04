@@ -43,17 +43,17 @@ export const metadata: Metadata = {
     'car loan prepayment',
   ],
   alternates: {
-    canonical: '/loans/car-loan/',
+    canonical: 'https://fincado.com/loans/car-loan/',
   },
   openGraph: {
     title: 'Car Loan EMI Calculator - Calculate Auto Loan EMI Online',
     description:
       'Calculate car loan EMI instantly. Compare rates from top banks & NBFCs. Get best deals on new & used car loans.',
-    url: '/loans/car-loan/',
+    url: 'https://fincado.com/loans/car-loan/',
     type: 'website',
     images: [
       {
-        url: '/og-car-loan-calculator.jpg',
+        url: 'https://fincado.com/og-car-loan-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado Car Loan EMI Calculator',

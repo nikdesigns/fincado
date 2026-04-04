@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { getCityData, cityDetails } from '@/lib/localData';
 import { banks } from '@/lib/banks'; // ✅ Import Banks
 import AdSlot from '@/components/AdSlot';
+import EMIClient from '@/app/emi-calculator/EMIClient';
+import type { Metadata } from 'next';
+import { getBankRates } from '@/lib/getBankRates';
 
 const loanTypes: Record<string, string> = {
   'personal-loan': 'Personal Loan',
@@ -32,16 +35,25 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ city: string; type: string }>;
-}) {
+}): Promise<Metadata> {
   const { city, type } = await params;
   const cityData = getCityData(city);
   const loanName = loanTypes[type as keyof typeof loanTypes];
 
   if (!cityData || !loanName) return {};
+  const slug = `/city/${cityData.slug}/${type}/`;
+  const canonical = `https://fincado.com${slug}`;
 
   return {
-    title: `Best ${loanName} in ${cityData.name} 2025: Compare Top Rates`,
-    description: `Compare ${loanName} interest rates in ${cityData.name} from top banks. Best offers for residents of ${cityData.areas[0]} & ${cityData.areas[1]}.`,
+    title: `Best ${loanName} in ${cityData.name} 2026: Compare Top Rates & EMI`,
+    description: `Compare ${loanName} interest rates in ${cityData.name} from top banks with updated data, local eligibility tips, and instant EMI calculation.`,
+    alternates: { canonical },
+    openGraph: {
+      title: `Best ${loanName} in ${cityData.name} (2026)`,
+      description: `Updated ${loanName} rates, lender comparison, and EMI planning for ${cityData.name}.`,
+      url: canonical,
+      type: 'article',
+    },
   };
 }
 
@@ -55,10 +67,17 @@ export default async function CityLoanPage({
   const loanName = loanTypes[type as keyof typeof loanTypes];
 
   if (!cityData || !loanName) return notFound();
+  const liveRates = await getBankRates();
+  const getLatestRate = (slug: string, fallback: number) =>
+    liveRates.find((r) => r.bank === slug)?.homeLoan ?? fallback;
+  const latestUpdatedAt = liveRates.length > 0 ? liveRates[0].updatedAt : 'N/A';
 
   // ✅ SORT BANKS BY RATE TO SHOW "BEST" OFFERS FIRST
-  const topBanks = [...banks].sort((a, b) => a.rate - b.rate).slice(0, 6);
-
+  const topBanks = [...banks]
+    .sort(
+      (a, b) => getLatestRate(a.slug, a.rate) - getLatestRate(b.slug, b.rate),
+    )
+    .slice(0, 6);
   return (
     <main
       style={{
@@ -72,7 +91,7 @@ export default async function CityLoanPage({
     >
       <div style={{ minWidth: 0 }}>
         <h1>
-          {loanName} in {cityData.name} – Compare Best Rates (2025)
+          {loanName} in {cityData.name} – Compare Best Rates (2026)
         </h1>
 
         <p style={{ fontSize: '18px', color: '#555', lineHeight: 1.6 }}>
@@ -81,6 +100,9 @@ export default async function CityLoanPage({
           lenders for residents of{' '}
           <strong>{cityData.areas.slice(0, 3).join(', ')}</strong>. Compare
           interest rates and apply online.
+        </p>
+        <p style={{ fontSize: '14px', color: '#64748b', marginTop: 8 }}>
+          Latest tracked rate refresh: {latestUpdatedAt}
         </p>
 
         <div style={{ margin: '24px 0' }}>
@@ -91,6 +113,13 @@ export default async function CityLoanPage({
             label="Sponsored"
           />
         </div>
+
+        <section className="article" style={{ marginBottom: 28 }}>
+          <h2>Interactive EMI Calculator for {cityData.name}</h2>
+          <EMIClient
+            defaultRate={getLatestRate(topBanks[0]?.slug || 'sbi', 8.5)}
+          />
+        </section>
 
         {/* ✅ NEW: DATA-RICH TABLE (SEO GOLD) */}
         <section className="article">
@@ -156,7 +185,12 @@ export default async function CityLoanPage({
                         borderBottom: '1px solid #e2e8f0',
                       }}
                     >
-                      {bank.rate}% Onwards
+                      {getLatestRate(bank.slug, bank.rate)}% -{' '}
+                      {Math.max(
+                        bank.maxRate,
+                        getLatestRate(bank.slug, bank.rate),
+                      )}
+                      %
                     </td>
                     <td
                       style={{

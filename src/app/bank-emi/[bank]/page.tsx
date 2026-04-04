@@ -10,6 +10,7 @@ import StickyCompareFooter from '@/components/StickyCompareFooter';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCompetitors } from '@/lib/localData';
+import { getBankRates } from '@/lib/getBankRates';
 
 import {
   Card,
@@ -62,9 +63,13 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
   if (!bank) return {};
+  const liveRates = await getBankRates();
+  const latestHomeRate =
+    liveRates.find((r) => r.bank === bank.slug)?.homeLoan ?? bank.rate;
+  const upperRate = Math.max(bank.maxRate, latestHomeRate);
 
   const title = `${bank.name} EMI Calculator 2026: Rates, EMI, Eligibility & Repayment Guide`;
-  const description = `Calculate ${bank.name} home loan EMI instantly with updated interest range ${bank.rate}% to ${bank.maxRate}%. Compare tenure, total interest, eligibility factors, prepayment impact, and city-wise loan options.`;
+  const description = `Calculate ${bank.name} home loan EMI instantly with updated interest range ${latestHomeRate}% to ${upperRate}%. Compare tenure, total interest, eligibility factors, prepayment impact, and city-wise loan options.`;
   const url = `https://fincado.com/bank-emi/${bank.slug}/`;
 
   return {
@@ -106,11 +111,17 @@ export default async function BankPage({
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
 
   if (!bank) notFound();
+  const liveRates = await getBankRates();
+  const getLatestHomeRate = (slug: string, fallback: number) =>
+    liveRates.find((r) => r.bank === slug)?.homeLoan ?? fallback;
+  const latestUpdatedAt = liveRates.length > 0 ? liveRates[0].updatedAt : 'N/A';
 
   const competitorSlugs = getCompetitors(bank.slug);
   const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
   const topCities = cities.slice(0, 12);
-  const avgRate = ((bank.rate + bank.maxRate) / 2).toFixed(2);
+  const bankHomeRate = getLatestHomeRate(bank.slug, bank.rate);
+  const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
+  const avgRate = ((bankHomeRate + bankMaxRate) / 2).toFixed(2);
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -211,8 +222,11 @@ export default async function BankPage({
               Use this page to calculate your monthly EMI, total interest outgo,
               and repayment strategy for <strong>{bank.name}</strong> home
               loans. Current indicative rates range between{' '}
-              <strong className="text-[#577A30]">{bank.rate}%</strong> and{' '}
-              <strong className="text-[#577A30]">{bank.maxRate}%</strong>.
+              <strong className="text-[#577A30]">{bankHomeRate}%</strong> and{' '}
+              <strong className="text-[#577A30]">{bankMaxRate}%</strong>.
+            </p>
+            <p className="text-sm text-slate-500 mt-2">
+              Latest tracked home-loan rate refresh: {latestUpdatedAt}
             </p>
 
             <div className="mt-6 grid sm:grid-cols-3 gap-3">
@@ -220,7 +234,7 @@ export default async function BankPage({
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Rate starts from</p>
                   <p className="text-xl font-semibold text-[#577A30]">
-                    {bank.rate}%
+                    {bankHomeRate}%
                   </p>
                 </CardContent>
               </Card>
@@ -228,7 +242,7 @@ export default async function BankPage({
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Typical upper band</p>
                   <p className="text-xl font-semibold text-slate-900">
-                    {bank.maxRate}%
+                    {bankMaxRate}%
                   </p>
                 </CardContent>
               </Card>
@@ -308,7 +322,7 @@ export default async function BankPage({
               </CardTitle>
             </CardHeader>
             <CardContent className="p-2 sm:p-6 bg-white">
-              <EMIClient defaultRate={bank.rate} />
+              <EMIClient defaultRate={bankHomeRate} />
 
               <div className="mt-6 bg-blue-50/50 border border-blue-100 rounded-xl p-5">
                 <div className="flex items-start gap-4">
@@ -484,7 +498,7 @@ export default async function BankPage({
                       {bank.name}
                     </TableCell>
                     <TableCell className="font-semibold text-[#577A30]">
-                      {bank.rate}% - {bank.maxRate}%
+                      {bankHomeRate}% - {bankMaxRate}%
                     </TableCell>
                     <TableCell>30 Years</TableCell>
                   </TableRow>
@@ -500,7 +514,12 @@ export default async function BankPage({
                         </Link>
                       </TableCell>
                       <TableCell>
-                        {comp.rate}% - {comp.maxRate}%
+                        {getLatestHomeRate(comp.slug, comp.rate)}% -{' '}
+                        {Math.max(
+                          comp.maxRate,
+                          getLatestHomeRate(comp.slug, comp.rate),
+                        )}
+                        %
                       </TableCell>
                       <TableCell>30 Years</TableCell>
                     </TableRow>

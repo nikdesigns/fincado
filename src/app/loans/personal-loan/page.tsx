@@ -43,17 +43,17 @@ export const metadata: Metadata = {
     'quick personal loan',
   ],
   alternates: {
-    canonical: '/loans/personal-loan/',
+    canonical: 'https://fincado.com/loans/personal-loan/',
   },
   openGraph: {
     title: 'Personal Loan EMI Calculator - Calculate Instant Loan EMI Online',
     description:
       'Calculate personal loan EMI instantly. Compare rates from top banks & NBFCs. Get instant approval with minimal documentation.',
-    url: '/loans/personal-loan/',
+    url: 'https://fincado.com/loans/personal-loan/',
     type: 'website',
     images: [
       {
-        url: '/og-personal-loan-calculator.jpg',
+        url: 'https://fincado.com/og-personal-loan-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado Personal Loan EMI Calculator',

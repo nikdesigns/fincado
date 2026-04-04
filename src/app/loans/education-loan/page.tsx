@@ -42,18 +42,18 @@ export const metadata: Metadata = {
     'hdfc education loan',
   ],
   alternates: {
-    canonical: '/loans/education-loan/',
+    canonical: 'https://fincado.com/loans/education-loan/',
   },
   openGraph: {
     title:
       'Education Loan EMI Calculator - Student Loan Calculator with Tax Benefits',
     description:
       'Calculate education loan EMI with Section 80E tax benefits. Compare rates for studying in India & abroad from top banks.',
-    url: '/loans/education-loan/',
+    url: 'https://fincado.com/loans/education-loan/',
     type: 'website',
     images: [
       {
-        url: '/og-education-loan-calculator.jpg',
+        url: 'https://fincado.com/og-education-loan-calculator.jpg',
         width: 1200,
         height: 630,
         alt: 'Fincado Education Loan EMI Calculator',
