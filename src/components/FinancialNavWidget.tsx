@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,93 +18,77 @@ import {
 } from 'lucide-react';
 
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
-const { budgetYear } = getCurrentFiscalYear();
 
-/* ---------- TYPES ---------- */
-type NavItem = {
-  href: string;
-  label: string;
-  icon?: string;
-  lucideIcon?: React.ElementType;
-  isNew?: boolean;
-  badge?: string;
-};
-
-/* ---------- DATA ---------- */
-const TOP_TOOLS: NavItem[] = [
-  {
-    href: '/sip-calculator/',
-    label: 'SIP Calculator',
-    icon: '📈',
-    lucideIcon: TrendingUp,
-  },
-  {
-    href: '/emi-calculator/',
-    label: 'Loan EMI Calculator',
-    icon: '🏠',
-    lucideIcon: Calculator,
-  },
-  {
-    href: '/loans/home-loan/',
-    label: 'Home Loan EMI',
-    icon: '🏡',
-    lucideIcon: Home,
-  },
-  {
-    href: '/sukanya-samriddhi/',
-    label: 'SSY Calculator',
-    icon: '👧',
-    lucideIcon: Sparkles,
-    isNew: true,
-  },
-  {
-    href: '/ppf-calculator/',
-    label: 'PPF Calculator',
-    icon: '💰',
-    lucideIcon: PiggyBank,
-  },
-  {
-    href: '/income-tax-calculator/',
-    label: 'Tax Calculator',
-    icon: '🧾',
-    lucideIcon: FileText,
-    badge: String(budgetYear),
-  },
-  {
-    href: '/credit-score/',
-    label: 'Check Credit Score',
-    icon: '🛡️',
-    lucideIcon: Shield,
-  },
-];
-
-const TRENDING_GUIDES: NavItem[] = [
-  {
-    href: '/guides/sukanya-samriddhi-yojana-guide-2025/',
-    label: 'Sukanya Samriddhi Yojana Guide',
-    badge: 'Popular',
-  },
-  {
-    href: '/guides/elss-funds-guide-2025/',
-    label: 'ELSS Funds: Save Tax (80C)',
-  },
-  {
-    href: '/guides/sovereign-gold-bond-sgb-guide/',
-    label: 'Sovereign Gold Bonds (SGB)',
-  },
-  {
-    href: '/guides/health-insurance-buying-guide/',
-    label: 'Health Insurance Checklist',
-  },
-];
-
-/* ---------- COMPONENT ---------- */
 export default function FinancialNavWidget() {
+  const fy = getCurrentFiscalYear();
+
+  /* ---------- TOP TOOLS ---------- */
+  const TOP_TOOLS = [
+    {
+      href: '/sip-calculator/',
+      label: 'SIP Calculator',
+      lucideIcon: TrendingUp,
+    },
+    {
+      href: '/emi-calculator/',
+      label: 'Loan EMI Calculator',
+      lucideIcon: Calculator,
+    },
+    {
+      href: '/loans/home-loan/',
+      label: 'Home Loan EMI',
+      lucideIcon: Home,
+    },
+    {
+      href: '/sukanya-samriddhi/',
+      label: 'Sukanya Samriddhi (SSY)',
+      lucideIcon: Sparkles,
+      isNew: true,
+    },
+    {
+      href: '/ppf-calculator/',
+      label: 'PPF Calculator',
+      lucideIcon: PiggyBank,
+    },
+    {
+      href: '/income-tax-calculator/',
+      label: 'Income Tax Calculator',
+      lucideIcon: FileText,
+      badge: fy.shortYear,
+    },
+    {
+      href: '/credit-score/',
+      label: 'Check Credit Score',
+      lucideIcon: Shield,
+    },
+  ];
+
+  /* ---------- TRENDING GUIDES (2026 updated) ---------- */
+  const TRENDING_GUIDES = [
+    {
+      href: '/guides/sukanya-samriddhi-yojana-guide-2026/',
+      label: 'Sukanya Samriddhi Yojana Guide',
+      badge: 'Popular',
+    },
+    {
+      href: '/guides/elss-funds-guide-2026/',
+      label: 'ELSS Funds: Save Tax (80C)',
+    },
+    {
+      href: '/guides/sovereign-gold-bond-sgb-guide/',
+      label: 'Sovereign Gold Bonds (SGB)',
+    },
+    {
+      href: '/guides/health-insurance-buying-guide/',
+      label: 'Health Insurance Checklist',
+    },
+  ];
+
   return (
     <aside className="space-y-6">
-      {/* --- POPULAR TOOLS --- */}
+      {/* POPULAR TOOLS */}
       <Card className="border-slate-200 shadow-sm overflow-hidden">
-        <CardHeader className="bg-linear-to-r bg-[#F7FDF1] border-b border-slate-200 pb-4">
+        <CardHeader className="bg-[#F7FDF1] border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-[#92C65B] flex items-center justify-center shadow-sm">
               <Calculator className="w-4 h-4 text-white" />
@@ -113,7 +98,7 @@ export default function FinancialNavWidget() {
             </CardTitle>
           </div>
           <p className="text-xs text-slate-600 mt-1">
-            Most used calculators & tools
+            Most used calculators &amp; tools
           </p>
         </CardHeader>
 
@@ -129,12 +114,8 @@ export default function FinancialNavWidget() {
                 >
                   <span className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-[#EFFBE2] flex items-center justify-center transition-colors shrink-0">
-                      {IconComponent ? (
-                        <IconComponent className="w-4 h-4 text-[#111827] group-hover:text-[#111827] transition-colors" />
-                      ) : (
-                        <span className="text-base leading-none">
-                          {item.icon}
-                        </span>
+                      {IconComponent && (
+                        <IconComponent className="w-4 h-4 text-[#111827] group-hover:text-[#577A30]" />
                       )}
                     </div>
                     <span className="group-hover:translate-x-0.5 transition-transform">
@@ -144,16 +125,16 @@ export default function FinancialNavWidget() {
 
                   <div className="flex items-center gap-2">
                     {item.isNew && (
-                      <Badge className="bg-rose-500 hover:bg-rose-600 text-white text-[10px] px-2 py-0.5 font-semibold shadow-sm">
+                      <Badge className="bg-rose-500 text-white text-[10px] px-2 py-0.5 font-semibold">
                         NEW
                       </Badge>
                     )}
-                    {item.badge && !item.isNew && (
-                      <Badge className="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 font-bold border border-blue-200">
+                    {item.badge && (
+                      <Badge className="bg-[#B0EC70] text-[#1B2E06] text-[10px] px-2 py-0.5 font-semibold">
                         {item.badge}
                       </Badge>
                     )}
-                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all" />
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-[#577A30] transition-all" />
                   </div>
                 </Link>
               );
@@ -172,9 +153,9 @@ export default function FinancialNavWidget() {
         </CardContent>
       </Card>
 
-      {/* --- TRENDING GUIDES --- */}
+      {/* TRENDING GUIDES */}
       <Card className="border-slate-200 shadow-sm overflow-hidden">
-        <CardHeader className="bg-linear-to-r bg-[#F7FDF1] border-b border-slate-200 pb-4">
+        <CardHeader className="bg-[#F7FDF1] border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-[#92C65B] flex items-center justify-center shadow-sm">
               <BookOpen className="w-4 h-4 text-white" />
@@ -184,7 +165,7 @@ export default function FinancialNavWidget() {
             </CardTitle>
           </div>
           <p className="text-xs text-slate-600 mt-1">
-            Expert financial advice & tips
+            Expert advice updated for 2026
           </p>
         </CardHeader>
 
@@ -196,20 +177,20 @@ export default function FinancialNavWidget() {
                 href={item.href}
                 className="group flex items-start gap-3 text-sm transition-all hover:translate-x-1"
               >
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 group-hover:bg-amber-100 text-slate-500 group-hover:text-amber-700 font-bold text-xs shrink-0 mt-0.5 transition-colors">
+                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 group-hover:bg-[#EFFBE2] text-slate-500 group-hover:text-[#577A30] font-bold text-xs shrink-0 mt-0.5 transition-colors">
                   {index + 1}
                 </div>
                 <div className="flex-1">
-                  <span className="text-slate-700 group-hover:text-amber-700 leading-relaxed transition-colors font-medium">
+                  <span className="text-slate-700 group-hover:text-[#577A30] leading-relaxed transition-colors font-medium">
                     {item.label}
                   </span>
                   {item.badge && (
-                    <Badge className="ml-2 bg-amber-100 text-amber-700 text-[10px] px-1.5 py-0 font-bold border border-amber-200">
+                    <Badge className="ml-2 bg-[#B0EC70] text-[#1B2E06] text-[10px] px-1.5 py-0 font-bold border border-[#DFF7C6]">
                       {item.badge}
                     </Badge>
                   )}
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-all shrink-0 mt-1" />
+                <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-[#577A30] opacity-0 group-hover:opacity-100 transition-all shrink-0 mt-1" />
               </Link>
             ))}
           </div>
@@ -226,7 +207,7 @@ export default function FinancialNavWidget() {
         </CardContent>
       </Card>
 
-      {/* --- QUICK STATS (Optional Bonus) --- */}
+      {/* Quick Stats / CTA */}
       <Card className="border-slate-200 shadow-sm bg-[#F7FDF1]">
         <CardContent className="p-4">
           <div className="text-center space-y-2">

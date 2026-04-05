@@ -6,10 +6,8 @@ import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
-import { autoLinkContent } from '@/utils/autoLinker'; // ✅ Imported
+import { autoLinkContent } from '@/utils/autoLinker';
 import { addHeadingIds } from '@/utils/addHeadingIds';
-
-/* ---------------- TYPES ---------------- */
 
 type Article = {
   slug: string;
@@ -26,12 +24,9 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-/* ---------------- METADATA ---------------- */
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
-  // 1. Find the article (Safely filter for English to avoid grabbing Hindi by mistake)
   const article = (articles as Article[]).find(
     (a) => a.slug === slug && (!a.language || a.language === 'en'),
   );
@@ -39,46 +34,42 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) return {};
 
   const baseUrl = 'https://fincado.com';
-  // 2. Define URLs with trailing slashes
   const enUrl = `${baseUrl}/guides/${article.slug}/`;
   const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
 
   return {
     title: article.seoTitle || article.title,
     description: article.metaDescription,
-
-    // 3. ✅ FIX: Add Hreflang Tags
     alternates: {
       canonical: enUrl,
       languages: {
-        en: enUrl, // Current Page (English)
-        hi: hiUrl, // Alternate Page (Hindi)
-        'x-default': enUrl, // Default fallback
+        en: enUrl,
+        hi: hiUrl,
+        'x-default': enUrl,
       },
     },
-
     openGraph: {
       title: article.title,
       description: article.metaDescription,
       type: 'article',
       url: enUrl,
       publishedTime: article.published,
-      locale: 'en_IN', // Explicitly set locale
+      locale: 'en_IN',
     },
   };
 }
 
-/* ---------------- PAGE ---------------- */
-
 export default async function GuidePost({ params }: Props) {
   const { slug } = await params;
-  const article = (articles as Article[]).find((a) => a.slug === slug);
+
+  // Keep same filter as metadata to avoid language mismatches
+  const article = (articles as Article[]).find(
+    (a) => a.slug === slug && (!a.language || a.language === 'en'),
+  );
 
   if (!article) notFound();
 
-  // ✅ ACTION: Process the content to inject internal links automatically
   const processedContent = addHeadingIds(autoLinkContent(article.content));
-
   const related = getRelatedGuides(article.slug, article.category);
 
   const articleLd = {
@@ -116,7 +107,7 @@ export default async function GuidePost({ params }: Props) {
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: article.title,
-            url: `https://fincado.com/guides/${article.slug}`,
+            url: `https://fincado.com/guides/${article.slug}/`,
           },
         ]}
       />
@@ -126,7 +117,6 @@ export default async function GuidePost({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
       />
 
-      {/* ONLY CONTENT: Grid and Sidebar are handled by layout.tsx */}
       <article className="article">
         <header
           style={{
@@ -172,7 +162,6 @@ export default async function GuidePost({ params }: Props) {
           <AdSlot id={`guide-top-${article.slug}`} type="leaderboard" />
         </div>
 
-        {/* ✅ Updated: Using processedContent instead of article.content */}
         <WikiText content={processedContent} className="guide-body" />
 
         {related.length > 0 && (
@@ -204,7 +193,9 @@ export default async function GuidePost({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  return (articles as Article[]).map((a) => ({
-    slug: a.slug,
-  }));
+  return (articles as Article[])
+    .filter((a) => !a.language || a.language === 'en')
+    .map((a) => ({
+      slug: a.slug,
+    }));
 }

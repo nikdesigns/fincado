@@ -28,7 +28,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import FAQSchema from '@/components/FAQSchema';
 import { NSCSchemas } from '@/components/schemas/NSCSchemas';
 import { Info, Shield, TrendingUp, ArrowRight, FileText } from 'lucide-react';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
@@ -228,13 +227,6 @@ export default function NSCPage() {
         name="National Savings Certificate (NSC) Calculator"
         description="Calculate NSC maturity value with 7.7% interest. Government-backed savings with Section 80C tax benefits."
         url="https://fincado.com/nsc-calculator/"
-      />
-
-      <FAQSchema
-        faqs={faqItems.map((faq) => ({
-          question: faq.question,
-          answer: faq.answer,
-        }))}
       />
 
       <NSCSchemas />

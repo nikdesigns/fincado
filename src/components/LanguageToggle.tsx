@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 interface LanguageToggleProps {
-  path: string;
+  path: string; // e.g. "/hi/some-page" or "/some-page"
 }
 
 export default function LanguageToggle({ path }: LanguageToggleProps) {
-  const isTargetHindi = path.startsWith('/hi');
+  const isHindi = path.startsWith('/hi');
 
   return (
     <Button
@@ -17,31 +17,24 @@ export default function LanguageToggle({ path }: LanguageToggleProps) {
       size="sm"
       className="
         no-print
-        inline-flex
-        items-center
-        gap-2
+        inline-flex items-center gap-2
         rounded-full
-        border-rose-300
-        bg-rose-50
-        text-rose-600
-        font-semibold
-        shadow-sm
-        hover:bg-rose-100
-        hover:border-rose-400
-        focus-visible:ring-2
-        focus-visible:ring-rose-300
+        border-[#B0EC70] bg-[#F7FDF1]
+        text-[#577A30] font-semibold
+        hover:bg-[#DFF7C6] hover:border-[#B0EC70]
+        focus-visible:ring-2 focus-visible:ring-[#B0EC70]
         focus-visible:ring-offset-2
+        transition-colors
       "
-      aria-label={
-        isTargetHindi ? 'Read this page in Hindi' : 'Read this page in English'
-      }
+      aria-label={isHindi ? 'Switch to English' : 'हिंदी में पढ़ें'}
     >
-      <Link href={path} className="flex items-center gap-2">
-        <span className="text-base leading-none">
-          {isTargetHindi ? '🇮🇳' : '🇺🇸'}
-        </span>
+      <Link href={path} className="flex items-center gap-2 px-1">
+        {/* Flag */}
+        <span className="text-base leading-none">{isHindi ? '🇮🇳' : '🇬🇧'}</span>
+
+        {/* Label */}
         <span className="whitespace-nowrap text-sm">
-          {isTargetHindi ? 'हिंदी में देखें (Read in Hindi)' : 'English'}
+          {isHindi ? 'हिंदी' : 'English'}
         </span>
       </Link>
     </Button>
