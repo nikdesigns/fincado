@@ -212,7 +212,7 @@ export default function CarLoanEMIPage() {
           },
           {
             name: 'Car Loan EMI Calculator',
-            url: '/loans/car-loan/',
+            url: 'https://fincado.com/loans/car-loan/',
           },
         ]}
       />
@@ -220,7 +220,7 @@ export default function CarLoanEMIPage() {
       <CalculatorSchema
         name="Car Loan EMI Calculator"
         description="Calculate car loan EMI for new & used vehicles. Check monthly repayment for auto loans from HDFC, SBI, ICICI & NBFCs."
-        url="/loans/car-loan/"
+        url="https://fincado.com/loans/car-loan/"
       />
 
       <FAQSchema

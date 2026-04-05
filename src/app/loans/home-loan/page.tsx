@@ -186,7 +186,7 @@ export default function HomeLoanEMIPage() {
           },
           {
             name: 'Home Loan EMI Calculator',
-            url: '/loans/home-loan/',
+            url: 'https://fincado.com/loans/home-loan/',
           },
         ]}
       />
@@ -194,7 +194,7 @@ export default function HomeLoanEMIPage() {
       <CalculatorSchema
         name="Home Loan EMI Calculator"
         description="Calculate home loan EMI with tax benefits. Check monthly repayment for housing loans from HDFC, SBI, ICICI."
-        url="/loans/home-loan/"
+        url="https://fincado.com/loans/home-loan/"
       />
 
       <FAQSchema

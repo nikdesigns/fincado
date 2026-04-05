@@ -218,7 +218,7 @@ export default function EducationLoanEMIPage() {
           },
           {
             name: 'Education Loan EMI Calculator',
-            url: '/loans/education-loan/',
+            url: 'https://fincado.com/loans/education-loan/',
           },
         ]}
       />
@@ -226,7 +226,7 @@ export default function EducationLoanEMIPage() {
       <CalculatorSchema
         name="Education Loan EMI Calculator"
         description="Calculate education loan EMI with Section 80E tax benefits. Check monthly repayment for student loans in India & abroad."
-        url="/loans/education-loan/"
+        url="https://fincado.com/loans/education-loan/"
       />
 
       <FAQSchema

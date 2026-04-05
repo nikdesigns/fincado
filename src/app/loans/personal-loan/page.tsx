@@ -198,7 +198,7 @@ export default function PersonalLoanEMIPage() {
           },
           {
             name: 'Personal Loan EMI Calculator',
-            url: '/loans/personal-loan/',
+            url: 'https://fincado.com/loans/personal-loan/',
           },
         ]}
       />
@@ -206,7 +206,7 @@ export default function PersonalLoanEMIPage() {
       <CalculatorSchema
         name="Personal Loan EMI Calculator"
         description="Calculate personal loan EMI instantly. Check monthly repayment for unsecured personal loans from top banks & NBFCs."
-        url="/loans/personal-loan/"
+        url="https://fincado.com/loans/personal-loan/"
       />
 
       <FAQSchema
