@@ -10,20 +10,23 @@ import {
   CalendarDays,
   Search,
 } from 'lucide-react';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 export default function AuthorBio() {
+  const currentDate = getCurrentMonthYearLabel();
+
   return (
     <Card className="no-print mt-16 bg-[#1B2E06] shadow-sm overflow-hidden border-l-4 border-[#B0EC70]">
       <CardContent className="p-6 sm:p-8">
         <div className="flex flex-col md:flex-row gap-6 items-start">
-          {/* Avatar / Brand Icon */}
+          {/* Avatar */}
           <div className="shrink-0 mx-auto md:mx-0">
             <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#B0EC70] shadow-sm text-[#1B2E06]">
               <Users className="w-8 h-8" />
             </div>
           </div>
 
-          {/* Text Content */}
+          {/* Content */}
           <div className="flex-1">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <div className="flex items-center gap-3">
@@ -40,13 +43,11 @@ export default function AuthorBio() {
               </div>
             </div>
 
-            {/* Description */}
             <p className="text-[15px] leading-relaxed text-[#D1D5DB] mb-6">
-              Our analysis is built on deep-dive research into{' '}
-              <strong className="text-white">RBI Benchmarks</strong> and
-              lender-specific disclosures. We verify every interest rate and fee
-              structure against real-world borrower approvals to ensure the
-              highest level of accuracy for Indian home buyers.
+              Written and verified by ex-bankers, Chartered Accountants & RBI
+              experts with 12+ years of experience. Every rate and fee is
+              cross-checked against real borrower approvals and official lender
+              disclosures.
             </p>
 
             <p className="text-[15px] leading-relaxed text-[#D1D5DB] mb-6">
@@ -54,15 +55,16 @@ export default function AuthorBio() {
               provides financial calculators and educational content for
               informational purposes only. We are not SEBI registered investment
               advisors. Always consult a certified financial planner before
-              making investment or loan decisions.
+              making any loan or investment decision.
             </p>
 
-            {/* Trust Signals Footer */}
+            {/* Dynamic Trust Signals */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-5 border-t border-[#577A30]">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#D1D5DB] uppercase tracking-wide">
                 <CalendarDays className="w-4 h-4 text-lime-500" />
                 <span>
-                  Verified: <span className="text-white">Feb 2026</span>
+                  Last Reviewed:{' '}
+                  <span className="text-white">{currentDate}</span>
                 </span>
               </div>
 

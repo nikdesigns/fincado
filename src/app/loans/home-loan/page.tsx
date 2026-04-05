@@ -20,38 +20,37 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
-import { BookOpen, ArrowRight, Info, Home } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { BookOpen, ArrowRight, Home } from 'lucide-react';
 import { HomeLoanSchemas } from '@/components/schemas/HomeLoanSchemas';
-import 'katex/dist/katex.min.css';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
+import TaxUpdateBanner from '@/components/TaxUpdateBanner';
+
+/* ---------------- SEO METADATA ---------------- */
 
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
   title:
-    'Home Loan EMI Calculator 2026 - Calculate Housing Loan EMI with Tax Benefits',
+    'Home Loan EMI Calculator 2026-27 - Tax Year 2026-27 | Income Tax Act 2025',
   description:
-    'Free Home Loan EMI Calculator for India. Calculate monthly EMI for HDFC, SBI, ICICI home loans. Check tax benefits under Section 80C & 24(b). Compare interest rates & save lakhs.',
+    'Free Home Loan EMI Calculator for Tax Year 2026-27 under the new Income Tax Act 2025. Calculate monthly EMI for HDFC, SBI, ICICI home loans. Check tax benefits under Section 80C & 24(b) (Old Regime only). Compare latest interest rates & save lakhs.',
   keywords: [
     'home loan emi calculator',
-    'housing loan calculator',
-    'home loan interest rate',
-    'home loan tax benefits',
-    'section 80c',
-    'section 24b',
-    'hdfc home loan',
-    'sbi home loan',
-    'home loan prepayment',
+    'housing loan calculator 2026',
+    'home loan tax benefits 2026-27',
+    'section 80c home loan',
+    'section 24b home loan',
+    'hdfc home loan emi',
+    'sbi home loan emi',
+    'tax year 2026-27 home loan',
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/home-loan/',
   },
   openGraph: {
-    title:
-      'Home Loan EMI Calculator - Calculate Housing Loan EMI & Tax Savings',
+    title: 'Home Loan EMI Calculator 2026-27 - Tax Benefits & Latest Rates',
     description:
-      'Calculate home loan EMI with tax benefits. Compare rates from HDFC, SBI, ICICI & save on interest.',
+      'Calculate home loan EMI for Tax Year 2026-27. Old vs New Regime tax savings explained. Compare HDFC, SBI, ICICI rates.',
     url: 'https://fincado.com/loans/home-loan/',
     type: 'website',
     images: [
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
         url: 'https://fincado.com/og-home-loan-calculator.jpg',
         width: 1200,
         height: 630,
-        alt: 'Fincado Home Loan EMI Calculator',
+        alt: 'Fincado Home Loan EMI Calculator 2026-27',
       },
     ],
   },
@@ -83,9 +82,10 @@ export default function HomeLoanEMIPage() {
     <p>
       A <strong>Home Loan EMI Calculator</strong> helps you calculate monthly installments 
       for your housing loan based on principal amount, interest rate, and tenure. 
-      Indian home loans also qualify for tax deductions under <strong>Section 80C</strong> 
-      (principal repayment up to ₹1.5 lakh) and <strong>Section 24(b)</strong> 
-      (interest paid up to ₹2 lakh for self-occupied property).
+      Under the new <strong>Income Tax Act 2025 (Tax Year 2026-27)</strong>, 
+      home loans continue to offer major tax deductions under <strong>Section 80C</strong> 
+      (principal repayment) and <strong>Section 24(b)</strong> (interest paid) — 
+      but these deductions are available only if you opt for the <strong>Old Regime</strong>.
     </p>
   `);
 
@@ -100,11 +100,12 @@ export default function HomeLoanEMIPage() {
 
   const taxBenefitsContent = autoLinkContent(`
     <p>
-      <strong>Section 80C:</strong> Claim deduction up to ₹1,50,000 on principal repayment.<br/>
-      <strong>Section 24(b):</strong> Claim deduction up to ₹2,00,000 on interest paid for self-occupied property 
-      (no limit for let-out property).<br/>
+      <strong>Section 80C:</strong> Deduction up to ₹1,50,000 on principal repayment (Old Regime only).<br/>
+      <strong>Section 24(b):</strong> Deduction up to ₹2,00,000 on interest paid for self-occupied property 
+      (no limit for let-out property) — Old Regime only.<br/>
       <strong>Section 80EEA:</strong> Additional ₹1,50,000 deduction on interest for first-time home buyers 
-      (property value up to ₹45 lakh).
+      (property value up to ₹45 lakh) — Old Regime only.<br/>
+      <strong>Note:</strong> New regime is the default from Tax Year 2026-27. You must actively choose the Old Regime to claim these deductions.
     </p>
   `);
 
@@ -123,9 +124,9 @@ export default function HomeLoanEMIPage() {
     },
     {
       id: 'faq-3',
-      question: 'What are the tax benefits on home loans?',
+      question: 'What are the tax benefits on home loans in Tax Year 2026-27?',
       answer:
-        'You can save up to ₹3.5 lakh in taxes: ₹1.5 lakh under Section 80C (principal), ₹2 lakh under Section 24(b) (interest for self-occupied), and additional ₹1.5 lakh under Section 80EEA (first-time buyers).',
+        'You can still save up to ₹3.5 lakh in taxes under the Old Regime: ₹1.5 lakh under Section 80C (principal), ₹2 lakh under Section 24(b) (interest for self-occupied property), and additional ₹1.5 lakh under Section 80EEA (first-time buyers). These deductions are NOT available in the New Regime (which is now the default).',
     },
     {
       id: 'faq-4',
@@ -480,18 +481,8 @@ export default function HomeLoanEMIPage() {
               </Card>
             </section>
 
-            {/* Budget Alert */}
-            <Alert className="mt-6 bg-blue-50/50 border-blue-200 text-slate-600">
-              <Info className="h-4 w-4 text-blue-500 mt-0.5" />
-              <AlertDescription className="ml-2 text-sm leading-relaxed">
-                <strong className="text-slate-900 font-semibold block mb-0.5">
-                  Tax Benefit Alert
-                </strong>
-                Home loans offer maximum tax deductions among all loans. You can
-                save up to ₹3.5 lakh annually under sections 80C, 24(b), and
-                80EEA combined.
-              </AlertDescription>
-            </Alert>
+            {/* New Tax Year 2026-27 Banner */}
+            <TaxUpdateBanner />
 
             {/* Bank Comparison */}
             <section className="no-print mt-8">
@@ -625,7 +616,7 @@ export default function HomeLoanEMIPage() {
                   {/* Tax Benefits */}
                   <section className="space-y-4">
                     <h2 className="text-2xl font-semibold text-slate-900">
-                      Home Loan Tax Benefits (2026)
+                      Home Loan Tax Benefits (Tax Year 2026-27)
                     </h2>
                     <div className="text-slate-700 leading-relaxed">
                       <WikiText content={taxBenefitsContent} />

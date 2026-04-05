@@ -40,7 +40,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '9 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-9-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-9-lakh-salary-hero.webp',
 };
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     '9 LPA in hand salary',
     'tax on 9 lakh new regime',
     'is 9 lakh salary good',
-    'income tax calculator 2025'
+    'income tax calculator 2025',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -92,7 +92,7 @@ export default function Tax9LakhGuide() {
       question: 'Which tax regime is better for 9 Lakh package?',
       answer:
         'The New Tax Regime is better unless you have deductions (HRA, 80C, 80D) exceeding ₹2.44 Lakhs. If your investments are lower than this, stick to the New Regime.',
-    }
+    },
   ];
 
   return (
@@ -105,7 +105,7 @@ export default function Tax9LakhGuide() {
           {
             name: 'Tax on 9 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          }
+          },
         ]}
       />
 

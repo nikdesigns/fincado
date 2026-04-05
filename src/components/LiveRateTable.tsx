@@ -10,35 +10,87 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { BANK_RATES } from '@/data/live-rates';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 type LoanType = 'homeLoan' | 'personalLoan' | 'carLoan' | 'educationLoan';
+
+interface CategoryRow {
+  category: string;
+  rate: string;
+  fee: string;
+}
+
+interface RateRange {
+  title: string;
+  data: CategoryRow[];
+}
 
 interface Props {
   type?: LoanType | string;
 }
 
 export default function LiveRateTable({ type = 'homeLoan' }: Props) {
-  const ranges = {
-    homeLoan: {
-      title: 'Home Loan Interest Rates 2026',
-      data: [
-        {
-          category: 'Public Sector Banks',
-          rate: '8.35% — 9.50%',
-          fee: 'Low (Max ₹10k)',
-        },
-        {
-          category: 'Private Sector Banks',
-          rate: '8.75% — 10.50%',
-          fee: 'Medium (0.5% - 1%)',
-        },
-        {
-          category: 'HFCs (Housing Finance)',
-          rate: '9.00% — 11.50%',
-          fee: 'Medium (0.5% - 2%)',
-        },
-      ],
-    },
+  const currentDate = getCurrentMonthYearLabel();
+
+  // === HOME LOAN - Show actual banks (most important) ===
+  if (type === 'homeLoan') {
+    const homeRates = BANK_RATES.slice(0, 8);
+
+    return (
+      <section className="mt-8 no-print">
+        <Card className="border-slate-200 bg-white">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-base font-semibold text-slate-900 flex items-center justify-between">
+              <span>Home Loan Interest Rates – April 2026</span>
+              <span className="text-xs font-normal text-slate-500">
+                Updated {currentDate}
+              </span>
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent className="pt-0">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[35%]">Bank</TableHead>
+                    <TableHead className="w-[30%]">
+                      Interest Rate (p.a.)
+                    </TableHead>
+                    <TableHead className="w-[35%]">Processing Fee</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {homeRates.map((bank) => (
+                    <TableRow key={bank.bank}>
+                      <TableCell className="font-medium text-slate-700 capitalize">
+                        {bank.bank}
+                      </TableCell>
+                      <TableCell className="font-semibold text-[#74A046]">
+                        {bank.homeLoan}%
+                      </TableCell>
+                      <TableCell className="text-slate-600">
+                        0.25% – 1%
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600">
+              <strong>Note:</strong> Rates are indicative. Actual rate depends
+              on your credit score, LTV, and profile.
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+    );
+  }
+
+  // === OTHER LOAN TYPES - Category view ===
+  const ranges: Record<Exclude<LoanType, 'homeLoan'>, RateRange> = {
     personalLoan: {
       title: 'Personal Loan Interest Rates 2026',
       data: [
@@ -72,11 +124,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
           rate: '9.00% — 11.00%',
           fee: '0.5% - 1%',
         },
-        {
-          category: 'Used Car Loans',
-          rate: '12.00% — 18.00%',
-          fee: '1% - 2%',
-        },
+        { category: 'Used Car Loans', rate: '12.00% — 18.00%', fee: '1% - 2%' },
       ],
     },
     educationLoan: {
@@ -101,19 +149,18 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
     },
   };
 
-  const selected = ranges[type as keyof typeof ranges] || ranges.homeLoan;
+  const selected =
+    ranges[type as Exclude<LoanType, 'homeLoan'>] || ranges.personalLoan;
 
   return (
     <section className="mt-8 no-print">
       <Card className="border-slate-200 bg-white">
-        {/* HEADER */}
         <CardHeader className="pb-4">
           <CardTitle className="text-base font-semibold text-slate-900">
-            {selected.title}
+            {selected.title} – {currentDate}
           </CardTitle>
         </CardHeader>
 
-        {/* TABLE */}
         <CardContent className="pt-0">
           <div className="overflow-x-auto">
             <Table>
@@ -143,12 +190,9 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
             </Table>
           </div>
 
-          {/* NOTE */}
           <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600">
-            <strong className="font-semibold text-slate-700">Note:</strong>{' '}
-            Rates mentioned above are indicative market ranges for borrowers
-            with a Credit Score &gt; 750. Actual rates may vary based on your
-            profile.
+            <strong>Note:</strong> Rates are indicative market ranges. Actual
+            rates depend on your profile.
           </div>
         </CardContent>
       </Card>

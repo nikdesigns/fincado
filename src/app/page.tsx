@@ -328,7 +328,7 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* --- TRUST STRIP (Updated Text) --- */}
+        {/* --- TRUST STRIP (Updated for Tax Year 2026-27) --- */}
         <section className="py-10">
           <div className="container px-4 md:px-6">
             <Card className="relative overflow-hidden border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
@@ -371,7 +371,7 @@ export default function Home(): JSX.Element {
                 <div className="h-px w-24 bg-slate-100" />
 
                 <div className="max-w-3xl text-center space-y-3">
-                  <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#000000]">
+                  <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#000000]">
                     <ShieldCheck className="h-4 w-4" />
                     <span>Bank-Grade Formulas</span>
                   </div>
@@ -380,9 +380,12 @@ export default function Home(): JSX.Element {
                     Fincado is a free financial calculator platform for India,
                     helping users calculate EMI, SIP returns, income tax,
                     retirement corpus, and investment growth using verified
-                    banking formulas aligned with FY 2026-27 norms.
+                    banking formulas aligned with{' '}
+                    <strong>Tax Year 2026-27</strong> norms. Compare live home
+                    loan rates from 21 banks and plan smarter.
                   </p>
                 </div>
+
                 <div className="container-inner flex justify-center font-medium gap-8 text-sm text-slate-500">
                   <span>🏆 Used by 100,000+ investors</span>
                   <span>⭐ 4.8/5 rating (2,342 reviews)</span>
@@ -617,15 +620,15 @@ export default function Home(): JSX.Element {
         </section>
 
         {/* --- FEATURED GUIDES --- */}
-        <section className="featured-guides mt-15">
+        <section className="featured-guides mt-16">
           <div className="tools-header container-inner mb-8 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">
-                Financial Wisdom
+                Financial Wisdom for Tax Year 2026-27
               </h2>
               <p className="mt-1 text-base text-slate-500 font-medium">
-                Expert-written guides backed by real calculations, updated for
-                Indian laws.
+                Expert-written guides with real calculations, updated for latest
+                Indian laws and Budget 2026.
               </p>
             </div>
 
@@ -638,7 +641,7 @@ export default function Home(): JSX.Element {
             </Button>
           </div>
 
-          <div className="guide-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-3 bg-white">
+          <div className="guide-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-white">
             {displayGuides.map((guide) => (
               <Link
                 key={guide.slug}
@@ -648,29 +651,34 @@ export default function Home(): JSX.Element {
                 <Card
                   className="
             h-full
-            rounded-xl
+            rounded-2xl
             border
             border-slate-200
             p-6
-            transition
+            transition-all
             hover:-translate-y-1
             hover:shadow-lg
+            hover:border-[#DFF7C6]
           "
                 >
-                  <div className="mb-4">
+                  <div className="mb-4 flex items-center justify-between">
                     <span className="inline-block rounded-full bg-[#F7FDF1] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#577A30]">
                       {guide.category}
                     </span>
+                    <span className="text-xs font-medium text-emerald-600">
+                      2026
+                    </span>
                   </div>
 
-                  <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900">
+                  <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900 line-clamp-2 group-hover:text-[#577A30]">
                     {guide.title}
                   </h3>
 
-                  <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-600">
+                  <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-slate-600">
                     {guide.metaDescription
                       .replace(/<[^>]+>/g, '')
-                      .substring(0, 120)}
+                      .trim()
+                      .substring(0, 140)}
                     ...
                   </p>
 
@@ -687,7 +695,7 @@ export default function Home(): JSX.Element {
                         : 'Guide'}
                     </span>
                     <span className="font-semibold text-emerald-600 group-hover:underline">
-                      Read Article →
+                      Read →
                     </span>
                   </div>
                 </Card>
@@ -695,21 +703,21 @@ export default function Home(): JSX.Element {
             ))}
           </div>
         </section>
-
         {/* --- RICH SEO CONTENT --- */}
         <section className="mt-24">
           <article className="container-inner">
             <div className="prose prose-slate max-w-none bg-white p-12 rounded-2xl border">
               <h2 className="text-3xl text-slate-900 pb-4 font-medium">
-                Your All-In-One Financial Planning Platform
+                Your All-In-One Financial Planning Platform for Tax Year 2026-27
               </h2>
 
               <p className="pb-2 font-normal">
-                Financial freedom isn&apos;t a dream; it&apos;s a calculation.
-                Whether you are a fresh graduate starting your first job, a
+                Financial freedom isn&apos;t a dream — it&apos;s a calculation.
+                Whether you&apos;re a fresh graduate starting your first job, a
                 parent planning for your child&apos;s education, or someone
-                nearing retirement, <strong>Fincado</strong> provides the
-                mathematical clarity you need to make the right choices in 2026.
+                nearing retirement, <strong>Fincado</strong> gives you the
+                mathematical clarity you need to make the right choices in Tax
+                Year 2026-27.
               </p>
 
               <h3 className="text-xl text-slate-900 py-4 font-medium">
@@ -717,29 +725,31 @@ export default function Home(): JSX.Element {
               </h3>
 
               <p className="pb-2">
-                Manual calculations are prone to errors, especially when dealing
-                with compound interest, tax slabs, and inflation. Our
+                Manual calculations are prone to errors, especially with
+                compound interest, changing tax slabs, and inflation. Our
                 calculators offer:
               </p>
 
               <ul className="list-disc pl-6">
                 <li>
-                  <strong>Precision:</strong> We use bank-grade formulas used by
-                  institutions like SBI, HDFC, and ICICI.
+                  <strong>Precision:</strong> Bank-grade formulas used by SBI,
+                  HDFC, ICICI, and other major lenders.
                 </li>
                 <li>
-                  <strong>Speed:</strong> Get answers in milliseconds—no complex
-                  Excel sheets required.
+                  <strong>Speed:</strong> Instant results — no Excel sheets or
+                  complex math required.
                 </li>
                 <li>
-                  <strong>Budget 2026 Compliant:</strong> All tools are verified
-                  against the latest Union Budget announcements.
+                  <strong>Tax Year 2026-27 Compliant:</strong> All tools are
+                  verified against the latest Income Tax Act 2025 rules and
+                  Union Budget 2026 announcements.
                 </li>
               </ul>
 
               <h3 className="pt-6 text-xl font-medium">
-                Core Pillars of Personal Finance
+                Core Pillars of Personal Finance in 2026-27
               </h3>
+
               <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
                   <h4 className="mb-2 text-base font-semibold text-slate-900">
@@ -747,8 +757,15 @@ export default function Home(): JSX.Element {
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-600 pt-5">
                     Use our <strong>EMI Calculators</strong> to keep your
-                    Debt-to-Income ratio below 40%. Smartly plan prepayments to
-                    become debt-free faster.
+                    Debt-to-Income ratio under 40%. Plan smart prepayments and
+                    compare live bank rates on our{' '}
+                    <Link
+                      href="/bank-emi/"
+                      className="text-[#577A30] hover:underline"
+                    >
+                      bank comparison pages
+                    </Link>
+                    .
                   </p>
                 </div>
 
@@ -758,8 +775,15 @@ export default function Home(): JSX.Element {
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-600 pt-5">
                     Start a <strong>SIP</strong> today. Even ₹500/month
-                    compounded at 12% over 30 years can create a significant
-                    corpus.
+                    compounded at 12% over 30 years can build a significant
+                    corpus. Check our{' '}
+                    <Link
+                      href="/sip-calculator/"
+                      className="text-[#577A30] hover:underline"
+                    >
+                      SIP Calculator
+                    </Link>
+                    .
                   </p>
                 </div>
 
@@ -768,15 +792,16 @@ export default function Home(): JSX.Element {
                     Tax Saving
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-600 pt-5">
-                    Maximize Section 80C limits with <strong>PPF</strong>,{' '}
-                    <strong>EPF</strong>, and ELSS funds. Don&apos;t let taxes
-                    eat into your retirement nest egg.
+                    Maximize Section 80C (₹1.5 Lakh limit) with{' '}
+                    <strong>PPF</strong>, <strong>EPF</strong>, and ELSS funds.
+                    Home loan interest (Section 24b) benefits are only available
+                    in the <strong>Old Regime</strong> in Tax Year 2026-27.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* --- FAQ SECTION --- */}
+            {/* --- FAQ SECTION (with proper component) --- */}
             <div className="mt-12">
               <Card className="bg-white">
                 <CardHeader className="pb-2">
@@ -789,36 +814,68 @@ export default function Home(): JSX.Element {
                   <Accordion type="single" collapsible className="space-y-2">
                     <AccordionItem value="faq-1">
                       <AccordionTrigger>
-                        Are these calculators updated for Budget 2026?
+                        Are these calculators updated for Tax Year 2026-27?
                       </AccordionTrigger>
                       <AccordionContent>
-                        Yes. All our tools (EMI, FD, Tax, Inflation) are
-                        verified against Union Budget 2026 announcements to
-                        ensure you get the most accurate financial projections.
+                        Yes. All tools (Home Loan EMI, SIP, Income Tax, PPF,
+                        EPF) are fully verified against the latest Income Tax
+                        Act 2025 rules and Union Budget 2026 announcements.
                       </AccordionContent>
                     </AccordionItem>
 
                     <AccordionItem value="faq-2">
                       <AccordionTrigger>
-                        How can I save tax on my salary in FY 2026-27?
+                        How can I save maximum tax on my salary in Tax Year
+                        2026-27?
                       </AccordionTrigger>
                       <AccordionContent>
-                        You can use our EPF and PPF calculators to plan your
-                        Section 80C investments (Limit: ₹1.5 Lakh).
-                        Additionally, Home Loan interest (Section 24b) and NPS
-                        (Section 80CCD) offer further deductions under the Old
-                        Regime.
+                        Maximize your ₹1.5 Lakh Section 80C limit with PPF, EPF,
+                        and ELSS. Home loan interest (Section 24b) deduction is
+                        available only under the <strong>Old Regime</strong>.
+                        Use our{' '}
+                        <Link
+                          href="/income-tax-calculator/"
+                          className="text-[#577A30] hover:underline"
+                        >
+                          Income Tax Calculator
+                        </Link>{' '}
+                        to compare both regimes instantly.
                       </AccordionContent>
                     </AccordionItem>
 
                     <AccordionItem value="faq-3">
                       <AccordionTrigger>
-                        What is the best way to become a Crorepati?
+                        What is the best way to become a Crorepati in India?
                       </AccordionTrigger>
                       <AccordionContent>
-                        Consistent investing. Use the SIP Calculator to see how
-                        a ₹15,000 monthly investment at 12% return makes you a
-                        Crorepati in 15 years.
+                        Consistent investing. A ₹15,000 monthly SIP at 12%
+                        return can make you a Crorepati in ~15 years. Try our{' '}
+                        <Link
+                          href="/sip-calculator/"
+                          className="text-[#577A30] hover:underline"
+                        >
+                          SIP Calculator
+                        </Link>{' '}
+                        to see your personalised projection.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="faq-4">
+                      <AccordionTrigger>
+                        Which bank offers the lowest home loan interest rate
+                        right now?
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        Rates change daily. Currently SBI and PNB offer the
+                        lowest starting rates. Compare live rates from 21 banks
+                        on our{' '}
+                        <Link
+                          href="/bank-emi/"
+                          className="text-[#577A30] hover:underline"
+                        >
+                          Bank EMI Comparison page
+                        </Link>
+                        .
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>

@@ -41,9 +41,10 @@ import {
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'PPF Calculator 2026 – Public Provident Fund Maturity Calculator',
+  title:
+    'PPF Calculator 2026-27 – Public Provident Fund Maturity & Tax Benefits',
   description:
-    'Calculate PPF maturity amount with 7.1% interest rate. 100% tax-free returns under EEE status. Check PPF rules, contribution limits, withdrawal options, and Section 80C benefits for 2026.',
+    'Calculate PPF maturity with 7.1% interest for Tax Year 2026-27. 100% tax-free under EEE status (Section 80C deduction only in Old Regime).',
   keywords: [
     'PPF Calculator',
     'Public Provident Fund Calculator',
@@ -62,9 +63,10 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/ppf-calculator/',
   },
   openGraph: {
-    title: 'PPF Calculator 2026 – Calculate Tax-Free PPF Returns',
+    title:
+      'PPF Calculator 2026-27 – Public Provident Fund Maturity & Tax Benefits',
     description:
-      'Free PPF calculator with 7.1% interest. Calculate maturity amount, tax savings under Section 80C, and plan your retirement with government-backed security.',
+      'Calculate PPF maturity with 7.1% interest for Tax Year 2026-27. 100% tax-free under EEE status (Section 80C deduction only in Old Regime).',
     url: 'https://fincado.com/ppf-calculator/',
     type: 'website',
     images: [

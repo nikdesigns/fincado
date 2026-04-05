@@ -42,9 +42,9 @@ import {
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   title:
-    'HRA Calculator 2026 – House Rent Allowance Exemption | Section 10(13A)',
+    'HRA Calculator 2026-27 – House Rent Allowance Exemption | Tax Year 2026-27',
   description:
-    'Calculate HRA exemption for FY 2026-27 under Old Tax Regime. Check tax-free rent limits for Metro (50%) vs Non-Metro (40%) cities. Free HRA calculator with instant results.',
+    'Calculate HRA exemption for Tax Year 2026-27. Bengaluru, Pune, Hyderabad & Ahmedabad now qualify for 50% exemption (Old Regime only).',
   keywords: [
     'HRA Calculator India',
     'House Rent Allowance Exemption',
@@ -98,7 +98,7 @@ const faqItems = [
     id: 'hra-faq-2',
     question: 'Which cities are considered Metro for 50% HRA calculation?',
     answer:
-      'Only four cities qualify as Metro: Delhi, Mumbai, Kolkata, and Chennai. All other cities including Bangalore, Hyderabad, Pune, Gurgaon, Noida are Non-Metro (40% HRA calculation). This classification is fixed by Income Tax rules.',
+      'Metro cities (50% of salary): Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Pune, Hyderabad, Ahmedabad. All other cities are Non-Metro (40%).',
   },
   {
     id: 'hra-faq-3',

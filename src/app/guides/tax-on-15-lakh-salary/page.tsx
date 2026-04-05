@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '15 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-15-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-15-lakh-salary-hero.webp',
 };
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     'New vs Old regime for 15 lakh',
     'monthly in hand salary for 15 lakhs',
     'income tax on 15 lakh salary',
-    'tax calculation FY 2025-26'
+    'tax calculation FY 2025-26',
   ],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
@@ -102,7 +102,7 @@ export default function Tax15LakhGuide() {
       question: 'Can I switch between Old and New Regime?',
       answer:
         'Salaried individuals can switch between the Old and New Regime every year while filing their ITR, based on which one saves them more tax.',
-    }
+    },
   ];
 
   return (
@@ -115,7 +115,7 @@ export default function Tax15LakhGuide() {
           {
             name: 'Tax on 15 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          }
+          },
         ]}
       />
 

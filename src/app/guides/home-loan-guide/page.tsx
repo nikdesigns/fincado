@@ -1231,7 +1231,7 @@ export default function HomeLoanGuidePage() {
 
         <p className="mb-6 text-slate-700">
           One of the biggest advantages of taking a home loan in India is the
-          significant tax deductions available under the Income Tax Act, 1961
+          significant tax deductions available under the Income Tax Act, 2025
           (if you choose the old tax regime).
         </p>
 

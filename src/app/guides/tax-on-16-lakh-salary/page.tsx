@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '16 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-16-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-16-lakh-salary-hero.webp',
 };
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '16 LPA in hand salary',
     'tax on 16 lakh new regime',
     'income tax calculator 2025',
-    '16 lakh salary tax old vs new'
+    '16 lakh salary tax old vs new',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -93,7 +93,7 @@ export default function Tax16LakhGuide() {
       question: 'Which tax regime is better for 16 Lakh package?',
       answer:
         'The New Tax Regime is generally better unless you have total deductions (HRA, 80C, 80D, Home Loan) exceeding ₹5.00 Lakhs. Most employees save ~₹1.75 Lakhs by choosing the New Regime.',
-    }
+    },
   ];
 
   return (
@@ -106,7 +106,7 @@ export default function Tax16LakhGuide() {
           {
             name: 'Tax on 16 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          }
+          },
         ]}
       />
 

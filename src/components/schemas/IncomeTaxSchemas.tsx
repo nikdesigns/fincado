@@ -11,7 +11,7 @@ export function IncomeTaxSchemas() {
     sameAs: [
       'https://twitter.com/fincado',
       'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado'
+      'https://linkedin.com/company/fincado',
     ],
   };
 
@@ -63,7 +63,7 @@ export function IncomeTaxSchemas() {
         '@type': 'HowToStep',
         position: 1,
         name: 'Select Financial Year',
-        text: 'Choose between FY 2025-26 (AY 2026-27) or FY 2026-27 (AY 2027-28) based on when you need to file tax.',
+        text: 'Choose between FY 2025-26 (Tax Year 2026-27) or FY 2026-27 (AY 2027-28) based on when you need to file tax.',
       },
       {
         '@type': 'HowToStep',
@@ -100,7 +100,7 @@ export function IncomeTaxSchemas() {
         position: 7,
         name: 'Save or Share Results',
         text: 'Save calculation for future reference or share with family/CA via WhatsApp.',
-      }
+      },
     ],
   };
 
@@ -186,7 +186,7 @@ export function IncomeTaxSchemas() {
             name: 'Health & Education Cess',
             description: 'Includes 4% cess on total tax liability',
           },
-        }
+        },
       ],
     },
   };

@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '10 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-10-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-10-lakh-salary-hero.webp',
 };

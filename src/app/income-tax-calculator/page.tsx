@@ -39,29 +39,30 @@ import {
   ArrowRight,
   Receipt,
 } from 'lucide-react';
+import TaxUpdateBanner from '@/components/TaxUpdateBanner';
 
 /* ---------------- SEO METADATA ---------------- */
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Income Tax Calculator 2026 – Compare Old vs New Regime | FY 2025-26',
+  title: 'Income Tax Calculator 2026-27 – Old vs New Regime | Tax Year 2026-27',
   description:
-    'Calculate Income Tax for FY 2025-26 & FY 2026-27 with instant Old vs New Regime comparison. Check tax slabs, 80C deductions, HRA exemption, and get personalized recommendation.',
+    'Calculate Income Tax for Tax Year 2026-27 under the new Income Tax Act 2025. Instant Old vs New Regime comparison, updated slabs, HRA, 80C deductions & personalised recommendation. New regime is default.',
   keywords: [
-    'Income Tax Calculator India',
-    'Tax Calculator 2026',
-    'New vs Old Tax Regime Calculator',
-    'FY 2025-26 Tax Slabs',
-    'AY 2026-27 Income Tax',
-    'Section 80C Calculator',
-    'Salary Tax Calculator',
-    'Latest Budget Tax Changes',
+    'Income Tax Calculator India 2026',
+    'Tax Year 2026-27 Calculator',
+    'New vs Old Tax Regime 2026',
+    'Income Tax Act 2025 Calculator',
+    'Salary Tax Calculator 2026-27',
+    'old vs new tax regime calculator',
   ],
   alternates: {
     canonical: 'https://fincado.com/income-tax-calculator/',
   },
   openGraph: {
-    title: 'Income Tax Calculator 2026 – Old vs New Regime Comparison',
+    title:
+      'Income Tax Calculator 2026-27 – Old vs New Regime | Tax Year 2026-27',
     description:
-      'Free Income Tax Calculator with instant regime comparison. Calculate tax for FY 2025-26 & FY 2026-27, optimize deductions, and save tax.',
+      'Calculate Income Tax for Tax Year 2026-27 under the new Income Tax Act 2025. Instant Old vs New Regime comparison, updated slabs, HRA, 80C deductions & personalised recommendation.',
     url: 'https://fincado.com/income-tax-calculator/',
     type: 'website',
     images: [
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
         url: '/og-income-tax-calculator.jpg',
         width: 1200,
         height: 630,
-        alt: 'Fincado Income Tax Calculator',
+        alt: 'Fincado Income Tax Calculator 2026-27',
       },
     ],
   },
@@ -144,28 +145,18 @@ const faqItems = [
   },
   {
     id: 'tax-faq-10',
-    question: 'Did the latest Budget change income tax slabs?',
+    question:
+      'Did the latest Budget change income tax slabs for Tax Year 2026-27?',
     answer:
-      'Yes. The new regime slabs were revised to 0-4L (Nil), 4-8L (5%), 8-12L (10%), 12-16L (15%), 16-20L (20%), 20-24L (25%), and above 24L (30%). Standard Deduction remains ₹75,000 and Section 87A rebate applies up to ₹12 lakhs taxable income in the new regime.',
+      'Yes. The New Regime slabs were revised to: 0-4L (Nil), 4-8L (5%), 8-12L (10%), 12-16L (15%), 16-20L (20%), 20-24L (25%), and above 24L (30%). Standard Deduction remains ₹75,000 and Section 87A rebate applies up to ₹12 lakhs taxable income in the New Regime. Old Regime slabs remain unchanged.',
   },
 ];
 
 /* ---------------- PAGE ---------------- */
 export default function IncomeTaxPage() {
   const introContent = autoLinkContent(`
-    <p>
-      The <strong>Income Tax Calculator</strong> helps you calculate exact tax liability 
-      for Assessment Year (AY) 2026-27 and 2027-28 covering Financial Years 2025-26 and 
-      2026-27. It automatically compares <strong>Old Tax Regime</strong> (with deductions 
-      like 80C, HRA, home loan) and <strong>New Tax Regime</strong> (lower rates, higher 
-      standard deduction) to recommend the best option.
-    </p>
-    <p class="mt-4">
-      The calculator includes age-based exemptions for senior citizens, Section 87A rebate, 
-      Health & Education Cess (4%), and provides instant regime comparison with detailed 
-      tax breakdown.
-    </p>
-  `);
+The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) helps you calculate exact tax liability with instant Old vs New Regime comparison.
+`);
 
   const howTaxCalculatedContent = autoLinkContent(`
     <p>
@@ -247,7 +238,7 @@ export default function IncomeTaxPage() {
 
       <CalculatorSchema
         name="Income Tax Calculator India"
-        description="Calculate income tax liability for AY 2026-27 & AY 2027-28. Compare Old vs New Tax Regime with instant recommendation."
+        description="Calculate income tax liability for Tax Year 2026-27 & AY 2027-28. Compare Old vs New Tax Regime with instant recommendation."
         url="https://fincado.com/income-tax-calculator/"
       />
 
@@ -261,6 +252,7 @@ export default function IncomeTaxPage() {
       <IncomeTaxSchemas />
 
       <main className="container" style={{ padding: '40px 20px' }}>
+        <TaxUpdateBanner />
         <header style={{ marginBottom: 32 }} className="no-print">
           <div className="no-print mb-6 flex items-center justify-between gap-4">
             <ShareTools title="Income Tax Calculator 2026" />
@@ -276,7 +268,7 @@ export default function IncomeTaxPage() {
                 Income Tax Calculator
               </h1>
               <p className="text-base sm:text-lg font-medium text-[#577A30]">
-                FY 2025–26 & FY 2026–27
+                Tax Year 2026-27 • Income Tax Act 2025
               </p>
             </div>
           </div>
@@ -301,10 +293,10 @@ export default function IncomeTaxPage() {
                 Latest Budget Update: New Regime Slabs Revised
               </p>
               <p className="text-xs text-[#577A30] leading-relaxed">
-                Updated with new regime slab ranges and{' '}
-                <strong>₹12L rebate</strong> (Section 87A) along with ₹75,000
-                standard deduction. Old regime slabs remain unchanged for
-                side-by-side comparison.
+                Updated for <strong>Tax Year 2026-27</strong> under the new
+                Income Tax Act 2025. New regime slabs revised + ₹12L rebate
+                (Section 87A) and ₹75,000 standard deduction. Old regime slabs
+                unchanged.
               </p>
             </div>
           </div>
@@ -403,7 +395,7 @@ export default function IncomeTaxPage() {
               <Card className="border-slate-200 bg-white">
                 <CardHeader>
                   <CardTitle className="text-xl font-semibold text-slate-900">
-                    Income Tax Slabs FY 2025-26 & FY 2026-27
+                    Income Tax Slabs Tax Year 2026-27 & FY 2026-27
                   </CardTitle>
                 </CardHeader>
 
@@ -859,8 +851,8 @@ export default function IncomeTaxPage() {
                 </h3>
                 <ol className="list-decimal pl-6 space-y-2 text-slate-700">
                   <li>
-                    Select <strong>Financial Year</strong>: FY 2025-26 (for ITR
-                    filing in 2026) or FY 2026-27 (for planning ahead).
+                    Select <strong>Financial Year</strong>: Tax Year 2026-27
+                    (for ITR filing in 2026) or FY 2026-27 (for planning ahead).
                   </li>
                   <li>
                     Choose <strong>Age Category</strong>: Below 60, 60-80

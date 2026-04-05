@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '12 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-12-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-12-lakh-salary-hero.webp',
 };
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '12 LPA take home salary',
     'New vs Old regime for 12 lakh',
     'monthly in hand salary for 12 lakhs',
-    'income tax calculator 2025'
+    'income tax calculator 2025',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -103,7 +103,7 @@ export default function Tax12LakhGuide() {
       question: 'How to save tax on 12 LPA salary?',
       answer:
         'Under the New Regime, tax is low by default. Under the Old Regime, you can save tax by maximizing 80C (₹1.5L), paying health insurance premiums (80D), and claiming HRA or Home Loan interest.',
-    }
+    },
   ];
 
   return (
@@ -116,7 +116,7 @@ export default function Tax12LakhGuide() {
           {
             name: 'Tax on 12 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          }
+          },
         ]}
       />
 

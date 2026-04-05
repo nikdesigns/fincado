@@ -14,6 +14,7 @@ import { getBankRates } from '@/lib/getBankRates';
 import AuthorBio from '@/components/AuthorBio';
 import DataSourcesCard from '@/components/DataSourcesCard';
 import HelpfulWidget from '@/components/HelpfulWidget';
+import TaxUpdateBanner from '@/components/TaxUpdateBanner';
 
 import {
   Card,
@@ -66,13 +67,15 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
   if (!bank) return {};
+
   const liveRates = await getBankRates();
   const latestHomeRate =
     liveRates.find((r) => r.bank === bank.slug)?.homeLoan ?? bank.rate;
   const upperRate = Math.max(bank.maxRate, latestHomeRate);
 
-  const title = `${bank.name} EMI Calculator 2026: Rates, EMI, Eligibility & Repayment Guide`;
-  const description = `Calculate ${bank.name} home loan EMI instantly with updated interest range ${latestHomeRate}% to ${upperRate}%. Compare tenure, total interest, eligibility factors, prepayment impact, and city-wise loan options.`;
+  const title = `${bank.name} EMI Calculator 2026-27 – Tax Year 2026-27 | Income Tax Act 2025`;
+  const description = `Calculate ${bank.name} home loan EMI instantly for Tax Year 2026-27. Updated rates ${latestHomeRate}%–${upperRate}%. Tax benefits under Section 80C & 24(b) available only in Old Regime. Compare tenure, total interest & eligibility.`;
+
   const url = `https://fincado.com/bank-emi/${bank.slug}/`;
 
   return {
@@ -80,10 +83,11 @@ export async function generateMetadata({
     description,
     keywords: [
       `${bank.name} EMI calculator`,
-      `${bank.name} home loan interest rate`,
-      `${bank.name} EMI calculation`,
-      `${bank.name} home loan eligibility`,
-      `${bank.name} prepayment calculator`,
+      `${bank.name} home loan EMI 2026-27`,
+      `${bank.name} home loan tax benefits`,
+      `${bank.name} home loan interest rate 2026`,
+      `Tax Year 2026-27 ${bank.name} EMI`,
+      `${bank.name} home loan calculator 2026-27`,
     ],
     alternates: {
       canonical: url,
@@ -145,7 +149,7 @@ export default async function BankPage({
         name: `What is the current home loan interest rate of ${bank.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${bank.name} home loan rates typically start from ${bank.rate}% and may go up to ${bank.maxRate}% depending on profile, LTV, and loan type.`,
+          text: `${bank.name} home loan rates typically start from ${bank.rate}% and may go up to ${bank.maxRate}% depending on credit score, LTV ratio, and borrower profile (Tax Year 2026-27).`,
         },
       },
       {
@@ -169,7 +173,15 @@ export default async function BankPage({
         name: `Does prepayment reduce EMI or tenure in ${bank.name} home loan?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Most borrowers benefit more by keeping EMI same and reducing tenure, because this lowers total interest outgo significantly over the life of the loan.',
+          text: 'Most borrowers benefit more by keeping EMI the same and reducing tenure, because this lowers total interest outgo significantly over the life of the loan.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Are home loan tax benefits available under the New Regime in Tax Year 2026-27?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. Tax deductions under Section 80C (principal) and Section 24(b) (interest) are available only if you opt for the Old Regime. The New Regime is the default from Tax Year 2026-27.',
         },
       },
     ],
@@ -217,12 +229,16 @@ export default async function BankPage({
         {/* --- LEFT COLUMN (Content) --- */}
         <div className="lg:col-span-8 min-w-0">
           <header className="my-10">
+            {/* Tax Year 2026-27 Banner */}
+            <TaxUpdateBanner />
+
             <Badge
               variant="secondary"
               className="mb-4 bg-sky-100 text-sky-700 hover:bg-sky-200 px-3 py-1 font-semibold uppercase tracking-wider"
             >
-              Updated for 2026
+              Updated for Tax Year 2026-27
             </Badge>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight leading-tight mb-4">
               {bank.name} EMI Calculator
             </h1>
@@ -237,6 +253,12 @@ export default async function BankPage({
               loans. Current indicative rates range between{' '}
               <strong className="text-[#577A30]">{bankHomeRate}%</strong> and{' '}
               <strong className="text-[#577A30]">{bankMaxRate}%</strong>.
+            </p>
+
+            <p className="text-sm text-slate-600 mt-2">
+              Home loan tax benefits (Section 80C &amp; 24(b)) are available
+              only if you opt for the <strong>Old Regime</strong> in Tax Year
+              2026-27.
             </p>
             <p className="text-sm text-slate-500 mt-2">
               Latest tracked home-loan rate refresh: {latestUpdatedAt}
@@ -355,6 +377,10 @@ export default async function BankPage({
                     </p>
                     <p className="text-xs text-blue-600 mt-2">
                       {RATE_DISCLAIMER}
+                    </p>
+                    <p className="text-xs text-blue-600 mt-2">
+                      Tax benefits under Section 80C and 24(b) available only in
+                      Old Regime (Tax Year 2026-27).
                     </p>
                   </div>
                 </div>

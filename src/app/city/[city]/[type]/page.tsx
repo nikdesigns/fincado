@@ -6,9 +6,30 @@ import type { Metadata } from 'next';
 import { getCityData, cityDetails } from '@/lib/localData';
 import { banks } from '@/lib/banks';
 import { getBankRates } from '@/lib/getBankRates';
+
 import AdSlot from '@/components/AdSlot';
 import EMIClient from '@/app/emi-calculator/EMIClient';
 import AuthorBio from '@/components/AuthorBio';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+
+import {
+  Calculator,
+  TrendingUp,
+  FileText,
+  Info,
+  ArrowRight,
+} from 'lucide-react';
 
 const loanTypes: Record<string, string> = {
   'personal-loan': 'Personal Loan',
@@ -85,7 +106,6 @@ export default async function CityLoanPage({
 
   const getLatestRate = (slug: string, fallback: number): number => {
     const bankRates = liveRates.find((rate) => rate.bank === slug);
-
     if (!bankRates || !rateField) return fallback;
     return bankRates[rateField] ?? fallback;
   };
@@ -102,229 +122,220 @@ export default async function CityLoanPage({
     )
     .slice(0, 6);
 
+  const bestRate = getLatestRate(topBanks[0]?.slug || 'sbi', 8.5);
+
   return (
-    <main
-      style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 320px',
-        gap: 20,
-        padding: '32px 16px',
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        <h1>
-          {loanName} in {cityData.name} – Compare Best Rates (2026)
-        </h1>
-
-        <p style={{ fontSize: '18px', color: '#555', lineHeight: 1.6 }}>
-          Looking for a <strong>{loanName}</strong> in{' '}
-          <strong>{cityData.name}</strong>? We have analyzed offers from top
-          lenders for residents of{' '}
-          <strong>{cityData.areas.slice(0, 3).join(', ')}</strong>. Compare
-          interest rates and apply online.
-        </p>
-
-        <p style={{ fontSize: '14px', color: '#64748b', marginTop: 8 }}>
-          Latest tracked rate refresh: {latestUpdatedAt}
-        </p>
-
-        <div style={{ margin: '24px 0' }}>
-          <AdSlot
-            id="city-loan-type-top"
-            type="leaderboard"
-            label="Sponsored"
-          />
-        </div>
-
-        <section className="article" style={{ marginBottom: 28 }}>
-          <h2>Interactive EMI Calculator for {cityData.name}</h2>
-          <EMIClient
-            defaultRate={getLatestRate(topBanks[0]?.slug || 'sbi', 8.5)}
-          />
-        </section>
-
-        <section className="article">
-          <h2>
-            Top Banks for {loanName} in {cityData.name}
-          </h2>
-
-          <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
-            <table
-              className="rate-table"
-              style={{ width: '100%', borderCollapse: 'collapse' }}
+    <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+        {/* Main Content */}
+        <section className="lg:col-span-8 min-w-0">
+          <header className="mb-8">
+            <Badge
+              variant="secondary"
+              className="mb-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1 font-semibold uppercase tracking-wider"
             >
-              <thead>
-                <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
-                  <th
-                    style={{
-                      padding: '12px',
-                      borderBottom: '2px solid #e2e8f0',
-                    }}
-                  >
-                    Bank
-                  </th>
-                  <th
-                    style={{
-                      padding: '12px',
-                      borderBottom: '2px solid #e2e8f0',
-                    }}
-                  >
-                    Interest Rate
-                  </th>
-                  <th
-                    style={{
-                      padding: '12px',
-                      borderBottom: '2px solid #e2e8f0',
-                    }}
-                  >
-                    Action
-                  </th>
-                </tr>
-              </thead>
+              2026 {cityData.name} Update
+            </Badge>
 
-              <tbody>
-                {topBanks.map((bank) => {
-                  const currentRate = getLatestRate(bank.slug, bank.rate);
-                  const upperRate = Math.max(bank.maxRate, currentRate);
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight leading-tight">
+              {loanName} in {cityData.name} – Compare Best Rates
+            </h1>
 
-                  return (
-                    <tr key={bank.slug}>
-                      <td
-                        style={{
-                          padding: '12px',
-                          borderBottom: '1px solid #e2e8f0',
-                        }}
-                      >
-                        <Link
-                          href={`/bank-emi/${bank.slug}/${city}/`}
-                          style={{
-                            color: '#2563eb',
-                            fontWeight: 500,
-                            textDecoration: 'none',
-                          }}
-                        >
-                          {bank.name}
-                        </Link>
-                      </td>
+            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+              Looking for a <strong>{loanName}</strong> in{' '}
+              <strong>{cityData.name}</strong>? We analyzed offers from top
+              lenders for borrowers across{' '}
+              <strong>{cityData.areas.slice(0, 3).join(', ')}</strong>. Compare
+              rates, estimate EMI, and choose the right lender faster.
+            </p>
 
-                      <td
-                        style={{
-                          padding: '12px',
-                          borderBottom: '1px solid #e2e8f0',
-                        }}
-                      >
-                        {currentRate}% - {upperRate}%
-                      </td>
+            <p className="mt-2 text-sm text-slate-500">
+              Latest tracked rate refresh: {latestUpdatedAt}
+            </p>
+          </header>
 
-                      <td
-                        style={{
-                          padding: '12px',
-                          borderBottom: '1px solid #e2e8f0',
-                        }}
-                      >
-                        <Link
-                          href={`/bank-emi/${bank.slug}/${city}/`}
-                          style={{
-                            fontSize: '14px',
-                            color: '#16a34a',
-                            fontWeight: 'bold',
-                            textDecoration: 'none',
-                          }}
-                        >
-                          Check EMI &rarr;
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className="mb-8 rounded-lg border border-slate-100 bg-slate-50 p-2 flex justify-center no-print">
+            <AdSlot
+              id="city-loan-type-top"
+              type="leaderboard"
+              label="Sponsored"
+            />
           </div>
+
+          {/* EMI Card */}
+          <Card className="mb-8 border-slate-200 shadow-sm overflow-hidden">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+                <Calculator className="h-5 w-5 text-[#577A30]" />
+                Interactive EMI Calculator for {cityData.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="bg-white p-2 sm:p-6">
+              <EMIClient defaultRate={bestRate} />
+              <Alert className="mt-6 bg-blue-50/50 border-blue-100 rounded-xl">
+                <Info className="h-4 w-4 text-blue-600" />
+                <AlertDescription className="text-xs text-blue-800 leading-relaxed">
+                  Tip: Try calculations at both best-rate and upper-rate
+                  scenarios to estimate safe monthly cash flow.
+                </AlertDescription>
+              </Alert>
+            </CardContent>
+          </Card>
+
+          {/* Bank Comparison Table */}
+          <Card className="mb-10 border-slate-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-slate-900 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-indigo-600" />
+                Top Banks for {loanName} in {cityData.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-lg border border-slate-200 overflow-hidden">
+                <Table>
+                  <TableHeader className="bg-slate-50">
+                    <TableRow>
+                      <TableHead className="font-semibold text-slate-700">
+                        Bank
+                      </TableHead>
+                      <TableHead className="font-semibold text-slate-700">
+                        Interest Range
+                      </TableHead>
+                      <TableHead className="font-semibold text-slate-700">
+                        Action
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {topBanks.map((bank) => {
+                      const currentRate = getLatestRate(bank.slug, bank.rate);
+                      const upperRate = Math.max(bank.maxRate, currentRate);
+
+                      return (
+                        <TableRow key={bank.slug}>
+                          <TableCell>
+                            <Link
+                              href={`/bank-emi/${bank.slug}/${city}/`}
+                              className="font-medium text-blue-600 hover:underline"
+                            >
+                              {bank.name}
+                            </Link>
+                          </TableCell>
+                          <TableCell className="font-medium text-slate-700">
+                            {currentRate}% - {upperRate}%
+                          </TableCell>
+                          <TableCell>
+                            <Link
+                              href={`/bank-emi/${bank.slug}/${city}/`}
+                              className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                            >
+                              Check EMI <ArrowRight className="h-3.5 w-3.5" />
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Content Section */}
+          <Card className="mb-10 border-slate-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-slate-900">
+                Why Apply for {loanName} in {cityData.name}?
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed">
+              <p>
+                With property costs in {cityData.name} averaging around{' '}
+                <strong>{cityData.avgPropertyRate}</strong>, securing a
+                low-interest loan is important for long-term affordability.
+                Banks serving <strong>{cityData.name}</strong> (pincodes
+                starting with <strong>{cityData.pincodeStart}</strong>) often
+                offer local branch and doorstep support.
+              </p>
+
+              <h3 className="mt-6! mb-3! flex items-center gap-2 text-slate-900">
+                <FileText className="h-4 w-4 text-sky-600" />
+                Local Documents Required
+              </h3>
+              <ul>
+                <li>
+                  <strong>ID Proof:</strong> Aadhaar / PAN.
+                </li>
+                <li>
+                  <strong>Address Proof:</strong> Utility bill from{' '}
+                  {cityData.authority} area.
+                </li>
+                <li>
+                  <strong>Income Proof:</strong> Salary slips from employers in{' '}
+                  {cityData.name}.
+                </li>
+              </ul>
+
+              <h3 className="mt-6! mb-3! text-slate-900">Related Tools</h3>
+              <div className="flex flex-wrap gap-3 not-prose">
+                <Link
+                  href="/emi-calculator/"
+                  className="inline-flex items-center rounded-md bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
+                >
+                  🔢 EMI Calculator
+                </Link>
+                <Link
+                  href="/credit-score/"
+                  className="inline-flex items-center rounded-md bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
+                >
+                  📊 Check Credit Score
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
 
           <AuthorBio />
 
-          <h2>
-            Why Apply for {loanName} in {cityData.name}?
-          </h2>
-          <p>
-            With property costs in {cityData.name} averaging around{' '}
-            <strong>{cityData.avgPropertyRate}</strong>, securing a low-interest
-            loan is vital. Banks servicing <strong>{cityData.name}</strong>{' '}
-            (Pincodes starting with {cityData.pincodeStart}) often provide
-            doorstep service.
-          </p>
-
-          <h3>Local Documents Required</h3>
-          <ul>
-            <li>
-              <strong>ID Proof:</strong> Aadhaar / PAN.
-            </li>
-            <li>
-              <strong>Address Proof:</strong> Utility bill from{' '}
-              {cityData.authority} area.
-            </li>
-            <li>
-              <strong>Income:</strong> Salary slips from employers in{' '}
-              {cityData.name}.
-            </li>
-          </ul>
-
-          <h3>Related Tools</h3>
-          <ul
-            style={{
-              display: 'flex',
-              gap: '12px',
-              listStyle: 'none',
-              padding: 0,
-              flexWrap: 'wrap',
-            }}
-          >
-            <li>
-              <Link
-                href="/emi-calculator/"
-                className="btn-secondary"
-                style={{
-                  textDecoration: 'none',
-                  color: '#2563eb',
-                  background: '#eff6ff',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                }}
-              >
-                🔢 EMI Calculator
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/credit-score/"
-                className="btn-secondary"
-                style={{
-                  textDecoration: 'none',
-                  color: '#2563eb',
-                  background: '#eff6ff',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                }}
-              >
-                📊 Check Credit Score
-              </Link>
-            </li>
-          </ul>
+          <div className="mt-8 flex justify-center no-print">
+            <AdSlot id="city-loan-type-bottom" type="rectangle" />
+          </div>
         </section>
 
-        <div style={{ margin: '32px 0' }}>
-          <AdSlot id="city-loan-type-bottom" type="rectangle" />
-        </div>
-      </div>
+        {/* Sidebar */}
+        <aside className="lg:col-span-4">
+          <div className="sticky top-24 space-y-6">
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold text-slate-800">
+                  City Snapshot
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-slate-600 space-y-2">
+                <p>
+                  <strong className="text-slate-800">City:</strong>{' '}
+                  {cityData.name}
+                </p>
+                <p>
+                  <strong className="text-slate-800">Avg Rate:</strong>{' '}
+                  {cityData.avgPropertyRate}
+                </p>
+                <p>
+                  <strong className="text-slate-800">Authority:</strong>{' '}
+                  {cityData.authority}
+                </p>
+                <p>
+                  <strong className="text-slate-800">Top Areas:</strong>{' '}
+                  {cityData.areas.slice(0, 3).join(', ')}
+                </p>
+              </CardContent>
+            </Card>
 
-      <aside className="sidebar">
-        <div style={{ position: 'sticky', top: '20px' }}>
-          <AdSlot id="city-loan-sidebar" type="box" />
-        </div>
-      </aside>
+            <div className="flex justify-center rounded-xl border border-slate-200 bg-white p-4 shadow-sm no-print">
+              <AdSlot id="city-loan-sidebar" type="box" />
+            </div>
+          </div>
+        </aside>
+      </div>
     </main>
   );
 }

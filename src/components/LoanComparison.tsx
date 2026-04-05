@@ -11,11 +11,12 @@ import {
   TrendingDown,
   Trophy,
 } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { getLatestHomeRate } from '@/data/live-rates';
+import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 interface LoanState {
   amount: number;
@@ -29,12 +30,6 @@ interface LoanResult {
   totalPayment: number;
 }
 
-const DEFAULT_HOME_LOAN: LoanState = {
-  amount: 5000000,
-  rate: 8.5,
-  tenure: 20,
-};
-
 const MIN_AMOUNT = 10000;
 const MAX_AMOUNT = 50000000;
 const MIN_RATE = 0;
@@ -43,7 +38,7 @@ const MIN_TENURE = 1;
 const MAX_TENURE = 40;
 
 const PRESETS: Record<'home' | 'car' | 'personal', LoanState> = {
-  home: { amount: 5000000, rate: 8.5, tenure: 20 },
+  home: { amount: 5000000, rate: getLatestHomeRate('sbi', 8.5), tenure: 20 },
   car: { amount: 1000000, rate: 9.5, tenure: 7 },
   personal: { amount: 500000, rate: 12.0, tenure: 5 },
 };
@@ -75,14 +70,9 @@ function calculateLoan(input: LoanState): LoanResult {
   const months = tenure * 12;
   if (months <= 0) return { emi: 0, totalInterest: 0, totalPayment: 0 };
 
-  // 0% interest edge-case
   if (rate === 0) {
     const emi = amount / months;
-    return {
-      emi,
-      totalInterest: 0,
-      totalPayment: amount,
-    };
+    return { emi, totalInterest: 0, totalPayment: amount };
   }
 
   const monthlyRate = rate / (12 * 100);
@@ -97,18 +87,22 @@ function calculateLoan(input: LoanState): LoanResult {
   const totalPayment = emi * months;
   const totalInterest = totalPayment - amount;
 
-  if (![emi, totalPayment, totalInterest].every(Number.isFinite)) {
-    return { emi: 0, totalInterest: 0, totalPayment: 0 };
-  }
-
   return { emi, totalInterest, totalPayment };
 }
 
 export default function LoanComparison() {
-  const [loanA, setLoanA] = useState<LoanState>(DEFAULT_HOME_LOAN);
+  const currentDate = getCurrentMonthYearLabel();
+
+  const [loanA, setLoanA] = useState<LoanState>({
+    amount: 5000000,
+    rate: getLatestHomeRate('sbi', 8.5),
+    tenure: 20,
+  });
+
   const [loanB, setLoanB] = useState<LoanState>({
-    ...DEFAULT_HOME_LOAN,
-    rate: DEFAULT_HOME_LOAN.rate + 0.5,
+    amount: 5000000,
+    rate: getLatestHomeRate('hdfc', 8.7),
+    tenure: 20,
   });
 
   const resultsA = useMemo(() => calculateLoan(loanA), [loanA]);
@@ -144,15 +138,9 @@ export default function LoanComparison() {
     const parsed = toFiniteNumber(value);
     const previous = loan === 'A' ? loanA : loanB;
 
-    const nextRaw: LoanState = {
+    const next: LoanState = {
       ...previous,
       [field]: parsed ?? previous[field],
-    };
-
-    const next: LoanState = {
-      amount: clamp(nextRaw.amount, MIN_AMOUNT, MAX_AMOUNT),
-      rate: clamp(nextRaw.rate, MIN_RATE, MAX_RATE),
-      tenure: clamp(nextRaw.tenure, MIN_TENURE, MAX_TENURE),
     };
 
     if (loan === 'A') setLoanA(next);
@@ -169,12 +157,21 @@ export default function LoanComparison() {
   };
 
   const resetComparison = () => {
-    setLoanA(DEFAULT_HOME_LOAN);
-    setLoanB({ ...DEFAULT_HOME_LOAN, rate: DEFAULT_HOME_LOAN.rate + 0.5 });
+    setLoanA({
+      amount: 5000000,
+      rate: getLatestHomeRate('sbi', 8.5),
+      tenure: 20,
+    });
+    setLoanB({
+      amount: 5000000,
+      rate: getLatestHomeRate('hdfc', 8.7),
+      tenure: 20,
+    });
   };
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Preset Buttons + Updated Date */}
       <div className="flex flex-wrap justify-center gap-2">
         <Button
           variant="outline"
@@ -211,9 +208,17 @@ export default function LoanComparison() {
         >
           Reset
         </Button>
+
+        {/* Dynamic Updated Date */}
+        <div className="ml-auto flex items-center gap-1 text-xs text-slate-500">
+          <span className="font-medium">Updated</span>
+          <span className="font-semibold text-[#577A30]">{currentDate}</span>
+        </div>
       </div>
 
+      {/* Two Column Comparison */}
       <div className="grid grid-cols-1 gap-0 overflow-hidden rounded-xl border border-slate-200 shadow-md lg:grid-cols-2">
+        {/* Loan A */}
         <div className="border-slate-200 bg-linear-to-br from-[#F7FDF1]/50 to-white p-6 lg:border-r">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -307,6 +312,7 @@ export default function LoanComparison() {
           </div>
         </div>
 
+        {/* Loan B */}
         <div className="bg-linear-to-br from-[#F7FDF1]/50 to-white p-6">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -343,7 +349,7 @@ export default function LoanComparison() {
                   step="10000"
                   value={loanB.amount}
                   onChange={(e) => handleChange('B', 'amount', e.target.value)}
-                  className="bg-white pl-8 text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="pl-8 text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
                 />
               </div>
             </div>
@@ -365,7 +371,7 @@ export default function LoanComparison() {
                   step="0.05"
                   value={loanB.rate}
                   onChange={(e) => handleChange('B', 'rate', e.target.value)}
-                  className="bg-white text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
                 />
                 <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
                   %
@@ -390,7 +396,7 @@ export default function LoanComparison() {
                   step="1"
                   value={loanB.tenure}
                   onChange={(e) => handleChange('B', 'tenure', e.target.value)}
-                  className="bg-white text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
                 />
                 <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
                   Years
@@ -401,144 +407,7 @@ export default function LoanComparison() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card
-          className={`border-2 shadow-md transition-all duration-300 ${
-            !isTie && isAEconomical
-              ? 'border-[#F7FDF1] ring-2 ring-[#F7FDF1]/20 bg-linear-to-br from-[#F7FDF1] to-white'
-              : 'border-slate-200 bg-white'
-          }`}
-        >
-          <CardContent className="p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#EFFBE2] text-xs font-semibold text-blue-700">
-                  A
-                </div>
-                <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
-                  Loan A Result
-                </span>
-              </div>
-              {!isTie && isAEconomical && (
-                <div className="flex items-center gap-1 rounded-full bg-[#EFFBE2] px-2 py-1 text-[#577A30]">
-                  <Trophy className="h-3 w-3" />
-                  <span className="text-xs font-semibold">Winner</span>
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <p className="mb-1 text-xs font-medium text-slate-500">
-                  Monthly EMI
-                </p>
-                <div
-                  className={`text-3xl font-semibold ${!isTie && isAEconomical ? 'text-[#577A30]' : 'text-slate-900'}`}
-                >
-                  {formatINR(resultsA.emi)}
-                  <span className="ml-1 text-sm font-normal text-slate-500">
-                    /month
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2 border-t border-slate-100 pt-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-600">Principal:</span>
-                  <span className="text-sm font-semibold text-slate-900">
-                    {formatINR(loanA.amount)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-600">
-                    Total Interest:
-                  </span>
-                  <span className="text-sm font-semibold text-amber-700">
-                    {formatINR(resultsA.totalInterest)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between border-t border-slate-100 pt-2">
-                  <span className="text-xs font-semibold text-slate-700">
-                    Total Payment:
-                  </span>
-                  <span className="text-base font-semibold text-slate-900">
-                    {formatINR(resultsA.totalPayment)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card
-          className={`border-2 shadow-md transition-all duration-300 ${
-            !isTie && !isAEconomical
-              ? 'border-[#F7FDF1] ring-2 ring-[#F7FDF1] bg-[#F7FDF1]'
-              : 'border-slate-200 bg-white'
-          }`}
-        >
-          <CardContent className="p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#EFFBE2] text-xs font-semibold text-[#577A30]">
-                  B
-                </div>
-                <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
-                  Loan B Result
-                </span>
-              </div>
-              {!isTie && !isAEconomical && (
-                <div className="flex items-center gap-1 rounded-full bg-[#EFFBE2] px-2 py-1 text-[#577A30]">
-                  <Trophy className="h-3 w-3" />
-                  <span className="text-xs font-semibold">Winner</span>
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <p className="mb-1 text-xs font-medium text-slate-500">
-                  Monthly EMI
-                </p>
-                <div
-                  className={`text-3xl font-semibold ${!isTie && !isAEconomical ? 'text-[#577A30]' : 'text-slate-900'}`}
-                >
-                  {formatINR(resultsB.emi)}
-                  <span className="ml-1 text-sm font-normal text-slate-500">
-                    /month
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2 border-t border-slate-100 pt-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-600">Principal:</span>
-                  <span className="text-sm font-semibold text-slate-900">
-                    {formatINR(loanB.amount)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-600">
-                    Total Interest:
-                  </span>
-                  <span className="text-sm font-semibold text-amber-700">
-                    {formatINR(resultsB.totalInterest)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between border-t border-slate-100 pt-2">
-                  <span className="text-xs font-semibold text-slate-700">
-                    Total Payment:
-                  </span>
-                  <span className="text-base font-semibold text-slate-900">
-                    {formatINR(resultsB.totalPayment)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
+      {/* Winner / Savings Card */}
       <div className="relative overflow-hidden rounded-xl border-2 border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] via-teal-50 to-cyan-50/30 p-6 shadow-md">
         <div className="absolute -top-8 -right-8 opacity-5">
           <Trophy className="h-48 w-48 text-[#577A30]" />
@@ -609,6 +478,7 @@ export default function LoanComparison() {
         </div>
       </div>
 
+      {/* Pro Tip */}
       <div className="flex items-start gap-3 rounded-lg border border-[#DFF7C6] bg-[#F7FDF1] p-4">
         <Info className="mt-0.5 h-5 w-5 shrink-0 text-[#577A30]" />
         <div>

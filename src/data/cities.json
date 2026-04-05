@@ -1,58 +1,450 @@
 [
-  { "slug": "mumbai", "name": "Mumbai" },
-  { "slug": "delhi", "name": "Delhi" },
-  { "slug": "bangalore", "name": "Bangalore" },
-  { "slug": "chennai", "name": "Chennai" },
-  { "slug": "pune", "name": "Pune" },
-  { "slug": "hyderabad", "name": "Hyderabad" },
-  { "slug": "kolkata", "name": "Kolkata" },
-  { "slug": "ahmedabad", "name": "Ahmedabad" },
-  { "slug": "gurgaon", "name": "Gurgaon" },
-  { "slug": "noida", "name": "Noida" },
-  { "slug": "thane", "name": "Thane" },
-  { "slug": "navi-mumbai", "name": "Navi Mumbai" },
-  { "slug": "jaipur", "name": "Jaipur" },
-  { "slug": "lucknow", "name": "Lucknow" },
-  { "slug": "kanpur", "name": "Kanpur" },
-  { "slug": "nagpur", "name": "Nagpur" },
-  { "slug": "indore", "name": "Indore" },
-  { "slug": "bhopal", "name": "Bhopal" },
-  { "slug": "surat", "name": "Surat" },
-  { "slug": "vadodara", "name": "Vadodara" },
-  { "slug": "rajkot", "name": "Rajkot" },
-  { "slug": "patna", "name": "Patna" },
-  { "slug": "ludhiana", "name": "Ludhiana" },
-  { "slug": "agra", "name": "Agra" },
-  { "slug": "nashik", "name": "Nashik" },
-  { "slug": "faridabad", "name": "Faridabad" },
-  { "slug": "ghaziabad", "name": "Ghaziabad" },
-  { "slug": "meerut", "name": "Meerut" },
-  { "slug": "varanasi", "name": "Varanasi" },
-  { "slug": "visakhapatnam", "name": "Visakhapatnam" },
-  { "slug": "coimbatore", "name": "Coimbatore" },
-  { "slug": "kochi", "name": "Kochi" },
-  { "slug": "thiruvananthapuram", "name": "Thiruvananthapuram" },
-  { "slug": "mysore", "name": "Mysore" },
-  { "slug": "mangalore", "name": "Mangalore" },
-  { "slug": "madurai", "name": "Madurai" },
-  { "slug": "chandigarh", "name": "Chandigarh" },
-  { "slug": "dehradun", "name": "Dehradun" },
-  { "slug": "guwahati", "name": "Guwahati" },
-  { "slug": "bhubaneswar", "name": "Bhubaneswar" },
-  { "slug": "ranchi", "name": "Ranchi" },
-  { "slug": "jamshedpur", "name": "Jamshedpur" },
-  { "slug": "raipur", "name": "Raipur" },
-  { "slug": "aurangabad", "name": "Aurangabad" },
-  { "slug": "jodhpur", "name": "Jodhpur" },
-  { "slug": "udaipur", "name": "Udaipur" },
-  { "slug": "kota", "name": "Kota" },
-  { "slug": "amritsar", "name": "Amritsar" },
-  { "slug": "jalandhar", "name": "Jalandhar" },
-  { "slug": "allahabad", "name": "Prayagraj (Allahabad)" },
-  { "slug": "jabalpur", "name": "Jabalpur" },
-  { "slug": "gwalior", "name": "Gwalior" },
-  { "slug": "vijayawada", "name": "Vijayawada" },
-  { "slug": "tirupati", "name": "Tirupati" },
-  { "slug": "hubli-dharwad", "name": "Hubli-Dharwad" },
-  { "slug": "belgaum", "name": "Belgaum" }
+  {
+    "slug": "mumbai",
+    "name": "Mumbai",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹18,000 - ₹45,000",
+    "authority": "MMRDA & BMC",
+    "areas": ["Andheri", "Bandra", "Powai", "Worli"]
+  },
+  {
+    "slug": "delhi",
+    "name": "Delhi",
+    "state": "Delhi",
+    "avgPropertyRate": "₹8,000 - ₹22,000",
+    "authority": "DDA",
+    "areas": ["South Delhi", "Dwarka", "Rohini"]
+  },
+  {
+    "slug": "bangalore",
+    "name": "Bangalore",
+    "state": "Karnataka",
+    "avgPropertyRate": "₹6,500 - ₹14,000",
+    "authority": "BDA",
+    "areas": ["Whitefield", "Koramangala", "Indiranagar"]
+  },
+  {
+    "slug": "chennai",
+    "name": "Chennai",
+    "state": "Tamil Nadu",
+    "avgPropertyRate": "₹5,500 - ₹13,000",
+    "authority": "CMDA",
+    "areas": ["Anna Nagar", "OMR", "Guindy"]
+  },
+  {
+    "slug": "pune",
+    "name": "Pune",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹5,500 - ₹11,000",
+    "authority": "PMRDA",
+    "areas": ["Kothrud", "Hinjewadi", "Kharadi"]
+  },
+  {
+    "slug": "hyderabad",
+    "name": "Hyderabad",
+    "state": "Telangana",
+    "avgPropertyRate": "₹5,000 - ₹10,000",
+    "authority": "HMDA",
+    "areas": ["Hitech City", "Gachibowli", "Banjara Hills"]
+  },
+  {
+    "slug": "kolkata",
+    "name": "Kolkata",
+    "state": "West Bengal",
+    "avgPropertyRate": "₹4,000 - ₹9,000",
+    "authority": "KMDA",
+    "areas": ["Salt Lake", "New Town", "Howrah"]
+  },
+  {
+    "slug": "ahmedabad",
+    "name": "Ahmedabad",
+    "state": "Gujarat",
+    "avgPropertyRate": "₹3,500 - ₹7,500",
+    "authority": "AUDA",
+    "areas": ["SG Highway", "Thaltej", "Vastrapur"]
+  },
+  {
+    "slug": "gurgaon",
+    "name": "Gurgaon",
+    "state": "Haryana",
+    "avgPropertyRate": "₹9,000 - ₹18,000",
+    "authority": "HSVP",
+    "areas": ["DLF Phase 1-5", "Cyber City", "Golf Course Road"]
+  },
+  {
+    "slug": "noida",
+    "name": "Noida",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹4,500 - ₹9,000",
+    "authority": "Noida Authority",
+    "areas": ["Sector 62", "Sector 150", "Greater Noida"]
+  },
+  {
+    "slug": "thane",
+    "name": "Thane",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹10,000 - ₹18,000",
+    "authority": "TMC",
+    "areas": ["Ghodbunder Road", "Kolshet", "Majiwada"]
+  },
+  {
+    "slug": "navi-mumbai",
+    "name": "Navi Mumbai",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹8,000 - ₹16,000",
+    "authority": "CIDCO",
+    "areas": ["Vashi", "Nerul", "Kharghar"]
+  },
+  {
+    "slug": "jaipur",
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "avgPropertyRate": "₹3,500 - ₹7,000",
+    "authority": "JDA",
+    "areas": ["Vaishali Nagar", "C-Scheme", "Malviya Nagar"]
+  },
+  {
+    "slug": "lucknow",
+    "name": "Lucknow",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹3,000 - ₹6,500",
+    "authority": "LDA",
+    "areas": ["Gomti Nagar", "Hazratganj", "Aliganj"]
+  },
+  {
+    "slug": "kanpur",
+    "name": "Kanpur",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹3,200 - ₹6,000",
+    "authority": "KDA",
+    "areas": ["Swaroop Nagar", "Civil Lines"]
+  },
+  {
+    "slug": "nagpur",
+    "name": "Nagpur",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹3,500 - ₹6,500",
+    "authority": "NIT",
+    "areas": ["Dharampeth", "Sitabuldi", "Ramdaspeth"]
+  },
+  {
+    "slug": "indore",
+    "name": "Indore",
+    "state": "Madhya Pradesh",
+    "avgPropertyRate": "₹3,000 - ₹6,500",
+    "authority": "IDA",
+    "areas": ["Vijay Nagar", "New Palasia"]
+  },
+  {
+    "slug": "bhopal",
+    "name": "Bhopal",
+    "state": "Madhya Pradesh",
+    "avgPropertyRate": "₹2,500 - ₹5,000",
+    "authority": "BDA",
+    "areas": ["MP Nagar", "Arera Colony"]
+  },
+  {
+    "slug": "surat",
+    "name": "Surat",
+    "state": "Gujarat",
+    "avgPropertyRate": "₹3,500 - ₹7,000",
+    "authority": "SUDA",
+    "areas": ["Vesu", "Adajan", "Piplod"]
+  },
+  {
+    "slug": "vadodara",
+    "name": "Vadodara",
+    "state": "Gujarat",
+    "avgPropertyRate": "₹2,800 - ₹5,500",
+    "authority": "VUDA",
+    "areas": ["Alkapuri", "Gotri"]
+  },
+  {
+    "slug": "rajkot",
+    "name": "Rajkot",
+    "state": "Gujarat",
+    "avgPropertyRate": "₹3,000 - ₹5,500",
+    "authority": "RUDA",
+    "areas": ["Kalawad Road", "150 Feet Ring Road"]
+  },
+  {
+    "slug": "patna",
+    "name": "Patna",
+    "state": "Bihar",
+    "avgPropertyRate": "₹4,000 - ₹8,000",
+    "authority": "PRDA",
+    "areas": ["Boring Road", "Kankarbagh"]
+  },
+  {
+    "slug": "ludhiana",
+    "name": "Ludhiana",
+    "state": "Punjab",
+    "avgPropertyRate": "₹3,000 - ₹6,000",
+    "authority": "GLADA",
+    "areas": ["Model Town", "Sarabha Nagar"]
+  },
+  {
+    "slug": "agra",
+    "name": "Agra",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹3,000 - ₹6,000",
+    "authority": "ADA",
+    "areas": ["Dayal Bagh", "Civil Lines"]
+  },
+  {
+    "slug": "nashik",
+    "name": "Nashik",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹3,200 - ₹7,000",
+    "authority": "NMC",
+    "areas": ["Gangapur Road", "College Road"]
+  },
+  {
+    "slug": "faridabad",
+    "name": "Faridabad",
+    "state": "Haryana",
+    "avgPropertyRate": "₹3,500 - ₹7,500",
+    "authority": "HSVP",
+    "areas": ["Sector 14", "Neelam Chowk"]
+  },
+  {
+    "slug": "ghaziabad",
+    "name": "Ghaziabad",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹4,000 - ₹9,500",
+    "authority": "GDA",
+    "areas": ["Vaishali", "Raj Nagar"]
+  },
+  {
+    "slug": "meerut",
+    "name": "Meerut",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹2,800 - ₹5,500",
+    "authority": "MDA",
+    "areas": ["Shastri Nagar", "Meerut Cantonment"]
+  },
+  {
+    "slug": "varanasi",
+    "name": "Varanasi",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹3,500 - ₹8,000",
+    "authority": "VDA",
+    "areas": ["Sigra", "Lanka"]
+  },
+  {
+    "slug": "visakhapatnam",
+    "name": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "avgPropertyRate": "₹3,500 - ₹7,000",
+    "authority": "VMRDA",
+    "areas": ["Beach Road", "Rushikonda"]
+  },
+  {
+    "slug": "coimbatore",
+    "name": "Coimbatore",
+    "state": "Tamil Nadu",
+    "avgPropertyRate": "₹4,000 - ₹7,500",
+    "authority": "DTCP",
+    "areas": ["Peelamedu", "RS Puram"]
+  },
+  {
+    "slug": "kochi",
+    "name": "Kochi",
+    "state": "Kerala",
+    "avgPropertyRate": "₹4,500 - ₹8,500",
+    "authority": "GCDA",
+    "areas": ["Marine Drive", "Kakkanad"]
+  },
+  {
+    "slug": "thiruvananthapuram",
+    "name": "Thiruvananthapuram",
+    "state": "Kerala",
+    "avgPropertyRate": "₹4,000 - ₹8,500",
+    "authority": "TRIDA",
+    "areas": ["Kazhakkoottam", "Pattom"]
+  },
+  {
+    "slug": "mysore",
+    "name": "Mysore",
+    "state": "Karnataka",
+    "avgPropertyRate": "₹3,000 - ₹6,000",
+    "authority": "MUDA",
+    "areas": ["Vijayanagar", "Gokulam"]
+  },
+  {
+    "slug": "mangalore",
+    "name": "Mangalore",
+    "state": "Karnataka",
+    "avgPropertyRate": "₹3,800 - ₹7,000",
+    "authority": "MUDA",
+    "areas": ["Bejai", "Kadri"]
+  },
+  {
+    "slug": "madurai",
+    "name": "Madurai",
+    "state": "Tamil Nadu",
+    "avgPropertyRate": "₹3,000 - ₹5,500",
+    "authority": "DTCP",
+    "areas": ["Anna Nagar", "KK Nagar"]
+  },
+  {
+    "slug": "chandigarh",
+    "name": "Chandigarh",
+    "state": "Chandigarh",
+    "avgPropertyRate": "₹6,000 - ₹12,000",
+    "authority": "Chandigarh Administration",
+    "areas": ["Sector 17", "Sector 22"]
+  },
+  {
+    "slug": "dehradun",
+    "name": "Dehradun",
+    "state": "Uttarakhand",
+    "avgPropertyRate": "₹3,500 - ₹7,500",
+    "authority": "MDDA",
+    "areas": ["Rajpur Road", "Mussoorie Road"]
+  },
+  {
+    "slug": "guwahati",
+    "name": "Guwahati",
+    "state": "Assam",
+    "avgPropertyRate": "₹3,500 - ₹6,000",
+    "authority": "GMDA",
+    "areas": ["GS Road", "Dispur"]
+  },
+  {
+    "slug": "bhubaneswar",
+    "name": "Bhubaneswar",
+    "state": "Odisha",
+    "avgPropertyRate": "₹3,500 - ₹6,500",
+    "authority": "BDA",
+    "areas": ["Nayapalli", "Patia"]
+  },
+  {
+    "slug": "ranchi",
+    "name": "Ranchi",
+    "state": "Jharkhand",
+    "avgPropertyRate": "₹3,000 - ₹5,500",
+    "authority": "Ranchi Municipal Corporation",
+    "areas": ["Kanka", "Lalpur"]
+  },
+  {
+    "slug": "jamshedpur",
+    "name": "Jamshedpur",
+    "state": "Jharkhand",
+    "avgPropertyRate": "₹2,800 - ₹5,500",
+    "authority": "JNAC",
+    "areas": ["Sakchi", "Bistupur"]
+  },
+  {
+    "slug": "raipur",
+    "name": "Raipur",
+    "state": "Chhattisgarh",
+    "avgPropertyRate": "₹2,500 - ₹5,000",
+    "authority": "NRDA",
+    "areas": ["Naya Raipur", "Shankar Nagar"]
+  },
+  {
+    "slug": "aurangabad",
+    "name": "Aurangabad",
+    "state": "Maharashtra",
+    "avgPropertyRate": "₹3,000 - ₹5,500",
+    "authority": "CIDCO Aurangabad",
+    "areas": ["Cidco", "Garkheda"]
+  },
+  {
+    "slug": "jodhpur",
+    "name": "Jodhpur",
+    "state": "Rajasthan",
+    "avgPropertyRate": "₹2,800 - ₹6,000",
+    "authority": "JDA Jodhpur",
+    "areas": ["Shastri Nagar", "Paota"]
+  },
+  {
+    "slug": "udaipur",
+    "name": "Udaipur",
+    "state": "Rajasthan",
+    "avgPropertyRate": "₹3,000 - ₹6,500",
+    "authority": "UIT Udaipur",
+    "areas": ["Hiran Magri", "Fatehpura"]
+  },
+  {
+    "slug": "kota",
+    "name": "Kota",
+    "state": "Rajasthan",
+    "avgPropertyRate": "₹2,500 - ₹5,500",
+    "authority": "UIT Kota",
+    "areas": ["Talwandi", "Vigyan Nagar"]
+  },
+  {
+    "slug": "amritsar",
+    "name": "Amritsar",
+    "state": "Punjab",
+    "avgPropertyRate": "₹2,800 - ₹5,500",
+    "authority": "ADA",
+    "areas": ["Mall Road", "Ranjit Avenue"]
+  },
+  {
+    "slug": "jalandhar",
+    "name": "Jalandhar",
+    "state": "Punjab",
+    "avgPropertyRate": "₹2,500 - ₹5,000",
+    "authority": "JDA",
+    "areas": ["Model Town", "Lajpat Nagar"]
+  },
+  {
+    "slug": "prayagraj",
+    "name": "Prayagraj (Allahabad)",
+    "state": "Uttar Pradesh",
+    "avgPropertyRate": "₹3,100 - ₹8,700",
+    "authority": "PDA",
+    "areas": ["Civil Lines", "Georgetown"]
+  },
+  {
+    "slug": "jabalpur",
+    "name": "Jabalpur",
+    "state": "Madhya Pradesh",
+    "avgPropertyRate": "₹2,200 - ₹4,500",
+    "authority": "JDA",
+    "areas": ["Napier Town", "Wright Town"]
+  },
+  {
+    "slug": "gwalior",
+    "name": "Gwalior",
+    "state": "Madhya Pradesh",
+    "avgPropertyRate": "₹2,500 - ₹5,000",
+    "authority": "GDA",
+    "areas": ["Lashkar", "Morar"]
+  },
+  {
+    "slug": "vijayawada",
+    "name": "Vijayawada",
+    "state": "Andhra Pradesh",
+    "avgPropertyRate": "₹4,000 - ₹8,000",
+    "authority": "VMC",
+    "areas": ["Benz Circle", "MG Road"]
+  },
+  {
+    "slug": "tirupati",
+    "name": "Tirupati",
+    "state": "Andhra Pradesh",
+    "avgPropertyRate": "₹3,500 - ₹6,000",
+    "authority": "TUDA",
+    "areas": ["Renigunta", "Alipiri"]
+  },
+  {
+    "slug": "hubli-dharwad",
+    "name": "Hubli-Dharwad",
+    "state": "Karnataka",
+    "avgPropertyRate": "₹2,500 - ₹4,500",
+    "authority": "HDUDA",
+    "areas": ["Hubli", "Dharwad"]
+  },
+  {
+    "slug": "belgaum",
+    "name": "Belgaum",
+    "state": "Karnataka",
+    "avgPropertyRate": "₹2,800 - ₹5,000",
+    "authority": "BUDA",
+    "areas": ["Camp", "Tilakwadi"]
+  }
 ]

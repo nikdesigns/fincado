@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '11 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-11-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-11-lakh-salary-hero.webp',
 };
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     '11 LPA in hand salary',
     'tax on 11 lakh new regime',
     'income tax calculator 2025',
-    '11 lakh salary tax old vs new'
+    '11 lakh salary tax old vs new',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com' }],
   alternates: {
@@ -93,7 +93,7 @@ export default function Tax11LakhGuide() {
       question: 'Which tax regime is better for 11 Lakh package?',
       answer:
         'The New Tax Regime is better unless you have deductions (HRA, 80C, 80D, Home Loan) exceeding ₹4.00 Lakhs. If your total investments are lower than this, stick to the New Regime.',
-    }
+    },
   ];
 
   return (
@@ -106,7 +106,7 @@ export default function Tax11LakhGuide() {
           {
             name: 'Tax on 11 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          }
+          },
         ]}
       />
 

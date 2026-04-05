@@ -37,9 +37,10 @@ const updatedLabel = getCurrentMonthYearLabel();
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'ELSS Calculator 2026 – Tax Saving Mutual Fund Returns Calculator',
+  title:
+    'ELSS Calculator 2026-27 – Tax Saving Mutual Fund Returns | Section 80C',
   description:
-    'Calculate ELSS mutual fund returns and tax savings under Section 80C. Compare ELSS vs PPF, estimate maturity value, and plan tax-efficient investments for 2026.',
+    'Calculate ELSS returns and tax savings under Section 80C for Tax Year 2026-27. Deduction available only in Old Regime.',
   keywords: [
     'ELSS Calculator',
     'Tax Saving Mutual Fund Calculator',
@@ -54,9 +55,10 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/elss-calculator/',
   },
   openGraph: {
-    title: 'ELSS Calculator – Tax Saving Mutual Fund Returns Calculator 2026',
+    title:
+      'ELSS Calculator 2026-27 – Tax Saving Mutual Fund Returns | Section 80C',
     description:
-      'Calculate returns on ELSS Mutual Fund investments. Estimate tax savings under Section 80C and potential long-term wealth creation.',
+      'Calculate ELSS returns and tax savings under Section 80C for Tax Year 2026-27. Deduction available only in Old Regime.',
     url: 'https://fincado.com/elss-calculator/',
     type: 'website',
     images: [

@@ -52,8 +52,8 @@ interface IncomeTaxClientProps {
 
 interface SavedCalculation {
   id: number;
-  fy: string;
-  age: string;
+  fy: FinancialYear;
+  age: AgeGroup;
   income: number;
   deductions: number;
   taxOld: number;
@@ -107,6 +107,9 @@ const readSavedCalculations = (): SavedCalculation[] => {
     return [];
   }
 };
+
+const fyLabel = (fy: FinancialYear) =>
+  fy === '2026-2027' ? 'FY 2026–27' : 'FY 2025–26';
 
 /* ---------------- COMPONENT ---------------- */
 export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
@@ -177,9 +180,9 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
 
     /* ---------- NEW REGIME ---------- */
     const taxableNew = Math.max(0, income - STD_NEW);
-    let taxNew = 0;
+    let taxNewBase = 0;
 
-    const slabs =
+    const slabs: Array<[number, number, number]> =
       fy === '2026-2027'
         ? [
             [400_000, 800_000, 0.05],
@@ -198,20 +201,28 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
           ];
 
     slabs.forEach(([min, max, rate]) => {
-      taxNew += Math.max(0, Math.min(taxableNew, max) - min) * rate;
+      taxNewBase += Math.max(0, Math.min(taxableNew, max) - min) * rate;
     });
 
-    // Section 87A rebate + marginal relief for New Regime
+    // Section 87A rebate limit by FY
     const rebateLimit = fy === '2026-2027' ? 1_200_000 : 700_000;
     if (taxableNew <= rebateLimit) {
-      taxNew = 0;
-    } else {
-      taxNew = Math.min(taxNew, taxableNew - rebateLimit);
+      taxNewBase = 0;
     }
 
     /* ---------- CESS ---------- */
     const totalOld = Math.round(taxOld * 1.04);
-    const totalNew = Math.round(taxNew * 1.04);
+    let totalNew = Math.round(taxNewBase * 1.04);
+
+    /**
+     * Marginal relief (new regime):
+     * tax payable should not exceed income above rebate threshold.
+     * Apply cap on final payable (post-cess) for boundary correctness.
+     */
+    if (taxableNew > rebateLimit) {
+      const maxPayableAtBoundary = Math.round(taxableNew - rebateLimit);
+      totalNew = Math.min(totalNew, maxPayableAtBoundary);
+    }
 
     const recommended = totalNew <= totalOld ? 'New Regime' : 'Old Regime';
     const activeTax = recommended === 'New Regime' ? totalNew : totalOld;
@@ -245,24 +256,21 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
   const handleSaveCalculation = () => {
     const calculation: SavedCalculation = {
       id: Date.now(),
-      fy: fy,
-      age: age,
-      income: income,
-      deductions: deductions,
+      fy,
+      age,
+      income,
+      deductions,
       taxOld: calc.taxOld,
       taxNew: calc.taxNew,
       recommended: calc.recommended,
       date: new Date().toISOString(),
     };
 
-    const saved = [...savedCalculations];
-    saved.unshift(calculation);
-    const trimmed = saved.slice(0, 10);
-
-    setSavedCalculations(trimmed);
+    const saved = [calculation, ...savedCalculations].slice(0, 10);
+    setSavedCalculations(saved);
 
     try {
-      localStorage.setItem('tax_history', JSON.stringify(trimmed));
+      localStorage.setItem('tax_history', JSON.stringify(saved));
     } catch (error) {
       console.error('Error saving to localStorage:', error);
     }
@@ -273,7 +281,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
 
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'tax_saved', {
-        income: income,
+        income,
         recommended_regime: calc.recommended,
       });
     }
@@ -309,14 +317,14 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
   /* ---------- SHARE VIA WHATSAPP ---------- */
   const handleShare = () => {
     const message =
-      `💰 Income Tax Calculator Results (FY ${fy})\\n\\n` +
-      `Gross Income: ${formatINR(income)}\\n` +
-      `Deductions: ${formatINR(deductions)}\\n\\n` +
-      `📊 Tax Comparison:\\n` +
-      `Old Regime: ${formatINR(calc.taxOld)}\\n` +
-      `New Regime: ${formatINR(calc.taxNew)}\\n\\n` +
-      `✅ Recommended: ${calc.recommended}\\n` +
-      `💵 Net Income: ${formatINR(calc.netIncome)}\\n\\n` +
+      `💰 Income Tax Calculator Results (${fyLabel(fy)})\n\n` +
+      `Gross Income: ${formatINR(income)}\n` +
+      `Deductions: ${formatINR(deductions)}\n\n` +
+      `📊 Tax Comparison:\n` +
+      `Old Regime: ${formatINR(calc.taxOld)}\n` +
+      `New Regime: ${formatINR(calc.taxNew)}\n\n` +
+      `✅ Recommended: ${calc.recommended}\n` +
+      `💵 Net Income: ${formatINR(calc.netIncome)}\n\n` +
       `Calculate yours: https://fincado.com/income-tax-calculator/`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
@@ -330,11 +338,11 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
   };
 
   /* ---------- LOAD SAVED CALCULATION ---------- */
-  const handleLoadCalculation = (calc: SavedCalculation) => {
-    setFy(calc.fy as FinancialYear);
-    setAge(calc.age as AgeGroup);
-    setIncome(calc.income);
-    setDeductions(calc.deductions);
+  const handleLoadCalculation = (savedCalc: SavedCalculation) => {
+    setFy(savedCalc.fy);
+    setAge(savedCalc.age);
+    setIncome(savedCalc.income);
+    setDeductions(savedCalc.deductions);
     toast.success('Calculation loaded!');
   };
 
@@ -433,20 +441,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
             {/* --- RIGHT: VISUALS --- */}
             <div className="flex flex-col justify-center space-y-6">
               {/* Recommendation Box */}
-              <div
-                className={`p-6 rounded-xl border-2 text-center transition-all ${
-                  calc.recommended === 'New Regime'
-                    ? 'border-[#DFF7C6] bg-[#F7FDF1] shadow-[#EFFBE2] shadow-lg'
-                    : 'border-[#DFF7C6] bg-[#F7FDF1] shadow-[#EFFBE2] shadow-lg'
-                }`}
-              >
-                <p
-                  className={`text-xs font-semibold tracking-widest uppercase mb-2 ${
-                    calc.recommended === 'New Regime'
-                      ? 'text-[#577A30]'
-                      : 'text-[#577A30]'
-                  }`}
-                >
+              <div className="p-6 rounded-xl border-2 text-center transition-all border-[#DFF7C6] bg-[#F7FDF1] shadow-[#EFFBE2] shadow-lg">
+                <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-[#577A30]">
                   {t.recommendationLabel}
                 </p>
                 <h3 className="text-2xl font-bold text-[#1B2E06]">
@@ -548,7 +544,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
         </CardContent>
       </Card>
 
-      {/* ✅ Action Buttons */}
+      {/* Action Buttons */}
       <div className="flex flex-wrap gap-3">
         <Button onClick={handleSaveCalculation} variant="outline" size="sm">
           <BookmarkIcon className="mr-2 h-4 w-4" />
@@ -561,7 +557,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
         </Button>
       </div>
 
-      {/* ✅ Tax Breakdown Card */}
+      {/* Tax Breakdown Card */}
       <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
@@ -635,7 +631,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
         </CardContent>
       </Card>
 
-      {/* ✅ Saved Calculations History */}
+      {/* Saved Calculations History */}
       {savedCalculations.length > 0 && (
         <Card className="border-slate-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
@@ -651,40 +647,39 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
           </CardHeader>
           <CardContent>
             <div className="space-y-2 max-h-60 overflow-y-auto">
-              {savedCalculations.map((calc) => (
+              {savedCalculations.map((savedCalc) => (
                 <div
-                  key={calc.id}
+                  key={savedCalc.id}
                   className="group p-3 bg-slate-50 rounded-lg border border-slate-200 hover:bg-slate-100 transition relative"
                 >
                   <div
                     className="cursor-pointer"
-                    onClick={() => handleLoadCalculation(calc)}
+                    onClick={() => handleLoadCalculation(savedCalc)}
                   >
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <div className="font-semibold text-sm">
-                          {calc.fy} | {calc.age} | Income:{' '}
-                          {formatINR(calc.income)}
+                          {savedCalc.fy} | {savedCalc.age} | Income:{' '}
+                          {formatINR(savedCalc.income)}
                         </div>
                         <div className="text-xs text-slate-600 mt-1">
-                          Recommended: {calc.recommended} | Old:{' '}
-                          {formatINR(calc.taxOld)} | New:{' '}
-                          {formatINR(calc.taxNew)}
+                          Recommended: {savedCalc.recommended} | Old:{' '}
+                          {formatINR(savedCalc.taxOld)} | New:{' '}
+                          {formatINR(savedCalc.taxNew)}
                         </div>
                       </div>
                       <div className="text-xs text-slate-500">
-                        {new Date(calc.date).toLocaleDateString('en-IN')}
+                        {new Date(savedCalc.date).toLocaleDateString('en-IN')}
                       </div>
                     </div>
                   </div>
 
-                  {/* Delete Button */}
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDeleteCalculation(calc.id);
+                      handleDeleteCalculation(savedCalc.id);
                     }}
                     className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
                   >

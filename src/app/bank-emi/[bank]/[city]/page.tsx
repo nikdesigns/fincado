@@ -54,6 +54,7 @@ import {
   Landmark,
   AlertTriangle,
 } from 'lucide-react';
+import TaxUpdateBanner from '@/components/TaxUpdateBanner';
 
 export const dynamicParams = false;
 
@@ -90,8 +91,9 @@ export async function generateMetadata({
     liveRates.find((r) => r.bank === bank.slug)?.homeLoan ?? bank.rate;
   const upperRate = Math.max(bank.maxRate, latestHomeRate);
 
-  const title = `${bank.name} Home Loan in ${cityData.name} 2026: EMI, Rates, Eligibility & Local Guide`;
-  const description = `Calculate ${bank.name} home loan EMI in ${cityData.name} with updated rates from ${latestHomeRate}% to ${upperRate}%. Explore ${cityData.authority} approvals, local property rates, documents, and smart repayment tips.`;
+  const title = `${bank.name} Home Loan in ${cityData.name} 2026-27: EMI, Rates & Tax Benefits`;
+  const description = `Calculate ${bank.name} home loan EMI in ${cityData.name} for Tax Year 2026-27 under Income Tax Act 2025. Updated rates ${latestHomeRate}%–${upperRate}%. Section 80C & 24(b) tax benefits available only in Old Regime. Local property rates, documents & eligibility.`;
+
   const url = `https://fincado.com/bank-emi/${bank.slug}/${cityData.slug}/`;
 
   return {
@@ -100,9 +102,9 @@ export async function generateMetadata({
     keywords: [
       `${bank.name} home loan ${cityData.name}`,
       `${bank.name} EMI calculator ${cityData.name}`,
-      `${cityData.name} property loan interest rates`,
-      `${cityData.authority} approved home loan`,
-      `${bank.name} housing loan documents ${cityData.name}`,
+      `${cityData.name} home loan interest rate 2026-27`,
+      `${bank.name} home loan tax benefits ${cityData.name}`,
+      `Tax Year 2026-27 ${bank.name} ${cityData.name}`,
     ],
     alternates: {
       canonical: url,
@@ -234,6 +236,14 @@ export default async function BankCityPage({
           text: `Projects with valid ${cityData.authority} and ${stateInfo.regulator} aligned approvals usually move faster in legal and technical checks.`,
         },
       },
+      {
+        '@type': 'Question',
+        name: `Are home loan tax benefits available in the New Regime in ${cityData.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `No. Section 80C and Section 24(b) deductions are available only in the Old Regime. New Regime is the default from Tax Year 2026-27. Use our Income Tax Calculator to compare both regimes.`,
+        },
+      },
     ],
   };
 
@@ -289,11 +299,14 @@ export default async function BankCityPage({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         <div className="lg:col-span-8 min-w-0 my-12">
           <header className="my-10">
+            {/* Tax Year 2026-27 Banner - Consistent across all calculators */}
+            <TaxUpdateBanner />
+
             <Badge
               variant="secondary"
               className="mb-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1 font-semibold uppercase tracking-wider"
             >
-              2026 {cityData.name} Edition
+              Tax Year 2026-27 • {cityData.name}
             </Badge>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight leading-tight mb-4">
@@ -310,6 +323,12 @@ export default async function BankCityPage({
               but final pricing depends on credit score, income, and property
               profile. Use this page to compare major lenders, estimate EMI
               instantly, and review local document requirements before applying.
+            </p>
+            <p className="text-sm text-slate-600 mt-3">
+              Home loan tax benefits under <strong>Section 80C</strong>{' '}
+              (principal) and <strong>Section 24(b)</strong> (interest) are
+              available <strong>only if you opt for the Old Regime</strong> in
+              Tax Year 2026-27. New Regime is the default.
             </p>
 
             <p className="text-sm text-slate-500 mt-2">

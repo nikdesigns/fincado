@@ -258,11 +258,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   /* ---------------- 6. BANK & BANK-CITY PAGES ---------------- */
+  /* These are now high-value content pages after our updates */
   const bankHubRoutes: MetadataRoute.Sitemap = banks.map((bank) => ({
     url: getUrl(`/bank-emi/${bank.slug}`),
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: PRIORITY.MEDIUM,
+    priority: PRIORITY.MEDIUM_HIGH, // ← Increased
   }));
 
   const bankCityRoutes: MetadataRoute.Sitemap = [];
@@ -271,8 +272,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       bankCityRoutes.push({
         url: getUrl(`/bank-emi/${bank.slug}/${city}`),
         lastModified: currentDate,
-        changeFrequency: 'monthly' as const,
-        priority: PRIORITY.LOW,
+        changeFrequency: 'weekly' as const, // ← Changed from monthly
+        priority: PRIORITY.MEDIUM, // ← Increased from LOW
       });
     });
   });
