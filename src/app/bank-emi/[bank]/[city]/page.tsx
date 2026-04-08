@@ -590,6 +590,57 @@ export default async function BankCityPage({
             </div>
           </section>
 
+          <section className="mb-12">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+              <Landmark className="h-6 w-6 text-emerald-600" />
+              {bank.name} loan file signals in {cityData.name}
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card className="border-slate-200">
+                <CardContent className="p-5">
+                  <h3 className="font-semibold text-slate-900 mb-2">
+                    Local approval and regulator alignment
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    For {cityData.name} applications, title and sanction flow is
+                    generally smoother when project documents are aligned with{' '}
+                    <strong>{cityData.authority}</strong> and{' '}
+                    <strong>{stateInfo.regulator}</strong> norms.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-slate-200">
+                <CardContent className="p-5">
+                  <h3 className="font-semibold text-slate-900 mb-2">
+                    Postal-zone and micro-market checks
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Properties in {cityData.pincodeStart}*** ranges around{' '}
+                    <strong>{cityData.areas[0]}</strong> and{' '}
+                    <strong>{otherArea}</strong> may show different valuation
+                    outcomes, which can influence approved amount and EMI.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <p className="text-sm text-slate-600 mt-4">
+              Need broader city coverage? Explore all regions on{' '}
+              <Link
+                href="/locations/"
+                className="text-blue-600 hover:underline"
+              >
+                city pages
+              </Link>{' '}
+              or compare lenders from the{' '}
+              <Link href="/bank-emi/" className="text-blue-600 hover:underline">
+                bank EMI hub
+              </Link>
+              .
+            </p>
+          </section>
+
           <section
             id="documents"
             className="mb-12 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm scroll-mt-24"

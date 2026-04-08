@@ -45,6 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/compare-loans',
     '/loans',
     '/credit-score',
+    '/bank-emi',
   ].map((route) => ({
     url: getUrl(route),
     lastModified: currentDate,
@@ -127,17 +128,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   /* ---------------- 2. STATIC PAGES (HINDI) ---------------- */
-  const hindiCorePages = [
-    '/hi',
-    '/hi/calculators',
-    '/hi/guides',
-    // '/hi/loans', // removed: include only if actual route exists
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: PRIORITY.MEDIUM,
-  }));
+  const hindiCorePages = ['/hi', '/hi/calculators', '/hi/guides'].map(
+    (route) => ({
+      url: getUrl(route),
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: PRIORITY.MEDIUM,
+    }),
+  );
 
   const hindiCalculators = [
     '/hi/sip-calculator',
@@ -150,7 +148,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/nsc-calculator',
     '/hi/cagr-calculator',
     '/hi/sukanya-samriddhi',
-
     '/hi/epf-calculator',
     '/hi/nps-calculator',
     '/hi/retirement-calculator',
@@ -158,7 +155,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/apy-calculator',
     '/hi/fire-calculator',
     '/hi/goal-planning-calculator',
-
     '/hi/income-tax-calculator',
     '/hi/hra-calculator',
     '/hi/gst-calculator',
@@ -201,7 +197,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       const url = getUrl(path);
 
-      // Deduplicate exact URLs
       if (seenArticleUrls.has(url)) return null;
       seenArticleUrls.add(url);
 
@@ -263,7 +258,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: getUrl(`/bank-emi/${bank.slug}`),
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: PRIORITY.MEDIUM_HIGH, // ← Increased
+    priority: PRIORITY.HIGH, // ← Final tweak: HIGH priority
   }));
 
   const bankCityRoutes: MetadataRoute.Sitemap = [];
@@ -272,8 +267,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       bankCityRoutes.push({
         url: getUrl(`/bank-emi/${bank.slug}/${city}`),
         lastModified: currentDate,
-        changeFrequency: 'weekly' as const, // ← Changed from monthly
-        priority: PRIORITY.MEDIUM, // ← Increased from LOW
+        changeFrequency: 'weekly' as const,
+        priority: PRIORITY.MEDIUM,
       });
     });
   });
