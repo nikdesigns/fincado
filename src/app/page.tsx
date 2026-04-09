@@ -153,7 +153,7 @@ export default function Home(): JSX.Element {
 
       <main className="container py-8" id="main-content">
         <section
-          className="mx-auto grid max-w-6xl gap-8 rounded-3xl border border-slate-200 bg-white px-6 py-10 shadow-sm md:grid-cols-[1.2fr_0.8fr] md:px-10 md:py-14"
+          className="mx-auto grid max-w-6xl gap-8 rounded-3xl border my-10 border-slate-200 bg-white px-6 py-10 shadow-sm md:grid-cols-[1.2fr_0.8fr] md:px-10 md:py-14"
           aria-labelledby="hero-title"
         >
           <div>
@@ -325,7 +325,7 @@ export default function Home(): JSX.Element {
               desc={`Compare tax regimes for FY ${fy.fullFormat}.`}
             />
             <ToolCard
-              href="/home-loan-calculator/"
+              href="/loans/home-loan/"
               icon="homeLoan"
               title="Home Loan Calculator"
               desc="Plan affordability, EMI and tenure for housing loans."
@@ -558,7 +558,7 @@ export default function Home(): JSX.Element {
           </Card>
         </section>
 
-        <section className="mt-20">
+        <section className="my-10">
           <div className="rounded-3xl bg-[#1B2E06] px-6 py-12 text-center shadow-lg sm:px-12">
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
               Start with the calculator that matches your next decision

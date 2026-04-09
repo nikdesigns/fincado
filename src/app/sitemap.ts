@@ -9,7 +9,7 @@ export const revalidate = 86400;
 const BASE_URL = 'https://fincado.com';
 
 const getUrl = (path: string): string => {
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  const cleanPath = path.replace(/^\/+|\/+$/g, '');
   return cleanPath === '' ? `${BASE_URL}/` : `${BASE_URL}/${cleanPath}/`;
 };
 
@@ -43,7 +43,7 @@ interface ArticleLangGroup {
   hi?: ArticleEntry;
 }
 
-const DEFAULT_LAST_MODIFIED = new Date('2026-04-09');
+const DEFAULT_LAST_MODIFIED = new Date();
 
 const makeEntry = (
   route: string,
