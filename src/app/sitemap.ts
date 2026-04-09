@@ -7,6 +7,7 @@ export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const BASE_URL = 'https://fincado.com';
+const ENABLE_ALTERNATES = process.env.SITEMAP_ALTERNATES === 'true';
 
 const getUrl = (path: string): string => {
   const cleanPath = path.replace(/^\/+|\/+$/g, '');
@@ -72,6 +73,7 @@ const withLangAlternates = (
   hiPath?: string,
 ): SitemapItem['alternates'] | undefined => {
   if (!hiPath) return undefined;
+  if (!ENABLE_ALTERNATES || !hiPath) return undefined;
 
   return {
     languages: {
@@ -257,14 +259,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
           lastModified,
           changeFrequency: 'monthly',
           priority: PRIORITY.MEDIUM_HIGH,
-          alternates: pair.hi
-            ? {
-                languages: {
-                  en: getUrl(`/guides/${slug}`),
-                  hi: getUrl(`/hi/guides/${slug}`),
-                },
-              }
-            : undefined,
+          alternates:
+            ENABLE_ALTERNATES && pair.hi
+              ? {
+                  languages: {
+                    en: getUrl(`/guides/${slug}`),
+                    hi: getUrl(`/hi/guides/${slug}`),
+                  },
+                }
+              : undefined,
         }),
       );
     }

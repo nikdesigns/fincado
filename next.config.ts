@@ -1,15 +1,26 @@
-// next.config.ts
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   output: 'export',
-  trailingSlash: true, // ✅ Keeps your 403 fix
+  trailingSlash: true, // ✅ THIS FIXES THE 403 ERROR
   images: {
     unoptimized: true,
   },
   reactStrictMode: true,
 
-  // Force correct Content-Type for sitemap.xml
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.fincado.com',
+          },
+        ],
+        destination: 'https://fincado.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
@@ -25,4 +36,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
