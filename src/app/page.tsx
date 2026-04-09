@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import React, { JSX } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import articlesData from '@/data/articles.json';
 import Icon, { IconName } from '@/components/Icon';
 import AdSlot from '@/components/AdSlot';
-import articlesData from '@/data/articles.json';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,12 +14,12 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import {
+  ArrowRight,
   Building2,
   FileText,
-  TrendingUp,
-  ShieldCheck,
-  ArrowRight,
   GitCompare,
+  ShieldCheck,
+  TrendingUp,
 } from 'lucide-react';
 import {
   getCurrentFiscalYear,
@@ -28,21 +27,19 @@ import {
   getUpdatedForFYText,
 } from '@/lib/fiscalYear';
 
-// Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   const fy = getCurrentFiscalYear();
 
   return {
     title: `Financial Calculators for India ${fy.shortYear} – EMI, SIP, Tax & Retirement | Fincado`,
-    description: `Master your money with Fincado. Free, bank-grade calculators for Home Loan EMI, SIP Returns, Inflation, EPF, PPF, GST, and Retirement Planning. Updated for Budget ${fy.shortYear}.`,
+    description: `Free financial calculators for India: EMI, SIP, income tax, PPF, EPF, inflation, retirement and home loan planning. Built for Indian users and updated for FY ${fy.fullFormat}.`,
     keywords: [
-      'Financial Calculators India',
-      `EMI Calculator ${fy.shortYear}`,
-      'SIP Calculator',
-      'Inflation Calculator',
-      'Home Loan Interest Rates 2026',
-      'Retirement Planning',
-      `Tax Saving Calculator FY ${fy.fullFormat}`,
+      'financial calculators India',
+      'EMI calculator India',
+      'SIP calculator India',
+      'income tax calculator India',
+      'retirement calculator India',
+      `financial calculators FY ${fy.fullFormat}`,
       'Fincado',
     ],
     alternates: {
@@ -52,15 +49,54 @@ export async function generateMetadata(): Promise<Metadata> {
       type: 'website',
       locale: 'en_IN',
       url: 'https://fincado.com/',
-      title: `Fincado – Master Your Money (${fy.shortYear} Edition)`,
-      description: `The most comprehensive financial toolkit for Indian investors. Updated for Union Budget ${fy.shortYear}.`,
+      title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
+      description: `Calculate EMI, SIP returns, income tax, retirement corpus, inflation impact, and more with practical financial tools for Indian users.`,
       siteName: 'Fincado',
+      images: [
+        {
+          url: 'https://fincado.com/images/og/homepage-fincado-2026.webp',
+          width: 1200,
+          height: 630,
+          alt: 'Fincado financial calculators for India',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
+      description:
+        'Free calculators for EMI, SIP, tax, inflation, retirement and home loans in India.',
+      images: ['https://fincado.com/images/og/homepage-fincado-2026.webp'],
     },
   };
 }
 
+const FAQ_ITEMS = [
+  {
+    question: 'Which financial calculators are most useful for Indian users?',
+    answer:
+      'The most commonly used tools are EMI calculators, SIP calculators, income tax calculators, retirement planners, PPF calculators, inflation calculators, and home loan affordability calculators.',
+  },
+  {
+    question: 'Are these calculators updated for the current financial year?',
+    answer:
+      'Yes. Fincado updates calculators and content for the current financial year, including tax planning, retirement assumptions, and loan planning use cases.',
+  },
+  {
+    question: 'Can I use Fincado calculators without logging in?',
+    answer:
+      'Yes. Fincado calculators are free to use and do not require account creation for core calculations.',
+  },
+  {
+    question: 'What should I use first: EMI calculator or SIP calculator?',
+    answer:
+      'Use an EMI calculator if you are planning a loan or balance transfer. Use a SIP calculator if your goal is long-term investing, retirement, or wealth creation.',
+  },
+];
+
 export default function Home(): JSX.Element {
   const fy = getCurrentFiscalYear();
+
   const featuredSlugs = [
     'sukanya-samriddhi-yojana-guide-2026',
     'elss-funds-guide-2026',
@@ -69,621 +105,322 @@ export default function Home(): JSX.Element {
   ];
 
   const featuredGuides = articlesData.filter(
-    (a) =>
-      featuredSlugs.includes(a.slug) && (a.language === 'en' || !a.language),
+    (article) =>
+      featuredSlugs.includes(article.slug) &&
+      (article.language === 'en' || !article.language) &&
+      !article.hidden,
   );
 
   const displayGuides =
     featuredGuides.length > 0
-      ? featuredGuides
+      ? featuredGuides.slice(0, 4)
       : articlesData
-          .filter((a) => a.language === 'en' || !a.language)
+          .filter(
+            (article) =>
+              (article.language === 'en' || !article.language) &&
+              !article.hidden,
+          )
           .slice(0, 4);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        name: 'Fincado',
+        url: 'https://fincado.com/',
+        logo: 'https://fincado.com/logo.png',
+      },
+      {
+        '@type': 'WebSite',
+        name: 'Fincado',
+        url: 'https://fincado.com/',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://fincado.com/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'Fincado',
-            url: 'https://fincado.com/',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: 'https://fincado.com/search?q={search_term_string}',
-              'query-input': 'required name=search_term_string',
-            },
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: `Which is the best financial calculator in India for ${fy.shortYear}?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: `Fincado provides free, accurate financial calculators for EMI, SIP, income tax, and retirement planning, fully updated for Union Budget ${fy.shortYear} norms.`,
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Are online EMI calculators accurate?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, Fincado EMI calculators use bank-grade reducing balance formulas followed by major Indian banks like SBI, HDFC, and ICICI.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Is Fincado free to use?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes, all calculators on Fincado are 100% free, require no login, and are privacy-focused.',
-                },
-              },
-            ],
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Fincado',
-            url: 'https://fincado.com',
-            logo: '/logo.png',
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Home',
-                item: 'https://fincado.com/',
-              },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Financial Calculators',
-                item: 'https://fincado.com/calculators/',
-              },
-            ],
-          }),
-        }}
-      />
-
-      <main className="container home-hero-wrap" id="main-content">
-        {/* --- HERO SECTION --- */}
+      <main className="container py-8" id="main-content">
         <section
-          className="home-hero hero-elevated relative overflow-hidden"
+          className="mx-auto grid max-w-6xl gap-8 rounded-3xl border border-slate-200 bg-white px-6 py-10 shadow-sm md:grid-cols-[1.2fr_0.8fr] md:px-10 md:py-14"
           aria-labelledby="hero-title"
         >
-          {/* Background glow */}
-          <div
-            className="
-      pointer-events-none
-      absolute
-      -top-[20%]
-      -right-[10%]
-      h-150
-      w-150
-      max-h-[80vw]
-      max-w-[80vw]
-      bg-[radial-gradient(circle,rgba(5,150,105,0.08)_0%,rgba(255,255,255,0)_70%)]
-      z-0
-    "
-          />
-
-          <div className="hero-grid relative z-10">
-            {/* LEFT */}
-            <div className="hero-content">
-              {/* BADGES */}
-              <div className="mb-6 flex flex-wrap items-center gap-3">
-                {/* ✅ Updated Year Badge */}
-                <Badge
-                  variant="outline"
-                  className="... bg-[#F7FDF1] font-semibold"
-                >
-                  <span className="h-2 w-2 rounded-full bg-[#B0EC70]" />
-                  {getUpdatedForFYText()} {/* Dynamic! */}
-                </Badge>
-
-                <Badge
-                  variant="outline"
-                  className="... bg-[#F7FDF1] font-semibold"
-                >
-                  <span className="bg-[#B0EC70] pulse-dot"></span>
-                  Verified for {getBudgetYearText()} {/* Dynamic! */}
-                </Badge>
-              </div>
-
-              {/* TITLE */}
-              <h1
-                id="hero-title"
-                className="
-          mb-6
-          font-semibold
-          leading-none
-          tracking-[-0.03em]
-          text-slate-900
-          text-[clamp(2rem,4vw,3rem)]
-        "
+          <div>
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <Badge
+                variant="outline"
+                className="bg-[#F7FDF1] font-semibold text-slate-800"
               >
-                <span className="inline-block bg-linear-to-br text-[#111827] bg-clip-text">
-                  Financial Calculators for India {fy.shortYear}
-                </span>
-                <br />
-                <span className="mt-1 block text-[0.45em] font-semibold tracking-[0.01em] text-[#111827]">
-                  EMI • SIP • Tax • Retirement Tools
-                </span>
-              </h1>
-
-              {/* SUBTEXT */}
-              <p className="hero-sub font-medium mb-2 max-w-135 text-[1.125rem] leading-relaxed text-[#6B7280]">
-                Make smarter decisions with 20+ bank-grade calculators for
-                Loans, SIPs, Inflation, and Retirement.
-                <span className="mt-3 flex gap-4 text-[0.9em] font-medium text-[#6B7280]">
-                  <span>✅ No Login Required</span>
-                  <span>✅ 100% Free</span>
-                  <span>✅ Data Private</span>
-                </span>
-              </p>
-
-              {/* CTAs */}
-              <div className="hero-cta-row flex flex-wrap gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="
-            bg-[#B0EC70]
-            text-[#111827]           
-            shadow-lg        
-            font-semibold
-          "
-                >
-                  <Link href="/emi-calculator/">Check Loan EMI</Link>
-                </Button>
-
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="font-medium"
-                >
-                  <Link href="/sip-calculator/">Start Investing</Link>
-                </Button>
-              </div>
-
-              {/* AD */}
-              <div className="hero-ad mt-8 min-h-22.5 max-w-182">
-                <AdSlot id="home-hero-leaderboard" type="banner" />
-              </div>
+                {getUpdatedForFYText()}
+              </Badge>
+              <Badge
+                variant="outline"
+                className="bg-[#F7FDF1] font-semibold text-slate-800"
+              >
+                Verified for {getBudgetYearText()}
+              </Badge>
             </div>
 
-            {/* RIGHT */}
-            <aside className="hero-visual flex flex-col justify-center pl-5">
-              <div className="hero-stats relative">
-                {/* EMI CARD */}
-                <Card className="stat-card absolute left-0 top-5 z-10 min-w-45 -rotate-3 bg-[#F7FDF1] backdrop-blur">
-                  <div className="p-4">
-                    <div className="mb-1 flex items-center gap-2">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F7FDF1] text-xs">
-                        📉
-                      </span>
-                      <span className="text-xs text-slate-500 font-semibold uppercase tracking-wide">
-                        Monthly EMI
-                      </span>
-                    </div>
-                    <span className="text-xl font-bold text-slate-800">
-                      ₹12,450
-                    </span>
-                  </div>
-                </Card>
+            <h1
+              id="hero-title"
+              className="text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-tight tracking-[-0.03em] text-slate-900"
+            >
+              Financial Calculators for India 2026-27
+            </h1>
 
-                {/* CORPUS CARD */}
-                <Card className="stat-card absolute right-5 top-12 z-20 min-w-55 rotate-2 border-emerald-200">
-                  <div className="relative p-6">
-                    <span className="absolute -top-2.5 right-5 rounded-full bg-[#DFF7C6] px-2 py-1 text-[10px] font-semibold text-[#1B2E06]">
-                      +12% Growth
-                    </span>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">
+              Plan loans, investing, tax, inflation, and retirement with
+              practical calculators built for Indian users. Fincado helps you
+              estimate costs, compare options, and make clearer money decisions
+              without spreadsheets.
+            </p>
 
-                    <div className="mb-2 flex items-center gap-2.5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#DFF7C6] text-base">
-                        🚀
-                      </span>
-                      <span className="text-[13px] font-semibold uppercase tracking-wide text-[#6B7280]">
-                        Projected Corpus
-                      </span>
-                    </div>
+            <ul className="mt-5 flex flex-wrap gap-4 text-sm font-medium text-slate-600">
+              <li>Free to use</li>
+              <li>No login required</li>
+              <li>Built for Indian financial planning</li>
+            </ul>
 
-                    <span className="text-4xl font-bold text-[#577A30]">
-                      ₹2.54 Cr
-                    </span>
-                  </div>
-                </Card>
-              </div>
-
-              <div className="hero-side-ad scale-95">
-                <AdSlot id="home-hero-sidebar" type="box" />
-              </div>
-            </aside>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="bg-[#B0EC70] text-[#111827] font-semibold"
+              >
+                <Link href="/emi-calculator/">Check Loan EMI</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href="/sip-calculator/">Start SIP Planning</Link>
+              </Button>
+            </div>
           </div>
-        </section>
 
-        {/* --- TRUST STRIP (Updated for Tax Year 2026-27) --- */}
-        <section className="py-10">
-          <div className="container px-4 md:px-6">
-            <Card className="relative overflow-hidden border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
-              <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-transparent via-[#489719] to-transparent opacity-80" />
-
-              <CardContent className="flex flex-col items-center gap-8 px-6 py-10 md:px-10">
-                <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
-                  <Badge
-                    variant="outline"
-                    className="flex items-center gap-2 rounded-full border-slate-200 bg-[#F7FDF1] px-4 py-2 text-sm font-semibold text-[#577A30] backdrop-blur-sm"
-                  >
-                    <Image
-                      src="/images/india.svg"
-                      alt="India flag"
-                      width={20}
-                      height={20}
-                      className="object-contain"
-                    />
-                    <span>Trusted by Indian Investors</span>
-                  </Badge>
-
-                  <div className="hidden h-8 w-px bg-slate-200 md:block" />
-
-                  <div className="flex flex-wrap items-center justify-center gap-3">
-                    <TrustTag
-                      icon={<Building2 className="h-4 w-4" />}
-                      label="Loans"
-                    />
-                    <TrustTag
-                      icon={<FileText className="h-4 w-4" />}
-                      label="Tax Planning"
-                    />
-                    <TrustTag
-                      icon={<TrendingUp className="h-4 w-4" />}
-                      label="Investments"
-                    />
-                  </div>
-                </div>
-
-                <div className="h-px w-24 bg-slate-100" />
-
-                <div className="max-w-3xl text-center space-y-3">
-                  <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#000000]">
-                    <ShieldCheck className="h-4 w-4" />
-                    <span>Bank-Grade Formulas</span>
-                  </div>
-
-                  <p className="homepage-entity text-[15px] leading-relaxed text-[#6B7280] md:text-base">
-                    Fincado is a free financial calculator platform for India,
-                    helping users calculate EMI, SIP returns, income tax,
-                    retirement corpus, and investment growth using verified
-                    banking formulas aligned with{' '}
-                    <strong>Tax Year 2026-27</strong> norms. Compare live home
-                    loan rates from 21 banks and plan smarter.
-                  </p>
-                </div>
-
-                <div className="container-inner flex justify-center font-medium gap-8 text-sm text-slate-500">
-                  <span>🏆 Used by 100,000+ investors</span>
-                  <span>⭐ 4.8/5 rating (2,342 reviews)</span>
-                  <span>🔒 Bank-grade security</span>
-                </div>
+          <aside className="grid gap-4">
+            <Card className="border-slate-200 bg-[#F7FDF1]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base font-semibold text-slate-900">
+                  Popular starting points
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-3 text-sm">
+                <QuickLink
+                  href="/emi-calculator/"
+                  label="EMI Calculator"
+                  desc="Monthly EMI, interest and tenure"
+                />
+                <QuickLink
+                  href="/sip-calculator/"
+                  label="SIP Calculator"
+                  desc="Monthly investing and future value"
+                />
+                <QuickLink
+                  href="/income-tax-calculator/"
+                  label="Income Tax Calculator"
+                  desc={`Old vs new regime for FY ${fy.fullFormat}`}
+                />
+                <QuickLink
+                  href="/retirement-calculator/"
+                  label="Retirement Planner"
+                  desc="Corpus and monthly income planning"
+                />
               </CardContent>
             </Card>
+
+            <Card className="border-slate-200">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base font-semibold text-slate-900">
+                  What you can do here
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm text-slate-600">
+                <TrustRow
+                  icon={<Building2 className="h-4 w-4" />}
+                  text="Compare loan affordability and EMI burden."
+                />
+                <TrustRow
+                  icon={<TrendingUp className="h-4 w-4" />}
+                  text="Estimate SIP, lump sum, and long-term growth."
+                />
+                <TrustRow
+                  icon={<FileText className="h-4 w-4" />}
+                  text="Review tax planning and retirement scenarios."
+                />
+                <TrustRow
+                  icon={<ShieldCheck className="h-4 w-4" />}
+                  text="Use clear formulas and practical examples."
+                />
+              </CardContent>
+            </Card>
+          </aside>
+        </section>
+
+        <section className="mt-14">
+          <div className="mx-auto max-w-6xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-3xl">
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  Financial planning tools for loans, tax, investing and
+                  retirement
+                </h2>
+                <p className="mt-2 text-slate-600">
+                  Fincado focuses on the calculations people actually use: loan
+                  EMI, SIP returns, inflation-adjusted goals, tax comparison,
+                  provident fund growth, and retirement planning.
+                </p>
+              </div>
+              <Button asChild variant="outline" className="shrink-0">
+                <Link href="/calculators/">Browse All Calculators</Link>
+              </Button>
+            </div>
           </div>
         </section>
 
-        {/* --- 1. MOST POPULAR TOOLS --- */}
-        <section className="tools-section">
-          <div className="tools-header container-inner flex items-end justify-between gap-4">
+        <section className="mt-14">
+          <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">
-                Essential Financial Tools for {fy.shortYear}
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Essential calculators
               </h2>
-              <p className="tools-sub mt-1 text-slate-600 font-medium">
-                Popular financial calculators in India for EMI, SIP, income tax
-                and credit planning.
+              <p className="mt-1 text-slate-600">
+                Start with the most commonly used tools on Fincado.
               </p>
             </div>
-
-            <Button asChild variant="outline" className="shrink-0">
-              <Link href="/calculators/">View All</Link>
+            <Button
+              asChild
+              variant="ghost"
+              className="font-semibold text-emerald-700"
+            >
+              <Link href="/calculators/">View all tools</Link>
             </Button>
           </div>
 
-          <div className="tools-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ToolCard
               href="/emi-calculator/"
               icon="emi"
               title="EMI Calculator"
-              desc="Calculate Loan EMI & Interest"
+              desc="Calculate monthly EMI, total interest and repayment burden."
             />
             <ToolCard
               href="/sip-calculator/"
               icon="sip"
               title="SIP Calculator"
-              desc="Estimate Mutual Fund Returns"
-            />
-            <ToolCard
-              href="/credit-score/"
-              icon="creditScore"
-              title="Credit Score"
-              desc="Check CIBIL-based credit eligibility"
+              desc="Estimate long-term returns from monthly investing."
             />
             <ToolCard
               href="/income-tax-calculator/"
               icon="tax"
-              title="Income Tax Calc"
-              desc={`New vs Old Regime (${fy.fullFormat})`} // ✅ Updated Year
+              title="Income Tax Calculator"
+              desc={`Compare tax regimes for FY ${fy.fullFormat}.`}
             />
-          </div>
-        </section>
-
-        {/* --- AD BREAK --- */}
-        <div className="midpage-ad">
-          <AdSlot id="home-mid-1" type="leaderboard" />
-        </div>
-
-        {/* ✅ REVENUE ENGINE SECTION (Updated Date) */}
-        <section className="my-16 container-inner">
-          <div className="relative overflow-hidden rounded-3xl shadow-xs bg-white border border-slate-100 px-6 py-10 sm:px-10 sm:py-12">
-            <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
-              <div className="space-y-3">
-                <Badge className="...">
-                  Updated{' '}
-                  {new Date().toLocaleDateString('en-US', {
-                    month: 'short',
-                    year: 'numeric',
-                  })}
-                </Badge>
-                <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight">
-                  Compare & <span className="text-[#577A30]">Save</span>
-                </h2>
-                <p className="text-slate-600 max-w-lg text-sm sm:text-base leading-relaxed font-medium">
-                  Stop overpaying on interest. Compare live rates, processing
-                  fees, and approval chances for India&apos;s top lenders.
-                </p>
-              </div>
-              <Button
-                asChild
-                className="bg-[#B0EC70] text-[#111827] font-semibold"
-              >
-                <Link href="/compare-loans/">
-                  View All Banks <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <ComparisonCard b1="SBI" b2="HDFC" link="/compare/sbi-vs-hdfc" />
-              <ComparisonCard
-                b1="HDFC"
-                b2="ICICI"
-                link="/compare/hdfc-vs-icici/"
-              />
-              <ComparisonCard b1="SBI" b2="Axis" link="/compare/sbi-vs-axis/" />
-              <ComparisonCard
-                b1="ICICI"
-                b2="Kotak"
-                link="/compare/icici-vs-kotak/"
-              />
-              <ComparisonCard b1="PNB" b2="BOB" link="/compare/pnb-vs-bob/" />
-              <ComparisonCard
-                b1="Bajaj"
-                b2="LIC Housing"
-                link="/compare/bajaj-vs-lic-housing/"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* --- 2. LOAN PLANNING SECTION --- */}
-        <section className="tools-section">
-          <div className="tools-header container-inner">
-            <div>
-              <h2>Loan & Debt Planning</h2>
-              <p className="tools-sub">Loan calculators in India</p>
-            </div>
-          </div>
-          <div className="tools-grid container-inner">
             <ToolCard
-              href="/loans/home-loan/"
+              href="/home-loan-calculator/"
               icon="homeLoan"
-              title="Home Loan EMI"
-              desc="Check Affordability & Tax Benefits"
-            />
-            <ToolCard
-              href="/loans/personal-loan/"
-              icon="personalLoan"
-              title="Personal Loan"
-              desc="Compare Interest Rates"
-            />
-            <ToolCard
-              href="/loans/car-loan/"
-              icon="carLoan"
-              title="Car Loan EMI"
-              desc="Plan your dream car purchase"
-            />
-            <ToolCard
-              href="/loans/education-loan/"
-              icon="educationLoan"
-              title="Education Loan"
-              desc="Calculate moratorium interest"
-            />
-          </div>
-        </section>
-
-        {/* --- 3. INVESTMENT & WEALTH --- */}
-        <section className="tools-section">
-          <div className="tools-header container-inner">
-            <div>
-              <h2>Grow Your Wealth</h2>
-              <p className="tools-sub">Investment calculators</p>
-            </div>
-          </div>
-          <div className="tools-grid container-inner">
-            <ToolCard
-              href="/elss-calculator/"
-              icon="elss"
-              title="ELSS Calculator"
-              desc="Save Tax and Grow Your Wealth"
-            />
-            <ToolCard
-              href="/fd-calculator/"
-              icon="fd"
-              title="FD Calculator"
-              desc="Fixed Deposit Maturity Value"
-            />
-            <ToolCard
-              href="/lumpsum-calculator/"
-              icon="lumpsum"
-              title="Lumpsum Calculator"
-              desc="One-time investment returns"
-            />
-            <ToolCard
-              href="/swp-calculator/"
-              icon="swp"
-              title="SWP Calculator"
-              desc="Systematic Withdrawal Plan"
-            />
-          </div>
-        </section>
-
-        {/* --- AD BREAK --- */}
-        <div className="midpage-ad">
-          <AdSlot id="home-mid-2" type="leaderboard" />
-        </div>
-
-        {/* --- 4. RETIREMENT & TAX --- */}
-        <section className="tools-section">
-          <div className="tools-header container-inner">
-            <div>
-              <h2>Retirement & Tax Planning</h2>
-              <p className="tools-sub">Retirement & tax calculators</p>
-            </div>
-          </div>
-          <div className="tools-grid container-inner">
-            <ToolCard
-              href="/inflation-calculator/"
-              icon="inflation"
-              title="Inflation Calculator"
-              desc="Calculate Future Value of Money"
+              title="Home Loan Calculator"
+              desc="Plan affordability, EMI and tenure for housing loans."
             />
             <ToolCard
               href="/retirement-calculator/"
               icon="retirement"
-              title="Retirement Planner"
-              desc="How much corpus do you need?"
+              title="Retirement Calculator"
+              desc="Estimate the corpus needed for future monthly expenses."
             />
             <ToolCard
-              href="/ppf-calculator/"
-              icon="ppf"
-              title="PPF Calculator"
-              desc="Public Provident Fund Returns"
-            />
-            <ToolCard
-              href="/epf-calculator/"
-              icon="epf"
-              title="EPF Calculator"
-              desc="Employee Provident Fund Corpus"
-            />
-            <ToolCard
-              href="/gst-calculator/"
-              icon="gst"
-              title="GST Calculator"
-              desc="Calculate GST Rates (5% - 28%)"
+              href="/inflation-calculator/"
+              icon="inflation"
+              title="Inflation Calculator"
+              desc="See how inflation affects your future purchasing power."
             />
           </div>
         </section>
 
-        {/* --- FEATURED GUIDES --- */}
-        <section className="featured-guides mt-16">
-          <div className="tools-header container-inner mb-8 flex items-end justify-between gap-4">
+        <div className="my-14">
+          <AdSlot id="home-mid-1" type="leaderboard" />
+        </div>
+
+        <section className="mt-14">
+          <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">
-                Financial Wisdom for Tax Year 2026-27
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Loan comparison and planning
               </h2>
-              <p className="mt-1 text-base text-slate-500 font-medium">
-                Expert-written guides with real calculations, updated for latest
-                Indian laws and Budget 2026.
+              <p className="mt-1 text-slate-600">
+                Explore lenders, rates, and loan types before you borrow.
               </p>
             </div>
-
-            <Button
-              asChild
-              variant="ghost"
-              className="font-semibold text-emerald-700 hover:text-emerald-800"
-            >
-              <Link href="/guides/">View All Guides →</Link>
+            <Button asChild variant="outline">
+              <Link href="/compare-loans/">
+                Compare loans <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
 
-          <div className="guide-grid container-inner grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-white">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ComparisonCard b1="SBI" b2="HDFC" link="/compare/sbi-vs-hdfc/" />
+            <ComparisonCard
+              b1="HDFC"
+              b2="ICICI"
+              link="/compare/hdfc-vs-icici/"
+            />
+            <ComparisonCard b1="SBI" b2="Axis" link="/compare/sbi-vs-axis/" />
+            <ComparisonCard
+              b1="ICICI"
+              b2="Kotak"
+              link="/compare/icici-vs-kotak/"
+            />
+            <ComparisonCard b1="PNB" b2="BOB" link="/compare/pnb-vs-bob/" />
+            <ComparisonCard
+              b1="Bajaj"
+              b2="LIC Housing"
+              link="/compare/bajaj-vs-lic-housing/"
+            />
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Featured guides
+              </h2>
+              <p className="mt-1 text-slate-600">
+                Long-form explainers on investing, tax saving, and financial
+                planning.
+              </p>
+            </div>
+            <Button
+              asChild
+              variant="ghost"
+              className="font-semibold text-emerald-700"
+            >
+              <Link href="/guides/">View all guides</Link>
+            </Button>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {displayGuides.map((guide) => (
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}/`}
-                className="group block font-medium text-slate-900 transition"
+                className="group block"
               >
-                <Card
-                  className="
-            h-full
-            rounded-2xl
-            border
-            border-slate-200
-            p-6
-            transition-all
-            hover:-translate-y-1
-            hover:shadow-lg
-            hover:border-[#DFF7C6]
-          "
-                >
+                <Card className="h-full rounded-2xl border border-slate-200 p-6 transition-all hover:-translate-y-1 hover:border-[#DFF7C6] hover:shadow-md">
                   <div className="mb-4 flex items-center justify-between">
                     <span className="inline-block rounded-full bg-[#F7FDF1] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#577A30]">
-                      {guide.category}
+                      {guide.category || 'Guide'}
                     </span>
-                    <span className="text-xs font-medium text-emerald-600">
-                      2026
-                    </span>
-                  </div>
-
-                  <h3 className="mb-3 text-lg font-semibold leading-snug text-slate-900 line-clamp-2 group-hover:text-[#577A30]">
-                    {guide.title}
-                  </h3>
-
-                  <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-slate-600">
-                    {guide.metaDescription
-                      .replace(/<[^>]+>/g, '')
-                      .trim()
-                      .substring(0, 140)}
-                    ...
-                  </p>
-
-                  <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-medium text-slate-400">
-                    <span>
+                    <span className="text-xs font-medium text-slate-500">
                       {guide.published
                         ? new Date(guide.published).toLocaleDateString(
                             'en-IN',
@@ -692,229 +429,157 @@ export default function Home(): JSX.Element {
                               year: 'numeric',
                             },
                           )
-                        : 'Guide'}
-                    </span>
-                    <span className="font-semibold text-emerald-600 group-hover:underline">
-                      Read →
+                        : 'Updated'}
                     </span>
                   </div>
+
+                  <h3 className="mb-3 line-clamp-2 text-lg font-semibold leading-snug text-slate-900 group-hover:text-[#577A30]">
+                    {guide.title}
+                  </h3>
+
+                  <p className="line-clamp-4 text-sm leading-relaxed text-slate-600">
+                    {(guide.metaDescription || '')
+                      .replace(/<[^>]+>/g, '')
+                      .trim()
+                      .slice(0, 160)}
+                  </p>
                 </Card>
               </Link>
             ))}
           </div>
         </section>
-        {/* --- RICH SEO CONTENT --- */}
-        <section className="mt-24">
-          <article className="container-inner">
-            <div className="prose prose-slate max-w-none bg-white p-12 rounded-2xl border">
-              <h2 className="text-3xl text-slate-900 pb-4 font-medium">
-                Your All-In-One Financial Planning Platform for Tax Year 2026-27
-              </h2>
 
-              <p className="pb-2 font-normal">
-                Financial freedom isn&apos;t a dream — it&apos;s a calculation.
-                Whether you&apos;re a fresh graduate starting your first job, a
-                parent planning for your child&apos;s education, or someone
-                nearing retirement, <strong>Fincado</strong> gives you the
-                mathematical clarity you need to make the right choices in Tax
-                Year 2026-27.
-              </p>
+        <section className="mt-20">
+          <article className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Financial calculators that help you make clearer decisions
+            </h2>
 
-              <h3 className="text-xl text-slate-900 py-4 font-medium">
-                Why Use Online Financial Calculators?
-              </h3>
+            <p className="mt-5 text-base leading-8 text-slate-700">
+              A financial calculator is useful only when it helps you answer a
+              real question. Most people do not need abstract formulas first —
+              they need to know whether they can afford a home loan, how much to
+              invest each month, which tax regime may be better, or how
+              inflation will affect future expenses. Fincado is designed around
+              those practical decisions for Indian users.
+            </p>
 
-              <p className="pb-2">
-                Manual calculations are prone to errors, especially with
-                compound interest, changing tax slabs, and inflation. Our
-                calculators offer:
-              </p>
+            <p className="mt-5 text-base leading-8 text-slate-700">
+              If you are borrowing, tools like the EMI calculator and home loan
+              calculator can show how loan amount, interest rate, and tenure
+              change your monthly outgo and total interest paid. That matters
+              because a slightly longer tenure can reduce EMI but sharply
+              increase total interest over time. Comparing multiple lenders also
+              helps because even a small rate difference can add up
+              significantly on long-term loans.
+            </p>
 
-              <ul className="list-disc pl-6">
-                <li>
-                  <strong>Precision:</strong> Bank-grade formulas used by SBI,
-                  HDFC, ICICI, and other major lenders.
-                </li>
-                <li>
-                  <strong>Speed:</strong> Instant results — no Excel sheets or
-                  complex math required.
-                </li>
-                <li>
-                  <strong>Tax Year 2026-27 Compliant:</strong> All tools are
-                  verified against the latest Income Tax Act 2025 rules and
-                  Union Budget 2026 announcements.
-                </li>
-              </ul>
+            <p className="mt-5 text-base leading-8 text-slate-700">
+              If you are investing, a SIP calculator, lumpsum calculator, and
+              inflation calculator help connect monthly contributions to
+              long-term outcomes. Instead of looking only at headline returns,
+              it is more useful to estimate future value, inflation-adjusted
+              purchasing power, and the time required to reach a target corpus.
+              That is especially relevant for retirement planning, children’s
+              goals, and long-duration wealth building.
+            </p>
 
-              <h3 className="pt-6 text-xl font-medium">
-                Core Pillars of Personal Finance in 2026-27
-              </h3>
+            <p className="mt-5 text-base leading-8 text-slate-700">
+              Tax planning is another area where many people make decisions too
+              late. Comparing the old and new tax regimes, understanding Section
+              80C choices, and modelling deductions before the end of the
+              financial year can reduce rushed decisions. Tools are not a
+              substitute for professional advice in complex cases, but they are
+              very useful for building a first estimate and comparing scenarios
+              clearly.
+            </p>
 
-              <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
-                  <h4 className="mb-2 text-base font-semibold text-slate-900">
-                    Debt Management
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-600 pt-5">
-                    Use our <strong>EMI Calculators</strong> to keep your
-                    Debt-to-Income ratio under 40%. Plan smart prepayments and
-                    compare live bank rates on our{' '}
-                    <Link
-                      href="/bank-emi/"
-                      className="text-[#577A30] hover:underline"
-                    >
-                      bank comparison pages
-                    </Link>
-                    .
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
-                  <h4 className="mb-2 text-base font-semibold text-slate-900">
-                    Wealth Creation
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-600 pt-5">
-                    Start a <strong>SIP</strong> today. Even ₹500/month
-                    compounded at 12% over 30 years can build a significant
-                    corpus. Check our{' '}
-                    <Link
-                      href="/sip-calculator/"
-                      className="text-[#577A30] hover:underline"
-                    >
-                      SIP Calculator
-                    </Link>
-                    .
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-slate-200 p-6 bg-slate-50">
-                  <h4 className="mb-2 text-base font-semibold text-slate-900">
-                    Tax Saving
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-600 pt-5">
-                    Maximize Section 80C (₹1.5 Lakh limit) with{' '}
-                    <strong>PPF</strong>, <strong>EPF</strong>, and ELSS funds.
-                    Home loan interest (Section 24b) benefits are only available
-                    in the <strong>Old Regime</strong> in Tax Year 2026-27.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* --- FAQ SECTION (with proper component) --- */}
-            <div className="mt-12">
-              <Card className="bg-white">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg font-semibold text-slate-900">
-                    Frequently Asked Questions
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              <Card className="border-slate-200 bg-slate-50">
+                <CardHeader>
+                  <CardTitle className="text-base font-semibold text-slate-900">
+                    Loan planning
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="text-sm leading-7 text-slate-600">
+                  Use EMI, home loan, personal loan, and car loan tools to
+                  estimate monthly burden, compare lenders, and avoid stretching
+                  your budget.
+                </CardContent>
+              </Card>
 
-                <CardContent>
-                  <Accordion type="single" collapsible className="space-y-2">
-                    <AccordionItem value="faq-1">
-                      <AccordionTrigger>
-                        Are these calculators updated for Tax Year 2026-27?
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        Yes. All tools (Home Loan EMI, SIP, Income Tax, PPF,
-                        EPF) are fully verified against the latest Income Tax
-                        Act 2025 rules and Union Budget 2026 announcements.
-                      </AccordionContent>
-                    </AccordionItem>
+              <Card className="border-slate-200 bg-slate-50">
+                <CardHeader>
+                  <CardTitle className="text-base font-semibold text-slate-900">
+                    Investing and growth
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm leading-7 text-slate-600">
+                  Use SIP, lumpsum, SWP, PPF, EPF, and CAGR calculators to
+                  understand growth, compounding, withdrawal planning, and
+                  long-term goals.
+                </CardContent>
+              </Card>
 
-                    <AccordionItem value="faq-2">
-                      <AccordionTrigger>
-                        How can I save maximum tax on my salary in Tax Year
-                        2026-27?
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        Maximize your ₹1.5 Lakh Section 80C limit with PPF, EPF,
-                        and ELSS. Home loan interest (Section 24b) deduction is
-                        available only under the <strong>Old Regime</strong>.
-                        Use our{' '}
-                        <Link
-                          href="/income-tax-calculator/"
-                          className="text-[#577A30] hover:underline"
-                        >
-                          Income Tax Calculator
-                        </Link>{' '}
-                        to compare both regimes instantly.
-                      </AccordionContent>
-                    </AccordionItem>
-
-                    <AccordionItem value="faq-3">
-                      <AccordionTrigger>
-                        What is the best way to become a Crorepati in India?
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        Consistent investing. A ₹15,000 monthly SIP at 12%
-                        return can make you a Crorepati in ~15 years. Try our{' '}
-                        <Link
-                          href="/sip-calculator/"
-                          className="text-[#577A30] hover:underline"
-                        >
-                          SIP Calculator
-                        </Link>{' '}
-                        to see your personalised projection.
-                      </AccordionContent>
-                    </AccordionItem>
-
-                    <AccordionItem value="faq-4">
-                      <AccordionTrigger>
-                        Which bank offers the lowest home loan interest rate
-                        right now?
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        Rates change daily. Currently SBI and PNB offer the
-                        lowest starting rates. Compare live rates from 21 banks
-                        on our{' '}
-                        <Link
-                          href="/bank-emi/"
-                          className="text-[#577A30] hover:underline"
-                        >
-                          Bank EMI Comparison page
-                        </Link>
-                        .
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+              <Card className="border-slate-200 bg-slate-50">
+                <CardHeader>
+                  <CardTitle className="text-base font-semibold text-slate-900">
+                    Tax and retirement
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm leading-7 text-slate-600">
+                  Use tax, inflation, gratuity, and retirement tools to estimate
+                  future needs and compare scenarios before making year-end
+                  decisions.
                 </CardContent>
               </Card>
             </div>
           </article>
         </section>
 
-        {/* --- FINAL CTA SECTION --- */}
+        <section className="mt-16">
+          <Card className="bg-white">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-xl font-semibold text-slate-900">
+                Frequently asked questions
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent>
+              <Accordion type="single" collapsible className="space-y-2">
+                {FAQ_ITEMS.map((item, index) => (
+                  <AccordionItem key={index} value={`faq-${index}`}>
+                    <AccordionTrigger>{item.question}</AccordionTrigger>
+                    <AccordionContent>{item.answer}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mt-20">
-          <div className="relative rounded-2xl p-px">
-            <div className="rounded-2xl bg-[#1B2E06] px-6 py-12 sm:px-12 text-center shadow-lg">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-3">
-                Ready to take control?
-              </h2>
+          <div className="rounded-3xl bg-[#1B2E06] px-6 py-12 text-center shadow-lg sm:px-12">
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              Start with the calculator that matches your next decision
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-slate-200 sm:text-lg">
+              Borrowing, investing, tax planning, and retirement all improve
+              when you can compare numbers clearly before you act.
+            </p>
 
-              <p className="text-white max-w-xl mx-auto mb-8 text-base sm:text-lg">
-                Join thousands of smart investors using Fincado daily.
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[#B0EC70] text-[#111827]"
-                >
-                  <Link href="/emi-calculator/">Calculate EMI</Link>
-                </Button>
-
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-slate-300 text-white"
-                >
-                  <Link href="/sip-calculator/">Plan Investment</Link>
-                </Button>
-              </div>
+            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+              <Button asChild size="lg" className="bg-[#B0EC70] text-[#111827]">
+                <Link href="/emi-calculator/">Calculate EMI</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-slate-300 text-white"
+              >
+                <Link href="/sip-calculator/">Plan SIP</Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -923,7 +588,6 @@ export default function Home(): JSX.Element {
   );
 }
 
-// --- SUB-COMPONENTS ---
 function ToolCard({
   href,
   icon,
@@ -936,23 +600,44 @@ function ToolCard({
   desc: string;
 }) {
   return (
-    <Link href={href} className="tool-tile">
-      <div className="tool-icon-wrap place-self-center">
-        <Icon name={icon} className="tool-icon-svg " />
+    <Link
+      href={href}
+      className="rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-[#DFF7C6] hover:shadow-md"
+    >
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#F7FDF1]">
+        <Icon name={icon} className="h-6 w-6" />
       </div>
-      <h3 className="tool-title">{title}</h3>
-      <p className="tool-desc">{desc}</p>
+      <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
     </Link>
   );
 }
 
-function TrustTag({ icon, label }: { icon: React.ReactNode; label: string }) {
+function QuickLink({
+  href,
+  label,
+  desc,
+}: {
+  href: string;
+  label: string;
+  desc: string;
+}) {
   return (
-    <div className="group flex cursor-default items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-all hover:border-[#F7FDF1]">
-      <span className="text-slate-400 transition-colors group-hover:text-[#489719]">
-        {icon}
-      </span>
-      {label}
+    <Link
+      href={href}
+      className="rounded-xl border border-slate-200 bg-white px-4 py-3 transition hover:border-[#DFF7C6] hover:bg-[#FCFEF8]"
+    >
+      <div className="font-semibold text-slate-900">{label}</div>
+      <div className="mt-1 text-xs leading-5 text-slate-600">{desc}</div>
+    </Link>
+  );
+}
+
+function TrustRow({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <div className="flex items-start gap-3">
+      <span className="mt-0.5 text-slate-500">{icon}</span>
+      <span>{text}</span>
     </div>
   );
 }
@@ -969,30 +654,28 @@ function ComparisonCard({
   return (
     <Link
       href={link}
-      className="group flex items-center justify-between bg-white hover:bg-[#F7FDF1] border border-slate-200 hover:border-[#DFF7C6] rounded-xl p-4 transition-all hover:-translate-y-1 hover:shadow-md"
+      className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 transition-all hover:-translate-y-1 hover:border-[#DFF7C6] hover:bg-[#F7FDF1] hover:shadow-sm"
     >
       <div className="flex items-center gap-3">
         <div className="flex -space-x-3">
-          {/* Bank 1 Icon */}
-          <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-[10px] font-semibold text-slate-700 border border-slate-100 shadow-sm z-10">
+          <div className="z-10 flex h-9 w-9 items-center justify-center rounded-full border border-slate-100 bg-white text-[10px] font-semibold text-slate-700 shadow-sm">
             {b1.slice(0, 1)}
           </div>
-          {/* Bank 2 Icon */}
-          <div className="h-9 w-9 rounded-full bg-[#F7FDF1] flex items-center justify-center text-[10px] font-semibold text-[#577A30] border border-white shadow-sm z-0">
+          <div className="z-0 flex h-9 w-9 items-center justify-center rounded-full border border-white bg-[#F7FDF1] text-[10px] font-semibold text-[#577A30] shadow-sm">
             {b2.slice(0, 1)}
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold text-slate-700 group-hover:text-[#577A30] text-sm transition-colors">
+          <span className="text-sm font-semibold text-slate-700 transition-colors group-hover:text-[#577A30]">
             {b1} vs {b2}
           </span>
-          <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
-            Compare Rates
+          <span className="text-[10px] font-medium uppercase tracking-wide text-slate-400">
+            Compare rates
           </span>
         </div>
       </div>
-      <div className="h-8 w-8 rounded-full bg-slate-50 group-hover:bg-[#DFF7C6] flex items-center justify-center transition-colors">
-        <GitCompare className="h-4 w-4 text-slate-400 group-hover:text-[#1B2E06] transition-colors" />
+      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 transition-colors group-hover:bg-[#DFF7C6]">
+        <GitCompare className="h-4 w-4 text-slate-400 transition-colors group-hover:text-[#1B2E06]" />
       </div>
     </Link>
   );

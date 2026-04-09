@@ -4,7 +4,7 @@ import { banks } from '@/lib/banks';
 import { cityDetails } from '@/lib/localData';
 
 export const dynamic = 'force-static';
-export const revalidate = 86400; // Revalidate once per day (24 hours)
+export const revalidate = 86400;
 
 const BASE_URL = 'https://fincado.com';
 
@@ -22,23 +22,85 @@ const PRIORITY = {
   LOW: 0.5,
 } as const;
 
+type SitemapItem = MetadataRoute.Sitemap[number];
+type RoutePair = [string, string?];
+type ArticleLanguage = 'en' | 'hi';
+
+interface ArticleEntry {
+  slug: string;
+  language?: ArticleLanguage;
+  hidden?: boolean;
+  published?: string;
+  updated?: string;
+  modified?: string;
+  title?: string;
+  seoTitle?: string;
+  metaDescription?: string;
+}
+
+interface ArticleLangGroup {
+  en?: ArticleEntry;
+  hi?: ArticleEntry;
+}
+
+const DEFAULT_LAST_MODIFIED = new Date('2026-04-09');
+
+const makeEntry = (
+  route: string,
+  options: {
+    lastModified?: Date | string;
+    changeFrequency: SitemapItem['changeFrequency'];
+    priority: number;
+    alternates?: SitemapItem['alternates'];
+  },
+): SitemapItem => ({
+  url: getUrl(route),
+  lastModified: options.lastModified ?? DEFAULT_LAST_MODIFIED,
+  changeFrequency: options.changeFrequency,
+  priority: options.priority,
+  ...(options.alternates ? { alternates: options.alternates } : {}),
+});
+
+const parseDate = (value?: string | null): Date => {
+  if (!value) return DEFAULT_LAST_MODIFIED;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? DEFAULT_LAST_MODIFIED : parsed;
+};
+
+const withLangAlternates = (
+  enPath: string,
+  hiPath?: string,
+): SitemapItem['alternates'] | undefined => {
+  if (!hiPath) return undefined;
+
+  return {
+    languages: {
+      en: getUrl(enPath),
+      hi: getUrl(hiPath),
+    },
+  };
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const currentDate = new Date();
-
   /* ---------------- 1. STATIC PAGES (ENGLISH) ---------------- */
-  const coreCalculators = [
-    '/emi-calculator',
-    '/sip-calculator',
-    '/income-tax-calculator',
-    '/home-loan-calculator',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: PRIORITY.HIGH,
-  }));
+  const coreCalculatorPairs: RoutePair[] = [
+    ['/emi-calculator', '/hi/emi-calculator'],
+    ['/sip-calculator', '/hi/sip-calculator'],
+    ['/income-tax-calculator', '/hi/income-tax-calculator'],
+    ['/home-loan-calculator', '/hi/home-loan-calculator'],
+  ];
 
-  const mainPages = [
+  const coreCalculators: MetadataRoute.Sitemap = coreCalculatorPairs.map(
+    ([en, hi]) =>
+      makeEntry(en, {
+        lastModified: DEFAULT_LAST_MODIFIED,
+        changeFrequency: 'weekly',
+        priority: PRIORITY.HIGH,
+        alternates: withLangAlternates(en, hi),
+      }),
+  );
+
+  const mainPages: MetadataRoute.Sitemap = [
     '',
     '/calculators',
     '/guides',
@@ -46,72 +108,100 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/loans',
     '/credit-score',
     '/bank-emi',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: route === '' ? PRIORITY.HOMEPAGE : PRIORITY.MEDIUM_HIGH,
-  }));
+  ].map((route) =>
+    makeEntry(route, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'weekly',
+      priority: route === '' ? PRIORITY.HOMEPAGE : PRIORITY.MEDIUM_HIGH,
+      alternates:
+        route === '/calculators'
+          ? withLangAlternates('/calculators', '/hi/calculators')
+          : route === '/guides'
+            ? withLangAlternates('/guides', '/hi/guides')
+            : route === '/credit-score'
+              ? withLangAlternates('/credit-score', '/hi/credit-score')
+              : undefined,
+    }),
+  );
 
-  const investmentCalculators = [
-    '/lumpsum-calculator',
-    '/swp-calculator',
-    '/fd-calculator',
-    '/rd-calculator',
-    '/ppf-calculator',
-    '/elss-calculator',
-    '/nsc-calculator',
-    '/cagr-calculator',
-    '/sukanya-samriddhi',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: PRIORITY.MEDIUM,
-  }));
+  const investmentCalculatorPairs: RoutePair[] = [
+    ['/lumpsum-calculator', '/hi/lumpsum-calculator'],
+    ['/swp-calculator', '/hi/swp-calculator'],
+    ['/fd-calculator', '/hi/fd-calculator'],
+    ['/rd-calculator', '/hi/rd-calculator'],
+    ['/ppf-calculator', '/hi/ppf-calculator'],
+    ['/elss-calculator', '/hi/elss-calculator'],
+    ['/nsc-calculator', '/hi/nsc-calculator'],
+    ['/cagr-calculator', '/hi/cagr-calculator'],
+    ['/sukanya-samriddhi', '/hi/sukanya-samriddhi'],
+  ];
 
-  const retirementCalculators = [
-    '/epf-calculator',
-    '/nps-calculator',
-    '/retirement-calculator',
-    '/gratuity-calculator',
-    '/apy-calculator',
-    '/fire-calculator',
-    '/goal-planning-calculator',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: PRIORITY.MEDIUM,
-  }));
+  const investmentCalculators: MetadataRoute.Sitemap =
+    investmentCalculatorPairs.map(([en, hi]) =>
+      makeEntry(en, {
+        lastModified: DEFAULT_LAST_MODIFIED,
+        changeFrequency: 'monthly',
+        priority: PRIORITY.MEDIUM,
+        alternates: withLangAlternates(en, hi),
+      }),
+    );
 
-  const taxUtilityCalculators = [
-    '/hra-calculator',
-    '/gst-calculator',
-    '/inflation-calculator',
-    '/simple-interest-calculator',
-    '/compound-interest-calculator',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: PRIORITY.MEDIUM,
-  }));
+  const retirementCalculatorPairs: RoutePair[] = [
+    ['/epf-calculator', '/hi/epf-calculator'],
+    ['/nps-calculator', '/hi/nps-calculator'],
+    ['/retirement-calculator', '/hi/retirement-calculator'],
+    ['/gratuity-calculator', '/hi/gratuity-calculator'],
+    ['/apy-calculator', '/hi/apy-calculator'],
+    ['/fire-calculator', '/hi/fire-calculator'],
+    ['/goal-planning-calculator', '/hi/goal-planning-calculator'],
+  ];
 
-  const loanPages = [
-    '/loans/home-loan',
-    '/loans/personal-loan',
-    '/loans/car-loan',
-    '/loans/education-loan',
-    '/home-loan-rates',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: PRIORITY.MEDIUM_HIGH,
-  }));
+  const retirementCalculators: MetadataRoute.Sitemap =
+    retirementCalculatorPairs.map(([en, hi]) =>
+      makeEntry(en, {
+        lastModified: DEFAULT_LAST_MODIFIED,
+        changeFrequency: 'monthly',
+        priority: PRIORITY.MEDIUM,
+        alternates: withLangAlternates(en, hi),
+      }),
+    );
 
-  const informationalPages = [
+  const taxUtilityCalculatorPairs: RoutePair[] = [
+    ['/hra-calculator', '/hi/hra-calculator'],
+    ['/gst-calculator', '/hi/gst-calculator'],
+    ['/inflation-calculator', '/hi/inflation-calculator'],
+    ['/simple-interest-calculator', '/hi/simple-interest-calculator'],
+    ['/compound-interest-calculator', '/hi/compound-interest-calculator'],
+  ];
+
+  const taxUtilityCalculators: MetadataRoute.Sitemap =
+    taxUtilityCalculatorPairs.map(([en, hi]) =>
+      makeEntry(en, {
+        lastModified: DEFAULT_LAST_MODIFIED,
+        changeFrequency: 'monthly',
+        priority: PRIORITY.MEDIUM,
+        alternates: withLangAlternates(en, hi),
+      }),
+    );
+
+  const loanPagePairs: RoutePair[] = [
+    ['/loans/home-loan', '/hi/loans/home-loan'],
+    ['/loans/personal-loan', '/hi/loans/personal-loan'],
+    ['/loans/car-loan', '/hi/loans/car-loan'],
+    ['/loans/education-loan', '/hi/loans/education-loan'],
+    ['/home-loan-rates'],
+  ];
+
+  const loanPages: MetadataRoute.Sitemap = loanPagePairs.map(([en, hi]) =>
+    makeEntry(en, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'weekly',
+      priority: PRIORITY.MEDIUM_HIGH,
+      alternates: withLangAlternates(en, hi),
+    }),
+  );
+
+  const informationalPages: MetadataRoute.Sitemap = [
     '/about',
     '/contact',
     '/locations',
@@ -120,101 +210,79 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy-policy',
     '/disclaimer',
     '/editorial-guidelines',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'yearly' as const,
-    priority: PRIORITY.LOW,
-  }));
-
-  /* ---------------- 2. STATIC PAGES (HINDI) ---------------- */
-  const hindiCorePages = ['/hi', '/hi/calculators', '/hi/guides'].map(
-    (route) => ({
-      url: getUrl(route),
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: PRIORITY.MEDIUM,
+  ].map((route) =>
+    makeEntry(route, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'yearly',
+      priority: PRIORITY.LOW,
     }),
   );
 
-  const hindiCalculators = [
-    '/hi/sip-calculator',
-    '/hi/lumpsum-calculator',
-    '/hi/swp-calculator',
-    '/hi/fd-calculator',
-    '/hi/rd-calculator',
-    '/hi/ppf-calculator',
-    '/hi/elss-calculator',
-    '/hi/nsc-calculator',
-    '/hi/cagr-calculator',
-    '/hi/sukanya-samriddhi',
-    '/hi/epf-calculator',
-    '/hi/nps-calculator',
-    '/hi/retirement-calculator',
-    '/hi/gratuity-calculator',
-    '/hi/apy-calculator',
-    '/hi/fire-calculator',
-    '/hi/goal-planning-calculator',
-    '/hi/income-tax-calculator',
-    '/hi/hra-calculator',
-    '/hi/gst-calculator',
-    '/hi/emi-calculator',
-    '/hi/home-loan-calculator',
-    '/hi/inflation-calculator',
-    '/hi/compound-interest-calculator',
-    '/hi/simple-interest-calculator',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: PRIORITY.MEDIUM_LOW,
-  }));
-
-  const hindiOtherPages = [
+  /* ---------------- 2. HINDI STANDALONE PAGES ---------------- */
+  const hindiStandalonePages: MetadataRoute.Sitemap = [
+    '/hi',
+    '/hi/calculators',
+    '/hi/guides',
     '/hi/mutual-funds',
     '/hi/credit-score',
-    '/hi/loans/home-loan',
-    '/hi/loans/personal-loan',
-    '/hi/loans/car-loan',
-    '/hi/loans/education-loan',
-  ].map((route) => ({
-    url: getUrl(route),
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: PRIORITY.MEDIUM_LOW,
-  }));
+  ].map((route) =>
+    makeEntry(route, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'weekly',
+      priority: PRIORITY.MEDIUM_LOW,
+    }),
+  );
 
   /* ---------------- 3. GUIDES (DYNAMIC FROM JSON) ---------------- */
-  const seenArticleUrls = new Set<string>();
+  const typedArticles = articlesData as ArticleEntry[];
+  const articlesBySlug = new Map<string, ArticleLangGroup>();
 
-  const articleRoutes = articlesData
-    .filter((article) => !article.hidden)
-    .map((article) => {
-      const path =
-        article.language === 'hi'
-          ? `/hi/guides/${article.slug}`
-          : `/guides/${article.slug}`;
+  for (const article of typedArticles.filter((article) => !article.hidden)) {
+    const existing = articlesBySlug.get(article.slug) ?? {};
+    if (article.language === 'hi') existing.hi = article;
+    else existing.en = article;
+    articlesBySlug.set(article.slug, existing);
+  }
 
-      const url = getUrl(path);
+  const articleRoutes: MetadataRoute.Sitemap = [];
 
-      if (seenArticleUrls.has(url)) return null;
-      seenArticleUrls.add(url);
+  for (const [slug, pair] of articlesBySlug.entries()) {
+    if (pair.en) {
+      const lastModified = parseDate(
+        pair.en.updated || pair.en.modified || pair.en.published,
+      );
 
-      const parsedDate = article.published
-        ? new Date(article.published)
-        : currentDate;
-      const lastModified = Number.isNaN(parsedDate.getTime())
-        ? currentDate
-        : parsedDate;
+      articleRoutes.push(
+        makeEntry(`/guides/${slug}`, {
+          lastModified,
+          changeFrequency: 'monthly',
+          priority: PRIORITY.MEDIUM_HIGH,
+          alternates: pair.hi
+            ? {
+                languages: {
+                  en: getUrl(`/guides/${slug}`),
+                  hi: getUrl(`/hi/guides/${slug}`),
+                },
+              }
+            : undefined,
+        }),
+      );
+    }
 
-      return {
-        url,
-        lastModified,
-        changeFrequency: 'monthly' as const,
-        priority: PRIORITY.MEDIUM_HIGH,
-      };
-    })
-    .filter(Boolean) as MetadataRoute.Sitemap;
+    if (pair.hi && !pair.en) {
+      const lastModified = parseDate(
+        pair.hi.updated || pair.hi.modified || pair.hi.published,
+      );
+
+      articleRoutes.push(
+        makeEntry(`/hi/guides/${slug}`, {
+          lastModified,
+          changeFrequency: 'monthly',
+          priority: PRIORITY.MEDIUM,
+        }),
+      );
+    }
+  }
 
   /* ---------------- 4. BANK COMPARISON PAGES ---------------- */
   const topBanks = [
@@ -233,69 +301,67 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const comparisonRoutes: MetadataRoute.Sitemap = [];
   for (let i = 0; i < topBanks.length; i++) {
     for (let j = i + 1; j < topBanks.length; j++) {
-      comparisonRoutes.push({
-        url: getUrl(`/compare/${topBanks[i]}-vs-${topBanks[j]}`),
-        lastModified: currentDate,
-        changeFrequency: 'weekly' as const,
-        priority: PRIORITY.HIGH,
-      });
+      comparisonRoutes.push(
+        makeEntry(`/compare/${topBanks[i]}-vs-${topBanks[j]}`, {
+          lastModified: DEFAULT_LAST_MODIFIED,
+          changeFrequency: 'weekly',
+          priority: PRIORITY.HIGH,
+        }),
+      );
     }
   }
 
   /* ---------------- 5. CITY EMI PAGES ---------------- */
   const citySlugs = Object.keys(cityDetails).filter((s) => s !== 'default');
 
-  const cityRoutes = citySlugs.map((slug) => ({
-    url: getUrl(`/emi-calculator/${slug}`),
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: PRIORITY.MEDIUM_LOW,
-  }));
+  const cityRoutes: MetadataRoute.Sitemap = citySlugs.map((slug) =>
+    makeEntry(`/emi-calculator/${slug}`, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'monthly',
+      priority: PRIORITY.MEDIUM_LOW,
+    }),
+  );
 
   /* ---------------- 6. BANK & BANK-CITY PAGES ---------------- */
-  /* These are now high-value content pages after our updates */
-  const bankHubRoutes: MetadataRoute.Sitemap = banks.map((bank) => ({
-    url: getUrl(`/bank-emi/${bank.slug}`),
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: PRIORITY.HIGH, // ← Final tweak: HIGH priority
-  }));
+  const bankHubRoutes: MetadataRoute.Sitemap = banks.map((bank) =>
+    makeEntry(`/bank-emi/${bank.slug}`, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'weekly',
+      priority: PRIORITY.HIGH,
+    }),
+  );
 
   const bankCityRoutes: MetadataRoute.Sitemap = [];
-  banks.forEach((bank) => {
-    citySlugs.forEach((city) => {
-      bankCityRoutes.push({
-        url: getUrl(`/bank-emi/${bank.slug}/${city}`),
-        lastModified: currentDate,
-        changeFrequency: 'weekly' as const,
-        priority: PRIORITY.MEDIUM,
-      });
-    });
-  });
+  for (const bank of banks) {
+    for (const city of citySlugs) {
+      bankCityRoutes.push(
+        makeEntry(`/bank-emi/${bank.slug}/${city}`, {
+          lastModified: DEFAULT_LAST_MODIFIED,
+          changeFrequency: 'weekly',
+          priority: PRIORITY.MEDIUM,
+        }),
+      );
+    }
+  }
 
-  /* ---------------- COMBINE ALL ROUTES ---------------- */
-  return [
+  /* ---------------- COMBINE & DEDUPE ---------------- */
+  const allRoutes: MetadataRoute.Sitemap = [
     ...mainPages,
     ...coreCalculators,
-
     ...comparisonRoutes,
     ...loanPages,
-
     ...investmentCalculators,
     ...retirementCalculators,
     ...taxUtilityCalculators,
-
     ...articleRoutes,
-
     ...bankHubRoutes,
-
-    ...hindiCorePages,
-    ...hindiCalculators,
-    ...hindiOtherPages,
-
+    ...hindiStandalonePages,
     ...cityRoutes,
     ...bankCityRoutes,
-
     ...informationalPages,
   ];
+
+  return Array.from(
+    new Map(allRoutes.map((item) => [item.url, item])).values(),
+  );
 }

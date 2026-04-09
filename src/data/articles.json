@@ -593,5 +593,55 @@
     "published": "2025-02-15",
     "language": "en",
     "hidden": true
+  },
+  {
+    "slug": "credit-card-guide",
+    "title": "Credit Card Guide 2026: Fees, Rewards, Interest & Smart Usage in India",
+    "category": "Credit Cards",
+    "seoTitle": "Credit Card Guide 2026: Fees, Rewards, Interest & Smart Usage in India | Fincado",
+    "metaDescription": "Complete Credit Card Guide 2026 for India: Learn how credit cards work, annual fees, billing cycle, interest charges, reward points, cashback, credit score impact, and common mistakes to avoid.",
+    "content": "",
+    "published": "2026-01-05",
+    "language": "en"
+  },
+  {
+    "slug": "investment-guide",
+    "title": "Investment Guide 2026: Best Investment Options in India for Beginners",
+    "category": "Investments",
+    "seoTitle": "Investment Guide 2026: Best Investment Options in India for Beginners | Fincado",
+    "metaDescription": "Complete Investment Guide 2026 for India: Learn where to invest money, compare FD, PPF, SIP, mutual funds, NPS and gold, understand risk, returns, tax, asset allocation, and beginner mistakes.",
+    "content": "",
+    "published": "2026-01-08",
+    "language": "en"
+  },
+  {
+    "slug": "investment-basics",
+    "title": "Investment Basics 2026: Risk, Return, Diversification & Compounding",
+    "category": "Financial Literacy",
+    "seoTitle": "Investment Basics 2026: Risk, Return, Diversification & Compounding | Fincado",
+    "metaDescription": "Learn investment basics for beginners in India: risk vs return, diversification, compounding, liquidity, inflation, time horizon, asset allocation, and how to start investing the right way.",
+    "content": "",
+    "published": "2026-01-09",
+    "language": "en"
+  },
+  {
+    "slug": "elss-funds-guide-2026",
+    "title": "ELSS Funds Guide 2026: Tax Benefits, Lock-in, Returns & How to Invest",
+    "category": "Mutual Funds",
+    "seoTitle": "ELSS Funds Guide 2026: Tax Benefits, Lock-in, Returns & How to Invest | Fincado",
+    "metaDescription": "Complete 2026 ELSS guide: Section 80C deduction up to ₹1.5L under the old tax regime, 3-year lock-in, LTCG tax rules, SIP vs lump sum, ELSS vs PPF/FD/NPS, and how to choose the right fund.",
+    "content": "",
+    "published": "2026-04-01",
+    "language": "en"
+  },
+  {
+    "slug": "sukanya-samriddhi-yojana-guide-2026",
+    "title": "Sukanya Samriddhi Yojana (SSY) Guide 2026: Interest Rate, Rules, Tax Benefits & Calculator",
+    "category": "Government Schemes",
+    "seoTitle": "Sukanya Samriddhi Yojana (SSY) Guide 2026: Interest Rate, Rules, Tax Benefits & Calculator | Fincado",
+    "metaDescription": "Complete 2026 SSY guide: current 8.2% interest rate, eligibility, deposit limits, withdrawal rules, old tax regime 80C benefit, EEE tax treatment, maturity examples, and account opening steps.",
+    "content": "",
+    "published": "2026-04-01",
+    "language": "en"
   }
 ]

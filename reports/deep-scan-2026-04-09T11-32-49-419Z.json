@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-04-09T11:32:49.420Z",
+  "baseUrl": "https://fincado.com",
+  "summary": {
+    "checked": 1217,
+    "working": 1210,
+    "broken": 6,
+    "redirects": 1
+  },
+  "brokenLinks": [
+    {
+      "path": "/guides/elss-funds-guide-2026/",
+      "status": 404,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/sukanya-samriddhi-yojana-guide-2026/",
+      "status": 404,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/emi-calculator-guide/",
+      "status": 0,
+      "error": "Timeout",
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/credit-card-guide/",
+      "status": 404,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/investment-guide/",
+      "status": 404,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/investment-basics/",
+      "status": 404,
+      "source": "crawled"
+    }
+  ],
+  "redirects": [
+    {
+      "path": "/home-loan-calculator/",
+      "status": 301,
+      "location": "https://fincado.com/loans/home-loan/",
+      "source": "crawled"
+    }
+  ]
+}
