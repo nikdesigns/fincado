@@ -12,6 +12,48 @@ interface Props {
   defaultSalary?: number;
 }
 
+const STANDARD_DEDUCTION_NEW = 75000;
+const STANDARD_DEDUCTION_OLD = 50000;
+const REBATE_LIMIT_NEW = 1200000;
+const REBATE_MAX_NEW = 60000;
+const REBATE_LIMIT_OLD = 500000;
+const REBATE_MAX_OLD = 12500;
+const CESS_RATE = 0.04;
+
+const NEW_REGIME_SLABS = [
+  { limit: 400000, rate: 0 },
+  { limit: 800000, rate: 0.05 },
+  { limit: 1200000, rate: 0.1 },
+  { limit: 1600000, rate: 0.15 },
+  { limit: 2000000, rate: 0.2 },
+  { limit: 2400000, rate: 0.25 },
+  { limit: Infinity, rate: 0.3 },
+];
+
+const OLD_REGIME_SLABS = [
+  { limit: 250000, rate: 0 },
+  { limit: 500000, rate: 0.05 },
+  { limit: 1000000, rate: 0.2 },
+  { limit: Infinity, rate: 0.3 },
+];
+
+const calculateSlabTax = (
+  taxableIncome: number,
+  slabs: Array<{ limit: number; rate: number }>,
+) => {
+  let tax = 0;
+  let prevLimit = 0;
+
+  for (const slab of slabs) {
+    if (taxableIncome <= prevLimit) break;
+    const taxableAtThisSlab = Math.min(taxableIncome, slab.limit) - prevLimit;
+    tax += taxableAtThisSlab * slab.rate;
+    prevLimit = slab.limit;
+  }
+
+  return tax;
+};
+
 export default function InlineTaxCalculator({
   defaultSalary = 1500000,
 }: Props) {
@@ -24,71 +66,35 @@ export default function InlineTaxCalculator({
   // Logic for Tax Calculation
   const { taxNew, taxOld } = useMemo(() => {
     // --- NEW REGIME (FY 2025-26) ---
-    // Std Deduction: 75k
-    const taxableNew = Math.max(0, income - 75000);
-    let tNew = 0;
+    const taxableNew = Math.max(0, income - STANDARD_DEDUCTION_NEW);
+    const taxBeforeRebateNew = calculateSlabTax(taxableNew, NEW_REGIME_SLABS);
+    const rebateNew =
+      taxableNew <= REBATE_LIMIT_NEW
+        ? Math.min(taxBeforeRebateNew, REBATE_MAX_NEW)
+        : 0;
+    let tNew = Math.max(0, taxBeforeRebateNew - rebateNew);
 
-    // Slabs 2025-26
-    const slabsNew = [
-      { limit: 400000, rate: 0 },
-      { limit: 800000, rate: 0.05 },
-      { limit: 1200000, rate: 0.1 },
-      { limit: 1600000, rate: 0.15 },
-      { limit: 2000000, rate: 0.2 },
-      { limit: 2400000, rate: 0.25 },
-      { limit: Infinity, rate: 0.3 },
-    ];
-
-    const tempInc = taxableNew;
-    let prevLimit = 0;
-
-    for (let i = 0; i < slabsNew.length; i++) {
-      const slab = slabsNew[i];
-      if (tempInc > prevLimit) {
-        const taxableAtThisSlab = Math.min(tempInc, slab.limit) - prevLimit;
-        tNew += taxableAtThisSlab * slab.rate;
-        prevLimit = slab.limit;
-      }
-    }
-
-    // Rebate 87A + marginal relief (New Regime)
-    if (taxableNew <= 1200000) {
-      tNew = 0;
-    } else {
-      tNew = Math.min(tNew, taxableNew - 1200000);
+    // Marginal relief: incremental tax should not exceed incremental income above rebate limit
+    if (taxableNew > REBATE_LIMIT_NEW) {
+      const reliefCap = taxableNew - REBATE_LIMIT_NEW;
+      tNew = Math.min(tNew, reliefCap);
     }
 
     // --- OLD REGIME ---
-    // Std Deduction: 50k
-    const taxableOld = Math.max(0, income - 50000 - deductions);
-    let tOld = 0;
+    const taxableOld = Math.max(
+      0,
+      income - STANDARD_DEDUCTION_OLD - deductions,
+    );
+    const taxBeforeRebateOld = calculateSlabTax(taxableOld, OLD_REGIME_SLABS);
+    const rebateOld =
+      taxableOld <= REBATE_LIMIT_OLD
+        ? Math.min(taxBeforeRebateOld, REBATE_MAX_OLD)
+        : 0;
+    let tOld = Math.max(0, taxBeforeRebateOld - rebateOld);
 
-    const slabsOld = [
-      { limit: 250000, rate: 0 },
-      { limit: 500000, rate: 0.05 },
-      { limit: 1000000, rate: 0.2 },
-      { limit: Infinity, rate: 0.3 },
-    ];
-
-    const tempIncOld = taxableOld;
-    let prevLimitOld = 0;
-
-    for (let i = 0; i < slabsOld.length; i++) {
-      const slab = slabsOld[i];
-      if (tempIncOld > prevLimitOld) {
-        const taxableAtThisSlab =
-          Math.min(tempIncOld, slab.limit) - prevLimitOld;
-        tOld += taxableAtThisSlab * slab.rate;
-        prevLimitOld = slab.limit;
-      }
-    }
-
-    // Rebate 87A Old Regime (Income <= 5L)
-    if (taxableOld <= 500000) tOld = 0;
-
-    // Add 4% Cess
-    tNew = Math.round(tNew * 1.04);
-    tOld = Math.round(tOld * 1.04);
+    // Add 4% cess after rebate/relief
+    tNew = Math.round(tNew * (1 + CESS_RATE));
+    tOld = Math.round(tOld * (1 + CESS_RATE));
 
     return { taxNew: tNew, taxOld: tOld };
   }, [income, deductions]);
@@ -105,15 +111,15 @@ export default function InlineTaxCalculator({
   const isNewBetter = savings >= 0;
 
   return (
-    <Card className="border-2 border-slate-200 shadow-lg my-8 no-print overflow-hidden bg-white">
-      <CardHeader className="bg-lime-50/80 border-b border-lime-100 py-3 px-6">
+    <Card className="border-none shadow-none border-slate-200 my-8 no-print overflow-hidden bg-white">
+      <CardHeader className="bg-[#F7FDF1] border-none border-[#EFFBE2] py-3 px-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-lime-800 font-bold text-sm uppercase tracking-wide">
+          <div className="flex items-center gap-2 text-[#577A30] font-semibold text-sm uppercase tracking-wide">
             <Zap className="h-4 w-4" /> Quick Tax Check ({fy.fullFormat})
           </div>
           <Badge
             variant="outline"
-            className="bg-white text-lime-700 border-lime-200 text-[10px] uppercase font-bold"
+            className="bg-white text-[#577A30] border-[#DFF7C6] text-[10px] uppercase font-semibold"
           >
             {budgetText}
           </Badge>
@@ -137,9 +143,11 @@ export default function InlineTaxCalculator({
                 id="income"
                 type="number"
                 value={income}
-                onChange={(e) => setIncome(Number(e.target.value))}
+                onChange={(e) =>
+                  setIncome(Math.max(0, Number(e.target.value) || 0))
+                }
                 step={50000}
-                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-lime-500 font-bold text-slate-900"
+                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-[#B0EC70] font-semibold text-slate-900"
               />
             </div>
           </div>
@@ -158,9 +166,11 @@ export default function InlineTaxCalculator({
                 id="deductions"
                 type="number"
                 value={deductions}
-                onChange={(e) => setDeductions(Number(e.target.value))}
+                onChange={(e) =>
+                  setDeductions(Math.max(0, Number(e.target.value) || 0))
+                }
                 placeholder="e.g. 150000"
-                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-lime-500 font-bold text-slate-900"
+                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-[#B0EC70] font-semibold text-slate-900"
               />
             </div>
             <p className="text-[10px] text-slate-500">
@@ -173,33 +183,33 @@ export default function InlineTaxCalculator({
           <div
             className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
               isNewBetter
-                ? 'bg-lime-50 border-lime-200 shadow-sm'
+                ? 'bg-[#F7FDF1] border-[#DFF7C6]'
                 : 'bg-slate-50 border-slate-200 opacity-70'
             }`}
           >
-            <span className="text-[10px] uppercase font-bold text-slate-500 mb-1">
+            <span className="text-[10px] uppercase font-semibold text-slate-500 mb-1">
               New Regime Tax
             </span>
             <span
               className={`text-xl sm:text-2xl font-black ${
-                isNewBetter ? 'text-lime-700' : 'text-slate-700'
+                isNewBetter ? 'text-[#577A30]' : 'text-slate-700'
               }`}
             >
               {formatCurrency(taxNew)}
             </span>
             {isNewBetter && (
-              <CheckCircle2 className="h-4 w-4 text-lime-600 mt-2" />
+              <CheckCircle2 className="h-4 w-4 text-[#577A30] mt-2" />
             )}
           </div>
 
           <div
             className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
               !isNewBetter
-                ? 'bg-blue-50 border-blue-200 shadow-sm'
+                ? 'bg-blue-50 border-blue-200'
                 : 'bg-slate-50 border-slate-200 opacity-70'
             }`}
           >
-            <span className="text-[10px] uppercase font-bold text-slate-500 mb-1">
+            <span className="text-[10px] uppercase font-semibold text-slate-500 mb-1">
               Old Regime Tax
             </span>
             <span
@@ -218,15 +228,15 @@ export default function InlineTaxCalculator({
         <div
           className={`text-center py-3 px-4 rounded-lg border-2 border-dashed ${
             isNewBetter
-              ? 'bg-lime-50/50 border-lime-100 text-lime-900'
+              ? 'bg-[#F7FDF1]/50 border-[#EFFBE2] text-[#1B2E06]'
               : 'bg-blue-50/50 border-blue-100 text-blue-900'
           }`}
         >
           {isNewBetter ? (
             <p className="font-medium flex items-center justify-center gap-2">
-              <Calculator className="h-4 w-4 text-lime-600" />
+              <Calculator className="h-4 w-4 text-[#577A30]" />
               New Regime saves you{' '}
-              <span className="font-bold text-lime-700">
+              <span className="font-semibold text-[#577A30]">
                 {formatCurrency(savings)}
               </span>{' '}
               🎉
@@ -235,7 +245,7 @@ export default function InlineTaxCalculator({
             <p className="font-medium flex items-center justify-center gap-2">
               <Calculator className="h-4 w-4 text-blue-600" />
               Old Regime saves you{' '}
-              <span className="font-bold text-blue-700">
+              <span className="font-semibold text-blue-700">
                 {formatCurrency(Math.abs(savings))}
               </span>{' '}
               ✅

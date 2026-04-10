@@ -39,29 +39,33 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '8 Lakhs',
-  year: 'FY 2026-27',
+  year: 'FY 2025-26',
   slug: 'tax-on-8-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-8-lakh-salary-hero.webp',
+  standardDeductionNew: 75000,
+  standardDeductionOld: 50000,
+  rebateLimitNew: 1200000,
+  rebateMaxNew: 60000,
 };
 
-// --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Tax on ₹8 Lakh Salary (2025): The ₹7 Lakh Tax-Free Trap Explained',
+  title: 'Tax on ₹8 Lakh Salary (FY 2025-26): Still Zero Tax? + In-Hand',
   description:
-    'Earning ₹8 Lakhs? Crossing the ₹7 Lakh limit removes the 87A rebate. See New vs Old tax, in-hand salary, and how to avoid losing ₹23,400.',
+    'Earning ₹8 Lakhs? You still pay ZERO tax under New Regime (FY 2025-26). ₹75,000 Standard Deduction + full Section 87A rebate (up to ₹12L taxable income). Full in-hand breakdown & calculator inside.',
   keywords: [
     'Tax on 8 lakh salary',
     '8 LPA in hand salary',
-    'tax on 8 lakh in new regime',
-    'marginal relief on 8 lakh salary',
-    'income tax calculator 2025',
+    'is 8 lakh income tax free',
+    'section 87a rebate limit 2025-26',
+    '8 lakh salary tax calculator',
+    'new tax regime 2025-26',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
   openGraph: {
-    title: 'Tax on ₹8 Lakh Salary (2025): The ₹7 Lakh Tax-Free Trap Explained',
+    title: 'Tax on ₹8 Lakh Salary: Still Zero Tax (FY 2025-26)',
     description:
-      'Earning ₹8 Lakhs? Crossing the ₹7 Lakh limit removes the 87A rebate. See New vs Old tax, in-hand salary, and how to avoid losing ₹23,400.',
+      'Good news: ₹8 Lakhs salary is still effectively tax-free under New Regime. See exact math, monthly in-hand & Old vs New comparison.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     authors: ['Fincado Team'],
@@ -70,41 +74,39 @@ export const metadata: Metadata = {
 };
 
 export default function Tax8LakhGuide() {
-  const pageTitle =
-    'Tax on ₹8 Lakh Salary (2025): The ₹7 Lakh Tax-Free Trap Explained';
+  const pageTitle = `Tax on ₹8 Lakh Salary: Zero Tax Explanation (${CONFIG.year})`;
 
   // --- FAQS ---
   const faqData = [
     {
       question: 'Is ₹8 lakh salary tax-free?',
       answer:
-        'No. While income up to ₹7.75 Lakhs (Gross) is tax-free under the New Regime, earning ₹8 Lakhs attracts a tax of approx ₹23,400.',
+        'Yes. Under the New Tax Regime (FY 2025-26), after ₹75,000 standard deduction your taxable income is ₹7.25 Lakhs. Since this is below the ₹12 Lakh rebate limit, you get full Section 87A rebate and pay zero tax.',
     },
     {
       question: 'How much tax on 8 LPA under New Regime?',
       answer:
-        'For ₹8 Lakhs, your taxable income is ₹7.25 Lakhs (after ₹75k std deduction). The tax payable is ₹23,400 (including cess).',
+        '₹0. Your gross tax is ₹16,250, but it is fully offset by the Section 87A rebate.',
     },
     {
       question: 'What is the monthly in-hand salary for 8 LPA?',
       answer:
-        'After deducting PF (~₹3,600) and Tax (~₹1,950), your monthly take-home is roughly ₹60,900.',
+        'With zero tax under the New Regime, your monthly in-hand (after PF ~₹3,600 and Professional Tax ₹200) is approximately ₹62,867.',
     },
     {
       question: 'Is there marginal relief on ₹8 lakh salary?',
       answer:
-        'No. Marginal relief does not apply here. The tax arises because income exceeds ₹7 lakh, making you ineligible for the Section 87A rebate.',
+        'Not needed. The enhanced 87A rebate (up to ₹12L taxable income) already makes the entire ₹8 Lakh salary tax-free in the New Regime.',
     },
     {
-      question: 'How can I avoid tax on ₹8 lakh salary?',
+      question: 'How can I reduce tax further on ₹8 lakh salary?',
       answer:
-        'You can reduce taxable income below ₹7 lakh using Old Regime deductions like 80C, HRA, or NPS, or restructure salary components.',
+        'The New Regime already gives you zero tax. If you have large deductions (80C, HRA, home loan etc.), compare with Old Regime using the calculator.',
     },
   ];
 
   return (
     <article className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
-      {/* --- BREADCRUMBS --- */}
       <BreadcrumbJsonLd
         items={[
           { name: 'Guides', url: 'https://fincado.com/guides/' },
@@ -118,7 +120,6 @@ export default function Tax8LakhGuide() {
 
       <FAQSchema faqs={faqData} />
 
-      {/* --- ARTICLE SCHEMA --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -142,7 +143,7 @@ export default function Tax8LakhGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: '/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',
@@ -153,11 +154,12 @@ export default function Tax8LakhGuide() {
 
       {/* --- HEADER --- */}
       <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        {/* In HEADER */}
         <Badge
           variant="secondary"
-          className="mb-3 bg-red-100 text-red-800 hover:bg-red-200 px-3 py-1"
+          className="mb-3 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-3 py-1"
         >
-          Income Tax Guide
+          Zero Tax Zone
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           {pageTitle}
@@ -168,7 +170,7 @@ export default function Tax8LakhGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">FY 2025-26</strong>
+            Updated: <strong className="text-slate-700">{CONFIG.year}</strong>
           </span>
         </div>
         <div className="mt-6">
@@ -188,11 +190,12 @@ export default function Tax8LakhGuide() {
           />
         </div>
         <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          {/* In HERO IMAGE Card */}
           <WikiText
-            content={`<p>Earning <strong>₹8 Lakhs (8 LPA)</strong> is a tricky spot in the Indian tax system. You are just barely above the tax-free limit. A difference of ₹25,000 in salary can suddenly trigger a tax bill of over ₹23,000.</p>`}
+            content={`<p>Earning <strong>₹8 Lakhs (8 LPA)</strong> still puts you in the Zero Tax Zone under the <strong>New Tax Regime (${CONFIG.year})</strong>. The <strong>₹75,000 Standard Deduction</strong> reduces your taxable income to <strong>₹7.25 Lakhs</strong>. Since this is well below the ₹12 Lakh rebate limit, you get the full <strong>Section 87A rebate</strong>, making your tax payable <strong>zero</strong>.</p>`}
           />
-          <Badge className="mt-4 bg-red-100 text-red-800 hover:bg-red-200">
-            Status: Taxable (Trap Zone)
+          <Badge className="mt-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+            Status: Tax-Free under New Regime ({CONFIG.year})
           </Badge>
         </CardContent>
       </Card>
@@ -207,20 +210,21 @@ export default function Tax8LakhGuide() {
         <CardContent>
           <div className="space-y-4 text-lime-900">
             <p className="text-lg">
-              For a <strong>₹8 Lakh salary</strong>, the{' '}
-              <strong>New Tax Regime</strong> is the winner. You will pay approx{' '}
-              <span className="font-bold text-xl">₹23,400</span> in tax.
+              For a <strong>₹8 Lakh salary</strong>, your tax payable is{' '}
+              <span className="font-bold text-2xl">₹0 (Zero)</span> under the
+              New Tax Regime.
             </p>
-            <p className="text-sm italic text-slate-600 bg-white/50 p-2 rounded">
-              If you earn ₹8 lakh per year, your take-home salary is roughly
-              ₹61,000 per month.
+            <p>
+              <strong>Why?</strong> Your calculated tax is{' '}
+              <strong>₹16,250</strong>, but the government gives you a full
+              discount (Rebate u/s 87A up to ₹12 Lakh taxable income).
             </p>
-            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-lime-200 text-sm text-red-800">
+            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-lime-200 text-sm text-amber-800">
               <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
               <span>
-                <strong>Old Regime Warning:</strong> The Old Regime demands a
-                huge tax of <strong>₹65,000</strong> unless you have deductions
-                exceeding <strong>₹2.60 Lakhs</strong>.
+                <strong>Old Regime Warning:</strong> Without substantial
+                investments, you will pay approx <strong>₹65,000</strong> in
+                tax.
               </span>
             </div>
 
@@ -239,41 +243,44 @@ export default function Tax8LakhGuide() {
         <AdSlot id="tax-8l-1" type="in-article" />
       </div>
 
-      {/* --- SECTION 1: THE TRAP EXPLAINED --- */}
+      {/* --- SECTION 1: STILL ZERO TAX --- */}
       <section className="mb-12">
         <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
-          <AlertTriangle className="h-6 w-6 text-red-600" /> The &quot;8
-          Lakh&quot; Trap Explained
+          <AlertTriangle className="h-6 w-6 text-emerald-600" /> Still Zero Tax
+          at ₹8 Lakhs
         </h2>
-        <Card className="bg-red-50 border-red-200 mb-6">
+        <Card className="bg-emerald-50 border-emerald-200 mb-6">
           <CardHeader className="pb-2">
-            <CardTitle className="text-red-900 text-lg">
-              Why do you pay tax on ₹8L when ₹7L is free?
+            <CardTitle className="text-emerald-900 text-lg">
+              How the rebate works at ₹8 Lakhs ({CONFIG.year})
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-sm text-red-900">
+          <CardContent className="text-sm text-emerald-900">
             <ul className="space-y-4">
-              <li className="bg-white p-3 rounded border border-red-100 shadow-sm">
-                <strong>Scenario A: Salary ₹7.75 Lakhs</strong>
+              <li className="bg-white p-3 rounded border border-emerald-100 shadow-sm">
+                <strong>₹7.75 Lakhs Salary</strong>
                 <br />
-                Minus ₹75k Std Deduction = Net Income ₹7.00 Lakhs.
+                Minus ₹75k Std Deduction = Taxable ₹7.00 Lakhs.
                 <br />
                 <span className="text-emerald-600 font-bold">
                   Tax = ZERO
                 </span>{' '}
-                (Due to 87A Rebate).
+                (Full 87A Rebate).
               </li>
-              <li className="bg-white p-3 rounded border border-red-100 shadow-sm">
-                <strong>Scenario B: Salary ₹8.00 Lakhs</strong>
+              <li className="bg-white p-3 rounded border border-emerald-100 shadow-sm">
+                <strong>₹8.00 Lakhs Salary</strong>
                 <br />
-                Minus ₹75k Std Deduction = Net Income ₹7.25 Lakhs.
+                Minus ₹75k Std Deduction = Taxable ₹7.25 Lakhs.
                 <br />
-                <span className="text-red-600 font-bold">Tax = ₹23,400</span>.
+                <span className="text-emerald-600 font-bold">
+                  Tax = ZERO
+                </span>{' '}
+                (Still under ₹12L rebate limit).
               </li>
             </ul>
             <p className="mt-4 font-medium">
-              Result: Earning that extra ₹25,000 basically costs you ₹23,400 in
-              taxes. You only keep ₹1,600 of your raise!
+              The higher rebate limit (₹12 Lakhs taxable income) means even ₹8
+              Lakhs salary remains completely tax-free in the New Regime.
             </p>
           </CardContent>
         </Card>
@@ -296,10 +303,10 @@ export default function Tax8LakhGuide() {
                   Component
                 </TableHead>
                 <TableHead className="font-bold text-slate-900">
-                  New Regime
+                  New Regime (Recommended)
                 </TableHead>
                 <TableHead className="font-bold text-slate-900">
-                  Old Regime
+                  Old Regime (No Invest)
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -309,10 +316,10 @@ export default function Tax8LakhGuide() {
                   Gross Salary
                 </TableCell>
                 <TableCell className="font-bold text-slate-900">
-                  ₹66,666
+                  ₹66,667
                 </TableCell>
                 <TableCell className="font-bold text-slate-900">
-                  ₹66,666
+                  ₹66,667
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -331,29 +338,28 @@ export default function Tax8LakhGuide() {
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium text-slate-700">
-                  Less: TDS
+                  Less: TDS (Tax)
                 </TableCell>
-                <TableCell className="text-red-600 font-bold">
-                  - ₹1,950
-                </TableCell>
-                <TableCell className="text-red-600 font-bold">
-                  - ₹5,416
-                </TableCell>
+                <TableCell className="text-emerald-600 font-bold">₹0</TableCell>
+                <TableCell className="text-red-600">- ₹5,416</TableCell>
               </TableRow>
               <TableRow className="bg-emerald-50">
                 <TableCell className="font-bold text-emerald-900 text-lg">
                   In-Hand Salary
                 </TableCell>
                 <TableCell className="font-bold text-emerald-700 text-lg">
-                  ₹60,916
+                  ₹62,867
                 </TableCell>
                 <TableCell className="font-bold text-amber-700 text-lg">
-                  ₹57,450
+                  ₹57,451
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
+        <p className="text-xs text-slate-500 italic">
+          *PF is assumed at 12% of Basic Salary (Basic assumed as 50% of CTC).
+        </p>
       </section>
 
       {/* --- SECTION 3: CALCULATION --- */}
@@ -363,14 +369,19 @@ export default function Tax8LakhGuide() {
           className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-purple-600" /> Tax Calculation
-          (New Regime)
+          (New Regime – {CONFIG.year})
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
             <div className="mb-6 bg-slate-50 p-4 rounded border border-slate-200 text-sm text-slate-700">
-              Standard Deduction: <strong>₹75,000</strong>.
+              Standard Deduction:{' '}
+              <strong>
+                ₹{CONFIG.standardDeductionNew.toLocaleString('en-IN')}
+              </strong>
               <br />
-              Taxable Income: ₹8,00,000 - ₹75,000 = <strong>₹7,25,000</strong>.
+              Taxable Income: ₹8,00,000 - ₹
+              {CONFIG.standardDeductionNew.toLocaleString('en-IN')} ={' '}
+              <strong>₹7,25,000</strong>.
             </div>
 
             <div className="overflow-hidden rounded-lg border border-slate-200 mb-6 shadow-sm">
@@ -390,27 +401,42 @@ export default function Tax8LakhGuide() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>0 - 3L</TableCell>
+                    <TableCell>0 - ₹4 Lakhs</TableCell>
                     <TableCell>Nil</TableCell>
-                    <TableCell>0</TableCell>
+                    <TableCell>₹0</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>3L - 7L</TableCell>
+                    <TableCell>₹4 Lakhs - ₹7.25 Lakhs</TableCell>
                     <TableCell>5%</TableCell>
-                    <TableCell>₹20,000</TableCell>
+                    <TableCell>₹3,25,000 × 5% = ₹16,250</TableCell>
                   </TableRow>
-                  <TableRow>
-                    <TableCell>7L - 7.25L</TableCell>
-                    <TableCell>10%</TableCell>
-                    <TableCell>₹2,500</TableCell>
-                  </TableRow>
-                  <TableRow className="font-bold bg-slate-50 text-slate-900">
-                    <TableCell>Total + Cess(4%)</TableCell>
+                  <TableRow className="font-bold bg-slate-50">
+                    <TableCell>Gross Tax</TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell>₹23,400</TableCell>
+                    <TableCell>₹16,250</TableCell>
+                  </TableRow>
+                  <TableRow className="font-bold text-emerald-600 bg-emerald-50/50">
+                    <TableCell>Less: Rebate 87A</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>- ₹16,250</TableCell>
+                  </TableRow>
+                  <TableRow className="font-bold text-emerald-800 bg-emerald-100">
+                    <TableCell>Net Payable</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>₹0</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-900">
+              <strong>Note on Section 87A ({CONFIG.year}):</strong> Full tax
+              rebate (up to ₹{CONFIG.rebateMaxNew.toLocaleString('en-IN')}) if
+              taxable income ≤{' '}
+              <strong>
+                ₹{(CONFIG.rebateLimitNew / 100000).toLocaleString('en-IN')}{' '}
+                Lakhs
+              </strong>
+              . Your ₹7.25L is comfortably within the limit.
             </div>
           </CardContent>
         </Card>

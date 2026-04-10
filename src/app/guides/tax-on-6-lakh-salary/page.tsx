@@ -40,31 +40,37 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '6 Lakhs',
-  year: 'FY 2026-27',
+  year: 'FY 2025-26',
   slug: 'tax-on-6-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-6-lakh-salary-hero.webp',
+  // New constants for future-proofing
+  standardDeductionNew: 75000,
+  standardDeductionOld: 50000,
+  rebateLimitNew: 1200000,
+  rebateMaxNew: 60000,
 };
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Tax on ₹6 Lakh Salary (2025): Tax-Free or Taxable? + In-Hand',
+  title: 'Tax on ₹6 Lakh Salary (FY 2025-26): Still Zero Tax? + In-Hand',
   description:
-    'Is ₹6 Lakh salary tax-free? Yes! Calculate your zero-tax in-hand salary for FY 2025-26. Understand Section 87A rebate and New vs Old Regime.',
+    'Is ₹6 Lakh salary tax-free in FY 2025-26? Yes! Zero tax under New Regime (Section 87A rebate up to ₹12 Lakh taxable income). Full in-hand salary breakdown & calculator.',
   keywords: [
     'Tax on 6 lakh salary',
     '6 LPA in hand salary',
     'is 6 lakh income tax free',
-    'section 87a rebate limit 2025',
+    'section 87a rebate limit 2025-26',
     '6 lakh salary tax calculator',
+    'new tax regime 2025-26',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
-    title: 'Tax on ₹6 Lakh Salary: Zero Tax Guide (2025)',
+    title: 'Tax on ₹6 Lakh Salary: Zero Tax (FY 2025-26)',
     description:
-      'Earning ₹6 Lakhs? Good news: You likely pay ZERO tax. See the calculation and your monthly in-hand salary breakdown here.',
+      '₹6 Lakhs salary = ₹0 tax under New Regime. See exact calculation, monthly in-hand salary & why Old Regime can cost you ₹23k+.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     authors: ['Fincado Team'],
@@ -73,19 +79,21 @@ export const metadata: Metadata = {
 };
 
 export default function Tax6LakhGuide() {
-  const pageTitle = 'Tax on ₹6 Lakh Salary: Zero Tax Explanation (FY 2025-26)';
+  const pageTitle = `Tax on ₹6 Lakh Salary: Zero Tax Explanation (${CONFIG.year})`;
+  const taxableIncomeNew = 600000 - CONFIG.standardDeductionNew;
+  const taxableIncomeOld = 600000 - CONFIG.standardDeductionOld;
+  const grossTaxNew = (taxableIncomeNew - 400000) * 0.05;
 
   // --- FAQS ---
   const faqData = [
     {
       question: 'Is 6 Lakh income tax-free?',
-      answer:
-        'Yes, under the New Tax Regime (FY 2025-26), a salary of ₹6 Lakhs is effectively tax-free. Although income tax is calculated, it is fully offset by the Section 87A rebate.',
+      answer: `Yes, under the New Tax Regime (${CONFIG.year}), a salary of ₹6 Lakhs is effectively tax-free. Although income tax of ₹6,250 is calculated, it is fully offset by the Section 87A rebate (limit ₹12 Lakhs taxable income).`,
     },
     {
       question: 'How much tax on 6 LPA in Old Regime?',
       answer:
-        'In the Old Regime, a ₹6 Lakh salary is NOT tax-free by default. After the ₹50,000 standard deduction, your taxable income is ₹5.5 Lakhs. Since this exceeds the ₹5 Lakh rebate limit, you would pay approx ₹23,400 in tax unless you invest in 80C.',
+        'In the Old Regime, a ₹6 Lakh salary is NOT tax-free by default. After the ₹50,000 standard deduction, your taxable income is ₹5.5 Lakhs. Since this exceeds the ₹5 Lakh rebate limit, you would pay approx ₹23,400 in tax unless you invest in 80C / other deductions.',
     },
     {
       question: 'What is the in-hand salary for 6 LPA?',
@@ -134,11 +142,11 @@ export default function Tax6LakhGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: '/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',
-            dateModified: '2025-02-15',
+            dateModified: '2026-04-10',
           }),
         }}
       />
@@ -151,7 +159,7 @@ export default function Tax6LakhGuide() {
         >
           Zero Tax Zone
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           {pageTitle}
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
@@ -160,7 +168,7 @@ export default function Tax6LakhGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">FY 2025-26</strong>
+            Updated: <strong className="text-slate-700">{CONFIG.year}</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -185,10 +193,10 @@ export default function Tax6LakhGuide() {
         </div>
         <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
           <WikiText
-            content={`<p>Good news! Earning <strong>₹6 Lakhs (6 LPA)</strong> puts you in the "Sweet Spot" of Indian taxation. Under the <strong>New Tax Regime (FY 2025-26)</strong>, the government offers a tax rebate under <strong>Section 87A</strong> if your taxable income does not exceed <strong>₹7 Lakhs</strong>. Since your taxable income (after the ₹75,000 Standard Deduction) is only ₹5.25 Lakhs, you pay absolutely <strong>Zero Tax</strong>.</p>`}
+            content={`<p>Good news! Earning <strong>₹6 Lakhs (6 LPA)</strong> still puts you in the "Zero Tax Zone". Under the <strong>New Tax Regime (${CONFIG.year})</strong>, the government offers a full tax rebate under <strong>Section 87A</strong> if your taxable income does not exceed <strong>₹12 Lakhs</strong>. After the ₹75,000 Standard Deduction your taxable income is only ₹5.25 Lakhs → you pay absolutely <strong>Zero Tax</strong>.</p>`}
           />
           <Badge className="mt-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
-            Status: Tax-Free under New Regime
+            Status: Tax-Free under New Regime ({CONFIG.year})
           </Badge>
         </CardContent>
       </Card>
@@ -204,13 +212,13 @@ export default function Tax6LakhGuide() {
           <div className="space-y-4 text-lime-900">
             <p className="text-lg">
               For a <strong>₹6 Lakh salary</strong>, your tax payable is{' '}
-              <span className="font-bold text-2xl">₹0 (Zero)</span> under the
-              New Tax Regime.
+              <span className="font-semibold text-2xl">₹0 (Zero)</span> under
+              the New Tax Regime.
             </p>
             <p>
               <strong>Why?</strong> Your calculated tax is{' '}
-              <strong>₹11,250</strong>, but the government gives you a full
-              discount (Rebate u/s 87A), making the final amount zero.
+              <strong>₹6,250</strong>, but the government gives you a full
+              discount (Rebate u/s 87A up to ₹12 Lakh taxable income).
             </p>
             <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-lime-200 text-sm text-amber-800">
               <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
@@ -240,7 +248,7 @@ export default function Tax6LakhGuide() {
       <section className="mb-12">
         <h2
           id="take-home-salary"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Wallet className="h-6 w-6 text-blue-600" /> Monthly In-Hand Breakdown
         </h2>
@@ -249,13 +257,13 @@ export default function Tax6LakhGuide() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Component
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   New Regime (Recommended)
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Old Regime (No Invest)
                 </TableHead>
               </TableRow>
@@ -265,10 +273,10 @@ export default function Tax6LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Gross Salary
                 </TableCell>
-                <TableCell className="font-bold text-slate-900">
+                <TableCell className="font-semibold text-slate-900">
                   ₹50,000
                 </TableCell>
-                <TableCell className="font-bold text-slate-900">
+                <TableCell className="font-semibold text-slate-900">
                   ₹50,000
                 </TableCell>
               </TableRow>
@@ -290,17 +298,19 @@ export default function Tax6LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Less: TDS (Tax)
                 </TableCell>
-                <TableCell className="text-emerald-600 font-bold">₹0</TableCell>
+                <TableCell className="text-emerald-600 font-semibold">
+                  ₹0
+                </TableCell>
                 <TableCell className="text-red-600">- ₹1,950</TableCell>
               </TableRow>
               <TableRow className="bg-emerald-50">
-                <TableCell className="font-bold text-emerald-900 text-lg">
+                <TableCell className="font-semibold text-emerald-900 text-lg">
                   In-Hand Salary
                 </TableCell>
-                <TableCell className="font-bold text-emerald-700 text-lg">
+                <TableCell className="font-semibold text-emerald-700 text-lg">
                   ₹46,800
                 </TableCell>
-                <TableCell className="font-bold text-amber-700 text-lg">
+                <TableCell className="font-semibold text-amber-700 text-lg">
                   ₹44,850
                 </TableCell>
               </TableRow>
@@ -316,7 +326,7 @@ export default function Tax6LakhGuide() {
       <section className="mb-12">
         <h2
           id="salary-flow"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <TrendingUp className="h-6 w-6 text-indigo-600" /> Where Does Your ₹6L
           Go?
@@ -327,7 +337,9 @@ export default function Tax6LakhGuide() {
               <strong className="block text-emerald-600 mb-2 text-lg">
                 💰 In Pocket (93.6%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹5.61 L</span>
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹5.61 L
+              </span>
               <p className="text-sm text-slate-600 mt-2">
                 Maximum possible take-home.
               </p>
@@ -338,7 +350,7 @@ export default function Tax6LakhGuide() {
               <strong className="block text-emerald-600 mb-2 text-lg">
                 🏛️ Income Tax (0%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹0</span>
+              <span className="text-3xl font-semibold text-slate-900">₹0</span>
               <p className="text-sm text-slate-600 mt-2">
                 Zero tax under current law.
               </p>
@@ -347,9 +359,11 @@ export default function Tax6LakhGuide() {
           <Card className="border-t-4 border-t-blue-500 shadow-sm">
             <CardContent className="pt-6">
               <strong className="block text-blue-600 mb-2 text-lg">
-                🏦 Retirals (6.0%)
+                🏦 Retiral Savings (6.0%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹0.36 L</span>
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹0.36 L
+              </span>
               <p className="text-sm text-slate-600 mt-2">Compulsory savings.</p>
             </CardContent>
           </Card>
@@ -360,30 +374,31 @@ export default function Tax6LakhGuide() {
       <section className="mb-12">
         <h2
           id="new-regime"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-purple-600" /> Why is Tax Zero?
-          (The Math)
+          (The Math – {CONFIG.year})
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
             <p className="mb-4 text-slate-700">
               Under New Regime, Standard Deduction is ₹75,000.
               <br />
-              <strong>Taxable Income</strong> = ₹6,00,000 - ₹75,000 ={' '}
+              <strong>Taxable Income</strong> = ₹6,00,000 - ₹
+              {CONFIG.standardDeductionNew.toLocaleString('en-IN')} ={' '}
               <strong>₹5,25,000</strong>.
             </p>
             <div className="overflow-hidden rounded-lg border border-slate-200 mb-6 shadow-sm">
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-100 hover:bg-slate-100">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Slab
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Rate
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Calculation
                     </TableHead>
                   </TableRow>
@@ -391,25 +406,34 @@ export default function Tax6LakhGuide() {
                 <TableBody>
                   <TableRow>
                     <TableCell>0 - 3L</TableCell>
+                    <TableCell>0 - ₹4 Lakhs</TableCell>
                     <TableCell>Nil</TableCell>
                     <TableCell>₹0</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>3L - 5.25L</TableCell>
+                    <TableCell>₹4 Lakhs - ₹5.25 Lakhs</TableCell>
                     <TableCell>5%</TableCell>
                     <TableCell>₹11,250</TableCell>
+                    <TableCell>₹1,25,000 × 5% = ₹6,250</TableCell>
                   </TableRow>
-                  <TableRow className="font-bold bg-slate-50">
+                  <TableRow className="font-semibold bg-slate-50">
                     <TableCell>Gross Tax</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>₹11,250</TableCell>
+                    <TableCell>
+                      ₹{grossTaxNew.toLocaleString('en-IN')}
+                    </TableCell>
                   </TableRow>
-                  <TableRow className="font-bold text-emerald-600 bg-emerald-50/50">
+                  <TableRow className="font-semibold text-emerald-600 bg-emerald-50/50">
                     <TableCell>Less: Rebate 87A</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>- ₹11,250</TableCell>
+                    <TableCell>
+                      - ₹{grossTaxNew.toLocaleString('en-IN')}
+                    </TableCell>
                   </TableRow>
-                  <TableRow className="font-bold text-emerald-800 bg-emerald-100">
+                  <TableRow className="font-semibold text-emerald-800 bg-emerald-100">
                     <TableCell>Net Payable</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>₹0</TableCell>
@@ -418,10 +442,14 @@ export default function Tax6LakhGuide() {
               </Table>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-900">
-              <strong>Note on Section 87A:</strong> In the New Regime, you get a
-              full tax rebate if your taxable income does not exceed{' '}
-              <strong>₹7 Lakhs</strong>. Since ₹5.25L is well within this limit,
-              your tax is waived off.
+              <strong>Note on Section 87A ({CONFIG.year}):</strong> Full tax
+              rebate (up to ₹{CONFIG.rebateMaxNew.toLocaleString('en-IN')}) if
+              taxable income ≤{' '}
+              <strong>
+                ₹{(CONFIG.rebateLimitNew / 100000).toLocaleString('en-IN')}{' '}
+                Lakhs
+              </strong>
+              . Your ₹5.25L is well within this limit.
             </div>
           </CardContent>
         </Card>
@@ -431,7 +459,7 @@ export default function Tax6LakhGuide() {
       <section className="mb-12">
         <h2
           id="old-regime"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Ban className="h-6 w-6 text-red-600" /> The Old Regime Trap
         </h2>
@@ -444,15 +472,19 @@ export default function Tax6LakhGuide() {
           <CardContent className="text-sm text-red-800 space-y-2">
             <p>
               In the <strong>Old Regime</strong>, the rebate limit is only ₹5
-              Lakhs (Taxable Income).
+              Lakhs (taxable income).
             </p>
             <p>
               Gross Salary (₹6L) - Standard Deduction (₹50k) ={' '}
-              <strong>₹5.5 Lakhs</strong>.
+              <strong>
+                ₹{(taxableIncomeOld / 100000).toLocaleString('en-IN')} Lakhs
+              </strong>
+              .
             </p>
             <p className="font-medium bg-white/60 p-2 rounded border border-red-200 inline-block">
               Since ₹5.5L &gt; ₹5L, you do <strong>NOT</strong> get the 87A
-              rebate. You pay ~₹23,400 tax unless you invest ₹50k in 80C.
+              rebate. You pay ~₹23,400 tax unless you invest ₹50k+ in 80C /
+              other deductions.
             </p>
           </CardContent>
         </Card>
@@ -461,7 +493,7 @@ export default function Tax6LakhGuide() {
       {/* --- SECTION 6: CONCLUSION --- */}
       <Card className="mb-12 border-slate-200 bg-slate-900 text-white">
         <CardContent className="p-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
             <Lightbulb className="h-6 w-6 text-yellow-400" /> Conclusion
           </h2>
           <p className="mb-6 text-slate-300 leading-relaxed">
@@ -485,14 +517,14 @@ export default function Tax6LakhGuide() {
       <div className="mb-8 border-t border-slate-200 pt-8">
         <AuthorBio />
         <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
-          Calculations are based on income tax slabs for FY 2025-26 applicable
-          to resident individuals below 60 years.
+          Calculations are based on income tax slabs for {CONFIG.year}{' '}
+          applicable to resident individuals below 60 years.
         </p>
       </div>
 
       {/* --- SECTION: RELATED LINKS --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Explore More Financial Tools
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -504,7 +536,7 @@ export default function Tax6LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
                     <Calculator className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
                     Tax on ₹8 Lakhs
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -527,7 +559,7 @@ export default function Tax6LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 group-hover:text-indigo-700 transition-colors">
                     <Calculator className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-indigo-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-indigo-700 transition-colors">
                     Tax on ₹10 Lakhs
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -550,7 +582,7 @@ export default function Tax6LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 group-hover:text-emerald-700 transition-colors">
                     <TrendingUp className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors">
                     SIP Calculator
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -569,7 +601,7 @@ export default function Tax6LakhGuide() {
 
       {/* --- FAQS --- */}
       <section className="mb-12">
-        <h2 id="faqs" className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 id="faqs" className="mb-6 text-2xl font-semibold text-slate-900">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="w-full space-y-2">
