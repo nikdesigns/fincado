@@ -38,34 +38,37 @@ import {
   TrendingUp,
 } from 'lucide-react';
 
-// --- CONFIGURATION ---
 const CONFIG = {
   salary: '10 Lakhs',
-  year: 'FY 2026-27',
+  year: 'FY 2025-26',
   slug: 'tax-on-10-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-10-lakh-salary-hero.webp',
+  standardDeductionNew: 75000,
+  standardDeductionOld: 50000,
+  rebateLimitNew: 1200000,
+  rebateMaxNew: 60000,
 };
 
-// --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Tax on ₹10 Lakh Salary (2025): New vs Old Regime Calculator',
+  title: 'Tax on ₹10 Lakh Salary (FY 2025-26): Still Zero Tax? + In-Hand Pay',
   description:
-    'Earning ₹10 Lakhs? Your tax could be ₹44k or ₹1.06 Lakh! Compare New vs Old Regime, see in-hand salary, and find the breakeven point.',
+    'Earning ₹10 Lakhs? You still pay ZERO tax under New Regime (FY 2025-26) due to ₹75,000 Standard Deduction + full Section 87A rebate up to ₹12 Lakh taxable income. Compare with Old Regime & see monthly in-hand.',
   keywords: [
     'Tax on 10 lakh salary',
     '10 LPA in hand salary',
-    'tax on 10 lakh new regime calculator',
-    '10 lakh salary tax old vs new',
-    'income tax slabs 2025',
+    'is 10 lakh income tax free',
+    'section 87a rebate limit 2025-26',
+    '10 lakh salary tax calculator',
+    'new tax regime 2025-26',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
-    title: 'Tax on ₹10 Lakh Salary: Complete Guide (2025)',
+    title: 'Tax on ₹10 Lakh Salary: Still Zero Tax (FY 2025-26)',
     description:
-      'Detailed breakdown: New Regime (₹44k tax) vs Old Regime (₹1.06L tax). Which one saves you ₹60,000?',
+      'Good news: ₹10 Lakhs salary remains tax-free under New Regime. See exact calculation, in-hand salary & when Old Regime is better.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     authors: ['Fincado Team'],
@@ -74,30 +77,28 @@ export const metadata: Metadata = {
 };
 
 export default function Tax10LakhGuide() {
-  const pageTitle =
-    'Tax on ₹10 Lakh Salary: New vs Old Regime Breakdown (FY 2025-26)';
+  const pageTitle = `Tax on ₹10 Lakh Salary: New vs Old Regime Breakdown (${CONFIG.year})`;
 
-  // --- FAQS ---
   const faqData = [
     {
       question: 'How much tax on 10 Lakh salary in New Regime?',
       answer:
-        'Under the New Regime (FY 2025-26), the tax on a ₹10 Lakh salary is approx ₹44,200 (including cess). This considers the ₹75,000 Standard Deduction.',
+        '₹0 under the New Regime (FY 2025-26). After ₹75,000 standard deduction, taxable income is ₹9.25 Lakhs — fully covered by Section 87A rebate up to ₹12 Lakhs.',
     },
     {
       question: 'Is Old Regime better for 10 LPA?',
       answer:
-        'Only if you have deductions exceeding ₹3.75 Lakhs (e.g., 80C + HRA + Home Loan Interest). Without deductions, Old Regime tax is ~₹1,06,600, which is much higher.',
+        'Only if you have very high deductions. Without deductions, Old Regime tax is ~₹1,06,600 — much higher than New Regime.',
     },
     {
       question: 'What is the monthly in-hand salary for 10 LPA?',
       answer:
-        'After deducting PF (~₹5,000), Tax (~₹3,700), and Professional Tax, your monthly take-home salary is approximately ₹74,400 under the New Regime.',
+        'With zero tax under the New Regime, your monthly in-hand (after PF ~₹5,000 and Professional Tax ₹200) is approximately ₹78,133.',
     },
     {
       question: 'Can I save tax on 10 Lakh salary?',
       answer:
-        'In the New Regime, options are limited (NPS). In the Old Regime, you can reduce tax to zero if you claim HRA, 80C (₹1.5L), NPS (₹50k), and Medical Insurance deductions totaling over ₹5 Lakhs.',
+        'New Regime already gives you zero tax. In Old Regime, deductions help, but you generally need around ₹4.5L deductions to bring old-regime tax to zero at ₹10L salary.',
     },
   ];
 
@@ -141,11 +142,11 @@ export default function Tax10LakhGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: '/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',
-            dateModified: '2025-02-15',
+            dateModified: '2026-04-10',
           }),
         }}
       />
@@ -154,11 +155,11 @@ export default function Tax10LakhGuide() {
       <header className="mb-8 border-b border-slate-200 pb-6 no-print">
         <Badge
           variant="secondary"
-          className="mb-3 bg-indigo-100 text-indigo-800 hover:bg-indigo-200 px-3 py-1"
+          className="mb-3 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1"
         >
-          Income Tax Guide
+          Zero Tax Zone
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           {pageTitle}
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
@@ -167,10 +168,10 @@ export default function Tax10LakhGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">FY 2025-26</strong>
+            Updated: <strong className="text-slate-700">{CONFIG.year}</strong>
           </span>
           <span className="hidden sm:inline">•</span>
-          <span className="flex items-center gap-1 font-medium text-emerald-600">
+          <span className="flex items-center gap-1 font-medium text-[#577A30]">
             <CheckCircle2 className="h-4 w-4" /> Calculation Verified
           </span>
         </div>
@@ -179,7 +180,6 @@ export default function Tax10LakhGuide() {
         </div>
       </header>
 
-      {/* --- HERO IMAGE --- */}
       <Card className="mb-10 border-slate-200 bg-white shadow-sm overflow-hidden">
         <div className="relative h-64 w-full sm:h-80 md:h-96 bg-slate-100">
           <Image
@@ -192,52 +192,53 @@ export default function Tax10LakhGuide() {
         </div>
         <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
           <WikiText
-            content={`<p>Earning <strong>₹10 Lakhs (10 LPA)</strong> is a significant milestone, but it also pushes you into higher tax slabs. For FY 2025-26, the tax difference between the New and Old regimes is massive—almost <strong>₹60,000</strong>! Choosing the wrong regime could cost you a month's salary.</p>`}
+            content={`<p>Earning <strong>₹10 Lakhs (10 LPA)</strong> is a major milestone. Under the <strong>New Tax Regime (${CONFIG.year})</strong>, the <strong>₹75,000 Standard Deduction</strong> reduces your taxable income to <strong>₹9.25 Lakhs</strong>. Since this is below the ₹12 Lakh rebate limit, you get the full <strong>Section 87A rebate</strong>, resulting in <strong>zero tax</strong>.</p>`}
           />
+          <Badge className="mt-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6]">
+            Status: Tax-Free under New Regime ({CONFIG.year})
+          </Badge>
         </CardContent>
       </Card>
 
-      {/* --- VERDICT BOX --- */}
-      <Card className="mb-12 bg-lime-50 border-lime-200 shadow-md">
+      <Card className="mb-12 bg-[#F7FDF1] border-[#DFF7C6] shadow-md">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lime-900 text-xl flex items-center gap-2">
-            <Scale className="h-6 w-6 text-lime-700" /> The Verdict
+          <CardTitle className="text-[#1B2E06] text-xl flex items-center gap-2">
+            <Scale className="h-6 w-6 text-[#577A30]" /> The Verdict
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4 text-lime-900">
+          <div className="space-y-4 text-[#1B2E06]">
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-lg border border-lime-100 shadow-sm">
+              <div className="bg-white p-4 rounded-lg border border-[#EFFBE2] shadow-sm">
                 <span className="text-sm font-semibold text-slate-500 uppercase">
                   New Regime Tax
                 </span>
-                <p className="text-3xl font-bold text-lime-700">₹44,200</p>
+                <p className="text-3xl font-semibold text-[#577A30]">₹0</p>
                 <p className="text-xs text-slate-600 mt-1">
-                  (Default option, minimal paperwork)
+                  (Full rebate applied)
                 </p>
               </div>
               <div className="bg-white p-4 rounded-lg border border-red-100 shadow-sm">
                 <span className="text-sm font-semibold text-slate-500 uppercase">
                   Old Regime Tax
                 </span>
-                <p className="text-3xl font-bold text-red-600">₹1,06,600</p>
+                <p className="text-3xl font-semibold text-red-600">₹1,06,600</p>
                 <p className="text-xs text-slate-600 mt-1">
-                  (Without investments)
+                  (Without deductions)
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-lime-200 text-sm text-lime-900">
+            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-[#DFF7C6] text-sm text-[#1B2E06]">
               <Lightbulb className="h-5 w-5 shrink-0 mt-0.5 text-amber-500" />
               <span>
-                <strong>Winner:</strong> The New Regime saves you{' '}
-                <strong>₹62,400</strong> upfront. Switch to Old Regime{' '}
-                <em>only</em> if your total deductions (HRA, 80C, Home Loan)
-                exceed <strong>₹3.75 Lakhs</strong>.
+                <strong>Winner:</strong> New Regime saves you over{' '}
+                <strong>₹1 Lakh</strong> vs Old Regime without deductions. Old
+                Regime becomes comparable only with very high deductions.
               </span>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-lime-100">
+            <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-[#EFFBE2]">
               <p className="text-sm font-semibold mb-4 text-center text-slate-700">
                 Check Your Specific Case:
               </p>
@@ -247,16 +248,14 @@ export default function Tax10LakhGuide() {
         </CardContent>
       </Card>
 
-      {/* 💰 AD SLOT 1 */}
       <div className="no-print my-8">
         <AdSlot id="tax-10l-1" type="in-article" />
       </div>
 
-      {/* --- SECTION 2: TAKE HOME --- */}
       <section className="mb-12">
         <h2
           id="take-home-salary"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Wallet className="h-6 w-6 text-blue-600" /> Monthly In-Hand Breakdown
         </h2>
@@ -265,14 +264,14 @@ export default function Tax10LakhGuide() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Component
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
-                  New Regime
+                <TableHead className="font-semibold text-slate-900">
+                  New Regime (Recommended)
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
-                  Old Regime
+                <TableHead className="font-semibold text-slate-900">
+                  Old Regime (No Deductions)
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -281,10 +280,10 @@ export default function Tax10LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Gross Salary
                 </TableCell>
-                <TableCell className="font-bold text-slate-900">
+                <TableCell className="font-semibold text-slate-900">
                   ₹83,333
                 </TableCell>
-                <TableCell className="font-bold text-slate-900">
+                <TableCell className="font-semibold text-slate-900">
                   ₹83,333
                 </TableCell>
               </TableRow>
@@ -306,21 +305,21 @@ export default function Tax10LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Less: TDS (Income Tax)
                 </TableCell>
-                <TableCell className="text-red-600 font-bold">
-                  - ₹3,683
+                <TableCell className="text-[#577A30] font-semibold">
+                  ₹0
                 </TableCell>
-                <TableCell className="text-red-600 font-bold">
+                <TableCell className="text-red-600 font-semibold">
                   - ₹8,883
                 </TableCell>
               </TableRow>
-              <TableRow className="bg-emerald-50">
-                <TableCell className="font-bold text-emerald-900 text-lg">
+              <TableRow className="bg-[#F7FDF1]">
+                <TableCell className="font-semibold text-[#1B2E06] text-lg">
                   In-Hand Salary
                 </TableCell>
-                <TableCell className="font-bold text-emerald-700 text-lg">
-                  ₹74,450
+                <TableCell className="font-semibold text-[#577A30] text-lg">
+                  ₹78,133
                 </TableCell>
-                <TableCell className="font-bold text-amber-700 text-lg">
+                <TableCell className="font-semibold text-amber-700 text-lg">
                   ₹69,250
                 </TableCell>
               </TableRow>
@@ -337,54 +336,58 @@ export default function Tax10LakhGuide() {
       <section className="mb-12">
         <h2
           id="salary-flow"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <PieChart className="h-6 w-6 text-indigo-600" /> Where Does Your ₹10L
           Go?
         </h2>
 
-        {/* DIAGRAM TRIGGER */}
-        <div className="mb-6"></div>
-
         <div className="grid gap-6 md:grid-cols-3">
-          <Card className="border-t-4 border-t-emerald-500 shadow-sm">
+          <Card className="border-t-4 border-t-[#F7FDF1]0 shadow-sm">
             <CardContent className="pt-6">
-              <strong className="block text-emerald-600 mb-2 text-lg">
-                💰 In Pocket (89.3%)
+              <strong className="block text-[#577A30] mb-2 text-lg">
+                💰 In Pocket (94.0%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹8.93 L</span>
-              <p className="text-sm text-slate-600 mt-2">Annual Take-home.</p>
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹9.38 L
+              </span>
+              <p className="text-sm text-slate-600 mt-2">
+                Annual take-home pay.
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-t-4 border-t-red-500 shadow-sm">
+          <Card className="border-t-4 border-t-[#F7FDF1]0 shadow-sm">
             <CardContent className="pt-6">
-              <strong className="block text-red-600 mb-2 text-lg">
-                🏛️ Income Tax (4.4%)
+              <strong className="block text-[#577A30] mb-2 text-lg">
+                🏛️ Income Tax (0%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹0.44 L</span>
-              <p className="text-sm text-slate-600 mt-2">New Regime Tax.</p>
+              <span className="text-3xl font-semibold text-slate-900">₹0</span>
+              <p className="text-sm text-slate-600 mt-2">
+                Full rebate applied.
+              </p>
             </CardContent>
           </Card>
           <Card className="border-t-4 border-t-blue-500 shadow-sm">
             <CardContent className="pt-6">
               <strong className="block text-blue-600 mb-2 text-lg">
-                🏦 Retirals (6.3%)
+                🏦 Retiral Savings (6.0%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹0.63 L</span>
-              <p className="text-sm text-slate-600 mt-2">PF + PT Savings.</p>
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹0.60 L
+              </span>
+              <p className="text-sm text-slate-600 mt-2">PF + PT savings.</p>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      {/* --- SECTION 4: NEW REGIME CALCULATION --- */}
       <section className="mb-12">
         <h2
           id="new-regime"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
-          <Calculator className="h-6 w-6 text-emerald-600" /> New Regime
-          Calculation
+          <Calculator className="h-6 w-6 text-[#577A30]" /> New Regime
+          Calculation ({CONFIG.year})
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
@@ -395,9 +398,9 @@ export default function Tax10LakhGuide() {
               </div>
               <div className="flex justify-between mb-1">
                 <span>(-) Standard Deduction</span>
-                <span className="text-emerald-600">- ₹75,000</span>
+                <span className="text-[#577A30]">- ₹75,000</span>
               </div>
-              <div className="flex justify-between font-bold pt-2 border-t border-slate-300">
+              <div className="flex justify-between font-semibold pt-2 border-t border-slate-300">
                 <span>Net Taxable Income</span>
                 <span>₹9,25,000</span>
               </div>
@@ -407,58 +410,68 @@ export default function Tax10LakhGuide() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-100 hover:bg-slate-100">
-                    <TableHead className="font-bold text-slate-900">
-                      Slab (New)
+                    <TableHead className="font-semibold text-slate-900">
+                      Slab
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Rate
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
-                      Calculation
+                    <TableHead className="font-semibold text-slate-900">
+                      Tax
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>0 - 3L</TableCell>
+                    <TableCell>0 - ₹4 Lakhs</TableCell>
                     <TableCell>Nil</TableCell>
                     <TableCell>₹0</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>3L - 7L</TableCell>
+                    <TableCell>₹4 Lakhs - ₹8 Lakhs</TableCell>
                     <TableCell>5%</TableCell>
                     <TableCell>₹20,000</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>7L - 9.25L</TableCell>
+                    <TableCell>₹8 Lakhs - ₹9.25 Lakhs</TableCell>
                     <TableCell>10%</TableCell>
-                    <TableCell>₹22,500</TableCell>
+                    <TableCell>₹1,25,000 × 10% = ₹12,500</TableCell>
                   </TableRow>
-                  <TableRow className="font-bold bg-slate-50 text-slate-900">
-                    <TableCell>Total Tax</TableCell>
+                  <TableRow className="font-semibold bg-slate-50">
+                    <TableCell>Gross Tax</TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell>₹42,500</TableCell>
+                    <TableCell>₹32,500</TableCell>
                   </TableRow>
-                  <TableRow className="font-bold text-emerald-800 bg-emerald-100">
-                    <TableCell>Total + Cess (4%)</TableCell>
+                  <TableRow className="font-semibold text-[#577A30] bg-[#F7FDF1]/50">
+                    <TableCell>Less: Rebate 87A</TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell>₹44,200</TableCell>
+                    <TableCell>- ₹32,500</TableCell>
+                  </TableRow>
+                  <TableRow className="font-semibold text-[#577A30] bg-[#EFFBE2]">
+                    <TableCell>Net Payable</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>₹0</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-900">
+              <strong>Note:</strong> Full rebate u/s 87A (up to ₹
+              {CONFIG.rebateMaxNew.toLocaleString('en-IN')}) applies because
+              taxable income (₹9.25L) is below ₹
+              {(CONFIG.rebateLimitNew / 100000).toLocaleString('en-IN')} Lakhs.
             </div>
           </CardContent>
         </Card>
       </section>
 
-      {/* --- SECTION 5: OLD REGIME CALCULATION --- */}
       <section className="mb-12">
         <h2
           id="old-regime"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-amber-600" /> Old Regime
-          Calculation
+          Calculation (Without Deductions)
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
@@ -471,7 +484,7 @@ export default function Tax10LakhGuide() {
                 <span>(-) Standard Deduction</span>
                 <span className="text-amber-600">- ₹50,000</span>
               </div>
-              <div className="flex justify-between font-bold pt-2 border-t border-slate-300">
+              <div className="flex justify-between font-semibold pt-2 border-t border-slate-300">
                 <span>Net Taxable Income</span>
                 <span>₹9,50,000</span>
               </div>
@@ -481,13 +494,13 @@ export default function Tax10LakhGuide() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-100 hover:bg-slate-100">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Slab (Old)
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Rate
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Calculation
                     </TableHead>
                   </TableRow>
@@ -508,12 +521,12 @@ export default function Tax10LakhGuide() {
                     <TableCell>20%</TableCell>
                     <TableCell>₹90,000</TableCell>
                   </TableRow>
-                  <TableRow className="font-bold bg-slate-50 text-slate-900">
+                  <TableRow className="font-semibold bg-slate-50 text-slate-900">
                     <TableCell>Total Tax</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>₹1,02,500</TableCell>
                   </TableRow>
-                  <TableRow className="font-bold text-red-800 bg-red-50">
+                  <TableRow className="font-semibold text-red-800 bg-red-50">
                     <TableCell>Total + Cess (4%)</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>₹1,06,600</TableCell>
@@ -525,34 +538,32 @@ export default function Tax10LakhGuide() {
         </Card>
       </section>
 
-      {/* --- SECTION 6: BREAK EVEN --- */}
       <section className="mb-12">
         <h2
           id="break-even"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
-          <Zap className="h-6 w-6 text-indigo-600" /> The Break-Even Point:
-          ₹3.75 Lakhs
+          <Zap className="h-6 w-6 text-indigo-600" /> The Break-Even Point
         </h2>
         <Card className="border-indigo-100 bg-indigo-50/30">
           <CardContent className="pt-6">
             <p className="text-sm text-indigo-900 mb-4">
-              To pay less tax in the Old Regime than the New Regime, your total
-              deductions (80C, HRA, etc.) must exceed{' '}
-              <strong className="text-indigo-700">₹3,75,000</strong>.
+              Since New Regime tax is already <strong>₹0</strong>, Old Regime
+              can compete only if your total deductions are very high —
+              typically <strong>₹4.5 Lakhs or more</strong>.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="bg-white p-3 rounded border border-indigo-200 text-sm">
                 <span className="block text-xs uppercase text-slate-500 font-semibold mb-1">
-                  If Deductions &lt; ₹3.75L
+                  Deductions &lt; ₹4.5L
                 </span>
-                <strong className="text-emerald-600">Choose New Regime</strong>
+                <strong className="text-[#577A30]">Choose New Regime</strong>
               </div>
               <div className="bg-white p-3 rounded border border-indigo-200 text-sm">
                 <span className="block text-xs uppercase text-slate-500 font-semibold mb-1">
-                  If Deductions &gt; ₹3.75L
+                  Deductions ≥ ₹4.5L
                 </span>
-                <strong className="text-emerald-600">Choose Old Regime</strong>
+                <strong className="text-[#577A30]">Old can match</strong>
               </div>
             </div>
           </CardContent>
@@ -563,13 +574,11 @@ export default function Tax10LakhGuide() {
         <AuthorBio />
       </div>
 
-      {/* --- SECTION: RELATED LINKS --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Explore More Financial Tools
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
-          {/* Link 1: Tax on 15L */}
           <Link href="/guides/tax-on-15-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
@@ -577,7 +586,7 @@ export default function Tax10LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
                     <Calculator className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
                     Tax on ₹15 Lakhs
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -592,7 +601,6 @@ export default function Tax10LakhGuide() {
             </Card>
           </Link>
 
-          {/* Link 2: ELSS Funds */}
           <Link href="/guides/elss-funds-guide-2025/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
@@ -600,11 +608,11 @@ export default function Tax10LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 group-hover:text-indigo-700 transition-colors">
                     <PieChart className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-indigo-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-indigo-700 transition-colors">
                     Best ELSS Funds
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
-                    Save up to ₹46,800 tax under Section 80C.
+                    Save tax under Section 80C.
                   </p>
                 </div>
                 <div className="mt-4 flex items-center text-sm font-semibold text-indigo-600">
@@ -615,22 +623,21 @@ export default function Tax10LakhGuide() {
             </Card>
           </Link>
 
-          {/* Link 3: SIP Calculator */}
           <Link href="/sip-calculator/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
-                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 group-hover:text-emerald-700 transition-colors">
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#F7FDF1] text-[#577A30] group-hover:bg-[#EFFBE2] group-hover:text-[#577A30] transition-colors">
                     <TrendingUp className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-[#577A30] transition-colors">
                     SIP Calculator
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
-                    Calculate returns on your monthly investments.
+                    Calculate returns on monthly investments.
                   </p>
                 </div>
-                <div className="mt-4 flex items-center text-sm font-semibold text-emerald-600">
+                <div className="mt-4 flex items-center text-sm font-semibold text-[#577A30]">
                   Calculate Returns{' '}
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </div>
@@ -640,9 +647,8 @@ export default function Tax10LakhGuide() {
         </div>
       </section>
 
-      {/* --- FAQS --- */}
       <section className="mb-12">
-        <h2 id="faqs" className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 id="faqs" className="mb-6 text-2xl font-semibold text-slate-900">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="w-full space-y-2">
