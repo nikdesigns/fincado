@@ -41,31 +41,36 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '14 Lakhs',
-  year: 'FY 2026-27',
+  year: 'FY 2025-26',
   slug: 'tax-on-14-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-14-lakh-salary-hero.webp',
+  // New constants for future-proofing
+  standardDeductionNew: 75000,
+  standardDeductionOld: 50000,
+  rebateLimitNew: 1200000, // taxable income
+  rebateMaxNew: 60000,
 };
 
-// --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Tax on ₹14 Lakh Salary (2025): New vs Old Regime + In-Hand Pay',
+  title: 'Tax on ₹14 Lakh Salary (FY 2025-26): New vs Old Regime + In-Hand Pay',
   description:
-    'Earning ₹14 Lakhs? Calculate your exact tax liability for FY 2025-26. Compare New vs Old Regime, check monthly in-hand salary, and see why the Old Regime is losing relevance.',
+    'Earning ₹14 Lakhs? New Regime tax is ₹81,900 (after ₹75,000 Standard Deduction). Compare with Old Regime (₹2.26 Lakh without deductions) and see your monthly in-hand salary.',
   keywords: [
     'Tax on 14 lakh salary',
     '14 LPA in hand salary',
     'tax on 14 lakh new regime',
-    'income tax calculator 2025',
-    '14 lakh salary tax old vs new',
+    'section 87a rebate limit 2025-26',
+    '14 lakh salary tax calculator',
+    'new tax regime 2025-26',
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
-    title: 'Tax on ₹14 Lakh Salary: Complete 2025 Guide',
+    title: 'Tax on ₹14 Lakh Salary: New vs Old Regime (FY 2025-26)',
     description:
-      'Earning ₹14 Lakhs? See your tax liability for FY 2025-26. We compare New vs Old Regime and calculate your monthly in-hand salary.',
+      '₹14 Lakhs salary → ₹81,900 tax under New Regime. See exact calculation, monthly in-hand pay & break-even point for Old Regime.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
     type: 'article',
     authors: ['Fincado Team'],
@@ -82,17 +87,17 @@ export default function Tax14LakhGuide() {
     {
       question: 'How much tax do I pay on 14 LPA salary?',
       answer:
-        'For a ₹14 Lakh salary, your tax under the New Regime (FY 2025-26) is approx ₹1,09,200. Under the Old Regime, it is more than double at ₹2,26,200 (without deductions).',
+        '₹81,900 under the New Tax Regime (FY 2025-26). After ₹75,000 standard deduction, taxable income is ₹13.25 Lakhs. Since this exceeds the ₹12 Lakh rebate limit, you pay full tax with no rebate.',
     },
     {
       question: 'What is the monthly in-hand salary for 14 LPA?',
       answer:
-        'After deducting PF (~₹7,000), Professional Tax (₹200), and TDS (~₹9,100), your monthly take-home salary is approximately ₹1,00,300 under the New Regime.',
+        'With New Regime tax of ₹81,900, your monthly in-hand (after PF ~₹7,000 and Professional Tax ₹200) is approximately ₹1,02,642.',
     },
     {
       question: 'Which tax regime is better for 14 Lakh package?',
       answer:
-        'The New Tax Regime is significantly better unless you have total deductions (HRA, 80C, 80D, Home Loan) exceeding ₹4.40 Lakhs. Most employees will save over ₹1 Lakh by switching to the New Regime.',
+        'The New Tax Regime is significantly better unless you have total deductions exceeding ₹4.40 Lakhs. Most employees will save over ₹1.44 Lakhs by choosing New Regime.',
     },
   ];
 
@@ -136,24 +141,25 @@ export default function Tax14LakhGuide() {
               name: 'Fincado',
               logo: {
                 '@type': 'ImageObject',
-                url: '/logo.png',
+                url: 'https://fincado.com/logo.png',
               },
             },
             datePublished: '2025-02-15',
-            dateModified: '2025-02-15',
+            dateModified: '2026-04-10',
           }),
         }}
       />
 
       {/* --- HEADER --- */}
       <header className="mb-8 border-b border-slate-200 pb-6 no-print">
+        {/* HEADER Badge */}
         <Badge
           variant="secondary"
           className="mb-3 bg-indigo-100 text-indigo-800 hover:bg-indigo-200 px-3 py-1"
         >
           Income Tax Guide
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
           {pageTitle}
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
@@ -162,7 +168,7 @@ export default function Tax14LakhGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">FY 2025-26</strong>
+            Updated: <strong className="text-slate-700">{CONFIG.year}</strong>
           </span>
         </div>
         <div className="mt-6">
@@ -182,14 +188,18 @@ export default function Tax14LakhGuide() {
           />
         </div>
         <CardContent className="pt-6 text-slate-700 leading-relaxed text-lg">
+          {/* HERO Card */}
           <WikiText
-            content={`<p>Earning <strong>₹14 Lakhs (14 LPA)</strong> brings you close to the monthly "1 Lakh In-Hand" club. However, under the Old Tax Regime, this salary attracted a massive <strong>30% tax</strong> on income above ₹10 Lakhs. The <strong>New Tax Regime (FY 2025-26)</strong> changes the game by taxing income up to ₹12 Lakhs at much lower rates.</p>`}
+            content={`<p>Earning <strong>₹14 Lakhs (14 LPA)</strong> brings you close to the monthly "1 Lakh In-Hand" club. Under the <strong>New Tax Regime (${CONFIG.year})</strong>, your taxable income after the ₹75,000 Standard Deduction is ₹13.25 Lakhs. Since this exceeds the ₹12 Lakh rebate limit, you pay tax of <strong>₹81,900</strong> — still far lower than the Old Regime.</p>`}
           />
+          <Badge className="mt-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+            Status: Low Tax Zone (New Regime)
+          </Badge>
         </CardContent>
       </Card>
 
       {/* --- VERDICT BOX --- */}
-      <Card className="mb-12 bg-lime-50 border-lime-200 shadow-md">
+      <Card className="mb-12 bg-[#F7FDF1] border-lime-200 shadow-md">
         <CardHeader className="pb-2">
           <CardTitle className="text-lime-900 text-xl flex items-center gap-2">
             <Zap className="h-6 w-6 text-lime-700" /> Quick Verdict
@@ -199,22 +209,22 @@ export default function Tax14LakhGuide() {
           <div className="space-y-4 text-lime-900">
             <p className="text-lg">
               For a <strong>₹14 Lakh salary</strong>, the{' '}
-              <strong>New Tax Regime</strong> is the overwhelming winner. Your
-              total tax will be approx{' '}
-              <span className="font-bold text-xl">₹1,09,200</span>.
+              <strong>New Tax Regime</strong> is the clear winner. Your total
+              tax will be <span className="font-semibold text-xl">₹81,900</span>
+              .
             </p>
             <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-lime-200 text-sm text-red-800">
               <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
               <span>
-                <strong>Old Regime Warning:</strong> The Old Tax Regime demands
-                <strong> ₹2,26,200</strong> in tax. Choosing the New Regime
-                saves you roughly <strong>₹1.17 Lakhs</strong> instantly.
+                <strong>Old Regime Warning:</strong> Without deductions, you
+                will pay approx <strong>₹2,26,200</strong> in tax. New Regime
+                saves you roughly <strong>₹1.44 Lakhs</strong>.
               </span>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-lime-100">
               <p className="text-sm font-semibold mb-4 text-center text-slate-700">
-                Check Your Specific Case:
+                Verify with our Calculator:
               </p>
               <InlineTaxCalculator defaultSalary={1400000} />
             </div>
@@ -231,7 +241,7 @@ export default function Tax14LakhGuide() {
       <section className="mb-12">
         <h2
           id="take-home-salary"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Wallet className="h-6 w-6 text-blue-600" /> Monthly In-Hand Breakdown
         </h2>
@@ -240,14 +250,14 @@ export default function Tax14LakhGuide() {
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Component
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
-                  New Regime
+                <TableHead className="font-semibold text-slate-900">
+                  New Regime (Recommended)
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
-                  Old Regime
+                <TableHead className="font-semibold text-slate-900">
+                  Old Regime (No Deductions)
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -256,11 +266,11 @@ export default function Tax14LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Gross Salary
                 </TableCell>
-                <TableCell className="font-bold text-slate-900">
-                  ₹1,16,666
+                <TableCell className="font-semibold text-slate-900">
+                  ₹1,16,667
                 </TableCell>
-                <TableCell className="font-bold text-slate-900">
-                  ₹1,16,666
+                <TableCell className="font-semibold text-slate-900">
+                  ₹1,16,667
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -279,24 +289,24 @@ export default function Tax14LakhGuide() {
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium text-slate-700">
-                  Less: TDS
+                  Less: TDS (Tax)
                 </TableCell>
-                <TableCell className="text-red-600 font-bold">
-                  - ₹9,100
+                <TableCell className="text-red-600 font-semibold">
+                  - ₹6,825
                 </TableCell>
-                <TableCell className="text-red-600 font-bold">
+                <TableCell className="text-red-600 font-semibold">
                   - ₹18,850
                 </TableCell>
               </TableRow>
               <TableRow className="bg-emerald-50">
-                <TableCell className="font-bold text-emerald-900 text-lg">
+                <TableCell className="font-semibold text-emerald-900 text-lg">
                   In-Hand Salary
                 </TableCell>
-                <TableCell className="font-bold text-emerald-700 text-lg">
-                  ₹1,00,366
+                <TableCell className="font-semibold text-emerald-700 text-lg">
+                  ₹1,02,642
                 </TableCell>
-                <TableCell className="font-bold text-amber-700 text-lg">
-                  ₹90,616
+                <TableCell className="font-semibold text-amber-700 text-lg">
+                  ₹90,617
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -312,33 +322,34 @@ export default function Tax14LakhGuide() {
       <section className="mb-12">
         <h2
           id="salary-flow"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <PieChart className="h-6 w-6 text-indigo-600" /> Where Does Your
           ₹14,00,000 Go?
         </h2>
 
-        {/* DIAGRAM TRIGGER */}
-        <div className="mb-6"></div>
-
         <div className="grid gap-6 md:grid-cols-3">
           <Card className="border-t-4 border-t-emerald-500 shadow-sm">
             <CardContent className="pt-6">
               <strong className="block text-emerald-600 mb-2 text-lg">
-                💰 In Pocket (86%)
+                💰 In Pocket (88.2%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">
-                ₹12.04 L
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹12.32 L
               </span>
-              <p className="text-sm text-slate-600 mt-2">Annual Take-home.</p>
+              <p className="text-sm text-slate-600 mt-2">
+                Annual take-home pay.
+              </p>
             </CardContent>
           </Card>
           <Card className="border-t-4 border-t-orange-500 shadow-sm">
             <CardContent className="pt-6">
               <strong className="block text-orange-600 mb-2 text-lg">
-                🏛️ Income Tax (7.8%)
+                🏛️ Income Tax (5.9%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹1.09 L</span>
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹0.82 L
+              </span>
               <p className="text-sm text-slate-600 mt-2">New Regime Tax.</p>
             </CardContent>
           </Card>
@@ -347,7 +358,9 @@ export default function Tax14LakhGuide() {
               <strong className="block text-blue-600 mb-2 text-lg">
                 🏦 Retirals (6.0%)
               </strong>
-              <span className="text-3xl font-bold text-slate-900">₹0.84 L</span>
+              <span className="text-3xl font-semibold text-slate-900">
+                ₹0.84 L
+              </span>
               <p className="text-sm text-slate-600 mt-2">Compulsory savings.</p>
             </CardContent>
           </Card>
@@ -358,16 +371,15 @@ export default function Tax14LakhGuide() {
       <section className="mb-12">
         <h2
           id="new-regime"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-purple-600" /> Tax Calculation
-          (New Regime)
+          (New Regime – FY 2025-26)
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
             <div className="mb-6 bg-slate-50 p-4 rounded border border-slate-200 text-sm text-slate-700">
-              Standard Deduction: <strong>₹75,000</strong>.
-              <br />
+              Standard Deduction: <strong>₹75,000</strong>.<br />
               Taxable Income: ₹14,00,000 - ₹75,000 = <strong>₹13,25,000</strong>
               .
             </div>
@@ -376,50 +388,59 @@ export default function Tax14LakhGuide() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-slate-100 hover:bg-slate-100">
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Slab
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Rate
                     </TableHead>
-                    <TableHead className="font-bold text-slate-900">
+                    <TableHead className="font-semibold text-slate-900">
                       Tax
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>0 - 3L</TableCell>
+                    <TableCell>0 - ₹4 Lakhs</TableCell>
                     <TableCell>Nil</TableCell>
-                    <TableCell>0</TableCell>
+                    <TableCell>₹0</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>3L - 7L</TableCell>
+                    <TableCell>₹4 Lakhs - ₹8 Lakhs</TableCell>
                     <TableCell>5%</TableCell>
                     <TableCell>₹20,000</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>7L - 10L</TableCell>
+                    <TableCell>₹8 Lakhs - ₹12 Lakhs</TableCell>
                     <TableCell>10%</TableCell>
-                    <TableCell>₹30,000</TableCell>
+                    <TableCell>₹40,000</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>10L - 12L</TableCell>
+                    <TableCell>₹12 Lakhs - ₹13.25 Lakhs</TableCell>
                     <TableCell>15%</TableCell>
-                    <TableCell>₹30,000</TableCell>
+                    <TableCell>₹1,25,000 × 15% = ₹18,750</TableCell>
                   </TableRow>
-                  <TableRow>
-                    <TableCell>12L - 13.25L</TableCell>
-                    <TableCell>20%</TableCell>
-                    <TableCell>₹25,000</TableCell>
-                  </TableRow>
-                  <TableRow className="font-bold bg-slate-50 text-slate-900">
-                    <TableCell>Total + Cess(4%)</TableCell>
+                  <TableRow className="font-semibold bg-slate-50">
+                    <TableCell>Gross Tax</TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell>₹1,09,200</TableCell>
+                    <TableCell>₹78,750</TableCell>
+                  </TableRow>
+                  <TableRow className="font-semibold text-emerald-600 bg-emerald-50/50">
+                    <TableCell>Less: Rebate 87A</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>₹0 (limit exceeded)</TableCell>
+                  </TableRow>
+                  <TableRow className="font-semibold text-emerald-800 bg-emerald-100">
+                    <TableCell>Net Payable (+4% cess)</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>₹81,900</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-900">
+              <strong>Note:</strong> Since taxable income (₹13.25L) exceeds ₹12
+              Lakhs, you do not get the Section 87A rebate.
             </div>
           </CardContent>
         </Card>
@@ -429,7 +450,7 @@ export default function Tax14LakhGuide() {
       <section className="mb-12">
         <h2
           id="break-even"
-          className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
+          className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <TrendingUp className="h-6 w-6 text-indigo-600" /> The Break-Even
           Point
@@ -442,13 +463,16 @@ export default function Tax14LakhGuide() {
           </CardHeader>
           <CardContent className="text-sm text-indigo-800">
             <p className="mb-2">
-              To make the Old Regime worth it, you need total deductions
+              To beat the New Regime tax of ₹81,900, you need total deductions
               exceeding:
             </p>
-            <p className="text-2xl font-bold text-indigo-700 mb-2">₹4,40,000</p>
+            <p className="text-2xl font-semibold text-indigo-700 mb-2">
+              ₹4,40,000
+            </p>
             <p>
-              This requires: Full 80C (₹1.5L) + 80D (₹25k) + HRA/Home Loan
-              Interest &gt; ₹2.65 Lakhs.
+              This requires full 80C (₹1.5L) + 80D (₹25k) + substantial HRA or
+              Home Loan Interest (&gt; ₹2.65 Lakhs). For most people at 14 LPA,
+              New Regime remains simpler and better.
             </p>
           </CardContent>
         </Card>
@@ -457,7 +481,7 @@ export default function Tax14LakhGuide() {
       {/* --- CONCLUSION --- */}
       <Card className="mb-12 border-slate-200 bg-slate-900 text-white">
         <CardContent className="p-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
             <Lightbulb className="h-6 w-6 text-yellow-400" /> Conclusion
           </h2>
           <p className="mb-6 text-slate-300 leading-relaxed">
@@ -480,7 +504,7 @@ export default function Tax14LakhGuide() {
 
       {/* --- SECTION: RELATED LINKS --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Explore More Tax Scenarios
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -492,7 +516,7 @@ export default function Tax14LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
                     <Calculator className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
                     Tax on ₹12 Lakhs
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -515,7 +539,7 @@ export default function Tax14LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 group-hover:text-indigo-700 transition-colors">
                     <Calculator className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-indigo-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-indigo-700 transition-colors">
                     Tax on ₹15 Lakhs
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -538,7 +562,7 @@ export default function Tax14LakhGuide() {
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 group-hover:text-emerald-700 transition-colors">
                     <Scale className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors">
                     New vs Old Regime
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
@@ -557,7 +581,7 @@ export default function Tax14LakhGuide() {
 
       {/* --- FAQS --- */}
       <section className="mb-12">
-        <h2 id="faqs" className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 id="faqs" className="mb-6 text-2xl font-semibold text-slate-900">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="w-full space-y-2">

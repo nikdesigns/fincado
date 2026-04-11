@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link'; // ✅ Added Link
+import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import {
@@ -19,7 +19,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button'; // ✅ Added Button
+import { Button } from '@/components/ui/button';
 import {
   Calculator,
   Briefcase,
@@ -31,21 +31,21 @@ import {
   Scale,
   CheckCircle2,
   Users,
-  ArrowRight, // ✅ Added ArrowRight
+  ArrowRight,
 } from 'lucide-react';
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'New vs Old Tax Regime 2026: Which is Better? (Calculator & Slabs)',
+  title: 'New vs Old Tax Regime 2025: Which is Better? (Calculator & Slabs)',
   description:
-    'Compare New vs Old Tax Regime slabs for FY 2025-26. Calculate exemptions, 80C deductions, and breakeven points to save maximum tax.',
+    'Compare New vs Old Tax Regime for FY 2025-26. See exact tax slabs, standard deduction, rebate u/s 87A, and breakeven points to save maximum tax.',
   alternates: {
     canonical: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
   },
   openGraph: {
-    title: 'New vs Old Tax Regime 2026: Which is Better for You?',
+    title: 'New vs Old Tax Regime 2025: Which is Better for You?',
     description:
-      'Budget 2025 has made the new regime default. Is it better for you? Check tax slabs, deductions, and breakeven analysis here.',
+      'Budget 2025 made the new regime even more attractive. Check slabs, deductions, rebate limit and breakeven analysis here.',
     url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
     type: 'article',
     images: [
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
         url: '/images/guides/tax/hero-tax-regime.webp',
         width: 1200,
         height: 630,
-        alt: 'Comparison of Old vs New Tax Regime 2026',
-      }
+        alt: 'Comparison of Old vs New Tax Regime 2025',
+      },
     ],
   },
 };
@@ -63,23 +63,23 @@ const FAQ_ITEMS = [
   {
     question: 'What is the standard deduction in the new tax regime?',
     answer:
-      'For FY 2025-26, the standard deduction for salaried individuals has been increased to ₹75,000 under the New Tax Regime.',
+      'For FY 2025-26, the standard deduction for salaried individuals is ₹75,000 under the New Tax Regime.',
   },
   {
     question: 'Can I switch between old and new tax regimes every year?',
     answer:
-      'Salaried individuals can switch between the two regimes every financial year. However, individuals with business income can only switch once in their lifetime.',
+      'Yes. Salaried individuals can switch between the two regimes every financial year while filing ITR.',
   },
   {
     question: 'Is HRA exemption available in the new tax regime?',
     answer:
-      'No, House Rent Allowance (HRA) exemption is NOT available in the New Tax Regime. It is only available under the Old Tax Regime.',
+      'No. House Rent Allowance (HRA) exemption is NOT available in the New Tax Regime. It is only available under the Old Tax Regime.',
   },
   {
     question: 'Which tax regime is better for income above ₹15 lakhs?',
     answer:
-      'If you have deductions (80C, 80D, HRA, Home Loan) exceeding ₹3.75 lakhs to ₹4 lakhs, the Old Regime might save you more tax. Otherwise, the New Regime is generally beneficial due to lower tax rates.',
-  }
+      'If you can claim deductions (80C, 80D, HRA, Home Loan Interest) of more than ₹4–5 lakhs, the Old Regime may save you tax. Otherwise, the New Regime is generally better due to lower rates and simplicity.',
+  },
 ];
 
 export default function TaxRegimeGuide() {
@@ -93,7 +93,7 @@ export default function TaxRegimeGuide() {
           {
             name: 'New vs Old Tax Regime',
             url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
-          }
+          },
         ]}
       />
 
@@ -105,14 +105,13 @@ export default function TaxRegimeGuide() {
         >
           Tax Planning
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          New vs Old Tax Regime 2026: Which is Better for You?
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
+          New vs Old Tax Regime 2025: Which is Better for You?
         </h1>
         <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-          Every year between January and March, millions of Indian taxpayers
-          face the same dilemma: should I choose the new tax regime or stick
-          with the old one? With Budget 2026 making the new regime even more
-          attractive, this decision has become critical.
+          Every year millions of taxpayers face the same question: Should I
+          choose the New Tax Regime or stick with the Old one? Here is a clear,
+          updated comparison for FY 2025-26.
         </p>
       </header>
 
@@ -121,7 +120,7 @@ export default function TaxRegimeGuide() {
         <div className="relative h-64 w-full sm:h-80 md:h-96 bg-slate-100">
           <Image
             src="/images/guides/tax/hero-tax-regime.webp"
-            alt="Old vs New Tax Regime Comparison 2026"
+            alt="Old vs New Tax Regime Comparison 2025"
             fill
             priority
             className="object-cover"
@@ -129,9 +128,9 @@ export default function TaxRegimeGuide() {
         </div>
       </Card>
 
-      {/* ✅ NEW: Primary Call to Action */}
+      {/* Primary CTA */}
       <div className="mb-10 text-center bg-indigo-50 border border-indigo-100 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-indigo-900 mb-2">
+        <h3 className="text-lg font-semibold text-indigo-900 mb-2">
           Confused by the slabs?
         </h3>
         <p className="text-slate-600 mb-4 text-sm">
@@ -144,29 +143,23 @@ export default function TaxRegimeGuide() {
           className="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200"
         >
           <Link href="/income-tax-calculator/">
-            {' '}
-            {/* Note the trailing slash! */}
             Calculate My Tax Liability <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </div>
 
-      {/* 💰 AD SLOT 1 */}
+      {/* AD SLOT 1 */}
       <div className="no-print my-8">
         <AdSlot id="tax-guide-top" type="leaderboard" />
       </div>
 
-      {/* --- SECTION 1: UNDERSTANDING REGIMES --- */}
+      {/* SECTION 1: Understanding the Two Regimes */}
       <Card className="mb-12 border-slate-200 shadow-sm">
         <CardContent className="p-6 sm:p-8">
-          <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <h2 className="mb-6 text-2xl font-semibold text-slate-900 flex items-center gap-2">
             <Scale className="h-6 w-6 text-blue-600" /> Understanding the Two
             Tax Regimes
           </h2>
-          <p className="mb-6 text-slate-700">
-            India currently offers taxpayers a choice between two distinct
-            income tax structures, each with its own philosophy and benefits.
-          </p>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-slate-50 p-5 rounded-lg border border-slate-200">
@@ -174,20 +167,20 @@ export default function TaxRegimeGuide() {
                 <Landmark className="h-4 w-4 text-slate-500" /> Old Tax Regime
               </h3>
               <p className="text-sm text-slate-600 mb-3">
-                Traditional structure focusing on tax-saving investments.
+                Traditional structure with many deductions and exemptions.
               </p>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex gap-2">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>Multiple deductions (80C, 80D, HRA).</span>
+                  <span className="text-blue-600 font-semibold">•</span>{' '}
+                  Multiple deductions (80C, 80D, HRA, Home Loan)
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>Higher tax rates on lower slabs.</span>
+                  <span className="text-blue-600 font-semibold">•</span>{' '}
+                  Requires proof and documentation
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>Requires documentation proofs.</span>
+                  <span className="text-blue-600 font-semibold">•</span> Higher
+                  tax rates on lower slabs
                 </li>
               </ul>
             </div>
@@ -198,20 +191,21 @@ export default function TaxRegimeGuide() {
                 Regime (Default)
               </h3>
               <p className="text-sm text-emerald-800 mb-3">
-                Simplified structure with lower tax rates.
+                Simplified structure with lower tax rates and minimal
+                deductions.
               </p>
               <ul className="space-y-2 text-sm text-emerald-900">
                 <li className="flex gap-2">
-                  <span className="text-emerald-600 font-bold">•</span>
-                  <span>Lower tax rates across slabs.</span>
+                  <span className="text-emerald-600 font-semibold">•</span>{' '}
+                  Lower tax rates across all slabs
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-emerald-600 font-bold">•</span>
-                  <span>Minimal deductions (Standard Ded. only).</span>
+                  <span className="text-emerald-600 font-semibold">•</span>{' '}
+                  Standard deduction ₹75,000 only
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-emerald-600 font-bold">•</span>
-                  <span>Paperless & hassle-free.</span>
+                  <span className="text-emerald-600 font-semibold">•</span>{' '}
+                  Paperless and hassle-free
                 </li>
               </ul>
             </div>
@@ -219,89 +213,88 @@ export default function TaxRegimeGuide() {
         </CardContent>
       </Card>
 
-      {/* --- SECTION 2: TAX SLABS --- */}
+      {/* SECTION 2: TAX SLABS 2025-26 */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
-          <Calculator className="h-6 w-6 text-indigo-600" /> Income Tax Slabs
-          2025-26
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2">
+          <Calculator className="h-6 w-6 text-indigo-600" /> Income Tax Slabs FY
+          2025-26 (New Regime)
         </h2>
-        <p className="mb-6 text-slate-700">
-          Understanding the exact tax slabs is crucial. Here is the breakdown
-          for the <strong>New Regime</strong> (FY 2025-26).
-        </p>
 
         <div className="overflow-hidden rounded-lg border border-slate-200 mb-6 shadow-sm">
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-100 hover:bg-slate-100">
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Income Slab
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
+                <TableHead className="font-semibold text-slate-900">
                   Tax Rate
                 </TableHead>
-                <TableHead className="font-bold text-slate-900">
-                  Calculation
+                <TableHead className="font-semibold text-slate-900">
+                  Tax Calculation
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
                 <TableCell>Up to ₹4,00,000</TableCell>
-                <TableCell className="text-emerald-600 font-bold">
+                <TableCell className="text-emerald-600 font-semibold">
                   NIL
                 </TableCell>
                 <TableCell>No tax</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>₹4L to ₹8L</TableCell>
+                <TableCell>₹4L – ₹8L</TableCell>
                 <TableCell>5%</TableCell>
-                <TableCell>5% on income &gt; ₹4L</TableCell>
+                <TableCell>5% on amount above ₹4L</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>₹8L to ₹12L</TableCell>
+                <TableCell>₹8L – ₹12L</TableCell>
                 <TableCell>10%</TableCell>
-                <TableCell>₹20k + 10% on income &gt; ₹8L</TableCell>
+                <TableCell>₹20,000 + 10% on amount above ₹8L</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>₹12L to ₹16L</TableCell>
+                <TableCell>₹12L – ₹16L</TableCell>
                 <TableCell>15%</TableCell>
-                <TableCell>₹60k + 15% on income &gt; ₹12L</TableCell>
+                <TableCell>₹60,000 + 15% on amount above ₹12L</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>₹16L to ₹20L</TableCell>
+                <TableCell>₹16L – ₹20L</TableCell>
                 <TableCell>20%</TableCell>
-                <TableCell>₹1.2L + 20% on income &gt; ₹16L</TableCell>
+                <TableCell>₹1,20,000 + 20% on amount above ₹16L</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>₹20L to ₹24L</TableCell>
+                <TableCell>₹20L – ₹24L</TableCell>
                 <TableCell>25%</TableCell>
-                <TableCell>₹2L + 25% on income &gt; ₹20L</TableCell>
+                <TableCell>₹2,00,000 + 25% on amount above ₹20L</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Above ₹24L</TableCell>
-                <TableCell className="text-red-600 font-bold">30%</TableCell>
-                <TableCell>₹3L + 30% on income &gt; ₹24L</TableCell>
+                <TableCell>Above ₹24 Lakhs</TableCell>
+                <TableCell className="text-red-600 font-semibold">
+                  30%
+                </TableCell>
+                <TableCell>₹3,00,000 + 30% on amount above ₹24L</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
 
-        <div className="rounded-lg bg-indigo-50 p-4 border border-indigo-100">
-          <h4 className="font-bold text-indigo-900 mb-2 flex items-center gap-2">
-            <Lightbulb className="h-4 w-4" /> Important Benefits (New Regime):
+        <div className="rounded-lg bg-emerald-50 p-4 border border-emerald-100">
+          <h4 className="font-semibold text-emerald-900 mb-2 flex items-center gap-2">
+            <Lightbulb className="h-4 w-4" /> Key Benefits in New Regime (FY
+            2025-26)
           </h4>
-          <ul className="list-disc pl-5 text-sm text-indigo-800 space-y-1">
+          <ul className="list-disc pl-5 text-sm text-emerald-800 space-y-1">
             <li>
-              <strong>Standard Deduction:</strong> ₹75,000 for salaried.
+              <strong>Standard Deduction:</strong> ₹75,000 for salaried
             </li>
             <li>
-              <strong>Tax Rebate (87A):</strong> Income up to ₹12 Lakh is
-              effectively tax-free due to rebate limit adjustments.
+              <strong>Rebate u/s 87A:</strong> Full rebate if taxable income ≤
+              ₹12 Lakhs
             </li>
             <li>
-              <strong>Effectively Tax-Free:</strong> Up to{' '}
-              <strong>₹12.75 Lakh</strong> for salaried individuals.
+              <strong>Effectively Tax-Free:</strong> Up to ≈ ₹12.75 Lakh gross
+              salary for salaried individuals
             </li>
           </ul>
         </div>
@@ -314,7 +307,7 @@ export default function TaxRegimeGuide() {
 
       {/* --- SECTION 3: DEDUCTIONS (OLD REGIME) --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2">
           <FileText className="h-6 w-6 text-slate-600" /> Deductions in Old Tax
           Regime
         </h2>
@@ -342,7 +335,9 @@ export default function TaxRegimeGuide() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4 text-sm text-slate-700">
-              <p className="mb-2 font-bold text-emerald-600">Max ₹1.5 Lakh</p>
+              <p className="mb-2 font-semibold text-emerald-600">
+                Max ₹1.5 Lakh
+              </p>
               <ul className="list-disc pl-4 space-y-1">
                 <li>
                   <Link
@@ -380,7 +375,9 @@ export default function TaxRegimeGuide() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4 text-sm text-slate-700">
-              <p className="mb-2 font-bold text-emerald-600">Max ₹25k - ₹1L</p>
+              <p className="mb-2 font-semibold text-emerald-600">
+                Max ₹25k - ₹1L
+              </p>
               <ul className="list-disc pl-4 space-y-1">
                 <li>Self & Family</li>
                 <li>Parents (Senior Citizens get higher limit)</li>
@@ -396,7 +393,7 @@ export default function TaxRegimeGuide() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4 text-sm text-slate-700">
-              <p className="mb-2 font-bold text-emerald-600">
+              <p className="mb-2 font-semibold text-emerald-600">
                 Significant Savings
               </p>
               <ul className="list-disc pl-4 space-y-1">
@@ -424,7 +421,7 @@ export default function TaxRegimeGuide() {
 
       {/* --- SECTION 4: BREAKEVEN ANALYSIS --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2">
           <TrendingUp className="h-6 w-6 text-amber-500" /> Breakeven Analysis:
           When to Switch?
         </h2>
@@ -469,7 +466,7 @@ export default function TaxRegimeGuide() {
                     <TableCell>₹8 Lakh</TableCell>
                     <TableCell>₹45,000</TableCell>
                     <TableCell>NIL</TableCell>
-                    <TableCell className="font-bold text-emerald-600">
+                    <TableCell className="font-semibold text-emerald-600">
                       New
                     </TableCell>
                   </TableRow>
@@ -477,7 +474,7 @@ export default function TaxRegimeGuide() {
                     <TableCell>₹12 Lakh</TableCell>
                     <TableCell>₹1,22,500</TableCell>
                     <TableCell>NIL</TableCell>
-                    <TableCell className="font-bold text-emerald-600">
+                    <TableCell className="font-semibold text-emerald-600">
                       New
                     </TableCell>
                   </TableRow>
@@ -539,7 +536,7 @@ export default function TaxRegimeGuide() {
 
       {/* --- SECTION 5: REAL LIFE EXAMPLES --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2">
           <Users className="h-6 w-6 text-blue-600" /> Real-Life Examples
         </h2>
 
@@ -558,7 +555,7 @@ export default function TaxRegimeGuide() {
                 <li className="flex justify-between">
                   <span>New Regime Tax:</span> <span>NIL</span>
                 </li>
-                <li className="pt-2 border-t border-slate-200 font-bold text-emerald-600">
+                <li className="pt-2 border-t border-slate-200 font-semibold text-emerald-600">
                   Winner: New Regime (Saves ₹38k)
                 </li>
               </ul>
@@ -582,7 +579,7 @@ export default function TaxRegimeGuide() {
                 <li className="flex justify-between">
                   <span>New Regime Tax:</span> <span>₹1,45,000</span>
                 </li>
-                <li className="pt-2 border-t border-slate-200 font-bold text-emerald-600">
+                <li className="pt-2 border-t border-slate-200 font-semibold text-emerald-600">
                   Winner: Old Regime (Saves ₹15.6k)
                 </li>
               </ul>
@@ -598,7 +595,7 @@ export default function TaxRegimeGuide() {
 
       {/* --- SECTION 6: HOW TO SWITCH --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2">
           <Briefcase className="h-6 w-6 text-purple-600" /> How to Switch
           Regimes
         </h2>
@@ -639,7 +636,7 @@ export default function TaxRegimeGuide() {
 
       {/* --- SECTION 7: MISTAKES --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2">
           <AlertTriangle className="h-6 w-6 text-red-500" /> Common Mistakes
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -680,7 +677,7 @@ export default function TaxRegimeGuide() {
       {/* --- CONCLUSION --- */}
       <Card className="mb-12 border-slate-200 bg-slate-900 text-white">
         <CardContent className="p-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
             <Lightbulb className="h-6 w-6 text-yellow-400" /> Conclusion: Make
             an Informed Choice
           </h2>
@@ -720,7 +717,7 @@ export default function TaxRegimeGuide() {
 
       {/* --- FAQS --- */}
       <section className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-slate-900">
+        <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="w-full space-y-2">
