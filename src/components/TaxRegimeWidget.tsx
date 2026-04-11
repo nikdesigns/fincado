@@ -29,85 +29,85 @@ export default function TaxRegimeWidget() {
   const salaries: SalaryItem[] = [
     {
       label: '₹6 Lakh Salary',
-      url: '/guides/tax-on-6-lakh-salary',
+      url: '/guides/tax-on-6-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹7.5 Lakh Salary',
-      url: '/guides/tax-on-7-5-lakh-salary',
+      url: '/guides/tax-on-7-5-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹8 Lakh Salary',
-      url: '/guides/tax-on-8-lakh-salary',
+      url: '/guides/tax-on-8-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹9 Lakh Salary',
-      url: '/guides/tax-on-9-lakh-salary',
+      url: '/guides/tax-on-9-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹10 Lakh Salary',
-      url: '/guides/tax-on-10-lakh-salary',
+      url: '/guides/tax-on-10-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹11 Lakh Salary',
-      url: '/guides/tax-on-11-lakh-salary',
+      url: '/guides/tax-on-11-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹12 Lakh Salary',
-      url: '/guides/tax-on-12-lakh-salary',
+      url: '/guides/tax-on-12-lakh-salary/',
       badge: 'Zero Tax',
       badgeVariant: 'success',
     },
     {
       label: '₹14 Lakh Salary',
-      url: '/guides/tax-on-14-lakh-salary',
+      url: '/guides/tax-on-14-lakh-salary/',
       badge: 'Low Tax',
       badgeVariant: 'warning',
     },
     {
       label: '₹15 Lakh Salary',
-      url: '/guides/tax-on-15-lakh-salary',
+      url: '/guides/tax-on-15-lakh-salary/',
       badge: 'Low Tax',
       badgeVariant: 'warning',
     },
     {
       label: '₹16 Lakh Salary',
-      url: '/guides/tax-on-16-lakh-salary',
+      url: '/guides/tax-on-16-lakh-salary/',
       badge: 'Low Tax',
       badgeVariant: 'warning',
     },
     {
       label: '₹18 Lakh Salary',
-      url: '/guides/tax-on-18-lakh-salary',
+      url: '/guides/tax-on-18-lakh-salary/',
       badge: 'Low Tax',
       badgeVariant: 'warning',
     },
     {
       label: '₹20 Lakh Salary',
-      url: '/guides/tax-on-20-lakh-salary',
+      url: '/guides/tax-on-20-lakh-salary/',
       badge: 'Low Tax',
       badgeVariant: 'warning',
     },
     {
       label: '₹25 Lakh Salary',
-      url: '/guides/tax-on-25-lakh-salary',
+      url: '/guides/tax-on-25-lakh-salary/',
       badge: 'High Tax',
       badgeVariant: 'info',
     },
     {
       label: '₹30 Lakh Salary',
-      url: '/guides/tax-on-30-lakh-salary',
+      url: '/guides/tax-on-30-lakh-salary/',
       badge: 'High Tax',
       badgeVariant: 'info',
     },
@@ -198,7 +198,7 @@ export default function TaxRegimeWidget() {
             )}
           </Button>
 
-          <Link href="/guides/new-vs-old-tax-regime-2025" className="block">
+          <Link href="/guides/new-vs-old-tax-regime-2026/" className="block">
             <Button
               variant="outline"
               className="w-full border-[#DFF7C6] text-[#577A30] hover:bg-[#F7FDF1] hover:border-[#D0F4A9] font-medium"
