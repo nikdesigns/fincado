@@ -1,7 +1,8 @@
+// src/app/sitemap.ts
+
 import { MetadataRoute } from 'next';
 import articlesData from '@/data/articles.json';
 import { banks } from '@/lib/banks';
-import { cityDetails } from '@/lib/localData';
 
 export const dynamic = 'force-static';
 export const revalidate = 86400;
@@ -314,18 +315,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  /* ---------------- 5. CITY EMI PAGES ---------------- */
-  const citySlugs = Object.keys(cityDetails).filter((s) => s !== 'default');
-
-  const cityRoutes: MetadataRoute.Sitemap = citySlugs.map((slug) =>
-    makeEntry(`/emi-calculator/${slug}`, {
-      lastModified: DEFAULT_LAST_MODIFIED,
-      changeFrequency: 'monthly',
-      priority: PRIORITY.MEDIUM_LOW,
-    }),
-  );
-
-  /* ---------------- 6. BANK & BANK-CITY PAGES ---------------- */
+  /* ---------------- 5. BANK HUB PAGES ---------------- */
   const bankHubRoutes: MetadataRoute.Sitemap = banks.map((bank) =>
     makeEntry(`/bank-emi/${bank.slug}`, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -333,19 +323,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: PRIORITY.HIGH,
     }),
   );
-
-  const bankCityRoutes: MetadataRoute.Sitemap = [];
-  for (const bank of banks) {
-    for (const city of citySlugs) {
-      bankCityRoutes.push(
-        makeEntry(`/bank-emi/${bank.slug}/${city}`, {
-          lastModified: DEFAULT_LAST_MODIFIED,
-          changeFrequency: 'weekly',
-          priority: PRIORITY.MEDIUM,
-        }),
-      );
-    }
-  }
 
   /* ---------------- COMBINE & DEDUPE ---------------- */
   const allRoutes: MetadataRoute.Sitemap = [
@@ -359,8 +336,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articleRoutes,
     ...bankHubRoutes,
     ...hindiStandalonePages,
-    ...cityRoutes,
-    ...bankCityRoutes,
     ...informationalPages,
   ];
 
