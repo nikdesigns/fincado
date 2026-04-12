@@ -1,3 +1,5 @@
+// src/app/emi-calculator/page.tsx
+
 import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
@@ -294,7 +296,9 @@ export default function EMIPage() {
                 </Card>
               </div>
             </section>
+
             <EMIClient />
+
             {/* // Add after the calculator */}
             <Card className="border-slate-200 mt-10 bg-white">
               <CardHeader>
@@ -523,11 +527,14 @@ export default function EMIPage() {
                 </CardContent>
               </Card>
             </section>
+
             {/* 💰 AD 2: AFTER RESULT (High Engagement) */}
             <div className="no-print" style={{ margin: '32px 0' }}>
               <AdSlot id="emi-after-calc" type="banner" />
             </div>
+
             <LiveRateTable type="personalLoan" />
+
             <section className="no-print mt-8">
               <Card className="border-slate-200 bg-white">
                 <CardHeader>
@@ -604,6 +611,7 @@ export default function EMIPage() {
                 </CardContent>
               </Card>
             </section>
+
             {/* promo Content */}
             <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1] transition-colors hover:bg-[#EFFBE2]">
               <CardContent className="flex items-start gap-4 p-5">
@@ -628,6 +636,7 @@ export default function EMIPage() {
                 </div>
               </CardContent>
             </Card>
+
             {/* Content Section for SEO */}
             <article className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
@@ -861,7 +870,7 @@ export default function EMIPage() {
               </Card>
             </article>
 
-            {/* EMI Refrence Table */}
+            {/* EMI Reference Table */}
             <section className="no-print mt-8">
               <Card className="border-slate-200 bg-linear-to-br from-white to-slate-50">
                 <CardHeader>
@@ -940,6 +949,7 @@ export default function EMIPage() {
                 </CardContent>
               </Card>
             </section>
+
             {/* Faq Section */}
             <section className="no-print mt-12">
               <Card className="border-slate-200 bg-white">
@@ -970,6 +980,7 @@ export default function EMIPage() {
                 </CardContent>
               </Card>
             </section>
+
             <AuthorBio />
           </div>
 

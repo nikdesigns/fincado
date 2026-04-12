@@ -1,5 +1,6 @@
+// src/app/bank-emi/[bank]/page.tsx
+
 import { banks, RATE_DISCLAIMER } from '@/lib/banks';
-import cities from '@/data/cities.json';
 import { notFound } from 'next/navigation';
 import EMIClient from '@/app/emi-calculator/EMIClient';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -38,7 +39,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
 import {
   AlertTriangle,
   ArrowRight,
@@ -48,7 +48,6 @@ import {
   HelpCircle,
   IndianRupee,
   ListChecks,
-  MapPin,
   Percent,
   ShieldCheck,
   TrendingUp,
@@ -118,6 +117,7 @@ export default async function BankPage({
   const bank = banks.find((b) => b.slug === resolvedParams.bank);
 
   if (!bank) notFound();
+
   const liveRates = await getBankRates();
   const getLatestHomeRate = (slug: string, fallback: number) =>
     liveRates.find((r) => r.bank === slug)?.homeLoan ?? fallback;
@@ -125,7 +125,7 @@ export default async function BankPage({
 
   const competitorSlugs = getCompetitors(bank.slug);
   const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
-  const topCities = cities.slice(0, 12);
+
   const bankHomeRate = getLatestHomeRate(bank.slug, bank.rate);
   const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
   const avgRate = ((bankHomeRate + bankMaxRate) / 2).toFixed(2);
@@ -322,12 +322,6 @@ export default async function BankPage({
                 href="#compare-banks"
               >
                 Compare with other banks
-              </Link>
-              <Link
-                className="text-blue-600 hover:underline font-medium"
-                href="#city-pages"
-              >
-                City-wise EMI pages
               </Link>
               <Link
                 className="text-blue-600 hover:underline font-medium"
@@ -634,38 +628,6 @@ export default async function BankPage({
                     prevent stress in emergencies.
                   </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card
-            id="city-pages"
-            className="mb-12 bg-slate-50/50 border-slate-200 scroll-mt-24"
-          >
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl">
-                <MapPin className="h-5 w-5 text-red-500" />
-                Calculate {bank.name} EMI for Your City
-              </CardTitle>
-              <CardDescription>
-                Rates, stamp duty, and affordability trends can differ by city.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                {topCities.map((city) => (
-                  <Link
-                    key={city.slug}
-                    href={`/bank-emi/${bank.slug}/${city.slug}/`}
-                  >
-                    <Button
-                      variant="outline"
-                      className="w-full text-slate-600 hover:text-slate-900 bg-white hover:border-slate-400"
-                    >
-                      {city.name}
-                    </Button>
-                  </Link>
-                ))}
               </div>
             </CardContent>
           </Card>
