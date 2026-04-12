@@ -162,7 +162,9 @@ export default function RootLayout({
         <SkipToContent />
 
         {/* Main Content Area */}
-        <main style={{ minHeight: '80vh' }}>{children}</main>
+        <main id="main-content" style={{ minHeight: '80vh' }}>
+          {children}
+        </main>
 
         {/* Ad Block Detector */}
         <AdBlockDetector />
