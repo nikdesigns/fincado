@@ -39,7 +39,7 @@ const customFont = localFont({
     },
     {
       path: '../../public/fonts/DupletRounded-Bold.woff',
-      weight: '800',
+      weight: '700',
       style: 'normal',
     },
     {
@@ -103,9 +103,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  verification: {
-    google: 'YOUR_GSC_VERIFICATION_CODE_HERE',
-  },
+  verification: {},
   other: {
     'google-adsense-account': 'ca-pub-6648091987919638',
   },

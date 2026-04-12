@@ -1,3 +1,5 @@
+// src/scripts/create-emi-redirects.js
+
 const fs = require('fs');
 const path = require('path');
 
@@ -22,13 +24,25 @@ export default function EMIRedirectPage() {
 emiRedirects.forEach(({ from, to }) => {
   const pagePath = path.join(process.cwd(), 'src/app', from, 'page.tsx');
   const dirPath = path.dirname(pagePath);
+  const expectedContent = redirectTemplate(to);
 
+  // 1. Ensure the directory exists
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
 
-  fs.writeFileSync(pagePath, redirectTemplate(to));
-  console.log(`✅ Created: /${from}/ → ${to}`);
+  // 2. Check if the file already exists and has the correct content
+  if (fs.existsSync(pagePath)) {
+    const currentContent = fs.readFileSync(pagePath, 'utf8');
+    if (currentContent === expectedContent) {
+      console.log(`⏭️  Skipped (already exists): /${from}/ → ${to}`);
+      return; // Exit early to avoid unnecessary disk writes
+    }
+  }
+
+  // 3. Write the file if it's missing or outdated
+  fs.writeFileSync(pagePath, expectedContent);
+  console.log(`✅ Created/Updated: /${from}/ → ${to}`);
 });
 
-console.log('\n✅ EMI redirects created!\n');
+console.log('\n✅ EMI redirects checked and created!\n');

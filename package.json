@@ -6,7 +6,7 @@
     "dev": "next dev",
     "clean": "rimraf out .next",
     "prebuild": "node src/scripts/process-wiki.js",
-    "postbuild": "npm run check-links:ci",
+    "postbuild": "npm run check-internal",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

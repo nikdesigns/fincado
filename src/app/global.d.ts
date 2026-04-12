@@ -1,5 +1,8 @@
 // src/types/global.d.ts
 
+// ✅ Fix for: Cannot find module './globals.css'
+declare module '*.css';
+
 declare global {
   interface Window {
     // ✅ Google AdSense
