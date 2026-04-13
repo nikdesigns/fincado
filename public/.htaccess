@@ -1,50 +1,90 @@
 # ================================
-# Fincado – SAFE & FINAL CONFIG
+# Fincado – PRODUCTION CONFIG
 # ================================
 
 RewriteEngine On
 
 # ------------------------------------------------
-# 0. ABSOLUTE INDEXNOW KEY BYPASS
+# 0. INDEXNOW KEY BYPASS
 # ------------------------------------------------
 RewriteRule ^f79d7e3caed6497cafbcc9ee2cd99a55\.txt$ - [L]
 
 # ------------------------------------------------
-# Force NON-WWW canonical
+# 1. CANONICALIZATION (HTTPS + non-www + no double slash)
 # ------------------------------------------------
+
+# 1a) Collapse multiple slashes in URL path
+RewriteCond %{THE_REQUEST} \s/+(.+?)//+ [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# 1b) Force HTTPS and non-www in one redirect
+RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.fincado\.com$ [NC]
 RewriteRule ^(.*)$ https://fincado.com/$1 [R=301,L]
 
 # ------------------------------------------------
-# 1. SECURITY HEADERS
+# 2. SECURITY HEADERS (UPDATED FOR SEO SCAN FIXES)
 # ------------------------------------------------
 <IfModule mod_headers.c>
-  Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
-  Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set Referrer-Policy "origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # FIX: Updated to strict-origin-when-cross-origin to resolve 421 SEO warnings
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
-# Prevent caching of IndexNow key
 <Files "f79d7e3caed6497cafbcc9ee2cd99a55.txt">
   Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
 </Files>
 
 # ------------------------------------------------
-# 2. FORCE TRAILING SLASH (SAFE)
+# 2B. MIME TYPES (FIX FOR "BAD CONTENT TYPE" WARNINGS)
 # ------------------------------------------------
-RewriteCond %{REQUEST_METHOD} !HEAD
+<IfModule mod_mime.c>
+  AddType text/javascript .js
+  AddType text/css .css
+  AddType application/json .json
+  AddType application/xml .xml
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+</IfModule>
+
+# ------------------------------------------------
+# 3. FORCE TRAILING SLASH (for non-file URLs)
+# ------------------------------------------------
 RewriteCond %{REQUEST_URI} !^/(?:_next|api|\.well-known)/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !\.(txt|html|css|js|json|xml|png|jpg|jpeg|webp|svg)$
+RewriteCond %{REQUEST_URI} !\.(txt|html|css|js|json|xml|png|jpg|jpeg|webp|svg|ico|woff|woff2|ttf|map)$ [NC]
 RewriteCond %{REQUEST_URI} !/$
 RewriteRule ^(.+)$ /$1/ [R=301,L]
 
 # ------------------------------------------------
-# 3. SEO REDIRECTS
+# 4. IDFC BANK FIX (Prevent 404s)
 # ------------------------------------------------
-RewriteRule ^calculators/emi-calculator?$ /emi-calculator/ [R=301,L]
+RewriteRule ^bank-emi/idfc/?$ /bank-emi/idfc-first/ [R=301,L]
+RewriteRule ^bank-emi/idfc/(.*)$ /bank-emi/idfc-first/$1 [R=301,L]
+RewriteRule ^compare/(.*)-vs-idfc/?$ /compare/$1-vs-idfc-first/ [R=301,L]
+RewriteRule ^compare/idfc-vs-(.*)/?$ /compare/idfc-first-vs-$1/ [R=301,L]
+
+# ------------------------------------------------
+# 5. FIX BROKEN/MISSING PAGES (FROM LOGS)
+# ------------------------------------------------
+RewriteRule ^guides/category/.*$ /guides/ [R=301,L]
+RewriteRule ^step-up-sip-calculator/?$ /sip-calculator/ [R=301,L]
+
+RewriteRule ^guides/tax/?$ /income-tax-calculator/ [R=301,L]
+RewriteRule ^guides/sukanya-samriddhi-yojana-guide/?$ /guides/sukanya-samriddhi-yojana-guide-2025/ [R=301,L]
+
+RewriteRule ^loans/gold-loan/?$ /loans/ [R=301,L]
+RewriteRule ^loans/business-loan/?$ /loans/ [R=301,L]
+RewriteRule ^loans/loan-against-property/?$ /loans/ [R=301,L]
+
+# ------------------------------------------------
+# 6. OLD URL REDIRECTS (LEGACY)
+# ------------------------------------------------
+RewriteRule ^calculators/emi-calculator/?$ /emi-calculator/ [R=301,L]
 RewriteRule ^calculators/sip-calculator/?$ /sip-calculator/ [R=301,L]
 RewriteRule ^calculators/ppf-calculator/?$ /ppf-calculator/ [R=301,L]
 RewriteRule ^calculators/epf-calculator/?$ /epf-calculator/ [R=301,L]
@@ -65,20 +105,46 @@ RewriteRule ^guides/sip-investment-strategies/?$ /guides/sip-investment-guide/ [
 RewriteRule ^guides/credit-score-guide-india/?$ /guides/how-credit-score-affects-loans/ [R=301,L]
 
 # ------------------------------------------------
-# 4. NEXT.JS STATIC EXPORT
+# 7. DELETED PROGRAMMATIC CITY PAGES (SEO CLEANUP)
 # ------------------------------------------------
+
+# 7a. Redirect Bank + City Pages -> Core Bank Page
+# Example: /bank-emi/sbi/mumbai/ -> /bank-emi/sbi/
+RewriteRule ^bank-emi/([^/]+)/[^/]+/?$ /bank-emi/$1/ [R=301,L]
+
+# 7b. Redirect EMI + City Pages -> Core EMI Page
+# Safety Check: Excludes your valid calculators (car-loan, home-loan, personal-loan, education-loan)
+RewriteCond %{REQUEST_URI} !^/emi-calculator/(car-loan|home-loan|personal-loan|education-loan) [NC]
+RewriteRule ^emi-calculator/[^/]+/?$ /emi-calculator/ [R=301,L]
+
+# 7c. Redirect City Credit Score Pages -> Core Credit Score Page
+# Example: /city/mumbai/credit-score/ -> /credit-score/
+RewriteRule ^city/[^/]+/credit-score/?$ /credit-score/ [R=301,L]
+
+# 7d. Redirect General City Loan Pages -> Core Loan Pages 
+# Example: /city/pune/home-loan/ -> /loans/home-loan/
+RewriteRule ^city/[^/]+/([^/]+)/?$ /loans/$1/ [R=301,L]
+
+# ------------------------------------------------
+# 8. NEXT.JS STATIC EXPORT HANDLING
+# ------------------------------------------------
+
+# Serve real files/directories directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-RewriteCond %{REQUEST_URI} \/$
-RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
-RewriteRule ^(.+)/$ $1/index.html [L]
+# Map /path/ -> /path/index.html if exists
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+?)/$ $1/index.html [L]
 
+# Map /path -> /path.html if exists
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.+)$ $1.html [L]
 
 # ------------------------------------------------
-# 5. CUSTOM 404
+# 9. CUSTOM 404 PAGE
 # ------------------------------------------------
 ErrorDocument 404 /404.html
