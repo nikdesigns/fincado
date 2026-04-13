@@ -9,6 +9,7 @@ import {
   PiggyBank,
   FileText,
   Mail,
+  ShieldCheck,
 } from 'lucide-react';
 
 export default function Footer() {
@@ -21,9 +22,9 @@ export default function Footer() {
     >
       {/* MAIN FOOTER */}
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-6">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-7">
           {/* BRAND */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 md:col-span-3">
             <Link
               href="/"
               className="inline-flex items-center gap-2 text-xl font-semibold text-slate-900 hover:text-[#74A046] transition-colors"
@@ -49,7 +50,7 @@ export default function Footer() {
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
                   ✓
                 </span>
-                <span>30+ Financial Calculators</span>
+                <span>40+ Financial Calculators</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
@@ -89,11 +90,14 @@ export default function Footer() {
           </div>
 
           {/* LOANS & EMI */}
-          <FooterColumn title="Loans & EMI" icon={Calculator}>
+          <FooterColumn title="Loans" icon={Calculator}>
             <FooterLink href="/compare-loans/" highlight>
               Compare Loan Rates
             </FooterLink>
             <FooterLink href="/emi-calculator/">EMI Calculator</FooterLink>
+            <FooterLink href="/emi-prepayment-calculator/">
+              EMI Prepayment
+            </FooterLink>
             <FooterLink href="/home-loan-calculator/">Home Loan</FooterLink>
             <FooterLink href="/loans/personal-loan/">Personal Loan</FooterLink>
             <FooterLink href="/loans/car-loan/">Car Loan</FooterLink>
@@ -111,19 +115,22 @@ export default function Footer() {
             </FooterLink>
             <FooterLink href="/swp-calculator/">SWP Calculator</FooterLink>
             <FooterLink href="/elss-calculator/">ELSS Calculator</FooterLink>
-            <FooterLink href="/ppf-calculator/">PPF Calculator</FooterLink>
             <FooterLink href="/fd-calculator/">FD Calculator</FooterLink>
             <FooterLink href="/rd-calculator/">RD Calculator</FooterLink>
+            <FooterLink href="/ppf-calculator/">PPF Calculator</FooterLink>
+            <FooterLink href="/pomis-calculator/">POMIS Calculator</FooterLink>
             <FooterLink href="/nsc-calculator/">NSC Calculator</FooterLink>
+            <FooterLink href="/kvp-calculator/">KVP Calculator</FooterLink>
             <FooterLink href="/cagr-calculator/">CAGR Calculator</FooterLink>
             <FooterLink href="/sukanya-samriddhi/">SSY Calculator</FooterLink>
           </FooterColumn>
 
-          {/* RETIREMENT & TAX */}
-          <FooterColumn title="Retirement & Tax" icon={PiggyBank}>
+          {/* RETIREMENT */}
+          <FooterColumn title="Retirement" icon={PiggyBank}>
             <FooterLink href="/retirement-calculator/">
               Retirement Planner
             </FooterLink>
+            <FooterLink href="/scss-calculator/">SCSS Calculator</FooterLink>
             <FooterLink href="/nps-calculator/">NPS Calculator</FooterLink>
             <FooterLink href="/epf-calculator/">EPF Calculator</FooterLink>
             <FooterLink href="/gratuity-calculator/">
@@ -131,14 +138,36 @@ export default function Footer() {
             </FooterLink>
             <FooterLink href="/apy-calculator/">APY Calculator</FooterLink>
             <FooterLink href="/fire-calculator/">FIRE Calculator</FooterLink>
+            <FooterLink href="/goal-planning-calculator/">
+              Goal Planning
+            </FooterLink>
+          </FooterColumn>
+
+          {/* TAX & TOOLS */}
+          <FooterColumn title="Tax & Tools" icon={ShieldCheck}>
             <FooterLink href="/income-tax-calculator/">
               Income Tax Calculator
             </FooterLink>
+            <FooterLink href="/salary-calculator/">
+              Salary Calculator
+            </FooterLink>
+            <FooterLink href="/capital-gains-calculator/">
+              Capital Gains Tax
+            </FooterLink>
+            <FooterLink href="/brokerage-calculator/">
+              Brokerage Calculator
+            </FooterLink>
             <FooterLink href="/hra-calculator/">HRA Calculator</FooterLink>
+            <FooterLink href="/rent-receipt-generator/">
+              Rent Receipt Generator
+            </FooterLink>
             <FooterLink href="/gst-calculator/">GST Calculator</FooterLink>
+            <FooterLink href="/inflation-calculator/">
+              Inflation Calculator
+            </FooterLink>
           </FooterColumn>
 
-          {/* COMPANY & RESOURCES */}
+          {/* RESOURCES */}
           <FooterColumn title="Resources" icon={FileText}>
             <FooterLink href="/guides/">Financial Guides</FooterLink>
             <FooterLink href="/calculators/">All Calculators</FooterLink>
@@ -164,13 +193,15 @@ export default function Footer() {
               { label: 'EMI Calculator', href: '/emi-calculator/' },
               { label: 'SIP Calculator', href: '/sip-calculator/' },
               { label: 'Income Tax', href: '/income-tax-calculator/' },
+              { label: 'Salary Calculator', href: '/salary-calculator/' },
+              { label: 'EMI Prepayment', href: '/emi-prepayment-calculator/' },
+              { label: 'SCSS Calculator', href: '/scss-calculator/' },
               { label: 'PPF Calculator', href: '/ppf-calculator/' },
               { label: 'Home Loan', href: '/home-loan-calculator/' },
+              { label: 'KVP Calculator', href: '/kvp-calculator/' },
+              { label: 'Capital Gains', href: '/capital-gains-calculator/' },
               { label: 'FD Calculator', href: '/fd-calculator/' },
-              { label: 'NPS Calculator', href: '/nps-calculator/' },
-              { label: 'Retirement Planning', href: '/retirement-calculator/' },
-              { label: 'GST Calculator', href: '/gst-calculator/' },
-              { label: 'HRA Calculator', href: '/hra-calculator/' },
+              { label: 'Rent Receipt', href: '/rent-receipt-generator/' },
             ].map((calc) => (
               <Link
                 key={calc.href}

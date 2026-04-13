@@ -45,6 +45,7 @@ const CALCULATOR_MENU = [
     color: 'text-blue-600',
     items: [
       { label: 'EMI Calculator', href: '/emi-calculator/', featured: false },
+      { label: 'EMI Prepayment', href: '/emi-prepayment-calculator/' },
       { label: 'Home Loan', href: '/loans/home-loan' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
       { label: 'Personal Loan', href: '/loans/personal-loan/' },
@@ -63,7 +64,9 @@ const CALCULATOR_MENU = [
       { label: 'FD Calculator', href: '/fd-calculator/' },
       { label: 'RD Calculator', href: '/rd-calculator/' },
       { label: 'PPF Calculator', href: '/ppf-calculator/' },
+      { label: 'POMIS Calculator', href: '/pomis-calculator/' },
       { label: 'NSC Calculator', href: '/nsc-calculator/' },
+      { label: 'KVP Calculator', href: '/kvp-calculator/' },
       { label: 'CAGR Calculator', href: '/cagr-calculator/' },
       { label: 'Sukanya Samriddhi (SSY)', href: '/sukanya-samriddhi/' },
     ],
@@ -74,6 +77,7 @@ const CALCULATOR_MENU = [
     color: 'text-purple-600',
     items: [
       { label: 'Retirement Planner', href: '/retirement-calculator/' },
+      { label: 'SCSS Calculator', href: '/scss-calculator/' },
       { label: 'NPS Calculator', href: '/nps-calculator/' },
       { label: 'EPF Calculator', href: '/epf-calculator/' },
       { label: 'Gratuity Calculator', href: '/gratuity-calculator/' },
@@ -88,7 +92,11 @@ const CALCULATOR_MENU = [
     color: 'text-rose-600',
     items: [
       { label: 'Income Tax Calculator', href: '/income-tax-calculator/' },
+      { label: 'Salary Calculator', href: '/salary-calculator/' },
+      { label: 'Capital Gains Tax', href: '/capital-gains-calculator/' },
+      { label: 'Brokerage Calculator', href: '/brokerage-calculator/' },
       { label: 'HRA Calculator', href: '/hra-calculator/' },
+      { label: 'Rent Receipt Generator', href: '/rent-receipt-generator/' },
       { label: 'GST Calculator', href: '/gst-calculator/' },
       { label: 'Credit Score', href: '/credit-score/' },
       { label: 'Inflation Calculator', href: '/inflation-calculator/' },
@@ -159,7 +167,7 @@ export default function Header() {
                   Calculators
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="rounded-2xl bg-white shadow-2xl border border-slate-200/80 overflow-hidden">
-                  <div className="grid w-237.5 grid-cols-4 gap-0 p-6">
+                  <div className="grid w-200 grid-cols-4 gap-0 p-6">
                     {CALCULATOR_MENU.map((section) => {
                       const Icon = section.icon;
                       return (

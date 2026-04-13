@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import InvestingClient from './InvestingClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
+import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
@@ -10,351 +11,353 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
-import 'katex/dist/katex.min.css';
-import { BlockMath } from 'react-katex';
+import LanguageToggle from '@/components/LanguageToggle';
 import { autoLinkContent } from '@/utils/autoLinker';
-
-// UI Components
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import {
-  ArrowRight,
-  Lightbulb,
-  TrendingUp,
-  HelpCircle,
-  PieChart,
-} from 'lucide-react';
+import FAQSchema from '@/components/FAQSchema';
+import { ArrowRight, TrendingUp, PieChart, Target } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Investing Planner 2026 – SIP, Lumpsum & Asset Allocation',
+  title: 'Investing Planner 2026 – SIP, Lumpsum & Smart Asset Allocation',
   description:
-    'Plan your investments with our advanced Investing Planner. Calculate future value, check Asset Allocation (Equity vs Debt), and estimate inflation-adjusted returns.',
+    'Plan your financial future with our advanced Investing Planner. Calculate SIP + Lumpsum future value, test different asset allocations (Equity, Debt, Gold), and see inflation-adjusted returns.',
   keywords: [
     'Investing Planner',
     'SIP Calculator India',
+    'Lumpsum Calculator',
     'Asset Allocation Tool',
     'Portfolio Planner',
-    'Lumpsum Calculator',
     'Financial Goal Planner',
-    'Equity vs Debt',
+    'Equity vs Debt Calculator',
+    'Mutual Fund Return Calculator',
+    'Compounding Calculator',
   ],
   alternates: {
     canonical: 'https://fincado.com/investing/',
+    languages: {
+      'en-IN': 'https://fincado.com/investing/',
+      'hi-IN': 'https://fincado.com/hi/investing/',
+    },
   },
   openGraph: {
-    title: 'Investing Planner – Plan Your Financial Freedom',
+    title: 'Investing Planner 2026 – Build Wealth with Smart Asset Allocation',
     description:
-      'Free tool to plan SIPs, lumpsum investments, and asset allocation strategies.',
+      'Free tool to plan SIPs, lumpsum investments, and perfect asset allocation. See exact future value and inflation-adjusted returns.',
     url: 'https://fincado.com/investing/',
     type: 'website',
   },
 };
 
 /* ---------------- PAGE ---------------- */
-
 export default function InvestingPage() {
   const introContent = autoLinkContent(`
-    <p class="text-lg text-slate-600 leading-relaxed mb-6">
-      <strong>Investment Planning</strong> is the process of matching your financial goals and objectives 
-      with your financial resources. It is not just about buying stocks; it is about building a 
-      diversified portfolio that balances <strong>Risk and Reward</strong>.
-    </p>
-    <p class="text-lg text-slate-600 leading-relaxed">
-      A good plan helps you beat <strong>Inflation</strong> (the rising cost of living) and generate 
-      wealth over the long term using the power of <strong>Compounding</strong>.
+    <p>
+      <strong>Investment Planning</strong> is the process of matching your financial goals with the right mix of assets. 
+      It is not just about buying mutual funds — it is about building a diversified portfolio that balances risk and reward while beating inflation over time.
     </p>
   `);
 
   const allocationContent = autoLinkContent(`
     <ul class="space-y-3 mt-4 text-slate-700">
-      <li class="flex gap-2"><span class="text-emerald-600 font-semibold">• Equity (Stocks/Mutual Funds):</span> High risk, high reward (12-15%). Best for long-term goals (>7 years).</li>
-      <li class="flex gap-2"><span class="text-blue-600 font-semibold">• Debt (FD/Bonds/PPF):</span> Low risk, moderate reward (6-8%). Best for short-term goals and stability.</li>
-      <li class="flex gap-2"><span class="text-amber-600 font-semibold">• Gold:</span> Acts as a hedge against inflation and market crashes. Experts recommend 5-10% allocation.</li>
+      <li class="flex gap-2"><span class="text-emerald-600 font-semibold">• Equity (Stocks/Mutual Funds):</span> High growth potential (12–15% CAGR). Ideal for goals 7+ years away.</li>
+      <li class="flex gap-2"><span class="text-blue-600 font-semibold">• Debt (FD/Bonds/PPF):</span> Stable returns (6–8%). Provides safety and regular income.</li>
+      <li class="flex gap-2"><span class="text-amber-600 font-semibold">• Gold:</span> Hedge against inflation and market crashes. Experts recommend 5–15% allocation.</li>
     </ul>
   `);
 
   const compoundingContent = autoLinkContent(`
     <p class="text-slate-600">
-      Albert Einstein called <strong>Compound Interest</strong> the "eighth wonder of the world." 
-      It allows your money to earn interest on interest. The longer you stay invested, the faster 
-      your money grows.
+      Albert Einstein called <strong>Compound Interest</strong> the eighth wonder of the world. 
+      The earlier you start investing, the more powerful compounding becomes. Even small monthly SIPs can create massive wealth over time.
     </p>
   `);
 
+  const faqItems = [
+    {
+      id: 'faq-1',
+      question: 'How much should I invest every month?',
+      answer:
+        'A good rule is the 50-30-20 rule: 50% on needs, 30% on wants, and at least 20% of your income towards investments (SIP + lumpsum).',
+    },
+    {
+      id: 'faq-2',
+      question: 'What is the best asset allocation for me?',
+      answer:
+        'It depends on your age and risk appetite. Young investors (under 35) can go 70-80% Equity. Conservative investors should keep higher Debt allocation.',
+    },
+    {
+      id: 'faq-3',
+      question: 'Are mutual funds safe?',
+      answer:
+        'Mutual funds are subject to market risks. However, over 10+ years, equity mutual funds have historically delivered 12–15% CAGR and beaten inflation comfortably.',
+    },
+    {
+      id: 'faq-4',
+      question: 'What is the expense ratio in mutual funds?',
+      answer:
+        'It is the annual fee charged by the fund house. Direct plans have significantly lower expense ratios (0.5–1%) compared to Regular plans (1.5–2.5%).',
+    },
+    {
+      id: 'faq-5',
+      question: 'Should I invest lumpsum or SIP?',
+      answer:
+        'SIP is better for most people because of rupee cost averaging. Lumpsum is ideal when you have a large amount available and a long investment horizon.',
+    },
+    {
+      id: 'faq-6',
+      question: 'How does inflation affect my investments?',
+      answer:
+        'Inflation reduces the purchasing power of money. Our calculator shows you the “Real Value” of your portfolio after adjusting for inflation.',
+    },
+    {
+      id: 'faq-7',
+      question: 'When should I rebalance my portfolio?',
+      answer:
+        'Rebalance once a year or when any asset class moves more than 10% away from your target allocation. This keeps risk under control.',
+    },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators/' },
+          { name: 'Investing Planner', url: 'https://fincado.com/investing/' },
+        ]}
+      />
+
       <CalculatorSchema
-        name="Investment Planner India"
-        description="Plan SIPs, lumpsum investments, and asset allocation. Calculate CAGR and future portfolio value."
+        name="Investing Planner 2026"
+        description="Plan SIPs, lumpsum investments, and smart asset allocation with inflation-adjusted future value calculator."
         url="https://fincado.com/investing/"
       />
 
-      <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <BreadcrumbJsonLd
-          items={[
-            { name: 'Home', url: 'https://fincado.com/' },
-            { name: 'Calculators', url: 'https://fincado.com/calculators/' },
-            {
-              name: 'Investing Planner',
-              url: 'https://fincado.com/investing/',
-            },
-          ]}
-        />
+      <FAQSchema faqs={faqItems} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mt-8">
-          {/* --- LEFT MAIN COLUMN --- */}
-          <div className="lg:col-span-8 min-w-0">
-            {/* Header */}
-            <header className="mb-10">
-              <Badge
-                variant="secondary"
-                className="mb-4 bg-purple-50 text-purple-700 hover:bg-purple-100 px-3 py-1 font-semibold uppercase tracking-wider"
+      <main className="container" style={{ padding: '40px 20px' }}>
+        <header style={{ marginBottom: 32 }} className="no-print">
+          <div className="no-print mb-6 flex items-center justify-between gap-4">
+            <ShareTools title="Investing Planner – SIP, Lumpsum & Asset Allocation" />
+            <LanguageToggle path="/hi/investing" />
+          </div>
+
+          <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
+            Investing Planner
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+              SIP + Lumpsum + Smart Asset Allocation
+            </span>
+          </h1>
+
+          {/* LAST UPDATED BANNER */}
+          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+            <span className="flex items-center gap-1">
+              ✅ Updated for FY 2026-27
+            </span>
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+              April 12, 2026
+            </span>
+            <span className="text-xs">• Latest Expected Returns Applied</span>
+          </div>
+
+          <div style={{ marginTop: 24, marginBottom: 24 }}>
+            <AdSlot id="investing-top" type="leaderboard" />
+          </div>
+
+          <div className="max-w-3xl text-slate-600 text-base font-medium leading-relaxed">
+            <WikiText content={introContent} />
+          </div>
+        </header>
+
+        <div className="layout-grid">
+          <div className="main-content">
+            {/* The Interactive Calculator */}
+            <InvestingClient />
+
+            <div className="mt-10 flex flex-wrap gap-3 no-print border-t pt-8 border-slate-100">
+              <Link
+                href="/sip-calculator/"
+                className="inline-flex items-center rounded-md bg-blue-50 px-4 py-2.5 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
               >
-                Wealth Builder 2026
-              </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-                Investing Planner
-              </h1>
-
-              <div className="mb-8 pt-4 border-t border-slate-100">
-                <ShareTools title="Investing Planner" />
-              </div>
-
-              <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 mb-8 flex justify-center no-print">
-                <AdSlot id="investing-top" type="leaderboard" />
-              </div>
-
-              <WikiText
-                content={`
-                <p class="text-xl text-slate-500 leading-relaxed">
-                  Plan your financial future. Simulate different allocation mixes
-                  (Equity / Debt / Gold), calculate future values, and get diversification guidance.
-                </p>
-              `}
-              />
-            </header>
-
-            {/* THE CALCULATOR */}
-            <section className="mb-12">
-              <InvestingClient />
-            </section>
-
-            {/* Ad After Calc */}
-            <div className="my-12 no-print flex justify-center">
-              <AdSlot id="investing-after-calc" type="banner" />
+                Pure SIP Calculator
+              </Link>
+              <Link
+                href="/lumpsum-calculator/"
+                className="inline-flex items-center rounded-md bg-emerald-50 px-4 py-2.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100 transition-colors"
+              >
+                Lumpsum Calculator <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </div>
 
+            <article className="no-print mt-16 space-y-12">
+              <Card className="border-slate-200 bg-white">
+                <CardContent className="p-6 sm:p-10 space-y-10">
+                  <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold text-slate-900 flex items-center gap-2">
+                      <PieChart className="w-6 h-6 text-emerald-600" />
+                      What is Investment Planning?
+                    </h2>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={introContent} />
+                    </div>
+                  </section>
+
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
+                      <Target className="w-5 h-5 text-emerald-600" />
+                      Asset Allocation Strategies
+                    </h3>
+                    <div className="overflow-x-auto border border-slate-200 rounded-lg">
+                      <table className="w-full text-sm text-left">
+                        <thead className="bg-slate-50 text-slate-700">
+                          <tr>
+                            <th className="px-4 py-3 font-semibold border-b">
+                              Profile
+                            </th>
+                            <th className="px-4 py-3 font-semibold border-b border-l">
+                              Equity
+                            </th>
+                            <th className="px-4 py-3 font-semibold border-b border-l">
+                              Debt
+                            </th>
+                            <th className="px-4 py-3 font-semibold border-b border-l">
+                              Gold
+                            </th>
+                            <th className="px-4 py-3 font-semibold border-b border-l">
+                              Risk
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="text-slate-600 divide-y divide-slate-200">
+                          <tr>
+                            <td className="px-4 py-3 font-medium text-slate-900">
+                              Aggressive
+                            </td>
+                            <td className="px-4 py-3 border-l text-emerald-700 font-semibold">
+                              70–80%
+                            </td>
+                            <td className="px-4 py-3 border-l">15–25%</td>
+                            <td className="px-4 py-3 border-l">5%</td>
+                            <td className="px-4 py-3">
+                              <Badge variant="destructive">High</Badge>
+                            </td>
+                          </tr>
+                          <tr className="bg-slate-50/50">
+                            <td className="px-4 py-3 font-medium text-slate-900">
+                              Balanced
+                            </td>
+                            <td className="px-4 py-3 border-l text-emerald-700 font-semibold">
+                              50%
+                            </td>
+                            <td className="px-4 py-3 border-l">35%</td>
+                            <td className="px-4 py-3 border-l">15%</td>
+                            <td className="px-4 py-3">
+                              <Badge className="bg-amber-500 text-white">
+                                Medium
+                              </Badge>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-3 font-medium text-slate-900">
+                              Conservative
+                            </td>
+                            <td className="px-4 py-3 border-l text-emerald-700 font-semibold">
+                              20–30%
+                            </td>
+                            <td className="px-4 py-3 border-l">60–70%</td>
+                            <td className="px-4 py-3 border-l">10%</td>
+                            <td className="px-4 py-3">
+                              <Badge className="bg-blue-500 text-white">
+                                Low
+                              </Badge>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  <div className="no-print my-8 flex justify-center">
+                    <AdSlot type="square" label="Advertisement" />
+                  </div>
+
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Understanding Asset Classes
+                    </h3>
+                    <div className="text-slate-700 leading-relaxed bg-slate-50 border border-slate-200 p-6 rounded-xl">
+                      <WikiText content={allocationContent} />
+                    </div>
+                  </section>
+
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      The Power of Compounding
+                    </h3>
+                    <div className="text-slate-700 leading-relaxed">
+                      <WikiText content={compoundingContent} />
+                    </div>
+                  </section>
+                </CardContent>
+              </Card>
+            </article>
+
             {/* Live Rates */}
-            <section className="mb-16">
+            <section className="my-16">
               <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
                 <TrendingUp className="h-6 w-6 text-emerald-600" />
-                Current Fixed Deposit Rates
+                Current Fixed Deposit Rates (2026)
               </h2>
               <LiveRateTable type="fixedDeposit" />
             </section>
 
-            {/* Promo Box */}
-            <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 mb-12 flex flex-col sm:flex-row items-center gap-4 no-print">
-              <div className="bg-white p-3 rounded-full shadow-sm text-2xl text-emerald-600">
-                <Lightbulb className="w-6 h-6" />
-              </div>
-              <div>
-                <strong className="block text-emerald-900 text-lg mb-1">
-                  New to Investing?
-                </strong>
-                <Link
-                  href="/guides/sip-investment-guide/"
-                  className="text-emerald-700 font-semibold hover:underline flex items-center gap-1"
-                >
-                  Read: The Ultimate Beginner&apos;s Guide{' '}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* SEO Content */}
-            <article className="prose prose-slate max-w-none mb-16">
-              <h2 className="text-2xl font-semibold text-slate-900 flex items-center gap-2">
-                <PieChart className="w-6 h-6 text-indigo-600" />
-                What is Investment Planning?
-              </h2>
-              <WikiText content={introContent} />
-
-              <h3 className="text-xl font-semibold text-slate-900 mt-8">
-                Asset Allocation Strategies
-              </h3>
-              <div className="overflow-hidden rounded-lg border border-slate-200 my-6 shadow-sm">
-                <table className="min-w-full divide-y divide-slate-200">
-                  <thead className="bg-slate-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        Profile
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        Equity
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        Debt
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        Risk Level
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-slate-200">
-                    <tr>
-                      <td className="px-6 py-4 font-semibold text-slate-900">
-                        Aggressive
-                      </td>
-                      <td className="px-6 py-4 text-emerald-600 font-medium">
-                        70% - 80%
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">20% - 30%</td>
-                      <td className="px-6 py-4">
-                        <Badge variant="destructive">High</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 font-semibold text-slate-900">
-                        Moderate
-                      </td>
-                      <td className="px-6 py-4 text-emerald-600 font-medium">
-                        50%
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">50%</td>
-                      <td className="px-6 py-4">
-                        <Badge className="bg-amber-500 text-white hover:bg-amber-600">
-                          Medium
-                        </Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 font-semibold text-slate-900">
-                        Conservative
-                      </td>
-                      <td className="px-6 py-4 text-emerald-600 font-medium">
-                        20% - 30%
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">70% - 80%</td>
-                      <td className="px-6 py-4">
-                        <Badge className="bg-blue-500 text-white hover:bg-blue-600">
-                          Low
-                        </Badge>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              {/* In-Content Ad */}
-              <div className="my-10 flex justify-center bg-slate-50 p-4 rounded-lg">
-                <AdSlot
-                  id="investing-square-inner"
-                  type="square"
-                  label="Advertisement"
-                />
-              </div>
-
-              <h3 className="text-xl font-semibold text-slate-900">
-                Understanding Asset Classes
-              </h3>
-              <WikiText content={allocationContent} />
-
-              <h3 className="text-xl font-semibold text-slate-900 mt-8">
-                The Power of Compounding
-              </h3>
-              <WikiText content={compoundingContent} />
-
-              <h3 className="text-xl font-semibold text-slate-900 mt-8">
-                Future Value Formula
-              </h3>
-              <p className="text-slate-600">
-                The standard formula for Compound Interest used in planning:
-              </p>
-
-              <div className="py-6 overflow-x-auto">
-                <BlockMath math="FV = PV \times (1 + r)^n" />
-              </div>
-
-              <WikiText
-                content={`
-                  <ul class="list-disc pl-5 space-y-2 text-slate-600 text-sm">
-                    <li><strong>FV</strong>: Future Value</li>
-                    <li><strong>PV</strong>: Present Value (Investment)</li>
-                    <li><strong>r</strong>: Annual Return Rate</li>
-                    <li><strong>n</strong>: Time in Years</li>
-                  </ul>
-                `}
-              />
-            </article>
-
-            {/* FAQs Accordion */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
-                <HelpCircle className="h-6 w-6 text-amber-500" />
-                Frequently Asked Questions
-              </h2>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem
-                  value="item-1"
-                  className="bg-white border rounded-lg mb-3 px-4"
-                >
-                  <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
-                    How much should I save monthly?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                    A general rule is the <strong>50-30-20 Rule</strong>: Spend
-                    50% on needs, 30% on wants, and save at least{' '}
-                    <strong>20%</strong> of your income for investments.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem
-                  value="item-2"
-                  className="bg-white border rounded-lg mb-3 px-4"
-                >
-                  <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
-                    Are mutual funds safe?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                    Mutual funds are subject to market risks. However, over the
-                    long term (10+ years), equity mutual funds have historically
-                    outperformed inflation and other asset classes.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem
-                  value="item-3"
-                  className="bg-white border rounded-lg mb-3 px-4"
-                >
-                  <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
-                    What is expense ratio?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                    It is the annual fee charged by mutual funds to manage your
-                    money.
-                    <strong>Direct Plans</strong> have lower expense ratios
-                    compared to Regular Plans.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+            {/* FAQ */}
+            <section className="no-print mt-12">
+              <Card className="border-slate-200 bg-white">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
+                    Frequently Asked Questions
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    defaultValue={faqItems[0]?.id}
+                    className="space-y-2"
+                  >
+                    {faqItems.map((faq) => (
+                      <AccordionItem key={faq.id} value={faq.id}>
+                        <AccordionTrigger className="text-left text-slate-900">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
             </section>
 
-            <AuthorBio />
+            <div className="no-print mt-8">
+              <AuthorBio />
+            </div>
           </div>
 
-          {/* --- RIGHT SIDEBAR --- */}
-          <aside className="lg:col-span-4 space-y-8 my-12">
-            <div className="sticky top-28 space-y-8">
-              <div className="bg-white border border-slate-200 rounded-2xl shadow-sm flex justify-center p-4 min-h-62.5 items-center">
-                <AdSlot id="investing-sidebar" type="box" />
-              </div>
+          <aside className="sidebar no-print">
+            <div className="sticky top-24 space-y-6">
+              <AdSlot id="investing-sidebar" type="box" />
+              <SidebarCompareWidget />
               <FinancialNavWidget />
             </div>
           </aside>

@@ -88,6 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   /* ---------------- 1. STATIC PAGES (ENGLISH) ---------------- */
   const coreCalculatorPairs: RoutePair[] = [
     ['/emi-calculator', '/hi/emi-calculator'],
+    ['/emi-prepayment-calculator', '/hi/emi-prepayment-calculator'],
     ['/sip-calculator', '/hi/sip-calculator'],
     ['/income-tax-calculator', '/hi/income-tax-calculator'],
     ['/home-loan-calculator', '/hi/home-loan-calculator'],
@@ -133,8 +134,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/fd-calculator', '/hi/fd-calculator'],
     ['/rd-calculator', '/hi/rd-calculator'],
     ['/ppf-calculator', '/hi/ppf-calculator'],
+    ['/pomis-calculator', '/hi/pomis-calculator'],
     ['/elss-calculator', '/hi/elss-calculator'],
     ['/nsc-calculator', '/hi/nsc-calculator'],
+    ['/kvp-calculator', '/hi/kvp-calculator'],
     ['/cagr-calculator', '/hi/cagr-calculator'],
     ['/sukanya-samriddhi', '/hi/sukanya-samriddhi'],
   ];
@@ -152,6 +155,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const retirementCalculatorPairs: RoutePair[] = [
     ['/epf-calculator', '/hi/epf-calculator'],
     ['/nps-calculator', '/hi/nps-calculator'],
+    ['/scss-calculator', '/hi/scss-calculator'],
     ['/retirement-calculator', '/hi/retirement-calculator'],
     ['/gratuity-calculator', '/hi/gratuity-calculator'],
     ['/apy-calculator', '/hi/apy-calculator'],
@@ -170,7 +174,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     );
 
   const taxUtilityCalculatorPairs: RoutePair[] = [
+    ['/salary-calculator', '/hi/salary-calculator'],
+    ['/capital-gains-calculator', '/hi/capital-gains-calculator'],
+    ['/brokerage-calculator', '/hi/brokerage-calculator'],
     ['/hra-calculator', '/hi/hra-calculator'],
+    ['/rent-receipt-generator', '/hi/rent-receipt-generator'],
     ['/gst-calculator', '/hi/gst-calculator'],
     ['/inflation-calculator', '/hi/inflation-calculator'],
     ['/simple-interest-calculator', '/hi/simple-interest-calculator'],

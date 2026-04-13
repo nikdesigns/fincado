@@ -1,19 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import CalculatorField from '@/components/CalculatorField';
-import { Slider } from '@/components/ui/slider';
+import React, { useState, useMemo } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
 import {
-  Settings2,
   TrendingUp,
   Wallet,
   RefreshCcw,
   PieChart,
+  ShieldCheck,
+  Flame,
+  Scale,
+  Landmark,
+  Coins,
+  Info,
 } from 'lucide-react';
+import CalculatorField from '@/components/CalculatorField';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // --- Utility: Format Currency ---
 const formatINR = (val: number) =>
@@ -26,27 +30,26 @@ const formatINR = (val: number) =>
 // --- Constants ---
 const DEFAULT_RETURNS = { equity: 12, debt: 7, gold: 8 };
 
-// --- Donut Chart (Fixed Immutability Issue) ---
-function MultiAssetChart({
+// --- Custom Donut Chart ---
+function PortfolioChart({
   slices,
   totalValue,
 }: {
-  slices: { color: string; pct: number; label: string }[];
+  slices: { colorClass: string; pct: number; label: string; bgClass: string }[];
   totalValue: string;
 }) {
-  const size = 220;
+  const size = 240;
   const strokeWidth = 24;
   const r = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * r;
 
-  // ✅ FIX: Use reduce to avoid mutating a variable inside map
-  const { segments: chartSegments } = slices.reduce(
+  const { segments } = slices.reduce(
     (acc, slice) => {
       const dashArray = (slice.pct / 100) * circumference;
       const dashOffset = -acc.offset;
 
       acc.segments.push({
-        color: slice.color,
+        ...slice,
         dashArray,
         dashOffset,
       });
@@ -55,79 +58,68 @@ function MultiAssetChart({
       return acc;
     },
     {
-      segments: [] as {
-        color: string;
-        dashArray: number;
-        dashOffset: number;
-      }[],
+      segments: [] as Array<
+        (typeof slices)[0] & { dashArray: number; dashOffset: number }
+      >,
       offset: 0,
     },
   );
 
   return (
-    <div className="relative flex flex-col items-center justify-center py-6">
-      <div style={{ width: size, height: size }} className="relative">
+    <div className="relative flex flex-col items-center justify-center py-4">
+      <div
+        style={{ width: size, height: size }}
+        className="relative drop-shadow-sm"
+      >
         <svg
           width={size}
           height={size}
           viewBox={`0 0 ${size} ${size}`}
-          className="-rotate-90"
+          className="-rotate-90 transform transition-all duration-500"
         >
-          {/* Background Circle */}
+          {/* Background Track */}
           <circle
             cx={size / 2}
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#f1f5f9"
+            className="stroke-slate-100"
             strokeWidth={strokeWidth}
           />
-
-          {/* Segments */}
-          {chartSegments.map((segment, i) => (
-            <circle
-              key={i}
-              cx={size / 2}
-              cy={size / 2}
-              r={r}
-              fill="none"
-              stroke={segment.color}
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${segment.dashArray} ${circumference}`}
-              strokeDashoffset={segment.dashOffset}
-              strokeLinecap="butt"
-              className="transition-all duration-500 ease-out"
-            />
-          ))}
+          {/* Slices */}
+          {segments.map((segment, i) => {
+            if (segment.pct <= 0) return null;
+            return (
+              <circle
+                key={i}
+                cx={size / 2}
+                cy={size / 2}
+                r={r}
+                fill="none"
+                className={`${segment.colorClass} transition-all duration-1000 ease-out`}
+                stroke="currentColor"
+                strokeWidth={strokeWidth}
+                strokeDasharray={`${segment.dashArray} ${circumference}`}
+                strokeDashoffset={segment.dashOffset}
+                strokeLinecap={
+                  segments.filter((s) => s.pct > 0).length === 1
+                    ? 'round'
+                    : 'butt'
+                }
+              />
+            );
+          })}
         </svg>
 
-        {/* Center Text */}
+        {/* Center Label */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">
             Total Value
           </span>
-          <span className="text-2xl font-semibold text-slate-900">
+          <span className="text-2xl font-black text-slate-900 tracking-tight">
             {totalValue}
           </span>
         </div>
-      </div>
-
-      {/* Legend */}
-      <div className="flex flex-wrap justify-center gap-4 mt-6">
-        {slices.map((slice, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <span
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: slice.color }}
-            />
-            <span className="text-sm font-medium text-slate-600">
-              {slice.label}
-            </span>
-            <span className="text-xs text-slate-400">
-              ({Math.round(slice.pct)}%)
-            </span>
-          </div>
-        ))}
       </div>
     </div>
   );
@@ -140,353 +132,467 @@ export default function InvestingClient() {
   const [years, setYears] = useState(15);
   const [inflation, setInflation] = useState(6);
 
-  // --- Asset Allocation (0-100) ---
-  const [equityPct, setEquityPct] = useState(60);
-  const [debtPct, setDebtPct] = useState(30);
+  // --- Asset Allocation State ---
+  const [strategy, setStrategy] = useState<
+    'safe' | 'balanced' | 'aggressive' | 'custom'
+  >('balanced');
+
+  const [equityPct, setEquityPct] = useState(50);
+  const [debtPct, setDebtPct] = useState(40);
   const [goldPct, setGoldPct] = useState(10);
 
-  // --- Expected Returns ---
+  // --- Expected Returns State ---
   const [equityRet, setEquityRet] = useState(DEFAULT_RETURNS.equity);
   const [debtRet, setDebtRet] = useState(DEFAULT_RETURNS.debt);
   const [goldRet, setGoldRet] = useState(DEFAULT_RETURNS.gold);
 
-  // --- Logic ---
-  const totalAlloc = equityPct + debtPct + goldPct || 1;
-  const alloc = {
-    equity: equityPct / totalAlloc,
-    debt: debtPct / totalAlloc,
-    gold: goldPct / totalAlloc,
+  // --- Actions ---
+  const applyPreset = (type: 'safe' | 'balanced' | 'aggressive') => {
+    setStrategy(type);
+    if (type === 'safe') {
+      setEquityPct(20);
+      setDebtPct(70);
+      setGoldPct(10);
+    } else if (type === 'balanced') {
+      setEquityPct(50);
+      setDebtPct(40);
+      setGoldPct(10);
+    } else if (type === 'aggressive') {
+      setEquityPct(80);
+      setDebtPct(15);
+      setGoldPct(5);
+    }
   };
 
-  const months = years * 12;
-
-  const calculateFV = (
-    p: number,
-    r: number,
-    n: number,
-    type: 'sip' | 'lumpsum',
-  ) => {
-    const monthlyRate = r / 12 / 100;
-    if (monthlyRate === 0) return p * (type === 'sip' ? n : 1);
-    if (type === 'lumpsum') return p * Math.pow(1 + monthlyRate, n);
-    return (
-      p * ((Math.pow(1 + monthlyRate, n) - 1) / monthlyRate) * (1 + monthlyRate)
-    );
-  };
-
-  const equityFV =
-    calculateFV(monthlySIP * alloc.equity, equityRet, months, 'sip') +
-    calculateFV(lumpSum * alloc.equity, equityRet, months, 'lumpsum');
-  const debtFV =
-    calculateFV(monthlySIP * alloc.debt, debtRet, months, 'sip') +
-    calculateFV(lumpSum * alloc.debt, debtRet, months, 'lumpsum');
-  const goldFV =
-    calculateFV(monthlySIP * alloc.gold, goldRet, months, 'sip') +
-    calculateFV(lumpSum * alloc.gold, goldRet, months, 'lumpsum');
-
-  const totalFutureValue = Math.round(equityFV + debtFV + goldFV);
-  const totalInvested = Math.round(monthlySIP * months + lumpSum);
-  const totalProfit = totalFutureValue - totalInvested;
-
-  // Real Value (Inflation Adjusted)
-  const realValue = Math.round(
-    totalFutureValue / Math.pow(1 + inflation / 100, years),
-  );
-
-  const resetDefaults = () => {
-    setAsset(60, 30, 10);
+  const handleReset = () => {
     setMonthlySIP(10000);
     setLumpSum(100000);
     setYears(15);
+    applyPreset('balanced');
+    setEquityRet(DEFAULT_RETURNS.equity);
+    setDebtRet(DEFAULT_RETURNS.debt);
+    setGoldRet(DEFAULT_RETURNS.gold);
+    setInflation(6);
   };
 
-  const setAsset = (e: number, d: number, g: number) => {
-    setEquityPct(e);
-    setDebtPct(d);
-    setGoldPct(g);
-  };
+  const handleCustomInput =
+    (setter: (v: number) => void) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setStrategy('custom');
+      setter(Number(e.target.value) || 0);
+    };
+
+  // --- Math Engine ---
+  const results = useMemo(() => {
+    const months = years * 12;
+
+    // Normalize percentages to ensure they always equal exactly 100% in math
+    const totalAlloc = equityPct + debtPct + goldPct || 1;
+    const alloc = {
+      equity: equityPct / totalAlloc,
+      debt: debtPct / totalAlloc,
+      gold: goldPct / totalAlloc,
+    };
+
+    const calculateFV = (ratio: number, annualRate: number) => {
+      const monthlyRate = annualRate / 12 / 100;
+      const sipPart = monthlySIP * ratio;
+      const lumpPart = lumpSum * ratio;
+
+      let fvSip = 0;
+      if (monthlyRate === 0) fvSip = sipPart * months;
+      else
+        fvSip =
+          sipPart *
+          ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
+          (1 + monthlyRate);
+
+      const fvLump = lumpPart * Math.pow(1 + monthlyRate, months);
+      return fvSip + fvLump;
+    };
+
+    const fvEquity = calculateFV(alloc.equity, equityRet);
+    const fvDebt = calculateFV(alloc.debt, debtRet);
+    const fvGold = calculateFV(alloc.gold, goldRet);
+
+    const totalFV = Math.round(fvEquity + fvDebt + fvGold);
+    const totalInvested = Math.round(monthlySIP * months + lumpSum);
+    const totalProfit = totalFV - totalInvested;
+
+    // Inflation Adjusted (Real) Value
+    const realValue = Math.round(
+      totalFV / Math.pow(1 + inflation / 100, years),
+    );
+
+    // Weighted Average Return (CAGR)
+    const blendedReturn = (
+      equityRet * alloc.equity +
+      debtRet * alloc.debt +
+      goldRet * alloc.gold
+    ).toFixed(1);
+
+    // Chart Data
+    const pieSlices = [
+      {
+        label: 'Equity',
+        pct: alloc.equity * 100,
+        colorClass: 'text-emerald-500',
+        bgClass: 'bg-emerald-500',
+        value: fvEquity,
+      },
+      {
+        label: 'Debt',
+        pct: alloc.debt * 100,
+        colorClass: 'text-blue-500',
+        bgClass: 'bg-blue-500',
+        value: fvDebt,
+      },
+      {
+        label: 'Gold',
+        pct: alloc.gold * 100,
+        colorClass: 'text-amber-400',
+        bgClass: 'bg-amber-400',
+        value: fvGold,
+      },
+    ];
+
+    return {
+      totalFV,
+      totalInvested,
+      totalProfit,
+      realValue,
+      blendedReturn,
+      pieSlices,
+      alloc,
+    };
+  }, [
+    monthlySIP,
+    lumpSum,
+    years,
+    equityPct,
+    debtPct,
+    goldPct,
+    equityRet,
+    debtRet,
+    goldRet,
+    inflation,
+  ]);
 
   return (
-    <Card className="border-border shadow-sm bg-card">
-      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-            <Settings2 className="h-5 w-5 text-indigo-600" />
-            Portfolio Configuration
-          </CardTitle>
-          <button
-            onClick={resetDefaults}
-            className="text-xs text-slate-500 flex items-center gap-1 hover:text-indigo-600 transition-colors"
-          >
-            <RefreshCcw className="w-3 h-3" /> Reset
-          </button>
-        </div>
-      </CardHeader>
+    <div className="grid gap-8 lg:grid-cols-12 mt-8">
+      {/* --- LEFT COLUMN: INPUTS --- */}
+      <div className="lg:col-span-7 space-y-8">
+        {/* Section 1: Core Investment */}
+        <Card className="border-slate-200 shadow-sm">
+          <CardContent className="p-6 sm:p-8 space-y-6">
+            <CalculatorField
+              label="Monthly SIP Amount"
+              value={monthlySIP}
+              min={0}
+              max={500000}
+              step={500}
+              onChange={setMonthlySIP}
+              prefix="₹"
+            />
+            <CalculatorField
+              label="Lumpsum Investment (One-time)"
+              value={lumpSum}
+              min={0}
+              max={10000000}
+              step={5000}
+              onChange={setLumpSum}
+              prefix="₹"
+            />
+            <CalculatorField
+              label="Investment Duration"
+              value={years}
+              min={1}
+              max={40}
+              step={1}
+              onChange={setYears}
+              suffix=" Years"
+            />
+          </CardContent>
+        </Card>
 
-      <CardContent className="p-6 lg:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          {/* --- LEFT COLUMN: INPUTS --- */}
-          <div className="lg:col-span-7 space-y-8">
-            {/* 1. Core Inputs using CalculatorField */}
-            <div className="space-y-6">
-              <CalculatorField
-                label="Monthly SIP Amount"
-                value={monthlySIP}
-                min={0}
-                max={500000}
-                step={500}
-                onChange={setMonthlySIP}
-              />
-
-              <CalculatorField
-                label="Lumpsum Investment"
-                value={lumpSum}
-                min={0}
-                max={10000000}
-                step={5000}
-                onChange={setLumpSum}
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <CalculatorField
-                  label="Duration (Years)"
-                  value={years}
-                  min={1}
-                  max={40}
-                  step={1}
-                  onChange={setYears}
-                />
-                <CalculatorField
-                  label="Expected Inflation (%)"
-                  value={inflation}
-                  min={0}
-                  max={15}
-                  step={0.5}
-                  onChange={setInflation}
-                />
-              </div>
+        {/* Section 2: Asset Allocation */}
+        <Card className="border-slate-200 shadow-sm">
+          <CardContent className="p-6 sm:p-8 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h3 className="text-base font-bold text-slate-900">
+                Asset Allocation Strategy
+              </h3>
             </div>
 
-            {/* 2. Asset Allocation Mixer */}
-            <div className="rounded-xl border border-slate-200 p-5 bg-slate-50/50 space-y-5">
-              <div className="flex items-center justify-between mb-2">
-                <Label className="text-sm font-semibold text-slate-700">
-                  Asset Allocation Strategy
-                </Label>
-                <div className="flex gap-2">
-                  <Badge
-                    variant="outline"
-                    className="cursor-pointer hover:bg-emerald-50 hover:text-emerald-700 bg-white"
-                    onClick={() => setAsset(80, 15, 5)}
-                  >
-                    Aggressive
-                  </Badge>
-                  <Badge
-                    variant="outline"
-                    className="cursor-pointer hover:bg-blue-50 hover:text-blue-700 bg-white"
-                    onClick={() => setAsset(50, 40, 10)}
-                  >
-                    Balanced
-                  </Badge>
-                  <Badge
-                    variant="outline"
-                    className="cursor-pointer hover:bg-amber-50 hover:text-amber-700 bg-white"
-                    onClick={() => setAsset(20, 70, 10)}
-                  >
-                    Safe
-                  </Badge>
-                </div>
-              </div>
+            {/* Segmented Control for Presets */}
+            <div className="flex bg-slate-100 p-1 rounded-xl">
+              <button
+                onClick={() => applyPreset('safe')}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
+                  strategy === 'safe'
+                    ? 'bg-white shadow text-indigo-700'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <ShieldCheck className="w-4 h-4" /> Safe
+              </button>
+              <button
+                onClick={() => applyPreset('balanced')}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
+                  strategy === 'balanced'
+                    ? 'bg-white shadow text-indigo-700'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <Scale className="w-4 h-4" /> Balanced
+              </button>
+              <button
+                onClick={() => applyPreset('aggressive')}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
+                  strategy === 'aggressive'
+                    ? 'bg-white shadow text-indigo-700'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <Flame className="w-4 h-4" /> Aggressive
+              </button>
+            </div>
 
-              {/* Compact Sliders for Asset Mix */}
-              <div className="space-y-4">
-                {/* Equity */}
-                <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
-                  <span className="text-xs font-semibold text-emerald-700">
-                    Equity
-                  </span>
-                  <Slider
-                    className="text-emerald-600"
-                    value={[equityPct]}
-                    max={100}
-                    step={5}
-                    onValueChange={(v) => setEquityPct(v[0])}
-                  />
-                  <div className="relative">
-                    <Input
-                      className="h-7 text-xs pr-4 text-right"
-                      value={equityRet}
-                      onChange={(e) => setEquityRet(Number(e.target.value))}
-                    />
-                    <span className="absolute right-1.5 top-1.5 text-[10px] text-slate-400">
-                      %
-                    </span>
+            {/* Granular Allocation Grid */}
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                {
+                  label: 'Equity',
+                  icon: TrendingUp,
+                  pct: equityPct,
+                  setPct: setEquityPct,
+                  ret: equityRet,
+                  setRet: setEquityRet,
+                  color: 'text-emerald-700',
+                  bg: 'bg-emerald-50/50 border-emerald-100',
+                },
+                {
+                  label: 'Debt',
+                  icon: Landmark,
+                  pct: debtPct,
+                  setPct: setDebtPct,
+                  ret: debtRet,
+                  setRet: setDebtRet,
+                  color: 'text-blue-700',
+                  bg: 'bg-blue-50/50 border-blue-100',
+                },
+                {
+                  label: 'Gold',
+                  icon: Coins,
+                  pct: goldPct,
+                  setPct: setGoldPct,
+                  ret: goldRet,
+                  setRet: setGoldRet,
+                  color: 'text-amber-700',
+                  bg: 'bg-amber-50/50 border-amber-100',
+                },
+              ].map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={i}
+                    className={`p-4 rounded-xl border ${item.bg} transition-all`}
+                  >
+                    <div
+                      className={`flex items-center gap-2 font-bold uppercase tracking-wider mb-4 ${item.color}`}
+                    >
+                      <Icon className="w-4 h-4" /> {item.label}
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-slate-500 font-semibold">
+                          Allocation %
+                        </Label>
+                        <Input
+                          type="number"
+                          value={item.pct}
+                          onChange={handleCustomInput(item.setPct)}
+                          className="h-10 bg-white font-bold"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-slate-500 font-semibold">
+                          Expected Return %
+                        </Label>
+                        <Input
+                          type="number"
+                          value={item.ret}
+                          onChange={handleCustomInput(item.setRet)}
+                          className="h-10 bg-white font-bold"
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                );
+              })}
+            </div>
 
-                {/* Debt */}
-                <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
-                  <span className="text-xs font-semibold text-blue-700">
-                    Debt
-                  </span>
-                  <Slider
-                    className="text-blue-600"
-                    value={[debtPct]}
-                    max={100}
-                    step={5}
-                    onValueChange={(v) => setDebtPct(v[0])}
-                  />
-                  <div className="relative">
-                    <Input
-                      className="h-7 text-xs pr-4 text-right"
-                      value={debtRet}
-                      onChange={(e) => setDebtRet(Number(e.target.value))}
-                    />
-                    <span className="absolute right-1.5 top-1.5 text-[10px] text-slate-400">
-                      %
-                    </span>
-                  </div>
-                </div>
+            {equityPct + debtPct + goldPct !== 100 && (
+              <Alert className="bg-slate-50 border-slate-200 py-2">
+                <Info className="h-4 w-4 text-slate-500 mt-0.5" />
+                <AlertDescription className="ml-2 text-xs text-slate-600">
+                  Values don&apos;t equal 100%. Don&apos;t worry, we
+                  automatically normalize the math to exactly 100% for the
+                  calculation.
+                </AlertDescription>
+              </Alert>
+            )}
+          </CardContent>
+        </Card>
 
-                {/* Gold */}
-                <div className="grid grid-cols-[80px_1fr_60px] gap-3 items-center">
-                  <span className="text-xs font-semibold text-amber-700">
-                    Gold
-                  </span>
-                  <Slider
-                    className="text-amber-600"
-                    value={[goldPct]}
-                    max={100}
-                    step={5}
-                    onValueChange={(v) => setGoldPct(v[0])}
-                  />
-                  <div className="relative">
-                    <Input
-                      className="h-7 text-xs pr-4 text-right"
-                      value={goldRet}
-                      onChange={(e) => setGoldRet(Number(e.target.value))}
-                    />
-                    <span className="absolute right-1.5 top-1.5 text-[10px] text-slate-400">
-                      %
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* Section 3: Inflation Setting & Reset */}
+        <Card className="border-slate-200 shadow-sm">
+          <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="flex-1 w-full">
+              <CalculatorField
+                label="Expected Inflation Rate"
+                value={inflation}
+                onChange={setInflation}
+                min={0}
+                max={15}
+                step={0.1}
+                suffix="%"
+              />
+            </div>
+            <button
+              onClick={handleReset}
+              className="text-sm font-semibold text-slate-500 hover:text-indigo-600 flex items-center justify-center gap-2 transition-colors py-2 px-4 rounded-lg hover:bg-indigo-50 shrink-0"
+            >
+              <RefreshCcw className="w-4 h-4" /> Reset Defaults
+            </button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* --- RIGHT COLUMN: VISUALS --- */}
+      <div className="lg:col-span-5">
+        <Card className="sticky top-6 border-[#B0EC70] bg-white shadow-md overflow-hidden flex flex-col">
+          {/* Header Metric */}
+          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8 text-center">
+            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2">
+              Expected Portfolio Value
+            </p>
+            <h3 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              {formatINR(results.totalFV)}
+            </h3>
+            <div className="inline-flex items-center gap-1.5 mt-4 bg-white px-4 py-1.5 rounded-full border border-[#DFF7C6] shadow-sm">
+              <span className="text-sm font-bold text-[#577A30]">
+                {results.blendedReturn}% Blended CAGR
+              </span>
             </div>
           </div>
 
-          {/* --- RIGHT COLUMN: VISUALS --- */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
+          <CardContent className="p-6 sm:p-8 flex-1 flex flex-col">
             {/* Chart */}
-            <MultiAssetChart
-              totalValue={formatINR(totalFutureValue)}
-              slices={[
-                { label: 'Equity', color: '#10b981', pct: alloc.equity * 100 },
-                { label: 'Debt', color: '#3b82f6', pct: alloc.debt * 100 },
-                { label: 'Gold', color: '#f59e0b', pct: alloc.gold * 100 },
-              ]}
+            <PortfolioChart
+              slices={results.pieSlices}
+              totalValue={formatINR(results.totalInvested)}
             />
 
-            {/* Results Grid */}
-            <div className="space-y-4">
-              <Card className="border-slate-200 bg-slate-50">
-                <CardContent className="p-4 flex justify-between items-center">
-                  <div className="flex items-center gap-3">
-                    <Wallet className="w-5 h-5 text-slate-500" />
-                    <span className="text-sm font-medium text-slate-600">
-                      Total Investment
-                    </span>
-                  </div>
-                  <span className="font-semibold text-slate-900">
-                    {formatINR(totalInvested)}
-                  </span>
-                </CardContent>
-              </Card>
+            {/* Primary Results */}
+            <div className="space-y-4 pt-4 mt-2 border-t border-slate-100">
+              <div className="flex justify-between items-center py-2">
+                <span className="text-slate-600 font-medium flex items-center gap-2">
+                  <Wallet className="w-4 h-4" /> Total Invested
+                </span>
+                <span className="font-semibold text-slate-900 text-lg">
+                  {formatINR(results.totalInvested)}
+                </span>
+              </div>
 
-              <Card className="border-emerald-200 bg-emerald-50">
-                <CardContent className="p-4 flex justify-between items-center">
-                  <div className="flex items-center gap-3">
-                    <TrendingUp className="w-5 h-5 text-emerald-600" />
-                    <span className="text-sm font-medium text-emerald-900">
-                      Total Profit
-                    </span>
-                  </div>
-                  <span className="font-semibold text-emerald-700">
-                    +{formatINR(totalProfit)}
-                  </span>
-                </CardContent>
-              </Card>
+              <div className="flex justify-between items-center py-2">
+                <span className="text-slate-600 font-medium flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-emerald-600" /> Wealth
+                  Gained
+                </span>
+                <span className="font-bold text-emerald-600 text-lg">
+                  +{formatINR(results.totalProfit)}
+                </span>
+              </div>
 
-              <div className="pt-4 border-t border-slate-100 mt-2">
-                <div className="flex justify-between items-center text-xs text-slate-500 mb-1">
-                  <span>Inflation Adjusted Value (Real Value)</span>
-                  <span className="font-medium text-slate-700">
-                    {formatINR(realValue)}
+              <div className="flex justify-between items-center py-4 mt-2 bg-slate-50 px-4 rounded-xl border border-slate-200">
+                <div className="flex flex-col">
+                  <span className="font-bold text-slate-800">Real Value</span>
+                  <span className="text-[11px] text-slate-500 font-medium">
+                    Inflation Adjusted (Today&apos;s Value)
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-400">
-                  Assuming {inflation}% annual inflation
-                </p>
+                <span className="font-bold text-slate-900 text-xl">
+                  {formatINR(results.realValue)}
+                </span>
               </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* --- BOTTOM TABLE --- */}
-        <div className="mt-12">
-          <h4 className="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-            <PieChart className="w-4 h-4 text-indigo-500" /> Breakdown by Asset
-            Class
-          </h4>
-          <div className="rounded-lg border border-slate-200 overflow-hidden">
+      {/* --- BOTTOM SECTION: DATA TABLE --- */}
+      <div className="lg:col-span-12 mt-4">
+        <h4 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <PieChart className="w-5 h-5 text-indigo-600" /> Detailed Portfolio
+          Breakdown
+        </h4>
+        <div className="rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+          <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-slate-50 text-slate-500 font-medium">
+              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                 <tr>
-                  <th className="px-4 py-3">Asset</th>
-                  <th className="px-4 py-3">Allocation</th>
-                  <th className="px-4 py-3 text-right">Future Value</th>
+                  <th className="px-6 py-4">Asset Class</th>
+                  <th className="px-6 py-4">Effective Allocation</th>
+                  <th className="px-6 py-4">Expected Return</th>
+                  <th className="px-6 py-4 text-right">Future Value</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 bg-white">
-                <tr>
-                  <td className="px-4 py-3 font-medium text-emerald-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-emerald-500 rounded-full" />{' '}
-                    Equity
+              <tbody className="divide-y divide-slate-100">
+                {results.pieSlices.map((slice, i) => (
+                  <tr
+                    key={i}
+                    className="hover:bg-slate-50/50 transition-colors"
+                  >
+                    <td className="px-6 py-4 font-bold text-slate-800 flex items-center gap-3">
+                      <span
+                        className={`w-3 h-3 rounded-full ${slice.bgClass} shadow-sm`}
+                      />
+                      {slice.label}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-slate-600">
+                      {slice.pct.toFixed(1)}%
+                    </td>
+                    <td className="px-6 py-4 font-medium text-slate-600">
+                      {slice.label === 'Equity'
+                        ? equityRet
+                        : slice.label === 'Debt'
+                          ? debtRet
+                          : goldRet}
+                      %
+                    </td>
+                    <td className="px-6 py-4 text-right font-bold text-slate-900">
+                      {formatINR(slice.value)}
+                    </td>
+                  </tr>
+                ))}
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-bold text-slate-900">
+                    Total Portfolio
                   </td>
-                  <td className="px-4 py-3 text-slate-600">
-                    {Math.round(alloc.equity * 100)}%
+                  <td className="px-6 py-4 font-bold text-slate-900">100%</td>
+                  <td className="px-6 py-4 font-bold text-slate-900">
+                    {results.blendedReturn}% (CAGR)
                   </td>
-                  <td className="px-4 py-3 text-right font-semibold text-slate-900">
-                    {formatINR(Math.round(equityFV))}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 font-medium text-blue-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full" /> Debt
-                  </td>
-                  <td className="px-4 py-3 text-slate-600">
-                    {Math.round(alloc.debt * 100)}%
-                  </td>
-                  <td className="px-4 py-3 text-right font-semibold text-slate-900">
-                    {formatINR(Math.round(debtFV))}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 font-medium text-amber-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-amber-500 rounded-full" /> Gold
-                  </td>
-                  <td className="px-4 py-3 text-slate-600">
-                    {Math.round(alloc.gold * 100)}%
-                  </td>
-                  <td className="px-4 py-3 text-right font-semibold text-slate-900">
-                    {formatINR(Math.round(goldFV))}
+                  <td className="px-6 py-4 text-right font-black text-emerald-700 text-lg">
+                    {formatINR(results.totalFV)}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
