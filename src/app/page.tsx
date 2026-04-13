@@ -224,6 +224,11 @@ export default function Home(): JSX.Element {
                 </Link>
               </Button>
             </div>
+
+            {/* 💰 AD 1: HIGH VISIBILITY BELOW HERO BUTTONS */}
+            <div className="mt-8 w-full max-w-md">
+              <AdSlot id="home-hero-ad" type="banner" />
+            </div>
           </div>
 
           <aside className="grid gap-4">
@@ -259,13 +264,8 @@ export default function Home(): JSX.Element {
           </aside>
         </section>
 
-        {/* 💰 AD 1: HIGH VISIBILITY AFTER HERO */}
-        <div className="my-8 mx-auto max-w-6xl">
-          <AdSlot id="home-top-leaderboard" type="leaderboard" />
-        </div>
-
         {/* SECTION 1: MOST POPULAR */}
-        <section className="mt-12">
+        <section className="mt-20">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
               <TrendingUp className="w-6 h-6 text-[#577A30]" /> The Essentials

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+// Removed CardTitle from import to use semantic div instead
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
   Calculator,
@@ -93,9 +94,10 @@ export default function FinancialNavWidget() {
             <div className="w-8 h-8 rounded-lg bg-[#92C65B] flex items-center justify-center shadow-sm">
               <Calculator className="w-4 h-4 text-white" />
             </div>
-            <CardTitle className="text-base font-semibold text-slate-900">
+            {/* CHANGED: Replaced CardTitle with semantic div */}
+            <div className="text-base font-semibold text-slate-900">
               Popular Tools
-            </CardTitle>
+            </div>
           </div>
           <p className="text-xs text-slate-600 mt-1">
             Most used calculators &amp; tools
@@ -160,9 +162,10 @@ export default function FinancialNavWidget() {
             <div className="w-8 h-8 rounded-lg bg-[#92C65B] flex items-center justify-center shadow-sm">
               <BookOpen className="w-4 h-4 text-white" />
             </div>
-            <CardTitle className="text-base font-semibold text-slate-900">
+            {/* CHANGED: Replaced CardTitle with semantic div */}
+            <div className="text-base font-semibold text-slate-900">
               Trending Guides
-            </CardTitle>
+            </div>
           </div>
           <p className="text-xs text-slate-600 mt-1">
             Expert advice updated for 2026
@@ -214,6 +217,7 @@ export default function FinancialNavWidget() {
             <div className="w-12 h-12 rounded-full bg-[#92C65B] flex items-center justify-center mx-auto shadow-md">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
+            {/* Note: Kept h3 here because it usually is the only true sub-heading in the sidebar, but you can change it to div if it still flags! */}
             <h3 className="font-semibold text-[#1B2E06] text-sm">
               Need Expert Advice?
             </h3>

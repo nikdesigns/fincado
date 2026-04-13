@@ -46,7 +46,7 @@ const CALCULATOR_MENU = [
     items: [
       { label: 'EMI Calculator', href: '/emi-calculator/', featured: false },
       { label: 'EMI Prepayment', href: '/emi-prepayment-calculator/' },
-      { label: 'Home Loan', href: '/loans/home-loan' },
+      { label: 'Home Loan', href: '/loans/home-loan/' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
       { label: 'Personal Loan', href: '/loans/personal-loan/' },
       { label: 'Education Loan', href: '/loans/education-loan/' },

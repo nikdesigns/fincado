@@ -142,6 +142,7 @@ export default async function GuidePost({ params }: Props) {
               fontSize: 'clamp(28px, 4vw, 42px)',
               lineHeight: 1.2,
               marginBottom: 16,
+              fontWeight: 'bold',
             }}
           >
             {article.title}
@@ -166,11 +167,26 @@ export default async function GuidePost({ params }: Props) {
 
         {related.length > 0 && (
           <section style={{ marginTop: 64 }}>
-            <h3 style={{ marginBottom: 16 }}>Related Guides</h3>
+            {/* CHANGED: Swapped h3 to h2 to fix Non-Sequential Heading warnings */}
+            <h2
+              style={{
+                marginBottom: 16,
+                fontSize: '24px',
+                fontWeight: 'bold',
+                color: '#0f172a',
+              }}
+            >
+              Related Guides
+            </h2>
             <ul style={{ paddingLeft: 18 }}>
               {related.map((g) => (
                 <li key={g.slug} style={{ marginBottom: 8 }}>
-                  <Link href={`/guides/${g.slug}/`}>{g.title}</Link>
+                  <Link
+                    href={`/guides/${g.slug}/`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {g.title}
+                  </Link>
                 </li>
               ))}
             </ul>

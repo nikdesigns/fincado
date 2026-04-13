@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+// Removed CardTitle from the import to use a semantic div instead
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, GitCompare } from 'lucide-react';
 
@@ -16,10 +17,11 @@ export default function SidebarCompareWidget() {
   return (
     <Card className="border-slate-100 bg-white shadow-sm overflow-hidden mt-8 no-print">
       <CardHeader className="pb-3 border-b border-slate-100/50">
-        <CardTitle className="text-base font-semibold text-slate-900 flex items-center gap-2">
+        {/* CHANGED: Replaced <CardTitle> with a <div> to fix Duplicate H2/H3 SEO Warnings */}
+        <div className="text-base font-semibold text-slate-900 flex items-center gap-2">
           <GitCompare className="w-4 h-4 text-lime-600" />
           Compare & Save
-        </CardTitle>
+        </div>
       </CardHeader>
       <CardContent className="p-0">
         <div className="p-4 bg-white/50">

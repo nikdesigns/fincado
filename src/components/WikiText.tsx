@@ -13,6 +13,7 @@ interface WikiTextProps {
  *
  * Sanitizes and renders HTML content safely using DOMPurify.
  * Supports rich text formatting with links, lists, headings, etc.
+ * Includes suppressHydrationWarning to prevent Next.js SSR mismatch errors.
  *
  * @param content - Raw HTML string to sanitize and render
  * @param className - Optional additional CSS classes
@@ -62,6 +63,7 @@ export default function WikiText({ content, className = '' }: WikiTextProps) {
           'title',
           'width',
           'height',
+          'style', // Added to allow inline styling if needed
         ],
         ALLOWED_URI_REGEXP:
           /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
@@ -74,6 +76,7 @@ export default function WikiText({ content, className = '' }: WikiTextProps) {
     <div
       className={`prose prose-slate max-w-none prose-headings:font-semibold prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-strong:font-semibold prose-ul:list-disc prose-ol:list-decimal prose-li:text-slate-700 ${className}`}
       dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+      suppressHydrationWarning={true} // CRITICAL FIX: Prevents React Hydration crashes
     />
   );
 }

@@ -30,9 +30,10 @@ export default function AuthorBio() {
           <div className="flex-1">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <div className="flex items-center gap-3">
-                <h4 className="text-xl font-semibold text-[#B0EC70] tracking-tight">
+                {/* CHANGED: Swapped <h4> for <div> to fix Non-Sequential Heading warnings */}
+                <div className="text-xl font-semibold text-[#B0EC70] tracking-tight">
                   Fincado Research Team
-                </h4>
+                </div>
                 <Badge
                   variant="secondary"
                   className="bg-[#577A30] text-[#B0EC70] border-[#B0EC70] gap-1.5 px-2.5 py-0.5 font-semibold text-[11px] uppercase tracking-wider"
