@@ -1,2 +1,14 @@
 https://www.fincado.com/* https://fincado.com/:splat 301!
 /sitemap.xml/ /sitemap.xml 301!
+
+# ── Duplicate guide redirects ──────────────────────────────────────────────
+# Year-versioned guides: old year → current year
+/guides/elss-funds-guide-2025/ /guides/elss-funds-guide-2026/ 301!
+/guides/new-vs-old-tax-regime-2025/ /guides/new-vs-old-tax-regime-2026/ 301!
+/guides/sukanya-samriddhi-yojana-guide-2025/ /guides/sukanya-samriddhi-yojana-guide-2026/ 301!
+
+# Near-duplicate slug aliases → canonical slug
+/guides/gst-guide/ /guides/gst-explained/ 301!
+/guides/personal-loan-interest-rates-india/ /guides/personal-loan-interest-rates/ 301!
+/guides/how-credit-score-works-india/ /guides/credit-score-guide/ 301!
+/guides/how-credit-score-affects-loans/ /guides/credit-score-guide/ 301!

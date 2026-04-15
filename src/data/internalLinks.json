@@ -29,14 +29,14 @@
   },
   { "keyword": "SIP Investment Guide", "url": "/guides/sip-investment-guide/" },
   { "keyword": "SIP vs FD", "url": "/guides/sip-vs-fd/" },
-  { "keyword": "New Tax Regime", "url": "/guides/new-vs-old-tax-regime-2025/" },
-  { "keyword": "Old Tax Regime", "url": "/guides/new-vs-old-tax-regime-2025/" },
+  { "keyword": "New Tax Regime", "url": "/guides/new-vs-old-tax-regime-2026/" },
+  { "keyword": "Old Tax Regime", "url": "/guides/new-vs-old-tax-regime-2026/" },
   {
     "keyword": "SSY Guide",
-    "url": "/guides/sukanya-samriddhi-yojana-guide-2025/"
+    "url": "/guides/sukanya-samriddhi-yojana-guide-2026/"
   },
-  { "keyword": "ELSS Funds", "url": "/guides/elss-funds-guide-2025/" },
-  { "keyword": "Tax Saving Funds", "url": "/guides/elss-funds-guide-2025/" },
+  { "keyword": "ELSS Funds", "url": "/guides/elss-funds-guide-2026/" },
+  { "keyword": "Tax Saving Funds", "url": "/guides/elss-funds-guide-2026/" },
   { "keyword": "Sovereign Gold Bond", "url": "/guides/gold-investment-guide/" },
   { "keyword": "SGB", "url": "/guides/gold-investment-guide/" },
   {
@@ -46,11 +46,11 @@
   { "keyword": "Mediclaim", "url": "/guides/health-insurance-buying-guide/" },
   {
     "keyword": "Improve Credit Score",
-    "url": "/guides/how-credit-score-works-india/"
+    "url": "/guides/credit-score-guide/"
   },
   { "keyword": "NPS Guide", "url": "/guides/nps-guide/" },
   { "keyword": "National Pension System", "url": "/guides/nps-guide/" },
-  { "keyword": "GST Guide", "url": "/guides/gst-guide/" },
+  { "keyword": "GST Guide", "url": "/guides/gst-explained/" },
   { "keyword": "Car Loan Guide", "url": "/guides/car-loan-guide/" },
   { "keyword": "Personal Loan Guide", "url": "/guides/personal-loan-guide/" },
   { "keyword": "Education Loan Guide", "url": "/guides/education-loan-guide/" },

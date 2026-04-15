@@ -1,24 +1,20 @@
 /* src/app/globals.css */
 
-/* ... (Keep all your existing CSS exactly as it was) ... */
-
 /* =========================================
    1. SETUP & TOKENS
    ========================================= */
-
-/* src/app/globals.css */
-
-/* ... (Keep all your existing CSS exactly as it was) ... */
-
-/* =========================================
-    1. SETUP & TOKENS
-    ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
 @theme {
-  /* Unify older blue/indigo/purple accents to the EMI page green palette */
+  /*
+   * BRAND COLOUR OVERRIDE
+   * All Tailwind blue/indigo/purple/violet/sky/cyan ramps are intentionally
+   * mapped to the Fincado brand green (#80d843). This keeps every component
+   * on-brand without needing to rename every Tailwind class throughout the
+   * codebase. If you add new UI that should use a different colour, define a
+   * fresh custom ramp instead of reverting these overrides.
+   */
   --color-blue-50: #f7fdf1;
   --color-blue-100: #edf9dd;
   --color-blue-200: #d9f1bb;
@@ -159,7 +155,8 @@ body {
 }
 
 body {
-  font-family: 'Rubik', system-ui, sans-serif;
+  font-family:
+    var(--font-rubik), system-ui, sans-serif; /* DupletRounded local font via --font-rubik variable set in layout.tsx */
   background: var(--color-bg-soft);
   margin: 0;
   line-height: 1.6;

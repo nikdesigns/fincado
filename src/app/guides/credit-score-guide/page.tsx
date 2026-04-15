@@ -45,8 +45,11 @@ export const metadata: Metadata = {
     'raise cibil dispute online',
     'credit utilization ratio hack',
     'secured credit card for cibil score',
-    'cibil score repair india'
+    'cibil score repair india',
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/credit-score-guide/',
+  },
   openGraph: {
     title: 'How to Increase CIBIL Score from 650 to 750 (Step-by-Step)',
     description:
@@ -59,7 +62,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Graph showing CIBIL score rising from 650 to 750',
-      }
+      },
     ],
   },
 };
@@ -80,7 +83,7 @@ const FAQ_ITEMS = [
     question: 'What is the 30% credit utilization rule?',
     answer:
       'Keep your credit card usage below 30% of your limit. Pro tip: Pay your bill before the statement generation date so a low balance is reported to CIBIL.',
-  }
+  },
 ];
 
 export default function CreditScoreGuidePage() {
@@ -98,8 +101,7 @@ export default function CreditScoreGuidePage() {
               'How to Increase CIBIL Score from 650 to 750 (Step-by-Step)',
             description:
               'Complete guide to repairing credit score in India: Fixing "Settled" loans, disputing errors, and using secured cards.',
-            image:
-              '/images/guides/credit-score/credit-score-guide-hero.webp',
+            image: '/images/guides/credit-score/credit-score-guide-hero.webp',
             author: {
               '@type': 'Organization',
               name: 'Fincado Research Team',
@@ -126,7 +128,7 @@ export default function CreditScoreGuidePage() {
           {
             name: 'Credit Score Repair',
             url: 'https://fincado.com/guides/credit-score-guide/',
-          }
+          },
         ]}
       />
 
