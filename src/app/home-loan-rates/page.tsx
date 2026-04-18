@@ -1,29 +1,26 @@
-export default function HomeLoanRates() {
-  return (
-    <main className="article">
-      <h1>Best Home Loan Interest Rates in India</h1>
+import type { Metadata } from 'next';
+import { permanentRedirect } from 'next/navigation';
 
-      <table className="rate-table">
-        <tr>
-          <th>Bank</th>
-          <th>Interest Rate</th>
-          <th>Apply</th>
-        </tr>
-        <tr>
-          <td>SBI</td>
-          <td>8.40%</td>
-          <td>
-            <a href="#">Apply</a>
-          </td>
-        </tr>
-        <tr>
-          <td>HDFC</td>
-          <td>8.50%</td>
-          <td>
-            <a href="#">Apply</a>
-          </td>
-        </tr>
-      </table>
-    </main>
-  );
+const TARGET = '/compare-loans/';
+
+export const metadata: Metadata = {
+  title: 'Redirecting...',
+  description: 'Redirecting to the latest home loan comparison page.',
+  alternates: {
+    canonical: `https://fincado.com${TARGET}`,
+  },
+  openGraph: {
+    title: 'Redirecting...',
+    description: 'Redirecting to the latest home loan comparison page.',
+    url: `https://fincado.com${TARGET}`,
+    type: 'website',
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default function HomeLoanRatesRedirectPage() {
+  permanentRedirect(TARGET);
 }

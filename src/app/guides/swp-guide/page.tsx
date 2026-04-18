@@ -50,6 +50,9 @@ export const metadata: Metadata = {
     'retirement bucketing strategy',
     'inflation adjusted swp calculator'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/swp-guide/',
+  },
   openGraph: {
     title:
       'The Ultimate Retirement Withdrawal Guide: SWP vs Dividends vs Rental',

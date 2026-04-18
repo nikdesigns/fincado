@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
   const normalized = normalize(category);
 
-  const canonical = `${SITE_URL}/guides/category/${normalized}`;
+  const canonical = `${SITE_URL}/guides/category/${normalized}/`;
 
   return {
     title: `${formatCategory(normalized)} Guides | Fincado`,

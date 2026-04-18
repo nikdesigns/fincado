@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   description:
     'Our commitment to accuracy, RBI benchmarking, and transparent financial research for Indian home buyers.',
   alternates: { canonical: 'https://fincado.com/editorial-guidelines/' },
+  openGraph: {
+    title: 'Editorial Guidelines & Transparency — Fincado',
+    description:
+      'Our commitment to accuracy, RBI benchmarking, and transparent financial research for Indian home buyers.',
+    url: 'https://fincado.com/editorial-guidelines/',
+    type: 'website',
+  },
 };
 
 const LAST_UPDATED = 'January 2026';

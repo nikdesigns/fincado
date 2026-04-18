@@ -49,6 +49,9 @@ export const metadata: Metadata = {
     'index funds vs active funds',
     'best direct mutual fund app india'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/mutual-fund-guide/',
+  },
   openGraph: {
     title: 'Direct vs Regular Mutual Funds: How to Save 1% Commission',
     description:

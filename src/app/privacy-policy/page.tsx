@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Privacy Policy — Fincado',
   description:
     'Privacy Policy for Fincado — how we collect, store, protect and use your data when you use calculators, tools, and financial guides.',
+  alternates: {
+    canonical: 'https://fincado.com/privacy-policy/',
+  },
+  openGraph: {
+    title: 'Privacy Policy — Fincado',
+    description:
+      'Privacy Policy for Fincado — how we collect, store, protect and use your data when you use calculators, tools, and financial guides.',
+    url: 'https://fincado.com/privacy-policy/',
+    type: 'website',
+  },
 };
 
 const LAST_UPDATED = 'March 2026';

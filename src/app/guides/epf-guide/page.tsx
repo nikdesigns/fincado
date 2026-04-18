@@ -47,6 +47,9 @@ export const metadata: Metadata = {
     'epf vs ppf interest rate',
     'voluntary provident fund vpf'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/epf-guide/',
+  },
   openGraph: {
     title:
       'EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',

@@ -46,6 +46,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
   },
+  openGraph: {
+    title:
+      'New vs Old Tax Regime: आपके लिए कौन सा टैक्स स्लैब बेहतर है? (हिंदी गाइड)',
+    description:
+      'जानें कि 2025 में नई और पुरानी टैक्स व्यवस्था में से आपके लिए कौन सी बेहतर है। 80C, HRA छूट, और 7 लाख तक टैक्स-फ्री आय के नियमों को समझें और अपना टैक्स बचाएं।',
+    url: 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
+    type: 'article',
+  },
 };
 
 export default function HindiTaxRegimeGuide() {

@@ -48,6 +48,9 @@ export const metadata: Metadata = {
     'sgb tax benefits',
     'gold etf vs physical gold'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/gold-investment-guide/',
+  },
   openGraph: {
     title: 'Sovereign Gold Bond (SGB) vs Digital Gold vs Physical Gold',
     description:

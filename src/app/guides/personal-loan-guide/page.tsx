@@ -48,6 +48,9 @@ export const metadata: Metadata = {
     'personal loan eligibility calculator',
     'gold loan vs personal loan'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/personal-loan-guide/',
+  },
   openGraph: {
     title:
       'Personal Loan Guide 2025: Interest Rates, CIBIL Score & Hidden Charges',

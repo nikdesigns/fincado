@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'About Fincado — Smarter Finance Tools & Guides for India',
   description:
     'Learn about Fincado — India’s modern personal finance platform offering calculators, financial guides, analysis, and money tools to help users make smarter decisions.',
+  alternates: {
+    canonical: 'https://fincado.com/about/',
+  },
+  openGraph: {
+    title: 'About Fincado — Smarter Finance Tools & Guides for India',
+    description:
+      'Learn about Fincado — India’s modern personal finance platform offering calculators, financial guides, analysis, and money tools to help users make smarter decisions.',
+    url: 'https://fincado.com/about/',
+    type: 'website',
+  },
 };
 
 export default function AboutPage() {

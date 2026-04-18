@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Disclaimer — Fincado',
   description:
     'Disclaimer for Fincado — financial education only, no professional or investment advice, no liability for calculators or content.',
+  alternates: {
+    canonical: 'https://fincado.com/disclaimer/',
+  },
+  openGraph: {
+    title: 'Disclaimer — Fincado',
+    description:
+      'Disclaimer for Fincado — financial education only, no professional or investment advice, no liability for calculators or content.',
+    url: 'https://fincado.com/disclaimer/',
+    type: 'website',
+  },
 };
 
 const LAST_UPDATED = 'March 2026';

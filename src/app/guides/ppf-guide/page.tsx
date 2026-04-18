@@ -47,6 +47,9 @@ export const metadata: Metadata = {
     'loan against ppf account',
     'ppf account extension rules'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/ppf-guide/',
+  },
   openGraph: {
     title:
       'PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',

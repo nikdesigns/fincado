@@ -51,6 +51,9 @@ export const metadata: Metadata = {
     'safest investment options india 2025',
     'fd interest rates 2025'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/fixed-deposit-guide/',
+  },
   openGraph: {
     title: 'FD Laddering Strategy: How to Get Higher Returns & Liquidity',
     description:

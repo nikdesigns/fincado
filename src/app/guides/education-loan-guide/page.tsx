@@ -46,6 +46,9 @@ export const metadata: Metadata = {
     'moratorium period interest calculation',
     'documents for education loan'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/education-loan-guide/',
+  },
   openGraph: {
     title:
       'Study Abroad Education Loan Guide: Secured vs Unsecured & Section 80E',

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import {
   Calculator,
   CheckCircle2,
@@ -166,6 +166,7 @@ export async function generateMetadata({
 
   const { b1, b2 } = parsed;
   const canonicalSlug = toCanonicalCompareSlug(b1.slug, b2.slug);
+  const isCanonicalSlug = slug === canonicalSlug;
   const lowerRateBank = b1.rate <= b2.rate ? b1 : b2;
   const rateDiff = Math.abs(b1.rate - b2.rate).toFixed(2);
 
@@ -210,17 +211,29 @@ export async function generateMetadata({
       description: `${b1.rate}% vs ${b2.rate}% — compare EMI impact, fees, and approval speed.`,
       images: [`https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
+    robots: isCanonicalSlug
+      ? {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+          },
+        }
+      : {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+          },
+        },
   };
 }
 
@@ -240,7 +253,7 @@ export default async function ComparisonPage({
 
   // Redirect reverse-order slug to canonical slug
   if (slug !== canonicalSlug) {
-    redirect(`/compare/${canonicalSlug}/`);
+    permanentRedirect(`/compare/${canonicalSlug}/`);
   }
 
   const currentDateISO = new Date().toISOString().split('T')[0];

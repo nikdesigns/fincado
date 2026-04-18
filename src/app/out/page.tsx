@@ -1,7 +1,26 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import OutClient from './OutClient';
 
 export const dynamic = 'force-static';
+
+export const metadata: Metadata = {
+  title: 'Redirecting...',
+  description: 'Redirecting to the selected lender website.',
+  alternates: {
+    canonical: 'https://fincado.com/out/',
+  },
+  openGraph: {
+    title: 'Redirecting...',
+    description: 'Redirecting to the selected lender website.',
+    url: 'https://fincado.com/out/',
+    type: 'website',
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function OutPage() {
   return (

@@ -65,6 +65,9 @@ export const metadata: Metadata = {
     'Home loan eligibility',
     'Prepayment strategy',
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/home-loan-guide/',
+  },
   openGraph: {
     title:
       'Home Loan Guide India 2026: Eligibility, Interest Rates, EMI & Tax Benefits | Fincado',

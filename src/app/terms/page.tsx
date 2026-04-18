@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Terms of Use — Fincado',
   description:
     'Read the Terms of Use for Fincado — website rules, disclaimers, legal limits and contact information.',
+  alternates: {
+    canonical: 'https://fincado.com/terms/',
+  },
+  openGraph: {
+    title: 'Terms of Use — Fincado',
+    description:
+      'Read the Terms of Use for Fincado — website rules, disclaimers, legal limits and contact information.',
+    url: 'https://fincado.com/terms/',
+    type: 'website',
+  },
 };
 
 const SUPPORT_EMAIL = 'support@fincado.com';

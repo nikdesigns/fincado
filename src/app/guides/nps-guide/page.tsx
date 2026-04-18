@@ -50,6 +50,9 @@ export const metadata: Metadata = {
     'best pension scheme india',
     'nps vs ppf tax benefit'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/nps-guide/',
+  },
   openGraph: {
     title: 'NPS Guide 2025: Returns, Tax Benefits (80CCD) & Withdrawal Rules',
     description:

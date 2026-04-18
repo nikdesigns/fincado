@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-18T16:04:58.890Z",
+  "baseUrl": "https://fincado.com",
+  "summary": {
+    "checked": 1,
+    "working": 0,
+    "broken": 1,
+    "redirects": 0
+  },
+  "brokenLinks": [
+    {
+      "path": "/",
+      "status": 0,
+      "error": "getaddrinfo ENOTFOUND fincado.com",
+      "source": "crawled"
+    }
+  ],
+  "redirects": []
+}

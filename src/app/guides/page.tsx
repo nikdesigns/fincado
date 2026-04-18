@@ -31,6 +31,13 @@ export const metadata: Metadata = {
       hi: 'https://fincado.com/hi/guides/',
     },
   },
+  openGraph: {
+    title: 'Financial Guides in English | Loans, SIP, Tax & Credit Score (2026)',
+    description:
+      'Read updated personal finance guides in English on home loans, SIP, mutual funds, taxes, insurance, and credit scores for India.',
+    url: 'https://fincado.com/guides/',
+    type: 'website',
+  },
 };
 
 export default function GuidesPage() {

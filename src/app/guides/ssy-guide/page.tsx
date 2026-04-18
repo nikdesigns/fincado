@@ -48,6 +48,9 @@ export const metadata: Metadata = {
     'ssy calculator 2025',
     '60-40 investment rule'
   ],
+  alternates: {
+    canonical: 'https://fincado.com/guides/ssy-guide/',
+  },
   openGraph: {
     title:
       'Sukanya Samriddhi vs PPF vs Mutual Funds: Best Plan for Girl Child?',

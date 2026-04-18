@@ -8,7 +8,7 @@ export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const BASE_URL = 'https://fincado.com';
-const ENABLE_ALTERNATES = process.env.SITEMAP_ALTERNATES === 'true';
+const ENABLE_ALTERNATES = process.env.SITEMAP_ALTERNATES !== 'false';
 
 const getUrl = (path: string): string => {
   const cleanPath = path.replace(/^\/+|\/+$/g, '');

@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Cookie Policy — Fincado',
   description:
     'Cookie Policy for Fincado — learn how cookies, tracking technologies and AdSense are used on the site.',
+  alternates: {
+    canonical: 'https://fincado.com/cookie-policy/',
+  },
+  openGraph: {
+    title: 'Cookie Policy — Fincado',
+    description:
+      'Cookie Policy for Fincado — learn how cookies, tracking technologies and AdSense are used on the site.',
+    url: 'https://fincado.com/cookie-policy/',
+    type: 'website',
+  },
 };
 
 const LAST_UPDATED = 'March 2026';
