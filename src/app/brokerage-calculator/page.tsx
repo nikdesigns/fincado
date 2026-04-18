@@ -150,17 +150,17 @@ export default function BrokerageCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             Brokerage Calculator
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               Intraday, Delivery & F&O Charges
             </span>
           </h1>
 
           {/* LAST UPDATED BANNER */}
-          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex items-center gap-2 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1">
               ✅ Updated for FY 2026-27
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               April 12, 2026
             </span>
             <span className="text-xs">

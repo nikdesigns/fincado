@@ -194,8 +194,8 @@ export default function CompoundInterestPage() {
     </p>
     
     <div class="mt-4 space-y-3">
-      <div class="p-3 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg">
-        <p class="font-semibold text-[#1B2E06]">Rahul (Invests for 10 years)</p>
+      <div class="p-3 bg-brand-50 border border-brand-200 rounded-lg">
+        <p class="font-semibold text-brand-900">Rahul (Invests for 10 years)</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• Principal: ₹1,00,000</li>
           <li>• After 10 years: <strong>₹2,68,506</strong></li>
@@ -204,8 +204,8 @@ export default function CompoundInterestPage() {
         </ul>
       </div>
 
-      <div class="p-3 mt-6 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg">
-        <p class="font-semibold text-[#1B2E06]">Priya (Invests for 20 years)</p>
+      <div class="p-3 mt-6 bg-brand-50 border border-brand-200 rounded-lg">
+        <p class="font-semibold text-brand-900">Priya (Invests for 20 years)</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• Principal: ₹1,00,000 (same as Rahul)</li>
           <li>• After 20 years: <strong>₹7,20,957</strong></li>
@@ -214,8 +214,8 @@ export default function CompoundInterestPage() {
         </ul>
       </div>
 
-      <div class="p-3 mt-6 bg-linear-to-r from-[#F7FDF1] to-pink-50 border border-[#DFF7C6] rounded-lg">
-        <p class="font-semibold text-[#1B2E06]">Priya's Extra 10 Years Advantage</p>
+      <div class="p-3 mt-6 bg-linear-to-r from-brand-50 to-pink-50 border border-brand-200 rounded-lg">
+        <p class="font-semibold text-brand-900">Priya's Extra 10 Years Advantage</p>
         <ul class="text-sm text-slate-700 mt-2 space-y-1">
           <li>• Extra maturity value: <strong>₹4,52,451</strong></li>
           <li>• Priya earned <strong>₹3.69</strong> for every ₹1 Rahul earned</li>
@@ -266,14 +266,14 @@ export default function CompoundInterestPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <TrendingUp className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Compound Interest Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Exponential Growth & Power of Compounding
               </p>
             </div>
@@ -292,13 +292,13 @@ export default function CompoundInterestPage() {
           </div>
 
           {/* Budget 2026 Status */}
-          <div className="mt-6 flex gap-3 p-4 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg items-start shadow-sm max-w-2xl">
-            <BadgeCheck className="w-5 h-5 text-[#577A30] mt-0.5 shrink-0" />
+          <div className="mt-6 flex gap-3 p-4 bg-brand-50 border border-brand-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-brand-700 mt-0.5 shrink-0" />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-[#1B2E06]">
+              <p className="text-sm font-semibold text-brand-900">
                 Budget 2026: Interest Taxation Unchanged
               </p>
-              <p className="text-xs text-[#577A30] leading-relaxed">
+              <p className="text-xs text-brand-700 leading-relaxed">
                 The Union Budget 2026 maintained existing interest taxation
                 rules. FD/RD interest taxable as per slab, PPF remains EEE
                 (fully tax-free), EPF tax-free up to ₹2.5L annual contribution.
@@ -317,9 +317,9 @@ export default function CompoundInterestPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       BANK FD RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -338,9 +338,9 @@ export default function CompoundInterestPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       PPF RATE 2026
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -359,9 +359,9 @@ export default function CompoundInterestPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       EQUITY MF CAGR
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -391,8 +391,8 @@ export default function CompoundInterestPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1]0 mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-500 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Compounding Frequency Matters
@@ -405,13 +405,13 @@ export default function CompoundInterestPage() {
             </Alert>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white transition-colors hover:shadow-md">
+            <Card className="no-print my-6 border-brand-200 bg-linear-to-br from-brand-50 to-white transition-colors hover:shadow-md">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <Sparkles className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to maximize compounding? Try monthly SIP investments
                   </strong>
                   <p className="text-sm text-slate-700">
@@ -420,7 +420,7 @@ export default function CompoundInterestPage() {
                   </p>
                   <Link
                     href="/sip-calculator/"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-700"
                   >
                     Calculate SIP Returns →
                   </Link>
@@ -459,8 +459,8 @@ export default function CompoundInterestPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                  <h4 className="font-semibold text-[#1B2E06] mb-2">
+                <div className="mt-6 p-4 bg-brand-50 rounded-lg border border-brand-200">
+                  <h4 className="font-semibold text-brand-900 mb-2">
                     Example Calculation
                   </h4>
                   <p className="text-sm text-slate-700 mb-3">
@@ -476,11 +476,11 @@ export default function CompoundInterestPage() {
                       A = <InlineMath math="100000 \times (1.025)^{40}" />
                     </p>
                     <p>
-                      A = <strong className="text-[#1B2E06]">₹2,68,506</strong>
+                      A = <strong className="text-brand-900">₹2,68,506</strong>
                     </p>
                     <p className="mt-3">
                       Compound Interest = ₹2,68,506 - ₹1,00,000 =
-                      <strong className="text-[#1B2E06]"> ₹1,68,506</strong>
+                      <strong className="text-brand-900"> ₹1,68,506</strong>
                     </p>
                   </div>
                 </div>
@@ -547,7 +547,7 @@ export default function CompoundInterestPage() {
                         <TableCell>2</TableCell>
                         <TableCell>₹2,65,330</TableCell>
                         <TableCell>₹1,65,330</TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           +₹5,956
                         </TableCell>
                       </TableRow>
@@ -559,7 +559,7 @@ export default function CompoundInterestPage() {
                           ₹2,68,506
                         </TableCell>
                         <TableCell>₹1,68,506</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +₹9,132
                         </TableCell>
                       </TableRow>
@@ -569,7 +569,7 @@ export default function CompoundInterestPage() {
                         <TableCell>12</TableCell>
                         <TableCell>₹2,70,704</TableCell>
                         <TableCell>₹1,70,704</TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           +₹11,330
                         </TableCell>
                       </TableRow>
@@ -577,11 +577,11 @@ export default function CompoundInterestPage() {
                       <TableRow>
                         <TableCell className="font-medium">Daily</TableCell>
                         <TableCell>365</TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           ₹2,71,791
                         </TableCell>
                         <TableCell>₹1,71,791</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +₹12,417 (Best)
                         </TableCell>
                       </TableRow>
@@ -623,7 +623,7 @@ export default function CompoundInterestPage() {
                           Calculation Basis
                         </TableCell>
                         <TableCell>Only on principal</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           On principal + accumulated interest
                         </TableCell>
                       </TableRow>
@@ -633,7 +633,7 @@ export default function CompoundInterestPage() {
                           Growth Pattern
                         </TableCell>
                         <TableCell>Linear (constant amount yearly)</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           Exponential (increases every period)
                         </TableCell>
                       </TableRow>
@@ -649,7 +649,7 @@ export default function CompoundInterestPage() {
                           10 Years Return (₹1L @ 10%)
                         </TableCell>
                         <TableCell>₹2,00,000 (2x principal)</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           ₹2,59,374 (2.6x principal)
                         </TableCell>
                       </TableRow>
@@ -659,7 +659,7 @@ export default function CompoundInterestPage() {
                           20 Years Return (₹1L @ 10%)
                         </TableCell>
                         <TableCell>₹3,00,000 (3x principal)</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           ₹6,72,750 (6.7x principal)
                         </TableCell>
                       </TableRow>
@@ -669,7 +669,7 @@ export default function CompoundInterestPage() {
                           30 Years Return (₹1L @ 10%)
                         </TableCell>
                         <TableCell>₹4,00,000 (4x principal)</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           ₹17,44,940 (17.4x principal)
                         </TableCell>
                       </TableRow>
@@ -677,7 +677,7 @@ export default function CompoundInterestPage() {
                       <TableRow>
                         <TableCell className="font-medium">Best For</TableCell>
                         <TableCell>Short-term loans (1-2 years)</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           Long-term investments (5+ years)
                         </TableCell>
                       </TableRow>
@@ -685,7 +685,7 @@ export default function CompoundInterestPage() {
                       <TableRow>
                         <TableCell className="font-medium">Used In</TableCell>
                         <TableCell>Flat rate car loans, gold loans</TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           FD, PPF, EPF, Mutual Funds, RD
                         </TableCell>
                       </TableRow>
@@ -697,7 +697,7 @@ export default function CompoundInterestPage() {
                         <TableCell className="text-[#FF568E]">
                           Limited growth
                         </TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           Exponential wealth creation
                         </TableCell>
                       </TableRow>
@@ -705,8 +705,8 @@ export default function CompoundInterestPage() {
                   </Table>
                 </div>
 
-                <div className="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                  <h4 className="font-semibold text-[#1B2E06] mb-2">
+                <div className="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
+                  <h4 className="font-semibold text-brand-900 mb-2">
                     Visual Comparison: ₹1L at 10% over Time
                   </h4>
                   <div className="grid sm:grid-cols-3 gap-4 mt-3">
@@ -717,10 +717,10 @@ export default function CompoundInterestPage() {
                       <div className="text-base font-semibold text-slate-900">
                         SI: ₹2.0L
                       </div>
-                      <div className="text-base font-semibold text-[#577A30]">
+                      <div className="text-base font-semibold text-brand-700">
                         CI: ₹2.59L
                       </div>
-                      <div className="text-xs text-[#577A30] mt-1">
+                      <div className="text-xs text-brand-700 mt-1">
                         CI earns ₹59K more (29%)
                       </div>
                     </div>
@@ -732,25 +732,25 @@ export default function CompoundInterestPage() {
                       <div className="text-base font-semibold text-slate-900">
                         SI: ₹3.0L
                       </div>
-                      <div className="text-base font-semibold text-[#577A30]">
+                      <div className="text-base font-semibold text-brand-700">
                         CI: ₹6.73L
                       </div>
-                      <div className="text-xs text-[#577A30] mt-1">
+                      <div className="text-xs text-brand-700 mt-1">
                         CI earns ₹3.73L more (124%)
                       </div>
                     </div>
 
-                    <div className="p-3 bg-[#EFFBE2] rounded border border-[#D0F4A9]">
-                      <div className="text-xs text-[#577A30] mb-1">
+                    <div className="p-3 bg-brand-100 rounded border border-brand-300">
+                      <div className="text-xs text-brand-700 mb-1">
                         After 30 years
                       </div>
                       <div className="text-base font-semibold text-slate-900">
                         SI: ₹4.0L
                       </div>
-                      <div className="text-base font-semibold text-[#1B2E06]">
+                      <div className="text-base font-semibold text-brand-900">
                         CI: ₹17.45L
                       </div>
-                      <div className="text-xs text-[#1B2E06] font-semibold mt-1">
+                      <div className="text-xs text-brand-900 font-semibold mt-1">
                         CI earns ₹13.45L more (336%)!
                       </div>
                     </div>
@@ -769,9 +769,9 @@ export default function CompoundInterestPage() {
                   it takes to double your money at a given interest rate:
                 </p>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
                   <div className="text-center">
-                    <div className="text-lg font-semibold text-[#1B2E06] mb-2">
+                    <div className="text-lg font-semibold text-brand-900 mb-2">
                       Years to Double = 72 ÷ Interest Rate
                     </div>
                     <p className="text-sm text-slate-700">
@@ -829,10 +829,10 @@ export default function CompoundInterestPage() {
                         <TableCell className="font-medium">
                           12% (Equity MF)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           6 years
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           9 years
                         </TableCell>
                         <TableCell className="font-semibold">
@@ -844,10 +844,10 @@ export default function CompoundInterestPage() {
                         <TableCell className="font-medium">
                           15% (Best MF)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           4.8 years
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           7.5 years
                         </TableCell>
                         <TableCell>Top-performing Equity Funds</TableCell>
@@ -856,9 +856,9 @@ export default function CompoundInterestPage() {
                   </Table>
                 </div>
 
-                <div className="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <div className="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
                   <p className="text-sm text-slate-700">
-                    <strong className="text-[#1B2E06]">
+                    <strong className="text-brand-900">
                       Investment Strategy:
                     </strong>{' '}
                     This explains why financial advisors recommend equity mutual
@@ -971,10 +971,10 @@ export default function CompoundInterestPage() {
                 </h3>
 
                 <div className="space-y-4">
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]/30">
+                  <Card className="border-brand-200 bg-brand-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-[#577A30] text-white shrink-0">
+                        <Badge className="bg-brand-700 text-white shrink-0">
                           1
                         </Badge>
                         <div>
@@ -992,10 +992,10 @@ export default function CompoundInterestPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]/30">
+                  <Card className="border-brand-200 bg-brand-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-[#577A30] text-white shrink-0">
+                        <Badge className="bg-brand-700 text-white shrink-0">
                           2
                         </Badge>
                         <div>
@@ -1128,14 +1128,14 @@ export default function CompoundInterestPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
@@ -1143,7 +1143,7 @@ export default function CompoundInterestPage() {
                               averaging and compounding. Best for long-term
                               wealth creation.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate SIP Returns</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -1154,21 +1154,21 @@ export default function CompoundInterestPage() {
                   </Link>
 
                   <Link href="/fd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               Fixed Deposit Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate FD maturity with quarterly compounding.
                               Compare cumulative vs non-cumulative FDs.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate FD Maturity</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -1179,21 +1179,21 @@ export default function CompoundInterestPage() {
                   </Link>
 
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🛡️
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate PPF maturity with yearly compounding.
                               Fully tax-free returns (EEE status).
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate PPF Returns</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -1204,21 +1204,21 @@ export default function CompoundInterestPage() {
                   </Link>
 
                   <Link href="/simple-interest-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             📊
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               Simple Interest Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate linear interest for flat-rate loans.
                               Compare with compound interest to see difference.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate Simple Interest</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

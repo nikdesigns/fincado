@@ -145,20 +145,20 @@ export default function HindiKVPCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             KVP कैलकुलेटर
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               किसान विकास पत्र (पैसा दोगुना स्कीम)
             </span>
           </h1>
 
           {/* KEY METRICS BANNER */}
-          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1 font-semibold">
               ⭐ वर्तमान दर: 7.5% सालाना
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               दोगुना होने में: 115 महीने
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               लॉक-इन: 2.5 वर्ष
             </span>
           </div>
@@ -231,7 +231,7 @@ export default function HindiKVPCalculatorPage() {
                   {/* KVP vs FD vs Mutual Funds Table in Hindi */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-[#577A30]" />
+                      <Clock className="w-5 h-5 text-brand-700" />
                       क्या आपको KVP में निवेश करना चाहिए? (तुलना)
                     </h3>
                     <div className="overflow-x-auto border border-slate-200 rounded-lg">
@@ -241,7 +241,7 @@ export default function HindiKVPCalculatorPage() {
                             <th className="px-4 py-3 font-semibold border-b text-slate-800">
                               विशेषता (Feature)
                             </th>
-                            <th className="px-4 py-3 font-semibold border-b border-l text-[#577A30]">
+                            <th className="px-4 py-3 font-semibold border-b border-l text-brand-700">
                               किसान विकास पत्र (KVP)
                             </th>
                             <th className="px-4 py-3 font-semibold border-b border-l text-slate-800">
@@ -257,7 +257,7 @@ export default function HindiKVPCalculatorPage() {
                             <td className="px-4 py-3 font-medium text-slate-900">
                               जोखिम (Risk Level)
                             </td>
-                            <td className="px-4 py-3 border-l text-emerald-700 font-bold bg-[#F7FDF1]">
+                            <td className="px-4 py-3 border-l text-emerald-700 font-bold bg-brand-50">
                               जीरो रिस्क (Zero Risk)
                             </td>
                             <td className="px-4 py-3 border-l text-emerald-600">
@@ -271,7 +271,7 @@ export default function HindiKVPCalculatorPage() {
                             <td className="px-4 py-3 font-medium text-slate-900">
                               रिटर्न (Returns)
                             </td>
-                            <td className="px-4 py-3 border-l bg-[#F7FDF1]">
+                            <td className="px-4 py-3 border-l bg-brand-50">
                               गारंटीड (7.5%)
                             </td>
                             <td className="px-4 py-3 border-l">
@@ -285,7 +285,7 @@ export default function HindiKVPCalculatorPage() {
                             <td className="px-4 py-3 font-medium text-slate-900">
                               टैक्स लाभ (Tax Benefit)
                             </td>
-                            <td className="px-4 py-3 border-l bg-[#F7FDF1]">
+                            <td className="px-4 py-3 border-l bg-brand-50">
                               कुछ नहीं (पूरी तरह टैक्सेबल)
                             </td>
                             <td className="px-4 py-3 border-l">
@@ -299,7 +299,7 @@ export default function HindiKVPCalculatorPage() {
                             <td className="px-4 py-3 font-medium text-slate-900">
                               किसके लिए सबसे अच्छा है?
                             </td>
-                            <td className="px-4 py-3 border-l font-medium bg-[#F7FDF1]">
+                            <td className="px-4 py-3 border-l font-medium bg-brand-50">
                               रूढ़िवादी निवेशक जो खाली पड़े पैसे को सुरक्षित रूप
                               से दोगुना करना चाहते हैं।
                             </td>

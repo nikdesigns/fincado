@@ -217,14 +217,14 @@ export default function InflationPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-brrom-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <TrendingUp className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Inflation Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Future Value & Purchasing Power Estimator
               </p>
             </div>
@@ -242,13 +242,13 @@ export default function InflationPage() {
           </div>
 
           {/* Budget 2026 Status */}
-          <div className="mt-6 flex gap-3 p-4 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg items-start shadow-sm max-w-2xl">
-            <BadgeCheck className="w-5 h-5 text-[#577A30] mt-0.5 shrink-0" />
+          <div className="mt-6 flex gap-3 p-4 bg-brand-50 border border-brand-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-brand-700 mt-0.5 shrink-0" />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-[#1B2E06]">
+              <p className="text-sm font-semibold text-brand-900">
                 Budget 2026: Inflation Targets Maintained
               </p>
-              <p className="text-xs text-[#577A30] leading-relaxed">
+              <p className="text-xs text-brand-700 leading-relaxed">
                 The Union Budget 2026 reaffirmed RBI&apos;s inflation targeting
                 framework of 4% (+/- 2%). No major indirect tax changes that
                 would spike CPI. Food subsidy maintained to control price rise.
@@ -267,9 +267,9 @@ export default function InflationPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       CURRENT INDIA CPI
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -288,9 +288,9 @@ export default function InflationPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       RBI INFLATION TARGET
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -309,9 +309,9 @@ export default function InflationPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#F7FDF1] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-50 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       MEDICAL INFLATION
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -355,13 +355,13 @@ export default function InflationPage() {
             </Alert>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Protect your wealth from inflation
                   </strong>
                   <p className="text-sm text-slate-700">
@@ -431,7 +431,7 @@ export default function InflationPage() {
                           <TableCell className="font-semibold">
                             🎓 Education
                           </TableCell>
-                          <TableCell className="text-[#577A30] font-semibold">
+                          <TableCell className="text-brand-700 font-semibold">
                             10-12%
                           </TableCell>
                           <TableCell>6-7 years</TableCell>
@@ -479,7 +479,7 @@ export default function InflationPage() {
                     </Table>
                   </div>
 
-                  <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                  <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
                     <p className="text-sm text-slate-700">
                       <strong>Planning Tip:</strong> Always use
                       category-specific inflation when calculating future
@@ -658,10 +658,10 @@ export default function InflationPage() {
                         </TableCell>
                         <TableCell>7%</TableCell>
                         <TableCell>-6%</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +1%
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           ⚠️ Barely Breaking Even
                         </TableCell>
                       </TableRow>
@@ -672,10 +672,10 @@ export default function InflationPage() {
                         </TableCell>
                         <TableCell>7.1%</TableCell>
                         <TableCell>-6%</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +1.1%
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           ⚠️ Minimal Real Growth
                         </TableCell>
                       </TableRow>
@@ -684,10 +684,10 @@ export default function InflationPage() {
                         <TableCell className="font-medium">Gold</TableCell>
                         <TableCell>8-10%</TableCell>
                         <TableCell>-6%</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +2 to +4%
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           ✓ Inflation Hedge
                         </TableCell>
                       </TableRow>
@@ -698,10 +698,10 @@ export default function InflationPage() {
                         </TableCell>
                         <TableCell>12-15%</TableCell>
                         <TableCell>-6%</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +6 to +9%
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           ✓✓ Wealth Creation
                         </TableCell>
                       </TableRow>
@@ -712,10 +712,10 @@ export default function InflationPage() {
                         </TableCell>
                         <TableCell>8-10%</TableCell>
                         <TableCell>-6%</TableCell>
-                        <TableCell className="text-[#577A30] font-semibold">
+                        <TableCell className="text-brand-700 font-semibold">
                           +2 to +4%
                         </TableCell>
-                        <TableCell className="text-[#577A30]">
+                        <TableCell className="text-brand-700">
                           ✓ Beats Inflation
                         </TableCell>
                       </TableRow>
@@ -744,8 +744,8 @@ export default function InflationPage() {
                   The Rule of 72: Quick Inflation Calculator
                 </h3>
 
-                <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                  <h4 className="font-semibold text-[#1B2E06] mb-2">
+                <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                  <h4 className="font-semibold text-brand-900 mb-2">
                     Formula: Years to Double = 72 ÷ Inflation Rate
                   </h4>
                   <p className="text-sm text-slate-700">
@@ -842,10 +842,10 @@ export default function InflationPage() {
                 </h3>
 
                 <div className="space-y-4">
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]/30">
+                  <Card className="border-brand-200 bg-brand-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-[#577A30] text-white shrink-0">
+                        <Badge className="bg-brand-700 text-white shrink-0">
                           1
                         </Badge>
                         <div>
@@ -863,10 +863,10 @@ export default function InflationPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]/30">
+                  <Card className="border-brand-200 bg-brand-50/30">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
-                        <Badge className="bg-[#577A30] text-white shrink-0">
+                        <Badge className="bg-brand-700 text-white shrink-0">
                           2
                         </Badge>
                         <div>
@@ -1014,21 +1014,21 @@ export default function InflationPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             👴
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               Retirement Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Plan retirement corpus considering inflation.
                               Calculate how much you need to retire comfortably.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Plan Retirement</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -1039,21 +1039,21 @@ export default function InflationPage() {
                   </Link>
 
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate SIP returns that beat inflation. See
                               step-up SIP advantage for long-term wealth.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Start SIP Planning</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

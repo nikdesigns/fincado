@@ -184,7 +184,7 @@ function InterestPieChart({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
             Principal
           </span>
-          <span className="text-2xl font-bold text-[#577A30]">
+          <span className="text-2xl font-bold text-brand-700">
             {principalPct}%
           </span>
         </div>
@@ -197,7 +197,7 @@ function InterestPieChart({
           <span className="text-xs font-medium text-slate-600">Principal</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#F7FDF1]" />
+          <div className="w-3 h-3 rounded-full bg-brand-50" />
           <span className="text-xs font-medium text-slate-600">Interest</span>
         </div>
       </div>
@@ -463,12 +463,12 @@ export default function SICalculatorClient({
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold flex items-center gap-2 text-slate-800">
-              <Percent className="h-5 w-5 text-[#577A30]" />
+              <Percent className="h-5 w-5 text-brand-700" />
               Simple Interest Calculator
             </CardTitle>
             <button
               onClick={reset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -504,9 +504,9 @@ export default function SICalculatorClient({
           flex items-center justify-center gap-2
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-50
           data-[state=active]:shadow-sm
         "
                 >
@@ -521,9 +521,9 @@ export default function SICalculatorClient({
           flex items-center justify-center
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-50
           data-[state=active]:shadow-sm
         "
                 >
@@ -537,9 +537,9 @@ export default function SICalculatorClient({
           flex items-center justify-center
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-50
           data-[state=active]:shadow-sm
         "
                 >
@@ -553,9 +553,9 @@ export default function SICalculatorClient({
           flex items-center justify-center
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-50
           data-[state=active]:shadow-sm
         "
                 >
@@ -600,7 +600,7 @@ export default function SICalculatorClient({
                       max={10000000}
                       step={1000}
                       onValueChange={(v) => setPrincipal(v[0])}
-                      className="text-[#577A30]"
+                      className="text-brand-700"
                     />
                   </div>
 
@@ -620,7 +620,7 @@ export default function SICalculatorClient({
                       max={30}
                       step={0.1}
                       onValueChange={(v) => setRate(v[0])}
-                      className="text-[#577A30]"
+                      className="text-brand-700"
                     />
                     <div className="flex flex-wrap gap-2">
                       {[6, 8, 10, 12, 15].map((r) => (
@@ -629,7 +629,7 @@ export default function SICalculatorClient({
                           variant={rate === r ? 'default' : 'outline'}
                           className={`cursor-pointer transition ${
                             rate === r
-                              ? 'bg-[#B0EC70] hover:bg-[#B0EC70]'
+                              ? 'bg-brand-400 hover:bg-brand-400'
                               : 'hover:bg-slate-50'
                           }`}
                           onClick={() => setRate(r)}
@@ -656,7 +656,7 @@ export default function SICalculatorClient({
                       max={30}
                       step={1}
                       onValueChange={(v) => setTime(v[0])}
-                      className="text-[#577A30]"
+                      className="text-brand-700"
                     />
                     <div className="flex flex-wrap gap-2">
                       {[1, 3, 5, 7, 10].map((y) => (
@@ -665,7 +665,7 @@ export default function SICalculatorClient({
                           variant={time === y ? 'default' : 'outline'}
                           className={`cursor-pointer transition ${
                             time === y
-                              ? 'bg-[#B0EC70] hover:bg-[#B0EC70]'
+                              ? 'bg-brand-400 hover:bg-brand-400'
                               : 'hover:bg-slate-50'
                           }`}
                           onClick={() => setTime(y)}
@@ -851,7 +851,7 @@ export default function SICalculatorClient({
                   {mode === 'findRate' && 'Required Interest Rate'}
                   {mode === 'findTime' && 'Required Time Period'}
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {mode === 'forward' && formatINR(results.totalAmount)}
                   {mode === 'findPrincipal' && formatINR(results.principal)}
                   {mode === 'findRate' && `${results.rate}% p.a.`}
@@ -861,21 +861,21 @@ export default function SICalculatorClient({
 
               {/* Breakdown Cards */}
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                <Card className="border-brand-200 bg-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-[#577A30] mb-1">Principal</div>
-                    <div className="font-semibold text-[#1B2E06]">
+                    <div className="text-xs text-brand-700 mb-1">Principal</div>
+                    <div className="font-semibold text-brand-900">
                       {formatINR(results.principal)}
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                <Card className="border-brand-200 bg-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-[#577A30] mb-1">
+                    <div className="text-xs text-brand-700 mb-1">
                       Total Interest
                     </div>
-                    <div className="font-semibold text-[#1B2E06]">
+                    <div className="font-semibold text-brand-900">
                       +{formatINR(results.interest)}
                     </div>
                   </CardContent>
@@ -883,8 +883,8 @@ export default function SICalculatorClient({
               </div>
 
               {/* Insight Box */}
-              <div className="mt-4 flex gap-3 items-start p-3 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg text-xs text-[#577A30]">
-                <Info className="w-4 h-4 text-[#577A30] shrink-0 mt-0.5" />
+              <div className="mt-4 flex gap-3 items-start p-3 bg-brand-50 border border-brand-200 rounded-lg text-xs text-brand-700">
+                <Info className="w-4 h-4 text-brand-700 shrink-0 mt-0.5" />
                 <p>
                   {mode === 'forward' && (
                     <>
@@ -948,7 +948,7 @@ export default function SICalculatorClient({
                         Year {row.year}
                       </TableCell>
                       <TableCell>{formatINR(row.interest)}</TableCell>
-                      <TableCell className="font-semibold text-[#577A30]">
+                      <TableCell className="font-semibold text-brand-700">
                         {formatINR(row.total)}
                       </TableCell>
                     </TableRow>

@@ -191,7 +191,7 @@ export default function HomeLoanClient({
             <div className="mt-6 text-center">
               <div className="text-sm text-slate-500">{t.monthlyEMI}</div>
 
-              <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#92C65B]">
+              <div className="mt-1 text-3xl sm:text-4xl font-bold text-brand-500">
                 {formatINR(calculations.emi)}
               </div>
 

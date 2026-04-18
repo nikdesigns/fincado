@@ -147,17 +147,17 @@ export default function HindiSalaryCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             सैलरी कैलकुलेटर (CTC से In-Hand)
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               अपने जॉब ऑफर को डिकोड करें
             </span>
           </h1>
 
           {/* LAST UPDATED BANNER */}
-          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex items-center gap-2 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1">
               ✅ बजट 2026 के लिए अपडेटेड
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               अप्रैल 2026
             </span>
             <span className="text-xs">• ₹75,000 स्टैंडर्ड डिडक्शन लागू</span>
@@ -185,12 +185,12 @@ export default function HindiSalaryCalculatorPage() {
             {/* Benefit Highlight Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
+                <Card className="border-brand-400 bg-linear-to-br from-[white] to-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       नए रिजीम का लाभ
                     </div>
-                    <div className="text-sm font-medium text-[#74A046] mb-2">
+                    <div className="text-sm font-medium text-brand-600 mb-2">
                       स्टैंडर्ड डिडक्शन
                     </div>
                     <div className="text-3xl font-semibold text-slate-900">
@@ -199,12 +199,12 @@ export default function HindiSalaryCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
+                <Card className="border-brand-400 bg-linear-to-br from-[white] to-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       टैक्स फ्री लिमिट
                     </div>
-                    <div className="text-sm font-medium text-[#74A046] mb-2">
+                    <div className="text-sm font-medium text-brand-600 mb-2">
                       यहाँ तक कोई टैक्स नहीं
                     </div>
                     <div className="text-3xl font-semibold text-slate-900">
@@ -213,12 +213,12 @@ export default function HindiSalaryCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
+                <Card className="border-brand-400 bg-linear-to-br from-[white] to-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       EPF योगदान
                     </div>
-                    <div className="text-sm font-medium text-[#74A046] mb-2">
+                    <div className="text-sm font-medium text-brand-600 mb-2">
                       कंपनी + कर्मचारी
                     </div>
                     <div className="text-3xl font-semibold text-slate-900">
@@ -268,7 +268,7 @@ export default function HindiSalaryCalculatorPage() {
                       <div className="text-center text-lg sm:text-xl font-serif text-slate-800">
                         ग्रॉस सैलरी (Gross) = CTC − Employer PF − ग्रेच्युटी
                       </div>
-                      <div className="text-center text-lg sm:text-xl font-serif text-[#577A30] mt-4 border-t pt-4">
+                      <div className="text-center text-lg sm:text-xl font-serif text-brand-700 mt-4 border-t pt-4">
                         इन-हैंड सैलरी = ग्रॉस सैलरी − Employee PF − इनकम टैक्स
                         (TDS) − प्रोफेशनल टैक्स
                       </div>
@@ -307,18 +307,18 @@ export default function HindiSalaryCalculatorPage() {
             </div>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1] transition-colors hover:bg-[#EFFBE2]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50 transition-colors hover:bg-brand-100">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#92C65B]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-500">
                   <BookOpen className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     क्या आप और अधिक टैक्स बचाना चाहते हैं?
                   </strong>
                   <Link
                     href="/guides/best-tax-saving-options-80c/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700"
                   >
                     <span>हमारी सेक्शन 80C इन्वेस्टमेंट गाइड पढ़ें</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -369,7 +369,7 @@ export default function HindiSalaryCalculatorPage() {
                             <td className="p-4 border font-medium text-slate-800">
                               बेसिक सैलरी (Basic)
                             </td>
-                            <td className="text-right p-4 border font-medium text-[#577A30]">
+                            <td className="text-right p-4 border font-medium text-brand-700">
                               40–50%
                             </td>
                             <td className="p-4 border text-slate-600">
@@ -380,7 +380,7 @@ export default function HindiSalaryCalculatorPage() {
                             <td className="p-4 border font-medium text-slate-800">
                               HRA
                             </td>
-                            <td className="text-right p-4 border font-medium text-[#577A30]">
+                            <td className="text-right p-4 border font-medium text-brand-700">
                               15–25%
                             </td>
                             <td className="p-4 border text-slate-600">
@@ -391,7 +391,7 @@ export default function HindiSalaryCalculatorPage() {
                             <td className="p-4 border font-medium text-slate-800">
                               स्पेशल अलाउंस
                             </td>
-                            <td className="text-right p-4 border font-medium text-[#577A30]">
+                            <td className="text-right p-4 border font-medium text-brand-700">
                               10–20%
                             </td>
                             <td className="p-4 border text-slate-600">
@@ -402,7 +402,7 @@ export default function HindiSalaryCalculatorPage() {
                             <td className="p-4 border font-medium text-slate-800">
                               Employer PF
                             </td>
-                            <td className="text-right p-4 border font-medium text-[#577A30]">
+                            <td className="text-right p-4 border font-medium text-brand-700">
                               बेसिक का 12%
                             </td>
                             <td className="p-4 border text-slate-600">
@@ -413,7 +413,7 @@ export default function HindiSalaryCalculatorPage() {
                             <td className="p-4 border font-medium text-slate-800">
                               ग्रेच्युटी (Gratuity)
                             </td>
-                            <td className="text-right p-4 border font-medium text-[#577A30]">
+                            <td className="text-right p-4 border font-medium text-brand-700">
                               4.81%
                             </td>
                             <td className="p-4 border text-slate-600">
@@ -432,7 +432,7 @@ export default function HindiSalaryCalculatorPage() {
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse text-sm">
                         <thead>
-                          <tr className="bg-[#F7FDF1]">
+                          <tr className="bg-brand-50">
                             <th className="text-left p-4 border text-slate-800">
                               टैक्सेबल इनकम (Taxable Income)
                             </th>
@@ -497,7 +497,7 @@ export default function HindiSalaryCalculatorPage() {
                           <div className="text-3xl font-bold text-slate-800">
                             ₹8 लाख CTC
                           </div>
-                          <div className="text-sm font-medium text-[#577A30] mt-2 bg-[#EFFBE2] py-1 px-3 rounded-full inline-block">
+                          <div className="text-sm font-medium text-brand-700 mt-2 bg-brand-100 py-1 px-3 rounded-full inline-block">
                             ≈ ₹54,200 / महीना
                           </div>
                         </CardContent>
@@ -507,7 +507,7 @@ export default function HindiSalaryCalculatorPage() {
                           <div className="text-3xl font-bold text-slate-800">
                             ₹12 लाख CTC
                           </div>
-                          <div className="text-sm font-medium text-[#577A30] mt-2 bg-[#EFFBE2] py-1 px-3 rounded-full inline-block">
+                          <div className="text-sm font-medium text-brand-700 mt-2 bg-brand-100 py-1 px-3 rounded-full inline-block">
                             ≈ ₹79,800 / महीना
                           </div>
                         </CardContent>
@@ -517,7 +517,7 @@ export default function HindiSalaryCalculatorPage() {
                           <div className="text-3xl font-bold text-slate-800">
                             ₹20 लाख CTC
                           </div>
-                          <div className="text-sm font-medium text-[#577A30] mt-2 bg-[#EFFBE2] py-1 px-3 rounded-full inline-block">
+                          <div className="text-sm font-medium text-brand-700 mt-2 bg-brand-100 py-1 px-3 rounded-full inline-block">
                             ≈ ₹1,28,500 / महीना
                           </div>
                         </CardContent>
@@ -598,7 +598,7 @@ export default function HindiSalaryCalculatorPage() {
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
                       <Link href="/hi/income-tax-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <span className="flex h-12 w-12 items-center justify-center rounded-xl">
@@ -611,14 +611,14 @@ export default function HindiSalaryCalculatorPage() {
                                 />
                               </span>
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   इनकम टैक्स कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   ओल्ड बनाम न्यू रिजीम के लिए अपनी सटीक टैक्स
                                   देनदारी जानें।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>अभी कैलकुलेट करें</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -629,7 +629,7 @@ export default function HindiSalaryCalculatorPage() {
                       </Link>
 
                       <Link href="/hi/hra-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <Image
@@ -640,14 +640,14 @@ export default function HindiSalaryCalculatorPage() {
                                 className="w-12 h-12"
                               />
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   HRA छूट कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   जानें कि आप हाउस रेंट अलाउंस (HRA) पर कितना
                                   टैक्स बचा सकते हैं।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>अभी कैलकुलेट करें</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -658,7 +658,7 @@ export default function HindiSalaryCalculatorPage() {
                       </Link>
 
                       <Link href="/hi/epf-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <Image
@@ -669,14 +669,14 @@ export default function HindiSalaryCalculatorPage() {
                                 className="w-12 h-12"
                               />
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   EPF (PF) कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   रिटायरमेंट के समय आपके प्रोविडेंट फंड (EPF)
                                   में कितना पैसा होगा, यह जानें।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>अभी कैलकुलेट करें</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -687,7 +687,7 @@ export default function HindiSalaryCalculatorPage() {
                       </Link>
 
                       <Link href="/hi/gratuity-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <Image
@@ -698,14 +698,14 @@ export default function HindiSalaryCalculatorPage() {
                                 className="w-12 h-12"
                               />
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   ग्रेच्युटी (Gratuity) कैलकुलेटर
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   कंपनी छोड़ने या 5 साल पूरे होने पर मिलने वाली
                                   ग्रेच्युटी की गणना करें।
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>अभी कैलकुलेट करें</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

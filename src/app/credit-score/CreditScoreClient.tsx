@@ -679,7 +679,7 @@ export default function CreditScoreClient({
                               ? 'bg-orange-50 border-orange-200'
                               : impact.severity === 'medium'
                                 ? 'bg-yellow-50 border-yellow-200'
-                                : 'bg-[#F7FDF1] border-blue-200'
+                                : 'bg-brand-50 border-blue-200'
                         }`}
                       >
                         <div className="font-semibold text-slate-900 mb-1">
@@ -706,10 +706,10 @@ export default function CreditScoreClient({
       </Card>
 
       {/* PAYDOWN SIMULATOR */}
-      <Card className="border-slate-200 bg-linear-to-br from-[#F7FDF1] to-white">
+      <Card className="border-slate-200 bg-linear-to-br from-brand-50 to-white">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-[#577A30]" />
+            <TrendingUp className="h-5 w-5 text-brand-700" />
             {t.improveSimulator}
           </CardTitle>
         </CardHeader>

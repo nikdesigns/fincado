@@ -146,7 +146,7 @@ export default function ComparisonGrid() {
           return (
             <Card
               key={`${pair.b1.slug}-${pair.b2.slug}`}
-              className="group border-slate-200 hover:border-[#D0F4A9] hover:shadow-lg transition-all duration-300 overflow-hidden bg-white"
+              className="group border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all duration-300 overflow-hidden bg-white"
             >
               <CardContent className="p-5">
                 {/* Header Section */}
@@ -167,12 +167,12 @@ export default function ComparisonGrid() {
                     </div>
                     <h3 className="text-lg font-semibold text-slate-900 leading-tight">
                       {pair.b1.name}{' '}
-                      <span className="text-[#577A30] font-extrabold">vs</span>{' '}
+                      <span className="text-brand-700 font-extrabold">vs</span>{' '}
                       {pair.b2.name}
                     </h3>
                   </div>
 
-                  <div className="w-10 h-10 rounded-lg bg-[#F7FDF1] flex items-center justify-center text-[#577A30] group-hover:bg-[#577A30] group-hover:text-white transition-all duration-300 shrink-0 shadow-sm">
+                  <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-700 group-hover:bg-brand-700 group-hover:text-white transition-all duration-300 shrink-0 shadow-sm">
                     <GitCompare className="w-5 h-5" />
                   </div>
                 </div>
@@ -181,10 +181,10 @@ export default function ComparisonGrid() {
                 <div className="mb-4 space-y-2">
                   {rateDiff && (
                     <div className="flex items-center gap-2 text-xs">
-                      <TrendingDown className="w-3.5 h-3.5 text-[#577A30]" />
+                      <TrendingDown className="w-3.5 h-3.5 text-brand-700" />
                       <span className="text-slate-600">
                         Rate difference:{' '}
-                        <strong className="text-[#577A30]">{rateDiff}%</strong>
+                        <strong className="text-brand-700">{rateDiff}%</strong>
                       </span>
                     </div>
                   )}
@@ -212,7 +212,7 @@ export default function ComparisonGrid() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-slate-200 text-slate-700 hover:bg-[#577A30] hover:text-white hover:border-[#577A30] font-semibold h-10 transition-all flex items-center justify-center group/btn"
+                  className="w-full border-slate-200 text-slate-700 hover:bg-brand-700 hover:text-white hover:border-brand-700 font-semibold h-10 transition-all flex items-center justify-center group/btn"
                 >
                   <Link
                     href={`/compare/${pair.b1.slug}-vs-${pair.b2.slug}/`}

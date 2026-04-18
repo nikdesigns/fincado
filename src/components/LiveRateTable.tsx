@@ -67,7 +67,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
                       <TableCell className="font-medium text-slate-700 capitalize">
                         {bank.bank}
                       </TableCell>
-                      <TableCell className="font-semibold text-[#74A046]">
+                      <TableCell className="font-semibold text-brand-600">
                         {bank.homeLoan}%
                       </TableCell>
                       <TableCell className="text-slate-600">
@@ -180,7 +180,7 @@ export default function LiveRateTable({ type = 'homeLoan' }: Props) {
                     <TableCell className="font-medium text-slate-700">
                       {row.category}
                     </TableCell>
-                    <TableCell className="font-semibold text-[#74A046]">
+                    <TableCell className="font-semibold text-brand-600">
                       {row.rate}
                     </TableCell>
                     <TableCell className="text-slate-600">{row.fee}</TableCell>

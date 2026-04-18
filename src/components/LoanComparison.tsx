@@ -177,7 +177,7 @@ export default function LoanComparison() {
           variant="outline"
           size="sm"
           onClick={() => applyPreset('home')}
-          className="border-[#DFF7C6] text-xs hover:border-[#D0F4A9] hover:bg-[#F7FDF1]"
+          className="border-brand-200 text-xs hover:border-brand-300 hover:bg-brand-50"
         >
           <Sparkles className="mr-1.5 h-3 w-3" />
           Home Loan
@@ -186,7 +186,7 @@ export default function LoanComparison() {
           variant="outline"
           size="sm"
           onClick={() => applyPreset('car')}
-          className="border-[#DFF7C6] text-xs hover:border-[#D0F4A9] hover:bg-[#F7FDF1]"
+          className="border-brand-200 text-xs hover:border-brand-300 hover:bg-brand-50"
         >
           <Sparkles className="mr-1.5 h-3 w-3" />
           Car Loan
@@ -195,7 +195,7 @@ export default function LoanComparison() {
           variant="outline"
           size="sm"
           onClick={() => applyPreset('personal')}
-          className="border-[#DFF7C6] text-xs hover:border-[#D0F4A9] hover:bg-[#F7FDF1]"
+          className="border-brand-200 text-xs hover:border-brand-300 hover:bg-brand-50"
         >
           <Sparkles className="mr-1.5 h-3 w-3" />
           Personal Loan
@@ -212,17 +212,17 @@ export default function LoanComparison() {
         {/* Dynamic Updated Date */}
         <div className="ml-auto flex items-center gap-1 text-xs text-slate-500">
           <span className="font-medium">Updated</span>
-          <span className="font-semibold text-[#577A30]">{currentDate}</span>
+          <span className="font-semibold text-brand-700">{currentDate}</span>
         </div>
       </div>
 
       {/* Two Column Comparison */}
       <div className="grid grid-cols-1 gap-0 overflow-hidden rounded-xl border border-slate-200 shadow-md lg:grid-cols-2">
         {/* Loan A */}
-        <div className="border-slate-200 bg-linear-to-br from-[#F7FDF1]/50 to-white p-6 lg:border-r">
+        <div className="border-slate-200 bg-linear-to-br from-brand-50/50 to-white p-6 lg:border-r">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#577A30] text-sm font-semibold text-white shadow-md">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-700 text-sm font-semibold text-white shadow-md">
                 A
               </div>
               <div>
@@ -255,7 +255,7 @@ export default function LoanComparison() {
                   step="10000"
                   value={loanA.amount}
                   onChange={(e) => handleChange('A', 'amount', e.target.value)}
-                  className="pl-8 text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="pl-8 text-base font-semibold focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
                 />
               </div>
             </div>
@@ -277,7 +277,7 @@ export default function LoanComparison() {
                   step="0.05"
                   value={loanA.rate}
                   onChange={(e) => handleChange('A', 'rate', e.target.value)}
-                  className="text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="text-base font-semibold focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
                 />
                 <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
                   %
@@ -302,7 +302,7 @@ export default function LoanComparison() {
                   step="1"
                   value={loanA.tenure}
                   onChange={(e) => handleChange('A', 'tenure', e.target.value)}
-                  className="text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="text-base font-semibold focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
                 />
                 <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
                   Years
@@ -313,10 +313,10 @@ export default function LoanComparison() {
         </div>
 
         {/* Loan B */}
-        <div className="bg-linear-to-br from-[#F7FDF1]/50 to-white p-6">
+        <div className="bg-linear-to-br from-brand-50/50 to-white p-6">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#92C65B] text-sm font-semibold text-white shadow-md">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-500 text-sm font-semibold text-white shadow-md">
                 B
               </div>
               <div>
@@ -349,7 +349,7 @@ export default function LoanComparison() {
                   step="10000"
                   value={loanB.amount}
                   onChange={(e) => handleChange('B', 'amount', e.target.value)}
-                  className="pl-8 text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="pl-8 text-base font-semibold focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
                 />
               </div>
             </div>
@@ -371,7 +371,7 @@ export default function LoanComparison() {
                   step="0.05"
                   value={loanB.rate}
                   onChange={(e) => handleChange('B', 'rate', e.target.value)}
-                  className="text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="text-base font-semibold focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
                 />
                 <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
                   %
@@ -396,7 +396,7 @@ export default function LoanComparison() {
                   step="1"
                   value={loanB.tenure}
                   onChange={(e) => handleChange('B', 'tenure', e.target.value)}
-                  className="text-base font-semibold focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+                  className="text-base font-semibold focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
                 />
                 <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
                   Years
@@ -408,40 +408,40 @@ export default function LoanComparison() {
       </div>
 
       {/* Winner / Savings Card */}
-      <div className="relative overflow-hidden rounded-xl border-2 border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] via-teal-50 to-cyan-50/30 p-6 shadow-md">
+      <div className="relative overflow-hidden rounded-xl border-2 border-brand-200 bg-linear-to-br from-brand-50 via-teal-50 to-cyan-50/30 p-6 shadow-md">
         <div className="absolute -top-8 -right-8 opacity-5">
-          <Trophy className="h-48 w-48 text-[#577A30]" />
+          <Trophy className="h-48 w-48 text-brand-700" />
         </div>
 
         <div className="relative z-10 flex flex-col items-start gap-4 lg:flex-row lg:items-center">
-          <div className="shrink-0 rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#B0EC70] p-3 text-[#74A046] shadow-lg">
+          <div className="shrink-0 rounded-xl bg-linear-to-br from-brand-50 to-brand-400 p-3 text-brand-600 shadow-lg">
             <Trophy className="h-7 w-7" />
           </div>
 
           <div className="flex-1 space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <h4 className="text-xl font-semibold text-[#1B2E06]">
+              <h4 className="text-xl font-semibold text-brand-900">
                 {isTie ? "It's a tie!" : `${winnerName} is the winner!`}
               </h4>
               {!isTie && (
-                <Badge className="bg-[#577A30] text-xs text-white">
+                <Badge className="bg-brand-700 text-xs text-white">
                   Save {savingsPercent}%
                 </Badge>
               )}
             </div>
 
             {isTie ? (
-              <p className="text-sm leading-relaxed text-[#577A30]">
+              <p className="text-sm leading-relaxed text-brand-700">
                 Both options result in nearly the same total payment. Compare
                 non-rate factors like fees, service quality, and prepayment
                 flexibility before choosing.
               </p>
             ) : (
-              <p className="text-sm leading-relaxed text-[#577A30]">
+              <p className="text-sm leading-relaxed text-brand-700">
                 By choosing{' '}
-                <strong className="text-[#1B2E06]">{winnerName}</strong> over{' '}
+                <strong className="text-brand-900">{winnerName}</strong> over{' '}
                 {loserName}, you save{' '}
-                <span className="mx-1 text-lg font-semibold text-[#577A30]">
+                <span className="mx-1 text-lg font-semibold text-brand-700">
                   {formatINR(interestDiff)}
                 </span>
                 in total interest over{' '}
@@ -450,26 +450,26 @@ export default function LoanComparison() {
             )}
 
             <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="rounded-lg border border-[#EFFBE2] bg-white/80 p-3">
+              <div className="rounded-lg border border-brand-100 bg-white/80 p-3">
                 <div className="mb-1 flex items-center gap-1.5">
-                  <TrendingDown className="h-3.5 w-3.5 text-[#577A30]" />
+                  <TrendingDown className="h-3.5 w-3.5 text-brand-700" />
                   <span className="text-xs font-medium text-slate-600">
                     Monthly Savings
                   </span>
                 </div>
-                <p className="text-base font-semibold text-[#577A30]">
+                <p className="text-base font-semibold text-brand-700">
                   {formatINR(monthlyDiff)}
                 </p>
               </div>
 
-              <div className="rounded-lg border border-[#EFFBE2] bg-white/80 p-3">
+              <div className="rounded-lg border border-brand-100 bg-white/80 p-3">
                 <div className="mb-1 flex items-center gap-1.5">
-                  <Calculator className="h-3.5 w-3.5 text-[#577A30]" />
+                  <Calculator className="h-3.5 w-3.5 text-brand-700" />
                   <span className="text-xs font-medium text-slate-600">
                     Total Savings
                   </span>
                 </div>
-                <p className="text-base font-semibold text-[#577A30]">
+                <p className="text-base font-semibold text-brand-700">
                   {formatINR(difference)}
                 </p>
               </div>
@@ -479,13 +479,13 @@ export default function LoanComparison() {
       </div>
 
       {/* Pro Tip */}
-      <div className="flex items-start gap-3 rounded-lg border border-[#DFF7C6] bg-[#F7FDF1] p-4">
-        <Info className="mt-0.5 h-5 w-5 shrink-0 text-[#577A30]" />
+      <div className="flex items-start gap-3 rounded-lg border border-brand-200 bg-brand-50 p-4">
+        <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand-700" />
         <div>
-          <h5 className="mb-1 text-sm font-semibold text-[#1B2E06]">
+          <h5 className="mb-1 text-sm font-semibold text-brand-900">
             💡 Pro Tip
           </h5>
-          <p className="text-sm leading-relaxed text-[#577A30]">
+          <p className="text-sm leading-relaxed text-brand-700">
             A 0.5% rate difference can translate to major long-term savings.
             Always compare total repayment, not just EMI, and review fees and
             reset terms before finalizing a lender.

@@ -9,11 +9,9 @@
 @theme {
   /*
    * BRAND COLOUR OVERRIDE
-   * All Tailwind blue/indigo/purple/violet/sky/cyan ramps are intentionally
-   * mapped to the Fincado brand green (#80d843). This keeps every component
-   * on-brand without needing to rename every Tailwind class throughout the
-   * codebase. If you add new UI that should use a different colour, define a
-   * fresh custom ramp instead of reverting these overrides.
+   * All Tailwind blue/indigo/purple/violet/sky/cyan/emerald/teal ramps are
+   * intentionally mapped to the Fincado brand palette. This keeps components
+   * on-brand without requiring per-file color rewrites.
    */
   --color-blue-50: #f7fdf1;
   --color-blue-100: #edf9dd;
@@ -80,6 +78,39 @@
   --color-cyan-700: #486629;
   --color-cyan-800: #395122;
   --color-cyan-900: #2b3d1b;
+
+  --color-emerald-50: #f7fdf1;
+  --color-emerald-100: #edf9dd;
+  --color-emerald-200: #d9f1bb;
+  --color-emerald-300: #c2e995;
+  --color-emerald-400: #a0e870;
+  --color-emerald-500: #80d843;
+  --color-emerald-600: #577a30;
+  --color-emerald-700: #486629;
+  --color-emerald-800: #395122;
+  --color-emerald-900: #2b3d1b;
+
+  --color-teal-50: #f7fdf1;
+  --color-teal-100: #edf9dd;
+  --color-teal-200: #d9f1bb;
+  --color-teal-300: #c2e995;
+  --color-teal-400: #a0e870;
+  --color-teal-500: #80d843;
+  --color-teal-600: #577a30;
+  --color-teal-700: #486629;
+  --color-teal-800: #395122;
+  --color-teal-900: #2b3d1b;
+
+  /* Canonical brand tokens for utility classes like text-brand-700 */
+  --color-brand-50: #f7fdf1;
+  --color-brand-100: #effbe2;
+  --color-brand-200: #dff7c6;
+  --color-brand-300: #d0f4a9;
+  --color-brand-400: #b0ec70;
+  --color-brand-500: #92c65b;
+  --color-brand-600: #74a046;
+  --color-brand-700: #577a30;
+  --color-brand-900: #1b2e06;
 }
 
 :root {

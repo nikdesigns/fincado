@@ -143,17 +143,17 @@ export default function SalaryCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             Salary Calculator (CTC to In-Hand)
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4">
               Decode Your Job Offer
             </span>
           </h1>
 
           {/* LAST UPDATED BANNER */}
-          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex items-center gap-2 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1">
               ✅ Updated for Budget 2026
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               April 12, 2026
             </span>
             <span className="text-xs">
@@ -183,12 +183,12 @@ export default function SalaryCalculatorPage() {
             {/* Benefit Highlight Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
+                <Card className="border-brand-400 bg-linear-to-br from-[white] to-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       NEW REGIME BENEFIT
                     </div>
-                    <div className="text-sm font-medium text-[#74A046] mb-2">
+                    <div className="text-sm font-medium text-brand-600 mb-2">
                       Standard Deduction
                     </div>
                     <div className="text-3xl font-semibold text-slate-900">
@@ -197,12 +197,12 @@ export default function SalaryCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
+                <Card className="border-brand-400 bg-linear-to-br from-[white] to-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       TAX FREE LIMIT
                     </div>
-                    <div className="text-sm font-medium text-[#74A046] mb-2">
+                    <div className="text-sm font-medium text-brand-600 mb-2">
                       Zero Tax Up To
                     </div>
                     <div className="text-3xl font-semibold text-slate-900">
@@ -211,12 +211,12 @@ export default function SalaryCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#B0EC70] bg-linear-to-br from-[white] to-[#F7FDF1]">
+                <Card className="border-brand-400 bg-linear-to-br from-[white] to-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       EPF CONTRIBUTION
                     </div>
-                    <div className="text-sm font-medium text-[#74A046] mb-2">
+                    <div className="text-sm font-medium text-brand-600 mb-2">
                       Employer + Employee
                     </div>
                     <div className="text-3xl font-semibold text-slate-900">
@@ -263,7 +263,7 @@ export default function SalaryCalculatorPage() {
                       <div className="text-center text-xl font-serif text-slate-800">
                         Gross Salary = CTC − Employer PF − Gratuity
                       </div>
-                      <div className="text-center text-xl font-serif text-[#577A30] mt-4 border-t pt-4">
+                      <div className="text-center text-xl font-serif text-brand-700 mt-4 border-t pt-4">
                         In-Hand Salary = Gross Salary − Employee PF − Income Tax
                         − Professional Tax
                       </div>
@@ -302,18 +302,18 @@ export default function SalaryCalculatorPage() {
             </div>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1] transition-colors hover:bg-[#EFFBE2]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50 transition-colors hover:bg-brand-100">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#92C65B]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-500">
                   <BookOpen className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to save more tax?
                   </strong>
                   <Link
                     href="/guides/best-tax-saving-options-80c/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700"
                   >
                     <span>Read our Section 80C Investment Guide</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -411,7 +411,7 @@ export default function SalaryCalculatorPage() {
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse text-sm">
                         <thead>
-                          <tr className="bg-[#F7FDF1]">
+                          <tr className="bg-brand-50">
                             <th className="text-left p-4 border">
                               Taxable Income
                             </th>
@@ -550,7 +550,7 @@ export default function SalaryCalculatorPage() {
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
                       <Link href="/income-tax-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <span className="flex h-12 w-12 items-center justify-center rounded-xl">
@@ -563,13 +563,13 @@ export default function SalaryCalculatorPage() {
                                 />
                               </span>
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   Income Tax Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Detailed tax calculation for Old vs New Regime
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -580,7 +580,7 @@ export default function SalaryCalculatorPage() {
                       </Link>
 
                       <Link href="/hra-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <Image
@@ -591,14 +591,14 @@ export default function SalaryCalculatorPage() {
                                 className="w-12 h-12"
                               />
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   HRA Exemption Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate tax exemption on House Rent
                                   Allowance
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -609,7 +609,7 @@ export default function SalaryCalculatorPage() {
                       </Link>
 
                       <Link href="/epf-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <Image
@@ -620,14 +620,14 @@ export default function SalaryCalculatorPage() {
                                 className="w-12 h-12"
                               />
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   EPF Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Estimate your provident fund corpus at
                                   retirement
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -638,7 +638,7 @@ export default function SalaryCalculatorPage() {
                       </Link>
 
                       <Link href="/gratuity-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
                               <Image
@@ -649,14 +649,14 @@ export default function SalaryCalculatorPage() {
                                 className="w-12 h-12"
                               />
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   Gratuity Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate gratuity payout when leaving a
                                   company
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

@@ -366,7 +366,7 @@ export default function CalculatorsGrid() {
               placeholder="Search calculators by name, category, or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 h-10 text-sm border-slate-200 focus:border-[#C0F08D] focus:ring-1 focus:ring-[#C0F08D]"
+              className="pl-10 pr-4 h-10 text-sm border-slate-200 focus:border-brand-300 focus:ring-1 focus:ring-brand-300"
               aria-label="Search financial calculators"
             />
           </div>
@@ -394,8 +394,8 @@ export default function CalculatorsGrid() {
                   onClick={() => setSelectedCategory(category)}
                   className={`rounded-full text-xs h-7 transition-all ${
                     selectedCategory === category
-                      ? 'bg-[#B0EC70] hover:bg-[#B0EC70] text-[#111827]'
-                      : 'border-slate-200 text-slate-600 hover:border-[#D0F4A9] hover:bg-[#F7FDF1]'
+                      ? 'bg-brand-400 hover:bg-brand-400 text-[#111827]'
+                      : 'border-slate-200 text-slate-600 hover:border-brand-300 hover:bg-brand-50'
                   }`}
                 >
                   {category}
@@ -418,7 +418,7 @@ export default function CalculatorsGrid() {
       {normalizedQuery === '' && selectedCategory === 'All' && (
         <section className="bg-slate-50 rounded-xl p-6 border border-slate-200">
           <div className="flex items-center gap-2 mb-5">
-            <Sparkles className="w-4 h-4 text-[#92C65B]" />
+            <Sparkles className="w-4 h-4 text-brand-500" />
             <h3 className="text-lg font-semibold text-slate-900">
               Popular Calculators
             </h3>
@@ -432,21 +432,21 @@ export default function CalculatorsGrid() {
                 className="group block"
                 aria-label={`Open ${calc.title}`}
               >
-                <Card className="h-full border-slate-200 bg-white hover:border-[#D0F4A9] hover:shadow-md transition-all duration-200">
+                <Card className="h-full border-slate-200 bg-white hover:border-brand-300 hover:shadow-md transition-all duration-200">
                   <CardContent className="p-3">
                     <div className="flex items-center gap-3">
-                      <div className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-[#F7FDF1] group-hover:text-[#92C65B] transition-colors">
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-brand-50 group-hover:text-brand-500 transition-colors">
                         <CalculatorIcon name={calc.title} className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm text-slate-900 group-hover:text-[#74A046] transition-colors truncate">
+                        <h4 className="font-semibold text-sm text-slate-900 group-hover:text-brand-600 transition-colors truncate">
                           {calc.title}
                         </h4>
                         <p className="text-xs text-slate-500 line-clamp-1">
                           Quick access
                         </p>
                       </div>
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#F7FDF1]0 transition-colors shrink-0" />
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-brand-500 transition-colors shrink-0" />
                     </div>
                   </CardContent>
                 </Card>
@@ -471,7 +471,7 @@ export default function CalculatorsGrid() {
               setSearchQuery('');
               setSelectedCategory('All');
             }}
-            className="text-xs text-[#577A30] hover:text-[#74A046] hover:bg-[#F7FDF1] h-7 font-medium"
+            className="text-xs text-brand-700 hover:text-brand-600 hover:bg-brand-50 h-7 font-medium"
           >
             Clear filters
           </Button>
@@ -509,9 +509,9 @@ export default function CalculatorsGrid() {
                     className="group block h-full"
                     aria-label={`Open ${calc.title} calculator`}
                   >
-                    <Card className="h-full flex flex-col border border-slate-200 bg-white transition-all duration-200 hover:border-[#D0F4A9] hover:shadow-md hover:-translate-y-0.5">
+                    <Card className="h-full flex flex-col border border-slate-200 bg-white transition-all duration-200 hover:border-brand-300 hover:shadow-md hover:-translate-y-0.5">
                       <CardHeader className="flex flex-row items-start gap-3 p-4 pb-2 space-y-0">
-                        <div className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600 group-hover:bg-[#F7FDF1] group-hover:text-[#92C65B] transition-colors">
+                        <div className="shrink-0 w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600 group-hover:bg-brand-50 group-hover:text-brand-500 transition-colors">
                           <CalculatorIcon
                             name={calc.title}
                             className="w-4.5 h-4.5"
@@ -519,7 +519,7 @@ export default function CalculatorsGrid() {
                         </div>
                         <div className="flex-1 min-w-0 space-y-1">
                           <div className="flex items-start justify-between gap-2">
-                            <CardTitle className="text-sm font-semibold text-slate-900 group-hover:text-[#74A046] transition-colors leading-snug">
+                            <CardTitle className="text-sm font-semibold text-slate-900 group-hover:text-brand-600 transition-colors leading-snug">
                               {calc.title}
                             </CardTitle>
                             {calc.popular && (
@@ -544,7 +544,7 @@ export default function CalculatorsGrid() {
                         <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wide">
                           Free
                         </span>
-                        <div className="flex items-center gap-1 text-xs font-medium text-[#92C65B] group-hover:text-[#74A046] transition-colors">
+                        <div className="flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:text-brand-600 transition-colors">
                           Calculate
                           <ArrowRight className="h-3 w-3" />
                         </div>
@@ -575,7 +575,7 @@ export default function CalculatorsGrid() {
               setSelectedCategory('All');
             }}
             size="sm"
-            className="bg-[#92C65B] hover:bg-[#74A046] h-9"
+            className="bg-brand-500 hover:bg-brand-600 h-9"
           >
             View All Calculators
           </Button>

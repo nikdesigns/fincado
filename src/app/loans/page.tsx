@@ -160,12 +160,12 @@ export default function LoansPage() {
 
           {/* HERO SECTION */}
           <section className="text-center mb-12 bg-linear-to-b from-emerald-50/50 to-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm">
-            <Badge className="mb-4 bg-[#F7FDF1] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1 font-semibold uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-50 text-brand-700 hover:bg-brand-200 px-3 py-1 font-semibold uppercase tracking-wider">
               Updated for Tax Year 2026-27
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight leading-tight mb-4">
               Find the Perfect Loan for <br />
-              <span className="text-[#577A30]">Your Ambitions.</span>
+              <span className="text-brand-700">Your Ambitions.</span>
             </h1>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
               Compare interest rates, check eligibility, and calculate EMIs for
@@ -180,7 +180,7 @@ export default function LoansPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {LOAN_TYPES.map((loan) => (
               <Link key={loan.path} href={loan.path} className="group h-full">
-                <Card className="h-full hover:shadow-lg hover:border-[#B0EC70] transition-all duration-200 cursor-pointer flex flex-col">
+                <Card className="h-full hover:shadow-lg hover:border-brand-400 transition-all duration-200 cursor-pointer flex flex-col">
                   <CardHeader className="flex-row gap-4 items-start space-y-0 pb-2">
                     <div
                       className={`w-12 h-12 rounded-xl ${loan.bg} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform`}
@@ -188,7 +188,7 @@ export default function LoansPage() {
                       <loan.icon className={`w-6 h-6 ${loan.color}`} />
                     </div>
                     <div>
-                      <CardTitle className="text-xl font-semibold text-slate-900 group-hover:text-[#577A30] transition-colors">
+                      <CardTitle className="text-xl font-semibold text-slate-900 group-hover:text-brand-700 transition-colors">
                         {loan.title}
                       </CardTitle>
                     </div>
@@ -199,7 +199,7 @@ export default function LoansPage() {
                     </CardDescription>
                   </CardContent>
                   <CardFooter className="pt-0 border-t border-slate-50 mt-4">
-                    <div className="flex items-center text-[#577A30] font-semibold text-sm pt-4 group-hover:translate-x-1 transition-transform">
+                    <div className="flex items-center text-brand-700 font-semibold text-sm pt-4 group-hover:translate-x-1 transition-transform">
                       Check Rates <ArrowRight className="w-4 h-4 ml-1" />
                     </div>
                   </CardFooter>
@@ -217,7 +217,7 @@ export default function LoansPage() {
           <section className="space-y-8">
             <div>
               <h2 className="text-2xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                <ShieldCheck className="w-6 h-6 text-[#577A30]" />
+                <ShieldCheck className="w-6 h-6 text-brand-700" />
                 Understanding Loans in India
               </h2>
               <p className="text-slate-600 leading-relaxed">

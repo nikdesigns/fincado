@@ -152,10 +152,10 @@ export default function SalaryClient() {
 
       {/* Results Section */}
       <div className="lg:col-span-7">
-        <Card className="border-[#B0EC70] bg-white shadow-md overflow-hidden h-full">
-          <div className="bg-[#F7FDF1] border-b border-[#DFF7C6] p-6 flex flex-col  items-center justify-between gap-4">
+        <Card className="border-brand-400 bg-white shadow-md overflow-hidden h-full">
+          <div className="bg-brand-50 border-b border-brand-200 p-6 flex flex-col  items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-1">
+              <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-1">
                 {isMonthlyView ? 'Monthly Take Home' : 'Annual Take Home'}
               </p>
               <h3 className="text-4xl font-bold text-slate-900">
@@ -167,13 +167,13 @@ export default function SalaryClient() {
             <div className="flex bg-white rounded-3xl p-1 border border-slate-200 shadow-sm">
               <button
                 onClick={() => setTaxRegime('new')}
-                className={`px-6 py-2 text-sm font-semibold rounded-3xl transition-all ${taxRegime === 'new' ? 'bg-[#577A30] text-white' : 'text-slate-600 hover:bg-slate-50'}`}
+                className={`px-6 py-2 text-sm font-semibold rounded-3xl transition-all ${taxRegime === 'new' ? 'bg-brand-700 text-white' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 New Regime
               </button>
               <button
                 onClick={() => setTaxRegime('old')}
-                className={`px-6 py-2 text-sm font-semibold rounded-3xl transition-all ${taxRegime === 'old' ? 'bg-[#577A30] text-white' : 'text-slate-600 hover:bg-slate-50'}`}
+                className={`px-6 py-2 text-sm font-semibold rounded-3xl transition-all ${taxRegime === 'old' ? 'bg-brand-700 text-white' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 Old Regime
               </button>
@@ -183,13 +183,13 @@ export default function SalaryClient() {
             <div className="flex bg-white rounded-lg p-1 border border-slate-200">
               <button
                 onClick={() => setIsMonthlyView(true)}
-                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${isMonthlyView ? 'bg-[#577A30] text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${isMonthlyView ? 'bg-brand-700 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setIsMonthlyView(false)}
-                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${!isMonthlyView ? 'bg-[#577A30] text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${!isMonthlyView ? 'bg-brand-700 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
               >
                 Yearly
               </button>

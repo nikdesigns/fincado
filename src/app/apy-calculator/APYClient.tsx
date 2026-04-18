@@ -380,7 +380,7 @@ export default function APYClient({ labels }: APYClientProps) {
               <Switch
                 checked={comparisonMode}
                 onCheckedChange={setComparisonMode}
-                className="data-[state=checked]:bg-[#B0EC70] data-[state=unchecked]:bg-slate-300"
+                className="data-[state=checked]:bg-brand-400 data-[state=unchecked]:bg-slate-300"
                 id="comparison-mode"
               />
               <label
@@ -495,7 +495,7 @@ export default function APYClient({ labels }: APYClientProps) {
                     <div className="text-sm text-muted-foreground">
                       {t.youNeedToPay}
                     </div>
-                    <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                    <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                       {formatINR(calculations.periodicContribution)}
                       <span className="ml-1 text-lg font-medium text-muted-foreground">
                         {t.per}{' '}
@@ -519,26 +519,26 @@ export default function APYClient({ labels }: APYClientProps) {
                         </div>
                       </CardContent>
                     </Card>
-                    <Card className="border-[#C0F08D] bg-[#F7FDF1] shadow-none">
+                    <Card className="border-brand-300 bg-brand-50 shadow-none">
                       <CardContent className="p-4">
-                        <div className="text-xs text-[#577A30] truncate">
+                        <div className="text-xs text-brand-700 truncate">
                           {t.corpusToNominee}
                         </div>
-                        <div className="mt-1 text-lg font-semibold text-[#1B2E06]">
+                        <div className="mt-1 text-lg font-semibold text-brand-900">
                           {formatINR(calculations.nomineeCorpus)}
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
-                  <div className="rounded-xl border border-[#B0EC70] bg-[#F7FDF1] p-4 text-center">
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[#577A30]">
+                  <div className="rounded-xl border border-brand-400 bg-brand-50 p-4 text-center">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-brand-700">
                       {t.guaranteedPension}
                     </div>
-                    <div className="mt-1 text-2xl font-black text-[#1B2E06]">
+                    <div className="mt-1 text-2xl font-black text-brand-900">
                       {formatINR(toPensionNumber(pension))}
                     </div>
-                    <div className="text-xs text-[#577A30]">{t.forSpouse}</div>
+                    <div className="text-xs text-brand-700">{t.forSpouse}</div>
                   </div>
                 </div>
               </div>
@@ -552,7 +552,7 @@ export default function APYClient({ labels }: APYClientProps) {
           <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30] text-sm font-semibold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-100 text-brand-700 text-sm font-semibold">
                   A
                 </span>
                 Scenario A - Early Start
@@ -605,12 +605,12 @@ export default function APYClient({ labels }: APYClientProps) {
                 </Select>
               </div>
 
-              <div className="pt-4 border-t border-[#DFF7C6]">
+              <div className="pt-4 border-t border-brand-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {frequency} Contribution
                   </div>
-                  <div className="text-2xl font-semibold text-[#577A30] mt-1">
+                  <div className="text-2xl font-semibold text-brand-700 mt-1">
                     {formatINR(calculations.periodicContribution)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
@@ -628,7 +628,7 @@ export default function APYClient({ labels }: APYClientProps) {
           <Card className="border-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30] text-sm font-semibold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-100 text-brand-700 text-sm font-semibold">
                   B
                 </span>
                 Scenario B - Late Start
@@ -681,12 +681,12 @@ export default function APYClient({ labels }: APYClientProps) {
                 </Select>
               </div>
 
-              <div className="pt-4 border-t border-[#DFF7C6]">
+              <div className="pt-4 border-t border-brand-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {frequency2} Contribution
                   </div>
-                  <div className="text-2xl font-semibold text-[#577A30] mt-1">
+                  <div className="text-2xl font-semibold text-brand-700 mt-1">
                     {formatINR(calculations2?.periodicContribution || 0)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
@@ -704,7 +704,7 @@ export default function APYClient({ labels }: APYClientProps) {
 
       {/* ✅ Comparison Summary */}
       {comparisonMode && calculations2 && (
-        <Card className="border-[#DFF7C6] bg-[#1B2E06]">
+        <Card className="border-brand-200 bg-brand-900">
           <CardHeader>
             <CardTitle className="text-lg text-white">
               Comparison Summary
@@ -716,7 +716,7 @@ export default function APYClient({ labels }: APYClientProps) {
                 <div className="text-xs text-[#D1D5DB] mb-1">
                   Monthly Contribution Difference
                 </div>
-                <div className="text-xl font-semibold text-[#B0EC70]">
+                <div className="text-xl font-semibold text-brand-400">
                   {formatINR(
                     Math.abs(
                       calculations.monthlyBase - calculations2.monthlyBase,
@@ -728,7 +728,7 @@ export default function APYClient({ labels }: APYClientProps) {
                 <div className="text-xs text-[#D1D5DB] mb-1">
                   Total Investment Difference
                 </div>
-                <div className="text-xl font-semibold text-[#B0EC70]">
+                <div className="text-xl font-semibold text-brand-400">
                   {formatINR(
                     Math.abs(
                       calculations.totalInvestment -
@@ -742,12 +742,12 @@ export default function APYClient({ labels }: APYClientProps) {
                 <div className="text-xl font-semibold">
                   {calculations.totalInvestment <
                   calculations2.totalInvestment ? (
-                    <span className="text-[#B0EC70]">🏆 Scenario A</span>
+                    <span className="text-brand-400">🏆 Scenario A</span>
                   ) : calculations.totalInvestment >
                     calculations2.totalInvestment ? (
-                    <span className="text-[#B0EC70]">🏆 Scenario B</span>
+                    <span className="text-brand-400">🏆 Scenario B</span>
                   ) : (
-                    <span className="text-[#B0EC70]">Both Equal</span>
+                    <span className="text-brand-400">Both Equal</span>
                   )}
                 </div>
               </div>
@@ -784,10 +784,10 @@ export default function APYClient({ labels }: APYClientProps) {
 
       {/* ✅ Age Impact Simulator */}
       {!comparisonMode && (
-        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+        <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <TrendingUp className="h-5 w-5 text-[#577A30]" />
+              <TrendingUp className="h-5 w-5 text-brand-700" />
               Impact of Joining Age
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -808,12 +808,12 @@ export default function APYClient({ labels }: APYClientProps) {
                     key={age}
                     className={`p-4 rounded-lg border-2 transition ${
                       age === joiningAge
-                        ? 'border-[#F7FDF1] bg-[#EFFBE2]'
+                        ? 'border-brand-50 bg-brand-100'
                         : 'border-slate-200 bg-white'
                     }`}
                   >
                     <div className="text-xs text-slate-600 mb-1">Age {age}</div>
-                    <div className="text-2xl font-semibold text-[#577A30]">
+                    <div className="text-2xl font-semibold text-brand-700">
                       {formatINR(monthly)}
                     </div>
                     <div className="text-xs text-slate-600 mt-1">/month</div>
@@ -822,7 +822,7 @@ export default function APYClient({ labels }: APYClientProps) {
               })}
             </div>
 
-            <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
+            <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-brand-200">
               💡 <strong>Tip:</strong> Joining 5 years earlier can reduce your
               monthly contribution by up to 30-40%!
             </p>

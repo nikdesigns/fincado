@@ -107,8 +107,8 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
-      "clientCalculation": false,
+      "clientInputs": true,
+      "clientCalculation": true,
       "clientResults": true
     },
     "content": {
@@ -120,11 +120,9 @@
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing: hasRelatedCalcs",
-      "❌ Client: Missing input fields",
-      "❌ Client: Missing calculation logic"
+      "⚠️  Missing: hasRelatedCalcs"
     ],
-    "score": 92
+    "score": 97
   },
   "ppf-calculator": {
     "name": "ppf-calculator",
@@ -152,8 +150,8 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
-      "clientCalculation": false,
+      "clientInputs": true,
+      "clientCalculation": true,
       "clientResults": true
     },
     "content": {
@@ -164,11 +162,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields",
-      "❌ Client: Missing calculation logic"
-    ],
-    "score": 96
+    "issues": [],
+    "score": 100
   },
   "fd-calculator": {
     "name": "fd-calculator",
@@ -196,7 +191,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -208,10 +203,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "elss-calculator": {
     "name": "elss-calculator",
@@ -239,8 +232,8 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
-      "clientCalculation": false,
+      "clientInputs": true,
+      "clientCalculation": true,
       "clientResults": true
     },
     "content": {
@@ -251,11 +244,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields",
-      "❌ Client: Missing calculation logic"
-    ],
-    "score": 96
+    "issues": [],
+    "score": 100
   },
   "epf-calculator": {
     "name": "epf-calculator",
@@ -365,7 +355,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -377,10 +367,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "nps-calculator": {
     "name": "nps-calculator",
@@ -408,9 +396,9 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
-      "clientCalculation": false,
-      "clientResults": false
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
     },
     "content": {
       "hasH1": true,
@@ -420,12 +408,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields",
-      "❌ Client: Missing calculation logic",
-      "❌ Client: Missing results display"
-    ],
-    "score": 94
+    "issues": [],
+    "score": 100
   },
   "gratuity-calculator": {
     "name": "gratuity-calculator",
@@ -453,7 +437,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -465,10 +449,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "rd-calculator": {
     "name": "rd-calculator",
@@ -496,7 +478,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -508,10 +490,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "sukanya-samriddhi": {
     "name": "sukanya-samriddhi",
@@ -539,7 +519,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -551,10 +531,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "swp-calculator": {
     "name": "swp-calculator",
@@ -582,7 +560,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -594,10 +572,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "inflation-calculator": {
     "name": "inflation-calculator",
@@ -666,7 +642,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -678,10 +654,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "lumpsum-calculator": {
     "name": "lumpsum-calculator",
@@ -709,7 +683,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -721,10 +695,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "compound-interest-calculator": {
     "name": "compound-interest-calculator",
@@ -834,8 +806,8 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
-      "clientCalculation": false,
+      "clientInputs": true,
+      "clientCalculation": true,
       "clientResults": true
     },
     "content": {
@@ -846,11 +818,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "❌ Client: Missing input fields",
-      "❌ Client: Missing calculation logic"
-    ],
-    "score": 96
+    "issues": [],
+    "score": 100
   },
   "fire-calculator": {
     "name": "fire-calculator",
@@ -878,7 +847,7 @@
       "Card": true,
       "Accordion": true,
       "clientState": true,
-      "clientInputs": false,
+      "clientInputs": true,
       "clientCalculation": true,
       "clientResults": true
     },
@@ -891,9 +860,8 @@
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing: hasRelatedCalcs",
-      "❌ Client: Missing input fields"
+      "⚠️  Missing: hasRelatedCalcs"
     ],
-    "score": 95
+    "score": 97
   }
 }

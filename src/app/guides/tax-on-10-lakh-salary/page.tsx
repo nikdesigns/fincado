@@ -155,7 +155,7 @@ export default function Tax10LakhGuide() {
       <header className="mb-8 border-b border-slate-200 pb-6 no-print">
         <Badge
           variant="secondary"
-          className="mb-3 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1"
+          className="mb-3 bg-brand-100 text-brand-700 hover:bg-brand-200 px-3 py-1"
         >
           Zero Tax Zone
         </Badge>
@@ -171,7 +171,7 @@ export default function Tax10LakhGuide() {
             Updated: <strong className="text-slate-700">{CONFIG.year}</strong>
           </span>
           <span className="hidden sm:inline">•</span>
-          <span className="flex items-center gap-1 font-medium text-[#577A30]">
+          <span className="flex items-center gap-1 font-medium text-brand-700">
             <CheckCircle2 className="h-4 w-4" /> Calculation Verified
           </span>
         </div>
@@ -194,26 +194,26 @@ export default function Tax10LakhGuide() {
           <WikiText
             content={`<p>Earning <strong>₹10 Lakhs (10 LPA)</strong> is a major milestone. Under the <strong>New Tax Regime (${CONFIG.year})</strong>, the <strong>₹75,000 Standard Deduction</strong> reduces your taxable income to <strong>₹9.25 Lakhs</strong>. Since this is below the ₹12 Lakh rebate limit, you get the full <strong>Section 87A rebate</strong>, resulting in <strong>zero tax</strong>.</p>`}
           />
-          <Badge className="mt-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6]">
+          <Badge className="mt-4 bg-brand-100 text-brand-700 hover:bg-brand-200">
             Status: Tax-Free under New Regime ({CONFIG.year})
           </Badge>
         </CardContent>
       </Card>
 
-      <Card className="mb-12 bg-[#F7FDF1] border-[#DFF7C6] shadow-md">
+      <Card className="mb-12 bg-brand-50 border-brand-200 shadow-md">
         <CardHeader className="pb-2">
-          <CardTitle className="text-[#1B2E06] text-xl flex items-center gap-2">
-            <Scale className="h-6 w-6 text-[#577A30]" /> The Verdict
+          <CardTitle className="text-brand-900 text-xl flex items-center gap-2">
+            <Scale className="h-6 w-6 text-brand-700" /> The Verdict
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4 text-[#1B2E06]">
+          <div className="space-y-4 text-brand-900">
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-lg border border-[#EFFBE2] shadow-sm">
+              <div className="bg-white p-4 rounded-lg border border-brand-100 shadow-sm">
                 <span className="text-sm font-semibold text-slate-500 uppercase">
                   New Regime Tax
                 </span>
-                <p className="text-3xl font-semibold text-[#577A30]">₹0</p>
+                <p className="text-3xl font-semibold text-brand-700">₹0</p>
                 <p className="text-xs text-slate-600 mt-1">
                   (Full rebate applied)
                 </p>
@@ -229,7 +229,7 @@ export default function Tax10LakhGuide() {
               </div>
             </div>
 
-            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-[#DFF7C6] text-sm text-[#1B2E06]">
+            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-brand-200 text-sm text-brand-900">
               <Lightbulb className="h-5 w-5 shrink-0 mt-0.5 text-amber-500" />
               <span>
                 <strong>Winner:</strong> New Regime saves you over{' '}
@@ -238,7 +238,7 @@ export default function Tax10LakhGuide() {
               </span>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-[#EFFBE2]">
+            <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-brand-100">
               <p className="text-sm font-semibold mb-4 text-center text-slate-700">
                 Check Your Specific Case:
               </p>
@@ -305,18 +305,18 @@ export default function Tax10LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Less: TDS (Income Tax)
                 </TableCell>
-                <TableCell className="text-[#577A30] font-semibold">
+                <TableCell className="text-brand-700 font-semibold">
                   ₹0
                 </TableCell>
                 <TableCell className="text-red-600 font-semibold">
                   - ₹8,883
                 </TableCell>
               </TableRow>
-              <TableRow className="bg-[#F7FDF1]">
-                <TableCell className="font-semibold text-[#1B2E06] text-lg">
+              <TableRow className="bg-brand-50">
+                <TableCell className="font-semibold text-brand-900 text-lg">
                   In-Hand Salary
                 </TableCell>
-                <TableCell className="font-semibold text-[#577A30] text-lg">
+                <TableCell className="font-semibold text-brand-700 text-lg">
                   ₹78,133
                 </TableCell>
                 <TableCell className="font-semibold text-amber-700 text-lg">
@@ -343,9 +343,9 @@ export default function Tax10LakhGuide() {
         </h2>
 
         <div className="grid gap-6 md:grid-cols-3">
-          <Card className="border-t-4 border-t-[#F7FDF1]0 shadow-sm">
+          <Card className="border-t-4 border-t-brand-500 shadow-sm">
             <CardContent className="pt-6">
-              <strong className="block text-[#577A30] mb-2 text-lg">
+              <strong className="block text-brand-700 mb-2 text-lg">
                 💰 In Pocket (94.0%)
               </strong>
               <span className="text-3xl font-semibold text-slate-900">
@@ -356,9 +356,9 @@ export default function Tax10LakhGuide() {
               </p>
             </CardContent>
           </Card>
-          <Card className="border-t-4 border-t-[#F7FDF1]0 shadow-sm">
+          <Card className="border-t-4 border-t-brand-500 shadow-sm">
             <CardContent className="pt-6">
-              <strong className="block text-[#577A30] mb-2 text-lg">
+              <strong className="block text-brand-700 mb-2 text-lg">
                 🏛️ Income Tax (0%)
               </strong>
               <span className="text-3xl font-semibold text-slate-900">₹0</span>
@@ -386,7 +386,7 @@ export default function Tax10LakhGuide() {
           id="new-regime"
           className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
-          <Calculator className="h-6 w-6 text-[#577A30]" /> New Regime
+          <Calculator className="h-6 w-6 text-brand-700" /> New Regime
           Calculation ({CONFIG.year})
         </h2>
         <Card className="border-slate-200">
@@ -398,7 +398,7 @@ export default function Tax10LakhGuide() {
               </div>
               <div className="flex justify-between mb-1">
                 <span>(-) Standard Deduction</span>
-                <span className="text-[#577A30]">- ₹75,000</span>
+                <span className="text-brand-700">- ₹75,000</span>
               </div>
               <div className="flex justify-between font-semibold pt-2 border-t border-slate-300">
                 <span>Net Taxable Income</span>
@@ -442,12 +442,12 @@ export default function Tax10LakhGuide() {
                     <TableCell>-</TableCell>
                     <TableCell>₹32,500</TableCell>
                   </TableRow>
-                  <TableRow className="font-semibold text-[#577A30] bg-[#F7FDF1]/50">
+                  <TableRow className="font-semibold text-brand-700 bg-brand-50/50">
                     <TableCell>Less: Rebate 87A</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>- ₹32,500</TableCell>
                   </TableRow>
-                  <TableRow className="font-semibold text-[#577A30] bg-[#EFFBE2]">
+                  <TableRow className="font-semibold text-brand-700 bg-brand-100">
                     <TableCell>Net Payable</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>₹0</TableCell>
@@ -557,13 +557,13 @@ export default function Tax10LakhGuide() {
                 <span className="block text-xs uppercase text-slate-500 font-semibold mb-1">
                   Deductions &lt; ₹4.5L
                 </span>
-                <strong className="text-[#577A30]">Choose New Regime</strong>
+                <strong className="text-brand-700">Choose New Regime</strong>
               </div>
               <div className="bg-white p-3 rounded border border-indigo-200 text-sm">
                 <span className="block text-xs uppercase text-slate-500 font-semibold mb-1">
                   Deductions ≥ ₹4.5L
                 </span>
-                <strong className="text-[#577A30]">Old can match</strong>
+                <strong className="text-brand-700">Old can match</strong>
               </div>
             </div>
           </CardContent>
@@ -627,17 +627,17 @@ export default function Tax10LakhGuide() {
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
-                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#F7FDF1] text-[#577A30] group-hover:bg-[#EFFBE2] group-hover:text-[#577A30] transition-colors">
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-700 group-hover:bg-brand-100 group-hover:text-brand-700 transition-colors">
                     <TrendingUp className="h-5 w-5" />
                   </div>
-                  <h3 className="font-semibold text-slate-900 group-hover:text-[#577A30] transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-brand-700 transition-colors">
                     SIP Calculator
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
                     Calculate returns on monthly investments.
                   </p>
                 </div>
-                <div className="mt-4 flex items-center text-sm font-semibold text-[#577A30]">
+                <div className="mt-4 flex items-center text-sm font-semibold text-brand-700">
                   Calculate Returns{' '}
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </div>

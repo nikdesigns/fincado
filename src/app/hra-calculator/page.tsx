@@ -188,7 +188,7 @@ export default function HRAPage() {
         </ul>
       </li>
     </ol>
-    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+    <div class="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
       <p class="text-sm text-slate-700">
         <strong>Key Formula:</strong> Salary for HRA = Basic Salary + Dearness Allowance (DA). 
         Other allowances like Special Allowance, Conveyance, Medical are NOT included.
@@ -269,14 +269,14 @@ export default function HRAPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <Building2 className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 HRA Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 House Rent Allowance Exemption
               </p>
             </div>
@@ -321,9 +321,9 @@ export default function HRAPage() {
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       METRO RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -339,9 +339,9 @@ export default function HRAPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       NON-METRO RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -357,9 +357,9 @@ export default function HRAPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       PAN THRESHOLD
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -386,8 +386,8 @@ export default function HRAPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Calculation Note
@@ -422,8 +422,8 @@ export default function HRAPage() {
                       </div>
 
                       <div className="space-y-3 text-sm">
-                        <div className="p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
-                          <div className="font-semibold text-[#1B2E06] mb-1">
+                        <div className="p-3 bg-brand-50 rounded border border-brand-200">
+                          <div className="font-semibold text-brand-900 mb-1">
                             Condition 1: Actual HRA Received
                           </div>
                           <div className="font-mono text-xs text-slate-700">
@@ -431,8 +431,8 @@ export default function HRAPage() {
                           </div>
                         </div>
 
-                        <div className="p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
-                          <div className="font-semibold text-[#1B2E06] mb-1">
+                        <div className="p-3 bg-brand-50 rounded border border-brand-200">
+                          <div className="font-semibold text-brand-900 mb-1">
                             Condition 2: Rent Paid - 10% of Salary
                           </div>
                           <div className="font-mono text-xs text-slate-700">
@@ -440,8 +440,8 @@ export default function HRAPage() {
                           </div>
                         </div>
 
-                        <div className="p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
-                          <div className="font-semibold text-[#1B2E06] mb-1">
+                        <div className="p-3 bg-brand-50 rounded border border-brand-200">
+                          <div className="font-semibold text-brand-900 mb-1">
                             Condition 3: 50% or 40% of Salary
                           </div>
                           <div className="font-mono text-xs text-slate-700">
@@ -452,8 +452,8 @@ export default function HRAPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
-                        <div className="font-semibold text-[#1B2E06] mb-1">
+                      <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                        <div className="font-semibold text-brand-900 mb-1">
                           Final Exempt HRA
                         </div>
                         <div className="font-mono text-sm text-slate-700">
@@ -495,8 +495,8 @@ export default function HRAPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Metro City HRA Calculation
                     </h4>
@@ -529,7 +529,7 @@ export default function HRAPage() {
                         <div>Mumbai (Metro - 50%)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Calculate Three Conditions
                         </strong>
@@ -549,28 +549,28 @@ export default function HRAPage() {
                         </div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 2: Choose Minimum Value
                         </strong>
                         <div className="ml-4 text-xs">
                           <div className="p-2 bg-white rounded">
                             Minimum of (₹2,40,000, ₹1,20,000, ₹3,00,000) ={' '}
-                            <strong className="text-[#577A30]">
+                            <strong className="text-brand-700">
                               ₹1,20,000
                             </strong>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="space-y-2">
                           <div className="text-lg font-semibold text-slate-700 mb-2">
                             HRA Summary:
                           </div>
                           <div className="flex justify-between">
                             <span>Exempt HRA (Tax Free):</span>
-                            <strong className="text-[#577A30]">
+                            <strong className="text-brand-700">
                               ₹1,20,000
                             </strong>
                           </div>
@@ -583,7 +583,7 @@ export default function HRAPage() {
                           <div className="border-t pt-2 mt-2">
                             <div className="flex justify-between text-xs text-slate-600">
                               <span>Tax Saving (at 30% slab):</span>
-                              <strong className="text-[#577A30]">
+                              <strong className="text-brand-700">
                                 ~₹36,000/year
                               </strong>
                             </div>
@@ -591,7 +591,7 @@ export default function HRAPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9]">
+                      <div className="mt-3 pt-3 border-t border-brand-300">
                         <p className="text-xs text-slate-600">
                           <strong>Note:</strong> Condition 2 (₹1,20,000) is the
                           lowest, so that becomes the exempt HRA. Remaining
@@ -605,18 +605,18 @@ export default function HRAPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <Calculator className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Compare Old vs New Tax Regime with HRA impact
                   </strong>
                   <Link
                     href="/income-tax-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#1B2E06]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-900"
                   >
                     <span>
                       Use Income Tax Calculator to see if Old Regime saves more
@@ -651,27 +651,27 @@ export default function HRAPage() {
 
                       <TableBody>
                         <TableRow>
-                          <TableCell className="font-semibold text-[#577A30]">
+                          <TableCell className="font-semibold text-brand-700">
                             Metro
                           </TableCell>
                           <TableCell>
                             Delhi, Mumbai, Kolkata, Chennai only
                           </TableCell>
-                          <TableCell className="font-semibold text-[#577A30]">
+                          <TableCell className="font-semibold text-brand-700">
                             50% of Salary
                           </TableCell>
                           <TableCell>₹3,00,000 max</TableCell>
                         </TableRow>
 
                         <TableRow>
-                          <TableCell className="font-semibold text-[#577A30]">
+                          <TableCell className="font-semibold text-brand-700">
                             Non-Metro
                           </TableCell>
                           <TableCell>
                             Bangalore, Hyderabad, Pune, Gurgaon, Noida, and all
                             other cities
                           </TableCell>
-                          <TableCell className="font-semibold text-[#577A30]">
+                          <TableCell className="font-semibold text-brand-700">
                             40% of Salary
                           </TableCell>
                           <TableCell>₹2,40,000 max</TableCell>
@@ -737,11 +737,11 @@ export default function HRAPage() {
                   Can I Claim Both HRA and Home Loan Deduction?
                 </h3>
 
-                <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
                   <div className="flex items-start gap-3">
-                    <Home className="h-6 w-6 text-[#577A30] mt-1 shrink-0" />
+                    <Home className="h-6 w-6 text-brand-700 mt-1 shrink-0" />
                     <div className="text-slate-700">
-                      <p className="font-semibold text-[#1B2E06] mb-2">
+                      <p className="font-semibold text-brand-900 mb-2">
                         Yes! You can claim both simultaneously
                       </p>
                       <ul className="text-sm space-y-2 list-disc pl-5 font-medium">
@@ -866,21 +866,21 @@ export default function HRAPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/income-tax-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               Income Tax Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Compare Old vs New Tax Regime and see if HRA
                               benefits make Old Regime better for you.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate Tax Liability</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

@@ -134,12 +134,12 @@ export default function Header() {
           {/* LOGO - Enhanced with icon */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 text-xl font-semibold tracking-tight text-slate-900 hover:text-[#74A046] transition-colors"
+            className="group flex items-center gap-2.5 text-xl font-semibold tracking-tight text-slate-900 hover:text-brand-600 transition-colors"
             aria-label="Fincado home"
           >
             <span className="relative">
               Fincado
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#74A046] group-hover:w-full transition-all duration-300" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-600 group-hover:w-full transition-all duration-300" />
             </span>
           </Link>
 
@@ -153,8 +153,8 @@ export default function Header() {
                     aria-current={isActive('/') ? 'page' : undefined}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/')
-                        ? 'text-[#1B2E06] bg-[#DFF7C6]'
-                        : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
+                        ? 'text-brand-900 bg-brand-200'
+                        : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
                     }`}
                   >
                     Home
@@ -163,7 +163,7 @@ export default function Header() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]">
+                <NavigationMenuTrigger className="text-[#6B7280] hover:text-brand-900 hover:bg-brand-200">
                   Calculators
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="rounded-2xl bg-white shadow-2xl border border-slate-200/80 overflow-hidden">
@@ -202,8 +202,8 @@ export default function Header() {
                                   href={item.href}
                                   className={`group flex items-center gap-2 text-sm font-medium transition-all duration-200 py-1 px-2 -mx-2 rounded-md hover:translate-x-0.5 ${
                                     item.featured
-                                      ? 'text-[#1B2E06] bg-[#DFF7C6]'
-                                      : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
+                                      ? 'text-brand-900 bg-brand-200'
+                                      : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
                                   }`}
                                 >
                                   {item.featured && (
@@ -211,7 +211,7 @@ export default function Header() {
                                   )}
                                   <span className="relative">
                                     {item.label}
-                                    <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#1B2E06] group-hover:w-full transition-all duration-300" />
+                                    <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-brand-900 group-hover:w-full transition-all duration-300" />
                                   </span>
                                 </Link>
                               </li>
@@ -222,17 +222,17 @@ export default function Header() {
                     })}
                   </div>
                   {/* Bottom CTA Strip */}
-                  <div className="bg-[#DFF7C6] border-emerald-100 px-6 py-3 flex items-center justify-between">
-                    <p className="text-xs text-[#1B2E06] font-medium">
+                  <div className="bg-brand-200 border-emerald-100 px-6 py-3 flex items-center justify-between">
+                    <p className="text-xs text-brand-900 font-medium">
                       💡 All calculators are{' '}
-                      <span className="text-[#1B2E06] font-semibold">
+                      <span className="text-brand-900 font-semibold">
                         100% Free
                       </span>{' '}
                       and updated with latest rates
                     </p>
                     <Link
                       href="/calculators/"
-                      className="text-xs font-semibold text-[#1B2E06]  flex items-center gap-1 hover:gap-2 transition-all"
+                      className="text-xs font-semibold text-brand-900  flex items-center gap-1 hover:gap-2 transition-all"
                     >
                       View All Calculators
                       <ChevronDown className="w-3 h-3 -rotate-90" />
@@ -250,8 +250,8 @@ export default function Header() {
                     }
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2 ${
                       isActive('/compare-loans')
-                        ? 'text-[#1B2E06] bg-[#DFF7C6]'
-                        : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
+                        ? 'text-brand-900 bg-brand-200'
+                        : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
                     }`}
                   >
                     Compare Rates
@@ -266,8 +266,8 @@ export default function Header() {
                     aria-current={isActive('/guides') ? 'page' : undefined}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/guides')
-                        ? 'text-[#1B2E06] bg-[#DFF7C6]'
-                        : 'text-[#6B7280] hover:text-[#1B2E06] hover:bg-[#DFF7C6]'
+                        ? 'text-brand-900 bg-brand-200'
+                        : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
                     }`}
                   >
                     Guides
@@ -294,7 +294,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Button
               asChild
-              className="hidden lg:inline-flex bg-[#C0F08D] text-[#111827] font-semibold hover:scale-105 transition-all duration-200 rounded-lg"
+              className="hidden lg:inline-flex bg-brand-300 text-[#111827] font-semibold hover:scale-105 transition-all duration-200 rounded-lg"
             >
               <Link href="/emi-calculator/" className="flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
@@ -419,7 +419,7 @@ export default function Header() {
                     <div className="pt-4 border-t border-slate-200 space-y-3">
                       <Button
                         asChild
-                        className="w-full bg-[#C0F08D] text-[#111827] font-semibold shadow-lg rounded-lg h-12"
+                        className="w-full bg-brand-300 text-[#111827] font-semibold shadow-lg rounded-lg h-12"
                       >
                         <Link
                           href="/emi-calculator/"

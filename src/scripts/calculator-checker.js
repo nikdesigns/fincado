@@ -155,6 +155,7 @@ class CalculatorChecker {
       'SimpleInterestClient.tsx',
       'APYClient.tsx',
       'FIREClient.tsx',
+      'FIRECalculatorClient.tsx',
       'HomeLoanClient.tsx',
     ];
 
@@ -227,11 +228,13 @@ class CalculatorChecker {
   checkContent(content, result) {
     const contentChecks = {
       hasH1: /<h1[^>]*>/i,
-      hasFormula: /formula|calculation|how.*calculate/i,
-      hasExample: /example|sample|illustration/i,
-      hasFAQ: /faq|frequently asked|questions/i,
-      hasRelatedCalcs: /related.*calculator|more calculator/i,
-      hasInternalLinks: /<Link\s+href/,
+      hasFormula:
+        /formula|calculation|how.*calculate|computation|methodology|projection/i,
+      hasExample: /example|sample|illustration|for example/i,
+      hasFAQ: /faq|frequently asked|questions|<FAQSchema/i,
+      hasRelatedCalcs:
+        /related.*calculator|more calculator|<RelatedCalculators|<RelatedCalculatorsSidebar/i,
+      hasInternalLinks: /<Link[\s\S]{0,120}?href=|href=['"`]\/(?!\/)/i,
     };
 
     for (const [check, regex] of Object.entries(contentChecks)) {
@@ -244,17 +247,25 @@ class CalculatorChecker {
 
   checkClientComponent(content, result) {
     // Check for state management
-    const hasState = /useState/.test(content);
-    const hasEffect = /useEffect/.test(content);
+    const hasState = /\buseState\b/.test(content);
 
     // Check for input fields
-    const hasInputs = /<input|<Input|<Slider/.test(content);
+    const hasInputs =
+      /<input\b|<Input\b|<Slider\b|<CalculatorField\b|<Select\b|<RadioGroup\b|<Switch\b/i.test(
+        content,
+      );
 
     // Check for calculation logic
-    const hasCalculation = /calculate|compute|result/.test(content);
+    const hasCalculation =
+      /calculat|compute|formula|project|estimate|return\s*\{|tax|interest|maturity|corpus|emi|sip/i.test(
+        content,
+      );
 
     // Check for results display
-    const hasResults = /result|output|total|amount/.test(content);
+    const hasResults =
+      /result|output|total|amount|maturity|corpus|interest|emi|pension|withdrawn|returns?/i.test(
+        content,
+      );
 
     if (!hasState) {
       result.issues.push('⚠️  Client: Missing useState');

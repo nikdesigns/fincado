@@ -49,7 +49,7 @@ export default function BankEmiHubPage() {
       <header className="my-10">
         <Badge
           variant="secondary"
-          className="mb-4 bg-[#F7FDF1] text-[#577A30] px-3 py-1 font-semibold uppercase tracking-wider"
+          className="mb-4 bg-brand-50 text-brand-700 px-3 py-1 font-semibold uppercase tracking-wider"
         >
           Updated for Tax Year 2026-27
         </Badge>
@@ -69,7 +69,7 @@ export default function BankEmiHubPage() {
         <Card className="border-slate-200 shadow-sm">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100">
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Building2 className="h-5 w-5 text-[#577A30]" />
+              <Building2 className="h-5 w-5 text-brand-700" />
               Explore by Bank
             </CardTitle>
             <CardDescription>
@@ -84,23 +84,23 @@ export default function BankEmiHubPage() {
                 <Link
                   key={bank.slug}
                   href={`/bank-emi/${bank.slug}/`}
-                  className="group rounded-xl border border-slate-200 bg-white p-5 hover:border-[#B0EC70] hover:shadow-md transition-all"
+                  className="group rounded-xl border border-slate-200 bg-white p-5 hover:border-brand-400 hover:shadow-md transition-all"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-lg font-semibold text-slate-900 group-hover:text-[#577A30] transition-colors">
+                      <p className="text-lg font-semibold text-slate-900 group-hover:text-brand-700 transition-colors">
                         {bank.name}
                       </p>
                       <p className="text-xs text-slate-500 mt-1">
                         Indicative rate range
                       </p>
                     </div>
-                    <div className="p-2 bg-slate-50 rounded-full group-hover:bg-[#EFFBE2] transition-colors">
-                      <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-[#577A30]" />
+                    <div className="p-2 bg-slate-50 rounded-full group-hover:bg-brand-100 transition-colors">
+                      <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-brand-700" />
                     </div>
                   </div>
 
-                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#EFFBE2] text-[#577A30] px-3 py-1.5 text-sm font-semibold">
+                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-brand-100 text-brand-700 px-3 py-1.5 text-sm font-semibold">
                     <Percent className="h-4 w-4" />
                     {bank.rate}% – {bank.maxRate}%
                   </div>
@@ -118,15 +118,15 @@ export default function BankEmiHubPage() {
         </h2>
         <ul className="text-sm text-slate-700 space-y-3 list-none pl-0 mb-6">
           <li className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#577A30]"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-brand-700"></div>
             Select a bank to open its dedicated EMI calculator page.
           </li>
           <li className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#577A30]"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-brand-700"></div>
             Compare indicative rate bands before shortlisting lenders.
           </li>
           <li className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#577A30]"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-brand-700"></div>
             Calculate your total interest outgo using the specific bank&apos;s
             formulas.
           </li>

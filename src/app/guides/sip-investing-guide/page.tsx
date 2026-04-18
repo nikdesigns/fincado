@@ -1,5 +1,19 @@
-import { redirect } from 'next/navigation';
+import type { Metadata } from 'next';
+import { permanentRedirect } from 'next/navigation';
+
+const TARGET = '/guides/sip-investment-guide/';
+
+export const metadata: Metadata = {
+  title: 'Redirecting...',
+  alternates: {
+    canonical: `https://fincado.com${TARGET}`,
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function SIPInvestingRedirect() {
-  redirect('/guides/sip-investment-guide/');
+  permanentRedirect(TARGET);
 }

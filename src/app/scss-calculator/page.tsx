@@ -156,17 +156,17 @@ export default function SCSSCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             SCSS Calculator
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               Senior Citizen Savings Scheme
             </span>
           </h1>
 
           {/* LAST UPDATED BANNER */}
-          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex items-center gap-2 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1">
               ✅ Updated for FY 2026-27
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               April 12, 2026
             </span>
             <span className="text-xs">• 8.2% Interest Rate Applied</span>
@@ -218,7 +218,7 @@ export default function SCSSCalculatorPage() {
                     <h3 className="text-xl font-semibold text-slate-900">
                       Key Features & Benefits
                     </h3>
-                    <div className="text-slate-700 leading-relaxed bg-[#F7FDF1] border border-[#DFF7C6] p-6 rounded-xl">
+                    <div className="text-slate-700 leading-relaxed bg-brand-50 border border-brand-200 p-6 rounded-xl">
                       <WikiText content={featuresContent} />
                     </div>
                   </section>
@@ -230,7 +230,7 @@ export default function SCSSCalculatorPage() {
                   {/* Income Matrix Table */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                      <PiggyBank className="w-5 h-5 text-[#577A30]" />
+                      <PiggyBank className="w-5 h-5 text-brand-700" />
                       SCSS Income Matrix (at 8.2%)
                     </h3>
                     <div className="overflow-x-auto border border-slate-200 rounded-lg">
@@ -276,14 +276,14 @@ export default function SCSSCalculatorPage() {
                             </td>
                             <td className="px-4 py-3 border-l">₹6,15,000</td>
                           </tr>
-                          <tr className="bg-[#EFFBE2]">
-                            <td className="px-4 py-3 font-bold text-[#577A30]">
+                          <tr className="bg-brand-100">
+                            <td className="px-4 py-3 font-bold text-brand-700">
                               ₹30,00,000 (Max)
                             </td>
                             <td className="px-4 py-3 border-l font-bold text-emerald-700">
                               ₹61,500
                             </td>
-                            <td className="px-4 py-3 border-l font-semibold text-[#577A30]">
+                            <td className="px-4 py-3 border-l font-semibold text-brand-700">
                               ₹12,30,000
                             </td>
                           </tr>

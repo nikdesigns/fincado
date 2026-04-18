@@ -402,16 +402,16 @@ export default function FIRECalculatorClient({
                   <div className="text-sm text-muted-foreground">
                     {t.fireNumber}
                   </div>
-                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                     {formatINR(results.fireNumber)}
                   </div>
                 </div>
 
-                <div className="rounded-xl border-2 border-[#DFF7C6] bg-[#F7FDF1] p-4 text-center">
-                  <div className="text-xs font-semibold text-[#577A30]">
+                <div className="rounded-xl border-2 border-brand-200 bg-brand-50 p-4 text-center">
+                  <div className="text-xs font-semibold text-brand-700">
                     {t.monthlySavingsNeeded}
                   </div>
-                  <div className="mt-1 text-2xl font-semibold text-[#577A30]">
+                  <div className="mt-1 text-2xl font-semibold text-brand-700">
                     {formatINR(results.monthlySIP)}
                     <span className="text-base font-normal"> {t.perMonth}</span>
                   </div>
@@ -429,12 +429,12 @@ export default function FIRECalculatorClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#C0F08D] bg-[#F7FDF1] shadow-none">
+                  <Card className="border-brand-300 bg-brand-50 shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30] truncate">
+                      <div className="text-xs text-brand-700 truncate">
                         {t.currentCorpusFV}
                       </div>
-                      <div className="mt-1 text-lg font-semibold text-[#577A30]">
+                      <div className="mt-1 text-lg font-semibold text-brand-700">
                         {formatINR(results.futureCorpus)}
                       </div>
                     </CardContent>
@@ -469,20 +469,20 @@ export default function FIRECalculatorClient({
       </div>
 
       {/* ✅ FIRE Timeline Visualization */}
-      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+      <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <TrendingUp className="h-5 w-5 text-[#577A30]" />
+            <TrendingUp className="h-5 w-5 text-brand-700" />
             Your FIRE Journey Timeline
           </CardTitle>
         </CardHeader>
 
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-[#DFF7C6]">
+            <div className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-brand-200">
               <div>
                 <div className="text-sm text-slate-600">Years to FIRE</div>
-                <div className="text-3xl font-semibold text-[#577A30]">
+                <div className="text-3xl font-semibold text-brand-700">
                   {results.yearsToFire} years
                 </div>
               </div>
@@ -498,20 +498,20 @@ export default function FIRECalculatorClient({
                 </div>
               </div>
 
-              <div className="p-3 bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] rounded-lg border-2 border-[#D0F4A9]">
-                <div className="text-xs text-[#577A30] font-semibold">
+              <div className="p-3 bg-linear-to-br from-brand-50 to-brand-50 rounded-lg border-2 border-brand-300">
+                <div className="text-xs text-brand-700 font-semibold">
                   FIRE Goal
                 </div>
-                <div className="text-lg font-semibold text-[#577A30]">
+                <div className="text-lg font-semibold text-brand-700">
                   Age {fireAge}
                 </div>
-                <div className="text-xs text-[#577A30] mt-1">
+                <div className="text-xs text-brand-700 mt-1">
                   {formatINR(results.fireNumber)} needed
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+            <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
               <p className="text-sm text-slate-700">
                 <strong>Progress:</strong> You&apos;re currently{' '}
                 {results.achievedPct}% towards your FIRE goal. Keep investing{' '}

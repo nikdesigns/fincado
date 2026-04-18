@@ -1,6 +1,19 @@
 https://www.fincado.com/* https://fincado.com/:splat 301!
 /sitemap.xml/ /sitemap.xml 301!
 
+# ── Legacy utility URLs → canonical routes ────────────────────────────────
+/privacy/ /privacy-policy/ 301!
+/faq/ /contact/ 301!
+/faqs/ /contact/ 301!
+/home-loan-calculator/ /loans/home-loan/ 301!
+/hi/home-loan-calculator/ /hi/loans/home-loan/ 301!
+/emi-calculator/home-loan/ /loans/home-loan/ 301!
+/emi-calculator/personal-loan/ /loans/personal-loan/ 301!
+/emi-calculator/car-loan/ /loans/car-loan/ 301!
+/emi-calculator/education-loan/ /loans/education-loan/ 301!
+/guides/sip-investing-guide/ /guides/sip-investment-guide/ 301!
+/guides/home-loan-for-first-time-buyers/ /guides/home-loan-first-time-buyers/ 301!
+
 # ── Duplicate guide redirects ──────────────────────────────────────────────
 # Year-versioned guides: old year → current year
 /guides/elss-funds-guide-2025/ /guides/elss-funds-guide-2026/ 301!

@@ -120,11 +120,11 @@ export default function HindiKVPClient() {
 
             {/* Info Cards */}
             <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div className="bg-[#F7FDF1] border border-[#B0EC70] rounded-2xl p-4 text-center">
-                <div className="text-xs font-semibold text-[#577A30] tracking-wider">
+              <div className="bg-brand-50 border border-brand-400 rounded-2xl p-4 text-center">
+                <div className="text-xs font-semibold text-brand-700 tracking-wider">
                   ब्याज दर (INTEREST RATE)
                 </div>
-                <div className="text-xl font-semibold text-[#577A30] mt-1">
+                <div className="text-xl font-semibold text-brand-700 mt-1">
                   {interestRate}% सालाना
                 </div>
               </div>
@@ -143,9 +143,9 @@ export default function HindiKVPClient() {
 
       {/* RESULTS SECTION */}
       <div className="lg:col-span-7">
-        <Card className="border-[#B0EC70] bg-white shadow-md overflow-hidden h-full flex flex-col">
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8">
-            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2 flex items-center gap-2">
+        <Card className="border-brand-400 bg-white shadow-md overflow-hidden h-full flex flex-col">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-6 sm:p-8">
+            <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-2 flex items-center gap-2">
               <TrendingUp className="w-4 h-4" /> आपका पैसा दोगुना होकर मिलेगा
             </p>
             <h3 className="text-5xl font-semibold text-slate-900 tracking-tighter">
@@ -161,13 +161,13 @@ export default function HindiKVPClient() {
             <div className="mt-8">
               <div className="flex justify-between text-xs font-medium mb-2">
                 <span className="text-slate-600">आज का निवेश (Invested)</span>
-                <span className="text-[#577A30]">
+                <span className="text-brand-700">
                   मैच्योरिटी पर दोगुना (Doubles)
                 </span>
               </div>
               <div className="h-4 bg-slate-100 rounded-full overflow-hidden flex relative">
                 <div className="h-full bg-slate-300 w-1/2 transition-all" />
-                <div className="h-full bg-[#74A046] w-1/2 transition-all relative">
+                <div className="h-full bg-brand-600 w-1/2 transition-all relative">
                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-[shimmer_3s_infinite]" />
                 </div>
               </div>
@@ -189,7 +189,7 @@ export default function HindiKVPClient() {
                 <span className="text-slate-600">
                   कुल अर्जित ब्याज (Total Interest)
                 </span>
-                <span className="font-semibold text-[#577A30] text-lg">
+                <span className="font-semibold text-brand-700 text-lg">
                   +{formatCurrency(investment)}
                 </span>
               </div>

@@ -364,9 +364,9 @@ export default function SSYClient({
     <div className="space-y-6">
       {/* Age Warning */}
       {!results.canOpen && (
-        <Alert className="border-[#DFF7C6] bg-[#F7FDF1]">
-          <AlertCircle className="h-4 w-4 text-[#577A30]" />
-          <AlertDescription className="ml-2 text-sm text-[#577A30]">
+        <Alert className="border-brand-200 bg-brand-50">
+          <AlertCircle className="h-4 w-4 text-brand-700" />
+          <AlertDescription className="ml-2 text-sm text-brand-700">
             <strong>{t.ageWarning}</strong> {t.ageWarningNote}
           </AlertDescription>
         </Alert>
@@ -377,12 +377,12 @@ export default function SSYClient({
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Baby className="h-5 w-5 text-[#577A30]" />
+              <Baby className="h-5 w-5 text-brand-700" />
               {t.ssyCalculator}
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> {t.reset}
             </button>
@@ -474,11 +474,11 @@ export default function SSYClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-brand-700">
                   {formatINR(results.maturityAmount)}
                 </div>
 
-                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#EFFBE2] px-3 py-1 text-xs font-medium text-[#577A30]">
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-xs font-medium text-brand-700">
                   {t.maturity} {results.maturityYear} ({t.age}{' '}
                   {results.maturityAge})
                 </div>
@@ -495,12 +495,12 @@ export default function SSYClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1] shadow-none">
+                  <Card className="border-brand-200 bg-brand-50 shadow-none">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30]">
+                      <div className="text-xs text-brand-700">
                         {t.totalInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-[#577A30]">
+                      <div className="mt-1 font-semibold text-brand-700">
                         +{formatINR(results.totalInterest)}
                       </div>
                     </CardContent>
@@ -541,7 +541,7 @@ export default function SSYClient({
                               {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
-                            <span className="text-[#577A30]">
+                            <span className="text-brand-700">
                               {t.interest}{' '}
                               <strong>{formatINR(item.interest)}</strong>
                             </span>

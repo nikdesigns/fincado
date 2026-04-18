@@ -66,8 +66,8 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
         {/* Header */}
         <div className="mb-8 pb-6 border-b border-slate-100">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-[#F7FDF1] rounded-lg">
-              <Calculator className="h-5 w-5 text-[#577A30]" />
+            <div className="p-2 bg-brand-50 rounded-lg">
+              <Calculator className="h-5 w-5 text-brand-700" />
             </div>
             <div>
               <h3 className="font-semibold text-slate-900 text-xl">
@@ -75,7 +75,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
               </h3>
               <p className="text-sm text-slate-600 flex items-center gap-1">
                 Updated {currentDate}
-                <ShieldCheck className="h-3 w-3 text-[#74A046]" />
+                <ShieldCheck className="h-3 w-3 text-brand-600" />
               </p>
             </div>
           </div>
@@ -155,13 +155,13 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
 
         {/* Results */}
         <div className="space-y-6">
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border border-[#EFFBE2] rounded-xl p-6">
+          <div className="bg-linear-to-br from-brand-50 to-white border border-brand-100 rounded-xl p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold text-[#577A30] uppercase tracking-wide">
+                <p className="text-xs font-semibold text-brand-700 uppercase tracking-wide">
                   Monthly EMI
                 </p>
-                <p className="text-4xl font-semibold text-[#577A30]">
+                <p className="text-4xl font-semibold text-brand-700">
                   {formatAmount(emi)}
                 </p>
               </div>
@@ -193,13 +193,13 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
           </div>
 
           {/* Pro Tip */}
-          <div className="bg-[#F7FDF1] border border-[#EFFBE2] rounded-lg p-4">
+          <div className="bg-brand-50 border border-brand-100 rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <TrendingUp className="h-5 w-5 text-[#577A30] mt-0.5" />
+              <TrendingUp className="h-5 w-5 text-brand-700 mt-0.5" />
               <div className="text-xs leading-relaxed">
                 <span className="font-semibold">Pro Tip:</span> Reducing tenure
                 by 5 years could save you{' '}
-                <span className="font-semibold text-[#577A30]">
+                <span className="font-semibold text-brand-700">
                   {formatAmount(proTipSavings)}
                 </span>{' '}
                 in total interest.
@@ -217,7 +217,7 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
           {/* CTA */}
           <a
             href="/loans/home-loan/"
-            className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-[#B0EC70] text-[#111827] rounded-lg font-semibold hover:bg-[#92C65B] transition-colors text-sm shadow-sm"
+            className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-brand-400 text-[#111827] rounded-lg font-semibold hover:bg-brand-500 transition-colors text-sm shadow-sm"
           >
             <Calculator className="h-4 w-4" />
             View Full Home Loan Calculator

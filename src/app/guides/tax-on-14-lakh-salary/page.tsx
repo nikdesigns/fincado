@@ -199,7 +199,7 @@ export default function Tax14LakhGuide() {
       </Card>
 
       {/* --- VERDICT BOX --- */}
-      <Card className="mb-12 bg-[#F7FDF1] border-lime-200 shadow-md">
+      <Card className="mb-12 bg-brand-50 border-lime-200 shadow-md">
         <CardHeader className="pb-2">
           <CardTitle className="text-lime-900 text-xl flex items-center gap-2">
             <Zap className="h-6 w-6 text-lime-700" /> Quick Verdict

@@ -265,9 +265,9 @@ export default function EPFClient() {
   return (
     <div className="space-y-6">
       {/* Info Alert */}
-      <Alert className="border-[#DFF7C6] bg-[#F7FDF1]">
-        <Info className="h-4 w-4 text-[#577A30]" />
-        <AlertDescription className="ml-2 text-sm text-[#1B2E06]">
+      <Alert className="border-brand-200 bg-brand-50">
+        <Info className="h-4 w-4 text-brand-700" />
+        <AlertDescription className="ml-2 text-sm text-brand-900">
           <strong>Note:</strong> Employer&apos;s 8.33% contribution to EPS
           (Employee Pension Scheme) is not included in EPF corpus as it provides
           monthly pension separately.
@@ -279,12 +279,12 @@ export default function EPFClient() {
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Briefcase className="h-5 w-5 text-[#577A30]" />
+              <Briefcase className="h-5 w-5 text-brand-700" />
               Employee Provident Fund (EPF) Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -357,7 +357,7 @@ export default function EPFClient() {
                       onChange={(e) =>
                         setEmployerWageCeilingEnabled(e.target.checked)
                       }
-                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#577A30] focus:ring-[#F7FDF1]"
+                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-300"
                     />
                     <span>
                       Apply statutory ₹15,000 wage ceiling to employer EPF share
@@ -380,7 +380,7 @@ export default function EPFClient() {
                 <div className="text-sm text-slate-500">
                   Estimated EPF Corpus
                 </div>
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {formatINR(results.maturity)}
                 </div>
                 <div className="mt-1 text-xs text-slate-500">
@@ -389,8 +389,8 @@ export default function EPFClient() {
               </div>
 
               {/* Monthly Contributions */}
-              <div className="mt-6 w-full p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                <h4 className="text-xs font-semibold text-[#577A30] mb-3">
+              <div className="mt-6 w-full p-4 bg-brand-50 rounded-lg border border-brand-200">
+                <h4 className="text-xs font-semibold text-brand-700 mb-3">
                   Monthly Contributions
                 </h4>
                 <div className="space-y-2 text-sm">
@@ -414,10 +414,10 @@ export default function EPFClient() {
                     </div>
                   )}
                   <div className="flex justify-between border-t pt-2 text-base">
-                    <span className="font-semibold text-[#577A30]">
+                    <span className="font-semibold text-brand-700">
                       Total/Month:
                     </span>
-                    <strong className="text-[#577A30]">
+                    <strong className="text-brand-700">
                       {formatINR(results.totalMonthlyContribution)}
                     </strong>
                   </div>
@@ -446,11 +446,11 @@ export default function EPFClient() {
               </div>
 
               {/* Interest Card */}
-              <div className="mt-4 w-full rounded-lg border-2 border-[#D0F4A9] bg-[#F7FDF1] p-4 text-center">
-                <div className="text-xs text-[#577A30] font-semibold">
+              <div className="mt-4 w-full rounded-lg border-2 border-brand-300 bg-brand-50 p-4 text-center">
+                <div className="text-xs text-brand-700 font-semibold">
                   Total Interest Earned
                 </div>
-                <div className="mt-1 text-2xl font-semibold text-[#577A30]">
+                <div className="mt-1 text-2xl font-semibold text-brand-700">
                   +{formatINR(results.interest)}
                 </div>
               </div>

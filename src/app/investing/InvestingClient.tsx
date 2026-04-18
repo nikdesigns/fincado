@@ -471,17 +471,17 @@ export default function InvestingClient() {
 
       {/* --- RIGHT COLUMN: VISUALS --- */}
       <div className="lg:col-span-5">
-        <Card className="sticky top-6 border-[#B0EC70] bg-white shadow-md overflow-hidden flex flex-col">
+        <Card className="sticky top-6 border-brand-400 bg-white shadow-md overflow-hidden flex flex-col">
           {/* Header Metric */}
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8 text-center">
-            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-6 sm:p-8 text-center">
+            <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-2">
               Expected Portfolio Value
             </p>
             <h3 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
               {formatINR(results.totalFV)}
             </h3>
-            <div className="inline-flex items-center gap-1.5 mt-4 bg-white px-4 py-1.5 rounded-full border border-[#DFF7C6] shadow-sm">
-              <span className="text-sm font-bold text-[#577A30]">
+            <div className="inline-flex items-center gap-1.5 mt-4 bg-white px-4 py-1.5 rounded-full border border-brand-200 shadow-sm">
+              <span className="text-sm font-bold text-brand-700">
                 {results.blendedReturn}% Blended CAGR
               </span>
             </div>

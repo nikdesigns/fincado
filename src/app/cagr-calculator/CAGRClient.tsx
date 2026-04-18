@@ -294,7 +294,7 @@ export default function CAGRClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.cagrResult}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-bold text-brand-700">
                   {results.cagr.toFixed(2)}%
                 </div>
                 <div className="text-sm text-slate-500 mt-1">{t.perYear}</div>
@@ -311,12 +311,12 @@ export default function CAGRClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30]">
+                      <div className="text-xs text-brand-700">
                         {t.totalGainPercent}
                       </div>
-                      <div className="mt-1 font-semibold text-[#577A30] whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-brand-700 whitespace-nowrap">
                         {results.gainPercent.toFixed(2)}%
                       </div>
                     </CardContent>
@@ -374,7 +374,7 @@ export default function CAGRClient({
                       <div>
                         <div className="font-semibold text-sm">
                           {formatINR(calc.initial)} → {formatINR(calc.final)}{' '}
-                          <span className="text-xs text-[#577A30] bg-[#EFFBE2] px-2 py-0.5 rounded ml-1">
+                          <span className="text-xs text-brand-700 bg-brand-100 px-2 py-0.5 rounded ml-1">
                             {calc.years}y
                           </span>
                         </div>

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-18T14:39:49.228Z",
+  "baseUrl": "https://fincado.com",
+  "summary": {
+    "checked": 254,
+    "working": 253,
+    "broken": 0,
+    "redirects": 1
+  },
+  "brokenLinks": [],
+  "redirects": [
+    {
+      "path": "/home-loan-calculator/",
+      "status": 301,
+      "location": "https://fincado.com/loans/home-loan/",
+      "source": "crawled"
+    }
+  ]
+}

@@ -161,17 +161,17 @@ export default function HindiCapitalGainsPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             कैपिटल गेन टैक्स कैलकुलेटर
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               STCG और LTCG टैक्स की सटीक गणना करें
             </span>
           </h1>
 
           {/* LAST UPDATED BANNER */}
-          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex items-center gap-2 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1">
               ✅ वित्तीय वर्ष (FY) 2026-27 के लिए अपडेटेड
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               अप्रैल 2026
             </span>
             <span className="text-xs">• नए बजट नियम लागू किए गए</span>
@@ -230,10 +230,10 @@ export default function HindiCapitalGainsPage() {
 
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-[#577A30]" />
+                      <TrendingUp className="w-5 h-5 text-brand-700" />
                       लेटेस्ट बजट 2026 नियम (Latest Rules)
                     </h3>
-                    <div className="text-slate-700 leading-relaxed bg-[#F7FDF1] border border-[#DFF7C6] p-6 rounded-xl">
+                    <div className="text-slate-700 leading-relaxed bg-brand-50 border border-brand-200 p-6 rounded-xl">
                       <WikiText content={budgetContent} />
                     </div>
                   </section>
@@ -273,7 +273,7 @@ export default function HindiCapitalGainsPage() {
                             </td>
                             <td className="p-4 border text-slate-600">
                               12 महीने से अधिक →{' '}
-                              <strong className="text-[#577A30]">12.5%</strong>{' '}
+                              <strong className="text-brand-700">12.5%</strong>{' '}
                               (₹1.25L छूट के बाद)
                             </td>
                           </tr>
@@ -289,7 +289,7 @@ export default function HindiCapitalGainsPage() {
                             </td>
                             <td className="p-4 border text-slate-600">
                               24 महीने से अधिक →{' '}
-                              <strong className="text-[#577A30]">12.5%</strong>{' '}
+                              <strong className="text-brand-700">12.5%</strong>{' '}
                               (बिना इंडेक्सेशन)
                             </td>
                           </tr>

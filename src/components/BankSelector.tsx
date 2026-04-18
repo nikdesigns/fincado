@@ -40,13 +40,13 @@ export default function BankSelector() {
             First Bank
           </label>
           <Select onValueChange={setBank1}>
-            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-[#B0EC70] rounded-xl">
+            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-brand-400 rounded-xl">
               <SelectValue placeholder="Select Bank" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               {banks.map((b) => (
                 <SelectItem
-                  className="hover:bg-[#F7FDF1] font-medium"
+                  className="hover:bg-brand-50 font-medium"
                   key={b.slug}
                   value={b.slug}
                 >
@@ -67,13 +67,13 @@ export default function BankSelector() {
             Second Bank
           </label>
           <Select onValueChange={setBank2}>
-            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-[#B0EC70] rounded-xl">
+            <SelectTrigger className="w-full border-slate-200 h-11 focus:ring-brand-400 rounded-xl">
               <SelectValue placeholder="Select Bank" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               {banks.map((b) => (
                 <SelectItem
-                  className="hover:bg-[#F7FDF1] font-medium"
+                  className="hover:bg-brand-50 font-medium"
                   key={b.slug}
                   value={b.slug}
                 >
@@ -88,7 +88,7 @@ export default function BankSelector() {
       <Button
         onClick={handleCompare}
         disabled={!bank1 || !bank2 || bank1 === bank2}
-        className="w-full bg-[#92C65B] hover:bg-[#74A046] text-[#111827] font-semibold h-12 rounded-xl transition-all disabled:opacity-50"
+        className="w-full bg-brand-500 hover:bg-brand-600 text-[#111827] font-semibold h-12 rounded-xl transition-all disabled:opacity-50"
       >
         Start Comparison <ArrowRight className="ml-2 w-4 h-4" />
       </Button>

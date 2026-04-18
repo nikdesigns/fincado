@@ -79,7 +79,7 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
       {featuredArticles.length > 0 && (
         <section className="mb-10">
           <div className="flex items-center gap-2 mb-5">
-            <Sparkles className="w-5 h-5 text-[#577A30]" />
+            <Sparkles className="w-5 h-5 text-brand-700" />
             <h2 className="text-lg font-semibold text-slate-900">
               Editor Picks
             </h2>
@@ -92,12 +92,12 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
                 href={`/guides/${guide.slug}/`}
                 className="group block h-full"
               >
-                <Card className="h-full bg-linear-to-br from-[#F0F9E8] to-[#F0F9E8] border-[#B0EC70] hover:border-[#577A30] hover:shadow-lg transition-all duration-200">
+                <Card className="h-full bg-linear-to-br from-[#F0F9E8] to-[#F0F9E8] border-brand-400 hover:border-brand-700 hover:shadow-lg transition-all duration-200">
                   <CardContent className="p-5">
-                    <Badge className="mb-2 bg-[#B0EC70] text-[#111827] text-xs">
+                    <Badge className="mb-2 bg-brand-400 text-[#111827] text-xs">
                       Featured
                     </Badge>
-                    <h3 className="font-semibold text-sm text-slate-900 group-hover:text-[#577A30] transition-colors mb-2 leading-snug line-clamp-2">
+                    <h3 className="font-semibold text-sm text-slate-900 group-hover:text-brand-700 transition-colors mb-2 leading-snug line-clamp-2">
                       {guide.title}
                     </h3>
                     <p className="text-xs text-slate-600 line-clamp-2">
@@ -135,8 +135,8 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
               className={cn(
                 'whitespace-nowrap rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-200 border',
                 isActive
-                  ? 'bg-[#B0EC70] text-[#111827] border-[#B0EC70] shadow-md shadow-[#EFFBE2] ring-2 ring-[#EFFBE2] ring-offset-1'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-[#DFF7C6] hover:bg-[#F7FDF1] hover:text-[#577A30]',
+                  ? 'bg-brand-400 text-[#111827] border-brand-400 shadow-md shadow-[#EFFBE2] ring-2 ring-[#EFFBE2] ring-offset-1'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700',
               )}
             >
               {cat}
@@ -175,18 +175,18 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
             href={`/guides/${guide.slug}/`}
             className="group h-full outline-none"
           >
-            <Card className="h-full flex flex-col border-slate-200 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-slate-100 hover:border-[#DFF7C6] hover:-translate-y-1 overflow-hidden">
+            <Card className="h-full flex flex-col border-slate-200 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-slate-100 hover:border-brand-200 hover:-translate-y-1 overflow-hidden">
               <CardHeader className="p-6 pb-4">
                 <div className="mb-4">
                   <Badge
                     variant="secondary"
-                    className="bg-[#F7FDF1] text-[#577A30] hover:bg-[#EFFBE2] border-[#EFFBE2] font-semibold px-3 py-1"
+                    className="bg-brand-50 text-brand-700 hover:bg-brand-100 border-brand-100 font-semibold px-3 py-1"
                   >
                     {guide.category}
                   </Badge>
                 </div>
 
-                <CardTitle className="text-xl font-semibold text-slate-900 leading-snug group-hover:text-[#577A30] transition-colors">
+                <CardTitle className="text-xl font-semibold text-slate-900 leading-snug group-hover:text-brand-700 transition-colors">
                   {guide.title}
                 </CardTitle>
               </CardHeader>
@@ -198,7 +198,7 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
                 </p>
               </CardContent>
 
-              <CardFooter className="px-6 py-5 mt-auto border-t border-slate-50 flex items-center justify-between bg-slate-50/50 group-hover:bg-[#F7FDF1]/10 transition-colors">
+              <CardFooter className="px-6 py-5 mt-auto border-t border-slate-50 flex items-center justify-between bg-slate-50/50 group-hover:bg-brand-50/10 transition-colors">
                 <div className="flex items-center text-xs font-semibold text-slate-400">
                   <Calendar className="h-3.5 w-3.5 mr-2" />
                   {new Date(guide.published).toLocaleDateString('en-IN', {
@@ -233,7 +233,7 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
           <Button
             onClick={() => setActiveCategory('All')}
             variant="outline"
-            className="text-[#B0EC70] border-[#DFF7C6] hover:bg-[#F7FDF1] hover:text-[#577A30] font-semibold"
+            className="text-brand-400 border-brand-200 hover:bg-brand-50 hover:text-brand-700 font-semibold"
           >
             View All Guides
           </Button>

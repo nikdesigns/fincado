@@ -113,7 +113,7 @@ export default function SIPCalculatorPage() {
           </tr>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Market Timing Risk</td>
-            <td class="p-3 border text-[#74A046]">Low – cost averaged over time</td>
+            <td class="p-3 border text-brand-600">Low – cost averaged over time</td>
             <td class="p-3 border">High – entire amount exposed to one entry point</td>
           </tr>
           <tr class="hover:bg-slate-50">
@@ -124,7 +124,7 @@ export default function SIPCalculatorPage() {
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Returns in Strong Bull Market</td>
             <td class="p-3 border">Slightly lower than lump sum</td>
-            <td class="p-3 border text-[#74A046]">Higher if invested early</td>
+            <td class="p-3 border text-brand-600">Higher if invested early</td>
           </tr>
           <tr class="hover:bg-slate-50">
             <td class="p-3 border font-medium">Behavioral Advantage</td>
@@ -235,14 +235,14 @@ export default function SIPCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600">
               <BarChart3 className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 SIP Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#74A046]">
+              <p className="text-base sm:text-lg font-medium text-brand-600">
                 Plan Mutual Fund SIPs for Long-Term Wealth Creation
               </p>
             </div>
@@ -263,9 +263,9 @@ export default function SIPCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       TYPICAL RETURN (EQUITY SIP)
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -281,9 +281,9 @@ export default function SIPCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       WEALTH CREATION
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -295,9 +295,9 @@ export default function SIPCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       UPDATED DATA
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -317,8 +317,8 @@ export default function SIPCalculatorPage() {
               <AdSlot id="sip-after-calc" type="square" />
             </div>
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]-50/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#74A046] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-600 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Long-Term Mindset is Key
@@ -388,8 +388,8 @@ export default function SIPCalculatorPage() {
                     </div>
                   </div>
 
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: SIP Growth Calculation
                     </h4>
@@ -412,7 +412,7 @@ export default function SIPCalculatorPage() {
                         <div>10 years (120 months)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Monthly Return Rate (r)
                         </strong>
@@ -447,16 +447,16 @@ export default function SIPCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#B0EC70]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-400">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Approx. Maturity Value:
                         </div>
-                        <div className="text-3xl font-semibold text-[#74A046]">
+                        <div className="text-3xl font-semibold text-brand-600">
                           ≈ ₹23,23,000
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
+                      <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
                         <div className="flex justify-between">
                           <span>Total Amount Invested:</span>
                           <strong>₹12,00,000</strong>
@@ -519,18 +519,18 @@ export default function SIPCalculatorPage() {
               <AdSlot id="sip-infeed-1" type="banner" lazyLoad />
             </div>
             {/* Promo content */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#74A046]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-600">
                   <TrendingUp className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to build a ₹1 Crore corpus?
                   </strong>
                   <Link
                     href="/guides/sip-investment-guide/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#1B2E06]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-900"
                   >
                     <span>Read our Complete SIP Investing Guide (2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -596,21 +596,21 @@ export default function SIPCalculatorPage() {
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Link href="/emi-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                                 💰
                               </span>
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Balance your SIPs with loan EMIs for a
                                   complete plan.
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -621,21 +621,21 @@ export default function SIPCalculatorPage() {
                       </Link>
 
                       <Link href="/retirement-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                                 🧓
                               </span>
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   Retirement Corpus Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Combine SIPs and lump sum to plan early
                                   retirement.
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Plan Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

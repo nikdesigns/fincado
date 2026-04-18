@@ -353,12 +353,12 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Scale className="h-5 w-5 text-[#577A30]" />
+              <Scale className="h-5 w-5 text-brand-700" />
               Tax Estimator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -441,16 +441,16 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
             {/* --- RIGHT: VISUALS --- */}
             <div className="flex flex-col justify-center space-y-6">
               {/* Recommendation Box */}
-              <div className="p-6 rounded-xl border-2 text-center transition-all border-[#DFF7C6] bg-[#F7FDF1] shadow-[#EFFBE2] shadow-lg">
-                <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-[#577A30]">
+              <div className="p-6 rounded-xl border-2 text-center transition-all border-brand-200 bg-brand-50 shadow-brand-100 shadow-lg">
+                <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-brand-700">
                   {t.recommendationLabel}
                 </p>
-                <h3 className="text-2xl font-bold text-[#1B2E06]">
+                <h3 className="text-2xl font-bold text-brand-900">
                   {calc.recommended}
                 </h3>
                 {calc.savings > 0 ? (
                   <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm text-slate-700">
-                    <TrendingDown className="h-4 w-4 text-[#577A30]" />
+                    <TrendingDown className="h-4 w-4 text-brand-700" />
                     Save <strong>{formatINR(calc.savings)}</strong>
                   </div>
                 ) : (
@@ -474,7 +474,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
                         calc.recommended === 'Old Regime'
-                          ? 'bg-[#B0EC70]'
+                          ? 'bg-brand-400'
                           : 'bg-slate-300'
                       }`}
                       style={{
@@ -502,7 +502,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${
                         calc.recommended === 'New Regime'
-                          ? 'bg-[#B0EC70]'
+                          ? 'bg-brand-400'
                           : 'bg-slate-300'
                       }`}
                       style={{
@@ -520,11 +520,11 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
               </div>
 
               {/* Final Takehome */}
-              <div className="rounded-lg bg-[#1B2E06] p-5 text-center text-white shadow-lg">
+              <div className="rounded-lg bg-brand-900 p-5 text-center text-white shadow-lg">
                 <p className="text-xs text-[#D1D5DB] uppercase tracking-widest font-medium mb-1">
                   {t.netIncomeLabel}
                 </p>
-                <div className="text-3xl text-[#B0EC70] font-semibold tracking-tight">
+                <div className="text-3xl text-brand-400 font-semibold tracking-tight">
                   {formatINR(calc.netIncome)}
                 </div>
                 <div className="mt-2 text-xs text-[#D1D5DB]">
@@ -558,10 +558,10 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       </div>
 
       {/* Tax Breakdown Card */}
-      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+      <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Calculator className="h-5 w-5 text-[#577A30]" />
+            <Calculator className="h-5 w-5 text-brand-700" />
             Tax Breakdown
           </CardTitle>
         </CardHeader>
@@ -570,8 +570,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               {/* Old Regime Details */}
-              <div className="p-4 bg-white rounded-lg border-2 border-[#DFF7C6]">
-                <div className="text-sm font-semibold text-[#577A30] mb-2">
+              <div className="p-4 bg-white rounded-lg border-2 border-brand-200">
+                <div className="text-sm font-semibold text-brand-700 mb-2">
                   Old Regime
                 </div>
                 <div className="space-y-2 text-xs text-slate-600">
@@ -591,7 +591,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableOld)}</span>
                   </div>
-                  <div className="border-t pt-2 flex justify-between font-semibold text-[#577A30]">
+                  <div className="border-t pt-2 flex justify-between font-semibold text-brand-700">
                     <span>Tax + Cess:</span>
                     <span>{formatINR(calc.taxOld)}</span>
                   </div>
@@ -599,8 +599,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
               </div>
 
               {/* New Regime Details */}
-              <div className="p-4 bg-white rounded-lg border-2 border-[#DFF7C6]">
-                <div className="text-sm font-semibold text-[#577A30] mb-2">
+              <div className="p-4 bg-white rounded-lg border-2 border-brand-200">
+                <div className="text-sm font-semibold text-brand-700 mb-2">
                   New Regime
                 </div>
                 <div className="space-y-2 text-xs text-slate-600">
@@ -620,7 +620,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableNew)}</span>
                   </div>
-                  <div className="border-t pt-2 flex justify-between font-semibold text-[#577A30]">
+                  <div className="border-t pt-2 flex justify-between font-semibold text-brand-700">
                     <span>Tax + Cess:</span>
                     <span>{formatINR(calc.taxNew)}</span>
                   </div>

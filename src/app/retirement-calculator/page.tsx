@@ -120,7 +120,7 @@ export default function RetirementCalculatorPage() {
       <li><strong>Emergency Fund:</strong> Unexpected expenses, home repairs, family support - 10% of corpus</li>
       <li><strong>Legacy Planning:</strong> Estate for children, charity, gifting - 5% of corpus</li>
     </ul>
-    <p class="mt-4 font-semibold text-[#577A30]">
+    <p class="mt-4 font-semibold text-brand-700">
       <strong>Rule of Thumb:</strong> Target retirement corpus should be 25-30 times your 
       annual expenses at retirement age (adjusted for inflation).
     </p>
@@ -255,14 +255,14 @@ export default function RetirementCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <Palmtree className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Retirement Planning Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Plan your retirement corpus and achieve financial freedom
               </p>
             </div>
@@ -283,9 +283,9 @@ export default function RetirementCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       RECOMMENDED CORPUS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -301,9 +301,9 @@ export default function RetirementCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       SAFE WITHDRAWAL RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -319,9 +319,9 @@ export default function RetirementCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       PLANNING HORIZON
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -348,8 +348,8 @@ export default function RetirementCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Planning Tip
@@ -451,7 +451,7 @@ export default function RetirementCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                    <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> Real return adjusts
                         post-retirement returns for inflation to calculate
@@ -461,8 +461,8 @@ export default function RetirementCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Retirement Planning at Age 30
                     </h4>
@@ -500,7 +500,7 @@ export default function RetirementCalculatorPage() {
                         <div>8% p.a.</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Calculate Monthly Inflation Rate
                         </strong>
@@ -557,11 +557,11 @@ export default function RetirementCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Target Retirement Corpus:
                         </div>
-                        <div className="text-3xl font-semibold text-[#577A30]">
+                        <div className="text-3xl font-semibold text-brand-700">
                           ₹7.10 Crore
                         </div>
                         <div className="text-xs text-slate-600 mt-2">
@@ -570,7 +570,7 @@ export default function RetirementCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9]">
+                      <div className="mt-3 pt-3 border-t border-brand-300">
                         <p className="text-xs text-slate-600">
                           <strong>Key Insight:</strong> Your ₹50,000/month
                           expense today becomes ₹3 lakh/month in 30 years due to
@@ -582,8 +582,8 @@ export default function RetirementCalculatorPage() {
                   </div>
 
                   {/* SIP Calculation */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#577A30] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-700 mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Required Monthly SIP Calculation
                     </h4>
@@ -593,7 +593,7 @@ export default function RetirementCalculatorPage() {
                         monthly SIP to bridge the gap between current savings
                         and target:
                       </p>
-                      <div className="p-3 bg-white rounded border border-[#DFF7C6] mt-2">
+                      <div className="p-3 bg-white rounded border border-brand-200 mt-2">
                         <div className="font-mono text-sm space-y-1">
                           <div>
                             Gap = Target Corpus - Future Value of Current
@@ -613,8 +613,8 @@ export default function RetirementCalculatorPage() {
                   </div>
 
                   {/* 25x vs 30x Rule */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#577A30] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-700 mb-2 flex items-center gap-2">
                       <span>💡</span>
                       25x Rule vs 30x Rule
                     </h4>
@@ -631,7 +631,7 @@ export default function RetirementCalculatorPage() {
                         retirement. Better for early retirement (50-55) or
                         longer life expectancy.
                       </p>
-                      <p className="text-xs font-semibold text-[#577A30] mt-2">
+                      <p className="text-xs font-semibold text-brand-700 mt-2">
                         💡 Example: For ₹6L annual expense → 25x = ₹1.5 Cr | 30x
                         = ₹1.8 Cr
                       </p>
@@ -649,18 +649,18 @@ export default function RetirementCalculatorPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to create retirement income?
                   </strong>
                   <Link
                     href="/swp-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#1B2E06]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-900"
                   >
                     <span>
                       Use SWP Calculator to plan systematic withdrawals from
@@ -734,13 +734,13 @@ export default function RetirementCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Equity Mutual Funds
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           12-15% p.a.
                         </TableCell>
                         <TableCell className="text-slate-700">
                           LTCG 12.5% ({'>'}1yr)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           High (T+3 days)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -755,7 +755,7 @@ export default function RetirementCalculatorPage() {
                         <TableCell className="text-slate-700">
                           10-12% p.a.
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           ₹2L (80C + 80CCD)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -773,7 +773,7 @@ export default function RetirementCalculatorPage() {
                         <TableCell className="text-slate-700">
                           7.1% p.a.
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           EEE (₹1.5L/yr)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -791,7 +791,7 @@ export default function RetirementCalculatorPage() {
                         <TableCell className="text-slate-700">
                           8.25% p.a.
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           EEE (up to ₹2.5L)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -815,7 +815,7 @@ export default function RetirementCalculatorPage() {
                         <TableCell className="text-slate-700">
                           Medium (5 year lock)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           60+ age, safe returns
                         </TableCell>
                       </TableRow>
@@ -859,7 +859,7 @@ export default function RetirementCalculatorPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Verdict:</strong> Best retirement strategy
                     combines Equity MFs (growth), NPS (tax saving), and PPF/EPF
@@ -967,21 +967,21 @@ export default function RetirementCalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate monthly SIP needed to build your
                               retirement corpus.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Build Corpus</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -992,21 +992,21 @@ export default function RetirementCalculatorPage() {
                   </Link>
 
                   <Link href="/swp-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               SWP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Plan systematic withdrawals for monthly retirement
                               income.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Plan Withdrawals</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

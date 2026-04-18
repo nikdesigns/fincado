@@ -45,7 +45,7 @@ function Slider({
         <SliderPrimitive.Range
           className="
       absolute h-full
-      bg-[#B0EC70]
+      bg-brand-400
     "
         />
       </SliderPrimitive.Track>

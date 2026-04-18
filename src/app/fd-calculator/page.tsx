@@ -246,14 +246,14 @@ export default function FDPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600">
               <Building2 className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Fixed Deposit Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Calculate FD maturity value with interest & compounding
               </p>
             </div>
@@ -274,9 +274,9 @@ export default function FDPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       AVERAGE FD RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -292,9 +292,9 @@ export default function FDPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       SENIOR CITIZEN BONUS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -310,9 +310,9 @@ export default function FDPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       UPDATED DATA
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -335,8 +335,8 @@ export default function FDPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Investment Tip
@@ -412,8 +412,8 @@ export default function FDPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: FD Calculation (Quarterly Compounding)
                     </h4>
@@ -441,7 +441,7 @@ export default function FDPage() {
                         <div>Quarterly (4 times/year)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Convert Rate to Decimal
                         </strong>
@@ -483,35 +483,35 @@ export default function FDPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Maturity Amount:
                         </div>
-                        <div className="text-3xl font-semibold text-[#74A046]">
+                        <div className="text-3xl font-semibold text-brand-600">
                           ₹1,23,140
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
+                      <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
                         <div className="flex justify-between">
                           <span>Principal Deposited:</span>
                           <strong>₹1,00,000</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Interest Earned:</span>
-                          <strong className="text-[#74A046]">₹23,140</strong>
+                          <strong className="text-brand-600">₹23,140</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Effective Return:</span>
-                          <strong className="text-[#74A046]">23.14%</strong>
+                          <strong className="text-brand-600">23.14%</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Compounding Impact */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Impact of Compounding Frequency
                     </h4>
@@ -580,18 +580,18 @@ export default function FDPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lime-100 text-lime-600">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Looking for guaranteed returns with tax benefits?
                   </strong>
                   <Link
                     href="/ppf-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-lime-800"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-600 hover:text-lime-800"
                   >
                     <span>Compare with PPF Calculator (EEE tax status)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -691,7 +691,7 @@ export default function FDPage() {
                         <TableCell className="text-slate-700">
                           Lump Sum or Yearly
                         </TableCell>
-                        <TableCell className="font-semibold text-[#74A046]">
+                        <TableCell className="font-semibold text-brand-600">
                           Monthly
                         </TableCell>
                       </TableRow>
@@ -700,7 +700,7 @@ export default function FDPage() {
                         <TableCell className="font-medium text-slate-700">
                           Lock-in Period
                         </TableCell>
-                        <TableCell className="font-semibold text-[#74A046]">
+                        <TableCell className="font-semibold text-brand-600">
                           Flexible (7 days - 10 yrs)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -718,7 +718,7 @@ export default function FDPage() {
                         <TableCell className="text-slate-700">
                           As per tax slab
                         </TableCell>
-                        <TableCell className="font-semibold text-[#74A046]">
+                        <TableCell className="font-semibold text-brand-600">
                           Fully Tax Free (EEE)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -733,7 +733,7 @@ export default function FDPage() {
                         <TableCell className="text-slate-700">
                           Yes (5-year FD only)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#74A046]">
+                        <TableCell className="font-semibold text-brand-600">
                           Yes
                         </TableCell>
                         <TableCell className="text-slate-700">No</TableCell>
@@ -743,7 +743,7 @@ export default function FDPage() {
                         <TableCell className="font-medium text-slate-700">
                           Liquidity
                         </TableCell>
-                        <TableCell className="font-semibold text-[#74A046]">
+                        <TableCell className="font-semibold text-brand-600">
                           High (with penalty)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -804,21 +804,21 @@ export default function FDPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/rd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                             🔄
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                               RD Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate recurring deposit returns with monthly
                               investments.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                               <span>Calculate Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -829,21 +829,21 @@ export default function FDPage() {
                   </Link>
 
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                             🔒
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate PPF returns with EEE tax benefits and
                               7.1% rate.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                               <span>Try Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

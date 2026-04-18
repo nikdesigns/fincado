@@ -98,8 +98,8 @@ export default function PersonalLoanEMIPage() {
 
   const useCasesContent = autoLinkContent(`
     <div class="grid gap-4 sm:grid-cols-2">
-      <div class="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-        <div class="font-semibold text-[#1B2E06] mb-2">✅ Good Use Cases</div>
+      <div class="p-4 bg-brand-50 rounded-lg border border-brand-200">
+        <div class="font-semibold text-brand-900 mb-2">✅ Good Use Cases</div>
         <ul class="text-sm text-slate-700 space-y-1 list-disc pl-4">
           <li>Medical emergencies</li>
           <li>Wedding expenses</li>
@@ -226,14 +226,14 @@ export default function PersonalLoanEMIPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#EFFBE2] to-[#EFFBE2] text-[#74A046]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-100 to-brand-100 text-brand-600">
               <CreditCard className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Personal Loan EMI Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#74A046]">
+              <p className="text-base sm:text-lg font-medium text-brand-600">
                 Calculate Instant Personal Loan EMI Online
               </p>
             </div>
@@ -254,9 +254,9 @@ export default function PersonalLoanEMIPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#F7FDF1] bg-linear-to-br from-[#EFFBE2] to-white">
+                <Card className="border-brand-50 bg-linear-to-br from-brand-100 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       BEST RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -272,9 +272,9 @@ export default function PersonalLoanEMIPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       TYPICAL EMI
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -289,9 +289,9 @@ export default function PersonalLoanEMIPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       INSTANT APPROVAL
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -371,8 +371,8 @@ export default function PersonalLoanEMIPage() {
                     </div>
                   </div>
 
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Personal Loan EMI
                     </h4>
@@ -395,7 +395,7 @@ export default function PersonalLoanEMIPage() {
                         <div>3 years (36 months)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Monthly Interest Rate (r)
                         </strong>
@@ -426,16 +426,16 @@ export default function PersonalLoanEMIPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Monthly EMI:
                         </div>
-                        <div className="text-3xl font-semibold text-[#74A046]">
+                        <div className="text-3xl font-semibold text-brand-600">
                           ₹16,607
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
+                      <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
                         <div className="flex justify-between">
                           <span>Total Amount Payable:</span>
                           <strong>₹5,97,852</strong>
@@ -528,7 +528,7 @@ export default function PersonalLoanEMIPage() {
                       <tbody className="divide-y divide-slate-100">
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">HDFC Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             10.50% - 21.00%
                           </td>
                           <td className="p-3">₹50k - ₹40L</td>
@@ -537,7 +537,7 @@ export default function PersonalLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">SBI</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             11.15% - 14.45%
                           </td>
                           <td className="p-3">₹25k - ₹20L</td>
@@ -546,7 +546,7 @@ export default function PersonalLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">ICICI Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             10.75% - 19.00%
                           </td>
                           <td className="p-3">₹50k - ₹50L</td>
@@ -555,7 +555,7 @@ export default function PersonalLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Axis Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             10.49% - 22.00%
                           </td>
                           <td className="p-3">₹50k - ₹40L</td>
@@ -564,7 +564,7 @@ export default function PersonalLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Bajaj Finserv</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             13.00% - 24.00%
                           </td>
                           <td className="p-3">₹1L - ₹40L</td>
@@ -594,20 +594,20 @@ export default function PersonalLoanEMIPage() {
             </div>
 
             {/* Promo Content */}
-            <Card className="no-print my-6 border-[#F7FDF1] bg-[#F7FDF1] transition-colors hover:bg-[#EFFBE2]">
+            <Card className="no-print my-6 border-brand-50 bg-brand-50 transition-colors hover:bg-brand-100">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#74A046]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-600">
                   <BookOpen className="h-5 w-5" />
                 </div>
 
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Need urgent funds?
                   </strong>
 
                   <Link
                     href="/guides/personal-loan-guide/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700"
                   >
                     <span>Read our Complete Personal Loan Guide (2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -767,21 +767,21 @@ export default function PersonalLoanEMIPage() {
 
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Link href="/emi-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#EFFBE2] to-[#EFFBE2] text-[#74A046] text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-100 to-brand-100 text-brand-600 text-2xl">
                                 💰
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   General EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate EMI for any type of loan
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -792,22 +792,22 @@ export default function PersonalLoanEMIPage() {
                       </Link>
 
                       <Link href="/loans/home-loan/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                                 🏠
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   Home Loan EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Lower rates & tax benefits - better
                                   alternative
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

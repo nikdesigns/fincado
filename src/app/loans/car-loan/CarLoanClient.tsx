@@ -223,7 +223,7 @@ export default function CarLoanClient({
 
             <div className="mt-6 text-center">
               <div className="text-sm text-slate-500">{t.monthlyEMI}</div>
-              <div className="mt-1 text-3xl sm:text-4xl font-semibold text-[#92C65B]">
+              <div className="mt-1 text-3xl sm:text-4xl font-semibold text-brand-500">
                 {formatINR(calculations.emi)}
               </div>
 

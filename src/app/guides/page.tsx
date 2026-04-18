@@ -117,13 +117,13 @@ export default function GuidesPage() {
       <header className="mx-auto max-w-3xl text-center mb-12">
         <Badge
           variant="secondary"
-          className="mb-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1 text-xs uppercase tracking-wider font-semibold"
+          className="mb-4 bg-brand-100 text-brand-700 hover:bg-brand-200 px-3 py-1 text-xs uppercase tracking-wider font-semibold"
         >
           Financial Wisdom
         </Badge>
 
         <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl md:text-6xl mb-6">
-          Read. Learn. <span className="text-[#577A30]">Grow.</span>
+          Read. Learn. <span className="text-brand-700">Grow.</span>
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">

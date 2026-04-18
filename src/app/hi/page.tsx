@@ -429,7 +429,7 @@ export default function HindiHubPage() {
                 </li>
                 <li>
                   <Link
-                    href="/hi/home-loan-calculator/"
+                    href="/hi/loans/home-loan/"
                     className="text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     होम लोन कैलकुलेटर

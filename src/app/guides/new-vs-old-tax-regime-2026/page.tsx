@@ -37,13 +37,13 @@ export const metadata: Metadata = {
   description:
     'Complete New vs Old Tax Regime comparison for FY 2025-26. See latest slabs, ₹75,000 standard deduction, rebate u/s 87A, breakeven points and use our interactive calculator.',
   alternates: {
-    canonical: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
+    canonical: 'https://fincado.com/guides/new-vs-old-tax-regime-2026/',
   },
   openGraph: {
     title: 'New vs Old Tax Regime 2026: Which Saves You More Tax?',
     description:
       'Budget 2025 made the new regime even more attractive. Check slabs, deductions, rebate limit and breakeven analysis here.',
-    url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
+    url: 'https://fincado.com/guides/new-vs-old-tax-regime-2026/',
     type: 'article',
     images: [
       {
@@ -66,7 +66,7 @@ export default function TaxRegimeGuide() {
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
             name: 'New vs Old Tax Regime',
-            url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
+            url: 'https://fincado.com/guides/new-vs-old-tax-regime-2026/',
           },
         ]}
       />

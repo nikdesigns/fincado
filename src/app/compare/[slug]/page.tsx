@@ -382,14 +382,14 @@ export default async function ComparisonPage({
 
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <header className="mx-auto my-12 max-w-5xl">
-          <div className="relative overflow-hidden rounded-2xl border border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] via-[#F7FDF1] to-[#F7FDF1]/30 p-8 shadow-sm">
+          <div className="relative overflow-hidden rounded-2xl border border-brand-200 bg-linear-to-br from-brand-50 via-brand-50 to-brand-50/30 p-8 shadow-sm">
             <div className="absolute -right-12 -top-12 opacity-5">
-              <Scale className="h-64 w-64 text-[#577A30]" />
+              <Scale className="h-64 w-64 text-brand-700" />
             </div>
 
             <div className="relative z-10">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
-                <Badge className="border-[#D0F4A9] bg-white px-4 py-1.5 font-semibold tracking-wider text-[#577A30] uppercase shadow-sm">
+                <Badge className="border-brand-300 bg-white px-4 py-1.5 font-semibold tracking-wider text-brand-700 uppercase shadow-sm">
                   Expert Reviewed · {monthYear}
                 </Badge>
                 <div className="no-print">
@@ -401,7 +401,7 @@ export default async function ComparisonPage({
 
               <h1 className="mb-4 text-3xl leading-tight font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
                 {b1.name}{' '}
-                <span className="bg-linear-to-r from-[#577A30] to-[#92C65B] bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-brand-700 to-brand-500 bg-clip-text text-transparent">
                   vs
                 </span>{' '}
                 {b2.name}
@@ -418,21 +418,21 @@ export default async function ComparisonPage({
               </p>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div className="rounded-lg border border-[#EFFBE2] bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-brand-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-[#577A30]" />
+                    <Percent className="h-4 w-4 text-brand-700" />
                     <span className="text-xs font-medium text-slate-600">
                       {b1.name}
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-[#577A30]">
+                  <p className="text-xl font-semibold text-brand-700">
                     {b1.rate}%
                   </p>
                 </div>
 
                 <div className="rounded-lg border border-teal-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-[#92C65B]" />
+                    <Percent className="h-4 w-4 text-brand-500" />
                     <span className="text-xs font-medium text-slate-600">
                       {b2.name}
                     </span>
@@ -454,14 +454,14 @@ export default async function ComparisonPage({
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-[#EFFBE2] bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-brand-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <IndianRupee className="h-4 w-4 text-[#577A30]" />
+                    <IndianRupee className="h-4 w-4 text-brand-700" />
                     <span className="text-xs font-medium text-slate-600">
                       20Y Impact*
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-[#577A30]">
+                  <p className="text-xl font-semibold text-brand-700">
                     ₹{formatLakhs(lifetimeSaving)}L
                   </p>
                 </div>
@@ -479,9 +479,9 @@ export default async function ComparisonPage({
           <div className="mb-12 space-y-10 lg:col-span-8">
             {/* --- QUICK VERDICT TABLE (NEW, ABOVE FOLD) --- */}
             <section className="mx-auto mb-8 max-w-5xl">
-              <Card className="border-[#DFF7C6] bg-white shadow-sm">
-                <CardHeader className="border-b border-slate-200 bg-[#F7FDF1]">
-                  <CardTitle className="text-lg font-semibold text-[#1B2E06]">
+              <Card className="border-brand-200 bg-white shadow-sm">
+                <CardHeader className="border-b border-slate-200 bg-brand-50">
+                  <CardTitle className="text-lg font-semibold text-brand-900">
                     Quick Verdict: {b1.name} vs {b2.name}
                   </CardTitle>
                   <CardDescription>
@@ -503,7 +503,7 @@ export default async function ComparisonPage({
                           <TableCell className="font-medium">
                             Lowest rate now
                           </TableCell>
-                          <TableCell className="font-semibold text-[#577A30]">
+                          <TableCell className="font-semibold text-brand-700">
                             {lowerRateBank.name}
                           </TableCell>
                           <TableCell>
@@ -515,7 +515,7 @@ export default async function ComparisonPage({
                           <TableCell className="font-medium">
                             EMI difference (₹50L/20Y)
                           </TableCell>
-                          <TableCell className="font-semibold text-[#577A30]">
+                          <TableCell className="font-semibold text-brand-700">
                             {formatINR(monthlySaving)}/month
                           </TableCell>
                           <TableCell>
@@ -550,15 +550,15 @@ export default async function ComparisonPage({
             </section>
 
             {rateDiff > 0 && (
-              <div className="flex items-start gap-4 rounded-xl border border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1] p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#577A30] shadow-md">
+              <div className="flex items-start gap-4 rounded-xl border border-brand-200 bg-linear-to-r from-brand-50 to-brand-50 p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-700 shadow-md">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h2 className="mb-1 font-semibold text-[#1B2E06]">
+                  <h2 className="mb-1 font-semibold text-brand-900">
                     Lower-Rate Leader
                   </h2>
-                  <p className="text-sm leading-relaxed text-[#577A30]">
+                  <p className="text-sm leading-relaxed text-brand-700">
                     <strong>{lowerRateBank.name}</strong> is currently lower at{' '}
                     <strong>{lowerRateBank.rate}%</strong> vs{' '}
                     <strong>{higherRateBank.rate}%</strong> from{' '}
@@ -573,7 +573,7 @@ export default async function ComparisonPage({
             <Card className="border-slate-200 shadow-md">
               <CardHeader className="border-b border-slate-200 bg-slate-50">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#577A30] shadow-sm">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-700 shadow-sm">
                     <Scale className="h-5 w-5 text-white" />
                   </div>
                   <div>
@@ -610,7 +610,7 @@ export default async function ComparisonPage({
                         <TableCell
                           className={
                             b1.rate <= b2.rate
-                              ? 'font-semibold text-[#577A30]'
+                              ? 'font-semibold text-brand-700'
                               : 'font-semibold text-slate-700'
                           }
                         >
@@ -619,7 +619,7 @@ export default async function ComparisonPage({
                         <TableCell
                           className={
                             b2.rate <= b1.rate
-                              ? 'font-semibold text-[#577A30]'
+                              ? 'font-semibold text-brand-700'
                               : 'font-semibold text-slate-700'
                           }
                         >
@@ -663,12 +663,12 @@ export default async function ComparisonPage({
                           Prepayment on floating HL
                         </TableCell>
                         <TableCell>
-                          <span className="font-medium text-[#577A30]">
+                          <span className="font-medium text-brand-700">
                             Typically Nil*
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className="font-medium text-[#577A30]">
+                          <span className="font-medium text-brand-700">
                             Typically Nil*
                           </span>
                         </TableCell>
@@ -698,43 +698,43 @@ export default async function ComparisonPage({
               <CardContent className="p-5">
                 <div className="grid gap-2 sm:grid-cols-2">
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/compare-loans/"
                   >
                     Compare Loans Hub
                   </Link>
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/loans/home-loan/"
                   >
                     Home Loan EMI Calculator
                   </Link>
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/emi-calculator/"
                   >
                     General EMI Calculator
                   </Link>
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/guides/home-loan-guide/"
                   >
                     Home Loan Guide
                   </Link>
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/guides/home-loan-first-time-buyers/"
                   >
                     First-Time Home Buyer Guide
                   </Link>
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/guides/personal-loan-interest-rates-india/"
                   >
                     Personal Loan Rates India Guide
                   </Link>
                   <Link
-                    className="text-sm text-[#577A30] hover:underline"
+                    className="text-sm text-brand-700 hover:underline"
                     href="/credit-score/"
                   >
                     Credit Score Estimator
@@ -752,15 +752,15 @@ export default async function ComparisonPage({
                 id="profile-fit-heading"
                 className="mb-6 flex items-center gap-2 text-2xl font-semibold"
               >
-                <Users className="h-6 w-6 text-[#577A30]" />
+                <Users className="h-6 w-6 text-brand-700" />
                 Borrower Profile Fit
               </h2>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card className="border-slate-200 transition-shadow hover:shadow-md">
                   <CardContent className="p-5">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7FDF1] shadow-sm">
-                      <Users className="h-5 w-5 text-[#577A30]" />
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 shadow-sm">
+                      <Users className="h-5 w-5 text-brand-700" />
                     </div>
                     <p className="mb-2 font-semibold text-slate-900">
                       Salaried Borrowers
@@ -775,8 +775,8 @@ export default async function ComparisonPage({
 
                 <Card className="border-slate-200 transition-shadow hover:shadow-md">
                   <CardContent className="p-5">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7FDF1] shadow-sm">
-                      <Clock className="h-5 w-5 text-[#577A30]" />
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 shadow-sm">
+                      <Clock className="h-5 w-5 text-brand-700" />
                     </div>
                     <p className="mb-2 font-semibold text-slate-900">
                       Faster Disbursal Need
@@ -841,7 +841,7 @@ export default async function ComparisonPage({
                   </CardHeader>
                   <CardContent className="space-y-4 p-5">
                     <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-[#577A30]">
+                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-brand-700">
                         <CheckCircle2 className="h-4 w-4" /> Pros
                       </h3>
                       <ul className="space-y-1 text-sm text-slate-600">
@@ -875,7 +875,7 @@ export default async function ComparisonPage({
                   </CardHeader>
                   <CardContent className="space-y-4 p-5">
                     <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-[#577A30]">
+                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-brand-700">
                         <CheckCircle2 className="h-4 w-4" /> Pros
                       </h3>
                       <ul className="space-y-1 text-sm text-slate-600">
@@ -922,13 +922,13 @@ export default async function ComparisonPage({
                   </p>
                   <div className="flex flex-wrap gap-3 text-sm">
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/compare-loans/"
                     >
                       Compare Loans Hub
                     </Link>
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/home-loan-rates/"
                     >
                       Current Home Loan Rates
@@ -942,13 +942,13 @@ export default async function ComparisonPage({
                   </p>
                   <div className="flex flex-wrap gap-3 text-sm">
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/loans/home-loan/"
                     >
                       Home Loan EMI Calculator
                     </Link>
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/emi-calculator/"
                     >
                       General EMI Calculator
@@ -962,19 +962,19 @@ export default async function ComparisonPage({
                   </p>
                   <div className="flex flex-wrap gap-3 text-sm">
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/guides/home-loan-guide/"
                     >
                       Home Loan Guide
                     </Link>
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/guides/home-loan-first-time-buyers/"
                     >
                       First-Time Buyer Checklist
                     </Link>
                     <Link
-                      className="text-[#577A30] hover:underline"
+                      className="text-brand-700 hover:underline"
                       href="/credit-score/"
                     >
                       Credit Score Estimator
@@ -989,7 +989,7 @@ export default async function ComparisonPage({
                 id="comparison-faq-heading"
                 className="mb-6 flex items-center gap-2 text-2xl font-semibold"
               >
-                <HelpCircle className="h-6 w-6 text-[#577A30]" />
+                <HelpCircle className="h-6 w-6 text-brand-700" />
                 Frequently Asked Questions
               </h2>
 
@@ -1013,18 +1013,18 @@ export default async function ComparisonPage({
               <FAQSchema faqs={faqs} />
             </section>
 
-            <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] shadow-md">
+            <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-brand-50 shadow-md">
               <CardContent className="space-y-5 p-8">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#92C65B] shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500 shadow-lg">
                     <TrendingDown className="h-6 w-6 text-white" />
                   </div>
-                  <h2 className="text-2xl font-semibold text-[#1B2E06]">
+                  <h2 className="text-2xl font-semibold text-brand-900">
                     Final Verdict
                   </h2>
                 </div>
 
-                <p className="leading-relaxed text-[#1B2E06]">
+                <p className="leading-relaxed text-brand-900">
                   If your top priority is minimizing long-term repayment,{' '}
                   <strong>{lowerRateBank.name}</strong> currently leads on rate.
                   If your top priority is faster process and app-driven
@@ -1036,7 +1036,7 @@ export default async function ComparisonPage({
                 <div className="flex flex-wrap gap-3">
                   <Button
                     asChild
-                    className="bg-[#74A046] text-white shadow-md hover:bg-[#577A30]"
+                    className="bg-brand-600 text-white shadow-md hover:bg-brand-700"
                   >
                     <Link href="/emi-calculator/">
                       <Calculator className="mr-2 h-4 w-4" />
@@ -1046,7 +1046,7 @@ export default async function ComparisonPage({
                   <Button
                     asChild
                     variant="outline"
-                    className="border-[#92C65B] text-[#74A046] hover:bg-[#F7FDF1]"
+                    className="border-brand-500 text-brand-600 hover:bg-brand-50"
                   >
                     <Link href="/compare-loans/">
                       <Scale className="mr-2 h-4 w-4" />
@@ -1063,9 +1063,9 @@ export default async function ComparisonPage({
           <aside className="mb-12 space-y-6 lg:col-span-4">
             <div className="sticky top-24 space-y-6">
               <Card className="border-slate-200 shadow-md">
-                <CardHeader className="border-b border-slate-200 bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1]">
+                <CardHeader className="border-b border-slate-200 bg-linear-to-r from-brand-50 to-brand-50">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#577A30] shadow-sm">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-700 shadow-sm">
                       <Calculator className="h-5 w-5 text-white" />
                     </div>
                     <CardTitle className="text-base font-semibold">
@@ -1080,7 +1080,7 @@ export default async function ComparisonPage({
                   </p>
                   <Button
                     asChild
-                    className="w-full bg-[#577A30] text-white hover:bg-[#577A30]"
+                    className="w-full bg-brand-700 text-white hover:bg-brand-700"
                   >
                     <Link href="/emi-calculator/">
                       <Calculator className="mr-2 h-4 w-4" />
@@ -1093,27 +1093,27 @@ export default async function ComparisonPage({
               <Card className="border-slate-200">
                 <CardHeader className="border-b border-slate-200 bg-slate-50">
                   <CardTitle className="flex items-center gap-2 text-base font-semibold">
-                    <Info className="h-4 w-4 text-[#577A30]" />
+                    <Info className="h-4 w-4 text-brand-700" />
                     Key Takeaways
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 p-5">
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#577A30]" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
                     <p className="text-sm text-slate-600">
                       <strong>{lowerRateBank.name}</strong> has the lower
                       published starting rate by {rateDiff.toFixed(2)}%.
                     </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#577A30]" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
                     <p className="text-sm text-slate-600">
                       Illustrative savings: {formatINR(lifetimeSaving)} over 20
                       years (₹50 lakh sample).
                     </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#577A30]" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
                     <p className="text-sm text-slate-600">
                       Compare sanction terms, reset frequency, and all fees
                       before locking your lender.

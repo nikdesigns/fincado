@@ -163,7 +163,7 @@ export default function HindiRentReceiptClient() {
           <Card className="border-slate-200 shadow-sm">
             <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
               <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-                <FileText className="h-5 w-5 text-[#577A30]" />
+                <FileText className="h-5 w-5 text-brand-700" />
                 रसीद का विवरण भरें
               </CardTitle>
             </CardHeader>
@@ -317,7 +317,7 @@ export default function HindiRentReceiptClient() {
 
               <Button
                 onClick={handlePrint}
-                className="w-full bg-[#577A30] hover:bg-[#466326] text-white font-semibold py-6 text-lg mt-6"
+                className="w-full bg-brand-700 hover:bg-[#466326] text-white font-semibold py-6 text-lg mt-6"
               >
                 <Printer className="mr-2 h-5 w-5" /> PDF डाउनलोड करें / प्रिंट
                 करें
@@ -339,7 +339,7 @@ export default function HindiRentReceiptClient() {
             <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest">
               लाइव प्रीव्यू (Live Preview)
             </h3>
-            <span className="text-xs bg-[#EFFBE2] text-[#577A30] px-2 py-1 rounded font-medium">
+            <span className="text-xs bg-brand-100 text-brand-700 px-2 py-1 rounded font-medium">
               A4 Ready
             </span>
           </div>

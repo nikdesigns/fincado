@@ -128,7 +128,7 @@ export default function EPFCalculatorPage() {
       <li><strong>0.5% goes to EDLI:</strong> Employee Deposit Linked Insurance for life cover</li>
       <li><strong>0.01% admin charges:</strong> EPFO administrative expenses</li>
     </ul>
-    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+    <div class="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
       <p class="text-sm text-slate-700">
         <strong>Example:</strong> If basic salary = ₹40,000, employee contributes ₹4,800 (12%), 
         employer adds ₹1,468 (3.67%) to EPF. Total ₹6,268/month builds EPF corpus. Employer's 
@@ -182,7 +182,7 @@ export default function EPFCalculatorPage() {
       <li><strong>Same Withdrawal Rules:</strong> VPF follows same rules as EPF - tax-free after 5 years</li>
       <li><strong>Higher Returns than FD:</strong> VPF @8.25% beats bank FD (6-7%) with tax-free interest</li>
     </ul>
-    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+    <div class="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
       <p class="text-sm text-slate-700">
         <strong>Who Should Use VPF:</strong> Conservative investors seeking safe, tax-free returns 
         higher than FD. Ideal for those in high tax brackets (30%) who've exhausted other 80C 
@@ -290,14 +290,14 @@ export default function EPFCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <Briefcase className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 EPF Calculator (Employee Provident Fund)
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Calculate your retirement corpus with 8.25% tax-free returns
               </p>
             </div>
@@ -318,9 +318,9 @@ export default function EPFCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       INTEREST RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -336,9 +336,9 @@ export default function EPFCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       TAX STATUS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -354,9 +354,9 @@ export default function EPFCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       CONTRIBUTION
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -383,8 +383,8 @@ export default function EPFCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Tax-Free Benefit
@@ -470,7 +470,7 @@ export default function EPFCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                    <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> Employer&apos;s 8.33%
                         contribution goes to EPS (Employee Pension Scheme) for
@@ -480,8 +480,8 @@ export default function EPFCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: ₹40,000 Basic Salary for 20 Years
                     </h4>
@@ -509,7 +509,7 @@ export default function EPFCalculatorPage() {
                         <div>12%</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#DFF7C6]">
+                      <div className="pt-3 border-t border-brand-200">
                         <strong className="block mb-2">
                           Step 1: Calculate Monthly Contributions
                         </strong>
@@ -557,7 +557,7 @@ export default function EPFCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="space-y-2">
                           <div className="text-lg font-semibold text-slate-700 mb-2">
                             EPF Corpus Breakdown:
@@ -580,24 +580,24 @@ export default function EPFCalculatorPage() {
                           </div>
                           <div className="flex justify-between border-t pt-2">
                             <span>Total EPF Corpus:</span>
-                            <strong className="text-[#577A30]">
+                            <strong className="text-brand-700">
                               ₹37,68,900
                             </strong>
                           </div>
                           <div className="flex justify-between">
                             <span>Total Interest Earned:</span>
-                            <strong className="text-[#577A30]">
+                            <strong className="text-brand-700">
                               ₹22,64,580
                             </strong>
                           </div>
                           <div className="flex justify-between text-base font-semibold border-t pt-2 mt-2">
-                            <span className="text-[#1B2E06]">Returns:</span>
-                            <strong className="text-[#577A30]">150%</strong>
+                            <span className="text-brand-900">Returns:</span>
+                            <strong className="text-brand-700">150%</strong>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#DFF7C6]">
+                      <div className="mt-3 pt-3 border-t border-brand-200">
                         <p className="text-xs text-slate-600">
                           <strong>Tax Benefit:</strong> All ₹37.69 lakh is 100%
                           tax-free at withdrawal after 5 years. Additionally,
@@ -610,8 +610,8 @@ export default function EPFCalculatorPage() {
                   </div>
 
                   {/* Contribution Split */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#577A30] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-700 mb-2 flex items-center gap-2">
                       <TrendingUp className="h-4 w-4" />
                       Understanding 12% Employer Contribution Split
                     </h4>
@@ -620,7 +620,7 @@ export default function EPFCalculatorPage() {
                         Employer&apos;s 12% contribution is distributed across
                         multiple schemes:
                       </p>
-                      <div className="p-3 bg-white rounded border border-[#DFF7C6] mt-2">
+                      <div className="p-3 bg-white rounded border border-brand-200 mt-2">
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
                             <span>EPF (Provident Fund):</span>
@@ -662,18 +662,18 @@ export default function EPFCalculatorPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want higher retirement corpus?
                   </strong>
                   <Link
                     href="/retirement-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#1B2E06]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-900"
                   >
                     <span>
                       Use Retirement Calculator to plan complete retirement
@@ -746,7 +746,7 @@ export default function EPFCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Interest Rate
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           8.25% p.a.
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -761,10 +761,10 @@ export default function EPFCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Tax Status
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           EEE (100% tax-free)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           EEE (100% tax-free)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -806,7 +806,7 @@ export default function EPFCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Employer Contribution
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Yes (3.67% to EPF)
                         </TableCell>
                         <TableCell className="text-slate-700">No</TableCell>
@@ -819,7 +819,7 @@ export default function EPFCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Partial Withdrawal
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Yes (housing, medical)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -837,10 +837,10 @@ export default function EPFCalculatorPage() {
                         <TableCell className="text-slate-700">
                           Salaried employees only
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           All Indian citizens
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           All citizens 18-70
                         </TableCell>
                       </TableRow>
@@ -855,7 +855,7 @@ export default function EPFCalculatorPage() {
                         <TableCell className="text-slate-700">
                           Fixed (Govt bonds)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Market-linked (E/C/G)
                         </TableCell>
                       </TableRow>
@@ -864,7 +864,7 @@ export default function EPFCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Best For
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Salaried with employer
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -878,7 +878,7 @@ export default function EPFCalculatorPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Verdict:</strong> EPF is best for salaried
                     employees due to employer matching (3.67%), higher interest
@@ -952,21 +952,21 @@ export default function EPFCalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#DFF7C6]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-200">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate Public Provident Fund with 7.1% tax-free
                               returns.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate PPF</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -977,21 +977,21 @@ export default function EPFCalculatorPage() {
                   </Link>
 
                   <Link href="/nps-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#DFF7C6]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-200">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             💼
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               NPS Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               National Pension System with extra ₹50k tax
                               benefit.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate NPS</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

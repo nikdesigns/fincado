@@ -265,12 +265,12 @@ export default function GratuityClient() {
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Briefcase className="h-5 w-5 text-[#577A30]" />
+              <Briefcase className="h-5 w-5 text-brand-700" />
               Gratuity Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RotateCcw className="w-3 h-3" /> Reset
             </button>
@@ -366,7 +366,7 @@ export default function GratuityClient() {
                 <div className="text-sm font-medium text-slate-500 mb-1">
                   Total Gratuity Payable
                 </div>
-                <div className="text-4xl font-extrabold text-[#577A30] tracking-tight">
+                <div className="text-4xl font-extrabold text-brand-700 tracking-tight">
                   {formatINR(result.gratuity)}
                 </div>
                 {years < 5 && (
@@ -381,12 +381,12 @@ export default function GratuityClient() {
                 {/* Breakdown Cards */}
                 <div className="mt-8 grid grid-cols-2 gap-4 w-full">
                   {/* Exempt */}
-                  <Card className="bg-[#F7FDF1] border-[#DFF7C6] shadow-none">
+                  <Card className="bg-brand-50 border-brand-200 shadow-none">
                     <CardContent className="p-4 text-center">
-                      <div className="text-xs text-[#577A30] font-medium mb-1">
+                      <div className="text-xs text-brand-700 font-medium mb-1">
                         Tax Exempt (Max ₹20L)
                       </div>
-                      <div className="font-semibold text-[#577A30] text-lg">
+                      <div className="font-semibold text-brand-700 text-lg">
                         {formatINR(result.exempt)}
                       </div>
                     </CardContent>
@@ -584,7 +584,7 @@ function GratuityPieChart({
         <div className="text-2xl font-semibold text-slate-900 leading-none">
           {exemptPct}%
         </div>
-        <div className="mt-1 text-sm font-medium text-[#577A30]">Tax Free</div>
+        <div className="mt-1 text-sm font-medium text-brand-700">Tax Free</div>
       </div>
     </div>
   );

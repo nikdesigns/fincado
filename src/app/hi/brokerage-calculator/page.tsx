@@ -135,17 +135,17 @@ export default function HindiBrokerageCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             ब्रोकरेज (Brokerage) कैलकुलेटर
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               इंट्राडे, डिलीवरी और F&O शुल्क
             </span>
           </h1>
 
           {/* KEY METRICS BANNER */}
-          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1 font-semibold">
               ✅ SEBI &quot;True-to-Label&quot; शुल्क लागू
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               नई STT दरें अपडेटेड
             </span>
           </div>

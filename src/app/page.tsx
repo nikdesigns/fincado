@@ -166,7 +166,7 @@ export default function Home(): JSX.Element {
             <div className="mb-5 flex flex-wrap items-center gap-3">
               <Badge
                 variant="outline"
-                className="bg-[#F7FDF1] font-semibold text-slate-800 border-[#B0EC70]"
+                className="bg-brand-50 font-semibold text-slate-800 border-brand-400"
               >
                 {getUpdatedForFYText()}
               </Badge>
@@ -209,7 +209,7 @@ export default function Home(): JSX.Element {
               <Button
                 asChild
                 size="lg"
-                className="bg-[#B0EC70] text-[#111827] font-bold hover:bg-[#92C65B] transition-colors"
+                className="bg-brand-400 text-[#111827] font-bold hover:bg-brand-500 transition-colors"
               >
                 <Link href="/salary-calculator/">Check In-Hand Salary</Link>
               </Button>
@@ -232,7 +232,7 @@ export default function Home(): JSX.Element {
           </div>
 
           <aside className="grid gap-4">
-            <Card className="border-emerald-100 bg-[#F7FDF1] shadow-sm">
+            <Card className="border-emerald-100 bg-brand-50 shadow-sm">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base font-semibold text-slate-900 flex items-center gap-2">
                   🔥 Trending Right Now
@@ -268,7 +268,7 @@ export default function Home(): JSX.Element {
         <section className="mt-20">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <TrendingUp className="w-6 h-6 text-[#577A30]" /> The Essentials
+              <TrendingUp className="w-6 h-6 text-brand-700" /> The Essentials
             </h2>
             <p className="mt-1 text-slate-600 font-medium">
               Start with the most commonly used financial tools in India.
@@ -382,22 +382,22 @@ export default function Home(): JSX.Element {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <ToolCard
               href="/scss-calculator/"
-              icon={<ShieldCheck className="w-6 h-6 text-[#577A30]" />}
-              bgClass="bg-[#F7FDF1]"
+              icon={<ShieldCheck className="w-6 h-6 text-brand-700" />}
+              bgClass="bg-brand-50"
               title="SCSS Calculator"
               desc="Calculate guaranteed quarterly income for Senior Citizens at 8.2%."
             />
             <ToolCard
               href="/pomis-calculator/"
-              icon={<Wallet className="w-6 h-6 text-[#577A30]" />}
-              bgClass="bg-[#F7FDF1]"
+              icon={<Wallet className="w-6 h-6 text-brand-700" />}
+              bgClass="bg-brand-50"
               title="POMIS Calculator"
               desc="Plan your monthly income from the Post Office MIS scheme at 7.4%."
             />
             <ToolCard
               href="/kvp-calculator/"
-              icon={<Clock className="w-6 h-6 text-[#577A30]" />}
-              bgClass="bg-[#F7FDF1]"
+              icon={<Clock className="w-6 h-6 text-brand-700" />}
+              bgClass="bg-brand-50"
               title="KVP Calculator"
               desc="Find the exact date your money will double under Kisan Vikas Patra."
             />
@@ -465,13 +465,13 @@ export default function Home(): JSX.Element {
                 href={`/guides/${guide.slug}/`}
                 className="group block"
               >
-                <Card className="h-full rounded-2xl border border-slate-200 p-6 transition-all hover:-translate-y-1 hover:border-[#DFF7C6] hover:shadow-md bg-white">
+                <Card className="h-full rounded-2xl border border-slate-200 p-6 transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-md bg-white">
                   <div className="mb-4 flex items-center justify-between">
-                    <span className="inline-block rounded-full bg-[#F7FDF1] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-[#577A30] border border-[#DFF7C6]">
+                    <span className="inline-block rounded-full bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-700 border border-brand-200">
                       {guide.category || 'Guide'}
                     </span>
                   </div>
-                  <h3 className="mb-3 line-clamp-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-[#577A30]">
+                  <h3 className="mb-3 line-clamp-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-brand-700">
                     {guide.title}
                   </h3>
                   <p className="line-clamp-3 text-sm leading-relaxed text-slate-600 font-medium">
@@ -573,7 +573,7 @@ export default function Home(): JSX.Element {
               <Button
                 asChild
                 size="lg"
-                className="bg-[#B0EC70] text-[#111827] font-bold hover:bg-[#92C65B] h-14 px-8 text-lg"
+                className="bg-brand-400 text-[#111827] font-bold hover:bg-brand-500 h-14 px-8 text-lg"
               >
                 <Link href="/emi-calculator/">Calculate EMI</Link>
               </Button>
@@ -611,14 +611,14 @@ function ToolCard({
   return (
     <Link
       href={href}
-      className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#B0EC70] hover:shadow-lg group flex flex-col"
+      className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg group flex flex-col"
     >
       <div
         className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl ${bgClass} transition-transform group-hover:scale-110`}
       >
         {icon}
       </div>
-      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#577A30] transition-colors">
+      <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
         {title}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-slate-600 font-medium flex-1">
@@ -640,9 +640,9 @@ function QuickLink({
   return (
     <Link
       href={href}
-      className="rounded-xl border border-slate-200 bg-white px-4 py-3 transition-all hover:border-[#B0EC70] hover:bg-white hover:shadow-sm group"
+      className="rounded-xl border border-slate-200 bg-white px-4 py-3 transition-all hover:border-brand-400 hover:bg-white hover:shadow-sm group"
     >
-      <div className="font-bold text-slate-900 group-hover:text-[#577A30] transition-colors">
+      <div className="font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
         {label}
       </div>
       <div className="mt-1 text-xs leading-relaxed text-slate-500 font-medium">
@@ -671,12 +671,12 @@ function ComparisonCard({
           <div className="z-10 flex h-9 w-9 items-center justify-center rounded-full border border-slate-100 bg-white text-[10px] font-bold text-slate-700 shadow-sm">
             {b1.slice(0, 1)}
           </div>
-          <div className="z-0 flex h-9 w-9 items-center justify-center rounded-full border border-white bg-[#F7FDF1] text-[10px] font-bold text-[#577A30] shadow-sm">
+          <div className="z-0 flex h-9 w-9 items-center justify-center rounded-full border border-white bg-brand-50 text-[10px] font-bold text-brand-700 shadow-sm">
             {b2.slice(0, 1)}
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-bold text-slate-700 transition-colors group-hover:text-[#577A30]">
+          <span className="text-sm font-bold text-slate-700 transition-colors group-hover:text-brand-700">
             {b1} vs {b2}
           </span>
           <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
@@ -684,8 +684,8 @@ function ComparisonCard({
           </span>
         </div>
       </div>
-      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 transition-colors group-hover:bg-[#DFF7C6]">
-        <GitCompare className="h-4 w-4 text-slate-400 transition-colors group-hover:text-[#1B2E06]" />
+      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 transition-colors group-hover:bg-brand-200">
+        <GitCompare className="h-4 w-4 text-slate-400 transition-colors group-hover:text-brand-900" />
       </div>
     </Link>
   );

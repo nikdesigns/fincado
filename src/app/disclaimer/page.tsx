@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 
 const LAST_UPDATED = 'March 2026';
 const SUPPORT_EMAIL = 'support@fincado.com';
-const JURISDICTION_CITY = 'Mumbai';
 
 export default function DisclaimerPage() {
   return (

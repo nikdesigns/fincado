@@ -331,7 +331,7 @@ export default function HomeLoanEMIClient() {
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-muted-foreground">Monthly EMI</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74A046]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-600">
                   {formatINR(calculations.emi)}
                 </div>
 
@@ -364,10 +364,10 @@ export default function HomeLoanEMIClient() {
 
       {/* Tax Benefits Section */}
       {showTaxBenefits && (
-        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+        <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <PiggyBank className="h-5 w-5 text-[#92C65B]" />
+              <PiggyBank className="h-5 w-5 text-brand-500" />
               Tax Benefits on Home Loan
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -377,30 +377,30 @@ export default function HomeLoanEMIClient() {
 
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 bg-white rounded-lg border border-[#DFF7C6]">
+              <div className="p-4 bg-white rounded-lg border border-brand-200">
                 <div className="text-xs text-slate-600 mb-1">
                   Section 80C (Principal)
                 </div>
-                <div className="text-2xl font-semibold text-[#74A046]">
+                <div className="text-2xl font-semibold text-brand-600">
                   {formatINR(taxBenefits.principalDeduction)}
                 </div>
               </div>
 
-              <div className="p-4 bg-white rounded-lg border border-[#DFF7C6]">
+              <div className="p-4 bg-white rounded-lg border border-brand-200">
                 <div className="text-xs text-slate-600 mb-1">
                   Section 24(b) (Interest)
                 </div>
-                <div className="text-2xl font-semibold text-[#74A046]">
+                <div className="text-2xl font-semibold text-brand-600">
                   {formatINR(taxBenefits.interestDeduction)}
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-[#EFFBE2] rounded-lg">
-              <div className="text-sm text-[#1B2E06] mb-1 font-semibold">
+            <div className="p-4 bg-brand-100 rounded-lg">
+              <div className="text-sm text-brand-900 mb-1 font-semibold">
                 Total Annual Tax Saving (30% bracket)
               </div>
-              <div className="text-3xl font-semibold text-[#74A046]">
+              <div className="text-3xl font-semibold text-brand-600">
                 {formatINR(taxBenefits.taxSaved)}
               </div>
             </div>
@@ -481,8 +481,8 @@ export default function HomeLoanEMIClient() {
               </div>
             </div>
 
-            <div className="p-5 bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] rounded-lg border-2 border-[#DFF7C6]">
-              <h4 className="font-semibold text-[#1B2E06] mb-4 flex items-center gap-2">
+            <div className="p-5 bg-linear-to-br from-brand-50 to-brand-50 rounded-lg border-2 border-brand-200">
+              <h4 className="font-semibold text-brand-900 mb-4 flex items-center gap-2">
                 <TrendingDown className="h-5 w-5" />
                 Your Savings
               </h4>
@@ -492,7 +492,7 @@ export default function HomeLoanEMIClient() {
                     <IndianRupee className="h-3 w-3" />
                     Interest Saved
                   </div>
-                  <div className="text-3xl font-semibold text-[#74A046]">
+                  <div className="text-3xl font-semibold text-brand-600">
                     {formatINR(prepaymentImpact.interestSaved)}
                   </div>
                 </div>
@@ -501,7 +501,7 @@ export default function HomeLoanEMIClient() {
                     <Calendar className="h-3 w-3" />
                     Tenure Reduced By
                   </div>
-                  <div className="text-3xl font-semibold text-[#74A046]">
+                  <div className="text-3xl font-semibold text-brand-600">
                     {prepaymentImpact.tenureReduction}{' '}
                     {prepaymentImpact.tenureReduction === 1
                       ? 'month'
@@ -510,7 +510,7 @@ export default function HomeLoanEMIClient() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
+              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-brand-200">
                 💡 <strong>Tip:</strong> Making prepayments in the early years
                 saves maximum interest because the principal is still high.
               </p>

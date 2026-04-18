@@ -151,7 +151,7 @@ export default function Tax9LakhGuide() {
         {/* HEADER Badge */}
         <Badge
           variant="secondary"
-          className="mb-3 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] px-3 py-1"
+          className="mb-3 bg-brand-100 text-brand-700 hover:bg-brand-200 px-3 py-1"
         >
           Zero Tax Zone
         </Badge>
@@ -187,21 +187,21 @@ export default function Tax9LakhGuide() {
           <WikiText
             content={`<p>Earning <strong>₹9 Lakhs (9 LPA)</strong> still qualifies for <strong>zero tax</strong> under the <strong>New Tax Regime (${CONFIG.year})</strong>. The <strong>₹75,000 Standard Deduction</strong> brings your taxable income to <strong>₹8.25 Lakhs</strong>, which is below the ₹12 Lakh rebate limit. You get the full <strong>Section 87A rebate</strong>, making your final tax <strong>zero</strong>.</p>`}
           />
-          <Badge className="mt-4 bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6]">
+          <Badge className="mt-4 bg-brand-100 text-brand-700 hover:bg-brand-200">
             Status: Tax-Free under New Regime ({CONFIG.year})
           </Badge>
         </CardContent>
       </Card>
 
       {/* --- VERDICT BOX --- */}
-      <Card className="mb-12 bg-[#F7FDF1] border-[#DFF7C6] shadow-md">
+      <Card className="mb-12 bg-brand-50 border-brand-200 shadow-md">
         <CardHeader className="pb-2">
-          <CardTitle className="text-[#1B2E06] text-xl flex items-center gap-2">
-            <Lightbulb className="h-6 w-6 text-[#577A30]" /> Quick Verdict
+          <CardTitle className="text-brand-900 text-xl flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-brand-700" /> Quick Verdict
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4 text-[#1B2E06]">
+          <div className="space-y-4 text-brand-900">
             <p className="text-lg">
               For a <strong>₹9 Lakh salary</strong>, your tax payable is{' '}
               <span className="font-semibold text-2xl">₹0 (Zero)</span> under
@@ -212,7 +212,7 @@ export default function Tax9LakhGuide() {
               <strong>₹21,250</strong>, but the government gives you a full
               discount (Rebate u/s 87A up to ₹12 Lakh taxable income).
             </p>
-            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-[#DFF7C6] text-sm text-amber-800">
+            <div className="flex items-start gap-2 bg-white/60 p-3 rounded border border-brand-200 text-sm text-amber-800">
               <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
               <span>
                 <strong>Old Regime Warning:</strong> Without substantial
@@ -220,7 +220,7 @@ export default function Tax9LakhGuide() {
               </span>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-[#EFFBE2]">
+            <div className="bg-white p-6 rounded-lg shadow-sm mt-6 border border-brand-100">
               <p className="text-sm font-semibold mb-4 text-center text-slate-700">
                 Verify with our Calculator:
               </p>
@@ -289,18 +289,18 @@ export default function Tax9LakhGuide() {
                 <TableCell className="font-medium text-slate-700">
                   Less: TDS (Tax)
                 </TableCell>
-                <TableCell className="text-[#577A30] font-semibold">
+                <TableCell className="text-brand-700 font-semibold">
                   ₹0
                 </TableCell>
                 <TableCell className="text-red-600 font-semibold">
                   - ₹7,150
                 </TableCell>
               </TableRow>
-              <TableRow className="bg-[#F7FDF1]">
-                <TableCell className="font-semibold text-[#1B2E06] text-lg">
+              <TableRow className="bg-brand-50">
+                <TableCell className="font-semibold text-brand-900 text-lg">
                   In-Hand Salary
                 </TableCell>
-                <TableCell className="font-semibold text-[#577A30] text-lg">
+                <TableCell className="font-semibold text-brand-700 text-lg">
                   ₹70,300
                 </TableCell>
                 <TableCell className="font-semibold text-amber-700 text-lg">
@@ -326,9 +326,9 @@ export default function Tax9LakhGuide() {
           ₹9,00,000 Go?
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
-          <Card className="border-t-4 border-t-[#F7FDF1]0 shadow-sm">
+          <Card className="border-t-4 border-t-brand-500 shadow-sm">
             <CardContent className="pt-6">
-              <strong className="block text-[#577A30] mb-2 text-lg">
+              <strong className="block text-brand-700 mb-2 text-lg">
                 💰 In Pocket (94.0%)
               </strong>
               <span className="text-3xl font-semibold text-slate-900">
@@ -339,9 +339,9 @@ export default function Tax9LakhGuide() {
               </p>
             </CardContent>
           </Card>
-          <Card className="border-t-4 border-t-[#F7FDF1]0 shadow-sm">
+          <Card className="border-t-4 border-t-brand-500 shadow-sm">
             <CardContent className="pt-6">
-              <strong className="block text-[#577A30] mb-2 text-lg">
+              <strong className="block text-brand-700 mb-2 text-lg">
                 🏛️ Income Tax (0%)
               </strong>
               <span className="text-3xl font-semibold text-slate-900">₹0</span>
@@ -416,12 +416,12 @@ export default function Tax9LakhGuide() {
                     <TableCell>-</TableCell>
                     <TableCell>₹21,250</TableCell>
                   </TableRow>
-                  <TableRow className="font-semibold text-[#577A30] bg-[#F7FDF1]/50">
+                  <TableRow className="font-semibold text-brand-700 bg-brand-50/50">
                     <TableCell>Less: Rebate 87A</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>- ₹21,250</TableCell>
                   </TableRow>
-                  <TableRow className="font-semibold text-[#577A30] bg-[#EFFBE2]">
+                  <TableRow className="font-semibold text-brand-700 bg-brand-100">
                     <TableCell>Net Payable</TableCell>
                     <TableCell>-</TableCell>
                     <TableCell>₹0</TableCell>
@@ -550,17 +550,17 @@ export default function Tax9LakhGuide() {
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
-                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#F7FDF1] text-[#577A30] group-hover:bg-[#EFFBE2] group-hover:text-[#577A30] transition-colors">
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-700 group-hover:bg-brand-100 group-hover:text-brand-700 transition-colors">
                     <Scale className="h-5 w-5" />
                   </div>
-                  <h3 className="font-semibold text-slate-900 group-hover:text-[#577A30] transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-brand-700 transition-colors">
                     New vs Old Regime
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
                     Detailed comparison of FY 2025-26 rules.
                   </p>
                 </div>
-                <div className="mt-4 flex items-center text-sm font-semibold text-[#577A30]">
+                <div className="mt-4 flex items-center text-sm font-semibold text-brand-700">
                   Read Guide{' '}
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </div>

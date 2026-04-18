@@ -193,7 +193,7 @@ export default function ContactPage() {
                   <p className="text-sm text-slate-600">
                     💡 Before emailing, check our{' '}
                     <a
-                      href="/faq/"
+                      href="/contact/"
                       className="text-blue-600 hover:text-blue-700 font-semibold hover:underline"
                     >
                       FAQ section
@@ -377,7 +377,7 @@ export default function ContactPage() {
                 By contacting us you consent to Fincado storing your message and
                 email for the purpose of responding. For details see our{' '}
                 <a
-                  href="/privacy/"
+                  href="/privacy-policy/"
                   className="text-blue-600 hover:text-blue-700 font-semibold hover:underline"
                 >
                   Privacy Policy
@@ -495,7 +495,7 @@ export default function ContactPage() {
                     common questions.
                   </p>
                   <a
-                    href="/faq/"
+                    href="/contact/"
                     className="inline-block text-xs font-semibold text-blue-700 hover:text-blue-800 hover:underline"
                   >
                     Browse FAQ →

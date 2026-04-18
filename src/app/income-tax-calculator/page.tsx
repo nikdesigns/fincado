@@ -260,14 +260,14 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <Scale className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Income Tax Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Tax Year 2026-27 • Income Tax Act 2025
               </p>
             </div>
@@ -286,13 +286,13 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
           </div>
 
           {/* Budget Update */}
-          <div className="mt-6 flex gap-3 p-4 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg items-start shadow-sm max-w-2xl">
-            <BadgeCheck className="w-5 h-5 text-[#577A30] mt-0.5 shrink-0" />
+          <div className="mt-6 flex gap-3 p-4 bg-brand-50 border border-brand-200 rounded-lg items-start shadow-sm max-w-2xl">
+            <BadgeCheck className="w-5 h-5 text-brand-700 mt-0.5 shrink-0" />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-[#1B2E06]">
+              <p className="text-sm font-semibold text-brand-900">
                 Latest Budget Update: New Regime Slabs Revised
               </p>
-              <p className="text-xs text-[#577A30] leading-relaxed">
+              <p className="text-xs text-brand-700 leading-relaxed">
                 Updated for <strong>Tax Year 2026-27</strong> under the new
                 Income Tax Act 2025. New regime slabs revised + ₹12L rebate
                 (Section 87A) and ₹75,000 standard deduction. Old regime slabs
@@ -312,9 +312,9 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
             {/* Key Stats Cards */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       TAX FREE INCOME
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -330,9 +330,9 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       STD DEDUCTION
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -348,9 +348,9 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       MAX TAX RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -377,8 +377,8 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Regime Selection Tip
@@ -403,7 +403,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                   <div className="grid md:grid-cols-2 gap-6">
                     {/* Old Regime Slabs */}
                     <div className="space-y-3">
-                      <h3 className="text-lg font-semibold text-[#577A30] flex items-center gap-2">
+                      <h3 className="text-lg font-semibold text-brand-700 flex items-center gap-2">
                         <FileText className="h-5 w-5" />
                         Old Tax Regime
                       </h3>
@@ -411,7 +411,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                       <div className="overflow-hidden rounded-lg border border-slate-200">
                         <Table>
                           <TableHeader>
-                            <TableRow className="bg-[#F7FDF1]">
+                            <TableRow className="bg-brand-50">
                               <TableHead className="font-semibold">
                                 Income Slab
                               </TableHead>
@@ -467,7 +467,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
 
                     {/* New Regime Slabs */}
                     <div className="space-y-3">
-                      <h3 className="text-lg font-semibold text-[#577A30] flex items-center gap-2">
+                      <h3 className="text-lg font-semibold text-brand-700 flex items-center gap-2">
                         <Receipt className="h-5 w-5" />
                         New Tax Regime
                       </h3>
@@ -475,7 +475,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                       <div className="overflow-hidden rounded-lg border border-slate-200">
                         <Table>
                           <TableHeader>
-                            <TableRow className="bg-[#F7FDF1]">
+                            <TableRow className="bg-brand-50">
                               <TableHead className="font-semibold">
                                 Income Slab
                               </TableHead>
@@ -552,7 +552,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                     </div>
                   </div>
 
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
                     <p className="text-sm text-slate-700">
                       <strong>Key Difference:</strong> New Regime has more slabs
                       (6 vs 4) with lower rates but fewer deductions. Old Regime
@@ -566,18 +566,18 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <TrendingDown className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Save tax with ELSS mutual funds (Section 80C)
                   </strong>
                   <Link
                     href="/elss-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-700"
                   >
                     <span>
                       Calculate ELSS returns and tax saving potential with ELSS
@@ -609,8 +609,8 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                 </div>
 
                 {/* Example Calculation */}
-                <div className="mt-6 p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                  <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                <div className="mt-6 p-5 bg-brand-50 rounded-lg border border-brand-200">
+                  <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                     <span className="text-xl">🧮</span>
                     Example: ₹12 Lakh Salary Tax Calculation (New Regime)
                   </h4>
@@ -631,7 +631,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#D0F4A9]">
+                    <div className="pt-3 border-t border-brand-300">
                       <div className="font-semibold mb-2">Tax Calculation:</div>
                       <div className="space-y-1 text-xs font-mono">
                         <div>Up to ₹4L: Nil = ₹0</div>
@@ -639,17 +639,17 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                         <div>₹8L - ₹11.25L (₹3.25L × 10%): = ₹32,500</div>
                         <div>Total tax before cess: = ₹52,500</div>
                         <div>Add: Health & Education Cess (4%): = ₹2,100</div>
-                        <div className="font-semibold text-base mt-2 text-[#577A30]">
+                        <div className="font-semibold text-base mt-2 text-brand-700">
                           Final Tax Liability: = ₹54,600
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-3 p-3 bg-white rounded border border-[#DFF7C6]">
+                    <div className="mt-3 p-3 bg-white rounded border border-brand-200">
                       <div className="text-sm">
                         <strong>Net Income After Tax:</strong> ₹12,00,000 -
                         ₹54,600 ={' '}
-                        <strong className="text-[#577A30]">₹11,45,400</strong>
+                        <strong className="text-brand-700">₹11,45,400</strong>
                       </div>
                       <div className="text-xs text-slate-600 mt-1">
                         Effective Tax Rate: 4.55%
@@ -706,7 +706,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                       <TableRow>
                         <TableCell className="font-medium">Tax Slabs</TableCell>
                         <TableCell>4 slabs (5%, 20%, 30%)</TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           7 slabs (5%, 10%, 15%, 20%, 25%, 30%)
                         </TableCell>
                       </TableRow>
@@ -716,7 +716,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                           Standard Deduction
                         </TableCell>
                         <TableCell>₹50,000</TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           ₹75,000
                         </TableCell>
                       </TableRow>
@@ -725,7 +725,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                         <TableCell className="font-medium">
                           Section 80C (₹1.5L)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Allowed
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -735,7 +735,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                         <TableCell className="font-medium">
                           HRA Exemption
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Allowed
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -745,7 +745,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                         <TableCell className="font-medium">
                           Home Loan Interest
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Allowed (₹2L)
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -756,7 +756,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                           Section 87A Rebate
                         </TableCell>
                         <TableCell>Up to ₹5L income</TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Up to ₹12L income
                         </TableCell>
                       </TableRow>
@@ -765,7 +765,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                         <TableCell className="font-medium">
                           LTA (Leave Travel)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Allowed
                         </TableCell>
                         <TableCell>Not Allowed</TableCell>
@@ -776,17 +776,17 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                           Default Choice
                         </TableCell>
                         <TableCell>No</TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Yes (from FY 2023-24)
                         </TableCell>
                       </TableRow>
 
                       <TableRow>
                         <TableCell className="font-medium">Best For</TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           High deductions (home loan, HRA, 80C all maxed)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Low deductions, simple salary income
                         </TableCell>
                       </TableRow>
@@ -802,8 +802,8 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                 </h3>
 
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="p-5 rounded-xl border-2 border-[#DFF7C6] bg-[#F7FDF1]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+                  <div className="p-5 rounded-xl border-2 border-brand-200 bg-brand-50">
+                    <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                       <BadgeCheck className="h-5 w-5" />
                       Choose New Regime If:
                     </h4>
@@ -818,8 +818,8 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                     </ul>
                   </div>
 
-                  <div className="p-5 rounded-xl border-2 border-[#DFF7C6] bg-[#F7FDF1]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+                  <div className="p-5 rounded-xl border-2 border-brand-200 bg-brand-50">
+                    <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                       <FileText className="h-5 w-5" />
                       Choose Old Regime If:
                     </h4>
@@ -833,7 +833,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                   </div>
                 </div>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
                   <p className="text-sm text-slate-700">
                     <strong>General Rule:</strong> New Regime saves more tax for
                     income up to ₹12 lakhs (zero-tax zone) and often beyond that
@@ -890,21 +890,21 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/elss-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               ELSS Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate tax saving and returns from ELSS mutual
                               funds under Section 80C.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate ELSS Returns</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -915,21 +915,21 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
                   </Link>
 
                   <Link href="/hra-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🏠
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               HRA Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate House Rent Allowance exemption for Old
                               Tax Regime planning.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate HRA Exemption</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

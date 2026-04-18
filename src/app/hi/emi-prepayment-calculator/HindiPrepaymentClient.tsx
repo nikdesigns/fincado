@@ -216,9 +216,9 @@ export default function HindiPrepaymentClient() {
 
       {/* RESULTS SECTION */}
       <div className="lg:col-span-7">
-        <Card className="border-[#B0EC70] bg-white shadow-md overflow-hidden h-full flex flex-col">
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8">
-            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2 flex items-center gap-2">
+        <Card className="border-brand-400 bg-white shadow-md overflow-hidden h-full flex flex-col">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-6 sm:p-8">
+            <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-2 flex items-center gap-2">
               <PiggyBank className="w-4 h-4" /> आपकी कुल बचत (You Will Save)
             </p>
             <h3 className="text-5xl font-semibold text-slate-900 tracking-tighter">

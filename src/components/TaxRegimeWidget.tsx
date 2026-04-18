@@ -118,7 +118,7 @@ export default function TaxRegimeWidget() {
   const getBadgeStyles = (variant?: string) => {
     switch (variant) {
       case 'success':
-        return 'bg-[#EFFBE2] text-[#577A30] hover:bg-[#DFF7C6] border-[#DFF7C6]';
+        return 'bg-brand-100 text-brand-700 hover:bg-brand-200 border-brand-200';
       case 'warning':
         return 'bg-amber-100 text-amber-800 hover:bg-amber-200 border-amber-200';
       case 'info':
@@ -201,7 +201,7 @@ export default function TaxRegimeWidget() {
           <Link href="/guides/new-vs-old-tax-regime-2026/" className="block">
             <Button
               variant="outline"
-              className="w-full border-[#DFF7C6] text-[#577A30] hover:bg-[#F7FDF1] hover:border-[#D0F4A9] font-medium"
+              className="w-full border-brand-200 text-brand-700 hover:bg-brand-50 hover:border-brand-300 font-medium"
             >
               Full New vs Old Regime Guide
               <ArrowRight className="ml-2 h-4 w-4" />

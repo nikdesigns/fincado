@@ -281,12 +281,12 @@ export default function HRAClient({
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Building2 className="h-5 w-5 text-[#577A30]" />
+              <Building2 className="h-5 w-5 text-brand-700" />
               HRA Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -346,7 +346,7 @@ export default function HRAClient({
                 >
                   <div
                     className="group flex items-center gap-2 rounded-md border px-4 py-3 cursor-pointer transition
-                 data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#F7FDF1]
+                 data-[state=checked]:border-brand-400 data-[state=checked]:bg-brand-50
                  hover:bg-slate-50"
                     data-state={isMetro === 'yes' ? 'checked' : 'unchecked'}
                     onClick={() => setIsMetro('yes')}
@@ -354,7 +354,7 @@ export default function HRAClient({
                     <RadioGroupItem
                       value="yes"
                       id="m-yes"
-                      className="data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#B0EC70]"
+                      className="data-[state=checked]:border-brand-400 data-[state=checked]:bg-brand-400"
                     />
                     <Label
                       htmlFor="m-yes"
@@ -366,7 +366,7 @@ export default function HRAClient({
 
                   <div
                     className="group flex items-center gap-2 rounded-md border px-4 py-3 cursor-pointer transition
-                 data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#F7FDF1]
+                 data-[state=checked]:border-brand-400 data-[state=checked]:bg-brand-50
                  hover:bg-slate-50"
                     data-state={isMetro === 'no' ? 'checked' : 'unchecked'}
                     onClick={() => setIsMetro('no')}
@@ -374,7 +374,7 @@ export default function HRAClient({
                     <RadioGroupItem
                       value="no"
                       id="m-no"
-                      className="data-[state=checked]:border-[#B0EC70] data-[state=checked]:bg-[#B0EC70]"
+                      className="data-[state=checked]:border-brand-400 data-[state=checked]:bg-brand-400"
                     />
                     <Label
                       htmlFor="m-no"
@@ -402,23 +402,23 @@ export default function HRAClient({
 
               <div className="mt-6 w-full max-w-sm text-center">
                 <div className="text-sm text-slate-500 mb-1">{t.exemptHRA}</div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {formatINR(results.exemptHRA)}
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-4 text-left">
-                  <Card className="border-[#EFFBE2] bg-[#F7FDF1]">
+                  <Card className="border-brand-100 bg-brand-50">
                     <CardContent className="p-3">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <CheckCircle2 className="w-3 h-3 text-[#577A30]" />
-                        <span className="text-xs font-semibold text-[#577A30]">
+                        <CheckCircle2 className="w-3 h-3 text-brand-700" />
+                        <span className="text-xs font-semibold text-brand-700">
                           Exempt
                         </span>
                       </div>
-                      <div className="text-sm font-semibold text-[#1B2E06]">
+                      <div className="text-sm font-semibold text-brand-900">
                         {formatINR(results.exemptHRA)}
                       </div>
-                      <div className="text-xs text-[#577A30] mt-0.5">
+                      <div className="text-xs text-brand-700 mt-0.5">
                         Tax Free
                       </div>
                     </CardContent>
@@ -451,7 +451,7 @@ export default function HRAClient({
                     <li
                       className={`flex justify-between p-2 rounded ${
                         results.exemptHRA === results.breakdown.cond1
-                          ? 'bg-[#F7FDF1] font-semibold'
+                          ? 'bg-brand-50 font-semibold'
                           : ''
                       }`}
                     >
@@ -463,7 +463,7 @@ export default function HRAClient({
                     <li
                       className={`flex justify-between p-2 rounded ${
                         results.exemptHRA === results.breakdown.cond2
-                          ? 'bg-[#F7FDF1] font-semibold'
+                          ? 'bg-brand-50 font-semibold'
                           : ''
                       }`}
                     >
@@ -477,7 +477,7 @@ export default function HRAClient({
                     <li
                       className={`flex justify-between p-2 rounded ${
                         results.exemptHRA === results.breakdown.cond3
-                          ? 'bg-[#F7FDF1] font-semibold'
+                          ? 'bg-brand-50 font-semibold'
                           : ''
                       }`}
                     >
@@ -487,7 +487,7 @@ export default function HRAClient({
                       </span>
                     </li>
                   </ul>
-                  <div className="mt-3 p-2 bg-[#F7FDF1] rounded text-xs text-slate-600">
+                  <div className="mt-3 p-2 bg-brand-50 rounded text-xs text-slate-600">
                     <strong>Salary:</strong> {formatINR(results.salary)} (Basic
                     + DA)
                   </div>
@@ -512,21 +512,21 @@ export default function HRAClient({
       </div>
 
       {/* ✅ Tax Saving Insight */}
-      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+      <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
         <CardContent className="p-5">
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
               <TrendingUp className="h-5 w-5" />
             </div>
             <div>
-              <div className="font-semibold text-[#1B2E06] mb-1">
+              <div className="font-semibold text-brand-900 mb-1">
                 Tax Saving Impact
               </div>
               <div className="text-sm text-slate-700">
                 Your exempt HRA of{' '}
                 <strong>{formatINR(results.exemptHRA)}</strong> reduces taxable
                 income. At 30% tax slab, you save approximately{' '}
-                <strong className="text-[#577A30]">
+                <strong className="text-brand-700">
                   {formatINR(results.exemptHRA * 0.3)}
                 </strong>{' '}
                 in taxes annually.

@@ -397,12 +397,12 @@ export default function GSTClient({
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-                <Calculator className="h-5 w-5 text-[#92C65B]" />
+                <Calculator className="h-5 w-5 text-brand-500" />
                 {mode === 'add' ? 'Add GST' : 'Remove GST'}
               </CardTitle>
               <button
                 onClick={reset}
-                className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#92C65B] transition-colors"
+                className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-500 transition-colors"
               >
                 <RefreshCcw className="w-3 h-3" /> Reset
               </button>
@@ -429,9 +429,9 @@ export default function GSTClient({
                         value="add"
                         className="
           w-full px-4 py-2 text-sm font-semibold rounded-md
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#74A046]
-          data-[state=active]:border-[#B0EC70]
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-600
+          data-[state=active]:border-brand-400
           data-[state=active]:shadow-sm
           border border-transparent
           text-slate-600
@@ -445,9 +445,9 @@ export default function GSTClient({
                         value="remove"
                         className="
           w-full px-4 py-2 text-sm font-semibold rounded-md
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#74A046]
-          data-[state=active]:border-[#B0EC70]
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-600
+          data-[state=active]:border-brand-400
           data-[state=active]:shadow-sm
           border border-transparent
           text-slate-600
@@ -497,25 +497,25 @@ export default function GSTClient({
                       <SelectValue placeholder="Select Rate" />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="0">
+                      <SelectItem className="hover:bg-brand-50" value="0">
                         0% (Exempt)
                       </SelectItem>
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="0.25">
+                      <SelectItem className="hover:bg-brand-50" value="0.25">
                         0.25% (Rough Diamonds)
                       </SelectItem>
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="3">
+                      <SelectItem className="hover:bg-brand-50" value="3">
                         3% (Gold/Jewellery)
                       </SelectItem>
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="5">
+                      <SelectItem className="hover:bg-brand-50" value="5">
                         5% (Essentials)
                       </SelectItem>
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                      <SelectItem className="hover:bg-brand-50" value="12">
                         12% (Standard)
                       </SelectItem>
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="18">
+                      <SelectItem className="hover:bg-brand-50" value="18">
                         18% (Services/Electronics)
                       </SelectItem>
-                      <SelectItem className="hover:bg-[#F7FDF1]" value="28">
+                      <SelectItem className="hover:bg-brand-50" value="28">
                         28% (Luxury Goods)
                       </SelectItem>
                     </SelectContent>
@@ -527,10 +527,10 @@ export default function GSTClient({
                       <Badge
                         key={r}
                         variant={gstRate === r ? 'default' : 'outline'}
-                        className={`cursor-pointer px-3 py-1.5 transition bg-[#577A30] text-[#B0EC70]  ${
+                        className={`cursor-pointer px-3 py-1.5 transition bg-brand-700 text-brand-400  ${
                           gstRate === r
-                            ? 'bg-[#B0EC70] hover:bg-[#B0EC70] text-[#111827]'
-                            : 'hover:bg-[#B0EC70] hover:text-[#111827]'
+                            ? 'bg-brand-400 hover:bg-brand-400 text-[#111827]'
+                            : 'hover:bg-brand-400 hover:text-[#111827]'
                         }`}
                         onClick={() => setGstRate(r)}
                       >
@@ -592,7 +592,7 @@ export default function GSTClient({
                         <span className="text-sm font-semibold text-slate-700">
                           {t.resultGross}
                         </span>
-                        <span className="text-xl font-semibold text-[#92C65B]">
+                        <span className="text-xl font-semibold text-brand-500">
                           {formatINR(results.gross)}
                         </span>
                       </div>
@@ -602,7 +602,7 @@ export default function GSTClient({
 
                 {/* Helpful Note */}
                 <div className="mt-4 flex gap-2 items-start text-xs text-slate-800 bg-white border border-slate-100 p-3 rounded-lg shadow-sm">
-                  <ArrowRight className="w-4 h-4 text-[#B0EC70] shrink-0 mt-0.5" />
+                  <ArrowRight className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
                   <p>
                     {mode === 'add'
                       ? `For an item costing ${formatINR(
@@ -626,7 +626,7 @@ export default function GSTClient({
         <Card className="border-border shadow-sm bg-card">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Calculator className="h-5 w-5 text-[#92C65B]" />
+              <Calculator className="h-5 w-5 text-brand-500" />
               Bulk GST Calculator
             </CardTitle>
           </CardHeader>
@@ -677,22 +677,22 @@ export default function GSTClient({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-white">
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="0">
+                        <SelectItem className="hover:bg-brand-50" value="0">
                           0%
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="3">
+                        <SelectItem className="hover:bg-brand-50" value="3">
                           3%
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="5">
+                        <SelectItem className="hover:bg-brand-50" value="5">
                           5%
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                        <SelectItem className="hover:bg-brand-50" value="12">
                           12%
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="18">
+                        <SelectItem className="hover:bg-brand-50" value="18">
                           18%
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="28">
+                        <SelectItem className="hover:bg-brand-50" value="28">
                           28%
                         </SelectItem>
                       </SelectContent>
@@ -732,7 +732,7 @@ export default function GSTClient({
               </Button>
 
               {/* Bulk Results Summary */}
-              <Card className="border-[#DFF7C6] bg-[#F7FDF1] mt-6">
+              <Card className="border-brand-200 bg-brand-50 mt-6">
                 <CardContent className="p-5">
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
@@ -747,11 +747,11 @@ export default function GSTClient({
                         {formatINR(bulkResults.totalGst)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-lg border-t border-[#DFF7C6] pt-3">
+                    <div className="flex justify-between text-lg border-t border-brand-200 pt-3">
                       <span className="font-semibold text-slate-700">
                         Grand Total:
                       </span>
-                      <span className="font-bold text-[#74A046]">
+                      <span className="font-bold text-brand-600">
                         {formatINR(bulkResults.totalGross)}
                       </span>
                     </div>

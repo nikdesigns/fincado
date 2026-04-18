@@ -365,17 +365,17 @@ export default function PPFClient({
   return (
     <div className="space-y-6">
       {/* PPF Info Card */}
-      <Card className="border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1]">
+      <Card className="border-brand-200 bg-linear-to-r from-brand-50 to-brand-50">
         <CardContent className="py-4">
           <div className="flex items-start gap-3">
-            <Shield className="h-5 w-5 text-[#577A30] mt-0.5" />
+            <Shield className="h-5 w-5 text-brand-700 mt-0.5" />
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-[#1B2E06] mb-1">
+              <h3 className="text-sm font-semibold text-brand-900 mb-1">
                 Tax-Free Returns • EEE Status • Government Backed
               </h3>
               <p className="text-xs text-slate-700">
                 Current PPF rate:{' '}
-                <strong className="text-[#577A30]">{annualRate}%</strong> |
+                <strong className="text-brand-700">{annualRate}%</strong> |
                 15-year lock-in | Max investment: ₹1.5L/year | Section 80C
                 benefit
               </p>
@@ -389,12 +389,12 @@ export default function PPFClient({
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <Lock className="h-5 w-5 text-[#577A30]" />
+              <Lock className="h-5 w-5 text-brand-700" />
               PPF Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -497,7 +497,7 @@ export default function PPFClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {formatINR(calculations.maturity)}
                 </div>
 
@@ -513,25 +513,25 @@ export default function PPFClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30]">
+                      <div className="text-xs text-brand-700">
                         {t.totalInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-[#577A30]">
+                      <div className="mt-1 font-semibold text-brand-700">
                         +{formatINR(calculations.interest)}
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="mt-4 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                <div className="mt-4 p-3 bg-brand-50 rounded-lg border border-brand-200">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-700 flex items-center gap-1">
-                      <TrendingUp className="h-4 w-4 text-[#577A30]" />
+                      <TrendingUp className="h-4 w-4 text-brand-700" />
                       {t.effectiveReturn}
                     </span>
-                    <span className="font-semibold text-[#577A30]">
+                    <span className="font-semibold text-brand-700">
                       {calculations.effectiveReturn}%
                     </span>
                   </div>
@@ -562,7 +562,7 @@ export default function PPFClient({
                               {t.balance}{' '}
                               <strong>{formatINR(item.balance)}</strong>
                             </span>
-                            <span className="text-[#577A30]">
+                            <span className="text-brand-700">
                               {t.interest}{' '}
                               <strong>{formatINR(item.interestEarned)}</strong>
                             </span>

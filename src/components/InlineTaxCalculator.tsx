@@ -112,14 +112,14 @@ export default function InlineTaxCalculator({
 
   return (
     <Card className="border-none shadow-none border-slate-200 my-8 no-print overflow-hidden bg-white">
-      <CardHeader className="bg-[#F7FDF1] border-none border-[#EFFBE2] py-3 px-6">
+      <CardHeader className="bg-brand-50 border-none border-brand-100 py-3 px-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-[#577A30] font-semibold text-sm uppercase tracking-wide">
+          <div className="flex items-center gap-2 text-brand-700 font-semibold text-sm uppercase tracking-wide">
             <Zap className="h-4 w-4" /> Quick Tax Check ({fy.fullFormat})
           </div>
           <Badge
             variant="outline"
-            className="bg-white text-[#577A30] border-[#DFF7C6] text-[10px] uppercase font-semibold"
+            className="bg-white text-brand-700 border-brand-200 text-[10px] uppercase font-semibold"
           >
             {budgetText}
           </Badge>
@@ -147,7 +147,7 @@ export default function InlineTaxCalculator({
                   setIncome(Math.max(0, Number(e.target.value) || 0))
                 }
                 step={50000}
-                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-[#B0EC70] font-semibold text-slate-900"
+                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-brand-400 font-semibold text-slate-900"
               />
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function InlineTaxCalculator({
                   setDeductions(Math.max(0, Number(e.target.value) || 0))
                 }
                 placeholder="e.g. 150000"
-                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-[#B0EC70] font-semibold text-slate-900"
+                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-brand-400 font-semibold text-slate-900"
               />
             </div>
             <p className="text-[10px] text-slate-500">
@@ -183,7 +183,7 @@ export default function InlineTaxCalculator({
           <div
             className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
               isNewBetter
-                ? 'bg-[#F7FDF1] border-[#DFF7C6]'
+                ? 'bg-brand-50 border-brand-200'
                 : 'bg-slate-50 border-slate-200 opacity-70'
             }`}
           >
@@ -192,13 +192,13 @@ export default function InlineTaxCalculator({
             </span>
             <span
               className={`text-xl sm:text-2xl font-black ${
-                isNewBetter ? 'text-[#577A30]' : 'text-slate-700'
+                isNewBetter ? 'text-brand-700' : 'text-slate-700'
               }`}
             >
               {formatCurrency(taxNew)}
             </span>
             {isNewBetter && (
-              <CheckCircle2 className="h-4 w-4 text-[#577A30] mt-2" />
+              <CheckCircle2 className="h-4 w-4 text-brand-700 mt-2" />
             )}
           </div>
 
@@ -228,15 +228,15 @@ export default function InlineTaxCalculator({
         <div
           className={`text-center py-3 px-4 rounded-lg border-2 border-dashed ${
             isNewBetter
-              ? 'bg-[#F7FDF1]/50 border-[#EFFBE2] text-[#1B2E06]'
+              ? 'bg-brand-50/50 border-brand-100 text-brand-900'
               : 'bg-blue-50/50 border-blue-100 text-blue-900'
           }`}
         >
           {isNewBetter ? (
             <p className="font-medium flex items-center justify-center gap-2">
-              <Calculator className="h-4 w-4 text-[#577A30]" />
+              <Calculator className="h-4 w-4 text-brand-700" />
               New Regime saves you{' '}
-              <span className="font-semibold text-[#577A30]">
+              <span className="font-semibold text-brand-700">
                 {formatCurrency(savings)}
               </span>{' '}
               🎉

@@ -669,7 +669,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 value="withdrawal"
                 className={cn(
                   'flex items-center gap-2 font-semibold transition-all',
-                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:bg-brand-400',
                   'data-[state=inactive]:text-[#111827] data-[state=inactive]:hover:text-slate-900',
                 )}
               >
@@ -681,7 +681,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 value="goal"
                 className={cn(
                   'flex items-center gap-2 font-semibold transition-all',
-                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:bg-brand-400',
                   'data-[state=inactive]:text-[#111827] data-[state=inactive]:hover:text-slate-900',
                 )}
               >
@@ -704,7 +704,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   <div
                     className={cn(
                       'absolute inset-0 rounded-full blur-md transition-all',
-                      comparisonMode ? 'bg-[#D0F4A9]' : 'bg-slate-200',
+                      comparisonMode ? 'bg-brand-300' : 'bg-slate-200',
                     )}
                   />
                   <Switch
@@ -713,7 +713,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                     id="comparison-mode"
                     className={cn(
                       'relative scale-125',
-                      'data-[state=checked]:bg-[#92C65B]',
+                      'data-[state=checked]:bg-brand-500',
                       'data-[state=unchecked]:bg-slate-400',
                     )}
                   />
@@ -736,7 +736,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-semibold transition-all',
                   comparisonMode
-                    ? 'bg-[#EFFBE2] text-[#74A046] border-2 border-[#DFF7C6]'
+                    ? 'bg-brand-100 text-brand-600 border-2 border-brand-200'
                     : 'bg-slate-100 text-slate-500 border-2 border-slate-200',
                 )}
               >
@@ -776,12 +776,12 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-                <TrendingDown className="h-5 w-5 text-[#92C65B]" />
+                <TrendingDown className="h-5 w-5 text-brand-500" />
                 {t.swpCalculator}
               </CardTitle>
               <button
                 onClick={handleReset}
-                className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#92C65B] transition-colors"
+                className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-500 transition-colors"
               >
                 <RefreshCcw className="w-3 h-3" /> {t.reset}
               </button>
@@ -855,7 +855,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                           id="inflation-toggle"
                           className={cn(
                             'scale-110',
-                            'data-[state=checked]:bg-[#92C65B]',
+                            'data-[state=checked]:bg-brand-500',
                             'data-[state=unchecked]:bg-slate-200',
                           )}
                         />
@@ -869,14 +869,14 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                       </div>
 
                       {inflationEnabled && (
-                        <span className="text-xs font-semibold text-[#74A046] bg-[#EFFBE2] px-2 py-1 rounded-full">
+                        <span className="text-xs font-semibold text-brand-600 bg-brand-100 px-2 py-1 rounded-full">
                           Active
                         </span>
                       )}
                     </div>
 
                     {inflationEnabled && (
-                      <div className="mt-3 pt-3 border-t border-[#DFF7C6]">
+                      <div className="mt-3 pt-3 border-t border-brand-200">
                         <CalculatorField
                           label={t.inflationRate}
                           value={inflationRate}
@@ -904,7 +904,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                     {t.remainingCorpus}
                   </div>
 
-                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74A046]">
+                  <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-600">
                     {formatINR(results.finalBalance)}
                   </div>
 
@@ -927,29 +927,29 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                       </CardContent>
                     </Card>
 
-                    <Card className="border-[#DFF7C6] bg-[#EFFBE2]">
+                    <Card className="border-brand-200 bg-brand-100">
                       <CardContent className="p-4">
-                        <div className="text-xs text-[#74A046]">
+                        <div className="text-xs text-brand-600">
                           {t.totalWithdrawn}
                         </div>
-                        <div className="mt-1 font-semibold text-[#74A046] whitespace-nowrap">
+                        <div className="mt-1 font-semibold text-brand-600 whitespace-nowrap">
                           {formatINR(results.totalWithdrawn)}
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
-                  <div className="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <div className="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-700">
                         {t.annualWithdrawal}:
                       </span>
-                      <span className="font-semibold text-[#74A046]">
+                      <span className="font-semibold text-brand-600">
                         {formatINR(results.annualWithdrawal)}
                       </span>
                     </div>
                     {inflationEnabled && (
-                      <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-[#DFF7C6]">
+                      <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-brand-200">
                         💡 {t.inflationImpact}: Year 1:{' '}
                         {formatINR(results.annualWithdrawal)} → Year {years}:{' '}
                         {formatINR(
@@ -971,10 +971,10 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
       ) : (
         <div className="grid md:grid-cols-2 gap-6">
           {/* Strategy A */}
-          <Card className="border-[#DFF7C6]">
+          <Card className="border-brand-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#74A046] text-sm font-semibold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-100 text-brand-600 text-sm font-semibold">
                   A
                 </span>
                 {t.strategyA}
@@ -1017,18 +1017,18 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 onChange={setYears}
               />
 
-              <div className="pt-4 border-t border-[#DFF7C6]">
+              <div className="pt-4 border-t border-brand-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {t.remainingCorpus}
                   </div>
-                  <div className="text-2xl font-semibold text-[#74A046] mt-1">
+                  <div className="text-2xl font-semibold text-brand-600 mt-1">
                     {formatINR(results.finalBalance)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
                     {t.totalWithdrawn}
                   </div>
-                  <div className="text-lg font-semibold text-[#92C65B]">
+                  <div className="text-lg font-semibold text-brand-500">
                     {formatINR(results.totalWithdrawn)}
                   </div>
                   {results.isExhausted && (
@@ -1042,10 +1042,10 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
           </Card>
 
           {/* Strategy B */}
-          <Card className="border-[#DFF7C6]">
+          <Card className="border-brand-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#EFFBE2] text-[#74A046] text-sm font-semibold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-100 text-brand-600 text-sm font-semibold">
                   B
                 </span>
                 {t.strategyB}
@@ -1088,18 +1088,18 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 onChange={setYears2}
               />
 
-              <div className="pt-4 border-t border-[#DFF7C6]">
+              <div className="pt-4 border-t border-brand-200">
                 <div className="text-center">
                   <div className="text-xs text-slate-600">
                     {t.remainingCorpus}
                   </div>
-                  <div className="text-2xl font-semibold text-[#74A046] mt-1">
+                  <div className="text-2xl font-semibold text-brand-600 mt-1">
                     {formatINR(results2?.finalBalance || 0)}
                   </div>
                   <div className="text-xs text-slate-600 mt-2">
                     {t.totalWithdrawn}
                   </div>
-                  <div className="text-lg font-semibold text-[#92C65B]">
+                  <div className="text-lg font-semibold text-brand-500">
                     {formatINR(results2?.totalWithdrawn || 0)}
                   </div>
                   {results2?.isExhausted && (
@@ -1116,9 +1116,9 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
 
       {/* Comparison Summary */}
       {comparisonMode && results2 && (
-        <Card className="border-[#DFF7C6] bg-[#1B2E06]">
+        <Card className="border-brand-200 bg-brand-900">
           <CardHeader>
-            <CardTitle className="text-lg text-[#B0EC70]">
+            <CardTitle className="text-lg text-brand-400">
               {t.whichBetter}
             </CardTitle>
           </CardHeader>
@@ -1128,7 +1128,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 <div className="text-xs text-[#D1D5DB] mb-1">
                   {t.totalWithdrawn}
                 </div>
-                <div className="text-xl font-semibold text-[#92C65B]">
+                <div className="text-xl font-semibold text-brand-500">
                   {formatINR(
                     Math.abs(results.totalWithdrawn - results2.totalWithdrawn),
                   )}
@@ -1141,7 +1141,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 <div className="text-xs text-[#D1D5DB] mb-1">
                   {t.remainingCorpus}
                 </div>
-                <div className="text-xl font-semibold text-[#92C65B]">
+                <div className="text-xl font-semibold text-brand-500">
                   {formatINR(
                     Math.abs(results.finalBalance - results2.finalBalance),
                   )}
@@ -1151,9 +1151,9 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                 <div className="text-xs text-[#D1D5DB] mb-1">Winner</div>
                 <div className="text-xl font-semibold">
                   {results.finalBalance > results2.finalBalance ? (
-                    <span className="text-[#B0EC70]">🏆 {t.strategyA}</span>
+                    <span className="text-brand-400">🏆 {t.strategyA}</span>
                   ) : (
-                    <span className="text-[#B0EC70]">🏆 {t.strategyB}</span>
+                    <span className="text-brand-400">🏆 {t.strategyB}</span>
                   )}
                 </div>
               </div>
@@ -1175,12 +1175,17 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
         <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <LineChart className="h-5 w-5 text-[#92C65B]" />
+              <LineChart className="h-5 w-5 text-brand-500" />
               {t.corpusDepletionChart}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer
+              width="100%"
+              height={300}
+              minWidth={0}
+              minHeight={0}
+            >
               <RechartsLineChart data={results.yearlyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis
@@ -1244,7 +1249,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                     <th className="text-right p-3 font-semibold">
                       {t.interestEarned}
                     </th>
-                    <th className="text-right p-3 font-semibold text-[#92C65B]">
+                    <th className="text-right p-3 font-semibold text-brand-500">
                       {t.closingBalance}
                     </th>
                   </tr>
@@ -1264,10 +1269,10 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                       <td className="p-3 text-right text-[#FF568E]">
                         {formatINR(row.withdrawn)}
                       </td>
-                      <td className="p-3 text-right text-[#92C65B]">
+                      <td className="p-3 text-right text-brand-500">
                         {formatINR(row.interestEarned)}
                       </td>
-                      <td className="p-3 text-right font-semibold text-[#92C65B]">
+                      <td className="p-3 text-right font-semibold text-brand-500">
                         {formatINR(row.closingBalance)}
                       </td>
                     </tr>
@@ -1285,7 +1290,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Receipt className="h-5 w-5 text-[#92C65B]" />
+                <Receipt className="h-5 w-5 text-brand-500" />
                 {t.taxImpact}
               </CardTitle>
               <Button
@@ -1319,19 +1324,19 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
 
               {taxCalculations && (
                 <>
-                  <div className="p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+                  <div className="p-3 bg-brand-50 rounded-lg border border-brand-200">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-700">
                         {t.annualWithdrawal}:
                       </span>
-                      <span className="font-semibold text-[#74A046]">
+                      <span className="font-semibold text-brand-600">
                         {formatINR(results.totalWithdrawn / Math.max(1, years))}
                       </span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <Card className="border-[#DFF7C6] bg-white">
+                    <Card className="border-brand-200 bg-white">
                       <CardContent className="p-4">
                         <div className="text-xs text-slate-600">
                           {t.totalWithdrawn}
@@ -1356,12 +1361,12 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                       </CardContent>
                     </Card>
 
-                    <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                    <Card className="border-brand-200 bg-brand-50">
                       <CardContent className="p-4">
-                        <div className="text-xs text-[#74A046]">
+                        <div className="text-xs text-brand-600">
                           {t.netWithdrawal}
                         </div>
-                        <div className="mt-1 font-semibold text-[#74A046]">
+                        <div className="mt-1 font-semibold text-brand-600">
                           {formatINR(taxCalculations.netWithdrawal)}
                         </div>
                       </CardContent>
@@ -1428,7 +1433,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                           {formatINR(calc.monthlyWithdrawal)}/
                           {FREQUENCY_MAP[calc.frequency].label}
                           {calc.inflationEnabled && (
-                            <span className="text-xs text-[#92C65B] ml-1">
+                            <span className="text-xs text-brand-500 ml-1">
                               ({t.withInflation})
                             </span>
                           )}

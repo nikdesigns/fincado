@@ -545,17 +545,17 @@ export default function MutualFundsClient({
 
       {/* --- RIGHT: RESULTS --- */}
       <div className="lg:col-span-5">
-        <Card className="sticky top-6 mr-5 border-[#B0EC70] bg-white shadow-md overflow-hidden flex flex-col">
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8">
+        <Card className="sticky top-6 mr-5 border-brand-400 bg-white shadow-md overflow-hidden flex flex-col">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-6 sm:p-8">
             <div className="text-center">
-              <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2">
+              <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-2">
                 {t.portfolioValue}
               </p>
               <h3 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
                 {formatINR(results.totalFV)}
               </h3>
-              <div className="inline-flex items-center gap-1.5 mt-3 bg-white px-4 py-1.5 rounded-full border border-[#DFF7C6] shadow-sm">
-                <span className="text-sm font-bold text-[#577A30]">
+              <div className="inline-flex items-center gap-1.5 mt-3 bg-white px-4 py-1.5 rounded-full border border-brand-200 shadow-sm">
+                <span className="text-sm font-bold text-brand-700">
                   {results.blendedReturn}% Expected {t.blendedReturn}
                 </span>
               </div>

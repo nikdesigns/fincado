@@ -237,14 +237,14 @@ export default function LumpsumPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <Zap className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Lumpsum Investment Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Calculate one-time investment returns with compound interest
               </p>
             </div>
@@ -265,9 +265,9 @@ export default function LumpsumPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       HISTORICAL EQUITY CAGR
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -283,9 +283,9 @@ export default function LumpsumPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       DEBT FUND RETURNS
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -301,9 +301,9 @@ export default function LumpsumPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       MINIMUM INVESTMENT
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -330,8 +330,8 @@ export default function LumpsumPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Investment Tip
@@ -410,7 +410,7 @@ export default function LumpsumPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                    <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
                       <p className="text-xs text-slate-700">
                         <strong>Note:</strong> For annual compounding (most
                         mutual funds), n=1, so the formula simplifies to FV = P
@@ -420,8 +420,8 @@ export default function LumpsumPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: Lumpsum Investment (Annual Compounding)
                     </h4>
@@ -449,7 +449,7 @@ export default function LumpsumPage() {
                         <div>Annual (1)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Convert Rate to Decimal
                         </strong>
@@ -480,39 +480,39 @@ export default function LumpsumPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#B0EC70]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-400">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Future Value:
                         </div>
-                        <div className="text-3xl font-semibold text-[#74A046]">
+                        <div className="text-3xl font-semibold text-brand-600">
                           ₹15,52,900
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
+                      <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
                         <div className="flex justify-between">
                           <span>Investment:</span>
                           <strong>₹5,00,000</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Wealth Gained:</span>
-                          <strong className="text-[#577A30]">₹10,52,900</strong>
+                          <strong className="text-brand-700">₹10,52,900</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Investment Multiple:</span>
-                          <strong className="text-[#577A30]">3.11x</strong>
+                          <strong className="text-brand-700">3.11x</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Absolute Return:</span>
-                          <strong className="text-[#74A046]">210.58%</strong>
+                          <strong className="text-brand-600">210.58%</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* CAGR Explanation */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                       <DollarSign className="h-4 w-4" />
                       Understanding CAGR (Compound Annual Growth Rate)
                     </h4>
@@ -522,7 +522,7 @@ export default function LumpsumPage() {
                         annually, assuming constant growth. For lumpsum
                         investments, CAGR equals the expected return rate.
                       </p>
-                      <div className="p-3 bg-white rounded border border-[#DFF7C6] mt-2">
+                      <div className="p-3 bg-white rounded border border-brand-200 mt-2">
                         <div className="font-mono text-sm">
                           CAGR = [(FV / P)<sup>1/t</sup> - 1] × 100
                         </div>
@@ -571,18 +571,18 @@ export default function LumpsumPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <TrendingUp className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to compare with monthly investments?
                   </strong>
                   <Link
                     href="/sip-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-700"
                   >
                     <span>
                       Try our SIP Calculator to see how regular investing stacks
@@ -669,7 +669,7 @@ export default function LumpsumPage() {
                         <TableCell className="text-slate-700">
                           Large sum needed upfront
                         </TableCell>
-                        <TableCell className="font-semibold text-[#92C65B]">
+                        <TableCell className="font-semibold text-brand-500">
                           Small amounts monthly
                         </TableCell>
                       </TableRow>
@@ -681,7 +681,7 @@ export default function LumpsumPage() {
                         <TableCell className="text-slate-700">
                           High (single entry point)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#92C65B]">
+                        <TableCell className="font-semibold text-brand-500">
                           Low (rupee cost averaging)
                         </TableCell>
                       </TableRow>
@@ -690,7 +690,7 @@ export default function LumpsumPage() {
                         <TableCell className="font-medium text-slate-700">
                           Returns in Bull Market
                         </TableCell>
-                        <TableCell className="font-semibold text-[#92C65B]">
+                        <TableCell className="font-semibold text-brand-500">
                           Higher (full exposure)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -705,7 +705,7 @@ export default function LumpsumPage() {
                         <TableCell className="text-slate-700">
                           Lower (bought at higher prices)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#92C65B]">
+                        <TableCell className="font-semibold text-brand-500">
                           Higher (averaging down)
                         </TableCell>
                       </TableRow>
@@ -717,7 +717,7 @@ export default function LumpsumPage() {
                         <TableCell className="text-slate-700">
                           One-time decision
                         </TableCell>
-                        <TableCell className="font-semibold text-[#92C65B]">
+                        <TableCell className="font-semibold text-brand-500">
                           Enforces monthly savings
                         </TableCell>
                       </TableRow>
@@ -737,7 +737,7 @@ export default function LumpsumPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Verdict:</strong> Use lumpsum when markets
                     are down 20%+ from peaks or when you have 10+ year horizon.
@@ -781,7 +781,7 @@ export default function LumpsumPage() {
                       while keeping lumpsum deployed.
                     </li>
                   </ol>
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200 mt-4">
                     <p className="text-sm text-slate-700">
                       <strong>Example:</strong> You have ₹10 lakh. Invest entire
                       amount in liquid fund. Transfer ₹1 lakh monthly to equity
@@ -864,21 +864,21 @@ export default function LumpsumPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/sip-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                             📈
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                               SIP Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate returns from monthly systematic
                               investment plans.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                               <span>Compare Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -889,21 +889,21 @@ export default function LumpsumPage() {
                   </Link>
 
                   <Link href="/fd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                               FD Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate fixed deposit returns with guaranteed
                               interest.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                               <span>Try Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

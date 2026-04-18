@@ -215,14 +215,14 @@ export default function HomeLoanEMIPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600">
               <Home className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 Home Loan EMI Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#74A046]">
+              <p className="text-base sm:text-lg font-medium text-brand-600">
                 Calculate Housing Loan EMI with Tax Benefits
               </p>
             </div>
@@ -243,9 +243,9 @@ export default function HomeLoanEMIPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#74A046] mb-1">
+                    <div className="text-xs font-semibold text-brand-600 mb-1">
                       LOWEST RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -417,11 +417,11 @@ export default function HomeLoanEMIPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Monthly EMI:
                         </div>
-                        <div className="text-3xl font-semibold text-[#74A046]">
+                        <div className="text-3xl font-semibold text-brand-600">
                           ₹26,034
                         </div>
                       </div>
@@ -516,7 +516,7 @@ export default function HomeLoanEMIPage() {
                       <tbody className="divide-y divide-slate-100">
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">SBI</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             8.50% - 9.65%
                           </td>
                           <td className="p-3">0.35% of loan</td>
@@ -525,7 +525,7 @@ export default function HomeLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">HDFC Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             8.60% - 9.50%
                           </td>
                           <td className="p-3">Up to 0.5%</td>
@@ -534,7 +534,7 @@ export default function HomeLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">ICICI Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             8.75% - 9.70%
                           </td>
                           <td className="p-3">Up to 1%</td>
@@ -543,7 +543,7 @@ export default function HomeLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">Axis Bank</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             8.75% - 9.65%
                           </td>
                           <td className="p-3">Up to 1%</td>
@@ -552,7 +552,7 @@ export default function HomeLoanEMIPage() {
                         </tr>
                         <tr className="hover:bg-slate-50">
                           <td className="p-3 font-medium">PNB</td>
-                          <td className="p-3 text-[#74A046] font-semibold">
+                          <td className="p-3 text-brand-600 font-semibold">
                             8.40% - 10.40%
                           </td>
                           <td className="p-3">0.35% of loan</td>
@@ -577,20 +577,20 @@ export default function HomeLoanEMIPage() {
             </div>
 
             {/* Promo Content */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#92C65B]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-500">
                   <BookOpen className="h-5 w-5" />
                 </div>
 
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to master home loans?
                   </strong>
 
                   <Link
                     href="/guides/home-loan-guide/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#74A046] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700"
                   >
                     <span>Read our Complete Home Loan Guide (2026)</span>
                     <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -681,21 +681,21 @@ export default function HomeLoanEMIPage() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       {/* ✅ FIXED: Correct internal link */}
                       <Link href="/emi-calculator/" className="group">
-                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                        <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                           <CardContent className="p-5">
                             <div className="flex items-start gap-3">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#74A046] text-2xl">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
                                 💰
                               </span>
 
                               <div className="flex-1">
-                                <div className="font-semibold text-slate-900 group-hover:text-[#74A046] mb-1">
+                                <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
                                   General EMI Calculator
                                 </div>
                                 <p className="text-sm text-slate-600 leading-relaxed">
                                   Calculate EMI for any type of loan
                                 </p>
-                                <div className="mt-3 flex items-center text-xs font-semibold text-[#74A046]">
+                                <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
                                   <span>Calculate Now</span>
                                   <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                                 </div>

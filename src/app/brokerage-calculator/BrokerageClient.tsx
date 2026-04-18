@@ -125,7 +125,7 @@ export default function BrokerageClient() {
                     onClick={() => setSegment(item.id as Segment)}
                     className={`py-3 px-4 text-sm font-semibold rounded-2xl border transition-all ${
                       segment === item.id
-                        ? 'bg-[#EFFBE2] border-[#577A30] text-[#577A30] shadow-sm'
+                        ? 'bg-brand-100 border-brand-700 text-brand-700 shadow-sm'
                         : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                     }`}
                   >
@@ -186,15 +186,15 @@ export default function BrokerageClient() {
       {/* RESULTS SECTION */}
       <div className="lg:col-span-7">
         <Card
-          className={`border shadow-md overflow-hidden h-full flex flex-col ${result.netPnL >= 0 ? 'border-[#B0EC70]' : 'border-rose-300'}`}
+          className={`border shadow-md overflow-hidden h-full flex flex-col ${result.netPnL >= 0 ? 'border-brand-400' : 'border-rose-300'}`}
         >
           <div
-            className={`${result.netPnL >= 0 ? 'bg-linear-to-br from-[#F7FDF1] to-white border-[#DFF7C6]' : 'bg-linear-to-br from-rose-50 to-white border-rose-200'} border-b p-6 sm:p-8`}
+            className={`${result.netPnL >= 0 ? 'bg-linear-to-br from-brand-50 to-white border-brand-200' : 'bg-linear-to-br from-rose-50 to-white border-rose-200'} border-b p-6 sm:p-8`}
           >
             <div className="flex justify-between items-start">
               <div>
                 <p
-                  className={`text-sm font-semibold uppercase tracking-wider mb-2 flex items-center gap-2 ${result.netPnL >= 0 ? 'text-[#577A30]' : 'text-rose-700'}`}
+                  className={`text-sm font-semibold uppercase tracking-wider mb-2 flex items-center gap-2 ${result.netPnL >= 0 ? 'text-brand-700' : 'text-rose-700'}`}
                 >
                   <TrendingUp className="w-4 h-4" /> Net P&L After All Charges
                 </p>

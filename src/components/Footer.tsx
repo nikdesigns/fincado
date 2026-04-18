@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="lg:col-span-2 md:col-span-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xl font-semibold text-slate-900 hover:text-[#74A046] transition-colors"
+              className="inline-flex items-center gap-2 text-xl font-semibold text-slate-900 hover:text-brand-600 transition-colors"
             >
               Fincado
             </Link>
@@ -41,19 +41,19 @@ export default function Footer() {
             {/* KEY FEATURES */}
             <div className="mt-5 space-y-2">
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-300 text-[#111827]">
                   ✓
                 </span>
                 <span>Updated with latest rates & regulations</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-300 text-[#111827]">
                   ✓
                 </span>
                 <span>40+ Financial Calculators</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D0F4A9] text-[#111827]">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-300 text-[#111827]">
                   ✓
                 </span>
                 <span>Available in Hindi & English</span>
@@ -65,7 +65,7 @@ export default function Footer() {
               <Link
                 href="/contact/"
                 aria-label="Contact us"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm transition hover:bg-[#F7FDF1] hover:text-[#577A30] hover:border-[#DFF7C6]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm transition hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200"
               >
                 <Mail className="w-4 h-4" />
               </Link>
@@ -98,7 +98,7 @@ export default function Footer() {
             <FooterLink href="/emi-prepayment-calculator/">
               EMI Prepayment
             </FooterLink>
-            <FooterLink href="/home-loan-calculator/">Home Loan</FooterLink>
+            <FooterLink href="/loans/home-loan/">Home Loan</FooterLink>
             <FooterLink href="/loans/personal-loan/">Personal Loan</FooterLink>
             <FooterLink href="/loans/car-loan/">Car Loan</FooterLink>
             <FooterLink href="/loans/education-loan/">
@@ -197,7 +197,7 @@ export default function Footer() {
               { label: 'EMI Prepayment', href: '/emi-prepayment-calculator/' },
               { label: 'SCSS Calculator', href: '/scss-calculator/' },
               { label: 'PPF Calculator', href: '/ppf-calculator/' },
-              { label: 'Home Loan', href: '/home-loan-calculator/' },
+              { label: 'Home Loan', href: '/loans/home-loan/' },
               { label: 'KVP Calculator', href: '/kvp-calculator/' },
               { label: 'Capital Gains', href: '/capital-gains-calculator/' },
               { label: 'FD Calculator', href: '/fd-calculator/' },
@@ -206,7 +206,7 @@ export default function Footer() {
               <Link
                 key={calc.href}
                 href={calc.href}
-                className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white rounded-full border border-slate-200 hover:bg-[#F7FDF1] hover:text-[#577A30] hover:border-[#DFF7C6] transition-all"
+                className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white rounded-full border border-slate-200 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all"
               >
                 {calc.label}
               </Link>
@@ -260,7 +260,7 @@ function FooterColumn({
   return (
     <div>
       <div className="mb-4 flex items-center gap-2 font-medium">
-        <Icon className="w-4 h-4 text-[#577A30]" />
+        <Icon className="w-4 h-4 text-brand-700" />
         <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900">
           {title}
         </h4>
@@ -283,15 +283,15 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className={`text-sm transition-colors hover:text-[#577A30] inline-flex items-center gap-1 group ${
+        className={`text-sm transition-colors hover:text-brand-700 inline-flex items-center gap-1 group ${
           highlight
-            ? 'font-semibold text-[#577A30]'
+            ? 'font-semibold text-brand-700'
             : 'text-slate-600 hover:translate-x-0.5'
         }`}
       >
         {children}
         {highlight && (
-          <span className="text-xs bg-[#EFFBE2] text-[#577A30] px-1.5 py-0.5 rounded font-bold">
+          <span className="text-xs bg-brand-100 text-brand-700 px-1.5 py-0.5 rounded font-bold">
             NEW
           </span>
         )}

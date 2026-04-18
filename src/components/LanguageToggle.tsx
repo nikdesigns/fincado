@@ -19,10 +19,10 @@ export default function LanguageToggle({ path }: LanguageToggleProps) {
         no-print
         inline-flex items-center gap-2
         rounded-full
-        border-[#B0EC70] bg-[#F7FDF1]
-        text-[#577A30] font-semibold
-        hover:bg-[#DFF7C6] hover:border-[#B0EC70]
-        focus-visible:ring-2 focus-visible:ring-[#B0EC70]
+        border-brand-400 bg-brand-50
+        text-brand-700 font-semibold
+        hover:bg-brand-200 hover:border-brand-400
+        focus-visible:ring-2 focus-visible:ring-brand-400
         focus-visible:ring-offset-2
         transition-colors
       "

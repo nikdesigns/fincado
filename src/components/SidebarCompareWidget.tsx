@@ -47,11 +47,11 @@ export default function SidebarCompareWidget() {
             ))}
           </ul>
         </div>
-        <div className="bg-[#F7FDF1] p-3 text-center">
+        <div className="bg-brand-50 p-3 text-center">
           <Button
             asChild
             variant="link"
-            className="text-[10px] font-semibold text-[#577A30] h-auto p-0 hover:no-underline"
+            className="text-[10px] font-semibold text-brand-700 h-auto p-0 hover:no-underline"
           >
             <Link href="/compare-loans/">View All 90+ Comparisons →</Link>
           </Button>

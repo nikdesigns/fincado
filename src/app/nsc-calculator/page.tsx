@@ -239,14 +239,14 @@ export default function NSCPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <Shield className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 NSC Calculator
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Calculate returns from National Savings Certificate
               </p>
             </div>
@@ -267,9 +267,9 @@ export default function NSCPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       CURRENT NSC RATE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -285,9 +285,9 @@ export default function NSCPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       LOCK-IN PERIOD
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -299,9 +299,9 @@ export default function NSCPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       LAST UPDATED
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -324,8 +324,8 @@ export default function NSCPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Tax-Saving Tip
@@ -394,7 +394,7 @@ export default function NSCPage() {
                         <span>= Investment duration (5 years for NSC)</span>
                       </div>
 
-                      <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                      <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
                         <p className="text-xs text-slate-700">
                           <strong>Note:</strong> Interest is compounded annually
                           (once per year) and the entire maturity amount is paid
@@ -405,8 +405,8 @@ export default function NSCPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: NSC Calculation (5 Years)
                     </h4>
@@ -429,7 +429,7 @@ export default function NSCPage() {
                         <div>5 years (fixed)</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Convert Rate to Decimal
                         </strong>
@@ -460,39 +460,39 @@ export default function NSCPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="text-base font-semibold text-slate-700 mb-1">
                           Maturity Value (5 Years):
                         </div>
-                        <div className="text-3xl font-semibold text-[#577A30]">
+                        <div className="text-3xl font-semibold text-brand-700">
                           ≈ ₹1,45,060
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9] space-y-2">
+                      <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
                         <div className="flex justify-between">
                           <span>Principal Invested:</span>
                           <strong>₹1,00,000</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Interest Earned (Taxable):</span>
-                          <strong className="text-[#577A30]">₹45,060</strong>
+                          <strong className="text-brand-700">₹45,060</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Effective Gain:</span>
-                          <strong className="text-[#577A30]">45.06%</strong>
+                          <strong className="text-brand-700">45.06%</strong>
                         </div>
                         <div className="flex justify-between">
                           <span>Section 80C Benefit (30% slab):</span>
-                          <strong className="text-[#577A30]">₹30,000</strong>
+                          <strong className="text-brand-700">₹30,000</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Tax Calculation Note */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                       <FileText className="h-4 w-4" />
                       Section 80C Tax Benefit Explained
                     </h4>
@@ -521,7 +521,7 @@ export default function NSCPage() {
                           ₹1,24,924
                         </li>
                       </ul>
-                      <p className="text-xs font-semibold text-[#577A30] mt-2">
+                      <p className="text-xs font-semibold text-brand-700 mt-2">
                         💡 Tip: The accrued interest adds to your 80C limit each
                         year, giving extra tax savings beyond the principal
                         investment.
@@ -539,18 +539,18 @@ export default function NSCPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <TrendingUp className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Looking for longer-term tax-free savings?
                   </strong>
                   <Link
                     href="/ppf-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#577A30]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-700"
                   >
                     <span>
                       Compare with PPF Calculator for 100% tax-free returns
@@ -623,7 +623,7 @@ export default function NSCPage() {
                         <TableCell className="font-medium text-slate-700">
                           Returns
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           7.7% (Fixed)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -647,7 +647,7 @@ export default function NSCPage() {
                         <TableCell className="text-slate-700">
                           15 years
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           7 days - 10 years
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -662,7 +662,7 @@ export default function NSCPage() {
                         <TableCell className="text-slate-700">
                           Taxable (80C on principal)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           EEE (100% Tax-Free)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -677,10 +677,10 @@ export default function NSCPage() {
                         <TableCell className="font-medium text-slate-700">
                           Section 80C
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Yes (Principal + Accrued Interest)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Yes (Principal)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -707,7 +707,7 @@ export default function NSCPage() {
                         <TableCell className="font-medium text-slate-700">
                           Ideal For
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           5-year tax-saving goal
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -724,7 +724,7 @@ export default function NSCPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Tip:</strong> NSC is ideal for 5-year
                     tax-saving with guaranteed returns. Combine NSC with PPF for
@@ -779,7 +779,7 @@ export default function NSCPage() {
                       accumulation.
                     </li>
                   </ul>
-                  <p className="mt-4 font-semibold text-[#577A30]">
+                  <p className="mt-4 font-semibold text-brand-700">
                     Verdict: Seniors should choose SCSS for higher interest and
                     quarterly income. NSC suits younger investors for 5-year
                     tax-saving goals.
@@ -859,21 +859,21 @@ export default function NSCPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate 100% tax-free returns with 15-year PPF
                               investment.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -884,21 +884,21 @@ export default function NSCPage() {
                   </Link>
 
                   <Link href="/fd-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             💰
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               FD Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Compare fixed deposit returns with flexible
                               tenures.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Try Now</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>

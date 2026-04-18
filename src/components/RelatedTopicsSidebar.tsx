@@ -60,11 +60,11 @@ export default function RelatedTopicsSidebar({ category, currentSlug }: Props) {
                 <li key={article.slug}>
                   <Link
                     href={`/guides/${article.slug}/`}
-                    className="group flex items-start gap-3 hover:text-[#577A30] transition-colors"
+                    className="group flex items-start gap-3 hover:text-brand-700 transition-colors"
                   >
                     <Badge
                       variant="outline"
-                      className="text-[10px] font-medium bg-[#F7FDF1] text-[#577A30] border-[#B0EC70]"
+                      className="text-[10px] font-medium bg-brand-50 text-brand-700 border-brand-400"
                     >
                       {article.category}
                     </Badge>
@@ -94,10 +94,10 @@ export default function RelatedTopicsSidebar({ category, currentSlug }: Props) {
               <li key={calc.href}>
                 <Link
                   href={calc.href}
-                  className="flex items-center justify-between text-sm hover:text-[#577A30] transition-colors group"
+                  className="flex items-center justify-between text-sm hover:text-brand-700 transition-colors group"
                 >
                   <span>{calc.title}</span>
-                  <ArrowRight className="h-3 w-3 text-slate-400 group-hover:text-[#577A30]" />
+                  <ArrowRight className="h-3 w-3 text-slate-400 group-hover:text-brand-700" />
                 </Link>
               </li>
             ))}

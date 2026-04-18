@@ -86,11 +86,11 @@ export default function SCSSClient() {
 
             {/* Info Cards */}
             <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div className="bg-[#F7FDF1] border border-[#B0EC70] rounded-2xl p-4">
-                <div className="text-xs font-semibold text-[#577A30] tracking-wider">
+              <div className="bg-brand-50 border border-brand-400 rounded-2xl p-4">
+                <div className="text-xs font-semibold text-brand-700 tracking-wider">
                   INTEREST RATE
                 </div>
-                <div className="text-xl font-semibold text-[#577A30] mt-1">
+                <div className="text-xl font-semibold text-brand-700 mt-1">
                   {interestRate}% p.a.
                 </div>
               </div>
@@ -109,10 +109,10 @@ export default function SCSSClient() {
 
       {/* RESULTS SECTION */}
       <div className="lg:col-span-7">
-        <Card className="border-[#B0EC70] bg-white shadow-md overflow-hidden h-full flex flex-col">
+        <Card className="border-brand-400 bg-white shadow-md overflow-hidden h-full flex flex-col">
           {/* Header */}
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8">
-            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2 flex items-center gap-2">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-6 sm:p-8">
+            <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-2 flex items-center gap-2">
               <Wallet className="w-4 h-4" /> Quarterly Income
             </p>
             <h3 className="text-5xl font-semibold text-slate-900 tracking-tighter">
@@ -126,7 +126,7 @@ export default function SCSSClient() {
             <div className="mt-8">
               <div className="flex justify-between text-xs font-medium mb-2">
                 <span className="text-slate-600">Principal</span>
-                <span className="text-[#74A046]">Total Interest</span>
+                <span className="text-brand-600">Total Interest</span>
               </div>
               <div className="h-3 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
@@ -134,7 +134,7 @@ export default function SCSSClient() {
                   style={{ width: `${principalPercentage}%` }}
                 />
                 <div
-                  className="h-full bg-[#74A046] transition-all"
+                  className="h-full bg-brand-600 transition-all"
                   style={{ width: `${interestPercentage}%` }}
                 />
               </div>
@@ -152,7 +152,7 @@ export default function SCSSClient() {
 
               <div className="flex justify-between py-3 border-b border-slate-100">
                 <span className="text-slate-600">Total Interest (5 Years)</span>
-                <span className="font-semibold text-[#577A30]">
+                <span className="font-semibold text-brand-700">
                   +{formatCurrency(result.totalInterest)}
                 </span>
               </div>

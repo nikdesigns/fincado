@@ -154,17 +154,17 @@ export default function CapitalGainsPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             Capital Gains Calculator
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               STCG &amp; LTCG Tax on Stocks, MFs &amp; Property
             </span>
           </h1>
 
           {/* LAST UPDATED BANNER */}
-          <div className="flex items-center gap-2 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex items-center gap-2 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1">
               ✅ Updated for FY 2026-27
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               April 12, 2026
             </span>
             <span className="text-xs">• Latest Budget Rules Applied</span>
@@ -214,10 +214,10 @@ export default function CapitalGainsPage() {
 
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-[#577A30]" />
+                      <TrendingUp className="w-5 h-5 text-brand-700" />
                       Latest Budget 2026 Rules
                     </h3>
-                    <div className="text-slate-700 leading-relaxed bg-[#F7FDF1] border border-[#DFF7C6] p-6 rounded-xl">
+                    <div className="text-slate-700 leading-relaxed bg-brand-50 border border-brand-200 p-6 rounded-xl">
                       <WikiText content={budgetContent} />
                     </div>
                   </section>

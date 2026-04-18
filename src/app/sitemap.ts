@@ -91,7 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/emi-prepayment-calculator', '/hi/emi-prepayment-calculator'],
     ['/sip-calculator', '/hi/sip-calculator'],
     ['/income-tax-calculator', '/hi/income-tax-calculator'],
-    ['/home-loan-calculator', '/hi/home-loan-calculator'],
   ];
 
   const coreCalculators: MetadataRoute.Sitemap = coreCalculatorPairs.map(
@@ -215,7 +214,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const informationalPages: MetadataRoute.Sitemap = [
     '/about',
     '/contact',
-    '/locations',
     '/mutual-funds',
     '/terms',
     '/privacy-policy',

@@ -227,7 +227,7 @@ function CompoundInterestDonut({
           <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
             Interest
           </span>
-          <span className="text-2xl font-semibold text-[#577A30]">
+          <span className="text-2xl font-semibold text-brand-700">
             {interestPct}%
           </span>
         </div>
@@ -240,7 +240,7 @@ function CompoundInterestDonut({
           <span className="text-xs font-medium text-slate-600">Principal</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#F7FDF1]0" />
+          <div className="w-3 h-3 rounded-full bg-brand-500" />
           <span className="text-xs font-medium text-slate-600">Interest</span>
         </div>
       </div>
@@ -535,15 +535,15 @@ export default function CompoundInterestClient({
     <div className="space-y-6">
       {/* ============ MAIN CALCULATOR ============ */}
       <Card className="border-border shadow-sm bg-card">
-        <CardHeader className="bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1] border-b border-slate-100 pb-4">
+        <CardHeader className="bg-linear-to-r from-brand-50 to-brand-50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <TrendingUp className="h-5 w-5 text-[#577A30]" />
+              <TrendingUp className="h-5 w-5 text-brand-700" />
               Compound Interest Calculator
             </CardTitle>
             <button
               onClick={reset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -575,9 +575,9 @@ export default function CompoundInterestClient({
           flex items-center justify-center gap-2
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]0
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-500
           data-[state=active]:shadow-sm
         "
                 >
@@ -592,9 +592,9 @@ export default function CompoundInterestClient({
           flex items-center justify-center
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]0
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-500
           data-[state=active]:shadow-sm
         "
                 >
@@ -608,9 +608,9 @@ export default function CompoundInterestClient({
           flex items-center justify-center
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]0
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-500
           data-[state=active]:shadow-sm
         "
                 >
@@ -624,9 +624,9 @@ export default function CompoundInterestClient({
           flex items-center justify-center
           border border-transparent text-slate-600
           hover:bg-slate-50 transition
-          data-[state=active]:bg-[#F7FDF1]
-          data-[state=active]:text-[#577A30]
-          data-[state=active]:border-[#F7FDF1]0
+          data-[state=active]:bg-brand-50
+          data-[state=active]:text-brand-700
+          data-[state=active]:border-brand-500
           data-[state=active]:shadow-sm
         "
                 >
@@ -671,7 +671,7 @@ export default function CompoundInterestClient({
                       max={10000000}
                       step={1000}
                       onValueChange={(v) => setPrincipal(v[0])}
-                      className="text-[#577A30]"
+                      className="text-brand-700"
                     />
                   </div>
 
@@ -691,7 +691,7 @@ export default function CompoundInterestClient({
                       max={30}
                       step={0.1}
                       onValueChange={(v) => setRate(v[0])}
-                      className="text-[#577A30]"
+                      className="text-brand-700"
                     />
                     <div className="flex flex-wrap gap-2">
                       {[6, 8, 10, 12, 15].map((r) => (
@@ -700,7 +700,7 @@ export default function CompoundInterestClient({
                           variant={rate === r ? 'default' : 'outline'}
                           className={`cursor-pointer transition ${
                             rate === r
-                              ? 'bg-[#B0EC70] hover:bg-[#B0EC70]'
+                              ? 'bg-brand-400 hover:bg-brand-400'
                               : 'hover:bg-slate-50'
                           }`}
                           onClick={() => setRate(r)}
@@ -727,7 +727,7 @@ export default function CompoundInterestClient({
                       max={50}
                       step={1}
                       onValueChange={(v) => setYears(v[0])}
-                      className="text-[#577A30]"
+                      className="text-brand-700"
                     />
                     <div className="flex flex-wrap gap-2">
                       {[5, 10, 15, 20, 30].map((y) => (
@@ -736,7 +736,7 @@ export default function CompoundInterestClient({
                           variant={years === y ? 'default' : 'outline'}
                           className={`cursor-pointer transition ${
                             years === y
-                              ? 'bg-[#B0EC70] hover:bg-[#B0EC70]'
+                              ? 'bg-brand-400 hover:bg-brand-400'
                               : 'hover:bg-slate-50'
                           }`}
                           onClick={() => setYears(y)}
@@ -759,19 +759,19 @@ export default function CompoundInterestClient({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-white">
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                        <SelectItem className="hover:bg-brand-50" value="1">
                           {t.yearly}
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                        <SelectItem className="hover:bg-brand-50" value="2">
                           {t.halfYearly}
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                        <SelectItem className="hover:bg-brand-50" value="4">
                           {t.quarterly}
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                        <SelectItem className="hover:bg-brand-50" value="12">
                           {t.monthly}
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                        <SelectItem className="hover:bg-brand-50" value="365">
                           {t.daily}
                         </SelectItem>
                       </SelectContent>
@@ -840,19 +840,19 @@ export default function CompoundInterestClient({
                         <SelectValue className="bg-white" />
                       </SelectTrigger>
                       <SelectContent className="bg-white">
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                        <SelectItem className="hover:bg-brand-50" value="1">
                           Yearly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                        <SelectItem className="hover:bg-brand-50" value="2">
                           Half-yearly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                        <SelectItem className="hover:bg-brand-50" value="4">
                           Quarterly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                        <SelectItem className="hover:bg-brand-50" value="12">
                           Monthly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                        <SelectItem className="hover:bg-brand-50" value="365">
                           Daily
                         </SelectItem>
                       </SelectContent>
@@ -924,19 +924,19 @@ export default function CompoundInterestClient({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-white">
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                        <SelectItem className="hover:bg-brand-50" value="1">
                           Yearly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                        <SelectItem className="hover:bg-brand-50" value="2">
                           Half-yearly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                        <SelectItem className="hover:bg-brand-50" value="4">
                           Quarterly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                        <SelectItem className="hover:bg-brand-50" value="12">
                           Monthly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                        <SelectItem className="hover:bg-brand-50" value="365">
                           Daily
                         </SelectItem>
                       </SelectContent>
@@ -1008,19 +1008,19 @@ export default function CompoundInterestClient({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-white">
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="1">
+                        <SelectItem className="hover:bg-brand-50" value="1">
                           Yearly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="2">
+                        <SelectItem className="hover:bg-brand-50" value="2">
                           Half-yearly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="4">
+                        <SelectItem className="hover:bg-brand-50" value="4">
                           Quarterly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="12">
+                        <SelectItem className="hover:bg-brand-50" value="12">
                           Monthly
                         </SelectItem>
-                        <SelectItem className="hover:bg-[#F7FDF1]" value="365">
+                        <SelectItem className="hover:bg-brand-50" value="365">
                           Daily
                         </SelectItem>
                       </SelectContent>
@@ -1046,7 +1046,7 @@ export default function CompoundInterestClient({
                   {mode === 'findRate' && 'Required Interest Rate'}
                   {mode === 'findTime' && 'Required Time Period'}
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {mode === 'forward' && formatINR(results.maturity)}
                   {mode === 'findPrincipal' && formatINR(results.principal)}
                   {mode === 'findRate' && `${results.rate}% p.a.`}
@@ -1056,21 +1056,21 @@ export default function CompoundInterestClient({
 
               {/* Breakdown Cards */}
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                <Card className="border-brand-200 bg-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-[#577A30] mb-1">Principal</div>
-                    <div className="font-semibold text-[#1B2E06]">
+                    <div className="text-xs text-brand-700 mb-1">Principal</div>
+                    <div className="font-semibold text-brand-900">
                       {formatINR(results.principal)}
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                <Card className="border-brand-200 bg-brand-50">
                   <CardContent className="p-4">
-                    <div className="text-xs text-[#577A30] mb-1">
+                    <div className="text-xs text-brand-700 mb-1">
                       Interest Earned
                     </div>
-                    <div className="font-semibold text-[#1B2E06]">
+                    <div className="font-semibold text-brand-900">
                       +{formatINR(results.interest)}
                     </div>
                   </CardContent>
@@ -1079,16 +1079,16 @@ export default function CompoundInterestClient({
 
               {/* Rule of 72 */}
               {mode === 'forward' && (
-                <div className="mt-4 p-3 bg-linear-to-r from-[#F7FDF1] to-pink-50 rounded-lg border border-[#DFF7C6]">
+                <div className="mt-4 p-3 bg-linear-to-r from-brand-50 to-pink-50 rounded-lg border border-brand-200">
                   <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="h-4 w-4 text-[#577A30]" />
-                    <span className="text-xs font-semibold text-[#1B2E06]">
+                    <Sparkles className="h-4 w-4 text-brand-700" />
+                    <span className="text-xs font-semibold text-brand-900">
                       Rule of 72
                     </span>
                   </div>
                   <p className="text-xs text-slate-700">
                     Your money will <strong>double</strong> in approximately{' '}
-                    <strong className="text-[#577A30]">
+                    <strong className="text-brand-700">
                       {doublingTime} years
                     </strong>{' '}
                     at {rate}% annual return.
@@ -1097,8 +1097,8 @@ export default function CompoundInterestClient({
               )}
 
               {/* Insight Box */}
-              <div className="mt-4 flex gap-3 items-start p-3 bg-[#F7FDF1] border border-[#DFF7C6] rounded-lg text-xs text-[#577A30]">
-                <Info className="w-4 h-4 text-[#577A30] shrink-0 mt-0.5" />
+              <div className="mt-4 flex gap-3 items-start p-3 bg-brand-50 border border-brand-200 rounded-lg text-xs text-brand-700">
+                <Info className="w-4 h-4 text-brand-700 shrink-0 mt-0.5" />
                 <p>
                   {mode === 'forward' && (
                     <>
@@ -1163,22 +1163,22 @@ export default function CompoundInterestClient({
                 </div>
               </div>
 
-              <div className="p-4 bg-linear-to-br from-[#EFFBE2] to-[#F7FDF1] rounded-lg border border-[#D0F4A9]">
-                <div className="text-xs text-[#577A30] mb-1">
+              <div className="p-4 bg-linear-to-br from-brand-100 to-brand-50 rounded-lg border border-brand-300">
+                <div className="text-xs text-brand-700 mb-1">
                   Compound Interest (Exponential)
                 </div>
-                <div className="text-2xl font-semibold text-[#1B2E06]">
+                <div className="text-2xl font-semibold text-brand-900">
                   {formatINR(comparisonWithSI.ciTotal)}
                 </div>
-                <div className="text-xs text-[#577A30] mt-2">
+                <div className="text-xs text-brand-700 mt-2">
                   Interest: {formatINR(comparisonWithSI.ciInterest)}
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+            <div className="mt-4 p-3 bg-brand-50 rounded-lg border border-brand-200">
               <p className="text-sm text-slate-700">
-                <strong className="text-[#1B2E06]">
+                <strong className="text-brand-900">
                   Compound interest earns you{' '}
                   {formatINR(comparisonWithSI.extraEarnings)} MORE
                 </strong>{' '}
@@ -1217,7 +1217,7 @@ export default function CompoundInterestClient({
                       <TableCell className="font-medium">
                         Year {row.year}
                       </TableCell>
-                      <TableCell className="font-semibold text-[#577A30]">
+                      <TableCell className="font-semibold text-brand-700">
                         {formatINR(row.amount)}
                       </TableCell>
                       <TableCell>{formatINR(row.interest)}</TableCell>

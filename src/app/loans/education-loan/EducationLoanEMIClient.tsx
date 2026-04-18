@@ -365,10 +365,10 @@ export default function EducationLoanEMIClient() {
 
       {/* Section 80E Tax Benefits */}
       {showTaxBenefit && (
-        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+        <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Sparkles className="h-5 w-5 text-[#92C65B]" />
+              <Sparkles className="h-5 w-5 text-brand-500" />
               Section 80E Tax Benefits Calculator
             </CardTitle>
             <p className="text-sm text-slate-600 mt-2">
@@ -398,8 +398,8 @@ export default function EducationLoanEMIClient() {
               </div>
             </div>
 
-            <div className="p-5 bg-linear-to-br from-[#F7FDF1] to-green-50 rounded-lg border-2 border-[#DFF7C6]">
-              <h4 className="font-semibold text-[#1B2E06] mb-4 flex items-center gap-2">
+            <div className="p-5 bg-linear-to-br from-brand-50 to-green-50 rounded-lg border-2 border-brand-200">
+              <h4 className="font-semibold text-brand-900 mb-4 flex items-center gap-2">
                 <TrendingUp className="h-5 w-5" />
                 Your Tax Savings (Section 80E)
               </h4>
@@ -409,7 +409,7 @@ export default function EducationLoanEMIClient() {
                     <Calendar className="h-3 w-3" />
                     Annual Tax Saving
                   </div>
-                  <div className="text-2xl font-semibold text-[#74A046]">
+                  <div className="text-2xl font-semibold text-brand-600">
                     {formatINR(taxBenefits.annualTaxSaving)}
                   </div>
                 </div>
@@ -418,7 +418,7 @@ export default function EducationLoanEMIClient() {
                     <IndianRupee className="h-3 w-3" />
                     Total Tax Saving (8 yrs)
                   </div>
-                  <div className="text-2xl font-semibold text-[#74A046]">
+                  <div className="text-2xl font-semibold text-brand-600">
                     {formatINR(taxBenefits.totalTaxSaving)}
                   </div>
                 </div>
@@ -427,18 +427,18 @@ export default function EducationLoanEMIClient() {
                     <TrendingUp className="h-3 w-3" />
                     Effective Interest Cost
                   </div>
-                  <div className="text-2xl font-semibold text-[#74A046]">
+                  <div className="text-2xl font-semibold text-brand-600">
                     {formatINR(taxBenefits.effectiveCost)}
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
+              <div className="mt-4 p-3 bg-white/70 rounded border border-brand-200">
                 <div className="text-sm font-semibold text-slate-900 mb-2">
                   Effective Interest Rate After Tax Benefit
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-semibold text-[#74A046]">
+                  <span className="text-3xl font-semibold text-brand-600">
                     {calculations.effectiveRate.toFixed(2)}%
                   </span>
                   <span className="text-sm text-slate-600">
@@ -447,7 +447,7 @@ export default function EducationLoanEMIClient() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-[#DFF7C6]">
+              <p className="text-xs text-slate-700 mt-4 p-3 bg-white/70 rounded border border-brand-200">
                 💡 <strong>Pro Tip:</strong> With 30% tax bracket and 10% loan
                 rate, your effective cost is only 7%. This makes education loans
                 one of the cheapest loans in India. Don&apos;t rush to prepay if

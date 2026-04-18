@@ -280,12 +280,12 @@ export default function NPSClient() {
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-              <TrendingUp className="h-5 w-5 text-[#577A30]" />
+              <TrendingUp className="h-5 w-5 text-brand-700" />
               National Pension System (NPS) Calculator
             </CardTitle>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-500 flex items-center gap-1 hover:text-[#577A30] transition-colors"
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
@@ -365,7 +365,7 @@ export default function NPSClient() {
                 <div className="text-sm text-slate-500">
                   Total Corpus at Age 60
                 </div>
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {formatINR(calculations.corpus)}
                 </div>
                 <div className="mt-1 text-xs text-slate-500">
@@ -384,10 +384,10 @@ export default function NPSClient() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1] shadow-none">
+                <Card className="border-brand-200 bg-brand-50 shadow-none">
                   <CardContent className="p-4">
-                    <div className="text-xs text-[#577A30]">Total Gains</div>
-                    <div className="mt-1 font-semibold text-[#577A30]">
+                    <div className="text-xs text-brand-700">Total Gains</div>
+                    <div className="mt-1 font-semibold text-brand-700">
                       +{formatINR(calculations.gains)}
                     </div>
                   </CardContent>
@@ -401,45 +401,45 @@ export default function NPSClient() {
                 </p>
                 <div className="grid grid-cols-2 gap-4 text-left">
                   {/* Lump Sum */}
-                  <div className="flex flex-col gap-1 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <div className="flex items-center gap-1.5 text-[#577A30]">
+                  <div className="flex flex-col gap-1 p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <div className="flex items-center gap-1.5 text-brand-700">
                       <Wallet className="w-4 h-4" />
                       <span className="text-xs font-semibold">
                         Lump Sum (60%)
                       </span>
                     </div>
-                    <span className="text-lg font-semibold text-[#1B2E06]">
+                    <span className="text-lg font-semibold text-brand-900">
                       {formatINR(calculations.lumpSum)}
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit text-[10px] border-[#D0F4A9] text-[#577A30] bg-white"
+                      className="w-fit text-[10px] border-brand-300 text-brand-700 bg-white"
                     >
                       Tax Free
                     </Badge>
                   </div>
 
                   {/* Pension */}
-                  <div className="flex flex-col gap-1 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <div className="flex items-center gap-1.5 text-[#577A30]">
+                  <div className="flex flex-col gap-1 p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <div className="flex items-center gap-1.5 text-brand-700">
                       <Coins className="w-4 h-4" />
                       <span className="text-xs font-semibold">
                         Monthly Pension
                       </span>
                     </div>
-                    <span className="text-lg font-semibold text-[#1B2E06]">
+                    <span className="text-lg font-semibold text-brand-900">
                       {formatINR(calculations.monthlyPension)}
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit text-[10px] border-[#D0F4A9] text-[#577A30] bg-white"
+                      className="w-fit text-[10px] border-brand-300 text-brand-700 bg-white"
                     >
                       Taxable
                     </Badge>
                   </div>
                 </div>
 
-                <div className="mt-3 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                <div className="mt-3 p-3 bg-brand-50 rounded border border-brand-200">
                   <p className="text-xs text-slate-700">
                     <strong>Annuity Corpus (40%):</strong>{' '}
                     {formatINR(calculations.annuityCorpus)}

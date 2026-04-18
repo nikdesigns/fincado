@@ -305,7 +305,7 @@ export default function LumpsumClient({
                   className="
                     w-full rounded-md border border-slate-300
                     bg-white px-3 py-2 text-sm
-                    focus:outline-none focus:ring-2 focus:ring-[#B0EC70]
+                    focus:outline-none focus:ring-2 focus:ring-brand-400
                   "
                 >
                   <option value="monthly">{t.monthly}</option>
@@ -328,7 +328,7 @@ export default function LumpsumClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.futureValue}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {formatINR(results.futureValue)}
                 </div>
 
@@ -344,12 +344,12 @@ export default function LumpsumClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30]">
+                      <div className="text-xs text-brand-700">
                         {t.totalWealth}
                       </div>
-                      <div className="mt-1 font-semibold text-[#577A30]">
+                      <div className="mt-1 font-semibold text-brand-700">
                         +{formatINR(results.wealth)}
                       </div>
                     </CardContent>

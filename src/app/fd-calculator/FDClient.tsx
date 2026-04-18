@@ -382,7 +382,7 @@ export default function FDClient({
                 checked={isSeniorCitizen}
                 onCheckedChange={handleSeniorCitizenToggle}
                 id="senior-citizen-mode"
-                className="data-[state=checked]:bg-[#B0EC70] data-[state=unchecked]:bg-slate-300"
+                className="data-[state=checked]:bg-brand-400 data-[state=unchecked]:bg-slate-300"
               />
               <label
                 htmlFor="senior-citizen-mode"
@@ -454,7 +454,7 @@ export default function FDClient({
                   className="
                     w-full rounded-md border border-slate-300
                     bg-white px-3 py-2 text-sm
-                    focus:outline-none focus:ring-2 focus:ring-[#B0EC70]
+                    focus:outline-none focus:ring-2 focus:ring-brand-400
                   "
                 >
                   <option value="monthly">{t.monthly}</option>
@@ -477,7 +477,7 @@ export default function FDClient({
               <div className="mt-6 text-center w-full">
                 <div className="text-sm text-slate-500">{t.maturityAmount}</div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#92C65B]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-500">
                   {formatINR(results.maturity)}
                 </div>
 
@@ -493,12 +493,12 @@ export default function FDClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30]">
+                      <div className="text-xs text-brand-700">
                         {t.totalInterest}
                       </div>
-                      <div className="mt-1 font-semibold text-[#577A30]">
+                      <div className="mt-1 font-semibold text-brand-700">
                         +{formatINR(results.interest)}
                       </div>
                     </CardContent>
@@ -555,10 +555,10 @@ export default function FDClient({
 
       {/* Bank Rates Comparison */}
       {showBankRates && (
-        <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+        <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Building2 className="h-5 w-5 text-[#74A046]" />
+              <Building2 className="h-5 w-5 text-brand-600" />
               {t.popularBankRates}
             </CardTitle>
           </CardHeader>
@@ -566,7 +566,7 @@ export default function FDClient({
             {POPULAR_BANKS.map((bank) => (
               <div
                 key={bank.name}
-                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-[#D0F4A9] transition"
+                className="p-4 bg-white rounded-lg border border-slate-200 hover:border-brand-300 transition"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
@@ -579,7 +579,7 @@ export default function FDClient({
                     <div className="flex gap-4 mt-2 text-sm">
                       <div>
                         <span className="text-slate-600">{t.general} </span>
-                        <strong className="text-[#577A30]">
+                        <strong className="text-brand-700">
                           {bank.generalRate}%
                         </strong>
                       </div>
@@ -603,7 +603,7 @@ export default function FDClient({
               </div>
             ))}
 
-            <div className="p-3 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+            <div className="p-3 bg-brand-50 rounded-lg border border-brand-200 mt-4">
               <p className="text-xs text-slate-700">
                 <strong>Note:</strong> {t.ratesNote}
               </p>
@@ -643,7 +643,7 @@ export default function FDClient({
                           {formatINR(calc.principal)} @ {calc.rate}% for{' '}
                           {calc.years}y {calc.months}m
                           {calc.isSeniorCitizen && (
-                            <span className="ml-2 text-xs text-[#74A046] bg-[#EFFBE2] px-2 py-0.5 rounded">
+                            <span className="ml-2 text-xs text-brand-600 bg-brand-100 px-2 py-0.5 rounded">
                               {t.seniorCitizen}
                             </span>
                           )}

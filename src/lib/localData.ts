@@ -28,7 +28,7 @@ export function parsePropertyRate(rateStr: string) {
     const min = parts[0];
     const max = parts[1] || min;
     return { min, max, avg: Math.round((min + max) / 2) };
-  } catch (e) {
+  } catch {
     return { min: 3000, max: 6000, avg: 4500 };
   }
 }

@@ -372,7 +372,7 @@ export default function GoalPlanningClient({
   return (
     <div className="space-y-6">
       {/* Goal Type Selection */}
-      <Card className="border-[#DFF7C6] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1]">
+      <Card className="border-brand-200 bg-linear-to-r from-brand-50 to-brand-50">
         <CardContent className="py-5">
           <label className="text-sm font-semibold text-slate-900 mb-3 block">
             {t.selectGoalType}
@@ -384,8 +384,8 @@ export default function GoalPlanningClient({
                 onClick={() => handleGoalTypeChange(preset.value)}
                 className={`p-3 rounded-lg border-2 transition-all text-center ${
                   goalType === preset.value
-                    ? 'border-[#92C65B] bg-[#EFFBE2] text-[#1B2E06] font-semibold'
-                    : 'border-slate-200 bg-white hover:border-[#D0F4A9]'
+                    ? 'border-brand-500 bg-brand-100 text-brand-900 font-semibold'
+                    : 'border-slate-200 bg-white hover:border-brand-300'
                 }`}
               >
                 <div className="text-2xl mb-1">{preset.icon}</div>
@@ -460,17 +460,17 @@ export default function GoalPlanningClient({
                   {t.futureGoalValue}
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#577A30]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-700">
                   {formatINR(results.futureValue)}
                 </div>
 
                 <div className="mt-6 space-y-3 w-full max-w-md mx-auto">
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30] mb-1">
+                      <div className="text-xs text-brand-700 mb-1">
                         {t.requiredMonthlySIP}
                       </div>
-                      <div className="text-2xl font-bold text-[#577A30]">
+                      <div className="text-2xl font-bold text-brand-700">
                         {formatINR(results.monthlySip)}
                       </div>
                       <div className="text-[10px] text-slate-600 mt-1">
@@ -479,12 +479,12 @@ export default function GoalPlanningClient({
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#577A30] mb-1">
+                      <div className="text-xs text-brand-700 mb-1">
                         {t.orLumpSumToday}
                       </div>
-                      <div className="text-2xl font-bold text-[#577A30]">
+                      <div className="text-2xl font-bold text-brand-700">
                         {formatINR(results.lumpSumToday)}
                       </div>
                       <div className="text-[10px] text-slate-600 mt-1">
@@ -507,7 +507,7 @@ export default function GoalPlanningClient({
       <Card className="border-slate-200">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Target className="h-5 w-5 text-[#92C65B]" />
+            <Target className="h-5 w-5 text-brand-500" />
             Goal Breakdown & Investment Options
           </CardTitle>
         </CardHeader>
@@ -520,13 +520,13 @@ export default function GoalPlanningClient({
 
             <TabsContent value="breakdown" className="space-y-4 mt-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card className="border-[#DFF7C6]">
+                <Card className="border-brand-200">
                   <CardContent className="p-4">
                     <div className="text-xs text-slate-600 mb-1 flex items-center gap-1">
                       <TrendingUp className="h-3 w-3" />
                       {t.futureGoalValue}
                     </div>
-                    <div className="text-2xl font-bold text-[#577A30]">
+                    <div className="text-2xl font-bold text-brand-700">
                       {formatINR(results.futureValue)}
                     </div>
                     <div className="text-xs text-slate-500 mt-1">
@@ -535,13 +535,13 @@ export default function GoalPlanningClient({
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6]">
+                <Card className="border-brand-200">
                   <CardContent className="p-4">
                     <div className="text-xs text-slate-600 mb-1 flex items-center gap-1">
                       <Zap className="h-3 w-3" />
                       {t.existingCorpusGrowth}
                     </div>
-                    <div className="text-2xl font-bold text-[#577A30]">
+                    <div className="text-2xl font-bold text-brand-700">
                       {formatINR(results.existingGrowth)}
                     </div>
                     <div className="text-xs text-slate-500 mt-1">
@@ -569,11 +569,11 @@ export default function GoalPlanningClient({
 
             <TabsContent value="comparison" className="space-y-4 mt-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                <Card className="border-brand-200 bg-brand-50">
                   <CardContent className="p-5">
                     <div className="flex items-center gap-2 mb-3">
-                      <Calendar className="h-5 w-5 text-[#577A30]" />
-                      <h4 className="font-semibold text-[#1B2E06]">
+                      <Calendar className="h-5 w-5 text-brand-700" />
+                      <h4 className="font-semibold text-brand-900">
                         {t.monthlyInvestment}
                       </h4>
                     </div>
@@ -583,12 +583,12 @@ export default function GoalPlanningClient({
                         <div className="text-xs text-slate-600 mb-1">
                           Monthly SIP Required
                         </div>
-                        <div className="text-3xl font-bold text-[#577A30]">
+                        <div className="text-3xl font-bold text-brand-700">
                           {formatINR(results.monthlySip)}
                         </div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#DFF7C6]">
+                      <div className="pt-3 border-t border-brand-200">
                         <div className="text-xs text-slate-600 mb-1">
                           Total Investment
                         </div>
@@ -600,7 +600,7 @@ export default function GoalPlanningClient({
                         </div>
                       </div>
 
-                      <div className="p-3 bg-white rounded border border-[#DFF7C6]">
+                      <div className="p-3 bg-white rounded border border-brand-200">
                         <p className="text-xs text-slate-700">
                           ✅ <strong>Best for:</strong> Regular income earners,
                           disciplined investing, rupee cost averaging
@@ -610,11 +610,11 @@ export default function GoalPlanningClient({
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                <Card className="border-brand-200 bg-brand-50">
                   <CardContent className="p-5">
                     <div className="flex items-center gap-2 mb-3">
-                      <IndianRupee className="h-5 w-5 text-[#577A30]" />
-                      <h4 className="font-semibold text-[#1B2E06]">
+                      <IndianRupee className="h-5 w-5 text-brand-700" />
+                      <h4 className="font-semibold text-brand-900">
                         {t.lumpSumInvestment}
                       </h4>
                     </div>
@@ -624,12 +624,12 @@ export default function GoalPlanningClient({
                         <div className="text-xs text-slate-600 mb-1">
                           One-Time Investment Today
                         </div>
-                        <div className="text-3xl font-bold text-[#577A30]">
+                        <div className="text-3xl font-bold text-brand-700">
                           {formatINR(results.lumpSumToday)}
                         </div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#DFF7C6]">
+                      <div className="pt-3 border-t border-brand-200">
                         <div className="text-xs text-slate-600 mb-1">
                           Future Value
                         </div>
@@ -641,7 +641,7 @@ export default function GoalPlanningClient({
                         </div>
                       </div>
 
-                      <div className="p-3 bg-white rounded border border-[#DFF7C6]">
+                      <div className="p-3 bg-white rounded border border-brand-200">
                         <p className="text-xs text-slate-700">
                           ✅ <strong>Best for:</strong> Large idle corpus,
                           windfall gains, immediate investment capacity
@@ -670,25 +670,25 @@ export default function GoalPlanningClient({
       </Card>
 
       {/* Planning Insights */}
-      <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+      <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <TrendingUp className="h-5 w-5 text-[#577A30]" />
+            <TrendingUp className="h-5 w-5 text-brand-700" />
             {t.planningInsights}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-              <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+            <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+              <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                 <span>⏰</span>
                 {t.startEarly}
               </h4>
               <p className="text-sm text-slate-700">{t.startEarlyText}</p>
             </div>
 
-            <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-              <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+            <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+              <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                 <span>💰</span>
                 {t.existingHelps}
               </h4>
@@ -746,7 +746,7 @@ export default function GoalPlanningClient({
                           {t.required} {formatINR(goal.monthlySip)} {t.per}{' '}
                           {goal.years} years
                         </div>
-                        <div className="text-[11px] text-[#577A30] mt-0.5">
+                        <div className="text-[11px] text-brand-700 mt-0.5">
                           OR Lump Sum: {formatINR(goal.lumpSum)}
                         </div>
                       </div>

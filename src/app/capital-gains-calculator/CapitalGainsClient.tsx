@@ -111,12 +111,12 @@ export default function CapitalGainsClient() {
                       }}
                       className={`flex flex-col items-center gap-2 py-4 px-3 rounded-2xl border transition-all ${
                         assetType === asset.id
-                          ? 'border-[#577A30] bg-[#F7FDF1] shadow-sm'
+                          ? 'border-brand-700 bg-brand-50 shadow-sm'
                           : 'border-slate-200 hover:border-slate-300'
                       }`}
                     >
                       <Icon
-                        className={`h-6 w-6 ${assetType === asset.id ? 'text-[#577A30]' : 'text-slate-400'}`}
+                        className={`h-6 w-6 ${assetType === asset.id ? 'text-brand-700' : 'text-slate-400'}`}
                       />
                       <span className="text-sm font-medium">{asset.label}</span>
                     </button>
@@ -217,7 +217,7 @@ export default function CapitalGainsClient() {
               <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="flex justify-between">
                   <Label>Unused ₹1.25 Lakh Exemption</Label>
-                  <span className="font-semibold text-[#577A30]">
+                  <span className="font-semibold text-brand-700">
                     {new Intl.NumberFormat('en-IN').format(unusedExemption)}
                   </span>
                 </div>
@@ -236,9 +236,9 @@ export default function CapitalGainsClient() {
 
       {/* RESULTS */}
       <div className="lg:col-span-7">
-        <Card className="border-[#B0EC70] bg-white shadow-md overflow-hidden h-full flex flex-col">
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-8">
-            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-1 flex items-center gap-2">
+        <Card className="border-brand-400 bg-white shadow-md overflow-hidden h-full flex flex-col">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-8">
+            <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-1 flex items-center gap-2">
               <TrendingUp className="w-4 h-4" /> Net Gain After Tax
             </p>
             <h3 className="text-5xl font-bold text-slate-900 tracking-tighter">

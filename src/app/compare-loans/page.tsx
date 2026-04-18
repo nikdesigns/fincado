@@ -65,24 +65,24 @@ const stats: StatItem[] = [
   {
     icon: Calculator,
     label: '15+ Banks',
-    color: 'bg-[#F7FDF1] text-[#577A30]',
+    color: 'bg-brand-50 text-brand-700',
   },
   {
     icon: CheckCircle2,
     label: '100% Free',
-    color: 'bg-[#F7FDF1] text-[#577A30]',
+    color: 'bg-brand-50 text-brand-700',
   },
   {
     icon: Sparkles,
     label: 'Real-time Results',
-    color: 'bg-[#F7FDF1] text-[#577A30]',
+    color: 'bg-brand-50 text-brand-700',
   },
 ];
 
 const comparisonFactors: FeatureItem[] = [
   {
     icon: PiggyBank,
-    color: 'text-[#577A30] bg-[#F7FDF1]',
+    color: 'text-brand-700 bg-brand-50',
     title: 'Total Interest Payable',
     desc: 'This is the real cost of the loan. Always aim for the lowest total interest, not just the lowest EMI.',
   },
@@ -286,22 +286,22 @@ export default function CompareLoansPage() {
 
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <header className="mx-auto my-12 max-w-4xl text-center">
-          <div className="relative overflow-hidden rounded-2xl border border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] via-[#F7FDF1] to-teal-50/30 p-8 shadow-sm">
+          <div className="relative overflow-hidden rounded-2xl border border-brand-200 bg-linear-to-br from-brand-50 via-brand-50 to-teal-50/30 p-8 shadow-sm">
             <div className="absolute -right-8 -top-8 opacity-5">
-              <Scale className="h-48 w-48 text-[#577A30]" />
+              <Scale className="h-48 w-48 text-brand-700" />
             </div>
             <div className="absolute -bottom-8 -left-8 opacity-5">
-              <GitCompare className="h-40 w-40 text-[#577A30]" />
+              <GitCompare className="h-40 w-40 text-brand-700" />
             </div>
 
             <div className="relative z-10">
-              <Badge className="mb-4 border-[#D0F4A9] bg-white px-4 py-1.5 font-semibold uppercase tracking-wider text-[#577A30] shadow-sm">
+              <Badge className="mb-4 border-brand-300 bg-white px-4 py-1.5 font-semibold uppercase tracking-wider text-brand-700 shadow-sm">
                 💰 Free Savings Tool
               </Badge>
 
               <h1 className="mb-4 text-3xl leading-tight font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Compare Loan Offers{' '}
-                <span className="bg-linear-to-r from-[#577A30] to-[#577A30] bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-brand-700 to-brand-700 bg-clip-text text-transparent">
                   & Save Lakhs
                 </span>
               </h1>
@@ -339,7 +339,7 @@ export default function CompareLoansPage() {
             <Card className="overflow-hidden border-slate-200 bg-white shadow-lg">
               <CardHeader className="border-b border-slate-200 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#577A30] shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-700 shadow-md">
                     <Scale className="h-5 w-5 text-white" />
                   </div>
                   <div>
@@ -356,15 +356,15 @@ export default function CompareLoansPage() {
               <CardContent className="p-4 sm:p-6">
                 <LoanComparison />
 
-                <div className="mt-6 flex items-start gap-3 rounded-lg border border-[#DFF7C6s] bg-linear-to-r from-[#F7FDF1] to-[#F7FDF1] p-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#577A30]">
+                <div className="mt-6 flex items-start gap-3 rounded-lg border border-brand-200 bg-linear-to-r from-brand-50 to-brand-50 p-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-700">
                     <ShieldCheck className="h-4 w-4 text-white" />
                   </div>
                   <div>
-                    <h2 className="mb-1 text-sm font-semibold text-[#1B2E06]">
+                    <h2 className="mb-1 text-sm font-semibold text-brand-900">
                       💡 Smart Comparison Tip
                     </h2>
-                    <p className="text-xs leading-relaxed text-[#577A30]">
+                    <p className="text-xs leading-relaxed text-brand-700">
                       A lower EMI isn&apos;t always better. Sometimes a longer
                       tenure reduces monthly payment but significantly increases
                       total interest paid.
@@ -380,8 +380,8 @@ export default function CompareLoansPage() {
 
             <section aria-labelledby="popular-comparisons-heading">
               <div className="mb-5 flex items-center gap-3">
-                <div className="rounded-xl bg-linear-to-br from-[#EFFBE2] to-[#EFFBE2] p-2.5 shadow-sm">
-                  <GitCompare className="h-6 w-6 text-[#577A30]" />
+                <div className="rounded-xl bg-linear-to-br from-brand-100 to-brand-100 p-2.5 shadow-sm">
+                  <GitCompare className="h-6 w-6 text-brand-700" />
                 </div>
                 <div>
                   <h2
@@ -414,7 +414,7 @@ export default function CompareLoansPage() {
                 id="comparison-checklist-heading"
                 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-900"
               >
-                <TrendingDown className="h-6 w-6 text-[#577A30]" />
+                <TrendingDown className="h-6 w-6 text-brand-700" />
                 What to Compare Before Choosing a Loan
               </h2>
 
@@ -493,7 +493,7 @@ export default function CompareLoansPage() {
               <Card className="border-slate-200 shadow-sm">
                 <CardHeader className="border-b border-slate-100 bg-slate-50 pb-4">
                   <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-800">
-                    <GitCompare className="h-4 w-4 text-[#577A30]" />
+                    <GitCompare className="h-4 w-4 text-brand-700" />
                     Popular Comparisons
                   </CardTitle>
                 </CardHeader>
@@ -503,12 +503,12 @@ export default function CompareLoansPage() {
                       <li key={link.href}>
                         <Link
                           href={link.href}
-                          className="group flex items-center justify-between px-5 py-3 transition-colors hover:bg-[#F7FDF1]"
+                          className="group flex items-center justify-between px-5 py-3 transition-colors hover:bg-brand-50"
                         >
-                          <span className="text-sm font-medium text-slate-600 group-hover:text-[#577A30]">
+                          <span className="text-sm font-medium text-slate-600 group-hover:text-brand-700">
                             {link.name}
                           </span>
-                          <ArrowRight className="h-3.5 w-3.5 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#577A30]" />
+                          <ArrowRight className="h-3.5 w-3.5 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-brand-700" />
                         </Link>
                       </li>
                     ))}

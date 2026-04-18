@@ -251,8 +251,8 @@ export default async function BankPage({
               Use this page to calculate your monthly EMI, total interest outgo,
               and repayment strategy for <strong>{bank.name}</strong> home
               loans. Current indicative rates range between{' '}
-              <strong className="text-[#577A30]">{bankHomeRate}%</strong> and{' '}
-              <strong className="text-[#577A30]">{bankMaxRate}%</strong>.
+              <strong className="text-brand-700">{bankHomeRate}%</strong> and{' '}
+              <strong className="text-brand-700">{bankMaxRate}%</strong>.
             </p>
 
             <p className="text-sm text-slate-600 mt-2">
@@ -268,7 +268,7 @@ export default async function BankPage({
               <Card className="border-slate-200">
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500">Rate starts from</p>
-                  <p className="text-xl font-semibold text-[#577A30]">
+                  <p className="text-xl font-semibold text-brand-700">
                     {bankHomeRate}%
                   </p>
                 </CardContent>
@@ -346,7 +346,7 @@ export default async function BankPage({
           >
             <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
               <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-                <Percent className="h-5 w-5 text-[#577A30]" />
+                <Percent className="h-5 w-5 text-brand-700" />
                 Calculate Your EMI
               </CardTitle>
             </CardHeader>
@@ -452,7 +452,7 @@ export default async function BankPage({
               ].map((item) => (
                 <Card
                   key={item.title}
-                  className="border-l-4 border-l-[#B0EC70] shadow-sm"
+                  className="border-l-4 border-l-brand-400 shadow-sm"
                 >
                   <CardContent className="p-4">
                     <h4 className="font-semibold text-slate-900 mb-1">
@@ -467,7 +467,7 @@ export default async function BankPage({
 
           <section id="eligibility-factors" className="mb-12 scroll-mt-24">
             <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <IndianRupee className="h-5 w-5 text-[#577A30]" />
+              <IndianRupee className="h-5 w-5 text-brand-700" />
               What affects your {bank.name} home loan EMI and approval?
             </h3>
             <div className="grid md:grid-cols-3 gap-4">
@@ -526,11 +526,11 @@ export default async function BankPage({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow className="bg-[#F7FDF1] hover:bg-[#EFFBE2]">
+                  <TableRow className="bg-brand-50 hover:bg-brand-100">
                     <TableCell className="font-semibold text-slate-900">
                       {bank.name}
                     </TableCell>
-                    <TableCell className="font-semibold text-[#577A30]">
+                    <TableCell className="font-semibold text-brand-700">
                       {bankHomeRate}% - {bankMaxRate}%
                     </TableCell>
                     <TableCell>30 Years</TableCell>
@@ -734,7 +734,7 @@ export default async function BankPage({
                         <div className="flex items-center gap-2">
                           <span
                             title="Indicative range. Actual rate depends on credit score."
-                            className="text-xs font-semibold bg-[#EFFBE2] text-[#577A30] px-2 py-0.5 rounded-full whitespace-nowrap cursor-help"
+                            className="text-xs font-semibold bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full whitespace-nowrap cursor-help"
                           >
                             {other.rate} - {other.maxRate}%*
                           </span>

@@ -132,13 +132,13 @@ export default function HindiEMIPrepaymentPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             EMI प्रीपेमेंट (Prepayment) कैलकुलेटर
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               होम लोन पार्ट-पेमेंट पर ब्याज की बचत
             </span>
           </h1>
 
           {/* KEY METRICS BANNER */}
-          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1 font-semibold">
               ✅ RBI नियम: फ्लोटिंग रेट लोन पर 0% प्रीपेमेंट शुल्क
             </span>

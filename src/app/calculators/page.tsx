@@ -156,7 +156,7 @@ export default function CalculatorsPage() {
           item: {
             '@type': 'SoftwareApplication',
             name: 'Home Loan Calculator',
-            url: 'https://fincado.com/home-loan-calculator/',
+            url: 'https://fincado.com/loans/home-loan/',
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Web',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
@@ -258,19 +258,19 @@ export default function CalculatorsPage() {
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           <div className="lg:col-span-8 min-w-0 space-y-12 mt-12">
-            <header className="relative bg-linear-to-br from-[#F7FDF1] via-[#F7FDF1] to-[#F7FDF1] rounded-3xl p-8 border border-[#DFF7C6] shadow-lg overflow-hidden">
+            <header className="relative bg-linear-to-br from-brand-50 via-brand-50 to-brand-50 rounded-3xl p-8 border border-brand-200 shadow-lg overflow-hidden">
               <div className="absolute inset-0 opacity-5">
-                <div className="absolute top-0 left-0 w-64 h-64 bg-[#577A30] rounded-full blur-3xl" />
+                <div className="absolute top-0 left-0 w-64 h-64 bg-brand-700 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-600 rounded-full blur-3xl" />
               </div>
 
               <div className="relative z-10">
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-white border-[#D0F4A9] text-[#1B2E06] px-3 py-1 text-xs font-semibold uppercase tracking-wider shadow-sm">
+                    <Badge className="bg-white border-brand-300 text-brand-900 px-3 py-1 text-xs font-semibold uppercase tracking-wider shadow-sm">
                       30+ Free Tools
                     </Badge>
-                    <Badge className="bg-[#577A30] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1 shadow-md">
+                    <Badge className="bg-brand-700 text-white px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1 shadow-md">
                       <BadgeCheck className="w-3 h-3" />
                       FY 2026-27
                     </Badge>
@@ -296,7 +296,7 @@ export default function CalculatorsPage() {
                     {
                       icon: Shield,
                       label: 'Bank-Grade Formulas',
-                      color: 'text-[#577A30] bg-[#EFFBE2]',
+                      color: 'text-brand-700 bg-brand-100',
                     },
                     {
                       icon: Zap,
@@ -306,7 +306,7 @@ export default function CalculatorsPage() {
                     {
                       icon: Users,
                       label: 'Used by Indian Planners',
-                      color: 'text-[#577A30] bg-[#EFFBE2]',
+                      color: 'text-brand-700 bg-brand-100',
                     },
                   ].map((feature) => (
                     <div
@@ -330,7 +330,7 @@ export default function CalculatorsPage() {
             <Card className="border-slate-200">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <ListChecks className="h-5 w-5 text-[#577A30]" />
+                  <ListChecks className="h-5 w-5 text-brand-700" />
                   Jump to section
                 </CardTitle>
               </CardHeader>
@@ -382,7 +382,7 @@ export default function CalculatorsPage() {
 
             <article className="prose prose-slate prose-lg max-w-none">
               <h2 className="flex items-center gap-3 text-2xl font-semibold text-slate-900">
-                <LineChart className="h-7 w-7 text-[#577A30]" />
+                <LineChart className="h-7 w-7 text-brand-700" />
                 Why use financial calculators?
               </h2>
               <p className="text-slate-600">
@@ -390,31 +390,31 @@ export default function CalculatorsPage() {
                 money decisions. Whether you are planning{' '}
                 <Link
                   href="/emi-calculator/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   EMIs
                 </Link>
                 , monthly{' '}
                 <Link
                   href="/sip-calculator/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   SIPs
                 </Link>
                 , or{' '}
                 <Link
                   href="/income-tax-calculator/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   tax outgo
                 </Link>
                 , a calculator gives consistency and removes guesswork.
               </p>
 
-              <Card className="my-8 border-slate-200 bg-linear-to-br from-[#F7FDF1] to-teal-50 not-prose">
+              <Card className="my-8 border-slate-200 bg-linear-to-br from-brand-50 to-teal-50 not-prose">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-[#577A30] flex items-center justify-center shadow-lg">
+                    <div className="w-10 h-10 rounded-xl bg-brand-700 flex items-center justify-center shadow-lg">
                       <TrendingUp className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -452,7 +452,7 @@ export default function CalculatorsPage() {
                             </div>
 
                             <div
-                              className="w-full bg-linear-to-t from-[#577A30] via-[#F7FDF1]0 to-[#C0F08D] rounded-t-lg transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:from-[#1B2E06] hover:via-[#577A30] hover:to-[#F7FDF1]0"
+                              className="w-full bg-linear-to-t from-brand-700 via-brand-500 to-brand-300 rounded-t-lg transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:from-brand-900 hover:via-brand-700 hover:to-brand-500"
                               style={{ height: `${bar.h * 1.92}px` }}
                             />
                           </div>
@@ -476,7 +476,7 @@ export default function CalculatorsPage() {
 
                   <p className="text-center text-xs text-slate-600 mt-4 leading-relaxed">
                     Example: Monthly SIP of ₹10,000 at 12% annual returns.
-                    <span className="font-semibold text-[#1B2E06]">
+                    <span className="font-semibold text-brand-900">
                       {' '}
                       Compounding rewards discipline.
                     </span>
@@ -486,11 +486,11 @@ export default function CalculatorsPage() {
 
               <Card
                 id="popular-tools"
-                className="my-8 border-[#DFF7C6] bg-white not-prose shadow-lg scroll-mt-24"
+                className="my-8 border-brand-200 bg-white not-prose shadow-lg scroll-mt-24"
               >
-                <CardHeader className="bg-linear-to-r from-[#F7FDF1] to-teal-50 border-b border-[#EFFBE2]">
+                <CardHeader className="bg-linear-to-r from-brand-50 to-teal-50 border-b border-brand-100">
                   <CardTitle className="text-lg font-semibold text-slate-800 flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-[#577A30]" />
+                    <Zap className="w-5 h-5 text-brand-700" />
                     Quick access: most popular tools
                   </CardTitle>
                 </CardHeader>
@@ -515,7 +515,7 @@ export default function CalculatorsPage() {
                       },
                       {
                         name: 'Home Loan Calculator',
-                        url: '/home-loan-calculator/',
+                        url: '/loans/home-loan/',
                         label: 'Housing EMI planning',
                       },
                       {
@@ -534,15 +534,15 @@ export default function CalculatorsPage() {
                           href={item.url}
                           className={`flex items-center justify-between p-4 rounded-xl border transition-all group ${
                             item.highlight
-                              ? 'bg-[#F7FDF1] border-[#D0F4A9] hover:border-[#F7FDF1]0 hover:shadow-lg'
-                              : 'bg-slate-50 border-slate-200 hover:border-[#D0F4A9] hover:bg-[#F7FDF1]'
+                              ? 'bg-brand-50 border-brand-300 hover:border-brand-500 hover:shadow-lg'
+                              : 'bg-slate-50 border-slate-200 hover:border-brand-300 hover:bg-brand-50'
                           }`}
                         >
                           <div>
                             <span
-                              className={`block font-semibold text-sm group-hover:text-[#1B2E06] transition-colors ${
+                              className={`block font-semibold text-sm group-hover:text-brand-900 transition-colors ${
                                 item.highlight
-                                  ? 'text-[#1B2E06]'
+                                  ? 'text-brand-900'
                                   : 'text-slate-900'
                               }`}
                             >
@@ -552,7 +552,7 @@ export default function CalculatorsPage() {
                               {item.label}
                             </span>
                           </div>
-                          <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#F7FDF1]0 group-hover:translate-x-1 transition-all" />
+                          <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-1 transition-all" />
                         </Link>
                       </li>
                     ))}
@@ -573,18 +573,18 @@ export default function CalculatorsPage() {
                 cost. Use our{' '}
                 <Link
                   href="/compare-loans/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   loan comparison tool
                 </Link>{' '}
                 to evaluate lenders side-by-side.
               </p>
 
-              <div className="bg-linear-to-r from-[#F7FDF1] to-teal-50 border-l-4 border-[#F7FDF1]0 p-5 rounded-r-xl not-prose mb-8 shadow-sm">
-                <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2 text-base">
+              <div className="bg-linear-to-r from-brand-50 to-teal-50 border-l-4 border-brand-500 p-5 rounded-r-xl not-prose mb-8 shadow-sm">
+                <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2 text-base">
                   <CheckCircle2 className="h-5 w-5" /> Pro Tip
                 </h4>
-                <p className="text-sm text-[#577A30] leading-relaxed">
+                <p className="text-sm text-brand-700 leading-relaxed">
                   Always compare{' '}
                   <strong>&ldquo;Total Interest Payable&rdquo;</strong> along
                   with EMI. Even a small reduction in interest rate can save
@@ -602,21 +602,21 @@ export default function CalculatorsPage() {
                 Plan long-term goals with{' '}
                 <Link
                   href="/sip-calculator/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   SIP
                 </Link>
                 ,{' '}
                 <Link
                   href="/ppf-calculator/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   PPF
                 </Link>
                 , and{' '}
                 <Link
                   href="/retirement-calculator/"
-                  className="text-[#577A30] hover:text-[#1B2E06] font-semibold"
+                  className="text-brand-700 hover:text-brand-900 font-semibold"
                 >
                   retirement
                 </Link>{' '}

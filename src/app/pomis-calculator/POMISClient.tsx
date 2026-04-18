@@ -141,11 +141,11 @@ export default function POMISClient() {
 
             {/* Info Cards */}
             <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div className="bg-[#F7FDF1] border border-[#B0EC70] rounded-2xl p-4">
-                <div className="text-xs font-semibold text-[#577A30] tracking-wider">
+              <div className="bg-brand-50 border border-brand-400 rounded-2xl p-4">
+                <div className="text-xs font-semibold text-brand-700 tracking-wider">
                   INTEREST RATE
                 </div>
-                <div className="text-xl font-semibold text-[#577A30] mt-1">
+                <div className="text-xl font-semibold text-brand-700 mt-1">
                   {interestRate}% p.a.
                 </div>
               </div>
@@ -164,9 +164,9 @@ export default function POMISClient() {
 
       {/* RESULTS SECTION */}
       <div className="lg:col-span-7">
-        <Card className="border-[#B0EC70] bg-white shadow-md overflow-hidden h-full flex flex-col">
-          <div className="bg-linear-to-br from-[#F7FDF1] to-white border-b border-[#DFF7C6] p-6 sm:p-8">
-            <p className="text-sm font-semibold text-[#577A30] uppercase tracking-wider mb-2 flex items-center gap-2">
+        <Card className="border-brand-400 bg-white shadow-md overflow-hidden h-full flex flex-col">
+          <div className="bg-linear-to-br from-brand-50 to-white border-b border-brand-200 p-6 sm:p-8">
+            <p className="text-sm font-semibold text-brand-700 uppercase tracking-wider mb-2 flex items-center gap-2">
               <Wallet className="w-4 h-4" /> Guaranteed Monthly Income
             </p>
             <h3 className="text-5xl font-semibold text-slate-900 tracking-tighter">
@@ -188,7 +188,7 @@ export default function POMISClient() {
 
               <div className="flex justify-between py-3 border-b border-slate-100">
                 <span className="text-slate-600">Total Interest (5 Years)</span>
-                <span className="font-semibold text-[#577A30]">
+                <span className="font-semibold text-brand-700">
                   +{formatCurrency(result.totalInterest)}
                 </span>
               </div>

@@ -140,20 +140,20 @@ export default function HindiSCSSCalculatorPage() {
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
             SCSS कैलकुलेटर
-            <span className="block max-w-fit text-base sm:text-lg font-medium text-[#577A30] mb-4 mt-2">
+            <span className="block max-w-fit text-base sm:text-lg font-medium text-brand-700 mb-4 mt-2">
               सीनियर सिटीजन सेविंग स्कीम
             </span>
           </h1>
 
           {/* KEY METRICS BANNER */}
-          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-[#F7FDF1] border border-[#B0EC70] text-[#577A30] px-5 py-3 rounded-2xl mb-6">
+          <div className="flex flex-wrap items-center gap-3 text-sm font-medium bg-brand-50 border border-brand-400 text-brand-700 px-5 py-3 rounded-2xl mb-6">
             <span className="flex items-center gap-1 font-semibold">
               ⭐ वर्तमान दर: 8.2% सालाना
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               अवधि: 5 वर्ष
             </span>
-            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-[#B0EC70]">
+            <span className="text-xs bg-white px-3 py-1 rounded-xl border border-brand-400">
               अधिकतम जमा: ₹30 लाख
             </span>
           </div>
@@ -226,7 +226,7 @@ export default function HindiSCSSCalculatorPage() {
                   {/* Return Matrix */}
                   <section className="space-y-4">
                     <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
-                      <PiggyBank className="w-5 h-5 text-[#577A30]" />
+                      <PiggyBank className="w-5 h-5 text-brand-700" />
                       SCSS इनकम मैट्रिक्स (8.2% दर पर)
                     </h3>
                     <p className="text-sm text-slate-600 mb-2">
@@ -275,14 +275,14 @@ export default function HindiSCSSCalculatorPage() {
                             </td>
                             <td className="px-4 py-3 border-l">₹ 6,15,000</td>
                           </tr>
-                          <tr className="bg-[#EFFBE2]">
-                            <td className="px-4 py-3 font-bold text-[#577A30]">
+                          <tr className="bg-brand-100">
+                            <td className="px-4 py-3 font-bold text-brand-700">
                               ₹ 30,00,000 (अधिकतम सीमा)
                             </td>
                             <td className="px-4 py-3 border-l font-bold text-emerald-700">
                               ₹ 61,500
                             </td>
-                            <td className="px-4 py-3 border-l font-semibold text-[#577A30]">
+                            <td className="px-4 py-3 border-l font-semibold text-brand-700">
                               ₹ 12,30,000
                             </td>
                           </tr>

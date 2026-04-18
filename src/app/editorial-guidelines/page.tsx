@@ -1,6 +1,5 @@
 // src/app/editorial-guidelines/page.tsx
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import '@/styles/terms.css';
 
 export const metadata: Metadata = {

@@ -762,7 +762,7 @@ export default function EmiGuidePage() {
               Open EMI Calculator
             </Link>
             <Link
-              href="/home-loan-calculator/"
+              href="/loans/home-loan/"
               className="rounded-lg border border-slate-600 px-6 py-3 font-semibold text-white transition hover:bg-slate-800"
             >
               Home Loan Calculator

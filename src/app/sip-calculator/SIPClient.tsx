@@ -546,7 +546,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                 value="investment"
                 className={cn(
                   'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
-                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:bg-brand-400',
                   'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
@@ -559,7 +559,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                 value="goal"
                 className={cn(
                   'flex items-center justify-center gap-2 font-semibold transition-all rounded-lg',
-                  'data-[state=active]:bg-[#B0EC70]',
+                  'data-[state=active]:bg-brand-400',
                   'data-[state=active]:text-[#111827] data-[state=active]:shadow-lg data-[state=active]:scale-[1.02]',
                   'data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/50',
                 )}
@@ -623,13 +623,13 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     />
                     <div className="flex justify-between text-xs text-slate-500">
                       <span>{t.noIncrease}</span>
-                      <span className="font-semibold text-[#92C65B]">
+                      <span className="font-semibold text-brand-500">
                         {stepUpPercent}
                         {t.perYear}
                       </span>
                     </div>
                     {stepUpPercent > 0 && (
-                      <p className="text-xs text-[#111827] bg-[#F7FDF1]  p-2 rounded">
+                      <p className="text-xs text-[#111827] bg-brand-50  p-2 rounded">
                         {t.stepUpNote.replace(
                           '{percent}',
                           String(stepUpPercent),
@@ -667,14 +667,14 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     onChange={setGoalRate}
                   />
 
-                  <div className="bg-[#F7FDF1] p-4 rounded-lg border border-[#DFF7C6]">
-                    <div className="text-sm font-medium text-[#1B2E06]">
+                  <div className="bg-brand-50 p-4 rounded-lg border border-brand-200">
+                    <div className="text-sm font-medium text-brand-900">
                       {t.requiredMonthlySIP}
                     </div>
-                    <div className="text-2xl font-semibold text-[#577A30] mt-1">
+                    <div className="text-2xl font-semibold text-brand-700 mt-1">
                       {formatINR(results.requiredSip || 0)}
                     </div>
-                    <p className="text-xs text-[#577A30] font-medium mt-2">
+                    <p className="text-xs text-brand-700 font-medium mt-2">
                       {t.investThisAmount.replace(
                         '{amount}',
                         formatINR(targetAmount),
@@ -699,7 +699,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     : t.estimatedMaturityAmount}
                 </div>
 
-                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-[#74A046]">
+                <div className="mt-1 text-3xl sm:text-4xl font-extrabold text-brand-600">
                   {formatINR(results.maturityAmount)}
                 </div>
 
@@ -715,12 +715,12 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-[#DFF7C6] bg-[#F7FDF1]">
+                  <Card className="border-brand-200 bg-brand-50">
                     <CardContent className="p-4">
-                      <div className="text-xs text-[#74A046]">
+                      <div className="text-xs text-brand-600">
                         {t.wealthGain}
                       </div>
-                      <div className="mt-1 font-semibold text-[#74A046] whitespace-nowrap">
+                      <div className="mt-1 font-semibold text-brand-600 whitespace-nowrap">
                         +{formatINR(results.wealthGain)}
                       </div>
                     </CardContent>
@@ -729,7 +729,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
 
                 <div className="mt-3 text-xs text-slate-500">
                   {stepUpPercent > 0 && calculatorMode === 'investment' && (
-                    <span className="text-[#92C65B] font-medium">
+                    <span className="text-brand-500 font-medium">
                       {t.withAnnualStepUp.replace(
                         '{percent}',
                         String(stepUpPercent),
@@ -750,12 +750,17 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
         <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <LineChart className="h-5 w-5 text-[#92C65B]" />
+              <LineChart className="h-5 w-5 text-brand-500" />
               {t.investmentGrowthOverTime}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer
+              width="100%"
+              height={300}
+              minWidth={0}
+              minHeight={0}
+            >
               <AreaChart data={results.yearlyBreakdown}>
                 <defs>
                   <linearGradient
@@ -829,7 +834,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     <th className="text-right p-3 font-semibold">
                       {t.yearlyInvestment}
                       {stepUpPercent > 0 && (
-                        <span className="text-[#92C65B] ml-1">↗</span>
+                        <span className="text-brand-500 ml-1">↗</span>
                       )}
                     </th>
                     <th className="text-right p-3 font-semibold">
@@ -838,7 +843,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     <th className="text-right p-3 font-semibold">
                       {t.interestEarned}
                     </th>
-                    <th className="text-right p-3 font-semibold text-[#92C65B]">
+                    <th className="text-right p-3 font-semibold text-brand-500">
                       {t.maturityAmount}
                     </th>
                   </tr>
@@ -855,7 +860,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                       <td className="p-3 text-right">
                         {formatINR(row.yearlyInvestment)}
                         {stepUpPercent > 0 && idx > 0 && (
-                          <span className="text-xs text-[#92C65B] ml-1">
+                          <span className="text-xs text-brand-500 ml-1">
                             (+
                             {(
                               ((row.yearlyInvestment -
@@ -872,10 +877,10 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                       <td className="p-3 text-right">
                         {formatINR(row.cumulativeInvestment)}
                       </td>
-                      <td className="p-3 text-right text-[#92C65B]">
+                      <td className="p-3 text-right text-brand-500">
                         {formatINR(row.interestEarned)}
                       </td>
-                      <td className="p-3 text-right font-semibold text-[#92C65B]">
+                      <td className="p-3 text-right font-semibold text-brand-500">
                         {formatINR(row.cumulativeMaturity)}
                       </td>
                     </tr>
@@ -936,7 +941,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                           {formatINR(calc.monthlySip)} {t.month} @ {calc.rate}%{' '}
                           {t.forYears} {calc.years} years
                           {calc.stepUpPercent && calc.stepUpPercent > 0 && (
-                            <span className="text-xs text-[#92C65B] ml-1">
+                            <span className="text-xs text-brand-500 ml-1">
                               (
                               {t.stepUpPercent.replace(
                                 '{percent}',
@@ -950,7 +955,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                           {t.invested} {formatINR(calc.totalInvested)} |{' '}
                           {t.maturity} {formatINR(calc.maturityAmount)}
                         </div>
-                        <div className="text-[11px] text-[#74A046] mt-0.5">
+                        <div className="text-[11px] text-brand-600 mt-0.5">
                           {t.gain} {formatINR(calc.wealthGain)}
                         </div>
                       </div>

@@ -126,7 +126,7 @@ export default function NPSCalculatorPage() {
       <li>Can be opened only if Tier 1 account exists</li>
       <li>Withdraw anytime without restrictions - acts like liquid fund</li>
     </ul>
-    <p class="mt-4 font-semibold text-[#577A30]">
+    <p class="mt-4 font-semibold text-brand-700">
       Most investors focus on Tier 1 for retirement planning due to tax benefits and disciplined saving.
     </p>
   `);
@@ -184,7 +184,7 @@ export default function NPSCalculatorPage() {
       <li><strong>40% Annuity:</strong> Monthly pension taxable as per income slab</li>
       <li>If withdraw before 60 due to emergency: Only 20% tax-free, 80% annuity mandatory</li>
     </ul>
-    <div class="mt-4 p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
+    <div class="mt-4 p-4 bg-brand-50 rounded-lg border border-brand-200">
       <p class="text-sm text-slate-700">
         <strong>Tax Saving Example:</strong> Investing ₹2 lakh/year at 30% tax bracket saves 
         ₹60,000 in taxes annually. Over 30 years, that's ₹18 lakh tax savings!
@@ -291,14 +291,14 @@ export default function NPSCalculatorPage() {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700">
               <TrendingUp className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
                 NPS Calculator (National Pension System)
               </h1>
-              <p className="text-base sm:text-lg font-medium text-[#577A30]">
+              <p className="text-base sm:text-lg font-medium text-brand-700">
                 Calculate pension corpus with ₹2 lakh tax benefits
               </p>
             </div>
@@ -319,9 +319,9 @@ export default function NPSCalculatorPage() {
             {/* Key Stats */}
             <section className="no-print mb-8">
               <div className="grid gap-4 md:grid-cols-3">
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       TAX BENEFIT
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -337,9 +337,9 @@ export default function NPSCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       EXPENSE RATIO
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -355,9 +355,9 @@ export default function NPSCalculatorPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-[#DFF7C6] bg-linear-to-br from-[#F7FDF1] to-white">
+                <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
                   <CardContent className="p-4">
-                    <div className="text-xs font-semibold text-[#577A30] mb-1">
+                    <div className="text-xs font-semibold text-brand-700 mb-1">
                       WITHDRAWAL RULE
                     </div>
                     <div className="text-sm text-slate-600 mb-2">
@@ -384,8 +384,8 @@ export default function NPSCalculatorPage() {
             </div>
 
             {/* Info Alert */}
-            <Alert className="mt-6 bg-[#F7FDF1]/50 border-[#DFF7C6] text-slate-600">
-              <Info className="h-4 w-4 text-[#F7FDF1] mt-0.5" />
+            <Alert className="mt-6 bg-brand-50/50 border-brand-200 text-slate-600">
+              <Info className="h-4 w-4 text-brand-50 mt-0.5" />
               <AlertDescription className="ml-2 text-sm leading-relaxed">
                 <strong className="text-slate-900 font-semibold block mb-0.5">
                   Tax Saving Tip
@@ -470,7 +470,7 @@ export default function NPSCalculatorPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-[#F7FDF1] rounded border border-[#DFF7C6]">
+                    <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
                       <p className="text-xs text-slate-700">
                         <strong>60:40 Rule:</strong> At retirement, minimum 60%
                         can be withdrawn as tax-free lump sum. Remaining 40%
@@ -481,8 +481,8 @@ export default function NPSCalculatorPage() {
                   </div>
 
                   {/* Example Calculation */}
-                  <div className="p-5 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-3 flex items-center gap-2">
+                  <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
                       <span className="text-xl">🧮</span>
                       Example: 30-Year-Old Investing ₹10,000/Month
                     </h4>
@@ -520,7 +520,7 @@ export default function NPSCalculatorPage() {
                         <div>6% p.a.</div>
                       </div>
 
-                      <div className="pt-3 border-t border-[#D0F4A9]">
+                      <div className="pt-3 border-t border-brand-300">
                         <strong className="block mb-2">
                           Step 1: Calculate Monthly Return Rate
                         </strong>
@@ -572,7 +572,7 @@ export default function NPSCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 p-4 bg-white rounded border-2 border-[#F7FDF1]">
+                      <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
                         <div className="space-y-2">
                           <div className="text-lg font-semibold text-slate-700 mb-2">
                             Retirement Benefits Summary:
@@ -585,13 +585,13 @@ export default function NPSCalculatorPage() {
                           </div>
                           <div className="flex justify-between">
                             <span>Total Corpus at 60:</span>
-                            <strong className="text-[#577A30]">
+                            <strong className="text-brand-700">
                               ₹2,28,08,400
                             </strong>
                           </div>
                           <div className="flex justify-between">
                             <span>Total Returns:</span>
-                            <strong className="text-[#577A30]">
+                            <strong className="text-brand-700">
                               ₹1,92,08,400
                             </strong>
                           </div>
@@ -600,7 +600,7 @@ export default function NPSCalculatorPage() {
                               <span className="font-semibold">
                                 Lump Sum (Tax-Free):
                               </span>
-                              <strong className="text-[#577A30]">
+                              <strong className="text-brand-700">
                                 ₹1,36,85,040
                               </strong>
                             </div>
@@ -608,7 +608,7 @@ export default function NPSCalculatorPage() {
                               <span className="font-semibold">
                                 Monthly Pension (Lifelong):
                               </span>
-                              <strong className="text-[#577A30]">
+                              <strong className="text-brand-700">
                                 ₹45,617
                               </strong>
                             </div>
@@ -616,7 +616,7 @@ export default function NPSCalculatorPage() {
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-[#D0F4A9]">
+                      <div className="mt-3 pt-3 border-t border-brand-300">
                         <p className="text-xs text-slate-600">
                           <strong>Tax Savings:</strong> Investing ₹1.2L annually
                           saves ₹36,000/year in taxes (at 30% bracket). Over 30
@@ -627,13 +627,13 @@ export default function NPSCalculatorPage() {
                   </div>
 
                   {/* Investment vs Returns */}
-                  <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6]">
-                    <h4 className="font-semibold text-[#1B2E06] mb-2 flex items-center gap-2">
+                  <div className="p-4 bg-brand-50 rounded-lg border border-brand-200">
+                    <h4 className="font-semibold text-brand-900 mb-2 flex items-center gap-2">
                       <Percent className="h-4 w-4" />
                       Total Invested vs Total Returns
                     </h4>
                     <div className="text-sm text-slate-700 space-y-2">
-                      <div className="p-3 bg-white rounded border border-[#DFF7C6]">
+                      <div className="p-3 bg-white rounded border border-brand-200">
                         <div className="font-mono text-sm space-y-1">
                           <div>Total Invested = Monthly SIP × Total Months</div>
                           <div>Total Invested = ₹10,000 × 360 = ₹36,00,000</div>
@@ -644,7 +644,7 @@ export default function NPSCalculatorPage() {
                             Total Returns = ₹2,28,08,400 - ₹36,00,000 =
                             ₹1,92,08,400
                           </div>
-                          <div className="mt-2 font-semibold text-[#577A30]">
+                          <div className="mt-2 font-semibold text-brand-700">
                             Returns = 533% of investment (5.3x growth!)
                           </div>
                         </div>
@@ -663,18 +663,18 @@ export default function NPSCalculatorPage() {
             </section>
 
             {/* Promo Card */}
-            <Card className="no-print my-6 border-[#DFF7C6] bg-[#F7FDF1]/50 transition-colors hover:bg-[#F7FDF1]">
+            <Card className="no-print my-6 border-brand-200 bg-brand-50/50 transition-colors hover:bg-brand-50">
               <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EFFBE2] text-[#577A30]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
                   <Shield className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <strong className="block text-base font-semibold text-[#1B2E06]">
+                  <strong className="block text-base font-semibold text-brand-900">
                     Want to plan complete retirement?
                   </strong>
                   <Link
                     href="/retirement-calculator/"
-                    className="group inline-flex items-center text-sm font-semibold text-[#577A30] hover:text-[#1B2E06]"
+                    className="group inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-900"
                   >
                     <span>
                       Use Retirement Calculator for comprehensive planning
@@ -755,7 +755,7 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Expected Returns
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           10-12% p.a.
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -770,7 +770,7 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Tax Deduction
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           ₹2L (80C + 80CCD(1B))
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -788,10 +788,10 @@ export default function NPSCalculatorPage() {
                         <TableCell className="text-slate-700">
                           60% tax-free, 40% taxable
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           100% tax-free (EEE)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           100% tax-free (EEE)
                         </TableCell>
                       </TableRow>
@@ -815,13 +815,13 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Expense Ratio
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           0.01%
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           0% (No charges)
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           0% (No charges)
                         </TableCell>
                       </TableRow>
@@ -830,10 +830,10 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Eligibility
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           All citizens 18-70
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           All Indian citizens
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -845,7 +845,7 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Investment Type
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Market-linked (E/C/G)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -860,7 +860,7 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Pension Feature
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Yes (40% annuity)
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -875,7 +875,7 @@ export default function NPSCalculatorPage() {
                         <TableCell className="font-medium text-slate-700">
                           Best For
                         </TableCell>
-                        <TableCell className="font-semibold text-[#577A30]">
+                        <TableCell className="font-semibold text-brand-700">
                           Tax saving + growth
                         </TableCell>
                         <TableCell className="text-slate-700">
@@ -889,7 +889,7 @@ export default function NPSCalculatorPage() {
                   </Table>
                 </div>
 
-                <div className="p-4 bg-[#F7FDF1] rounded-lg border border-[#DFF7C6] mt-4">
+                <div className="p-4 bg-brand-50 rounded-lg border border-brand-200 mt-4">
                   <p className="text-sm text-slate-700">
                     <strong>Expert Verdict:</strong> NPS is best for additional
                     tax savings (₹50k extra under 80CCD(1B)) and higher
@@ -996,21 +996,21 @@ export default function NPSCalculatorPage() {
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/retirement-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🏖️
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               Retirement Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate complete retirement corpus needed for
                               comfortable life.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Plan Retirement</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
@@ -1021,21 +1021,21 @@ export default function NPSCalculatorPage() {
                   </Link>
 
                   <Link href="/ppf-calculator/" className="group">
-                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-[#D0F4A9]">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
                         <div className="flex items-start gap-3">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#F7FDF1] to-[#EFFBE2] text-[#577A30] text-2xl">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
                             🏦
                           </span>
                           <div className="flex-1">
-                            <div className="font-semibold text-slate-900 group-hover:text-[#577A30] mb-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
                               PPF Calculator
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                               Calculate Public Provident Fund with 100% tax-free
                               returns.
                             </p>
-                            <div className="mt-3 flex items-center text-xs font-semibold text-[#577A30]">
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
                               <span>Calculate PPF</span>
                               <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
                             </div>
