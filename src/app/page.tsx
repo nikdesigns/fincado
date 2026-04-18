@@ -13,23 +13,26 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import {
+  Activity,
   ArrowRight,
+  Banknote,
+  BarChart3,
+  Briefcase,
   Building2,
+  Calculator,
+  CheckCircle2,
+  Clock,
   FileText,
   GitCompare,
-  ShieldCheck,
-  TrendingUp,
-  Calculator,
-  Wallet,
-  PiggyBank,
-  TrendingDown,
-  Landmark,
-  Clock,
-  Activity,
-  Receipt,
-  Briefcase,
-  Target,
   HomeIcon,
+  PiggyBank,
+  Receipt,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  TrendingDown,
+  TrendingUp,
+  Wallet,
 } from 'lucide-react';
 import { getCurrentFiscalYear, getUpdatedForFYText } from '@/lib/fiscalYear';
 
@@ -57,7 +60,8 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: 'en_IN',
       url: 'https://fincado.com/',
       title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
-      description: `Calculate EMI, SIP returns, exact Income Tax, SCSS payouts, Capital Gains, and more with practical financial tools for Indian users.`,
+      description:
+        'Calculate EMI, SIP returns, exact Income Tax, SCSS payouts, Capital Gains, and more with practical financial tools for Indian users.',
       siteName: 'Fincado',
       images: [
         {
@@ -77,6 +81,30 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+
+type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
+type ToolItem = {
+  href: string;
+  title: string;
+  desc: string;
+  icon: IconType;
+  toneClass: string;
+};
+
+type MetricItem = {
+  label: string;
+  value: string;
+  note: string;
+};
+
+type DecisionLane = {
+  title: string;
+  desc: string;
+  href: string;
+  cta: string;
+  icon: IconType;
+};
 
 const FAQ_ITEMS = [
   {
@@ -98,6 +126,218 @@ const FAQ_ITEMS = [
     question: 'What is the best way to get out of debt faster?',
     answer:
       'Use our EMI Prepayment Calculator. It shows you exactly how making a lumpsum part-payment or increasing your monthly EMI by a small amount can shave years off your loan tenure and save lakhs in interest.',
+  },
+];
+
+const HERO_QUICK_ACTIONS = [
+  {
+    href: '/emi-prepayment-calculator/',
+    label: 'EMI Prepayment Calculator',
+    desc: 'Find the fastest path to cut loan tenure.',
+  },
+  {
+    href: '/capital-gains-calculator/',
+    label: 'Capital Gains Tax (12.5%)',
+    desc: 'Estimate exact tax before you sell.',
+  },
+  {
+    href: '/scss-calculator/',
+    label: 'SCSS Calculator (8.2%)',
+    desc: 'Plan safe quarterly retirement cashflow.',
+  },
+  {
+    href: '/brokerage-calculator/',
+    label: 'Brokerage Breakeven',
+    desc: 'See net P&L after all charges.',
+  },
+];
+
+const HERO_TRUST_POINTS = [
+  '100% Free, No Login Required',
+  'Aligned to current FY tax and compliance assumptions',
+  'Built for Indian lending, tax, and investment workflows',
+  'Readable breakdowns, not black-box outputs',
+];
+
+const METRICS: MetricItem[] = [
+  {
+    label: 'Decision Tools',
+    value: '40+',
+    note: 'Coverage across loans, tax, retirement, and trading.',
+  },
+  {
+    label: 'Always-on Access',
+    value: '24x7',
+    note: 'Instant outputs with no sign-up barriers.',
+  },
+  {
+    label: 'Current FY Focus',
+    value: 'FY Ready',
+    note: 'Updated assumptions for the active financial year.',
+  },
+  {
+    label: 'Workflow Speed',
+    value: '<60 sec',
+    note: 'Most core estimates complete in under a minute.',
+  },
+];
+
+const DECISION_LANES: DecisionLane[] = [
+  {
+    title: 'Borrow Better',
+    desc: 'Model EMI, prepayment, and bank-to-bank offers before committing.',
+    href: '/compare-loans/',
+    cta: 'Compare Loan Offers',
+    icon: Building2,
+  },
+  {
+    title: 'Grow Capital',
+    desc: 'Plan SIP, lumpsum, SWP, and long-term wealth targets with clarity.',
+    href: '/sip-calculator/',
+    cta: 'Start SIP Planning',
+    icon: TrendingUp,
+  },
+  {
+    title: 'Reduce Tax Drag',
+    desc: 'Test salary, deductions, and regime scenarios before year-end.',
+    href: '/income-tax-calculator/',
+    cta: 'Optimize Tax',
+    icon: FileText,
+  },
+  {
+    title: 'Secure Retirement',
+    desc: 'Evaluate SCSS, EPF, NPS, and income ladders for stable drawdown.',
+    href: '/retirement-calculator/',
+    cta: 'Plan Retirement',
+    icon: Wallet,
+  },
+];
+
+const ESSENTIAL_TOOLS: ToolItem[] = [
+  {
+    href: '/emi-calculator/',
+    icon: Calculator,
+    toneClass: 'bg-blue-50 text-blue-700',
+    title: 'EMI Calculator',
+    desc: 'Calculate monthly EMI, total interest, and repayment schedule with precision.',
+  },
+  {
+    href: '/sip-calculator/',
+    icon: TrendingUp,
+    toneClass: 'bg-emerald-50 text-emerald-700',
+    title: 'SIP Calculator',
+    desc: 'Estimate long-horizon corpus from monthly investing with compounding.',
+  },
+  {
+    href: '/income-tax-calculator/',
+    icon: FileText,
+    toneClass: 'bg-rose-50 text-rose-700',
+    title: 'Income Tax Calculator',
+    desc: 'Compare old vs new regime outputs to maximize in-hand income.',
+  },
+  {
+    href: '/salary-calculator/',
+    icon: Briefcase,
+    toneClass: 'bg-indigo-50 text-indigo-700',
+    title: 'Salary Calculator',
+    desc: 'Convert CTC to monthly in-hand salary with PF and tax adjustments.',
+  },
+];
+
+const DEBT_TOOLS: ToolItem[] = [
+  {
+    href: '/emi-prepayment-calculator/',
+    icon: TrendingDown,
+    toneClass: 'bg-emerald-50 text-emerald-700',
+    title: 'EMI Prepayment Calculator',
+    desc: 'Quantify savings from part-payments and higher EMI strategy.',
+  },
+  {
+    href: '/loans/home-loan/',
+    icon: HomeIcon,
+    toneClass: 'bg-blue-50 text-blue-700',
+    title: 'Home Loan Calculator',
+    desc: 'Validate affordability, tenure, and monthly repayment comfort.',
+  },
+  {
+    href: '/loans/car-loan/',
+    icon: Target,
+    toneClass: 'bg-amber-50 text-amber-700',
+    title: 'Car Loan Calculator',
+    desc: 'Set dealer-ready EMI ranges before final negotiation.',
+  },
+];
+
+const SAFE_RETURN_TOOLS: ToolItem[] = [
+  {
+    href: '/scss-calculator/',
+    icon: ShieldCheck,
+    toneClass: 'bg-brand-50 text-brand-700',
+    title: 'SCSS Calculator',
+    desc: 'Model quarterly income from the Senior Citizen Savings Scheme.',
+  },
+  {
+    href: '/pomis-calculator/',
+    icon: Wallet,
+    toneClass: 'bg-brand-50 text-brand-700',
+    title: 'POMIS Calculator',
+    desc: 'Estimate post office monthly income with confidence.',
+  },
+  {
+    href: '/kvp-calculator/',
+    icon: Clock,
+    toneClass: 'bg-brand-50 text-brand-700',
+    title: 'KVP Calculator',
+    desc: 'Track money-doubling horizon and maturity timing exactly.',
+  },
+];
+
+const TAX_TRADING_TOOLS: ToolItem[] = [
+  {
+    href: '/capital-gains-calculator/',
+    icon: PiggyBank,
+    toneClass: 'bg-purple-50 text-purple-700',
+    title: 'Capital Gains Calculator',
+    desc: 'Compute STCG/LTCG for stocks, mutual funds, and property.',
+  },
+  {
+    href: '/brokerage-calculator/',
+    icon: Activity,
+    toneClass: 'bg-rose-50 text-rose-700',
+    title: 'Brokerage Calculator',
+    desc: 'See net breakeven after brokerage, STT, GST, and exchange fees.',
+  },
+  {
+    href: '/rent-receipt-generator/',
+    icon: Receipt,
+    toneClass: 'bg-emerald-50 text-emerald-700',
+    title: 'Rent Receipt Generator',
+    desc: 'Generate instant printable receipts for HRA documentation.',
+  },
+];
+
+const QUICK_COMPARISONS = [
+  { b1: 'SBI', b2: 'HDFC', link: '/compare/sbi-vs-hdfc/' },
+  { b1: 'HDFC', b2: 'ICICI', link: '/compare/hdfc-vs-icici/' },
+  { b1: 'SBI', b2: 'Axis', link: '/compare/sbi-vs-axis/' },
+  { b1: 'PNB', b2: 'BOB', link: '/compare/pnb-vs-bob/' },
+];
+
+const OPERATING_PRINCIPLES = [
+  {
+    title: 'Decision-First UX',
+    desc: 'Every tool is structured around practical decisions, not formula memorization.',
+    icon: Sparkles,
+  },
+  {
+    title: 'Transparent Breakdown',
+    desc: 'Outputs are paired with assumptions so users can validate and trust results.',
+    icon: BarChart3,
+  },
+  {
+    title: 'India-Specific Logic',
+    desc: 'Lending, tax, and savings workflows reflect Indian market and policy context.',
+    icon: Banknote,
   },
 ];
 
@@ -146,6 +386,17 @@ export default function Home(): JSX.Element {
           'query-input': 'required name=search_term_string',
         },
       },
+      {
+        '@type': 'FAQPage',
+        mainEntity: FAQ_ITEMS.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      },
     ],
   };
 
@@ -156,154 +407,138 @@ export default function Home(): JSX.Element {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <main className="container py-8" id="main-content">
-        {/* HERO SECTION */}
+      <main className="container pb-16 pt-6 sm:pt-8" id="main-content">
         <section
-          className="mx-auto grid max-w-6xl gap-8 rounded-3xl border my-10 border-slate-200 bg-white px-6 py-10 shadow-sm md:grid-cols-[1.2fr_0.8fr] md:px-10 md:py-14"
+          className="relative mx-auto mt-6 grid max-w-6xl gap-8 overflow-hidden rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-[1.15fr_0.85fr] md:p-10"
           aria-labelledby="hero-title"
         >
-          <div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-linear-to-br from-brand-200/70 to-transparent blur-3xl"
+          />
+
+          <div className="relative z-10">
             <div className="mb-5 flex flex-wrap items-center gap-3">
               <Badge
                 variant="outline"
-                className="bg-brand-50 font-semibold text-slate-800 border-brand-400"
+                className="border-brand-400 bg-brand-50 font-semibold text-slate-800"
               >
                 {getUpdatedForFYText()}
               </Badge>
               <Badge
                 variant="outline"
-                className="bg-blue-50 font-semibold text-blue-800 border-blue-200"
+                className="border-slate-200 bg-slate-50 font-semibold text-slate-700"
               >
-                40+ Premium Tools
+                Enterprise-grade planning stack
               </Badge>
             </div>
 
             <h1
               id="hero-title"
-              className="text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-tight tracking-tight text-slate-900"
+              className="text-[clamp(2rem,4vw,3.6rem)] font-semibold leading-tight tracking-tight text-slate-900"
             >
-              India&apos;s Most Powerful Financial Calculators
+              Financial Decision Infrastructure for Modern Indian Households
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
-              Plan your loans, investments, taxes, and retirement with
-              precision. Fincado helps you estimate exact EMIs, Post Office
-              payouts, Capital Gains, and in-hand salary without spreadsheets.
+              Model loans, tax, salary, investments, and retirement in one place.
+              Fincado helps you evaluate real trade-offs before you commit money.
             </p>
 
-            <ul className="mt-6 flex flex-wrap gap-5 text-sm font-medium text-slate-700">
-              <li className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" /> 100% Free
-              </li>
-              <li className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" /> No Login
-                Required
-              </li>
-              <li className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" /> SEBI / RBI
-                Rules Updated
-              </li>
-            </ul>
+            <div className="mt-7 grid gap-2.5 text-sm font-medium text-slate-700 sm:grid-cols-2">
+              {HERO_TRUST_POINTS.map((point) => (
+                <div
+                  key={point}
+                  className="flex items-start gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2"
+                >
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
+                  <span>{point}</span>
+                </div>
+              ))}
+            </div>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Button
                 asChild
                 size="lg"
-                className="bg-brand-400 text-[#111827] font-bold hover:bg-brand-500 transition-colors"
+                className="bg-brand-400 font-bold text-[#111827] transition-colors hover:bg-brand-500"
               >
-                <Link href="/salary-calculator/">Check In-Hand Salary</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-slate-300"
-              >
-                <Link href="/emi-prepayment-calculator/">
-                  Save Loan Interest
+                <Link href="/salary-calculator/">
+                  Check In-Hand Salary <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-slate-300">
+                <Link href="/emi-prepayment-calculator/">Save Loan Interest</Link>
               </Button>
             </div>
 
-            {/* 💰 AD 1: HIGH VISIBILITY BELOW HERO BUTTONS */}
             <div className="mt-8 w-full max-w-md">
               <AdSlot id="home-hero-ad" type="banner" />
             </div>
           </div>
 
-          <aside className="grid gap-4">
-            <Card className="border-emerald-100 bg-brand-50 shadow-sm">
+          <aside className="relative z-10 grid gap-4">
+            <Card className="border-slate-200 bg-slate-50/70 shadow-sm">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold text-slate-900 flex items-center gap-2">
-                  🔥 Trending Right Now
+                <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                  <Sparkles className="h-4 w-4 text-brand-700" /> Command Center
                 </CardTitle>
               </CardHeader>
               <CardContent className="grid gap-3 text-sm">
-                <QuickLink
-                  href="/emi-prepayment-calculator/"
-                  label="EMI Prepayment Calculator"
-                  desc="Save lakhs by part-paying your loan."
-                />
-                <QuickLink
-                  href="/capital-gains-calculator/"
-                  label="Capital Gains Tax (12.5%)"
-                  desc="Calculate exact tax on Stocks & MFs."
-                />
-                <QuickLink
-                  href="/scss-calculator/"
-                  label="SCSS Calculator (8.2%)"
-                  desc="Senior Citizen guaranteed quarterly income."
-                />
-                <QuickLink
-                  href="/brokerage-calculator/"
-                  label="Brokerage Calculator"
-                  desc="Find Intraday & Options breakeven points."
-                />
+                {HERO_QUICK_ACTIONS.map((action) => (
+                  <QuickActionLink
+                    key={action.href}
+                    href={action.href}
+                    label={action.label}
+                    desc={action.desc}
+                  />
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card className="border-brand-200 bg-brand-50 shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base font-semibold text-slate-900">
+                  Decision Tracks
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-2 text-sm text-slate-700">
+                <TrackLink href="/compare-loans/" label="Borrowing" />
+                <TrackLink href="/income-tax-calculator/" label="Tax Planning" />
+                <TrackLink href="/sip-calculator/" label="Wealth Building" />
+                <TrackLink href="/retirement-calculator/" label="Retirement" />
               </CardContent>
             </Card>
           </aside>
         </section>
 
-        {/* SECTION 1: MOST POPULAR */}
-        <section className="mt-20">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <TrendingUp className="w-6 h-6 text-brand-700" /> The Essentials
-            </h2>
-            <p className="mt-1 text-slate-600 font-medium">
-              Start with the most commonly used financial tools in India.
-            </p>
-          </div>
+        <section className="mx-auto mt-8 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {METRICS.map((metric) => (
+            <MetricCard key={metric.label} {...metric} />
+          ))}
+        </section>
 
+        <section className="mt-18">
+          <SectionHeader
+            title="Choose Your Next Decision"
+            description="Jump into the workflow that matches your immediate money decision."
+          />
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {DECISION_LANES.map((lane) => (
+              <DecisionCard key={lane.title} lane={lane} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-18">
+          <SectionHeader
+            title="Core Calculator Suite"
+            description="The highest-usage models used daily by salaried users and families."
+          />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <ToolCard
-              href="/emi-calculator/"
-              icon={<Calculator className="w-6 h-6 text-blue-600" />}
-              bgClass="bg-blue-50"
-              title="EMI Calculator"
-              desc="Calculate your exact monthly EMI, total interest, and repayment schedule."
-            />
-            <ToolCard
-              href="/sip-calculator/"
-              icon={<TrendingUp className="w-6 h-6 text-emerald-600" />}
-              bgClass="bg-emerald-50"
-              title="SIP Calculator"
-              desc="Estimate long-term wealth creation from monthly mutual fund investments."
-            />
-            <ToolCard
-              href="/income-tax-calculator/"
-              icon={<FileText className="w-6 h-6 text-rose-600" />}
-              bgClass="bg-rose-50"
-              title="Income Tax Calculator"
-              desc={`Compare Old vs New tax regimes to maximize your take-home pay.`}
-            />
-            <ToolCard
-              href="/salary-calculator/"
-              icon={<Briefcase className="w-6 h-6 text-indigo-600" />}
-              bgClass="bg-indigo-50"
-              title="Salary Calculator"
-              desc="Convert your CTC into exact monthly In-Hand salary with PF/Tax breakdown."
-            />
+            {ESSENTIAL_TOOLS.map((tool) => (
+              <EnterpriseToolCard key={tool.href} tool={tool} />
+            ))}
           </div>
         </section>
 
@@ -311,18 +546,13 @@ export default function Home(): JSX.Element {
           <AdSlot id="home-mid-1" type="leaderboard" />
         </div>
 
-        {/* SECTION 2: SMART LOANS & DEBT */}
-        <section className="mt-14 bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-10">
-          <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                <Building2 className="w-6 h-6 text-slate-700" /> Smart Debt
-                Management
-              </h2>
-              <p className="mt-1 text-slate-600 font-medium">
-                Plan your borrowing and learn how to get out of debt faster.
-              </p>
-            </div>
+        <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-10">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <SectionHeader
+              title="Debt Management Desk"
+              description="Plan borrowing with scenario clarity and compare lender options side by side."
+              compact
+            />
             <Button asChild variant="outline" className="bg-white">
               <Link href="/compare-loans/">
                 Compare Bank Rates <ArrowRight className="ml-2 h-4 w-4" />
@@ -330,154 +560,73 @@ export default function Home(): JSX.Element {
             </Button>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-            <ToolCard
-              href="/emi-prepayment-calculator/"
-              icon={<TrendingDown className="w-6 h-6 text-emerald-600" />}
-              bgClass="bg-emerald-50"
-              title="EMI Prepayment Calculator"
-              desc="See how much interest you save by making lumpsum part-payments on your loan."
-            />
-            <ToolCard
-              href="/loans/home-loan/"
-              icon={<HomeIcon className="w-6 h-6 text-blue-600" />}
-              bgClass="bg-blue-50"
-              title="Home Loan Calculator"
-              desc="Plan affordability, EMI limits, and tenure for housing loans."
-            />
-            <ToolCard
-              href="/loans/car-loan/"
-              icon={<Target className="w-6 h-6 text-amber-600" />}
-              bgClass="bg-amber-50"
-              title="Car Loan Calculator"
-              desc="Calculate your exact monthly car payment before visiting the dealership."
-            />
-          </div>
-
-          {/* Quick Comparisons */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <ComparisonCard b1="SBI" b2="HDFC" link="/compare/sbi-vs-hdfc/" />
-            <ComparisonCard
-              b1="HDFC"
-              b2="ICICI"
-              link="/compare/hdfc-vs-icici/"
-            />
-            <ComparisonCard b1="SBI" b2="Axis" link="/compare/sbi-vs-axis/" />
-            <ComparisonCard b1="PNB" b2="BOB" link="/compare/pnb-vs-bob/" />
-          </div>
-        </section>
-
-        {/* SECTION 3: POST OFFICE & SAFE RETURNS */}
-        <section className="mt-20">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <Landmark className="w-6 h-6 text-amber-600" /> Post Office & Safe
-              Returns
-            </h2>
-            <p className="mt-1 text-slate-600 font-medium">
-              Calculate guaranteed returns backed by the Government of India.
-            </p>
-          </div>
-
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <ToolCard
-              href="/scss-calculator/"
-              icon={<ShieldCheck className="w-6 h-6 text-brand-700" />}
-              bgClass="bg-brand-50"
-              title="SCSS Calculator"
-              desc="Calculate guaranteed quarterly income for Senior Citizens at 8.2%."
-            />
-            <ToolCard
-              href="/pomis-calculator/"
-              icon={<Wallet className="w-6 h-6 text-brand-700" />}
-              bgClass="bg-brand-50"
-              title="POMIS Calculator"
-              desc="Plan your monthly income from the Post Office MIS scheme at 7.4%."
-            />
-            <ToolCard
-              href="/kvp-calculator/"
-              icon={<Clock className="w-6 h-6 text-brand-700" />}
-              bgClass="bg-brand-50"
-              title="KVP Calculator"
-              desc="Find the exact date your money will double under Kisan Vikas Patra."
-            />
+            {DEBT_TOOLS.map((tool) => (
+              <EnterpriseToolCard key={tool.href} tool={tool} />
+            ))}
+          </div>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {QUICK_COMPARISONS.map((item) => (
+              <ComparisonCard key={item.link} b1={item.b1} b2={item.b2} link={item.link} />
+            ))}
           </div>
         </section>
 
-        {/* SECTION 4: TAX & TRADING */}
-        <section className="mt-20">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <Activity className="w-6 h-6 text-rose-600" /> Tax & Trading
-              Utilities
-            </h2>
-            <p className="mt-1 text-slate-600 font-medium">
-              Tools for active investors, traders, and salaried employees.
-            </p>
+        <section className="mt-18 grid gap-8 lg:grid-cols-2">
+          <div>
+            <SectionHeader
+              title="Post Office & Safe Return Desk"
+              description="Model conservative options with predictable cashflow outputs."
+              compact
+            />
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 lg:grid-cols-1">
+              {SAFE_RETURN_TOOLS.map((tool) => (
+                <EnterpriseToolCard key={tool.href} tool={tool} />
+              ))}
+            </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <ToolCard
-              href="/capital-gains-calculator/"
-              icon={<PiggyBank className="w-6 h-6 text-purple-600" />}
-              bgClass="bg-purple-50"
-              title="Capital Gains Calculator"
-              desc="Calculate STCG & LTCG on Stocks, Mutual Funds, and Real Estate."
+          <div>
+            <SectionHeader
+              title="Tax & Trading Desk"
+              description="Understand charges, tax impact, and net take-home outcomes before execution."
+              compact
             />
-            <ToolCard
-              href="/brokerage-calculator/"
-              icon={<Activity className="w-6 h-6 text-rose-600" />}
-              bgClass="bg-rose-50"
-              title="Brokerage Calculator"
-              desc="Find precise breakeven points for Intraday & Options after STT and Exchange fees."
-            />
-            <ToolCard
-              href="/rent-receipt-generator/"
-              icon={<Receipt className="w-6 h-6 text-emerald-600" />}
-              bgClass="bg-emerald-50"
-              title="Rent Receipt Generator"
-              desc="Generate free, instantly printable PDFs to claim your HRA tax exemption."
-            />
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 lg:grid-cols-1">
+              {TAX_TRADING_TOOLS.map((tool) => (
+                <EnterpriseToolCard key={tool.href} tool={tool} />
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* GUIDES SECTION */}
         <section className="mt-20">
           <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Featured Guides
-              </h2>
-            </div>
-            <Button
-              asChild
-              variant="ghost"
-              className="font-semibold text-emerald-700"
-            >
+            <SectionHeader
+              title="Featured Guides"
+              description="Context-rich guides that support your calculator decisions."
+              compact
+            />
+            <Button asChild variant="ghost" className="font-semibold text-emerald-700">
               <Link href="/guides/">View all guides</Link>
             </Button>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {displayGuides.map((guide) => (
-              <Link
-                key={guide.slug}
-                href={`/guides/${guide.slug}/`}
-                className="group block"
-              >
-                <Card className="h-full rounded-2xl border border-slate-200 p-6 transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-md bg-white">
+              <Link key={guide.slug} href={`/guides/${guide.slug}/`} className="group block">
+                <Card className="h-full rounded-2xl border border-slate-200 p-6 transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-md">
                   <div className="mb-4 flex items-center justify-between">
-                    <span className="inline-block rounded-full bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-700 border border-brand-200">
+                    <span className="inline-block rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-700">
                       {guide.category || 'Guide'}
                     </span>
                   </div>
                   <h3 className="mb-3 line-clamp-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-brand-700">
                     {guide.title}
                   </h3>
-                  <p className="line-clamp-3 text-sm leading-relaxed text-slate-600 font-medium">
-                    {(guide.metaDescription || '')
-                      .replace(/<[^>]+>/g, '')
-                      .trim()}
+                  <p className="line-clamp-3 text-sm font-medium leading-relaxed text-slate-600">
+                    {(guide.metaDescription || '').replace(/<[^>]+>/g, '').trim()}
                   </p>
                 </Card>
               </Link>
@@ -485,58 +634,61 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        {/* LONG-FORM SEO CONTENT */}
+        <section className="mt-20">
+          <SectionHeader
+            title="Why This Feels Enterprise-Grade"
+            description="The platform is designed to support repeatable, high-stakes money decisions."
+          />
+          <div className="grid gap-5 md:grid-cols-3">
+            {OPERATING_PRINCIPLES.map((item) => (
+              <Card key={item.title} className="border-slate-200 bg-white shadow-sm">
+                <CardContent className="p-6">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+                    <item.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
+                  <p className="mt-2 text-sm font-medium leading-relaxed text-slate-600">
+                    {item.desc}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         <section className="mt-24">
           <article className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">
-              Financial calculators that help you make clearer decisions
+            <h2 className="mb-6 text-3xl font-bold text-slate-900">
+              Financial calculators that support real-world execution
             </h2>
 
-            <div className="space-y-6 text-base leading-8 text-slate-700 font-medium">
+            <div className="space-y-6 text-base font-medium leading-8 text-slate-700">
               <p>
-                A financial calculator is useful only when it helps you answer a
-                real question. Most people do not need abstract formulas first —
-                they need to know whether they can afford a home loan, how much
-                <strong> In-Hand Salary</strong> they will receive after PF
-                deductions, which tax regime saves more money, or how to get out
-                of debt faster. Fincado is designed specifically around these
-                practical decisions for Indian users.
+                Financial tools create value only when they improve action quality.
+                Most users are not searching for formulas first. They need clarity
+                on affordability, tax impact, monthly cashflow, and long-term
+                trade-offs before making decisions.
               </p>
 
               <p>
-                If you are borrowing, tools like our standard EMI calculator and
-                the advanced <strong>EMI Prepayment Calculator</strong> show you
-                the true cost of debt. By making strategic lumpsum
-                part-payments, you can witness the power of reverse
-                compounding—shaving years off your loan tenure and saving lakhs
-                in interest.
+                Fincado is structured around these practical decisions. Borrowers can
+                model EMI and prepayment outcomes, salaried users can compare regime
+                impact, and investors can evaluate return paths with transparent
+                assumptions.
               </p>
 
               <p>
-                For conservative investors and retirees, navigating government
-                schemes is crucial. Our dedicated tools for{' '}
-                <strong>Post Office Schemes</strong>—including the SCSS
-                Calculator (Senior Citizen Savings Scheme), POMIS (Monthly
-                Income Scheme), and KVP (Kisan Vikas Patra)—help you map out
-                guaranteed quarterly or monthly cash flows and exact maturity
-                dates without the hassle of manual math.
-              </p>
-
-              <p>
-                If you are an active investor or trader, the devil is in the
-                details. Use the <strong>Capital Gains Tax Calculator</strong>{' '}
-                to determine your exact STCG and LTCG liabilities under the new
-                12.5% budget rules. For active market participants, our{' '}
-                <strong>Brokerage Calculator</strong> breaks down STT, GST, and
-                SEBI exchange fees to reveal your exact breakeven points for
-                Intraday and F&O trading.
+                For low-risk planning, dedicated calculators for SCSS, POMIS, and KVP
+                provide predictable cashflow visibility. For active market users,
+                capital gains and brokerage tools highlight net outcomes after charges
+                and taxes.
               </p>
             </div>
           </article>
         </section>
 
         <section className="mt-16">
-          <Card className="bg-white border-slate-200">
+          <Card className="border-slate-200 bg-white">
             <CardHeader className="pb-2">
               <CardTitle className="text-xl font-bold text-slate-900">
                 Frequently asked questions
@@ -549,7 +701,7 @@ export default function Home(): JSX.Element {
                     <AccordionTrigger className="font-semibold">
                       {item.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-slate-600 font-medium leading-relaxed">
+                    <AccordionContent className="font-medium leading-relaxed text-slate-600">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -560,20 +712,20 @@ export default function Home(): JSX.Element {
         </section>
 
         <section className="my-16">
-          <div className="rounded-3xl bg-slate-900 px-6 py-14 text-center shadow-xl sm:px-12 bg-[url('/images/noise.png')]">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900 bg-[url('/images/noise.png')] px-6 py-14 text-center shadow-xl sm:px-12">
             <h2 className="text-2xl font-bold text-white sm:text-4xl">
-              Start with the calculator that matches your next decision.
+              Start with the calculator that matches your next money move.
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 sm:text-lg font-medium">
-              Borrowing, investing, tax planning, and retirement all improve
-              when you can compare the exact numbers clearly before you act.
+            <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-slate-300 sm:text-lg">
+              Better outcomes come from comparing numbers before acting. Begin with
+              borrowing, investing, or tax optimization in minutes.
             </p>
 
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
               <Button
                 asChild
                 size="lg"
-                className="bg-brand-400 text-[#111827] font-bold hover:bg-brand-500 h-14 px-8 text-lg"
+                className="h-14 bg-brand-400 px-8 text-lg font-bold text-[#111827] hover:bg-brand-500"
               >
                 <Link href="/emi-calculator/">Calculate EMI</Link>
               </Button>
@@ -581,7 +733,7 @@ export default function Home(): JSX.Element {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-slate-500 text-white hover:bg-slate-800 h-14 px-8 text-lg bg-transparent"
+                className="h-14 border-slate-500 bg-transparent px-8 text-lg text-white hover:bg-slate-800"
               >
                 <Link href="/sip-calculator/">Plan SIP</Link>
               </Button>
@@ -593,42 +745,47 @@ export default function Home(): JSX.Element {
   );
 }
 
-/* --- Helper Components --- */
-
-function ToolCard({
-  href,
-  icon,
-  bgClass,
+function SectionHeader({
   title,
-  desc,
+  description,
+  compact = false,
 }: {
-  href: string;
-  icon: React.ReactNode;
-  bgClass: string;
   title: string;
-  desc: string;
+  description: string;
+  compact?: boolean;
 }) {
   return (
+    <div className={compact ? '' : 'mb-6'}>
+      <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
+      <p className="mt-1 font-medium text-slate-600">{description}</p>
+    </div>
+  );
+}
+
+function EnterpriseToolCard({ tool }: { tool: ToolItem }) {
+  const Icon = tool.icon;
+
+  return (
     <Link
-      href={href}
-      className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg group flex flex-col"
+      href={tool.href}
+      className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
     >
       <div
-        className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl ${bgClass} transition-transform group-hover:scale-110`}
+        className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl transition-transform group-hover:scale-110 ${tool.toneClass}`}
       >
-        {icon}
+        <Icon className="h-6 w-6" />
       </div>
-      <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
-        {title}
+      <h3 className="text-lg font-bold text-slate-900 transition-colors group-hover:text-brand-700">
+        {tool.title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-600 font-medium flex-1">
-        {desc}
+      <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-slate-600">
+        {tool.desc}
       </p>
     </Link>
   );
 }
 
-function QuickLink({
+function QuickActionLink({
   href,
   label,
   desc,
@@ -640,15 +797,59 @@ function QuickLink({
   return (
     <Link
       href={href}
-      className="rounded-xl border border-slate-200 bg-white px-4 py-3 transition-all hover:border-brand-400 hover:bg-white hover:shadow-sm group"
+      className="group rounded-xl border border-slate-200 bg-white px-4 py-3 transition-all hover:border-brand-400 hover:shadow-sm"
     >
-      <div className="font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+      <div className="font-bold text-slate-900 transition-colors group-hover:text-brand-700">
         {label}
       </div>
-      <div className="mt-1 text-xs leading-relaxed text-slate-500 font-medium">
-        {desc}
-      </div>
+      <div className="mt-1 text-xs font-medium leading-relaxed text-slate-500">{desc}</div>
     </Link>
+  );
+}
+
+function TrackLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex items-center justify-between rounded-lg border border-brand-100 bg-white px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-brand-300"
+    >
+      <span>{label}</span>
+      <ArrowRight className="h-4 w-4 text-slate-400 transition group-hover:text-brand-700" />
+    </Link>
+  );
+}
+
+function MetricCard({ label, value, note }: MetricItem) {
+  return (
+    <Card className="border-slate-200 bg-white shadow-sm">
+      <CardContent className="p-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+        <p className="mt-2 text-2xl font-bold text-slate-900">{value}</p>
+        <p className="mt-2 text-sm font-medium leading-relaxed text-slate-600">{note}</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function DecisionCard({ lane }: { lane: DecisionLane }) {
+  const Icon = lane.icon;
+
+  return (
+    <Card className="group h-full border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-brand-300 hover:shadow-md">
+      <CardContent className="flex h-full flex-col p-6">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          <Icon className="h-6 w-6" />
+        </div>
+        <h3 className="text-lg font-bold text-slate-900">{lane.title}</h3>
+        <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-slate-600">{lane.desc}</p>
+        <Link
+          href={lane.href}
+          className="mt-5 inline-flex items-center text-sm font-bold text-brand-700 transition group-hover:text-brand-900"
+        >
+          {lane.cta} <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </CardContent>
+    </Card>
   );
 }
 
