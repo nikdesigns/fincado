@@ -942,7 +942,7 @@ export default async function ComparisonPage({
                     </Link>
                     <Link
                       className="text-brand-700 hover:underline"
-                      href="/home-loan-rates/"
+                      href="/compare-loans/"
                     >
                       Current Home Loan Rates
                     </Link>

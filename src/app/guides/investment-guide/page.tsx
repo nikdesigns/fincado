@@ -611,7 +611,7 @@ export default function InvestmentGuidePage() {
             <p className="text-sm text-slate-700">
               Related guides:{' '}
               <Link
-                href="/guides/elss-funds-guide-2025/"
+                href="/guides/elss-funds-guide-2026/"
                 className="text-emerald-600 hover:underline"
               >
                 ELSS Funds Guide
@@ -781,7 +781,7 @@ export default function InvestmentGuidePage() {
             <p>
               Relevant reading:{' '}
               <Link
-                href="/guides/new-vs-old-tax-regime-2025/"
+                href="/guides/new-vs-old-tax-regime-2026/"
                 className="text-emerald-600 hover:underline"
               >
                 New vs Old Tax Regime 2025

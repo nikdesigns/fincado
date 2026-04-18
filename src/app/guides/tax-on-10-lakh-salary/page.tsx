@@ -601,7 +601,7 @@ export default function Tax10LakhGuide() {
             </Card>
           </Link>
 
-          <Link href="/guides/elss-funds-guide-2025/" className="group">
+          <Link href="/guides/elss-funds-guide-2026/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>

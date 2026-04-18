@@ -6,6 +6,7 @@ import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
+import { getRelatedResources } from '@/lib/relatedResources';
 import { autoLinkContent } from '@/utils/autoLinker';
 
 /* ---------------- TYPES ---------------- */
@@ -77,11 +78,18 @@ export default async function HindiGuidePost({ params }: Props) {
   if (!article) notFound();
 
   // ✅ 2. Inject Internal Links (Auto-Linker)
-  const processedContent = autoLinkContent(article.content);
+  const processedContent = autoLinkContent(article.content, {
+    excludeUrls: [`/hi/guides/${article.slug}/`, `/guides/${article.slug}/`],
+    maxLinks: 10,
+    maxPerKeyword: 1,
+  });
 
   // ✅ 3. Get Related Hindi Guides
   const related = getRelatedGuides(article.slug, article.category).filter(
     (g) => g.language === 'hi'
+  );
+  const relatedTools = getRelatedResources(article.category, 'hi', 5).filter(
+    (resource) => resource.href !== `/hi/guides/${article.slug}/`,
   );
 
   // ✅ 4. JSON-LD Schema (Structured Data)
@@ -207,6 +215,37 @@ export default async function HindiGuidePost({ params }: Props) {
                     }}
                   >
                     👉 {g.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {relatedTools.length > 0 && (
+          <section
+            style={{
+              marginTop: 40,
+              paddingTop: 24,
+              borderTop: '1px solid #e2e8f0',
+            }}
+          >
+            <h3 style={{ marginBottom: 20, fontSize: 22, color: '#1e293b' }}>
+              उपयोगी टूल्स (Related Calculators & Tools)
+            </h3>
+            <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
+              {relatedTools.map((tool) => (
+                <li key={tool.href} style={{ marginBottom: 12 }}>
+                  <Link
+                    href={tool.href}
+                    style={{
+                      fontSize: 18,
+                      color: '#2563eb',
+                      textDecoration: 'none',
+                      fontWeight: 500,
+                    }}
+                  >
+                    👉 {tool.title}
                   </Link>
                 </li>
               ))}

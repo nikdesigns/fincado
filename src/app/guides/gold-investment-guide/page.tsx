@@ -731,6 +731,18 @@ export default function GoldInvestmentGuidePage() {
             >
               Compare with Mutual Funds
             </Link>
+            <Link
+              href="/guides/sovereign-gold-bond-sgb-guide/"
+              className="rounded-lg border border-yellow-300 bg-yellow-900/30 px-8 py-4 font-bold text-white transition hover:bg-yellow-900/50"
+            >
+              Read Full SGB Guide
+            </Link>
+            <Link
+              href="/inflation-calculator/"
+              className="rounded-lg border border-yellow-300 bg-yellow-900/30 px-8 py-4 font-bold text-white transition hover:bg-yellow-900/50"
+            >
+              Check Real Returns
+            </Link>
           </div>
         </CardContent>
       </Card>

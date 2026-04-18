@@ -25,7 +25,7 @@
   { "keyword": "Inflation", "url": "/inflation-calculator/" },
   {
     "keyword": "Home Loan Guide",
-    "url": "/guides/home-loan-first-time-buyers/"
+    "url": "/guides/home-loan-guide/"
   },
   { "keyword": "SIP Investment Guide", "url": "/guides/sip-investment-guide/" },
   { "keyword": "SIP vs FD", "url": "/guides/sip-vs-fd/" },
@@ -37,8 +37,8 @@
   },
   { "keyword": "ELSS Funds", "url": "/guides/elss-funds-guide-2026/" },
   { "keyword": "Tax Saving Funds", "url": "/guides/elss-funds-guide-2026/" },
-  { "keyword": "Sovereign Gold Bond", "url": "/guides/gold-investment-guide/" },
-  { "keyword": "SGB", "url": "/guides/gold-investment-guide/" },
+  { "keyword": "Sovereign Gold Bond", "url": "/guides/sovereign-gold-bond-sgb-guide/" },
+  { "keyword": "SGB", "url": "/guides/sovereign-gold-bond-sgb-guide/" },
   {
     "keyword": "Health Insurance Guide",
     "url": "/guides/health-insurance-buying-guide/"
@@ -50,7 +50,7 @@
   },
   { "keyword": "NPS Guide", "url": "/guides/nps-guide/" },
   { "keyword": "National Pension System", "url": "/guides/nps-guide/" },
-  { "keyword": "GST Guide", "url": "/guides/gst-explained/" },
+  { "keyword": "GST Guide", "url": "/guides/gst-guide/" },
   { "keyword": "Car Loan Guide", "url": "/guides/car-loan-guide/" },
   { "keyword": "Personal Loan Guide", "url": "/guides/personal-loan-guide/" },
   { "keyword": "Education Loan Guide", "url": "/guides/education-loan-guide/" },
@@ -65,6 +65,10 @@
   { "keyword": "Income Tax Calculator", "url": "/income-tax-calculator/" },
   { "keyword": "ELSS Calculator", "url": "/elss-calculator/" },
   { "keyword": "ELSS Mutual Funds", "url": "/elss-calculator/" },
+  { "keyword": "Tax on 12 Lakh Salary", "url": "/guides/tax-on-12-lakh-salary/" },
+  { "keyword": "Tax on 15 Lakh Salary", "url": "/guides/tax-on-15-lakh-salary/" },
+  { "keyword": "Tax on 20 Lakh Salary", "url": "/guides/tax-on-20-lakh-salary/" },
+  { "keyword": "Credit Card Guide", "url": "/guides/credit-card-guide/" },
   {
     "keyword": "1 Crore in 10 Years",
     "url": "/guides/sip-for-1-crore-in-10-years/"

@@ -3,16 +3,23 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import articles from '@/data/articles.json';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import AdSlot from '@/components/AdSlot';
 import { ArrowRight } from 'lucide-react';
+import {
+  getCategoryKeyForInput,
+  getRelatedResourcesByKey,
+  inferCategoryKeyFromPathname,
+} from '@/lib/relatedResources';
 
 type Article = {
   slug: string;
   title: string;
   category: string;
+  language?: string;
 };
 
 interface Props {
@@ -21,25 +28,32 @@ interface Props {
 }
 
 export default function RelatedTopicsSidebar({ category, currentSlug }: Props) {
+  const pathname = usePathname();
+  const locale = pathname.startsWith('/hi/') ? 'hi' : 'en';
   const allArticles = articles as Article[];
+  const inferredCategoryKey = inferCategoryKeyFromPathname(pathname);
+  const selectedCategoryKey = category
+    ? getCategoryKeyForInput(category)
+    : inferredCategoryKey;
+  const guideBasePath = locale === 'hi' ? '/hi/guides/' : '/guides/';
 
-  // Related articles from same category
+  // Related articles from same topic cluster
   const relatedArticles = allArticles
     .filter(
       (article) =>
-        article.category === category && article.slug !== currentSlug,
+        getCategoryKeyForInput(article.category) === selectedCategoryKey &&
+        article.slug !== currentSlug &&
+        (locale === 'hi'
+          ? article.language === 'hi'
+          : !article.language || article.language === 'en'),
     )
-    .slice(0, 6);
+    .slice(0, 8);
 
-  // Popular calculators (expanded & consistent with your site)
-  const popularCalculators = [
-    { title: 'Home Loan EMI Calculator', href: '/emi-calculator/' },
-    { title: 'SIP Calculator', href: '/sip-calculator/' },
-    { title: 'Income Tax Calculator', href: '/income-tax-calculator/' },
-    { title: 'FD Calculator', href: '/fd-calculator/' },
-    { title: 'PPF Calculator', href: '/ppf-calculator/' },
-    { title: 'Retirement Calculator', href: '/retirement-calculator/' },
-  ];
+  const popularCalculators = getRelatedResourcesByKey(
+    selectedCategoryKey,
+    locale,
+    6,
+  );
 
   return (
     <aside className="space-y-8">
@@ -59,7 +73,7 @@ export default function RelatedTopicsSidebar({ category, currentSlug }: Props) {
               {relatedArticles.map((article) => (
                 <li key={article.slug}>
                   <Link
-                    href={`/guides/${article.slug}/`}
+                    href={`${guideBasePath}${article.slug}/`}
                     className="group flex items-start gap-3 hover:text-brand-700 transition-colors"
                   >
                     <Badge

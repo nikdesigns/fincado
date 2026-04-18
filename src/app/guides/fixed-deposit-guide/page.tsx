@@ -991,6 +991,18 @@ export default function FixedDepositGuidePage() {
             >
               Compare with SIP
             </Link>
+            <Link
+              href="/ppf-calculator/"
+              className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
+            >
+              Compare with PPF
+            </Link>
+            <Link
+              href="/guides/fd-truths/"
+              className="rounded-lg border border-blue-400 bg-blue-800/30 px-8 py-4 font-bold text-white transition hover:bg-blue-800/50"
+            >
+              Read FD Tax Truths
+            </Link>
           </div>
         </CardContent>
       </Card>

@@ -6,6 +6,7 @@ import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
+import { getRelatedResources } from '@/lib/relatedResources';
 import { autoLinkContent } from '@/utils/autoLinker';
 import { addHeadingIds } from '@/utils/addHeadingIds';
 
@@ -69,8 +70,17 @@ export default async function GuidePost({ params }: Props) {
 
   if (!article) notFound();
 
-  const processedContent = addHeadingIds(autoLinkContent(article.content));
+  const processedContent = addHeadingIds(
+    autoLinkContent(article.content, {
+      excludeUrls: [`/guides/${article.slug}/`],
+      maxLinks: 10,
+      maxPerKeyword: 1,
+    }),
+  );
   const related = getRelatedGuides(article.slug, article.category);
+  const relatedTools = getRelatedResources(article.category, 'en', 5).filter(
+    (resource) => resource.href !== `/guides/${article.slug}/`,
+  );
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -167,7 +177,6 @@ export default async function GuidePost({ params }: Props) {
 
         {related.length > 0 && (
           <section style={{ marginTop: 64 }}>
-            {/* CHANGED: Swapped h3 to h2 to fix Non-Sequential Heading warnings */}
             <h2
               style={{
                 marginBottom: 16,
@@ -186,6 +195,30 @@ export default async function GuidePost({ params }: Props) {
                     className="text-blue-600 hover:underline"
                   >
                     {g.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {relatedTools.length > 0 && (
+          <section style={{ marginTop: 40 }}>
+            <h2
+              style={{
+                marginBottom: 16,
+                fontSize: '24px',
+                fontWeight: 'bold',
+                color: '#0f172a',
+              }}
+            >
+              Related Calculators & Tools
+            </h2>
+            <ul style={{ paddingLeft: 18 }}>
+              {relatedTools.map((tool) => (
+                <li key={tool.href} style={{ marginBottom: 8 }}>
+                  <Link href={tool.href} className="text-blue-600 hover:underline">
+                    {tool.title}
                   </Link>
                 </li>
               ))}

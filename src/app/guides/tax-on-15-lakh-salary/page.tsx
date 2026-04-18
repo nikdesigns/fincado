@@ -628,7 +628,7 @@ export default function Tax15LakhGuide() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {/* Link 1: ELSS Funds */}
-          <Link href="/guides/elss-funds-guide-2025/" className="group">
+          <Link href="/guides/elss-funds-guide-2026/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
                 <div>
