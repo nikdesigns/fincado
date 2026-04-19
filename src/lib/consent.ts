@@ -74,6 +74,19 @@ export function acceptAll(): void {
 }
 
 /**
+ * Accept recommended mode:
+ * analytics enabled, advertising disabled.
+ */
+export function acceptRecommended(): void {
+  saveConsent({
+    analytics: true,
+    advertising: false,
+    functional: true,
+    timestamp: Date.now(),
+  });
+}
+
+/**
  * Reject all non-essential cookies
  */
 export function rejectAll(): void {

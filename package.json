@@ -20,7 +20,10 @@
     "scan:deep": "node src/scripts/deep-link-scan.js",
     "scan:local": "node src/scripts/deep-link-scan.js http://localhost:3000",
     "scan:prod": "node src/scripts/deep-link-scan.js https://fincado.com",
-    "audit:calculators": "node src/scripts/calculator-checker.js"
+    "audit:calculators": "node src/scripts/calculator-checker.js",
+    "analytics:collector": "node src/scripts/cookieless-collector.js",
+    "seo:gsc": "node src/scripts/gsc-insights.js",
+    "seo:health": "node src/scripts/seo-health-snapshot.js"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",

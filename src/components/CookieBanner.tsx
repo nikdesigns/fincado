@@ -8,15 +8,17 @@ import {
   getConsentState,
   saveConsent,
   acceptAll,
+  acceptRecommended,
   rejectAll,
   ConsentState,
 } from '@/lib/consent';
+import { trackCookielessConsentChoice } from '@/lib/cookielessAnalytics';
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [preferences, setPreferences] = useState<ConsentState>({
-    analytics: false,
+    analytics: true,
     advertising: false,
     functional: true,
     // eslint-disable-next-line react-hooks/purity
@@ -27,6 +29,7 @@ export default function CookieBanner() {
   const handleAcceptAll = useCallback(() => {
     acceptAll();
     setShow(false);
+    trackCookielessConsentChoice('all', true, true);
 
     // Track consent event
     if (typeof window !== 'undefined' && window.gtag) {
@@ -40,9 +43,26 @@ export default function CookieBanner() {
     }
   }, []);
 
+  const handleAcceptRecommended = useCallback(() => {
+    acceptRecommended();
+    setShow(false);
+    trackCookielessConsentChoice('recommended', true, false);
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'consent_granted', {
+        consent_type: 'recommended',
+      });
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('✅ User accepted recommended consent');
+    }
+  }, []);
+
   const handleRejectAll = useCallback(() => {
     rejectAll();
     setShow(false);
+    trackCookielessConsentChoice('essential_only', false, false);
 
     if (process.env.NODE_ENV === 'development') {
       console.log('❌ User rejected all cookies');
@@ -52,6 +72,18 @@ export default function CookieBanner() {
   const handleSavePreferences = useCallback(() => {
     saveConsent(preferences);
     setShow(false);
+
+    const choice =
+      preferences.analytics && preferences.advertising
+        ? 'all'
+        : preferences.analytics
+          ? 'recommended'
+          : 'custom';
+    trackCookielessConsentChoice(
+      choice,
+      preferences.analytics,
+      preferences.advertising,
+    );
 
     // Track consent preferences
     if (preferences.analytics && typeof window !== 'undefined' && window.gtag) {
@@ -264,10 +296,11 @@ export default function CookieBanner() {
               <Cookie className="w-6 h-6" />
             </div>
             <div className="space-y-2">
-              <h4 className="font-bold text-lg">We value your privacy 🍪</h4>
+              <h4 className="font-bold text-lg">Privacy Choices, Simplified</h4>
               <p className="text-sm text-slate-300 leading-relaxed">
-                We use cookies to enhance your experience, analyze traffic, and
-                keep our tools free with ads. You control your data.{' '}
+                Recommended mode enables anonymous analytics to improve
+                calculators while keeping ad personalization off. You can
+                change this anytime.{' '}
                 <Link
                   href="/privacy-policy/"
                   className="text-white underline decoration-emerald-500 underline-offset-2 hover:text-emerald-400 transition-colors font-medium"
@@ -280,10 +313,24 @@ export default function CookieBanner() {
 
           <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
             <Button
-              onClick={handleAcceptAll}
+              onClick={handleAcceptRecommended}
               className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-5 rounded-xl transition-all shadow-lg hover:shadow-emerald-900/20"
             >
+              Accept Recommended
+            </Button>
+            <Button
+              onClick={handleAcceptAll}
+              variant="secondary"
+              className="font-semibold px-6 py-5 rounded-xl"
+            >
               Accept All
+            </Button>
+            <Button
+              onClick={handleRejectAll}
+              variant="ghost"
+              className="text-slate-300 hover:text-white hover:bg-white/10 font-medium"
+            >
+              Essential Only
             </Button>
             <Button
               onClick={() => setShowSettings(true)}
@@ -292,13 +339,6 @@ export default function CookieBanner() {
             >
               <Settings className="w-4 h-4 mr-2" />
               Customize
-            </Button>
-            <Button
-              onClick={handleRejectAll}
-              variant="ghost"
-              className="text-slate-300 hover:text-white hover:bg-white/10 font-medium"
-            >
-              Reject All
             </Button>
           </div>
         </div>

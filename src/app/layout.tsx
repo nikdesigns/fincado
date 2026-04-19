@@ -12,6 +12,7 @@ import SkipToContent from '@/components/SkipToContent';
 import CookieBanner from '@/components/CookieBanner';
 import ScriptManager from '@/components/ScriptManager';
 import MobileStickyAnchorAd from '@/components/MobileStickyAnchorAd';
+import CookielessAnalyticsTracker from '@/components/CookielessAnalyticsTracker';
 import { ADSENSE_PUBLISHER_ID } from '@/lib/adConfig';
 
 const fy = getCurrentFiscalYear();
@@ -138,6 +139,11 @@ export default function RootLayout({
       </head>
 
       <body className={customFont.className}>
+        {/* Cookieless first-party analytics (no cookies/storage) */}
+        <React.Suspense fallback={null}>
+          <CookielessAnalyticsTracker />
+        </React.Suspense>
+
         {/* Consent-aware analytics and ad scripts */}
         <React.Suspense fallback={null}>
           <ScriptManager />
