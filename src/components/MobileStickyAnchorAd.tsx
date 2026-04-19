@@ -7,7 +7,9 @@ import { ADSENSE_PUBLISHER_ID } from '@/lib/adConfig';
 
 const DISMISS_KEY = 'fincado_mobile_anchor_dismissed';
 
-const firstFilled = (...values: Array<string | undefined>): string | undefined =>
+const firstFilled = (
+  ...values: Array<string | undefined>
+): string | undefined =>
   values.find((value) => Boolean(value && value.trim().length > 0))?.trim();
 
 const ANCHOR_SLOT_ID =
@@ -88,7 +90,9 @@ export default function MobileStickyAnchorAd() {
       const insElement = adRef.current.querySelector('ins.adsbygoogle');
       if (!insElement) return;
 
-      const alreadyProcessed = insElement.getAttribute('data-adsbygoogle-status');
+      const alreadyProcessed = insElement.getAttribute(
+        'data-adsbygoogle-status',
+      );
       if (alreadyProcessed) return;
 
       try {
@@ -136,7 +140,7 @@ export default function MobileStickyAnchorAd() {
 
         <div
           ref={adRef}
-          className="min-h-[50px] overflow-hidden rounded-md border border-slate-100 bg-slate-50"
+          className="min-h-12.5 overflow-hidden rounded-md border border-slate-100 bg-slate-50"
         >
           <ins
             className="adsbygoogle"
