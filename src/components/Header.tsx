@@ -37,6 +37,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import BrandLogo from '@/components/BrandLogo';
 
 const CALCULATOR_MENU = [
   {
@@ -136,13 +137,16 @@ export default function Header() {
           {/* LOGO - Enhanced with icon */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 text-xl font-semibold tracking-tight text-slate-900 hover:text-brand-600 transition-colors"
+            className="group inline-flex items-center"
             aria-label="Fincado home"
           >
-            <span className="relative">
-              Fincado
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-600 group-hover:w-full transition-all duration-300" />
-            </span>
+            <BrandLogo
+              variant="horizontal"
+              width={172}
+              height={40}
+              className="h-8 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
+              priority
+            />
           </Link>
 
           {/* DESKTOP NAV */}
@@ -329,16 +333,18 @@ export default function Header() {
 
                 <div className="h-full overflow-y-auto">
                   {/* Mobile Header */}
-                  <div className="sticky top-0 bg-linear-to-r from-emerald-600 to-emerald-700 px-6 py-4 z-10">
+                  <div className="sticky top-0 z-10 border-b border-slate-200 bg-white px-6 py-4">
                     <Link
                       href="/"
-                      className="flex items-center gap-2.5 text-xl font-semibold text-white"
+                      className="inline-flex items-center"
                       onClick={() => setMobileOpen(false)}
                     >
-                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm">
-                        <Calculator className="w-4 h-4 text-white" />
-                      </div>
-                      Fincado
+                      <BrandLogo
+                        variant="horizontal"
+                        width={150}
+                        height={35}
+                        className="h-7 w-auto"
+                      />
                     </Link>
                   </div>
 

@@ -11,6 +11,7 @@ import {
   Mail,
   ShieldCheck,
 } from 'lucide-react';
+import BrandLogo from '@/components/BrandLogo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,9 +28,15 @@ export default function Footer() {
           <div className="lg:col-span-2 md:col-span-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xl font-semibold text-slate-900 hover:text-brand-600 transition-colors"
+              className="inline-flex items-center"
+              aria-label="Fincado home"
             >
-              Fincado
+              <BrandLogo
+                variant="horizontal"
+                width={172}
+                height={40}
+                className="h-8 w-auto"
+              />
             </Link>
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed font-medium text-slate-600">

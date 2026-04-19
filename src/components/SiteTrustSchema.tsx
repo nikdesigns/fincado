@@ -11,7 +11,7 @@ export default function SiteTrustSchema() {
         url: 'https://fincado.com/',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://fincado.com/logo.png',
+          url: 'https://fincado.com/brand/logo-horizontal.svg',
         },
         email: 'support@fincado.com',
         areaServed: 'IN',
