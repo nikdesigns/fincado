@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { permanentRedirect } from 'next/navigation';
 
-const TARGET = '/contact/';
+const TARGET = '/faq/';
 
 export const metadata: Metadata = {
   title: 'Redirecting...',

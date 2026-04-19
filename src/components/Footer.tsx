@@ -171,6 +171,7 @@ export default function Footer() {
           <FooterColumn title="Resources" icon={FileText}>
             <FooterLink href="/guides/">Financial Guides</FooterLink>
             <FooterLink href="/calculators/">All Calculators</FooterLink>
+            <FooterLink href="/faq/">FAQ</FooterLink>
             <FooterLink href="/hi/">हिंदी में</FooterLink>
             <FooterLink href="/about/">About Us</FooterLink>
             <FooterLink href="/editorial-guidelines/">

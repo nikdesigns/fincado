@@ -161,46 +161,31 @@ export default function ContactForm({ supportEmail, officeCity }: Props) {
                 value="Support"
                 className="cursor-pointer hover:bg-slate-100"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-600">🛟</span>
-                  <span>Support</span>
-                </div>
+                Support
               </SelectItem>
               <SelectItem
                 value="Partnership"
                 className="cursor-pointer hover:bg-slate-100"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600">🤝</span>
-                  <span>Partnership</span>
-                </div>
+                Partnership
               </SelectItem>
               <SelectItem
                 value="Press"
                 className="cursor-pointer hover:bg-slate-100"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-purple-600">📰</span>
-                  <span>Press</span>
-                </div>
+                Press
               </SelectItem>
               <SelectItem
                 value="Feedback"
                 className="cursor-pointer hover:bg-slate-100"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-amber-600">💬</span>
-                  <span>Feedback</span>
-                </div>
+                Feedback
               </SelectItem>
               <SelectItem
                 value="Other"
                 className="cursor-pointer hover:bg-slate-100"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-600">❓</span>
-                  <span>Other</span>
-                </div>
+                Other
               </SelectItem>
             </SelectContent>
           </Select>

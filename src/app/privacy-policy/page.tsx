@@ -1,270 +1,189 @@
-// src/app/privacy-policy/page.tsx
 import type { Metadata } from 'next';
-import '@/styles/terms.css';
+import Link from 'next/link';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import PolicyShell from '@/components/policy/PolicyShell';
+
+const PAGE_URL = 'https://fincado.com/privacy-policy/';
+const LAST_UPDATED = 'April 19, 2026';
+const SUPPORT_EMAIL = 'support@fincado.com';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Fincado',
+  title: 'Privacy Policy | Fincado Trust Center',
   description:
-    'Privacy Policy for Fincado — how we collect, store, protect and use your data when you use calculators, tools, and financial guides.',
+    'Learn how Fincado collects, uses, protects, and manages user information across calculators, guides, analytics, and advertising systems.',
+  keywords: [
+    'fincado privacy policy',
+    'financial website privacy',
+    'adsense privacy policy india',
+    'calculator data privacy',
+  ],
   alternates: {
-    canonical: 'https://fincado.com/privacy-policy/',
+    canonical: PAGE_URL,
   },
   openGraph: {
-    title: 'Privacy Policy — Fincado',
+    title: 'Privacy Policy | Fincado Trust Center',
     description:
-      'Privacy Policy for Fincado — how we collect, store, protect and use your data when you use calculators, tools, and financial guides.',
-    url: 'https://fincado.com/privacy-policy/',
+      'Data handling, cookies, analytics, security, and user rights for Fincado visitors.',
+    url: PAGE_URL,
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-const LAST_UPDATED = 'March 2026';
-const SUPPORT_EMAIL = 'support@fincado.com';
-
 export default function PrivacyPolicyPage() {
+  const webPageLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy Policy',
+    url: PAGE_URL,
+    description:
+      'Privacy Policy for Fincado website users in relation to data usage and security.',
+    inLanguage: 'en-IN',
+    dateModified: '2026-04-19',
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': 'https://fincado.com/#website',
+    },
+    about: {
+      '@type': 'Thing',
+      name: 'Privacy and Data Handling',
+    },
+  };
+
   return (
-    <main className="terms-root">
-      <div className="terms-hero">
-        <div className="terms-hero-inner">
-          <h1 className="terms-title">Privacy Policy</h1>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Privacy Policy', url: PAGE_URL },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }}
+      />
 
-          <p className="terms-sub">
-            Last updated: <time>{LAST_UPDATED}</time>
+      <PolicyShell
+        title="Privacy Policy"
+        subtitle="This policy describes what information we process, why we process it, and how we protect users when they use Fincado calculators, guides, and related services."
+        lastUpdated={LAST_UPDATED}
+        toc={[
+          { id: 'scope', label: 'Scope' },
+          { id: 'data-collected', label: 'Information We Collect' },
+          { id: 'usage', label: 'How We Use Information' },
+          { id: 'cookies-ads', label: 'Cookies and Advertising' },
+          { id: 'sharing', label: 'Data Sharing' },
+          { id: 'retention', label: 'Data Retention' },
+          { id: 'security', label: 'Security' },
+          { id: 'rights', label: 'User Rights and Choices' },
+          { id: 'children', label: 'Children’s Privacy' },
+          { id: 'changes', label: 'Policy Updates' },
+          { id: 'contact', label: 'Contact' },
+        ]}
+      >
+        <section id="scope" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Scope</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            This policy applies to all visitors who access Fincado web pages, calculators, guides, and forms. By using this site, you acknowledge this policy.
           </p>
+        </section>
 
-          <p className="terms-lead">
-            This Privacy Policy explains how Fincado collects, uses, and
-            protects your information when you use our website, calculators,
-            tools, and financial resources.
-          </p>
-        </div>
-      </div>
-
-      <div className="terms-container">
-        <nav className="terms-toc" aria-label="Table of contents">
-          <strong>On this page</strong>
-          <ul>
-            <li>
-              <a href="#intro">Introduction</a>
-            </li>
-            <li>
-              <a href="#data-we-collect">Information We Collect</a>
-            </li>
-            <li>
-              <a href="#ads">Ads & Cookies</a>
-            </li>
-            <li>
-              <a href="#usage">How We Use Your Information</a>
-            </li>
-            <li>
-              <a href="#sharing">Sharing of Information</a>
-            </li>
-            <li>
-              <a href="#security">Data Security</a>
-            </li>
-            <li>
-              <a href="#rights">Your Rights</a>
-            </li>
-            <li>
-              <a href="#children">Children’s Privacy</a>
-            </li>
-            <li>
-              <a href="#changes">Changes to This Policy</a>
-            </li>
-            <li>
-              <a href="#contact">Contact Us</a>
-            </li>
+        <section id="data-collected" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Information We Collect</h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-600">
+            <li>Technical and usage data such as device type, browser, and page interactions.</li>
+            <li>Information you voluntarily provide via contact forms or direct email.</li>
+            <li>Ad and analytics events to improve site experience and maintain platform quality.</li>
           </ul>
-        </nav>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Calculator inputs are used for live calculation and user experience. They are not treated as bank account data or transaction-level financial records.
+          </p>
+        </section>
 
-        <article className="terms-article">
-          <section id="intro" className="terms-section">
-            <h2>Introduction</h2>
-            <p>
-              Fincado (“we”, “our”, “us”) is committed to protecting your
-              privacy. This policy outlines how we handle personal and
-              non-personal information when you use our services.
-            </p>
-            <p>
-              By accessing Fincado, you consent to the practices described in
-              this Privacy Policy.
-            </p>
-          </section>
+        <section id="usage" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">How We Use Information</h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-600">
+            <li>Deliver and improve calculators and educational content.</li>
+            <li>Diagnose performance issues and protect service integrity.</li>
+            <li>Respond to support, editorial, and partnership requests.</li>
+            <li>Measure website traffic and engagement trends.</li>
+          </ul>
+        </section>
 
-          <section id="data-we-collect" className="terms-section">
-            <h2>Information We Collect</h2>
+        <section id="cookies-ads" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Cookies and Advertising</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Fincado may use cookies and similar technologies for analytics, performance, and ad delivery. Ads may be provided by third-party networks including Google.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            You can manage cookie or ad personalization settings through browser controls and ad provider preference pages. See our{' '}
+            <Link href="/cookie-policy/" className="font-semibold text-brand-700 hover:text-brand-800">
+              Cookie Policy
+            </Link>{' '}
+            for additional details.
+          </p>
+        </section>
 
-            <h3>1. Information You Provide</h3>
-            <ul className="terms-list">
-              <li>
-                When you enter values into calculators (loan amount, income, SIP
-                amount, etc.).
-              </li>
-              <li>When you contact us via email or feedback forms.</li>
-            </ul>
+        <section id="sharing" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Data Sharing</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            We do not sell personal data. Information may be processed by service providers that support analytics, hosting, security, or advertising operations, or disclosed when required by law.
+          </p>
+        </section>
 
-            <h3>2. Automatically Collected Data</h3>
-            <p>We automatically collect basic technical information such as:</p>
-            <ul className="terms-list">
-              <li>IP address (masked/ anonymized by Google Analytics)</li>
-              <li>Browser type, device type, OS</li>
-              <li>Pages viewed, session duration, click behavior</li>
-              <li>Referring URLs</li>
-            </ul>
+        <section id="retention" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Data Retention</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            We retain data only as needed for operational, legal, security, or support purposes. Retention periods may vary by data type and legal requirements.
+          </p>
+        </section>
 
-            <h3>3. No Financial Data Stored</h3>
-            <p>
-              Fincado does **not store or save** the numbers you enter into our
-              calculators (loan amount, FD amount, SIP values, etc.).
-            </p>
-          </section>
+        <section id="security" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Security</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            We use reasonable technical and organizational safeguards to protect website infrastructure and user information. No internet system can guarantee absolute security.
+          </p>
+        </section>
 
-          {/* UPDATED SECTION START */}
-          <section id="ads" className="terms-section">
-            <h2>Advertising & Cookies</h2>
+        <section id="rights" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">User Rights and Choices</h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-600">
+            <li>Request updates or deletion for data shared via support messages where applicable.</li>
+            <li>Control cookie preferences using browser settings.</li>
+            <li>Manage ad personalization through ad provider settings.</li>
+          </ul>
+        </section>
 
-            <h3>Google AdSense</h3>
-            <p>
-              This site uses Google AdSense to display advertisements. Google,
-              as a third-party vendor, uses cookies to serve ads on this site.
-            </p>
-            <ul className="terms-list">
-              <li>
-                Third-party vendors, including Google, use cookies to serve ads
-                based on a user&apos;s prior visits to this website or other
-                websites.
-              </li>
-              <li>
-                Google&apos;s use of advertising cookies enables it and its
-                partners to serve ads to users based on their visit to this site
-                and/or other sites on the Internet.
-              </li>
-            </ul>
+        <section id="children" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Children’s Privacy</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Fincado is intended for general audiences and is not directed at children under 13. We do not knowingly collect personal information from children.
+          </p>
+        </section>
 
-            <h3>Opting Out</h3>
-            <p>
-              Users may opt out of personalized advertising by visiting{' '}
-              <a
-                href="https://www.google.com/settings/ads"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Google Ads Settings
-              </a>
-              .
-            </p>
-            <p>
-              Alternatively, you can opt out of a third-party vendor&apos;s use
-              of cookies for personalized advertising by visiting{' '}
-              <a
-                href="https://www.aboutads.info"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                www.aboutads.info
-              </a>
-              .
-            </p>
+        <section id="changes" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Policy Updates</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            We may revise this policy to reflect legal, product, or operational changes. Material updates will be reflected by the last updated date on this page.
+          </p>
+        </section>
 
-            <h3>Cookies</h3>
-            <p>
-              Cookies are small text files used for analytics, preferences, and
-              improving user experience. You may disable cookies in your
-              browser, but some features may not work as intended.
-            </p>
-          </section>
-          {/* UPDATED SECTION END */}
-
-          <section id="usage" className="terms-section">
-            <h2>How We Use Your Information</h2>
-            <ul className="terms-list">
-              <li>To improve calculators, tools, and website experience.</li>
-              <li>To analyze traffic patterns and optimize performance.</li>
-              <li>To display relevant advertisements.</li>
-              <li>To respond to user messages or inquiries.</li>
-            </ul>
-          </section>
-
-          <section id="sharing" className="terms-section">
-            <h2>Sharing of Information</h2>
-            <p>
-              Fincado does <strong>not sell, rent, or trade</strong> user data.
-            </p>
-            <p>Information may be shared only with:</p>
-            <ul className="terms-list">
-              <li>Analytics providers (Google Analytics)</li>
-              <li>Ad networks (Google AdSense)</li>
-              <li>Legal authorities (only if required by Indian law)</li>
-            </ul>
-          </section>
-
-          <section id="security" className="terms-section">
-            <h2>Data Security</h2>
-            <p>
-              We use reasonable technical and organizational safeguards to
-              protect your information. However, no online system is 100%
-              secure.
-            </p>
-          </section>
-
-          <section id="rights" className="terms-section">
-            <h2>Your Rights</h2>
-            <p>You have the right to:</p>
-            <ul className="terms-list">
-              <li>Request deletion of messages you voluntarily sent us.</li>
-              <li>
-                Opt out of personalized ads (see the &quot;Ads&quot; section
-                above).
-              </li>
-              <li>Disable cookies in your browser.</li>
-            </ul>
-            <p>
-              Since we do not store calculator inputs, there is nothing to
-              delete from our side regarding financial data.
-            </p>
-          </section>
-
-          <section id="children" className="terms-section">
-            <h2>Children’s Privacy</h2>
-            <p>
-              Fincado is not intended for children under 13 years of age. We do
-              not knowingly collect data from children.
-            </p>
-          </section>
-
-          <section id="changes" className="terms-section">
-            <h2>Changes to This Policy</h2>
-            <p>
-              We may update this Privacy Policy occasionally. Changes will be
-              reflected by updating the “Last updated” date at the top of this
-              page.
-            </p>
-          </section>
-
-          <section id="contact" className="terms-section">
-            <h2>Contact Us</h2>
-            <p>
-              If you have any questions about this Privacy Policy, please
-              contact us:
-            </p>
-            <div className="contact-card">
-              <a href={`mailto:${SUPPORT_EMAIL}`} className="contact-email">
-                {SUPPORT_EMAIL}
-              </a>
-              <p className="contact-small">
-                We typically respond within 1–3 business days.
-              </p>
-            </div>
-          </section>
-
-          <footer className="terms-footer">
-            <p className="muted">
-              Fincado is committed to maintaining transparency and protecting
-              user privacy across all financial tools and guides.
-            </p>
-          </footer>
-        </article>
-      </div>
-    </main>
+        <section id="contact" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Contact</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            For privacy-related questions, write to:
+          </p>
+          <a
+            href={`mailto:${SUPPORT_EMAIL}`}
+            className="mt-3 inline-flex items-center rounded-lg border border-brand-200 bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700 hover:text-brand-800"
+          >
+            {SUPPORT_EMAIL}
+          </a>
+        </section>
+      </PolicyShell>
+    </>
   );
 }

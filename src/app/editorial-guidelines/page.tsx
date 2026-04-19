@@ -1,190 +1,151 @@
-// src/app/editorial-guidelines/page.tsx
 import type { Metadata } from 'next';
-import '@/styles/terms.css';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import PolicyShell from '@/components/policy/PolicyShell';
+
+const PAGE_URL = 'https://fincado.com/editorial-guidelines/';
+const LAST_UPDATED = 'April 19, 2026';
+const SUPPORT_EMAIL = 'support@fincado.com';
 
 export const metadata: Metadata = {
-  title: 'Editorial Guidelines & Transparency — Fincado',
+  title: 'Editorial Guidelines | Fincado Trust Center',
   description:
-    'Our commitment to accuracy, RBI benchmarking, and transparent financial research for Indian home buyers.',
-  alternates: { canonical: 'https://fincado.com/editorial-guidelines/' },
+    'How Fincado researches, verifies, updates, and maintains financial content quality, including correction workflows and editorial independence standards.',
+  keywords: [
+    'fincado editorial policy',
+    'financial content standards',
+    'fact checking finance calculators',
+    'editorial independence india',
+  ],
+  alternates: {
+    canonical: PAGE_URL,
+  },
   openGraph: {
-    title: 'Editorial Guidelines & Transparency — Fincado',
+    title: 'Editorial Guidelines | Fincado Trust Center',
     description:
-      'Our commitment to accuracy, RBI benchmarking, and transparent financial research for Indian home buyers.',
-    url: 'https://fincado.com/editorial-guidelines/',
+      'Fincado editorial standards for research, verification, updates, and correction policies.',
+    url: PAGE_URL,
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-const LAST_UPDATED = 'January 2026';
-const SUPPORT_EMAIL = 'support@fincado.com';
-
 export default function EditorialGuidelinesPage() {
+  const webPageLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Editorial Guidelines',
+    url: PAGE_URL,
+    description:
+      'Fincado editorial process and quality standards for calculators and guides.',
+    inLanguage: 'en-IN',
+    dateModified: '2026-04-19',
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': 'https://fincado.com/#website',
+    },
+    publisher: {
+      '@id': 'https://fincado.com/#organization',
+    },
+  };
+
   return (
-    <main className="terms-root">
-      <div className="terms-hero">
-        <div className="terms-hero-inner">
-          <h1 className="terms-title">Editorial Guidelines & Transparency</h1>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'Editorial Guidelines', url: PAGE_URL },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }}
+      />
 
-          <p className="terms-sub">
-            Last updated: <time>{LAST_UPDATED}</time>
+      <PolicyShell
+        title="Editorial Guidelines"
+        subtitle="This page explains the principles behind Fincado content quality, including source standards, fact-checking workflow, policy updates, and corrections."
+        lastUpdated={LAST_UPDATED}
+        toc={[
+          { id: 'mission', label: 'Editorial Mission' },
+          { id: 'sources', label: 'Source Standards' },
+          { id: 'workflow', label: 'Review Workflow' },
+          { id: 'freshness', label: 'Update and Freshness Policy' },
+          { id: 'independence', label: 'Independence and Conflicts' },
+          { id: 'ai', label: 'AI and Automation Disclosure' },
+          { id: 'corrections', label: 'Corrections Policy' },
+          { id: 'contact', label: 'Contact Editorial Team' },
+        ]}
+      >
+        <section id="mission" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Editorial Mission</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Fincado publishes practical financial content for Indian users. Our objective is decision clarity, not sensational claims. We prioritize transparent assumptions, explainable calculations, and readable guidance.
           </p>
+        </section>
 
-          <p className="terms-lead">
-            At Fincado, our mission is to provide Indian home buyers with the
-            most accurate, transparent, and up-to-date financial data. We
-            understand that a home loan is one of the most significant financial
-            decisions of your life, and we take our responsibility as a research
-            platform seriously.
-          </p>
-        </div>
-      </div>
-
-      <div className="terms-container">
-        <nav className="terms-toc" aria-label="Table of contents">
-          <strong>On this page</strong>
-          <ul>
-            <li>
-              <a href="#sourcing">Data Sourcing & Accuracy</a>
-            </li>
-            <li>
-              <a href="#fact-checking">Fact-Checking Process</a>
-            </li>
-            <li>
-              <a href="#ethics">Independence & Ethics</a>
-            </li>
-            <li>
-              <a href="#corrections">Corrections Policy</a>
-            </li>
-            <li>
-              <a href="#contact">Contact</a>
-            </li>
+        <section id="sources" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Source Standards</h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-600">
+            <li>Primary preference: regulator notifications, official lender disclosures, statutory references, and government circulars.</li>
+            <li>Secondary references: reputed public datasets and institution-level policy documents.</li>
+            <li>Rate and tax content is reviewed before publishing and during periodic refresh cycles.</li>
           </ul>
-        </nav>
+        </section>
 
-        <article className="terms-article">
-          {/* Section 1 */}
-          <section id="sourcing" className="terms-section">
-            <h2>1. Data Sourcing & Accuracy</h2>
-            <p>
-              Our &quot;Bank vs Bank&quot; comparison engine and EMI calculators
-              are powered by three primary data sources to ensure you get
-              bank-grade accuracy:
-            </p>
+        <section id="workflow" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Review Workflow</h2>
+          <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-slate-600">
+            <li>Draft and compute assumptions.</li>
+            <li>Cross-check formula logic and output behavior.</li>
+            <li>Validate policy references and update date labels.</li>
+            <li>Publish with metadata and internal link quality checks.</li>
+          </ol>
+        </section>
 
-            <ul className="terms-list">
-              <li>
-                <strong>Direct Lender Disclosures:</strong> We monitor official
-                portals of 10+ major Indian banks (SBI, HDFC, ICICI, etc.) for
-                base rate changes.
-              </li>
-              <li>
-                <strong>RBI Benchmarks:</strong> All floating rates are
-                benchmarked against the latest{' '}
-                <strong>Repo Linked Lending Rate (RLLR)</strong> and{' '}
-                <strong>MCLR</strong> updates from the Reserve Bank of India.
-              </li>
-              <li>
-                <strong>Market Verification:</strong> We cross-verify starting
-                rates with actual borrower approval data to ensure
-                &quot;headline rates&quot; are achievable for eligible
-                customers.
-              </li>
-            </ul>
-          </section>
+        <section id="freshness" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Update and Freshness Policy</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Critical pages are reviewed on a recurring basis and revised when policy, rate, or rule changes materially affect user decisions. Pages carry review timestamps where applicable.
+          </p>
+        </section>
 
-          {/* Section 2 */}
-          <section id="fact-checking" className="terms-section">
-            <h2>2. Fact-Checking Process</h2>
-            <p>
-              Every piece of content on Fincado goes through a multi-step review
-              cycle before publication:
-            </p>
+        <section id="independence" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Independence and Conflicts</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Editorial decisions are not sold. Advertisers and sponsors do not get guaranteed ranking positions in comparison logic or calculator output framing.
+          </p>
+        </section>
 
-            <ul className="terms-list">
-              <li>
-                <strong>Data Collection:</strong> Automated and manual
-                collection of interest rates and fee structures.
-              </li>
-              <li>
-                <strong>Expert Review:</strong> Verification by our research
-                team to ensure compliance with the{' '}
-                <strong>Income Tax Act</strong> (for tax benefit calculations)
-                and RBI guidelines.
-              </li>
-              <li>
-                <strong>Freshness Audit:</strong> We perform a &quot;Freshness
-                Audit&quot; every 30 days to update rates, fees, and property
-                norms across 1,100+ pages.
-              </li>
-            </ul>
-          </section>
+        <section id="ai" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">AI and Automation Disclosure</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Some content operations use automation support. Final publication standards still require validation checks for factual consistency, policy alignment, and user-facing clarity.
+          </p>
+        </section>
 
-          {/* Section 3 */}
-          <section id="ethics" className="terms-section">
-            <h2>3. Independence & Ethics</h2>
-            <p>
-              Fincado is an independent research platform. We maintain strict
-              separation between our editorial content and advertising
-              partnerships.
-            </p>
+        <section id="corrections" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Corrections Policy</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            If a material error is identified, we investigate and update affected pages. Readers can report issues with page URL, observed mismatch, and supporting source context.
+          </p>
+        </section>
 
-            <ul className="terms-list">
-              <li>
-                <strong>Unbiased Comparisons:</strong> Our &quot;Verdict&quot;
-                sections are based on hard data (cost, speed, and eligibility)
-                and are not influenced by bank partnerships.
-              </li>
-              <li>
-                <strong>No &quot;Pay-to-Rank&quot;:</strong> Banks cannot pay to
-                appear higher in our comparison tables or to receive a
-                &quot;Best for&quot; badge.
-              </li>
-              <li>
-                <strong>Advertising Transparency:</strong> We use clearly
-                labeled advertisements (e.g., Google AdSense) to keep our tools
-                free for users. This does not impact our editorial integrity.
-              </li>
-            </ul>
-          </section>
-
-          {/* Section 4 */}
-          <section id="corrections" className="terms-section">
-            <h2>4. Corrections Policy</h2>
-            <p>
-              We are committed to correcting errors promptly. If you find a data
-              discrepancy (e.g., an outdated interest rate or incorrect branch
-              info), please report it to us.
-            </p>
-            <p>
-              We aim to investigate and resolve verified data errors within
-              24–48 hours.
-            </p>
-          </section>
-
-          {/* Section 5 */}
-          <section id="contact" className="terms-section">
-            <h2>Contact Us</h2>
-            <p>
-              If you have questions about our research methodology or need to
-              report an error:
-            </p>
-
-            <div className="contact-card">
-              <a href={`mailto:${SUPPORT_EMAIL}`} className="contact-email">
-                {SUPPORT_EMAIL}
-              </a>
-              <p className="contact-small">
-                Subject line: &quot;Editorial Query&quot;
-              </p>
-            </div>
-          </section>
-
-          <footer className="terms-footer">
-            <p className="muted">Fincado Editorial Team • 2026 Edition</p>
-          </footer>
-        </article>
-      </div>
-    </main>
+        <section id="contact" className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Contact Editorial Team</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            For corrections, source challenges, or editorial queries:
+          </p>
+          <a
+            href={`mailto:${SUPPORT_EMAIL}?subject=Editorial Query`}
+            className="mt-3 inline-flex items-center rounded-lg border border-brand-200 bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700 hover:text-brand-800"
+          >
+            {SUPPORT_EMAIL}
+          </a>
+        </section>
+      </PolicyShell>
+    </>
   );
 }
