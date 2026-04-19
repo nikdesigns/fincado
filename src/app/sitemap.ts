@@ -45,7 +45,13 @@ interface ArticleLangGroup {
   hi?: ArticleEntry;
 }
 
-const DEFAULT_LAST_MODIFIED = new Date();
+const formatDateOnly = (value: Date | string): string => {
+  const parsed = typeof value === 'string' ? new Date(value) : value;
+  if (Number.isNaN(parsed.getTime())) return new Date().toISOString().slice(0, 10);
+  return parsed.toISOString().slice(0, 10);
+};
+
+const DEFAULT_LAST_MODIFIED = formatDateOnly(new Date());
 
 const makeEntry = (
   route: string,
@@ -57,16 +63,18 @@ const makeEntry = (
   },
 ): SitemapItem => ({
   url: getUrl(route),
-  lastModified: options.lastModified ?? DEFAULT_LAST_MODIFIED,
+  lastModified: formatDateOnly(options.lastModified ?? DEFAULT_LAST_MODIFIED),
   changeFrequency: options.changeFrequency,
   priority: options.priority,
   ...(options.alternates ? { alternates: options.alternates } : {}),
 });
 
-const parseDate = (value?: string | null): Date => {
+const parseDate = (value?: string | null): string => {
   if (!value) return DEFAULT_LAST_MODIFIED;
   const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? DEFAULT_LAST_MODIFIED : parsed;
+  return Number.isNaN(parsed.getTime())
+    ? DEFAULT_LAST_MODIFIED
+    : parsed.toISOString().slice(0, 10);
 };
 
 const withLangAlternates = (
