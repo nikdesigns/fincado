@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     'mutual fund guide india',
     'asset allocation india',
     'where to invest money in india',
-    'investment planning guide',
+    'investment planning guide'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/investment-guide/',
@@ -119,7 +119,7 @@ const FAQ_ITEMS = [
     question: 'Do taxes matter when choosing investments?',
     answer:
       'Yes. Pre-tax return alone can be misleading. The lock-in, tax treatment, liquidity, and risk-adjusted suitability of the product all matter.',
-  },
+  }
 ];
 
 export default function InvestmentGuidePage() {
@@ -183,7 +183,7 @@ export default function InvestmentGuidePage() {
           {
             name: 'Investment Guide',
             url: 'https://fincado.com/guides/investment-guide/',
-          },
+          }
         ]}
       />
 

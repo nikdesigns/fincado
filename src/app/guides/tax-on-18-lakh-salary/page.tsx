@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'tax on 18 lakh new regime',
     'section 87a rebate limit 2025-26',
     '18 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -96,7 +96,7 @@ export default function Tax18LakhGuide() {
       question: 'Which tax regime is better for 18 Lakh package?',
       answer:
         'The New Tax Regime is generally better unless your total deductions are very high (around ₹6.4 Lakhs+). Most employees save about ₹2.00 Lakhs by choosing New Regime.',
-    },
+    }
   ];
 
   return (
@@ -108,7 +108,7 @@ export default function Tax18LakhGuide() {
           {
             name: 'Tax on 18 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

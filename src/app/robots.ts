@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/',
           '/private/',
           '/*?*utm_source=',
-          '/*?*ref=',
+          '/*?*ref='
         ],
       },
       {
@@ -41,7 +41,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Mediapartners-Google',
         allow: '/',
-      },
+      }
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };

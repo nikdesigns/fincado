@@ -40,7 +40,7 @@ const STOP_WORDS = new Set([
   'what',
   '2025',
   '2026',
-  '2027',
+  '2027'
 ]);
 
 const tokenize = (text: string) =>

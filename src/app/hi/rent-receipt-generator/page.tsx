@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     'HRA rent receipt 2026',
     'generate rent receipt online',
     'Section 10(13A) receipt hindi',
-    'HRA proof submission',
+    'HRA proof submission'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/rent-receipt-generator/',
@@ -113,7 +113,7 @@ export default function HindiRentReceiptPage() {
         'अगर मेरा मकान मालिक हस्ताक्षर (Sign) करने से मना कर दे तो क्या होगा?',
       answer:
         'आप अभी भी बैंक ट्रांसफर के सबूत (Bank statement) और एक सेल्फ-डिक्लेरेशन (Self-declaration) जमा करके HRA का दावा कर सकते हैं। हालांकि, हस्ताक्षर की हुई रेंट रसीद सबसे मजबूत और सुरक्षित प्रमाण होती है।',
-    },
+    }
   ];
 
   return (
@@ -125,7 +125,7 @@ export default function HindiRentReceiptPage() {
           {
             name: 'रेंट रसीद जेनरेटर',
             url: 'https://fincado.com/hi/rent-receipt-generator/',
-          },
+          }
         ]}
       />
 

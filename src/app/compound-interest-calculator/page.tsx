@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     'Rule of 72 Calculator',
     'Investment Growth Calculator',
     'Compounding Frequency Calculator',
-    'CI vs SI Comparison',
+    'CI vs SI Comparison'
   ],
   alternates: {
     canonical: 'https://fincado.com/compound-interest-calculator/',
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Compound Interest Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -143,14 +143,14 @@ const faqItems = [
     id: 'faq-9',
     question: 'Why do mutual funds grow faster than FDs despite similar rates?',
     answer:
-      'Mutual funds have daily compounding effect through NAV. Even at 8% return, daily compounding gives ₹2,22,544 vs FD quarterly ₹2,19,112 on ₹1L for 10 years. Plus, equity funds average 12-15% (3-year rolling) vs FD 6-7%. Tax: LTCG 10% above ₹1L vs FD interest taxed at slab. Post-tax: MF 13.5% effective, FD in 30% bracket gives 4.9% (7% pre-tax). Real wealth creation only in equity over 10+ years.',
+      'Mutual funds have daily compounding effect through NAV. Even at 8% return, daily compounding gives ₹2,22,544 vs FD quarterly ₹2,19,112 on ₹1L for 10 years. Plus, equity funds average 12-15% (3-year rolling) vs FD 6-7%. Tax: equity LTCG 12.5% above ₹1.25L vs FD interest taxed at slab. Post-tax: MF 13.5% effective, FD in 30% bracket gives 4.9% (7% pre-tax). Real wealth creation only in equity over 10+ years.',
   },
   {
     id: 'faq-10',
     question: 'How to maximize compound interest returns?',
     answer:
-      'Seven strategies: (1) Start early (20 years at 10% = 6.7x principal vs 10 years = 2.6x), (2) Choose higher compounding frequency (monthly > quarterly > yearly), (3) Never withdraw interest (reinvest for compounding), (4) Increase principal regularly (SIP/STP compounds monthly), (5) Maximize tenure (15-20 years for exponential growth), (6) Pick tax-efficient options (PPF EEE, ELSS LTCG 10%), (7) Stay in equity for 10+ years (12-15% vs 6-7% FD doubles returns).',
-  },
+      'Seven strategies: (1) Start early (20 years at 10% = 6.7x principal vs 10 years = 2.6x), (2) Choose higher compounding frequency (monthly > quarterly > yearly), (3) Never withdraw interest (reinvest for compounding), (4) Increase principal regularly (SIP/STP compounds monthly), (5) Maximize tenure (15-20 years for exponential growth), (6) Pick tax-efficient options (PPF EEE, Equity LTCG 12.5% above ₹1.25L), (7) Stay in equity for 10+ years (12-15% vs 6-7% FD doubles returns).',
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -239,7 +239,7 @@ export default function CompoundInterestPage() {
           {
             name: 'Compound Interest Calculator',
             url: 'https://fincado.com/compound-interest-calculator/',
-          },
+          }
         ]}
       />
 
@@ -928,12 +928,12 @@ export default function CompoundInterestPage() {
                             Employee Provident Fund (EPF)
                           </h4>
                           <p className="text-sm text-slate-700 mb-2">
-                            Yearly compounding, currently 8.15% p.a. Tax-free on
+                            Yearly compounding, currently 8.25% p.a. Tax-free on
                             withdrawal.
                           </p>
                           <p className="text-xs text-slate-600">
                             <strong>Example:</strong> ₹5,000/month (12%
-                            contribution) for 30 years at 8.15% = ₹96.8L corpus!
+                            contribution) for 30 years at 8.25% = ₹96.8L corpus!
                           </p>
                         </div>
                       </div>
@@ -1088,10 +1088,10 @@ export default function CompoundInterestPage() {
                             Choose Tax-Efficient Investments
                           </h4>
                           <p className="text-sm text-slate-700">
-                            PPF (tax-free), ELSS (only 10% LTCG), Equity MF (10%
-                            above ₹1L) compound better post-tax than FD (taxed
-                            at slab). In 30% bracket, 7% FD = 4.9% post-tax vs
-                            PPF 7.1% tax-free.
+                            PPF (tax-free), ELSS (12.5% LTCG above ₹1.25L),
+                            Equity MF (12.5% above ₹1.25L) compound better
+                            post-tax than FD (taxed at slab). In 30% bracket,
+                            7% FD = 4.9% post-tax vs PPF 7.1% tax-free.
                           </p>
                         </div>
                       </div>

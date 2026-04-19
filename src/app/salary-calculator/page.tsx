@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     'Take Home Salary Calculator',
     'TDS Calculator Salary',
     'PF Deduction Calculator',
-    'Gross to Net Salary',
+    'Gross to Net Salary'
   ],
   alternates: {
     canonical: 'https://fincado.com/salary-calculator/',
@@ -110,7 +110,7 @@ export default function SalaryCalculatorPage() {
       question: 'Does this calculator use the New Tax Regime?',
       answer:
         'Yes, this calculator estimates your Income Tax (TDS) based on the default New Tax Regime, which includes a ₹75,000 standard deduction and tax rebates up to ₹7 Lakhs taxable income.',
-    },
+    }
   ];
 
   return (
@@ -122,7 +122,7 @@ export default function SalaryCalculatorPage() {
           {
             name: 'Salary Calculator',
             url: 'https://fincado.com/salary-calculator/',
-          },
+          }
         ]}
       />
 

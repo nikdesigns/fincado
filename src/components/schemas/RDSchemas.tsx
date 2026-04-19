@@ -8,11 +8,6 @@ export function RDSchemas() {
     name: 'Fincado',
     url: 'https://fincado.com',
     logo: '/logo.png',
-    sameAs: [
-      'https://twitter.com/fincado',
-      'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado'
-    ],
   };
 
   // WebPage Schema

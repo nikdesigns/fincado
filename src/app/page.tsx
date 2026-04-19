@@ -50,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
       'post office calculators',
       'brokerage calculator',
       `financial calculators FY ${fy.fullFormat}`,
-      'Fincado',
+      'Fincado'
     ],
     alternates: {
       canonical: 'https://fincado.com/',
@@ -69,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
           width: 1200,
           height: 630,
           alt: 'Fincado financial calculators for India',
-        },
+        }
       ],
     },
     twitter: {
@@ -126,7 +126,7 @@ const FAQ_ITEMS = [
     question: 'What is the best way to get out of debt faster?',
     answer:
       'Use our EMI Prepayment Calculator. It shows you exactly how making a lumpsum part-payment or increasing your monthly EMI by a small amount can shave years off your loan tenure and save lakhs in interest.',
-  },
+  }
 ];
 
 const HERO_QUICK_ACTIONS = [
@@ -149,14 +149,14 @@ const HERO_QUICK_ACTIONS = [
     href: '/brokerage-calculator/',
     label: 'Brokerage Breakeven',
     desc: 'See net P&L after all charges.',
-  },
+  }
 ];
 
 const HERO_TRUST_POINTS = [
   '100% Free, No Login Required',
   'Aligned to current FY tax and compliance assumptions',
   'Built for Indian lending, tax, and investment workflows',
-  'Readable breakdowns, not black-box outputs',
+  'Readable breakdowns, not black-box outputs'
 ];
 
 const METRICS: MetricItem[] = [
@@ -179,7 +179,7 @@ const METRICS: MetricItem[] = [
     label: 'Workflow Speed',
     value: '<60 sec',
     note: 'Most core estimates complete in under a minute.',
-  },
+  }
 ];
 
 const DECISION_LANES: DecisionLane[] = [
@@ -210,7 +210,7 @@ const DECISION_LANES: DecisionLane[] = [
     href: '/retirement-calculator/',
     cta: 'Plan Retirement',
     icon: Wallet,
-  },
+  }
 ];
 
 const ESSENTIAL_TOOLS: ToolItem[] = [
@@ -241,7 +241,7 @@ const ESSENTIAL_TOOLS: ToolItem[] = [
     toneClass: 'bg-indigo-50 text-indigo-700',
     title: 'Salary Calculator',
     desc: 'Convert CTC to monthly in-hand salary with PF and tax adjustments.',
-  },
+  }
 ];
 
 const DEBT_TOOLS: ToolItem[] = [
@@ -265,7 +265,7 @@ const DEBT_TOOLS: ToolItem[] = [
     toneClass: 'bg-amber-50 text-amber-700',
     title: 'Car Loan Calculator',
     desc: 'Set dealer-ready EMI ranges before final negotiation.',
-  },
+  }
 ];
 
 const SAFE_RETURN_TOOLS: ToolItem[] = [
@@ -289,7 +289,7 @@ const SAFE_RETURN_TOOLS: ToolItem[] = [
     toneClass: 'bg-brand-50 text-brand-700',
     title: 'KVP Calculator',
     desc: 'Track money-doubling horizon and maturity timing exactly.',
-  },
+  }
 ];
 
 const TAX_TRADING_TOOLS: ToolItem[] = [
@@ -313,14 +313,14 @@ const TAX_TRADING_TOOLS: ToolItem[] = [
     toneClass: 'bg-emerald-50 text-emerald-700',
     title: 'Rent Receipt Generator',
     desc: 'Generate instant printable receipts for HRA documentation.',
-  },
+  }
 ];
 
 const QUICK_COMPARISONS = [
   { b1: 'SBI', b2: 'HDFC', link: '/compare/sbi-vs-hdfc/' },
   { b1: 'HDFC', b2: 'ICICI', link: '/compare/hdfc-vs-icici/' },
   { b1: 'SBI', b2: 'Axis', link: '/compare/sbi-vs-axis/' },
-  { b1: 'PNB', b2: 'BOB', link: '/compare/pnb-vs-bob/' },
+  { b1: 'PNB', b2: 'BOB', link: '/compare/pnb-vs-bob/' }
 ];
 
 const OPERATING_PRINCIPLES = [
@@ -338,7 +338,7 @@ const OPERATING_PRINCIPLES = [
     title: 'India-Specific Logic',
     desc: 'Lending, tax, and savings workflows reflect Indian market and policy context.',
     icon: Banknote,
-  },
+  }
 ];
 
 export default function Home(): JSX.Element {
@@ -346,7 +346,7 @@ export default function Home(): JSX.Element {
     'sukanya-samriddhi-yojana-guide-2026',
     'elss-funds-guide-2026',
     'sovereign-gold-bond-sgb-guide',
-    'health-insurance-buying-guide',
+    'health-insurance-buying-guide'
   ];
 
   const featuredGuides = articlesData.filter(
@@ -396,7 +396,7 @@ export default function Home(): JSX.Element {
             text: item.answer,
           },
         })),
-      },
+      }
     ],
   };
 

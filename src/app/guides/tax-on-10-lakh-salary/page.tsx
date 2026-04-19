@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     'is 10 lakh income tax free',
     'section 87a rebate limit 2025-26',
     '10 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -99,7 +99,7 @@ export default function Tax10LakhGuide() {
       question: 'Can I save tax on 10 Lakh salary?',
       answer:
         'New Regime already gives you zero tax. In Old Regime, deductions help, but you generally need around ₹4.5L deductions to bring old-regime tax to zero at ₹10L salary.',
-    },
+    }
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function Tax10LakhGuide() {
           {
             name: 'Tax on 10 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

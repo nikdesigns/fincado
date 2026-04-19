@@ -179,7 +179,7 @@ export default function CreditScoreClient({
     loanMix,
     accounts,
     hasDefaults,
-    hasSettlements,
+    hasSettlements
   ]);
 
   const scoreLabel =
@@ -294,7 +294,7 @@ export default function CreditScoreClient({
     hasDefaults,
     hasSettlements,
     onTimePayments,
-    utilization,
+    utilization
   ]);
 
   const reset = () => {

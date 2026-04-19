@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     'credit card billing cycle',
     'credit card minimum due',
     'credit card credit score',
-    'best way to use credit card in india',
+    'best way to use credit card in india'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/credit-card-guide/',
@@ -119,7 +119,7 @@ const FAQ_ITEMS = [
     question: 'How many credit cards should a beginner have?',
     answer:
       'For most beginners, one well-chosen card is enough. Add another only when you have a clear reason such as separating spend categories, travel use, or improving credit limit distribution.',
-  },
+  }
 ];
 
 export default function CreditCardGuidePage() {
@@ -183,7 +183,7 @@ export default function CreditCardGuidePage() {
           {
             name: 'Credit Card Guide',
             url: 'https://fincado.com/guides/credit-card-guide/',
-          },
+          }
         ]}
       />
 

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'monthly sip calculator',
     'sip goal calculator',
     'sip inflation',
-    'sip vs lump sum calculator',
+    'sip vs lump sum calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/sip-calculator/',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado SIP Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -196,7 +196,7 @@ export default function SIPCalculatorPage() {
       question: 'Can I run multiple SIPs for different goals?',
       answer:
         'Yes, and it is recommended. You can create separate SIPs/funds for different goals like retirement, child education, and house down payment. This makes it easier to track, rebalance, and withdraw when each goal is reached.',
-    },
+    }
   ];
 
   return (
@@ -208,7 +208,7 @@ export default function SIPCalculatorPage() {
           {
             name: 'SIP Calculator',
             url: 'https://fincado.com/sip-calculator/',
-          },
+          }
         ]}
       />
 

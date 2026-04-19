@@ -398,7 +398,7 @@ export default function EMIClient({
     affordableEMI,
     affordabilityRate,
     affordabilityTenure,
-    calculateYearlyBreakdown,
+    calculateYearlyBreakdown
   ]);
 
   const calculations2 = useMemo(() => {
@@ -514,7 +514,7 @@ export default function EMIClient({
     amount,
     rate,
     tenure,
-    calculatorMode,
+    calculatorMode
   ]);
 
   const handleSaveCalculation = useCallback(() => {
@@ -560,7 +560,7 @@ export default function EMIClient({
     calculations.emi,
     calculations.totalInterest,
     calculations.maxLoan,
-    t.calculationSaved,
+    t.calculationSaved
   ]);
 
   const handleDeleteCalculation = useCallback(
@@ -649,7 +649,7 @@ export default function EMIClient({
     calculations.maxLoan,
     calculations.totalInterest,
     calculations.totalPayment,
-    calculations.emi,
+    calculations.emi
   ]);
 
   const handleDownloadReport = useCallback(() => {

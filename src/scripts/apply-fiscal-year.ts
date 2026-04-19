@@ -30,7 +30,7 @@ const TARGETS = [
   'src/app/terms/page.tsx',
   'src/app/privacy-policy/page.tsx',
   'src/app/disclaimer/page.tsx',
-  'src/app/cookie-policy/page.tsx',
+  'src/app/cookie-policy/page.tsx'
 ];
 
 function replaceContent(input: string): string {

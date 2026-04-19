@@ -20,7 +20,7 @@ export interface StateDocs {
 // Helper: Parse rate string like "₹18,000 - ₹45,000"
 export function parsePropertyRate(rateStr: string) {
   try {
-    const cleanStr = rateStr.replace(/[₹,]/g, '');
+    const cleanStr = rateStr.replace(/[₹]/g, '');
     const parts = cleanStr.split('-').map((s) => parseInt(s.trim()));
     if (parts.length < 2 || isNaN(parts[0])) {
       return { min: 3000, max: 5000, avg: 4000 };
@@ -45,7 +45,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       'thane',
       'navi-mumbai',
       'nashik',
-      'aurangabad',
+      'aurangabad'
     ].includes(s)
   ) {
     return {
@@ -75,7 +75,7 @@ export function getStateInfo(citySlug: string): StateDocs {
       'kanpur',
       'agra',
       'allahabad',
-      'varanasi',
+      'varanasi'
     ].includes(s)
   ) {
     return {

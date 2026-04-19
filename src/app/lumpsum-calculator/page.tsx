@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'CAGR Calculator',
     'Compound Interest Calculator',
     'Lumpsum SIP Calculator',
-    'Investment Multiple Calculator',
+    'Investment Multiple Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/lumpsum-calculator/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Lumpsum Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -198,7 +198,7 @@ export default function LumpsumPage() {
       question: 'What returns can I expect from lumpsum investment?',
       answer:
         'Historical data shows equity mutual funds have delivered 12-15% CAGR over 10+ years. Debt funds give 6-8% returns. However, past performance is not guaranteed. Your actual returns depend on market conditions and fund performance.',
-    },
+    }
   ];
 
   return (
@@ -210,7 +210,7 @@ export default function LumpsumPage() {
           {
             name: 'Lumpsum Calculator',
             url: 'https://fincado.com/lumpsum-calculator/',
-          },
+          }
         ]}
       />
 

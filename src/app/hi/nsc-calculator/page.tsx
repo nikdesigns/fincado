@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'राष्ट्रीय बचत पत्र कैलकुलेटर',
     'NSC ब्याज गणना',
     'NSC कर लाभ',
-    'Section 80C NSC',
+    'Section 80C NSC'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/nsc-calculator/',
@@ -166,7 +166,7 @@ export default function HindiNSCPage() {
       question: 'NSC और FD में कौन बेहतर रिटर्न देता है?',
       answer:
         'NSC 7.7% (सरकारी दर, गारंटीकृत) Section 80C लाभ के साथ प्रदान करता है लेकिन 5 साल का लॉक-इन है। बैंक FD 6.5-7.5% (बैंक के अनुसार भिन्न) लचीली अवधि (7 दिन से 10 साल) के साथ देता है। NSC कर बचत और गारंटीकृत रिटर्न के लिए बेहतर है। FD तरलता और छोटी अवधि के लिए बेहतर है।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -242,7 +242,7 @@ export default function HindiNSCPage() {
           {
             name: 'NSC कैलकुलेटर',
             url: 'https://fincado.com/hi/nsc-calculator/',
-          },
+          }
         ]}
       />
 

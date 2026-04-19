@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'Post Office MIS Interest Rate 2026 in Hindi',
     'POMIS limits',
     'मंथली इनकम स्कीम पोस्ट ऑफिस',
-    'POMIS premature withdrawal penalty in hindi',
+    'POMIS premature withdrawal penalty in hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/pomis-calculator/',
@@ -108,7 +108,7 @@ export default function HindiPOMISCalculatorPage() {
       question: 'जॉइंट अकाउंट के लिए निवेश सीमा की गणना कैसे की जाती है?',
       answer:
         'जॉइंट अकाउंट (अधिकतम ₹15 लाख) में, सभी संयुक्त खाताधारकों का निवेश में बराबर का हिस्सा माना जाता है। उदाहरण के लिए, यदि दो लोग ₹15 लाख का निवेश करते हैं, तो इसे प्रत्येक व्यक्ति द्वारा ₹7.5 लाख का निवेश माना जाता है, जो उनकी व्यक्तिगत ₹9 लाख की सीमा के अंदर गिना जाएगा।',
-    },
+    }
   ];
 
   return (
@@ -120,7 +120,7 @@ export default function HindiPOMISCalculatorPage() {
           {
             name: 'POMIS कैलकुलेटर',
             url: 'https://fincado.com/hi/pomis-calculator/',
-          },
+          }
         ]}
       />
 

@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     'aggressive SIP investment',
     'wealth creation 10 years',
     'mutual fund SIP calculator',
-    'crorepati in 10 years',
+    'crorepati in 10 years'
   ],
   twitter: {
     card: 'summary_large_image',
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Roadmap to 1 Crore Wealth in 10 Years with SIP Investment Strategy',
-      },
+      }
     ],
   },
 };
@@ -148,7 +148,7 @@ const FAQ_ITEMS = [
     question: 'Should I stop SIP once I hit ₹1 Crore target early?',
     answer:
       'If you hit ₹1 Cr in Year 8-9 due to strong market performance (15-16% returns), you can: (1) Stop fresh SIPs and let it grow, (2) Shift new SIPs to debt for stability, or (3) Continue to overshoot goal and reach ₹1.2-1.5 Cr. Most people regret stopping early when markets keep rising, so option 3 is best.',
-  },
+  }
 ];
 
 export default function Sip1Cr10YearsPage() {
@@ -165,7 +165,7 @@ export default function Sip1Cr10YearsPage() {
           {
             name: 'SIP for 1 Crore in 10 Years',
             url: 'https://fincado.com/guides/sip-for-1-crore-in-10-years/',
-          },
+          }
         ]}
       />
 
@@ -2220,7 +2220,7 @@ export default function Sip1Cr10YearsPage() {
               title: 'Investing Without Clear Goal Timeline',
               desc: 'No goal = no discipline. Define specific need (child education 2036, house 2034) with timelines to stay committed during 30% portfolio drops. Vague goals = panic exits.',
               impact: 'Premature exit = total failure',
-            },
+            }
           ].map((mistake) => (
             <Card
               key={mistake.num}

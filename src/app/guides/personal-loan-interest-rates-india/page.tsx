@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     'flat vs reducing interest rate',
     'CIBIL score personal loan rate',
     'balance transfer personal loan',
-    'personal loan EMI calculator',
+    'personal loan EMI calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/personal-loan-interest-rates-india/',
@@ -106,7 +106,7 @@ const FAQ_ITEMS = [
     question: 'How much can balance transfer save on a ₹5 lakh personal loan?',
     answer:
       'If you shift from a higher rate to a meaningfully lower rate and the remaining tenure is sufficient, balance transfer can save thousands to lakhs depending on tenure and fee structure. Always compare: (old remaining interest) vs (new interest + transfer fees + foreclosure charges).',
-  },
+  }
 ];
 
 export default function PersonalLoanGuidePage() {
@@ -124,7 +124,7 @@ export default function PersonalLoanGuidePage() {
           {
             name: 'Personal Loan Interest Rates',
             url: 'https://fincado.com/guides/personal-loan-interest-rates-india/', // ✅ fixed
-          },
+          }
         ]}
       />
 

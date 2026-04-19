@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     'mutual fund cagr calculator',
     'stock return calculator',
     'portfolio cagr',
-    'absolute return vs cagr',
+    'absolute return vs cagr'
   ],
   alternates: {
     canonical: 'https://fincado.com/cagr-calculator/',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado CAGR Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -198,7 +198,7 @@ export default function CAGRCalculatorPage() {
       question: 'Does CAGR account for dividends and bonuses?',
       answer:
         'Standard CAGR calculation uses only initial and final values. To include dividends, add them back to the final value before calculating. For mutual funds, use "Absolute Total Return" (includes dividends reinvested) as final value. For stocks, add all dividends received to sale price.',
-    },
+    }
   ];
 
   return (
@@ -210,7 +210,7 @@ export default function CAGRCalculatorPage() {
           {
             name: 'CAGR Calculator',
             url: 'https://fincado.com/cagr-calculator/',
-          },
+          }
         ]}
       />
 

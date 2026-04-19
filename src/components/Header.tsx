@@ -49,7 +49,7 @@ const CALCULATOR_MENU = [
       { label: 'Home Loan', href: '/loans/home-loan/' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
       { label: 'Personal Loan', href: '/loans/personal-loan/' },
-      { label: 'Education Loan', href: '/loans/education-loan/' },
+      { label: 'Education Loan', href: '/loans/education-loan/' }
     ],
   },
   {
@@ -68,7 +68,7 @@ const CALCULATOR_MENU = [
       { label: 'NSC Calculator', href: '/nsc-calculator/' },
       { label: 'KVP Calculator', href: '/kvp-calculator/' },
       { label: 'CAGR Calculator', href: '/cagr-calculator/' },
-      { label: 'Sukanya Samriddhi (SSY)', href: '/sukanya-samriddhi/' },
+      { label: 'Sukanya Samriddhi (SSY)', href: '/sukanya-samriddhi/' }
     ],
   },
   {
@@ -83,7 +83,7 @@ const CALCULATOR_MENU = [
       { label: 'Gratuity Calculator', href: '/gratuity-calculator/' },
       { label: 'APY Calculator', href: '/apy-calculator/' },
       { label: 'FIRE Calculator', href: '/fire-calculator/' },
-      { label: 'Goal Planning', href: '/goal-planning-calculator/' },
+      { label: 'Goal Planning', href: '/goal-planning-calculator/' }
     ],
   },
   {
@@ -101,9 +101,9 @@ const CALCULATOR_MENU = [
       { label: 'Credit Score', href: '/credit-score/' },
       { label: 'Inflation Calculator', href: '/inflation-calculator/' },
       { label: 'Simple Interest', href: '/simple-interest-calculator/' },
-      { label: 'Compound Interest', href: '/compound-interest-calculator/' },
+      { label: 'Compound Interest', href: '/compound-interest-calculator/' }
     ],
-  },
+  }
 ];
 
 export default function Header() {

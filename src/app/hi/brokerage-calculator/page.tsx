@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'इंट्राडे ट्रेडिंग शुल्क',
     'ऑप्शन ट्रेडिंग ब्रोकरेज',
     'STT Calculator in Hindi',
-    'Stock Market Breakeven Calculator',
+    'Stock Market Breakeven Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/brokerage-calculator/',
@@ -102,7 +102,7 @@ export default function HindiBrokerageCalculatorPage() {
       question: 'क्या यह कैलकुलेटर Zerodha और Groww के लिए काम करता है?',
       answer:
         'हाँ। Zerodha, Groww, Upstox और AngelOne सभी एक समान "डिस्काउंट ब्रोकरेज (Discount Brokerage)" मॉडल (डिलीवरी शून्य, इंट्राडे/F&O के लिए ₹20 प्रति ट्रेड) का पालन करते हैं। यह कैलकुलेटर उनके कॉन्ट्रैक्ट नोट (Contract Note) की सटीक गणना करता है।',
-    },
+    }
   ];
 
   return (
@@ -114,7 +114,7 @@ export default function HindiBrokerageCalculatorPage() {
           {
             name: 'ब्रोकरेज कैलकुलेटर',
             url: 'https://fincado.com/hi/brokerage-calculator/',
-          },
+          }
         ]}
       />
 

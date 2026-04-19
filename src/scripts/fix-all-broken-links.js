@@ -165,10 +165,10 @@ const manualFixes = [
     note: 'Add these images to public/images/',
   },
   {
-    issue: 'LinkedIn URL',
-    search: 'https://www.linkedin.com/company/fincado',
+    issue: 'LinkedIn URL (if configured)',
+    search: 'https://www.linkedin.com/company/<your-company>',
     replace: 'YOUR_ACTUAL_LINKEDIN_URL or remove link',
-    files: ['Footer.tsx or Header.tsx'],
+    files: ['Schema/Footer/Header references'],
   },
 ];
 

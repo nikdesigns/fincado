@@ -56,7 +56,7 @@ const HINDI_CALCULATOR_CATEGORIES = [
         desc: 'किसी भी लोन की साधारण EMI गणना।',
         href: '/hi/emi-calculator/',
         icon: '🔢',
-      },
+      }
     ],
   },
   {
@@ -128,7 +128,7 @@ const HINDI_CALCULATOR_CATEGORIES = [
         desc: 'निवेश की वार्षिक वृद्धि दर (Compound Annual Growth Rate)।',
         href: '/hi/cagr-calculator/',
         icon: '🎯',
-      },
+      }
     ],
   },
   {
@@ -176,7 +176,7 @@ const HINDI_CALCULATOR_CATEGORIES = [
         desc: 'अपने सभी वित्तीय लक्ष्यों की योजना बनाएं।',
         href: '/hi/goal-planning-calculator/',
         icon: '🎯',
-      },
+      }
     ],
   },
   {
@@ -224,9 +224,9 @@ const HINDI_CALCULATOR_CATEGORIES = [
         desc: 'चक्रवृद्धि ब्याज (ब्याज पर ब्याज)।',
         href: '/hi/compound-interest-calculator/',
         icon: '🔄',
-      },
+      }
     ],
-  },
+  }
 ];
 
 /* ---------------- ENHANCED SEO METADATA (2026) ---------------- */
@@ -252,7 +252,7 @@ export const metadata: Metadata = {
     'gst calculator hindi',
     'hra calculator hindi',
     'gratuity calculator hindi',
-    'cagr calculator hindi',
+    'cagr calculator hindi'
   ],
   authors: [{ name: 'Fincado Team' }],
   creator: 'Fincado',
@@ -278,7 +278,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Hindi Financial Calculators',
-      },
+      }
     ],
   },
   twitter: {
@@ -370,7 +370,7 @@ export default function HindiCalculatorsPage() {
           '@type': 'Answer',
           text: 'SIP (सिस्टमैटिक इन्वेस्टमेंट प्लान) कैलकुलेटर यह बताता है कि मासिक निवेश से आपको कितना रिटर्न मिलेगा। यह म्यूचुअल फंड में निवेश की योजना बनाने में मदद करता है।',
         },
-      },
+      }
     ],
   };
 
@@ -380,7 +380,7 @@ export default function HindiCalculatorsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'होम', url: 'https://fincado.com/hi/' },
-          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' },
+          { name: 'कैलकुलेटर', url: 'https://fincado.com/hi/calculators/' }
         ]}
       />
 
@@ -450,7 +450,7 @@ export default function HindiCalculatorsPage() {
                       icon: Users,
                       label: '10 लाख+ उपयोगकर्ता',
                       color: 'text-emerald-600 bg-emerald-50',
-                    },
+                    }
                   ].map((feature) => (
                     <div
                       key={feature.label}
@@ -634,7 +634,7 @@ export default function HindiCalculatorsPage() {
                         { h: 60, label: '15 वर्ष', value: '₹24.2L' },
                         { h: 78, label: '20 वर्ष', value: '₹45.8L' },
                         { h: 92, label: '25 वर्ष', value: '₹78.5L' },
-                        { h: 100, label: '30 वर्ष', value: '₹1.2Cr' },
+                        { h: 100, label: '30 वर्ष', value: '₹1.2Cr' }
                       ].map((bar, i) => (
                         <div
                           key={i}
@@ -689,7 +689,7 @@ export default function HindiCalculatorsPage() {
                     'बजट 2026 के अनुसार अपडेटेड',
                     '100% सटीक और मुफ़्त',
                     'बिना लॉग-इन के उपयोग करें',
-                    'मोबाइल पर भी तेज़ और आसान',
+                    'मोबाइल पर भी तेज़ और आसान'
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />

@@ -60,7 +60,7 @@ const CATEGORY_ORDER: CalculatorItem['category'][] = [
   'Loans',
   'Investment & Savings',
   'Retirement & Pension',
-  'Tools & Tax',
+  'Tools & Tax'
 ];
 
 const CalculatorIcon = ({
@@ -293,7 +293,7 @@ const ALL_CALCULATORS: CalculatorItem[] = [
     path: '/compound-interest-calculator/',
     category: 'Tools & Tax',
     desc: 'Calculate compound interest with yearly, half-yearly, or quarterly frequency.',
-  },
+  }
 ];
 
 export default function CalculatorsGrid() {
@@ -313,7 +313,7 @@ export default function CalculatorsGrid() {
         calc.title,
         calc.desc,
         calc.category,
-        ...(calc.keywords || []),
+        ...(calc.keywords || [])
       ]
         .join(' ')
         .toLowerCase();

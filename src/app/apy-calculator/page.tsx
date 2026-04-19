@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'APY vs NPS',
     'Government Pension Scheme',
     'Guaranteed Pension Calculator',
-    'PFRDA Pension',
+    'PFRDA Pension'
   ],
   alternates: {
     canonical: 'https://fincado.com/apy-calculator/',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado APY Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -243,7 +243,7 @@ export default function APYCalculatorPage() {
       question: 'Did Union Budget 2026 change APY rules?',
       answer:
         'Union Budget 2026 did not introduce any changes to APY contribution rates, pension amounts, or eligibility criteria. The scheme continues to operate as per existing PFRDA guidelines with the same 5 pension slabs (₹1,000 to ₹5,000).',
-    },
+    }
   ];
 
   return (
@@ -255,7 +255,7 @@ export default function APYCalculatorPage() {
           {
             name: 'APY Calculator',
             url: 'https://fincado.com/apy-calculator/',
-          },
+          }
         ]}
       />
 

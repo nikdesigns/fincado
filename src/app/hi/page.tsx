@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'income tax calculator hindi',
     'mutual fund calculator hindi',
     'loan calculator hindi',
-    'investment calculator hindi',
+    'investment calculator hindi'
   ],
   authors: [{ name: 'Fincado Team' }],
   creator: 'Fincado',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Hindi Financial Calculators',
-      },
+      }
     ],
   },
   twitter: {
@@ -158,7 +158,7 @@ export default function HindiHubPage() {
           '@type': 'Answer',
           text: 'हां, हमारे कैलकुलेटर बैंक-ग्रेड फॉर्मूला का उपयोग करते हैं और नवीनतम Budget 2026 नियमों, RBI दरों और टैक्स स्लैब के अनुसार अपडेट किए जाते हैं।',
         },
-      },
+      }
     ],
   };
 
@@ -168,7 +168,7 @@ export default function HindiHubPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com' },
-          { name: 'हिंदी', url: 'https://fincado.com/hi/' },
+          { name: 'हिंदी', url: 'https://fincado.com/hi/' }
         ]}
       />
 
@@ -228,7 +228,7 @@ export default function HindiHubPage() {
                       icon: Users,
                       label: '10 लाख+ उपयोगकर्ता',
                       color: 'text-emerald-600 bg-emerald-50',
-                    },
+                    }
                   ].map((feature) => (
                     <div
                       key={feature.label}
@@ -319,7 +319,7 @@ export default function HindiHubPage() {
                   '100% सटीक गणना (Accurate)',
                   'सरल और स्पष्ट हिंदी भाषा',
                   'अपडेटेड ब्याज दरें (Latest Rates)',
-                  'मुफ़्त उपयोग (Free to use)',
+                  'मुफ़्त उपयोग (Free to use)'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />

@@ -76,7 +76,7 @@ const stats: StatItem[] = [
     icon: Sparkles,
     label: 'Real-time Results',
     color: 'bg-brand-50 text-brand-700',
-  },
+  }
 ];
 
 const comparisonFactors: FeatureItem[] = [
@@ -103,21 +103,21 @@ const comparisonFactors: FeatureItem[] = [
     color: 'text-purple-600 bg-purple-50',
     title: 'Repo Rate Linking (RLLR)',
     desc: 'For home loans, ensure the rate is linked to the Repo Rate for transparency and fairness.',
-  },
+  }
 ];
 
 const relatedTools: LinkItem[] = [
   { name: 'Home Loan Calculator', href: '/loans/home-loan/' },
   { name: 'Car Loan Calculator', href: '/loans/car-loan/' },
   { name: 'Personal Loan Calculator', href: '/loans/personal-loan/' },
-  { name: 'EMI Calculator', href: '/emi-calculator/' },
+  { name: 'EMI Calculator', href: '/emi-calculator/' }
 ];
 
 const popularComparisons: LinkItem[] = [
   { name: 'HDFC vs SBI', href: '/compare/hdfc-vs-sbi/' },
   { name: 'ICICI vs Axis', href: '/compare/icici-vs-axis/' },
   { name: 'Kotak vs BoB', href: '/compare/kotak-vs-bob/' },
-  { name: 'PNB vs Canara', href: '/compare/pnb-vs-canara/' },
+  { name: 'PNB vs Canara', href: '/compare/pnb-vs-canara/' }
 ];
 
 const faqItems: FaqItem[] = [
@@ -136,7 +136,7 @@ const faqItems: FaqItem[] = [
   {
     q: 'Which bank offers the best loan rate?',
     a: 'The best option depends on your profile, charges, and terms—not just headline interest rate. Compare effective cost, fees, and flexibility before choosing.',
-  },
+  }
 ];
 
 export const metadata: Metadata = {
@@ -151,7 +151,7 @@ export const metadata: Metadata = {
     'loan interest comparison',
     'emi comparison calculator',
     'cheapest home loan',
-    'bank loan comparison india',
+    'bank loan comparison india'
   ],
   authors: [{ name: 'Fincado Team' }],
   creator: 'Fincado',
@@ -172,7 +172,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Loan Comparison Tool',
-      },
+      }
     ],
   },
   twitter: {
@@ -215,7 +215,7 @@ export default function CompareLoansPage() {
       'Total interest calculation',
       'EMI difference visualization',
       'Processing fee comparison',
-      'Bank-wise comparison',
+      'Bank-wise comparison'
     ],
   };
 
@@ -258,7 +258,7 @@ export default function CompareLoansPage() {
         '@type': 'HowToStep',
         name: 'Choose the Better Option',
         text: 'Pick the option with lower effective cost after including one-time charges and flexibility.',
-      },
+      }
     ],
   };
 
@@ -267,7 +267,7 @@ export default function CompareLoansPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Compare Loans', url: 'https://fincado.com/compare-loans/' },
+          { name: 'Compare Loans', url: 'https://fincado.com/compare-loans/' }
         ]}
       />
 

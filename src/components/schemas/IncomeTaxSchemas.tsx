@@ -8,11 +8,6 @@ export function IncomeTaxSchemas() {
     name: 'Fincado',
     url: 'https://fincado.com',
     logo: '/logo.png',
-    sameAs: [
-      'https://twitter.com/fincado',
-      'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado',
-    ],
   };
 
   // WebPage Schema
@@ -100,7 +95,7 @@ export function IncomeTaxSchemas() {
         position: 7,
         name: 'Save or Share Results',
         text: 'Save calculation for future reference or share with family/CA via WhatsApp.',
-      },
+      }
     ],
   };
 
@@ -186,7 +181,7 @@ export function IncomeTaxSchemas() {
             name: 'Health & Education Cess',
             description: 'Includes 4% cess on total tax liability',
           },
-        },
+        }
       ],
     },
   };

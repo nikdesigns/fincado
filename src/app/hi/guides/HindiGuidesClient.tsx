@@ -94,7 +94,7 @@ export default function HindiGuidesClient() {
           {
             name: 'आर्टिकल्स (Guides)',
             url: 'https://fincado.com/hi/guides/',
-          },
+          }
         ]}
       />
 
@@ -147,7 +147,7 @@ export default function HindiGuidesClient() {
                 icon: BookOpen,
                 label: 'आसान भाषा',
                 color: 'text-purple-600 bg-purple-50',
-              },
+              }
             ].map((feature) => (
               <div
                 key={feature.label}
@@ -361,7 +361,7 @@ export default function HindiGuidesClient() {
               'सरल और सटीक जानकारी',
               'नियमित अपडेट',
               'व्यावहारिक उदाहरण',
-              '100% मुफ़्त',
+              '100% मुफ़्त'
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 shrink-0" />

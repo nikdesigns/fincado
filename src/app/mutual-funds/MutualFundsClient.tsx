@@ -326,7 +326,7 @@ export default function MutualFundsClient({
         pct: alloc.cash * 100,
         label: t.cash,
         bg: 'bg-slate-400',
-      },
+      }
     ];
 
     return {
@@ -350,7 +350,7 @@ export default function MutualFundsClient({
     goldReturn,
     cashReturn,
     inflationPct,
-    t,
+    t
   ]);
 
   return (
@@ -475,7 +475,7 @@ export default function MutualFundsClient({
                   setRet: setCashReturn,
                   color: 'text-slate-600',
                   bg: 'bg-slate-50 border-slate-200',
-                },
+                }
               ].map((item, i) => {
                 const Icon = item.icon;
                 return (

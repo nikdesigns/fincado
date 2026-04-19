@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     'Financial Goal Planner',
     'Equity vs Debt Calculator',
     'Mutual Fund Return Calculator',
-    'Compounding Calculator',
+    'Compounding Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/investing/',
@@ -122,7 +122,7 @@ export default function InvestingPage() {
       question: 'When should I rebalance my portfolio?',
       answer:
         'Rebalance once a year or when any asset class moves more than 10% away from your target allocation. This keeps risk under control.',
-    },
+    }
   ];
 
   return (
@@ -131,7 +131,7 @@ export default function InvestingPage() {
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
           { name: 'Calculators', url: 'https://fincado.com/calculators/' },
-          { name: 'Investing Planner', url: 'https://fincado.com/investing/' },
+          { name: 'Investing Planner', url: 'https://fincado.com/investing/' }
         ]}
       />
 

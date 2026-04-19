@@ -51,7 +51,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'New vs Old Tax Regime 2026 Comparison',
-      },
+      }
     ],
   },
 };
@@ -67,7 +67,7 @@ export default function TaxRegimeGuide() {
           {
             name: 'New vs Old Tax Regime',
             url: 'https://fincado.com/guides/new-vs-old-tax-regime-2026/',
-          },
+          }
         ]}
       />
 
@@ -439,7 +439,7 @@ export default function TaxRegimeGuide() {
               question: 'Which regime is better for income above ₹15 lakhs?',
               answer:
                 'If your total deductions exceed ₹4.5–5 Lakhs, the Old Regime may be better. Otherwise, stick with the New Regime.',
-            },
+            }
           ].map((faq, index) => (
             <AccordionItem
               key={index}

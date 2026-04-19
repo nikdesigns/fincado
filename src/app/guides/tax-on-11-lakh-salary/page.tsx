@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'is 11 lakh income tax free',
     'section 87a rebate limit 2025-26',
     '11 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -95,7 +95,7 @@ export default function Tax11LakhGuide() {
       question: 'Which tax regime is better for 11 Lakh package?',
       answer:
         'The New Tax Regime is better for most people at 11 LPA because it gives zero tax with no paperwork. Old Regime generally needs very high deductions (~₹5.5L+) to also reach zero tax.',
-    },
+    }
   ];
 
   return (
@@ -107,7 +107,7 @@ export default function Tax11LakhGuide() {
           {
             name: 'Tax on 11 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

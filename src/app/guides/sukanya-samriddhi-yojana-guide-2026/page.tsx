@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'SSY vs PPF 2026',
     'SSY maturity amount',
     'SSY partial withdrawal rules',
-    'how to open SSY account',
+    'how to open SSY account'
   ],
   alternates: {
     canonical:
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Sukanya Samriddhi Yojana 2026 guide',
-      },
+      }
     ],
   },
 };
@@ -144,7 +144,7 @@ const FAQ_ITEMS = [
     question: 'Is SSY better than PPF or FD for a girl child?',
     answer:
       'SSY offers a higher interest rate than PPF at present and typically better post-tax outcomes than many bank FDs because SSY interest and maturity are tax-free. However, it also comes with stricter purpose and tenure conditions, so the best option depends on your goal and liquidity needs.',
-  },
+  }
 ];
 
 const TOC_ITEMS = [
@@ -162,7 +162,7 @@ const TOC_ITEMS = [
   { href: '#comparison', label: 'SSY vs PPF vs FD vs SIP' },
   { href: '#strategy', label: 'Safety + Growth Strategy' },
   { href: '#maturity', label: 'Maturity Examples' },
-  { href: '#faqs', label: 'FAQs' },
+  { href: '#faqs', label: 'FAQs' }
 ];
 
 export default function SSYGuide2026() {
@@ -230,7 +230,7 @@ export default function SSYGuide2026() {
         '@type': 'HowToStep',
         name: 'Make the initial deposit',
         text: 'Deposit at least ₹250 to activate the account.',
-      },
+      }
     ],
   };
 
@@ -243,7 +243,7 @@ export default function SSYGuide2026() {
           {
             name: 'SSY Guide 2026',
             url: 'https://fincado.com/guides/sukanya-samriddhi-yojana-guide-2026/',
-          },
+          }
         ]}
       />
 
@@ -607,7 +607,7 @@ export default function SSYGuide2026() {
                   'Families prioritising capital safety over high market-linked returns',
                   'Investors using the old tax regime and looking for 80C deduction',
                   'Long-term goals like higher education or marriage corpus',
-                  'Conservative investors who want guaranteed-style small savings exposure',
+                  'Conservative investors who want guaranteed-style small savings exposure'
                 ].map((point, i) => (
                   <li key={i} className="flex gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -630,7 +630,7 @@ export default function SSYGuide2026() {
                   'You prefer market-linked wealth creation over fixed-rate savings',
                   'You are already in the new tax regime and only want tax deductions',
                   'Your goal is not specifically linked to a girl child corpus',
-                  'You want a product without long tenure or usage conditions',
+                  'You want a product without long tenure or usage conditions'
                 ].map((point, i) => (
                   <li key={i} className="flex gap-2">
                     <AlertTriangle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
@@ -654,7 +654,7 @@ export default function SSYGuide2026() {
             'Fill the SSY account opening form with details of the girl child and guardian.',
             'Submit the required KYC and birth documents.',
             'Make the initial deposit of at least ₹250.',
-            'Collect the passbook or acknowledgement and set a yearly deposit reminder.',
+            'Collect the passbook or acknowledgement and set a yearly deposit reminder.'
           ].map((step, index) => (
             <li key={step} className="flex gap-4">
               <span className="bg-purple-100 text-purple-700 font-semibold w-8 h-8 rounded-2xl flex items-center justify-center shrink-0">

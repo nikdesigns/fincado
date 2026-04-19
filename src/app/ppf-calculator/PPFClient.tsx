@@ -153,36 +153,38 @@ const simulatePPF = ({
   const yearlyBreakdown: YearlyBreakdown[] = [];
 
   for (let year = 1; year <= years; year++) {
-    const openingBalance = balance;
-    let yearlyInvested = 0;
+    let yearlyInterestAccrued = 0;
+    let capRemaining = PPF_ANNUAL_LIMIT;
 
-    if (mode === 'annual') {
-      const yearlyDeposit = Math.min(annualContribution, PPF_ANNUAL_LIMIT);
-      balance += yearlyDeposit;
-      invested += yearlyDeposit;
-      yearlyInvested = yearlyDeposit;
+    for (let month = 0; month < 12; month++) {
+      let deposit = 0;
 
-      for (let month = 0; month < 12; month++) {
-        balance *= 1 + monthlyRate;
+      if (mode === 'annual') {
+        // Annual mode assumes a lump-sum contribution at start of FY.
+        if (month === 0) {
+          deposit = Math.min(annualContribution, capRemaining);
+        }
+      } else {
+        deposit = Math.min(monthlyContribution, capRemaining);
       }
-    } else {
-      let capRemaining = PPF_ANNUAL_LIMIT;
 
-      for (let month = 0; month < 12; month++) {
-        const deposit = Math.min(monthlyContribution, capRemaining);
+      if (deposit > 0) {
         balance += deposit;
         invested += deposit;
-        yearlyInvested += deposit;
         capRemaining -= deposit;
-        balance *= 1 + monthlyRate;
       }
+
+      // PPF interest accrues monthly and is credited annually.
+      yearlyInterestAccrued += balance * monthlyRate;
     }
+
+    balance += yearlyInterestAccrued;
 
     if (year <= 5) {
       yearlyBreakdown.push({
         year,
         balance: Math.round(balance),
-        interestEarned: Math.round(balance - openingBalance - yearlyInvested),
+        interestEarned: Math.round(yearlyInterestAccrued),
       });
     }
   }

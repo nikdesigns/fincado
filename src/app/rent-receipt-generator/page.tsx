@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'house rent receipt format',
     'Section 10(13A) receipt',
     'rent receipt for ITR',
-    'HRA proof submission',
+    'HRA proof submission'
   ],
   alternates: {
     canonical: 'https://fincado.com/rent-receipt-generator/',
@@ -120,7 +120,7 @@ export default function RentReceiptPage() {
       question: 'What if my landlord refuses to sign the receipt?',
       answer:
         'You can still claim HRA by submitting bank transfer proofs + a self-declaration. However, a signed rent receipt is the strongest proof.',
-    },
+    }
   ];
 
   return (
@@ -132,7 +132,7 @@ export default function RentReceiptPage() {
           {
             name: 'Rent Receipt Generator',
             url: 'https://fincado.com/rent-receipt-generator/',
-          },
+          }
         ]}
       />
 

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     'NPS tax benefit 80ccd(1b)',
     '80c investments India',
     'how to save maximum tax under 80c',
-    'tax planning for 30 percent slab',
+    'tax planning for 30 percent slab'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/best-tax-saving-options-80c/',
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Section 80C tax saving investments comparison 2026 - ELSS vs PPF vs FD',
-      },
+      }
     ],
   },
 };
@@ -99,7 +99,7 @@ const FAQ_ITEMS = [
     question: 'How much tax can I save with Section 80C in 2026?',
     answer:
       'Maximum tax savings: ₹46,800 per year (30% tax bracket + 4% cess). For 20% bracket: ₹31,200, and for 5% bracket: ₹7,800. Combine with 80CCD(1B) for additional ₹15,600 savings through NPS.',
-  },
+  }
 ];
 
 export default function TaxSavingOptionsGuide() {
@@ -194,7 +194,7 @@ export default function TaxSavingOptionsGuide() {
                 position: 4,
                 name: 'Add NPS for Extra Benefit',
                 text: 'Invest ₹50,000 in NPS under Section 80CCD(1B) for additional ₹15,600 tax savings beyond 80C limit.',
-              },
+              }
             ],
           }),
         }}
@@ -208,7 +208,7 @@ export default function TaxSavingOptionsGuide() {
           {
             name: 'Best 80C Options',
             url: 'https://fincado.com/guides/best-tax-saving-options-80c/',
-          },
+          }
         ]}
       />
 

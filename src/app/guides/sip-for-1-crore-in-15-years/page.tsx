@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     'balanced SIP investment',
     'wealth creation 15 years',
     'mutual fund SIP 15 years',
-    'crorepati in 15 years',
+    'crorepati in 15 years'
   ],
   twitter: {
     card: 'summary_large_image',
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Roadmap to 1 Crore Wealth in 15 Years with SIP Investment Strategy',
-      },
+      }
     ],
   },
 };
@@ -150,7 +150,7 @@ const FAQ_ITEMS = [
     question: 'Can NRIs invest in Indian mutual funds for this 15-year goal?',
     answer:
       'Yes, NRIs can invest in Indian mutual funds through NRE/NRO accounts. However, LTCG tax rules differ: NRIs pay 12.5% tax without ₹1.25L exemption. Additionally, currency fluctuation risk exists if you need corpus in foreign currency. Consult a cross-border tax advisor to optimize returns and minimize double taxation via DTAA benefits.',
-  },
+  }
 ];
 
 export default function Sip1Cr15YearsPage() {
@@ -167,7 +167,7 @@ export default function Sip1Cr15YearsPage() {
           {
             name: 'SIP for 1 Crore in 15 Years',
             url: 'https://fincado.com/guides/sip-for-1-crore-in-15-years/',
-          },
+          }
         ]}
       />
 
@@ -1467,7 +1467,7 @@ export default function Sip1Cr15YearsPage() {
             {
               title: 'Waiting for "Best Time"',
               desc: 'Time in market > Timing the market. Start today.',
-            },
+            }
           ].map((item, i) => (
             <Card key={i} className="bg-red-50/50">
               <CardContent className="p-4">

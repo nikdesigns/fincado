@@ -156,7 +156,7 @@ export default function GSTClient({
   /* ---------- BULK CALCULATION STATE ---------- */
   const [showBulk, setShowBulk] = useState(false);
   const [bulkItems, setBulkItems] = useState<BulkItem[]>([
-    { id: 1, name: 'Item 1', amount: 10000, gstRate: 18 },
+    { id: 1, name: 'Item 1', amount: 10000, gstRate: 18 }
   ]);
 
   /* ---------- SAVED CALCULATIONS STATE ---------- */
@@ -350,7 +350,7 @@ export default function GSTClient({
         name: `Item ${prev.length + 1}`,
         amount: 10000,
         gstRate: 18,
-      },
+      }
     ]);
   };
 

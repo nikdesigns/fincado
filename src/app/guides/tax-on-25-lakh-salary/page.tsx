@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'tax on 25 lakh new regime',
     'section 87a rebate limit 2025-26',
     '25 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
@@ -99,7 +99,7 @@ export default function Tax25LakhGuide() {
       question: 'Is ₹25 Lakh salary considered high income in India?',
       answer:
         'Yes. A ₹25 LPA salary places you among higher-income earners in India. Tax planning becomes important as a significant part of your income falls in upper slabs.',
-    },
+    }
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function Tax25LakhGuide() {
           {
             name: 'Tax on 25 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

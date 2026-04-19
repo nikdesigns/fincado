@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     'house purchase calculator',
     'goal based investment calculator',
     'sip for goals calculator',
-    'inflation adjusted goal calculator',
+    'inflation adjusted goal calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/goal-planning-calculator/',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Goal Planning Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -204,7 +204,7 @@ export default function GoalPlanningCalculatorPage() {
       question: 'Can I use goal planning for retirement?',
       answer:
         'Absolutely! Retirement is the most important financial goal. Input your desired retirement corpus (accounting for inflation and life expectancy), years to retirement, and expected returns. The calculator shows if you are on track or need to save more monthly.',
-    },
+    }
   ];
 
   return (
@@ -216,7 +216,7 @@ export default function GoalPlanningCalculatorPage() {
           {
             name: 'Goal Planning Calculator',
             url: 'https://fincado.com/goal-planning-calculator/',
-          },
+          }
         ]}
       />
 

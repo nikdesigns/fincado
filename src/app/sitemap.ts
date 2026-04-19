@@ -90,7 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/emi-calculator', '/hi/emi-calculator'],
     ['/emi-prepayment-calculator', '/hi/emi-prepayment-calculator'],
     ['/sip-calculator', '/hi/sip-calculator'],
-    ['/income-tax-calculator', '/hi/income-tax-calculator'],
+    ['/income-tax-calculator', '/hi/income-tax-calculator']
   ];
 
   const coreCalculators: MetadataRoute.Sitemap = coreCalculatorPairs.map(
@@ -110,7 +110,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/compare-loans',
     '/loans',
     '/credit-score',
-    '/bank-emi',
+    '/bank-emi'
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -138,7 +138,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/nsc-calculator', '/hi/nsc-calculator'],
     ['/kvp-calculator', '/hi/kvp-calculator'],
     ['/cagr-calculator', '/hi/cagr-calculator'],
-    ['/sukanya-samriddhi', '/hi/sukanya-samriddhi'],
+    ['/sukanya-samriddhi', '/hi/sukanya-samriddhi']
   ];
 
   const investmentCalculators: MetadataRoute.Sitemap =
@@ -159,7 +159,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/gratuity-calculator', '/hi/gratuity-calculator'],
     ['/apy-calculator', '/hi/apy-calculator'],
     ['/fire-calculator', '/hi/fire-calculator'],
-    ['/goal-planning-calculator', '/hi/goal-planning-calculator'],
+    ['/goal-planning-calculator', '/hi/goal-planning-calculator']
   ];
 
   const retirementCalculators: MetadataRoute.Sitemap =
@@ -181,7 +181,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/gst-calculator', '/hi/gst-calculator'],
     ['/inflation-calculator', '/hi/inflation-calculator'],
     ['/simple-interest-calculator', '/hi/simple-interest-calculator'],
-    ['/compound-interest-calculator', '/hi/compound-interest-calculator'],
+    ['/compound-interest-calculator', '/hi/compound-interest-calculator']
   ];
 
   const taxUtilityCalculators: MetadataRoute.Sitemap =
@@ -199,7 +199,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/loans/personal-loan', '/hi/loans/personal-loan'],
     ['/loans/car-loan', '/hi/loans/car-loan'],
     ['/loans/education-loan', '/hi/loans/education-loan'],
-    ['/home-loan-rates'],
+    ['/home-loan-rates']
   ];
 
   const loanPages: MetadataRoute.Sitemap = loanPagePairs.map(([en, hi]) =>
@@ -218,7 +218,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
     '/privacy-policy',
     '/disclaimer',
-    '/editorial-guidelines',
+    '/editorial-guidelines'
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -233,7 +233,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/calculators',
     '/hi/guides',
     '/hi/mutual-funds',
-    '/hi/credit-score',
+    '/hi/credit-score'
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -305,7 +305,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'bob',
     'lic-housing',
     'bajaj',
-    'idfc-first',
+    'idfc-first'
   ];
 
   const comparisonRoutes: MetadataRoute.Sitemap = [];
@@ -342,7 +342,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articleRoutes,
     ...bankHubRoutes,
     ...hindiStandalonePages,
-    ...informationalPages,
+    ...informationalPages
   ];
 
   return Array.from(

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'NPS calculator',
     'inflation calculator india',
     'budget 2026 calculators',
-    'FY 2026-27 tax calculator',
+    'FY 2026-27 tax calculator'
   ],
   authors: [{ name: 'Fincado Team' }],
   creator: 'Fincado',
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Financial Calculators',
-      },
+      }
     ],
   },
   twitter: {
@@ -173,7 +173,7 @@ export default function CalculatorsPage() {
             operatingSystem: 'Web',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
           },
-        },
+        }
       ],
     },
   };
@@ -213,7 +213,7 @@ export default function CalculatorsPage() {
           '@type': 'Answer',
           text: 'The most used tools are EMI Calculator, SIP Calculator, Income Tax Calculator and Home Loan Calculator.',
         },
-      },
+      }
     ],
   };
 
@@ -230,7 +230,6 @@ export default function CalculatorsPage() {
       addressCountry: 'IN',
       addressRegion: 'Maharashtra',
     },
-    sameAs: ['https://twitter.com/fincado', 'https://facebook.com/fincado'],
   };
 
   return (
@@ -238,7 +237,7 @@ export default function CalculatorsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Calculators', url: 'https://fincado.com/calculators/' },
+          { name: 'Calculators', url: 'https://fincado.com/calculators/' }
         ]}
       />
 
@@ -307,7 +306,7 @@ export default function CalculatorsPage() {
                       icon: Users,
                       label: 'Used by Indian Planners',
                       color: 'text-brand-700 bg-brand-100',
-                    },
+                    }
                   ].map((feature) => (
                     <div
                       key={feature.label}
@@ -437,7 +436,7 @@ export default function CalculatorsPage() {
                         { h: 60, label: 'Y15', value: '₹24.2L' },
                         { h: 78, label: 'Y20', value: '₹45.8L' },
                         { h: 92, label: 'Y25', value: '₹78.5L' },
-                        { h: 100, label: 'Y30', value: '₹1.2Cr' },
+                        { h: 100, label: 'Y30', value: '₹1.2Cr' }
                       ].map((bar, i) => (
                         <div
                           key={i}
@@ -527,7 +526,7 @@ export default function CalculatorsPage() {
                         name: 'Inflation Calculator',
                         url: '/inflation-calculator/',
                         label: 'Protect purchasing power',
-                      },
+                      }
                     ].map((item) => (
                       <li key={item.url}>
                         <Link

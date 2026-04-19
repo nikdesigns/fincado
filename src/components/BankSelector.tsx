@@ -17,7 +17,7 @@ const banks = [
   { slug: 'hdfc', name: 'HDFC' },
   { slug: 'icici', name: 'ICICI' },
   { slug: 'axis', name: 'Axis' },
-  { slug: 'kotak', name: 'Kotak' },
+  { slug: 'kotak', name: 'Kotak' }
 ];
 
 export default function BankSelector() {

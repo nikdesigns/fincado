@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Comparison of Old vs New Tax Regime 2025',
-      },
+      }
     ],
   },
 };
@@ -79,7 +79,7 @@ const FAQ_ITEMS = [
     question: 'Which tax regime is better for income above ₹15 lakhs?',
     answer:
       'If you can claim deductions (80C, 80D, HRA, Home Loan Interest) of more than ₹4–5 lakhs, the Old Regime may save you tax. Otherwise, the New Regime is generally better due to lower rates and simplicity.',
-  },
+  }
 ];
 
 export default function TaxRegimeGuide() {
@@ -93,7 +93,7 @@ export default function TaxRegimeGuide() {
           {
             name: 'New vs Old Tax Regime',
             url: 'https://fincado.com/guides/new-vs-old-tax-regime-2025/',
-          },
+          }
         ]}
       />
 

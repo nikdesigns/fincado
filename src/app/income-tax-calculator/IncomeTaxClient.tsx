@@ -182,30 +182,26 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
     const taxableNew = Math.max(0, income - STD_NEW);
     let taxNewBase = 0;
 
-    const slabs: Array<[number, number, number]> =
-      fy === '2026-2027'
-        ? [
-            [400_000, 800_000, 0.05],
-            [800_000, 1_200_000, 0.1],
-            [1_200_000, 1_600_000, 0.15],
-            [1_600_000, 2_000_000, 0.2],
-            [2_000_000, 2_400_000, 0.25],
-            [2_400_000, Infinity, 0.3],
-          ]
-        : [
-            [300_000, 700_000, 0.05],
-            [700_000, 1_000_000, 0.1],
-            [1_000_000, 1_200_000, 0.15],
-            [1_200_000, 1_500_000, 0.2],
-            [1_500_000, Infinity, 0.3],
-          ];
+    /**
+     * Finance Act 2025 revised new-regime slabs under section 115BAC from
+     * AY 2026-27 onwards (i.e. FY 2025-26 and later). Both selectable FYs in
+     * this calculator therefore use the same slab structure and rebate limit.
+     */
+    const slabs: Array<[number, number, number]> = [
+      [400_000, 800_000, 0.05],
+      [800_000, 1_200_000, 0.1],
+      [1_200_000, 1_600_000, 0.15],
+      [1_600_000, 2_000_000, 0.2],
+      [2_000_000, 2_400_000, 0.25],
+      [2_400_000, Infinity, 0.3]
+    ];
 
     slabs.forEach(([min, max, rate]) => {
       taxNewBase += Math.max(0, Math.min(taxableNew, max) - min) * rate;
     });
 
     // Section 87A rebate limit by FY
-    const rebateLimit = fy === '2026-2027' ? 1_200_000 : 700_000;
+    const rebateLimit = 1_200_000;
     if (taxableNew <= rebateLimit) {
       taxNewBase = 0;
     }

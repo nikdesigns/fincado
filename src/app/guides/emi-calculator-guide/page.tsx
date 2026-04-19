@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     'EMI tax benefits',
     'loan affordability India',
     'home loan tenure impact',
-    'EMI vs tenure',
+    'EMI vs tenure'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/emi-calculator-guide/',
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'EMI Calculator Guide 2026 by Fincado',
-      },
+      }
     ],
   },
   twitter: {
@@ -122,7 +122,7 @@ const FAQ_ITEMS = [
     question: 'Why does most of the early EMI go toward interest?',
     answer:
       'Because interest is calculated on the outstanding principal. In the first years, the outstanding balance is highest, so the interest portion is larger.',
-  },
+  }
 ];
 
 const TOC_ITEMS = [
@@ -135,7 +135,7 @@ const TOC_ITEMS = [
   { href: '#tax-benefits', label: 'Tax Benefits' },
   { href: '#affordability', label: 'How Much EMI Is Safe?' },
   { href: '#mistakes', label: 'Common Mistakes' },
-  { href: '#faqs', label: 'FAQs' },
+  { href: '#faqs', label: 'FAQs' }
 ];
 
 const articleSchema = {
@@ -191,7 +191,7 @@ export default function EmiGuidePage() {
           {
             name: 'EMI Calculator Guide',
             url: 'https://fincado.com/guides/emi-calculator-guide/',
-          },
+          }
         ]}
       />
 

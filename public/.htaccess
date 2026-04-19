@@ -7,7 +7,7 @@ RewriteEngine On
 # ------------------------------------------------
 # 0. INDEXNOW KEY BYPASS
 # ------------------------------------------------
-RewriteRule ^f79d7e3caed6497cafbcc9ee2cd99a55\.txt$ - [L]
+RewriteRule ^dfd158e2da6b426c9eeabfc8dadd2611\.txt$ - [L]
 
 # ------------------------------------------------
 # 1. CANONICALIZATION (HTTPS + non-www + no double slash)
@@ -34,7 +34,7 @@ RewriteRule ^(.*)$ https://fincado.com/$1 [R=301,L]
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
-<Files "f79d7e3caed6497cafbcc9ee2cd99a55.txt">
+<Files "dfd158e2da6b426c9eeabfc8dadd2611.txt">
   Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
 </Files>
 
@@ -71,6 +71,8 @@ RewriteRule ^compare/idfc-vs-(.*)/?$ /compare/idfc-first-vs-$1/ [R=301,L]
 # ------------------------------------------------
 # 5. FIX BROKEN/MISSING PAGES (FROM LOGS)
 # ------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^guides/category/.*$ /guides/ [R=301,L]
 RewriteRule ^step-up-sip-calculator/?$ /sip-calculator/ [R=301,L]
 

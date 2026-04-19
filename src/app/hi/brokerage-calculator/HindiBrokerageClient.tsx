@@ -123,7 +123,7 @@ export default function HindiBrokerageClient() {
                   { id: 'delivery', label: 'डिलीवरी (CNC)' },
                   { id: 'intraday', label: 'इंट्राडे (MIS)' },
                   { id: 'futures', label: 'फ्यूचर्स (Futures)' },
-                  { id: 'options', label: 'ऑप्शंस (Options)' },
+                  { id: 'options', label: 'ऑप्शंस (Options)' }
                 ].map((item) => (
                   <button
                     key={item.id}

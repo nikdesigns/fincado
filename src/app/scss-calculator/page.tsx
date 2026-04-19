@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     'Post Office SCSS Calculator',
     'Senior Citizen FD Calculator',
     'Retirement Income Calculator India',
-    'SCSS 8.2% interest',
+    'SCSS 8.2% interest'
   ],
   alternates: {
     canonical: 'https://fincado.com/scss-calculator/',
@@ -123,7 +123,7 @@ export default function SCSSCalculatorPage() {
       question: 'Is SCSS better than Bank FD for senior citizens?',
       answer:
         'Generally yes. Higher interest rate (8.2%), quarterly payouts, tax deduction under 80C, and full government guarantee make SCSS one of the best options for senior citizens.',
-    },
+    }
   ];
 
   return (
@@ -135,7 +135,7 @@ export default function SCSSCalculatorPage() {
           {
             name: 'SCSS Calculator',
             url: 'https://fincado.com/scss-calculator/',
-          },
+          }
         ]}
       />
 

@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'EPFO Calculator',
     'Provident Fund Calculator',
     'EPF Balance Calculator',
-    'EPF Tax Calculator',
+    'EPF Tax Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/epf-calculator/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado EPF Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -251,7 +251,7 @@ export default function EPFCalculatorPage() {
       question: 'What happens to EPF after death?',
       answer:
         'EPF corpus goes to nominee (spouse, children, or registered nominee) immediately. Nominee must submit death certificate, claim form (Form 20), and KYC. Full corpus including interest is paid tax-free. EDLI (insurance) also pays ₹7 lakh (max) to nominee. No TDS on death claim withdrawals.',
-    },
+    }
   ];
 
   return (
@@ -263,7 +263,7 @@ export default function EPFCalculatorPage() {
           {
             name: 'EPF Calculator',
             url: 'https://fincado.com/epf-calculator/',
-          },
+          }
         ]}
       />
 

@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     'is 9 lakh income tax free',
     'section 87a rebate limit 2025-26',
     '9 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -94,7 +94,7 @@ export default function Tax9LakhGuide() {
       question: 'Which tax regime is better for 9 Lakh package?',
       answer:
         'The New Tax Regime is better for most people at 9 LPA because it gives zero tax with no paperwork. Old Regime typically becomes competitive only with very high deductions (~₹3.5L+).',
-    },
+    }
   ];
 
   return (
@@ -107,7 +107,7 @@ export default function Tax9LakhGuide() {
           {
             name: 'Tax on 9 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

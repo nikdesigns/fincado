@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'लोन प्रीपेमेंट कैलकुलेटर',
     'होम लोन पार्ट पेमेंट',
     'Loan Foreclosure Calculator',
-    'Interest Saved Calculator',
+    'Interest Saved Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/emi-prepayment-calculator/',
@@ -99,7 +99,7 @@ export default function HindiEMIPrepaymentPage() {
       question: 'पार्ट-पेमेंट करने का सबसे अच्छा समय कब है?',
       answer:
         'जितनी जल्दी हो सके, उतना बेहतर। एक सामान्य 20-वर्षीय लोन में, शुरुआती 5 से 7 वर्षों में आपकी EMI का अधिकांश हिस्सा ब्याज चुकाने में जाता है। लोन के शुरुआती वर्षों में पार्ट-पेमेंट करने से बाद के वर्षों में भुगतान करने की तुलना में ब्याज की बचत बहुत अधिक होती है।',
-    },
+    }
   ];
 
   return (
@@ -111,7 +111,7 @@ export default function HindiEMIPrepaymentPage() {
           {
             name: 'EMI प्रीपेमेंट कैलकुलेटर',
             url: 'https://fincado.com/hi/emi-prepayment-calculator/',
-          },
+          }
         ]}
       />
 

@@ -24,7 +24,7 @@ const trackNavigationMetrics = (): void => {
       name: 'dom_content_loaded_ms',
       value: Math.max(0, entry.domContentLoadedEventEnd - entry.startTime),
     },
-    { name: 'load_time_ms', value: Math.max(0, entry.loadEventEnd - entry.startTime) },
+    { name: 'load_time_ms', value: Math.max(0, entry.loadEventEnd - entry.startTime) }
   ];
 
   metrics.forEach((metric) => {

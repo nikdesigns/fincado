@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'tax on 30 lakh new regime',
     'section 87a rebate limit 2025-26',
     '30 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -101,7 +101,7 @@ export default function Tax30LakhGuide() {
       question: 'Is ₹30 lakh salary considered high income in India?',
       answer:
         'Yes. A ₹30 Lakh salary places you among the top ~1% of income earners in India, making tax efficiency and regime selection especially important.',
-    },
+    }
   ];
 
   return (
@@ -113,7 +113,7 @@ export default function Tax30LakhGuide() {
           {
             name: 'Tax on 30 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

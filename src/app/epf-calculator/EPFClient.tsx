@@ -108,11 +108,16 @@ export default function EPFClient() {
   /* ---------- CALCULATIONS ---------- */
   const results = useMemo(() => {
     const empMonthly = (basicSalary * employeePct) / 100;
-    // Employer contributes 3.67% to EPF (remaining 8.33% goes to EPS)
+    // Employer contribution is split: total 12%, with EPS generally capped at ₹15,000 wage base.
     const employerContributionBase = employerWageCeilingEnabled
       ? Math.min(basicSalary, 15000)
       : basicSalary;
-    const employerMonthly = (employerContributionBase * 3.67) / 100;
+    const employerTotalMonthly = (employerContributionBase * 12) / 100;
+    const epsMonthly = Math.min(
+      (Math.min(employerContributionBase, 15000) * 8.33) / 100,
+      1250,
+    );
+    const employerMonthly = Math.max(0, employerTotalMonthly - epsMonthly);
 
     let balance = 0;
     let totalEmp = 0;
@@ -140,6 +145,8 @@ export default function EPFClient() {
     // Additional calculations
     const monthlyEmpContribution = Math.round(empMonthly);
     const monthlyEmployerContribution = Math.round(employerMonthly);
+    const monthlyEPSContribution = Math.round(epsMonthly);
+    const monthlyEmployerTotalContribution = Math.round(employerTotalMonthly);
     const totalMonthlyContribution =
       monthlyEmpContribution + monthlyEmployerContribution;
 
@@ -152,6 +159,8 @@ export default function EPFClient() {
       interestPct,
       monthlyEmpContribution,
       monthlyEmployerContribution,
+      monthlyEPSContribution,
+      monthlyEmployerTotalContribution,
       totalMonthlyContribution,
       invested,
     };
@@ -208,7 +217,9 @@ export default function EPFClient() {
       `💼 Employee Provident Fund (EPF) Calculation\n\n` +
       `Basic Salary + DA: ${formatINR(basicSalary)}/month\n` +
       `Your Contribution: ${employeePct}% (${formatINR(results.monthlyEmpContribution)}/mo)\n` +
-      `Employer Contribution: 3.67% (${formatINR(results.monthlyEmployerContribution)}/mo${employerWageCeilingEnabled ? ', capped at ₹15,000 base' : ''})\n` +
+      `Employer Total Contribution: 12% (${formatINR(results.monthlyEmployerTotalContribution)}/mo${employerWageCeilingEnabled ? ', capped at ₹15,000 wage base' : ''})\n` +
+      `Employer EPF Share: ${formatINR(results.monthlyEmployerContribution)}/mo\n` +
+      `Employer EPS Share: ${formatINR(results.monthlyEPSContribution)}/mo (not part of EPF corpus)\n` +
       `Employment Period: ${years} years\n` +
       `Interest Rate: ${annualRate}% p.a.\n\n` +
       `📊 EPF Maturity:\n` +
@@ -268,9 +279,8 @@ export default function EPFClient() {
       <Alert className="border-brand-200 bg-brand-50">
         <Info className="h-4 w-4 text-brand-700" />
         <AlertDescription className="ml-2 text-sm text-brand-900">
-          <strong>Note:</strong> Employer&apos;s 8.33% contribution to EPS
-          (Employee Pension Scheme) is not included in EPF corpus as it provides
-          monthly pension separately.
+          <strong>Note:</strong> Employer contribution is split between EPF and
+          EPS. EPS (pension) share is excluded from EPF corpus.
         </AlertDescription>
       </Alert>
 
@@ -360,8 +370,8 @@ export default function EPFClient() {
                       className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-300"
                     />
                     <span>
-                      Apply statutory ₹15,000 wage ceiling to employer EPF share
-                      (3.67%).
+                      Apply statutory ₹15,000 wage ceiling to employer
+                      contribution before EPF/EPS split.
                     </span>
                   </label>
                 </div>
@@ -402,15 +412,22 @@ export default function EPFClient() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-700">
-                      Employer Contribution:
+                      Employer EPF Share:
                     </span>
                     <strong className="text-slate-900">
                       {formatINR(results.monthlyEmployerContribution)}
                     </strong>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-700">Employer EPS Share:</span>
+                    <strong className="text-slate-900">
+                      {formatINR(results.monthlyEPSContribution)}
+                    </strong>
+                  </div>
                   {employerWageCeilingEnabled && (
                     <div className="text-[11px] text-slate-500">
-                      Employer share calculated on capped ₹15,000 wage base.
+                      Employer total contribution calculated on capped ₹15,000
+                      wage base.
                     </div>
                   )}
                   <div className="flex justify-between border-t pt-2 text-base">

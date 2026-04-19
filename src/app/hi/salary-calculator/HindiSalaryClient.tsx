@@ -18,28 +18,45 @@ export default function HindiSalaryClient() {
   const calculateTax = (grossAnnual: number, regime: 'new' | 'old'): number => {
     const stdDeduction = regime === 'new' ? 75000 : 50000;
     const taxableIncome = Math.max(0, grossAnnual - stdDeduction);
-    let tax = 0;
+    let baseTax = 0;
 
     if (regime === 'new') {
       if (taxableIncome > 400000)
-        tax += Math.min(taxableIncome - 400000, 400000) * 0.05;
+        baseTax += Math.min(taxableIncome - 400000, 400000) * 0.05;
       if (taxableIncome > 800000)
-        tax += Math.min(taxableIncome - 800000, 400000) * 0.1;
+        baseTax += Math.min(taxableIncome - 800000, 400000) * 0.1;
       if (taxableIncome > 1200000)
-        tax += Math.min(taxableIncome - 1200000, 400000) * 0.15;
+        baseTax += Math.min(taxableIncome - 1200000, 400000) * 0.15;
       if (taxableIncome > 1600000)
-        tax += Math.min(taxableIncome - 1600000, 400000) * 0.2;
+        baseTax += Math.min(taxableIncome - 1600000, 400000) * 0.2;
       if (taxableIncome > 2000000)
-        tax += Math.min(taxableIncome - 2000000, 400000) * 0.25;
-      if (taxableIncome > 2400000) tax += (taxableIncome - 2400000) * 0.3;
+        baseTax += Math.min(taxableIncome - 2000000, 400000) * 0.25;
+      if (taxableIncome > 2400000)
+        baseTax += (taxableIncome - 2400000) * 0.3;
+
+      // धारा 87A (नई व्यवस्था): ₹12 लाख तक कर योग्य आय पर पूर्ण छूट।
+      if (taxableIncome <= 1200000) {
+        return 0;
+      }
+
+      // पहले उपकर जोड़ें, फिर छूट सीमा के पास मार्जिनल रिलीफ लागू करें।
+      let totalTax = baseTax * 1.04;
+      totalTax = Math.min(totalTax, taxableIncome - 1200000);
+      return Math.max(0, Math.round(totalTax));
     } else {
       if (taxableIncome > 250000)
-        tax += Math.min(taxableIncome - 250000, 250000) * 0.05;
+        baseTax += Math.min(taxableIncome - 250000, 250000) * 0.05;
       if (taxableIncome > 500000)
-        tax += Math.min(taxableIncome - 500000, 500000) * 0.2;
-      if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.3;
+        baseTax += Math.min(taxableIncome - 500000, 500000) * 0.2;
+      if (taxableIncome > 1000000) baseTax += (taxableIncome - 1000000) * 0.3;
+
+      // धारा 87A (पुरानी व्यवस्था): ₹5 लाख तक कर योग्य आय पर पूर्ण छूट।
+      if (taxableIncome <= 500000) {
+        return 0;
+      }
+
+      return Math.max(0, Math.round(baseTax * 1.04));
     }
-    return tax * 1.04;
   };
 
   const breakdown = useMemo(() => {

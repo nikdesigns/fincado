@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'CAGR Calculator Hindi',
     'Compound Annual Growth Rate Hindi',
     'Investment Return Calculator Hindi',
-    'Portfolio Growth Calculator Hindi',
+    'Portfolio Growth Calculator Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/cagr-calculator/',
@@ -149,7 +149,7 @@ export default function HindiCAGRPage() {
       question: 'क्या उच्च CAGR हमेशा बेहतर निवेश का मतलब है?',
       answer:
         'जरूरी नहीं। उच्च CAGR अक्सर उच्च जोखिम, अस्थिरता या छोटी ट्रैक रिकॉर्ड के साथ आता है। 25%+ CAGR का दावा करने वाला फंड असामान्य रूप से जोखिम भरा हो सकता है या नया हो सकता है। हमेशा CAGR को जोखिम समायोजित मेट्रिक्स (sharpe ratio, maximum drawdown) के साथ मिलाएं और कम से कम 5-7 वर्षों के प्रदर्शन की तलाश करें।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -229,7 +229,7 @@ export default function HindiCAGRPage() {
           {
             name: 'CAGR कैलकुलेटर',
             url: 'https://fincado.com/hi/cagr-calculator/',
-          },
+          }
         ]}
       />
 

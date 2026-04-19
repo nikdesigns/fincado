@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'सीनियर सिटीजन सेविंग स्कीम 2026',
     'SCSS Interest Rate in Hindi',
     'Post Office SCSS Calculator',
-    'Retirement Income Calculator',
+    'Retirement Income Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/scss-calculator/',
@@ -107,7 +107,7 @@ export default function HindiSCSSCalculatorPage() {
       question: '5 साल की मैच्योरिटी के बाद क्या होता है?',
       answer:
         '5 साल के बाद, आपको अपनी मूल राशि (Principal Amount) वापस मिल जाएगी। आपके पास मैच्योरिटी के 1 वर्ष के भीतर आवेदन जमा करके SCSS खाते को अगले 3 वर्षों के ब्लॉक के लिए बढ़ाने (Extend) का विकल्प भी होता है।',
-    },
+    }
   ];
 
   return (
@@ -119,7 +119,7 @@ export default function HindiSCSSCalculatorPage() {
           {
             name: 'SCSS कैलकुलेटर',
             url: 'https://fincado.com/hi/scss-calculator/',
-          },
+          }
         ]}
       />
 

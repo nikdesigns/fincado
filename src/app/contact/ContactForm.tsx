@@ -68,7 +68,7 @@ export default function ContactForm({ supportEmail, officeCity }: Props) {
       '---',
       `Sent from Fincado Contact Form`,
       `Office: ${officeCity || 'N/A'}`,
-      `Timestamp: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+      `Timestamp: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`
     ];
     const body = encodeURIComponent(bodyLines.join('\n'));
 

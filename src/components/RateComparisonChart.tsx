@@ -42,7 +42,7 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
       rate: Number.isFinite(b2.rate) ? b2.rate : 0,
       maxRate: Number.isFinite(b2.maxRate) ? b2.maxRate : 0,
       color: CHART_COLORS[1],
-    },
+    }
   ];
 
   const minRate = Math.min(...data.map((d) => d.rate));

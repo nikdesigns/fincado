@@ -201,7 +201,7 @@ export default function Footer() {
               { label: 'KVP Calculator', href: '/kvp-calculator/' },
               { label: 'Capital Gains', href: '/capital-gains-calculator/' },
               { label: 'FD Calculator', href: '/fd-calculator/' },
-              { label: 'Rent Receipt', href: '/rent-receipt-generator/' },
+              { label: 'Rent Receipt', href: '/rent-receipt-generator/' }
             ].map((calc) => (
               <Link
                 key={calc.href}

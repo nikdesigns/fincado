@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     'is 8 lakh income tax free',
     'section 87a rebate limit 2025-26',
     '8 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
@@ -102,7 +102,7 @@ export default function Tax8LakhGuide() {
       question: 'How can I reduce tax further on ₹8 lakh salary?',
       answer:
         'The New Regime already gives you zero tax. If you have large deductions (80C, HRA, home loan etc.), compare with Old Regime using the calculator.',
-    },
+    }
   ];
 
   return (
@@ -114,7 +114,7 @@ export default function Tax8LakhGuide() {
           {
             name: 'Tax on 8 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

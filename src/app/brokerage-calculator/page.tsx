@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     'STT calculator',
     'stock market breakeven calculator',
     'delivery brokerage calculator',
-    'options brokerage charges',
+    'options brokerage charges'
   ],
   alternates: {
     canonical: 'https://fincado.com/brokerage-calculator/',
@@ -117,7 +117,7 @@ export default function BrokerageCalculatorPage() {
       question: 'How accurate is this brokerage calculator?',
       answer:
         'Extremely accurate. It uses the exact same pricing model followed by Zerodha, Groww, Upstox and other discount brokers as of April 2026.',
-    },
+    }
   ];
 
   return (
@@ -129,7 +129,7 @@ export default function BrokerageCalculatorPage() {
           {
             name: 'Brokerage Calculator',
             url: 'https://fincado.com/brokerage-calculator/',
-          },
+          }
         ]}
       />
 

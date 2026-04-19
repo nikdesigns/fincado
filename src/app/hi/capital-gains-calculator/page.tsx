@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     'Capital Gains Tax India in Hindi',
     'शेयर बाजार टैक्स कैलकुलेटर',
     'प्रॉपर्टी पर कैपिटल गेन टैक्स',
-    'LTCG exemption limit',
+    'LTCG exemption limit'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/capital-gains-calculator/',
@@ -72,7 +72,7 @@ export default function HindiCapitalGainsPage() {
     <ul class="list-disc pl-5 space-y-2 mt-3">
       <li><strong>Equity STCG:</strong> इसे 15% से बढ़ाकर <strong>20%</strong> कर दिया गया है।</li>
       <li><strong>Equity LTCG:</strong> इसे 10% से बढ़ाकर <strong>12.5%</strong> कर दिया गया है। हालांकि, प्रति वर्ष टैक्स-फ्री छूट की सीमा ₹1 लाख से बढ़ाकर <strong>₹1.25 लाख</strong> कर दी गई है।</li>
-      <li><strong>प्रॉपर्टी (Real Estate) LTCG:</strong> इंडेक्सेशन (Indexation) का लाभ हटा दिया गया है। प्रॉपर्टी पर अब फ्लैट <strong>12.5%</strong> LTCG लगता है।</li>
+      <li><strong>प्रॉपर्टी (Real Estate) LTCG:</strong> सामान्यतः <strong>12.5%</strong> (बिना इंडेक्सेशन) लागू होता है। लेकिन 23 जुलाई 2024 से पहले खरीदी गई पात्र प्रॉपर्टी के लिए कम टैक्स विकल्प लागू हो सकता है: <strong>20% इंडेक्सेशन के साथ</strong> बनाम <strong>12.5% बिना इंडेक्सेशन</strong>।</li>
       <li><strong>डेट फंड्स (Debt Funds):</strong> अप्रैल 2023 के बाद किए गए निवेश पर आपकी स्लैब दर (Slab Rate) के अनुसार टैक्स लगेगा (LTCG का कोई लाभ नहीं)।</li>
     </ul>
   `);
@@ -102,7 +102,7 @@ export default function HindiCapitalGainsPage() {
       question:
         'क्या प्रॉपर्टी बेचने पर इंडेक्सेशन (Indexation) का लाभ मिलता है?',
       answer:
-        'नहीं। नए नियमों के अनुसार, रियल एस्टेट (प्रॉपर्टी) के लिए इंडेक्सेशन का लाभ हटा दिया गया है। अब प्रॉपर्टी पर (24 महीने बाद बेचने पर) बिना इंडेक्सेशन के फ्लैट 12.5% LTCG लगता है।',
+        'अधिकांश मामलों में 24 महीने बाद बेचने पर 12.5% LTCG (बिना इंडेक्सेशन) लागू होता है। लेकिन 23 जुलाई 2024 से पहले खरीदी गई पात्र प्रॉपर्टी के लिए कम टैक्स विकल्प लागू हो सकता है: 20% इंडेक्सेशन के साथ या 12.5% बिना इंडेक्सेशन (जो कम हो)।',
     },
     {
       id: 'faq-5',
@@ -128,7 +128,7 @@ export default function HindiCapitalGainsPage() {
       question: 'यह कैलकुलेटर कितना सटीक है?',
       answer:
         'वित्तीय वर्ष 2026-27 के लिए यह अत्यधिक सटीक है। यह नवीनतम यूनियन बजट के सटीक नियमों का उपयोग करता है। फिर भी, जटिल टैक्स प्लानिंग के लिए हमेशा अपने CA (Chartered Accountant) से सलाह लें।',
-    },
+    }
   ];
 
   return (
@@ -140,7 +140,7 @@ export default function HindiCapitalGainsPage() {
           {
             name: 'कैपिटल गेन कैलकुलेटर',
             url: 'https://fincado.com/hi/capital-gains-calculator/',
-          },
+          }
         ]}
       />
 
@@ -290,7 +290,8 @@ export default function HindiCapitalGainsPage() {
                             <td className="p-4 border text-slate-600">
                               24 महीने से अधिक →{' '}
                               <strong className="text-brand-700">12.5%</strong>{' '}
-                              (बिना इंडेक्सेशन)
+                              (आम नियम; पात्र पुराने मामलों में 20% + इंडेक्सेशन
+                              विकल्प)
                             </td>
                           </tr>
                           <tr>

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'TDS कैलकुलेटर',
     'PF कटौती कैलकुलेटर',
     'सैलरी ब्रेकअप',
-    'In Hand Salary in Hindi',
+    'In Hand Salary in Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/salary-calculator/',
@@ -114,7 +114,7 @@ export default function HindiSalaryCalculatorPage() {
         'क्या यह कैलकुलेटर नए टैक्स रिजीम (New Tax Regime) का उपयोग करता है?',
       answer:
         'हाँ, यह कैलकुलेटर डिफ़ॉल्ट रूप से नए टैक्स रिजीम के आधार पर आपके इनकम टैक्स (TDS) का अनुमान लगाता है, जिसमें ₹75,000 का स्टैंडर्ड डिडक्शन शामिल है और ₹7 लाख तक की टैक्सेबल इनकम पर रिबेट मिलता है।',
-    },
+    }
   ];
 
   return (
@@ -126,7 +126,7 @@ export default function HindiSalaryCalculatorPage() {
           {
             name: 'सैलरी कैलकुलेटर',
             url: 'https://fincado.com/hi/salary-calculator/',
-          },
+          }
         ]}
       />
 

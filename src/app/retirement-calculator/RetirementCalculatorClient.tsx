@@ -491,7 +491,7 @@ export default function RetirementCalculatorClient({
     pensionIncome,
     rentalIncome,
     otherIncome,
-    calculateRetirement,
+    calculateRetirement
   ]);
 
   // ✅ Comparison Calculations
@@ -526,7 +526,7 @@ export default function RetirementCalculatorClient({
     pensionIncome,
     rentalIncome,
     otherIncome,
-    calculateRetirement,
+    calculateRetirement
   ]);
 
   // ✅ Handlers
@@ -606,7 +606,7 @@ export default function RetirementCalculatorClient({
     results.sip,
     savedCalculations,
     calculatorMode,
-    t.calculationSaved,
+    t.calculationSaved
   ]);
 
   const handleShare = useCallback(() => {
@@ -642,7 +642,7 @@ export default function RetirementCalculatorClient({
     results.targetCorpus,
     results.expenseAtRetirement,
     results.savingsFV,
-    results.sip,
+    results.sip
   ]);
 
   const handleDownloadReport = useCallback(() => {

@@ -63,7 +63,7 @@ async function checkLinks(): Promise<CheckResult> {
       '#',
 
       // Skip potential problem URLs
-      '{search_term_string}',
+      '{search_term_string}'
     ],
   };
 

@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'FD TDS Calculator',
     'Cumulative FD Calculator',
     'Senior Citizen FD Rates',
-    'Bank FD Rates India',
+    'Bank FD Rates India'
   ],
   alternates: {
     canonical: 'https://fincado.com/fd-calculator/',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado FD Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -207,7 +207,7 @@ export default function FDPage() {
       question: 'How to save TDS on FD interest?',
       answer:
         'Submit Form 15G (for individuals below 60) or Form 15H (for senior citizens) to your bank if your total income is below taxable limit. You can also split FDs across family members or spread maturity dates to manage taxable interest.',
-    },
+    }
   ];
 
   return (
@@ -219,7 +219,7 @@ export default function FDPage() {
           {
             name: 'FD Calculator',
             url: 'https://fincado.com/fd-calculator/',
-          },
+          }
         ]}
       />
 

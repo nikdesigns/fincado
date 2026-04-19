@@ -75,7 +75,7 @@ export default function HindiPrepaymentClient() {
     remainingYears,
     remainingMonths,
     lumpsum,
-    extraMonthly,
+    extraMonthly
   ]);
 
   const formatCurrency = (amount: number) =>

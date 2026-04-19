@@ -253,7 +253,7 @@ export default function InvestingClient() {
         colorClass: 'text-amber-400',
         bgClass: 'bg-amber-400',
         value: fvGold,
-      },
+      }
     ];
 
     return {
@@ -275,7 +275,7 @@ export default function InvestingClient() {
     equityRet,
     debtRet,
     goldRet,
-    inflation,
+    inflation
   ]);
 
   return (
@@ -390,7 +390,7 @@ export default function InvestingClient() {
                   setRet: setGoldRet,
                   color: 'text-amber-700',
                   bg: 'bg-amber-50/50 border-amber-100',
-                },
+                }
               ].map((item, i) => {
                 const Icon = item.icon;
                 return (

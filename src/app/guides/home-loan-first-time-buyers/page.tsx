@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     'first time buyer eligibility',
     'home loan without credit history',
     'co-borrower home loan benefits',
-    'first home tax benefits India',
+    'first home tax benefits India'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/home-loan-first-time-buyers/',
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
         url: '/images/guides/home-loan/first-time-buyer-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -126,7 +126,7 @@ const FAQ_ITEMS = [
     question: 'How long does home loan approval take for first-time buyers?',
     answer:
       'Pre-approval: 3-7 working days with basic income documents. Final approval after property verification: 15-30 days total. Common delays: Incomplete documents (add 7-10 days), property title issues (add 15-20 days), low CIBIL score (rejection or higher rates). Pro tip: Get pre-approved before property hunting to negotiate better with sellers.',
-  },
+  }
 ];
 
 export default function FirstTimeHomeBuyerGuidePage() {
@@ -232,7 +232,7 @@ export default function FirstTimeHomeBuyerGuidePage() {
                 name: 'Complete Documentation and Disbursement',
                 text: 'Sign loan agreement, pay stamp duty and registration charges. Bank disburses amount to seller. Move into your first home!',
                 position: 6,
-              },
+              }
             ],
           }),
         }}
@@ -267,7 +267,7 @@ export default function FirstTimeHomeBuyerGuidePage() {
                 name: 'Phase 3: Disbursement (Current month)',
                 description:
                   'Property Valuation and Legal Check, Sign Agreement & Pay Stamp Duty, Buy Home Loan Insurance, Collect Original Deeds post-repayment',
-              },
+              }
             ],
           }),
         }}
@@ -281,7 +281,7 @@ export default function FirstTimeHomeBuyerGuidePage() {
           {
             name: 'First-Time Home Buyer Guide',
             url: 'https://fincado.com/guides/home-loan-first-time-buyers/',
-          },
+          }
         ]}
       />
 

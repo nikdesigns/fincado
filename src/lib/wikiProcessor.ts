@@ -86,7 +86,7 @@ const LINK_RULES: LinkRule[] = [
   { term: 'SIP vs FD', href: '/guides/sip-vs-fd/' },
   { term: 'SGB', href: '/guides/gold-investment-guide/' },
   { term: 'Mediclaim', href: '/guides/health-insurance-buying-guide/' },
-  { term: 'Improve Credit Score', href: '/guides/credit-score-guide/' },
+  { term: 'Improve Credit Score', href: '/guides/credit-score-guide/' }
 ];
 
 // Sort longest term first to prevent "Home Loan" matching inside "Home Loan Guide"

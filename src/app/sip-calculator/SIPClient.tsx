@@ -401,7 +401,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
     calculatorMode,
     targetAmount,
     goalYears,
-    goalRate,
+    goalRate
   ]);
 
   const handleSave = () => {

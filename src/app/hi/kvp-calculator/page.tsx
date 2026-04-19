@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'पोस्ट ऑफिस पैसा दोगुना स्कीम',
     'Kisan Vikas Patra scheme in hindi',
     'KVP interest rate 2026 hindi',
-    'Post Office Double Money Scheme',
+    'Post Office Double Money Scheme'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/kvp-calculator/',
@@ -110,7 +110,7 @@ export default function HindiKVPCalculatorPage() {
       question: 'क्या मैं KVP के बदले बैंक से लोन (Loan) ले सकता हूँ?',
       answer:
         'बिल्कुल! क्योंकि यह भारत सरकार द्वारा समर्थित है, लगभग सभी प्रमुख बैंक आपको सस्ती ब्याज दरों पर व्यक्तिगत या व्यावसायिक लोन सुरक्षित करने के लिए अपने KVP प्रमाणपत्रों को गिरवी (Pledge) रखने की अनुमति देते हैं।',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -124,7 +124,7 @@ export default function HindiKVPCalculatorPage() {
           {
             name: 'KVP कैलकुलेटर',
             url: 'https://fincado.com/hi/kvp-calculator/',
-          },
+          }
         ]}
       />
 

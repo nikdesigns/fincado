@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     'SIP vs lump sum',
     'best SIP strategy',
     'mutual fund SIP guide',
-    'SIP by age',
+    'SIP by age'
   ],
   openGraph: {
     title:
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'SIP Investment Guide India',
-      },
+      }
     ],
   },
   twitter: {
@@ -144,7 +144,7 @@ const FAQ_ITEMS = [
     question: 'SIP in index funds vs active funds — when to choose what?',
     answer:
       'Index fund SIPs suit investors who want low cost, market-matching returns, and minimal fund-manager risk. Active fund SIPs may suit investors willing to monitor fund quality for potential alpha. A practical approach is core (index) + satellite (selected active) based on risk and review capacity.',
-  },
+  }
 ];
 
 export default function SipGuidePage() {
@@ -236,7 +236,7 @@ export default function SipGuidePage() {
                 '@type': 'HowToStep',
                 name: 'Monitor & Step-Up',
                 text: 'Review portfolio quarterly and increase SIP by 10% annually with salary hikes.',
-              },
+              }
             ],
           }),
         }}
@@ -250,7 +250,7 @@ export default function SipGuidePage() {
           {
             name: 'SIP Investment Guide 2026',
             url: 'https://fincado.com/guides/sip-investment-guide/',
-          },
+          }
         ]}
       />
 

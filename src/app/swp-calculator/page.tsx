@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'SWP Tax Calculator',
     'Withdrawal Plan Calculator',
     'Pension Calculator',
-    'Post Retirement Income',
+    'Post Retirement Income'
   ],
   alternates: {
     canonical: 'https://fincado.com/swp-calculator/',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado SWP Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -206,7 +206,7 @@ export default function SWPPage() {
       question: 'Can I start SWP from SIP investments?',
       answer:
         'Yes! Once your SIP corpus reaches a comfortable level (e.g., ₹20-30 lakhs), you can start SWP. Many investors continue SIP in growth funds while taking SWP from mature funds for income.',
-    },
+    }
   ];
 
   return (
@@ -218,7 +218,7 @@ export default function SWPPage() {
           {
             name: 'SWP Calculator',
             url: 'https://fincado.com/swp-calculator/',
-          },
+          }
         ]}
       />
 

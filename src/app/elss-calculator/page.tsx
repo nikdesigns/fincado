@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     'SIP Tax Saving',
     'ELSS vs PPF Calculator',
     'ELSS maturity calculator',
-    'tax saving calculator india',
+    'tax saving calculator india'
   ],
   alternates: {
     canonical: 'https://fincado.com/elss-calculator/',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado ELSS Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -185,7 +185,7 @@ export default function ELSSPage() {
       question: 'Can I switch from one ELSS fund to another?',
       answer:
         'You cannot directly switch between ELSS funds during the 3-year lock-in period. After lock-in expires, you can redeem and reinvest in another ELSS fund, but this will trigger tax on gains and reset the lock-in period for new investments.',
-    },
+    }
   ];
 
   return (
@@ -197,7 +197,7 @@ export default function ELSSPage() {
           {
             name: 'ELSS Calculator',
             url: 'https://fincado.com/elss-calculator/',
-          },
+          }
         ]}
       />
       <CalculatorSchema

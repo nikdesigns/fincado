@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     'inflation and investing',
     'time horizon investing',
     'asset allocation basics',
-    'how to start investing in india',
+    'how to start investing in india'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/investment-basics/',
@@ -117,7 +117,7 @@ const FAQ_ITEMS = [
     question: 'What should beginners avoid in investing?',
     answer:
       'Beginners should avoid blind tips, unrealistic return expectations, over-concentration, panic buying or selling, and investing without an emergency fund.',
-  },
+  }
 ];
 
 export default function InvestmentBasicsPage() {
@@ -181,7 +181,7 @@ export default function InvestmentBasicsPage() {
           {
             name: 'Investment Basics',
             url: 'https://fincado.com/guides/investment-basics/',
-          },
+          }
         ]}
       />
 

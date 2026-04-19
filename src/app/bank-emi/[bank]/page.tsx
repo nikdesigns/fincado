@@ -86,7 +86,7 @@ export async function generateMetadata({
       `${bank.name} home loan tax benefits`,
       `${bank.name} home loan interest rate 2026`,
       `Tax Year 2026-27 ${bank.name} EMI`,
-      `${bank.name} home loan calculator 2026-27`,
+      `${bank.name} home loan calculator 2026-27`
     ],
     alternates: {
       canonical: url,
@@ -183,7 +183,7 @@ export default async function BankPage({
           '@type': 'Answer',
           text: 'No. Tax deductions under Section 80C (principal) and Section 24(b) (interest) are available only if you opt for the Old Regime. The New Regime is the default from Tax Year 2026-27.',
         },
-      },
+      }
     ],
   };
 
@@ -216,7 +216,7 @@ export default async function BankPage({
           {
             name: bank.name,
             url: `https://fincado.com/bank-emi/${bank.slug}/`,
-          },
+          }
         ]}
       />
       <CalculatorSchema
@@ -404,7 +404,7 @@ export default async function BankPage({
                 {
                   title: '4) Plan prepayments',
                   desc: 'Even 1 extra EMI/year can materially reduce total interest and repayment duration.',
-                },
+                }
               ].map((item) => (
                 <Card
                   key={item.title}
@@ -448,7 +448,7 @@ export default async function BankPage({
                 {
                   title: 'Rate reset opportunities',
                   desc: 'Existing borrowers may negotiate spreads after score/income improvements.',
-                },
+                }
               ].map((item) => (
                 <Card
                   key={item.title}
@@ -644,7 +644,7 @@ export default async function BankPage({
                 'Last 6–12 months bank statements',
                 'Property papers (agreement, title chain, approved plan)',
                 'Existing loan statements (if balance transfer)',
-                'Down payment proof and source of funds',
+                'Down payment proof and source of funds'
               ].map((item) => (
                 <li
                   key={item}

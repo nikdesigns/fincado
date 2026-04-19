@@ -50,7 +50,7 @@ export default function WikiText({ content, className = '' }: WikiTextProps) {
           'tr',
           'th',
           'td',
-          'img',
+          'img'
         ],
         ALLOWED_ATTR: [
           'href',

@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'LTCG tax on ELSS 2026',
     'how to choose ELSS fund',
     'ELSS new tax regime 2026',
-    'ELSS for salaried employees',
+    'ELSS for salaried employees'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/elss-funds-guide-2026/',
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'ELSS Funds 2026 Guide – Tax Saving Mutual Funds',
-      },
+      }
     ],
   },
 };
@@ -145,7 +145,7 @@ const FAQ_ITEMS = [
     question: 'How do I choose the best ELSS fund in 2026?',
     answer:
       "Evaluate: (1) consistent 5- and 10-year performance relative to the ELSS category, not absolute returns; (2) expense ratio — direct plans have lower expense ratios than regular plans; (3) AUM and fund house reputation; (4) portfolio quality — large-cap heavy ELSS funds are relatively more stable; (5) fund manager track record. Avoid chasing last year's top performer.",
-  },
+  }
 ];
 
 // ─────────────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ const TOC_ITEMS = [
   { href: '#sip-vs-lumpsum', label: 'SIP vs Lump Sum' },
   { href: '#how-to-invest', label: 'How to Invest (Step-by-Step)' },
   { href: '#historical-returns', label: 'Historical Returns' },
-  { href: '#faq', label: 'Frequently Asked Questions' },
+  { href: '#faq', label: 'Frequently Asked Questions' }
 ];
 
 export default function ELSSGuide2026() {
@@ -235,7 +235,7 @@ export default function ELSSGuide2026() {
         '@type': 'HowToStep',
         name: 'Start SIP or Lump Sum',
         text: 'Set up a monthly SIP for rupee cost averaging, or invest a lump sum before March 31 to claim the 80C benefit for that financial year.',
-      },
+      }
     ],
   };
 
@@ -249,7 +249,7 @@ export default function ELSSGuide2026() {
           {
             name: 'ELSS Guide 2026',
             url: 'https://fincado.com/guides/elss-funds-guide-2026/',
-          },
+          }
         ]}
       />
       <script
@@ -466,7 +466,7 @@ export default function ELSSGuide2026() {
               '80C limit remains ₹1.5 lakh — applicable under old tax regime only.',
               '3-year lock-in period is unchanged.',
               'Direct plan ELSS funds continue to offer lower expense ratios vs regular plans.',
-              'New tax regime is now the default for individuals; old regime must be opted in explicitly.',
+              'New tax regime is now the default for individuals; old regime must be opted in explicitly.'
             ].map((point, i) => (
               <div key={i} className="flex gap-3 items-start">
                 <CheckCircle2 className="text-emerald-500 h-5 w-5 shrink-0 mt-0.5" />
@@ -568,7 +568,7 @@ export default function ELSSGuide2026() {
                   'Investors with an investment horizon of 5+ years',
                   'First-time mutual fund investors wanting equity exposure with a defined lock-in',
                   'Investors who have not yet exhausted their ₹1.5L 80C limit',
-                  'Those comfortable with equity market volatility',
+                  'Those comfortable with equity market volatility'
                 ].map((point, i) => (
                   <li key={i} className="flex gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -593,7 +593,7 @@ export default function ELSSGuide2026() {
                   'Those needing funds within 3 years (emergency fund, near-term goals)',
                   'Investors with very low risk tolerance (consider PPF or FD instead)',
                   'Retirees or near-retirement investors relying on stable income',
-                  'Those who have already reached the ₹1.5L 80C limit via EPF/LIC etc.',
+                  'Those who have already reached the ₹1.5L 80C limit via EPF/LIC etc.'
                 ].map((point, i) => (
                   <li key={i} className="flex gap-2">
                     <AlertTriangle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
@@ -772,7 +772,7 @@ export default function ELSSGuide2026() {
                 {
                   title: '5. Fund Manager Track Record',
                   desc: 'Look at how the current fund manager has performed across market cycles, including downturns. Manager continuity matters — recent manager changes warrant extra scrutiny.',
-                },
+                }
               ].map((item, i) => (
                 <div
                   key={i}
@@ -896,7 +896,7 @@ export default function ELSSGuide2026() {
               step: '5',
               title: 'Start SIP or invest lump sum',
               desc: 'Set a monthly SIP for disciplined investing, or invest a lump sum before March 31 to claim the 80C deduction for the current financial year.',
-            },
+            }
           ].map((item) => (
             <li key={item.step} className="flex gap-4">
               <span className="bg-purple-100 text-purple-700 font-semibold w-8 h-8 flex items-center justify-center rounded-2xl shrink-0">

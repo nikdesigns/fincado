@@ -186,7 +186,7 @@ export default function FIRECalculatorClient({
     currentCorpus,
     inflation,
     returnRate,
-    swr,
+    swr
   ]);
 
   const reset = () => {

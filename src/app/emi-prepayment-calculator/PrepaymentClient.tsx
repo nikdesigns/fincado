@@ -75,7 +75,7 @@ export default function PrepaymentClient() {
     remainingYears,
     remainingMonths,
     lumpsum,
-    extraMonthly,
+    extraMonthly
   ]);
 
   const formatCurrency = (amount: number) =>

@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'SSY Maturity Calculator',
     'Tax Free Investment',
     'Beti Bachao Scheme',
-    'SSY Account Calculator',
+    'SSY Account Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/sukanya-samriddhi/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Sukanya Samriddhi Yojana Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -199,7 +199,7 @@ export default function SSYPage() {
       question: 'How much will I get after 21 years in SSY?',
       answer:
         'It depends on your investment amount and interest rate. For example, investing ₹1.5 lakh/year for 15 years at 8.2% p.a. will give approximately ₹65-67 lakhs at maturity (21 years). Use the calculator above for exact estimates.',
-    },
+    }
   ];
 
   return (
@@ -211,7 +211,7 @@ export default function SSYPage() {
           {
             name: 'Sukanya Samriddhi Calculator',
             url: 'https://fincado.com/sukanya-samriddhi/',
-          },
+          }
         ]}
       />
 

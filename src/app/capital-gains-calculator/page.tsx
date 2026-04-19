@@ -25,7 +25,7 @@ import { ArrowRight, TrendingUp, Landmark } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Capital Gains Tax Calculator India 2026 – STCG & LTCG',
   description:
-    'Calculate exact tax on Stocks, Mutual Funds & Real Estate. Updated with 20% STCG, 12.5% LTCG, ₹1.25L exemption & no indexation rules. Accurate & easy to use.',
+    'Calculate tax on Stocks, Mutual Funds & Real Estate with 20% STCG, 12.5% LTCG, ₹1.25L exemption, and property transitional-rule comparison support.',
   keywords: [
     'capital gains calculator',
     'LTCG calculator',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'stock market tax calculator',
     'real estate capital gains tax',
     'LTCG on shares 2026',
-    'capital gains tax on equity',
+    'capital gains tax on equity'
   ],
   alternates: {
     canonical: 'https://fincado.com/capital-gains-calculator/',
@@ -67,7 +67,7 @@ export default function CapitalGainsPage() {
     <ul class="list-disc pl-5 space-y-2 mt-3">
       <li><strong>Equity STCG:</strong> Increased to <strong>20%</strong> (was 15%)</li>
       <li><strong>Equity LTCG:</strong> Increased to <strong>12.5%</strong> with ₹1.25 Lakh exemption per year</li>
-      <li><strong>Real Estate LTCG:</strong> Flat <strong>12.5%</strong> — indexation benefit removed</li>
+      <li><strong>Real Estate LTCG:</strong> <strong>12.5%</strong> without indexation (with transitional lower-of option for eligible older properties)</li>
       <li><strong>Debt Funds:</strong> Taxed at your slab rate (no LTCG benefit after April 2023)</li>
     </ul>
   `);
@@ -96,7 +96,7 @@ export default function CapitalGainsPage() {
       id: 'faq-4',
       question: 'Is indexation benefit available on property sale?',
       answer:
-        'No. From FY 2024-25 onwards, the indexation benefit has been removed for real estate. LTCG is now a flat 12.5% without indexation.',
+        'For most recent property sales, LTCG is computed at 12.5% without indexation. For certain resident individual/HUF cases where property was acquired before 23 July 2024, tax may be computed using the lower of 20% with indexation or 12.5% without indexation.',
     },
     {
       id: 'faq-5',
@@ -121,7 +121,7 @@ export default function CapitalGainsPage() {
       question: 'How accurate is this calculator?',
       answer:
         'Extremely accurate for FY 2026-27. It uses the exact rules from the latest Union Budget. Always consult a CA for complex cases involving multiple transactions or deductions.',
-    },
+    }
   ];
 
   return (
@@ -133,7 +133,7 @@ export default function CapitalGainsPage() {
           {
             name: 'Capital Gains Calculator',
             url: 'https://fincado.com/capital-gains-calculator/',
-          },
+          }
         ]}
       />
 
@@ -258,7 +258,8 @@ export default function CapitalGainsPage() {
                               ≤ 24 months → Slab Rate
                             </td>
                             <td className="p-4 border">
-                              &gt; 24 months → 12.5% (No Indexation)
+                              &gt; 24 months → 12.5% (with transitional lower-of
+                              option for eligible older properties)
                             </td>
                           </tr>
                           <tr>

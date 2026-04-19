@@ -96,7 +96,7 @@ export default function ComparisonGrid() {
       fullName: 'IDFC First Bank',
       type: 'Private',
       avgRate: 8.75,
-    },
+    }
   ];
 
   // Generate comparison pairs

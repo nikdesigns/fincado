@@ -110,7 +110,7 @@ export default function TaxRegimeWidget() {
       url: '/guides/tax-on-30-lakh-salary/',
       badge: 'High Tax',
       badgeVariant: 'info',
-    },
+    }
   ];
 
   const visibleSalaries = showAll ? salaries : salaries.slice(0, 8);

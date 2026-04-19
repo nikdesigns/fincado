@@ -21,7 +21,7 @@ export function CAGRSchemas() {
       'Investment Return Analysis',
       'Multiple Investment Comparison',
       'Absolute vs CAGR Returns',
-      'Historical Performance Tracking',
+      'Historical Performance Tracking'
     ],
   };
 
@@ -46,7 +46,7 @@ export function CAGRSchemas() {
         position: 3,
         name: 'CAGR Calculator',
         item: 'https://fincado.com/cagr-calculator',
-      },
+      }
     ],
   };
 
@@ -78,7 +78,7 @@ export function CAGRSchemas() {
         position: 4,
         name: 'View CAGR Results',
         text: 'Check the compound annual growth rate, absolute returns, and total wealth gain percentage.',
-      },
+      }
     ],
   };
 

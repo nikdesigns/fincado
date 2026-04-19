@@ -18,28 +18,45 @@ export default function SalaryClient() {
   const calculateTax = (grossAnnual: number, regime: 'new' | 'old'): number => {
     const stdDeduction = regime === 'new' ? 75000 : 50000;
     const taxableIncome = Math.max(0, grossAnnual - stdDeduction);
-    let tax = 0;
+    let baseTax = 0;
 
     if (regime === 'new') {
       if (taxableIncome > 400000)
-        tax += Math.min(taxableIncome - 400000, 400000) * 0.05;
+        baseTax += Math.min(taxableIncome - 400000, 400000) * 0.05;
       if (taxableIncome > 800000)
-        tax += Math.min(taxableIncome - 800000, 400000) * 0.1;
+        baseTax += Math.min(taxableIncome - 800000, 400000) * 0.1;
       if (taxableIncome > 1200000)
-        tax += Math.min(taxableIncome - 1200000, 400000) * 0.15;
+        baseTax += Math.min(taxableIncome - 1200000, 400000) * 0.15;
       if (taxableIncome > 1600000)
-        tax += Math.min(taxableIncome - 1600000, 400000) * 0.2;
+        baseTax += Math.min(taxableIncome - 1600000, 400000) * 0.2;
       if (taxableIncome > 2000000)
-        tax += Math.min(taxableIncome - 2000000, 400000) * 0.25;
-      if (taxableIncome > 2400000) tax += (taxableIncome - 2400000) * 0.3;
+        baseTax += Math.min(taxableIncome - 2000000, 400000) * 0.25;
+      if (taxableIncome > 2400000)
+        baseTax += (taxableIncome - 2400000) * 0.3;
+
+      // Section 87A (new regime): full rebate up to ₹12 lakh taxable income.
+      if (taxableIncome <= 1200000) {
+        return 0;
+      }
+
+      // Add cess first, then apply marginal relief near rebate threshold.
+      let totalTax = baseTax * 1.04;
+      totalTax = Math.min(totalTax, taxableIncome - 1200000);
+      return Math.max(0, Math.round(totalTax));
     } else {
       if (taxableIncome > 250000)
-        tax += Math.min(taxableIncome - 250000, 250000) * 0.05;
+        baseTax += Math.min(taxableIncome - 250000, 250000) * 0.05;
       if (taxableIncome > 500000)
-        tax += Math.min(taxableIncome - 500000, 500000) * 0.2;
-      if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.3;
+        baseTax += Math.min(taxableIncome - 500000, 500000) * 0.2;
+      if (taxableIncome > 1000000) baseTax += (taxableIncome - 1000000) * 0.3;
+
+      // Section 87A (old regime): full rebate up to ₹5 lakh taxable income.
+      if (taxableIncome <= 500000) {
+        return 0;
+      }
+
+      return Math.max(0, Math.round(baseTax * 1.04));
     }
-    return tax * 1.04;
   };
 
   const breakdown = useMemo(() => {

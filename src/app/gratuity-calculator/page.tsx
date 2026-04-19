@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'How to Calculate Gratuity',
     'Gratuity Rules 2026',
     'Gratuity Payment Calculator',
-    'Employee Gratuity Calculator',
+    'Employee Gratuity Calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/gratuity-calculator/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Gratuity Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -269,7 +269,7 @@ export default function GratuityCalculatorPage() {
       question: 'What happens to gratuity if employee dies?',
       answer:
         'Gratuity is immediately payable to nominee or legal heir (spouse, children, parents). 5-year service rule waived for death. Full amount is tax-free. Nominee must submit death certificate, Form I claim, and KYC. Payment within 30 days from claim.',
-    },
+    }
   ];
 
   return (
@@ -281,7 +281,7 @@ export default function GratuityCalculatorPage() {
           {
             name: 'Gratuity Calculator',
             url: 'https://fincado.com/gratuity-calculator/',
-          },
+          }
         ]}
       />
 

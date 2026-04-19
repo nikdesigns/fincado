@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'POMIS monthly income',
     'Post Office MIS Calculator',
     'POMIS premature closure penalty',
-    'Monthly income scheme post office',
+    'Monthly income scheme post office'
   ],
   alternates: {
     canonical: 'https://fincado.com/pomis-calculator/',
@@ -121,7 +121,7 @@ export default function POMISCalculatorPage() {
       question: 'Is POMIS better than a Bank FD?',
       answer:
         'For many senior citizens, yes. POMIS offers higher interest (7.4%), guaranteed monthly payout, full government safety, and no market risk compared to most bank FDs.',
-    },
+    }
   ];
 
   return (
@@ -133,7 +133,7 @@ export default function POMISCalculatorPage() {
           {
             name: 'POMIS Calculator',
             url: 'https://fincado.com/pomis-calculator/',
-          },
+          }
         ]}
       />
 

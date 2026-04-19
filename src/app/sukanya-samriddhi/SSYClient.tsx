@@ -170,64 +170,62 @@ export default function SSYClient({
   const results = useMemo(() => {
     const maturityYears = 21;
     const depositYears = 15;
-    const rate = annualRate / 100;
+    const monthlyRate = annualRate / 100 / 12;
+    const annualLimit = 150000;
 
     let balance = 0;
     let totalInvested = 0;
 
-    const annualInvestment =
+    const annualInvestmentRaw =
       depositMode === 'monthly' ? monthlyDeposit * 12 : yearlyDeposit;
+    const annualInvestment = Math.min(annualInvestmentRaw, annualLimit);
 
     // Year-wise breakdown for first 5 years
-    const yearlyBreakdown = [];
+    const yearlyBreakdown: Array<{
+      year: number;
+      investment: number;
+      balance: number;
+      interest: number;
+    }> = [];
 
-    if (depositMode === 'yearly') {
-      // Existing yearly model: one annual deposit + annual compounding
-      for (let year = 1; year <= maturityYears; year++) {
+    for (let year = 1; year <= maturityYears; year++) {
+      let yearlyInvested = 0;
+      let yearlyInterestAccrued = 0;
+      let capRemaining = annualLimit;
+
+      for (let month = 0; month < 12; month++) {
+        let deposit = 0;
+
         if (year <= depositYears) {
-          balance += yearlyDeposit;
-          totalInvested += yearlyDeposit;
-        }
-
-        balance += balance * rate;
-
-        if (year <= 5) {
-          yearlyBreakdown.push({
-            year,
-            investment: year <= depositYears ? yearlyDeposit : 0,
-            balance: Math.round(balance),
-            interest: Math.round(balance - totalInvested),
-          });
-        }
-      }
-    } else {
-      // More accurate monthly model:
-      // - monthly deposits for first 15 years
-      // - monthly compounding for full 21 years
-      const monthlyRate = Math.pow(1 + rate, 1 / 12) - 1;
-      const totalMonths = maturityYears * 12;
-      const depositMonths = depositYears * 12;
-
-      for (let month = 1; month <= totalMonths; month++) {
-        if (month <= depositMonths) {
-          balance += monthlyDeposit;
-          totalInvested += monthlyDeposit;
-        }
-
-        balance += balance * monthlyRate;
-
-        // Store year-end snapshots for first 5 years
-        if (month % 12 === 0) {
-          const year = month / 12;
-          if (year <= 5) {
-            yearlyBreakdown.push({
-              year,
-              investment: year <= depositYears ? monthlyDeposit * 12 : 0,
-              balance: Math.round(balance),
-              interest: Math.round(balance - totalInvested),
-            });
+          if (depositMode === 'yearly') {
+            if (month === 0) {
+              deposit = Math.min(yearlyDeposit, capRemaining);
+            }
+          } else {
+            deposit = Math.min(monthlyDeposit, capRemaining);
           }
         }
+
+        if (deposit > 0) {
+          balance += deposit;
+          totalInvested += deposit;
+          yearlyInvested += deposit;
+          capRemaining -= deposit;
+        }
+
+        // SSY interest accrues monthly and is credited annually.
+        yearlyInterestAccrued += balance * monthlyRate;
+      }
+
+      balance += yearlyInterestAccrued;
+
+      if (year <= 5) {
+        yearlyBreakdown.push({
+          year,
+          investment: Math.round(yearlyInvested),
+          balance: Math.round(balance),
+          interest: Math.round(balance - totalInvested),
+        });
       }
     }
 

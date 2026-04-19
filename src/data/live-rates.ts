@@ -180,7 +180,7 @@ export const BANK_RATES: BankRate[] = [
     homeLoan: 9.25,
     carLoan: 9.8,
     updatedAt: '2026-04-01',
-  },
+  }
 ];
 
 // Helper to get rate for any bank (with fallback)

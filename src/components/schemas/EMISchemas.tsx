@@ -20,7 +20,7 @@ export function EMISchemas() {
         position: 3,
         name: 'EMI Calculator',
         item: 'https://fincado.com/emi-calculator',
-      },
+      }
     ],
   };
 
@@ -46,7 +46,7 @@ export function EMISchemas() {
       'Car Loan EMI Calculation',
       'Personal Loan EMI Calculation',
       'Amortization Schedule',
-      'Prepayment Analysis',
+      'Prepayment Analysis'
     ],
   };
 
@@ -78,7 +78,7 @@ export function EMISchemas() {
         position: 4,
         name: 'View Results',
         text: 'Get instant EMI amount, total interest, and amortization schedule',
-      },
+      }
     ],
   };
 
@@ -103,7 +103,7 @@ export function EMISchemas() {
                 position: 2,
                 name: 'Car Loan EMI Calculator',
                 url: 'https://fincado.com/loans/car-loan/',
-              },
+              }
             ],
           }),
         }}

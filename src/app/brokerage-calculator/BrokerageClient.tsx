@@ -118,7 +118,7 @@ export default function BrokerageClient() {
                   { id: 'delivery', label: 'Delivery (CNC)' },
                   { id: 'intraday', label: 'Intraday (MIS)' },
                   { id: 'futures', label: 'Futures' },
-                  { id: 'options', label: 'Options' },
+                  { id: 'options', label: 'Options' }
                 ].map((item) => (
                   <button
                     key={item.id}

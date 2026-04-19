@@ -153,5 +153,5 @@ export const banks: Bank[] = [
     rate: 9.25,
     maxRate: 11.75,
     category: 'NBFC',
-  },
+  }
 ];

@@ -10,21 +10,21 @@ function removeSocialLinks(filePath) {
   const originalContent = content;
   const fileName = path.relative(process.cwd(), filePath);
 
-  // Remove LinkedIn
+  // Remove LinkedIn company pages.
   content = content.replace(
-    /\s*'https:\/\/(www\.)?linkedin\.com\/company\/fincado',?\n/g,
+    /\s*'https:\/\/(www\.)?linkedin\.com\/company\/[A-Za-z0-9._-]+',?\n/g,
     '',
   );
 
-  // Remove Twitter
+  // Remove Twitter/X handles.
   content = content.replace(
-    /\s*'https:\/\/(www\.)?(twitter\.com|x\.com)\/fincado',?\n/g,
+    /\s*'https:\/\/(www\.)?(twitter\.com|x\.com)\/[A-Za-z0-9._-]+',?\n/g,
     '',
   );
 
-  // Remove Facebook
+  // Remove Facebook handles.
   content = content.replace(
-    /\s*'https:\/\/(www\.)?facebook\.com\/fincado',?\n/g,
+    /\s*'https:\/\/(www\.)?facebook\.com\/[A-Za-z0-9._-]+',?\n/g,
     '',
   );
 

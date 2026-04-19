@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'Section 80C NSC',
     'NSC Investment',
     'Post Office NSC',
-    'Government Savings Scheme',
+    'Government Savings Scheme'
   ],
   alternates: {
     canonical: 'https://fincado.com/nsc-calculator/',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado NSC Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -205,7 +205,7 @@ export default function NSCPage() {
       question: 'NSC vs FD – Which gives better returns?',
       answer:
         'NSC offers 7.7% (government rate, guaranteed) with Section 80C benefit but 5-year lock-in. Bank FDs offer 6.5-7.5% (varies by bank) with flexible tenure (7 days to 10 years). NSC is better for tax saving and guaranteed returns. FD is better for liquidity and shorter durations.',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -219,7 +219,7 @@ export default function NSCPage() {
           {
             name: 'NSC Calculator',
             url: 'https://fincado.com/nsc-calculator/',
-          },
+          }
         ]}
       />
 

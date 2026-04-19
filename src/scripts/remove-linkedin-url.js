@@ -10,17 +10,17 @@ function removeLinkedIn(filePath) {
   const originalContent = content;
   const fileName = path.relative(process.cwd(), filePath);
 
-  // Pattern 1: Remove line with LinkedIn in sameAs array
-  // Matches: 'https://www.linkedin.com/company/fincado',
-  //      or: 'https://linkedin.com/company/fincado',
+  // Pattern 1: Remove line with LinkedIn company URL in sameAs array.
+  // Matches: 'https://www.linkedin.com/company/<handle>',
+  //      or: 'https://linkedin.com/company/<handle>',
   content = content.replace(
-    /\s*'https:\/\/(www\.)?linkedin\.com\/company\/fincado',?\n/g,
+    /\s*'https:\/\/(www\.)?linkedin\.com\/company\/[A-Za-z0-9._-]+',?\n/g,
     '',
   );
 
   // Pattern 2: Remove line with www prefix
   content = content.replace(
-    /\s*"https:\/\/(www\.)?linkedin\.com\/company\/fincado",?\n/g,
+    /\s*"https:\/\/(www\.)?linkedin\.com\/company\/[A-Za-z0-9._-]+",?\n/g,
     '',
   );
 

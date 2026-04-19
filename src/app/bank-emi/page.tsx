@@ -42,7 +42,7 @@ export default function BankEmiHubPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Banks', url: 'https://fincado.com/bank-emi/' },
+          { name: 'Banks', url: 'https://fincado.com/bank-emi/' }
         ]}
       />
 

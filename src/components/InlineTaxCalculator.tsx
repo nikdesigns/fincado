@@ -27,14 +27,14 @@ const NEW_REGIME_SLABS = [
   { limit: 1600000, rate: 0.15 },
   { limit: 2000000, rate: 0.2 },
   { limit: 2400000, rate: 0.25 },
-  { limit: Infinity, rate: 0.3 },
+  { limit: Infinity, rate: 0.3 }
 ];
 
 const OLD_REGIME_SLABS = [
   { limit: 250000, rate: 0 },
   { limit: 500000, rate: 0.05 },
   { limit: 1000000, rate: 0.2 },
-  { limit: Infinity, rate: 0.3 },
+  { limit: Infinity, rate: 0.3 }
 ];
 
 const calculateSlabTax = (

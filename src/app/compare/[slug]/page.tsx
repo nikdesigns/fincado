@@ -182,7 +182,7 @@ export async function generateMetadata({
       'home loan comparison india',
       'best bank for home loan',
       'home loan rate comparison',
-      'EMI difference calculator',
+      'EMI difference calculator'
     ],
     authors: [{ name: 'Fincado Research Team' }],
     creator: 'Fincado',
@@ -202,7 +202,7 @@ export async function generateMetadata({
           width: 1200,
           height: 630,
           alt: `${b1.name} vs ${b2.name} Home Loan Comparison`,
-        },
+        }
       ],
     },
     twitter: {
@@ -315,7 +315,7 @@ export default async function ComparisonPage({
         'How should I compare total effective cost beyond headline rate?',
       answer:
         'Use a full-cost checklist: interest rate, processing fee, legal/valuation charges, mandatory insurance, reset spread, prepayment terms, and turnaround delay cost. Always compare total repayment and not just first-month EMI.',
-    },
+    }
   ];
 
   const articleSchema = {
@@ -362,7 +362,7 @@ export default async function ComparisonPage({
         position: 2,
         name: `${b2.name} Home Loan`,
         description: `Rate: ${b2.rate}%, max rate: ${b2.maxRate}%, indicative processing fee up to 0.50%`,
-      },
+      }
     ],
   };
 
@@ -378,7 +378,7 @@ export default async function ComparisonPage({
           {
             name: `${b1.name} vs ${b2.name}`,
             url: `https://fincado.com/compare/${canonicalSlug}/`,
-          },
+          }
         ]}
       />
 

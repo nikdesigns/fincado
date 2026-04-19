@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'interest saved on home loan',
     'reduce home loan tenure',
     'home loan foreclosure calculator',
-    'lumpsum payment on loan',
+    'lumpsum payment on loan'
   ],
   alternates: {
     canonical: 'https://fincado.com/emi-prepayment-calculator/',
@@ -109,7 +109,7 @@ export default function EMIPrepaymentPage() {
       question: 'Does prepayment affect my CIBIL score?',
       answer:
         'No. Prepaying your loan early actually improves your CIBIL score as it shows responsible credit behaviour and reduces your overall debt burden.',
-    },
+    }
   ];
 
   return (
@@ -121,7 +121,7 @@ export default function EMIPrepaymentPage() {
           {
             name: 'EMI Prepayment Calculator',
             url: 'https://fincado.com/emi-prepayment-calculator/',
-          },
+          }
         ]}
       />
 

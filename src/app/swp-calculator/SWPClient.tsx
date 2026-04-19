@@ -406,7 +406,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
     frequency,
     inflationEnabled,
     inflationRate,
-    calculateYearlyBreakdown,
+    calculateYearlyBreakdown
   ]);
 
   // ✅ Comparison Calculations
@@ -445,7 +445,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
     frequency,
     inflationEnabled,
     inflationRate,
-    calculateYearlyBreakdown,
+    calculateYearlyBreakdown
   ]);
 
   // ✅ Tax Calculations
@@ -544,7 +544,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
     calculatorMode,
     inflationEnabled,
     inflationRate,
-    t.calculationSaved,
+    t.calculationSaved
   ]);
 
   const handleShare = useCallback(() => {
@@ -580,7 +580,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
     results.totalWithdrawn,
     results.finalBalance,
     results.isExhausted,
-    results.exhaustedInYears,
+    results.exhaustedInYears
   ]);
 
   const handleDownloadReport = useCallback(() => {

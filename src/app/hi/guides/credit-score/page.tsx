@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'Credit Score Hindi',
     'CIBIL Score Kaise Badhaye',
     'Improve Credit Score India',
-    'Credit Score Check',
+    'Credit Score Check'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/credit-score/',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         url: '/images/og/credit-score-guide.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -85,7 +85,7 @@ export default function HindiCreditScoreGuide() {
       question: 'Zero credit history हो तो क्या करें?',
       answer:
         'शुरुआत के लिए एक छोटा क्रेडिट कार्ड या कंज्यूमर लोन लें और उसकी EMI समय पर भरें। इससे आपकी हिस्ट्री बननी शुरू होगी।',
-    },
+    }
   ];
 
   return (
@@ -133,7 +133,7 @@ export default function HindiCreditScoreGuide() {
           {
             name: 'Credit Score',
             url: 'https://fincado.com/hi/guides/credit-score/',
-          },
+          }
         ]}
       />
 
@@ -372,7 +372,7 @@ export default function HindiCreditScoreGuide() {
             icon: '❌',
             title: 'Unpaid Loans / Write-off',
             desc: 'कोई पुराना लोन जिस पर पेमेंट बंद कर दिया हो। Settlement या Write-off जैसे रिमार्क्स रिपोर्ट में बहुत निगेटिव माने जाते हैं।',
-          },
+          }
         ].map((item, i) => (
           <div
             key={i}
@@ -438,7 +438,7 @@ export default function HindiCreditScoreGuide() {
           {
             title: 'Secured + Unsecured mix रखें',
             desc: 'सिर्फ पर्सनल लोन (unsecured) ही न हो। होम लोन या कार लोन (secured) भी मिक्स में होने से प्रोफाइल हेल्दी दिखती है।',
-          },
+          }
         ].map((step, index) => (
           <div
             key={index}
@@ -493,7 +493,7 @@ export default function HindiCreditScoreGuide() {
             month: 'Month 3',
             title: 'Stability दिखाएँ',
             desc: 'लगातार तीन महीने समय पर पेमेंट और कम यूटिलाइजेशन से ब्यूरो की नजर में पॉजिटिव सिग्नल जाता है।',
-          },
+          }
         ].map((item, i) => (
           <Card key={i} className="border-indigo-100 bg-indigo-50/30">
             <CardHeader className="pb-2">
@@ -531,7 +531,7 @@ export default function HindiCreditScoreGuide() {
           '1–2 cards enough हैं: बहुत सारे कार्ड्स से ट्रैकिंग मुश्किल हो जाती है।',
           'EMI conversion सावधानी से करें: हर छोटे खर्च को EMI में न बदलें।',
           'Cash withdrawal avoid करें: ATM से कैश निकालना सबसे महंगा होता है।',
-          'Billing cycle समझें: स्टेटमेंट डेट और ड्यू डेट जानकर स्मार्ट खर्च करें।',
+          'Billing cycle समझें: स्टेटमेंट डेट और ड्यू डेट जानकर स्मार्ट खर्च करें।'
         ].map((tip, i) => (
           <li
             key={i}
@@ -663,7 +663,7 @@ export default function HindiCreditScoreGuide() {
           {
             time: '6-12 Months',
             desc: 'Strong profile (लगातार अच्छी हिस्ट्री से प्रोफाइल मजबूत बनती है).',
-          },
+          }
         ].map((item, i) => (
           <div
             key={i}
@@ -687,7 +687,7 @@ export default function HindiCreditScoreGuide() {
           "Fake apps और scams: 'Guaranteed 800+ score' का दावा करने वाले फ्रॉड हो सकते हैं。",
           'Credit repair scams: हाई फीस लेकर झूठे वादे करने वाली एजेंसीज से बचें。',
           'पुराने accounts तुरंत बंद करना: इससे क्रेडिट हिस्ट्री छोटी हो जाती है।',
-          'Too many enquiries: हर WhatsApp/SMS ऑफर पर क्लिक करके लोन अप्लाई करना।',
+          'Too many enquiries: हर WhatsApp/SMS ऑफर पर क्लिक करके लोन अप्लाई करना।'
         ].map((mistake, i) => (
           <li
             key={i}

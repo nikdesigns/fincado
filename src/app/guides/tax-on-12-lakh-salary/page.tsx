@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     'is 12 lakh income tax free',
     'section 87a rebate limit 2025-26',
     '12 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -108,7 +108,7 @@ export default function Tax12LakhGuide() {
       question: 'How to save tax on 12 LPA salary?',
       answer:
         'At 12 LPA, New Regime already gives zero net tax (after rebate), so tax-saving focus should shift to wealth building. Under Old Regime, you need large deductions (80C, 80D, HRA, home loan interest) to match New Regime.',
-    },
+    }
   ];
 
   return (
@@ -121,7 +121,7 @@ export default function Tax12LakhGuide() {
           {
             name: 'Tax on 12 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'KVP maturity calculator',
     'Post Office double money scheme',
     'KVP vs FD',
-    'KVP lock-in period',
+    'KVP lock-in period'
   ],
   alternates: {
     canonical: 'https://fincado.com/kvp-calculator/',
@@ -122,7 +122,7 @@ export default function KVPCalculatorPage() {
       question: 'How does KVP compare with Bank FD?',
       answer:
         'KVP offers guaranteed doubling, full government safety, and no upper limit. Bank FDs offer lower rates and have deposit insurance up to ₹5 Lakhs only.',
-    },
+    }
   ];
 
   return (
@@ -134,7 +134,7 @@ export default function KVPCalculatorPage() {
           {
             name: 'KVP Calculator',
             url: 'https://fincado.com/kvp-calculator/',
-          },
+          }
         ]}
       />
 

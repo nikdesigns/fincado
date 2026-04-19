@@ -21,7 +21,7 @@ export function GoalPlanningSchemas() {
       'Monthly SIP and Lump Sum Calculation',
       'Multiple Goal Types (Retirement, Education, House)',
       'Existing Corpus Integration',
-      'Goal Progress Tracking',
+      'Goal Progress Tracking'
     ],
   };
 
@@ -46,7 +46,7 @@ export function GoalPlanningSchemas() {
         position: 3,
         name: 'Goal Planning Calculator',
         item: 'https://fincado.com/goal-planning-calculator',
-      },
+      }
     ],
   };
 
@@ -90,7 +90,7 @@ export function GoalPlanningSchemas() {
         position: 6,
         name: 'View Required Investment',
         text: 'Check monthly SIP or lump sum amount needed to achieve your inflation-adjusted goal.',
-      },
+      }
     ],
   };
 

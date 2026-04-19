@@ -8,11 +8,6 @@ export function CompoundInterestSchemas() {
     name: 'Fincado',
     url: 'https://fincado.com',
     logo: '/logo.png',
-    sameAs: [
-      'https://twitter.com/fincado',
-      'https://facebook.com/fincado',
-      'https://linkedin.com/company/fincado'
-    ],
   };
 
   // WebPage Schema
@@ -69,7 +64,7 @@ export function CompoundInterestSchemas() {
         '@type': 'HowToStep',
         position: 2,
         name: 'Set Annual Interest Rate',
-        text: 'Enter annual interest rate percentage. Bank FD: 6.5-8%, PPF: 7.1%, EPF: 8.15%, Mutual funds (equity): 12-15%, Debt funds: 7-9%, Corporate FDs: 7.5-9%. Always use pre-tax rate for calculations.',
+        text: 'Enter annual interest rate percentage. Bank FD: 6.5-8%, PPF: 7.1%, EPF: 8.25%, Mutual funds (equity): 12-15%, Debt funds: 7-9%, Corporate FDs: 7.5-9%. Always use pre-tax rate for calculations.',
       },
       {
         '@type': 'HowToStep',
@@ -101,12 +96,12 @@ export function CompoundInterestSchemas() {
       'Compound Interest is exponential interest calculation where interest earns interest. Formula: A = P(1+r/n)^(nt). Used in Fixed Deposits, PPF, EPF, Mutual Funds, Recurring Deposits. Significantly outperforms simple interest over time.',
     category: 'Investment Product',
     feesAndCommissionsSpecification:
-      'Compound interest products have varying tax implications: FD interest taxable as per slab, PPF completely tax-free (EEE), EPF tax-free, Mutual fund LTCG 10% above ₹1L, Debt fund gains as per slab.',
+      'Compound interest products have varying tax implications: FD interest taxable as per slab, PPF completely tax-free (EEE), EPF tax-free, Equity mutual fund LTCG 12.5% above ₹1.25L, Debt fund gains as per slab.',
     interestRate: {
       '@type': 'QuantitativeValue',
       value: '6.5-15',
       unitText:
-        'Percent per annum (Bank FD: 6.5-8%, PPF: 7.1%, EPF: 8.15%, Equity MF: 12-15%, Debt MF: 7-9%)',
+        'Percent per annum (Bank FD: 6.5-8%, PPF: 7.1%, EPF: 8.25%, Equity MF: 12-15%, Debt MF: 7-9%)',
     },
   };
 

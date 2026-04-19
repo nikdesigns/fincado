@@ -61,7 +61,7 @@ export default function FinancialNavWidget() {
       href: '/credit-score/',
       label: 'Check Credit Score',
       lucideIcon: Shield,
-    },
+    }
   ];
 
   /* ---------- TRENDING GUIDES (2026 updated) ---------- */
@@ -82,7 +82,7 @@ export default function FinancialNavWidget() {
     {
       href: '/guides/health-insurance-buying-guide/',
       label: 'Health Insurance Checklist',
-    },
+    }
   ];
 
   return (

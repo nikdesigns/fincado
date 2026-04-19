@@ -4,18 +4,19 @@ const path = require('path');
 console.log('🔍 Finding LinkedIn URL...\n');
 
 let found = false;
+const LINKEDIN_COMPANY_PATTERN = /linkedin\.com\/company\/[A-Za-z0-9._-]+/;
 
 function searchLinkedIn(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const fileName = path.relative(process.cwd(), filePath);
 
-  if (content.includes('linkedin.com/company/fincado')) {
+  if (LINKEDIN_COMPANY_PATTERN.test(content)) {
     console.log(`📍 Found in: ${fileName}\n`);
 
     // Show context (3 lines before and after)
     const lines = content.split('\n');
     lines.forEach((line, index) => {
-      if (line.includes('linkedin.com/company/fincado')) {
+      if (LINKEDIN_COMPANY_PATTERN.test(line)) {
         const start = Math.max(0, index - 2);
         const end = Math.min(lines.length, index + 3);
 

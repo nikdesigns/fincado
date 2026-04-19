@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'fincado partnerships',
     'press inquiries fincado',
     'fincado customer service',
-    'financial tools support india',
+    'financial tools support india'
   ],
   openGraph: {
     title: 'Contact Fincado | Support & Partnerships',
@@ -86,7 +86,7 @@ export default function ContactPage() {
           email: PRESS_EMAIL,
           contactType: 'Media Relations',
           areaServed: 'IN',
-        },
+        }
       ],
       address: {
         '@type': 'PostalAddress',
@@ -102,7 +102,7 @@ export default function ContactPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Contact', url: 'https://fincado.com/contact/' },
+          { name: 'Contact', url: 'https://fincado.com/contact/' }
         ]}
       />
 
@@ -417,7 +417,7 @@ export default function ContactPage() {
                           label: 'Feedback',
                           icon: MessageSquare,
                         },
-                        { href: '#form', label: 'Send Message', icon: Send },
+                        { href: '#form', label: 'Send Message', icon: Send }
                       ].map((link) => (
                         <li key={link.href}>
                           <a

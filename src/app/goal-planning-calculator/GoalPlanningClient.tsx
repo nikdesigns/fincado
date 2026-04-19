@@ -158,7 +158,7 @@ const GOAL_PRESETS = [
   { value: 'house', label: 'House Purchase', inflation: 5, icon: '🏠' },
   { value: 'marriage', label: 'Marriage', inflation: 7, icon: '💍' },
   { value: 'vacation', label: 'Vacation', inflation: 5, icon: '✈️' },
-  { value: 'car', label: 'Car', inflation: 4, icon: '🚗' },
+  { value: 'car', label: 'Car', inflation: 4, icon: '🚗' }
 ];
 
 const formatINR = (val: number) =>

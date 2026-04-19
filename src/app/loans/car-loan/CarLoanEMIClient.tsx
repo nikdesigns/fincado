@@ -180,7 +180,7 @@ export default function CarLoanEMIClient() {
     prepaymentMonth,
     loanAmount,
     rate,
-    tenure,
+    tenure
   ]);
 
   const handleSaveCalculation = () => {

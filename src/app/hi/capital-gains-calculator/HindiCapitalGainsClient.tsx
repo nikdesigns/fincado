@@ -24,36 +24,78 @@ export default function HindiCapitalGainsClient() {
   const [holdingPeriod, setHoldingPeriod] = useState<HoldingPeriod>('long');
   const [slabRate, setSlabRate] = useState<number>(30);
   const [unusedExemption, setUnusedExemption] = useState<number>(125000);
+  const [propertyAcquiredBeforeJul2024, setPropertyAcquiredBeforeJul2024] =
+    useState<boolean>(false);
+  const [indexedCost, setIndexedCost] = useState<number>(500000);
 
   const result = useMemo(() => {
     const totalGain = Math.max(0, sellPrice - buyPrice);
     let taxRate = 0;
     let taxableGain = totalGain;
     let taxDescription = '';
+    let baseTax = 0;
+    let indexationComparison: {
+      withoutIndexation: number;
+      withIndexation: number;
+      chosen: 'without' | 'with';
+    } | null = null;
 
     if (assetType === 'equity') {
       if (holdingPeriod === 'short') {
         taxRate = 20;
         taxDescription = '20% फ्लैट (STCG)';
+        baseTax = taxableGain * 0.2;
       } else {
         taxRate = 12.5;
         taxableGain = Math.max(0, totalGain - unusedExemption);
         taxDescription = `12.5% (₹1.25L छूट के बाद)`;
+        baseTax = taxableGain * 0.125;
       }
     } else if (assetType === 'debt') {
       taxRate = slabRate;
       taxDescription = `स्लैब दर (${slabRate}%)`;
+      baseTax = taxableGain * (slabRate / 100);
     } else if (assetType === 'realestate') {
       if (holdingPeriod === 'short') {
         taxRate = slabRate;
         taxDescription = `स्लैब दर (${slabRate}%)`;
+        baseTax = taxableGain * (slabRate / 100);
       } else {
-        taxRate = 12.5;
-        taxDescription = '12.5% फ्लैट (बिना इंडेक्सेशन)';
+        if (propertyAcquiredBeforeJul2024) {
+          const gainWithoutIndexation = Math.max(0, sellPrice - buyPrice);
+          const gainWithIndexation = Math.max(0, sellPrice - indexedCost);
+          const taxWithoutIndexation = gainWithoutIndexation * 0.125;
+          const taxWithIndexation = gainWithIndexation * 0.2;
+
+          if (taxWithIndexation < taxWithoutIndexation) {
+            taxRate = 20;
+            taxableGain = gainWithIndexation;
+            baseTax = taxWithIndexation;
+            taxDescription = '20% इंडेक्सेशन के साथ (कम टैक्स विकल्प)';
+            indexationComparison = {
+              withoutIndexation: taxWithoutIndexation,
+              withIndexation: taxWithIndexation,
+              chosen: 'with',
+            };
+          } else {
+            taxRate = 12.5;
+            taxableGain = gainWithoutIndexation;
+            baseTax = taxWithoutIndexation;
+            taxDescription = '12.5% बिना इंडेक्सेशन (कम टैक्स विकल्प)';
+            indexationComparison = {
+              withoutIndexation: taxWithoutIndexation,
+              withIndexation: taxWithIndexation,
+              chosen: 'without',
+            };
+          }
+        } else {
+          taxRate = 12.5;
+          taxDescription = '12.5% फ्लैट (बिना इंडेक्सेशन)';
+          baseTax = taxableGain * 0.125;
+        }
       }
     }
 
-    const baseTax = taxableGain * (taxRate / 100);
     const cess = baseTax * 0.04;
     const totalTax = baseTax + cess;
     const netGain = totalGain - totalTax;
@@ -67,6 +109,7 @@ export default function HindiCapitalGainsClient() {
       netGain,
       taxRate,
       taxDescription,
+      indexationComparison,
     };
   }, [
     assetType,
@@ -75,6 +118,8 @@ export default function HindiCapitalGainsClient() {
     holdingPeriod,
     slabRate,
     unusedExemption,
+    propertyAcquiredBeforeJul2024,
+    indexedCost
   ]);
 
   const formatCurrency = (amount: number) =>
@@ -99,7 +144,7 @@ export default function HindiCapitalGainsClient() {
                 {[
                   { id: 'equity', label: 'इक्विटी / MF', icon: TrendingUp },
                   { id: 'debt', label: 'डेट फंड्स', icon: Landmark },
-                  { id: 'realestate', label: 'रियल एस्टेट', icon: Home },
+                  { id: 'realestate', label: 'रियल एस्टेट', icon: Home }
                 ].map((asset) => {
                   const Icon = asset.icon;
                   return (
@@ -230,6 +275,48 @@ export default function HindiCapitalGainsClient() {
                 />
               </div>
             )}
+
+            {assetType === 'realestate' && holdingPeriod === 'long' && (
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <label className="flex items-start gap-2 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={propertyAcquiredBeforeJul2024}
+                    onChange={(e) =>
+                      setPropertyAcquiredBeforeJul2024(e.target.checked)
+                    }
+                    className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-300"
+                  />
+                  <span>
+                    प्रॉपर्टी 23 जुलाई 2024 से पहले खरीदी गई थी (कम टैक्स
+                    तुलना: 20% इंडेक्सेशन के साथ बनाम 12.5% बिना इंडेक्सेशन)।
+                  </span>
+                </label>
+
+                {propertyAcquiredBeforeJul2024 && (
+                  <div className="space-y-2">
+                    <Label>इंडेक्स्ड कॉस्ट ऑफ एक्विजिशन (₹)</Label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <IndianRupee className="h-4 w-4 text-slate-400" />
+                      </div>
+                      <Input
+                        type="number"
+                        value={indexedCost}
+                        onChange={(e) =>
+                          setIndexedCost(Number(e.target.value) || 0)
+                        }
+                        className="pl-9 h-11 font-semibold"
+                      />
+                    </div>
+                    <p className="text-xs text-slate-500">
+                      पुराने 20% इंडेक्सेशन वाले कैलकुलेशन के लिए अपना indexed
+                      cost दर्ज करें।
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -320,6 +407,35 @@ export default function HindiCapitalGainsClient() {
                   {formatCurrency(result.totalTax)}
                 </span>
               </div>
+
+              {result.indexationComparison && (
+                <div className="rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm space-y-2">
+                  <div className="font-semibold text-brand-900">
+                    प्रॉपर्टी ट्रांज़िशनल रूल तुलना
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>12.5% बिना इंडेक्सेशन:</span>
+                    <span className="font-medium">
+                      {formatCurrency(
+                        result.indexationComparison.withoutIndexation,
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>20% इंडेक्सेशन के साथ:</span>
+                    <span className="font-medium">
+                      {formatCurrency(result.indexationComparison.withIndexation)}
+                    </span>
+                  </div>
+                  <div className="text-xs text-brand-800">
+                    कम टैक्स विकल्प लागू:{' '}
+                    {result.indexationComparison.chosen === 'with'
+                      ? '20% इंडेक्सेशन के साथ'
+                      : '12.5% बिना इंडेक्सेशन'}
+                    ।
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

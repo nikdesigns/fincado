@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     'tax on 15 lakh new regime',
     'section 87a rebate limit 2025-26',
     '15 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -109,7 +109,7 @@ export default function Tax15LakhGuide() {
       question: 'Can I switch between Old and New Regime?',
       answer:
         'Salaried individuals can switch between the Old and New Regime every year while filing their ITR, based on which one saves them more tax.',
-    },
+    }
   ];
 
   return (
@@ -122,7 +122,7 @@ export default function Tax15LakhGuide() {
           {
             name: 'Tax on 15 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

@@ -24,36 +24,77 @@ export default function CapitalGainsClient() {
   const [holdingPeriod, setHoldingPeriod] = useState<HoldingPeriod>('long');
   const [slabRate, setSlabRate] = useState<number>(30);
   const [unusedExemption, setUnusedExemption] = useState<number>(125000);
+  const [propertyAcquiredBeforeJul2024, setPropertyAcquiredBeforeJul2024] =
+    useState<boolean>(false);
+  const [indexedCost, setIndexedCost] = useState<number>(500000);
 
   const result = useMemo(() => {
     const totalGain = Math.max(0, sellPrice - buyPrice);
     let taxRate = 0;
     let taxableGain = totalGain;
     let taxDescription = '';
+    let baseTax = 0;
+    let indexationComparison: {
+      withoutIndexation: number;
+      withIndexation: number;
+      chosen: 'without' | 'with';
+    } | null = null;
 
     if (assetType === 'equity') {
       if (holdingPeriod === 'short') {
         taxRate = 20;
         taxDescription = '20% Flat (STCG)';
+        baseTax = taxableGain * 0.2;
       } else {
         taxRate = 12.5;
         taxableGain = Math.max(0, totalGain - unusedExemption);
         taxDescription = `12.5% after ₹1.25L exemption`;
+        baseTax = taxableGain * 0.125;
       }
     } else if (assetType === 'debt') {
       taxRate = slabRate;
       taxDescription = `Slab Rate (${slabRate}%)`;
+      baseTax = taxableGain * (slabRate / 100);
     } else if (assetType === 'realestate') {
       if (holdingPeriod === 'short') {
         taxRate = slabRate;
         taxDescription = `Slab Rate (${slabRate}%)`;
+        baseTax = taxableGain * (slabRate / 100);
       } else {
-        taxRate = 12.5;
-        taxDescription = '12.5% Flat (No Indexation)';
+        if (propertyAcquiredBeforeJul2024) {
+          const gainWithoutIndexation = Math.max(0, sellPrice - buyPrice);
+          const gainWithIndexation = Math.max(0, sellPrice - indexedCost);
+          const taxWithoutIndexation = gainWithoutIndexation * 0.125;
+          const taxWithIndexation = gainWithIndexation * 0.2;
+
+          if (taxWithIndexation < taxWithoutIndexation) {
+            taxRate = 20;
+            taxableGain = gainWithIndexation;
+            baseTax = taxWithIndexation;
+            taxDescription = '20% with indexation (lower tax option)';
+            indexationComparison = {
+              withoutIndexation: taxWithoutIndexation,
+              withIndexation: taxWithIndexation,
+              chosen: 'with',
+            };
+          } else {
+            taxRate = 12.5;
+            taxableGain = gainWithoutIndexation;
+            baseTax = taxWithoutIndexation;
+            taxDescription = '12.5% without indexation (lower tax option)';
+            indexationComparison = {
+              withoutIndexation: taxWithoutIndexation,
+              withIndexation: taxWithIndexation,
+              chosen: 'without',
+            };
+          }
+        } else {
+          taxRate = 12.5;
+          taxDescription = '12.5% Flat (No Indexation)';
+          baseTax = taxableGain * 0.125;
+        }
       }
     }
-
-    const baseTax = taxableGain * (taxRate / 100);
     const cess = baseTax * 0.04;
     const totalTax = baseTax + cess;
     const netGain = totalGain - totalTax;
@@ -67,6 +108,7 @@ export default function CapitalGainsClient() {
       netGain,
       taxRate,
       taxDescription,
+      indexationComparison,
     };
   }, [
     assetType,
@@ -75,6 +117,8 @@ export default function CapitalGainsClient() {
     holdingPeriod,
     slabRate,
     unusedExemption,
+    propertyAcquiredBeforeJul2024,
+    indexedCost
   ]);
 
   const formatCurrency = (amount: number) =>
@@ -99,7 +143,7 @@ export default function CapitalGainsClient() {
                 {[
                   { id: 'equity', label: 'Equity / MF', icon: TrendingUp },
                   { id: 'debt', label: 'Debt Funds', icon: Landmark },
-                  { id: 'realestate', label: 'Real Estate', icon: Home },
+                  { id: 'realestate', label: 'Real Estate', icon: Home }
                 ].map((asset) => {
                   const Icon = asset.icon;
                   return (
@@ -230,6 +274,48 @@ export default function CapitalGainsClient() {
                 />
               </div>
             )}
+
+            {assetType === 'realestate' && holdingPeriod === 'long' && (
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <label className="flex items-start gap-2 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={propertyAcquiredBeforeJul2024}
+                    onChange={(e) =>
+                      setPropertyAcquiredBeforeJul2024(e.target.checked)
+                    }
+                    className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-300"
+                  />
+                  <span>
+                    Property acquired before 23 July 2024 (eligible for
+                    lower-of comparison: 20% with indexation vs 12.5% without
+                    indexation).
+                  </span>
+                </label>
+
+                {propertyAcquiredBeforeJul2024 && (
+                  <div className="space-y-2">
+                    <Label>Indexed Cost of Acquisition (₹)</Label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <IndianRupee className="h-4 w-4 text-slate-400" />
+                      </div>
+                      <Input
+                        type="number"
+                        value={indexedCost}
+                        onChange={(e) =>
+                          setIndexedCost(Number(e.target.value) || 0)
+                        }
+                        className="pl-9 h-11 font-semibold"
+                      />
+                    </div>
+                    <p className="text-xs text-slate-500">
+                      Enter your CII-indexed cost for the old 20% calculation.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -313,6 +399,35 @@ export default function CapitalGainsClient() {
                   {formatCurrency(result.totalTax)}
                 </span>
               </div>
+
+              {result.indexationComparison && (
+                <div className="rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm space-y-2">
+                  <div className="font-semibold text-brand-900">
+                    Property Transitional Rule Comparison
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>12.5% without indexation:</span>
+                    <span className="font-medium">
+                      {formatCurrency(
+                        result.indexationComparison.withoutIndexation,
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>20% with indexation:</span>
+                    <span className="font-medium">
+                      {formatCurrency(result.indexationComparison.withIndexation)}
+                    </span>
+                  </div>
+                  <div className="text-xs text-brand-800">
+                    Lower tax option applied:{' '}
+                    {result.indexationComparison.chosen === 'with'
+                      ? '20% with indexation'
+                      : '12.5% without indexation'}
+                    .
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

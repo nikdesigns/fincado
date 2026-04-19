@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     'CGST SGST IGST कैलकुलेटर',
     'GST फॉर्मूला हिंदी',
     'MRP से GST कैसे निकालें',
-    'GST टैक्स कैलकुलेटर ऑनलाइन',
+    'GST टैक्स कैलकुलेटर ऑनलाइन'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/gst-calculator/',
@@ -137,7 +137,7 @@ const faqItems = [
     question: 'GST में HSN/SAC कोड क्या है?',
     answer:
       'HSN (Harmonized System of Nomenclature) माल वर्गीकरण के लिए 6-8 अंकों का कोड है। SAC (Services Accounting Code) सेवाओं के लिए 6 अंकों का कोड है। लागू GST दर निर्धारित करने के लिए उपयोग किया जाता है। चालान में अनिवार्य: कारोबार > ₹5 करोड़ के लिए 4-अंक, ₹1.5-5 करोड़ के लिए 2-अंक, ₹1.5 करोड़ से नीचे वैकल्पिक।',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -239,7 +239,7 @@ export default function GSTPageHindi() {
           {
             name: 'GST कैलकुलेटर',
             url: 'https://fincado.com/hi/gst-calculator/',
-          },
+          }
         ]}
       />
 

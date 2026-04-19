@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     'FOIR calculation',
     'Stamp duty India',
     'Home loan eligibility',
-    'Prepayment strategy',
+    'Prepayment strategy'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/home-loan-guide/',
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
         url: '/images/guides/home-loan/home-loan-guide-hero.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -139,7 +139,7 @@ const FAQ_ITEMS = [
     question: 'How much tax benefit is available on home loans?',
     answer:
       'Principal may qualify under 80C and interest under 24(b), subject to limits.',
-  },
+  }
 ];
 
 export default function HomeLoanGuidePage() {
@@ -238,7 +238,7 @@ export default function HomeLoanGuidePage() {
                 '@type': 'HowToStep',
                 name: 'Loan Sanction & Disbursement',
                 text: 'Receive final sanction letter and loan amount is disbursed to seller after registration.',
-              },
+              }
             ],
           }),
         }}
@@ -252,7 +252,7 @@ export default function HomeLoanGuidePage() {
           {
             name: 'Home Loan Guide 2026',
             url: 'https://fincado.com/guides/home-loan-guide/',
-          },
+          }
         ]}
       />
 

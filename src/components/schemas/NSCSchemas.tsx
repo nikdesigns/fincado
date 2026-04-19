@@ -31,7 +31,7 @@ export function NSCSchemas() {
         position: 4,
         name: 'View Results',
         text: 'See maturity amount, total interest earned, and Section 80C tax benefits',
-      },
+      }
     ],
   };
 
@@ -62,7 +62,7 @@ export function NSCSchemas() {
           '@type': 'Answer',
           text: 'The minimum investment in NSC is ₹1,000 (in multiples of ₹100). There is no maximum limit, but only ₹1.5 lakh per year qualifies for Section 80C tax deduction.',
         },
-      },
+      }
     ],
   };
 

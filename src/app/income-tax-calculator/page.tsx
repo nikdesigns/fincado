@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     'New vs Old Tax Regime 2026',
     'Income Tax Act 2025 Calculator',
     'Salary Tax Calculator 2026-27',
-    'old vs new tax regime calculator',
+    'old vs new tax regime calculator'
   ],
   alternates: {
     canonical: 'https://fincado.com/income-tax-calculator/',
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Income Tax Calculator 2026-27',
-      },
+      }
     ],
   },
   robots: {
@@ -149,7 +149,7 @@ const faqItems = [
       'Did the latest Budget change income tax slabs for Tax Year 2026-27?',
     answer:
       'Yes. The New Regime slabs were revised to: 0-4L (Nil), 4-8L (5%), 8-12L (10%), 12-16L (15%), 16-20L (20%), 20-24L (25%), and above 24L (30%). Standard Deduction remains ₹75,000 and Section 87A rebate applies up to ₹12 lakhs taxable income in the New Regime. Old Regime slabs remain unchanged.',
-  },
+  }
 ];
 
 /* ---------------- PAGE ---------------- */
@@ -232,7 +232,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
           {
             name: 'Income Tax Calculator',
             url: 'https://fincado.com/income-tax-calculator/',
-          },
+          }
         ]}
       />
 

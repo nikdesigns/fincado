@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     'SIP investment tips',
     'tax planning guides',
     'credit score tips',
-    'financial literacy india',
+    'financial literacy india'
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/',
@@ -82,7 +82,7 @@ export default function GuidesPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://fincado.com/' },
-          { name: 'Guides', url: 'https://fincado.com/guides/' },
+          { name: 'Guides', url: 'https://fincado.com/guides/' }
         ]}
       />
 

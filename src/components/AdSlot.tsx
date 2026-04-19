@@ -254,7 +254,7 @@ const detectRouteType = (pathname: string | null): RouteType => {
     '/hi/credit-score',
     '/sukanya-samriddhi',
     '/hi/sukanya-samriddhi',
-    '/bank-emi',
+    '/bank-emi'
   ]);
 
   if (
@@ -608,7 +608,7 @@ export default function AdSlot({
     deviceType,
     fallbackId,
     pathname,
-    slotPriority,
+    slotPriority
   ]);
 
   // Lazy-load ad when near viewport.

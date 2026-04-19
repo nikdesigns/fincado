@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     'section 24b home loan',
     'hdfc home loan emi',
     'sbi home loan emi',
-    'tax year 2026-27 home loan',
+    'tax year 2026-27 home loan'
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/home-loan/',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Home Loan EMI Calculator 2026-27',
-      },
+      }
     ],
   },
   robots: {
@@ -169,7 +169,7 @@ export default function HomeLoanEMIPage() {
       question: 'Can I transfer my home loan to another bank?',
       answer:
         'Yes, you can transfer (balance transfer) your home loan to another bank offering lower interest rates. Most banks charge 0.5-1% of outstanding principal as processing fee. Transfer makes sense if you save at least 0.75% on interest rate.',
-    },
+    }
   ];
 
   const updatedLabel = getCurrentMonthYearLabel();
@@ -187,7 +187,7 @@ export default function HomeLoanEMIPage() {
           {
             name: 'Home Loan EMI Calculator',
             url: 'https://fincado.com/loans/home-loan/',
-          },
+          }
         ]}
       />
 

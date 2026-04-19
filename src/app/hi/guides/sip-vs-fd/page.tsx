@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'SIP vs FD Hindi',
     'SIP benefits in Hindi',
     'Mutual Fund vs Fixed Deposit Hindi',
-    'SIP returns calculation',
+    'SIP returns calculation'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/sip-vs-fd/',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         url: '/images/og/sip-vs-fd.webp',
         width: 1200,
         height: 630,
-      },
+      }
     ],
   },
 };
@@ -88,7 +88,7 @@ export default function HindiSipVsFdGuide() {
       question: 'SIP में पैसा कब निकाल सकते हैं?',
       answer:
         'सामान्य ओपन-एंडेड SIP में कोई लॉक-इन नहीं होता, आप कभी भी पैसा निकाल सकते हैं। ELSS में 3 साल का लॉक-इन होता है。',
-    },
+    }
   ];
 
   return (
@@ -140,7 +140,7 @@ export default function HindiSipVsFdGuide() {
           {
             name: 'SIP vs FD',
             url: 'https://fincado.com/hi/guides/sip-vs-fd/',
-          },
+          }
         ]}
       />
 
@@ -570,7 +570,7 @@ export default function HindiSipVsFdGuide() {
             {
               q: 'SIP में पैसा कब निकाल सकते हैं?',
               a: 'सामान्य SIP में कोई लॉक-इन नहीं होता। आप कभी भी पैसा निकाल सकते हैं (एग्जिट लोड लग सकता है अगर 1 साल से पहले निकालें)。',
-            },
+            }
           ].map((item, i) => (
             <AccordionItem
               key={i}

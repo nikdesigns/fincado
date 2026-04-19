@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     'tax on 20 lakh new regime',
     'section 87a rebate limit 2025-26',
     '20 lakh salary tax calculator',
-    'new tax regime 2025-26',
+    'new tax regime 2025-26'
   ],
   authors: [{ name: 'Fincado Team', url: 'https://fincado.com/' }],
   alternates: {
@@ -106,7 +106,7 @@ export default function Tax20LakhGuide() {
       question: 'How to save tax on 20 LPA salary?',
       answer:
         'The New Regime already gives you a relatively low tax. In Old Regime, you can further reduce liability with deductions, but only switch if your total eligible deductions exceed ₹5 Lakhs.',
-    },
+    }
   ];
 
   return (
@@ -119,7 +119,7 @@ export default function Tax20LakhGuide() {
           {
             name: 'Tax on 20 Lakh Salary',
             url: `https://fincado.com/guides/${CONFIG.slug}`,
-          },
+          }
         ]}
       />
 

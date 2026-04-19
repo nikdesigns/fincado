@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'investment tips hindi',
     'financial literacy hindi',
     'personal finance hindi',
-    'tax saving tips hindi',
+    'tax saving tips hindi'
   ],
   authors: [{ name: 'Fincado Team' }],
   creator: 'Fincado',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado Hindi Financial Guides',
-      },
+      }
     ],
   },
   twitter: {

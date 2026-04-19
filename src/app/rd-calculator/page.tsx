@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     'Recurring Deposit Tax',
     'Monthly Savings Calculator',
     'Senior Citizen RD Rates',
-    'Bank RD Rates India',
+    'Bank RD Rates India'
   ],
   alternates: {
     canonical: 'https://fincado.com/rd-calculator/',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Fincado RD Calculator',
-      },
+      }
     ],
   },
   robots: {
@@ -205,7 +205,7 @@ export default function RDPage() {
       question: 'How is RD different from SIP?',
       answer:
         'RD is a bank deposit product with guaranteed returns and quarterly compounding. SIP is a mutual fund investment method with market-linked returns. RD is safer but offers lower returns (6.5-7.5%), while SIP can generate higher returns (12-15%) but carries market risk. RD is ideal for short-term goals, SIP for long-term wealth creation.',
-    },
+    }
   ];
 
   return (
@@ -217,7 +217,7 @@ export default function RDPage() {
           {
             name: 'RD Calculator',
             url: 'https://fincado.com/rd-calculator/',
-          },
+          }
         ]}
       />
 

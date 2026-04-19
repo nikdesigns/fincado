@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'Financial Goal Calculator Hindi',
     'Retirement Planning Hindi',
     'Education Goal Calculator Hindi',
-    'House Purchase Calculator Hindi',
+    'House Purchase Calculator Hindi'
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/goal-planning-calculator/',
@@ -173,7 +173,7 @@ export default function HindiGoalPlanningPage() {
       question: 'क्या मैं रिटायरमेंट के लिए गोल प्लानिंग का उपयोग कर सकता हूं?',
       answer:
         'बिल्कुल! रिटायरमेंट सबसे महत्वपूर्ण वित्तीय लक्ष्य है। अपने वांछित रिटायरमेंट कोष (मुद्रास्फीति और जीवन प्रत्याशा के लिए लेखांकन), रिटायरमेंट तक के वर्षों और अपेक्षित रिटर्न को इनपुट करें। कैलकुलेटर दिखाता है कि आप ट्रैक पर हैं या हर महीने अधिक बचत करने की आवश्यकता है।',
-    },
+    }
   ];
 
   const introContent = autoLinkContent(`
@@ -261,7 +261,7 @@ export default function HindiGoalPlanningPage() {
           {
             name: 'गोल प्लानिंग कैलकुलेटर',
             url: 'https://fincado.com/hi/goal-planning-calculator/',
-          },
+          }
         ]}
       />
 
