@@ -50,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
       'post office calculators',
       'brokerage calculator',
       `financial calculators FY ${fy.fullFormat}`,
-      'Fincado'
+      'Fincado',
     ],
     alternates: {
       canonical: 'https://fincado.com/',
@@ -69,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
           width: 1200,
           height: 630,
           alt: 'Fincado financial calculators for India',
-        }
+        },
       ],
     },
     twitter: {
@@ -126,7 +126,7 @@ const FAQ_ITEMS = [
     question: 'What is the best way to get out of debt faster?',
     answer:
       'Use our EMI Prepayment Calculator. It shows you exactly how making a lumpsum part-payment or increasing your monthly EMI by a small amount can shave years off your loan tenure and save lakhs in interest.',
-  }
+  },
 ];
 
 const HERO_QUICK_ACTIONS = [
@@ -149,14 +149,14 @@ const HERO_QUICK_ACTIONS = [
     href: '/brokerage-calculator/',
     label: 'Brokerage Breakeven',
     desc: 'See net P&L after all charges.',
-  }
+  },
 ];
 
 const HERO_TRUST_POINTS = [
   '100% Free, No Login Required',
   'Aligned to current FY tax and compliance assumptions',
   'Built for Indian lending, tax, and investment workflows',
-  'Readable breakdowns, not black-box outputs'
+  'Readable breakdowns, not black-box outputs',
 ];
 
 const METRICS: MetricItem[] = [
@@ -179,7 +179,7 @@ const METRICS: MetricItem[] = [
     label: 'Workflow Speed',
     value: '<60 sec',
     note: 'Most core estimates complete in under a minute.',
-  }
+  },
 ];
 
 const DECISION_LANES: DecisionLane[] = [
@@ -210,7 +210,7 @@ const DECISION_LANES: DecisionLane[] = [
     href: '/retirement-calculator/',
     cta: 'Plan Retirement',
     icon: Wallet,
-  }
+  },
 ];
 
 const ESSENTIAL_TOOLS: ToolItem[] = [
@@ -241,7 +241,7 @@ const ESSENTIAL_TOOLS: ToolItem[] = [
     toneClass: 'bg-indigo-50 text-indigo-700',
     title: 'Salary Calculator',
     desc: 'Convert CTC to monthly in-hand salary with PF and tax adjustments.',
-  }
+  },
 ];
 
 const DEBT_TOOLS: ToolItem[] = [
@@ -265,7 +265,7 @@ const DEBT_TOOLS: ToolItem[] = [
     toneClass: 'bg-amber-50 text-amber-700',
     title: 'Car Loan Calculator',
     desc: 'Set dealer-ready EMI ranges before final negotiation.',
-  }
+  },
 ];
 
 const SAFE_RETURN_TOOLS: ToolItem[] = [
@@ -289,7 +289,7 @@ const SAFE_RETURN_TOOLS: ToolItem[] = [
     toneClass: 'bg-brand-50 text-brand-700',
     title: 'KVP Calculator',
     desc: 'Track money-doubling horizon and maturity timing exactly.',
-  }
+  },
 ];
 
 const TAX_TRADING_TOOLS: ToolItem[] = [
@@ -313,14 +313,14 @@ const TAX_TRADING_TOOLS: ToolItem[] = [
     toneClass: 'bg-emerald-50 text-emerald-700',
     title: 'Rent Receipt Generator',
     desc: 'Generate instant printable receipts for HRA documentation.',
-  }
+  },
 ];
 
 const QUICK_COMPARISONS = [
   { b1: 'SBI', b2: 'HDFC', link: '/compare/sbi-vs-hdfc/' },
   { b1: 'HDFC', b2: 'ICICI', link: '/compare/hdfc-vs-icici/' },
   { b1: 'SBI', b2: 'Axis', link: '/compare/sbi-vs-axis/' },
-  { b1: 'PNB', b2: 'BOB', link: '/compare/pnb-vs-bob/' }
+  { b1: 'PNB', b2: 'BOB', link: '/compare/pnb-vs-bob/' },
 ];
 
 const OPERATING_PRINCIPLES = [
@@ -338,7 +338,7 @@ const OPERATING_PRINCIPLES = [
     title: 'India-Specific Logic',
     desc: 'Lending, tax, and savings workflows reflect Indian market and policy context.',
     icon: Banknote,
-  }
+  },
 ];
 
 export default function Home(): JSX.Element {
@@ -346,7 +346,7 @@ export default function Home(): JSX.Element {
     'sukanya-samriddhi-yojana-guide-2026',
     'elss-funds-guide-2026',
     'sovereign-gold-bond-sgb-guide',
-    'health-insurance-buying-guide'
+    'health-insurance-buying-guide',
   ];
 
   const featuredGuides = articlesData.filter(
@@ -391,7 +391,7 @@ export default function Home(): JSX.Element {
             text: item.answer,
           },
         })),
-      }
+      },
     ],
   };
 
@@ -436,8 +436,9 @@ export default function Home(): JSX.Element {
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
-              Model loans, tax, salary, investments, and retirement in one place.
-              Fincado helps you evaluate real trade-offs before you commit money.
+              Model loans, tax, salary, investments, and retirement in one
+              place. Fincado helps you evaluate real trade-offs before you
+              commit money.
             </p>
 
             <div className="mt-7 grid gap-2.5 text-sm font-medium text-slate-700 sm:grid-cols-2">
@@ -462,8 +463,15 @@ export default function Home(): JSX.Element {
                   Check In-Hand Salary <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-slate-300">
-                <Link href="/emi-prepayment-calculator/">Save Loan Interest</Link>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-slate-300"
+              >
+                <Link href="/emi-prepayment-calculator/">
+                  Save Loan Interest
+                </Link>
               </Button>
             </div>
 
@@ -499,7 +507,10 @@ export default function Home(): JSX.Element {
               </CardHeader>
               <CardContent className="grid gap-2 text-sm text-slate-700">
                 <TrackLink href="/compare-loans/" label="Borrowing" />
-                <TrackLink href="/income-tax-calculator/" label="Tax Planning" />
+                <TrackLink
+                  href="/income-tax-calculator/"
+                  label="Tax Planning"
+                />
                 <TrackLink href="/sip-calculator/" label="Wealth Building" />
                 <TrackLink href="/retirement-calculator/" label="Retirement" />
               </CardContent>
@@ -563,14 +574,19 @@ export default function Home(): JSX.Element {
 
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {QUICK_COMPARISONS.map((item) => (
-              <ComparisonCard key={item.link} b1={item.b1} b2={item.b2} link={item.link} />
+              <ComparisonCard
+                key={item.link}
+                b1={item.b1}
+                b2={item.b2}
+                link={item.link}
+              />
             ))}
           </div>
         </section>
 
         <section className="mt-18 grid gap-8 lg:grid-cols-2">
           <div>
-            <div className="lg:min-h-[104px]">
+            <div className="lg:min-h-26">
               <SectionHeader
                 title="Post Office & Safe Return Desk"
                 description="Model conservative options with predictable cashflow outputs."
@@ -585,7 +601,7 @@ export default function Home(): JSX.Element {
           </div>
 
           <div>
-            <div className="lg:min-h-[104px]">
+            <div className="lg:min-h-26">
               <SectionHeader
                 title="Tax & Trading Desk"
                 description="Understand charges, tax impact, and net take-home outcomes before execution."
@@ -607,14 +623,22 @@ export default function Home(): JSX.Element {
               description="Context-rich guides that support your calculator decisions."
               compact
             />
-            <Button asChild variant="ghost" className="font-semibold text-emerald-700">
+            <Button
+              asChild
+              variant="ghost"
+              className="font-semibold text-emerald-700"
+            >
               <Link href="/guides/">View all guides</Link>
             </Button>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {displayGuides.map((guide) => (
-              <Link key={guide.slug} href={`/guides/${guide.slug}/`} className="group block">
+              <Link
+                key={guide.slug}
+                href={`/guides/${guide.slug}/`}
+                className="group block"
+              >
                 <Card className="h-full rounded-2xl border border-slate-200 p-6 transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-md">
                   <div className="mb-4 flex items-center justify-between">
                     <span className="inline-block rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-700">
@@ -625,7 +649,9 @@ export default function Home(): JSX.Element {
                     {guide.title}
                   </h3>
                   <p className="line-clamp-3 text-sm font-medium leading-relaxed text-slate-600">
-                    {(guide.metaDescription || '').replace(/<[^>]+>/g, '').trim()}
+                    {(guide.metaDescription || '')
+                      .replace(/<[^>]+>/g, '')
+                      .trim()}
                   </p>
                 </Card>
               </Link>
@@ -640,12 +666,17 @@ export default function Home(): JSX.Element {
           />
           <div className="grid gap-5 md:grid-cols-3">
             {OPERATING_PRINCIPLES.map((item) => (
-              <Card key={item.title} className="border-slate-200 bg-white shadow-sm">
+              <Card
+                key={item.title}
+                className="border-slate-200 bg-white shadow-sm"
+              >
                 <CardContent className="p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
                     <item.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
+                  <h3 className="text-lg font-bold text-slate-900">
+                    {item.title}
+                  </h3>
                   <p className="mt-2 text-sm font-medium leading-relaxed text-slate-600">
                     {item.desc}
                   </p>
@@ -663,24 +694,24 @@ export default function Home(): JSX.Element {
 
             <div className="space-y-6 text-base font-medium leading-8 text-slate-700">
               <p>
-                Financial tools create value only when they improve action quality.
-                Most users are not searching for formulas first. They need clarity
-                on affordability, tax impact, monthly cashflow, and long-term
-                trade-offs before making decisions.
+                Financial tools create value only when they improve action
+                quality. Most users are not searching for formulas first. They
+                need clarity on affordability, tax impact, monthly cashflow, and
+                long-term trade-offs before making decisions.
               </p>
 
               <p>
-                Fincado is structured around these practical decisions. Borrowers can
-                model EMI and prepayment outcomes, salaried users can compare regime
-                impact, and investors can evaluate return paths with transparent
-                assumptions.
+                Fincado is structured around these practical decisions.
+                Borrowers can model EMI and prepayment outcomes, salaried users
+                can compare regime impact, and investors can evaluate return
+                paths with transparent assumptions.
               </p>
 
               <p>
-                For low-risk planning, dedicated calculators for SCSS, POMIS, and KVP
-                provide predictable cashflow visibility. For active market users,
-                capital gains and brokerage tools highlight net outcomes after charges
-                and taxes.
+                For low-risk planning, dedicated calculators for SCSS, POMIS,
+                and KVP provide predictable cashflow visibility. For active
+                market users, capital gains and brokerage tools highlight net
+                outcomes after charges and taxes.
               </p>
             </div>
           </article>
@@ -714,7 +745,7 @@ export default function Home(): JSX.Element {
           <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-linear-to-br from-[#081833] via-[#0b2142] to-[#12345f] px-6 py-10 shadow-2xl sm:px-10 sm:py-12">
             <div className="pointer-events-none absolute -right-12 -top-20 h-60 w-60 rounded-full bg-brand-400/30 blur-3xl" />
             <div className="pointer-events-none absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-emerald-300/20 blur-3xl" />
-            <div className="pointer-events-none absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.35)_1px,transparent_0)] [background-size:22px_22px]" />
+            <div className="pointer-events-none absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.35)_1px,transparent_0)] bg-size-[22px_22px]" />
 
             <div className="relative grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
               <div>
@@ -899,7 +930,9 @@ function QuickActionLink({
       <div className="font-bold text-slate-900 transition-colors group-hover:text-brand-700">
         {label}
       </div>
-      <div className="mt-1 text-xs font-medium leading-relaxed text-slate-500">{desc}</div>
+      <div className="mt-1 text-xs font-medium leading-relaxed text-slate-500">
+        {desc}
+      </div>
     </Link>
   );
 }
@@ -920,9 +953,13 @@ function MetricCard({ label, value, note }: MetricItem) {
   return (
     <Card className="border-slate-200 bg-white shadow-sm">
       <CardContent className="p-5">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          {label}
+        </p>
         <p className="mt-2 text-2xl font-bold text-slate-900">{value}</p>
-        <p className="mt-2 text-sm font-medium leading-relaxed text-slate-600">{note}</p>
+        <p className="mt-2 text-sm font-medium leading-relaxed text-slate-600">
+          {note}
+        </p>
       </CardContent>
     </Card>
   );
@@ -938,7 +975,9 @@ function DecisionCard({ lane }: { lane: DecisionLane }) {
           <Icon className="h-6 w-6" />
         </div>
         <h3 className="text-lg font-bold text-slate-900">{lane.title}</h3>
-        <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-slate-600">{lane.desc}</p>
+        <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-slate-600">
+          {lane.desc}
+        </p>
         <Link
           href={lane.href}
           className="mt-5 inline-flex items-center text-sm font-bold text-brand-700 transition group-hover:text-brand-900"
