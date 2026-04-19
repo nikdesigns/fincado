@@ -318,6 +318,228 @@ export default async function ComparisonPage({
     }
   ];
 
+  const relatedResourceGroups = [
+    {
+      title: 'Compare & Benchmark',
+      description:
+        'Broaden your lender shortlist and benchmark alternatives before locking one option.',
+      icon: Scale,
+      links: [
+        {
+          label: 'Compare Loans Hub',
+          href: '/compare-loans/',
+          note: 'Browse all bank-vs-bank combinations.',
+        },
+        {
+          label: 'Bank-wise Home Loan Rates',
+          href: '/bank-emi/',
+          note: 'Review lender-wise rate ranges and EMI assumptions.',
+        },
+      ],
+    },
+    {
+      title: 'Affordability Validation',
+      description:
+        'Stress-test EMI, tenure, and score readiness against your real borrowing profile.',
+      icon: Calculator,
+      links: [
+        {
+          label: 'Home Loan EMI Calculator',
+          href: '/loans/home-loan/',
+          note: 'Run scenario checks with home-loan assumptions.',
+        },
+        {
+          label: 'General EMI Calculator',
+          href: '/emi-calculator/',
+          note: 'Validate fallback scenarios across loan types.',
+        },
+        {
+          label: 'Credit Score Estimator',
+          href: '/credit-score/',
+          note: 'Assess potential impact on lender pricing.',
+        },
+      ],
+    },
+    {
+      title: 'Decision Readiness',
+      description:
+        'Use long-form guides to reduce policy surprises and improve documentation quality.',
+      icon: Info,
+      links: [
+        {
+          label: 'Home Loan Guide',
+          href: '/guides/home-loan-guide/',
+          note: 'Understand full lending process and key terms.',
+        },
+        {
+          label: 'First-Time Buyer Guide',
+          href: '/guides/home-loan-first-time-buyers/',
+          note: 'Checklist for first sanction and disbursal.',
+        },
+        {
+          label: 'Personal Loan Rates India Guide',
+          href: '/guides/personal-loan-interest-rates-india/',
+          note: 'Cross-check unsecured-loan alternatives.',
+        },
+      ],
+    },
+  ];
+
+  const borrowerProfileMatrix = [
+    {
+      title: 'Salaried Borrowers',
+      icon: Users,
+      fit: `Cost-led fit: ${lowerRateBank.name}`,
+      action:
+        'Prioritize income stability, bureau quality (750+), and employer continuity for stronger pricing.',
+      risk:
+        'Check for bundled insurance and one-time charges before accepting final sanction terms.',
+    },
+    {
+      title: 'Faster Disbursal Need',
+      icon: Clock,
+      fit: `Speed-led fit: ${likelyPrivate?.name ?? 'private-bank workflow'}`,
+      action:
+        'Validate digital document flow, branch queue handling, and legal/valuation turnaround SLA.',
+      risk:
+        'Fast approvals can still carry higher all-in cost if fee structure is not audited.',
+    },
+    {
+      title: 'Lowest Lifetime Cost',
+      icon: IndianRupee,
+      fit: `Rate-led fit: ${lowerRateBank.name}`,
+      action:
+        'Model total repayment over full tenure and compare reset behavior, not just month-1 EMI.',
+      risk:
+        'A small rate gap can be offset by higher processing, legal, or servicing charges.',
+    },
+    {
+      title: 'Self-Employed Cases',
+      icon: Zap,
+      fit: `Policy-led fit: ${likelyPsu?.name ?? 'documentation-friendly lender'}`,
+      action:
+        'Review income assessment policy, bank-statement consistency rules, and cashflow proof requirements.',
+      risk:
+        'Underwriting variance can be high; pre-verify acceptance criteria before paying application fees.',
+    },
+  ];
+
+  const lenderDecisionPanels = [
+    {
+      bank: b1,
+      isLowerRate: b1.rate <= b2.rate,
+      strengths: [
+        `Current starting rate: ${b1.rate}%`,
+        b1.rate <= b2.rate
+          ? `Rate edge over ${b2.name}: ${rateDiff.toFixed(2)}%`
+          : `Rate trails ${b2.name} by ${rateDiff.toFixed(2)}%`,
+        isPsuBank(b1.slug)
+          ? 'Branch-led support model is usually stronger for in-person follow-up.'
+          : 'Digital-first journey is usually stronger for tracking and document flow.',
+      ],
+      watchOuts: [
+        'Final sanctioned rate can change based on score, income profile, and property quality.',
+        'All-in borrowing cost can rise due to processing, legal, valuation, or insurance add-ons.',
+        'Turnaround timelines vary by branch load and document readiness.',
+      ],
+      bestWhen: isPsuBank(b1.slug)
+        ? 'You value long-term cost discipline plus branch-level support.'
+        : 'You value faster processing and smoother digital servicing.',
+    },
+    {
+      bank: b2,
+      isLowerRate: b2.rate <= b1.rate,
+      strengths: [
+        `Current starting rate: ${b2.rate}%`,
+        b2.rate <= b1.rate
+          ? `Rate edge over ${b1.name}: ${rateDiff.toFixed(2)}%`
+          : `Rate trails ${b1.name} by ${rateDiff.toFixed(2)}%`,
+        isPsuBank(b2.slug)
+          ? 'Branch-led support model is usually stronger for in-person follow-up.'
+          : 'Digital-first journey is usually stronger for tracking and document flow.',
+      ],
+      watchOuts: [
+        'Final sanctioned rate can change based on score, income profile, and property quality.',
+        'All-in borrowing cost can rise due to processing, legal, valuation, or insurance add-ons.',
+        'Turnaround timelines vary by branch load and document readiness.',
+      ],
+      bestWhen: isPsuBank(b2.slug)
+        ? 'You value long-term cost discipline plus branch-level support.'
+        : 'You value faster processing and smoother digital servicing.',
+    },
+  ];
+
+  const nextStepIntentPaths = [
+    {
+      stage: 'Stage 1',
+      intent: 'Shortlist Lenders',
+      icon: Scale,
+      objective:
+        'Build a clean shortlist first, then remove options with weaker pricing bands or policy fit.',
+      links: [
+        {
+          label: 'Compare Loans Hub',
+          href: '/compare-loans/',
+          note: 'Scan all lender pairings quickly.',
+        },
+        {
+          label: 'Bank-wise Home Loan Rates',
+          href: '/bank-emi/',
+          note: 'Validate lender-level rate bands.',
+        },
+      ],
+      checkpoint:
+        'Keep only 2-3 lenders with acceptable rate + policy alignment for your profile.',
+    },
+    {
+      stage: 'Stage 2',
+      intent: 'Validate Affordability',
+      icon: Calculator,
+      objective:
+        'Stress-test EMI and tenure under realistic assumptions before moving into paperwork.',
+      links: [
+        {
+          label: 'Home Loan EMI Calculator',
+          href: '/loans/home-loan/',
+          note: 'Model home-loan-specific scenarios.',
+        },
+        {
+          label: 'General EMI Calculator',
+          href: '/emi-calculator/',
+          note: 'Run alternate repayment structures.',
+        },
+      ],
+      checkpoint:
+        'Ensure EMI remains comfortable across rate reset scenarios, not just today’s rate.',
+    },
+    {
+      stage: 'Stage 3',
+      intent: 'Prepare for Sanction',
+      icon: Info,
+      objective:
+        'Finalize documentation and policy checks to avoid late-stage surprises or hidden cost drift.',
+      links: [
+        {
+          label: 'Home Loan Guide',
+          href: '/guides/home-loan-guide/',
+          note: 'Understand process and policy terms.',
+        },
+        {
+          label: 'First-Time Buyer Checklist',
+          href: '/guides/home-loan-first-time-buyers/',
+          note: 'Review documents and process order.',
+        },
+        {
+          label: 'Credit Score Estimator',
+          href: '/credit-score/',
+          note: 'Benchmark score readiness before applying.',
+        },
+      ],
+      checkpoint:
+        'Verify fee sheet, reset clause, and processing timeline before paying application charges.',
+    },
+  ];
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -395,15 +617,15 @@ export default async function ComparisonPage({
 
       <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <header className="mx-auto my-12 max-w-5xl">
-          <div className="relative overflow-hidden rounded-2xl border border-brand-200 bg-linear-to-br from-brand-50 via-brand-50 to-brand-50/30 p-8 shadow-sm">
-            <div className="absolute -right-12 -top-12 opacity-5">
-              <Scale className="h-64 w-64 text-brand-700" />
+          <div className="relative overflow-hidden rounded-2xl border border-slate-700 bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 p-8 shadow-lg">
+            <div className="absolute -right-12 -top-12 opacity-10">
+              <Scale className="h-64 w-64 text-brand-300" />
             </div>
 
             <div className="relative z-10">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
-                <Badge className="border-brand-300 bg-white px-4 py-1.5 font-semibold tracking-wider text-brand-700 uppercase shadow-sm">
-                  Expert Reviewed · {monthYear}
+                <Badge className="border border-brand-300 bg-brand-500/20 px-4 py-1.5 font-semibold tracking-wider text-brand-200 uppercase shadow-sm">
+                  Research Brief · {monthYear}
                 </Badge>
                 <div className="no-print">
                   <ShareTools
@@ -412,75 +634,75 @@ export default async function ComparisonPage({
                 </div>
               </div>
 
-              <h1 className="mb-4 text-3xl leading-tight font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
+              <h1 className="mb-4 text-3xl leading-tight font-semibold text-white sm:text-4xl lg:text-5xl">
                 {b1.name}{' '}
-                <span className="bg-linear-to-r from-brand-700 to-brand-500 bg-clip-text text-transparent">
+                <span className="text-brand-300">
                   vs
                 </span>{' '}
                 {b2.name}
               </h1>
 
-              <p className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg">
+              <p className="mb-5 text-base leading-relaxed text-slate-200 sm:text-lg">
                 Practical home-loan comparison for FY {fy.startYear}-
                 {String(fy.endYear).slice(-2)} using rate bands, estimated
                 repayment impact, and borrower-fit guidance.
               </p>
 
-              <p className="mb-5 text-sm leading-relaxed text-slate-600 sm:text-base">
+              <p className="mb-5 text-sm leading-relaxed text-slate-300 sm:text-base">
                 <strong>{comparisonAngle.label}:</strong> {comparisonAngle.body}
               </p>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div className="rounded-lg border border-brand-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-brand-700" />
-                    <span className="text-xs font-medium text-slate-600">
+                    <Percent className="h-4 w-4 text-brand-300" />
+                    <span className="text-xs font-medium text-slate-300">
                       {b1.name}
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-brand-700">
+                  <p className="text-xl font-semibold text-white">
                     {b1.rate}%
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-teal-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-brand-500" />
-                    <span className="text-xs font-medium text-slate-600">
+                    <Percent className="h-4 w-4 text-brand-300" />
+                    <span className="text-xs font-medium text-slate-300">
                       {b2.name}
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-[#FF9F4C]">
+                  <p className="text-xl font-semibold text-white">
                     {b2.rate}%
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-amber-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <TrendingDown className="h-4 w-4 text-amber-600" />
-                    <span className="text-xs font-medium text-slate-600">
+                    <TrendingDown className="h-4 w-4 text-brand-300" />
+                    <span className="text-xs font-medium text-slate-300">
                       Rate Gap
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-amber-600">
+                  <p className="text-xl font-semibold text-white">
                     {rateDiff.toFixed(2)}%
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-brand-100 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <IndianRupee className="h-4 w-4 text-brand-700" />
-                    <span className="text-xs font-medium text-slate-600">
+                    <IndianRupee className="h-4 w-4 text-brand-300" />
+                    <span className="text-xs font-medium text-slate-300">
                       20Y Impact*
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-brand-700">
+                  <p className="text-xl font-semibold text-white">
                     ₹{formatLakhs(lifetimeSaving)}L
                   </p>
                 </div>
               </div>
 
-              <p className="mt-4 text-xs italic text-slate-500">
+              <p className="mt-4 text-xs text-slate-400 italic">
                 *Illustration on ₹50 lakh for 20 years. Your actual offer can
                 vary by profile, location, and policy updates.
               </p>
@@ -492,9 +714,9 @@ export default async function ComparisonPage({
           <div className="mb-12 space-y-10 lg:col-span-8">
             {/* --- QUICK VERDICT TABLE (NEW, ABOVE FOLD) --- */}
             <section className="mx-auto mb-8 max-w-5xl">
-              <Card className="border-brand-200 bg-white shadow-sm">
-                <CardHeader className="border-b border-slate-200 bg-brand-50">
-                  <CardTitle className="text-lg font-semibold text-brand-900">
+              <Card className="compare-unique-card border-slate-200 bg-white shadow-sm">
+                <CardHeader className="border-b border-slate-200 bg-slate-50">
+                  <CardTitle className="text-lg font-semibold text-slate-900">
                     Quick Verdict: {b1.name} vs {b2.name}
                   </CardTitle>
                   <CardDescription>
@@ -563,15 +785,15 @@ export default async function ComparisonPage({
             </section>
 
             {rateDiff > 0 && (
-              <div className="flex items-start gap-4 rounded-xl border border-brand-200 bg-linear-to-r from-brand-50 to-brand-50 p-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-700 shadow-md">
+              <div className="compare-note-rail flex items-start gap-4 rounded-xl border border-slate-200 p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-900 shadow-md">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h2 className="mb-1 font-semibold text-brand-900">
-                    Lower-Rate Leader
+                  <h2 className="mb-1 font-semibold text-slate-900">
+                    Lower-Rate Lead
                   </h2>
-                  <p className="text-sm leading-relaxed text-brand-700">
+                  <p className="text-sm leading-relaxed text-slate-600">
                     <strong>{lowerRateBank.name}</strong> is currently lower at{' '}
                     <strong>{lowerRateBank.rate}%</strong> vs{' '}
                     <strong>{higherRateBank.rate}%</strong> from{' '}
@@ -583,7 +805,7 @@ export default async function ComparisonPage({
               </div>
             )}
 
-            <Card className="border-slate-200 shadow-md">
+            <Card className="compare-unique-card border-slate-200 shadow-md">
               <CardHeader className="border-b border-slate-200 bg-slate-50">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-700 shadow-sm">
@@ -697,61 +919,62 @@ export default async function ComparisonPage({
 
             <RateComparisonChart b1={b1} b2={b2} />
 
-            {/* --- RELATED PAGES (NEW INTERNAL LINKS) --- */}
-            <Card className="border-slate-200 shadow-sm">
+            <Card className="compare-unique-card border-slate-200 shadow-sm">
               <CardHeader className="border-b border-slate-200 bg-slate-50">
-                <CardTitle className="text-lg font-semibold">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                  <Scale className="h-5 w-5 text-brand-700" />
                   Related Tools & Guides
                 </CardTitle>
                 <CardDescription>
-                  Use these pages to validate rate choice, EMI impact, and
-                  borrower readiness.
+                  Internal decision workspace for lender benchmarking,
+                  affordability checks, and pre-application readiness.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="p-5">
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/compare-loans/"
-                  >
-                    Compare Loans Hub
-                  </Link>
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/loans/home-loan/"
-                  >
-                    Home Loan EMI Calculator
-                  </Link>
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/emi-calculator/"
-                  >
-                    General EMI Calculator
-                  </Link>
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/guides/home-loan-guide/"
-                  >
-                    Home Loan Guide
-                  </Link>
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/guides/home-loan-first-time-buyers/"
-                  >
-                    First-Time Home Buyer Guide
-                  </Link>
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/guides/personal-loan-interest-rates-india/"
-                  >
-                    Personal Loan Rates India Guide
-                  </Link>
-                  <Link
-                    className="text-sm text-brand-700 hover:underline"
-                    href="/credit-score/"
-                  >
-                    Credit Score Estimator
-                  </Link>
+              <CardContent className="space-y-4 p-5">
+                <div className="grid gap-4 lg:grid-cols-3">
+                  {relatedResourceGroups.map((group) => (
+                    <div
+                      key={group.title}
+                      className="compare-stage-card compare-unique-card rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                    >
+                      <div className="mb-3 flex items-center gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900">
+                          <group.icon className="h-4 w-4 text-brand-300" />
+                        </div>
+                        <h3 className="text-sm font-semibold text-slate-900">
+                          {group.title}
+                        </h3>
+                      </div>
+                      <p className="text-xs leading-relaxed text-slate-600">
+                        {group.description}
+                      </p>
+
+                      <div className="mt-3 space-y-2">
+                        {group.links.map((link) => (
+                          <Link
+                            key={link.href}
+                            className="compare-link-tile group flex items-start justify-between gap-3 rounded-lg border border-slate-200 px-3 py-2 transition-all hover:border-brand-300 hover:bg-brand-50/50"
+                            href={link.href}
+                          >
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-slate-900 group-hover:text-brand-800">
+                                {link.label}
+                              </p>
+                              <p className="text-xs leading-relaxed text-slate-500">
+                                {link.note}
+                              </p>
+                            </div>
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="compare-note-rail rounded-lg border border-slate-200 px-4 py-3 text-xs leading-relaxed text-slate-600">
+                  Recommended flow: shortlist lenders, validate EMI and credit
+                  profile, then finalize documentation checklist.
                 </div>
               </CardContent>
             </Card>
@@ -761,79 +984,73 @@ export default async function ComparisonPage({
             </div>
 
             <section aria-labelledby="profile-fit-heading">
-              <h2
-                id="profile-fit-heading"
-                className="mb-6 flex items-center gap-2 text-2xl font-semibold"
-              >
-                <Users className="h-6 w-6 text-brand-700" />
-                Borrower Profile Fit
-              </h2>
+              <Card className="compare-unique-card border-slate-200 shadow-sm">
+                <CardHeader className="border-b border-slate-200 bg-slate-50">
+                  <CardTitle
+                    id="profile-fit-heading"
+                    className="flex items-center gap-2 text-2xl font-semibold"
+                  >
+                    <Users className="h-6 w-6 text-brand-700" />
+                    Borrower Profile Fit Matrix
+                  </CardTitle>
+                  <CardDescription>
+                    Profile-based decision guidance using cost, turnaround, and
+                    underwriting behavior.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 p-5">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {borrowerProfileMatrix.map((profile) => (
+                      <div
+                        key={profile.title}
+                        className="compare-stage-card compare-unique-card rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                      >
+                        <div className="mb-3 flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900">
+                              <profile.icon className="h-4 w-4 text-brand-300" />
+                            </div>
+                            <h3 className="text-sm font-semibold text-slate-900">
+                              {profile.title}
+                            </h3>
+                          </div>
+                          <Badge className="border border-brand-200 bg-brand-50 text-[10px] font-semibold tracking-wide text-brand-700 uppercase">
+                            Best Fit
+                          </Badge>
+                        </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Card className="border-slate-200 transition-shadow hover:shadow-md">
-                  <CardContent className="p-5">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 shadow-sm">
-                      <Users className="h-5 w-5 text-brand-700" />
-                    </div>
-                    <p className="mb-2 font-semibold text-slate-900">
-                      Salaried Borrowers
-                    </p>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      Prioritize stability of income proof and clean bureau
-                      history. Rate leader is currently{' '}
-                      <strong>{lowerRateBank.name}</strong>.
-                    </p>
-                  </CardContent>
-                </Card>
+                        <p className="mb-3 text-sm font-medium text-slate-900">
+                          {profile.fit}
+                        </p>
 
-                <Card className="border-slate-200 transition-shadow hover:shadow-md">
-                  <CardContent className="p-5">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 shadow-sm">
-                      <Clock className="h-5 w-5 text-brand-700" />
-                    </div>
-                    <p className="mb-2 font-semibold text-slate-900">
-                      Faster Disbursal Need
-                    </p>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      Private-bank workflows can be faster with digital docs;
-                      PSU banks can be slower but sometimes more conservative on
-                      underwriting.
-                    </p>
-                  </CardContent>
-                </Card>
+                        <div className="space-y-2">
+                          <div className="compare-note-rail rounded-lg border border-slate-200 p-2.5">
+                            <p className="mb-1 text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                              Decision Action
+                            </p>
+                            <p className="text-xs leading-relaxed text-slate-700">
+                              {profile.action}
+                            </p>
+                          </div>
+                          <div className="compare-field rounded-lg border border-slate-200 bg-white p-2.5">
+                            <p className="mb-1 text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                              Risk Check
+                            </p>
+                            <p className="text-xs leading-relaxed text-slate-600">
+                              {profile.risk}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
-                <Card className="border-slate-200 transition-shadow hover:shadow-md">
-                  <CardContent className="p-5">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 shadow-sm">
-                      <IndianRupee className="h-5 w-5 text-amber-600" />
-                    </div>
-                    <p className="mb-2 font-semibold text-slate-900">
-                      Lowest Lifetime Cost
-                    </p>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      For long tenure, small rate differences compound
-                      meaningfully. Estimate total cost before choosing, not
-                      just month-1 EMI.
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-slate-200 transition-shadow hover:shadow-md">
-                  <CardContent className="p-5">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 shadow-sm">
-                      <Zap className="h-5 w-5 text-purple-600" />
-                    </div>
-                    <p className="mb-2 font-semibold text-slate-900">
-                      Self-Employed Cases
-                    </p>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      Evaluate income assessment flexibility, additional
-                      documentation load, and consistency of bank statement
-                      treatment.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
+                  <div className="compare-note-rail rounded-lg border border-slate-200 px-4 py-3 text-xs leading-relaxed text-slate-600">
+                    Use this matrix as a pre-sanction filter: borrower profile
+                    fit, process timeline fit, and all-in cost fit.
+                  </div>
+                </CardContent>
+              </Card>
             </section>
 
             <div className="no-print flex justify-center rounded-lg border border-slate-100 bg-slate-50 p-2">
@@ -841,158 +1058,172 @@ export default async function ComparisonPage({
             </div>
 
             <section aria-labelledby="pros-cons-heading">
-              <h2
-                id="pros-cons-heading"
-                className="mb-6 text-2xl font-semibold"
-              >
-                Pros & Cons
-              </h2>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <Card className="border-slate-200">
-                  <CardHeader className="border-b border-slate-200 bg-slate-50">
-                    <CardTitle className="text-lg">{b1.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 p-5">
-                    <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-brand-700">
-                        <CheckCircle2 className="h-4 w-4" /> Pros
-                      </h3>
-                      <ul className="space-y-1 text-sm text-slate-600">
-                        <li>• Current starting rate: {b1.rate}%</li>
-                        <li>• Max published band: {b1.maxRate}%</li>
-                        <li>
-                          •{' '}
-                          {isPsuBank(b1.slug)
-                            ? 'Strong branch-led service footprint'
-                            : 'Generally strong digital customer journey'}
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-red-700">
-                        <XCircle className="h-4 w-4" /> Cons
-                      </h3>
-                      <ul className="space-y-1 text-sm text-slate-600">
-                        <li>• Final offered rate depends on profile quality</li>
-                        <li>
-                          • Turnaround can vary by city/property complexity
-                        </li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
+              <Card className="compare-unique-card border-slate-200 shadow-sm">
+                <CardHeader className="border-b border-slate-200 bg-slate-50">
+                  <CardTitle
+                    id="pros-cons-heading"
+                    className="text-2xl font-semibold"
+                  >
+                    Pros & Cons, Made Simple
+                  </CardTitle>
+                  <CardDescription>
+                    Easy decision view for each lender: strong points,
+                    watch-outs, and when it fits best.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 p-5">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    {lenderDecisionPanels.map((panel) => (
+                      <Card
+                        key={panel.bank.slug}
+                        className="compare-stage-card compare-unique-card border-slate-200"
+                      >
+                        <CardHeader className="border-b border-slate-200 bg-white pb-4">
+                          <div className="flex items-center justify-between gap-3">
+                            <CardTitle className="text-lg">
+                              {panel.bank.name}
+                            </CardTitle>
+                            <Badge
+                              className={
+                                panel.isLowerRate
+                                  ? 'border border-brand-200 bg-brand-50 text-[10px] font-semibold tracking-wide text-brand-700 uppercase'
+                                  : 'border border-slate-300 bg-slate-100 text-[10px] font-semibold tracking-wide text-slate-700 uppercase'
+                              }
+                            >
+                              {panel.isLowerRate
+                                ? 'Current Rate Leader'
+                                : 'Alternate Option'}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4 p-5">
+                          <div>
+                            <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900">
+                              <CheckCircle2 className="h-4 w-4 text-brand-700" />
+                              Strong Points
+                            </h3>
+                            <ul className="space-y-2">
+                              {panel.strengths.map((point) => (
+                                <li
+                                  key={point}
+                                  className="text-sm leading-relaxed text-slate-600"
+                                >
+                                  {point}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
 
-                <Card className="border-slate-200">
-                  <CardHeader className="border-b border-slate-200 bg-slate-50">
-                    <CardTitle className="text-lg">{b2.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 p-5">
-                    <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-brand-700">
-                        <CheckCircle2 className="h-4 w-4" /> Pros
-                      </h3>
-                      <ul className="space-y-1 text-sm text-slate-600">
-                        <li>• Current starting rate: {b2.rate}%</li>
-                        <li>• Max published band: {b2.maxRate}%</li>
-                        <li>
-                          •{' '}
-                          {isPsuBank(b2.slug)
-                            ? 'Strong branch-led service footprint'
-                            : 'Generally strong digital customer journey'}
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-semibold text-red-700">
-                        <XCircle className="h-4 w-4" /> Cons
-                      </h3>
-                      <ul className="space-y-1 text-sm text-slate-600">
-                        <li>• Final offered rate depends on profile quality</li>
-                        <li>
-                          • Turnaround can vary by city/property complexity
-                        </li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                          <div>
+                            <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900">
+                              <XCircle className="h-4 w-4 text-red-600" />
+                              Watch-Outs
+                            </h3>
+                            <ul className="space-y-2">
+                              {panel.watchOuts.map((point) => (
+                                <li
+                                  key={point}
+                                  className="text-sm leading-relaxed text-slate-600"
+                                >
+                                  {point}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className="compare-note-rail rounded-lg border border-slate-200 p-3">
+                            <p className="mb-1 text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                              Best When
+                            </p>
+                            <p className="text-sm leading-relaxed text-slate-700">
+                              {panel.bestWhen}
+                            </p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  <div className="compare-note-rail rounded-lg border border-slate-200 px-4 py-3 text-xs leading-relaxed text-slate-600">
+                    Quick rule: choose the lower all-in cost if timelines are
+                    acceptable; otherwise choose the lender with better
+                    turnaround certainty and comparable total cost.
+                  </div>
+                </CardContent>
+              </Card>
             </section>
 
-            <Card className="border-slate-200 shadow-sm">
+            <Card className="compare-unique-card border-slate-200 shadow-sm">
               <CardHeader className="border-b border-slate-200 bg-slate-50">
                 <CardTitle className="text-lg font-semibold">
                   Choose Your Next Step by Intent
                 </CardTitle>
                 <CardDescription>
-                  Follow the path that matches your stage: discovery,
-                  validation, or decision.
+                  Follow a clear operating flow from shortlist to sanction with
+                  lower execution risk.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 p-5">
-                <div className="rounded-lg border border-slate-200 p-4">
-                  <p className="mb-2 text-sm font-semibold text-slate-900">
-                    1) I&apos;m still shortlisting lenders
-                  </p>
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/compare-loans/"
+                <div className="grid gap-4 lg:grid-cols-3">
+                  {nextStepIntentPaths.map((path) => (
+                    <div
+                      key={path.stage}
+                      className="compare-stage-card compare-unique-card rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
                     >
-                      Compare Loans Hub
-                    </Link>
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/compare-loans/"
-                    >
-                      Current Home Loan Rates
-                    </Link>
-                  </div>
+                      <div className="mb-3 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900">
+                            <path.icon className="h-4 w-4 text-brand-300" />
+                          </div>
+                          <h3 className="text-sm font-semibold text-slate-900">
+                            {path.intent}
+                          </h3>
+                        </div>
+                        <Badge className="border border-brand-200 bg-brand-50 text-[10px] font-semibold tracking-wide text-brand-700 uppercase">
+                          {path.stage}
+                        </Badge>
+                      </div>
+
+                      <p className="text-xs leading-relaxed text-slate-600">
+                        {path.objective}
+                      </p>
+
+                      <div className="mt-3 space-y-2">
+                        {path.links.map((link) => (
+                          <Link
+                            key={link.href}
+                            className="compare-link-tile group flex items-start justify-between gap-3 rounded-lg border border-slate-200 px-3 py-2 transition-all hover:border-brand-300 hover:bg-brand-50/50"
+                            href={link.href}
+                          >
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-slate-900 group-hover:text-brand-800">
+                                {link.label}
+                              </p>
+                              <p className="text-xs leading-relaxed text-slate-500">
+                                {link.note}
+                              </p>
+                            </div>
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                          </Link>
+                        ))}
+                      </div>
+
+                      <div className="compare-note-rail mt-3 rounded-lg border border-slate-200 p-2.5">
+                        <p className="mb-1 text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                          Checkpoint
+                        </p>
+                        <p className="text-xs leading-relaxed text-slate-600">
+                          {path.checkpoint}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="rounded-lg border border-slate-200 p-4">
-                  <p className="mb-2 text-sm font-semibold text-slate-900">
-                    2) I want to validate affordability
-                  </p>
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/loans/home-loan/"
-                    >
-                      Home Loan EMI Calculator
-                    </Link>
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/emi-calculator/"
-                    >
-                      General EMI Calculator
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-slate-200 p-4">
-                  <p className="mb-2 text-sm font-semibold text-slate-900">
-                    3) I&apos;m close to decision and documentation
-                  </p>
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/guides/home-loan-guide/"
-                    >
-                      Home Loan Guide
-                    </Link>
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/guides/home-loan-first-time-buyers/"
-                    >
-                      First-Time Buyer Checklist
-                    </Link>
-                    <Link
-                      className="text-brand-700 hover:underline"
-                      href="/credit-score/"
-                    >
-                      Credit Score Estimator
-                    </Link>
-                  </div>
+                <div className="compare-note-rail rounded-lg border border-slate-200 px-4 py-3 text-xs leading-relaxed text-slate-600">
+                  Execution order: shortlist lenders, validate affordability,
+                  then finalize sanction readiness with a full fee and policy
+                  review.
                 </div>
               </CardContent>
             </Card>
@@ -1011,7 +1242,7 @@ export default async function ComparisonPage({
                   <AccordionItem
                     key={faq.question}
                     value={`faq-${i}`}
-                    className="rounded-lg border border-slate-200 bg-white px-5"
+                    className="compare-stage-card rounded-lg border border-slate-200 bg-white px-5"
                   >
                     <AccordionTrigger className="text-left font-semibold text-slate-800 hover:no-underline">
                       {faq.question}
@@ -1026,18 +1257,18 @@ export default async function ComparisonPage({
               <FAQSchema faqs={faqs} />
             </section>
 
-            <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-brand-50 shadow-md">
+            <Card className="border-slate-700 bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 shadow-md">
               <CardContent className="space-y-5 p-8">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500 shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/20 shadow-lg ring-1 ring-brand-400/40">
                     <TrendingDown className="h-6 w-6 text-white" />
                   </div>
-                  <h2 className="text-2xl font-semibold text-brand-900">
+                  <h2 className="text-2xl font-semibold text-white">
                     Final Verdict
                   </h2>
                 </div>
 
-                <p className="leading-relaxed text-brand-900">
+                <p className="leading-relaxed text-slate-200">
                   If your top priority is minimizing long-term repayment,{' '}
                   <strong>{lowerRateBank.name}</strong> currently leads on rate.
                   If your top priority is faster process and app-driven
@@ -1059,7 +1290,7 @@ export default async function ComparisonPage({
                   <Button
                     asChild
                     variant="outline"
-                    className="border-brand-500 text-brand-600 hover:bg-brand-50"
+                    className="border-brand-400 text-brand-200 hover:bg-brand-500/20 hover:text-brand-100"
                   >
                     <Link href="/compare-loans/">
                       <Scale className="mr-2 h-4 w-4" />
@@ -1075,10 +1306,10 @@ export default async function ComparisonPage({
 
           <aside className="mb-12 space-y-6 lg:col-span-4">
             <div className="sticky top-24 space-y-6">
-              <Card className="border-slate-200 shadow-md">
-                <CardHeader className="border-b border-slate-200 bg-linear-to-r from-brand-50 to-brand-50">
+              <Card className="compare-unique-card border-slate-200 shadow-md">
+                <CardHeader className="border-b border-slate-200 bg-slate-50">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-700 shadow-sm">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 shadow-sm">
                       <Calculator className="h-5 w-5 text-white" />
                     </div>
                     <CardTitle className="text-base font-semibold">
@@ -1093,7 +1324,7 @@ export default async function ComparisonPage({
                   </p>
                   <Button
                     asChild
-                    className="w-full bg-brand-700 text-white hover:bg-brand-700"
+                    className="w-full bg-slate-900 text-white hover:bg-slate-800"
                   >
                     <Link href="/emi-calculator/">
                       <Calculator className="mr-2 h-4 w-4" />
@@ -1103,34 +1334,77 @@ export default async function ComparisonPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-slate-200">
+              <Card className="compare-unique-card overflow-hidden border-slate-200 shadow-sm">
                 <CardHeader className="border-b border-slate-200 bg-slate-50">
-                  <CardTitle className="flex items-center gap-2 text-base font-semibold">
-                    <Info className="h-4 w-4 text-brand-700" />
-                    Key Takeaways
-                  </CardTitle>
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-100 text-brand-700 ring-1 ring-brand-200">
+                      <Info className="h-4.5 w-4.5" />
+                    </div>
+                    <div className="space-y-1">
+                      <CardTitle className="text-base font-semibold text-slate-900">
+                        Decision Snapshot
+                      </CardTitle>
+                      <CardDescription className="text-xs text-slate-600">
+                        Quick lender-fit signals before you finalize.
+                      </CardDescription>
+                    </div>
+                  </div>
                 </CardHeader>
-                <CardContent className="space-y-3 p-5">
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
-                    <p className="text-sm text-slate-600">
-                      <strong>{lowerRateBank.name}</strong> has the lower
-                      published starting rate by {rateDiff.toFixed(2)}%.
-                    </p>
+                <CardContent className="space-y-4 p-5">
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <div className="rounded-xl border border-brand-100 bg-brand-50/70 p-2.5">
+                      <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                        Rate Edge
+                      </p>
+                      <p className="mt-1 text-sm font-bold text-slate-900">
+                        {rateDiff.toFixed(2)}%
+                      </p>
+                      <p className="text-[11px] text-slate-600">
+                        {lowerRateBank.name}
+                      </p>
+                    </div>
+                    <div className="rounded-xl border border-slate-200 bg-white p-2.5">
+                      <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                        EMI Delta
+                      </p>
+                      <p className="mt-1 text-sm font-bold text-slate-900">
+                        {formatINR(monthlySaving)}
+                      </p>
+                      <p className="text-[11px] text-slate-600">per month</p>
+                    </div>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
-                    <p className="text-sm text-slate-600">
-                      Illustrative savings: {formatINR(lifetimeSaving)} over 20
-                      years (₹50 lakh sample).
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
-                    <p className="text-sm text-slate-600">
-                      Compare sanction terms, reset frequency, and all fees
-                      before locking your lender.
-                    </p>
+
+                  <div className="space-y-2.5 rounded-xl border border-slate-200 bg-white p-3">
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
+                      <p className="text-sm text-slate-700">
+                        <span className="font-semibold text-slate-900">
+                          Cost advantage:
+                        </span>{' '}
+                        {lowerRateBank.name} leads on published starting rate by{' '}
+                        {rateDiff.toFixed(2)}%.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
+                      <p className="text-sm text-slate-700">
+                        <span className="font-semibold text-slate-900">
+                          Tenure impact:
+                        </span>{' '}
+                        Approx {formatINR(lifetimeSaving)} total repayment delta
+                        over 20 years on a ₹50L sample.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
+                      <p className="text-sm text-slate-700">
+                        <span className="font-semibold text-slate-900">
+                          Risk control:
+                        </span>{' '}
+                        Validate reset frequency, fee sheet, insurance bundling,
+                        and prepayment clauses before sanction.
+                      </p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

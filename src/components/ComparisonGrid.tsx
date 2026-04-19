@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,16 +5,10 @@ import { Badge } from '@/components/ui/badge';
 import {
   ArrowRight,
   GitCompare,
+  ShieldCheck,
+  Timer,
   TrendingDown,
-  Clock,
-  Shield,
 } from 'lucide-react';
-
-/**
- * ✅ ENHANCED SEO HUB COMPONENT
- * Generates an internal linking grid for high-CPC bank comparison pairs.
- * Optimized for search engines with proper semantic HTML and rich content.
- */
 
 type Bank = {
   slug: string;
@@ -25,201 +18,224 @@ type Bank = {
   avgRate?: number;
 };
 
-export default function ComparisonGrid() {
-  const topBanks: Bank[] = [
-    {
-      slug: 'sbi',
-      name: 'SBI',
-      fullName: 'State Bank of India',
-      type: 'PSU',
-      avgRate: 8.5,
-    },
-    {
-      slug: 'hdfc',
-      name: 'HDFC',
-      fullName: 'HDFC Bank',
-      type: 'Private',
-      avgRate: 8.6,
-    },
-    {
-      slug: 'icici',
-      name: 'ICICI',
-      fullName: 'ICICI Bank',
-      type: 'Private',
-      avgRate: 8.7,
-    },
-    {
-      slug: 'axis',
-      name: 'Axis',
-      fullName: 'Axis Bank',
-      type: 'Private',
-      avgRate: 8.75,
-    },
-    {
-      slug: 'kotak',
-      name: 'Kotak',
-      fullName: 'Kotak Mahindra Bank',
-      type: 'Private',
-      avgRate: 8.8,
-    },
-    {
-      slug: 'pnb',
-      name: 'PNB',
-      fullName: 'Punjab National Bank',
-      type: 'PSU',
-      avgRate: 8.4,
-    },
-    {
-      slug: 'bob',
-      name: 'BOB',
-      fullName: 'Bank of Baroda',
-      type: 'PSU',
-      avgRate: 8.45,
-    },
-    {
-      slug: 'lic-housing',
-      name: 'LIC Housing',
-      fullName: 'LIC Housing Finance',
-      type: 'NBFC',
-      avgRate: 8.5,
-    },
-    {
-      slug: 'bajaj',
-      name: 'Bajaj',
-      fullName: 'Bajaj Finserv',
-      type: 'NBFC',
-      avgRate: 9.0,
-    },
-    {
-      slug: 'idfc-first',
-      name: 'IDFC First',
-      fullName: 'IDFC First Bank',
-      type: 'Private',
-      avgRate: 8.75,
-    }
-  ];
+type ComparisonPair = {
+  b1: Bank;
+  b2: Bank;
+  rateDiff: number | null;
+  isCrossType: boolean;
+  isStrategic: boolean;
+};
 
-  // Generate comparison pairs
-  const pairs = [];
-  for (let i = 0; i < topBanks.length; i++) {
-    for (let j = i + 1; j < topBanks.length; j++) {
-      pairs.push({ b1: topBanks[i], b2: topBanks[j] });
+const topBanks: Bank[] = [
+  {
+    slug: 'sbi',
+    name: 'SBI',
+    fullName: 'State Bank of India',
+    type: 'PSU',
+    avgRate: 8.5,
+  },
+  {
+    slug: 'hdfc',
+    name: 'HDFC',
+    fullName: 'HDFC Bank',
+    type: 'Private',
+    avgRate: 8.6,
+  },
+  {
+    slug: 'icici',
+    name: 'ICICI',
+    fullName: 'ICICI Bank',
+    type: 'Private',
+    avgRate: 8.7,
+  },
+  {
+    slug: 'axis',
+    name: 'Axis',
+    fullName: 'Axis Bank',
+    type: 'Private',
+    avgRate: 8.75,
+  },
+  {
+    slug: 'kotak',
+    name: 'Kotak',
+    fullName: 'Kotak Mahindra Bank',
+    type: 'Private',
+    avgRate: 8.8,
+  },
+  {
+    slug: 'pnb',
+    name: 'PNB',
+    fullName: 'Punjab National Bank',
+    type: 'PSU',
+    avgRate: 8.4,
+  },
+  {
+    slug: 'bob',
+    name: 'BOB',
+    fullName: 'Bank of Baroda',
+    type: 'PSU',
+    avgRate: 8.45,
+  },
+  {
+    slug: 'lic-housing',
+    name: 'LIC Housing',
+    fullName: 'LIC Housing Finance',
+    type: 'NBFC',
+    avgRate: 8.5,
+  },
+  {
+    slug: 'bajaj',
+    name: 'Bajaj',
+    fullName: 'Bajaj Finserv',
+    type: 'NBFC',
+    avgRate: 9.0,
+  },
+  {
+    slug: 'idfc-first',
+    name: 'IDFC First',
+    fullName: 'IDFC First Bank',
+    type: 'Private',
+    avgRate: 8.75,
+  },
+];
+
+function getRateDifference(b1: Bank, b2: Bank): number | null {
+  if (b1.avgRate && b2.avgRate) return Number(Math.abs(b1.avgRate - b2.avgRate).toFixed(2));
+  return null;
+}
+
+function isCrossTypeComparison(b1: Bank, b2: Bank): boolean {
+  return (
+    (b1.type === 'PSU' && b2.type === 'Private') ||
+    (b1.type === 'Private' && b2.type === 'PSU')
+  );
+}
+
+function buildPairs(banks: Bank[]): ComparisonPair[] {
+  const pairs: ComparisonPair[] = [];
+
+  for (let i = 0; i < banks.length; i++) {
+    for (let j = i + 1; j < banks.length; j++) {
+      const b1 = banks[i];
+      const b2 = banks[j];
+      const rateDiff = getRateDifference(b1, b2);
+      const isCrossType = isCrossTypeComparison(b1, b2);
+
+      pairs.push({
+        b1,
+        b2,
+        rateDiff,
+        isCrossType,
+        isStrategic: isCrossType || (rateDiff !== null && rateDiff >= 0.25),
+      });
     }
   }
 
-  // Helper to determine if comparison is cross-type (PSU vs Private)
-  const isCrossTypeComparison = (b1: Bank, b2: Bank) => {
-    return (
-      (b1.type === 'PSU' && b2.type === 'Private') ||
-      (b1.type === 'Private' && b2.type === 'PSU')
-    );
-  };
+  return pairs.sort(
+    (a, b) =>
+      Number(b.isStrategic) - Number(a.isStrategic) ||
+      Number(b.isCrossType) - Number(a.isCrossType) ||
+      (a.rateDiff ?? 0) - (b.rateDiff ?? 0),
+  );
+}
 
-  // Helper to calculate rate difference
-  const getRateDifference = (b1: Bank, b2: Bank) => {
-    if (b1.avgRate && b2.avgRate) {
-      return Math.abs(b1.avgRate - b2.avgRate).toFixed(2);
-    }
-    return null;
-  };
+export default function ComparisonGrid() {
+  const pairs = buildPairs(topBanks);
 
   return (
-    <section className="py-8" aria-label="Bank Loan Comparison Directory">
-      {/* Section Header */}
-      <div className="mb-8 text-center max-w-3xl mx-auto">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-3">
+    <section
+      className="compare-grid-shell px-4 py-8 sm:px-6"
+      aria-label="Bank Loan Comparison Directory"
+    >
+      <div className="mx-auto mb-8 max-w-3xl text-center">
+        <h2 className="mb-3 text-2xl font-semibold text-slate-900">
           Compare {pairs.length}+ Bank Combinations
         </h2>
-        <p className="text-sm text-slate-600 leading-relaxed">
-          Detailed side-by-side comparisons of home loan interest rates,
-          processing fees, approval timelines, and hidden charges. Updated for
-          2026.
+        <p className="text-sm leading-relaxed text-slate-600">
+          Enterprise-style decision pages covering interest-rate spread, fee
+          exposure, approval timeline, and borrower-fit context. Updated for{' '}
+          {new Date().getFullYear()}.
         </p>
       </div>
 
-      {/* Comparison Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
         {pairs.map((pair) => {
-          const rateDiff = getRateDifference(pair.b1, pair.b2);
-          const isCrossType = isCrossTypeComparison(pair.b1, pair.b2);
-
           return (
             <Card
               key={`${pair.b1.slug}-${pair.b2.slug}`}
-              className="group border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all duration-300 overflow-hidden bg-white"
+              className="compare-unique-card group overflow-hidden border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg"
             >
               <CardContent className="p-5">
-                {/* Header Section */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="mb-4 flex items-start justify-between gap-3">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
                       <Badge
                         variant="secondary"
-                        className="text-[10px] font-semibold uppercase tracking-wider bg-slate-100 text-slate-600 px-2 py-0.5"
+                        className="bg-slate-100 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-slate-700 uppercase"
                       >
                         {pair.b1.type} vs {pair.b2.type}
                       </Badge>
-                      {isCrossType && (
-                        <Badge className="text-[10px] font-semibold bg-amber-100 text-amber-700 px-2 py-0.5">
-                          Popular
+                      {pair.isStrategic && (
+                        <Badge className="border border-brand-200 bg-brand-50 px-2 py-0.5 text-[10px] font-semibold text-brand-700 uppercase">
+                          Strategic Match
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-lg font-semibold text-slate-900 leading-tight">
+                    <h3 className="text-lg leading-tight font-semibold text-slate-900">
                       {pair.b1.name}{' '}
-                      <span className="text-brand-700 font-extrabold">vs</span>{' '}
+                      <span className="font-extrabold text-brand-700">vs</span>{' '}
                       {pair.b2.name}
                     </h3>
                   </div>
 
-                  <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-700 group-hover:bg-brand-700 group-hover:text-white transition-all duration-300 shrink-0 shadow-sm">
-                    <GitCompare className="w-5 h-5" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-brand-300 shadow-sm transition-all duration-300 group-hover:bg-brand-700 group-hover:text-white">
+                    <GitCompare className="h-5 w-5" />
                   </div>
                 </div>
 
-                {/* Key Stats */}
                 <div className="mb-4 space-y-2">
-                  {rateDiff && (
+                  {pair.rateDiff !== null && (
                     <div className="flex items-center gap-2 text-xs">
-                      <TrendingDown className="w-3.5 h-3.5 text-brand-700" />
+                      <TrendingDown className="h-3.5 w-3.5 text-brand-700" />
                       <span className="text-slate-600">
                         Rate difference:{' '}
-                        <strong className="text-brand-700">{rateDiff}%</strong>
+                        <strong className="text-brand-700">
+                          {pair.rateDiff.toFixed(2)}%
+                        </strong>
                       </span>
                     </div>
                   )}
                   <div className="flex items-center gap-2 text-xs">
-                    <Clock className="w-3.5 h-3.5 text-blue-600" />
+                    <Timer className="h-3.5 w-3.5 text-brand-700" />
                     <span className="text-slate-600">
                       Approval time compared
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
-                    <Shield className="w-3.5 h-3.5 text-purple-600" />
+                    <ShieldCheck className="h-3.5 w-3.5 text-brand-700" />
                     <span className="text-slate-600">
                       Processing fees analyzed
                     </span>
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                <p className="mb-4 text-sm leading-relaxed text-slate-600">
                   Compare {pair.b1.fullName} and {pair.b2.fullName} home loan
-                  rates, eligibility criteria, and real customer approval rates.
+                  rates with fee sensitivity, servicing quality, and borrower
+                  eligibility context.
                 </p>
 
-                {/* CTA Button */}
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-slate-200 text-slate-700 hover:bg-brand-700 hover:text-white hover:border-brand-700 font-semibold h-10 transition-all flex items-center justify-center group/btn"
+                  className="group/btn h-10 w-full border-slate-300 font-semibold text-slate-700 transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white"
                 >
                   <Link
                     href={`/compare/${pair.b1.slug}-vs-${pair.b2.slug}/`}
                     title={`Compare ${pair.b1.fullName} vs ${pair.b2.fullName} home loan rates`}
                   >
                     <span>View Comparison</span>
-                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                   </Link>
                 </Button>
               </CardContent>
@@ -228,17 +244,15 @@ export default function ComparisonGrid() {
         })}
       </div>
 
-      {/* Bottom Info */}
-      <div className="mt-10 text-center bg-slate-50 border border-slate-200 rounded-xl p-6">
-        <p className="text-sm text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          <strong className="text-slate-900">💡 Pro Tip:</strong> PSU banks
-          (SBI, PNB, BOB) typically offer lower long-term rates, while private
-          banks (HDFC, ICICI, Axis) provide faster approvals and digital
-          convenience. Choose based on your priority.
+      <div className="compare-note-rail mt-10 rounded-xl border border-slate-200 p-6 text-center">
+        <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600">
+          <strong className="text-slate-900">Decision heuristic:</strong> PSU
+          lenders often stay cost-competitive over long tenures; private
+          lenders can lead on turnaround and digital experience. Optimize for
+          your true bottleneck.
         </p>
       </div>
 
-      {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

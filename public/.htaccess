@@ -101,6 +101,7 @@ RewriteRule ^calculators/swp-calculator/?$ /swp-calculator/ [R=301,L]
 RewriteRule ^home-loan-calculator/?$ /loans/home-loan/ [R=301,L]
 RewriteRule ^personal-loan-calculator/?$ /loans/personal-loan/ [R=301,L]
 RewriteRule ^car-loan-calculator/?$ /loans/car-loan/ [R=301,L]
+RewriteRule ^home-loan-rates/?$ /compare-loans/ [R=301,L]
 
 RewriteRule ^guides/emi-calculator-guide-2025/?$ /guides/emi-calculator-guide/ [R=301,L]
 RewriteRule ^guides/sip-investment-strategies/?$ /guides/sip-investment-guide/ [R=301,L]

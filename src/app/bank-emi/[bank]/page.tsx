@@ -25,6 +25,7 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -42,13 +43,16 @@ import {
 import {
   AlertTriangle,
   ArrowRight,
+  Building2,
   CalendarClock,
-  CheckCircle2,
+  Clock3,
   FileCheck2,
+  Gauge,
   HelpCircle,
   IndianRupee,
   ListChecks,
   Percent,
+  Scale,
   ShieldCheck,
   TrendingUp,
 } from 'lucide-react';
@@ -56,6 +60,17 @@ import {
 /* ---------------- LOGIC ---------------- */
 export async function generateStaticParams() {
   return banks.map((bank) => ({ bank: bank.slug }));
+}
+
+function formatRate(value: number): string {
+  return `${value.toFixed(2)}%`;
+}
+
+function formatUpdatedLabel(value: string): string {
+  if (value === 'N/A') return value;
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return parsed.toISOString().slice(0, 10);
 }
 
 export async function generateMetadata({
@@ -86,7 +101,7 @@ export async function generateMetadata({
       `${bank.name} home loan tax benefits`,
       `${bank.name} home loan interest rate 2026`,
       `Tax Year 2026-27 ${bank.name} EMI`,
-      `${bank.name} home loan calculator 2026-27`
+      `${bank.name} home loan calculator 2026-27`,
     ],
     alternates: {
       canonical: url,
@@ -124,11 +139,92 @@ export default async function BankPage({
   const latestUpdatedAt = liveRates.length > 0 ? liveRates[0].updatedAt : 'N/A';
 
   const competitorSlugs = getCompetitors(bank.slug);
-  const competitorBanks = banks.filter((b) => competitorSlugs.includes(b.slug));
+  const fallbackCompetitors = banks
+    .filter((b) => b.slug !== bank.slug)
+    .sort((a, b) => Math.abs(a.rate - bank.rate) - Math.abs(b.rate - bank.rate))
+    .slice(0, 8)
+    .map((b) => b.slug);
+
+  const relatedCompetitorSlugs =
+    competitorSlugs.length > 0 ? competitorSlugs : fallbackCompetitors;
+
+  const relatedCompetitorBanks = banks
+    .filter((b) => relatedCompetitorSlugs.includes(b.slug))
+    .slice(0, 8);
 
   const bankHomeRate = getLatestHomeRate(bank.slug, bank.rate);
   const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
   const avgRate = ((bankHomeRate + bankMaxRate) / 2).toFixed(2);
+  const bankCorridor = Number((bankMaxRate - bankHomeRate).toFixed(2));
+
+  const allBanksWithLiveRates = banks.map((entry) => {
+    const startRate = getLatestHomeRate(entry.slug, entry.rate);
+    const upperRate = Math.max(entry.maxRate, startRate);
+    return {
+      ...entry,
+      startRate,
+      upperRate,
+      corridor: Number((upperRate - startRate).toFixed(2)),
+    };
+  });
+  const rankedByStartRate = [...allBanksWithLiveRates].sort(
+    (a, b) => a.startRate - b.startRate || a.upperRate - b.upperRate,
+  );
+  const marketRankBySlug = new Map(
+    rankedByStartRate.map((entry, index) => [entry.slug, index + 1]),
+  );
+
+  const marketBestStart = Math.min(...allBanksWithLiveRates.map((b) => b.startRate));
+  const marketAverageStart =
+    allBanksWithLiveRates.reduce((sum, b) => sum + b.startRate, 0) /
+    allBanksWithLiveRates.length;
+  const cheaperOptionsCount = allBanksWithLiveRates.filter(
+    (b) => b.slug !== bank.slug && b.startRate < bankHomeRate,
+  ).length;
+
+  const benchmarkRows = [
+    {
+      bank,
+      startRate: bankHomeRate,
+      upperRate: bankMaxRate,
+      corridor: bankCorridor,
+      isCurrent: true,
+    },
+    ...relatedCompetitorBanks.map((comp) => {
+      const startRate = getLatestHomeRate(comp.slug, comp.rate);
+      const upperRate = Math.max(comp.maxRate, startRate);
+      return {
+        bank: comp,
+        startRate,
+        upperRate,
+        corridor: Number((upperRate - startRate).toFixed(2)),
+        isCurrent: false,
+      };
+    }),
+  ].sort((a, b) => a.startRate - b.startRate);
+
+  const relatedSidebarRows = relatedCompetitorBanks
+    .map((other) => {
+      const metrics = allBanksWithLiveRates.find((entry) => entry.slug === other.slug);
+      const startRate = metrics?.startRate ?? other.rate;
+      const upperRate = metrics?.upperRate ?? Math.max(other.maxRate, startRate);
+      const corridor =
+        metrics?.corridor ?? Number((upperRate - startRate).toFixed(2));
+      const deltaVsCurrent = Number((startRate - bankHomeRate).toFixed(2));
+
+      return {
+        ...other,
+        startRate,
+        upperRate,
+        corridor,
+        deltaVsCurrent,
+        rank: marketRankBySlug.get(other.slug) ?? null,
+      };
+    })
+    .sort((a, b) => a.startRate - b.startRate || a.upperRate - b.upperRate);
+  const relatedLowerStartCount = relatedSidebarRows.filter(
+    (row) => row.deltaVsCurrent < 0,
+  ).length;
 
   const BANK_SOURCE_URLS: Record<string, string> = {
     sbi: 'https://sbi.co.in/',
@@ -149,7 +245,7 @@ export default async function BankPage({
         name: `What is the current home loan interest rate of ${bank.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${bank.name} home loan rates typically start from ${bank.rate}% and may go up to ${bank.maxRate}% depending on credit score, LTV ratio, and borrower profile (Tax Year 2026-27).`,
+          text: `${bank.name} home loan rates typically start from ${formatRate(bankHomeRate)} and may go up to ${formatRate(bankMaxRate)} depending on credit score, LTV ratio, and borrower profile (Tax Year 2026-27).`,
         },
       },
       {
@@ -183,20 +279,50 @@ export default async function BankPage({
           '@type': 'Answer',
           text: 'No. Tax deductions under Section 80C (principal) and Section 24(b) (interest) are available only if you opt for the Old Regime. The New Regime is the default from Tax Year 2026-27.',
         },
-      }
+      },
     ],
   };
 
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    itemListElement: competitorBanks.slice(0, 5).map((comp, index) => ({
+    itemListElement: relatedCompetitorBanks.slice(0, 5).map((comp, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: `${comp.name} EMI Calculator`,
       url: `https://fincado.com/bank-emi/${comp.slug}/`,
     })),
   };
+
+  const borrowerFitBlocks = [
+    {
+      title: 'Rate-First Borrowers',
+      icon: Percent,
+      fit: `Strong when ${bank.name} remains near the lower-rate cluster`,
+      action:
+        'Run affordability scenarios at both starting and upper-band rates before you lock your lender.',
+      risk:
+        'Small headline-rate advantage can disappear after add-on fees and slower reset behavior.',
+    },
+    {
+      title: 'Fast Disbursal Need',
+      icon: Clock3,
+      fit: 'Better for cases where process SLAs and document turnaround are critical',
+      action:
+        'Validate legal/valuation queue times and branch execution quality before paying processing fees.',
+      risk:
+        'Faster sanction does not always mean better lifetime borrowing cost.',
+    },
+    {
+      title: 'Long-Tenure Planning',
+      icon: Scale,
+      fit: 'Useful when tenure optimization and periodic prepayment are part of your plan',
+      action:
+        'Track annual prepayment capacity and rate-reset windows as part of your repayment strategy.',
+      risk:
+        'Ignoring reset clauses can push your effective cost above initial projections.',
+    },
+  ];
 
   return (
     <main className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -216,7 +342,7 @@ export default async function BankPage({
           {
             name: bank.name,
             url: `https://fincado.com/bank-emi/${bank.slug}/`,
-          }
+          },
         ]}
       />
       <CalculatorSchema
@@ -225,114 +351,106 @@ export default async function BankPage({
         url={`https://fincado.com/bank-emi/${bank.slug}/`}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-        {/* --- LEFT COLUMN (Content) --- */}
-        <div className="lg:col-span-8 min-w-0">
-          <header className="my-10">
-            {/* Tax Year 2026-27 Banner */}
-            <TaxUpdateBanner />
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="min-w-0 lg:col-span-8">
+          <TaxUpdateBanner />
 
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-sky-100 text-sky-700 hover:bg-sky-200 px-3 py-1 font-semibold uppercase tracking-wider"
-            >
-              Updated for Tax Year 2026-27
-            </Badge>
+          <header className="my-10 space-y-6">
+            <div className="overflow-hidden rounded-3xl border border-slate-700 bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 p-7 shadow-xl sm:p-9">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge className="border border-brand-300 bg-brand-500/20 px-3 py-1 text-[11px] font-semibold tracking-wide text-brand-200 uppercase">
+                    Updated for Tax Year 2026-27
+                  </Badge>
+                  <Badge className="border border-slate-500 bg-slate-800 px-3 py-1 text-[11px] font-semibold tracking-wide text-slate-200 uppercase">
+                    {bank.category ?? 'Bank'} Lending Desk
+                  </Badge>
+                </div>
+                <div className="no-print">
+                  <ShareTools title={`${bank.name} EMI Calculator`} />
+                </div>
+              </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight leading-tight mb-4">
-              {bank.name} EMI Calculator
-            </h1>
+              <h1 className="text-3xl leading-tight font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                {bank.name} EMI Calculator
+              </h1>
 
-            <div className="mb-6">
-              <ShareTools title={`${bank.name} EMI Calculator`} />
-            </div>
+              <p className="mt-4 max-w-4xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                Model monthly EMI, interest outgo, and tenure trade-offs with a
+                lender-specific rate corridor. Use this page as a decision desk,
+                not a one-click estimate.
+              </p>
 
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Use this page to calculate your monthly EMI, total interest outgo,
-              and repayment strategy for <strong>{bank.name}</strong> home
-              loans. Current indicative rates range between{' '}
-              <strong className="text-brand-700">{bankHomeRate}%</strong> and{' '}
-              <strong className="text-brand-700">{bankMaxRate}%</strong>.
-            </p>
-
-            <p className="text-sm text-slate-600 mt-2">
-              Home loan tax benefits (Section 80C &amp; 24(b)) are available
-              only if you opt for the <strong>Old Regime</strong> in Tax Year
-              2026-27.
-            </p>
-            <p className="text-sm text-slate-500 mt-2">
-              Latest tracked home-loan rate refresh: {latestUpdatedAt}
-            </p>
-
-            <div className="mt-6 grid sm:grid-cols-3 gap-3">
-              <Card className="border-slate-200">
-                <CardContent className="p-4">
-                  <p className="text-xs text-slate-500">Rate starts from</p>
-                  <p className="text-xl font-semibold text-brand-700">
-                    {bankHomeRate}%
+              <div className="mt-7 grid grid-cols-2 gap-3 md:grid-cols-4">
+                <div className="rounded-xl border border-slate-600 bg-slate-800/80 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-400 uppercase">
+                    Start Rate
                   </p>
-                </CardContent>
-              </Card>
-              <Card className="border-slate-200">
-                <CardContent className="p-4">
-                  <p className="text-xs text-slate-500">Typical upper band</p>
-                  <p className="text-xl font-semibold text-slate-900">
-                    {bankMaxRate}%
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    {formatRate(bankHomeRate)}
                   </p>
-                </CardContent>
-              </Card>
-              <Card className="border-slate-200">
-                <CardContent className="p-4">
-                  <p className="text-xs text-slate-500">
-                    Mid-rate for planning
+                </div>
+                <div className="rounded-xl border border-slate-600 bg-slate-800/80 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-400 uppercase">
+                    Upper Band
                   </p>
-                  <p className="text-xl font-semibold text-slate-900">
-                    {avgRate}%
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    {formatRate(bankMaxRate)}
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+                <div className="rounded-xl border border-slate-600 bg-slate-800/80 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-400 uppercase">
+                    Rate Corridor
+                  </p>
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    {formatRate(bankCorridor)}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-600 bg-slate-800/80 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-400 uppercase">
+                    Market Delta
+                  </p>
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    {(bankHomeRate - marketAverageStart).toFixed(2)}%
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs leading-relaxed text-slate-300">
+                Latest tracked home-loan refresh: {formatUpdatedLabel(latestUpdatedAt)}.
+                Tax deductions under Section 80C and 24(b) remain available only in the Old Regime.
+              </p>
             </div>
           </header>
 
           <Card className="mb-10 border-slate-200">
-            <CardHeader>
-              <CardTitle className="text-lg">Jump to sections</CardTitle>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg text-slate-900">Decision Map</CardTitle>
+              <CardDescription>
+                Navigate the sections below in the same order lenders evaluate your file.
+              </CardDescription>
             </CardHeader>
-            <CardContent className="grid sm:grid-cols-2 gap-2 text-sm">
-              <Link
-                className="text-blue-600 hover:underline font-medium"
-                href="#emi-calculator"
-              >
-                EMI Calculator
-              </Link>
-              <Link
-                className="text-blue-600 hover:underline font-medium"
-                href="#how-to-use"
-              >
-                How to use this calculator
-              </Link>
-              <Link
-                className="text-blue-600 hover:underline font-medium"
-                href="#eligibility-factors"
-              >
-                Eligibility & pricing factors
-              </Link>
-              <Link
-                className="text-blue-600 hover:underline font-medium"
-                href="#compare-banks"
-              >
-                Compare with other banks
-              </Link>
-              <Link
-                className="text-blue-600 hover:underline font-medium"
-                href="#faqs"
-              >
-                FAQs
-              </Link>
+            <CardContent className="grid gap-2 text-sm sm:grid-cols-2">
+              {[
+                ['EMI Calculator', '#emi-calculator'],
+                ['Execution Playbook', '#execution-playbook'],
+                ['Borrower Fit Matrix', '#borrower-fit'],
+                ['Eligibility Levers', '#eligibility-factors'],
+                ['Benchmark vs Other Banks', '#compare-banks'],
+                ['FAQs', '#faqs'],
+              ].map(([label, href]) => (
+                <Link
+                  key={href}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 font-medium text-slate-700 transition-colors hover:border-brand-300 hover:text-brand-700"
+                  href={href}
+                >
+                  {label}
+                </Link>
+              ))}
             </CardContent>
           </Card>
 
-          <div className="mb-10 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-center no-print">
+          <div className="no-print mb-10 flex justify-center rounded-lg border border-slate-100 bg-slate-50 p-2">
             <AdSlot
               id="bank-top-leaderboard"
               type="leaderboard"
@@ -342,78 +460,69 @@ export default async function BankPage({
 
           <Card
             id="emi-calculator"
-            className="mb-12 overflow-hidden border-none shadow-none scroll-mt-24"
+            className="mb-12 scroll-mt-24 overflow-hidden border-slate-200 shadow-sm"
           >
-            <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
-              <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
-                <Percent className="h-5 w-5 text-brand-700" />
+            <CardHeader className="border-b border-slate-200 bg-slate-50 pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-slate-800">
+                <Gauge className="h-5 w-5 text-brand-700" />
                 Calculate Your EMI
               </CardTitle>
+              <CardDescription>
+                Use lender-specific rate assumptions and stress-test for worst-case affordability.
+              </CardDescription>
             </CardHeader>
-            <CardContent className="p-2 sm:p-6 bg-white">
+            <CardContent className="bg-white p-2 sm:p-6">
               <EMIClient defaultRate={bankHomeRate} />
 
-              <div className="mt-6 bg-blue-50/50 border border-blue-100 rounded-xl p-5">
+              <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50/60 p-5">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 bg-blue-100 rounded-full shrink-0">
-                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                  <div className="shrink-0 rounded-full bg-blue-100 p-2">
+                    <ShieldCheck className="h-5 w-5 text-blue-600" />
                   </div>
 
                   <div className="space-y-2">
                     <h4 className="text-sm font-semibold text-blue-900">
-                      Why does your final rate differ from advertised rates?
+                      Why does your sanctioned rate differ from published rates?
                     </h4>
-                    <p className="text-sm text-blue-800/80 leading-relaxed">
-                      Final loan pricing is based on credit score, income
-                      stability, employer profile, LTV ratio, repayment track
-                      record, and product type. Use a slightly higher test rate
-                      to stress-test affordability.
+                    <p className="text-sm leading-relaxed text-blue-800/90">
+                      Final pricing depends on credit score, income consistency,
+                      LTV, employer profile, and underwriting policy. Always test
+                      EMI at both starting and upper-band assumptions.
                     </p>
-                    <p className="text-xs text-blue-600 mt-2">
-                      {RATE_DISCLAIMER}
-                    </p>
-                    <p className="text-xs text-blue-600 mt-2">
-                      Tax benefits under Section 80C and 24(b) available only in
-                      Old Regime (Tax Year 2026-27).
-                    </p>
+                    <p className="text-xs text-blue-700">{RATE_DISCLAIMER}</p>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <section id="how-to-use" className="mb-12 scroll-mt-24">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+          <section id="execution-playbook" className="mb-12 scroll-mt-24">
+            <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-900">
               <ListChecks className="h-6 w-6 text-indigo-600" />
-              How to use this {bank.name} EMI calculator (correctly)
+              Execution Playbook for {bank.name}
             </h2>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               {[
                 {
-                  title: '1) Enter accurate loan amount',
-                  desc: 'Use actual sanctioned amount, not property value. Include top-up only if approved.',
+                  title: '1) Start with sanctioned amount, not property value',
+                  desc: 'Use your expected disbursal amount to avoid underestimating EMI and total outgo.',
                 },
                 {
-                  title: '2) Test with two rates',
-                  desc: `Run once at ${bank.rate}% and once near ${bank.maxRate}% to estimate best/worst-case EMI.`,
+                  title: '2) Run best-case and stress-case rates',
+                  desc: `Test at ${formatRate(bankHomeRate)} and around ${formatRate(bankMaxRate)} to understand band risk.`,
                 },
                 {
-                  title: '3) Compare tenures',
-                  desc: 'A longer tenure lowers EMI but increases total interest. Evaluate total cost, not EMI alone.',
+                  title: '3) Compare tenure by total repayment',
+                  desc: 'Lower EMI alone is not enough. Evaluate full lifetime cost before selecting tenure.',
                 },
                 {
-                  title: '4) Plan prepayments',
-                  desc: 'Even 1 extra EMI/year can materially reduce total interest and repayment duration.',
-                }
+                  title: '4) Plan annual prepayments upfront',
+                  desc: 'A disciplined prepayment schedule materially reduces total interest and loan life.',
+                },
               ].map((item) => (
-                <Card
-                  key={item.title}
-                  className="border-l-4 border-l-indigo-500 shadow-sm"
-                >
+                <Card key={item.title} className="border-l-4 border-l-indigo-500 shadow-sm">
                   <CardContent className="p-4">
-                    <h4 className="font-semibold text-slate-900 mb-1">
-                      {item.title}
-                    </h4>
+                    <h4 className="mb-1 font-semibold text-slate-900">{item.title}</h4>
                     <p className="text-sm text-slate-600">{item.desc}</p>
                   </CardContent>
                 </Card>
@@ -421,80 +530,78 @@ export default async function BankPage({
             </div>
           </section>
 
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
-              <CheckCircle2 className="h-6 w-6 text-sky-600" />
-              Why Choose {bank.name} for Your Home Loan?
+          <section id="borrower-fit" className="mb-12 scroll-mt-24">
+            <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-900">
+              <Building2 className="h-6 w-6 text-brand-700" />
+              Borrower Fit Matrix
             </h2>
-            <p className="text-slate-600 mb-6 leading-relaxed">
-              {bank.name} offers competitive pricing and broad borrower
-              coverage. Key advantages to evaluate before applying:
-            </p>
-
-            <div className="grid sm:grid-cols-2 gap-4">
-              {[
-                {
-                  title: 'Competitive interest range',
-                  desc: `Indicative spread: ${bank.rate}% to ${bank.maxRate}% based on borrower profile and risk band.`,
-                },
-                {
-                  title: 'Flexible tenure options',
-                  desc: 'Tenure options up to 30 years can improve short-term affordability.',
-                },
-                {
-                  title: 'Transparent charges',
-                  desc: 'Review sanction letter for processing fee, legal valuation, and admin charges.',
-                },
-                {
-                  title: 'Rate reset opportunities',
-                  desc: 'Existing borrowers may negotiate spreads after score/income improvements.',
-                }
-              ].map((item) => (
-                <Card
-                  key={item.title}
-                  className="border-l-4 border-l-brand-400 shadow-sm"
-                >
-                  <CardContent className="p-4">
-                    <h4 className="font-semibold text-slate-900 mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-sm text-slate-600">{item.desc}</p>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="grid gap-4 md:grid-cols-3">
+              {borrowerFitBlocks.map((block) => {
+                const Icon = block.icon;
+                return (
+                  <Card key={block.title} className="border-slate-200 shadow-sm">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="flex items-center gap-2 text-base text-slate-900">
+                        <Icon className="h-4.5 w-4.5 text-brand-700" />
+                        {block.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-sm">
+                      <p className="text-slate-700">
+                        <span className="font-semibold text-slate-900">Fit: </span>
+                        {block.fit}
+                      </p>
+                      <p className="text-slate-700">
+                        <span className="font-semibold text-slate-900">Action: </span>
+                        {block.action}
+                      </p>
+                      <p className="text-amber-800">
+                        <span className="font-semibold text-amber-900">Risk: </span>
+                        {block.risk}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </section>
 
           <section id="eligibility-factors" className="mb-12 scroll-mt-24">
-            <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <h3 className="mb-4 flex items-center gap-2 text-xl font-semibold text-slate-900">
               <IndianRupee className="h-5 w-5 text-brand-700" />
-              What affects your {bank.name} home loan EMI and approval?
+              What affects EMI and approval quality?
             </h3>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid gap-4 md:grid-cols-3">
               <Card className="border-slate-200">
                 <CardContent className="p-4">
-                  <p className="font-semibold text-slate-900">Credit profile</p>
-                  <p className="text-sm text-slate-600 mt-1">
-                    Higher score usually means lower spread and better sanction
-                    odds.
+                  <p className="font-semibold text-slate-900">Credit Profile</p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Higher score generally improves spread and sanction confidence.
+                  </p>
+                  <p className="mt-2 text-xs font-medium text-slate-500">
+                    Improve by: clearing revolving dues before application.
                   </p>
                 </CardContent>
               </Card>
               <Card className="border-slate-200">
                 <CardContent className="p-4">
                   <p className="font-semibold text-slate-900">Income & FOIR</p>
-                  <p className="text-sm text-slate-600 mt-1">
-                    Banks evaluate existing EMIs and disposable income before
-                    deciding limit.
+                  <p className="mt-1 text-sm text-slate-600">
+                    Lenders evaluate existing EMIs vs disposable income to set limits.
+                  </p>
+                  <p className="mt-2 text-xs font-medium text-slate-500">
+                    Improve by: reducing unsecured obligations pre-sanction.
                   </p>
                 </CardContent>
               </Card>
               <Card className="border-slate-200">
                 <CardContent className="p-4">
                   <p className="font-semibold text-slate-900">Property & LTV</p>
-                  <p className="text-sm text-slate-600 mt-1">
-                    Property type, builder quality, and LTV ratio impact pricing
-                    and approval.
+                  <p className="mt-1 text-sm text-slate-600">
+                    Property quality and LTV ratio influence pricing and approval terms.
+                  </p>
+                  <p className="mt-2 text-xs font-medium text-slate-500">
+                    Improve by: cleaner title documents and stronger down payment.
                   </p>
                 </CardContent>
               </Card>
@@ -502,63 +609,61 @@ export default async function BankPage({
           </section>
 
           <section id="compare-banks" className="mb-12 scroll-mt-24">
-            <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <h3 className="mb-4 flex items-center gap-2 text-xl font-semibold text-slate-900">
               <TrendingUp className="h-5 w-5 text-indigo-600" />
-              Compare {bank.name} vs Other Banks
+              Benchmark {bank.name} vs Similar Lenders
             </h3>
-            <p className="text-slate-600 mb-6">
-              Compare pricing bands side-by-side before application:
+            <p className="mb-6 text-slate-600">
+              Ranked by starting rate with upper-band and corridor comparison.
             </p>
 
-            <div className="rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+            <div className="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
               <Table>
                 <TableHeader className="bg-slate-50">
                   <TableRow>
-                    <TableHead className="font-semibold text-slate-700">
-                      Bank
-                    </TableHead>
-                    <TableHead className="font-semibold text-slate-700">
-                      Interest Rate Range
-                    </TableHead>
-                    <TableHead className="font-semibold text-slate-700">
-                      Max Tenure
-                    </TableHead>
+                    <TableHead className="font-semibold text-slate-700">Rank</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Bank</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Start</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Upper</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Corridor</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow className="bg-brand-50 hover:bg-brand-100">
-                    <TableCell className="font-semibold text-slate-900">
-                      {bank.name}
-                    </TableCell>
-                    <TableCell className="font-semibold text-brand-700">
-                      {bankHomeRate}% - {bankMaxRate}%
-                    </TableCell>
-                    <TableCell>30 Years</TableCell>
-                  </TableRow>
-
-                  {competitorBanks.map((comp) => (
-                    <TableRow key={comp.slug}>
-                      <TableCell>
-                        <Link
-                          href={`/bank-emi/${comp.slug}/`}
-                          className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
-                        >
-                          {comp.name}
-                        </Link>
-                      </TableCell>
-                      <TableCell>
-                        {getLatestHomeRate(comp.slug, comp.rate)}% -{' '}
-                        {Math.max(
-                          comp.maxRate,
-                          getLatestHomeRate(comp.slug, comp.rate),
+                  {benchmarkRows.map((row, index) => (
+                    <TableRow
+                      key={row.bank.slug}
+                      className={row.isCurrent ? 'bg-brand-50 hover:bg-brand-100' : ''}
+                    >
+                      <TableCell className="font-semibold text-slate-700">#{index + 1}</TableCell>
+                      <TableCell className="font-medium text-slate-900">
+                        {row.isCurrent ? (
+                          row.bank.name
+                        ) : (
+                          <Link
+                            href={`/bank-emi/${row.bank.slug}/`}
+                            className="text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            {row.bank.name}
+                          </Link>
                         )}
-                        %
                       </TableCell>
-                      <TableCell>30 Years</TableCell>
+                      <TableCell className={row.isCurrent ? 'font-semibold text-brand-700' : ''}>
+                        {formatRate(row.startRate)}
+                      </TableCell>
+                      <TableCell>{formatRate(row.upperRate)}</TableCell>
+                      <TableCell>{formatRate(row.corridor)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
+            </div>
+
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+              <p>
+                Market best start rate in tracked set: <strong>{formatRate(marketBestStart)}</strong>.
+                Current page lender vs market average: <strong>{(bankHomeRate - marketAverageStart).toFixed(2)}%</strong>.
+                Lenders currently cheaper than {bank.name}: <strong>{cheaperOptionsCount}</strong>.
+              </p>
             </div>
 
             <DataSourcesCard
@@ -570,62 +675,47 @@ export default async function BankPage({
             <HelpfulWidget pageKey={`bank-emi-${bank.slug}`} />
 
             <AuthorBio />
-            <p className="text-xs text-slate-400 mt-3 italic">
-              {RATE_DISCLAIMER}
-            </p>
+            <p className="mt-3 text-xs text-slate-400 italic">{RATE_DISCLAIMER}</p>
           </section>
 
-          <div className="my-10 flex justify-center no-print">
-            <AdSlot
-              id="bank-mid-rectangle"
-              type="rectangle"
-              label="Suggested"
-            />
+          <div className="no-print my-10 flex justify-center">
+            <AdSlot id="bank-mid-rectangle" type="rectangle" label="Suggested" />
           </div>
 
-          <Card className="mb-12 bg-slate-50/50 border-slate-200">
+          <Card className="mb-12 border-slate-200 bg-slate-50/60">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl">
                 <CalendarClock className="h-5 w-5 text-orange-500" />
-                Smart repayment strategies to reduce total interest
+                Interest Reduction Operating Plan
               </CardTitle>
               <CardDescription>
-                Use these practical methods after sanction to cut lifetime cost.
+                Practical post-sanction actions that materially lower lifetime outgo.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-4">
+            <CardContent className="grid gap-4 md:grid-cols-2">
               <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <h4 className="font-semibold text-slate-900 mb-1">
-                  Prefer tenure reduction after prepayment
-                </h4>
+                <h4 className="mb-1 font-semibold text-slate-900">Prioritize tenure reduction on prepayment</h4>
                 <p className="text-sm text-slate-600">
-                  Reducing tenure usually saves more interest than reducing EMI.
+                  Lower tenure typically saves more total interest than reducing EMI.
                 </p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <h4 className="font-semibold text-slate-900 mb-1">
-                  Increase EMI when income grows
-                </h4>
+                <h4 className="mb-1 font-semibold text-slate-900">Step up EMI with income growth</h4>
                 <p className="text-sm text-slate-600">
-                  Even a 5–10% annual step-up can materially lower total
-                  interest.
+                  Even a 5-10% annual increase can cut repayment duration significantly.
                 </p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <h4 className="font-semibold text-slate-900 mb-1">
-                  Review reset-rate notifications
-                </h4>
+                <h4 className="mb-1 font-semibold text-slate-900">Monitor reset-cycle communications</h4>
                 <p className="text-sm text-slate-600">
-                  Track repo-linked reset dates and request spread revision if
-                  eligible.
+                  Re-evaluate spread when benchmark rates or your profile improves.
                 </p>
               </div>
               <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
                 <div className="flex items-start gap-2">
-                  <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
+                  <AlertTriangle className="mt-0.5 h-4 w-4 text-amber-600" />
                   <p className="text-sm text-amber-800">
-                    Avoid stretching EMI beyond comfortable monthly cash flow to
-                    prevent stress in emergencies.
+                    Do not stretch EMI beyond resilient monthly cash flow. Liquidity stress erodes repayment discipline.
                   </p>
                 </div>
               </div>
@@ -633,128 +723,222 @@ export default async function BankPage({
           </Card>
 
           <section className="mb-12">
-            <h3 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+            <h3 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-900">
               <FileCheck2 className="h-6 w-6 text-teal-600" />
-              Documents checklist before applying
+              Documentation Readiness Checklist
             </h3>
-            <ul className="grid sm:grid-cols-2 gap-3 text-sm text-slate-700 list-none p-0">
+            <ul className="grid list-none gap-3 p-0 text-sm text-slate-700 sm:grid-cols-2">
               {[
-                'Identity & address proof (Aadhaar, PAN, Passport, etc.)',
-                'Income documents (salary slips / ITR / P&L for self-employed)',
-                'Last 6–12 months bank statements',
+                'Identity and address proof (Aadhaar, PAN, Passport, etc.)',
+                'Income proof (salary slips or ITR/P&L for self-employed)',
+                'Recent bank statements for 6-12 months',
                 'Property papers (agreement, title chain, approved plan)',
-                'Existing loan statements (if balance transfer)',
-                'Down payment proof and source of funds'
+                'Existing loan statements for balance transfer cases',
+                'Down-payment source and funds trail',
               ].map((item) => (
                 <li
                   key={item}
                   className="rounded-md border border-slate-200 bg-white p-3"
                 >
-                  • {item}
+                  <span className="font-semibold text-brand-700">Check:</span> {item}
                 </li>
               ))}
             </ul>
           </section>
 
           <section id="faqs" className="mb-12 scroll-mt-24">
-            <h3 className="text-2xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+            <h3 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-900">
               <HelpCircle className="h-6 w-6 text-amber-500" />
               Frequently Asked Questions
             </h3>
 
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem
-                value="item-1"
-                className="bg-white border rounded-lg mb-3 px-4"
-              >
+              <AccordionItem value="item-1" className="mb-3 rounded-lg border bg-white px-4">
                 <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
-                  📉 What is the current interest rate for {bank.name}?
+                  What is the current interest rate range for {bank.name}?
                 </AccordionTrigger>
-                <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                  As of 2026, indicative rates start from{' '}
-                  <strong>{bank.rate}%</strong> and can go up to{' '}
-                  <strong>{bank.maxRate}%</strong> depending on credit score,
-                  income profile, and property risk.
+                <AccordionContent className="pt-2 leading-relaxed text-slate-600">
+                  Current indicative corridor is typically between{' '}
+                  <strong>{formatRate(bankHomeRate)}</strong> and{' '}
+                  <strong>{formatRate(bankMaxRate)}</strong>, subject to profile-level underwriting.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem
-                value="item-2"
-                className="bg-white border rounded-lg mb-3 px-4"
-              >
+              <AccordionItem value="item-2" className="mb-3 rounded-lg border bg-white px-4">
                 <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
-                  📄 What documents are required for {bank.name} loan?
+                  Which documents are usually required for sanction?
                 </AccordionTrigger>
-                <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                  Typically KYC, income proof, bank statements, and complete
-                  property papers are required. Self-employed borrowers may need
-                  additional business financials.
+                <AccordionContent className="pt-2 leading-relaxed text-slate-600">
+                  Standard documents include KYC, income proof, bank statements, and complete property papers.
+                  Self-employed applicants may need additional business financials.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem
-                value="item-3"
-                className="bg-white border rounded-lg mb-3 px-4"
-              >
+              <AccordionItem value="item-3" className="mb-3 rounded-lg border bg-white px-4">
                 <AccordionTrigger className="font-semibold text-slate-800 hover:no-underline">
-                  🧾 Should I choose lower EMI or shorter tenure?
+                  Should I prefer lower EMI or shorter tenure?
                 </AccordionTrigger>
-                <AccordionContent className="text-slate-600 leading-relaxed pt-2">
-                  If affordable, shorter tenure is usually better because it
-                  reduces total interest significantly. Use this calculator to
-                  compare total outgo under both options.
+                <AccordionContent className="pt-2 leading-relaxed text-slate-600">
+                  If cash flow permits, shorter tenure generally reduces total interest substantially.
+                  Validate both scenarios in the EMI calculator before finalizing.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </section>
         </div>
 
-        {/* --- RIGHT COLUMN (Sidebar) --- */}
-        <aside className="lg:col-span-4 space-y-8 my-12">
-          <Card className="border-slate-200 shadow-sm">
-            <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100">
-              <CardTitle className="text-lg font-semibold text-slate-800">
-                Compare with Others
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-4 p-0">
-              <ul className="divide-y divide-slate-100">
-                {banks
-                  .filter((b) => b.slug !== bank.slug)
-                  .slice(0, 8)
-                  .map((other) => (
+        <aside className="my-12 space-y-6 lg:col-span-4">
+          <div className="sticky top-24 space-y-6">
+            <Card className="overflow-hidden border-slate-700 bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 shadow-lg">
+              <CardHeader className="border-b border-slate-700 pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg text-white">
+                  <ShieldCheck className="h-5 w-5 text-brand-300" />
+                  Decision Brief
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 p-5 text-sm text-slate-200">
+                <p>
+                  <span className="font-semibold text-white">Start rate:</span>{' '}
+                  {formatRate(bankHomeRate)} ({bank.name})
+                </p>
+                <p>
+                  <span className="font-semibold text-white">Planner midpoint:</span>{' '}
+                  {formatRate(Number(avgRate))}
+                </p>
+                <p>
+                  <span className="font-semibold text-white">Corridor risk:</span>{' '}
+                  {formatRate(bankCorridor)}
+                </p>
+                <p>
+                  <span className="font-semibold text-white">Market context:</span>{' '}
+                  best tracked start rate is {formatRate(marketBestStart)}.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader className="border-b border-slate-200 bg-slate-50 pb-4">
+                <CardTitle className="text-lg font-semibold text-slate-900">
+                  Related Bank Calculators
+                </CardTitle>
+                <CardDescription>
+                  Compare lender-specific corridors and ranking before shortlisting.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 p-4">
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
+                    <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                      Lower Start Rate
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-slate-900">
+                      {relatedLowerStartCount}/{relatedSidebarRows.length}
+                    </p>
+                  </div>
+                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
+                    <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                      Best In Set
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-slate-900">
+                      {relatedSidebarRows[0]?.name ?? 'N/A'}
+                    </p>
+                  </div>
+                </div>
+
+                <ul className="space-y-2">
+                  {relatedSidebarRows.map((other) => (
                     <li key={other.slug}>
                       <Link
                         href={`/bank-emi/${other.slug}/`}
-                        className="flex items-center justify-between px-5 py-3 hover:bg-slate-50 transition-colors group"
+                        className="group block rounded-xl border border-slate-200 bg-white p-3 transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-sm"
                       >
-                        <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600">
-                          {other.name}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <span
-                            title="Indicative range. Actual rate depends on credit score."
-                            className="text-xs font-semibold bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full whitespace-nowrap cursor-help"
-                          >
-                            {other.rate} - {other.maxRate}%*
-                          </span>
-                          <ArrowRight className="h-3 w-3 text-slate-300 group-hover:text-blue-500" />
+                        <div className="mb-2 flex items-start justify-between gap-2">
+                          <div>
+                            <p className="text-sm font-semibold text-slate-900 group-hover:text-brand-700">
+                              {other.name}
+                            </p>
+                            <p className="text-[11px] text-slate-500">
+                              Market rank #{other.rank ?? '-'}
+                            </p>
+                          </div>
+                          <ArrowRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-brand-700" />
                         </div>
+
+                        <div className="grid grid-cols-3 gap-1.5">
+                          <div className="rounded-md bg-slate-50 px-2 py-1.5">
+                            <p className="text-[9px] font-semibold tracking-wide text-slate-500 uppercase">
+                              Start
+                            </p>
+                            <p className="text-[11px] font-semibold text-slate-900">
+                              {formatRate(other.startRate)}
+                            </p>
+                          </div>
+                          <div className="rounded-md bg-slate-50 px-2 py-1.5">
+                            <p className="text-[9px] font-semibold tracking-wide text-slate-500 uppercase">
+                              Upper
+                            </p>
+                            <p className="text-[11px] font-semibold text-slate-900">
+                              {formatRate(other.upperRate)}
+                            </p>
+                          </div>
+                          <div className="rounded-md bg-slate-50 px-2 py-1.5">
+                            <p className="text-[9px] font-semibold tracking-wide text-slate-500 uppercase">
+                              Corridor
+                            </p>
+                            <p className="text-[11px] font-semibold text-slate-900">
+                              {formatRate(other.corridor)}
+                            </p>
+                          </div>
+                        </div>
+
+                        <p
+                          className={`mt-2 text-[11px] font-medium ${
+                            other.deltaVsCurrent < 0
+                              ? 'text-emerald-700'
+                              : other.deltaVsCurrent > 0
+                                ? 'text-amber-700'
+                                : 'text-slate-600'
+                          }`}
+                        >
+                          {other.deltaVsCurrent < 0
+                            ? `${Math.abs(other.deltaVsCurrent).toFixed(2)}% lower than ${bank.name} start rate`
+                            : other.deltaVsCurrent > 0
+                              ? `${Math.abs(other.deltaVsCurrent).toFixed(2)}% higher than ${bank.name} start rate`
+                              : `At par with ${bank.name} starting rate`}
+                        </p>
                       </Link>
                     </li>
                   ))}
-              </ul>
+                </ul>
 
-              <div className="bg-slate-50 px-5 py-3 border-t border-slate-100">
-                <p className="text-[10px] text-slate-500 leading-tight">
-                  *Rates are indicative ranges based on recent market trends.
+                <p className="text-[10px] leading-relaxed text-slate-500">
+                  Sidebar rates are indicative and profile-sensitive. Validate
+                  sanction letter terms before paying processing fees.
                 </p>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          <div className="sticky top-24 z-10 no-print">
-            <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center">
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base text-slate-900">Next Actions</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Button asChild className="w-full bg-slate-900 text-white hover:bg-slate-800">
+                  <Link href="/compare-loans/">
+                    <TrendingUp className="mr-2 h-4 w-4" />
+                    Compare More Lenders
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full border-slate-300 text-slate-700">
+                  <Link href="/emi-calculator/">
+                    <Percent className="mr-2 h-4 w-4" />
+                    Open General EMI Tool
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <div className="no-print z-10 min-h-62.5 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
               <AdSlot type="box" id="bank-sidebar" />
             </div>
           </div>

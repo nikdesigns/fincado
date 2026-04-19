@@ -23,14 +23,16 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
-  Area,
-  AreaChart,
+  Bar,
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  Line as RechartsLine,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
 } from 'recharts';
 import { cn } from '@/lib/utils';
 
@@ -516,6 +518,65 @@ export default function EMIClient({
     tenure,
     calculatorMode
   ]);
+
+  const repaymentInsights = useMemo(() => {
+    const rows = calculations.yearlyBreakdown;
+    if (!rows || rows.length === 0) return null;
+
+    const initialPrincipal = rows[0]?.openingBalance ?? 0;
+    const firstYear = rows[0];
+    const lastYear = rows[rows.length - 1];
+    const halfBalanceThreshold = initialPrincipal * 0.5;
+
+    let cumulativePrincipal = 0;
+    let cumulativeInterest = 0;
+    let crossoverYear: number | null = null;
+    let halfClearedYear: number | null = null;
+    let outstandingAt5Y = lastYear.closingBalance;
+
+    const chartData = rows.map((row) => {
+      cumulativePrincipal += row.principalPaid;
+      cumulativeInterest += row.interestPaid;
+
+      if (crossoverYear === null && row.principalPaid >= row.interestPaid) {
+        crossoverYear = row.year;
+      }
+
+      if (halfClearedYear === null && row.closingBalance <= halfBalanceThreshold) {
+        halfClearedYear = row.year;
+      }
+
+      if (row.year <= 5) {
+        outstandingAt5Y = row.closingBalance;
+      }
+
+      const interestSharePct =
+        row.emiPaid > 0 ? (row.interestPaid / row.emiPaid) * 100 : 0;
+
+      return {
+        year: row.year,
+        yearLabel: `Y${row.year}`,
+        principalPaidLakhs: row.principalPaid / 100000,
+        interestPaidLakhs: row.interestPaid / 100000,
+        closingBalanceLakhs: row.closingBalance / 100000,
+        cumulativePrincipalLakhs: cumulativePrincipal / 100000,
+        cumulativeInterestLakhs: cumulativeInterest / 100000,
+        interestSharePct,
+      };
+    });
+
+    return {
+      chartData,
+      totalYears: lastYear.year,
+      firstYearInterestShare:
+        firstYear.emiPaid > 0 ? (firstYear.interestPaid / firstYear.emiPaid) * 100 : 0,
+      finalYearInterestShare:
+        lastYear.emiPaid > 0 ? (lastYear.interestPaid / lastYear.emiPaid) * 100 : 0,
+      crossoverYear,
+      halfClearedYear,
+      outstandingAt5Y,
+    };
+  }, [calculations.yearlyBreakdown]);
 
   const handleSaveCalculation = useCallback(() => {
     const calculation: SavedCalculation = {
@@ -1087,9 +1148,7 @@ export default function EMIClient({
         </Card>
       )}
 
-      {isClient &&
-        calculations.yearlyBreakdown &&
-        calculations.yearlyBreakdown.length > 0 && (
+      {isClient && repaymentInsights && (
           <Card className="border-slate-200">
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
@@ -1098,84 +1157,159 @@ export default function EMIClient({
               </CardTitle>
             </CardHeader>
             <CardContent>
+              <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                    Year 1 Interest Load
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                    {repaymentInsights.firstYearInterestShare.toFixed(1)}%
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                    Principal Beats Interest
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                    {repaymentInsights.crossoverYear
+                      ? `Year ${repaymentInsights.crossoverYear}`
+                      : `Near Year ${repaymentInsights.totalYears}`}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                    50% Balance Cleared
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                    {repaymentInsights.halfClearedYear
+                      ? `Year ${repaymentInsights.halfClearedYear}`
+                      : `After Year ${repaymentInsights.totalYears}`}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
+                    Balance After 5 Years
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                    {formatINR(repaymentInsights.outstandingAt5Y)}
+                  </p>
+                </div>
+              </div>
+
               <ResponsiveContainer
                 width="100%"
-                height={300}
+                height={340}
                 minWidth={0}
                 minHeight={0}
               >
-                <AreaChart data={calculations.yearlyBreakdown}>
-                  <defs>
-                    <linearGradient
-                      id="colorPrincipal"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#B0EC70" stopOpacity={0.8} />
-                      <stop
-                        offset="95%"
-                        stopColor="#B0EC70"
-                        stopOpacity={0.2}
-                      />
-                    </linearGradient>
-                    <linearGradient
-                      id="colorInterest"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#FF99A7" stopOpacity={0.8} />
-                      <stop
-                        offset="95%"
-                        stopColor="#FF99A7"
-                        stopOpacity={0.2}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#FF99A7" />
+                <ComposedChart
+                  data={repaymentInsights.chartData}
+                  margin={{ top: 10, right: 8, left: 8, bottom: 8 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
                   <XAxis
-                    dataKey="year"
-                    label={{
-                      value: t.year,
-                      position: 'insideBottom',
-                      offset: -5,
-                    }}
+                    dataKey="yearLabel"
+                    tick={{ fontSize: 12, fill: '#64748b', fontWeight: 600 }}
+                    axisLine={false}
+                    tickLine={false}
                   />
                   <YAxis
-                    tickFormatter={(value) =>
-                      `₹${(value / 100000).toFixed(0)}L`
-                    }
+                    yAxisId="cashflow"
+                    tickFormatter={(value) => `₹${Number(value).toFixed(1)}L`}
+                    tick={{ fontSize: 11, fill: '#64748b' }}
+                    axisLine={false}
+                    tickLine={false}
+                    width={56}
+                  />
+                  <YAxis
+                    yAxisId="balance"
+                    orientation="right"
+                    tickFormatter={(value) => `₹${Number(value).toFixed(1)}L`}
+                    tick={{ fontSize: 11, fill: '#475569' }}
+                    axisLine={false}
+                    tickLine={false}
+                    width={56}
                   />
                   <Tooltip
-                    formatter={(value: number | undefined) =>
-                      value !== undefined ? formatINR(value) : 'N/A'
+                    labelFormatter={(label) =>
+                      `${t.year} ${String(label).replace('Y', '')}`
                     }
-                    labelFormatter={(label) => `${t.year} ${label}`}
+                    formatter={(
+                      value: number | string | undefined,
+                      name: string | undefined,
+                    ) => {
+                      const numericValue =
+                        typeof value === 'number'
+                          ? value
+                          : Number.isFinite(Number(value))
+                            ? Number(value)
+                            : 0;
+
+                      if (
+                        name === t.principalPaid ||
+                        name === t.interestPaid ||
+                        name === t.closingBalance
+                      ) {
+                        return [formatINR(numericValue * 100000), name ?? 'Value'];
+                      }
+
+                      return [String(value ?? ''), name ?? 'Value'];
+                    }}
+                    contentStyle={{
+                      borderRadius: '10px',
+                      border: '1px solid #e2e8f0',
+                      boxShadow: '0 8px 24px -8px rgb(15 23 42 / 0.2)',
+                    }}
                   />
-                  <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="principalPaid"
-                    name={t.principalPaid}
-                    stackId="1"
-                    stroke="#92C65B"
-                    fillOpacity={1}
-                    fill="url(#colorPrincipal)"
+                  <Legend
+                    iconType="circle"
+                    wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }}
                   />
-                  <Area
-                    type="monotone"
-                    dataKey="interestPaid"
+
+                  <Bar
+                    yAxisId="cashflow"
+                    dataKey="interestPaidLakhs"
                     name={t.interestPaid}
-                    stackId="1"
-                    stroke="#ef4444"
-                    fillOpacity={1}
-                    fill="url(#colorInterest)"
+                    stackId="cashflow"
+                    fill="#fb923c"
+                    radius={[4, 4, 0, 0]}
+                    maxBarSize={30}
                   />
-                </AreaChart>
+                  <Bar
+                    yAxisId="cashflow"
+                    dataKey="principalPaidLakhs"
+                    name={t.principalPaid}
+                    stackId="cashflow"
+                    fill="#84cc16"
+                    radius={[4, 4, 0, 0]}
+                    maxBarSize={30}
+                  />
+                  <RechartsLine
+                    yAxisId="balance"
+                    type="monotone"
+                    dataKey="closingBalanceLakhs"
+                    name={t.closingBalance}
+                    stroke="#1e293b"
+                    strokeWidth={2.5}
+                    dot={false}
+                  />
+
+                  {repaymentInsights.crossoverYear && (
+                    <ReferenceLine
+                      x={`Y${repaymentInsights.crossoverYear}`}
+                      stroke="#475569"
+                      strokeDasharray="5 5"
+                    />
+                  )}
+                </ComposedChart>
               </ResponsiveContainer>
+
+              <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed text-slate-600">
+                Annual bars show how each year&apos;s EMI splits between{' '}
+                <strong>principal</strong> and <strong>interest</strong>, while
+                the dark line tracks <strong>outstanding balance</strong> decline.
+                This helps identify when cashflow starts creating faster equity.
+              </div>
             </CardContent>
           </Card>
         )}

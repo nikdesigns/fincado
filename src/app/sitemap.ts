@@ -206,8 +206,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/loans/home-loan', '/hi/loans/home-loan'],
     ['/loans/personal-loan', '/hi/loans/personal-loan'],
     ['/loans/car-loan', '/hi/loans/car-loan'],
-    ['/loans/education-loan', '/hi/loans/education-loan'],
-    ['/home-loan-rates']
+    ['/loans/education-loan', '/hi/loans/education-loan']
   ];
 
   const loanPages: MetadataRoute.Sitemap = loanPagePairs.map(([en, hi]) =>
