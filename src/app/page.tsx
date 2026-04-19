@@ -711,31 +711,129 @@ export default function Home(): JSX.Element {
         </section>
 
         <section className="my-16">
-          <div className="rounded-3xl border border-slate-800 bg-slate-900 bg-[url('/images/noise.png')] px-6 py-14 text-center shadow-xl sm:px-12">
-            <h2 className="text-2xl font-bold text-white sm:text-4xl">
-              Start with the calculator that matches your next money move.
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-slate-300 sm:text-lg">
-              Better outcomes come from comparing numbers before acting. Begin with
-              borrowing, investing, or tax optimization in minutes.
-            </p>
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-linear-to-br from-[#081833] via-[#0b2142] to-[#12345f] px-6 py-10 shadow-2xl sm:px-10 sm:py-12">
+            <div className="pointer-events-none absolute -right-12 -top-20 h-60 w-60 rounded-full bg-brand-400/30 blur-3xl" />
+            <div className="pointer-events-none absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-emerald-300/20 blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.35)_1px,transparent_0)] [background-size:22px_22px]" />
 
-            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className="h-14 bg-brand-400 px-8 text-lg font-bold text-[#111827] hover:bg-brand-500"
-              >
-                <Link href="/emi-calculator/">Calculate EMI</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-14 border-slate-500 bg-transparent px-8 text-lg text-white hover:bg-slate-800"
-              >
-                <Link href="/sip-calculator/">Plan SIP</Link>
-              </Button>
+            <div className="relative grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-200">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Decision Desk
+                </div>
+
+                <h2 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
+                  Start with the calculator that matches your next money move.
+                </h2>
+
+                <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-slate-200 sm:text-lg">
+                  Better outcomes come from comparing numbers before acting. Run
+                  loan, investing, and tax scenarios in one workflow before you
+                  commit.
+                </p>
+
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="h-14 bg-brand-400 px-8 text-lg font-bold text-[#111827] shadow-lg shadow-brand-500/30 hover:bg-brand-300"
+                  >
+                    <Link href="/emi-calculator/">Calculate EMI</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="h-14 border-white/35 bg-white/5 px-8 text-lg font-semibold text-white backdrop-blur-xs hover:bg-white/15"
+                  >
+                    <Link href="/sip-calculator/">Plan SIP</Link>
+                  </Button>
+                </div>
+
+                <div className="mt-7 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-xl border border-white/20 bg-white/10 px-4 py-3">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <Clock className="h-4 w-4 text-brand-300" />
+                      Under 2 Minutes
+                    </div>
+                    <p className="mt-1 text-xs font-medium text-slate-200">
+                      Most plans are modeled in one pass.
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-white/20 bg-white/10 px-4 py-3">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <ShieldCheck className="h-4 w-4 text-brand-300" />
+                      No Signup Wall
+                    </div>
+                    <p className="mt-1 text-xs font-medium text-slate-200">
+                      Compare outcomes without account friction.
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-white/20 bg-white/10 px-4 py-3">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <Target className="h-4 w-4 text-brand-300" />
+                      Action-Focused
+                    </div>
+                    <p className="mt-1 text-xs font-medium text-slate-200">
+                      Outputs built for next-step decisions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <aside className="rounded-2xl border border-white/25 bg-white/10 p-5 backdrop-blur-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-brand-200">
+                  Popular Next Steps
+                </p>
+
+                <div className="mt-4 space-y-3">
+                  <Link
+                    href="/emi-prepayment-calculator/"
+                    className="group flex items-center justify-between rounded-xl border border-white/15 bg-black/15 px-4 py-3 transition hover:border-brand-300 hover:bg-white/10"
+                  >
+                    <div>
+                      <div className="text-sm font-semibold text-white">
+                        Cut Loan Tenure
+                      </div>
+                      <div className="text-xs font-medium text-slate-300">
+                        EMI Prepayment Calculator
+                      </div>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-brand-200" />
+                  </Link>
+
+                  <Link
+                    href="/income-tax-calculator/"
+                    className="group flex items-center justify-between rounded-xl border border-white/15 bg-black/15 px-4 py-3 transition hover:border-brand-300 hover:bg-white/10"
+                  >
+                    <div>
+                      <div className="text-sm font-semibold text-white">
+                        Optimize Salary Tax
+                      </div>
+                      <div className="text-xs font-medium text-slate-300">
+                        Income Tax Calculator
+                      </div>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-brand-200" />
+                  </Link>
+
+                  <Link
+                    href="/capital-gains-calculator/"
+                    className="group flex items-center justify-between rounded-xl border border-white/15 bg-black/15 px-4 py-3 transition hover:border-brand-300 hover:bg-white/10"
+                  >
+                    <div>
+                      <div className="text-sm font-semibold text-white">
+                        Check Exit Tax Impact
+                      </div>
+                      <div className="text-xs font-medium text-slate-300">
+                        Capital Gains Calculator
+                      </div>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-brand-200" />
+                  </Link>
+                </div>
+              </aside>
             </div>
           </div>
         </section>

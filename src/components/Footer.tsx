@@ -33,9 +33,9 @@ export default function Footer() {
             >
               <BrandLogo
                 variant="horizontal"
-                width={172}
-                height={40}
-                className="h-8 w-auto"
+                width={204}
+                height={48}
+                className="h-9 w-auto sm:h-10"
               />
             </Link>
 
