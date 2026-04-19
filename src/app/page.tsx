@@ -380,11 +380,6 @@ export default function Home(): JSX.Element {
         '@type': 'WebSite',
         name: 'Fincado',
         url: 'https://fincado.com/',
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: 'https://fincado.com/search?q={search_term_string}',
-          'query-input': 'required name=search_term_string',
-        },
       },
       {
         '@type': 'FAQPage',
@@ -575,11 +570,13 @@ export default function Home(): JSX.Element {
 
         <section className="mt-18 grid gap-8 lg:grid-cols-2">
           <div>
-            <SectionHeader
-              title="Post Office & Safe Return Desk"
-              description="Model conservative options with predictable cashflow outputs."
-              compact
-            />
+            <div className="lg:min-h-[104px]">
+              <SectionHeader
+                title="Post Office & Safe Return Desk"
+                description="Model conservative options with predictable cashflow outputs."
+                compact
+              />
+            </div>
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 lg:grid-cols-1">
               {SAFE_RETURN_TOOLS.map((tool) => (
                 <EnterpriseToolCard key={tool.href} tool={tool} />
@@ -588,11 +585,13 @@ export default function Home(): JSX.Element {
           </div>
 
           <div>
-            <SectionHeader
-              title="Tax & Trading Desk"
-              description="Understand charges, tax impact, and net take-home outcomes before execution."
-              compact
-            />
+            <div className="lg:min-h-[104px]">
+              <SectionHeader
+                title="Tax & Trading Desk"
+                description="Understand charges, tax impact, and net take-home outcomes before execution."
+                compact
+              />
+            </div>
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 lg:grid-cols-1">
               {TAX_TRADING_TOOLS.map((tool) => (
                 <EnterpriseToolCard key={tool.href} tool={tool} />

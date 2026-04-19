@@ -1,60 +1,104 @@
 import React from 'react';
 import Link from 'next/link';
-// Removed CardTitle from the import to use a semantic div instead
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, GitCompare } from 'lucide-react';
+import { ArrowRight, GitCompare, TrendingDown } from 'lucide-react';
+
+type ComparisonItem = {
+  b1: string;
+  b2: string;
+  slug: string;
+  insight: string;
+};
+
+const TOP_COMPARISONS: ComparisonItem[] = [
+  {
+    b1: 'SBI',
+    b2: 'HDFC',
+    slug: 'sbi-vs-hdfc',
+    insight: 'Track effective EMI spread before lender finalization.',
+  },
+  {
+    b1: 'ICICI',
+    b2: 'Axis',
+    slug: 'icici-vs-axis',
+    insight: 'Useful for urban salary and balance transfer scenarios.',
+  },
+  {
+    b1: 'PNB',
+    b2: 'Bank of Baroda',
+    slug: 'pnb-vs-bob',
+    insight: 'Public-bank focused comparison with fee visibility.',
+  },
+  {
+    b1: 'HDFC',
+    b2: 'Kotak',
+    slug: 'hdfc-vs-kotak',
+    insight: 'Compare processing fee and floating-rate behavior.',
+  },
+];
 
 export default function SidebarCompareWidget() {
-  // High-CPC pairs that advertisers pay well for
-  const topComparisons = [
-    { b1: 'SBI', b2: 'HDFC', slug: 'sbi-vs-hdfc' },
-    { b1: 'ICICI', b2: 'Axis', slug: 'icici-vs-axis' },
-    { b1: 'PNB', b2: 'Bank of Baroda', slug: 'pnb-vs-bob' },
-    { b1: 'HDFC', b2: 'Kotak', slug: 'hdfc-vs-kotak' }
-  ];
-
   return (
-    <Card className="border-slate-100 bg-white shadow-sm overflow-hidden mt-8 no-print">
-      <CardHeader className="pb-3 border-b border-slate-100/50">
-        {/* CHANGED: Replaced <CardTitle> with a <div> to fix Duplicate H2/H3 SEO Warnings */}
-        <div className="text-base font-semibold text-slate-900 flex items-center gap-2">
-          <GitCompare className="w-4 h-4 text-lime-600" />
-          Compare & Save
+    <Card className="mt-8 overflow-hidden border-slate-200 bg-white shadow-sm no-print">
+      <CardHeader className="border-b border-slate-200 bg-linear-to-br from-white to-brand-50/40 pb-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+              <GitCompare className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-slate-900">Compare & Save Desk</div>
+              <p className="mt-0.5 text-xs font-medium text-slate-600">
+                Benchmark lender options before applying.
+              </p>
+            </div>
+          </div>
+          <Badge className="border border-brand-200 bg-brand-50 text-[10px] font-bold text-brand-700 hover:bg-brand-50">
+            Loan Rates
+          </Badge>
         </div>
       </CardHeader>
-      <CardContent className="p-0">
-        <div className="p-4 bg-white/50">
-          <p className="text-xs text-slate-500 leading-relaxed mb-3">
-            Found your EMI? Now check which bank gives you the lowest rate for
-            that EMI.
-          </p>
-          <ul className="space-y-2">
-            {topComparisons.map((item) => (
-              <li key={item.slug}>
-                <Link
-                  href={`/compare/${item.slug}/`}
-                  className="flex items-center justify-between group p-2 rounded-lg hover:bg-white hover:shadow-xs border border-transparent hover:border-lime-100 transition-all"
-                >
-                  <span className="text-xs font-semibold text-slate-700 group-hover:text-lime-700">
-                    {item.b1}{' '}
-                    <span className="text-slate-400 font-normal">vs</span>{' '}
-                    {item.b2}
-                  </span>
-                  <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-lime-500" />
-                </Link>
-              </li>
-            ))}
-          </ul>
+
+      <CardContent className="p-4">
+        <div className="space-y-2.5">
+          {TOP_COMPARISONS.map((item, index) => (
+            <Link
+              key={item.slug}
+              href={`/compare/${item.slug}/`}
+              className="group flex items-start gap-3 rounded-xl border border-slate-100 bg-white px-3 py-2.5 transition-all hover:border-brand-200 hover:bg-brand-50/40"
+            >
+              <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[11px] font-bold text-slate-600 group-hover:bg-brand-100 group-hover:text-brand-700">
+                {index + 1}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-sm font-semibold text-slate-800 group-hover:text-brand-800">
+                  {item.b1} <span className="font-normal text-slate-400">vs</span> {item.b2}
+                </div>
+                <p className="mt-0.5 line-clamp-2 text-xs font-medium leading-relaxed text-slate-500">
+                  {item.insight}
+                </p>
+              </div>
+              <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-slate-300 group-hover:text-brand-700" />
+            </Link>
+          ))}
         </div>
-        <div className="bg-brand-50 p-3 text-center">
-          <Button
-            asChild
-            variant="link"
-            className="text-[10px] font-semibold text-brand-700 h-auto p-0 hover:no-underline"
+
+        <div className="mt-4 rounded-xl border border-brand-100 bg-brand-50/50 p-3">
+          <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-brand-800">
+            <TrendingDown className="h-3.5 w-3.5" />
+            Rate Optimization Tip
+          </div>
+          <p className="text-xs font-medium leading-relaxed text-slate-600">
+            Even a small rate difference can materially change total repayment over long tenure.
+          </p>
+          <Link
+            href="/compare-loans/"
+            className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-brand-700 hover:text-brand-800"
           >
-            <Link href="/compare-loans/">View All 90+ Comparisons →</Link>
-          </Button>
+            View All 90+ Comparisons
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </CardContent>
     </Card>

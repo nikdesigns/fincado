@@ -110,6 +110,8 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isCompareActive =
+    pathname.startsWith('/compare-loans') || pathname.startsWith('/compare/');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -245,11 +247,9 @@ export default function Header() {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/compare-loans/"
-                    aria-current={
-                      isActive('/compare-loans') ? 'page' : undefined
-                    }
+                    aria-current={isCompareActive ? 'page' : undefined}
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2 ${
-                      isActive('/compare-loans')
+                      isCompareActive
                         ? 'text-brand-900 bg-brand-200'
                         : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
                     }`}

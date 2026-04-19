@@ -14,6 +14,7 @@ import ScriptManager from '@/components/ScriptManager';
 import MobileStickyAnchorAd from '@/components/MobileStickyAnchorAd';
 import CookielessAnalyticsTracker from '@/components/CookielessAnalyticsTracker';
 import { ADSENSE_PUBLISHER_ID } from '@/lib/adConfig';
+import SiteTrustSchema from '@/components/SiteTrustSchema';
 
 const fy = getCurrentFiscalYear();
 
@@ -139,6 +140,8 @@ export default function RootLayout({
       </head>
 
       <body className={customFont.className}>
+        <SiteTrustSchema />
+
         {/* Cookieless first-party analytics (no cookies/storage) */}
         <React.Suspense fallback={null}>
           <CookielessAnalyticsTracker />

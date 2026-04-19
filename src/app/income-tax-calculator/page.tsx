@@ -886,7 +886,7 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
               {/* Related Tools */}
               <section className="space-y-5 mt-10">
                 <h3 className="text-xl font-semibold text-slate-900">
-                  Related Tax & Investment Tools
+                  Related Tax & Investment Calculators
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/elss-calculator/" className="group">

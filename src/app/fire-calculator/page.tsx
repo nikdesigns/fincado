@@ -950,7 +950,7 @@ export default function FIRECalculatorPage() {
               {/* Related Tools */}
               <section className="space-y-5 mt-10">
                 <h3 className="text-xl font-semibold text-slate-900">
-                  Related Financial Independence Tools
+                  Related Financial Independence Calculators
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Link href="/retirement-calculator/" className="group">

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import WikiText from '@/components/WikiText';
 import AdSlot from '@/components/AdSlot';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import AuthorBio from '@/components/AuthorBio';
 import articles from '@/data/articles.json';
 import { getRelatedGuides } from '@/lib/relatedGuides';
 import { getRelatedResources } from '@/lib/relatedResources';
@@ -94,6 +95,14 @@ export default async function GuidePost({ params }: Props) {
       '@type': 'Organization',
       name: 'Fincado',
       url: 'https://fincado.com/',
+    },
+    inLanguage: 'en-IN',
+    isAccessibleForFree: true,
+    publishingPrinciples: 'https://fincado.com/editorial-guidelines/',
+    reviewedBy: {
+      '@type': 'Organization',
+      name: 'Fincado Research Team',
+      url: 'https://fincado.com/about/',
     },
     publisher: {
       '@type': 'Organization',
@@ -225,6 +234,8 @@ export default async function GuidePost({ params }: Props) {
             </ul>
           </section>
         )}
+
+        <AuthorBio />
 
         <div
           className="no-print"

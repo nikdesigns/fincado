@@ -1,87 +1,129 @@
-// src/components/AuthorBio.tsx
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
-  ShieldCheck,
-  Users,
+  AlertTriangle,
   BookOpen,
   CalendarDays,
-  Search,
+  FileCheck2,
+  Scale,
+  ShieldCheck,
+  Users,
 } from 'lucide-react';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 export default function AuthorBio() {
   const currentDate = getCurrentMonthYearLabel();
 
+  const authorSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://fincado.com/#research-team',
+    name: 'Fincado Research Team',
+    url: 'https://fincado.com/about/',
+    parentOrganization: {
+      '@id': 'https://fincado.com/#organization',
+    },
+    email: 'support@fincado.com',
+    areaServed: 'IN',
+    publishingPrinciples: 'https://fincado.com/editorial-guidelines/',
+    knowsAbout: [
+      'Personal finance in India',
+      'Loan underwriting and EMI planning',
+      'Income tax computation',
+      'Investment risk and return tradeoffs',
+    ],
+  };
+
   return (
-    <Card className="no-print mt-16 bg-brand-900 shadow-sm overflow-hidden border-l-4 border-brand-400">
+    <Card className="no-print mt-16 overflow-hidden border border-slate-200 bg-white shadow-sm">
       <CardContent className="p-6 sm:p-8">
-        <div className="flex flex-col md:flex-row gap-6 items-start">
-          {/* Avatar */}
-          <div className="shrink-0 mx-auto md:mx-0">
-            <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-brand-400 shadow-sm text-brand-900">
-              <Users className="w-8 h-8" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(authorSchema) }}
+        />
+
+        <div className="flex flex-col gap-6 md:flex-row md:items-start">
+          <div className="mx-auto shrink-0 md:mx-0">
+            <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-brand-100 text-brand-700 shadow-xs">
+              <Users className="h-8 w-8" />
             </div>
           </div>
 
-          {/* Content */}
           <div className="flex-1">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                {/* CHANGED: Swapped <h4> for <div> to fix Non-Sequential Heading warnings */}
-                <div className="text-xl font-semibold text-brand-400 tracking-tight">
+                <div className="text-xl font-semibold tracking-tight text-slate-900">
                   Fincado Research Team
                 </div>
-                <Badge
-                  variant="secondary"
-                  className="bg-brand-700 text-brand-400 border-brand-400 gap-1.5 px-2.5 py-0.5 font-semibold text-[11px] uppercase tracking-wider"
-                >
-                  <ShieldCheck className="w-3 h-3" />
-                  Fact Checked
+                <Badge className="gap-1.5 border border-brand-200 bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-brand-700 hover:bg-brand-50">
+                  <ShieldCheck className="h-3 w-3" />
+                  Reviewed
                 </Badge>
               </div>
             </div>
 
-            <p className="text-[15px] leading-relaxed text-[#D1D5DB] mb-6">
-              Written and verified by ex-bankers, Chartered Accountants & RBI
-              experts with 12+ years of experience. Every rate and fee is
-              cross-checked against real borrower approvals and official lender
-              disclosures.
+            <p className="mb-5 text-[15px] leading-relaxed text-slate-700">
+              This content is prepared and reviewed using RBI circulars,
+              official lender disclosures, and current Indian tax references.
+              Numbers are educational estimates, not personalized advice.
             </p>
 
-            <p className="text-[15px] leading-relaxed text-[#D1D5DB] mb-6">
-              <strong className="text-white">Disclaimer:</strong> Fincado
-              provides financial calculators and educational content for
-              informational purposes only. We are not SEBI registered investment
-              advisors. Always consult a certified financial planner before
-              making any loan or investment decision.
-            </p>
-
-            {/* Dynamic Trust Signals */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-5 border-t border-brand-700">
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#D1D5DB] uppercase tracking-wide">
-                <CalendarDays className="w-4 h-4 text-lime-500" />
-                <span>
-                  Last Reviewed:{' '}
-                  <span className="text-white">{currentDate}</span>
-                </span>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  <CalendarDays className="h-4 w-4 text-brand-700" />
+                  Last Reviewed
+                </div>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  {currentDate}
+                </p>
               </div>
 
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#D1D5DB] uppercase tracking-wide">
-                <Search className="w-4 h-4 text-lime-500" />
-                <span>
-                  Methodology: <span className="text-white">Data-Driven</span>
-                </span>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  <FileCheck2 className="h-4 w-4 text-brand-700" />
+                  Method
+                </div>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  Source cross-check and periodic QA
+                </p>
               </div>
+            </div>
 
+            <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-amber-800">
+                <AlertTriangle className="h-4 w-4" />
+                Risk Notice
+              </div>
+              <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                Actual outcomes can vary by borrower profile, bank policy,
+                market conditions, and future rule changes. Validate important
+                decisions with a certified professional.
+              </p>
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4">
               <Link
-                href="/about/"
-                className="flex items-center gap-2 text-xs font-semibold text-[#D1D5DB] uppercase tracking-wide hover:text-lime-600 transition-colors ml-auto"
+                href="/editorial-guidelines/"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand-700 hover:text-brand-800"
               >
-                <BookOpen className="w-4 h-4 text-[#D1D5DB]" />
-                <span>Editorial Guidelines</span>
+                <BookOpen className="h-3.5 w-3.5" />
+                Editorial Policy
+              </Link>
+              <Link
+                href="/disclaimer/"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand-700 hover:text-brand-800"
+              >
+                <Scale className="h-3.5 w-3.5" />
+                Disclaimer
+              </Link>
+              <Link
+                href="/contact/"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand-700 hover:text-brand-800"
+              >
+                Contact Team
               </Link>
             </div>
           </div>

@@ -13,23 +13,24 @@ export default function CalculatorSchema({
 }: CalculatorSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    '@type': 'WebApplication',
     name: name,
     description: description,
     url: url,
     applicationCategory: 'FinanceApplication',
+    inLanguage: 'en-IN',
+    isAccessibleForFree: true,
     operatingSystem: 'Any',
+    publisher: {
+      '@id': 'https://fincado.com/#organization',
+    },
+    creator: {
+      '@id': 'https://fincado.com/#organization',
+    },
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'INR',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '1240',
-      bestRating: '5',
-      worstRating: '1',
     },
   };
 

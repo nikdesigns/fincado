@@ -116,13 +116,11 @@
       "hasFormula": true,
       "hasExample": true,
       "hasFAQ": true,
-      "hasRelatedCalcs": false,
+      "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "⚠️  Missing: hasRelatedCalcs"
-    ],
-    "score": 97
+    "issues": [],
+    "score": 100
   },
   "ppf-calculator": {
     "name": "ppf-calculator",
@@ -856,12 +854,10 @@
       "hasFormula": true,
       "hasExample": true,
       "hasFAQ": true,
-      "hasRelatedCalcs": false,
+      "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "⚠️  Missing: hasRelatedCalcs"
-    ],
-    "score": 97
+    "issues": [],
+    "score": 100
   }
 }

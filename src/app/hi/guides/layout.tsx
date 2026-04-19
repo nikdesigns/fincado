@@ -21,7 +21,7 @@ export default function HindiGuidesLayout({
               <HindiSidebar />
 
               {/* Sticky Ad Box */}
-              <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center no-print">
+              <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex justify-center p-4 min-h-62.5 items-center no-print mt-10">
                 <AdSlot id="hi-guide-sidebar" type="box" />
               </div>
             </div>
