@@ -690,8 +690,11 @@ b {
   .mobile-ad-bar {
     display: block;
   }
-  body {
-    padding-bottom: 60px;
+}
+
+@media (max-width: 1023px) {
+  body.has-mobile-anchor-ad {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
   }
 }
 

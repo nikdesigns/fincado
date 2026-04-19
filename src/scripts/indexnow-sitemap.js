@@ -1,10 +1,14 @@
 const https = require('https');
 const fetch = require('node-fetch');
 const { parseStringPromise } = require('xml2js');
+const {
+  INDEXNOW_HOST,
+  INDEXNOW_KEY,
+  SITE_ORIGIN,
+  INDEXNOW_KEY_LOCATION,
+} = require('./indexnow-config');
 
-const INDEXNOW_KEY = 'dfd158e2da6b426c9eeabfc8dadd2611';
-const HOST = 'https://fincado.com';
-const SITEMAP_URL = `${HOST}/sitemap.xml`;
+const SITEMAP_URL = `${SITE_ORIGIN}/sitemap.xml`;
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 
 const httpsAgent = new https.Agent({
@@ -23,7 +27,7 @@ async function getUrlsFromSitemap() {
     .map((u) => u.loc[0])
     .filter((url) => {
       return (
-        url.startsWith(HOST) &&
+        url.startsWith(SITE_ORIGIN) &&
         !url.includes('?') &&
         !url.includes('#') &&
         !url.includes('/page/') &&
@@ -38,9 +42,9 @@ async function getUrlsFromSitemap() {
 
 async function submitToIndexNow(urls) {
   const payload = {
-    host: 'fincado.com',
+    host: INDEXNOW_HOST,
     key: INDEXNOW_KEY,
-    keyLocation: `${HOST}/${INDEXNOW_KEY}.txt`,
+    keyLocation: INDEXNOW_KEY_LOCATION,
     urlList: urls,
   };
 

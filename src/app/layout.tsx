@@ -11,6 +11,8 @@ import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 import SkipToContent from '@/components/SkipToContent';
 import CookieBanner from '@/components/CookieBanner';
 import ScriptManager from '@/components/ScriptManager';
+import MobileStickyAnchorAd from '@/components/MobileStickyAnchorAd';
+import { ADSENSE_PUBLISHER_ID } from '@/lib/adConfig';
 
 const fy = getCurrentFiscalYear();
 
@@ -105,7 +107,7 @@ export const metadata: Metadata = {
   },
   verification: {},
   other: {
-    'google-adsense-account': 'ca-pub-6648091987919638',
+    'google-adsense-account': ADSENSE_PUBLISHER_ID,
   },
 };
 
@@ -165,6 +167,8 @@ export default function RootLayout({
         <main id="main-content" style={{ minHeight: '80vh' }}>
           {children}
         </main>
+        {/* Mobile sticky anchor ad (calculator routes only) */}
+        <MobileStickyAnchorAd />
 
         {/* Ad Block Detector */}
         <AdBlockDetector />

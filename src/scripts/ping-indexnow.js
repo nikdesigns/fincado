@@ -1,13 +1,16 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const {
+  INDEXNOW_HOST,
+  INDEXNOW_KEY,
+  SITE_ORIGIN,
+  INDEXNOW_KEY_LOCATION,
+} = require('./indexnow-config');
 
 // ----------------------------
 // CONFIG
 // ----------------------------
-const HOST = 'fincado.com';
-const API_KEY = 'f79d7e3caed6497cafbcc9ee2cd99a55';
-
 // ----------------------------
 // LOAD ARTICLES
 // ----------------------------
@@ -24,20 +27,20 @@ const articleUrls = articles.map((article) => {
   const isHindi = article.language === 'hi';
 
   return isHindi
-    ? `https://${HOST}/hi/guides/${article.slug}/`
-    : `https://${HOST}/guides/${article.slug}/`;
+    ? `${SITE_ORIGIN}/hi/guides/${article.slug}/`
+    : `${SITE_ORIGIN}/guides/${article.slug}/`;
 });
 
 // ✅ CORE STATIC URLS (ONLY REAL ONES)
 const staticUrls = [
-  `https://${HOST}/`,
-  `https://${HOST}/guides/`,
-  `https://${HOST}/hi/`,
-  `https://${HOST}/hi/guides/`,
-  `https://${HOST}/emi-calculator/`,
-  `https://${HOST}/sip-calculator/`,
-  `https://${HOST}/fd-calculator/`,
-  `https://${HOST}/credit-score/`,
+  `${SITE_ORIGIN}/`,
+  `${SITE_ORIGIN}/guides/`,
+  `${SITE_ORIGIN}/hi/`,
+  `${SITE_ORIGIN}/hi/guides/`,
+  `${SITE_ORIGIN}/emi-calculator/`,
+  `${SITE_ORIGIN}/sip-calculator/`,
+  `${SITE_ORIGIN}/fd-calculator/`,
+  `${SITE_ORIGIN}/credit-score/`,
 ];
 
 const urlList = [...staticUrls, ...articleUrls];
@@ -48,8 +51,9 @@ console.log(`🚀 Sending ${urlList.length} URLs to IndexNow...`);
 // INDEXNOW PAYLOAD
 // ----------------------------
 const payload = JSON.stringify({
-  host: HOST,
-  key: API_KEY,
+  host: INDEXNOW_HOST,
+  key: INDEXNOW_KEY,
+  keyLocation: INDEXNOW_KEY_LOCATION,
   urlList,
 });
 

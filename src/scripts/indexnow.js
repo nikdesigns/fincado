@@ -1,19 +1,23 @@
 const https = require('https');
-
-const KEY = 'dfd158e2da6b426c9eeabfc8dadd2611';
+const {
+  INDEXNOW_HOST,
+  INDEXNOW_KEY,
+  SITE_ORIGIN,
+  INDEXNOW_KEY_LOCATION,
+} = require('./indexnow-config');
 
 const URLS = [
-  'https://fincado.com/',
-  'https://fincado.com/emi-calculator/',
-  'https://fincado.com/sip-calculator/',
-  'https://fincado.com/loans/home-loan/',
-  'https://fincado.com/credit-score/',
+  `${SITE_ORIGIN}/`,
+  `${SITE_ORIGIN}/emi-calculator/`,
+  `${SITE_ORIGIN}/sip-calculator/`,
+  `${SITE_ORIGIN}/loans/home-loan/`,
+  `${SITE_ORIGIN}/credit-score/`,
 ];
 
 const payload = JSON.stringify({
-  host: 'fincado.com',
-  key: KEY,
-  keyLocation: `https://fincado.com/${KEY}.txt`,
+  host: INDEXNOW_HOST,
+  key: INDEXNOW_KEY,
+  keyLocation: INDEXNOW_KEY_LOCATION,
   urlList: URLS,
 });
 

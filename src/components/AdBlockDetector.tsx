@@ -5,6 +5,11 @@ import { useAdBlocker } from '@/hooks/useAdBlocker';
 import { X, HeartHandshake, Info, Minimize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const DISMISS_PERMANENT_KEY = 'adblock_notice_dismissed';
+const DISMISS_SESSION_KEY = 'adblock_notice_session_dismissed';
+const LAST_DISMISSED_KEY = 'adblock_notice_last_dismissed';
+const WHITELISTED_KEY = 'adblock_whitelisted';
+
 export default function AdBlockDetector() {
   const isAdBlockEnabled = useAdBlocker({
     delayMs: 3000, // Wait 3 seconds before checking
@@ -33,27 +38,25 @@ export default function AdBlockDetector() {
   // Check if user has previously dismissed
   useEffect(() => {
     try {
-      const dismissed = localStorage.getItem('adblock_notice_dismissed');
-      const lastDismissed = localStorage.getItem(
-        'adblock_notice_last_dismissed',
-      );
+      const isPermanentlyDismissed =
+        localStorage.getItem(DISMISS_PERMANENT_KEY) === 'permanent';
+      const isSessionDismissed =
+        sessionStorage.getItem(DISMISS_SESSION_KEY) === '1';
+      const lastDismissed = localStorage.getItem(LAST_DISMISSED_KEY);
 
-      if (dismissed === 'permanent') {
+      if (isPermanentlyDismissed || isSessionDismissed) {
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setIsClosed(true);
-      } else if (dismissed === 'session') {
-        // Session dismiss - only show once per browser session
         setIsClosed(true);
       } else if (lastDismissed) {
         // Temporary dismiss - show again after 7 days
         const daysSince =
-          (Date.now() - parseInt(lastDismissed)) / (1000 * 60 * 60 * 24);
+          (Date.now() - Number.parseInt(lastDismissed, 10)) /
+          (1000 * 60 * 60 * 24);
         if (daysSince < 7) {
           setIsClosed(true);
         } else {
           // Clear expired temporary dismissal
-          localStorage.removeItem('adblock_notice_dismissed');
-          localStorage.removeItem('adblock_notice_last_dismissed');
+          localStorage.removeItem(LAST_DISMISSED_KEY);
         }
       }
     } catch (error) {
@@ -66,15 +69,15 @@ export default function AdBlockDetector() {
 
     try {
       if (type === 'permanent') {
-        localStorage.setItem('adblock_notice_dismissed', 'permanent');
-        localStorage.setItem('adblock_whitelisted', 'true');
+        localStorage.setItem(DISMISS_PERMANENT_KEY, 'permanent');
+        localStorage.setItem(WHITELISTED_KEY, 'true');
+        localStorage.removeItem(LAST_DISMISSED_KEY);
+        sessionStorage.removeItem(DISMISS_SESSION_KEY);
       } else if (type === 'session') {
-        sessionStorage.setItem('adblock_notice_dismissed', 'session');
+        sessionStorage.setItem(DISMISS_SESSION_KEY, '1');
       } else if (type === 'temporary') {
-        localStorage.setItem(
-          'adblock_notice_last_dismissed',
-          Date.now().toString(),
-        );
+        localStorage.setItem(LAST_DISMISSED_KEY, Date.now().toString());
+        sessionStorage.removeItem(DISMISS_SESSION_KEY);
       }
     } catch (error) {
       console.error('Error saving ad block dismissal:', error);
