@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/investing/',
     languages: {
       'en-IN': 'https://fincado.com/investing/',
-      'hi-IN': 'https://fincado.com/hi/investing/',
+      'hi-IN': 'https://fincado.com/hi/mutual-funds/',
     },
   },
   openGraph: {
@@ -147,7 +147,7 @@ export default function InvestingPage() {
         <header style={{ marginBottom: 32 }} className="no-print">
           <div className="no-print mb-6 flex items-center justify-between gap-4">
             <ShareTools title="Investing Planner – SIP, Lumpsum & Asset Allocation" />
-            <LanguageToggle path="/hi/investing" />
+            <LanguageToggle path="/hi/mutual-funds/" />
           </div>
 
           <h1 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">

@@ -65,7 +65,11 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
   const [isChartReady, setIsChartReady] = useState(false);
 
   useEffect(() => {
-    setIsChartReady(true);
+    const frameId = window.requestAnimationFrame(() => {
+      setIsChartReady(true);
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
   }, []);
 
   const data = [

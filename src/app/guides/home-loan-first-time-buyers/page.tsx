@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/guides/home-loan/first-time-buyer-hero.webp',
+        url: '/images/guides/home-loan/first-time-buyer-celebration.webp',
         width: 1200,
         height: 630,
       }
@@ -161,7 +161,7 @@ export default function FirstTimeHomeBuyerGuidePage() {
             datePublished: '2025-12-15',
             dateModified: '2026-02-13',
             image:
-              'https://fincado.com/images/guides/home-loan/first-time-buyer-hero.webp',
+              'https://fincado.com/images/guides/home-loan/first-time-buyer-celebration.webp',
           }),
         }}
       />

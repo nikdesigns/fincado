@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-20T13:02:32.974Z",
+  "baseUrl": "http://localhost:3010",
+  "summary": {
+    "checked": 1,
+    "working": 0,
+    "broken": 1,
+    "redirects": 0
+  },
+  "brokenLinks": [
+    {
+      "path": "/",
+      "status": 0,
+      "error": "",
+      "source": "crawled"
+    }
+  ],
+  "redirects": []
+}

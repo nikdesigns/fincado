@@ -233,7 +233,7 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       taxableOld,
       taxableNew,
     };
-  }, [fy, age, income, deductions]);
+  }, [age, income, deductions]);
 
   const handleReset = () => {
     setIncome(1_200_000);

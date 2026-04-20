@@ -168,7 +168,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://fincado.com/og-compare-loans.jpg',
+        url: 'https://fincado.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Fincado Loan Comparison Tool',
@@ -180,7 +180,7 @@ export const metadata: Metadata = {
     title: pageTitle,
     description:
       'Compare bank loan offers and find the most affordable option with a side-by-side calculator.',
-    images: ['https://fincado.com/og-compare-loans.jpg'],
+    images: ['https://fincado.com/og-image.png'],
   },
   robots: {
     index: true,

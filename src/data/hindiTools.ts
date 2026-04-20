@@ -8,12 +8,14 @@ export interface HindiTool {
 }
 
 export interface HindiCategory {
+  id: string;
   name: string;
   tools: HindiTool[];
 }
 
 export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
   {
+    id: 'loans',
     name: 'लोन और ईएमआई (Loans)',
     tools: [
       {
@@ -45,10 +47,17 @@ export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
         desc: 'किसी भी लोन की साधारण EMI गणना।',
         href: '/hi/emi-calculator/',
         icon: '🔢',
+      },
+      {
+        title: 'EMI प्रीपेमेंट',
+        desc: 'आंशिक प्रीपेमेंट से ब्याज और अवधि में बचत देखें।',
+        href: '/hi/emi-prepayment-calculator/',
+        icon: '📉',
       }
     ],
   },
   {
+    id: 'investment',
     name: 'निवेश और बचत (Investment)',
     tools: [
       {
@@ -104,10 +113,35 @@ export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
         desc: 'निवेश से मासिक आय (पेंशन) पाएं।',
         href: '/hi/swp-calculator/',
         icon: '💧',
+      },
+      {
+        title: 'POMIS कैलकुलेटर',
+        desc: 'पोस्ट ऑफिस MIS से मासिक आय और मैच्योरिटी जानें।',
+        href: '/hi/pomis-calculator/',
+        icon: '📮',
+      },
+      {
+        title: 'KVP कैलकुलेटर',
+        desc: 'किसान विकास पत्र में पैसा दोगुना होने की समयसीमा ट्रैक करें।',
+        href: '/hi/kvp-calculator/',
+        icon: '⏱️',
+      },
+      {
+        title: 'NSC कैलकुलेटर',
+        desc: 'नेशनल सेविंग्स सर्टिफिकेट रिटर्न और टैक्स बेनिफिट।',
+        href: '/hi/nsc-calculator/',
+        icon: '📄',
+      },
+      {
+        title: 'CAGR कैलकुलेटर',
+        desc: 'निवेश की वार्षिक वृद्धि दर (Compound Annual Growth Rate)।',
+        href: '/hi/cagr-calculator/',
+        icon: '🎯',
       }
     ],
   },
   {
+    id: 'retirement',
     name: 'रिटायरमेंट और पेंशन (Retirement)',
     tools: [
       {
@@ -135,6 +169,12 @@ export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
         icon: '☂️',
       },
       {
+        title: 'SCSS कैलकुलेटर',
+        desc: 'सीनियर सिटिजन सेविंग्स स्कीम का तिमाही ब्याज और मैच्योरिटी देखें।',
+        href: '/hi/scss-calculator/',
+        icon: '👴',
+      },
+      {
         title: 'ग्रेच्युटी (Gratuity)',
         desc: 'नौकरी छोड़ने पर मिलने वाली रकम।',
         href: '/hi/gratuity-calculator/',
@@ -145,10 +185,17 @@ export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
         desc: 'जल्दी रिटायर होने का प्लान बनाएं।',
         href: '/hi/fire-calculator/',
         icon: '🔥',
+      },
+      {
+        title: 'गोल प्लानिंग',
+        desc: 'अपने सभी वित्तीय लक्ष्यों की योजना बनाएं।',
+        href: '/hi/goal-planning-calculator/',
+        icon: '🎯',
       }
     ],
   },
   {
+    id: 'tax-tools',
     name: 'टैक्स और अन्य टूल्स (Tax & Others)',
     tools: [
       {
@@ -162,6 +209,30 @@ export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
         desc: 'किराये पर टैक्स छूट की गणना (HRA)।',
         href: '/hi/hra-calculator/',
         icon: '🏠',
+      },
+      {
+        title: 'सैलरी कैलकुलेटर',
+        desc: 'CTC से इन-हैंड सैलरी का अनुमान लगाएं।',
+        href: '/hi/salary-calculator/',
+        icon: '💼',
+      },
+      {
+        title: 'कैपिटल गेन्स कैलकुलेटर',
+        desc: 'शेयर, म्यूचुअल फंड और प्रॉपर्टी पर STCG/LTCG टैक्स निकालें।',
+        href: '/hi/capital-gains-calculator/',
+        icon: '📊',
+      },
+      {
+        title: 'ब्रोकरेज कैलकुलेटर',
+        desc: 'ट्रेडिंग में ब्रोकरेज, GST, STT और नेट P&L देखें।',
+        href: '/hi/brokerage-calculator/',
+        icon: '📉',
+      },
+      {
+        title: 'रेंट रसीद जनरेटर',
+        desc: 'HRA क्लेम के लिए तुरंत वैध रेंट रसीद बनाएं।',
+        href: '/hi/rent-receipt-generator/',
+        icon: '🧾',
       },
       {
         title: 'महंगाई (Inflation)',
@@ -196,3 +267,8 @@ export const HINDI_CALCULATOR_CATEGORIES: HindiCategory[] = [
     ],
   }
 ];
+
+export const HINDI_CALCULATOR_COUNT = HINDI_CALCULATOR_CATEGORIES.reduce(
+  (total, category) => total + category.tools.length,
+  0,
+);

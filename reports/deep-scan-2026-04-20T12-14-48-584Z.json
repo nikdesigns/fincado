@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-04-20T12:14:48.584Z",
+  "baseUrl": "https://fincado.com",
+  "summary": {
+    "checked": 274,
+    "working": 268,
+    "broken": 2,
+    "redirects": 4
+  },
+  "brokenLinks": [
+    {
+      "path": "/bank-emi/sbi/",
+      "status": 504,
+      "source": "crawled"
+    },
+    {
+      "path": "/images/guides/tax/tax-on-12-lakh-salary-hero.webp",
+      "status": 0,
+      "error": "Timeout",
+      "source": "crawled"
+    }
+  ],
+  "redirects": [
+    {
+      "path": "/bank-emi/bom/",
+      "status": 307,
+      "location": "/bank-emi/bom/",
+      "source": "crawled"
+    },
+    {
+      "path": "/bank-emi/central/",
+      "status": 307,
+      "location": "/bank-emi/central/",
+      "source": "crawled"
+    },
+    {
+      "path": "/bank-emi/hdfc/",
+      "status": 307,
+      "location": "/bank-emi/hdfc/",
+      "source": "crawled"
+    },
+    {
+      "path": "/bank-emi/federal/",
+      "status": 307,
+      "location": "/bank-emi/federal/",
+      "source": "crawled"
+    }
+  ]
+}

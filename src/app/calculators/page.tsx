@@ -30,9 +30,9 @@ import {
 
 export const metadata: Metadata = {
   title:
-    '30+ Free Financial Calculators for India | EMI, SIP, Tax & Retirement (2026)',
+    '38+ Free Financial Calculators for India | EMI, SIP, Tax & Retirement (2026)',
   description:
-    "India's trusted financial calculator hub with 30+ free tools: EMI Calculator, SIP Calculator, Income Tax Calculator, Home Loan, PPF, Retirement Planning and more. Updated for FY 2026-27.",
+    "India's trusted financial calculator hub with 38+ free tools: EMI Calculator, SIP Calculator, Income Tax Calculator, Home Loan, PPF, Retirement Planning and more. Updated for FY 2026-27.",
   keywords: [
     'financial calculators india',
     'EMI calculator',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: '30+ Free Financial Calculators for India (2026)',
+    title: '38+ Free Financial Calculators for India (2026)',
     description:
       'Free calculators for loans, investments, taxes and retirement planning. EMI, SIP, Home Loan, Income Tax and more. Updated for FY 2026-27.',
     url: 'https://fincado.com/calculators/',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     images: [
       {
-        url: 'https://fincado.com/og-calculators.jpg',
+        url: 'https://fincado.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Fincado Financial Calculators',
@@ -77,10 +77,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '30+ Free Financial Calculators for India',
+    title: '38+ Free Financial Calculators for India',
     description:
       'EMI, SIP, Tax and Retirement calculators. Updated for FY 2026-27.',
-    images: ['https://fincado.com/og-calculators.jpg'],
+    images: ['https://fincado.com/og-image.png'],
   },
   robots: {
     index: true,
@@ -100,7 +100,7 @@ export default function CalculatorsPage() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': 'https://fincado.com/calculators/',
-    name: '30+ Free Financial Calculators for India',
+    name: '38+ Free Financial Calculators for India',
     description:
       'Complete suite of financial calculators for loans, investments, taxes and retirement planning. Updated for FY 2026-27.',
     url: 'https://fincado.com/calculators/',
@@ -187,7 +187,7 @@ export default function CalculatorsPage() {
         name: 'What financial calculators are available on Fincado?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Fincado offers 30+ free calculators including EMI, SIP, Income Tax, Home Loan, PPF, Retirement, NPS and more.',
+          text: 'Fincado offers 38+ free calculators including EMI, SIP, Income Tax, Home Loan, PPF, Retirement, NPS and more.',
         },
       },
       {
@@ -267,7 +267,7 @@ export default function CalculatorsPage() {
                 <div className="flex justify-between items-start mb-6">
                   <div className="flex flex-wrap gap-2">
                     <Badge className="bg-white border-brand-300 text-brand-900 px-3 py-1 text-xs font-semibold uppercase tracking-wider shadow-sm">
-                      30+ Free Tools
+                      38+ Free Tools
                     </Badge>
                     <Badge className="bg-brand-700 text-white px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1 shadow-md">
                       <BadgeCheck className="w-3 h-3" />

@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     locale: 'hi_IN',
     images: [
       {
-        url: 'https://fincado.com/og-hindi-guides.jpg',
+        url: 'https://fincado.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Fincado Hindi Financial Guides',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'फाइनेंशियल गाइड्स हिंदी में',
     description: 'SIP, लोन, टैक्स और निवेश की विस्तृत जानकारी हिंदी में।',
-    images: ['https://fincado.com/og-hindi-guides.jpg'],
+    images: ['https://fincado.com/og-image.png'],
   },
   robots: {
     index: true,

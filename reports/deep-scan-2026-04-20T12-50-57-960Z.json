@@ -1,0 +1,668 @@
+{
+  "timestamp": "2026-04-20T12:50:57.961Z",
+  "baseUrl": "https://fincado.com",
+  "summary": {
+    "checked": 197,
+    "working": 66,
+    "broken": 131,
+    "redirects": 0
+  },
+  "brokenLinks": [
+    {
+      "path": "/guides/sovereign-gold-bond-sgb-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/health-insurance-buying-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/sukanya-samriddhi-yojana-guide-2026/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/elss-funds-guide-2026/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/calculators/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/lumpsum-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/mutual-funds/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/guides/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/sip-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/elss-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/guides/elss-mutual-funds/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/guides/sovereign-gold-bonds/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/guides/sukanya-samriddhi-yojana/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/ppf-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/sukanya-samriddhi/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/income-tax-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/retirement-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/emi-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/credit-score/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/loans/home-loan/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/credit-card-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/investment-basics/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/best-tax-saving-options-80c/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/guides/new-vs-old-tax-regime/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/investment-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/fd-truths/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/gst-explained/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/emi-calculator-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/elss-vs-fd/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/sip-for-1-crore-in-10-years/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/sip-investment-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/retirement-planning-india/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/home-loan-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/how-credit-score-works-india/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/home-loan-first-time-buyers/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/swp-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/mutual-fund-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/tax-on-15-lakh-salary/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/sip-vs-fd/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/credit-score-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/ssy-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/sukanya-samriddhi-yojana-guide-2025/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/new-vs-old-tax-regime-2025/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/elss-funds-guide-2025/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/gold-investment-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/gst-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/fixed-deposit-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/epf-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/education-loan-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/car-loan-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/nps-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/personal-loan-interest-rates-india/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/how-credit-score-affects-loans/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/personal-loan-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/inflation-calculator-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-axis/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-icici/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-bob/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-kotak/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/ppf-guide/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-kotak/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-pnb/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-bob/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-pnb/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/axis-vs-pnb/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/pnb-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/kotak-vs-bob/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/axis-vs-bob/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/bob-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/bajaj-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/axis-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/lic-housing-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/kotak-vs-pnb/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/axis-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/lic-housing-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/kotak-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-bob/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/pnb-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/axis-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/bob-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/axis-vs-kotak/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/bob-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/sbi-vs-pnb/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/kotak-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-axis/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/pnb-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-idfc-first/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-kotak/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/hdfc-vs-sbi/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/emi-prepayment-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/pnb-vs-canara/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/icici-vs-lic-housing/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compare/kotak-vs-bajaj/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/mutual-funds/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/swp-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/loans/education-loan/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/loans/car-loan/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/loans/personal-loan/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/rd-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/scss-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/fd-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/pomis-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/nsc-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/simple-interest-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/fire-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/gratuity-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/kvp-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/cagr-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/apy-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/brokerage-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/nps-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/epf-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/capital-gains-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/salary-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/guides/new-vs-old-tax-regime-2026/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/rent-receipt-generator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/goal-planning-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/compound-interest-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/hra-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/cookie-policy/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/gst-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/hi/inflation-calculator/",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/_next/static/chunks/97724b59ffd442ee.css",
+      "status": 429,
+      "source": "crawled"
+    },
+    {
+      "path": "/bank-emi/",
+      "status": 429,
+      "source": "crawled"
+    }
+  ],
+  "redirects": []
+}

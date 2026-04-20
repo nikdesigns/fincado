@@ -21,7 +21,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-// --- COMPLETE HINDI CALCULATOR DATA (30+ calculators matching English version) ---
+// --- COMPLETE HINDI CALCULATOR DATA (synced with English coverage) ---
 const HINDI_CALCULATOR_CATEGORIES = [
   {
     name: 'लोन और ईएमआई (Loans)',
@@ -56,6 +56,12 @@ const HINDI_CALCULATOR_CATEGORIES = [
         desc: 'किसी भी लोन की साधारण EMI गणना।',
         href: '/hi/emi-calculator/',
         icon: '🔢',
+      },
+      {
+        title: 'EMI प्रीपेमेंट',
+        desc: 'आंशिक प्रीपेमेंट से ब्याज और अवधि में बचत देखें।',
+        href: '/hi/emi-prepayment-calculator/',
+        icon: '📉',
       }
     ],
   },
@@ -118,6 +124,18 @@ const HINDI_CALCULATOR_CATEGORIES = [
         icon: '💧',
       },
       {
+        title: 'POMIS कैलकुलेटर',
+        desc: 'पोस्ट ऑफिस MIS से मासिक आय और मैच्योरिटी जानें।',
+        href: '/hi/pomis-calculator/',
+        icon: '📮',
+      },
+      {
+        title: 'KVP कैलकुलेटर',
+        desc: 'किसान विकास पत्र में पैसा दोगुना होने की समयसीमा ट्रैक करें।',
+        href: '/hi/kvp-calculator/',
+        icon: '⏱️',
+      },
+      {
         title: 'NSC कैलकुलेटर',
         desc: 'नेशनल सेविंग्स सर्टिफिकेट रिटर्न और टैक्स बेनिफिट।',
         href: '/hi/nsc-calculator/',
@@ -166,6 +184,12 @@ const HINDI_CALCULATOR_CATEGORIES = [
         icon: '☂️',
       },
       {
+        title: 'SCSS कैलकुलेटर',
+        desc: 'सीनियर सिटिजन सेविंग्स स्कीम का तिमाही ब्याज और मैच्योरिटी देखें।',
+        href: '/hi/scss-calculator/',
+        icon: '👴',
+      },
+      {
         title: 'FIRE कैलकुलेटर',
         desc: 'जल्दी रिटायर होने का प्लान बनाएं।',
         href: '/hi/fire-calculator/',
@@ -194,6 +218,30 @@ const HINDI_CALCULATOR_CATEGORIES = [
         desc: 'हाउस रेंट अलाउंस टैक्स छूट की गणना।',
         href: '/hi/hra-calculator/',
         icon: '🏘️',
+      },
+      {
+        title: 'सैलरी कैलकुलेटर',
+        desc: 'CTC से इन-हैंड सैलरी का अनुमान लगाएं।',
+        href: '/hi/salary-calculator/',
+        icon: '💼',
+      },
+      {
+        title: 'कैपिटल गेन्स कैलकुलेटर',
+        desc: 'शेयर, म्यूचुअल फंड और प्रॉपर्टी पर STCG/LTCG टैक्स निकालें।',
+        href: '/hi/capital-gains-calculator/',
+        icon: '📊',
+      },
+      {
+        title: 'ब्रोकरेज कैलकुलेटर',
+        desc: 'ट्रेडिंग में ब्रोकरेज, GST, STT और नेट P&L देखें।',
+        href: '/hi/brokerage-calculator/',
+        icon: '📉',
+      },
+      {
+        title: 'रेंट रसीद जनरेटर',
+        desc: 'HRA क्लेम के लिए तुरंत वैध रेंट रसीद बनाएं।',
+        href: '/hi/rent-receipt-generator/',
+        icon: '🧾',
       },
       {
         title: 'GST कैलकुलेटर',
@@ -229,11 +277,16 @@ const HINDI_CALCULATOR_CATEGORIES = [
   }
 ];
 
+const TOTAL_HINDI_CALCULATORS = HINDI_CALCULATOR_CATEGORIES.reduce(
+  (total, category) => total + category.tools.length,
+  0,
+);
+
 /* ---------------- ENHANCED SEO METADATA (2026) ---------------- */
 export const metadata: Metadata = {
-  title: '30+ फाइनेंशियल कैलकुलेटर हिंदी में | SIP, EMI, PPF, Home Loan (2026)',
+  title: `${TOTAL_HINDI_CALCULATORS}+ फाइनेंशियल कैलकुलेटर हिंदी में | SIP, EMI, PPF, Home Loan (2026)`,
   description:
-    'Fincado पर 30+ फ्री कैलकुलेटर: SIP, EMI, होम लोन, पर्सनल लोन, PPF, सुकन्या समृद्धि, NPS, EPF, रिटायरमेंट और इनकम टैक्स। Budget 2026 और FY 2026-27 के अनुसार अपडेटेड। सभी टूल्स 100% फ्री और सटीक।',
+    `Fincado पर ${TOTAL_HINDI_CALCULATORS}+ फ्री कैलकुलेटर: SIP, EMI, होम लोन, पर्सनल लोन, PPF, सुकन्या समृद्धि, NPS, EPF, रिटायरमेंट, सैलरी, कैपिटल गेन्स और इनकम टैक्स। Budget 2026 और FY 2026-27 के अनुसार अपडेटेड। सभी टूल्स 100% फ्री और सटीक।`,
   keywords: [
     'financial calculator hindi',
     'sip calculator hindi',
@@ -265,7 +318,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: '30+ फाइनेंशियल कैलकुलेटर हिंदी में (2026)',
+    title: `${TOTAL_HINDI_CALCULATORS}+ फाइनेंशियल कैलकुलेटर हिंदी में (2026)`,
     description:
       'SIP, EMI, होम लोन, PPF, सुकन्या समृद्धि, NPS, EPF और रिटायरमेंट कैलकुलेटर। Budget 2026 अपडेटेड। 100% फ्री और सटीक।',
     url: 'https://fincado.com/hi/calculators/',
@@ -274,7 +327,7 @@ export const metadata: Metadata = {
     locale: 'hi_IN',
     images: [
       {
-        url: 'https://fincado.com/og-hindi-calculators.jpg',
+        url: 'https://fincado.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Fincado Hindi Financial Calculators',
@@ -283,10 +336,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '30+ फाइनेंशियल कैलकुलेटर हिंदी में',
+    title: `${TOTAL_HINDI_CALCULATORS}+ फाइनेंशियल कैलकुलेटर हिंदी में`,
     description:
       'SIP, EMI, होम लोन, NPS, EPF और रिटायरमेंट कैलकुलेटर। Budget 2026 अपडेटेड।',
-    images: ['https://fincado.com/og-hindi-calculators.jpg'],
+    images: ['https://fincado.com/og-image.png'],
   },
   robots: {
     index: true,
@@ -305,11 +358,7 @@ export const metadata: Metadata = {
 };
 
 export default function HindiCalculatorsPage() {
-  // Count total calculators
-  const totalCalculators = HINDI_CALCULATOR_CATEGORIES.reduce(
-    (acc, cat) => acc + cat.tools.length,
-    0,
-  );
+  const totalCalculators = TOTAL_HINDI_CALCULATORS;
 
   // Get popular calculators (first 6)
   const popularCalculators = HINDI_CALCULATOR_CATEGORIES.flatMap((cat) =>
@@ -323,7 +372,7 @@ export default function HindiCalculatorsPage() {
     '@id': 'https://fincado.com/hi/calculators/',
     name: 'फाइनेंशियल कैलकुलेटर हिंदी में',
     description:
-      '30+ फ्री फाइनेंशियल कैलकुलेटर: SIP, EMI, होम लोन, PPF, सुकन्या समृद्धि, NPS, EPF, रिटायरमेंट और टैक्स कैलकुलेटर।',
+      `${TOTAL_HINDI_CALCULATORS}+ फ्री फाइनेंशियल कैलकुलेटर: SIP, EMI, होम लोन, PPF, सुकन्या समृद्धि, NPS, EPF, रिटायरमेंट, सैलरी और टैक्स कैलकुलेटर।`,
     url: 'https://fincado.com/hi/calculators/',
     inLanguage: 'hi-IN',
     isPartOf: {
@@ -344,7 +393,7 @@ export default function HindiCalculatorsPage() {
         name: 'कौन से कैलकुलेटर हिंदी में उपलब्ध हैं?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Fincado पर 30+ कैलकुलेटर हिंदी में उपलब्ध हैं: SIP, EMI, होम लोन, पर्सनल लोन, कार लोन, PPF, सुकन्या समृद्धि, FD, RD, NPS, EPF, रिटायरमेंट प्लानर, इनकम टैक्स, HRA, GST, महंगाई, CAGR और क्रेडिट स्कोर कैलकुलेटर।',
+          text: `Fincado पर ${TOTAL_HINDI_CALCULATORS}+ कैलकुलेटर हिंदी में उपलब्ध हैं: SIP, EMI, होम लोन, पर्सनल लोन, कार लोन, PPF, सुकन्या समृद्धि, FD, RD, POMIS, KVP, SCSS, NPS, EPF, रिटायरमेंट प्लानर, इनकम टैक्स, सैलरी, HRA, कैपिटल गेन्स, ब्रोकरेज, GST, महंगाई, CAGR और क्रेडिट स्कोर कैलकुलेटर।`,
         },
       },
       {

@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-goal-planning-calculator.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Fincado Goal Planning Calculator',

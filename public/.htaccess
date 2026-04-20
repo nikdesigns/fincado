@@ -76,7 +76,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^guides/category/.*$ /guides/ [R=301,L]
 RewriteRule ^step-up-sip-calculator/?$ /sip-calculator/ [R=301,L]
 
-RewriteRule ^guides/tax/?$ /income-tax-calculator/ [R=301,L]
 RewriteRule ^guides/sukanya-samriddhi-yojana-guide/?$ /guides/sukanya-samriddhi-yojana-guide-2025/ [R=301,L]
 
 RewriteRule ^loans/gold-loan/?$ /loans/ [R=301,L]

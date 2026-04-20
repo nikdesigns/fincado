@@ -45,6 +45,13 @@ interface ArticleLangGroup {
   hi?: ArticleEntry;
 }
 
+const TAX_SALARY_SLUG_PATTERN = /^tax-on-[\d-]+-lakh-salary$/;
+
+const shouldIncludeArticleInSitemap = (article: ArticleEntry): boolean => {
+  if (!article.hidden) return true;
+  return TAX_SALARY_SLUG_PATTERN.test(article.slug);
+};
+
 const formatDateOnly = (value: Date | string): string => {
   const parsed = typeof value === 'string' ? new Date(value) : value;
   if (Number.isNaN(parsed.getTime())) return new Date().toISOString().slice(0, 10);
@@ -221,7 +228,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const informationalPages: MetadataRoute.Sitemap = [
     '/about',
     '/contact',
+    '/investing',
+    '/savings',
     '/mutual-funds',
+    '/guides/tax',
     '/terms',
     '/privacy-policy',
     '/disclaimer',
@@ -239,6 +249,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi',
     '/hi/calculators',
     '/hi/guides',
+    '/hi/loans',
     '/hi/mutual-funds',
     '/hi/credit-score'
   ].map((route) =>
@@ -253,7 +264,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const typedArticles = articlesData as ArticleEntry[];
   const articlesBySlug = new Map<string, ArticleLangGroup>();
 
-  for (const article of typedArticles.filter((article) => !article.hidden)) {
+  for (const article of typedArticles.filter(shouldIncludeArticleInSitemap)) {
     const existing = articlesBySlug.get(article.slug) ?? {};
     if (article.language === 'hi') existing.hi = article;
     else existing.en = article;

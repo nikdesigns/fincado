@@ -1,6 +1,5 @@
 const http = require('http');
 const https = require('https');
-const { parse } = require('url');
 
 class DeepLinkScanner {
   constructor(baseUrl) {
@@ -15,25 +14,34 @@ class DeepLinkScanner {
       redirects: [],
     };
     this.maxConcurrent = 5;
-    this.timeout = 10000; // 10 seconds
+    this.timeout = Number(process.env.DEEP_SCAN_TIMEOUT_MS || 15000);
+    this.maxRetries = Number(process.env.DEEP_SCAN_RETRIES || 1);
   }
 
-  async fetchPage(path) {
+  isAssetPath(path) {
+    return /\.[a-z0-9]{2,5}$/i.test(path);
+  }
+
+  async fetchPage(path, method = 'GET') {
     return new Promise((resolve) => {
       const url = `${this.baseUrl}${path}`;
       const isHttps = this.baseUrl.startsWith('https');
       const client = isHttps ? https : http;
 
       const options = {
-        method: 'GET',
+        method,
         timeout: this.timeout,
+        headers: {
+          'User-Agent': 'FincadoDeepScanBot/1.1 (+https://fincado.com)',
+          Accept: '*/*',
+        },
       };
 
-      const req = client.get(url, options, (res) => {
+      const req = client.request(url, options, (res) => {
         let body = '';
 
         res.on('data', (chunk) => {
-          body += chunk.toString();
+          if (method !== 'HEAD') body += chunk.toString();
         });
 
         res.on('end', () => {
@@ -44,6 +52,8 @@ class DeepLinkScanner {
           });
         });
       });
+
+      req.end();
 
       req.on('error', (err) => {
         resolve({
@@ -111,13 +121,27 @@ class DeepLinkScanner {
     return path;
   }
 
+  async fetchWithRetry(path, method) {
+    for (let attempt = 0; attempt <= this.maxRetries; attempt += 1) {
+      const response = await this.fetchPage(path, method);
+      const shouldRetry =
+        attempt < this.maxRetries &&
+        (response.statusCode === 0 || response.statusCode >= 500);
+
+      if (!shouldRetry) return response;
+    }
+
+    return { statusCode: 0, error: 'Retry limit exceeded' };
+  }
+
   async checkLink(path, source) {
     this.results.checked++;
     process.stdout.write(
       `\r📊 Checked: ${this.results.checked} | Queue: ${this.queue.length} | Broken: ${this.results.broken.length}`,
     );
 
-    const response = await this.fetchPage(path);
+    const method = this.isAssetPath(path) ? 'HEAD' : 'GET';
+    const response = await this.fetchWithRetry(path, method);
 
     if (response.statusCode === 200) {
       this.results.working++;
@@ -127,13 +151,27 @@ class DeepLinkScanner {
         contentType: response.headers?.['content-type'],
       };
     } else if (response.statusCode >= 300 && response.statusCode < 400) {
+      const location = response.headers?.location;
       this.results.redirects.push({
         path,
         status: response.statusCode,
-        location: response.headers?.location,
+        location,
         source,
       });
-      return { success: false };
+
+      if (location && location.startsWith('/')) {
+        const normalizedLocation = this.normalizePath(location);
+
+        if (
+          normalizedLocation !== path &&
+          !this.visited.has(normalizedLocation) &&
+          !this.queue.includes(normalizedLocation)
+        ) {
+          this.queue.push(normalizedLocation);
+        }
+      }
+
+      return { success: false, redirected: true };
     } else {
       this.results.broken.push({
         path,
@@ -158,11 +196,7 @@ class DeepLinkScanner {
     const result = await this.checkLink(normalizedPath, source);
 
     // Only extract links from HTML pages
-    if (
-      result.success &&
-      result.body &&
-      result.contentType?.includes('text/html')
-    ) {
+    if (result.success && result.body && result.contentType?.includes('text/html')) {
       const links = this.extractLinks(result.body, normalizedPath);
 
       // Add new links to queue

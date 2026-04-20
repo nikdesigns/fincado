@@ -65,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Fincado',
       images: [
         {
-          url: 'https://fincado.com/images/og/homepage-fincado-2026.webp',
+          url: 'https://fincado.com/og-image.png',
           width: 1200,
           height: 630,
           alt: 'Fincado financial calculators for India',
@@ -74,11 +74,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
-      description:
-        'Free calculators for EMI, SIP, tax, post office schemes, and home loans in India.',
-      images: ['https://fincado.com/images/og/homepage-fincado-2026.webp'],
-    },
+    title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
+    description:
+      'Free calculators for EMI, SIP, tax, post office schemes, and home loans in India.',
+    images: ['https://fincado.com/og-image.png'],
+  },
   };
 }
 

@@ -1,4 +1,170 @@
 {
+  "loans/home-loan": {
+    "name": "loans/home-loan",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "loans/personal-loan": {
+    "name": "loans/personal-loan",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "loans/car-loan": {
+    "name": "loans/car-loan",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing: hasExample"
+    ],
+    "score": 97
+  },
+  "loans/education-loan": {
+    "name": "loans/education-loan",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
   "emi-calculator": {
     "name": "emi-calculator",
     "exists": true,
@@ -40,131 +206,54 @@
     "issues": [],
     "score": 100
   },
+  "emi-prepayment-calculator": {
+    "name": "emi-prepayment-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": false,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasFormula",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 86
+  },
   "sip-calculator": {
     "name": "sip-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "income-tax-calculator": {
-    "name": "income-tax-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "ppf-calculator": {
-    "name": "ppf-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "fd-calculator": {
-    "name": "fd-calculator",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -245,8 +334,8 @@
     "issues": [],
     "score": 100
   },
-  "epf-calculator": {
-    "name": "epf-calculator",
+  "lumpsum-calculator": {
+    "name": "lumpsum-calculator",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -286,8 +375,8 @@
     "issues": [],
     "score": 100
   },
-  "gst-calculator": {
-    "name": "gst-calculator",
+  "mutual-funds": {
+    "name": "mutual-funds",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -298,7 +387,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": true
+      "robots": false
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -310,7 +399,7 @@
       "AuthorBio": true,
       "WikiText": true,
       "Card": true,
-      "Accordion": true,
+      "Accordion": false,
       "clientState": true,
       "clientInputs": true,
       "clientCalculation": true,
@@ -318,140 +407,21 @@
     },
     "content": {
       "hasH1": true,
-      "hasFormula": true,
+      "hasFormula": false,
       "hasExample": true,
       "hasFAQ": true,
-      "hasRelatedCalcs": true,
+      "hasRelatedCalcs": false,
       "hasInternalLinks": true
     },
-    "issues": [],
-    "score": 100
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasFormula",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 87
   },
-  "hra-calculator": {
-    "name": "hra-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "nps-calculator": {
-    "name": "nps-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "gratuity-calculator": {
-    "name": "gratuity-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "rd-calculator": {
-    "name": "rd-calculator",
+  "ppf-calculator": {
+    "name": "ppf-calculator",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -532,6 +502,88 @@
     "issues": [],
     "score": 100
   },
+  "fd-calculator": {
+    "name": "fd-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "rd-calculator": {
+    "name": "rd-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
   "swp-calculator": {
     "name": "swp-calculator",
     "exists": true,
@@ -573,8 +625,266 @@
     "issues": [],
     "score": 100
   },
-  "inflation-calculator": {
-    "name": "inflation-calculator",
+  "pomis-calculator": {
+    "name": "pomis-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": false,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasFormula",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 86
+  },
+  "nsc-calculator": {
+    "name": "nsc-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": false,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing component: FAQSchema"
+    ],
+    "score": 98
+  },
+  "kvp-calculator": {
+    "name": "kvp-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": false,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasFormula",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 86
+  },
+  "cagr-calculator": {
+    "name": "cagr-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "nps-calculator": {
+    "name": "nps-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "epf-calculator": {
+    "name": "epf-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "gratuity-calculator": {
+    "name": "gratuity-calculator",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -655,8 +965,8 @@
     "issues": [],
     "score": 100
   },
-  "lumpsum-calculator": {
-    "name": "lumpsum-calculator",
+  "apy-calculator": {
+    "name": "apy-calculator",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -696,8 +1006,479 @@
     "issues": [],
     "score": 100
   },
-  "compound-interest-calculator": {
-    "name": "compound-interest-calculator",
+  "scss-calculator": {
+    "name": "scss-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": false,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasFormula",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 86
+  },
+  "fire-calculator": {
+    "name": "fire-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "goal-planning-calculator": {
+    "name": "goal-planning-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "income-tax-calculator": {
+    "name": "income-tax-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "salary-calculator": {
+    "name": "salary-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 97
+  },
+  "capital-gains-calculator": {
+    "name": "capital-gains-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": false,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasFormula",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 86
+  },
+  "brokerage-calculator": {
+    "name": "brokerage-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 89
+  },
+  "hra-calculator": {
+    "name": "hra-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "rent-receipt-generator": {
+    "name": "rent-receipt-generator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": false
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": false,
+      "hasFAQ": true,
+      "hasRelatedCalcs": false,
+      "hasInternalLinks": true
+    },
+    "issues": [
+      "⚠️  Missing metadata.robots",
+      "⚠️  Missing: hasExample",
+      "⚠️  Missing: hasRelatedCalcs"
+    ],
+    "score": 89
+  },
+  "gst-calculator": {
+    "name": "gst-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "inflation-calculator": {
+    "name": "inflation-calculator",
+    "exists": true,
+    "hasPage": true,
+    "hasClient": true,
+    "metadata": {
+      "hasMetadata": true,
+      "title": true,
+      "description": true,
+      "keywords": true,
+      "canonical": true,
+      "openGraph": true,
+      "robots": true
+    },
+    "components": {
+      "BreadcrumbJsonLd": true,
+      "CalculatorSchema": true,
+      "FAQSchema": true,
+      "ShareTools": true,
+      "LanguageToggle": true,
+      "AdSlot": true,
+      "AuthorBio": true,
+      "WikiText": true,
+      "Card": true,
+      "Accordion": true,
+      "clientState": true,
+      "clientInputs": true,
+      "clientCalculation": true,
+      "clientResults": true
+    },
+    "content": {
+      "hasH1": true,
+      "hasFormula": true,
+      "hasExample": true,
+      "hasFAQ": true,
+      "hasRelatedCalcs": true,
+      "hasInternalLinks": true
+    },
+    "issues": [],
+    "score": 100
+  },
+  "credit-score": {
+    "name": "credit-score",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
@@ -778,49 +1559,8 @@
     "issues": [],
     "score": 100
   },
-  "apy-calculator": {
-    "name": "apy-calculator",
-    "exists": true,
-    "hasPage": true,
-    "hasClient": true,
-    "metadata": {
-      "hasMetadata": true,
-      "title": true,
-      "description": true,
-      "keywords": true,
-      "canonical": true,
-      "openGraph": true,
-      "robots": true
-    },
-    "components": {
-      "BreadcrumbJsonLd": true,
-      "CalculatorSchema": true,
-      "FAQSchema": true,
-      "ShareTools": true,
-      "LanguageToggle": true,
-      "AdSlot": true,
-      "AuthorBio": true,
-      "WikiText": true,
-      "Card": true,
-      "Accordion": true,
-      "clientState": true,
-      "clientInputs": true,
-      "clientCalculation": true,
-      "clientResults": true
-    },
-    "content": {
-      "hasH1": true,
-      "hasFormula": true,
-      "hasExample": true,
-      "hasFAQ": true,
-      "hasRelatedCalcs": true,
-      "hasInternalLinks": true
-    },
-    "issues": [],
-    "score": 100
-  },
-  "fire-calculator": {
-    "name": "fire-calculator",
+  "compound-interest-calculator": {
+    "name": "compound-interest-calculator",
     "exists": true,
     "hasPage": true,
     "hasClient": true,
