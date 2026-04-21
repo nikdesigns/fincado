@@ -832,7 +832,7 @@ export default function CreditCardGuidePage() {
           To learn more about score-building behavior, see your existing guide
           on{' '}
           <Link
-            href="/guides/how-credit-score-works-india/"
+            href="/guides/credit-score-guide/"
             className="text-blue-600 hover:underline"
           >
             how credit scores work in India

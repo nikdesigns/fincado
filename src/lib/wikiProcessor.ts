@@ -81,7 +81,7 @@ const LINK_RULES: LinkRule[] = [
   { term: 'Old Tax Regime', href: '/guides/new-vs-old-tax-regime-2026/' },
   { term: 'SSY Guide', href: '/guides/sukanya-samriddhi-yojana-guide-2026/' },
   { term: 'NPS Guide', href: '/guides/nps-guide/' },
-  { term: 'GST Guide', href: '/guides/gst-explained/' },
+  { term: 'GST Guide', href: '/guides/gst-guide/' },
   { term: 'SWP Guide', href: '/guides/swp-guide/' },
   { term: 'SIP vs FD', href: '/guides/sip-vs-fd/' },
   { term: 'SGB', href: '/guides/gold-investment-guide/' },

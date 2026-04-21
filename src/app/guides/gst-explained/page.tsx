@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     'how to claim itc in gst'
   ],
   alternates: {
-    canonical: 'https://fincado.com/guides/gst-explained/',
+    canonical: 'https://fincado.com/guides/gst-guide/',
   },
   openGraph: {
     title: 'GST Returns Explained: GSTR-1 vs GSTR-3B & Input Tax Credit',

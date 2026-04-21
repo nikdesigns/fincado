@@ -3,8 +3,7 @@ https://www.fincado.com/* https://fincado.com/:splat 301!
 
 # ── Legacy utility URLs → canonical routes ────────────────────────────────
 /privacy/ /privacy-policy/ 301!
-/faq/ /contact/ 301!
-/faqs/ /contact/ 301!
+/faqs/ /faq/ 301!
 /home-loan-calculator/ /loans/home-loan/ 301!
 /hi/home-loan-calculator/ /hi/loans/home-loan/ 301!
 /emi-calculator/home-loan/ /loans/home-loan/ 301!
@@ -13,6 +12,8 @@ https://www.fincado.com/* https://fincado.com/:splat 301!
 /emi-calculator/education-loan/ /loans/education-loan/ 301!
 /guides/sip-investing-guide/ /guides/sip-investment-guide/ 301!
 /guides/home-loan-for-first-time-buyers/ /guides/home-loan-first-time-buyers/ 301!
+/guides/credit-score-guide-india/ /guides/credit-score-guide/ 301!
+/guides/sukanya-samriddhi-yojana-guide/ /guides/sukanya-samriddhi-yojana-guide-2026/ 301!
 
 # ── Duplicate guide redirects ──────────────────────────────────────────────
 # Year-versioned guides: old year → current year
@@ -21,7 +22,7 @@ https://www.fincado.com/* https://fincado.com/:splat 301!
 /guides/sukanya-samriddhi-yojana-guide-2025/ /guides/sukanya-samriddhi-yojana-guide-2026/ 301!
 
 # Near-duplicate slug aliases → canonical slug
-/guides/gst-guide/ /guides/gst-explained/ 301!
+/guides/gst-explained/ /guides/gst-guide/ 301!
 /guides/personal-loan-interest-rates-india/ /guides/personal-loan-interest-rates/ 301!
 /guides/how-credit-score-works-india/ /guides/credit-score-guide/ 301!
 /guides/how-credit-score-affects-loans/ /guides/credit-score-guide/ 301!

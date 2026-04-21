@@ -377,8 +377,8 @@ export default async function ComparisonPage({
           note: 'Checklist for first sanction and disbursal.',
         },
         {
-          label: 'Personal Loan Rates India Guide',
-          href: '/guides/personal-loan-interest-rates-india/',
+          label: 'Personal Loan Rates Guide',
+          href: '/guides/personal-loan-interest-rates/',
           note: 'Cross-check unsecured-loan alternatives.',
         },
       ],

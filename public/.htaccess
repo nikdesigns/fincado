@@ -76,7 +76,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^guides/category/.*$ /guides/ [R=301,L]
 RewriteRule ^step-up-sip-calculator/?$ /sip-calculator/ [R=301,L]
 
-RewriteRule ^guides/sukanya-samriddhi-yojana-guide/?$ /guides/sukanya-samriddhi-yojana-guide-2025/ [R=301,L]
+RewriteRule ^guides/sukanya-samriddhi-yojana-guide/?$ /guides/sukanya-samriddhi-yojana-guide-2026/ [R=301,L]
 
 RewriteRule ^loans/gold-loan/?$ /loans/ [R=301,L]
 RewriteRule ^loans/business-loan/?$ /loans/ [R=301,L]
@@ -104,7 +104,23 @@ RewriteRule ^home-loan-rates/?$ /compare-loans/ [R=301,L]
 
 RewriteRule ^guides/emi-calculator-guide-2025/?$ /guides/emi-calculator-guide/ [R=301,L]
 RewriteRule ^guides/sip-investment-strategies/?$ /guides/sip-investment-guide/ [R=301,L]
-RewriteRule ^guides/credit-score-guide-india/?$ /guides/how-credit-score-affects-loans/ [R=301,L]
+RewriteRule ^guides/credit-score-guide-india/?$ /guides/credit-score-guide/ [R=301,L]
+RewriteRule ^guides/gst-explained/?$ /guides/gst-guide/ [R=301,L]
+RewriteRule ^guides/elss-funds-guide-2025/?$ /guides/elss-funds-guide-2026/ [R=301,L]
+RewriteRule ^guides/new-vs-old-tax-regime-2025/?$ /guides/new-vs-old-tax-regime-2026/ [R=301,L]
+RewriteRule ^guides/sukanya-samriddhi-yojana-guide-2025/?$ /guides/sukanya-samriddhi-yojana-guide-2026/ [R=301,L]
+RewriteRule ^guides/personal-loan-interest-rates-india/?$ /guides/personal-loan-interest-rates/ [R=301,L]
+RewriteRule ^guides/how-credit-score-works-india/?$ /guides/credit-score-guide/ [R=301,L]
+RewriteRule ^guides/how-credit-score-affects-loans/?$ /guides/credit-score-guide/ [R=301,L]
+RewriteRule ^guides/sip-investing-guide/?$ /guides/sip-investment-guide/ [R=301,L]
+RewriteRule ^guides/home-loan-for-first-time-buyers/?$ /guides/home-loan-first-time-buyers/ [R=301,L]
+
+RewriteRule ^privacy/?$ /privacy-policy/ [R=301,L]
+RewriteRule ^faqs/?$ /faq/ [R=301,L]
+RewriteRule ^emi-calculator/home-loan/?$ /loans/home-loan/ [R=301,L]
+RewriteRule ^emi-calculator/personal-loan/?$ /loans/personal-loan/ [R=301,L]
+RewriteRule ^emi-calculator/car-loan/?$ /loans/car-loan/ [R=301,L]
+RewriteRule ^emi-calculator/education-loan/?$ /loans/education-loan/ [R=301,L]
 
 # ------------------------------------------------
 # 7. DELETED PROGRAMMATIC CITY PAGES (SEO CLEANUP)

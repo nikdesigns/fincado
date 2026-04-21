@@ -74,9 +74,9 @@ const EN_RESOURCES: Record<CategoryKey, RelatedResource[]> = {
   credit: [
     { title: 'Credit Score Hub', href: '/credit-score/' },
     { title: 'Credit Score Guide', href: '/guides/credit-score-guide/' },
-    { title: 'How CIBIL Works', href: '/guides/how-credit-score-works-india/' },
+    { title: 'How CIBIL Works', href: '/guides/credit-score-guide/' },
     { title: 'Credit Card Guide', href: '/guides/credit-card-guide/' },
-    { title: 'Personal Loan Rates Guide', href: '/guides/personal-loan-interest-rates-india/' }
+    { title: 'Personal Loan Rates Guide', href: '/guides/personal-loan-interest-rates/' }
   ],
   gold: [
     { title: 'Gold Investment Guide', href: '/guides/gold-investment-guide/' },

@@ -244,6 +244,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
+  // Canonical static guides that are not sourced from articles.json
+  const canonicalStaticGuides: MetadataRoute.Sitemap = [
+    '/guides/new-vs-old-tax-regime-2026',
+    '/guides/personal-loan-interest-rates'
+  ].map((route) =>
+    makeEntry(route, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'monthly',
+      priority: PRIORITY.MEDIUM_HIGH,
+    }),
+  );
+
   /* ---------------- 2. HINDI STANDALONE PAGES ---------------- */
   const hindiStandalonePages: MetadataRoute.Sitemap = [
     '/hi',
@@ -357,6 +369,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...investmentCalculators,
     ...retirementCalculators,
     ...taxUtilityCalculators,
+    ...canonicalStaticGuides,
     ...articleRoutes,
     ...bankHubRoutes,
     ...hindiStandalonePages,
