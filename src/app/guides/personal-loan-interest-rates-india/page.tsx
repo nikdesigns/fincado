@@ -411,7 +411,7 @@ export default function PersonalLoanGuidePage() {
             <li>
               <Link
                 className="text-blue-700 hover:underline"
-                href="/guides/how-credit-score-affects-loans/"
+                href="/guides/credit-score-guide/"
               >
                 How Credit Score Affects Loans
               </Link>

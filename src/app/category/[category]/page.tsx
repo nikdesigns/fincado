@@ -4,6 +4,8 @@ import { notFound, permanentRedirect } from 'next/navigation';
 
 type Article = {
   category: string;
+  hidden?: boolean;
+  language?: 'en' | 'hi';
 };
 
 const SITE_URL = 'https://fincado.com';
@@ -18,6 +20,7 @@ export async function generateStaticParams() {
   const categories = Array.from(
     new Set(
       (articlesData as Article[])
+        .filter((article) => !article.hidden && (!article.language || article.language === 'en'))
         .map((article) => article.category)
         .filter(Boolean),
     ),

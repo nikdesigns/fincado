@@ -46,8 +46,14 @@ interface ArticleLangGroup {
 }
 
 const TAX_SALARY_SLUG_PATTERN = /^tax-on-[\d-]+-lakh-salary$/;
+const REDIRECTED_GUIDE_SLUGS = new Set([
+  'elss-funds-guide-2025',
+  'new-vs-old-tax-regime-2025',
+  'sukanya-samriddhi-yojana-guide-2025',
+]);
 
 const shouldIncludeArticleInSitemap = (article: ArticleEntry): boolean => {
+  if (REDIRECTED_GUIDE_SLUGS.has(article.slug)) return false;
   if (!article.hidden) return true;
   return TAX_SALARY_SLUG_PATTERN.test(article.slug);
 };
@@ -341,8 +347,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const comparisonRoutes: MetadataRoute.Sitemap = [];
   for (let i = 0; i < topBanks.length; i++) {
     for (let j = i + 1; j < topBanks.length; j++) {
+      const canonicalCompareSlug = [topBanks[i], topBanks[j]]
+        .sort()
+        .join('-vs-');
       comparisonRoutes.push(
-        makeEntry(`/compare/${topBanks[i]}-vs-${topBanks[j]}`, {
+        makeEntry(`/compare/${canonicalCompareSlug}`, {
           lastModified: DEFAULT_LAST_MODIFIED,
           changeFrequency: 'weekly',
           priority: PRIORITY.HIGH,

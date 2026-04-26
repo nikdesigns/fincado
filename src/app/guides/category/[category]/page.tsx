@@ -14,6 +14,8 @@ type Article = {
   title: string;
   category: string;
   metaDescription: string;
+  hidden?: boolean;
+  language?: 'en' | 'hi';
 };
 
 type Props = {
@@ -60,6 +62,8 @@ export default async function CategoryPage({ params }: Props) {
   const normalized = normalize(category);
 
   const guides = (articles as Article[]).filter((a) =>
+    !a.hidden &&
+    (!a.language || a.language === 'en') &&
     normalize(a.category).includes(normalized)
   );
 
@@ -130,7 +134,10 @@ export default async function CategoryPage({ params }: Props) {
 export async function generateStaticParams() {
   const categories = Array.from(
     new Set(
-      (articles as Article[]).map((a) => normalize(a.category)).filter(Boolean)
+      (articles as Article[])
+        .filter((a) => !a.hidden && (!a.language || a.language === 'en'))
+        .map((a) => normalize(a.category))
+        .filter(Boolean)
     )
   );
 

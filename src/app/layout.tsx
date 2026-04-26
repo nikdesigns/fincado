@@ -18,43 +18,37 @@ import SiteTrustSchema from '@/components/SiteTrustSchema';
 
 const fy = getCurrentFiscalYear();
 
-// ✅ 2. Configure your custom local font
-const customFont = localFont({
+// Brand UI font (neutral internal naming)
+const fincadoSans = localFont({
   src: [
     {
-      path: '../../public/fonts/DupletRounded-Extralight.woff',
+      path: '../../public/fonts/FincadoBrand-Light.otf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/DupletRounded-Light.woff',
+      path: '../../public/fonts/FincadoBrand-Regular.otf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/DupletRounded-Regular.woff',
+      path: '../../public/fonts/FincadoBrand-Semibold.otf',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/DupletRounded-Semibold.woff',
+      path: '../../public/fonts/FincadoBrand-Semibold.otf',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/DupletRounded-Bold.woff',
+      path: '../../public/fonts/FincadoBrand-Bold.otf',
       weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/DupletRounded-Extrabold.woff',
-      weight: '800',
       style: 'normal',
     }
   ],
   display: 'swap',
-  // We keep the variable name '--font-rubik' so you don't have to change your Tailwind config/CSS
-  variable: '--font-rubik',
+  variable: '--font-fincado-sans',
   preload: true,
 });
 
@@ -139,7 +133,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={customFont.className}>
+      <body className={fincadoSans.className}>
         <SiteTrustSchema />
 
         {/* Cookieless first-party analytics (no cookies/storage) */}

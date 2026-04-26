@@ -20,6 +20,7 @@ type Article = {
   content: string;
   published: string;
   language?: string;
+  hidden?: boolean;
 };
 
 type Props = {
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
   const article = (articles as Article[]).find(
-    (a) => a.slug === slug && (!a.language || a.language === 'en'),
+    (a) => a.slug === slug && !a.hidden && (!a.language || a.language === 'en'),
   );
 
   if (!article) return {};
@@ -38,6 +39,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const baseUrl = 'https://fincado.com';
   const enUrl = `${baseUrl}/guides/${article.slug}/`;
   const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
+  const hasHindiVariant = (articles as Article[]).some(
+    (a) => a.slug === slug && !a.hidden && a.language === 'hi',
+  );
 
   return {
     title: article.seoTitle || article.title,
@@ -46,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: enUrl,
       languages: {
         en: enUrl,
-        hi: hiUrl,
+        ...(hasHindiVariant ? { hi: hiUrl } : {}),
         'x-default': enUrl,
       },
     },
@@ -66,7 +70,7 @@ export default async function GuidePost({ params }: Props) {
 
   // Keep same filter as metadata to avoid language mismatches
   const article = (articles as Article[]).find(
-    (a) => a.slug === slug && (!a.language || a.language === 'en'),
+    (a) => a.slug === slug && !a.hidden && (!a.language || a.language === 'en'),
   );
 
   if (!article) notFound();
@@ -254,7 +258,7 @@ export default async function GuidePost({ params }: Props) {
 
 export async function generateStaticParams() {
   return (articles as Article[])
-    .filter((a) => !a.language || a.language === 'en')
+    .filter((a) => !a.hidden && (!a.language || a.language === 'en'))
     .map((a) => ({
       slug: a.slug,
     }));

@@ -21,6 +21,7 @@ type Article = {
   content: string;
   published: string;
   language?: string;
+  hidden?: boolean;
 };
 
 type Props = {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // ✅ Filter for Hindi Article
   const article = (articles as Article[]).find(
-    (a) => a.slug === slug && a.language === 'hi'
+    (a) => a.slug === slug && !a.hidden && a.language === 'hi'
   );
 
   if (!article) return {};
@@ -43,6 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // ✅ Ensure trailing slashes for Hreflang
   const enUrl = `${baseUrl}/guides/${article.slug}/`;
   const hiUrl = `${baseUrl}/hi/guides/${article.slug}/`;
+  const hasEnglishVariant = (articles as Article[]).some(
+    (a) => a.slug === slug && !a.hidden && (!a.language || a.language === 'en'),
+  );
 
   return {
     title: article.seoTitle || article.title,
@@ -50,9 +54,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: hiUrl, // Self-referencing canonical
       languages: {
-        en: enUrl, // Connects to English version
         hi: hiUrl, // Connects to Hindi version
-        'x-default': enUrl, // Fallback for other languages
+        ...(hasEnglishVariant ? { en: enUrl } : {}),
+        'x-default': hasEnglishVariant ? enUrl : hiUrl,
       },
     },
     openGraph: {
@@ -73,7 +77,7 @@ export default async function HindiGuidePost({ params }: Props) {
 
   // ✅ 1. Find the Hindi Article
   const article = (articles as Article[]).find(
-    (a) => a.slug === slug && a.language === 'hi'
+    (a) => a.slug === slug && !a.hidden && a.language === 'hi'
   );
 
   if (!article) notFound();
@@ -285,7 +289,7 @@ export default async function HindiGuidePost({ params }: Props) {
 
 export async function generateStaticParams() {
   return (articles as Article[])
-    .filter((a) => a.language === 'hi')
+    .filter((a) => !a.hidden && a.language === 'hi')
     .map((a) => ({
       slug: a.slug,
     }));

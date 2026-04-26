@@ -57,6 +57,32 @@ import {
   TrendingUp,
 } from 'lucide-react';
 
+const BANK_UNIQUE_NOTES: Record<
+  string,
+  {
+    marketNote: string;
+    bestFor: string;
+    docFocus: string;
+  }
+> = {
+  boi: {
+    marketNote:
+      'Bank of India tends to be evaluated by borrowers looking for PSU-style pricing discipline with branch-led servicing.',
+    bestFor:
+      'Applicants who value physical-branch follow-up and long-tenure cost visibility over app-first workflow.',
+    docFocus:
+      'Income consistency, clean repayment history, and property-title clarity typically drive sanction quality.',
+  },
+  federal: {
+    marketNote:
+      'Federal Bank usually appeals to borrowers balancing digital servicing convenience with mid-market rate competitiveness.',
+    bestFor:
+      'Salaried borrowers who want faster execution without moving to the highest-rate lender bucket.',
+    docFocus:
+      'Strong bureau profile, stable banking trail, and complete property papers help avoid repricing late in process.',
+  },
+};
+
 /* ---------------- LOGIC ---------------- */
 export async function generateStaticParams() {
   return banks.map((bank) => ({ bank: bank.slug }));
@@ -88,13 +114,17 @@ export async function generateMetadata({
   const upperRate = Math.max(bank.maxRate, latestHomeRate);
 
   const title = `${bank.name} EMI Calculator 2026-27 – Tax Year 2026-27 | Income Tax Act 2025`;
+  const uniqueNote =
+    BANK_UNIQUE_NOTES[bank.slug]?.marketNote ??
+    `${bank.name} lending profile varies by borrower segment, credit score, and property risk assessment.`;
   const description = `Calculate ${bank.name} home loan EMI instantly for Tax Year 2026-27. Updated rates ${latestHomeRate}%–${upperRate}%. Tax benefits under Section 80C & 24(b) available only in Old Regime. Compare tenure, total interest & eligibility.`;
+  const enrichedDescription = `${description} ${uniqueNote}`;
 
   const url = `https://fincado.com/bank-emi/${bank.slug}/`;
 
   return {
     title,
-    description,
+    description: enrichedDescription,
     keywords: [
       `${bank.name} EMI calculator`,
       `${bank.name} home loan EMI 2026-27`,
@@ -106,9 +136,20 @@ export async function generateMetadata({
     alternates: {
       canonical: url,
     },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-snippet': -1,
+        'max-image-preview': 'large',
+        'max-video-preview': -1,
+      },
+    },
     openGraph: {
       title,
-      description,
+      description: enrichedDescription,
       url,
       type: 'article',
       siteName: 'Fincado',
@@ -116,7 +157,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title,
-      description,
+      description: enrichedDescription,
     },
   };
 }
@@ -156,6 +197,7 @@ export default async function BankPage({
   const bankMaxRate = Math.max(bank.maxRate, bankHomeRate);
   const avgRate = ((bankHomeRate + bankMaxRate) / 2).toFixed(2);
   const bankCorridor = Number((bankMaxRate - bankHomeRate).toFixed(2));
+  const uniqueNote = BANK_UNIQUE_NOTES[bank.slug];
 
   const allBanksWithLiveRates = banks.map((entry) => {
     const startRate = getLatestHomeRate(entry.slug, entry.rate);
@@ -234,6 +276,8 @@ export default async function BankPage({
     kotak: 'https://www.kotak.com/',
     pnb: 'https://www.pnbindia.in/',
     bob: 'https://www.bankofbaroda.in/',
+    boi: 'https://bankofindia.co.in/',
+    federal: 'https://www.federalbank.co.in/',
   };
 
   const faqSchema = {
@@ -422,6 +466,33 @@ export default async function BankPage({
               </p>
             </div>
           </header>
+
+          {uniqueNote && (
+            <Card className="mb-10 border-brand-200 bg-brand-50/40">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base text-slate-900">
+                  {bank.name} Underwriting Snapshot
+                </CardTitle>
+                <CardDescription>
+                  Bank-specific context to complement headline rate comparison.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm text-slate-700">
+                <p>
+                  <span className="font-semibold text-slate-900">Market Note: </span>
+                  {uniqueNote.marketNote}
+                </p>
+                <p>
+                  <span className="font-semibold text-slate-900">Best For: </span>
+                  {uniqueNote.bestFor}
+                </p>
+                <p>
+                  <span className="font-semibold text-slate-900">Document Focus: </span>
+                  {uniqueNote.docFocus}
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           <Card className="mb-10 border-slate-200">
             <CardHeader className="pb-3">

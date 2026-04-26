@@ -5,11 +5,13 @@ https://www.fincado.com/* https://fincado.com/:splat 301!
 /privacy/ /privacy-policy/ 301!
 /faqs/ /faq/ 301!
 /home-loan-calculator/ /loans/home-loan/ 301!
+/home-loan-rates/ /compare-loans/ 301!
 /hi/home-loan-calculator/ /hi/loans/home-loan/ 301!
 /emi-calculator/home-loan/ /loans/home-loan/ 301!
 /emi-calculator/personal-loan/ /loans/personal-loan/ 301!
 /emi-calculator/car-loan/ /loans/car-loan/ 301!
 /emi-calculator/education-loan/ /loans/education-loan/ 301!
+/compare/lic-housing-vs-bajaj/ /compare/bajaj-vs-lic-housing/ 301!
 /guides/sip-investing-guide/ /guides/sip-investment-guide/ 301!
 /guides/home-loan-for-first-time-buyers/ /guides/home-loan-first-time-buyers/ 301!
 /guides/credit-score-guide-india/ /guides/credit-score-guide/ 301!

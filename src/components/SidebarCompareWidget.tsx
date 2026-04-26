@@ -15,19 +15,19 @@ const TOP_COMPARISONS: ComparisonItem[] = [
   {
     b1: 'SBI',
     b2: 'HDFC',
-    slug: 'sbi-vs-hdfc',
+    slug: 'hdfc-vs-sbi',
     insight: 'Track effective EMI spread before lender finalization.',
   },
   {
     b1: 'ICICI',
     b2: 'Axis',
-    slug: 'icici-vs-axis',
+    slug: 'axis-vs-icici',
     insight: 'Useful for urban salary and balance transfer scenarios.',
   },
   {
     b1: 'PNB',
     b2: 'Bank of Baroda',
-    slug: 'pnb-vs-bob',
+    slug: 'bob-vs-pnb',
     insight: 'Public-bank focused comparison with fee visibility.',
   },
   {

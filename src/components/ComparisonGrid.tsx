@@ -111,6 +111,10 @@ function isCrossTypeComparison(b1: Bank, b2: Bank): boolean {
   );
 }
 
+function toCanonicalCompareSlug(s1: string, s2: string): string {
+  return [s1, s2].sort().join('-vs-');
+}
+
 function buildPairs(banks: Bank[]): ComparisonPair[] {
   const pairs: ComparisonPair[] = [];
 
@@ -160,6 +164,11 @@ export default function ComparisonGrid() {
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
         {pairs.map((pair) => {
+          const canonicalCompareSlug = toCanonicalCompareSlug(
+            pair.b1.slug,
+            pair.b2.slug,
+          );
+
           return (
             <Card
               key={`${pair.b1.slug}-${pair.b2.slug}`}
@@ -231,7 +240,7 @@ export default function ComparisonGrid() {
                   className="group/btn h-10 w-full border-slate-300 font-semibold text-slate-700 transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white"
                 >
                   <Link
-                    href={`/compare/${pair.b1.slug}-vs-${pair.b2.slug}/`}
+                    href={`/compare/${canonicalCompareSlug}/`}
                     title={`Compare ${pair.b1.fullName} vs ${pair.b2.fullName} home loan rates`}
                   >
                     <span>View Comparison</span>
@@ -267,7 +276,10 @@ export default function ComparisonGrid() {
               '@type': 'ListItem',
               position: index + 1,
               name: `${pair.b1.name} vs ${pair.b2.name} Home Loan Comparison`,
-              url: `https://fincado.com/compare/${pair.b1.slug}-vs-${pair.b2.slug}/`,
+              url: `https://fincado.com/compare/${toCanonicalCompareSlug(
+                pair.b1.slug,
+                pair.b2.slug,
+              )}/`,
             })),
           }),
         }}

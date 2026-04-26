@@ -82,6 +82,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/guides/sip-investment-guide/',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
 };
 
 const FAQ_ITEMS = [
@@ -179,6 +190,10 @@ export default function SipGuidePage() {
             datePublished: '2025-12-16',
             dateModified: '2026-02-13',
             image: 'https://fincado.com/images/guides/sip/sip-guide-hero.webp',
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': 'https://fincado.com/guides/sip-investment-guide/',
+            },
           }),
         }}
       />

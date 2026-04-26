@@ -26,6 +26,9 @@ export default function StickyCompareFooter({
 
   if (!show) return null;
 
+  const defaultCompetitor = bankSlug === 'hdfc' ? 'sbi' : 'hdfc';
+  const compareTargetSlug = [bankSlug, defaultCompetitor].sort().join('-vs-');
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] lg:hidden no-print animate-in slide-in-from-bottom duration-300">
       <div className="flex items-center justify-between gap-3">
@@ -42,9 +45,7 @@ export default function StickyCompareFooter({
           size="sm"
           className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-100 h-9 px-4 rounded-lg"
         >
-          <Link href={`/compare/${bankSlug}-vs-hdfc/`}>
-            {' '}
-            {/* Defaults to HDFC as competitor */}
+          <Link href={`/compare/${compareTargetSlug}/`}>
             <GitCompare className="w-3.5 h-3.5 mr-2" />
             Compare
           </Link>

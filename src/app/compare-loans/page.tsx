@@ -115,9 +115,9 @@ const relatedTools: LinkItem[] = [
 
 const popularComparisons: LinkItem[] = [
   { name: 'HDFC vs SBI', href: '/compare/hdfc-vs-sbi/' },
-  { name: 'ICICI vs Axis', href: '/compare/icici-vs-axis/' },
-  { name: 'Kotak vs BoB', href: '/compare/kotak-vs-bob/' },
-  { name: 'PNB vs Canara', href: '/compare/pnb-vs-canara/' }
+  { name: 'ICICI vs Axis', href: '/compare/axis-vs-icici/' },
+  { name: 'Kotak vs BoB', href: '/compare/bob-vs-kotak/' },
+  { name: 'PNB vs Canara', href: '/compare/canara-vs-pnb/' }
 ];
 
 const faqItems: FaqItem[] = [

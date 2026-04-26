@@ -187,7 +187,7 @@ body {
 
 body {
   font-family:
-    var(--font-rubik), system-ui, sans-serif; /* DupletRounded local font via --font-rubik variable set in layout.tsx */
+    var(--font-fincado-sans), 'Noto Sans Devanagari', system-ui, sans-serif;
   background: var(--color-bg-soft);
   margin: 0;
   line-height: 1.6;

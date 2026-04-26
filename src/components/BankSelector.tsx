@@ -27,7 +27,8 @@ export default function BankSelector() {
 
   const handleCompare = () => {
     if (bank1 && bank2 && bank1 !== bank2) {
-      router.push(`/compare/${bank1}-vs-${bank2}/`);
+      const canonicalSlug = [bank1, bank2].sort().join('-vs-');
+      router.push(`/compare/${canonicalSlug}/`);
     }
   };
 

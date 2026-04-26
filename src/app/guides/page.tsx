@@ -41,11 +41,21 @@ export const metadata: Metadata = {
 };
 
 export default function GuidesPage() {
+  type GuideArticle = {
+    slug: string;
+    title: string;
+    category: string;
+    metaDescription: string;
+    language?: 'en' | 'hi';
+    hidden?: boolean;
+    published: string;
+  };
+
   // 1. PREPARE DATA (Server Side)
-  const uniqueArticles = new Map();
-  articlesData.forEach((article) => {
-    // Filter for English or unspecified language
-    if (!article.language || article.language === 'en') {
+  const uniqueArticles = new Map<string, GuideArticle>();
+  (articlesData as GuideArticle[]).forEach((article) => {
+    // Only expose index-worthy English guides in hub feeds
+    if ((!article.language || article.language === 'en') && !article.hidden) {
       uniqueArticles.set(article.slug, article);
     }
   });

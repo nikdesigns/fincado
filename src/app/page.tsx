@@ -74,11 +74,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-    title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
-    description:
-      'Free calculators for EMI, SIP, tax, post office schemes, and home loans in India.',
-    images: ['https://fincado.com/og-image.png'],
-  },
+      title: `Financial Calculators for India ${fy.shortYear} | Fincado`,
+      description:
+        'Free calculators for EMI, SIP, tax, post office schemes, and home loans in India.',
+      images: ['https://fincado.com/og-image.png'],
+    },
   };
 }
 
@@ -104,6 +104,19 @@ type DecisionLane = {
   href: string;
   cta: string;
   icon: IconType;
+};
+
+type DeskAccent = 'safe' | 'tax';
+
+type DeskCluster = {
+  title: string;
+  description: string;
+  label: string;
+  href: string;
+  cta: string;
+  icon: IconType;
+  accent: DeskAccent;
+  tools: ToolItem[];
 };
 
 const FAQ_ITEMS = [
@@ -316,11 +329,36 @@ const TAX_TRADING_TOOLS: ToolItem[] = [
   },
 ];
 
+const DESK_CLUSTERS: DeskCluster[] = [
+  {
+    title: 'Post Office & Safe Return Desk',
+    description:
+      'Model conservative options with predictable cashflow outputs.',
+    label: 'Low-Risk Income Suite',
+    href: '/savings/',
+    cta: 'Open Safe Return Suite',
+    icon: ShieldCheck,
+    accent: 'safe',
+    tools: SAFE_RETURN_TOOLS,
+  },
+  {
+    title: 'Tax & Trading Desk',
+    description:
+      'Understand charges, tax impact, and net take-home outcomes before execution.',
+    label: 'Compliance & Exit Impact',
+    href: '/guides/tax/',
+    cta: 'Open Tax Workflow',
+    icon: Activity,
+    accent: 'tax',
+    tools: TAX_TRADING_TOOLS,
+  },
+];
+
 const QUICK_COMPARISONS = [
-  { b1: 'SBI', b2: 'HDFC', link: '/compare/sbi-vs-hdfc/' },
+  { b1: 'SBI', b2: 'HDFC', link: '/compare/hdfc-vs-sbi/' },
   { b1: 'HDFC', b2: 'ICICI', link: '/compare/hdfc-vs-icici/' },
-  { b1: 'SBI', b2: 'Axis', link: '/compare/sbi-vs-axis/' },
-  { b1: 'PNB', b2: 'BOB', link: '/compare/pnb-vs-bob/' },
+  { b1: 'SBI', b2: 'Axis', link: '/compare/axis-vs-sbi/' },
+  { b1: 'PNB', b2: 'BOB', link: '/compare/bob-vs-pnb/' },
 ];
 
 const OPERATING_PRINCIPLES = [
@@ -584,35 +622,11 @@ export default function Home(): JSX.Element {
           </div>
         </section>
 
-        <section className="mt-18 grid gap-8 lg:grid-cols-2">
-          <div>
-            <div className="lg:min-h-26">
-              <SectionHeader
-                title="Post Office & Safe Return Desk"
-                description="Model conservative options with predictable cashflow outputs."
-                compact
-              />
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 lg:grid-cols-1">
-              {SAFE_RETURN_TOOLS.map((tool) => (
-                <EnterpriseToolCard key={tool.href} tool={tool} />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="lg:min-h-26">
-              <SectionHeader
-                title="Tax & Trading Desk"
-                description="Understand charges, tax impact, and net take-home outcomes before execution."
-                compact
-              />
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 lg:grid-cols-1">
-              {TAX_TRADING_TOOLS.map((tool) => (
-                <EnterpriseToolCard key={tool.href} tool={tool} />
-              ))}
-            </div>
+        <section className="mt-18">
+          <div className="grid gap-7 lg:grid-cols-2">
+            {DESK_CLUSTERS.map((cluster) => (
+              <DeskClusterPanel key={cluster.title} cluster={cluster} />
+            ))}
           </div>
         </section>
 
@@ -909,6 +923,105 @@ function EnterpriseToolCard({ tool }: { tool: ToolItem }) {
       <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-slate-600">
         {tool.desc}
       </p>
+    </Link>
+  );
+}
+
+function DeskClusterPanel({ cluster }: { cluster: DeskCluster }) {
+  const Icon = cluster.icon;
+  const isSafe = cluster.accent === 'safe';
+
+  return (
+    <article className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 top-0 h-20 ${
+          isSafe
+            ? 'bg-linear-to-r from-brand-300/30 via-brand-200/15 to-transparent'
+            : 'bg-linear-to-r from-slate-300/40 via-slate-200/25 to-transparent'
+        }`}
+      />
+
+      <div className="relative">
+        <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${
+                isSafe
+                  ? 'border-brand-200 bg-brand-50 text-brand-900'
+                  : 'border-slate-300 bg-white text-slate-700'
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {cluster.label}
+            </div>
+
+            <h2 className="mt-3 text-2xl font-bold text-slate-900">
+              {cluster.title}
+            </h2>
+            <p className="mt-1 max-w-xl text-base font-medium leading-relaxed text-slate-600">
+              {cluster.description}
+            </p>
+          </div>
+
+          <Button
+            asChild
+            variant="outline"
+            className="hidden border-slate-300 bg-white sm:inline-flex"
+          >
+            <Link href={cluster.href}>
+              {cluster.cta} <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2 2xl:grid-cols-3">
+          {cluster.tools.map((tool) => (
+            <DeskToolCard key={tool.href} tool={tool} />
+          ))}
+        </div>
+
+        <Button
+          asChild
+          variant="outline"
+          className="mt-4 w-full border-slate-300 bg-white sm:hidden"
+        >
+          <Link href={cluster.href}>
+            {cluster.cta} <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
+    </article>
+  );
+}
+
+function DeskToolCard({ tool }: { tool: ToolItem }) {
+  const Icon = tool.icon;
+
+  return (
+    <Link
+      href={tool.href}
+      className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
+    >
+      <div
+        className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl ${
+          tool.toneClass
+        }`}
+      >
+        <Icon className="h-6 w-6" />
+      </div>
+
+      <h3 className="min-h-14 text-lg font-bold text-slate-900 transition-colors group-hover:text-brand-700">
+        {tool.title}
+      </h3>
+
+      <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-slate-600">
+        {tool.desc}
+      </p>
+
+      <div className="mt-4 inline-flex items-center text-xs font-semibold uppercase tracking-wide text-brand-700">
+        Open Tool <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+      </div>
     </Link>
   );
 }
