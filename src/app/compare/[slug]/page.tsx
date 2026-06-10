@@ -49,19 +49,40 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export const dynamicParams = false;
+// Change to true so that non-canonical slugs can hit the
+// permanentRedirect logic instead of returning an immediate 404.
+export const dynamicParams = true;
 
 type ComparisonPageParams = { slug: string };
 
-const PSU_SLUG_HINTS = ['sbi', 'pnb', 'bob', 'canara', 'union', 'iob'];
-const PRIVATE_SLUG_HINTS = ['hdfc', 'icici', 'axis', 'kotak', 'yes', 'idfc'];
+// Recommendation: Move this classification into the bank object in @/lib/banks
+const PSU_SLUG_HINTS = [
+  'sbi',
+  'pnb',
+  'bob',
+  'canara',
+  'union',
+  'iob',
+  'indian',
+  'bom',
+];
+const PRIVATE_SLUG_HINTS = [
+  'hdfc',
+  'icici',
+  'axis',
+  'kotak',
+  'yes',
+  'idfc',
+  'bandhan',
+  'federal',
+];
 
 function isPsuBank(slug: string): boolean {
-  return PSU_SLUG_HINTS.some((hint) => slug.includes(hint));
+  return PSU_SLUG_HINTS.some((hint) => slug.toLowerCase().includes(hint));
 }
 
 function isPrivateBank(slug: string): boolean {
-  return PRIVATE_SLUG_HINTS.some((hint) => slug.includes(hint));
+  return PRIVATE_SLUG_HINTS.some((hint) => slug.toLowerCase().includes(hint));
 }
 
 function parseCompareSlug(slug: string) {
@@ -142,10 +163,14 @@ function getComparisonAngle(opts: {
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
 
+  // Optimization: Only generate canonical combinations (i < j)
+  // This prevents generating both 'a-vs-b' AND 'b-vs-a'
   for (let i = 0; i < banks.length; i++) {
-    for (let j = 0; j < banks.length; j++) {
-      if (i !== j)
-        params.push({ slug: `${banks[i].slug}-vs-${banks[j].slug}` });
+    for (let j = i + 1; j < banks.length; j++) {
+      const slug = [banks[i].slug, banks[j].slug].sort().join('-vs-');
+      params.push({
+        slug,
+      });
     }
   }
 
@@ -182,13 +207,17 @@ export async function generateMetadata({
       'home loan comparison india',
       'best bank for home loan',
       'home loan rate comparison',
-      'EMI difference calculator'
+      'EMI difference calculator',
     ],
     authors: [{ name: 'Fincado Research Team' }],
     creator: 'Fincado',
     publisher: 'Fincado',
     alternates: {
       canonical: `https://fincado.com/compare/${canonicalSlug}/`,
+      languages: {
+        'en-IN': `https://fincado.com/compare/${canonicalSlug}/`,
+        'x-default': `https://fincado.com/compare/${canonicalSlug}/`,
+      },
     },
     openGraph: {
       title: `${b1.name} vs ${b2.name} Home Loan (${fy.shortYear})`,
@@ -198,18 +227,18 @@ export async function generateMetadata({
       type: 'article',
       images: [
         {
-          url: `https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`,
+          url: 'https://fincado.com/og-image.png',
           width: 1200,
           height: 630,
           alt: `${b1.name} vs ${b2.name} Home Loan Comparison`,
-        }
+        },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${b1.name} vs ${b2.name} Home Loan Comparison`,
       description: `${b1.rate}% vs ${b2.rate}% — compare EMI impact, fees, and approval speed.`,
-      images: [`https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`],
+      images: ['https://fincado.com/og-image.png'],
     },
     robots: isCanonicalSlug
       ? {
@@ -315,7 +344,7 @@ export default async function ComparisonPage({
         'How should I compare total effective cost beyond headline rate?',
       answer:
         'Use a full-cost checklist: interest rate, processing fee, legal/valuation charges, mandatory insurance, reset spread, prepayment terms, and turnaround delay cost. Always compare total repayment and not just first-month EMI.',
-    }
+    },
   ];
 
   const relatedResourceGroups = [
@@ -392,8 +421,7 @@ export default async function ComparisonPage({
       fit: `Cost-led fit: ${lowerRateBank.name}`,
       action:
         'Prioritize income stability, bureau quality (750+), and employer continuity for stronger pricing.',
-      risk:
-        'Check for bundled insurance and one-time charges before accepting final sanction terms.',
+      risk: 'Check for bundled insurance and one-time charges before accepting final sanction terms.',
     },
     {
       title: 'Faster Disbursal Need',
@@ -401,8 +429,7 @@ export default async function ComparisonPage({
       fit: `Speed-led fit: ${likelyPrivate?.name ?? 'private-bank workflow'}`,
       action:
         'Validate digital document flow, branch queue handling, and legal/valuation turnaround SLA.',
-      risk:
-        'Fast approvals can still carry higher all-in cost if fee structure is not audited.',
+      risk: 'Fast approvals can still carry higher all-in cost if fee structure is not audited.',
     },
     {
       title: 'Lowest Lifetime Cost',
@@ -410,8 +437,7 @@ export default async function ComparisonPage({
       fit: `Rate-led fit: ${lowerRateBank.name}`,
       action:
         'Model total repayment over full tenure and compare reset behavior, not just month-1 EMI.',
-      risk:
-        'A small rate gap can be offset by higher processing, legal, or servicing charges.',
+      risk: 'A small rate gap can be offset by higher processing, legal, or servicing charges.',
     },
     {
       title: 'Self-Employed Cases',
@@ -419,8 +445,7 @@ export default async function ComparisonPage({
       fit: `Policy-led fit: ${likelyPsu?.name ?? 'documentation-friendly lender'}`,
       action:
         'Review income assessment policy, bank-statement consistency rules, and cashflow proof requirements.',
-      risk:
-        'Underwriting variance can be high; pre-verify acceptance criteria before paying application fees.',
+      risk: 'Underwriting variance can be high; pre-verify acceptance criteria before paying application fees.',
     },
   ];
 
@@ -560,7 +585,7 @@ export default async function ComparisonPage({
         url: 'https://fincado.com/logo.png',
       },
     },
-    image: `https://fincado.com/og-compare-${b1.slug}-vs-${b2.slug}.jpg`,
+    image: 'https://fincado.com/og-image.png',
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `https://fincado.com/compare/${canonicalSlug}/`,
@@ -584,7 +609,7 @@ export default async function ComparisonPage({
         position: 2,
         name: `${b2.name} Home Loan`,
         description: `Rate: ${b2.rate}%, max rate: ${b2.maxRate}%, indicative processing fee up to 0.50%`,
-      }
+      },
     ],
   };
 
@@ -600,7 +625,7 @@ export default async function ComparisonPage({
           {
             name: `${b1.name} vs ${b2.name}`,
             url: `https://fincado.com/compare/${canonicalSlug}/`,
-          }
+          },
         ]}
       />
 
@@ -635,11 +660,7 @@ export default async function ComparisonPage({
               </div>
 
               <h1 className="mb-4 text-3xl leading-tight font-semibold text-white sm:text-4xl lg:text-5xl">
-                {b1.name}{' '}
-                <span className="text-brand-300">
-                  vs
-                </span>{' '}
-                {b2.name}
+                {b1.name} <span className="text-brand-300">vs</span> {b2.name}
               </h1>
 
               <p className="mb-5 text-base leading-relaxed text-slate-200 sm:text-lg">
@@ -660,9 +681,7 @@ export default async function ComparisonPage({
                       {b1.name}
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-white">
-                    {b1.rate}%
-                  </p>
+                  <p className="text-xl font-semibold text-white">{b1.rate}%</p>
                 </div>
 
                 <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
@@ -672,9 +691,7 @@ export default async function ComparisonPage({
                       {b2.name}
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-white">
-                    {b2.rate}%
-                  </p>
+                  <p className="text-xl font-semibold text-white">{b2.rate}%</p>
                 </div>
 
                 <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">

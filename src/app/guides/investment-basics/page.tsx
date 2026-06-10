@@ -57,6 +57,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/guides/investment-basics/',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     title:
       'Investment Basics 2026 | Risk, Return, Diversification & Compounding',

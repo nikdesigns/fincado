@@ -60,6 +60,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/guides/investment-guide/',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     title: 'Investment Guide 2026 | Best Investment Options in India',
     description:

@@ -55,14 +55,18 @@ export const metadata: Metadata = {
     'personal loan EMI calculator'
   ],
   alternates: {
-    canonical: 'https://fincado.com/guides/personal-loan-interest-rates-india/',
+    canonical: 'https://fincado.com/guides/personal-loan-interest-rates/',
+  },
+  robots: {
+    index: false,
+    follow: false,
   },
   openGraph: {
     title:
       'Personal Loan Interest Rates in India (2026): Bank vs NBFC Comparison',
     description:
       'Compare bank vs NBFC personal loan rates, understand true borrowing cost, and reduce interest with practical negotiation tips.',
-    url: 'https://fincado.com/guides/personal-loan-interest-rates-india/',
+    url: 'https://fincado.com/guides/personal-loan-interest-rates/',
     type: 'article',
   },
 };

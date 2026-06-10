@@ -52,6 +52,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/guides/how-credit-score-works-india/',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     title: 'Credit Score Guide 2025 | Master Your CIBIL Score',
     description:

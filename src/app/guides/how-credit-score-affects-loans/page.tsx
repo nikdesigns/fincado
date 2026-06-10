@@ -49,6 +49,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/guides/how-credit-score-affects-loans/',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     title: '7 Proven Ways to Increase Your CIBIL Score Above 750',
     description:

@@ -40,9 +40,9 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'How much SIP for 1 Crore in 20 Years? (2025 Guide)',
+  title: 'How much SIP for 1 Crore in 20 Years? (2026 Guide)',
   description:
-    'Want to build ₹1 Crore wealth in 20 years? See the exact monthly SIP required (₹10,009), step-up strategy, and how compounding pays 75% of your goal.',
+    'Want to build ₹1 Crore wealth in 20 years? See the exact monthly SIP required (₹10,009), step-up strategy, and how compounding pays 75% of your goal. Updated for 2026.',
   keywords: [
     'SIP for 1 crore in 20 years',
     '1 crore sip calculator',
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/guides/sip-for-1-crore-in-20-years/',
   },
   openGraph: {
-    title: 'How much SIP for 1 Crore in 20 Years? (2025 Guide)',
+    title: 'How much SIP for 1 Crore in 20 Years? (2026 Guide)',
     description:
-      'Detailed breakdown: Monthly SIP needed, Step-up strategy, and Asset allocation to hit ₹1 Crore.',
+      'Detailed breakdown: Monthly SIP needed, Step-up strategy, and Asset allocation to hit ₹1 Crore. Updated for 2026.',
     url: 'https://fincado.com/guides/sip-for-1-crore-in-20-years/',
     type: 'article',
     images: [

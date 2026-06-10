@@ -5,7 +5,6 @@ import articlesData from '@/data/articles.json';
 import { banks } from '@/lib/banks';
 
 export const dynamic = 'force-static';
-export const revalidate = 86400;
 
 const BASE_URL = 'https://fincado.com';
 const ENABLE_ALTERNATES = process.env.SITEMAP_ALTERNATES !== 'false';
