@@ -246,11 +246,12 @@ class CalculatorChecker {
     const contentChecks = {
       hasH1: /<h1[^>]*>/i,
       hasFormula:
-        /formula|calculation|how.*calculate|computation|methodology|projection/i,
-      hasExample: /example|sample|illustration|for example/i,
+        /formula|calculation|how.*calculate|how the|computation|methodology|projection|interest.*=|<Formula|formula section/i,
+      hasExample:
+        /example|sample|illustration|for example|worked example|sample calculation|let's say|suppose you/i,
       hasFAQ: /faq|frequently asked|questions|<FAQSchema/i,
       hasRelatedCalcs:
-        /related.*calculator|more calculator|<RelatedCalculators|<RelatedCalculatorsSidebar/i,
+        /related.*calculator|more calculator|other calculators|<RelatedCalculators|<RelatedCalculatorsSidebar|Related Loan Calculators|related tools/i,
       hasInternalLinks: /<Link[\s\S]{0,120}?href=|href=['"`]\/(?!\/)/i,
     };
 

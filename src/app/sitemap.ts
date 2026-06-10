@@ -60,7 +60,8 @@ const shouldIncludeArticleInSitemap = (article: ArticleEntry): boolean => {
 
 const formatDateOnly = (value: Date | string): string => {
   const parsed = typeof value === 'string' ? new Date(value) : value;
-  if (Number.isNaN(parsed.getTime())) return new Date().toISOString().slice(0, 10);
+  if (Number.isNaN(parsed.getTime()))
+    return new Date().toISOString().slice(0, 10);
   return parsed.toISOString().slice(0, 10);
 };
 
@@ -111,7 +112,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/emi-calculator', '/hi/emi-calculator'],
     ['/emi-prepayment-calculator', '/hi/emi-prepayment-calculator'],
     ['/sip-calculator', '/hi/sip-calculator'],
-    ['/income-tax-calculator', '/hi/income-tax-calculator']
+    ['/income-tax-calculator', '/hi/income-tax-calculator'],
   ];
 
   const coreCalculators: MetadataRoute.Sitemap = coreCalculatorPairs.map(
@@ -131,7 +132,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/compare-loans',
     '/loans',
     '/credit-score',
-    '/bank-emi'
+    '/bank-emi',
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -159,7 +160,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/nsc-calculator', '/hi/nsc-calculator'],
     ['/kvp-calculator', '/hi/kvp-calculator'],
     ['/cagr-calculator', '/hi/cagr-calculator'],
-    ['/sukanya-samriddhi', '/hi/sukanya-samriddhi']
+    ['/sukanya-samriddhi', '/hi/sukanya-samriddhi'],
   ];
 
   const investmentCalculators: MetadataRoute.Sitemap =
@@ -180,7 +181,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/gratuity-calculator', '/hi/gratuity-calculator'],
     ['/apy-calculator', '/hi/apy-calculator'],
     ['/fire-calculator', '/hi/fire-calculator'],
-    ['/goal-planning-calculator', '/hi/goal-planning-calculator']
+    ['/goal-planning-calculator', '/hi/goal-planning-calculator'],
   ];
 
   const retirementCalculators: MetadataRoute.Sitemap =
@@ -202,7 +203,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/gst-calculator', '/hi/gst-calculator'],
     ['/inflation-calculator', '/hi/inflation-calculator'],
     ['/simple-interest-calculator', '/hi/simple-interest-calculator'],
-    ['/compound-interest-calculator', '/hi/compound-interest-calculator']
+    ['/compound-interest-calculator', '/hi/compound-interest-calculator'],
   ];
 
   const taxUtilityCalculators: MetadataRoute.Sitemap =
@@ -219,7 +220,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ['/loans/home-loan', '/hi/loans/home-loan'],
     ['/loans/personal-loan', '/hi/loans/personal-loan'],
     ['/loans/car-loan', '/hi/loans/car-loan'],
-    ['/loans/education-loan', '/hi/loans/education-loan']
+    ['/loans/education-loan', '/hi/loans/education-loan'],
   ];
 
   const loanPages: MetadataRoute.Sitemap = loanPagePairs.map(([en, hi]) =>
@@ -241,7 +242,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
     '/privacy-policy',
     '/disclaimer',
-    '/editorial-guidelines'
+    '/editorial-guidelines',
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -253,7 +254,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Canonical static guides that are not sourced from articles.json
   const canonicalStaticGuides: MetadataRoute.Sitemap = [
     '/guides/new-vs-old-tax-regime-2026',
-    '/guides/personal-loan-interest-rates'
+    '/guides/personal-loan-interest-rates',
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -269,7 +270,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/hi/guides',
     '/hi/loans',
     '/hi/mutual-funds',
-    '/hi/credit-score'
+    '/hi/credit-score',
   ].map((route) =>
     makeEntry(route, {
       lastModified: DEFAULT_LAST_MODIFIED,
@@ -341,7 +342,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'bob',
     'lic-housing',
     'bajaj',
-    'idfc-first'
+    'idfc-first',
   ];
 
   const comparisonRoutes: MetadataRoute.Sitemap = [];
@@ -382,7 +383,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articleRoutes,
     ...bankHubRoutes,
     ...hindiStandalonePages,
-    ...informationalPages
+    ...informationalPages,
   ];
 
   return Array.from(

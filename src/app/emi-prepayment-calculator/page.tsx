@@ -20,6 +20,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import RelatedCalculators from '@/components/RelatedCalculators';
 import { ArrowRight, Zap, Home, ShieldCheck } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
@@ -50,6 +51,17 @@ export const metadata: Metadata = {
       'See exactly how many years and lakhs you can save by making a part-payment on your home loan today.',
     url: 'https://fincado.com/emi-prepayment-calculator/',
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -257,6 +269,7 @@ export default function EMIPrepaymentPage() {
             </section>
 
             <div className="no-print mt-8">
+              <RelatedCalculators />
               <AuthorBio />
             </div>
           </div>

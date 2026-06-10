@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -215,13 +216,13 @@ const HomeLoanCalculatorEmbed: React.FC = () => {
           </div>
 
           {/* CTA */}
-          <a
+          <Link
             href="/loans/home-loan/"
             className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-brand-400 text-[#111827] rounded-lg font-semibold hover:bg-brand-500 transition-colors text-sm shadow-sm"
           >
             <Calculator className="h-4 w-4" />
             View Full Home Loan Calculator
-          </a>
+          </Link>
         </div>
       </CardContent>
     </Card>

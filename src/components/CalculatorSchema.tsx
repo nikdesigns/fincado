@@ -4,12 +4,16 @@ interface CalculatorSchemaProps {
   name: string;
   description: string;
   url: string;
+  inLanguage?: string;
+  priceCurrency?: string;
 }
 
 export default function CalculatorSchema({
   name,
   description,
   url,
+  inLanguage = 'en-IN',
+  priceCurrency = 'INR',
 }: CalculatorSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
@@ -18,7 +22,7 @@ export default function CalculatorSchema({
     description: description,
     url: url,
     applicationCategory: 'FinanceApplication',
-    inLanguage: 'en-IN',
+    inLanguage,
     isAccessibleForFree: true,
     operatingSystem: 'Any',
     publisher: {
@@ -30,7 +34,7 @@ export default function CalculatorSchema({
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'INR',
+      priceCurrency,
     },
   };
 

@@ -12,10 +12,18 @@ class DeepLinkScanner {
       working: 0,
       skipped: 0,
       redirects: [],
+      rateLimited: [],
     };
-    this.maxConcurrent = 5;
+    // Polite defaults: higher concurrency for localhost, conservative for prod
+    const isLocal = baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1');
+    this.maxConcurrent = Number(process.env.DEEP_SCAN_CONCURRENCY || (isLocal ? 5 : 2));
+    this.minDelay = Number(process.env.DEEP_SCAN_DELAY_MS || (isLocal ? 50 : 450));
     this.timeout = Number(process.env.DEEP_SCAN_TIMEOUT_MS || 15000);
-    this.maxRetries = Number(process.env.DEEP_SCAN_RETRIES || 1);
+    this.maxRetries = Number(process.env.DEEP_SCAN_RETRIES || 2);
+  }
+
+  async delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   isAssetPath(path) {
@@ -124,11 +132,20 @@ class DeepLinkScanner {
   async fetchWithRetry(path, method) {
     for (let attempt = 0; attempt <= this.maxRetries; attempt += 1) {
       const response = await this.fetchPage(path, method);
-      const shouldRetry =
-        attempt < this.maxRetries &&
-        (response.statusCode === 0 || response.statusCode >= 500);
+      const isRetryable =
+        response.statusCode === 0 ||
+        response.statusCode >= 500 ||
+        response.statusCode === 429;
 
-      if (!shouldRetry) return response;
+      if (!isRetryable || attempt === this.maxRetries) {
+        return response;
+      }
+
+      // Backoff: longer for 429
+      const backoff = response.statusCode === 429
+        ? 1200 * Math.pow(2, attempt)
+        : 400 * (attempt + 1);
+      await this.delay(backoff);
     }
 
     return { statusCode: 0, error: 'Retry limit exceeded' };
@@ -136,8 +153,13 @@ class DeepLinkScanner {
 
   async checkLink(path, source) {
     this.results.checked++;
+
+    // Polite crawling: small delay + jitter before every request
+    const jitter = Math.floor(Math.random() * 180);
+    await this.delay(this.minDelay + jitter);
+
     process.stdout.write(
-      `\r📊 Checked: ${this.results.checked} | Queue: ${this.queue.length} | Broken: ${this.results.broken.length}`,
+      `\r📊 Checked: ${this.results.checked} | Queue: ${this.queue.length} | Broken: ${this.results.broken.length} | RateLimited: ${this.results.rateLimited.length}`,
     );
 
     const method = this.isAssetPath(path) ? 'HEAD' : 'GET';
@@ -172,6 +194,14 @@ class DeepLinkScanner {
       }
 
       return { success: false, redirected: true };
+    } else if (response.statusCode === 429) {
+      // Rate limited — do not treat as broken
+      this.results.rateLimited.push({
+        path,
+        status: 429,
+        source,
+      });
+      return { success: false, rateLimited: true };
     } else {
       this.results.broken.push({
         path,
@@ -233,7 +263,21 @@ class DeepLinkScanner {
     console.log(`📊 Total Links Checked: ${this.results.checked}`);
     console.log(`✅ Working: ${this.results.working}`);
     console.log(`❌ Broken: ${this.results.broken.length}`);
+    console.log(`⏳ Rate Limited (429): ${this.results.rateLimited.length}`);
     console.log(`🔀 Redirects: ${this.results.redirects.length}\n`);
+
+    if (this.results.rateLimited.length > 0 && this.results.rateLimited.length < 20) {
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('                 RATE LIMITED (429)                    ');
+      console.log('═══════════════════════════════════════════════════════\n');
+      this.results.rateLimited.slice(0, 10).forEach((item, i) => {
+        console.log(`${i + 1}. ⏳ ${item.path} (found on ${item.source})`);
+      });
+      if (this.results.rateLimited.length > 10) {
+        console.log(`... and ${this.results.rateLimited.length - 10} more (normal for prod scans)`);
+      }
+      console.log('');
+    }
 
     if (this.results.broken.length > 0) {
       console.log('═══════════════════════════════════════════════════════');
@@ -293,9 +337,11 @@ class DeepLinkScanner {
         checked: this.results.checked,
         working: this.results.working,
         broken: this.results.broken.length,
+        rateLimited: this.results.rateLimited.length,
         redirects: this.results.redirects.length,
       },
       brokenLinks: this.results.broken,
+      rateLimited: this.results.rateLimited,
       redirects: this.results.redirects,
     };
 
@@ -312,11 +358,18 @@ async function main() {
   const scanner = new DeepLinkScanner(baseUrl);
   const success = await scanner.scan();
 
-  if (success) {
-    console.log('✅ All links are working! 🎉\n');
+  const realBroken = scanner.results.broken.length;
+  const rateLimited = scanner.results.rateLimited.length;
+
+  if (realBroken === 0) {
+    if (rateLimited > 0) {
+      console.log(`✅ No broken links found. (${rateLimited} pages were rate-limited by the server — this is normal on prod scans. Re-run with DEEP_SCAN_CONCURRENCY=1 DEEP_SCAN_DELAY_MS=800 for fuller coverage.)\n`);
+    } else {
+      console.log('✅ All links are working! 🎉\n');
+    }
     process.exit(0);
   } else {
-    console.log(`⚠️  Found ${scanner.results.broken.length} broken link(s).\n`);
+    console.log(`⚠️  Found ${realBroken} broken link(s). ${rateLimited} additional pages were rate-limited.\n`);
     process.exit(1);
   }
 }

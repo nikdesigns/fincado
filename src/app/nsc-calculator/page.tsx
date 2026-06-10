@@ -9,6 +9,7 @@ import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
+import FAQSchema from '@/components/FAQSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
 import { autoLinkContent } from '@/utils/autoLinker';
@@ -947,6 +948,9 @@ export default function NSCPage() {
                 </CardContent>
               </Card>
             </section>
+
+            {/* Structured data for FAQs (for SEO) */}
+            <FAQSchema faqs={faqItems} />
 
             {/* AD #5: BOTTOM */}
             <div className="no-print my-8 flex justify-center">

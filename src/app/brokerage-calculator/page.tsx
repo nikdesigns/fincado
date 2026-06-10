@@ -20,6 +20,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import FAQSchema from '@/components/FAQSchema';
+import RelatedCalculators from '@/components/RelatedCalculators';
 import { ArrowRight, Target, Activity, AlertCircle } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
@@ -53,6 +54,17 @@ export const metadata: Metadata = {
       'See your real profit after all taxes and charges before you place a trade. Works perfectly for Zerodha, Groww, Upstox & Angel One.',
     url: 'https://fincado.com/brokerage-calculator/',
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -334,6 +346,7 @@ export default function BrokerageCalculatorPage() {
             </section>
 
             <div className="no-print mt-8">
+              <RelatedCalculators />
               <AuthorBio />
             </div>
           </div>

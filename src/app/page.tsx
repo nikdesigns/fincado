@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `Financial Calculators for India ${fy.shortYear} – EMI, SIP, Tax & Post Office | Fincado`,
-    description: `Free financial calculators for India: EMI Prepayment, SIP, Income Tax, SCSS, KVP, POMIS, Brokerage, and Salary planning. Updated for FY ${fy.fullFormat}.`,
+    description: `Free financial calculators for India: EMI Prepayment, SIP, Income Tax, SCSS, KVP, POMIS, Brokerage, and Salary planning. Updated for ${fy.fullFormat}.`,
     keywords: [
       'financial calculators India',
       'EMI calculator India',
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
       'income tax calculator India',
       'post office calculators',
       'brokerage calculator',
-      `financial calculators FY ${fy.fullFormat}`,
+      `financial calculators ${fy.fullFormat}`,
       'Fincado',
     ],
     alternates: {

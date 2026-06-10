@@ -218,7 +218,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -241,16 +241,14 @@
       "hasFormula": false,
       "hasExample": false,
       "hasFAQ": true,
-      "hasRelatedCalcs": false,
+      "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
       "⚠️  Missing: hasFormula",
-      "⚠️  Missing: hasExample",
-      "⚠️  Missing: hasRelatedCalcs"
+      "⚠️  Missing: hasExample"
     ],
-    "score": 86
+    "score": 93
   },
   "sip-calculator": {
     "name": "sip-calculator",
@@ -387,7 +385,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -414,11 +412,10 @@
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
       "⚠️  Missing: hasFormula",
       "⚠️  Missing: hasRelatedCalcs"
     ],
-    "score": 87
+    "score": 91
   },
   "ppf-calculator": {
     "name": "ppf-calculator",
@@ -637,7 +634,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -664,12 +661,11 @@
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
       "⚠️  Missing: hasFormula",
       "⚠️  Missing: hasExample",
       "⚠️  Missing: hasRelatedCalcs"
     ],
-    "score": 86
+    "score": 90
   },
   "nsc-calculator": {
     "name": "nsc-calculator",
@@ -688,7 +684,7 @@
     "components": {
       "BreadcrumbJsonLd": true,
       "CalculatorSchema": true,
-      "FAQSchema": false,
+      "FAQSchema": true,
       "ShareTools": true,
       "LanguageToggle": true,
       "AdSlot": true,
@@ -709,10 +705,8 @@
       "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
-    "issues": [
-      "⚠️  Missing component: FAQSchema"
-    ],
-    "score": 98
+    "issues": [],
+    "score": 100
   },
   "kvp-calculator": {
     "name": "kvp-calculator",
@@ -726,7 +720,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -753,12 +747,11 @@
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
       "⚠️  Missing: hasFormula",
       "⚠️  Missing: hasExample",
       "⚠️  Missing: hasRelatedCalcs"
     ],
-    "score": 86
+    "score": 90
   },
   "cagr-calculator": {
     "name": "cagr-calculator",
@@ -1018,7 +1011,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -1045,12 +1038,11 @@
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
       "⚠️  Missing: hasFormula",
       "⚠️  Missing: hasExample",
       "⚠️  Missing: hasRelatedCalcs"
     ],
-    "score": 86
+    "score": 90
   },
   "fire-calculator": {
     "name": "fire-calculator",
@@ -1230,7 +1222,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -1253,16 +1245,14 @@
       "hasFormula": false,
       "hasExample": false,
       "hasFAQ": true,
-      "hasRelatedCalcs": false,
+      "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
       "⚠️  Missing: hasFormula",
-      "⚠️  Missing: hasExample",
-      "⚠️  Missing: hasRelatedCalcs"
+      "⚠️  Missing: hasExample"
     ],
-    "score": 86
+    "score": 93
   },
   "brokerage-calculator": {
     "name": "brokerage-calculator",
@@ -1276,7 +1266,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -1299,15 +1289,13 @@
       "hasFormula": true,
       "hasExample": false,
       "hasFAQ": true,
-      "hasRelatedCalcs": false,
+      "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
-      "⚠️  Missing: hasExample",
-      "⚠️  Missing: hasRelatedCalcs"
+      "⚠️  Missing: hasExample"
     ],
-    "score": 89
+    "score": 97
   },
   "hra-calculator": {
     "name": "hra-calculator",
@@ -1362,7 +1350,7 @@
       "keywords": true,
       "canonical": true,
       "openGraph": true,
-      "robots": false
+      "robots": true
     },
     "components": {
       "BreadcrumbJsonLd": true,
@@ -1385,15 +1373,13 @@
       "hasFormula": true,
       "hasExample": false,
       "hasFAQ": true,
-      "hasRelatedCalcs": false,
+      "hasRelatedCalcs": true,
       "hasInternalLinks": true
     },
     "issues": [
-      "⚠️  Missing metadata.robots",
-      "⚠️  Missing: hasExample",
-      "⚠️  Missing: hasRelatedCalcs"
+      "⚠️  Missing: hasExample"
     ],
-    "score": 89
+    "score": 97
   },
   "gst-calculator": {
     "name": "gst-calculator",

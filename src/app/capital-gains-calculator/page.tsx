@@ -11,6 +11,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import CalculatorSchema from '@/components/CalculatorSchema';
 import ShareTools from '@/components/ShareTools';
 import LanguageToggle from '@/components/LanguageToggle';
+import RelatedCalculators from '@/components/RelatedCalculators';
 import { autoLinkContent } from '@/utils/autoLinker';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -50,6 +51,17 @@ export const metadata: Metadata = {
       'Instantly calculate tax on your investment profits with latest budget rules. Equity, Debt & Real Estate covered.',
     url: 'https://fincado.com/capital-gains-calculator/',
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -313,6 +325,7 @@ export default function CapitalGainsPage() {
             </section>
 
             <div className="no-print mt-8">
+              <RelatedCalculators />
               <AuthorBio />
             </div>
           </div>

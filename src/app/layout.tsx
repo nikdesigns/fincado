@@ -17,6 +17,7 @@ import { ADSENSE_PUBLISHER_ID } from '@/lib/adConfig';
 import SiteTrustSchema from '@/components/SiteTrustSchema';
 
 const fy = getCurrentFiscalYear();
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 // Brand UI font (neutral internal naming)
 const fincadoSans = localFont({
@@ -101,7 +102,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  verification: {},
+  verification: googleSiteVerification
+    ? {
+        google: googleSiteVerification,
+      }
+    : {},
   other: {
     'google-adsense-account': ADSENSE_PUBLISHER_ID,
   },
@@ -167,7 +172,7 @@ export default function RootLayout({
         <SkipToContent />
 
         {/* Main Content Area */}
-        <main id="main-content" style={{ minHeight: '80vh' }}>
+        <main id="main-content" className="pt-8 pb-12" style={{ minHeight: '80vh' }}>
           {children}
         </main>
         {/* Mobile sticky anchor ad (calculator routes only) */}

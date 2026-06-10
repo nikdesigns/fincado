@@ -11,13 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/*?*utm_source=',
-          '/*?*ref='
-        ],
+        disallow: ['/api/', '/admin/', '/private/'],
       },
       {
         userAgent: 'AhrefsBot',
@@ -41,7 +35,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Mediapartners-Google',
         allow: '/',
-      }
+      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
