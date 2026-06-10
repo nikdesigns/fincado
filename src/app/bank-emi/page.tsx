@@ -1,8 +1,10 @@
 // src/app/bank-emi/page.tsx
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { banks } from '@/lib/banks';
+import { BANK_LOGOS } from '@/lib/bankLogos';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import TaxUpdateBanner from '@/components/TaxUpdateBanner';
 import AuthorBio from '@/components/AuthorBio';
@@ -238,9 +240,24 @@ export default function BankEmiHubPage() {
                     <ArrowRight className="h-4 w-4 text-slate-400 transition-colors group-hover:text-brand-700" />
                   </div>
 
-                  <p className="text-lg font-semibold text-slate-900 transition-colors group-hover:text-brand-700">
-                    {bank.name}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    {BANK_LOGOS[bank.slug] ? (
+                      <Image
+                        src={BANK_LOGOS[bank.slug]}
+                        alt={bank.name}
+                        width={36}
+                        height={36}
+                        className="shrink-0 rounded object-contain"
+                      />
+                    ) : (
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-slate-100 text-[9px] font-bold tracking-tight text-slate-600">
+                        {bank.name.slice(0, 4).toUpperCase()}
+                      </div>
+                    )}
+                    <p className="text-lg font-semibold text-slate-900 transition-colors group-hover:text-brand-700">
+                      {bank.name}
+                    </p>
+                  </div>
 
                   <div className="mt-4 grid grid-cols-3 gap-2">
                     <div className="rounded-lg bg-slate-50 p-2.5">

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
 import {
@@ -16,6 +17,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { banks } from '@/lib/banks';
+import { BANK_LOGOS } from '@/lib/bankLogos';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 import RateComparisonChart from '@/components/RateComparisonChart';
@@ -659,8 +661,16 @@ export default async function ComparisonPage({
                 </div>
               </div>
 
-              <h1 className="mb-4 text-3xl leading-tight font-semibold text-white sm:text-4xl lg:text-5xl">
-                {b1.name} <span className="text-brand-300">vs</span> {b2.name}
+              <h1 className="mb-4 flex flex-wrap items-center gap-3 text-3xl leading-tight font-semibold text-white sm:text-4xl lg:text-5xl">
+                {BANK_LOGOS[b1.slug] && (
+                  <Image src={BANK_LOGOS[b1.slug]} alt={b1.name} width={40} height={40} className="rounded bg-white/10 p-1 object-contain" />
+                )}
+                {b1.name}
+                <span className="text-brand-300">vs</span>
+                {BANK_LOGOS[b2.slug] && (
+                  <Image src={BANK_LOGOS[b2.slug]} alt={b2.name} width={40} height={40} className="rounded bg-white/10 p-1 object-contain" />
+                )}
+                {b2.name}
               </h1>
 
               <p className="mb-5 text-base leading-relaxed text-slate-200 sm:text-lg">
@@ -676,7 +686,11 @@ export default async function ComparisonPage({
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-brand-300" />
+                    {BANK_LOGOS[b1.slug] ? (
+                      <Image src={BANK_LOGOS[b1.slug]} alt={b1.name} width={16} height={16} className="rounded-sm object-contain" />
+                    ) : (
+                      <Percent className="h-4 w-4 text-brand-300" />
+                    )}
                     <span className="text-xs font-medium text-slate-300">
                       {b1.name}
                     </span>
@@ -686,7 +700,11 @@ export default async function ComparisonPage({
 
                 <div className="rounded-lg border border-slate-700 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
                   <div className="mb-1 flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-brand-300" />
+                    {BANK_LOGOS[b2.slug] ? (
+                      <Image src={BANK_LOGOS[b2.slug]} alt={b2.name} width={16} height={16} className="rounded-sm object-contain" />
+                    ) : (
+                      <Percent className="h-4 w-4 text-brand-300" />
+                    )}
                     <span className="text-xs font-medium text-slate-300">
                       {b2.name}
                     </span>

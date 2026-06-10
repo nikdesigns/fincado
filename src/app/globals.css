@@ -101,6 +101,13 @@
   --color-teal-800: #395122;
   --color-teal-900: #2b3d1b;
 
+  /* ── Ink (premium deep navy) — replaces slate-950/900 on dark sections ── */
+  --color-ink-950: #070d1b;
+  --color-ink-900: #0c1526;
+  --color-ink-800: #162034;
+  --color-ink-700: #1e2e47;
+  --color-ink-600: #2a3f60;
+
   /* Canonical brand tokens for utility classes like text-brand-700 */
   --color-brand-50: #f7fdf1;
   --color-brand-100: #effbe2;
