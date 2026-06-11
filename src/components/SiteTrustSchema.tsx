@@ -59,6 +59,9 @@ export default function SiteTrustSchema() {
         name: 'Nitin Kaushik',
         jobTitle: 'Founder & Editor-in-Chief',
         url: 'https://fincado.com/about/',
+        sameAs: [
+          'https://www.linkedin.com/in/nitin-kaushik-9b4a33109/',
+        ],
         worksFor: {
           '@id': 'https://fincado.com/#organization',
         },

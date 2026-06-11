@@ -1,0 +1,718 @@
+'use client';
+
+import React, { useMemo, useState, useEffect } from 'react';
+import CalculatorField from '@/components/CalculatorField';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import {
+  Scale,
+  TrendingDown,
+  RefreshCcw,
+  AlertCircle,
+  BookmarkIcon,
+  Share2Icon,
+  Trash2,
+  Calculator,
+} from 'lucide-react';
+import { toast } from 'sonner';
+
+/* ---------------- TYPES ---------------- */
+type FinancialYear = '2026-2027' | '2025-2026';
+type AgeGroup = '0-60' | '60-80' | '80+';
+
+interface LabelConfig {
+  fyLabel: string;
+  ageLabel: string;
+  incomeLabel: string;
+  deductionsLabel: string;
+  deductionHint: string;
+  recommendationLabel: string;
+  saveLabel: string;
+  oldRegimeLabel: string;
+  newRegimeLabel: string;
+  netIncomeLabel: string;
+  ageOptions: {
+    regular: string;
+    senior: string;
+    superSenior: string;
+  };
+}
+
+interface IncomeTaxClientProps {
+  labels?: Partial<LabelConfig>;
+}
+
+interface SavedCalculation {
+  id: number;
+  fy: FinancialYear;
+  age: AgeGroup;
+  income: number;
+  deductions: number;
+  taxOld: number;
+  taxNew: number;
+  recommended: string;
+  date: string;
+}
+
+/* ---------------- HELPERS ---------------- */
+const formatINR = (val: number) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(Number.isFinite(val) ? val : 0);
+
+const isFinancialYear = (value: unknown): value is FinancialYear =>
+  value === '2026-2027' || value === '2025-2026';
+
+const isAgeGroup = (value: unknown): value is AgeGroup =>
+  value === '0-60' || value === '60-80' || value === '80+';
+
+const isSavedCalculation = (value: unknown): value is SavedCalculation => {
+  if (!value || typeof value !== 'object') return false;
+
+  const entry = value as Partial<SavedCalculation>;
+  return (
+    typeof entry.id === 'number' &&
+    isFinancialYear(entry.fy) &&
+    isAgeGroup(entry.age) &&
+    typeof entry.income === 'number' &&
+    typeof entry.deductions === 'number' &&
+    typeof entry.taxOld === 'number' &&
+    typeof entry.taxNew === 'number' &&
+    typeof entry.recommended === 'string' &&
+    typeof entry.date === 'string'
+  );
+};
+
+const readSavedCalculations = (): SavedCalculation[] => {
+  try {
+    const saved = localStorage.getItem('tax_history');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isSavedCalculation);
+  } catch (error) {
+    return [];
+  }
+};
+
+const fyLabel = (fy: FinancialYear) =>
+  fy === '2026-2027' ? 'FY 2026–27' : 'FY 2025–26';
+
+/** Surcharge on base tax (before cess). Applied when taxable income > ₹50L.
+ *  New regime is capped at 25% surcharge (Finance Act 2023 removed 37% bracket). */
+function computeSurcharge(baseTax: number, taxableIncome: number, isNewRegime: boolean): number {
+  if (taxableIncome <= 5_000_000)  return 0;                              // ≤ ₹50L
+  if (taxableIncome <= 10_000_000) return Math.round(baseTax * 0.10);     // ₹50L–1Cr
+  if (taxableIncome <= 20_000_000) return Math.round(baseTax * 0.15);     // ₹1Cr–2Cr
+  if (taxableIncome <= 50_000_000) return Math.round(baseTax * 0.25);     // ₹2Cr–5Cr
+  return isNewRegime ? Math.round(baseTax * 0.25) : Math.round(baseTax * 0.37); // >₹5Cr
+}
+
+/* ---------------- COMPONENT ---------------- */
+export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
+  const t: LabelConfig = {
+    fyLabel: 'Financial Year',
+    ageLabel: 'Age Category',
+    incomeLabel: 'Gross Annual Income (₹)',
+    deductionsLabel: 'Total Deductions (80C, 80D etc.)',
+    deductionHint: '*Deductions apply only under Old Regime',
+    recommendationLabel: 'RECOMMENDED',
+    saveLabel: 'Save',
+    oldRegimeLabel: 'Old Regime Tax',
+    newRegimeLabel: 'New Regime Tax',
+    netIncomeLabel: 'Income After Tax',
+    ageOptions: {
+      regular: 'Below 60',
+      senior: '60 – 80',
+      superSenior: '80+',
+    },
+    ...labels,
+  };
+
+  /* ---------------- STATE ---------------- */
+  const [fy, setFy] = useState<FinancialYear>('2026-2027');
+  const [age, setAge] = useState<AgeGroup>('0-60');
+  const [income, setIncome] = useState(1_200_000);
+  const [deductions, setDeductions] = useState(150_000);
+
+  /* ---------- SAVED CALCULATIONS STATE ---------- */
+  const [savedCalculations, setSavedCalculations] = useState<
+    SavedCalculation[]
+  >(() => {
+    if (typeof window === 'undefined') return [];
+    return readSavedCalculations();
+  });
+
+  /* ---------- TRACK CALCULATOR LOAD ---------- */
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'calculator_loaded', {
+        calculator_type: 'Income_Tax',
+        page_path: window.location.pathname,
+      });
+    }
+  }, []);
+
+  /* ---------------- CALCULATIONS ---------------- */
+  const calc = useMemo(() => {
+    const STD_OLD = 50_000;
+    const STD_NEW = 75_000;
+
+    /* ---------- OLD REGIME ---------- */
+    const slab1 = age === '80+' ? 500_000 : age === '60-80' ? 300_000 : 250_000;
+    const slab2 = 500_000;
+    const slab3 = 1_000_000;
+
+    const taxableOld = Math.max(0, income - STD_OLD - deductions);
+    let taxOld = 0;
+
+    if (taxableOld > slab1) {
+      taxOld += Math.min(taxableOld - slab1, slab2 - slab1) * 0.05;
+      taxOld += Math.min(Math.max(taxableOld - slab2, 0), slab3 - slab2) * 0.2;
+      taxOld += Math.max(taxableOld - slab3, 0) * 0.3;
+    }
+
+    // Section 87A rebate for Old Regime
+    if (taxableOld <= 500_000) taxOld = 0;
+
+    // Surcharge on old regime (before cess)
+    const surchargeOld = computeSurcharge(taxOld, taxableOld, false);
+
+    /* ---------- NEW REGIME ---------- */
+    const taxableNew = Math.max(0, income - STD_NEW);
+    let taxNewBase = 0;
+
+    /**
+     * Finance Act 2025 revised new-regime slabs under section 115BAC from
+     * AY 2026-27 onwards (i.e. FY 2025-26 and later). Both selectable FYs in
+     * this calculator therefore use the same slab structure and rebate limit.
+     */
+    const slabs: Array<[number, number, number]> = [
+      [400_000, 800_000, 0.05],
+      [800_000, 1_200_000, 0.1],
+      [1_200_000, 1_600_000, 0.15],
+      [1_600_000, 2_000_000, 0.2],
+      [2_000_000, 2_400_000, 0.25],
+      [2_400_000, Infinity, 0.3]
+    ];
+
+    slabs.forEach(([min, max, rate]) => {
+      taxNewBase += Math.max(0, Math.min(taxableNew, max) - min) * rate;
+    });
+
+    // Section 87A rebate limit
+    const rebateLimit = 1_200_000;
+    if (taxableNew <= rebateLimit) {
+      taxNewBase = 0;
+    }
+
+    // Surcharge on new regime (before cess)
+    const surchargeNew = computeSurcharge(taxNewBase, taxableNew, true);
+
+    /* ---------- CESS (4% on tax + surcharge) ---------- */
+    const totalOld = Math.round((taxOld + surchargeOld) * 1.04);
+    let totalNew = Math.round((taxNewBase + surchargeNew) * 1.04);
+
+    /**
+     * Marginal relief (new regime):
+     * tax payable should not exceed income above rebate threshold.
+     */
+    if (taxableNew > rebateLimit) {
+      const maxPayableAtBoundary = Math.round(taxableNew - rebateLimit);
+      totalNew = Math.min(totalNew, maxPayableAtBoundary);
+    }
+
+    const recommended = totalNew <= totalOld ? 'New Regime' : 'Old Regime';
+    const activeTax = recommended === 'New Regime' ? totalNew : totalOld;
+    const savings = Math.abs(totalOld - totalNew);
+
+    return {
+      taxOld: totalOld,
+      taxNew: totalNew,
+      surchargeOld,
+      surchargeNew,
+      recommended,
+      savings,
+      netIncome: income - activeTax,
+      taxableOld,
+      taxableNew,
+    };
+  }, [age, income, deductions]);
+
+  const handleReset = () => {
+    setIncome(1_200_000);
+    setDeductions(150_000);
+    setFy('2026-2027');
+    setAge('0-60');
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'tax_reset', {
+        calculator_type: 'Income_Tax',
+      });
+    }
+  };
+
+  /* ---------- SAVE CALCULATION ---------- */
+  const handleSaveCalculation = () => {
+    const calculation: SavedCalculation = {
+      id: Date.now(),
+      fy,
+      age,
+      income,
+      deductions,
+      taxOld: calc.taxOld,
+      taxNew: calc.taxNew,
+      recommended: calc.recommended,
+      date: new Date().toISOString(),
+    };
+
+    const saved = [calculation, ...savedCalculations].slice(0, 10);
+    setSavedCalculations(saved);
+
+    try {
+      localStorage.setItem('tax_history', JSON.stringify(saved));
+    } catch (error) {
+    }
+
+    toast.success(
+      'Tax calculation saved! Access it anytime from your history.',
+    );
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'tax_saved', {
+        income,
+        recommended_regime: calc.recommended,
+      });
+    }
+  };
+
+  /* ---------- DELETE SINGLE CALCULATION ---------- */
+  const handleDeleteCalculation = (id: number) => {
+    const updated = savedCalculations.filter((c) => c.id !== id);
+    setSavedCalculations(updated);
+
+    try {
+      localStorage.setItem('tax_history', JSON.stringify(updated));
+    } catch (error) {
+    }
+
+    toast.success('Calculation deleted!');
+  };
+
+  /* ---------- CLEAR ALL CALCULATIONS ---------- */
+  const handleClearAll = () => {
+    setSavedCalculations([]);
+
+    try {
+      localStorage.removeItem('tax_history');
+    } catch (error) {
+    }
+
+    toast.success('All calculations cleared!');
+  };
+
+  /* ---------- SHARE VIA WHATSAPP ---------- */
+  const handleShare = () => {
+    const message =
+      `💰 Income Tax Calculator Results (${fyLabel(fy)})\n\n` +
+      `Gross Income: ${formatINR(income)}\n` +
+      `Deductions: ${formatINR(deductions)}\n\n` +
+      `📊 Tax Comparison:\n` +
+      `Old Regime: ${formatINR(calc.taxOld)}\n` +
+      `New Regime: ${formatINR(calc.taxNew)}\n\n` +
+      `✅ Recommended: ${calc.recommended}\n` +
+      `💵 Net Income: ${formatINR(calc.netIncome)}\n\n` +
+      `Calculate yours: https://fincado.com/income-tax-calculator/`;
+
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'tax_shared', {
+        method: 'whatsapp',
+      });
+    }
+  };
+
+  /* ---------- LOAD SAVED CALCULATION ---------- */
+  const handleLoadCalculation = (savedCalc: SavedCalculation) => {
+    setFy(savedCalc.fy);
+    setAge(savedCalc.age);
+    setIncome(savedCalc.income);
+    setDeductions(savedCalc.deductions);
+    toast.success('Calculation loaded!');
+  };
+
+  /* ---------------- UI ---------------- */
+  return (
+    <div className="space-y-6">
+      <Card className="border-border shadow-sm bg-card">
+        <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2 text-slate-800">
+              <Scale className="h-5 w-5 text-brand-700" />
+              Tax Estimator
+            </CardTitle>
+            <button
+              onClick={handleReset}
+              className="text-xs text-slate-500 flex items-center gap-1 hover:text-brand-700 transition-colors"
+            >
+              <RefreshCcw className="w-3 h-3" /> Reset
+            </button>
+          </div>
+        </CardHeader>
+
+        <CardContent className="p-6 lg:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+            {/* --- LEFT: INPUTS --- */}
+            <div className="space-y-6">
+              {/* Financial Year */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-slate-700">
+                  {t.fyLabel}
+                </Label>
+                <Select
+                  value={fy}
+                  onValueChange={(v) => setFy(v as FinancialYear)}
+                >
+                  <SelectTrigger className="bg-white h-11">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white">
+                    <SelectItem value="2026-2027">
+                      FY 2026–27 (AY 2027–28)
+                    </SelectItem>
+                    <SelectItem value="2025-2026">
+                      FY 2025–26 (AY 2026–27)
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Age */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-slate-700">
+                  {t.ageLabel}
+                </Label>
+                <Select
+                  value={age}
+                  onValueChange={(v) => setAge(v as AgeGroup)}
+                >
+                  <SelectTrigger className="bg-white h-11">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0-60">{t.ageOptions.regular}</SelectItem>
+                    <SelectItem value="60-80">{t.ageOptions.senior}</SelectItem>
+                    <SelectItem value="80+">
+                      {t.ageOptions.superSenior}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <CalculatorField
+                label={t.incomeLabel}
+                value={income}
+                min={300_000}
+                max={10_000_000}
+                step={50_000}
+                onChange={setIncome}
+              />
+
+              <div className="space-y-1">
+                <CalculatorField
+                  label={t.deductionsLabel}
+                  value={deductions}
+                  min={0}
+                  max={1_500_000}
+                  step={5_000}
+                  onChange={setDeductions}
+                />
+                <p className="text-xs text-slate-400 italic">
+                  {t.deductionHint}
+                </p>
+              </div>
+            </div>
+
+            {/* --- RIGHT: VISUALS --- */}
+            <div className="flex flex-col justify-center space-y-6">
+              {/* Recommendation Box */}
+              <div className="p-6 rounded-xl border-2 text-center transition-all border-brand-200 bg-brand-50 shadow-brand-100 shadow-lg">
+                <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-brand-700">
+                  {t.recommendationLabel}
+                </p>
+                <h3 className="text-2xl font-bold text-brand-900">
+                  {calc.recommended}
+                </h3>
+                {calc.savings > 0 ? (
+                  <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm text-slate-700">
+                    <TrendingDown className="h-4 w-4 text-brand-700" />
+                    Save <strong>{formatINR(calc.savings)}</strong>
+                  </div>
+                ) : (
+                  <div className="mt-2 text-sm text-slate-500">
+                    Tax liability is identical in both regimes.
+                  </div>
+                )}
+              </div>
+
+              {/* Bar Chart Comparison */}
+              <div className="space-y-3">
+                {/* Old Regime Bar */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs font-medium text-slate-500">
+                    <span>Old Regime</span>
+                    <span className="font-semibold">
+                      {formatINR(calc.taxOld)}
+                    </span>
+                  </div>
+                  <div className="h-4 w-full rounded-full bg-slate-100 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        calc.recommended === 'Old Regime'
+                          ? 'bg-brand-400'
+                          : 'bg-slate-300'
+                      }`}
+                      style={{
+                        width: `${
+                          Math.min(
+                            (calc.taxOld / Math.max(calc.taxOld, calc.taxNew)) *
+                              100,
+                            100,
+                          ) || 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* New Regime Bar */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs font-medium text-slate-500">
+                    <span>New Regime</span>
+                    <span className="font-semibold">
+                      {formatINR(calc.taxNew)}
+                    </span>
+                  </div>
+                  <div className="h-4 w-full rounded-full bg-slate-100 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        calc.recommended === 'New Regime'
+                          ? 'bg-brand-400'
+                          : 'bg-slate-300'
+                      }`}
+                      style={{
+                        width: `${
+                          Math.min(
+                            (calc.taxNew / Math.max(calc.taxOld, calc.taxNew)) *
+                              100,
+                            100,
+                          ) || 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Final Takehome */}
+              <div className="rounded-lg bg-brand-900 p-5 text-center text-white shadow-lg">
+                <p className="text-xs text-[#D1D5DB] uppercase tracking-widest font-medium mb-1">
+                  {t.netIncomeLabel}
+                </p>
+                <div className="text-3xl text-brand-400 font-semibold tracking-tight">
+                  {formatINR(calc.netIncome)}
+                </div>
+                <div className="mt-2 text-xs text-[#D1D5DB]">
+                  After {calc.recommended} tax
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-xs text-slate-700">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <p>
+                  Includes Health &amp; Education Cess (4%) and Surcharge (10% above ₹50L,
+                  15% above ₹1Cr, 25% above ₹2Cr). New regime surcharge is capped at 25%.
+                  Marginal relief applies at slab boundaries.
+                </p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-3">
+        <Button onClick={handleSaveCalculation} variant="outline" size="sm">
+          <BookmarkIcon className="mr-2 h-4 w-4" />
+          Save Calculation
+        </Button>
+
+        <Button onClick={handleShare} variant="outline" size="sm">
+          <Share2Icon className="mr-2 h-4 w-4" />
+          Share via WhatsApp
+        </Button>
+      </div>
+
+      {/* Tax Breakdown Card */}
+      <Card className="border-brand-200 bg-linear-to-br from-brand-50 to-white">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <Calculator className="h-5 w-5 text-brand-700" />
+            Tax Breakdown
+          </CardTitle>
+        </CardHeader>
+
+        <CardContent>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              {/* Old Regime Details */}
+              <div className="p-4 bg-white rounded-lg border-2 border-brand-200">
+                <div className="text-sm font-semibold text-brand-700 mb-2">
+                  Old Regime
+                </div>
+                <div className="space-y-2 text-xs text-slate-600">
+                  <div className="flex justify-between">
+                    <span>Gross Income:</span>
+                    <span className="font-medium">{formatINR(income)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Std Deduction:</span>
+                    <span className="font-medium">₹50,000</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>80C/80D/etc:</span>
+                    <span className="font-medium">{formatINR(deductions)}</span>
+                  </div>
+                  <div className="border-t pt-2 flex justify-between font-semibold">
+                    <span>Taxable Income:</span>
+                    <span>{formatINR(calc.taxableOld)}</span>
+                  </div>
+                  {calc.surchargeOld > 0 && (
+                    <div className="flex justify-between text-amber-700">
+                      <span>Surcharge:</span>
+                      <span className="font-medium">+{formatINR(calc.surchargeOld)}</span>
+                    </div>
+                  )}
+                  <div className="border-t pt-2 flex justify-between font-semibold text-brand-700">
+                    <span>Tax + Surcharge + Cess:</span>
+                    <span>{formatINR(calc.taxOld)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* New Regime Details */}
+              <div className="p-4 bg-white rounded-lg border-2 border-brand-200">
+                <div className="text-sm font-semibold text-brand-700 mb-2">
+                  New Regime
+                </div>
+                <div className="space-y-2 text-xs text-slate-600">
+                  <div className="flex justify-between">
+                    <span>Gross Income:</span>
+                    <span className="font-medium">{formatINR(income)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Std Deduction:</span>
+                    <span className="font-medium">₹75,000</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <span>Deductions:</span>
+                    <span>Not Allowed</span>
+                  </div>
+                  <div className="border-t pt-2 flex justify-between font-semibold">
+                    <span>Taxable Income:</span>
+                    <span>{formatINR(calc.taxableNew)}</span>
+                  </div>
+                  {calc.surchargeNew > 0 && (
+                    <div className="flex justify-between text-amber-700">
+                      <span>Surcharge:</span>
+                      <span className="font-medium">+{formatINR(calc.surchargeNew)}</span>
+                    </div>
+                  )}
+                  <div className="border-t pt-2 flex justify-between font-semibold text-brand-700">
+                    <span>Tax + Surcharge + Cess:</span>
+                    <span>{formatINR(calc.taxNew)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Saved Calculations History */}
+      {savedCalculations.length > 0 && (
+        <Card className="border-slate-200">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+            <CardTitle className="text-lg">Your Saved Scenarios</CardTitle>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleClearAll}
+              className="text-xs text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Clear All
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {savedCalculations.map((savedCalc) => (
+                <div
+                  key={savedCalc.id}
+                  className="group p-3 bg-slate-50 rounded-lg border border-slate-200 hover:bg-slate-100 transition relative"
+                >
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleLoadCalculation(savedCalc)}
+                  >
+                    <div className="flex justify-between items-start pr-8">
+                      <div>
+                        <div className="font-semibold text-sm">
+                          {savedCalc.fy} | {savedCalc.age} | Income:{' '}
+                          {formatINR(savedCalc.income)}
+                        </div>
+                        <div className="text-xs text-slate-600 mt-1">
+                          Recommended: {savedCalc.recommended} | Old:{' '}
+                          {formatINR(savedCalc.taxOld)} | New:{' '}
+                          {formatINR(savedCalc.taxNew)}
+                        </div>
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        {new Date(savedCalc.date).toLocaleDateString('en-IN')}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteCalculation(savedCalc.id);
+                    }}
+                    className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-600 hover:bg-red-50"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
