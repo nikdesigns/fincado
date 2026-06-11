@@ -66,7 +66,8 @@ function toRouteFromPage(pagePath: string): string {
   const relative = pagePath
     .replace(APP_DIR, '')
     .replace(/\\/g, '/')
-    .replace(/\/page\.tsx$/, '');
+    .replace(/\/page\.tsx$/, '')
+    .replace(/\/\([^)]+\)/g, ''); // strip Next.js route groups like (en), (hi)
   return normalizePath(relative || '/');
 }
 
