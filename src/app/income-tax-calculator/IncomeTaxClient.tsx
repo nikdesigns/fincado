@@ -111,6 +111,16 @@ const readSavedCalculations = (): SavedCalculation[] => {
 const fyLabel = (fy: FinancialYear) =>
   fy === '2026-2027' ? 'FY 2026–27' : 'FY 2025–26';
 
+/** Surcharge on base tax (before cess). Applied when taxable income > ₹50L.
+ *  New regime is capped at 25% surcharge (Finance Act 2023 removed 37% bracket). */
+function computeSurcharge(baseTax: number, taxableIncome: number, isNewRegime: boolean): number {
+  if (taxableIncome <= 5_000_000)  return 0;                              // ≤ ₹50L
+  if (taxableIncome <= 10_000_000) return Math.round(baseTax * 0.10);     // ₹50L–1Cr
+  if (taxableIncome <= 20_000_000) return Math.round(baseTax * 0.15);     // ₹1Cr–2Cr
+  if (taxableIncome <= 50_000_000) return Math.round(baseTax * 0.25);     // ₹2Cr–5Cr
+  return isNewRegime ? Math.round(baseTax * 0.25) : Math.round(baseTax * 0.37); // >₹5Cr
+}
+
 /* ---------------- COMPONENT ---------------- */
 export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
   const t: LabelConfig = {
@@ -178,6 +188,9 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
     // Section 87A rebate for Old Regime
     if (taxableOld <= 500_000) taxOld = 0;
 
+    // Surcharge on old regime (before cess)
+    const surchargeOld = computeSurcharge(taxOld, taxableOld, false);
+
     /* ---------- NEW REGIME ---------- */
     const taxableNew = Math.max(0, income - STD_NEW);
     let taxNewBase = 0;
@@ -200,20 +213,22 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
       taxNewBase += Math.max(0, Math.min(taxableNew, max) - min) * rate;
     });
 
-    // Section 87A rebate limit by FY
+    // Section 87A rebate limit
     const rebateLimit = 1_200_000;
     if (taxableNew <= rebateLimit) {
       taxNewBase = 0;
     }
 
-    /* ---------- CESS ---------- */
-    const totalOld = Math.round(taxOld * 1.04);
-    let totalNew = Math.round(taxNewBase * 1.04);
+    // Surcharge on new regime (before cess)
+    const surchargeNew = computeSurcharge(taxNewBase, taxableNew, true);
+
+    /* ---------- CESS (4% on tax + surcharge) ---------- */
+    const totalOld = Math.round((taxOld + surchargeOld) * 1.04);
+    let totalNew = Math.round((taxNewBase + surchargeNew) * 1.04);
 
     /**
      * Marginal relief (new regime):
      * tax payable should not exceed income above rebate threshold.
-     * Apply cap on final payable (post-cess) for boundary correctness.
      */
     if (taxableNew > rebateLimit) {
       const maxPayableAtBoundary = Math.round(taxableNew - rebateLimit);
@@ -227,6 +242,8 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
     return {
       taxOld: totalOld,
       taxNew: totalNew,
+      surchargeOld,
+      surchargeNew,
       recommended,
       savings,
       netIncome: income - activeTax,
@@ -531,8 +548,9 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
               <div className="flex items-start gap-2 text-xs text-slate-700">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <p>
-                  Calculations include Health & Education Cess (4%). Surcharge
-                  applies if income exceeds ₹50 Lakhs.
+                  Includes Health &amp; Education Cess (4%) and Surcharge (10% above ₹50L,
+                  15% above ₹1Cr, 25% above ₹2Cr). New regime surcharge is capped at 25%.
+                  Marginal relief applies at slab boundaries.
                 </p>
               </div>
             </div>
@@ -587,8 +605,14 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableOld)}</span>
                   </div>
+                  {calc.surchargeOld > 0 && (
+                    <div className="flex justify-between text-amber-700">
+                      <span>Surcharge:</span>
+                      <span className="font-medium">+{formatINR(calc.surchargeOld)}</span>
+                    </div>
+                  )}
                   <div className="border-t pt-2 flex justify-between font-semibold text-brand-700">
-                    <span>Tax + Cess:</span>
+                    <span>Tax + Surcharge + Cess:</span>
                     <span>{formatINR(calc.taxOld)}</span>
                   </div>
                 </div>
@@ -616,8 +640,14 @@ export default function IncomeTaxClient({ labels }: IncomeTaxClientProps) {
                     <span>Taxable Income:</span>
                     <span>{formatINR(calc.taxableNew)}</span>
                   </div>
+                  {calc.surchargeNew > 0 && (
+                    <div className="flex justify-between text-amber-700">
+                      <span>Surcharge:</span>
+                      <span className="font-medium">+{formatINR(calc.surchargeNew)}</span>
+                    </div>
+                  )}
                   <div className="border-t pt-2 flex justify-between font-semibold text-brand-700">
-                    <span>Tax + Cess:</span>
+                    <span>Tax + Surcharge + Cess:</span>
                     <span>{formatINR(calc.taxNew)}</span>
                   </div>
                 </div>

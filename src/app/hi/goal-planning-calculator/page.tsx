@@ -40,6 +40,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/goal-planning-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/goal-planning-calculator/',
       'en-IN': 'https://fincado.com/goal-planning-calculator/',
     },
   },

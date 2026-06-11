@@ -57,6 +57,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/hra-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/hra-calculator/',
       'en-IN': 'https://fincado.com/hra-calculator/',
     },
   },

@@ -54,6 +54,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/epf-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/epf-calculator/',
       'en-IN': 'https://fincado.com/epf-calculator/',
     },
   },

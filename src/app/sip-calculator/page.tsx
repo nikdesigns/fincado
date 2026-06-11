@@ -32,7 +32,7 @@ const updatedLabel = getCurrentMonthYearLabel();
 export const metadata: Metadata = {
   title: 'SIP Calculator 2026 – Mutual Fund SIP Returns Calculator India',
   description:
-    'Free SIP Calculator for mutual funds in India. Calculate future value of monthly SIP, total investment, and wealth gain. Plan SIPs for goals like retirement, education, and house purchase.',
+    'Free SIP Calculator for mutual funds in India. Calculate future value of monthly SIP, total wealth gain, and plan for retirement, education, or home purchase.',
   keywords: [
     'sip calculator',
     'mutual fund sip calculator',
@@ -44,11 +44,15 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/sip-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/sip-calculator/',
+      'hi-IN': 'https://fincado.com/hi/sip-calculator/',
+    },
   },
   openGraph: {
     title: 'SIP Calculator – Calculate Mutual Fund SIP Returns',
     description:
-      'Estimate mutual fund SIP returns, total investment, and wealth gain using this SIP calculator. Plan your financial goals smarter.',
+      'Estimate mutual fund SIP returns, total investment, and wealth gain. Plan SIPs for retirement, education, and wealth goals.',
     url: 'https://fincado.com/sip-calculator/',
     type: 'website',
     images: [
@@ -59,6 +63,12 @@ export const metadata: Metadata = {
         alt: 'Fincado SIP Calculator',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SIP Calculator 2026 – Mutual Fund Returns Calculator India',
+    description: 'Calculate future value of monthly SIP. Plan for retirement, education & wealth goals. Free, no login required.',
+    images: ['/og-sip-calculator.jpg'],
   },
   robots: {
     index: true,

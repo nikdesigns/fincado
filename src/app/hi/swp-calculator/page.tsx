@@ -54,7 +54,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/swp-calculator/',
-    languages: { 'en-IN': 'https://fincado.com/swp-calculator/' },
+    languages: {
+      'hi-IN': 'https://fincado.com/hi/swp-calculator/',
+      'en-IN': 'https://fincado.com/swp-calculator/',
+    },
   },
   openGraph: {
     title: 'SWP कैलकुलेटर 2026 – सिस्टमैटिक निकासी की योजना बनाएं',

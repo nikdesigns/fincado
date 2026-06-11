@@ -40,6 +40,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/sip-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/sip-calculator/',
       'en-IN': 'https://fincado.com/sip-calculator/',
     },
   },

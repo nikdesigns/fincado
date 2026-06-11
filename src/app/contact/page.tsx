@@ -16,8 +16,8 @@ import {
 
 const PAGE_URL = 'https://fincado.com/contact/';
 const SUPPORT_EMAIL = 'support@fincado.com';
-const PARTNERSHIP_EMAIL = 'support@fincado.com';
-const PRESS_EMAIL = 'support@fincado.com';
+const PARTNERSHIP_EMAIL = 'partnerships@fincado.com';
+const PRESS_EMAIL = 'press@fincado.com';
 const OFFICE_ADDRESS = 'Mumbai, Maharashtra, India';
 
 export const metadata: Metadata = {
@@ -68,13 +68,13 @@ export default function ContactPage() {
         },
         {
           '@type': 'ContactPoint',
-          contactType: 'business inquiries',
+          contactType: 'sales',
           email: PARTNERSHIP_EMAIL,
           areaServed: 'IN',
         },
         {
           '@type': 'ContactPoint',
-          contactType: 'media inquiries',
+          contactType: 'public relations',
           email: PRESS_EMAIL,
           areaServed: 'IN',
         },

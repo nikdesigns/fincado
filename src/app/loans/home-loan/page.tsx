@@ -27,13 +27,10 @@ import TaxUpdateBanner from '@/components/TaxUpdateBanner';
 
 /* ---------------- SEO METADATA ---------------- */
 
-/* ---------------- SEO METADATA ---------------- */
-
 export const metadata: Metadata = {
-  title:
-    'Home Loan EMI Calculator 2026-27 - Tax Year 2026-27 | Income Tax Act 2025',
+  title: 'Home Loan EMI Calculator 2026-27 – Tax Benefits Under Sec 80C & 24(b)',
   description:
-    'Free Home Loan EMI Calculator for Tax Year 2026-27 under the new Income Tax Act 2025. Calculate monthly EMI for HDFC, SBI, ICICI home loans. Check tax benefits under Section 80C & 24(b) (Old Regime only). Compare latest interest rates & save lakhs.',
+    'Free Home Loan EMI Calculator for FY 2026-27. Calculate monthly EMI for HDFC, SBI, ICICI home loans. Check tax deductions under Section 80C & 24(b) and compare latest interest rates.',
   keywords: [
     'home loan emi calculator',
     'housing loan calculator 2026',

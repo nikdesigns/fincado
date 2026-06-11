@@ -50,6 +50,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/nsc-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/nsc-calculator/',
       'en-IN': 'https://fincado.com/nsc-calculator/',
     },
   },

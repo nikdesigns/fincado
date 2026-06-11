@@ -51,6 +51,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/mutual-funds/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/mutual-funds/',
       'en-IN': 'https://fincado.com/mutual-funds/',
     },
   },

@@ -52,6 +52,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/fire-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/fire-calculator/',
       'en-IN': 'https://fincado.com/fire-calculator/',
     },
   },

@@ -50,6 +50,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/guides/sip-vs-fd/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/guides/sip-vs-fd/',
       'en-IN': 'https://fincado.com/guides/sip-vs-fd/',
     },
   },

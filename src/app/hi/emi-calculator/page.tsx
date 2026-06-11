@@ -41,6 +41,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/emi-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/emi-calculator/',
       'en-IN': 'https://fincado.com/emi-calculator/',
     },
   },

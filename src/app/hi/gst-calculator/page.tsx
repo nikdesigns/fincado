@@ -52,6 +52,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/gst-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/gst-calculator/',
       'en-IN': 'https://fincado.com/gst-calculator/',
     },
   },

@@ -60,6 +60,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/compound-interest-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/compound-interest-calculator/',
       'en-IN': 'https://fincado.com/compound-interest-calculator/',
     },
   },

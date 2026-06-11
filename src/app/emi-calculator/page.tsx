@@ -34,7 +34,7 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'EMI Calculator India - Home, Car & Personal Loan EMI Calculator 2026',
   description:
-    'Free EMI Calculator for ₹1L to ₹5Cr loans. Check EMI for 8.5% interest rates. Used by 50,000+ borrowers. Compare SBI, HDFC, ICICI rates & save ₹2.5L on interest.',
+    'Free EMI Calculator for home, car & personal loans. Compare SBI, HDFC, ICICI rates, model repayment schedule, and save on total interest. Updated 2026.',
   keywords: [
     'EMI Calculator',
     'Loan EMI Calculator India',
@@ -57,11 +57,25 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'EMI Calculator – Calculate Loan EMI After Budget 2026',
+    title: 'EMI Calculator – Calculate Loan EMI 2026 | Fincado',
     description:
-      'Free EMI Calculator for ₹1L to ₹5Cr loans. Check EMI for 8.5% interest rates. Used by 50,000+ borrowers. Compare SBI, HDFC, ICICI rates & save ₹2.5L on interest.',
+      'Free EMI Calculator for home, car & personal loans. Compare SBI, HDFC, ICICI rates, model repayment schedule, and save on interest.',
     url: 'https://fincado.com/emi-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-home-loan-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado EMI Calculator – Home, Car & Personal Loan',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'EMI Calculator India 2026 – Home, Car & Personal Loan',
+    description: 'Calculate EMI for any loan amount and tenure. Compare rates from 25+ banks and see your full repayment schedule. Free tool.',
+    images: ['/og-home-loan-calculator.jpg'],
   },
   robots: {
     index: true,

@@ -38,13 +38,13 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'GST Returns Guide: GSTR-1, 3B & ITC Rules 2025',
+  title: 'GST Returns Guide: GSTR-1, 3B & ITC Rules 2026',
   description:
-    'How to file GST return: GSTR-1 vs GSTR-3B, input tax credit golden rule, composition scheme, QRMP quarterly filing & step-by-step filing guide India 2025.',
+    'How to file GST return: GSTR-1 vs GSTR-3B, input tax credit golden rule, composition scheme, QRMP quarterly filing & step-by-step filing guide India 2026.',
   keywords: [
     'gst returns filing india',
     'gstr-1 vs gstr-3b',
-    'input tax credit rules 2025',
+    'input tax credit rules 2026',
     'gst composition scheme limit',
     'qrmp scheme explained',
     'how to claim itc in gst'

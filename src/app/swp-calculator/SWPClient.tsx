@@ -239,7 +239,7 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
   // ✅ Withdrawal Mode States
   const [initialCorpus, setInitialCorpus] = useState(1000000);
   const [monthlyWithdrawal, setMonthlyWithdrawal] = useState(10000);
-  const [annualRate, setAnnualRate] = useState(8);
+  const [annualRate, setAnnualRate] = useState(10);
   const [years, setYears] = useState(10);
   const [frequency, setFrequency] = useState('monthly');
 

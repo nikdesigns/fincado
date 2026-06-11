@@ -41,6 +41,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/loans/home-loan/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/loans/home-loan/',
       'en-IN': 'https://fincado.com/loans/home-loan/',
     },
   },

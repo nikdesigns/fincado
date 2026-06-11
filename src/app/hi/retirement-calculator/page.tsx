@@ -55,6 +55,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/retirement-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/retirement-calculator/',
       'en-IN': 'https://fincado.com/retirement-calculator/',
     },
   },

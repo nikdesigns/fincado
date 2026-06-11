@@ -39,7 +39,7 @@ const updatedLabel = getCurrentMonthYearLabel();
 export const metadata: Metadata = {
   title: 'FD Calculator 2026 – Calculate Fixed Deposit Interest & Maturity',
   description:
-    'Calculate Fixed Deposit maturity amount with our accurate FD Calculator. Check monthly/quarterly/yearly compounding, TDS deduction, senior citizen rates, and compare bank FD rates for 2026.',
+    'Calculate Fixed Deposit maturity with accurate compounding. Check TDS deduction, senior citizen rates, and compare bank FD rates for 2026.',
   keywords: [
     'FD Calculator',
     'Fixed Deposit Calculator',
@@ -54,11 +54,15 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/fd-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/fd-calculator/',
+      'hi-IN': 'https://fincado.com/hi/fd-calculator/',
+    },
   },
   openGraph: {
     title: 'FD Calculator 2026 – Fixed Deposit Maturity & Interest Calculator',
     description:
-      'Free tool to calculate FD maturity amount, total interest, TDS deduction, and effective yield. Compare bank rates and senior citizen benefits.',
+      'Free tool to calculate FD maturity, total interest, TDS deduction, and effective yield. Compare bank rates and senior citizen benefits.',
     url: 'https://fincado.com/fd-calculator/',
     type: 'website',
     images: [
@@ -69,6 +73,12 @@ export const metadata: Metadata = {
         alt: 'Fincado FD Calculator',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FD Calculator 2026 – Fixed Deposit Maturity Calculator India',
+    description: 'Calculate FD maturity with compounding, TDS deduction, and senior citizen rates. Compare bank FD rates for 2026.',
+    images: ['/og-fd-calculator.jpg'],
   },
   robots: {
     index: true,

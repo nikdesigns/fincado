@@ -42,11 +42,10 @@ import {
 import TaxUpdateBanner from '@/components/TaxUpdateBanner';
 
 /* ---------------- SEO METADATA ---------------- */
-/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Income Tax Calculator 2026-27 – Old vs New Regime | Tax Year 2026-27',
+  title: 'Income Tax Calculator FY 2026-27 – Old vs New Tax Regime India',
   description:
-    'Calculate Income Tax for Tax Year 2026-27 under the new Income Tax Act 2025. Instant Old vs New Regime comparison, updated slabs, HRA, 80C deductions & personalised recommendation. New regime is default.',
+    'Calculate Income Tax for FY 2026-27 under Income Tax Act 2025. Instant Old vs New Regime comparison, updated slabs, HRA, 80C deductions & personalised recommendation.',
   keywords: [
     'Income Tax Calculator India 2026',
     'Tax Year 2026-27 Calculator',
@@ -57,12 +56,15 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/income-tax-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/income-tax-calculator/',
+      'hi-IN': 'https://fincado.com/hi/income-tax-calculator/',
+    },
   },
   openGraph: {
-    title:
-      'Income Tax Calculator 2026-27 – Old vs New Regime | Tax Year 2026-27',
+    title: 'Income Tax Calculator FY 2026-27 – Old vs New Tax Regime',
     description:
-      'Calculate Income Tax for Tax Year 2026-27 under the new Income Tax Act 2025. Instant Old vs New Regime comparison, updated slabs, HRA, 80C deductions & personalised recommendation.',
+      'Compare Old vs New regime tax in seconds. Updated slabs, HRA, 80C deductions, and personalised savings recommendation for FY 2026-27.',
     url: 'https://fincado.com/income-tax-calculator/',
     type: 'website',
     images: [
@@ -73,6 +75,12 @@ export const metadata: Metadata = {
         alt: 'Fincado Income Tax Calculator 2026-27',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Income Tax Calculator FY 2026-27 – Old vs New Regime India',
+    description: 'Instantly compare Old vs New tax regime savings for FY 2026-27. Updated slabs, HRA, 80C. Free tool.',
+    images: ['/og-income-tax-calculator.jpg'],
   },
   robots: {
     index: true,

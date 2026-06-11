@@ -52,6 +52,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/gratuity-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/gratuity-calculator/',
       'en-IN': 'https://fincado.com/gratuity-calculator/',
     },
   },

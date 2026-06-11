@@ -52,6 +52,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/apy-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/apy-calculator/',
       'en-IN': 'https://fincado.com/apy-calculator/',
     },
   },

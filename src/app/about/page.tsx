@@ -1,6 +1,7 @@
 // src/app/about/page.tsx
 import type { Metadata } from 'next';
 import '@/styles/terms.css'; // reusing the same polished styling
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'About Fincado — Smarter Finance Tools & Guides for India',
@@ -19,18 +20,48 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const founderSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': 'https://fincado.com/#founder',
+    name: 'Nitin Kaushik',
+    jobTitle: 'Founder & Editor-in-Chief',
+    url: 'https://fincado.com/about/',
+    worksFor: {
+      '@id': 'https://fincado.com/#organization',
+    },
+    knowsAbout: [
+      'Personal finance in India',
+      'Home loan comparison and EMI planning',
+      'Mutual funds and SIP investing',
+      'Indian income tax planning',
+      'Retirement and wealth planning',
+    ],
+  };
+
   return (
     <main className="terms-root">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://fincado.com/' },
+          { name: 'About', url: 'https://fincado.com/about/' },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(founderSchema) }}
+      />
       <div className="terms-hero">
         <div className="terms-hero-inner">
           <h1 className="terms-title">About Fincado</h1>
-          <p className="terms-sub">Empowering Financial Decisions in India</p>
+          <p className="terms-sub">Built by a finance enthusiast, for every Indian borrower and investor</p>
 
           <p className="terms-lead">
-            Fincado is a modern personal finance platform built to simplify
-            money decisions for millions of Indians. From intelligent loan
-            calculators to actionable financial guides, we provide tools that
-            help you make smarter, more confident financial choices.
+            Fincado is an independent personal finance platform built to cut
+            through the noise around loans, taxes, and investments. Every
+            calculator, guide, and rate comparison on this site is built with
+            one purpose: give you the same clarity a financial advisor would —
+            without the sales pitch.
           </p>
         </div>
       </div>
@@ -39,6 +70,12 @@ export default function AboutPage() {
         <nav className="terms-toc" aria-label="Table of contents">
           <strong>On this page</strong>
           <ul>
+            <li>
+              <a href="#story">Our Story</a>
+            </li>
+            <li>
+              <a href="#founder">Who Runs Fincado</a>
+            </li>
             <li>
               <a href="#mission">Our Mission</a>
             </li>
@@ -64,6 +101,48 @@ export default function AboutPage() {
         </nav>
 
         <article className="terms-article">
+          <section id="story" className="terms-section">
+            <h2>Our Story</h2>
+            <p>
+              Fincado started from a frustration that many Indian borrowers
+              share: when I was comparing home loan rates across banks, I
+              couldn&apos;t find a single place that showed real, current rates
+              from multiple lenders side by side — without pushing me toward a
+              broker or a referral link.
+            </p>
+            <p>
+              Most financial sites in India are either too broad to be useful,
+              or they&apos;re covertly earning commissions for steering users
+              toward specific products. I built Fincado in 2024 to be neither.
+              It&apos;s funded by advertising, not by loan referrals, which
+              means every ranking, comparison, and guide is based purely on
+              publicly available data and honest analysis.
+            </p>
+          </section>
+
+          <section id="founder" className="terms-section">
+            <h2>Who Runs Fincado</h2>
+            <p>
+              My name is <strong>Nitin Kaushik</strong>, and I am the founder
+              and editor of Fincado. I have a strong interest in Indian personal
+              finance — particularly the intersection of lending, tax planning,
+              and long-term wealth building that affects ordinary salaried
+              professionals and first-time homebuyers.
+            </p>
+            <p>
+              I research, write, and maintain the content on this site directly.
+              All guides are cross-checked against RBI circulars, official bank
+              disclosures, and the Income Tax Act before publication. Where data
+              changes (such as interest rate revisions), I update the affected
+              pages as quickly as possible.
+            </p>
+            <p>
+              You can reach me directly at{' '}
+              <a href="mailto:support@fincado.com">support@fincado.com</a> for
+              corrections, feedback, or editorial questions.
+            </p>
+          </section>
+
           <section id="mission" className="terms-section">
             <h2>Our Mission</h2>
             <p>
@@ -92,7 +171,7 @@ export default function AboutPage() {
               <li>Loan calculators (EMI, Home Loan, Personal Loan, etc.)</li>
               <li>Investment tools (SIP, FD, Savings, Retirement planning)</li>
               <li>Credit score improvement guides</li>
-              <li>Automatic SEO-optimised financial articles</li>
+              <li>Researched financial guides and in-depth analysis</li>
               <li>
                 In-depth Indian finance knowledge and eligibility insights
               </li>
@@ -150,8 +229,8 @@ export default function AboutPage() {
             <h2>Our Future Vision</h2>
             <p>Fincado is evolving constantly. In the coming months, expect:</p>
             <ul className="terms-list">
-              <li>More AI-generated calculators</li>
-              <li>Automated financial planning reports</li>
+              <li>More specialized financial calculators</li>
+              <li>Personalized financial planning guides</li>
               <li>Loan comparison engines</li>
               <li>Realtime interest rate updates</li>
               <li>Mobile-first optimisation for all tools</li>

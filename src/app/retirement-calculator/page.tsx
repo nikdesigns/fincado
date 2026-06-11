@@ -34,9 +34,9 @@ import { Info, Palmtree, ArrowRight, TrendingUp, Shield } from 'lucide-react';
 
 /* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
-  title: 'Retirement Calculator 2026 – Plan Your Retirement Corpus',
+  title: 'Retirement Calculator 2026 – Plan Corpus, SIP & Monthly Income India',
   description:
-    'Calculate retirement corpus needed based on current expenses and inflation. Plan monthly SIP, check savings adequacy, and ensure comfortable retirement planning for 2026.',
+    'Calculate retirement corpus needed based on current expenses and inflation. Plan monthly SIP, check savings adequacy, and retire comfortably.',
   keywords: [
     'Retirement Calculator',
     'Retirement Planning Calculator',
@@ -51,11 +51,15 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/retirement-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/retirement-calculator/',
+      'hi-IN': 'https://fincado.com/hi/retirement-calculator/',
+    },
   },
   openGraph: {
     title: 'Retirement Calculator 2026 – Plan Your Financial Freedom',
     description:
-      'Free retirement calculator to plan corpus, monthly SIP, and post-retirement income. Calculate inflation-adjusted expenses and secure your retirement.',
+      'Free retirement calculator to plan corpus, monthly SIP, and post-retirement income. Inflation-adjusted projections for a comfortable retirement.',
     url: 'https://fincado.com/retirement-calculator/',
     type: 'website',
     images: [
@@ -66,6 +70,12 @@ export const metadata: Metadata = {
         alt: 'Fincado Retirement Calculator',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Retirement Calculator 2026 – Corpus, SIP & Monthly Income India',
+    description: 'Calculate how much corpus you need to retire, your required monthly SIP, and post-retirement income. Free tool.',
+    images: ['/og-retirement-calculator.jpg'],
   },
   robots: {
     index: true,

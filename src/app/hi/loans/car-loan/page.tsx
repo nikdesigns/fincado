@@ -41,6 +41,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/loans/car-loan/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/loans/car-loan/',
       'en-IN': 'https://fincado.com/loans/car-loan/',
     },
   },

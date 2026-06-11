@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/cagr-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/cagr-calculator/',
       'en-IN': 'https://fincado.com/cagr-calculator/',
     },
   },

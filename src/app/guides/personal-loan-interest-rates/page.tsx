@@ -39,11 +39,11 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Personal Loan Interest Rates (2025): Compare All Banks | Fincado',
+  title: 'Personal Loan Interest Rates (2026): Compare All Banks | Fincado',
   description:
-    'Compare current personal loan interest rates of HDFC, SBI, ICICI, Axis, and top NBFCs. Check lowest rates starting from 10.25% and processing fees.',
+    'Compare current personal loan interest rates of HDFC, SBI, ICICI, Axis, and top NBFCs. Check lowest rates starting from 10.25% and processing fees. Updated 2026.',
   keywords: [
-    'Personal Loan Interest Rates 2025',
+    'Personal Loan Interest Rates 2026',
     'Lowest Personal Loan Rate',
     'HDFC Personal Loan Rate',
     'SBI Personal Loan Interest Rate',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     canonical: 'https://fincado.com/guides/personal-loan-interest-rates/',
   },
   openGraph: {
-    title: 'Personal Loan Interest Rates (2025): Compare All Banks',
+    title: 'Personal Loan Interest Rates (2026): Compare All Banks',
     description:
       'Don’t overpay on interest. Compare the latest personal loan rates from 20+ banks and NBFCs here.',
     url: 'https://fincado.com/guides/personal-loan-interest-rates/',
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export default function PersonalLoanRatesGuide() {
-  const pageTitle = 'Personal Loan Interest Rates (2025): Compare All Banks';
+  const pageTitle = 'Personal Loan Interest Rates (2026): Compare All Banks';
 
   // --- FAQ DATA ---
   const faqData = [
@@ -106,7 +106,7 @@ export default function PersonalLoanRatesGuide() {
             '@type': 'Article',
             headline: pageTitle,
             description:
-              'Compare latest personal loan interest rates from top banks in India. Updated list for 2025.',
+              'Compare latest personal loan interest rates from top banks in India. Updated June 2026.',
             mainEntityOfPage: {
               '@type': 'WebPage',
               '@id': 'https://fincado.com/guides/personal-loan-interest-rates/',

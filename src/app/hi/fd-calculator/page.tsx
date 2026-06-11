@@ -54,6 +54,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/fd-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/fd-calculator/',
       'en-IN': 'https://fincado.com/fd-calculator/',
     },
   },

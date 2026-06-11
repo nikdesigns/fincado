@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import {
   Calculator,
   CheckCircle2,
@@ -51,9 +51,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-// Change to true so that non-canonical slugs can hit the
-// permanentRedirect logic instead of returning an immediate 404.
-export const dynamicParams = true;
 
 type ComparisonPageParams = { slug: string };
 
@@ -281,11 +278,6 @@ export default async function ComparisonPage({
 
   const { b1, b2 } = parsed;
   const canonicalSlug = toCanonicalCompareSlug(b1.slug, b2.slug);
-
-  // Redirect reverse-order slug to canonical slug
-  if (slug !== canonicalSlug) {
-    permanentRedirect(`/compare/${canonicalSlug}/`);
-  }
 
   const currentDateISO = new Date().toISOString().split('T')[0];
   const lowerRateBank = b1.rate <= b2.rate ? b1 : b2;

@@ -54,6 +54,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/elss-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/elss-calculator/',
       'en-IN': 'https://fincado.com/elss-calculator/',
     },
   },

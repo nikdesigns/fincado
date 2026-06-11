@@ -58,6 +58,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/income-tax-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/income-tax-calculator/',
       'en-IN': 'https://fincado.com/income-tax-calculator/',
     },
   },

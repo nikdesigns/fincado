@@ -18,21 +18,21 @@ export default function AuthorBio() {
 
   const authorSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': 'https://fincado.com/#research-team',
-    name: 'Fincado Research Team',
+    '@type': 'Person',
+    '@id': 'https://fincado.com/#founder',
+    name: 'Nitin Kaushik',
+    jobTitle: 'Founder & Editor-in-Chief',
     url: 'https://fincado.com/about/',
-    parentOrganization: {
+    worksFor: {
       '@id': 'https://fincado.com/#organization',
     },
     email: 'support@fincado.com',
-    areaServed: 'IN',
-    publishingPrinciples: 'https://fincado.com/editorial-guidelines/',
     knowsAbout: [
       'Personal finance in India',
-      'Loan underwriting and EMI planning',
-      'Income tax computation',
-      'Investment risk and return tradeoffs',
+      'Home loan comparison and EMI planning',
+      'Mutual funds and SIP investing',
+      'Indian income tax planning',
+      'Retirement and wealth planning',
     ],
   };
 
@@ -54,8 +54,11 @@ export default function AuthorBio() {
           <div className="flex-1">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="text-xl font-semibold tracking-tight text-slate-900">
-                  Fincado Research Team
+                <div>
+                  <div className="text-xl font-semibold tracking-tight text-slate-900">
+                    Nitin Kaushik
+                  </div>
+                  <div className="mt-0.5 text-xs text-slate-500">Founder &amp; Editor-in-Chief, Fincado</div>
                 </div>
                 <Badge className="gap-1.5 border border-brand-200 bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-brand-700 hover:bg-brand-50">
                   <ShieldCheck className="h-3 w-3" />
@@ -65,9 +68,10 @@ export default function AuthorBio() {
             </div>
 
             <p className="mb-5 text-[15px] leading-relaxed text-slate-700">
-              This content is prepared and reviewed using RBI circulars,
-              official lender disclosures, and current Indian tax references.
-              Numbers are educational estimates, not personalized advice.
+              Nitin researches and writes all financial guides on Fincado,
+              cross-checking figures against RBI circulars, official bank
+              disclosures, and the Income Tax Act. Content on this site is
+              independent analysis — not personalized financial advice.
             </p>
 
             <div className="grid gap-3 sm:grid-cols-2">
@@ -120,10 +124,10 @@ export default function AuthorBio() {
                 Disclaimer
               </Link>
               <Link
-                href="/contact/"
+                href="/about/"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand-700 hover:text-brand-800"
               >
-                Contact Team
+                About the Author
               </Link>
             </div>
           </div>

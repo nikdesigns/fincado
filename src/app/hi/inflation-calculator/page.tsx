@@ -58,6 +58,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/inflation-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/inflation-calculator/',
       'en-IN': 'https://fincado.com/inflation-calculator/',
     },
   },

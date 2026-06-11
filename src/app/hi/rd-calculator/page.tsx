@@ -55,7 +55,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/rd-calculator/',
-    languages: { 'en-IN': 'https://fincado.com/rd-calculator/' },
+    languages: {
+      'hi-IN': 'https://fincado.com/hi/rd-calculator/',
+      'en-IN': 'https://fincado.com/rd-calculator/',
+    },
   },
   openGraph: {
     title: 'RD कैलकुलेटर – सुरक्षित और निश्चित रिटर्न',

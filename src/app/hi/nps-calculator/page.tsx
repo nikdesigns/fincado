@@ -61,6 +61,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/nps-calculator/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/nps-calculator/',
       'en-IN': 'https://fincado.com/nps-calculator/',
     },
   },

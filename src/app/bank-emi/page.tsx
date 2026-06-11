@@ -31,17 +31,31 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: 'Bank EMI Calculator Comparison – Tax Year 2026-27 | Fincado',
   description:
-    'Compare home loan EMI calculators across 21 top banks in India. Check live rate ranges and processing fees for Tax Year 2026-27.',
+    'Compare home loan EMI calculators across top Indian banks. Check live rate ranges and processing fees for Tax Year 2026-27.',
   alternates: {
     canonical: 'https://fincado.com/bank-emi/',
   },
   openGraph: {
     title: 'Bank EMI Calculator Comparison – Tax Year 2026-27 | Fincado',
     description:
-      'Compare live home loan rates from SBI, HDFC, ICICI and 18 more banks. Updated for Tax Year 2026-27.',
+      'Compare live home loan rates from SBI, HDFC, ICICI and more banks. Updated for Tax Year 2026-27.',
     url: 'https://fincado.com/bank-emi/',
     type: 'website',
     siteName: 'Fincado',
+    images: [
+      {
+        url: 'https://fincado.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Bank EMI Calculator Comparison',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bank EMI Calculator Comparison 2026-27 | Fincado',
+    description: 'Compare home loan EMI calculators and rate corridors from top Indian banks. Updated live.',
+    images: ['https://fincado.com/og-image.png'],
   },
 };
 

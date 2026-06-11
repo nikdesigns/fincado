@@ -55,7 +55,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/ppf-calculator/',
-    languages: { 'en-IN': 'https://fincado.com/ppf-calculator/' },
+    languages: {
+      'hi-IN': 'https://fincado.com/hi/ppf-calculator/',
+      'en-IN': 'https://fincado.com/ppf-calculator/',
+    },
   },
   openGraph: {
     title: 'PPF कैलकुलेटर – सुरक्षित और टैक्स-फ्री निवेश',

@@ -42,7 +42,7 @@ import {
 export const metadata: Metadata = {
   title: 'SWP Calculator 2026 – Systematic Withdrawal Plan Calculator',
   description:
-    'Calculate systematic withdrawal plan returns from mutual funds. Plan regular income from investments, check corpus sustainability, withdrawal strategies, and retirement income planning for 2026.',
+    'Calculate Systematic Withdrawal Plan returns from mutual funds. Plan regular income from investments, check corpus sustainability, and ensure retirement income.',
   keywords: [
     'SWP Calculator',
     'Systematic Withdrawal Plan Calculator',
@@ -57,11 +57,15 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/swp-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/swp-calculator/',
+      'hi-IN': 'https://fincado.com/hi/swp-calculator/',
+    },
   },
   openGraph: {
     title: 'SWP Calculator 2026 – Plan Systematic Withdrawals',
     description:
-      'Free SWP calculator to plan regular income from mutual funds. Calculate corpus sustainability, monthly withdrawals, and retirement income strategies.',
+      'Free SWP calculator to plan regular income from mutual funds. Calculate corpus sustainability, monthly withdrawals, and retirement income.',
     url: 'https://fincado.com/swp-calculator/',
     type: 'website',
     images: [
@@ -72,6 +76,12 @@ export const metadata: Metadata = {
         alt: 'Fincado SWP Calculator',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SWP Calculator 2026 – Systematic Withdrawal Plan Calculator',
+    description: 'Plan regular income from mutual funds. Calculate corpus sustainability and monthly withdrawal amounts. Free tool.',
+    images: ['/og-swp-calculator.jpg'],
   },
   robots: {
     index: true,

@@ -71,8 +71,27 @@ export default function HomePage() {
     { b1: sortedBanks[0], b2: sortedBanks[3] },
   ];
 
+  const homePageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://fincado.com/#webpage',
+    url: 'https://fincado.com/',
+    name: 'Compare Home Loan Rates from 25+ Banks | Fincado',
+    description: 'Compare home loan interest rates from 25+ Indian banks and NBFCs side-by-side. Model EMI impact, analyse rate gaps, and make a data-backed borrowing decision.',
+    inLanguage: 'en-IN',
+    isPartOf: { '@id': 'https://fincado.com/#website' },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://fincado.com/' }],
+    },
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
+      />
 
       {/* ══════════════════════════════════════════════════════
           HERO

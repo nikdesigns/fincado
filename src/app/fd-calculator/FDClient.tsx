@@ -180,7 +180,7 @@ export default function FDClient({
 
   /* ---------- STATE ---------- */
   const [principal, setPrincipal] = useState(100000);
-  const [rate, setRate] = useState(7.0);
+  const [rate, setRate] = useState(7.25);
   const [years, setYears] = useState(3);
   const [months, setMonths] = useState(0);
   const [frequency, setFrequency] = useState<CompoundingFreq>('quarterly');

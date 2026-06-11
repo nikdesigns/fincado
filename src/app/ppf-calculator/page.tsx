@@ -61,12 +61,16 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/ppf-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/ppf-calculator/',
+      'hi-IN': 'https://fincado.com/hi/ppf-calculator/',
+    },
   },
   openGraph: {
     title:
       'PPF Calculator 2026-27 – Public Provident Fund Maturity & Tax Benefits',
     description:
-      'Calculate PPF maturity with 7.1% interest for Tax Year 2026-27. 100% tax-free under EEE status (Section 80C deduction only in Old Regime).',
+      'See how 7.1% compounding grows your PPF savings tax-free over 15 years. Understand EEE status and 80C benefits before your next deposit.',
     url: 'https://fincado.com/ppf-calculator/',
     type: 'website',
     images: [
@@ -77,6 +81,12 @@ export const metadata: Metadata = {
         alt: 'Fincado PPF Calculator',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PPF Calculator 2026-27 – Public Provident Fund Maturity',
+    description: 'Calculate tax-free PPF maturity at 7.1% interest. See 15-year compounding and EEE status benefits. Free tool.',
+    images: ['/og-ppf-calculator.jpg'],
   },
   robots: {
     index: true,

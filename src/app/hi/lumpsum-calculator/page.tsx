@@ -47,7 +47,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/lumpsum-calculator/',
-    languages: { 'en-IN': 'https://fincado.com/lumpsum-calculator/' },
+    languages: {
+      'hi-IN': 'https://fincado.com/hi/lumpsum-calculator/',
+      'en-IN': 'https://fincado.com/lumpsum-calculator/',
+    },
   },
   openGraph: {
     title: 'Lumpsum कैलकुलेटर 2026 – एकमुश्त निवेश रिटर्न की गणना करें',

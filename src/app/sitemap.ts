@@ -95,7 +95,7 @@ const withLangAlternates = (
   hiPath?: string,
 ): SitemapItem['alternates'] | undefined => {
   if (!hiPath) return undefined;
-  if (!ENABLE_ALTERNATES || !hiPath) return undefined;
+  if (!ENABLE_ALTERNATES) return undefined;
 
   return {
     languages: {

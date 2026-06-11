@@ -59,6 +59,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/credit-score/',
     languages: {
+      'hi-IN': 'https://fincado.com/hi/credit-score/',
       'en-IN': 'https://fincado.com/credit-score/',
     },
   },
