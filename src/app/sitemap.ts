@@ -3,6 +3,7 @@
 import { MetadataRoute } from 'next';
 import articlesData from '@/data/articles.json';
 import { banks } from '@/lib/banks';
+import { carModels } from '@/lib/carModels';
 
 export const dynamic = 'force-static';
 
@@ -262,6 +263,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
+  // Standalone calculator not paired with a Hindi route
+  const otherCalculators: MetadataRoute.Sitemap = [
+    '/credit-card-eligibility-calculator',
+  ].map((route) =>
+    makeEntry(route, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'monthly',
+      priority: PRIORITY.MEDIUM_HIGH,
+    }),
+  );
+
   /* ---------------- 2. HINDI STANDALONE PAGES ---------------- */
   const hindiStandalonePages: MetadataRoute.Sitemap = [
     '/hi',
@@ -369,6 +381,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
+  /* ---------------- 5b. CAR MODEL EMI PAGES ---------------- */
+  const carEmiRoutes: MetadataRoute.Sitemap = carModels.map((car) =>
+    makeEntry(`/emi-calculator/car/${car.slug}`, {
+      lastModified: DEFAULT_LAST_MODIFIED,
+      changeFrequency: 'monthly',
+      priority: PRIORITY.MEDIUM,
+    }),
+  );
+
   /* ---------------- COMBINE & DEDUPE ---------------- */
   const allRoutes: MetadataRoute.Sitemap = [
     ...mainPages,
@@ -379,8 +400,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...retirementCalculators,
     ...taxUtilityCalculators,
     ...canonicalStaticGuides,
+    ...otherCalculators,
     ...articleRoutes,
     ...bankHubRoutes,
+    ...carEmiRoutes,
     ...hindiStandalonePages,
     ...informationalPages,
   ];

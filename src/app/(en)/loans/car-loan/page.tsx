@@ -24,6 +24,7 @@ import { BookOpen, ArrowRight, Info, Car } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CarLoanSchemas } from '@/components/schemas/CarLoanSchemas';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
+import { carModels } from '@/lib/carModels';
 
 /* ---------------- SEO METADATA ---------------- */
 
@@ -662,6 +663,27 @@ export default function CarLoanEMIPage() {
                   </Accordion>
                 </CardContent>
               </Card>
+            </section>
+
+            {/* Car Model EMI Hub */}
+            <section className="no-print mt-10">
+              <h2 className="mb-4 text-lg font-semibold text-slate-900">
+                EMI Calculator by Car Model
+              </h2>
+              <p className="mb-4 text-sm text-slate-600">
+                Get a pre-filled EMI estimate based on the approximate on-road price of a specific model.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {carModels.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/emi-calculator/car/${c.slug}/`}
+                    className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-brand-300 hover:text-brand-700"
+                  >
+                    {c.name} EMI
+                  </Link>
+                ))}
+              </div>
             </section>
 
             {/* 🎯 AD #7: BOTTOM */}

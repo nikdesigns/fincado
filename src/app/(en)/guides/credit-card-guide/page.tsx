@@ -6,6 +6,7 @@ import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import ShareTools from '@/components/ShareTools';
 import AuthorBio from '@/components/AuthorBio';
+import { CardClusterNav } from '@/components/CreditCardFacts';
 import {
   Table,
   TableBody,
@@ -1099,6 +1100,10 @@ export default function CreditCardGuidePage() {
           </div>
         </CardContent>
       </Card>
+
+      <div className="mb-8">
+        <CardClusterNav />
+      </div>
 
       <div className="mb-8 border-t border-slate-200 pt-8">
         <AuthorBio />
