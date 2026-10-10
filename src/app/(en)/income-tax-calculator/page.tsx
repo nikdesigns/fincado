@@ -987,6 +987,27 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
               </Card>
             </section>
 
+            {/* --- RELATED GUIDES --- */}
+            <section className="no-print my-8">
+              <h3 className="mb-3 text-lg font-semibold text-slate-900">
+                Related Guides
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/guides/new-vs-old-tax-regime-2026/"
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+                >
+                  New vs Old Tax Regime
+                </Link>
+                <Link
+                  href="/guides/best-tax-saving-options-80c/"
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+                >
+                  Best Tax-Saving Options (80C)
+                </Link>
+              </div>
+            </section>
+
             {/* AD #5: BOTTOM */}
             <div className="no-print my-8 flex justify-center">
               <AdSlot id="tax-bottom" type="square" lazyLoad />

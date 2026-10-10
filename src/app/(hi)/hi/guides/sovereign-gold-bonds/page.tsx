@@ -90,7 +90,7 @@ export default function HindiSGBGuide() {
     {
       question: 'SGB कैसे खरीदें?',
       answer:
-        'आप अपने बैंक (नेट बैंकिंग), पोस्ट ऑफिस, स्टॉक ब्रोकर (Zerodha, Upstox) या एजेंट के जरिए SGB खरीद सकते हैं।',
+        'फरवरी 2024 से सरकार ने कोई नई SGB सीरीज़ जारी नहीं की है, इसलिए अभी बैंक या पोस्ट ऑफिस से नई SGB नहीं खरीदी जा सकती। आप केवल स्टॉक ब्रोकर (Zerodha, Upstox) के जरिए डीमैट अकाउंट में स्टॉक एक्सचेंज पर पहले से लिस्टेड SGB यूनिट्स खरीद सकते हैं।',
     }
   ];
 
@@ -126,7 +126,7 @@ export default function HindiSGBGuide() {
               },
             },
             datePublished: '2025-12-21',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-13',
           }),
         }}
       />
@@ -155,7 +155,7 @@ export default function HindiSGBGuide() {
         <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500">
           <span className="flex items-center gap-1.5">
             <CalendarDays className="w-4 h-4" />
-            Last Updated: <strong>Dec 2025</strong>
+            Last Updated: <strong>Sep 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1.5">
@@ -411,43 +411,14 @@ export default function HindiSGBGuide() {
         <ArrowRight className="w-6 h-6 text-blue-600" />
         4. SGB कैसे खरीदें? (Online & Offline)
       </h2>
-      <p className="text-slate-700 mb-6">
-        SGB की नई सीरीज़ RBI द्वारा समय-समय पर (Tranches में) जारी की जाती है。
-      </p>
-
-      <div className="grid sm:grid-cols-3 gap-4 mb-8">
-        {[
-          {
-            title: 'Bank (Net Banking)',
-            desc: 'SBI, HDFC, ICICI, Axis आदि की वेबसाइट से।',
-          },
-          {
-            title: 'Stock Broker (Demat)',
-            desc: 'Zerodha, Upstox, Groww आदि के गोल्ड बॉन्ड सेक्शन से।',
-          },
-          {
-            title: 'Post Office',
-            desc: 'फॉर्म भरकर ऑफलाइन आवेदन कर सकते हैं।',
-          }
-        ].map((item, i) => (
-          <Card key={i} className="border-slate-200 bg-slate-50">
-            <CardContent className="p-4">
-              <h4 className="font-bold text-slate-800 text-sm mb-1">
-                {item.title}
-              </h4>
-              <p className="text-xs text-slate-600">{item.desc}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-8">
-        <h4 className="font-bold text-yellow-900 mb-1">
-          ऑनलाइन खरीदने पर डिस्काउंट
-        </h4>
-        <p className="text-sm text-yellow-800">
-          आमतौर पर, अगर आप ऑनलाइन अप्लाई करते हैं और डिजिटल पेमेंट करते हैं, तो
-          सरकार प्रति ग्राम <strong>₹50 की छूट</strong> देती है।
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+        <p className="text-sm text-amber-900">
+          <strong>जरूरी अपडेट:</strong> सरकार ने फरवरी 2024 के बाद से कोई नई SGB
+          सीरीज़ जारी नहीं की है, और FY 2026-27 के लिए भी कोई नई सीरीज़ की घोषणा
+          नहीं हुई है। अभी आप बैंक या पोस्ट ऑफिस से नई SGB नहीं खरीद सकते —
+          केवल स्टॉक एक्सचेंज (NSE/BSE) पर डीमैट अकाउंट के जरिए पहले से जारी
+          SGB यूनिट्स ही खरीदी जा सकती हैं। जिन निवेशकों के पास पहले से SGB है,
+          उन्हें तय शर्तों के अनुसार ब्याज और मैच्योरिटी मिलती रहेगी।
         </p>
       </div>
 
@@ -455,8 +426,9 @@ export default function HindiSGBGuide() {
         सेकेंडरी मार्केट (Stock Exchange)
       </h3>
       <p className="text-slate-700 mb-8">
-        अगर कोई नई सीरीज़ नहीं खुली है, तो आप शेयर बाजार (NSE/BSE) से पुराने
-        लिस्टेड SGB यूनिट्स भी खरीद सकते हैं। इसके लिए डीमैट अकाउंट जरूरी है।
+        चूंकि कोई नई सीरीज़ नहीं खुली है, आप शेयर बाजार (NSE/BSE) से पुराने
+        लिस्टेड SGB यूनिट्स डीमैट अकाउंट के जरिए खरीद सकते हैं — फिलहाल यही
+        एकमात्र तरीका है।
       </p>
 
       {/* [AD SLOT 5] */}

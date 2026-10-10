@@ -285,6 +285,119 @@ export default function HindiEMIPrepaymentPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Formula Block */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      EMI प्रीपेमेंट फॉर्मूला
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        आपकी मौजूदा EMI पहले स्टैंडर्ड रेड्यूसिंग-बैलेंस
+                        फॉर्मूले से निकाली जाती है, फिर कैलकुलेटर हर महीने
+                        आपके बचे हुए बैलेंस की दोबारा गणना करता है — एकमुश्त
+                        राशि को तुरंत घटाकर और अतिरिक्त मासिक राशि को
+                        मूलधन में जोड़कर:
+                      </div>
+
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                        <div className="text-center text-xl font-serif">
+                          EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-slate-700 mt-4">
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">P</span>
+                          <span>= बकाया मूलधन (एकमुश्त राशि घटाने के बाद)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">r</span>
+                          <span>= मासिक ब्याज दर (वार्षिक दर ÷ 12 ÷ 100)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">n</span>
+                          <span>= बची हुई अवधि (महीनों में)</span>
+                        </div>
+                        <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                          <p className="text-xs text-slate-700">
+                            <strong>नोट:</strong> EMI राशि आपके मूल लोन जितनी
+                            ही रहती है (अवधि घटाने की रणनीति)। हर महीने,
+                            कैलकुलेटर आपकी अतिरिक्त मासिक राशि सीधे मूलधन में
+                            जोड़ देता है, जिससे बैलेंस — और भविष्य का ब्याज —
+                            तेज़ी से घटता है, और EMI कम करने के बजाय लोन जल्दी
+                            खत्म हो जाता है।
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Worked Example */}
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        उदाहरण: ₹50,00,000 लोन पर ₹5,00,000 एकमुश्त भुगतान
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>बकाया मूलधन:</strong></div>
+                          <div>₹50,00,000</div>
+                          <div><strong>ब्याज दर:</strong></div>
+                          <div>8.5% सालाना</div>
+                          <div><strong>बची हुई अवधि:</strong></div>
+                          <div>15 वर्ष (180 महीने)</div>
+                          <div><strong>एकमुश्त भुगतान (आज):</strong></div>
+                          <div>₹5,00,000</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">चरण 1: मूल EMI निकालें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            r = 8.5 ÷ 12 ÷ 100 = 0.00708
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            EMI ≈ ₹49,238 / महीना
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">चरण 2: एकमुश्त राशि लागू कर दोबारा गणना करें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            नया बैलेंस = 50,00,000 − 5,00,000 = ₹45,00,000
+                          </div>
+                          <div className="ml-4 text-sm">
+                            वही EMI (₹49,238) बनाए रखने पर, लोन अब कम महीनों
+                            में चुक जाएगा क्योंकि हर EMI का ज़्यादा हिस्सा
+                            मूलधन में जाता है।
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            कुल बचा हुआ ब्याज:
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ≈ ₹11,50,000
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>मूल अवधि:</span>
+                            <strong>15 वर्ष</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>नई अवधि:</span>
+                            <strong className="text-brand-700">≈ 11 वर्ष 2 महीने</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>बची हुई अवधि:</span>
+                            <strong className="text-brand-700">≈ 3 वर्ष 10 महीने</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>

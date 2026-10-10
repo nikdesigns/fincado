@@ -288,6 +288,94 @@ export default function HindiBrokerageCalculatorPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Worked Example */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      उदाहरण: इंट्राडे ट्रेड
+                    </h3>
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        उदाहरण: 100 शेयर, ₹1,000 पर खरीद → ₹1,010 पर बिक्री
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>मात्रा (Quantity):</strong></div>
+                          <div>100 शेयर</div>
+                          <div><strong>खरीद मूल्य:</strong></div>
+                          <div>₹1,000</div>
+                          <div><strong>बिक्री मूल्य:</strong></div>
+                          <div>₹1,010</div>
+                          <div><strong>सेगमेंट:</strong></div>
+                          <div>इंट्राडे</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">चरण 1: ग्रॉस P&amp;L</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            (₹1,010 − ₹1,000) × 100 = ₹1,000
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">चरण 2: शुल्कों का विवरण</strong>
+                          <div className="ml-4 space-y-1 text-sm">
+                            <div className="flex justify-between">
+                              <span>ब्रोकरेज (₹20 या प्रति साइड 0.03%):</span>
+                              <strong>₹40.00</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>STT (बिक्री पर 0.025%):</span>
+                              <strong>₹25.00</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>एक्सचेंज शुल्क:</span>
+                              <strong>₹5.97</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>स्टाम्प ड्यूटी (खरीद पर 0.003%):</span>
+                              <strong>₹3.00</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>SEBI शुल्क:</span>
+                              <strong>₹0.20</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>GST (ब्रोकरेज + एक्सचेंज + SEBI पर 18%):</span>
+                              <strong>₹8.31</strong>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            नेट P&amp;L (सभी शुल्कों के बाद):
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ≈ ₹917.52
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>कुल टैक्स और शुल्क:</span>
+                            <strong>≈ ₹82.48</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>ब्रेकइवन पॉइंट:</span>
+                            <strong className="text-brand-700">≈ 0.82 पॉइंट/शेयर</strong>
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-slate-500 italic mt-2">
+                          यानी, सभी लागत कवर करने के लिए शेयर को आपके पक्ष में
+                          सिर्फ ₹0.82 मूव करना था — इससे ऊपर जो भी मिलता है
+                          वह शुद्ध मुनाफा है।
+                        </p>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>

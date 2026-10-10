@@ -290,6 +290,131 @@ export default function CapitalGainsPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Formula Block */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Capital Gains Tax Formula
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        Capital gains tax is calculated in two steps — first
+                        find the gain, then apply the applicable tax rate for
+                        the asset class and holding period:
+                      </div>
+
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto space-y-2">
+                        <div className="text-center text-lg font-serif">
+                          Capital Gain = Sale Value − Purchase Value
+                        </div>
+                        <div className="text-center text-lg font-serif">
+                          Tax = (Taxable Gain × Tax Rate) × 1.04 (incl. 4% cess)
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-slate-700 mt-4">
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-24 font-mono font-semibold">Equity STCG</span>
+                          <span>= 20% flat on gain (held ≤ 12 months)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-24 font-mono font-semibold">Equity LTCG</span>
+                          <span>
+                            = 12.5% on (gain − ₹1.25L exemption) (held &gt; 12
+                            months)
+                          </span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-24 font-mono font-semibold">Debt Funds</span>
+                          <span>= Taxed at your income tax slab rate</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-24 font-mono font-semibold">Real Estate</span>
+                          <span>
+                            = Slab rate if held ≤ 24 months; otherwise 12.5%
+                            without indexation, or (for property bought before
+                            23 July 2024) the lower of 12.5% without
+                            indexation vs 20% with indexation
+                          </span>
+                        </div>
+                        <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                          <p className="text-xs text-slate-700">
+                            <strong>Note:</strong> A 4% Health & Education
+                            Cess is added on top of the base tax in every
+                            case. This calculator applies the exact rules from
+                            the latest Union Budget.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Worked Example */}
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        Example: Equity LTCG on ₹3,00,000 Gain
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>Purchase Value:</strong></div>
+                          <div>₹5,00,000</div>
+                          <div><strong>Sale Value:</strong></div>
+                          <div>₹8,00,000</div>
+                          <div><strong>Holding Period:</strong></div>
+                          <div>Long Term (&gt; 12 months)</div>
+                          <div><strong>Unused ₹1.25L Exemption:</strong></div>
+                          <div>₹1,25,000 (fully available)</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">Step 1: Calculate Total Gain</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            8,00,000 − 5,00,000 = ₹3,00,000
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">Step 2: Apply ₹1.25L Exemption</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            Taxable Gain = 3,00,000 − 1,25,000 = ₹1,75,000
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">Step 3: Apply 12.5% LTCG + 4% Cess</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            Base Tax = 1,75,000 × 12.5% = ₹21,875
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            Cess = 21,875 × 4% = ₹875
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            Total Tax = ₹22,750
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            Net Gain After Tax:
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ₹2,77,250
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>Total Capital Gain:</span>
+                            <strong>₹3,00,000</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Total Tax Payable:</span>
+                            <strong className="text-rose-600">₹22,750</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>

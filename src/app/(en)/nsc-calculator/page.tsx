@@ -908,6 +908,81 @@ export default function NSCPage() {
                       </CardContent>
                     </Card>
                   </Link>
+
+                  <Link href="/kvp-calculator/" className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                            📜
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                              KVP Calculator
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              See exactly when your Kisan Vikas Patra
+                              investment doubles.
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                              <span>Calculate Now</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+
+                  <Link href="/scss-calculator/" className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                            👴
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                              SCSS Calculator
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              Higher quarterly interest for senior citizens
+                              (60+).
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                              <span>Calculate Now</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+
+                  <Link href="/pomis-calculator/" className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                            📮
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                              POMIS Calculator
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              Monthly income from the Post Office Monthly
+                              Income Scheme at 7.4%.
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                              <span>Calculate Now</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </div>
               </section>
             </article>

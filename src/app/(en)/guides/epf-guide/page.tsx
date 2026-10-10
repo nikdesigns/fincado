@@ -36,11 +36,11 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'EPF Guide 2025: 8.25% Interest, Tax & Withdrawal Rules',
+  title: 'EPF Guide 2026: 8.25% Interest, Tax & Withdrawal Rules',
   description:
-    'EPF 2025: 8.25% interest rate, EEE tax benefits (Section 80C), 5-year withdrawal rule, EPF vs NPS/PPF comparison & how to build ₹1-2 crore tax-free corpus.',
+    'EPF 2026: 8.25% interest rate, EEE tax benefits (Section 80C), 5-year withdrawal rule, EPF vs NPS/PPF comparison & how to build ₹1-2 crore tax-free corpus.',
   keywords: [
-    'epf interest rate 2025',
+    'epf interest rate 2026',
     'employee provident fund withdrawal rules',
     'epf tax on withdrawal before 5 years',
     'uan activation steps',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      'EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
+      'EPF Guide 2026: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
     description:
       'The ultimate guide to your Employee Provident Fund. Learn about the 8.25% interest, EEE tax status, and how to avoid tax on withdrawals.',
     url: 'https://fincado.com/guides/epf-guide/',
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
   },
   {
     question: 'What is the current EPF interest rate?',
-    answer: 'The EPF interest rate for FY 2024-25 is 8.25% per annum.',
+    answer: 'The EPF interest rate for FY 2026-27 is 8.25% per annum.',
   }
 ];
 
@@ -94,7 +94,7 @@ export default function EPFGuidePage() {
           { name: 'Home', url: 'https://fincado.com/' },
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
-            name: 'EPF Guide 2025',
+            name: 'EPF Guide 2026',
             url: 'https://fincado.com/guides/epf-guide/',
           }
         ]}
@@ -109,7 +109,7 @@ export default function EPFGuidePage() {
             '@type': 'Article',
             inLanguage: 'en-IN',
             headline:
-              'EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
+              'EPF Guide 2026: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
             description:
               'Comprehensive guide to Employee Provident Fund (EPF): Interest rates, contribution split (EPF vs EPS), withdrawal rules, and tax implications.',
             image: '/images/guides/epf/epf-guide-hero.webp',
@@ -127,7 +127,7 @@ export default function EPFGuidePage() {
               },
             },
             datePublished: '2025-02-22',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-11',
           }),
         }}
       />
@@ -160,7 +160,7 @@ export default function EPFGuidePage() {
           Retirement Savings
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          EPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits
+          EPF Guide 2026: Interest Rate, Withdrawal Rules & Tax Benefits
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
           <span className="flex items-center gap-1">
@@ -168,7 +168,7 @@ export default function EPFGuidePage() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Sep 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -176,7 +176,7 @@ export default function EPFGuidePage() {
           </span>
         </div>
         <div className="mt-6">
-          <ShareTools title="EPF Guide 2025" />
+          <ShareTools title="EPF Guide 2026" />
         </div>
       </header>
 
@@ -186,7 +186,7 @@ export default function EPFGuidePage() {
           <WikiText
             content={`
             <p class="mb-4">
-              The <strong>Employee Provident Fund (EPF)</strong> is India's largest mandatory retirement scheme, offering a government-backed <strong>8.25% interest rate</strong> (FY 2024-25) and <strong>EEE tax status</strong>.
+              The <strong>Employee Provident Fund (EPF)</strong> is India's largest mandatory retirement scheme, offering a government-backed <strong>8.25% interest rate</strong> (FY 2026-27) and <strong>EEE tax status</strong>.
             </p>
             <p>
               However, most employees unknowingly lose money by ignoring the <strong>"EPS Split"</strong> or withdrawing funds prematurely, which attracts tax. This guide covers UAN activation, withdrawal rules, and how to become an EPF Crorepati.
@@ -220,7 +220,7 @@ export default function EPFGuidePage() {
           <div className="rounded-lg bg-slate-50 border border-slate-200 p-5">
             <h3 className="mb-3 font-semibold text-slate-900 flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-amber-500" /> Key Highlights
-              (2025):
+              (2026):
             </h3>
             <ul className="space-y-3 text-slate-700 text-sm">
               <li className="flex gap-2">
@@ -407,12 +407,12 @@ export default function EPFGuidePage() {
           className="mb-6 text-2xl font-bold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <TrendingUp className="h-6 w-6 text-emerald-600" /> Current EPF
-          Interest Rate (2025)
+          Interest Rate (2026)
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
             <p className="mb-4 text-slate-700">
-              The interest rate for FY 2024-25 is{' '}
+              The interest rate for FY 2026-27 is{' '}
               <span className="text-2xl font-bold text-emerald-600">
                 8.25% p.a.
               </span>{' '}
@@ -753,6 +753,33 @@ export default function EPFGuidePage() {
           educational purposes. Consult a tax advisor for specific queries.
         </p>
       </div>
+
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Small Savings Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/ppf-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            PPF Guide
+          </Link>
+          <Link
+            href="/guides/nps-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            NPS Guide
+          </Link>
+          <Link
+            href="/guides/retirement-planning-india/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Retirement Planning in India
+          </Link>
+        </div>
+      </section>
 
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-amber-600 to-orange-700 text-white border-none shadow-xl no-print">

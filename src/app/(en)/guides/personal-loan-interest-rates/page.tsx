@@ -481,6 +481,33 @@ export default function PersonalLoanRatesGuide() {
         </CardContent>
       </Card>
 
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-3 text-lg font-semibold text-slate-900">
+          Related Guides
+        </h3>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/guides/personal-loan-guide/"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+          >
+            Personal Loan Guide
+          </Link>
+          <Link
+            href="/guides/credit-score-guide/"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+          >
+            Credit Score Guide
+          </Link>
+          <Link
+            href="/loans/personal-loan/"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+          >
+            Personal Loan EMI Calculator
+          </Link>
+        </div>
+      </section>
+
       {/* --- FOOTER --- */}
       <AuthorBio />
     </article>

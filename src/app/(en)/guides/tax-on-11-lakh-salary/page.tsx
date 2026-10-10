@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '11 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-11-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-11-lakh-salary-hero.webp',
   standardDeductionNew: 75000,
@@ -51,23 +51,23 @@ const CONFIG = {
 };
 
 export const metadata: Metadata = {
-  title: 'Tax on ₹11 Lakh Salary (FY 2025-26): Still Zero Tax? + In-Hand Pay',
+  title: 'Tax on ₹11 Lakh Salary (FY 2026-27): Still Zero Tax? + In-Hand Pay',
   description:
-    'Earning ₹11 Lakhs? You still pay ZERO tax under New Regime (FY 2025-26) thanks to ₹75,000 Standard Deduction + full Section 87A rebate (up to ₹12 Lakh taxable income). Compare with Old Regime & see monthly in-hand salary.',
+    'Earning ₹11 Lakhs? You still pay ZERO tax under New Regime (FY 2026-27) thanks to ₹75,000 Standard Deduction + full Section 87A rebate (up to ₹12 Lakh taxable income). Compare with Old Regime & see monthly in-hand salary.',
   keywords: [
     'Tax on 11 lakh salary',
     '11 LPA in hand salary',
     'is 11 lakh income tax free',
-    'section 87a rebate limit 2025-26',
+    'section 87a rebate limit 2026-27',
     '11 lakh salary tax calculator',
-    'new tax regime 2025-26'
+    'new tax regime 2026-27'
   ],
   authors: [{ name: 'Nitin Kaushik', url: 'https://fincado.com/about/' }],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
-    title: 'Tax on ₹11 Lakh Salary: Still Zero Tax (FY 2025-26)',
+    title: 'Tax on ₹11 Lakh Salary: Still Zero Tax (FY 2026-27)',
     description:
       '₹11 Lakhs salary remains tax-free under New Regime. See exact math, monthly in-hand & when to choose Old Regime.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
@@ -84,7 +84,7 @@ export default function Tax11LakhGuide() {
     {
       question: 'How much tax do I pay on 11 LPA salary?',
       answer:
-        '₹0 under the New Tax Regime (FY 2025-26). After ₹75,000 standard deduction, taxable income is ₹10.25 Lakhs, which qualifies for full Section 87A rebate.',
+        '₹0 under the New Tax Regime (FY 2026-27). After ₹75,000 standard deduction, taxable income is ₹10.25 Lakhs, which qualifies for full Section 87A rebate.',
     },
     {
       question: 'What is the monthly in-hand salary for 11 LPA?',
@@ -142,7 +142,7 @@ export default function Tax11LakhGuide() {
               },
             },
             datePublished: '2025-02-15',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-13',
           }),
         }}
       />
@@ -175,7 +175,7 @@ export default function Tax11LakhGuide() {
         <div className="relative h-64 w-full sm:h-80 md:h-96 bg-slate-100">
           <Image
             src={CONFIG.heroImage}
-            alt="11 Lakh Salary Tax Calculation FY 2025-26"
+            alt="11 Lakh Salary Tax Calculation FY 2026-27"
             fill
             priority
             className="object-contain"
@@ -502,7 +502,7 @@ export default function Tax11LakhGuide() {
         <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Explore More Tax Scenarios
         </h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <Link href="/guides/tax-on-10-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
@@ -558,7 +558,7 @@ export default function Tax11LakhGuide() {
                     New vs Old Regime
                   </h3>
                   <p className="mt-1 text-sm text-slate-500">
-                    Detailed comparison of FY 2025-26 rules.
+                    Detailed comparison of FY 2026-27 rules.
                   </p>
                 </div>
                 <div className="mt-4 flex items-center text-sm font-semibold text-emerald-600">
@@ -568,6 +568,52 @@ export default function Tax11LakhGuide() {
               </CardContent>
             </Card>
           </Link>
+          {/* Link: Income Tax Calculator */}
+          <Link href="/income-tax-calculator/" className="group">
+            <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
+              <CardContent className="p-5 flex flex-col h-full justify-between">
+                <div>
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600 group-hover:bg-sky-100 group-hover:text-sky-700 transition-colors">
+                    <Calculator className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-sky-700 transition-colors">
+                    Income Tax Calculator
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Compute your exact tax liability under both regimes.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-semibold text-sky-600">
+                  Calculate Tax{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Link: Salary Calculator */}
+          <Link href="/salary-calculator/" className="group">
+            <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
+              <CardContent className="p-5 flex flex-col h-full justify-between">
+                <div>
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 group-hover:bg-amber-100 group-hover:text-amber-700 transition-colors">
+                    <Wallet className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-amber-700 transition-colors">
+                    Salary Calculator
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Break down your CTC into in-hand monthly salary.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-semibold text-amber-600">
+                  Calculate In-Hand{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
         </div>
       </section>
 

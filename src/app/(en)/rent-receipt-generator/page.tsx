@@ -296,6 +296,74 @@ export default function RentReceiptPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Worked Example */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Sample Rent Receipt (Filled Example)
+                    </h3>
+                    <p className="text-slate-600">
+                      Here&apos;s what a completed monthly rent receipt looks
+                      like once you fill in the form above:
+                    </p>
+                    <div className="p-6 bg-white rounded-lg border-2 border-slate-300">
+                      <div className="flex justify-between items-start border-b border-slate-200 pb-3 mb-3">
+                        <h4 className="font-semibold text-slate-900">
+                          RENT RECEIPT
+                        </h4>
+                        <span className="text-xs text-slate-500">
+                          Receipt No: RR-2026-001
+                        </span>
+                      </div>
+                      <div className="space-y-2 text-sm text-slate-700">
+                        <div className="flex justify-between">
+                          <span>Received from (Tenant):</span>
+                          <strong>Rahul Sharma</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>The sum of:</span>
+                          <strong>₹15,000 (Rupees Fifteen Thousand Only)</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Towards rent for the period:</span>
+                          <strong>1 Apr 2026 – 30 Apr 2026</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>For the property at:</span>
+                          <strong className="text-right max-w-xs">
+                            Flat 402, Sunshine Apartments, Indiranagar,
+                            Bangalore - 560038
+                          </strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Paid to (Landlord):</span>
+                          <strong>Amit Patel</strong>
+                        </div>
+                        <div className="flex justify-between pt-2 border-t border-slate-100">
+                          <span>Revenue Stamp Required?</span>
+                          <strong>
+                            No (rent under ₹5,000 in cash, or paid online)
+                          </strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Landlord PAN Required?</span>
+                          <strong>
+                            Yes (annual rent ₹1,80,000 exceeds ₹1,00,000/yr)
+                          </strong>
+                        </div>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-dashed border-slate-300 text-right text-xs text-slate-500 italic">
+                        Landlord Signature: ______________
+                      </div>
+                    </div>
+                    <p className="text-xs text-slate-500 italic">
+                      Note: For this example, ₹15,000/month × 12 = ₹1,80,000
+                      annual rent, which exceeds the ₹1,00,000 threshold — so
+                      the landlord&apos;s PAN would actually be required.
+                      Always check your own total annual rent against the
+                      ₹1,00,000 limit before submitting to HR.
+                    </p>
+                  </section>
                 </CardContent>
               </Card>
             </article>

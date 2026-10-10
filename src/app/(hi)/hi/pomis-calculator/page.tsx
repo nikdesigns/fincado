@@ -22,6 +22,34 @@ import {
 import FAQSchema from '@/components/FAQSchema';
 import { ArrowRight, Landmark, PiggyBank, Mail } from 'lucide-react';
 
+/* ---------------- RELATED CALCULATORS ---------------- */
+const relatedCalculators = [
+  {
+    href: '/hi/scss-calculator/',
+    icon: '👴',
+    title: 'SCSS कैलकुलेटर',
+    description: 'वरिष्ठ नागरिकों (60+) के लिए ज़्यादा तिमाही ब्याज दर।',
+  },
+  {
+    href: '/hi/kvp-calculator/',
+    icon: '📜',
+    title: 'KVP कैलकुलेटर',
+    description: 'जानें आपका किसान विकास पत्र निवेश कब दोगुना होगा।',
+  },
+  {
+    href: '/hi/nsc-calculator/',
+    icon: '🏦',
+    title: 'NSC कैलकुलेटर',
+    description: '5 वर्षीय पोस्ट ऑफिस सेविंग सर्टिफिकेट, सेक्शन 80C लाभ सहित।',
+  },
+  {
+    href: '/hi/rd-calculator/',
+    icon: '💰',
+    title: 'पोस्ट ऑफिस RD कैलकुलेटर',
+    description: 'मासिक रेकरिंग डिपॉजिट से अपनी बचत बढ़ाएं।',
+  },
+];
+
 /* ---------------- SEO METADATA (HINDI) ---------------- */
 
 export const metadata: Metadata = {
@@ -291,9 +319,129 @@ export default function HindiPOMISCalculatorPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Formula Block */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      POMIS मासिक आय का फॉर्मूला
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        POMIS में हर महीने सिंपल ब्याज (Simple Interest) सीधे जमा राशि पर दिया जाता है:
+                      </div>
+
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                        <div className="text-center text-xl font-serif">
+                          मासिक आय = (P × r) ÷ 12
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-slate-700 mt-4">
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">P</span>
+                          <span>= जमा राशि (अधिकतम ₹9L सिंगल / ₹15L जॉइंट)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">r</span>
+                          <span>= वार्षिक ब्याज दर दशमलव में (7.4% के लिए 0.074)</span>
+                        </div>
+                        <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                          <p className="text-xs text-slate-700">
+                            <strong>नोट:</strong> NSC या KVP के विपरीत, POMIS का
+                            ब्याज कंपाउंड नहीं होता, बल्कि हर महीने सीधे भुगतान
+                            किया जाता है। मैच्योरिटी (5 वर्ष) पर आपका पूरा
+                            मूलधन वापस मिलता है, जब तक कि आप समय से पहले खाता
+                            बंद कर पेनाल्टी न भरें।
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Worked Example */}
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        उदाहरण: ₹9,00,000 का POMIS निवेश
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>जमा राशि (P):</strong></div>
+                          <div>₹9,00,000</div>
+                          <div><strong>ब्याज दर (r):</strong></div>
+                          <div>7.4% सालाना</div>
+                          <div><strong>अवधि:</strong></div>
+                          <div>5 वर्ष</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">चरण 1: फॉर्मूला लागू करें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            मासिक आय = (9,00,000 × 0.074) ÷ 12
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            = 66,600 ÷ 12 = ₹5,550
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            गारंटीड मासिक आय:
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ₹5,550 / महीना
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>कुल ब्याज (5 वर्षों में):</span>
+                            <strong className="text-brand-700">₹3,33,000</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>मैच्योरिटी पर वापस मिलने वाला मूलधन:</span>
+                            <strong>₹9,00,000</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>
+
+            {/* Related Calculators */}
+            <section className="no-print mt-12 space-y-5">
+              <h3 className="text-xl font-semibold text-slate-900">
+                संबंधित स्मॉल सेविंग्स कैलकुलेटर
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {relatedCalculators.map((calc) => (
+                  <Link href={calc.href} key={calc.href} className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                            {calc.icon}
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                              {calc.title}
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              {calc.description}
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                              <span>अभी कैलकुलेट करें</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </section>
 
             {/* FAQ */}
             <section className="no-print mt-12">

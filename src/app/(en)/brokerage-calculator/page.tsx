@@ -312,6 +312,94 @@ export default function BrokerageCalculatorPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Worked Example */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      Worked Example: Intraday Trade
+                    </h3>
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        Example: 100 Shares, Buy ₹1,000 → Sell ₹1,010
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>Quantity:</strong></div>
+                          <div>100 shares</div>
+                          <div><strong>Buy Price:</strong></div>
+                          <div>₹1,000</div>
+                          <div><strong>Sell Price:</strong></div>
+                          <div>₹1,010</div>
+                          <div><strong>Segment:</strong></div>
+                          <div>Intraday</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">Step 1: Gross P&amp;L</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            (₹1,010 − ₹1,000) × 100 = ₹1,000
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">Step 2: Charges Breakdown</strong>
+                          <div className="ml-4 space-y-1 text-sm">
+                            <div className="flex justify-between">
+                              <span>Brokerage (₹20 or 0.03% per side):</span>
+                              <strong>₹40.00</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>STT (0.025% on sell):</span>
+                              <strong>₹25.00</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Exchange Charges:</span>
+                              <strong>₹5.97</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Stamp Duty (0.003% on buy):</span>
+                              <strong>₹3.00</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>SEBI Charges:</span>
+                              <strong>₹0.20</strong>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>GST (18% on brokerage + exchange + SEBI):</span>
+                              <strong>₹8.31</strong>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            Net P&amp;L (after all charges):
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ≈ ₹917.52
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>Total Taxes &amp; Charges:</span>
+                            <strong>≈ ₹82.48</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Breakeven Points:</span>
+                            <strong className="text-brand-700">≈ 0.82 pts/share</strong>
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-slate-500 italic mt-2">
+                          This means the stock had to move just ₹0.82 in your
+                          favor to cover all costs — anything above that is
+                          pure profit.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>

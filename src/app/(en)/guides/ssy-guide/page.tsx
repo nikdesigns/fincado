@@ -37,15 +37,15 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'SSY vs PPF vs Mutual Funds: Best for Girl Child 2025',
+  title: 'SSY vs PPF vs Mutual Funds: Best for Girl Child 2026',
   description:
     'Best investment for girl child: Compare Sukanya Samriddhi (8.2%), PPF, mutual funds. Learn SSY vs PPF, 21-year lock-in & 60-40 strategy for education & marriage.',
   keywords: [
     'sukanya samriddhi vs ppf',
     'ssy vs mutual funds',
     'best investment for girl child india',
-    'sukanya samriddhi interest rate 2025',
-    'ssy calculator 2025',
+    'sukanya samriddhi interest rate 2026',
+    'ssy calculator 2026',
     '60-40 investment rule'
   ],
   alternates: {
@@ -128,7 +128,7 @@ export default function SSYGuidePage() {
               },
             },
             datePublished: '2025-02-05',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-11',
             image:
               '/images/guides/ssy/ssy-concept-hero.webp',
           }),
@@ -171,7 +171,7 @@ export default function SSYGuidePage() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Sep 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -690,6 +690,33 @@ export default function SSYGuidePage() {
           for personalized planning.
         </p>
       </div>
+
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Small Savings Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/ppf-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            PPF Guide
+          </Link>
+          <Link
+            href="/guides/epf-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            EPF Guide
+          </Link>
+          <Link
+            href="/guides/sip-investing-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            SIP Investing Guide
+          </Link>
+        </div>
+      </section>
 
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-pink-600 to-rose-700 text-white border-none shadow-xl no-print">

@@ -35,7 +35,7 @@ import {
 export const metadata: Metadata = {
   title: 'New vs Old Tax Regime 2026: Which is Better? (Slabs + Calculator)',
   description:
-    'Complete New vs Old Tax Regime comparison for FY 2025-26. See latest slabs, ₹75,000 standard deduction, rebate u/s 87A, breakeven points and use our interactive calculator.',
+    'Complete New vs Old Tax Regime comparison for FY 2026-27. See latest slabs, ₹75,000 standard deduction, rebate u/s 87A, breakeven points and use our interactive calculator.',
   alternates: {
     canonical: 'https://fincado.com/guides/new-vs-old-tax-regime-2026/',
   },
@@ -173,7 +173,7 @@ export default function TaxRegimeGuide() {
       <section className="mb-12">
         <h2 className="mb-6 text-2xl font-semibold flex items-center gap-2">
           <Calculator className="h-6 w-6 text-indigo-600" />
-          New Tax Regime Slabs FY 2025-26
+          New Tax Regime Slabs FY 2026-27
         </h2>
         <div className="overflow-hidden rounded-xl border border-slate-200 shadow-sm">
           <Table>
@@ -423,7 +423,7 @@ export default function TaxRegimeGuide() {
             {
               question: 'What is the standard deduction in the new tax regime?',
               answer:
-                '₹75,000 for salaried individuals under the New Tax Regime for FY 2025-26.',
+                '₹75,000 for salaried individuals under the New Tax Regime for FY 2026-27.',
             },
             {
               question:

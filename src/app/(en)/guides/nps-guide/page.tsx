@@ -742,14 +742,47 @@ export default function NPSGuidePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/retirement-calculator/"
+              href="/nps-calculator/"
               className="rounded-lg bg-white px-8 py-4 font-bold text-indigo-700 transition hover:bg-indigo-50 shadow-lg"
+            >
+              NPS Calculator
+            </Link>
+            <Link
+              href="/retirement-calculator/"
+              className="rounded-lg border border-indigo-400 bg-indigo-800/30 px-8 py-4 font-bold text-white transition hover:bg-indigo-800/50"
             >
               Retirement Planner
             </Link>
           </div>
         </CardContent>
       </Card>
+
+      {/* --- RELATED GUIDES --- */}
+      <section className="my-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/epf-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            EPF Guide
+          </Link>
+          <Link
+            href="/guides/retirement-planning-india/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Retirement Planning in India
+          </Link>
+          <Link
+            href="/guides/ppf-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            PPF Guide
+          </Link>
+        </div>
+      </section>
 
       {/* 💰 AD SLOT 4 */}
       <div className="no-print mt-8">

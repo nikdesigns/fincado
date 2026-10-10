@@ -862,6 +862,31 @@ export default function FDPage() {
                       </CardContent>
                     </Card>
                   </Link>
+
+                  <Link href="/guides/fixed-deposit-guide/" className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 text-2xl">
+                            📘
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-600 mb-1">
+                              Fixed Deposit Guide
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              FD interest rates, TDS rules, premature
+                              withdrawal penalties & tax on FD interest.
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-600">
+                              <span>Read Guide</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </div>
               </section>
             </article>

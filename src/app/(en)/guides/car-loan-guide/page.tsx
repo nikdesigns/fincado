@@ -958,6 +958,33 @@ export default function CarLoanGuidePage() {
         educational purposes. Check latest terms with your lender.
       </p>
 
+      {/* --- RELATED LOAN GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Loan Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/home-loan-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Home Loan Guide
+          </Link>
+          <Link
+            href="/guides/personal-loan-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Personal Loan Guide
+          </Link>
+          <Link
+            href="/guides/how-credit-score-affects-loans/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            How Credit Score Affects Loans
+          </Link>
+        </div>
+      </section>
+
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-lime-600 to-lime-700 text-white border-none shadow-xl no-print">
         <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">

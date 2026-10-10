@@ -36,11 +36,11 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'PPF Guide 2025: 7.1% Rate, Withdrawal & Tax Benefits',
+  title: 'PPF Guide 2026: 7.1% Rate, Withdrawal & Tax Benefits',
   description:
-    'PPF 2025 guide: 7.1% interest, EEE tax status (save ₹46K/year), 5th-month deposit rule, withdrawal/loan rules, PPF vs ELSS/EPF & how to earn ₹1 crore+.',
+    'PPF 2026 guide: 7.1% interest, EEE tax status (save ₹46K/year), 5th-month deposit rule, withdrawal/loan rules, PPF vs ELSS/EPF & how to earn ₹1 crore+.',
   keywords: [
-    'ppf interest rate 2025',
+    'ppf interest rate 2026',
     'public provident fund withdrawal rules',
     'ppf vs elss tax benefit',
     'ppf calculator 15 years',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      'PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
+      'PPF Guide 2026: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
     description:
       'Turn ₹1.5 Lakh/year into ₹1 Crore tax-free. Master the 5th-of-month rule, extensions, and EEE benefits.',
     url: 'https://fincado.com/guides/ppf-guide/',
@@ -95,7 +95,7 @@ export default function PPFGuidePage() {
           { name: 'Home', url: 'https://fincado.com/' },
           { name: 'Guides', url: 'https://fincado.com/guides/' },
           {
-            name: 'PPF Guide 2025',
+            name: 'PPF Guide 2026',
             url: 'https://fincado.com/guides/ppf-guide/',
           }
         ]}
@@ -110,7 +110,7 @@ export default function PPFGuidePage() {
             '@type': 'Article',
             inLanguage: 'en-IN',
             headline:
-              'PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
+              'PPF Guide 2026: Interest Rate, Withdrawal Rules & Tax Benefits (80C)',
             description:
               'Complete guide to Public Provident Fund (PPF): Interest calculation, withdrawal rules, loan facility, and comparison with ELSS/EPF.',
             image: '/images/guides/ppf/ppf-guide-hero.webp',
@@ -128,7 +128,7 @@ export default function PPFGuidePage() {
               },
             },
             datePublished: '2025-02-18',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-11',
           }),
         }}
       />
@@ -161,7 +161,7 @@ export default function PPFGuidePage() {
           Tax Saving
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          PPF Guide 2025: Interest Rate, Withdrawal Rules & Tax Benefits (80C)
+          PPF Guide 2026: Interest Rate, Withdrawal Rules & Tax Benefits (80C)
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
           <span className="flex items-center gap-1">
@@ -169,7 +169,7 @@ export default function PPFGuidePage() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Sep 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -177,7 +177,7 @@ export default function PPFGuidePage() {
           </span>
         </div>
         <div className="mt-6">
-          <ShareTools title="PPF Guide 2025" />
+          <ShareTools title="PPF Guide 2026" />
         </div>
       </header>
 
@@ -767,6 +767,33 @@ export default function PPFGuidePage() {
           a financial advisor for personalized advice.
         </p>
       </div>
+
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Small Savings Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/epf-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            EPF Guide
+          </Link>
+          <Link
+            href="/guides/ssy-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            SSY Guide (Sukanya Samriddhi)
+          </Link>
+          <Link
+            href="/guides/best-tax-saving-options-80c/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Best Tax-Saving Options (80C)
+          </Link>
+        </div>
+      </section>
 
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-emerald-600 to-teal-700 text-white border-none shadow-xl no-print">

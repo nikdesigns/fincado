@@ -579,6 +579,85 @@ export default function HindiCarLoanPage() {
                     </ul>
                   </section>
 
+                  {/* Worked Example */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      उदाहरण: ₹10 लाख का कार लोन
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        कार लोन EMI स्टैंडर्ड रेड्यूसिंग-बैलेंस फॉर्मूले से
+                        निकाली जाती है:
+                      </div>
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                        <div className="text-center text-xl font-serif">
+                          EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        उदाहरण: ₹10,00,000 का लोन, 9% पर, 5 वर्ष के लिए
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>लोन राशि (P):</strong></div>
+                          <div>₹10,00,000</div>
+                          <div><strong>ब्याज दर:</strong></div>
+                          <div>9% सालाना</div>
+                          <div><strong>अवधि (n):</strong></div>
+                          <div>5 वर्ष (60 महीने)</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">चरण 1: मासिक दर</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            r = 9 ÷ 12 ÷ 100 = 0.0075
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">चरण 2: (1 + r)<sup>n</sup> निकालें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            (1.0075)<sup>60</sup> ≈ 1.5657
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">चरण 3: EMI फॉर्मूला लागू करें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            EMI = 10,00,000 × 0.0075 × 1.5657 ÷ 0.5657
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            EMI ≈ ₹20,758
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            मासिक EMI:
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ₹20,758
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>कुल भुगतान (60 × EMI):</span>
+                            <strong>₹12,45,480</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>कुल चुकाया गया ब्याज:</span>
+                            <strong className="text-brand-700">₹2,45,480</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
                   {/* Related Calculators */}
                   <section className="space-y-5">
                     <h3 className="text-xl font-semibold text-slate-900">

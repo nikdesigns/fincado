@@ -339,6 +339,57 @@ export default function HindiMutualFundPage() {
                 </div>
               </div>
 
+              <h3 className="text-xl font-bold text-slate-900 mt-10 mb-4">
+                पोर्टफोलियो फ्यूचर वैल्यू फॉर्मूला
+              </h3>
+              <div className="not-prose p-5 bg-slate-50 rounded-lg border border-slate-200 mb-8">
+                <p className="text-sm text-slate-600 mb-3">
+                  हर एसेट क्लास (इक्विटी, डेट, गोल्ड, कैश) अपने हिस्से के SIP
+                  और एकमुश्त निवेश को स्टैंडर्ड SIP और कंपाउंड इंटरेस्ट
+                  फॉर्मूले से अलग-अलग बढ़ाता है, और फिर परिणामों को जोड़ दिया
+                  जाता है:
+                </p>
+
+                <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto space-y-2">
+                  <div className="text-center text-lg font-serif">
+                    FV<sub>SIP</sub> = SIP × [((1 + r)<sup>n</sup> − 1) ÷ r] × (1 + r)
+                  </div>
+                  <div className="text-center text-lg font-serif">
+                    FV<sub>Lumpsum</sub> = एकमुश्त राशि × (1 + r)<sup>n</sup>
+                  </div>
+                  <div className="text-center text-lg font-serif">
+                    पोर्टफोलियो FV = हर एसेट क्लास के लिए Σ (FV<sub>SIP</sub> + FV<sub>Lumpsum</sub>)
+                  </div>
+                </div>
+
+                <div className="space-y-3 text-sm text-slate-700 mt-4">
+                  <div className="flex gap-3 items-start ml-4">
+                    <span className="min-w-10 font-mono font-semibold">SIP</span>
+                    <span>= उस एसेट क्लास को दी गई मासिक SIP राशि</span>
+                  </div>
+                  <div className="flex gap-3 items-start ml-4">
+                    <span className="min-w-10 font-mono font-semibold">r</span>
+                    <span>= मासिक रिटर्न (उस एसेट का वार्षिक रिटर्न ÷ 12 ÷ 100)</span>
+                  </div>
+                  <div className="flex gap-3 items-start ml-4">
+                    <span className="min-w-10 font-mono font-semibold">n</span>
+                    <span>= निवेश अवधि (महीनों में)</span>
+                  </div>
+                  <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                    <p className="text-xs text-slate-700">
+                      <strong>औसत रिटर्न (Blended CAGR)</strong> हर एसेट के
+                      रिटर्न का एलोकेशन-भारित औसत है: इक्विटी% × इक्विटी
+                      रिटर्न + डेट% × डेट रिटर्न + गोल्ड% × गोल्ड रिटर्न +
+                      कैश% × कैश रिटर्न। इसके बाद{' '}
+                      <strong>आज के हिसाब से मूल्य (Real Value)</strong> अंतिम
+                      पोर्टफोलियो वैल्यू को अपेक्षित महंगाई दर (मासिक
+                      कंपाउंडिंग) से घटाकर दिखाता है कि आपका कोष आज की
+                      क्रय-शक्ति में कितना है।
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Related Tools */}
               <h3 className="text-xl font-bold text-slate-900 mb-4">
                 संबंधित कैलकुलेटर

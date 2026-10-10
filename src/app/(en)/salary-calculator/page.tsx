@@ -546,7 +546,7 @@ export default function SalaryCalculatorPage() {
 
                   <section className="space-y-5">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      Related Tax &amp; Salary Tools
+                      Related Salary &amp; Tax Calculators
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
                       <Link href="/income-tax-calculator/" className="group">

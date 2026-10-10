@@ -750,6 +750,33 @@ export default function SWPGuidePage() {
         </p>
       </div>
 
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/sip-investing-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            SIP Investing Guide
+          </Link>
+          <Link
+            href="/guides/mutual-fund-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Mutual Fund Guide
+          </Link>
+          <Link
+            href="/guides/retirement-planning-india/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Retirement Planning in India
+          </Link>
+        </div>
+      </section>
+
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-indigo-600 to-purple-700 text-white border-none shadow-xl no-print">
         <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">

@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '12 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-12-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-12-lakh-salary-hero.webp',
   // New constants for future-proofing
@@ -52,23 +52,23 @@ const CONFIG = {
 };
 
 export const metadata: Metadata = {
-  title: 'Tax on ₹12 Lakh Salary (FY 2025-26): Zero Tax? + In-Hand Pay',
+  title: 'Tax on ₹12 Lakh Salary (FY 2026-27): Zero Tax? + In-Hand Pay',
   description:
-    'Tax on ₹12 Lakh salary in FY 2025-26 explained. After ₹75,000 standard deduction, taxable income is ₹11.25L and net tax becomes ₹0 under New Regime after Section 87A rebate. Compare with Old Regime and in-hand pay.',
+    'Tax on ₹12 Lakh salary in FY 2026-27 explained. After ₹75,000 standard deduction, taxable income is ₹11.25L and net tax becomes ₹0 under New Regime after Section 87A rebate. Compare with Old Regime and in-hand pay.',
   keywords: [
     'Tax on 12 lakh salary',
     '12 LPA in hand salary',
     'is 12 lakh income tax free',
-    'section 87a rebate limit 2025-26',
+    'section 87a rebate limit 2026-27',
     '12 lakh salary tax calculator',
-    'new tax regime 2025-26'
+    'new tax regime 2026-27'
   ],
   authors: [{ name: 'Nitin Kaushik', url: 'https://fincado.com/about/' }],
   alternates: {
     canonical: `https://fincado.com/guides/${CONFIG.slug}`,
   },
   openGraph: {
-    title: 'Tax on ₹12 Lakh Salary (FY 2025-26): Zero Tax? + In-Hand Pay',
+    title: 'Tax on ₹12 Lakh Salary (FY 2026-27): Zero Tax? + In-Hand Pay',
     description:
       'Detailed breakdown: Your exact monthly take-home pay and tax liability.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
@@ -87,7 +87,7 @@ export default function Tax12LakhGuide() {
     {
       question: 'How much tax do I pay on 12 LPA salary?',
       answer:
-        'For ₹12 Lakh salary in FY 2025-26, net tax payable is ₹0 under the New Tax Regime due to Section 87A rebate. Under the Old Regime (without deductions), tax remains much higher.',
+        'For ₹12 Lakh salary in FY 2026-27, net tax payable is ₹0 under the New Tax Regime due to Section 87A rebate. Under the Old Regime (without deductions), tax remains much higher.',
     },
     {
       question: 'What is the monthly in-hand salary for 12 LPA?',
@@ -152,7 +152,7 @@ export default function Tax12LakhGuide() {
               },
             },
             datePublished: '2025-02-15',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-13',
           }),
         }}
       />
@@ -200,7 +200,7 @@ export default function Tax12LakhGuide() {
             content={`<p>Earning <strong>₹12 Lakh salary</strong> in <strong>${CONFIG.year}</strong>? Under the <strong>New Tax Regime</strong>, your taxable income becomes <strong>₹11.25 Lakhs</strong> after standard deduction, and your final payable tax becomes <strong>₹0</strong> after Section 87A rebate. The Old Regime is usually costlier unless you claim very high deductions.</p>`}
           />
           <Badge className="mt-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
-            Status: Tax-Free under New Regime (FY 2025-26)
+            Status: Tax-Free under New Regime (FY 2026-27)
           </Badge>
         </CardContent>
       </Card>
@@ -385,7 +385,7 @@ export default function Tax12LakhGuide() {
           className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-emerald-600" /> New Regime
-          Calculation (FY 2025-26)
+          Calculation (FY 2026-27)
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
@@ -450,7 +450,7 @@ export default function Tax12LakhGuide() {
               </Table>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-900">
-              <strong>Note on Section 87A (FY 2025-26):</strong> Full tax rebate
+              <strong>Note on Section 87A (FY 2026-27):</strong> Full tax rebate
               (up to ₹60,000) if taxable income ≤ <strong>₹12 Lakhs</strong>.
               Your ₹11.25L is within the limit.
             </div>
@@ -608,7 +608,7 @@ export default function Tax12LakhGuide() {
       <div className="mb-8 border-t border-slate-200 pt-8">
         <AuthorBio />
         <p className="mt-4 text-xs text-slate-500 italic bg-slate-50 p-4 rounded-lg border border-slate-100">
-          Calculations are based on income tax slabs for FY 2025-26 applicable
+          Calculations are based on income tax slabs for FY 2026-27 applicable
           to resident individuals below 60 years.
         </p>
       </div>
@@ -618,7 +618,7 @@ export default function Tax12LakhGuide() {
         <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Explore More Financial Tools
         </h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {/* Link 1: Tax on 10L */}
           <Link href="/guides/tax-on-10-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
@@ -687,6 +687,52 @@ export default function Tax12LakhGuide() {
               </CardContent>
             </Card>
           </Link>
+          {/* Link: Income Tax Calculator */}
+          <Link href="/income-tax-calculator/" className="group">
+            <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
+              <CardContent className="p-5 flex flex-col h-full justify-between">
+                <div>
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600 group-hover:bg-sky-100 group-hover:text-sky-700 transition-colors">
+                    <Calculator className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-sky-700 transition-colors">
+                    Income Tax Calculator
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Compute your exact tax liability under both regimes.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-semibold text-sky-600">
+                  Calculate Tax{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Link: Salary Calculator */}
+          <Link href="/salary-calculator/" className="group">
+            <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
+              <CardContent className="p-5 flex flex-col h-full justify-between">
+                <div>
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 group-hover:bg-amber-100 group-hover:text-amber-700 transition-colors">
+                    <Wallet className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-amber-700 transition-colors">
+                    Salary Calculator
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Break down your CTC into in-hand monthly salary.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-semibold text-amber-600">
+                  Calculate In-Hand{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
         </div>
       </section>
 

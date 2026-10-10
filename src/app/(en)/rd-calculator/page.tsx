@@ -906,6 +906,21 @@ export default function RDPage() {
               </Card>
             </section>
 
+            {/* --- RELATED GUIDES --- */}
+            <section className="no-print my-8">
+              <h3 className="mb-3 text-lg font-semibold text-slate-900">
+                Related Guides
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/guides/fixed-deposit-guide/"
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+                >
+                  Fixed Deposit Guide
+                </Link>
+              </div>
+            </section>
+
             {/* AD #5: BOTTOM */}
             <div className="no-print my-8 flex justify-center">
               <AdSlot id="rd-bottom" type="square" lazyLoad />

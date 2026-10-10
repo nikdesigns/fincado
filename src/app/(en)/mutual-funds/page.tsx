@@ -308,6 +308,57 @@ export default function MutualFundPage() {
                 </div>
               </div>
 
+              <h3 className="text-xl font-bold text-slate-900 mt-10 mb-4">
+                Portfolio Future Value Formula
+              </h3>
+              <div className="not-prose p-5 bg-slate-50 rounded-lg border border-slate-200 mb-8">
+                <p className="text-sm text-slate-600 mb-3">
+                  Each asset class (Equity, Debt, Gold, Cash) grows its own
+                  slice of your SIP and lumpsum separately, using the
+                  standard SIP and compound interest formulas, and the
+                  results are added together:
+                </p>
+
+                <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto space-y-2">
+                  <div className="text-center text-lg font-serif">
+                    FV<sub>SIP</sub> = SIP × [((1 + r)<sup>n</sup> − 1) ÷ r] × (1 + r)
+                  </div>
+                  <div className="text-center text-lg font-serif">
+                    FV<sub>Lumpsum</sub> = Lumpsum × (1 + r)<sup>n</sup>
+                  </div>
+                  <div className="text-center text-lg font-serif">
+                    Portfolio FV = Σ (FV<sub>SIP</sub> + FV<sub>Lumpsum</sub>) for each asset class
+                  </div>
+                </div>
+
+                <div className="space-y-3 text-sm text-slate-700 mt-4">
+                  <div className="flex gap-3 items-start ml-4">
+                    <span className="min-w-10 font-mono font-semibold">SIP</span>
+                    <span>= Monthly SIP amount allocated to that asset class</span>
+                  </div>
+                  <div className="flex gap-3 items-start ml-4">
+                    <span className="min-w-10 font-mono font-semibold">r</span>
+                    <span>= Monthly return (that asset&apos;s annual return ÷ 12 ÷ 100)</span>
+                  </div>
+                  <div className="flex gap-3 items-start ml-4">
+                    <span className="min-w-10 font-mono font-semibold">n</span>
+                    <span>= Investment period in months</span>
+                  </div>
+                  <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                    <p className="text-xs text-slate-700">
+                      <strong>Blended CAGR</strong> is simply the
+                      allocation-weighted average of each asset&apos;s return:
+                      Equity% × Equity Return + Debt% × Debt Return + Gold%
+                      × Gold Return + Cash% × Cash Return. The{' '}
+                      <strong>Real Value</strong> then discounts the final
+                      portfolio value by expected inflation (compounded
+                      monthly) to show what your corpus is worth in
+                      today&apos;s purchasing power.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <h3 className="text-xl font-bold text-slate-900 mb-6">
                 How This Calculator Helps You
               </h3>
@@ -347,6 +398,110 @@ export default function MutualFundPage() {
                 </Card>
               </div>
             </article>
+
+            {/* Related Calculators */}
+            <section className="no-print mt-4 mb-12 space-y-5">
+              <h3 className="text-xl font-semibold text-slate-900">
+                Related Mutual Fund Calculators
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Link href="/sip-calculator/" className="group">
+                  <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                          📈
+                        </span>
+                        <div className="flex-1">
+                          <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                            SIP Calculator
+                          </div>
+                          <p className="text-sm text-slate-600 leading-relaxed">
+                            Project the future value of a single monthly SIP investment.
+                          </p>
+                          <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                            <span>Calculate Now</span>
+                            <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                <Link href="/lumpsum-calculator/" className="group">
+                  <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                          💰
+                        </span>
+                        <div className="flex-1">
+                          <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                            Lumpsum Calculator
+                          </div>
+                          <p className="text-sm text-slate-600 leading-relaxed">
+                            See how a one-time investment grows over time.
+                          </p>
+                          <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                            <span>Calculate Now</span>
+                            <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                <Link href="/elss-calculator/" className="group">
+                  <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                          🧾
+                        </span>
+                        <div className="flex-1">
+                          <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                            ELSS Calculator
+                          </div>
+                          <p className="text-sm text-slate-600 leading-relaxed">
+                            Tax-saving equity mutual funds under Section 80C.
+                          </p>
+                          <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                            <span>Calculate Now</span>
+                            <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                <Link href="/capital-gains-calculator/" className="group">
+                  <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                          📊
+                        </span>
+                        <div className="flex-1">
+                          <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                            Capital Gains Calculator
+                          </div>
+                          <p className="text-sm text-slate-600 leading-relaxed">
+                            Calculate STCG &amp; LTCG tax on your mutual fund profits.
+                          </p>
+                          <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                            <span>Calculate Now</span>
+                            <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </div>
+            </section>
 
             <AuthorBio />
           </div>

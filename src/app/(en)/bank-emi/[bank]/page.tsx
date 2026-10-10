@@ -276,7 +276,7 @@ export default async function BankPage({
     kotak: 'https://www.kotak.com/',
     pnb: 'https://www.pnbindia.in/',
     bob: 'https://www.bankofbaroda.in/',
-    boi: 'https://bankofindia.co.in/',
+    boi: 'https://bankofindia.bank.in/',
     federal: 'https://www.federalbank.co.in/',
   };
 

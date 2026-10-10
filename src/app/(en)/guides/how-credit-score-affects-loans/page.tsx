@@ -638,6 +638,33 @@ export default function BoostCreditScorePage() {
         </p>
       </div>
 
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-4 text-xl font-semibold text-slate-900">
+          Related Guides
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/guides/credit-score-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Credit Score Guide
+          </Link>
+          <Link
+            href="/guides/how-credit-score-works-india/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            How Credit Score Works in India
+          </Link>
+          <Link
+            href="/guides/personal-loan-guide/"
+            className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-md"
+          >
+            Personal Loan Guide
+          </Link>
+        </div>
+      </section>
+
       {/* --- FINAL CTA --- */}
       <Card className="bg-linear-to-br from-blue-600 to-indigo-700 text-white border-none shadow-xl no-print">
         <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">

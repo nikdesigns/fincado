@@ -41,7 +41,7 @@ import {
 // --- CONFIGURATION ---
 const CONFIG = {
   salary: '25 Lakhs',
-  year: 'FY 2025-26',
+  year: 'FY 2026-27',
   slug: 'tax-on-25-lakh-salary',
   heroImage: '/images/guides/tax/tax-on-25-lakh-salary-hero.webp',
   standardDeductionNew: 75000,
@@ -51,21 +51,21 @@ const CONFIG = {
 };
 
 export const metadata: Metadata = {
-  title: 'Tax on ₹25 Lakh Salary (FY 2025-26): New vs Old Regime + In-Hand Pay',
+  title: 'Tax on ₹25 Lakh Salary (FY 2026-27): New vs Old Regime + In-Hand Pay',
   description:
     'Earning ₹25 Lakhs? New Regime tax is ₹3,19,800 (after ₹75,000 Standard Deduction). Compare with Old Regime (₹5,69,400 without deductions) and see your monthly in-hand salary.',
   keywords: [
     'Tax on 25 lakh salary',
     '25 LPA in hand salary',
     'tax on 25 lakh new regime',
-    'section 87a rebate limit 2025-26',
+    'section 87a rebate limit 2026-27',
     '25 lakh salary tax calculator',
-    'new tax regime 2025-26'
+    'new tax regime 2026-27'
   ],
   authors: [{ name: 'Nitin Kaushik', url: 'https://fincado.com/about/' }],
   alternates: { canonical: `https://fincado.com/guides/${CONFIG.slug}` },
   openGraph: {
-    title: 'Tax on ₹25 Lakh Salary: New vs Old Regime (FY 2025-26)',
+    title: 'Tax on ₹25 Lakh Salary: New vs Old Regime (FY 2026-27)',
     description:
       '₹25 Lakhs salary → ₹3,19,800 tax under New Regime. See exact calculation, monthly in-hand pay & break-even point.',
     url: `https://fincado.com/guides/${CONFIG.slug}`,
@@ -83,7 +83,7 @@ export default function Tax25LakhGuide() {
     {
       question: 'How much tax on 25 LPA salary?',
       answer:
-        '₹3,19,800 under the New Tax Regime (FY 2025-26). After ₹75,000 standard deduction, taxable income is ₹24.25 Lakhs. Since this exceeds the ₹12 Lakh rebate limit, you pay full tax with no rebate.',
+        '₹3,19,800 under the New Tax Regime (FY 2026-27). After ₹75,000 standard deduction, taxable income is ₹24.25 Lakhs. Since this exceeds the ₹12 Lakh rebate limit, you pay full tax with no rebate.',
     },
     {
       question: 'What is the monthly in-hand salary for 25 LPA?',
@@ -148,7 +148,7 @@ export default function Tax25LakhGuide() {
               },
             },
             datePublished: '2025-02-15',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-13',
           }),
         }}
       />
@@ -379,7 +379,7 @@ export default function Tax25LakhGuide() {
           className="mb-6 text-2xl font-semibold text-slate-900 scroll-mt-20 flex items-center gap-2"
         >
           <Calculator className="h-6 w-6 text-purple-600" /> Tax Calculation
-          (New Regime – FY 2025-26)
+          (New Regime – FY 2026-27)
         </h2>
         <Card className="border-slate-200">
           <CardContent className="pt-6">
@@ -522,7 +522,7 @@ export default function Tax25LakhGuide() {
         <h2 className="mb-6 text-2xl font-semibold text-slate-900">
           Explore More Financial Tools
         </h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <Link href="/guides/tax-on-20-lakh-salary/" className="group">
             <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
               <CardContent className="p-5 flex flex-col h-full justify-between">
@@ -588,6 +588,52 @@ export default function Tax25LakhGuide() {
               </CardContent>
             </Card>
           </Link>
+          {/* Link: Income Tax Calculator */}
+          <Link href="/income-tax-calculator/" className="group">
+            <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
+              <CardContent className="p-5 flex flex-col h-full justify-between">
+                <div>
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600 group-hover:bg-sky-100 group-hover:text-sky-700 transition-colors">
+                    <Calculator className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-sky-700 transition-colors">
+                    Income Tax Calculator
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Compute your exact tax liability under both regimes.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-semibold text-sky-600">
+                  Calculate Tax{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Link: Salary Calculator */}
+          <Link href="/salary-calculator/" className="group">
+            <Card className="h-full border-slate-200 transition-all hover:border-blue-300 hover:shadow-md">
+              <CardContent className="p-5 flex flex-col h-full justify-between">
+                <div>
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 group-hover:bg-amber-100 group-hover:text-amber-700 transition-colors">
+                    <Wallet className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-amber-700 transition-colors">
+                    Salary Calculator
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Break down your CTC into in-hand monthly salary.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-semibold text-amber-600">
+                  Calculate In-Hand{' '}
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
         </div>
       </section>
 

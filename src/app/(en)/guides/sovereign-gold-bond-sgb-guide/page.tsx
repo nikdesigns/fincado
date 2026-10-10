@@ -30,14 +30,14 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: 'Sovereign Gold Bonds (SGB) Guide 2025: Interest, Tax & Redemption',
+  title: 'Sovereign Gold Bonds (SGB) Guide 2026: Interest, Tax & Redemption',
   description:
     'Complete guide to Sovereign Gold Bonds (SGB) in India. Learn about 2.5% interest, tax-free redemption, and why SGB is better than physical gold.',
   alternates: {
     canonical: 'https://fincado.com/guides/sovereign-gold-bond-sgb-guide/',
   },
   openGraph: {
-    title: 'Sovereign Gold Bonds (SGB) Guide 2025',
+    title: 'Sovereign Gold Bonds (SGB) Guide 2026',
     description:
       'Invest in Gold + Earn 2.5% Interest. Tax-free maturity and government guarantee. Read the full SGB guide.',
     type: 'article',
@@ -53,7 +53,7 @@ export default function SGBGuide() {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline:
-      'Sovereign Gold Bonds (SGB): Interest, Tax Benefits & Redemption (2025 Guide)',
+      'Sovereign Gold Bonds (SGB): Interest, Tax Benefits & Redemption (2026 Guide)',
     description:
       'Comprehensive guide to Sovereign Gold Bonds (SGB), covering interest rates, tax benefits, redemption rules, and comparison with physical gold.',
     author: {
@@ -70,7 +70,7 @@ export default function SGBGuide() {
       },
     },
     datePublished: '2025-01-10',
-    dateModified: '2026-06-11',
+    dateModified: '2026-09-13',
     image: '/images/guides/sgb/sgb-hero.webp',
   };
 
@@ -101,7 +101,7 @@ export default function SGBGuide() {
           Gold Investment
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl leading-tight">
-          Sovereign Gold Bonds (SGB): Interest, Tax Benefits & Redemption (2025
+          Sovereign Gold Bonds (SGB): Interest, Tax Benefits & Redemption (2026
           Guide)
         </h1>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
@@ -110,7 +110,7 @@ export default function SGBGuide() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Sep 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -139,7 +139,7 @@ export default function SGBGuide() {
         <WikiText
           content={`
           <p>Sovereign Gold Bonds (SGB) are one of the smartest ways for Indians to invest in gold without worrying about storage, purity, or making charges. Backed by the Government of India and issued by the Reserve Bank of India (RBI), SGBs combine the price appreciation of gold with extra interest and attractive tax benefits, making them a powerful long-term wealth creation tool.</p>
-          <p><em>Note: Exact interest rates, issue prices, and tranche dates change over time; always check the latest RBI or bank communication before investing.</em></p>
+          <p><strong>Important update:</strong> The Government of India has not issued a new SGB tranche since February 2024, and no fresh issuance calendar has been announced for FY 2026-27. New investors can no longer subscribe to fresh SGB tranches through banks or the post office &mdash; existing SGB units can still be bought or sold on the secondary market (NSE/BSE) via a Demat account, and investors who already hold SGBs will continue to earn interest and receive redemption at maturity as per the original terms.</p>
         `}
         />
       </div>
@@ -362,17 +362,12 @@ export default function SGBGuide() {
       {/* --- SECTION 4: HOW TO BUY --- */}
       <section className="mb-12">
         <h2 className="mb-6 text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <Wallet className="h-6 w-6 text-purple-600" /> How to Buy SGB
+          <Wallet className="h-6 w-6 text-purple-600" /> How to Buy SGB (Secondary Market Only)
         </h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Card className="border-slate-200">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base text-slate-900">Banks</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-slate-700">
-              Log in to Net Banking or visit branch. Fill form & pay.
-            </CardContent>
-          </Card>
+        <p className="mb-4 text-sm text-slate-700">
+          Since the last tranche closed in February 2024, banks and the post office are no longer accepting fresh SGB applications. The only way to buy SGB units today is through the secondary market.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
           <Card className="border-slate-200">
             <CardHeader className="pb-2">
               <CardTitle className="text-base text-slate-900">
@@ -380,7 +375,7 @@ export default function SGBGuide() {
               </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-slate-700">
-              Use apps like Zerodha/Upstox. Search SGB & place order.
+              Use apps like Zerodha/Upstox. Search SGB & place order on the exchange at the prevailing market price.
             </CardContent>
           </Card>
           <Card className="border-slate-200">
@@ -390,7 +385,7 @@ export default function SGBGuide() {
               </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-slate-700">
-              Buy existing units on NSE/BSE through Demat account.
+              Buy existing units listed on NSE/BSE through any Demat account; no new bank/post-office subscription window exists currently.
             </CardContent>
           </Card>
         </div>

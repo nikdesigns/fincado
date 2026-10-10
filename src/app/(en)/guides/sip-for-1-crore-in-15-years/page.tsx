@@ -1586,6 +1586,33 @@ export default function Sip1Cr15YearsPage() {
         <AuthorBio />
       </div>
 
+      {/* --- RELATED GUIDES --- */}
+      <section className="mb-8">
+        <h3 className="mb-3 text-lg font-semibold text-slate-900">
+          Related Guides
+        </h3>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/guides/sip-for-1-crore-in-10-years/"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+          >
+            ₹1 Crore in 10 Years
+          </Link>
+          <Link
+            href="/guides/sip-for-1-crore-in-20-years/"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+          >
+            ₹1 Crore in 20 Years
+          </Link>
+          <Link
+            href="/guides/sip-investment-guide/"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+          >
+            SIP Investment Guide
+          </Link>
+        </div>
+      </section>
+
       {/* --- FINAL CTA --- */}
       <Card className="border-none bg-linear-to-br from-emerald-600 to-teal-700 text-white shadow-xl no-print">
         <CardContent className="flex flex-col items-center p-8 text-center sm:p-12">

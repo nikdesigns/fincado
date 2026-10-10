@@ -235,6 +235,120 @@ export default function EMIPrepaymentPage() {
                       interest.
                     </p>
                   </section>
+
+                  {/* Formula Block */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      EMI Prepayment Formula
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        Your existing EMI is calculated first using the
+                        standard reducing-balance formula, then the
+                        calculator recomputes your loan balance month by
+                        month, subtracting your lumpsum upfront and adding
+                        any extra monthly payment to the principal:
+                      </div>
+
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                        <div className="text-center text-xl font-serif">
+                          EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-slate-700 mt-4">
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">P</span>
+                          <span>= Outstanding principal (after subtracting your lumpsum)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">r</span>
+                          <span>= Monthly interest rate (annual rate ÷ 12 ÷ 100)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">n</span>
+                          <span>= Remaining tenure in months</span>
+                        </div>
+                        <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                          <p className="text-xs text-slate-700">
+                            <strong>Note:</strong> The EMI amount itself stays
+                            the same as your original loan (tenure-reduction
+                            strategy). Each month, the calculator adds your
+                            extra monthly payment straight to the principal,
+                            so the balance — and future interest — shrinks
+                            faster, ending the loan sooner instead of
+                            lowering the EMI.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Worked Example */}
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        Example: ₹50,00,000 Loan with ₹5,00,000 Lumpsum
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>Outstanding Principal:</strong></div>
+                          <div>₹50,00,000</div>
+                          <div><strong>Interest Rate:</strong></div>
+                          <div>8.5% p.a.</div>
+                          <div><strong>Remaining Tenure:</strong></div>
+                          <div>15 years (180 months)</div>
+                          <div><strong>Lumpsum Prepayment (today):</strong></div>
+                          <div>₹5,00,000</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">Step 1: Calculate Original EMI</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            r = 8.5 ÷ 12 ÷ 100 = 0.00708
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            EMI ≈ ₹49,238 / month
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">Step 2: Apply Lumpsum &amp; Recalculate</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            New Balance = 50,00,000 − 5,00,000 = ₹45,00,000
+                          </div>
+                          <div className="ml-4 text-sm">
+                            Keeping the same EMI (₹49,238), the loan now pays
+                            off in fewer months since more of each EMI goes
+                            toward principal.
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            Total Interest Saved:
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ≈ ₹11,50,000
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>Original Tenure:</span>
+                            <strong>15 years</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>New Tenure:</span>
+                            <strong className="text-brand-700">≈ 11 years 2 months</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Tenure Saved:</span>
+                            <strong className="text-brand-700">≈ 3 years 10 months</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>

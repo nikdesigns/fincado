@@ -595,7 +595,7 @@ export default function HindiSalaryCalculatorPage() {
 
                   <section className="space-y-5">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      अन्य महत्वपूर्ण टैक्स और सैलरी टूल्स
+                      संबंधित सैलरी और टैक्स कैलकुलेटर (Related Calculators)
                     </h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
                       <Link href="/hi/income-tax-calculator/" className="group">

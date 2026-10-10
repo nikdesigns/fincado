@@ -291,6 +291,74 @@ export default function HindiRentReceiptPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Worked Example */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      सैंपल रेंट रसीद (भरा हुआ उदाहरण)
+                    </h3>
+                    <p className="text-slate-600">
+                      ऊपर दिए गए फॉर्म को भरने के बाद एक तैयार मासिक रेंट
+                      रसीद कुछ इस तरह दिखती है:
+                    </p>
+                    <div className="p-6 bg-white rounded-lg border-2 border-slate-300">
+                      <div className="flex justify-between items-start border-b border-slate-200 pb-3 mb-3">
+                        <h4 className="font-semibold text-slate-900">
+                          RENT RECEIPT (रेंट रसीद)
+                        </h4>
+                        <span className="text-xs text-slate-500">
+                          रसीद संख्या: RR-2026-001
+                        </span>
+                      </div>
+                      <div className="space-y-2 text-sm text-slate-700">
+                        <div className="flex justify-between">
+                          <span>प्राप्त किया (किरायेदार):</span>
+                          <strong>Rahul Sharma</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>राशि:</span>
+                          <strong>₹15,000 (पंद्रह हज़ार रुपये मात्र)</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>किराया अवधि:</span>
+                          <strong>1 अप्रैल 2026 – 30 अप्रैल 2026</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>संपत्ति का पता:</span>
+                          <strong className="text-right max-w-xs">
+                            Flat 402, Sunshine Apartments, Indiranagar,
+                            Bangalore - 560038
+                          </strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>भुगतान किया गया (मकान मालिक):</span>
+                          <strong>Amit Patel</strong>
+                        </div>
+                        <div className="flex justify-between pt-2 border-t border-slate-100">
+                          <span>रेवेन्यू स्टाम्प चाहिए?</span>
+                          <strong>
+                            नहीं (कैश में ₹5,000 से कम, या ऑनलाइन भुगतान)
+                          </strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>मकान मालिक का PAN चाहिए?</span>
+                          <strong>
+                            हाँ (सालाना किराया ₹1,80,000, जो ₹1,00,000 से अधिक है)
+                          </strong>
+                        </div>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-dashed border-slate-300 text-right text-xs text-slate-500 italic">
+                        मकान मालिक के हस्ताक्षर: ______________
+                      </div>
+                    </div>
+                    <p className="text-xs text-slate-500 italic">
+                      नोट: इस उदाहरण में ₹15,000/माह × 12 = ₹1,80,000 सालाना
+                      किराया है, जो ₹1,00,000 की सीमा से अधिक है — इसलिए
+                      मकान मालिक का PAN देना ज़रूरी होगा। HR को जमा करने से
+                      पहले हमेशा अपना कुल सालाना किराया ₹1,00,000 की सीमा से
+                      मिलाकर देख लें।
+                    </p>
+                  </section>
                 </CardContent>
               </Card>
             </article>

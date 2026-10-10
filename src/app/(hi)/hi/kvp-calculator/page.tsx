@@ -23,6 +23,34 @@ import FAQSchema from '@/components/FAQSchema';
 import { ArrowRight, ShieldCheck, Landmark, Clock } from 'lucide-react';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
+/* ---------------- RELATED CALCULATORS ---------------- */
+const relatedCalculators = [
+  {
+    href: '/hi/nsc-calculator/',
+    icon: '🏦',
+    title: 'NSC कैलकुलेटर',
+    description: '5 वर्षीय पोस्ट ऑफिस सेविंग सर्टिफिकेट, सेक्शन 80C लाभ सहित।',
+  },
+  {
+    href: '/hi/pomis-calculator/',
+    icon: '📬',
+    title: 'POMIS कैलकुलेटर',
+    description: 'पोस्ट ऑफिस मंथली इनकम स्कीम से गारंटीड मासिक आय।',
+  },
+  {
+    href: '/hi/scss-calculator/',
+    icon: '👴',
+    title: 'SCSS कैलकुलेटर',
+    description: 'वरिष्ठ नागरिकों (60+) के लिए ज़्यादा तिमाही ब्याज दर।',
+  },
+  {
+    href: '/hi/ppf-calculator/',
+    icon: '💰',
+    title: 'PPF कैलकुलेटर',
+    description: '15 वर्षीय PPF निवेश पर 100% टैक्स-फ्री रिटर्न।',
+  },
+];
+
 /* ---------------- SEO METADATA (HINDI) ---------------- */
 
 export const metadata: Metadata = {
@@ -317,9 +345,142 @@ export default function HindiKVPCalculatorPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Formula Block */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      KVP मैच्योरिटी (दोगुना होने) का फॉर्मूला
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        KVP में आपका निवेश एक निश्चित महीनों में दोगुना होने
+                        की गारंटी है, जिसे सरकार हर तिमाही मौजूदा ब्याज दर के
+                        आधार पर अधिसूचित करती है। यह अवधि (n) चक्रवृद्धि ब्याज
+                        फॉर्मूले को हल करके निकाली जाती है, जिसमें राशि 2 गुना
+                        हो जाती है:
+                      </div>
+
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto">
+                        <div className="text-center text-xl font-serif">
+                          2P = P × (1 + r)<sup>n</sup> &nbsp;→&nbsp; मैच्योरिटी राशि = P × 2
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-slate-700 mt-4">
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">P</span>
+                          <span>= निवेश राशि (कोई अधिकतम सीमा नहीं, न्यूनतम ₹1,000)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">r</span>
+                          <span>= वार्षिक ब्याज दर (वर्तमान में 7.5% सालाना)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-10 font-mono font-semibold">n</span>
+                          <span>
+                            = दोगुना होने की अवधि — वर्तमान में{' '}
+                            <strong>115 महीने (9 वर्ष 7 महीने)</strong>, 7.5%
+                            दर पर अधिसूचित।
+                          </span>
+                        </div>
+                        <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                          <p className="text-xs text-slate-700">
+                            <strong>नोट:</strong> यह कैलकुलेटर सरकार द्वारा
+                            अधिसूचित 115 महीने की अवधि का उपयोग करता है, न कि
+                            r से n की दोबारा गणना करता है, क्योंकि सरकार खुद हर
+                            तिमाही यह अवधि तय और संशोधित करती है। परिपक्वता
+                            तिथि पर आपका पैसा ठीक 2 गुना हो जाता है।
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Worked Example */}
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        उदाहरण: ₹1,00,000 का KVP निवेश
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>निवेश (P):</strong></div>
+                          <div>₹1,00,000</div>
+                          <div><strong>ब्याज दर:</strong></div>
+                          <div>7.5% सालाना</div>
+                          <div><strong>दोगुना होने की अवधि (n):</strong></div>
+                          <div>115 महीने (9 वर्ष 7 महीने)</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">चरण 1: दोगुना होने का फॉर्मूला लागू करें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            मैच्योरिटी राशि = 1,00,000 × 2 = ₹2,00,000
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            मैच्योरिटी वैल्यू (115 महीनों बाद):
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ₹2,00,000
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>निवेशित मूलधन:</span>
+                            <strong>₹1,00,000</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>कुल अर्जित ब्याज:</span>
+                            <strong className="text-brand-700">₹1,00,000</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>लॉक-इन समाप्त:</span>
+                            <strong>30 महीने (2 वर्ष 6 महीने)</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>
+
+            {/* Related Calculators */}
+            <section className="no-print mt-12 space-y-5">
+              <h3 className="text-xl font-semibold text-slate-900">
+                संबंधित स्मॉल सेविंग्स कैलकुलेटर
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {relatedCalculators.map((calc) => (
+                  <Link href={calc.href} key={calc.href} className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                            {calc.icon}
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                              {calc.title}
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              {calc.description}
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                              <span>अभी कैलकुलेट करें</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </section>
 
             {/* FAQ */}
             <section className="no-print mt-12">

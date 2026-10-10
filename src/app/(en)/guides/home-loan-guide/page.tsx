@@ -3043,6 +3043,20 @@ export default function HomeLoanGuidePage() {
               <span className="font-medium">Credit Card Guide</span>
             </Link>
             <Link
+              href="/guides/car-loan-guide/"
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-brand-700"
+            >
+              <FileText className="h-5 w-5 shrink-0" />
+              <span className="font-medium">Car Loan Guide</span>
+            </Link>
+            <Link
+              href="/guides/education-loan-guide/"
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-brand-700"
+            >
+              <FileText className="h-5 w-5 shrink-0" />
+              <span className="font-medium">Education Loan Guide</span>
+            </Link>
+            <Link
               href="/guides/investment-guide/"
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-slate-700 hover:text-brand-700"
             >

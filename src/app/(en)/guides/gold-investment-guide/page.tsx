@@ -129,7 +129,7 @@ export default function GoldInvestmentGuidePage() {
               },
             },
             datePublished: '2025-02-12',
-            dateModified: '2026-06-11',
+            dateModified: '2026-09-13',
           }),
         }}
       />
@@ -170,7 +170,7 @@ export default function GoldInvestmentGuidePage() {
           </span>
           <span className="hidden sm:inline">•</span>
           <span>
-            Updated: <strong className="text-slate-700">Jan 2025</strong>
+            Updated: <strong className="text-slate-700">Sep 2026</strong>
           </span>
           <span className="hidden sm:inline">•</span>
           <span className="flex items-center gap-1 font-medium text-emerald-600">
@@ -190,8 +190,11 @@ export default function GoldInvestmentGuidePage() {
             <p class="mb-4">
               Choosing the <strong>best way to buy gold</strong> can mean the difference between earning <strong>2.5% extra annual interest</strong> (SGB) and losing money to <strong>3% GST</strong> and hidden spreads (Digital Gold).
             </p>
+            <p class="mb-4">
+              While physical jewelry carries 10-25% making charges, <strong>Sovereign Gold Bonds (SGBs)</strong> offer government-backed safety and tax-free returns. This guide compares SGB, Digital Gold, and Physical Gold to help you maximize your wealth.
+            </p>
             <p>
-              While physical jewelry carries 10-25% making charges, <strong>Sovereign Gold Bonds (SGBs)</strong> offer government-backed safety and tax-free returns. This guide compares SGB, Digital Gold, and Physical Gold to help you maximize your wealth in 2025.
+              <strong>Note:</strong> The Government of India has not issued a new SGB tranche since February 2024, and none is planned for FY 2026-27. You can no longer subscribe to fresh SGBs via banks or the post office &mdash; existing SGB units can only be bought or sold on the secondary market (NSE/BSE) through a Demat account. If new-issue SGBs are unavailable, Gold ETFs or Digital Gold are the practical alternatives discussed below.
             </p>
           `}
           />

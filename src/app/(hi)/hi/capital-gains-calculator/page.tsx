@@ -311,6 +311,130 @@ export default function HindiCapitalGainsPage() {
                       </table>
                     </div>
                   </section>
+
+                  {/* Formula Block */}
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      कैपिटल गेन टैक्स फॉर्मूला
+                    </h3>
+                    <div className="p-5 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="text-sm text-slate-600 mb-3">
+                        कैपिटल गेन टैक्स दो चरणों में निकाला जाता है — पहले
+                        मुनाफा (गेन) निकालें, फिर एसेट क्लास और होल्डिंग
+                        अवधि के अनुसार लागू टैक्स दर लगाएं:
+                      </div>
+
+                      <div className="my-4 p-6 bg-white rounded border border-slate-300 overflow-x-auto space-y-2">
+                        <div className="text-center text-lg font-serif">
+                          कैपिटल गेन = विक्रय मूल्य − क्रय मूल्य
+                        </div>
+                        <div className="text-center text-lg font-serif">
+                          टैक्स = (टैक्सेबल गेन × टैक्स दर) × 1.04 (4% सेस सहित)
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-slate-700 mt-4">
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-28 font-mono font-semibold">Equity STCG</span>
+                          <span>= गेन पर 20% फ्लैट (12 महीने या कम होल्ड)</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-28 font-mono font-semibold">Equity LTCG</span>
+                          <span>
+                            = (गेन − ₹1.25L छूट) पर 12.5% (12 महीने से अधिक होल्ड)
+                          </span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-28 font-mono font-semibold">डेट फंड्स</span>
+                          <span>= आपकी इनकम टैक्स स्लैब दर पर टैक्स</span>
+                        </div>
+                        <div className="flex gap-3 items-start ml-4">
+                          <span className="min-w-28 font-mono font-semibold">रियल एस्टेट</span>
+                          <span>
+                            = 24 महीने या कम होल्ड पर स्लैब दर; अन्यथा 12.5%
+                            बिना इंडेक्सेशन, या (23 जुलाई 2024 से पहले खरीदी
+                            प्रॉपर्टी के लिए) 12.5% बिना इंडेक्सेशन बनाम 20%
+                            इंडेक्सेशन के साथ, जो भी कम हो
+                          </span>
+                        </div>
+                        <div className="mt-4 p-3 bg-brand-50 rounded border border-brand-200">
+                          <p className="text-xs text-slate-700">
+                            <strong>नोट:</strong> हर मामले में बेस टैक्स के
+                            ऊपर 4% हेल्थ एंड एजुकेशन सेस जोड़ा जाता है। यह
+                            कैलकुलेटर नवीनतम यूनियन बजट के सटीक नियमों का
+                            उपयोग करता है।
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Worked Example */}
+                    <div className="p-5 bg-brand-50 rounded-lg border border-brand-200">
+                      <h4 className="font-semibold text-brand-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">🧮</span>
+                        उदाहरण: ₹3,00,000 के इक्विटी LTCG पर टैक्स
+                      </h4>
+                      <div className="space-y-3 text-sm text-slate-700">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div><strong>क्रय मूल्य:</strong></div>
+                          <div>₹5,00,000</div>
+                          <div><strong>विक्रय मूल्य:</strong></div>
+                          <div>₹8,00,000</div>
+                          <div><strong>होल्डिंग अवधि:</strong></div>
+                          <div>लॉन्ग टर्म (12 महीने से अधिक)</div>
+                          <div><strong>बची हुई ₹1.25L छूट:</strong></div>
+                          <div>₹1,25,000 (पूरी उपलब्ध)</div>
+                        </div>
+
+                        <div className="pt-3 border-t border-brand-300">
+                          <strong className="block mb-2">चरण 1: कुल गेन निकालें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            8,00,000 − 5,00,000 = ₹3,00,000
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">चरण 2: ₹1.25L छूट लागू करें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            टैक्सेबल गेन = 3,00,000 − 1,25,000 = ₹1,75,000
+                          </div>
+                        </div>
+
+                        <div className="pt-3">
+                          <strong className="block mb-2">चरण 3: 12.5% LTCG + 4% सेस लागू करें</strong>
+                          <div className="ml-4 font-mono text-sm">
+                            बेस टैक्स = 1,75,000 × 12.5% = ₹21,875
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            सेस = 21,875 × 4% = ₹875
+                          </div>
+                          <div className="ml-4 font-mono text-sm">
+                            कुल टैक्स = ₹22,750
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-4 bg-white rounded border-2 border-brand-50">
+                          <div className="text-base font-semibold text-slate-700 mb-1">
+                            टैक्स के बाद नेट गेन:
+                          </div>
+                          <div className="text-3xl font-semibold text-brand-700">
+                            ₹2,77,250
+                          </div>
+                        </div>
+
+                        <div className="mt-3 pt-3 border-t border-brand-300 space-y-2">
+                          <div className="flex justify-between">
+                            <span>कुल कैपिटल गेन:</span>
+                            <strong>₹3,00,000</strong>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>कुल देय टैक्स:</span>
+                            <strong className="text-rose-600">₹22,750</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 </CardContent>
               </Card>
             </article>

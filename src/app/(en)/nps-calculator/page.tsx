@@ -995,6 +995,31 @@ export default function NPSCalculatorPage() {
                   Related Retirement Planning Tools
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
+                  <Link href="/guides/nps-guide/" className="group">
+                    <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-3">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-brand-50 to-brand-100 text-brand-700 text-2xl">
+                            📘
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-semibold text-slate-900 group-hover:text-brand-700 mb-1">
+                              NPS Guide
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                              Tax benefits, withdrawal rules, and how to choose
+                              your NPS fund manager.
+                            </p>
+                            <div className="mt-3 flex items-center text-xs font-semibold text-brand-700">
+                              <span>Read Guide</span>
+                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+
                   <Link href="/retirement-calculator/" className="group">
                     <Card className="h-full border-slate-200 transition hover:-translate-y-1 hover:shadow-lg hover:border-brand-300">
                       <CardContent className="p-5">
