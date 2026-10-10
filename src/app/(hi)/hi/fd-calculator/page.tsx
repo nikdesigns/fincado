@@ -41,7 +41,7 @@ import {
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'FD कैलकुलेटर 2026 – फिक्स्ड डिपॉजिट ब्याज और रिटर्न | Fincado',
+  title: 'FD कैलकुलेटर 2026 – फिक्स्ड डिपॉजिट ब्याज और रिटर्न',
   description:
     'FD (Fixed Deposit) कैलकुलेटर हिंदी में: जानें कि आपकी जमा राशि पर बैंक आपको कितना ब्याज देगा। परिपक्वता राशि और टीडीएस की गणना करें।',
   keywords: [
@@ -66,6 +66,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/fd-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-fd-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

@@ -37,6 +37,14 @@ export const metadata: Metadata = {
       'Read updated personal finance guides in English on home loans, SIP, mutual funds, taxes, insurance, and credit scores for India.',
     url: 'https://fincado.com/guides/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 
@@ -102,7 +110,7 @@ export default function GuidesPage() {
           <CardContent className="p-0">
             <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 gap-4">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#ffedd5] text-[#FF9F4C]">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#ffe4b7] text-[#FF9F4C]">
                   <Languages className="h-6 w-6" />
                 </div>
                 <div className="text-center sm:text-left">

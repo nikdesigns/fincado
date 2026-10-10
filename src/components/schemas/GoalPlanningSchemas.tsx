@@ -10,12 +10,6 @@ export function GoalPlanningSchemas() {
       price: '0',
       priceCurrency: 'INR',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      ratingCount: '2847',
-      bestRating: '5',
-    },
     featureList: [
       'Financial Goal Planning with Inflation Adjustment',
       'Monthly SIP and Lump Sum Calculation',
@@ -33,19 +27,19 @@ export function GoalPlanningSchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Goal Planning Calculator',
-        item: 'https://fincado.com/goal-planning-calculator',
+        item: 'https://fincado.com/goal-planning-calculator/',
       }
     ],
   };

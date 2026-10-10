@@ -283,7 +283,7 @@ export default function Header() {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/hi/"
-                    className="px-4 py-2 text-sm font-semibold text-[#ff7722] hover:bg-rose-50 hover:text-[#ff7722] rounded-lg transition-all duration-200"
+                    className="px-4 py-2 text-sm font-semibold text-[#ff9f4c] hover:bg-rose-50 hover:text-[#ff9f4c] rounded-lg transition-all duration-200"
                     lang="hi"
                     aria-label="Switch to Hindi calculators"
                   >

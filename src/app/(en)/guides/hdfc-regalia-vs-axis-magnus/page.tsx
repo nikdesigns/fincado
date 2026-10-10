@@ -62,6 +62,14 @@ export const metadata: Metadata = {
       'A ₹2,500 card against a ₹12,500 card — this is less about features and more about who should be paying more.',
     url: 'https://fincado.com/guides/hdfc-regalia-vs-axis-magnus/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

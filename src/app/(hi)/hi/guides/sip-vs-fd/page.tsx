@@ -38,7 +38,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'SIP vs FD (हिंदी गाइड): आम आदमी के लिए सबसे आसान तुलना | Fincado',
+  title: 'SIP vs FD (हिंदी गाइड): आम आदमी के लिए सबसे आसान तुलना',
   description:
     'SIP या FD: जानें 2025 में निवेश का सही विकल्प कौन सा है। रिटर्न, रिस्क और टैक्स (Tax) का पूरा विश्लेषण हिंदी में।',
   keywords: [

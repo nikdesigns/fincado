@@ -189,7 +189,7 @@ function CompoundInterestDonut({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#f1f5f9"
+            stroke="#f3f4f6"
             strokeWidth={strokeWidth}
           />
 
@@ -212,7 +212,7 @@ function CompoundInterestDonut({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#84cc16"
+            stroke="#92c65b"
             strokeWidth={strokeWidth}
             strokeDasharray={`${dash2} ${circumference}`}
             strokeDashoffset={offset2}

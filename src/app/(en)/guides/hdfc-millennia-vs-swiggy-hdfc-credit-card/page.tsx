@@ -64,6 +64,14 @@ export const metadata: Metadata = {
     url:
       'https://fincado.com/guides/hdfc-millennia-vs-swiggy-hdfc-credit-card/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

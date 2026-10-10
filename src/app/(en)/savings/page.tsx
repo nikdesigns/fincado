@@ -28,6 +28,14 @@ export const metadata: Metadata = {
       'Visualize the growth of your monthly savings and plan for financial security.',
     url: 'https://fincado.com/savings/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

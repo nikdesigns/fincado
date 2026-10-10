@@ -68,7 +68,7 @@ export function APYSchemas() {
     author: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     publisher: {
       '@type': 'Organization',

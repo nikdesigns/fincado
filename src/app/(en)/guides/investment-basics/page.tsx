@@ -68,6 +68,14 @@ export const metadata: Metadata = {
       'Beginner-friendly guide to the core concepts every investor should understand before choosing products.',
     url: 'https://fincado.com/guides/investment-basics/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

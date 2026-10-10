@@ -43,6 +43,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/home-loan/',
+    languages: {
+      'en-IN': 'https://fincado.com/loans/home-loan/',
+      'hi-IN': 'https://fincado.com/hi/loans/home-loan/',
+      'x-default': 'https://fincado.com/loans/home-loan/',
+    },
   },
   openGraph: {
     title: 'Home Loan EMI Calculator 2026-27 - Tax Benefits & Latest Rates',

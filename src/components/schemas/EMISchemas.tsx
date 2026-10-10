@@ -7,19 +7,19 @@ export function EMISchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'EMI Calculator',
-        item: 'https://fincado.com/emi-calculator',
+        item: 'https://fincado.com/emi-calculator/',
       }
     ],
   };
@@ -34,12 +34,6 @@ export function EMISchemas() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'INR',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      ratingCount: '2847',
-      bestRating: '5',
     },
     featureList: [
       'Home Loan EMI Calculation',

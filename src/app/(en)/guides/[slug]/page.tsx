@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: enUrl,
       languages: {
-        en: enUrl,
-        ...(hasHindiVariant ? { hi: hiUrl } : {}),
+        'en-IN': enUrl,
+        ...(hasHindiVariant ? { 'hi-IN': hiUrl } : {}),
         'x-default': enUrl,
       },
     },
@@ -147,7 +147,7 @@ export default async function GuidePost({ params }: Props) {
         <header
           style={{
             marginBottom: 32,
-            borderBottom: '1px solid #e2e8f0',
+            borderBottom: '1px solid #e5e7eb',
             paddingBottom: 24,
           }}
         >
@@ -198,7 +198,7 @@ export default async function GuidePost({ params }: Props) {
                 marginBottom: 16,
                 fontSize: '24px',
                 fontWeight: 'bold',
-                color: '#0f172a',
+                color: '#111827',
               }}
             >
               Related Guides
@@ -225,7 +225,7 @@ export default async function GuidePost({ params }: Props) {
                 marginBottom: 16,
                 fontSize: '24px',
                 fontWeight: 'bold',
-                color: '#0f172a',
+                color: '#111827',
               }}
             >
               Related Calculators & Tools
@@ -249,7 +249,7 @@ export default async function GuidePost({ params }: Props) {
           style={{
             marginTop: 48,
             paddingTop: 24,
-            borderTop: '1px solid #e2e8f0',
+            borderTop: '1px solid #e5e7eb',
           }}
         >
           <AdSlot id={`guide-bottom-${article.slug}`} type="leaderboard" />

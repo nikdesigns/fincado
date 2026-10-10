@@ -38,7 +38,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Credit Score कैसे बढ़ाएं? 750+ Score पाने के 10 आसान तरीके | Fincado',
+  title: 'Credit Score कैसे बढ़ाएं? 750+ Score पाने के 10 आसान तरीके',
   description:
     'जानिए credit score बढ़ाने के आसान और सही तरीके। 90 दिनों में score improve करने की practical Hindi guide।',
   keywords: [

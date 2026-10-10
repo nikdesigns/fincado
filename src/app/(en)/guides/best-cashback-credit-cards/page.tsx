@@ -53,6 +53,14 @@ export const metadata: Metadata = {
       'A ranked, fact-checked comparison of the top cashback credit cards available in India right now.',
     url: 'https://fincado.com/guides/best-cashback-credit-cards/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

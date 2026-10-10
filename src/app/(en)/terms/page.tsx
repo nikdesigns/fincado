@@ -9,7 +9,7 @@ const SUPPORT_EMAIL = 'support@fincado.com';
 const JURISDICTION_CITY = 'Mumbai';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use | Fincado Trust Center',
+  title: { absolute: 'Terms of Use | Fincado Trust Center' },
   description:
     'Read Fincado Terms of Use covering permitted usage, disclaimers, legal limitations, intellectual property, and governing law.',
   keywords: [
@@ -27,6 +27,14 @@ export const metadata: Metadata = {
       'Fincado Terms of Use for calculators, financial guides, and website services.',
     url: PAGE_URL,
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

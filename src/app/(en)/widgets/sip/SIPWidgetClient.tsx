@@ -15,14 +15,14 @@ export default function SIPWidgetClient() {
           marginBottom: 10,
         }}
       >
-        <h2 style={{ fontSize: '18px', margin: 0, color: '#0f172a' }}>
+        <h2 style={{ fontSize: '18px', margin: 0, color: '#111827' }}>
           SIP Calculator
         </h2>
         <a
           href="https://fincado.com/sip-calculator/"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ fontSize: '12px', color: '#64748b', textDecoration: 'none' }}
+          style={{ fontSize: '12px', color: '#6b7280', textDecoration: 'none' }}
         >
           Powered by Fincado
         </a>
@@ -46,7 +46,7 @@ export default function SIPWidgetClient() {
         }
         .calculator-card {
           box-shadow: none !important;
-          border: 1px solid #e2e8f0;
+          border: 1px solid #e5e7eb;
         }
         .article-content {
           display: none;

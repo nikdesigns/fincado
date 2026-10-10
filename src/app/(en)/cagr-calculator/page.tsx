@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/cagr-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/cagr-calculator/',
+      'hi-IN': 'https://fincado.com/hi/cagr-calculator/',
+      'x-default': 'https://fincado.com/cagr-calculator/',
+    },
   },
   openGraph: {
     title: 'CAGR Calculator – Calculate Investment Returns Accurately',

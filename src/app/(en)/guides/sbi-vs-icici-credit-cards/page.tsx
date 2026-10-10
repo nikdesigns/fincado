@@ -63,6 +63,14 @@ export const metadata: Metadata = {
       'An issuer-level look at SBI Card and ICICI Bank credit cards — reach, fees, rewards style and app experience — with real card examples.',
     url: 'https://fincado.com/guides/sbi-vs-icici-credit-cards/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

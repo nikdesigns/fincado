@@ -50,6 +50,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/gst-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/gst-calculator/',
+      'hi-IN': 'https://fincado.com/hi/gst-calculator/',
+      'x-default': 'https://fincado.com/gst-calculator/',
+    },
   },
   openGraph: {
     title: 'GST Calculator 2026 – Calculate GST Tax Instantly',

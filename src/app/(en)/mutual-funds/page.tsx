@@ -46,6 +46,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/mutual-funds/',
+    languages: {
+      'en-IN': 'https://fincado.com/mutual-funds/',
+      'hi-IN': 'https://fincado.com/hi/mutual-funds/',
+      'x-default': 'https://fincado.com/mutual-funds/',
+    },
   },
   openGraph: {
     title: 'Mutual Fund Calculator – Optimize Your Portfolio',
@@ -53,6 +58,14 @@ export const metadata: Metadata = {
       'Free tool to simulate multi-asset portfolio growth with inflation adjustment.',
     url: 'https://fincado.com/mutual-funds/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

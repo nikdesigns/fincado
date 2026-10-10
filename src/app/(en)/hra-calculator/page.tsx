@@ -57,6 +57,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/hra-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/hra-calculator/',
+      'hi-IN': 'https://fincado.com/hi/hra-calculator/',
+      'x-default': 'https://fincado.com/hra-calculator/',
+    },
   },
   openGraph: {
     title: 'HRA Calculator 2026 – Calculate Tax-Free Rent Allowance',

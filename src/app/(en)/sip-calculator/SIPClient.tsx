@@ -766,12 +766,12 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                     x2="0"
                     y2="1"
                   >
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0.2} />
+                    <stop offset="5%" stopColor="#2d7aff" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#2d7aff" stopOpacity={0.2} />
                   </linearGradient>
                   <linearGradient id="colorReturns" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0.2} />
+                    <stop offset="5%" stopColor="#92c65b" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#92c65b" stopOpacity={0.2} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -797,7 +797,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                   type="monotone"
                   dataKey="cumulativeInvestment"
                   name={t.totalAmountInvested}
-                  stroke="#6366f1"
+                  stroke="#2d7aff"
                   fillOpacity={1}
                   fill="url(#colorInvested)"
                 />
@@ -805,7 +805,7 @@ export default function SIPCalculatorClient({ labels }: SIPClientProps) {
                   type="monotone"
                   dataKey="cumulativeMaturity"
                   name={t.maturityAmount}
-                  stroke="#10b981"
+                  stroke="#92c65b"
                   fillOpacity={1}
                   fill="url(#colorReturns)"
                 />

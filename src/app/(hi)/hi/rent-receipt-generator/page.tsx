@@ -54,6 +54,14 @@ export const metadata: Metadata = {
       'HRA छूट के लिए HR द्वारा स्वीकृत रेंट रसीद तुरंत बनाएं। प्रोफेशनल फॉर्मेट और रेवेन्यू स्टाम्प के नियमों के साथ।',
     url: 'https://fincado.com/hi/rent-receipt-generator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/car-loan/',
+    languages: {
+      'en-IN': 'https://fincado.com/loans/car-loan/',
+      'hi-IN': 'https://fincado.com/hi/loans/car-loan/',
+      'x-default': 'https://fincado.com/loans/car-loan/',
+    },
   },
   openGraph: {
     title: 'Car Loan EMI Calculator - Calculate Auto Loan EMI Online',

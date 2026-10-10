@@ -10,12 +10,6 @@ export function EducationLoanSchemas() {
       price: '0',
       priceCurrency: 'INR',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '2956',
-      bestRating: '5',
-    },
     featureList: [
       'Education Loan EMI Calculation',
       'Section 80E Tax Benefit Calculator',
@@ -33,25 +27,25 @@ export function EducationLoanSchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'EMI Calculator',
-        item: 'https://fincado.com/emi-calculator',
+        item: 'https://fincado.com/emi-calculator/',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: 'Education Loan EMI Calculator',
-        item: 'https://fincado.com/emi-calculator/education-loan',
+        item: 'https://fincado.com/emi-calculator/education-loan/',
       }
     ],
   };

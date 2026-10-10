@@ -51,6 +51,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/gratuity-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/gratuity-calculator/',
+      'hi-IN': 'https://fincado.com/hi/gratuity-calculator/',
+      'x-default': 'https://fincado.com/gratuity-calculator/',
+    },
   },
   openGraph: {
     title: 'Gratuity Calculator 2026 – Calculate Your Gratuity Amount',

@@ -40,7 +40,7 @@ import {
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'SWP कैलकुलेटर 2026 – सिस्टमैटिक विड्रॉल प्लान कैलकुलेटर | Fincado',
+  title: 'SWP कैलकुलेटर 2026 – सिस्टमैटिक विड्रॉल प्लान कैलकुलेटर',
   description:
     'SWP Calculator Hindi: म्यूचुअल फंड से सिस्टमैटिक विड्रॉल प्लान रिटर्न की गणना करें। निवेश से नियमित आय की योजना बनाएं, कोष स्थिरता जांचें, निकासी रणनीतियां और 2026 के लिए रिटायरमेंट आय योजना।',
   keywords: [
@@ -67,6 +67,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/swp-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-swp-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

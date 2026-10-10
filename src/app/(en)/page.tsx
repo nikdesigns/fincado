@@ -28,7 +28,14 @@ export const metadata: Metadata = {
   title: 'Compare Home Loan Rates from 25+ Banks | EMI Calculator | Fincado',
   description:
     'Compare home loan interest rates from 25+ Indian banks and NBFCs side-by-side. Model EMI impact, analyse rate gaps, and make a data-backed borrowing decision. Updated for 2026.',
-  alternates: { canonical: 'https://fincado.com/' },
+  alternates: {
+    canonical: 'https://fincado.com/',
+    languages: {
+      'en-IN': 'https://fincado.com/',
+      'hi-IN': 'https://fincado.com/hi/',
+      'x-default': 'https://fincado.com/',
+    },
+  },
   openGraph: {
     title: 'Compare Home Loan Rates from 25+ Banks | Fincado',
     description:

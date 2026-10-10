@@ -8,7 +8,7 @@ const LAST_UPDATED = 'April 19, 2026';
 const SUPPORT_EMAIL = 'support@fincado.com';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Fincado Trust Center',
+  title: { absolute: 'Privacy Policy | Fincado Trust Center' },
   description:
     'Learn how Fincado collects, uses, protects, and manages user information across calculators, guides, analytics, and advertising systems.',
   keywords: [
@@ -26,6 +26,14 @@ export const metadata: Metadata = {
       'Data handling, cookies, analytics, security, and user rights for Fincado visitors.',
     url: PAGE_URL,
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

@@ -63,6 +63,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/mutual-funds/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

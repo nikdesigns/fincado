@@ -49,6 +49,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/apy-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/apy-calculator/',
+      'hi-IN': 'https://fincado.com/hi/apy-calculator/',
+      'x-default': 'https://fincado.com/apy-calculator/',
+    },
   },
   openGraph: {
     title: 'APY Calculator 2026 – Guaranteed Pension for Life',

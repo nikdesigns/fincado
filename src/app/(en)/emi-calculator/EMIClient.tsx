@@ -1202,17 +1202,17 @@ export default function EMIClient({
                   data={repaymentInsights.chartData}
                   margin={{ top: 10, right: 8, left: 8, bottom: 8 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                   <XAxis
                     dataKey="yearLabel"
-                    tick={{ fontSize: 12, fill: '#64748b', fontWeight: 600 }}
+                    tick={{ fontSize: 12, fill: '#6b7280', fontWeight: 600 }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <YAxis
                     yAxisId="cashflow"
                     tickFormatter={(value) => `₹${Number(value).toFixed(1)}L`}
-                    tick={{ fontSize: 11, fill: '#64748b' }}
+                    tick={{ fontSize: 11, fill: '#6b7280' }}
                     axisLine={false}
                     tickLine={false}
                     width={56}
@@ -1221,7 +1221,7 @@ export default function EMIClient({
                     yAxisId="balance"
                     orientation="right"
                     tickFormatter={(value) => `₹${Number(value).toFixed(1)}L`}
-                    tick={{ fontSize: 11, fill: '#475569' }}
+                    tick={{ fontSize: 11, fill: '#4b5563' }}
                     axisLine={false}
                     tickLine={false}
                     width={56}
@@ -1253,7 +1253,7 @@ export default function EMIClient({
                     }}
                     contentStyle={{
                       borderRadius: '10px',
-                      border: '1px solid #e2e8f0',
+                      border: '1px solid #e5e7eb',
                       boxShadow: '0 8px 24px -8px rgb(15 23 42 / 0.2)',
                     }}
                   />
@@ -1267,7 +1267,7 @@ export default function EMIClient({
                     dataKey="interestPaidLakhs"
                     name={t.interestPaid}
                     stackId="cashflow"
-                    fill="#fb923c"
+                    fill="#ff9f4c"
                     radius={[4, 4, 0, 0]}
                     maxBarSize={30}
                   />
@@ -1276,7 +1276,7 @@ export default function EMIClient({
                     dataKey="principalPaidLakhs"
                     name={t.principalPaid}
                     stackId="cashflow"
-                    fill="#84cc16"
+                    fill="#92c65b"
                     radius={[4, 4, 0, 0]}
                     maxBarSize={30}
                   />
@@ -1285,7 +1285,7 @@ export default function EMIClient({
                     type="monotone"
                     dataKey="closingBalanceLakhs"
                     name={t.closingBalance}
-                    stroke="#1e293b"
+                    stroke="#1f2937"
                     strokeWidth={2.5}
                     dot={false}
                   />
@@ -1293,7 +1293,7 @@ export default function EMIClient({
                   {repaymentInsights.crossoverYear && (
                     <ReferenceLine
                       x={`Y${repaymentInsights.crossoverYear}`}
-                      stroke="#475569"
+                      stroke="#4b5563"
                       strokeDasharray="5 5"
                     />
                   )}
@@ -1346,16 +1346,16 @@ export default function EMIClient({
                         }`}
                       >
                         <td className="p-3 font-medium">{row.year}</td>
-                        <td className="p-3 text-right text-[#2874A6]">
+                        <td className="p-3 text-right text-[#205EDB]">
                           {formatINR(row.openingBalance)}
                         </td>
-                        <td className="p-3 text-right text-[#2E7D32]">
+                        <td className="p-3 text-right text-[#408E1A]">
                           {formatINR(row.principalPaid)}
                         </td>
-                        <td className="p-3 text-right text-[#C45D2C]">
+                        <td className="p-3 text-right text-[#DB7A37]">
                           {formatINR(row.interestPaid)}
                         </td>
-                        <td className="p-3 text-right font-semibold text-[#1E4A6F]">
+                        <td className="p-3 text-right font-semibold text-[#08217A]">
                           {formatINR(row.closingBalance)}
                         </td>
                       </tr>

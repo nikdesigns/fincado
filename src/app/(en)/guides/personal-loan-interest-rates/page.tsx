@@ -39,7 +39,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Personal Loan Interest Rates (2026): Compare All Banks | Fincado',
+  title: 'Personal Loan Interest Rates (2026): Compare All Banks',
   description:
     'Compare current personal loan interest rates of HDFC, SBI, ICICI, Axis, and top NBFCs. Check lowest rates starting from 10.25% and processing fees. Updated 2026.',
   keywords: [

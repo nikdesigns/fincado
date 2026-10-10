@@ -29,7 +29,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'होम लोन EMI कैलकुलेटर – ब्याज और टैक्स छूट की गणना करें | Fincado',
+  title: 'होम लोन EMI कैलकुलेटर – ब्याज और टैक्स छूट की गणना करें',
   description:
     'Fincado होम लोन कैलकुलेटर (Hindi): अपनी मासिक किस्त (EMI) जानें, कुल ब्याज की गणना करें और टैक्स छूट (Section 80C, 24b) का लाभ उठाएं।',
   keywords: [
@@ -51,6 +51,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/loans/home-loan/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-home-loan-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

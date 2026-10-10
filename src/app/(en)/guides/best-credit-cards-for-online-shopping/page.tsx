@@ -53,6 +53,14 @@ export const metadata: Metadata = {
       'A ranked comparison of India\'s best credit cards for Amazon, Flipkart, Myntra and other online shopping.',
     url: 'https://fincado.com/guides/best-credit-cards-for-online-shopping/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

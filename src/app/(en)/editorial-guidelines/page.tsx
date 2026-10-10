@@ -7,7 +7,7 @@ const LAST_UPDATED = 'April 19, 2026';
 const SUPPORT_EMAIL = 'support@fincado.com';
 
 export const metadata: Metadata = {
-  title: 'Editorial Guidelines | Fincado Trust Center',
+  title: { absolute: 'Editorial Guidelines | Fincado Trust Center' },
   description:
     'How Fincado researches, verifies, updates, and maintains financial content quality, including correction workflows and editorial independence standards.',
   keywords: [
@@ -25,6 +25,14 @@ export const metadata: Metadata = {
       'Fincado editorial standards for research, verification, updates, and correction policies.',
     url: PAGE_URL,
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

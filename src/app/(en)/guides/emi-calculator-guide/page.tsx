@@ -39,7 +39,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'EMI Calculator Guide 2026: Formula, Home Loan EMI, Prepayment & Tax Benefits | Fincado',
+    'EMI Calculator Guide 2026: Formula, Home Loan EMI, Prepayment & Tax Benefits',
   description:
     'Complete EMI Calculator Guide 2026: EMI formula, home loan/car loan/personal loan examples, tenure impact, prepayment savings, tax benefits, affordability rules, and practical mistakes to avoid.',
   keywords: [

@@ -60,6 +60,14 @@ export const metadata: Metadata = {
       'Discover the hidden impact of inflation and tax on your FD returns. A complete guide for smart savers.',
     url: 'https://fincado.com/guides/fd-truths/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

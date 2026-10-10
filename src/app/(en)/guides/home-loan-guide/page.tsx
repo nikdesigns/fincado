@@ -49,7 +49,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 // --- SEO METADATA (IMPROVED) ---
 export const metadata: Metadata = {
   title:
-    'Home Loan Guide India 2026: Eligibility, Interest Rates, EMI & Tax Benefits | Fincado',
+    'Home Loan Guide India 2026: Eligibility, Interest Rates, EMI & Tax Benefits',
   description:
     'Complete home loan guide for India: eligibility, FOIR, down payment, EMI calculation, and tax deductions under Sections 80C and 24(b).',
   keywords: [

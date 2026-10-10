@@ -10,12 +10,6 @@ export function CAGRSchemas() {
       price: '0',
       priceCurrency: 'INR',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '2634',
-      bestRating: '5',
-    },
     featureList: [
       'Compound Annual Growth Rate Calculation',
       'Investment Return Analysis',
@@ -33,19 +27,19 @@ export function CAGRSchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'CAGR Calculator',
-        item: 'https://fincado.com/cagr-calculator',
+        item: 'https://fincado.com/cagr-calculator/',
       }
     ],
   };

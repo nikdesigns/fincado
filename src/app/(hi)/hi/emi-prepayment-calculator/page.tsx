@@ -50,6 +50,14 @@ export const metadata: Metadata = {
       'आज ही पार्ट-पेमेंट (Part-payment) करके जानें कि आप अपने होम लोन से कितने साल कम कर सकते हैं और बैंक को देने वाले लाखों रुपये का ब्याज कैसे बचा सकते हैं।',
     url: 'https://fincado.com/hi/emi-prepayment-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

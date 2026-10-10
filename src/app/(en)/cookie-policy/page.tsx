@@ -15,6 +15,14 @@ export const metadata: Metadata = {
       'Cookie Policy for Fincado — learn how cookies, tracking technologies and AdSense are used on the site.',
     url: 'https://fincado.com/cookie-policy/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

@@ -51,9 +51,12 @@ const REDIRECTED_GUIDE_SLUGS = new Set([
   'new-vs-old-tax-regime-2025',
   'sukanya-samriddhi-yojana-guide-2025',
 ]);
+// Guides that carry robots noindex must stay out of the sitemap
+const NOINDEX_GUIDE_SLUGS = new Set(['investment-basics', 'investment-guide']);
 
 const shouldIncludeArticleInSitemap = (article: ArticleEntry): boolean => {
   if (REDIRECTED_GUIDE_SLUGS.has(article.slug)) return false;
+  if (NOINDEX_GUIDE_SLUGS.has(article.slug)) return false;
   if (!article.hidden) return true;
   return TAX_SALARY_SLUG_PATTERN.test(article.slug);
 };
@@ -100,8 +103,8 @@ const withLangAlternates = (
 
   return {
     languages: {
-      en: getUrl(enPath),
-      hi: getUrl(hiPath),
+      'en-IN': getUrl(enPath),
+      'hi-IN': getUrl(hiPath),
     },
   };
 };
@@ -138,14 +141,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DEFAULT_LAST_MODIFIED,
       changeFrequency: 'weekly',
       priority: route === '' ? PRIORITY.HOMEPAGE : PRIORITY.MEDIUM_HIGH,
-      alternates:
-        route === '/calculators'
-          ? withLangAlternates('/calculators', '/hi/calculators')
-          : route === '/guides'
-            ? withLangAlternates('/guides', '/hi/guides')
-            : route === '/credit-score'
-              ? withLangAlternates('/credit-score', '/hi/credit-score')
-              : undefined,
+      alternates: ['', '/calculators', '/guides', '/loans', '/credit-score'].includes(
+        route,
+      )
+        ? withLangAlternates(route, `/hi${route}`)
+        : undefined,
     }),
   );
 
@@ -235,6 +235,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const informationalPages: MetadataRoute.Sitemap = [
     '/about',
     '/contact',
+    '/faq',
+    '/cookie-policy',
     '/investing',
     '/savings',
     '/mutual-funds',
@@ -248,6 +250,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DEFAULT_LAST_MODIFIED,
       changeFrequency: 'yearly',
       priority: PRIORITY.LOW,
+      alternates:
+        route === '/mutual-funds'
+          ? withLangAlternates('/mutual-funds', '/hi/mutual-funds')
+          : undefined,
     }),
   );
 
@@ -287,8 +293,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DEFAULT_LAST_MODIFIED,
       changeFrequency: 'weekly',
       priority: PRIORITY.MEDIUM_LOW,
+      alternates: withLangAlternates(route.replace(/^\/hi/, ''), route),
     }),
   );
+
+  // Every Hindi twin of a paired page gets its own <loc> entry
+  // (hreflang in a sitemap only works when each language URL is listed).
+  const hindiPairedPages: MetadataRoute.Sitemap = [
+    ...coreCalculatorPairs,
+    ...investmentCalculatorPairs,
+    ...retirementCalculatorPairs,
+    ...taxUtilityCalculatorPairs,
+    ...loanPagePairs,
+  ]
+    .filter((pair): pair is [string, string] => Boolean(pair[1]))
+    .map(([en, hi]) =>
+      makeEntry(hi, {
+        lastModified: DEFAULT_LAST_MODIFIED,
+        changeFrequency: 'monthly',
+        priority: PRIORITY.MEDIUM_LOW,
+        alternates: withLangAlternates(en, hi),
+      }),
+    );
 
   /* ---------------- 3. GUIDES (DYNAMIC FROM JSON) ---------------- */
   const typedArticles = articlesData as ArticleEntry[];
@@ -318,8 +344,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             ENABLE_ALTERNATES && pair.hi
               ? {
                   languages: {
-                    en: getUrl(`/guides/${slug}`),
-                    hi: getUrl(`/hi/guides/${slug}`),
+                    'en-IN': getUrl(`/guides/${slug}`),
+                    'hi-IN': getUrl(`/hi/guides/${slug}`),
                   },
                 }
               : undefined,
@@ -327,7 +353,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       );
     }
 
-    if (pair.hi && !pair.en) {
+    if (pair.hi) {
       const lastModified = parseDate(
         pair.hi.updated || pair.hi.modified || pair.hi.published,
       );
@@ -337,6 +363,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
           lastModified,
           changeFrequency: 'monthly',
           priority: PRIORITY.MEDIUM,
+          alternates:
+            ENABLE_ALTERNATES && pair.en
+              ? {
+                  languages: {
+                    'en-IN': getUrl(`/guides/${slug}`),
+                    'hi-IN': getUrl(`/hi/guides/${slug}`),
+                  },
+                }
+              : undefined,
         }),
       );
     }
@@ -405,6 +440,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...bankHubRoutes,
     ...carEmiRoutes,
     ...hindiStandalonePages,
+    ...hindiPairedPages,
     ...informationalPages,
   ];
 

@@ -1206,15 +1206,15 @@ export default function SWPClient({ labels }: { labels?: Partial<SWPLabels> }) {
                   type="monotone"
                   dataKey="closingBalance"
                   name={t.remainingCorpus}
-                  stroke="#8b5cf6"
+                  stroke="#2d7aff"
                   strokeWidth={3}
-                  dot={{ fill: '#8b5cf6', r: 4 }}
+                  dot={{ fill: '#2d7aff', r: 4 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="totalWithdrawn"
                   name={t.totalWithdrawn}
-                  stroke="#84cc16"
+                  stroke="#92c65b"
                   strokeWidth={2}
                   strokeDasharray="5 5"
                 />

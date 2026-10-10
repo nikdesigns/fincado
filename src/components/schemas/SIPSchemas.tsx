@@ -10,12 +10,6 @@ export function SIPSchemas() {
       price: '0',
       priceCurrency: 'INR',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '3127',
-      bestRating: '5',
-    },
     featureList: [
       'Mutual Fund SIP Return Calculation',
       'Total Investment and Wealth Gain',
@@ -33,19 +27,19 @@ export function SIPSchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'SIP Calculator',
-        item: 'https://fincado.com/sip-calculator',
+        item: 'https://fincado.com/sip-calculator/',
       }
     ],
   };

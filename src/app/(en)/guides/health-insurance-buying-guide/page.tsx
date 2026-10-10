@@ -50,6 +50,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/health-insurance-buying-guide/',
+    languages: {
+      'en-IN': 'https://fincado.com/guides/health-insurance-buying-guide/',
+      'hi-IN': 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
+      'x-default': 'https://fincado.com/guides/health-insurance-buying-guide/',
+    },
   },
   openGraph: {
     title: 'Health Insurance Buying Guide: 5 Things to Check Before Buying',

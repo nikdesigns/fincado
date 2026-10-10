@@ -44,6 +44,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/personal-loan/',
+    languages: {
+      'en-IN': 'https://fincado.com/loans/personal-loan/',
+      'hi-IN': 'https://fincado.com/hi/loans/personal-loan/',
+      'x-default': 'https://fincado.com/loans/personal-loan/',
+    },
   },
   openGraph: {
     title: 'Personal Loan EMI Calculator - Calculate Instant Loan EMI Online',

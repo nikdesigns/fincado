@@ -61,6 +61,14 @@ export const metadata: Metadata = {
       'Compare the top fuel-focused credit cards in India on fees, reward rates, and eligibility before you apply.',
     url: 'https://fincado.com/guides/best-fuel-credit-cards/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

@@ -79,6 +79,14 @@ export const metadata: Metadata = {
       'Find out the exact date your money will double under the Government of India Kisan Vikas Patra scheme at 7.5% interest.',
     url: 'https://fincado.com/kvp-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

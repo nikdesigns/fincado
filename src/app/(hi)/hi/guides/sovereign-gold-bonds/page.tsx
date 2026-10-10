@@ -40,7 +40,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Sovereign Gold Bond (SGB) Guide Hindi: ब्याज, टैक्स और नियम | Fincado',
+    'Sovereign Gold Bond (SGB) Guide Hindi: ब्याज, टैक्स और नियम',
   description:
     'SGB Guide in Hindi: Sovereign Gold Bond क्या है? जानें 2.5% ब्याज, टैक्स फ्री रिटर्न और मैच्योरिटी के नियम। Physical Gold vs SGB की पूरी तुलना।',
   keywords: [

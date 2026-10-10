@@ -51,6 +51,14 @@ export const metadata: Metadata = {
       'See exactly how many years and lakhs you can save by making a part-payment on your home loan today.',
     url: 'https://fincado.com/emi-prepayment-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

@@ -59,6 +59,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/simple-interest-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/simple-interest-calculator/',
+      'hi-IN': 'https://fincado.com/hi/simple-interest-calculator/',
+      'x-default': 'https://fincado.com/simple-interest-calculator/',
+    },
   },
   openGraph: {
     title: 'Simple Interest Calculator 2026 – Avoid Flat Rate Traps',

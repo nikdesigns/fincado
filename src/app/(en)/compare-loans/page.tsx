@@ -140,7 +140,7 @@ const faqItems: FaqItem[] = [
 ];
 
 export const metadata: Metadata = {
-  title: `${pageTitle} | Fincado`,
+  title: pageTitle,
   description:
     'Compare loan offers from top banks side-by-side. Calculate EMI, total interest, total repayment, and key charges to find the most cost-effective loan.',
   keywords: [

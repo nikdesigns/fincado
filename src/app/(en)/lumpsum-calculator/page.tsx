@@ -51,6 +51,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/lumpsum-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/lumpsum-calculator/',
+      'hi-IN': 'https://fincado.com/hi/lumpsum-calculator/',
+      'x-default': 'https://fincado.com/lumpsum-calculator/',
+    },
   },
   openGraph: {
     title: 'Lumpsum Calculator 2026 – Calculate One-Time Investment Returns',

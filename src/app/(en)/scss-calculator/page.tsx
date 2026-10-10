@@ -80,6 +80,14 @@ export const metadata: Metadata = {
       'Plan your retirement with confidence. Calculate exact quarterly payouts from the Government-backed Senior Citizen Savings Scheme at 8.2% interest.',
     url: 'https://fincado.com/scss-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

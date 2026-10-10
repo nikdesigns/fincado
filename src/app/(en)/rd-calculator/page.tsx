@@ -63,6 +63,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/rd-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/rd-calculator/',
+      'hi-IN': 'https://fincado.com/hi/rd-calculator/',
+      'x-default': 'https://fincado.com/rd-calculator/',
+    },
   },
   openGraph: {
     title: 'RD Calculator 2026 – Recurring Deposit Maturity Calculator',

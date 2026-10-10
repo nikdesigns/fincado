@@ -23,7 +23,7 @@ interface Props {
 }
 
 const STARTING_RATE_COLOR = '#577A30';
-const MAX_RATE_COLOR = '#1E293B';
+const MAX_RATE_COLOR = '#1F2937';
 const SAMPLE_PRINCIPAL = 5000000; // ₹50L
 const SAMPLE_YEARS = 20;
 
@@ -183,18 +183,18 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
                 <CartesianGrid
                   strokeDasharray="3 3"
                   vertical={false}
-                  stroke="#e2e8f0"
+                  stroke="#e5e7eb"
                 />
                 <XAxis
                   dataKey="shortName"
-                  tick={{ fontSize: 12, fontWeight: 600, fill: '#334155' }}
+                  tick={{ fontSize: 12, fontWeight: 600, fill: '#374151' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
                   domain={[chartMin, chartMax]}
                   tickFormatter={(value: number) => `${value}%`}
-                  tick={{ fontSize: 12, fill: '#64748b' }}
+                  tick={{ fontSize: 12, fill: '#6b7280' }}
                   width={42}
                   axisLine={false}
                   tickLine={false}
@@ -220,10 +220,10 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
                   }}
                   contentStyle={{
                     borderRadius: '10px',
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid #e5e7eb',
                     boxShadow: '0 8px 24px -8px rgb(15 23 42 / 0.2)',
                   }}
-                  labelStyle={{ color: '#0f172a', fontWeight: 700 }}
+                  labelStyle={{ color: '#111827', fontWeight: 700 }}
                 />
                 <Legend
                   verticalAlign="top"
@@ -255,7 +255,7 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
                             : 0;
                       return formatRate(numericValue);
                     }}
-                    fill="#0f172a"
+                    fill="#111827"
                     fontSize={12}
                     fontWeight={700}
                   />
@@ -279,7 +279,7 @@ export default function RateComparisonChart({ b1, b2 }: Props) {
                             : 0;
                       return formatRate(numericValue);
                     }}
-                    fill="#334155"
+                    fill="#374151"
                     fontSize={11}
                     fontWeight={600}
                   />

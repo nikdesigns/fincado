@@ -6,7 +6,7 @@ export function InflationSchemas() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Fincado',
-    url: 'https://fincado.com',
+    url: 'https://fincado.com/',
     logo: '/logo.png',
   };
 
@@ -117,7 +117,7 @@ export function InflationSchemas() {
     author: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     publisher: {
       '@type': 'Organization',

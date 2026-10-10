@@ -53,6 +53,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/guides/sip-vs-fd/',
+    languages: {
+      'en-IN': 'https://fincado.com/guides/sip-vs-fd/',
+      'hi-IN': 'https://fincado.com/hi/guides/sip-vs-fd/',
+      'x-default': 'https://fincado.com/guides/sip-vs-fd/',
+    },
   },
   openGraph: {
     title: 'SIP vs FD: The Battle for Your Savings (2025 Edition)',

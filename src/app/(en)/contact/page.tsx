@@ -21,7 +21,7 @@ const PRESS_EMAIL = 'press@fincado.com';
 const OFFICE_ADDRESS = 'Mumbai, Maharashtra, India';
 
 export const metadata: Metadata = {
-  title: 'Contact Support | Fincado Trust Center',
+  title: { absolute: 'Contact Support | Fincado Trust Center' },
   description:
     'Contact Fincado support for calculator issues, corrections, partnerships, media requests, and editorial feedback.',
   keywords: [
@@ -39,6 +39,14 @@ export const metadata: Metadata = {
       'Reach Fincado for support, corrections, partnerships, and media communication.',
     url: PAGE_URL,
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

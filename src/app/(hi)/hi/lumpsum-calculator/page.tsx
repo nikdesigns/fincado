@@ -34,7 +34,7 @@ import {
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'Lumpsum कैलकुलेटर 2026 – एकमुश्त निवेश रिटर्न कैलकुलेटर | Fincado',
+  title: 'Lumpsum कैलकुलेटर 2026 – एकमुश्त निवेश रिटर्न कैलकुलेटर',
   description:
     'Lumpsum Calculator Hindi: म्यूचुअल फंड एकमुश्त निवेश पर कंपाउंड ब्याज के साथ रिटर्न की गणना करें। Lumpsum vs SIP रिटर्न की तुलना करें, CAGR जांचें, निवेश मल्टीपल और 2026 के लिए एकमुश्त निवेश रणनीतियों की योजना बनाएं।',
   keywords: [
@@ -60,6 +60,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/lumpsum-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-lumpsum-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

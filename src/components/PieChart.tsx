@@ -44,7 +44,7 @@ export default function PieChart({
           cy={cy}
           r={r}
           fill="none"
-          stroke="#f2fce9"
+          stroke="#f7fdf1"
           strokeWidth={strokeWidth}
         />
 
@@ -55,7 +55,7 @@ export default function PieChart({
             cy={cy}
             r={r}
             fill="none"
-            stroke="#a1e76f"
+            stroke="#b0ec70"
             strokeWidth={strokeWidth}
             strokeDasharray={`${interestLength} ${circumference}`}
             strokeLinecap="round"
@@ -78,7 +78,7 @@ export default function PieChart({
           textAnchor="middle"
           fontWeight={700}
           fontSize={size * 0.075} /* Adjusted font size to fit */
-          fill="#0f172a"
+          fill="#111827"
           dominantBaseline="auto"
         >
           {principalPct}% / {interestPct}%

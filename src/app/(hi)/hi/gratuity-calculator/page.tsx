@@ -64,6 +64,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/gratuity-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-gratuity-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

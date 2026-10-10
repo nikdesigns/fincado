@@ -596,7 +596,7 @@ export default function CreditScoreClient({
                     <path
                       d="M 20 100 A 80 80 0 0 1 180 100"
                       fill="none"
-                      stroke="#e2e8f0"
+                      stroke="#e5e7eb"
                       strokeWidth="20"
                       strokeLinecap="round"
                     />
@@ -607,14 +607,14 @@ export default function CreditScoreClient({
                       fill="none"
                       stroke={
                         score >= 750
-                          ? '#10b981'
+                          ? '#92c65b'
                           : score >= 700
-                            ? '#84cc16'
+                            ? '#92c65b'
                             : score >= 650
-                              ? '#eab308'
+                              ? '#ffd093'
                               : score >= 600
-                                ? '#f97316'
-                                : '#ef4444'
+                                ? '#ff9f4c'
+                                : '#ff568e'
                       }
                       strokeWidth="20"
                       strokeLinecap="round"

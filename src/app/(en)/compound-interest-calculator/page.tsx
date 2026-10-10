@@ -60,6 +60,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/compound-interest-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/compound-interest-calculator/',
+      'hi-IN': 'https://fincado.com/hi/compound-interest-calculator/',
+      'x-default': 'https://fincado.com/compound-interest-calculator/',
+    },
   },
   openGraph: {
     title: 'Compound Interest Calculator 2026 – Exponential Growth',

@@ -121,7 +121,7 @@ function ELSSPieChart({
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="#f1f5f9"
+            stroke="#f3f4f6"
             strokeWidth={strokeWidth}
           />
 

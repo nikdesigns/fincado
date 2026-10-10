@@ -6,7 +6,7 @@ export function CreditScoreSchemas() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Fincado',
-    url: 'https://fincado.com',
+    url: 'https://fincado.com/',
     logo: '/logo.png',
   };
 
@@ -135,7 +135,7 @@ export function CreditScoreSchemas() {
     author: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     publisher: {
       '@type': 'Organization',

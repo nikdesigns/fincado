@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/goal-planning-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/goal-planning-calculator/',
+      'hi-IN': 'https://fincado.com/hi/goal-planning-calculator/',
+      'x-default': 'https://fincado.com/goal-planning-calculator/',
+    },
   },
   openGraph: {
     title: 'Goal Planning Calculator – Plan Your Financial Goals',

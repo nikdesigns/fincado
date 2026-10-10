@@ -27,7 +27,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'गोल प्लानिंग कैलकुलेटर – वित्तीय लक्ष्य योजना | Fincado',
+  title: 'गोल प्लानिंग कैलकुलेटर – वित्तीय लक्ष्य योजना',
   description:
     'Fincado गोल प्लानिंग कैलकुलेटर (Hindi): रिटायरमेंट, शिक्षा, घर खरीद के लिए मासिक SIP या एकमुश्त निवेश की गणना करें। मुद्रास्फीति समायोजन के साथ।',
   keywords: [
@@ -52,6 +52,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/goal-planning-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

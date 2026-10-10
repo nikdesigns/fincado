@@ -58,6 +58,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/credit-score/',
+    languages: {
+      'en-IN': 'https://fincado.com/credit-score/',
+      'hi-IN': 'https://fincado.com/hi/credit-score/',
+      'x-default': 'https://fincado.com/credit-score/',
+    },
   },
   openGraph: {
     title: 'Credit Score Calculator 2026 – Boost Your CIBIL to 750+',

@@ -78,6 +78,14 @@ export const metadata: Metadata = {
       'इंडिया पोस्ट (India Post) MIS से अपनी सटीक मासिक आय निकालें। समय से पहले खाता बंद करने पर लगने वाली पेनाल्टी का लाइव सिम्युलेटर भी शामिल है।',
     url: 'https://fincado.com/hi/pomis-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonical = `${SITE_URL}/guides/category/${normalized}/`;
 
   return {
-    title: `${formatCategory(normalized)} Guides | Fincado`,
+    title: `${formatCategory(normalized)} Guides`,
     description: `Expert ${formatCategory(
       normalized
     )} guides to help you make smarter financial decisions.`,
@@ -117,7 +117,7 @@ export default async function CategoryPage({ params }: Props) {
         style={{
           marginTop: 48,
           paddingTop: 24,
-          borderTop: '1px solid #e2e8f0',
+          borderTop: '1px solid #e5e7eb',
         }}
       >
         <AdSlot

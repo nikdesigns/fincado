@@ -34,7 +34,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'NSC कैलकुलेटर 2026 – राष्ट्रीय बचत पत्र परिपक्वता गणना | Fincado',
+  title: 'NSC कैलकुलेटर 2026 – राष्ट्रीय बचत पत्र परिपक्वता गणना',
   description:
     '7.7% ब्याज दर के साथ NSC परिपक्वता राशि की गणना करें। 5 साल की निश्चित अवधि और Section 80C कर लाभ। सरकारी गारंटी के साथ सुरक्षित निवेश।',
   keywords: [
@@ -62,6 +62,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/nsc-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

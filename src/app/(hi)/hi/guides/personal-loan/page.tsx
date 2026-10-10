@@ -44,7 +44,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'पर्सनल लोन (Personal Loan) हिंदी गाइड: ब्याज, नियम और फायदे | Fincado',
+    'पर्सनल लोन (Personal Loan) हिंदी गाइड: ब्याज, नियम और फायदे',
   description:
     'Personal Loan Guide in Hindi: ब्याज दरें, EMI कैलकुलेशन, और लोन लेने से पहले की सावधानियां। जानें कि पर्सनल लोन आपके लिए सही है या नहीं।',
   keywords: [

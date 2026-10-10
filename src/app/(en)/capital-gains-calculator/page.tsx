@@ -51,6 +51,14 @@ export const metadata: Metadata = {
       'Instantly calculate tax on your investment profits with latest budget rules. Equity, Debt & Real Estate covered.',
     url: 'https://fincado.com/capital-gains-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

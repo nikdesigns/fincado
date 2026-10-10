@@ -21,32 +21,28 @@ const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 // Brand UI font (neutral internal naming)
 const fincadoSans = localFont({
+  // Open Sauce One (SIL OFL) — the Nextwealth design-system typeface
   src: [
     {
-      path: '../../../public/fonts/FincadoBrand-Light.otf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/fonts/FincadoBrand-Regular.otf',
+      path: '../../../public/fonts/OpenSauceOne-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../../public/fonts/FincadoBrand-Semibold.otf',
+      path: '../../../public/fonts/OpenSauceOne-SemiBold.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../../../public/fonts/FincadoBrand-Semibold.otf',
+      path: '../../../public/fonts/OpenSauceOne-SemiBold.woff2',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../../../public/fonts/FincadoBrand-Bold.otf',
+      path: '../../../public/fonts/OpenSauceOne-Bold.woff2',
       weight: '700',
       style: 'normal',
-    }
+    },
   ],
   display: 'swap',
   variable: '--font-fincado-sans',
@@ -98,6 +94,9 @@ export const metadata: Metadata = {
       }
     ],
   },
+  twitter: {
+    card: 'summary_large_image',
+  },
   robots: {
     index: true,
     follow: true,
@@ -145,7 +144,7 @@ export default function EnglishRootLayout({
         />
       </head>
 
-      <body className={fincadoSans.className}>
+      <body className={fincadoSans.variable}>
         <SiteTrustSchema />
 
         {/* Cookieless first-party analytics (no cookies/storage) */}
@@ -160,7 +159,7 @@ export default function EnglishRootLayout({
 
         {/* Loading Bar */}
         <NextTopLoader
-          color="#80d843"
+          color="#92c65b"
           initialPosition={0.08}
           crawlSpeed={200}
           height={3}
@@ -168,7 +167,7 @@ export default function EnglishRootLayout({
           showSpinner={false}
           easing="ease"
           speed={200}
-          shadow="0 0 10px #16a34a,0 0 5px #16a34a"
+          shadow="0 0 10px #74a046,0 0 5px #74a046"
         />
 
         {/* Notifications */}

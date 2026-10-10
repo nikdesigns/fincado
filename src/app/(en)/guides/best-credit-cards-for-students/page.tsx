@@ -56,6 +56,14 @@ export const metadata: Metadata = {
       'A narrow, honest look at credit card options for students in India, including FD-backed cards that need no income proof.',
     url: 'https://fincado.com/guides/best-credit-cards-for-students/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

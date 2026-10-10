@@ -53,6 +53,14 @@ export const metadata: Metadata = {
       'बजट 2026 के नए नियमों के अनुसार अपने निवेश (Equity, Debt, Real Estate) के मुनाफे पर टैक्स की गणना तुरंत करें।',
     url: 'https://fincado.com/hi/capital-gains-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

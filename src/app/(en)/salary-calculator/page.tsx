@@ -52,6 +52,14 @@ export const metadata: Metadata = {
       'Calculate your exact monthly take-home salary from CTC. Includes latest New Tax Regime TDS and PF deductions.',
     url: 'https://fincado.com/salary-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

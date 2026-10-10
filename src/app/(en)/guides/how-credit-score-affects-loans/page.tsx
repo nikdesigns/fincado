@@ -35,7 +35,7 @@ import {
 
 // --- SEO METADATA ---
 export const metadata: Metadata = {
-  title: '7 Proven Ways to Increase Your CIBIL Score Above 750 | Fincado',
+  title: '7 Proven Ways to Increase Your CIBIL Score Above 750',
   description:
     'Struggling with a low credit score? Here are 7 actionable strategies to repair your CIBIL score, remove errors, and qualify for lower interest rate loans in 2025.',
   keywords: [

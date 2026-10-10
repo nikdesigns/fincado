@@ -27,7 +27,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'CAGR कैलकुलेटर – निवेश वृद्धि दर की गणना करें | Fincado',
+  title: 'CAGR कैलकुलेटर – निवेश वृद्धि दर की गणना करें',
   description:
     'Fincado CAGR कैलकुलेटर (Hindi): अपने निवेश की Compound Annual Growth Rate की गणना करें और जानें कि आपका पैसा कितनी तेजी से बढ़ा है।',
   keywords: [
@@ -51,6 +51,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/cagr-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

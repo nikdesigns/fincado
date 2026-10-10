@@ -55,8 +55,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: hiUrl, // Self-referencing canonical
       languages: {
-        hi: hiUrl, // Connects to Hindi version
-        ...(hasEnglishVariant ? { en: enUrl } : {}),
+        'hi-IN': hiUrl, // Connects to Hindi version
+        ...(hasEnglishVariant ? { 'en-IN': enUrl } : {}),
         'x-default': hasEnglishVariant ? enUrl : hiUrl,
       },
     },
@@ -158,7 +158,7 @@ export default async function HindiGuidePost({ params }: Props) {
         <header
           style={{
             marginBottom: 32,
-            borderBottom: '1px solid #e2e8f0',
+            borderBottom: '1px solid #e5e7eb',
             paddingBottom: 24,
           }}
         >
@@ -179,7 +179,7 @@ export default async function HindiGuidePost({ params }: Props) {
               fontSize: 'clamp(28px, 4vw, 42px)',
               lineHeight: 1.2,
               marginBottom: 16,
-              color: '#0f172a',
+              color: '#111827',
             }}
           >
             {article.title}
@@ -188,7 +188,7 @@ export default async function HindiGuidePost({ params }: Props) {
           <div
             style={{
               fontSize: 18,
-              color: '#64748b',
+              color: '#6b7280',
               lineHeight: 1.6,
             }}
           >
@@ -210,10 +210,10 @@ export default async function HindiGuidePost({ params }: Props) {
             style={{
               marginTop: 64,
               paddingTop: 32,
-              borderTop: '1px solid #e2e8f0',
+              borderTop: '1px solid #e5e7eb',
             }}
           >
-            <h3 style={{ marginBottom: 20, fontSize: 22, color: '#1e293b' }}>
+            <h3 style={{ marginBottom: 20, fontSize: 22, color: '#1f2937' }}>
               संबंधित लेख (Related Guides)
             </h3>
             <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
@@ -224,7 +224,7 @@ export default async function HindiGuidePost({ params }: Props) {
                     href={`/hi/guides/${g.slug}/`}
                     style={{
                       fontSize: 18,
-                      color: '#2563eb',
+                      color: '#2d7aff',
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}
@@ -242,10 +242,10 @@ export default async function HindiGuidePost({ params }: Props) {
             style={{
               marginTop: 40,
               paddingTop: 24,
-              borderTop: '1px solid #e2e8f0',
+              borderTop: '1px solid #e5e7eb',
             }}
           >
-            <h3 style={{ marginBottom: 20, fontSize: 22, color: '#1e293b' }}>
+            <h3 style={{ marginBottom: 20, fontSize: 22, color: '#1f2937' }}>
               उपयोगी टूल्स (Related Calculators & Tools)
             </h3>
             <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
@@ -255,7 +255,7 @@ export default async function HindiGuidePost({ params }: Props) {
                     href={tool.href}
                     style={{
                       fontSize: 18,
-                      color: '#2563eb',
+                      color: '#2d7aff',
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}

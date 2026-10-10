@@ -29,7 +29,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'EMI कैलकुलेटर – होम लोन, पर्सनल लोन की EMI निकालें | Fincado',
+  title: 'EMI कैलकुलेटर – होम लोन, पर्सनल लोन की EMI निकालें',
   description:
     'Fincado EMI कैलकुलेटर (Hindi): जानें आपकी मासिक किस्त (EMI) कितनी होगी। होम लोन, कार लोन और पर्सनल लोन के लिए सटीक गणना करें।',
   keywords: [
@@ -52,6 +52,14 @@ export const metadata: Metadata = {
       'मुफ्त टूल: होम लोन, कार लोन और पर्सनल लोन की EMI और ब्याज की गणना करें।',
     url: 'https://fincado.com/hi/emi-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-emi-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

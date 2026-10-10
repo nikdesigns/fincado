@@ -10,12 +10,6 @@ export function CarLoanSchemas() {
       price: '0',
       priceCurrency: 'INR',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      ratingCount: '2845',
-      bestRating: '5',
-    },
     featureList: [
       'New Car Loan EMI Calculation',
       'Used Car Loan Calculator',
@@ -33,25 +27,25 @@ export function CarLoanSchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'EMI Calculator',
-        item: 'https://fincado.com/emi-calculator',
+        item: 'https://fincado.com/emi-calculator/',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: 'Car Loan EMI Calculator',
-        item: 'https://fincado.com/emi-calculator/car-loan',
+        item: 'https://fincado.com/emi-calculator/car-loan/',
       }
     ],
   };

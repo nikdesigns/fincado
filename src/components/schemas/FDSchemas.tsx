@@ -6,7 +6,7 @@ export function FDSchemas() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Fincado',
-    url: 'https://fincado.com',
+    url: 'https://fincado.com/',
     logo: '/logo.png',
   };
 
@@ -121,7 +121,7 @@ export function FDSchemas() {
     provider: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     areaServed: {
       '@type': 'Country',

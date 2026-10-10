@@ -31,7 +31,7 @@ const CONFIG = {
 
   // Difficulty Badge
   difficulty: 'Hard',
-  difficultyColor: '#ea580c',
+  difficultyColor: '#db7a37',
 
   // Content Variants
   introText: `Building ₹50 Lakhs in just 5 years is an aggressive financial target that demands high monthly discipline. Unlike long-term goals where compounding does the heavy lifting, a 5-year goal relies 80% on your own contribution.`,
@@ -116,7 +116,7 @@ export default function GuideTemplate() {
       <header
         style={{
           marginBottom: 24,
-          borderBottom: '1px solid #e2e8f0',
+          borderBottom: '1px solid #e5e7eb',
           paddingBottom: 24,
         }}
       >

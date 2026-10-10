@@ -37,7 +37,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'ELSS Mutual Fund (हिंदी): टैक्स बचाने का सबसे स्मार्ट तरीका | Fincado',
+    'ELSS Mutual Fund (हिंदी): टैक्स बचाने का सबसे स्मार्ट तरीका',
   description:
     'ELSS Funds in Hindi: 3 साल के लॉक-इन के साथ टैक्स कैसे बचाएं? जानें ELSS vs PPF vs FD का अंतर और सेक्शन 80C के फायदे।',
   keywords: [

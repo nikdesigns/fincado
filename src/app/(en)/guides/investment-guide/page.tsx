@@ -70,6 +70,14 @@ export const metadata: Metadata = {
       'A beginner-friendly guide to investing in India covering goals, risk, asset allocation, SIP, mutual funds, PPF, FD, NPS and gold.',
     url: 'https://fincado.com/guides/investment-guide/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

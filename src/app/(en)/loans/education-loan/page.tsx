@@ -43,6 +43,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/education-loan/',
+    languages: {
+      'en-IN': 'https://fincado.com/loans/education-loan/',
+      'hi-IN': 'https://fincado.com/hi/loans/education-loan/',
+      'x-default': 'https://fincado.com/loans/education-loan/',
+    },
   },
   openGraph: {
     title:

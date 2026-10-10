@@ -100,7 +100,7 @@ const HINDI_LOAN_LINKS: {
 
 export const metadata: Metadata = {
   title:
-    'हिंदी लोन हब | होम, पर्सनल, कार और एजुकेशन EMI कैलकुलेटर | Fincado',
+    'हिंदी लोन हब | होम, पर्सनल, कार और एजुकेशन EMI कैलकुलेटर',
   description:
     'हिंदी में होम, पर्सनल, कार और एजुकेशन लोन के EMI कैलकुलेटर, पात्रता संकेत और निर्णय गाइड देखें।',
   keywords: [
@@ -126,6 +126,14 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

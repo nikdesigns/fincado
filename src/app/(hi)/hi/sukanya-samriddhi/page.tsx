@@ -33,7 +33,7 @@ import { ArrowRight, Info, Baby, Shield, Gift } from 'lucide-react';
 
 export const metadata: Metadata = {
   title:
-    'सुकन्या समृद्धि योजना (SSY) कैलकुलेटर 2026 - ब्याज और परिपक्वता | Fincado',
+    'सुकन्या समृद्धि योजना (SSY) कैलकुलेटर 2026 - ब्याज और परिपक्वता',
   description:
     'सुकन्या समृद्धि योजना (SSY) कैलकुलेटर हिंदी में: बेटी की 21 साल की उम्र में परिपक्वता राशि की गणना करें। 8.2% ब्याज दर, टैक्स फ्री रिटर्न, निवेश योजना।',
   keywords: [
@@ -60,6 +60,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/sukanya-samriddhi/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-ssy-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

@@ -29,7 +29,7 @@ export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Bank EMI Calculator Comparison – Tax Year 2026-27 | Fincado',
+  title: 'Bank EMI Calculator Comparison – Tax Year 2026-27',
   description:
     'Compare home loan EMI calculators across top Indian banks. Check live rate ranges and processing fees for Tax Year 2026-27.',
   alternates: {

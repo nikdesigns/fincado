@@ -18,36 +18,69 @@ import SiteTrustSchema from '@/components/SiteTrustSchema';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 const fincadoSans = localFont({
+  // Open Sauce One (SIL OFL) — the Nextwealth design-system typeface
   src: [
     {
-      path: '../../../public/fonts/FincadoBrand-Light.otf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/fonts/FincadoBrand-Regular.otf',
+      path: '../../../public/fonts/OpenSauceOne-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../../public/fonts/FincadoBrand-Semibold.otf',
+      path: '../../../public/fonts/OpenSauceOne-SemiBold.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../../../public/fonts/FincadoBrand-Semibold.otf',
+      path: '../../../public/fonts/OpenSauceOne-SemiBold.woff2',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../../../public/fonts/FincadoBrand-Bold.otf',
+      path: '../../../public/fonts/OpenSauceOne-Bold.woff2',
       weight: '700',
       style: 'normal',
-    }
+    },
   ],
   display: 'swap',
   variable: '--font-fincado-sans',
   preload: true,
+});
+
+// Open Sauce One has no Devanagari, so Hindi text keeps the previous brand
+// font. unicode-range means it is only downloaded when Devanagari is on the page.
+const fincadoDeva = localFont({
+  src: [
+    {
+      path: '../../../public/fonts/FincadoBrand-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/fonts/FincadoBrand-Semibold.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/fonts/FincadoBrand-Semibold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/fonts/FincadoBrand-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  variable: '--font-fincado-deva',
+  preload: false,
+  adjustFontFallback: false,
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value: 'U+0900-097F, U+1CD0-1CFF, U+200C-200D, U+25CC, U+A8E0-A8FF',
+    },
+  ],
 });
 
 export const viewport: Viewport = {
@@ -95,6 +128,9 @@ export const metadata: Metadata = {
       }
     ],
   },
+  twitter: {
+    card: 'summary_large_image',
+  },
   robots: {
     index: true,
     follow: true,
@@ -140,7 +176,7 @@ export default function HindiRootLayout({
         />
       </head>
 
-      <body className={fincadoSans.className}>
+      <body className={`${fincadoSans.variable} ${fincadoDeva.variable}`}>
         <SiteTrustSchema />
 
         <React.Suspense fallback={null}>
@@ -152,7 +188,7 @@ export default function HindiRootLayout({
         </React.Suspense>
 
         <NextTopLoader
-          color="#80d843"
+          color="#92c65b"
           initialPosition={0.08}
           crawlSpeed={200}
           height={3}
@@ -160,7 +196,7 @@ export default function HindiRootLayout({
           showSpinner={false}
           easing="ease"
           speed={200}
-          shadow="0 0 10px #16a34a,0 0 5px #16a34a"
+          shadow="0 0 10px #74a046,0 0 5px #74a046"
         />
 
         <Toaster position="top-right" richColors />

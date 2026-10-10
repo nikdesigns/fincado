@@ -20,7 +20,7 @@ import FAQSchema from '@/components/FAQSchema';
 import { CreditCard } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Credit Card Eligibility Calculator India (2026) | Fincado',
+  title: 'Credit Card Eligibility Calculator India (2026)',
   description:
     'Check which type of credit card you are likely eligible for in India based on your income, employment type, age and CIBIL score band. Free instant estimate.',
   keywords: [
@@ -39,6 +39,14 @@ export const metadata: Metadata = {
       'Estimate which tier of credit card you are likely eligible for based on income, employment, age and CIBIL score.',
     url: 'https://fincado.com/credit-card-eligibility-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

@@ -56,7 +56,7 @@ const FAQ_ITEMS = [
 ];
 
 export const metadata: Metadata = {
-  title: 'FAQ | Fincado Trust Center',
+  title: { absolute: 'FAQ | Fincado Trust Center' },
   description:
     'Frequently asked questions about Fincado calculators, data accuracy, updates, privacy, and support.',
   keywords: [
@@ -74,6 +74,14 @@ export const metadata: Metadata = {
       'Answers to common questions about calculator usage, updates, privacy, and support.',
     url: PAGE_URL,
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

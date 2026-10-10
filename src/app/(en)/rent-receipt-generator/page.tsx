@@ -51,6 +51,14 @@ export const metadata: Metadata = {
       'Create HR-approved rent receipts instantly for HRA exemption. Professional format + revenue stamp guidance.',
     url: 'https://fincado.com/rent-receipt-generator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

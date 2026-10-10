@@ -42,7 +42,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'PPF कैलकुलेटर 2026 – पब्लिक प्रोविडेंट फंड परिपक्वता कैलकुलेटर | Fincado',
+    'PPF कैलकुलेटर 2026 – पब्लिक प्रोविडेंट फंड परिपक्वता कैलकुलेटर',
   description:
     'पब्लिक प्रोविडेंट फंड (PPF) कैलकुलेटर हिंदी में: 7.1% ब्याज दर के साथ 15 साल बाद मैच्योरिटी राशि की गणना करें। EEE स्टेटस के तहत 100% टैक्स-फ्री रिटर्न। Section 80C लाभ, निकासी विकल्प और लोन सुविधा जांचें।',
   keywords: [
@@ -68,6 +68,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/ppf-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-ppf-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

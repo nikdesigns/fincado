@@ -42,7 +42,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'RD कैलकुलेटर 2026 – रिकरिंग डिपॉजिट ब्याज और परिपक्वता राशि | Fincado',
+    'RD कैलकुलेटर 2026 – रिकरिंग डिपॉजिट ब्याज और परिपक्वता राशि',
   description:
     'RD कैलकुलेटर हिंदी में: जानें कि आपकी मासिक आरडी (Recurring Deposit) पर आपको कितना ब्याज मिलेगा और मैच्योरिटी राशि क्या होगी। तिमाही चक्रवृद्धि के साथ सटीक गणना।',
   keywords: [
@@ -68,6 +68,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/rd-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-rd-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

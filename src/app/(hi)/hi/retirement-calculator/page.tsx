@@ -39,7 +39,7 @@ import {
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'रिटायरमेंट कैलकुलेटर 2026 – पेंशन और कॉर्पस प्लानिंग | Fincado',
+  title: 'रिटायरमेंट कैलकुलेटर 2026 – पेंशन और कॉर्पस प्लानिंग',
   description:
     'रिटायरमेंट कैलकुलेटर हिंदी में: महंगाई समायोजित खर्च, लक्ष्य कॉर्पस और मासिक SIP की गणना करें। 60 की उम्र में आरामदायक रिटायरमेंट की योजना बनाएं।',
   keywords: [
@@ -67,6 +67,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/retirement-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-retirement-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

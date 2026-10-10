@@ -41,7 +41,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Compare Loans in India 2026-27 | Home, Personal & Car Loan Rates | Fincado',
+    'Compare Loans in India 2026-27 | Home, Personal & Car Loan Rates',
   description:
     'Compare the best home loan, personal loan, and car loan rates in India for Tax Year 2026-27. Calculate EMI instantly and check eligibility across top banks.',
   keywords: [
@@ -54,6 +54,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/loans/',
+    languages: {
+      'en-IN': 'https://fincado.com/loans/',
+      'hi-IN': 'https://fincado.com/hi/loans/',
+      'x-default': 'https://fincado.com/loans/',
+    },
   },
   openGraph: {
     title: 'Compare Loans in India – Tax Year 2026-27 | Fincado',
@@ -62,6 +67,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/loans/',
     type: 'website',
     siteName: 'Fincado',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

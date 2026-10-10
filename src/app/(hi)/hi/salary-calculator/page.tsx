@@ -56,6 +56,14 @@ export const metadata: Metadata = {
       'जानें आपकी असल इन-हैंड सैलरी कितनी होगी। नए टैक्स रिजीम (New Tax Regime), TDS और PF कटौती के साथ सटीक गणना।',
     url: 'https://fincado.com/hi/salary-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

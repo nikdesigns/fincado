@@ -78,6 +78,14 @@ export const metadata: Metadata = {
       'Calculate your exact monthly payout from India Post MIS. Includes dynamic premature closure penalty simulator.',
     url: 'https://fincado.com/pomis-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

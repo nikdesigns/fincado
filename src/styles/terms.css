@@ -4,12 +4,12 @@
 */
 
 :root {
-  --bg: #fbfdfe;
+  --bg: #f9fafb;
   --panel: #ffffff;
   --muted: #6b7280;
-  --text: #0f172a;
-  --accent: #10b981;
-  --accent-600: #059669;
+  --text: #111827;
+  --accent: #92c65b;
+  --accent-600: #74a046;
   --glass: rgba(15, 23, 42, 0.04);
   --radius: 12px;
   --container-max: 1180px;
@@ -19,7 +19,7 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial;
   color: var(--text);
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 50%);
+  background: linear-gradient(180deg, #f9fafb 0%, #ffffff 50%);
 }
 
 /* page root */
@@ -98,7 +98,7 @@ body {
   margin: 8px 0;
 }
 .terms-toc a {
-  color: #065f46;
+  color: #2a4111;
   text-decoration: none;
   transition: color 0.12s ease;
 }
@@ -125,7 +125,7 @@ body {
   color: var(--text);
 }
 .terms-section p {
-  color: #334155;
+  color: #374151;
   line-height: 1.6;
   margin: 0 0 10px 0;
 }
@@ -175,7 +175,7 @@ body {
 
 /* links inside article */
 a.link {
-  color: #0ea5a3;
+  color: #74a046;
   text-decoration: underline;
 }
 

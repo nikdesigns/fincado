@@ -92,7 +92,7 @@ export default function GuidesClient({ articles }: { articles: Article[] }) {
                 href={`/guides/${guide.slug}/`}
                 className="group block h-full"
               >
-                <Card className="h-full bg-linear-to-br from-[#F0F9E8] to-[#F0F9E8] border-brand-400 hover:border-brand-700 hover:shadow-lg transition-all duration-200">
+                <Card className="h-full bg-linear-to-br from-[#F7FDF1] to-[#F7FDF1] border-brand-400 hover:border-brand-700 hover:shadow-lg transition-all duration-200">
                   <CardContent className="p-5">
                     <Badge className="mb-2 bg-brand-400 text-[#111827] text-xs">
                       Featured

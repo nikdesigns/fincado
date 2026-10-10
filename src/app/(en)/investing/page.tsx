@@ -53,6 +53,14 @@ export const metadata: Metadata = {
       'Free tool to plan SIPs, lumpsum investments, and perfect asset allocation. See exact future value and inflation-adjusted returns.',
     url: 'https://fincado.com/investing/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

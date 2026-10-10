@@ -57,6 +57,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/inflation-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/inflation-calculator/',
+      'hi-IN': 'https://fincado.com/hi/inflation-calculator/',
+      'x-default': 'https://fincado.com/inflation-calculator/',
+    },
   },
   openGraph: {
     title: 'Inflation Calculator 2026 – Plan for Rising Costs',

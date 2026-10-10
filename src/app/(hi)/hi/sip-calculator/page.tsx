@@ -28,7 +28,7 @@ import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 /* ---------------- SEO METADATA ---------------- */
 
 export const metadata: Metadata = {
-  title: 'SIP कैलकुलेटर – रिटर्न और निवेश की गणना करें | Fincado',
+  title: 'SIP कैलकुलेटर – रिटर्न और निवेश की गणना करें',
   description:
     'Fincado SIP कैलकुलेटर (Hindi): जानें कि आपकी मासिक SIP निवेश आपको 5, 10 या 20 साल में कितना अमीर बना सकती है।',
   keywords: [
@@ -52,6 +52,14 @@ export const metadata: Metadata = {
     url: 'https://fincado.com/hi/sip-calculator/',
     type: 'website',
     locale: 'hi_IN',
+    images: [
+      {
+        url: '/og-sip-calculator.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

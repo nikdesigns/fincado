@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     description: 'Embeddable SIP calculator widget by Fincado.',
     url: 'https://fincado.com/widgets/sip/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: false,

@@ -53,6 +53,14 @@ export const metadata: Metadata = {
       'जानें कि 2025 में नई और पुरानी टैक्स व्यवस्था में से आपके लिए कौन सी बेहतर है। 80C, HRA छूट, और 7 लाख तक टैक्स-फ्री आय के नियमों को समझें और अपना टैक्स बचाएं।',
     url: 'https://fincado.com/hi/guides/new-vs-old-tax-regime/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

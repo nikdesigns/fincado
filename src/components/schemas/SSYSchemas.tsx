@@ -6,7 +6,7 @@ export function SSYSchemas() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Fincado',
-    url: 'https://fincado.com',
+    url: 'https://fincado.com/',
     logo: '/logo.png',
   };
 
@@ -148,7 +148,7 @@ export function SSYSchemas() {
     provider: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     areaServed: {
       '@type': 'Country',
@@ -206,7 +206,7 @@ export function SSYSchemas() {
     author: {
       '@type': 'Organization',
       name: 'Fincado',
-      url: 'https://fincado.com',
+      url: 'https://fincado.com/',
     },
     publisher: {
       '@type': 'Organization',

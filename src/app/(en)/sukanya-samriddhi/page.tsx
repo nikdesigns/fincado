@@ -51,6 +51,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/sukanya-samriddhi/',
+    languages: {
+      'en-IN': 'https://fincado.com/sukanya-samriddhi/',
+      'hi-IN': 'https://fincado.com/hi/sukanya-samriddhi/',
+      'x-default': 'https://fincado.com/sukanya-samriddhi/',
+    },
   },
   openGraph: {
     title: 'Sukanya Samriddhi Yojana Calculator 2026 – Plan Girl Child Future',

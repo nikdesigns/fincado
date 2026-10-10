@@ -55,6 +55,14 @@ export const metadata: Metadata = {
       'Is your money losing value every day? Understand the math behind inflation and how to secure your financial future.',
     url: 'https://fincado.com/guides/inflation-calculator-guide/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

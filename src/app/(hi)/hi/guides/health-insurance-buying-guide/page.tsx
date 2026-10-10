@@ -37,7 +37,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Health Insurance (मेडिक्लेम) कैसे चुनें? 5 जरूरी बातें | Fincado',
+  title: 'Health Insurance (मेडिक्लेम) कैसे चुनें? 5 जरूरी बातें',
   description:
     'Health Insurance Hindi Guide: मेडिक्लेम लेते समय रूम रेंट कैपिंग, को-पेमेंट और वेटिंग पीरियड चेक करें। जानें सही हेल्थ इंश्योरेंस कैसे चुनें।',
   keywords: [
@@ -49,6 +49,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
+    languages: {
+      'en-IN': 'https://fincado.com/guides/health-insurance-buying-guide/',
+      'hi-IN': 'https://fincado.com/hi/guides/health-insurance-buying-guide/',
+      'x-default': 'https://fincado.com/guides/health-insurance-buying-guide/',
+    },
   },
   openGraph: {
     title: 'Health Insurance (मेडिक्लेम) कैसे चुनें? 5 जरूरी बातें',

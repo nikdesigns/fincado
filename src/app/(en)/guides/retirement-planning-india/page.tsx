@@ -56,6 +56,14 @@ export const metadata: Metadata = {
       "Don't guess your retirement number. Use our scientific formula and asset allocation strategies to build a failsafe retirement plan.",
     url: 'https://fincado.com/guides/retirement-planning-india/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

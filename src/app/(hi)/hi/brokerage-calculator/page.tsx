@@ -51,6 +51,14 @@ export const metadata: Metadata = {
       'ट्रेड लेने से पहले अपना सटीक ब्रेकइवन पॉइंट (Breakeven Point) और सभी टैक्स (STT, GST, SEBI) कटने के बाद का शुद्ध मुनाफा जानें।',
     url: 'https://fincado.com/hi/brokerage-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

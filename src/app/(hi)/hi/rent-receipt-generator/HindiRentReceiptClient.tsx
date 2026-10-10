@@ -317,7 +317,7 @@ export default function HindiRentReceiptClient() {
 
               <Button
                 onClick={handlePrint}
-                className="w-full bg-brand-700 hover:bg-[#466326] text-white font-semibold py-6 text-lg mt-6"
+                className="w-full bg-brand-700 hover:bg-[#577a30] text-white font-semibold py-6 text-lg mt-6"
               >
                 <Printer className="mr-2 h-5 w-5" /> PDF डाउनलोड करें / प्रिंट
                 करें

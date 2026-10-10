@@ -10,96 +10,247 @@
   /*
    * BRAND COLOUR OVERRIDE
    * All Tailwind blue/indigo/purple/violet/sky/cyan/emerald/teal ramps are
-   * intentionally mapped to the Fincado brand palette. This keeps components
+   * intentionally mapped to the Nextwealth primary (lime) palette from Figma. This keeps components
    * on-brand without requiring per-file color rewrites.
    */
   --color-blue-50: #f7fdf1;
-  --color-blue-100: #edf9dd;
-  --color-blue-200: #d9f1bb;
-  --color-blue-300: #c2e995;
-  --color-blue-400: #a0e870;
-  --color-blue-500: #80d843;
+  --color-blue-100: #effbe2;
+  --color-blue-200: #dff7c6;
+  --color-blue-300: #d0f4a9;
+  --color-blue-400: #b0ec70;
+  --color-blue-500: #92c65b;
   --color-blue-600: #577a30;
-  --color-blue-700: #486629;
-  --color-blue-800: #395122;
-  --color-blue-900: #2b3d1b;
+  --color-blue-700: #486726;
+  --color-blue-800: #39541b;
+  --color-blue-900: #2a4111;
 
   --color-indigo-50: #f7fdf1;
-  --color-indigo-100: #edf9dd;
-  --color-indigo-200: #d9f1bb;
-  --color-indigo-300: #c2e995;
-  --color-indigo-400: #a0e870;
-  --color-indigo-500: #80d843;
+  --color-indigo-100: #effbe2;
+  --color-indigo-200: #dff7c6;
+  --color-indigo-300: #d0f4a9;
+  --color-indigo-400: #b0ec70;
+  --color-indigo-500: #92c65b;
   --color-indigo-600: #577a30;
-  --color-indigo-700: #486629;
-  --color-indigo-800: #395122;
-  --color-indigo-900: #2b3d1b;
+  --color-indigo-700: #486726;
+  --color-indigo-800: #39541b;
+  --color-indigo-900: #2a4111;
 
   --color-purple-50: #f7fdf1;
-  --color-purple-100: #edf9dd;
-  --color-purple-200: #d9f1bb;
-  --color-purple-300: #c2e995;
-  --color-purple-400: #a0e870;
-  --color-purple-500: #80d843;
+  --color-purple-100: #effbe2;
+  --color-purple-200: #dff7c6;
+  --color-purple-300: #d0f4a9;
+  --color-purple-400: #b0ec70;
+  --color-purple-500: #92c65b;
   --color-purple-600: #577a30;
-  --color-purple-700: #486629;
-  --color-purple-800: #395122;
-  --color-purple-900: #2b3d1b;
+  --color-purple-700: #486726;
+  --color-purple-800: #39541b;
+  --color-purple-900: #2a4111;
 
   --color-violet-50: #f7fdf1;
-  --color-violet-100: #edf9dd;
-  --color-violet-200: #d9f1bb;
-  --color-violet-300: #c2e995;
-  --color-violet-400: #a0e870;
-  --color-violet-500: #80d843;
+  --color-violet-100: #effbe2;
+  --color-violet-200: #dff7c6;
+  --color-violet-300: #d0f4a9;
+  --color-violet-400: #b0ec70;
+  --color-violet-500: #92c65b;
   --color-violet-600: #577a30;
-  --color-violet-700: #486629;
-  --color-violet-800: #395122;
-  --color-violet-900: #2b3d1b;
+  --color-violet-700: #486726;
+  --color-violet-800: #39541b;
+  --color-violet-900: #2a4111;
 
   --color-sky-50: #f7fdf1;
-  --color-sky-100: #edf9dd;
-  --color-sky-200: #d9f1bb;
-  --color-sky-300: #c2e995;
-  --color-sky-400: #a0e870;
-  --color-sky-500: #80d843;
+  --color-sky-100: #effbe2;
+  --color-sky-200: #dff7c6;
+  --color-sky-300: #d0f4a9;
+  --color-sky-400: #b0ec70;
+  --color-sky-500: #92c65b;
   --color-sky-600: #577a30;
-  --color-sky-700: #486629;
-  --color-sky-800: #395122;
-  --color-sky-900: #2b3d1b;
+  --color-sky-700: #486726;
+  --color-sky-800: #39541b;
+  --color-sky-900: #2a4111;
 
   --color-cyan-50: #f7fdf1;
-  --color-cyan-100: #edf9dd;
-  --color-cyan-200: #d9f1bb;
-  --color-cyan-300: #c2e995;
-  --color-cyan-400: #a0e870;
-  --color-cyan-500: #80d843;
+  --color-cyan-100: #effbe2;
+  --color-cyan-200: #dff7c6;
+  --color-cyan-300: #d0f4a9;
+  --color-cyan-400: #b0ec70;
+  --color-cyan-500: #92c65b;
   --color-cyan-600: #577a30;
-  --color-cyan-700: #486629;
-  --color-cyan-800: #395122;
-  --color-cyan-900: #2b3d1b;
+  --color-cyan-700: #486726;
+  --color-cyan-800: #39541b;
+  --color-cyan-900: #2a4111;
 
   --color-emerald-50: #f7fdf1;
-  --color-emerald-100: #edf9dd;
-  --color-emerald-200: #d9f1bb;
-  --color-emerald-300: #c2e995;
-  --color-emerald-400: #a0e870;
-  --color-emerald-500: #80d843;
+  --color-emerald-100: #effbe2;
+  --color-emerald-200: #dff7c6;
+  --color-emerald-300: #d0f4a9;
+  --color-emerald-400: #b0ec70;
+  --color-emerald-500: #92c65b;
   --color-emerald-600: #577a30;
-  --color-emerald-700: #486629;
-  --color-emerald-800: #395122;
-  --color-emerald-900: #2b3d1b;
+  --color-emerald-700: #486726;
+  --color-emerald-800: #39541b;
+  --color-emerald-900: #2a4111;
 
   --color-teal-50: #f7fdf1;
-  --color-teal-100: #edf9dd;
-  --color-teal-200: #d9f1bb;
-  --color-teal-300: #c2e995;
-  --color-teal-400: #a0e870;
-  --color-teal-500: #80d843;
+  --color-teal-100: #effbe2;
+  --color-teal-200: #dff7c6;
+  --color-teal-300: #d0f4a9;
+  --color-teal-400: #b0ec70;
+  --color-teal-500: #92c65b;
   --color-teal-600: #577a30;
-  --color-teal-700: #486629;
-  --color-teal-800: #395122;
-  --color-teal-900: #2b3d1b;
+  --color-teal-700: #486726;
+  --color-teal-800: #39541b;
+  --color-teal-900: #2a4111;
+
+
+  /*
+   * NEXTWEALTH DESIGN SYSTEM (Figma "Color Style")
+   * Neutral, Green, Orange and Red ramps. Figma defines Neutral 00-900 and the
+   * accent steps 200/400/600/800/900; steps marked 'derived' are interpolated.
+   * Accent numbering is shifted one step (Figma 600 -> 500, 800 -> 600) so that
+   * the 600/700 shades used for text stay dark enough to read.
+   */
+  --color-slate-50: #f9fafb;
+  --color-slate-100: #f3f4f6;
+  --color-slate-200: #e5e7eb;
+  --color-slate-300: #d1d5db;
+  --color-slate-400: #9ca3af;
+  --color-slate-500: #6b7280;
+  --color-slate-600: #4b5563;
+  --color-slate-700: #374151;
+  --color-slate-800: #1f2937;
+  --color-slate-900: #111827;
+
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  --color-zinc-50: #f9fafb;
+  --color-zinc-100: #f3f4f6;
+  --color-zinc-200: #e5e7eb;
+  --color-zinc-300: #d1d5db;
+  --color-zinc-400: #9ca3af;
+  --color-zinc-500: #6b7280;
+  --color-zinc-600: #4b5563;
+  --color-zinc-700: #374151;
+  --color-zinc-800: #1f2937;
+  --color-zinc-900: #111827;
+
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  --color-stone-50: #f9fafb;
+  --color-stone-100: #f3f4f6;
+  --color-stone-200: #e5e7eb;
+  --color-stone-300: #d1d5db;
+  --color-stone-400: #9ca3af;
+  --color-stone-500: #6b7280;
+  --color-stone-600: #4b5563;
+  --color-stone-700: #374151;
+  --color-stone-800: #1f2937;
+  --color-stone-900: #111827;
+
+  --color-green-50: #f1fddf; /* derived */
+  --color-green-100: #e6fbc8; /* derived */
+  --color-green-200: #dcf9b0;
+  --color-green-300: #cdf39a; /* derived */
+  --color-green-400: #beed85;
+  --color-green-500: #74c635;
+  --color-green-600: #408e1a;
+  --color-green-700: #368015; /* derived */
+  --color-green-800: #2b7210;
+  --color-green-900: #225b0d; /* derived */
+
+  --color-lime-50: #f1fddf; /* derived */
+  --color-lime-100: #e6fbc8; /* derived */
+  --color-lime-200: #dcf9b0;
+  --color-lime-300: #cdf39a; /* derived */
+  --color-lime-400: #beed85;
+  --color-lime-500: #74c635;
+  --color-lime-600: #408e1a;
+  --color-lime-700: #368015; /* derived */
+  --color-lime-800: #2b7210;
+  --color-lime-900: #225b0d; /* derived */
+
+  --color-orange-50: #fff4e2; /* derived */
+  --color-orange-100: #ffeccd; /* derived */
+  --color-orange-200: #ffe4b7;
+  --color-orange-300: #ffdaa5; /* derived */
+  --color-orange-400: #ffd093;
+  --color-orange-500: #ff9f4c;
+  --color-orange-600: #db7a37;
+  --color-orange-700: #b75c28; /* derived */
+  --color-orange-800: #933d18;
+  --color-orange-900: #763113; /* derived */
+
+  --color-amber-50: #fff4e2; /* derived */
+  --color-amber-100: #ffeccd; /* derived */
+  --color-amber-200: #ffe4b7;
+  --color-amber-300: #ffdaa5; /* derived */
+  --color-amber-400: #ffd093;
+  --color-amber-500: #ff9f4c;
+  --color-amber-600: #db7a37;
+  --color-amber-700: #b75c28; /* derived */
+  --color-amber-800: #933d18;
+  --color-amber-900: #763113; /* derived */
+
+  --color-yellow-50: #fff4e2; /* derived */
+  --color-yellow-100: #ffeccd; /* derived */
+  --color-yellow-200: #ffe4b7;
+  --color-yellow-300: #ffdaa5; /* derived */
+  --color-yellow-400: #ffd093;
+  --color-yellow-500: #ff9f4c;
+  --color-yellow-600: #db7a37;
+  --color-yellow-700: #b75c28; /* derived */
+  --color-yellow-800: #933d18;
+  --color-yellow-900: #763113; /* derived */
+
+  --color-red-50: #fff2f1; /* derived */
+  --color-red-100: #ffe9e7; /* derived */
+  --color-red-200: #ffdfdd;
+  --color-red-300: #ffbcc2; /* derived */
+  --color-red-400: #ff99a7;
+  --color-red-500: #ff568e;
+  --color-red-600: #db3e82;
+  --color-red-700: #b72c74; /* derived */
+  --color-red-800: #931b66;
+  --color-red-900: #761652; /* derived */
+
+  --color-rose-50: #fff2f1; /* derived */
+  --color-rose-100: #ffe9e7; /* derived */
+  --color-rose-200: #ffdfdd;
+  --color-rose-300: #ffbcc2; /* derived */
+  --color-rose-400: #ff99a7;
+  --color-rose-500: #ff568e;
+  --color-rose-600: #db3e82;
+  --color-rose-700: #b72c74; /* derived */
+  --color-rose-800: #931b66;
+  --color-rose-900: #761652; /* derived */
+
+  --color-pink-50: #fff2f1; /* derived */
+  --color-pink-100: #ffe9e7; /* derived */
+  --color-pink-200: #ffdfdd;
+  --color-pink-300: #ffbcc2; /* derived */
+  --color-pink-400: #ff99a7;
+  --color-pink-500: #ff568e;
+  --color-pink-600: #db3e82;
+  --color-pink-700: #b72c74; /* derived */
+  --color-pink-800: #931b66;
+  --color-pink-900: #761652; /* derived */
 
   /* ── Ink (premium deep navy) — replaces slate-950/900 on dark sections ── */
   --color-ink-950: #070d1b;
@@ -113,31 +264,33 @@
   --color-brand-100: #effbe2;
   --color-brand-200: #dff7c6;
   --color-brand-300: #d0f4a9;
+  --color-brand-350: #c0f08d; /* Nextwealth step between 300 and 400 */
   --color-brand-400: #b0ec70;
   --color-brand-500: #92c65b;
   --color-brand-600: #74a046;
   --color-brand-700: #577a30;
-  --color-brand-900: #1b2e06;
+  --color-brand-800: #39541b;
+  --color-brand-900: #2a4111;
 }
 
 :root {
   /* Brand Colors */
-  --color-brand-green: #489719;
-  --color-brand-light: #a0e870;
-  --color-action-cta: #030302; /* Deep Teal */
-  --color-action-hover: #489719;
-  --color-secondary-blue: #1d4ed8;
+  --color-brand-green: #408e1a;
+  --color-brand-light: #b0ec70;
+  --color-action-cta: #111827; /* Deep Teal */
+  --color-action-hover: #408e1a;
+  --color-secondary-blue: #205edb;
   --color-secondary-blue: #577a30;
-  --color-slider-light: #80d843;
-  --color-slider-grey: #ececec;
+  --color-slider-light: #92c65b;
+  --color-slider-grey: #e5e7eb;
 
   /* UI Colors */
-  --color-bg-soft: #fafafa;
+  --color-bg-soft: #f9fafb;
   --color-bg-white: #ffffff;
-  --color-text-main: #090909;
-  --color-text-muted: #616161;
-  --color-border: #e2e8f0;
-  --color-success-bg: #f0fdf4;
+  --color-text-main: #111827;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-success-bg: #f7fdf1;
 
   /* Dimensions */
   --radius-xl: 16px;
@@ -146,41 +299,41 @@
   --header-height: 70px;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --foreground: #111827;
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: #111827;
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.58 0.13 132);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --ring: oklch(0.68 0.12 132);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary: oklch(0.58 0.13 132);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-  --sidebar-ring: oklch(0.68 0.12 132);
+  --popover-foreground: #111827;
+  --primary: #b0ec70;
+  --primary-foreground: #111827;
+  --primary: #b0ec70;
+  --primary-foreground: #111827;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #1f2937;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #f3f4f6;
+  --accent-foreground: #1f2937;
+  --destructive: #db3e82;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #92c65b;
+  --ring: #92c65b;
+  --chart-1: #92c65b;
+  --chart-2: #2d7aff;
+  --chart-3: #ff9f4c;
+  --chart-4: #ff568e;
+  --chart-5: #577a30;
+  --sidebar: #f9fafb;
+  --sidebar-foreground: #111827;
+  --sidebar-primary: #b0ec70;
+  --sidebar-primary: #b0ec70;
+  --sidebar-primary-foreground: #111827;
+  --sidebar-accent: #f3f4f6;
+  --sidebar-accent-foreground: #1f2937;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #92c65b;
+  --sidebar-ring: #92c65b;
 }
 
 * {
@@ -194,7 +347,8 @@ body {
 
 body {
   font-family:
-    var(--font-fincado-sans), 'Noto Sans Devanagari', system-ui, sans-serif;
+    var(--font-fincado-sans), var(--font-fincado-deva, 'Noto Sans Devanagari'),
+    'Noto Sans Devanagari', system-ui, sans-serif;
   background: var(--color-bg-soft);
   margin: 0;
   line-height: 1.6;
@@ -288,8 +442,8 @@ b {
   margin-left: 20px;
 }
 .secondary-cta:hover {
-  background: #f2fce9;
-  border-color: #cbd5e1;
+  background: #f7fdf1;
+  border-color: #d1d5db;
   color: var(--color-text-main);
 }
 
@@ -325,7 +479,7 @@ b {
 }
 .result-card.highlight {
   background: var(--color-success-bg);
-  border-color: #bbf7d0;
+  border-color: #dff7c6;
   grid-column: span 2;
 }
 @media (max-width: 600px) {
@@ -365,7 +519,7 @@ b {
   background: transparent;
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e7eb;
 }
 .advantage-card h4 {
   margin-bottom: 8px;
@@ -431,7 +585,7 @@ b {
 .rate-table th {
   position: sticky;
   top: 0;
-  background: #f2fce9;
+  background: #f7fdf1;
   text-align: left;
   padding: 12px 16px;
   font-weight: 500;
@@ -439,12 +593,12 @@ b {
   z-index: 2;
 }
 .rate-table td {
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f3f4f6;
   padding: 12px 16px;
   color: var(--color-text-main);
 }
 .rate-table tr:hover {
-  background: #f8fafc;
+  background: #f9fafb;
 }
 
 .table-header-row {
@@ -485,7 +639,7 @@ b {
 }
 .table-footer {
   padding: 12px 16px;
-  background: #f8fafc;
+  background: #f9fafb;
   border-top: 1px solid var(--color-border);
   font-size: 13px;
   color: var(--color-text-muted);
@@ -658,15 +812,15 @@ b {
   color: var(--color-action-cta);
 }
 .ad-box {
-  background: #f1f5f9;
-  border: 1px dashed #cbd5e1;
+  background: #f3f4f6;
+  border: 1px dashed #d1d5db;
   border-radius: 8px;
   padding: 10px;
   margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #94a3b8;
+  color: #9ca3af;
   font-size: 12px;
   font-weight: 500;
   min-height: 90px;
@@ -777,8 +931,8 @@ b {
 .bank-avatar {
   width: 32px;
   height: 32px;
-  background: #e2e8f0;
-  color: #475569;
+  background: #e5e7eb;
+  color: #4b5563;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -877,7 +1031,7 @@ b {
 .hero-stats-title {
   font-size: clamp(28px, 4vw, 36px);
   font-weight: 700;
-  color: #0b1720; /* Dark heading color from your palette */
+  color: #111827; /* Dark heading color from your palette */
   line-height: 1.2;
   margin-bottom: 32px;
 }
@@ -905,7 +1059,7 @@ b {
 .stat-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  border-color: #d1fae5; /* Light green accent on hover */
+  border-color: #effbe2; /* Light green accent on hover */
 }
 
 .stat-label {
@@ -986,7 +1140,7 @@ b {
   background: var(--color-success-bg);
   padding: 6px 12px;
   border-radius: 100px;
-  border: 1px solid #dcfce7;
+  border: 1px solid #effbe2;
 }
 
 /* --- Callout Boxes --- */
@@ -1003,11 +1157,11 @@ b {
 }
 .update-box {
   background: #fff7ed; /* Orange-50 */
-  border-left: 4px solid #f97316; /* Orange-500 */
-  color: #9a3412;
+  border-left: 4px solid #ff9f4c; /* Orange-500 */
+  color: #933d18;
 }
 .example-box {
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e7eb;
   padding: 24px;
   border-radius: 12px;
   margin: 24px 0;
@@ -1028,29 +1182,29 @@ b {
   min-width: 500px; /* Ensures scroll on mobile */
 }
 .data-table th {
-  background: #f1f5f9;
+  background: #f3f4f6;
   text-align: left;
   padding: 12px 16px;
   font-weight: 600;
   color: var(--color-text-main);
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid #e5e7eb;
 }
 .data-table td {
   padding: 12px 16px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f3f4f6;
   color: var(--color-text-muted);
 }
 .data-table tr:last-child td {
   border-bottom: none;
 }
 .data-table tr:nth-child(even) {
-  background: #f8fafc;
+  background: #f9fafb;
 }
 
 /* OPTION 2: ELEGANT MINIMALIST */
 .caption-text {
   font-size: 10px !important;
-  color: #94a3b8; /* Muted text */
+  color: #9ca3af; /* Muted text */
   font-style: italic;
   text-align: center;
   margin-top: 12px;
@@ -1058,7 +1212,7 @@ b {
   letter-spacing: 0.3px;
 
   /* Adds a subtle top decorative line */
-  border-top: 1px dashed #e2e8f0;
+  border-top: 1px dashed #e5e7eb;
   padding-top: 12px;
   width: 80%;
   margin-left: auto;
@@ -1105,7 +1259,7 @@ b {
   overflow: hidden;
 }
 .myth-header {
-  background: #ef4444; /* Red-500 */
+  background: #ff568e; /* Red-500 */
   color: white;
   padding: 6px 16px;
   font-size: 12px;
@@ -1122,17 +1276,17 @@ b {
   color: var(--color-text-main);
 }
 .reality-box {
-  background: #f0fdf4;
+  background: #f7fdf1;
   padding: 16px 20px;
-  border-top: 1px solid #dcfce7;
-  color: #166534;
+  border-top: 1px solid #effbe2;
+  color: #2a4111;
   font-size: 15px;
 }
 
 /* OPTION 2: MODERN GRADIENT / SOFT SHADOW */
 .conclusion-box {
-  background: linear-gradient(to bottom right, #ffffff, #f8fafc);
-  border: 1px solid #f1f5f9;
+  background: linear-gradient(to bottom right, #ffffff, #f9fafb);
+  border: 1px solid #f3f4f6;
   border-radius: 16px;
   padding: 32px;
   margin: 40px 0;
@@ -1141,14 +1295,14 @@ b {
 
 .conclusion-box p {
   font-size: 17px; /* Slightly larger text */
-  color: #475569;
+  color: #4b5563;
   line-height: 1.7;
 }
 
 /* Highlights bold text with your brand color */
 .conclusion-box strong {
-  color: #0f172a;
-  background: linear-gradient(120deg, #dcfce7 0%, #dcfce7 100%);
+  color: #111827;
+  background: linear-gradient(120deg, #effbe2 0%, #effbe2 100%);
   background-repeat: no-repeat;
   background-size: 100% 30%;
   background-position: 0 85%; /* Underline highlight effect */
@@ -1311,7 +1465,7 @@ b {
 .rejection-card {
   background: #ffffff;
   border: 1px solid var(--color-border);
-  border-left: 4px solid #f87171; /* Soft Red for 'Alert' */
+  border-left: 4px solid #ff99a7; /* Soft Red for 'Alert' */
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -1347,12 +1501,12 @@ b {
 
 /* The Solution Box (Green) */
 .solution-box {
-  background: #f0fdf4; /* Light Green */
-  border: 1px solid #dcfce7;
+  background: #f7fdf1; /* Light Green */
+  border: 1px solid #effbe2;
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 14px;
-  color: #166534; /* Dark Green Text */
+  color: #2a4111; /* Dark Green Text */
   line-height: 1.4;
 }
 
@@ -1426,7 +1580,7 @@ b {
   text-transform: uppercase;
   font-size: 11px;
   margin-bottom: 8px;
-  color: #94a3b8; /* Slate-400 */
+  color: #9ca3af; /* Slate-400 */
   letter-spacing: 0.5px;
 }
 
@@ -1486,7 +1640,7 @@ b {
 /* Optional: Add numbers or icons */
 .toc-list li a::before {
   content: '•';
-  color: #cbd5e1;
+  color: #d1d5db;
   font-size: 20px;
   line-height: 0;
 }
@@ -1591,14 +1745,14 @@ b {
   transition:
     transform 0.2s,
     box-shadow 0.2s;
-  border-color: #e2e8f0;
+  border-color: #e5e7eb;
 }
 .hover-card:hover {
   transform: translateY(-4px);
   box-shadow:
     0 10px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  border-color: #cbd5e1 !important;
+  border-color: #d1d5db !important;
 }
 
 /* --- Add to src/app/globals.css --- */
@@ -1629,7 +1783,7 @@ b {
 .tool-tile {
   display: block;
   background: #fff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 20px;
   text-decoration: none;
@@ -1639,19 +1793,19 @@ b {
 .tool-tile:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08);
-  border-color: #86efac; /* Green-300 */
+  border-color: #d0f4a9; /* Green-300 */
 }
 
 .tool-title {
   font-size: 17px;
   font-weight: 600;
-  color: #1e293b;
+  color: #1f2937;
   margin: 0 0 4px 0;
 }
 
 .tool-desc {
   font-size: 13px;
-  color: #64748b;
+  color: #6b7280;
   margin: 0;
   line-height: 1.4;
   font-weight: 500;
@@ -1665,7 +1819,7 @@ b {
 .guide-hover-card:hover article {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
-  border-color: #a7f3d0 !important;
+  border-color: #dff7c6 !important;
 }
 
 /* Section Spacing */
@@ -1683,13 +1837,13 @@ b {
 .tools-header h2 {
   font-size: 24px;
   font-weight: 600;
-  color: #0f172a;
+  color: #111827;
   margin: 0 0 8px 0;
 }
 
 .tools-sub {
   font-size: 16px;
-  color: #64748b;
+  color: #6b7280;
   font-weight: 500;
   margin: 0;
 }
@@ -1709,14 +1863,14 @@ b {
 }
 
 .advantage-card {
-  background: #f8fafc;
+  background: #f9fafb;
   padding: 24px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e7eb;
 }
 
 .advantage-card h4 {
-  color: #0f172a;
+  color: #111827;
   margin-top: 0;
 }
 
@@ -1734,15 +1888,15 @@ b {
 
 /* Auto-generated Internal Links */
 .article-content a.internal-link {
-  color: #16a34a; /* Brand Green */
+  color: #74a046; /* Brand Green */
   text-decoration: none;
-  border-bottom: 1px dotted #16a34a;
+  border-bottom: 1px dotted #74a046;
   font-weight: 500;
   transition: all 0.2s;
 }
 
 .article-content a.internal-link:hover {
-  background-color: #f0fdf4;
+  background-color: #f7fdf1;
   border-bottom-style: solid;
 }
 
@@ -1756,7 +1910,7 @@ b {
   box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.01);
-  border-color: #bbf7d0 !important; /* Light Green Border */
+  border-color: #dff7c6 !important; /* Light Green Border */
 }
 
 .katex-display > .katex {
@@ -1775,8 +1929,8 @@ b {
 
 .verdict-box {
   /* Subtle Background & Depth */
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-  border: 1px solid #e2e8f0;
+  background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+  border: 1px solid #e5e7eb;
   border-left: 4px solid var(--color-brand-green); /* Brand Identity */
 
   /* Spacing & Shape */
@@ -1831,7 +1985,7 @@ b {
 .verdict-box p {
   font-size: 17px;
   line-height: 1.7;
-  color: #334155; /* Slate-700: Richer than standard grey */
+  color: #374151; /* Slate-700: Richer than standard grey */
   margin-bottom: 16px;
 }
 
@@ -1842,9 +1996,9 @@ b {
 /* "Highlighter" effect for <strong> text */
 .verdict-box strong {
   font-weight: 600;
-  color: #0f172a; /* Slate-900: Dark and sharp */
+  color: #111827; /* Slate-900: Dark and sharp */
   /* Creates a subtle green highlight at the bottom half of the text */
-  background: linear-gradient(180deg, transparent 70%, #dcfce7 70%);
+  background: linear-gradient(180deg, transparent 70%, #effbe2 70%);
   padding: 0 2px;
 }
 
@@ -1899,7 +2053,7 @@ b {
 .mini-qna li {
   font-size: 16px;
   font-weight: 500;
-  color: #334155; /* Slate-700 for better readability */
+  color: #374151; /* Slate-700 for better readability */
   background: var(--color-bg-soft);
   padding: 16px 20px;
   border-radius: 10px;
@@ -1933,7 +2087,7 @@ b {
 .homepage-entity {
   font-size: 0.95rem; /* ~15px for readability */
   line-height: 1.6; /* Relaxed spacing */
-  color: #64748b; /* Slate 500: Elegant muted grey */
+  color: #6b7280; /* Slate 500: Elegant muted grey */
   font-weight: 500; /* Medium weight for clarity */
   letter-spacing: 0.01em; /* Slight breathing room */
   text-align: center;
@@ -1951,10 +2105,10 @@ b {
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background-color: #ecfdf5; /* Emerald-50 */
-  border: 1px solid #a7f3d0; /* Emerald-200 */
+  background-color: #f7fdf1; /* Emerald-50 */
+  border: 1px solid #dff7c6; /* Emerald-200 */
   border-radius: 999px; /* Pill shape */
-  color: #065f46; /* Emerald-800 */
+  color: #2a4111; /* Emerald-800 */
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 24px;
@@ -1963,8 +2117,8 @@ b {
 }
 
 .hero-update-badge:hover {
-  background-color: #d1fae5; /* Slightly darker on hover */
-  border-color: #34d399;
+  background-color: #effbe2; /* Slightly darker on hover */
+  border-color: #92c65b;
   transform: translateY(-1px);
 }
 
@@ -2056,8 +2210,8 @@ b {
 /* OPTION 1: BRAND ALIGNED SNIPPET */
 .short-answer-box {
   background: #ffffff;
-  border: 1px solid #dcfce7; /* Subtle Green Border */
-  border-left: 5px solid #16a34a; /* Your Brand Green Accent */
+  border: 1px solid #effbe2; /* Subtle Green Border */
+  border-left: 5px solid #74a046; /* Your Brand Green Accent */
   border-radius: 12px; /* Matches your rounded cards */
   padding: 28px;
   margin: 32px 0;
@@ -2066,7 +2220,7 @@ b {
 
 .short-answer-box h3 {
   font-size: 13px;
-  color: #15803d; /* Dark Green Text */
+  color: #408e1a; /* Dark Green Text */
   margin-top: 0;
   margin-bottom: 16px;
   font-weight: 800;
@@ -2084,7 +2238,7 @@ b {
 }
 
 .short-answer-box p {
-  color: #334155; /* Slate-700 */
+  color: #374151; /* Slate-700 */
   font-size: 17px;
   line-height: 1.6;
   margin-bottom: 24px;
@@ -2092,12 +2246,12 @@ b {
 
 /* Highlights the numbers nicely */
 .short-answer-box strong {
-  color: #0f172a;
+  color: #111827;
   font-weight: 700;
-  background: #f0fdf4; /* Light green highlight */
+  background: #f7fdf1; /* Light green highlight */
   padding: 2px 6px;
   border-radius: 4px;
-  border-bottom: 1px solid #bbf7d0;
+  border-bottom: 1px solid #dff7c6;
 }
 
 /* =========================================
@@ -2118,7 +2272,7 @@ b {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: #64748b; /* Slate-500: Professional Muted Label */
+  color: #6b7280; /* Slate-500: Professional Muted Label */
   margin-top: 0;
   margin-bottom: 12px;
   display: flex;
@@ -2134,8 +2288,8 @@ b {
   justify-content: center;
   width: 18px;
   height: 18px;
-  background: #e2e8f0;
-  color: #64748b;
+  background: #e5e7eb;
+  color: #6b7280;
   border-radius: 50%;
   font-size: 11px;
 }
@@ -2152,15 +2306,15 @@ b {
    ========================================= */
 .freshness-note {
   font-size: 13px !important;
-  color: #64748b; /* Slate-500 */
+  color: #6b7280; /* Slate-500 */
   margin: 12px 0 24px 0;
   padding-left: 12px;
-  border-left: 2px solid #cbd5e1; /* Subtle Grey Bar */
+  border-left: 2px solid #d1d5db; /* Subtle Grey Bar */
   line-height: 1.5;
 }
 
 .freshness-note strong {
-  color: #0f172a; /* Dark Slate */
+  color: #111827; /* Dark Slate */
   font-weight: 600;
 }
 
@@ -2170,13 +2324,13 @@ b {
 .sibling-links {
   margin-top: 48px;
   padding-top: 32px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e5e7eb;
 }
 
 .sibling-links h3 {
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: #111827;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -2210,11 +2364,11 @@ b {
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   text-decoration: none;
-  color: #334155;
+  color: #374151;
   font-weight: 600;
   font-size: 15px;
   transition: all 0.2s ease;
@@ -2223,10 +2377,10 @@ b {
 /* Hover Effect: Lifts up + Shadow + Border Color */
 .sibling-links a:hover {
   background: #ffffff;
-  border-color: #16a34a; /* Brand Green */
+  border-color: #74a046; /* Brand Green */
   transform: translateY(-3px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  color: #16a34a;
+  color: #74a046;
 }
 
 /* Adds a generic arrow icon to every link */
@@ -2247,8 +2401,8 @@ b {
    ========================================= */
 .disclaimer-note {
   font-size: 13px;
-  color: #94a3b8; /* Muted Slate */
-  border-top: 1px solid #e2e8f0;
+  color: #9ca3af; /* Muted Slate */
+  border-top: 1px solid #e5e7eb;
   padding-top: 20px;
   margin-top: 40px;
   line-height: 1.6;
@@ -2345,10 +2499,10 @@ b {
   .article h1,
   .article h2,
   .article h3 {
-    color: #475569;
+    color: #4b5563;
   }
   .article p {
-    color: #64748b;
+    color: #6b7280;
   }
 
   body {

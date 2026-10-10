@@ -37,7 +37,7 @@ const SALARY_TAX_GUIDES = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Tax Planning Guides for India | Fincado',
+  title: 'Tax Planning Guides for India',
   description:
     'Browse Fincado tax planning guides including salary-wise tax pages, regime comparisons, and practical deduction explainers.',
   alternates: {
@@ -49,6 +49,14 @@ export const metadata: Metadata = {
       'Salary-wise tax guides, regime comparisons, and practical tax planning resources.',
     url: PAGE_URL,
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

@@ -54,6 +54,14 @@ export const metadata: Metadata = {
       'See your real profit after all taxes and charges before you place a trade. Works perfectly for Zerodha, Groww, Upstox & Angel One.',
     url: 'https://fincado.com/brokerage-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
   robots: {
     index: true,

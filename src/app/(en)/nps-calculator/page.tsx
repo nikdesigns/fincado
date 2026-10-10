@@ -51,6 +51,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/nps-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/nps-calculator/',
+      'hi-IN': 'https://fincado.com/hi/nps-calculator/',
+      'x-default': 'https://fincado.com/nps-calculator/',
+    },
   },
   openGraph: {
     title: 'NPS Calculator 2026 – Plan Your Pension with Tax Benefits',

@@ -306,7 +306,7 @@ export default function SavingsClient() {
           <div style={{ marginTop: 24, width: '100%', textAlign: 'center' }}>
             {/* Main Result */}
             <div style={{ marginBottom: 12 }}>
-              <span style={{ fontSize: 13, color: '#64748b' }}>
+              <span style={{ fontSize: 13, color: '#6b7280' }}>
                 Est. Total Savings
               </span>
               <div
@@ -335,10 +335,10 @@ export default function SavingsClient() {
                   padding: 10,
                   background: '#fff',
                   borderRadius: 8,
-                  border: '1px solid #e2e8f0',
+                  border: '1px solid #e5e7eb',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
+                <div style={{ color: '#6b7280', fontSize: 12 }}>
                   Total Deposits
                 </div>
                 <div style={{ fontWeight: 600 }}>
@@ -350,10 +350,10 @@ export default function SavingsClient() {
                   padding: 10,
                   background: '#fff',
                   borderRadius: 8,
-                  border: '1px solid #e2e8f0',
+                  border: '1px solid #e5e7eb',
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: 12 }}>
+                <div style={{ color: '#6b7280', fontSize: 12 }}>
                   Interest Earned
                 </div>
                 <div
@@ -369,8 +369,8 @@ export default function SavingsClient() {
               style={{
                 marginTop: 16,
                 fontSize: 12,
-                color: '#64748b',
-                background: '#f1f5f9',
+                color: '#6b7280',
+                background: '#f3f4f6',
                 padding: '6px 12px',
                 borderRadius: 20,
                 display: 'inline-block',
@@ -386,18 +386,18 @@ export default function SavingsClient() {
                 style={{
                   marginTop: 16,
                   padding: 12,
-                  background: '#ecfdf5',
+                  background: '#f7fdf1',
                   borderRadius: 8,
-                  border: '1px solid #a7f3d0',
+                  border: '1px solid #dff7c6',
                 }}
               >
                 <div
-                  style={{ fontSize: 12, color: '#047857', fontWeight: 600 }}
+                  style={{ fontSize: 12, color: '#577a30', fontWeight: 600 }}
                 >
                   To reach {formatINR(targetAmount)}:
                 </div>
                 <div
-                  style={{ fontSize: 20, fontWeight: 800, color: '#059669' }}
+                  style={{ fontSize: 20, fontWeight: 800, color: '#74a046' }}
                 >
                   {formatINR(calculations.requiredMonthly)}
                   <span style={{ fontSize: 14, fontWeight: 400 }}>/mo</span>
@@ -413,16 +413,16 @@ export default function SavingsClient() {
                   padding: 12,
                   background: '#fff7ed',
                   borderRadius: 8,
-                  border: '1px solid #fed7aa',
+                  border: '1px solid #ffd093',
                 }}
               >
                 <div
-                  style={{ fontSize: 12, color: '#c2410c', fontWeight: 600 }}
+                  style={{ fontSize: 12, color: '#db7a37', fontWeight: 600 }}
                 >
                   Recommended Emergency Fund:
                 </div>
                 <div
-                  style={{ fontSize: 18, fontWeight: 800, color: '#ea580c' }}
+                  style={{ fontSize: 18, fontWeight: 800, color: '#db7a37' }}
                 >
                   {formatINR(calculations.emergencyCorpus)}
                 </div>

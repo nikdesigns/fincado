@@ -68,6 +68,14 @@ export const metadata: Metadata = {
       'Compare bank vs NBFC personal loan rates, understand true borrowing cost, and reduce interest with practical negotiation tips.',
     url: 'https://fincado.com/guides/personal-loan-interest-rates/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

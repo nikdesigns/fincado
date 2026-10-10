@@ -66,6 +66,14 @@ export const metadata: Metadata = {
       'Understand billing cycles, reward points, annual fees, utilization ratio, and the debt traps to avoid.',
     url: 'https://fincado.com/guides/credit-card-guide/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

@@ -16,6 +16,14 @@ export const metadata: Metadata = {
       'Learn about Fincado — India’s modern personal finance platform offering calculators, financial guides, analysis, and money tools to help users make smarter decisions.',
     url: 'https://fincado.com/about/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

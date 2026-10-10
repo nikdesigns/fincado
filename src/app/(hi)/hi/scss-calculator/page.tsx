@@ -78,6 +78,14 @@ export const metadata: Metadata = {
       'अपने रिटायरमेंट के बाद सुरक्षित आय की योजना बनाएं। 8.2% ब्याज दर पर हर 3 महीने में मिलने वाले गारंटीड रिटर्न की गणना करें।',
     url: 'https://fincado.com/hi/scss-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

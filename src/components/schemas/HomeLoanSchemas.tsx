@@ -10,12 +10,6 @@ export function HomeLoanSchemas() {
       price: '0',
       priceCurrency: 'INR',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '3247',
-      bestRating: '5',
-    },
     featureList: [
       'Home Loan EMI Calculation',
       'Tax Benefit Calculator (80C, 24b, 80EEA)',
@@ -33,25 +27,25 @@ export function HomeLoanSchemas() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://fincado.com',
+        item: 'https://fincado.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Calculators',
-        item: 'https://fincado.com/calculators',
+        item: 'https://fincado.com/calculators/',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'EMI Calculator',
-        item: 'https://fincado.com/emi-calculator',
+        item: 'https://fincado.com/emi-calculator/',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: 'Home Loan EMI Calculator',
-        item: 'https://fincado.com/emi-calculator/home-loan',
+        item: 'https://fincado.com/emi-calculator/home-loan/',
       }
     ],
   };

@@ -61,6 +61,14 @@ export const metadata: Metadata = {
       'Compare lounge-access credit cards from entry-level to premium, ordered by annual fee so you can find your entry point.',
     url: 'https://fincado.com/guides/best-credit-cards-for-airport-lounge-access/',
     type: 'article',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

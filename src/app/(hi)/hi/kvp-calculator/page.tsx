@@ -80,6 +80,14 @@ export const metadata: Metadata = {
       'भारत सरकार की किसान विकास पत्र योजना के तहत यह पता करें कि आपका पैसा किस सटीक तारीख को दोगुना (Double) होगा।',
     url: 'https://fincado.com/hi/kvp-calculator/',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fincado Financial Calculators',
+      },
+    ],
   },
 };
 

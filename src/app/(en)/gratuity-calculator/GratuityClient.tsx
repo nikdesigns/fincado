@@ -547,7 +547,7 @@ function GratuityPieChart({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#f1f5f9"
+          stroke="#f3f4f6"
           strokeWidth={strokeWidth}
         />
         {exemptPct > 0 && (

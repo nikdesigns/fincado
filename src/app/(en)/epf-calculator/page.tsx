@@ -51,6 +51,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/epf-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/epf-calculator/',
+      'hi-IN': 'https://fincado.com/hi/epf-calculator/',
+      'x-default': 'https://fincado.com/epf-calculator/',
+    },
   },
   openGraph: {
     title: 'EPF Calculator 2026 – Calculate Your Provident Fund Corpus',

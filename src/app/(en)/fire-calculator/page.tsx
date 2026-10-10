@@ -49,6 +49,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: 'https://fincado.com/fire-calculator/',
+    languages: {
+      'en-IN': 'https://fincado.com/fire-calculator/',
+      'hi-IN': 'https://fincado.com/hi/fire-calculator/',
+      'x-default': 'https://fincado.com/fire-calculator/',
+    },
   },
   openGraph: {
     title: 'FIRE Calculator 2026 – Calculate Early Retirement Number',
