@@ -4,15 +4,19 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
-  GitCompare,
-  Menu,
-  X,
-  ChevronDown,
+  ArrowRight,
+  BookOpen,
   Calculator,
-  TrendingUp,
+  ChevronDown,
+  GitCompare,
+  Home,
+  Landmark,
+  Languages,
+  Menu,
   PiggyBank,
   ShieldCheck,
-  Landmark,
+  TrendingUp,
+  X,
 } from 'lucide-react';
 
 import {
@@ -24,7 +28,6 @@ import {
   NavigationMenuContent,
 } from '@/components/ui/navigation-menu';
 
-import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
@@ -43,9 +46,8 @@ const CALCULATOR_MENU = [
   {
     category: 'Loans',
     icon: Landmark,
-    color: 'text-blue-600',
     items: [
-      { label: 'EMI Calculator', href: '/emi-calculator/', featured: false },
+      { label: 'EMI Calculator', href: '/emi-calculator/' },
       { label: 'EMI Prepayment', href: '/emi-prepayment-calculator/' },
       { label: 'Home Loan', href: '/loans/home-loan/' },
       { label: 'Car Loan', href: '/loans/car-loan/' },
@@ -56,7 +58,6 @@ const CALCULATOR_MENU = [
   {
     category: 'Investment',
     icon: TrendingUp,
-    color: 'text-emerald-600',
     items: [
       { label: 'SIP Calculator', href: '/sip-calculator/' },
       { label: 'Lumpsum Calculator', href: '/lumpsum-calculator/' },
@@ -75,7 +76,6 @@ const CALCULATOR_MENU = [
   {
     category: 'Retirement',
     icon: PiggyBank,
-    color: 'text-purple-600',
     items: [
       { label: 'Retirement Planner', href: '/retirement-calculator/' },
       { label: 'SCSS Calculator', href: '/scss-calculator/' },
@@ -90,7 +90,6 @@ const CALCULATOR_MENU = [
   {
     category: 'Tax & Tools',
     icon: ShieldCheck,
-    color: 'text-rose-600',
     items: [
       { label: 'Income Tax Calculator', href: '/income-tax-calculator/' },
       { label: 'Salary Calculator', href: '/salary-calculator/' },
@@ -107,44 +106,74 @@ const CALCULATOR_MENU = [
   }
 ];
 
+const TOTAL_CALCULATORS = CALCULATOR_MENU.reduce(
+  (sum, section) => sum + section.items.length,
+  0,
+);
+
+const NAV_LINK =
+  'rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150';
+const NAV_IDLE = 'text-slate-600 hover:bg-slate-100 hover:text-slate-900';
+const NAV_ACTIVE = 'bg-slate-100 text-slate-900';
+
 export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Calculators dropdown: which category's links are showing.
+  // Opens on the category of the page you are on, when there is one.
+  const [activeCat, setActiveCat] = useState(() => {
+    const idx = CALCULATOR_MENU.findIndex((section) =>
+      section.items.some((item) => item.href === pathname),
+    );
+    return idx === -1 ? 0 : idx;
+  });
+
+  const isHindi = pathname === '/hi' || pathname.startsWith('/hi/');
   const isCompareActive =
     pathname.startsWith('/compare-loans') || pathname.startsWith('/compare/');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  const navClass = (active: boolean) =>
+    `${NAV_LINK} ${active ? NAV_ACTIVE : NAV_IDLE}`;
+
+  const closeMobile = () => setMobileOpen(false);
+
+  // Language switch: Hindi pages link back to English, and vice versa
+  const langHref = isHindi ? '/' : '/hi/';
+  const langLabel = isHindi ? 'English' : 'हिंदी';
+
   return (
     <header
       role="banner"
-      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md transition-shadow duration-200 ${
         scrolled
-          ? 'bg-white/98 backdrop-blur-xl shadow-lg border-slate-200/80'
-          : 'bg-white/95 backdrop-blur-md border-slate-100'
+          ? 'border-slate-200 shadow-sm shadow-slate-900/5'
+          : 'border-transparent'
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* LOGO - Enhanced with icon */}
+        <div className="flex h-16 items-center justify-between gap-6">
+          {/* LOGO */}
           <Link
             href="/"
-            className="group inline-flex items-center"
+            className="inline-flex shrink-0 items-center"
             aria-label="Fincado home"
           >
             <BrandLogo
               variant="horizontal"
               width={172}
               height={40}
-              className="h-8 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
+              className="h-8 w-auto"
               priority
             />
           </Link>
@@ -157,11 +186,7 @@ export default function Header() {
                   <Link
                     href="/"
                     aria-current={isActive('/') ? 'page' : undefined}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                      isActive('/')
-                        ? 'text-brand-900 bg-brand-200'
-                        : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
-                    }`}
+                    className={navClass(isActive('/'))}
                   >
                     Home
                   </Link>
@@ -169,80 +194,94 @@ export default function Header() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-[#6B7280] hover:text-brand-900 hover:bg-brand-200">
+                <NavigationMenuTrigger className="h-9 rounded-lg bg-transparent px-3 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900 data-[state=open]:bg-slate-100 data-[state=open]:text-slate-900">
                   Calculators
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="rounded-2xl bg-white shadow-2xl border border-slate-200/80 overflow-hidden">
-                  <div className="grid w-200 grid-cols-4 gap-0 p-6">
-                    {CALCULATOR_MENU.map((section) => {
-                      const Icon = section.icon;
-                      return (
+                <NavigationMenuContent className="p-0">
+                  <div className="flex w-[760px]">
+                    {/* Category rail */}
+                    <div className="flex w-[232px] shrink-0 flex-col border-r border-slate-200 bg-slate-50 p-3">
+                      <div className="space-y-1">
+                        {CALCULATOR_MENU.map((section, idx) => {
+                          const Icon = section.icon;
+                          const selected = idx === activeCat;
+                          return (
+                            <button
+                              key={section.category}
+                              type="button"
+                              onMouseEnter={() => setActiveCat(idx)}
+                              onFocus={() => setActiveCat(idx)}
+                              onClick={() => setActiveCat(idx)}
+                              aria-pressed={selected}
+                              className={`flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors ${
+                                selected
+                                  ? 'border-slate-200 bg-white shadow-sm shadow-slate-900/5'
+                                  : 'border-transparent hover:bg-white/70'
+                              }`}
+                            >
+                              <span
+                                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${
+                                  selected
+                                    ? 'bg-slate-900 text-brand-400'
+                                    : 'bg-slate-200 text-slate-600'
+                                }`}
+                              >
+                                <Icon className="h-4 w-4" />
+                              </span>
+                              <span className="flex-1 text-sm font-semibold text-slate-900">
+                                {section.category}
+                              </span>
+                              <span className="text-xs font-medium text-slate-400 tabular-nums">
+                                {section.items.length}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <Link
+                        href="/calculators/"
+                        className="group mt-auto flex items-center justify-between gap-2 rounded-xl bg-brand-400 px-3 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-brand-500"
+                      >
+                        All {TOTAL_CALCULATORS} calculators
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                      </Link>
+                    </div>
+
+                    {/* Links for the selected category */}
+                    <div className="min-h-[304px] flex-1 p-5">
+                      {CALCULATOR_MENU.map((section, idx) => (
                         <div
                           key={section.category}
-                          className="p-4 hover:bg-slate-50/50 rounded-xl transition-colors"
+                          className={idx === activeCat ? 'block' : 'hidden'}
                         >
-                          <div
-                            className={`mb-4 flex items-center gap-2.5 ${section.color}`}
-                          >
-                            <div
-                              className={`w-8 h-8 rounded-lg bg-linear-to-br ${
-                                section.color === 'text-blue-600'
-                                  ? 'from-blue-50 to-blue-100'
-                                  : section.color === 'text-emerald-600'
-                                    ? 'from-emerald-50 to-emerald-100'
-                                    : section.color === 'text-purple-600'
-                                      ? 'from-purple-50 to-purple-100'
-                                      : 'from-rose-50 to-rose-100'
-                              } flex items-center justify-center`}
-                            >
-                              <Icon className="w-4 h-4" />
-                            </div>
-                            <span className="text-xs font-semibold uppercase tracking-wider">
-                              {section.category}
-                            </span>
-                          </div>
-                          <ul className="space-y-2">
-                            {section.items.map((item) => (
-                              <li key={item.href}>
-                                <Link
-                                  href={item.href}
-                                  className={`group flex items-center gap-2 text-sm font-medium transition-all duration-200 py-1 px-2 -mx-2 rounded-md hover:translate-x-0.5 ${
-                                    item.featured
-                                      ? 'text-brand-900 bg-brand-200'
-                                      : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
-                                  }`}
-                                >
-                                  {item.featured && (
-                                    <GitCompare className="w-3.5 h-3.5 shrink-0" />
-                                  )}
-                                  <span className="relative">
+                          <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            {section.category} calculators
+                          </p>
+                          <ul className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+                            {section.items.map((item) => {
+                              const active = pathname === item.href;
+                              return (
+                                <li key={item.href}>
+                                  <Link
+                                    href={item.href}
+                                    aria-current={active ? 'page' : undefined}
+                                    className={`group/item flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors ${
+                                      active
+                                        ? 'bg-brand-100 font-semibold text-slate-900'
+                                        : 'font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                                    }`}
+                                  >
                                     {item.label}
-                                    <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-brand-900 group-hover:w-full transition-all duration-300" />
-                                  </span>
-                                </Link>
-                              </li>
-                            ))}
+                                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-slate-400 opacity-0 transition-opacity group-hover/item:opacity-100" />
+                                  </Link>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </div>
-                      );
-                    })}
-                  </div>
-                  {/* Bottom CTA Strip */}
-                  <div className="bg-brand-200 border-emerald-100 px-6 py-3 flex items-center justify-between">
-                    <p className="text-xs text-brand-900 font-medium">
-                      💡 All calculators are{' '}
-                      <span className="text-brand-900 font-semibold">
-                        100% Free
-                      </span>{' '}
-                      and updated with latest rates
-                    </p>
-                    <Link
-                      href="/calculators/"
-                      className="text-xs font-semibold text-brand-900  flex items-center gap-1 hover:gap-2 transition-all"
-                    >
-                      View All Calculators
-                      <ChevronDown className="w-3 h-3 -rotate-90" />
-                    </Link>
+                      ))}
+                    </div>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -252,11 +291,7 @@ export default function Header() {
                   <Link
                     href="/compare-loans/"
                     aria-current={isCompareActive ? 'page' : undefined}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2 ${
-                      isCompareActive
-                        ? 'text-brand-900 bg-brand-200'
-                        : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
-                    }`}
+                    className={navClass(isCompareActive)}
                   >
                     Compare Rates
                   </Link>
@@ -268,76 +303,68 @@ export default function Header() {
                   <Link
                     href="/guides/"
                     aria-current={isActive('/guides') ? 'page' : undefined}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                      isActive('/guides')
-                        ? 'text-brand-900 bg-brand-200'
-                        : 'text-[#6B7280] hover:text-brand-900 hover:bg-brand-200'
-                    }`}
+                    className={navClass(isActive('/guides'))}
                   >
                     Guides
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    href="/hi/"
-                    className="px-4 py-2 text-sm font-semibold text-[#ff9f4c] hover:bg-rose-50 hover:text-[#ff9f4c] rounded-lg transition-all duration-200"
-                    lang="hi"
-                    aria-label="Switch to Hindi calculators"
-                  >
-                    हिंदी
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* CTA & MOBILE TRIGGER */}
-          <div className="flex items-center gap-3">
-            <Button
-              asChild
-              className="hidden lg:inline-flex bg-brand-300 text-[#111827] font-semibold hover:scale-105 transition-all duration-200 rounded-lg"
+          {/* RIGHT: language, CTA, mobile trigger */}
+          <div className="flex shrink-0 items-center gap-2">
+            <Link
+              href={langHref}
+              lang={isHindi ? 'en' : 'hi'}
+              aria-label={
+                isHindi ? 'Switch to English' : 'Switch to Hindi calculators'
+              }
+              className="hidden h-9 items-center gap-1.5 rounded-lg border border-slate-200 px-3 text-sm font-medium text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-900 lg:inline-flex"
             >
-              <Link href="/emi-calculator/" className="flex items-center gap-2">
-                <Calculator className="w-4 h-4" />
-                EMI Calculator
-              </Link>
-            </Button>
+              <Languages className="h-4 w-4" />
+              {langLabel}
+            </Link>
+
+            <Link
+              href="/emi-calculator/"
+              className="hidden h-9 items-center gap-2 rounded-lg bg-brand-400 px-4 text-sm font-semibold text-slate-900 transition-colors hover:bg-brand-500 lg:inline-flex"
+            >
+              <Calculator className="h-4 w-4" />
+              EMI Calculator
+            </Link>
 
             {/* MOBILE MENU */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="lg:hidden hover:bg-slate-100 transition-colors rounded-lg"
+                <button
+                  type="button"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-900 lg:hidden"
                   aria-label="Toggle navigation menu"
                 >
                   {mobileOpen ? (
-                    <X className="h-6 w-6 text-slate-700" />
+                    <X className="h-5 w-5" />
                   ) : (
-                    <Menu className="h-6 w-6 text-slate-700" />
+                    <Menu className="h-5 w-5" />
                   )}
-                </Button>
+                </button>
               </SheetTrigger>
 
               <SheetContent
                 side="right"
-                className="w-[320px] p-0 bg-white sm:max-w-sm"
+                className="w-[340px] bg-white p-0 sm:max-w-sm"
               >
                 <VisuallyHidden>
                   <SheetTitle>Navigation menu</SheetTitle>
                 </VisuallyHidden>
 
-                <div className="h-full overflow-y-auto">
-                  {/* Mobile Header */}
-                  <div className="sticky top-0 z-10 border-b border-slate-200 bg-white px-6 py-4">
+                <div className="flex h-full flex-col">
+                  {/* Mobile header */}
+                  <div className="border-b border-slate-200 px-5 py-4">
                     <Link
                       href="/"
                       className="inline-flex items-center"
-                      onClick={() => setMobileOpen(false)}
+                      onClick={closeMobile}
                     >
                       <BrandLogo
                         variant="horizontal"
@@ -348,98 +375,95 @@ export default function Header() {
                     </Link>
                   </div>
 
-                  <div className="px-6 py-6 space-y-6">
-                    {/* Quick Links */}
-                    <div className="space-y-1">
-                      <Link
-                        href="/"
-                        onClick={() => setMobileOpen(false)}
-                        className="block text-base font-semibold text-slate-900 hover:text-emerald-700 hover:bg-emerald-50 transition-colors py-2.5 px-3 rounded-lg"
-                      >
-                        🏠 Home
-                      </Link>
-                      <Link
-                        href="/compare-loans/"
-                        onClick={() => setMobileOpen(false)}
-                        className="flex items-center gap-2 text-base font-semibold text-slate-900 hover:text-emerald-700 hover:bg-emerald-50 transition-colors py-2.5 px-3 rounded-lg"
-                      >
-                        <GitCompare className="w-5 h-5" />
-                        Compare Rates
-                      </Link>
-                      <Link
-                        href="/guides/"
-                        onClick={() => setMobileOpen(false)}
-                        className="block text-base font-semibold text-slate-900 hover:text-emerald-700 hover:bg-emerald-50 transition-colors py-2.5 px-3 rounded-lg"
-                      >
-                        📚 Guides
-                      </Link>
-                      <Link
-                        href="/hi/"
-                        onClick={() => setMobileOpen(false)}
-                        className="block text-base font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 transition-colors py-2.5 px-3 rounded-lg"
-                        lang="hi"
-                      >
-                        🇮🇳 हिंदी
-                      </Link>
-                    </div>
-
-                    {/* Calculator Sections */}
-                    {CALCULATOR_MENU.map((section, idx) => {
-                      const Icon = section.icon;
-                      return (
-                        <Collapsible
-                          key={section.category}
-                          defaultOpen={idx === 0}
-                          className="border-t border-slate-200 pt-4"
-                        >
-                          <CollapsibleTrigger className="flex w-full items-center justify-between text-left group hover:bg-slate-50 px-3 py-2 rounded-lg transition-colors">
-                            <div
-                              className={`flex items-center gap-2.5 text-sm font-semibold uppercase tracking-wider ${section.color}`}
-                            >
-                              <Icon className="w-4 h-4" />
-                              {section.category}
-                            </div>
-                            <ChevronDown className="h-4 w-4 text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                          </CollapsibleTrigger>
-                          <CollapsibleContent className="mt-3 space-y-1 pl-2">
-                            {section.items.map((item) => (
-                              <Link
-                                key={item.href}
-                                href={item.href}
-                                onClick={() => setMobileOpen(false)}
-                                className={`block text-sm font-medium transition-colors py-2 px-3 rounded-lg ${
-                                  item.featured
-                                    ? 'text-emerald-600 font-semibold hover:bg-emerald-50'
-                                    : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50'
-                                }`}
-                              >
-                                {item.label}
-                              </Link>
-                            ))}
-                          </CollapsibleContent>
-                        </Collapsible>
-                      );
-                    })}
-
-                    {/* Mobile CTA */}
-                    <div className="pt-4 border-t border-slate-200 space-y-3">
-                      <Button
-                        asChild
-                        className="w-full bg-brand-300 text-[#111827] font-semibold shadow-lg rounded-lg h-12"
-                      >
+                  <div className="flex-1 overflow-y-auto px-3 py-4">
+                    {/* Main links */}
+                    <nav aria-label="Main" className="space-y-1">
+                      {[
+                        { label: 'Home', href: '/', icon: Home, active: isActive('/') },
+                        { label: 'Compare Rates', href: '/compare-loans/', icon: GitCompare, active: isCompareActive },
+                        { label: 'Guides', href: '/guides/', icon: BookOpen, active: isActive('/guides') },
+                      ].map((item) => (
                         <Link
-                          href="/emi-calculator/"
-                          onClick={() => setMobileOpen(false)}
-                          className="flex items-center justify-center gap-2"
+                          key={item.href}
+                          href={item.href}
+                          onClick={closeMobile}
+                          aria-current={item.active ? 'page' : undefined}
+                          className={`flex items-center gap-3 rounded-xl px-3 py-3 text-base font-semibold transition-colors ${
+                            item.active
+                              ? 'bg-slate-100 text-slate-900'
+                              : 'text-slate-900 hover:bg-slate-100'
+                          }`}
                         >
-                          <Calculator className="w-5 h-5" />
-                          EMI Calculator
+                          <item.icon className="h-5 w-5 text-slate-500" />
+                          {item.label}
                         </Link>
-                      </Button>
-                      <p className="text-xs text-center text-slate-500">
-                        All calculators are free to use 🎉
-                      </p>
+                      ))}
+                      <Link
+                        href={langHref}
+                        onClick={closeMobile}
+                        lang={isHindi ? 'en' : 'hi'}
+                        className="flex items-center gap-3 rounded-xl px-3 py-3 text-base font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+                      >
+                        <Languages className="h-5 w-5 text-slate-500" />
+                        {langLabel}
+                      </Link>
+                    </nav>
+
+                    {/* Calculator sections */}
+                    <p className="mt-6 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      Calculators
+                    </p>
+                    <div className="space-y-1">
+                      {CALCULATOR_MENU.map((section, idx) => {
+                        const Icon = section.icon;
+                        return (
+                          <Collapsible
+                            key={section.category}
+                            defaultOpen={idx === 0}
+                          >
+                            <CollapsibleTrigger className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-slate-100">
+                              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-brand-400">
+                                <Icon className="h-4 w-4" />
+                              </span>
+                              <span className="text-sm font-semibold text-slate-900">
+                                {section.category}
+                              </span>
+                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">
+                                {section.items.length}
+                              </span>
+                              <ChevronDown className="ml-auto h-4 w-4 text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="mt-1 mb-2 ml-7 space-y-0.5 border-l border-slate-200 pl-4">
+                              {section.items.map((item) => (
+                                <Link
+                                  key={item.href}
+                                  href={item.href}
+                                  onClick={closeMobile}
+                                  className="block rounded-lg px-3 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                                >
+                                  {item.label}
+                                </Link>
+                              ))}
+                            </CollapsibleContent>
+                          </Collapsible>
+                        );
+                      })}
                     </div>
+                  </div>
+
+                  {/* Mobile CTA */}
+                  <div className="border-t border-slate-200 p-4">
+                    <Link
+                      href="/emi-calculator/"
+                      onClick={closeMobile}
+                      className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-400 text-sm font-semibold text-slate-900 transition-colors hover:bg-brand-500"
+                    >
+                      <Calculator className="h-5 w-5" />
+                      EMI Calculator
+                    </Link>
+                    <p className="mt-3 text-center text-xs text-slate-500">
+                      All {TOTAL_CALCULATORS} calculators are free to use
+                    </p>
                   </div>
                 </div>
               </SheetContent>

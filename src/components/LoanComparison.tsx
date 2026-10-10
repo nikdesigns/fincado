@@ -3,20 +3,18 @@
 import { useMemo, useState } from 'react';
 import {
   Calendar,
-  Calculator,
+  Car,
+  CheckCircle2,
+  Home,
   IndianRupee,
-  Info,
   Percent,
-  Sparkles,
-  TrendingDown,
-  Trophy,
+  RotateCcw,
+  Wallet,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { getLatestHomeRate } from '@/data/live-rates';
-import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
 interface LoanState {
   amount: number;
@@ -30,6 +28,9 @@ interface LoanResult {
   totalPayment: number;
 }
 
+type LoanKey = 'A' | 'B';
+type PresetKey = 'home' | 'car' | 'personal';
+
 const MIN_AMOUNT = 10000;
 const MAX_AMOUNT = 50000000;
 const MIN_RATE = 0;
@@ -37,10 +38,28 @@ const MAX_RATE = 40;
 const MIN_TENURE = 1;
 const MAX_TENURE = 40;
 
-const PRESETS: Record<'home' | 'car' | 'personal', LoanState> = {
+const PRESETS: Record<PresetKey, LoanState> = {
   home: { amount: 5000000, rate: getLatestHomeRate('sbi', 8.5), tenure: 20 },
   car: { amount: 1000000, rate: 9.5, tenure: 7 },
   personal: { amount: 500000, rate: 12.0, tenure: 5 },
+};
+
+const PRESET_BUTTONS: { key: PresetKey; label: string; icon: LucideIcon }[] = [
+  { key: 'home', label: 'Home loan', icon: Home },
+  { key: 'car', label: 'Car loan', icon: Car },
+  { key: 'personal', label: 'Personal loan', icon: Wallet },
+];
+
+const DEFAULT_A: LoanState = {
+  amount: 5000000,
+  rate: getLatestHomeRate('sbi', 8.5),
+  tenure: 20,
+};
+
+const DEFAULT_B: LoanState = {
+  amount: 5000000,
+  rate: getLatestHomeRate('hdfc', 8.7),
+  tenure: 20,
 };
 
 function clamp(value: number, min: number, max: number) {
@@ -90,65 +109,57 @@ function calculateLoan(input: LoanState): LoanResult {
   return { emi, totalInterest, totalPayment };
 }
 
+const FIELD_LABEL =
+  'flex items-center gap-1.5 text-xs font-medium text-slate-500';
+const FIELD_INPUT =
+  'h-11 rounded-lg border-slate-200 bg-white text-base font-semibold text-slate-900 focus-visible:border-brand-500 focus-visible:ring-brand-400/40';
+
 export default function LoanComparison() {
-  const currentDate = getCurrentMonthYearLabel();
-
-  const [loanA, setLoanA] = useState<LoanState>({
-    amount: 5000000,
-    rate: getLatestHomeRate('sbi', 8.5),
-    tenure: 20,
-  });
-
-  const [loanB, setLoanB] = useState<LoanState>({
-    amount: 5000000,
-    rate: getLatestHomeRate('hdfc', 8.7),
-    tenure: 20,
-  });
+  const [loanA, setLoanA] = useState<LoanState>(DEFAULT_A);
+  const [loanB, setLoanB] = useState<LoanState>(DEFAULT_B);
+  const [activePreset, setActivePreset] = useState<PresetKey | null>('home');
 
   const resultsA = useMemo(() => calculateLoan(loanA), [loanA]);
   const resultsB = useMemo(() => calculateLoan(loanB), [loanB]);
 
   const isTie = Math.abs(resultsA.totalPayment - resultsB.totalPayment) < 1;
-  const isAEconomical = resultsA.totalPayment < resultsB.totalPayment;
-
-  const winnerName = isTie
-    ? 'Both are equal'
-    : isAEconomical
-      ? 'Loan A'
-      : 'Loan B';
-  const loserName = isAEconomical ? 'Loan B' : 'Loan A';
+  const winner: LoanKey | null = isTie
+    ? null
+    : resultsA.totalPayment < resultsB.totalPayment
+      ? 'A'
+      : 'B';
+  const loser: LoanKey | null = winner ? (winner === 'A' ? 'B' : 'A') : null;
 
   const difference = Math.abs(resultsA.totalPayment - resultsB.totalPayment);
   const interestDiff = Math.abs(
     resultsA.totalInterest - resultsB.totalInterest,
   );
   const monthlyDiff = Math.abs(resultsA.emi - resultsB.emi);
+  const lowerEmi: LoanKey | null =
+    monthlyDiff < 1 ? null : resultsA.emi < resultsB.emi ? 'A' : 'B';
 
-  const basePayment = isAEconomical
-    ? resultsB.totalPayment
-    : resultsA.totalPayment;
+  const maxTotal = Math.max(resultsA.totalPayment, resultsB.totalPayment, 1);
+  const higherPayment = Math.max(resultsA.totalPayment, resultsB.totalPayment);
   const savingsPercent =
-    basePayment > 0 ? ((difference / basePayment) * 100).toFixed(2) : '0.00';
+    higherPayment > 0 ? ((difference / higherPayment) * 100).toFixed(1) : '0.0';
 
   const handleChange = (
-    loan: 'A' | 'B',
+    loan: LoanKey,
     field: keyof LoanState,
     value: string,
   ) => {
     const parsed = toFiniteNumber(value);
     const previous = loan === 'A' ? loanA : loanB;
+    const next: LoanState = { ...previous, [field]: parsed ?? previous[field] };
 
-    const next: LoanState = {
-      ...previous,
-      [field]: parsed ?? previous[field],
-    };
-
+    setActivePreset(null);
     if (loan === 'A') setLoanA(next);
     else setLoanB(next);
   };
 
-  const applyPreset = (preset: 'home' | 'car' | 'personal') => {
+  const applyPreset = (preset: PresetKey) => {
     const selected = PRESETS[preset];
+    setActivePreset(preset);
     setLoanA(selected);
     setLoanB({
       ...selected,
@@ -157,339 +168,295 @@ export default function LoanComparison() {
   };
 
   const resetComparison = () => {
-    setLoanA({
-      amount: 5000000,
-      rate: getLatestHomeRate('sbi', 8.5),
-      tenure: 20,
-    });
-    setLoanB({
-      amount: 5000000,
-      rate: getLatestHomeRate('hdfc', 8.7),
-      tenure: 20,
-    });
+    setActivePreset('home');
+    setLoanA(DEFAULT_A);
+    setLoanB(DEFAULT_B);
   };
+
+  const loans: {
+    key: LoanKey;
+    state: LoanState;
+    results: LoanResult;
+  }[] = [
+    { key: 'A', state: loanA, results: resultsA },
+    { key: 'B', state: loanB, results: resultsB },
+  ];
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Preset Buttons + Updated Date */}
-      <div className="flex flex-wrap justify-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => applyPreset('home')}
-          className="border-slate-300 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-        >
-          <Sparkles className="mr-1.5 h-3 w-3" />
-          Home Loan
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => applyPreset('car')}
-          className="border-slate-300 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-        >
-          <Sparkles className="mr-1.5 h-3 w-3" />
-          Car Loan
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => applyPreset('personal')}
-          className="border-slate-300 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-        >
-          <Sparkles className="mr-1.5 h-3 w-3" />
-          Personal Loan
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
+      {/* Presets */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="mr-1 text-sm font-medium text-slate-500">
+          Start with
+        </span>
+        {PRESET_BUTTONS.map((preset) => {
+          const isActive = activePreset === preset.key;
+          return (
+            <button
+              key={preset.key}
+              type="button"
+              onClick={() => applyPreset(preset.key)}
+              aria-pressed={isActive}
+              className={`inline-flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-sm font-semibold transition-colors ${
+                isActive
+                  ? 'border-slate-900 bg-slate-900 text-white'
+                  : 'border-slate-200 bg-white text-slate-700 hover:border-slate-900'
+              }`}
+            >
+              <preset.icon className="h-4 w-4" />
+              {preset.label}
+            </button>
+          );
+        })}
+        <button
+          type="button"
           onClick={resetComparison}
-          className="text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
         >
+          <RotateCcw className="h-3.5 w-3.5" />
           Reset
-        </Button>
-
-        {/* Dynamic Updated Date */}
-        <div className="flex items-center gap-1 text-xs text-slate-500 sm:ml-auto">
-          <span className="font-medium">Updated</span>
-          <span className="font-semibold text-brand-700">{currentDate}</span>
-        </div>
+        </button>
       </div>
 
-      {/* Two Column Comparison */}
-      <div className="compare-field grid grid-cols-1 gap-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm lg:grid-cols-2">
-        {/* Loan A */}
-        <div className="compare-stage-card border-slate-200 bg-linear-to-br from-slate-50 to-white p-6 lg:border-r">
-          <div className="mb-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-sm font-semibold text-brand-300 shadow-md">
-                A
+      {/* Two loans side by side: inputs + results */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {loans.map(({ key, state, results }) => {
+          const isWinner = winner === key;
+          const id = `loan-${key.toLowerCase()}`;
+          return (
+            <div
+              key={key}
+              className={`flex flex-col rounded-2xl border bg-white p-5 transition-colors sm:p-6 ${
+                isWinner
+                  ? 'border-brand-500 ring-4 ring-brand-100'
+                  : 'border-slate-200'
+              }`}
+            >
+              <div className="mb-5 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-sm font-bold text-brand-400">
+                    {key}
+                  </span>
+                  <h3 className="text-lg font-bold tracking-tight text-slate-900">
+                    Loan {key}
+                  </h3>
+                </div>
+                {isWinner && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-400 px-2.5 py-1 text-[11px] font-semibold text-slate-900">
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                    Costs less
+                  </span>
+                )}
               </div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Loan Option A</h3>
-                <p className="text-xs text-slate-500">
-                  Enter first loan details
-                </p>
-              </div>
-            </div>
-          </div>
 
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label
-                htmlFor="loan-a-amount"
-                className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 uppercase"
-              >
-                <IndianRupee className="h-3 w-3" />
-                Loan Amount
-              </Label>
-              <div className="relative">
-                <span className="absolute top-2.5 left-3 text-sm font-medium text-slate-500">
-                  ₹
-                </span>
-                <Input
-                  id="loan-a-amount"
-                  type="number"
-                  min={MIN_AMOUNT}
-                  max={MAX_AMOUNT}
-                  step="10000"
-                  value={loanA.amount}
-                  onChange={(e) => handleChange('A', 'amount', e.target.value)}
-                  className="pl-8 text-base font-semibold focus:border-brand-400 focus:ring-1 focus:ring-brand-400"
-                />
-              </div>
-            </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                <div className="space-y-1.5 sm:col-span-3 lg:col-span-1 xl:col-span-3">
+                  <Label htmlFor={`${id}-amount`} className={FIELD_LABEL}>
+                    <IndianRupee className="h-3.5 w-3.5" />
+                    Loan amount
+                  </Label>
+                  <div className="relative">
+                    <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-sm font-medium text-slate-400">
+                      ₹
+                    </span>
+                    <Input
+                      id={`${id}-amount`}
+                      type="number"
+                      inputMode="numeric"
+                      min={MIN_AMOUNT}
+                      max={MAX_AMOUNT}
+                      step="10000"
+                      value={state.amount}
+                      onChange={(e) =>
+                        handleChange(key, 'amount', e.target.value)
+                      }
+                      className={`${FIELD_INPUT} pl-8`}
+                    />
+                  </div>
+                </div>
 
-            <div className="space-y-2">
-              <Label
-                htmlFor="loan-a-rate"
-                className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 uppercase"
-              >
-                <Percent className="h-3 w-3" />
-                Interest Rate (p.a.)
-              </Label>
-              <div className="relative">
-                <Input
-                  id="loan-a-rate"
-                  type="number"
-                  min={MIN_RATE}
-                  max={MAX_RATE}
-                  step="0.05"
-                  value={loanA.rate}
-                  onChange={(e) => handleChange('A', 'rate', e.target.value)}
-                  className="text-base font-semibold focus:border-brand-400 focus:ring-1 focus:ring-brand-400"
-                />
-                <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
-                  %
-                </span>
-              </div>
-            </div>
+                <div className="space-y-1.5 sm:col-span-2 lg:col-span-1 xl:col-span-2">
+                  <Label htmlFor={`${id}-rate`} className={FIELD_LABEL}>
+                    <Percent className="h-3.5 w-3.5" />
+                    Interest rate (p.a.)
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id={`${id}-rate`}
+                      type="number"
+                      inputMode="decimal"
+                      min={MIN_RATE}
+                      max={MAX_RATE}
+                      step="0.05"
+                      value={state.rate}
+                      onChange={(e) =>
+                        handleChange(key, 'rate', e.target.value)
+                      }
+                      className={`${FIELD_INPUT} pr-9`}
+                    />
+                    <span className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm font-medium text-slate-400">
+                      %
+                    </span>
+                  </div>
+                </div>
 
-            <div className="space-y-2">
-              <Label
-                htmlFor="loan-a-tenure"
-                className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 uppercase"
-              >
-                <Calendar className="h-3 w-3" />
-                Loan Tenure
-              </Label>
-              <div className="relative">
-                <Input
-                  id="loan-a-tenure"
-                  type="number"
-                  min={MIN_TENURE}
-                  max={MAX_TENURE}
-                  step="1"
-                  value={loanA.tenure}
-                  onChange={(e) => handleChange('A', 'tenure', e.target.value)}
-                  className="text-base font-semibold focus:border-brand-400 focus:ring-1 focus:ring-brand-400"
-                />
-                <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
-                  Years
-                </span>
+                <div className="space-y-1.5">
+                  <Label htmlFor={`${id}-tenure`} className={FIELD_LABEL}>
+                    <Calendar className="h-3.5 w-3.5" />
+                    Tenure
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id={`${id}-tenure`}
+                      type="number"
+                      inputMode="numeric"
+                      min={MIN_TENURE}
+                      max={MAX_TENURE}
+                      step="1"
+                      value={state.tenure}
+                      onChange={(e) =>
+                        handleChange(key, 'tenure', e.target.value)
+                      }
+                      className={`${FIELD_INPUT} pr-11`}
+                    />
+                    <span className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm font-medium text-slate-400">
+                      yrs
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Loan B */}
-        <div className="compare-stage-card bg-linear-to-br from-slate-50 to-white p-6">
-          <div className="mb-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-sm font-semibold text-brand-300 shadow-md">
-                B
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Loan Option B</h3>
-                <p className="text-xs text-slate-500">
-                  Enter second loan details
-                </p>
-              </div>
+              {/* This loan's numbers */}
+              <dl className="mt-6 border-t border-slate-100 pt-5">
+                <dt className="text-xs font-medium uppercase tracking-wider text-slate-400">
+                  Monthly EMI
+                </dt>
+                <dd className="mt-1 text-3xl font-bold leading-none tracking-tight text-slate-900 tabular-nums">
+                  {formatINR(results.emi)}
+                </dd>
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="rounded-xl bg-slate-50 px-3 py-2.5">
+                    <dt className="text-xs text-slate-500">Total interest</dt>
+                    <dd className="mt-0.5 text-sm font-semibold text-slate-900 tabular-nums">
+                      {formatINR(results.totalInterest)}
+                    </dd>
+                  </div>
+                  <div className="rounded-xl bg-slate-50 px-3 py-2.5">
+                    <dt className="text-xs text-slate-500">Total repayment</dt>
+                    <dd className="mt-0.5 text-sm font-semibold text-slate-900 tabular-nums">
+                      {formatINR(results.totalPayment)}
+                    </dd>
+                  </div>
+                </div>
+              </dl>
             </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label
-                htmlFor="loan-b-amount"
-                className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 uppercase"
-              >
-                <IndianRupee className="h-3 w-3" />
-                Loan Amount
-              </Label>
-              <div className="relative">
-                <span className="absolute top-2.5 left-3 text-sm font-medium text-slate-500">
-                  ₹
-                </span>
-                <Input
-                  id="loan-b-amount"
-                  type="number"
-                  min={MIN_AMOUNT}
-                  max={MAX_AMOUNT}
-                  step="10000"
-                  value={loanB.amount}
-                  onChange={(e) => handleChange('B', 'amount', e.target.value)}
-                  className="pl-8 text-base font-semibold focus:border-brand-400 focus:ring-1 focus:ring-brand-400"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label
-                htmlFor="loan-b-rate"
-                className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 uppercase"
-              >
-                <Percent className="h-3 w-3" />
-                Interest Rate (p.a.)
-              </Label>
-              <div className="relative">
-                <Input
-                  id="loan-b-rate"
-                  type="number"
-                  min={MIN_RATE}
-                  max={MAX_RATE}
-                  step="0.05"
-                  value={loanB.rate}
-                  onChange={(e) => handleChange('B', 'rate', e.target.value)}
-                  className="text-base font-semibold focus:border-brand-400 focus:ring-1 focus:ring-brand-400"
-                />
-                <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
-                  %
-                </span>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label
-                htmlFor="loan-b-tenure"
-                className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 uppercase"
-              >
-                <Calendar className="h-3 w-3" />
-                Loan Tenure
-              </Label>
-              <div className="relative">
-                <Input
-                  id="loan-b-tenure"
-                  type="number"
-                  min={MIN_TENURE}
-                  max={MAX_TENURE}
-                  step="1"
-                  value={loanB.tenure}
-                  onChange={(e) => handleChange('B', 'tenure', e.target.value)}
-                  className="text-base font-semibold focus:border-brand-400 focus:ring-1 focus:ring-brand-400"
-                />
-                <span className="absolute top-2.5 right-3 text-sm font-medium text-slate-500">
-                  Years
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
 
-      {/* Winner / Savings Card */}
-      <div className="compare-field relative overflow-hidden rounded-xl border border-slate-700 bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 p-6 text-slate-100 shadow-lg">
-        <div className="absolute -top-8 -right-8 opacity-10">
-          <Trophy className="h-48 w-48 text-brand-400" />
-        </div>
-
-        <div className="relative z-10 flex flex-col items-start gap-4 lg:flex-row lg:items-center">
-          <div className="shrink-0 rounded-xl bg-brand-500/20 p-3 text-brand-300 shadow-lg ring-1 ring-brand-400/40">
-            <Trophy className="h-7 w-7" />
-          </div>
-
-          <div className="flex-1 space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <h4 className="text-xl font-semibold text-white">
-                {isTie ? "It's a tie!" : `${winnerName} is the winner!`}
-              </h4>
-              {!isTie && (
-                <Badge className="border border-brand-300 bg-brand-500/20 text-xs text-brand-200">
-                  Save {savingsPercent}%
-                </Badge>
+      {/* Verdict */}
+      <div
+        className="relative overflow-hidden rounded-2xl bg-slate-900 p-6 sm:p-8"
+        aria-live="polite"
+      >
+        <div
+          className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-brand-400/15 blur-3xl"
+          aria-hidden="true"
+        />
+        <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand-300">
+              The verdict
+            </p>
+            <h4 className="mt-2 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl">
+              {isTie ? (
+                'Both loans cost the same overall'
+              ) : (
+                <>
+                  Loan {winner} costs{' '}
+                  <span className="text-brand-400 tabular-nums">
+                    {formatINR(difference)}
+                  </span>{' '}
+                  less
+                </>
               )}
-            </div>
+            </h4>
+            <p className="mt-3 text-sm leading-relaxed text-slate-300">
+              {isTie
+                ? 'Total repayment is effectively identical. Decide on fees, prepayment terms and service instead.'
+                : `That is ${savingsPercent}% less than Loan ${loser} over the full tenure, before any processing fees or other charges.`}
+            </p>
 
-            {isTie ? (
-              <p className="text-sm leading-relaxed text-slate-200">
-                Both options result in nearly the same total payment. Compare
-                non-rate factors like fees, service quality, and prepayment
-                flexibility before choosing.
-              </p>
-            ) : (
-              <p className="text-sm leading-relaxed text-slate-200">
-                By choosing{' '}
-                <strong className="text-white">{winnerName}</strong> over{' '}
-                {loserName}, you save{' '}
-                <span className="mx-1 text-lg font-semibold text-brand-200">
+            <dl className="mt-6 grid grid-cols-2 gap-3">
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                <dt className="text-xs text-slate-400">Interest saved</dt>
+                <dd className="mt-1 text-lg font-bold text-white tabular-nums">
                   {formatINR(interestDiff)}
-                </span>
-                in total interest over{' '}
-                {isAEconomical ? loanA.tenure : loanB.tenure} years.
-              </p>
-            )}
-
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="rounded-lg border border-slate-700 bg-white/10 p-3 backdrop-blur-sm">
-                <div className="mb-1 flex items-center gap-1.5">
-                  <TrendingDown className="h-3.5 w-3.5 text-brand-300" />
-                  <span className="text-xs font-medium text-slate-300">
-                    Monthly Savings
-                  </span>
-                </div>
-                <p className="text-base font-semibold text-white">
+                </dd>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                <dt className="text-xs text-slate-400">
+                  {lowerEmi ? `Loan ${lowerEmi} EMI is lower by` : 'EMI difference'}
+                </dt>
+                <dd className="mt-1 text-lg font-bold text-white tabular-nums">
                   {formatINR(monthlyDiff)}
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-slate-700 bg-white/10 p-3 backdrop-blur-sm">
-                <div className="mb-1 flex items-center gap-1.5">
-                  <Calculator className="h-3.5 w-3.5 text-brand-300" />
-                  <span className="text-xs font-medium text-slate-300">
-                    Total Savings
+                  <span className="ml-1 text-xs font-medium text-slate-400">
+                    / month
                   </span>
-                </div>
-                <p className="text-base font-semibold text-white">
-                  {formatINR(difference)}
-                </p>
+                </dd>
               </div>
+            </dl>
+          </div>
+
+          {/* Total repayment bars: principal + interest */}
+          <div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Total repayment
+            </p>
+            <div className="space-y-5">
+              {loans.map(({ key, state, results }) => {
+                const principal = clamp(state.amount, MIN_AMOUNT, MAX_AMOUNT);
+                const principalPct = (principal / maxTotal) * 100;
+                const interestPct = (results.totalInterest / maxTotal) * 100;
+                return (
+                  <div key={key}>
+                    <div className="mb-1.5 flex items-baseline justify-between gap-3">
+                      <span className="text-sm font-semibold text-white">
+                        Loan {key}
+                      </span>
+                      <span className="text-sm font-semibold text-white tabular-nums">
+                        {formatINR(results.totalPayment)}
+                      </span>
+                    </div>
+                    <div
+                      className="flex h-3 w-full gap-0.5 overflow-hidden rounded-full bg-white/10"
+                      role="img"
+                      aria-label={`Loan ${key}: principal ${formatINR(principal)}, interest ${formatINR(results.totalInterest)}`}
+                    >
+                      <div
+                        className="h-full rounded-l-full bg-slate-400 transition-all duration-300"
+                        style={{ width: `${principalPct}%` }}
+                      />
+                      <div
+                        className="h-full rounded-r-full bg-brand-400 transition-all duration-300"
+                        style={{ width: `${interestPct}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-4 flex items-center gap-5 text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-slate-400" />
+                Principal
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-brand-400" />
+                Interest
+              </span>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Pro Tip */}
-      <div className="compare-note-rail flex items-start gap-3 rounded-lg border border-slate-200 p-4">
-        <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand-700" />
-        <div>
-          <h5 className="mb-1 text-sm font-semibold text-slate-900">
-            Decision Note
-          </h5>
-          <p className="text-sm leading-relaxed text-slate-600">
-            A 0.5% rate difference can translate to major long-term savings.
-            Always compare total repayment, not just EMI, and review fees and
-            reset terms before finalizing a lender.
-          </p>
         </div>
       </div>
     </div>

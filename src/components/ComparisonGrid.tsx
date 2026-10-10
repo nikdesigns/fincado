@@ -1,266 +1,156 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import {
-  ArrowRight,
-  GitCompare,
-  ShieldCheck,
-  Timer,
-  TrendingDown,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { banks } from '@/lib/banks';
+import { BANK_LOGOS } from '@/lib/bankLogos';
 
-type Bank = {
-  slug: string;
-  name: string;
-  fullName: string;
-  type: 'PSU' | 'Private' | 'NBFC';
-  avgRate?: number;
-};
-
-type ComparisonPair = {
-  b1: Bank;
-  b2: Bank;
-  rateDiff: number | null;
-  isCrossType: boolean;
-  isStrategic: boolean;
-};
-
-const topBanks: Bank[] = [
-  {
-    slug: 'sbi',
-    name: 'SBI',
-    fullName: 'State Bank of India',
-    type: 'PSU',
-    avgRate: 8.5,
-  },
-  {
-    slug: 'hdfc',
-    name: 'HDFC',
-    fullName: 'HDFC Bank',
-    type: 'Private',
-    avgRate: 8.6,
-  },
-  {
-    slug: 'icici',
-    name: 'ICICI',
-    fullName: 'ICICI Bank',
-    type: 'Private',
-    avgRate: 8.7,
-  },
-  {
-    slug: 'axis',
-    name: 'Axis',
-    fullName: 'Axis Bank',
-    type: 'Private',
-    avgRate: 8.75,
-  },
-  {
-    slug: 'kotak',
-    name: 'Kotak',
-    fullName: 'Kotak Mahindra Bank',
-    type: 'Private',
-    avgRate: 8.8,
-  },
-  {
-    slug: 'pnb',
-    name: 'PNB',
-    fullName: 'Punjab National Bank',
-    type: 'PSU',
-    avgRate: 8.4,
-  },
-  {
-    slug: 'bob',
-    name: 'BOB',
-    fullName: 'Bank of Baroda',
-    type: 'PSU',
-    avgRate: 8.45,
-  },
-  {
-    slug: 'lic-housing',
-    name: 'LIC Housing',
-    fullName: 'LIC Housing Finance',
-    type: 'NBFC',
-    avgRate: 8.5,
-  },
-  {
-    slug: 'bajaj',
-    name: 'Bajaj',
-    fullName: 'Bajaj Finserv',
-    type: 'NBFC',
-    avgRate: 9.0,
-  },
-  {
-    slug: 'idfc-first',
-    name: 'IDFC First',
-    fullName: 'IDFC First Bank',
-    type: 'Private',
-    avgRate: 8.75,
-  },
+// The ten lenders that have head-to-head comparison pages
+const COMPARED_SLUGS = [
+  'sbi',
+  'hdfc',
+  'icici',
+  'axis',
+  'kotak',
+  'pnb',
+  'bob',
+  'lic-housing',
+  'bajaj',
+  'idfc-first',
 ];
 
-function getRateDifference(b1: Bank, b2: Bank): number | null {
-  if (b1.avgRate && b2.avgRate) return Number(Math.abs(b1.avgRate - b2.avgRate).toFixed(2));
-  return null;
-}
+type Lender = {
+  slug: string;
+  name: string;
+  rate: number;
+  category: string;
+};
 
-function isCrossTypeComparison(b1: Bank, b2: Bank): boolean {
-  return (
-    (b1.type === 'PSU' && b2.type === 'Private') ||
-    (b1.type === 'Private' && b2.type === 'PSU')
-  );
-}
+type Pair = {
+  slug: string;
+  lower: Lender;
+  higher: Lender;
+  gap: number;
+};
 
 function toCanonicalCompareSlug(s1: string, s2: string): string {
   return [s1, s2].sort().join('-vs-');
 }
 
-function buildPairs(banks: Bank[]): ComparisonPair[] {
-  const pairs: ComparisonPair[] = [];
+function buildPairs(lenders: Lender[]): Pair[] {
+  const pairs: Pair[] = [];
 
-  for (let i = 0; i < banks.length; i++) {
-    for (let j = i + 1; j < banks.length; j++) {
-      const b1 = banks[i];
-      const b2 = banks[j];
-      const rateDiff = getRateDifference(b1, b2);
-      const isCrossType = isCrossTypeComparison(b1, b2);
-
+  for (let i = 0; i < lenders.length; i++) {
+    for (let j = i + 1; j < lenders.length; j++) {
+      const [lower, higher] =
+        lenders[i].rate <= lenders[j].rate
+          ? [lenders[i], lenders[j]]
+          : [lenders[j], lenders[i]];
       pairs.push({
-        b1,
-        b2,
-        rateDiff,
-        isCrossType,
-        isStrategic: isCrossType || (rateDiff !== null && rateDiff >= 0.25),
+        slug: toCanonicalCompareSlug(lower.slug, higher.slug),
+        lower,
+        higher,
+        gap: Number((higher.rate - lower.rate).toFixed(2)),
       });
     }
   }
 
+  // Biggest rate gaps first: those are the comparisons where the choice matters most
   return pairs.sort(
-    (a, b) =>
-      Number(b.isStrategic) - Number(a.isStrategic) ||
-      Number(b.isCrossType) - Number(a.isCrossType) ||
-      (a.rateDiff ?? 0) - (b.rateDiff ?? 0),
+    (a, b) => b.gap - a.gap || a.slug.localeCompare(b.slug),
+  );
+}
+
+function LenderRow({ lender, leads }: { lender: Lender; leads: boolean }) {
+  const logo = BANK_LOGOS[lender.slug];
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <div className="flex min-w-0 items-center gap-3">
+        {logo ? (
+          <Image
+            src={logo}
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8 shrink-0 rounded-md border border-slate-100 object-contain p-0.5"
+          />
+        ) : (
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-slate-100 text-[9px] font-bold text-slate-600">
+            {lender.name.slice(0, 3).toUpperCase()}
+          </div>
+        )}
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-slate-900">
+            {lender.name}
+          </p>
+          <p className="text-[11px] text-slate-400">{lender.category}</p>
+        </div>
+      </div>
+      <p
+        className={`shrink-0 text-lg font-bold tracking-tight tabular-nums ${leads ? 'text-slate-900' : 'text-slate-500'}`}
+      >
+        {lender.rate.toFixed(2)}%
+      </p>
+    </div>
   );
 }
 
 export default function ComparisonGrid() {
-  const pairs = buildPairs(topBanks);
+  const lenders: Lender[] = COMPARED_SLUGS.flatMap((slug) => {
+    const bank = banks.find((b) => b.slug === slug);
+    return bank
+      ? [
+          {
+            slug,
+            name: bank.name,
+            rate: bank.rate,
+            category: bank.category ?? 'Lender',
+          },
+        ]
+      : [];
+  });
+  const pairs = buildPairs(lenders);
 
   return (
-    <section
-      className="compare-grid-shell px-4 py-8 sm:px-6"
-      aria-label="Bank Loan Comparison Directory"
-    >
-      <div className="mx-auto mb-8 max-w-3xl text-center">
-        <h2 className="mb-3 text-2xl font-semibold text-slate-900">
-          Compare {pairs.length}+ Bank Combinations
-        </h2>
-        <p className="text-sm leading-relaxed text-slate-600">
-          Enterprise-style decision pages covering interest-rate spread, fee
-          exposure, approval timeline, and borrower-fit context. Updated for{' '}
-          {new Date().getFullYear()}.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
+    <div>
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {pairs.map((pair) => {
-          const canonicalCompareSlug = toCanonicalCompareSlug(
-            pair.b1.slug,
-            pair.b2.slug,
-          );
-
+          const isTie = pair.gap === 0;
           return (
-            <Card
-              key={`${pair.b1.slug}-${pair.b2.slug}`}
-              className="compare-unique-card group overflow-hidden border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg"
-            >
-              <CardContent className="p-5">
-                <div className="mb-4 flex items-start justify-between gap-3">
-                  <div className="flex-1">
-                    <div className="mb-2 flex flex-wrap items-center gap-2">
-                      <Badge
-                        variant="secondary"
-                        className="bg-slate-100 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-slate-700 uppercase"
-                      >
-                        {pair.b1.type} vs {pair.b2.type}
-                      </Badge>
-                      {pair.isStrategic && (
-                        <Badge className="border border-brand-200 bg-brand-50 px-2 py-0.5 text-[10px] font-semibold text-brand-700 uppercase">
-                          Strategic Match
-                        </Badge>
-                      )}
-                    </div>
-                    <h3 className="text-lg leading-tight font-semibold text-slate-900">
-                      {pair.b1.name}{' '}
-                      <span className="font-extrabold text-brand-700">vs</span>{' '}
-                      {pair.b2.name}
-                    </h3>
-                  </div>
-
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-brand-300 shadow-sm transition-all duration-300 group-hover:bg-brand-700 group-hover:text-white">
-                    <GitCompare className="h-5 w-5" />
-                  </div>
+            <li key={pair.slug}>
+              <Link
+                href={`/compare/${pair.slug}/`}
+                title={`Compare ${pair.lower.name} vs ${pair.higher.name} home loan rates`}
+                className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-200 hover:border-brand-500 hover:shadow-xl hover:shadow-slate-900/5"
+              >
+                <h3 className="sr-only">
+                  {pair.lower.name} vs {pair.higher.name}
+                </h3>
+                <div className="space-y-3">
+                  <LenderRow lender={pair.lower} leads={!isTie} />
+                  <LenderRow lender={pair.higher} leads={false} />
                 </div>
 
-                <div className="mb-4 space-y-2">
-                  {pair.rateDiff !== null && (
-                    <div className="flex items-center gap-2 text-xs">
-                      <TrendingDown className="h-3.5 w-3.5 text-brand-700" />
-                      <span className="text-slate-600">
-                        Rate difference:{' '}
-                        <strong className="text-brand-700">
-                          {pair.rateDiff.toFixed(2)}%
-                        </strong>
-                      </span>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 text-xs">
-                    <Timer className="h-3.5 w-3.5 text-brand-700" />
-                    <span className="text-slate-600">
-                      Approval time compared
+                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
+                  <p className="flex items-center gap-2 text-xs font-medium text-slate-500">
+                    Rate gap
+                    <span className="rounded-full bg-brand-400 px-2.5 py-1 text-xs font-semibold text-slate-900 tabular-nums">
+                      {isTie ? 'Level' : `${pair.gap.toFixed(2)}%`}
                     </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <ShieldCheck className="h-3.5 w-3.5 text-brand-700" />
-                    <span className="text-slate-600">
-                      Processing fees analyzed
-                    </span>
-                  </div>
+                  </p>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors group-hover:border-brand-400 group-hover:bg-brand-400 group-hover:text-slate-900">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
                 </div>
-
-                <p className="mb-4 text-sm leading-relaxed text-slate-600">
-                  Compare {pair.b1.fullName} and {pair.b2.fullName} home loan
-                  rates with fee sensitivity, servicing quality, and borrower
-                  eligibility context.
-                </p>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  className="group/btn h-10 w-full border-slate-300 font-semibold text-slate-700 transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-                >
-                  <Link
-                    href={`/compare/${canonicalCompareSlug}/`}
-                    title={`Compare ${pair.b1.fullName} vs ${pair.b2.fullName} home loan rates`}
-                  >
-                    <span>View Comparison</span>
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+              </Link>
+            </li>
           );
         })}
-      </div>
+      </ul>
 
-      <div className="compare-note-rail mt-10 rounded-xl border border-slate-200 p-6 text-center">
-        <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600">
-          <strong className="text-slate-900">Decision heuristic:</strong> PSU
-          lenders often stay cost-competitive over long tenures; private
-          lenders can lead on turnaround and digital experience. Optimize for
-          your true bottleneck.
-        </p>
-      </div>
+      <p className="mt-6 text-center text-xs text-slate-500">
+        Starting home loan rates, indicative only. The rate you are offered
+        depends on your credit score, income and the lender&apos;s policy.
+      </p>
 
       <script
         type="application/ld+json"
@@ -272,18 +162,18 @@ export default function ComparisonGrid() {
             description:
               'Compare home loan interest rates across major Indian banks',
             numberOfItems: pairs.length,
-            itemListElement: pairs.slice(0, 10).map((pair, index) => ({
+            itemListElement: pairs.map((pair, index) => ({
               '@type': 'ListItem',
               position: index + 1,
-              name: `${pair.b1.name} vs ${pair.b2.name} Home Loan Comparison`,
-              url: `https://fincado.com/compare/${toCanonicalCompareSlug(
-                pair.b1.slug,
-                pair.b2.slug,
-              )}/`,
+              name: `${pair.lower.name} vs ${pair.higher.name} Home Loan Comparison`,
+              url: `https://fincado.com/compare/${pair.slug}/`,
             })),
           }),
         }}
       />
-    </section>
+    </div>
   );
 }
+
+export const COMPARISON_PAIR_COUNT =
+  (COMPARED_SLUGS.length * (COMPARED_SLUGS.length - 1)) / 2;

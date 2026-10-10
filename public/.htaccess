@@ -126,23 +126,20 @@ RewriteRule ^emi-calculator/education-loan/?$ /loans/education-loan/ [R=301,L]
 # ------------------------------------------------
 # 7. DELETED PROGRAMMATIC CITY PAGES (SEO CLEANUP)
 # ------------------------------------------------
+# These thin city pages were removed. They return 410 Gone (not a redirect)
+# so Google drops them from its crawl queue instead of treating hundreds of
+# redirects to the same hub page as soft 404s.
 
-# 7a. Redirect Bank + City Pages -> Core Bank Page
-# Example: /bank-emi/sbi/mumbai/ -> /bank-emi/sbi/
-RewriteRule ^bank-emi/([^/]+)/[^/]+/?$ /bank-emi/$1/ [R=301,L]
+# 7a. Bank + City pages, e.g. /bank-emi/sbi/mumbai/
+RewriteRule ^bank-emi/[^/]+/[^/]+/?$ - [G,L]
 
-# 7b. Redirect EMI + City Pages -> Core EMI Page
-# Safety Check: Excludes your valid calculators (car-loan, home-loan, personal-loan, education-loan)
-RewriteCond %{REQUEST_URI} !^/emi-calculator/(car-loan|home-loan|personal-loan|education-loan) [NC]
-RewriteRule ^emi-calculator/[^/]+/?$ /emi-calculator/ [R=301,L]
+# 7b. EMI + City pages, e.g. /emi-calculator/kochi/
+# Excludes the valid calculator routes and the car-model pages under /emi-calculator/car/
+RewriteCond %{REQUEST_URI} !^/emi-calculator/(car|car-loan|home-loan|personal-loan|education-loan)(/|$) [NC]
+RewriteRule ^emi-calculator/[^/]+/?$ - [G,L]
 
-# 7c. Redirect City Credit Score Pages -> Core Credit Score Page
-# Example: /city/mumbai/credit-score/ -> /credit-score/
-RewriteRule ^city/[^/]+/credit-score/?$ /credit-score/ [R=301,L]
-
-# 7d. Redirect General City Loan Pages -> Core Loan Pages 
-# Example: /city/pune/home-loan/ -> /loans/home-loan/
-RewriteRule ^city/[^/]+/([^/]+)/?$ /loans/$1/ [R=301,L]
+# 7c/7d. City credit-score and city loan pages, e.g. /city/pune/home-loan/
+RewriteRule ^city/ - [G,L]
 
 # ------------------------------------------------
 # 8. NEXT.JS STATIC EXPORT HANDLING

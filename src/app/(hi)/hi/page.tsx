@@ -1,32 +1,30 @@
 import type { Metadata } from 'next';
-import React from 'react';
+import type React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import AdSlot from '@/components/AdSlot';
-import HindiSidebar from '@/components/HindiSidebar';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import { HINDI_CALCULATOR_CATEGORIES } from '@/data/hindiTools';
 import articlesData from '@/data/articles.json';
 import { getCurrentFiscalYear } from '@/lib/fiscalYear';
-
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import type { LucideIcon } from 'lucide-react';
 import {
   ArrowRight,
-  ArrowUpRight,
   BookOpen,
   BriefcaseBusiness,
   Calculator,
-  ChartNoAxesColumn,
   CheckCircle2,
   CircleDollarSign,
+  Compass,
   FileText,
   Landmark,
   Languages,
+  LayoutGrid,
+  Lightbulb,
+  PiggyBank,
   ShieldCheck,
   Sparkles,
   TrendingUp,
-  Wallet,
 } from 'lucide-react';
 
 type GuideRecord = {
@@ -44,69 +42,82 @@ type DashboardIntent = {
   desc: string;
   href: string;
   cta: string;
-  icon: React.ComponentType<{ className?: string }>;
-  tone: string;
+  icon: LucideIcon;
 };
 
 const FY = getCurrentFiscalYear();
 
 const DASHBOARD_INTENTS: DashboardIntent[] = [
   {
-    title: 'लोन निर्णय डेस्क',
-    desc: 'EMI, अवधि और कुल ब्याज का तुरंत तुलनात्मक विश्लेषण करें।',
+    title: 'लोन की योजना',
+    desc: 'EMI, अवधि और कुल ब्याज की तुरंत तुलना करें।',
     href: '/hi/loans/home-loan/',
     cta: 'लोन प्लान करें',
     icon: Landmark,
-    tone: 'border-blue-200 bg-linear-to-br from-blue-50 to-white',
   },
   {
-    title: 'निवेश कमांड सेंटर',
-    desc: 'SIP, PPF, ELSS और SSY के साथ दीर्घकालिक कॉर्पस रणनीति बनाएं।',
+    title: 'निवेश की शुरुआत',
+    desc: 'SIP, PPF, ELSS और SSY के साथ लंबी अवधि का कॉर्पस बनाएं।',
     href: '/hi/sip-calculator/',
     cta: 'निवेश शुरू करें',
     icon: TrendingUp,
-    tone: 'border-emerald-200 bg-linear-to-br from-emerald-50 to-white',
   },
   {
-    title: 'टैक्स ऑप्टिमाइज़ेशन',
-    desc: 'नई vs पुरानी टैक्स व्यवस्था, HRA और कटौतियों का स्पष्ट मूल्यांकन।',
+    title: 'टैक्स की बचत',
+    desc: 'नई vs पुरानी टैक्स व्यवस्था, HRA और कटौतियों को साफ़ समझें।',
     href: '/hi/income-tax-calculator/',
     cta: 'टैक्स जांचें',
     icon: FileText,
-    tone: 'border-amber-200 bg-linear-to-br from-amber-50 to-white',
   },
   {
-    title: 'रिटायरमेंट ब्लूप्रिंट',
-    desc: 'EPF, NPS और रिटायरमेंट कैश फ्लो को एक ही फ्रेमवर्क में प्लान करें।',
+    title: 'रिटायरमेंट की तैयारी',
+    desc: 'EPF, NPS और रिटायरमेंट के बाद की आय को एक साथ प्लान करें।',
     href: '/hi/retirement-calculator/',
     cta: 'भविष्य सुरक्षित करें',
     icon: BriefcaseBusiness,
-    tone: 'border-violet-200 bg-linear-to-br from-violet-50 to-white',
   },
 ];
 
-const CATEGORY_TONES = [
-  {
-    card: 'border-blue-200 bg-linear-to-br from-blue-50/70 to-white',
-    iconWrap: 'bg-blue-100 text-blue-700',
-    cta: 'text-blue-700 hover:text-blue-800',
-  },
-  {
-    card: 'border-emerald-200 bg-linear-to-br from-emerald-50/70 to-white',
-    iconWrap: 'bg-emerald-100 text-emerald-700',
-    cta: 'text-emerald-700 hover:text-emerald-800',
-  },
-  {
-    card: 'border-violet-200 bg-linear-to-br from-violet-50/70 to-white',
-    iconWrap: 'bg-violet-100 text-violet-700',
-    cta: 'text-violet-700 hover:text-violet-800',
-  },
-  {
-    card: 'border-amber-200 bg-linear-to-br from-amber-50/70 to-white',
-    iconWrap: 'bg-amber-100 text-amber-700',
-    cta: 'text-amber-700 hover:text-amber-800',
-  },
-] as const;
+const CATEGORY_ICONS: LucideIcon[] = [Landmark, TrendingUp, PiggyBank, FileText];
+
+// Illustrations that exist for the featured tools; others fall back to an icon tile
+const TOOL_ILLUSTRATIONS: Record<string, string> = {
+  '/hi/sip-calculator/': '/images/icons/sip.svg',
+  '/hi/emi-calculator/': '/images/icons/emi.svg',
+  '/hi/income-tax-calculator/': '/images/icons/tax.svg',
+  '/hi/credit-score/': '/images/icons/credit.svg',
+  '/hi/retirement-calculator/': '/images/icons/retirement.svg',
+  '/hi/sukanya-samriddhi/': '/images/icons/ppf.svg',
+};
+
+const DECISION_NOTES = [
+  'SIP शुरू करने से पहले लक्ष्य की अवधि और जोखिम प्रोफाइल तय करें।',
+  'लोन के फैसले में सिर्फ EMI नहीं, कुल ब्याज और प्रीपेमेंट की गुंजाइश भी देखें।',
+  'टैक्स बचत में रिटर्न, लॉक-इन और तरलता — तीनों को साथ में परखें।',
+];
+
+/* Small pill used above every section heading */
+function Eyebrow({
+  icon: Icon,
+  children,
+}: {
+  icon: LucideIcon;
+  children: React.ReactNode;
+}) {
+  return (
+    <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-300 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+      <Icon className="h-3.5 w-3.5" /> {children}
+    </p>
+  );
+}
+
+const SECTION_LINK =
+  'group inline-flex shrink-0 items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:border-slate-900';
+
+const CARD =
+  'rounded-2xl border border-slate-200 bg-white transition-all duration-200 hover:border-brand-500 hover:shadow-xl hover:shadow-slate-900/5';
+
+const H2 = 'text-3xl font-bold leading-snug tracking-tight text-slate-900 sm:text-4xl sm:leading-snug';
 
 const FEATURED_TOOL_PATHS = [
   '/hi/sip-calculator/',
@@ -183,8 +194,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fincado.com/hi/',
     languages: {
-      en: 'https://fincado.com/',
-      hi: 'https://fincado.com/hi/',
+      'en-IN': 'https://fincado.com/',
+      'hi-IN': 'https://fincado.com/hi/',
+      'x-default': 'https://fincado.com/',
     },
   },
   openGraph: {
@@ -244,8 +256,8 @@ export default function HindiHubPage() {
   const homeStats = [
     { label: 'हिंदी कैलकुलेटर', value: `${totalTools}+`, icon: Calculator },
     { label: 'हिंदी गाइड्स', value: `${totalGuides}+`, icon: BookOpen },
-    { label: 'नवीनतम चक्र', value: FY.fullFormat, icon: CircleDollarSign },
-    { label: 'प्राथमिक भाषा', value: 'हिंदी + English', icon: Languages },
+    { label: 'वित्त वर्ष के अनुसार अपडेटेड', value: FY.fullFormat, icon: CircleDollarSign },
+    { label: 'दोनों भाषाओं में', value: 'हिंदी + English', icon: Languages },
   ];
 
   const collectionSchema = {
@@ -313,7 +325,7 @@ export default function HindiHubPage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://fincado.com' },
+          { name: 'Home', url: 'https://fincado.com/' },
           { name: 'हिंदी', url: 'https://fincado.com/hi/' },
         ]}
       />
@@ -327,455 +339,416 @@ export default function HindiHubPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="container mx-auto mt-8 mb-10 max-w-7xl px-4 py-8 sm:mt-10 sm:mb-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12 my-10">
-          <div className="min-w-0 space-y-10 lg:col-span-8">
-            <section className="relative overflow-hidden rounded-3xl border border-brand-200 bg-linear-to-br from-brand-50/70 via-white to-slate-50 p-6 shadow-sm sm:p-10">
-              <div className="pointer-events-none absolute -top-28 right-0 h-72 w-72 rounded-full bg-brand-200/30 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-24 -left-12 h-64 w-64 rounded-full bg-emerald-200/25 blur-3xl" />
+      <div className="flex flex-col bg-slate-50">
+        {/* ── HERO ─────────────────────────────────────────── */}
+        <section className="relative overflow-hidden bg-white">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div className="absolute -top-32 -left-32 h-125 w-125 rounded-full bg-brand-500/8 blur-[140px]" />
+            <div className="absolute -bottom-32 right-0 h-100 w-100 rounded-full bg-brand-400/6 blur-[120px]" />
+          </div>
 
-              <div className="relative z-10">
-                <Badge className="mb-4 border-brand-200 bg-brand-100 px-3 py-1 text-xs font-bold text-brand-800 hover:bg-brand-100">
-                  हिंदी फाइनेंस कमांड सेंटर
-                </Badge>
-
-                <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                  फाइनेंशियल निर्णय अब
-                  <span className="block text-brand-700">
-                    एंटरप्राइज़-ग्रेड स्पष्टता के साथ
+          <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+              <div className="max-w-xl">
+                <Eyebrow icon={Languages}>हिंदी में फाइनेंशियल टूल्स</Eyebrow>
+                <h1 className="text-4xl font-bold leading-[1.25] tracking-tight text-slate-900 sm:text-5xl sm:leading-[1.25]">
+                  पैसों के फैसले,{' '}
+                  <span className="rounded-lg bg-brand-300 px-2 box-decoration-clone">
+                    अब अपनी भाषा में।
                   </span>
                 </h1>
-
-                <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
-                  लोन, निवेश, टैक्स और रिटायरमेंट की पूरी योजना एक ही हिंदी
-                  डैशबोर्ड में बनाएं। हर टूल {FY.fullFormat} नियमों के अनुरूप
-                  अपडेटेड और व्यावहारिक निर्णय के लिए डिज़ाइन किया गया है।
+                <p className="mt-6 text-lg leading-relaxed text-slate-600">
+                  लोन, निवेश, टैक्स और रिटायरमेंट की पूरी योजना हिंदी में
+                  बनाएं। हर कैलकुलेटर {FY.fullFormat} के नियमों के अनुसार
+                  अपडेटेड है।
                 </p>
 
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <Link href="/hi/calculators/">
-                    <Button className="h-11 bg-brand-700 px-5 font-semibold text-white hover:bg-brand-800">
-                      <Calculator className="mr-2 h-4 w-4" />
-                      सारे कैलकुलेटर
-                    </Button>
-                  </Link>
-                  <Link href="/hi/guides/">
-                    <Button
-                      variant="outline"
-                      className="h-11 border-brand-300 px-5 font-semibold text-brand-800 hover:bg-brand-50"
-                    >
-                      <BookOpen className="mr-2 h-4 w-4" />
-                      हिंदी गाइड्स
-                    </Button>
-                  </Link>
-                  <Link href="/calculators/">
-                    <Button
-                      variant="ghost"
-                      className="h-11 px-4 font-semibold text-slate-700 hover:bg-slate-100"
-                    >
-                      <Languages className="mr-2 h-4 w-4" />
-                      English Version
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {homeStats.map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-xl border border-white/80 bg-white/75 p-3 shadow-xs backdrop-blur-sm"
-                    >
-                      <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
-                        <item.icon className="h-4 w-4" />
-                      </div>
-                      <p className="text-sm font-extrabold text-slate-900">
-                        {item.value}
-                      </p>
-                      <p className="mt-0.5 text-[11px] font-semibold text-slate-600">
-                        {item.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
-                  <Sparkles className="h-5 w-5 text-brand-700" />
-                  Choose Your Next Step by Intent
-                </h2>
-                <Link
-                  href="/hi/calculators/"
-                  className="flex items-center gap-1 text-xs font-semibold text-brand-700 hover:text-brand-800"
-                >
-                  सब कैटेगरी देखें <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-2">
-                {DASHBOARD_INTENTS.map((item) => (
-                  <Link key={item.title} href={item.href} className="group">
-                    <Card
-                      className={`h-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${item.tone}`}
-                    >
-                      <CardHeader className="pb-3">
-                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-700 shadow-xs">
-                          <item.icon className="h-5 w-5" />
-                        </div>
-                        <CardTitle className="text-base text-slate-900">
-                          {item.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="pt-0">
-                        <p className="text-sm leading-relaxed text-slate-600">
-                          {item.desc}
-                        </p>
-                        <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-800 group-hover:text-slate-900">
-                          {item.cta}
-                          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            <div className="no-print rounded-xl border border-slate-100 bg-slate-50 p-2">
-              <div className="flex justify-center">
-                <AdSlot type="leaderboard" label="Sponsored" />
-              </div>
-            </div>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
-                  <ChartNoAxesColumn className="h-5 w-5 text-brand-700" />
-                  Calculator Category Dashboard
-                </h2>
-                <Link
-                  href="/hi/calculators/"
-                  className="flex items-center gap-1 text-xs font-semibold text-brand-700 hover:text-brand-800"
-                >
-                  Full Directory <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {HINDI_CALCULATOR_CATEGORIES.map((category, index) => {
-                  const tone = CATEGORY_TONES[index % CATEGORY_TONES.length];
-                  const categoryTitle = cleanCategoryName(category.name);
-
-                  return (
-                    <Card
-                      key={category.name}
-                      className={`${tone.card} transition-all duration-300 hover:shadow-md`}
-                    >
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between gap-3">
-                          <div
-                            className={`flex h-9 w-9 items-center justify-center rounded-lg ${tone.iconWrap}`}
-                          >
-                            <CircleDollarSign className="h-4 w-4" />
-                          </div>
-                          <Badge className="border border-white/70 bg-white text-slate-700 hover:bg-white">
-                            {category.tools.length} टूल्स
-                          </Badge>
-                        </div>
-                        <CardTitle className="text-base leading-snug text-slate-900">
-                          {categoryTitle}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="pt-0">
-                        <div className="space-y-2">
-                          {category.tools.slice(0, 3).map((tool) => (
-                            <Link
-                              key={tool.href}
-                              href={tool.href}
-                              className="flex items-start gap-2 rounded-lg border border-white/70 bg-white/80 px-3 py-2 transition-colors hover:bg-white"
-                            >
-                              <span className="text-sm">{tool.icon}</span>
-                              <div className="min-w-0">
-                                <p className="truncate text-sm font-semibold text-slate-800">
-                                  {tool.title}
-                                </p>
-                                <p className="line-clamp-1 text-xs text-slate-500">
-                                  {tool.desc}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                        <div className="mt-4 border-t border-white/80 pt-3">
-                          <Link
-                            href="/hi/calculators/"
-                            className={`inline-flex items-center gap-1 text-xs font-semibold ${tone.cta}`}
-                          >
-                            पूरे सेक्शन में जाएं{' '}
-                            <ArrowRight className="h-3 w-3" />
-                          </Link>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
-                  <TrendingUp className="h-5 w-5 text-emerald-700" />
-                  आज के लोकप्रिय टूल्स
-                </h2>
-                <Link
-                  href="/hi/calculators/"
-                  className="flex items-center gap-1 text-xs font-semibold text-emerald-700 hover:text-emerald-800"
-                >
-                  सब देखें <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-                {featuredTools.map((tool) => (
-                  <Link key={tool.href} href={tool.href} className="group">
-                    <Card className="h-full border-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md">
-                      <CardContent className="flex h-full flex-col p-4">
-                        <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-lg">
-                          {tool.icon}
-                        </div>
-                        <h3 className="mb-1 text-sm font-semibold text-slate-900 group-hover:text-emerald-700">
-                          {tool.title}
-                        </h3>
-                        <p className="line-clamp-2 text-xs leading-relaxed text-slate-600">
-                          {tool.desc}
-                        </p>
-                        <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-emerald-700">
-                          खोलें <ArrowRight className="h-3 w-3" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
-                  <BookOpen className="h-5 w-5 text-indigo-700" />
-                  हालिया हिंदी गाइड्स
-                </h2>
-                <Link
-                  href="/hi/guides/"
-                  className="flex items-center gap-1 text-xs font-semibold text-indigo-700 hover:text-indigo-800"
-                >
-                  सभी लेख <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
-
-              <div className="space-y-3">
-                {recentGuides.map((guide) => (
+                <div className="mt-8 flex flex-wrap gap-3">
                   <Link
-                    key={guide.slug}
-                    href={`/hi/guides/${guide.slug}/`}
-                    className="group block"
+                    href="/hi/calculators/"
+                    className="inline-flex h-12 items-center gap-2 rounded-lg bg-brand-400 px-6 text-sm font-semibold text-slate-900 transition-colors hover:bg-brand-500"
                   >
-                    <Card className="border-slate-200 transition-all duration-300 hover:border-indigo-300 hover:shadow-md">
-                      <CardContent className="p-4 sm:flex sm:items-start sm:justify-between sm:gap-4">
-                        <div className="min-w-0 flex-1 space-y-2">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <Badge
-                              variant="outline"
-                              className="border-indigo-200 bg-indigo-50 text-xs text-indigo-700"
-                            >
-                              {guide.category ?? 'हिंदी गाइड'}
-                            </Badge>
-                            <span className="text-[11px] font-medium text-slate-500">
-                              {guide.published ?? FY.longFormat}
-                            </span>
-                          </div>
-                          <h3 className="text-sm font-semibold leading-snug text-slate-800 group-hover:text-indigo-700">
-                            {guide.title}
-                          </h3>
-                          <p className="line-clamp-2 text-xs leading-relaxed text-slate-600">
-                            {sanitizeText(guide.metaDescription)}
-                          </p>
-                        </div>
-                        <div className="mt-3 hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-400 transition-colors group-hover:bg-indigo-50 group-hover:text-indigo-600 sm:flex">
-                          <ArrowRight className="h-4 w-4" />
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <Calculator className="h-5 w-5" />
+                    सारे कैलकुलेटर
                   </Link>
-                ))}
-              </div>
-            </section>
+                  <Link
+                    href="/hi/guides/"
+                    className="inline-flex h-12 items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-900 transition-colors hover:border-slate-900"
+                  >
+                    <BookOpen className="h-5 w-5" />
+                    हिंदी गाइड्स
+                  </Link>
+                </div>
 
-            <section className="rounded-2xl border border-emerald-200 bg-linear-to-br from-emerald-50 to-white p-5">
-              <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-emerald-900">
-                <ShieldCheck className="h-5 w-5" />
-                Risk-Aware Hindi Financial Guidance
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {[
-                  'बैंक-ग्रेड फॉर्मूला आधारित परिणाम',
-                  `${FY.fullFormat} के अनुसार नियमित अपडेट`,
-                  'लोकल भाषा में स्पष्ट डिस्क्लेमर और निर्णय संदर्भ',
-                  'गणना + गाइड + अगला कदम एक ही कार्यप्रवाह में',
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
-                    <span className="text-sm font-medium text-emerald-900">
+                <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600">
+                  {['बिल्कुल फ्री', 'रजिस्ट्रेशन की जरूरत नहीं', 'English में भी उपलब्ध'].map((item) => (
+                    <li key={item} className="flex items-center gap-1.5">
+                      <CheckCircle2 className="h-4 w-4 text-brand-600" />
                       {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Popular tools card */}
+              <div className="w-full">
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
+                  <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">लोकप्रिय कैलकुलेटर</p>
+                      <p className="text-xs text-slate-500">सबसे ज़्यादा इस्तेमाल होने वाले टूल्स</p>
+                    </div>
+                    <span className="rounded-full bg-brand-100 px-2.5 py-1 text-xs font-semibold text-brand-700">
+                      {FY.fullFormat}
                     </span>
                   </div>
-                ))}
+                  <ul className="divide-y divide-slate-100">
+                    {featuredTools.slice(0, 5).map((tool) => {
+                      const illustration = TOOL_ILLUSTRATIONS[tool.href];
+                      return (
+                        <li key={tool.href}>
+                          <Link
+                            href={tool.href}
+                            className="group flex items-center gap-4 px-5 py-3 transition-colors hover:bg-slate-50"
+                          >
+                            {illustration ? (
+                              <Image src={illustration} alt="" width={44} height={44} className="h-11 w-11 shrink-0 object-contain" />
+                            ) : (
+                              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-700">
+                                <Calculator className="h-5 w-5" />
+                              </span>
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-semibold text-slate-900">{tool.title}</p>
+                              <p className="truncate text-xs text-slate-500">{tool.desc}</p>
+                            </div>
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors group-hover:border-brand-400 group-hover:bg-brand-400 group-hover:text-slate-900">
+                              <ArrowRight className="h-4 w-4" />
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <div className="border-t border-slate-100 px-5 py-3">
+                    <Link href="/hi/calculators/" className="flex items-center justify-center gap-1.5 text-sm font-semibold text-slate-900 hover:text-brand-700">
+                      सभी {totalTools} कैलकुलेटर देखें <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link
-                  href="/editorial-guidelines/"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-800 hover:text-emerald-900"
-                >
-                  Editorial Guidelines <ArrowRight className="h-3 w-3" />
-                </Link>
-                <Link
-                  href="/disclaimer/"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-800 hover:text-emerald-900"
-                >
-                  Disclaimer <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
-            </section>
+            </div>
+          </div>
+        </section>
 
-            <article className="space-y-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <header className="space-y-2">
-                <h2
-                  id="about-hindi-calculators"
-                  className="text-xl font-bold text-slate-900"
+        {/* ── STATS BAND ───────────────────────────────────── */}
+        <div className="border-y border-slate-200 bg-white">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <dl className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-slate-200">
+              {homeStats.map((item) => (
+                <div key={item.label} className="flex items-center gap-4 px-2 py-6 sm:px-6 lg:py-8">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-400 text-slate-900">
+                    <item.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <dd className="text-2xl font-bold leading-none tracking-tight text-slate-900">{item.value}</dd>
+                    <dt className="mt-1.5 text-sm text-slate-500">{item.label}</dt>
+                  </div>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+
+        {/* ── INTENTS ──────────────────────────────────────── */}
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto mb-12 max-w-2xl text-center">
+              <Eyebrow icon={Compass}>शुरुआत यहां से</Eyebrow>
+              <h2 className={H2}>आज आप क्या प्लान करना चाहते हैं?</h2>
+              <p className="mt-3 text-base leading-relaxed text-slate-600">
+                अपनी ज़रूरत चुनें और सीधे सही कैलकुलेटर पर पहुंचें।
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {DASHBOARD_INTENTS.map((item) => (
+                <Link key={item.title} href={item.href} className={`group flex flex-col p-6 ${CARD}`}>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 text-brand-400">
+                    <item.icon className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-6 text-xl font-bold leading-snug tracking-tight text-slate-900">{item.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                    {item.cta}
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 transition-colors group-hover:border-brand-400 group-hover:bg-brand-400">
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="no-print mx-auto flex w-full max-w-5xl justify-center px-4 pb-12">
+          <AdSlot type="leaderboard" label="Sponsored" />
+        </div>
+
+        {/* ── CATEGORIES ───────────────────────────────────── */}
+        <section className="border-y border-slate-200 bg-slate-50 py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
+              <div>
+                <Eyebrow icon={LayoutGrid}>सभी कैटेगरी</Eyebrow>
+                <h2 className={H2}>कैटेगरी के अनुसार कैलकुलेटर</h2>
+                <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-600">
+                  {totalTools} कैलकुलेटर, चार कैटेगरी में — लोन से लेकर रिटायरमेंट तक।
+                </p>
+              </div>
+              <Link href="/hi/calculators/" className={SECTION_LINK}>
+                पूरी सूची देखें
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {HINDI_CALCULATOR_CATEGORIES.map((category, index) => {
+                const Icon = CATEGORY_ICONS[index % CATEGORY_ICONS.length];
+                return (
+                  <div key={category.name} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5">
+                    <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-brand-400">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <h3 className="flex-1 text-base font-semibold leading-snug text-slate-900">
+                        {cleanCategoryName(category.name)}
+                      </h3>
+                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+                        {category.tools.length}
+                      </span>
+                    </div>
+                    <ul className="mt-3 flex-1 space-y-0.5">
+                      {category.tools.slice(0, 5).map((tool) => (
+                        <li key={tool.href}>
+                          <Link
+                            href={tool.href}
+                            className="group/item flex items-center justify-between gap-2 rounded-lg px-2 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                          >
+                            <span className="truncate">{tool.title}</span>
+                            <ArrowRight className="h-3.5 w-3.5 shrink-0 text-slate-400 opacity-0 transition-opacity group-hover/item:opacity-100" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {category.tools.length > 5 && (
+                      <Link
+                        href="/hi/calculators/"
+                        className="mt-3 inline-flex items-center gap-1 border-t border-slate-100 px-2 pt-3 text-sm font-semibold text-slate-900 hover:text-brand-700"
+                      >
+                        +{category.tools.length - 5} और देखें <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── GUIDES ───────────────────────────────────────── */}
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
+              <div>
+                <Eyebrow icon={BookOpen}>सीखें</Eyebrow>
+                <h2 className={H2}>हिंदी गाइड्स</h2>
+                <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-600">
+                  लोन, टैक्स और निवेश को सरल हिंदी में समझें।
+                </p>
+              </div>
+              <Link href="/hi/guides/" className={SECTION_LINK}>
+                सभी {totalGuides} गाइड्स
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {recentGuides.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/hi/guides/${guide.slug}/`}
+                  className={`group flex items-start gap-4 p-6 ${CARD}`}
                 >
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                      {guide.category ?? 'हिंदी गाइड'}
+                    </p>
+                    <h3 className="mt-1.5 text-lg font-semibold leading-snug text-slate-900">{guide.title}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
+                      {sanitizeText(guide.metaDescription)}
+                    </p>
+                  </div>
+                  <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors group-hover:border-brand-400 group-hover:bg-brand-400 group-hover:text-slate-900">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── WHY HINDI ────────────────────────────────────── */}
+        <section className="border-y border-slate-200 bg-slate-50 py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+              <article>
+                <Eyebrow icon={Sparkles}>हिंदी में क्यों</Eyebrow>
+                <h2 id="about-hindi-calculators" className={H2}>
                   हिंदी में फाइनेंशियल कैलकुलेटर क्यों जरूरी हैं?
                 </h2>
-                <p className="text-sm leading-relaxed text-slate-600">
+                <p className="mt-5 text-base leading-relaxed text-slate-600">
                   भारत में बहुत से उपयोगकर्ता निवेश, लोन और टैक्स निर्णय लेते
                   समय अंग्रेजी फाइनेंशियल टर्म्स की वजह से कन्फ्यूज हो जाते हैं।
                   हिंदी कैलकुलेटर इस गैप को भरते हैं, क्योंकि वे सिर्फ संख्या
                   नहीं दिखाते, बल्कि निर्णय का संदर्भ भी स्पष्ट करते हैं।
                 </p>
-                <p className="text-sm leading-relaxed text-slate-600">
-                  Fincado का मॉडल है:{' '}
-                  <strong>Context + Calculation + Action</strong>. यानी पहले
-                  समस्या समझें, फिर सटीक गणना देखें, और अंत में अगला सही कदम
-                  चुनें।
+                <p className="mt-4 text-base leading-relaxed text-slate-600">
+                  Fincado का तरीका सीधा है: पहले समस्या समझें, फिर सटीक गणना
+                  देखें, और अंत में अगला सही कदम चुनें।
                 </p>
-              </header>
 
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
-                  <p className="text-xs font-bold uppercase tracking-wide text-blue-700">
-                    Context
-                  </p>
-                  <p className="mt-1 text-sm font-medium text-blue-900">
-                    सरल हिंदी में निर्णय संदर्भ
-                  </p>
-                </div>
-                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
-                  <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">
-                    Calculation
-                  </p>
-                  <p className="mt-1 text-sm font-medium text-emerald-900">
-                    बैंक-ग्रेड फॉर्मूला और अपडेटेड नियम
-                  </p>
-                </div>
-                <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
-                  <p className="text-xs font-bold uppercase tracking-wide text-amber-700">
-                    Action
-                  </p>
-                  <p className="mt-1 text-sm font-medium text-amber-900">
-                    अगला व्यावहारिक कदम और तुलना संकेत
-                  </p>
-                </div>
-              </div>
+                <ol className="mt-8 space-y-3">
+                  {[
+                    { step: 'संदर्भ', desc: 'सरल हिंदी में निर्णय का संदर्भ' },
+                    { step: 'गणना', desc: 'बैंक-ग्रेड फॉर्मूला और अपडेटेड नियम' },
+                    { step: 'अगला कदम', desc: 'व्यावहारिक सुझाव और तुलना' },
+                  ].map((item, index) => (
+                    <li key={item.step} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-sm font-bold text-brand-400">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <h3 className="text-base font-semibold text-slate-900">{item.step}</h3>
+                        <p className="text-sm text-slate-600">{item.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </article>
 
-              <section className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
-                <h3 className="text-lg font-bold text-slate-900">
+              <div>
+                <h3 className="text-xl font-bold leading-snug tracking-tight text-slate-900">
                   आपके लिए सबसे उपयोगी हिंदी टूल्स
                 </h3>
-                <p className="mt-1 text-xs font-medium text-slate-600">
-                  नीचे दिए गए टूल्स को आय, लक्ष्य और जोखिम-प्रोफाइल के आधार पर
-                  चुना गया है।
+                <p className="mt-2 text-sm text-slate-600">
+                  किस ज़रूरत के लिए कौन सा कैलकुलेटर, और उससे क्या पता चलेगा।
                 </p>
-
-                <div className="mt-3 space-y-2">
+                <div className="mt-6 space-y-3">
                   {HINDI_TOOL_MATRIX.map((tool) => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      className="group block rounded-lg border border-slate-200 bg-white px-3 py-2.5 transition-all hover:border-emerald-300 hover:shadow-sm"
-                    >
+                    <Link key={tool.href} href={tool.href} className={`group block p-5 ${CARD}`}>
                       <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-slate-900 group-hover:text-emerald-700">
-                            {tool.title}
-                          </p>
-                          <p className="mt-0.5 text-xs text-slate-600">
-                            <span className="font-semibold text-slate-700">
-                              कब उपयोग करें:
-                            </span>{' '}
-                            {tool.useCase}
-                          </p>
-                          <p className="mt-0.5 text-xs text-slate-600">
-                            <span className="font-semibold text-slate-700">
-                              क्या मिलेगा:
-                            </span>{' '}
-                            {tool.output}
-                          </p>
-                        </div>
-                        <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-400 transition-colors group-hover:text-emerald-700" />
+                        <h4 className="text-base font-semibold text-slate-900">{tool.title}</h4>
+                        <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition-all group-hover:translate-x-0.5 group-hover:text-slate-900" />
                       </div>
+                      <dl className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                        <div>
+                          <dt className="text-xs font-semibold text-slate-400">कब उपयोग करें</dt>
+                          <dd className="mt-0.5 text-slate-600">{tool.useCase}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-semibold text-slate-400">क्या मिलेगा</dt>
+                          <dd className="mt-0.5 text-slate-600">{tool.output}</dd>
+                        </div>
+                      </dl>
                     </Link>
                   ))}
                 </div>
-              </section>
-            </article>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <aside className="space-y-6 lg:col-span-4">
-            <div className="sticky top-24 space-y-6">
-              <HindiSidebar />
+        {/* ── TRUST + NOTES ────────────────────────────────── */}
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
+              <div className="lg:col-span-8">
+                <Eyebrow icon={ShieldCheck}>भरोसेमंद गणना</Eyebrow>
+                <h2 className={H2}>साफ़ जानकारी, सोच-समझकर फैसला</h2>
+                <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {[
+                    'बैंक-ग्रेड फॉर्मूला आधारित परिणाम',
+                    `${FY.fullFormat} के अनुसार नियमित अपडेट`,
+                    'सरल भाषा में स्पष्ट डिस्क्लेमर और संदर्भ',
+                    'गणना, गाइड और अगला कदम — सब एक जगह',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
+                      <span className="text-sm font-medium text-slate-900">{item}</span>
+                    </li>
+                  ))}
+                </ul>
 
-              <Card className="border-slate-200 bg-linear-to-br from-slate-50 to-white shadow-sm">
-                <CardContent className="p-4">
-                  <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-slate-900">
-                    <Wallet className="h-4 w-4 text-brand-700" />
-                    Quick Decision Notes
-                  </h3>
-                  <div className="space-y-2 text-xs font-medium text-slate-600">
-                    <p className="rounded-lg border border-slate-200 bg-white p-2.5">
-                      SIP शुरू करने से पहले लक्ष्य अवधि और जोखिम प्रोफाइल तय
-                      करें।
-                    </p>
-                    <p className="rounded-lg border border-slate-200 bg-white p-2.5">
-                      लोन निर्णय में सिर्फ EMI नहीं, कुल ब्याज और प्रीपेमेंट
-                      क्षमता देखें।
-                    </p>
-                    <p className="rounded-lg border border-slate-200 bg-white p-2.5">
-                      टैक्स बचत में रिटर्न, लॉक-इन और तरलता तीनों को साथ में
-                      परखें।
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                <h3 className="mt-12 flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900">
+                  <Lightbulb className="h-5 w-5 text-brand-600" />
+                  फैसले से पहले याद रखें
+                </h3>
+                <ul className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-3">
+                  {DECISION_NOTES.map((note) => (
+                    <li key={note} className="rounded-2xl bg-slate-50 p-5 text-sm leading-relaxed text-slate-700">
+                      {note}
+                    </li>
+                  ))}
+                </ul>
 
-              <div className="flex min-h-62.5 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+                  <Link href="/editorial-guidelines/" className="inline-flex items-center gap-1 text-slate-900 hover:text-brand-700">
+                    Editorial Guidelines <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                  <Link href="/disclaimer/" className="inline-flex items-center gap-1 text-slate-900 hover:text-brand-700">
+                    Disclaimer <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="no-print flex min-h-62.5 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 lg:col-span-4">
                 <AdSlot type="box" id="hindi-home-sidebar" />
               </div>
             </div>
-          </aside>
-        </div>
-      </main>
+          </div>
+        </section>
+
+        {/* ── CLOSING CTA ──────────────────────────────────── */}
+        <section className="bg-white px-4 pb-20 sm:px-6 lg:px-8">
+          <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-slate-900 px-6 py-16 sm:px-12 sm:py-20">
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-brand-400/20 blur-3xl" />
+              <div className="absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-brand-500/10 blur-3xl" />
+            </div>
+            <div className="relative mx-auto max-w-3xl text-center">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-brand-300">
+                <CircleDollarSign className="h-3.5 w-3.5" />
+                {totalTools} कैलकुलेटर, बिल्कुल फ्री
+              </p>
+              <h2 className="text-3xl font-bold leading-snug tracking-tight text-white sm:text-4xl sm:leading-snug">
+                अपनी पहली गणना अभी शुरू करें।
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
+                EMI हो, SIP हो या टैक्स — सही आंकड़े देखकर ही फैसला लें।
+              </p>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                <Link href="/hi/emi-calculator/" className="inline-flex h-12 items-center gap-2 rounded-lg bg-brand-400 px-7 text-sm font-semibold text-slate-900 transition-colors hover:bg-brand-300">
+                  <Calculator className="h-5 w-5" /> EMI कैलकुलेटर
+                </Link>
+                <Link href="/hi/sip-calculator/" className="inline-flex h-12 items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-7 text-sm font-semibold text-white transition-colors hover:bg-white/10">
+                  <TrendingUp className="h-5 w-5" /> SIP कैलकुलेटर
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
