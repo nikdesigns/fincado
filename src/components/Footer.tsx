@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import BrandLogo from '@/components/BrandLogo';
+import { BRAND, BRAND_PROFILES } from '@/lib/brand';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -40,9 +41,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed font-medium text-slate-600">
-              India&apos;s most comprehensive financial planning platform.
-              Bank-grade calculators for Loans, Investments, Retirement, and Tax
-              Planning — all 100% free.
+              {BRAND.description}
             </p>
 
             {/* KEY FEATURES */}
@@ -57,7 +56,7 @@ export default function Footer() {
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-300 text-[#111827]">
                   ✓
                 </span>
-                <span>40+ Financial Calculators</span>
+                <span>38+ free financial calculators</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-300 text-[#111827]">
@@ -76,6 +75,17 @@ export default function Footer() {
               >
                 <Mail className="w-4 h-4" />
               </Link>
+              {BRAND_PROFILES.map((profile) => (
+                <a
+                  key={profile.url}
+                  href={profile.url}
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  className="inline-flex h-10 items-center justify-center rounded-full border border-slate-200 bg-white px-4 text-xs font-semibold text-slate-700 shadow-sm transition hover:border-slate-900 hover:text-slate-900"
+                >
+                  {BRAND.name} on {profile.name}
+                </a>
+              ))}
             </div>
 
             {/* TRUST BADGES */}

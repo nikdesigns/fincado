@@ -1,4 +1,5 @@
 import React from 'react';
+import { BRAND, BRAND_PROFILES } from '@/lib/brand';
 
 export default function SiteTrustSchema() {
   const trustSchema = {
@@ -7,18 +8,21 @@ export default function SiteTrustSchema() {
       {
         '@type': 'Organization',
         '@id': 'https://fincado.com/#organization',
-        name: 'Fincado',
-        alternateName: 'Fincado Finance',
-        url: 'https://fincado.com/',
-        description:
-          'Fincado is an independent Indian personal finance platform offering loan calculators, rate comparisons, investment tools, and expert-written financial guides.',
-        foundingDate: '2024',
+        name: BRAND.name,
+        alternateName: [...BRAND.alternateNames],
+        url: BRAND.url,
+        description: BRAND.description,
+        foundingDate: BRAND.foundingDate,
         logo: {
           '@type': 'ImageObject',
-          url: 'https://fincado.com/brand/logo-horizontal.svg',
-          width: 200,
-          height: 50,
+          url: BRAND.logo.url,
+          width: BRAND.logo.width,
+          height: BRAND.logo.height,
         },
+        image: BRAND.logo.url,
+        ...(BRAND_PROFILES.length
+          ? { sameAs: BRAND_PROFILES.map((profile) => profile.url) }
+          : {}),
         email: 'support@fincado.com',
         address: {
           '@type': 'PostalAddress',
@@ -76,10 +80,10 @@ export default function SiteTrustSchema() {
       {
         '@type': 'WebSite',
         '@id': 'https://fincado.com/#website',
-        name: 'Fincado',
-        url: 'https://fincado.com/',
-        description:
-          'India\'s independent financial tools platform — home loan rates, EMI calculators, investment guides, and tax planning.',
+        name: BRAND.name,
+        alternateName: [...BRAND.alternateNames],
+        url: BRAND.url,
+        description: BRAND.description,
         inLanguage: ['en-IN', 'hi-IN'],
         publisher: {
           '@id': 'https://fincado.com/#organization',

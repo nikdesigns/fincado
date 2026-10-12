@@ -115,6 +115,7 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/manifest.json',
+  applicationName: 'Fincado',
   openGraph: {
     type: 'website',
     locale: 'hi_IN',

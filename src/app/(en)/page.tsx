@@ -23,16 +23,20 @@ import {
 } from 'lucide-react';
 import { banks } from '@/lib/banks';
 import { BANK_LOGOS } from '@/lib/bankLogos';
+import { BRAND } from '@/lib/brand';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import GuidesShowcase from '@/components/GuidesShowcase';
 import { getCurrentMonthYearLabel } from '@/utils/formatMonthYear';
 
+const HOME_TITLE = 'Fincado: Compare Home Loan Rates & EMI Calculators in India';
+const HOME_DESCRIPTION = `Fincado compares home loan rates from ${banks.length}+ Indian banks and NBFCs side by side. Model your EMI, then plan SIPs, tax and retirement with free calculators in English and Hindi.`;
+
 export const metadata: Metadata = {
-  title: 'Compare Home Loan Rates from 25+ Banks | EMI Calculator | Fincado',
-  description:
-    'Compare home loan interest rates from 25+ Indian banks and NBFCs side-by-side. Model EMI impact, analyse rate gaps, and make a data-backed borrowing decision. Updated for 2026.',
+  title: { absolute: HOME_TITLE },
+  description: HOME_DESCRIPTION,
+  applicationName: BRAND.name,
   alternates: {
     canonical: 'https://fincado.com/',
     languages: {
@@ -42,17 +46,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Compare Home Loan Rates from 25+ Banks | Fincado',
-    description:
-      "India's most transparent home loan research tool. Compare lenders, model EMI scenarios, and save lakhs over your tenure.",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     url: 'https://fincado.com/',
+    siteName: BRAND.name,
     type: 'website',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Fincado — Compare Home Loan Rates' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Compare Home Loan Rates from 25+ Banks | Fincado',
-    description: "India's most transparent home loan research tool. Compare lenders, model EMI scenarios, and save lakhs.",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     images: ['/og-image.png'],
   },
 };
@@ -126,8 +130,8 @@ export default function HomePage() {
     '@type': 'WebPage',
     '@id': 'https://fincado.com/#webpage',
     url: 'https://fincado.com/',
-    name: 'Compare Home Loan Rates from 25+ Banks | Fincado',
-    description: 'Compare home loan interest rates from 25+ Indian banks and NBFCs side-by-side. Model EMI impact, analyse rate gaps, and make a data-backed borrowing decision.',
+    name: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     inLanguage: 'en-IN',
     isPartOf: { '@id': 'https://fincado.com/#website' },
     breadcrumb: {
@@ -497,7 +501,7 @@ export default function HomePage() {
 
           <ol className="relative grid grid-cols-1 gap-4 lg:grid-cols-3">
             {[
-              { step: 1, icon: BarChart3,  title: 'Benchmark rates',      desc: 'See starting rates from 25+ lenders sorted and ranked in one place.',            href: '/bank-emi/',        cta: 'View rate table'     },
+              { step: 1, icon: BarChart3,  title: 'Benchmark rates',      desc: `See starting rates from ${banks.length}+ lenders sorted and ranked in one place.`,            href: '/bank-emi/',        cta: 'View rate table'     },
               { step: 2, icon: Calculator, title: 'Model your EMI',       desc: 'Enter your amount, tenure, and rate. See how 0.25% changes total repayment.',     href: '/loans/home-loan/', cta: 'Open EMI calculator' },
               { step: 3, icon: Scale,      title: 'Compare head-to-head', desc: 'Pick any two lenders — get rate gap, lifetime saving, fees, and borrower fit.',   href: '/compare-loans/',   cta: 'Compare banks'       },
             ].map((item) => (
