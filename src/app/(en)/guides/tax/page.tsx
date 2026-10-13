@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import { computeTax, inr } from '@/lib/incomeTax';
+import { SALARY_TAX_PAGES } from '@/lib/salaryTaxPages';
 
 const PAGE_URL = 'https://fincado.com/guides/tax/';
 
@@ -19,22 +21,11 @@ const CORE_TAX_GUIDES = [
   },
 ];
 
-const SALARY_TAX_GUIDES = [
-  { href: '/guides/tax-on-6-lakh-salary/', title: 'Tax on ₹6 Lakh Salary' },
-  { href: '/guides/tax-on-7-5-lakh-salary/', title: 'Tax on ₹7.5 Lakh Salary' },
-  { href: '/guides/tax-on-8-lakh-salary/', title: 'Tax on ₹8 Lakh Salary' },
-  { href: '/guides/tax-on-9-lakh-salary/', title: 'Tax on ₹9 Lakh Salary' },
-  { href: '/guides/tax-on-10-lakh-salary/', title: 'Tax on ₹10 Lakh Salary' },
-  { href: '/guides/tax-on-11-lakh-salary/', title: 'Tax on ₹11 Lakh Salary' },
-  { href: '/guides/tax-on-12-lakh-salary/', title: 'Tax on ₹12 Lakh Salary' },
-  { href: '/guides/tax-on-14-lakh-salary/', title: 'Tax on ₹14 Lakh Salary' },
-  { href: '/guides/tax-on-15-lakh-salary/', title: 'Tax on ₹15 Lakh Salary' },
-  { href: '/guides/tax-on-16-lakh-salary/', title: 'Tax on ₹16 Lakh Salary' },
-  { href: '/guides/tax-on-18-lakh-salary/', title: 'Tax on ₹18 Lakh Salary' },
-  { href: '/guides/tax-on-20-lakh-salary/', title: 'Tax on ₹20 Lakh Salary' },
-  { href: '/guides/tax-on-25-lakh-salary/', title: 'Tax on ₹25 Lakh Salary' },
-  { href: '/guides/tax-on-30-lakh-salary/', title: 'Tax on ₹30 Lakh Salary' },
-];
+const SALARY_TAX_GUIDES = SALARY_TAX_PAGES.map((p) => ({
+  href: p.href,
+  title: `Tax on ₹${p.lakh} Lakh Salary`,
+  tax: computeTax(Math.round(p.lakh * 1_00_000), 'new').total,
+}));
 
 export const metadata: Metadata = {
   title: 'Tax Planning Guides for India',
@@ -112,9 +103,12 @@ export default function TaxGuidesHubPage() {
               <Link
                 key={guide.href}
                 href={guide.href}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700"
+                className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-brand-300 hover:text-brand-700"
               >
-                {guide.title}
+                <span>{guide.title}</span>
+                <span className="text-xs font-semibold tabular-nums text-slate-500">
+                  {guide.tax === 0 ? 'Zero tax' : `${inr(guide.tax)} tax`}
+                </span>
               </Link>
             ))}
           </div>

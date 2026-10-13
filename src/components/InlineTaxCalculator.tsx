@@ -1,258 +1,139 @@
 'use client';
-import React, { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, Zap, Calculator } from 'lucide-react';
-
-import { getCurrentFiscalYear, getBudgetYearText } from '@/lib/fiscalYear';
+import React, { useMemo, useState } from 'react';
+import { Check } from 'lucide-react';
+import { TAX_RULES, computeTax, inHand, inr } from '@/lib/incomeTax';
 
 interface Props {
   defaultSalary?: number;
 }
 
-const STANDARD_DEDUCTION_NEW = 75000;
-const STANDARD_DEDUCTION_OLD = 50000;
-const REBATE_LIMIT_NEW = 1200000;
-const REBATE_MAX_NEW = 60000;
-const REBATE_LIMIT_OLD = 500000;
-const REBATE_MAX_OLD = 12500;
-const CESS_RATE = 0.04;
+const PRESETS = [8_00_000, 12_75_000, 15_00_000, 20_00_000, 30_00_000];
 
-const NEW_REGIME_SLABS = [
-  { limit: 400000, rate: 0 },
-  { limit: 800000, rate: 0.05 },
-  { limit: 1200000, rate: 0.1 },
-  { limit: 1600000, rate: 0.15 },
-  { limit: 2000000, rate: 0.2 },
-  { limit: 2400000, rate: 0.25 },
-  { limit: Infinity, rate: 0.3 }
-];
+function MoneyInput({
+  id,
+  label,
+  value,
+  onChange,
+  hint,
+  step,
+}: {
+  id: string;
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  hint?: string;
+  step?: number;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {label}
+      </label>
+      <div className="relative">
+        <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-slate-400">₹</span>
+        <input
+          id={id}
+          type="number"
+          inputMode="numeric"
+          min={0}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(Math.max(0, Number(e.target.value) || 0))}
+          className="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 pr-3 pl-7 font-semibold text-slate-900 tabular-nums outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+        />
+      </div>
+      {hint && <p className="mt-1.5 text-xs text-slate-500">{hint}</p>}
+    </div>
+  );
+}
 
-const OLD_REGIME_SLABS = [
-  { limit: 250000, rate: 0 },
-  { limit: 500000, rate: 0.05 },
-  { limit: 1000000, rate: 0.2 },
-  { limit: Infinity, rate: 0.3 }
-];
-
-const calculateSlabTax = (
-  taxableIncome: number,
-  slabs: Array<{ limit: number; rate: number }>,
-) => {
-  let tax = 0;
-  let prevLimit = 0;
-
-  for (const slab of slabs) {
-    if (taxableIncome <= prevLimit) break;
-    const taxableAtThisSlab = Math.min(taxableIncome, slab.limit) - prevLimit;
-    tax += taxableAtThisSlab * slab.rate;
-    prevLimit = slab.limit;
-  }
-
-  return tax;
-};
-
-export default function InlineTaxCalculator({
-  defaultSalary = 1500000,
-}: Props) {
+export default function InlineTaxCalculator({ defaultSalary = 15_00_000 }: Props) {
   const [income, setIncome] = useState(defaultSalary);
-  const [deductions, setDeductions] = useState(0);
+  const [deductions, setDeductions] = useState(1_75_000);
 
-  const fy = getCurrentFiscalYear();
-  const budgetText = getBudgetYearText();
-
-  // Logic for Tax Calculation
-  const { taxNew, taxOld } = useMemo(() => {
-    // --- NEW REGIME (FY 2025-26) ---
-    const taxableNew = Math.max(0, income - STANDARD_DEDUCTION_NEW);
-    const taxBeforeRebateNew = calculateSlabTax(taxableNew, NEW_REGIME_SLABS);
-    const rebateNew =
-      taxableNew <= REBATE_LIMIT_NEW
-        ? Math.min(taxBeforeRebateNew, REBATE_MAX_NEW)
-        : 0;
-    let tNew = Math.max(0, taxBeforeRebateNew - rebateNew);
-
-    // Marginal relief: incremental tax should not exceed incremental income above rebate limit
-    if (taxableNew > REBATE_LIMIT_NEW) {
-      const reliefCap = taxableNew - REBATE_LIMIT_NEW;
-      tNew = Math.min(tNew, reliefCap);
-    }
-
-    // --- OLD REGIME ---
-    const taxableOld = Math.max(
-      0,
-      income - STANDARD_DEDUCTION_OLD - deductions,
-    );
-    const taxBeforeRebateOld = calculateSlabTax(taxableOld, OLD_REGIME_SLABS);
-    const rebateOld =
-      taxableOld <= REBATE_LIMIT_OLD
-        ? Math.min(taxBeforeRebateOld, REBATE_MAX_OLD)
-        : 0;
-    let tOld = Math.max(0, taxBeforeRebateOld - rebateOld);
-
-    // Add 4% cess after rebate/relief
-    tNew = Math.round(tNew * (1 + CESS_RATE));
-    tOld = Math.round(tOld * (1 + CESS_RATE));
-
-    return { taxNew: tNew, taxOld: tOld };
+  const r = useMemo(() => {
+    const ded = Math.min(deductions, Math.max(0, income - TAX_RULES.old.standardDeduction));
+    const n = computeTax(income, 'new');
+    const o = computeTax(income, 'old', ded);
+    return {
+      n,
+      o,
+      handNew: inHand(income, 'new').monthly,
+      handOld: inHand(income, 'old', ded).monthly,
+    };
   }, [income, deductions]);
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
+  const newBetter = r.n.total <= r.o.total;
+  const diff = Math.abs(r.o.total - r.n.total);
 
-  const savings = taxOld - taxNew;
-  const isNewBetter = savings >= 0;
+  const tile = (name: string, tax: number, hand: number, best: boolean) => (
+    <div
+      className={`rounded-xl border p-4 transition-colors ${
+        best ? 'border-brand-500 bg-brand-50' : 'border-slate-200 bg-white'
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{name}</p>
+        {best && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-2 py-0.5 text-[10px] font-semibold text-brand-400">
+            <Check className="h-3 w-3" /> Lower tax
+          </span>
+        )}
+      </div>
+      <p className="mt-2 text-2xl font-bold tabular-nums text-slate-900">{inr(tax)}</p>
+      <p className="mt-1 text-xs text-slate-500">In-hand ≈ {inr(hand)}/month</p>
+    </div>
+  );
 
   return (
-    <Card className="border-none shadow-none border-slate-200 my-8 no-print overflow-hidden bg-white">
-      <CardHeader className="bg-brand-50 border-none border-brand-100 py-3 px-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-brand-700 font-semibold text-sm uppercase tracking-wide">
-            <Zap className="h-4 w-4" /> Quick Tax Check ({fy.fullFormat})
-          </div>
-          <Badge
-            variant="outline"
-            className="bg-white text-brand-700 border-brand-200 text-[10px] uppercase font-semibold"
-          >
-            {budgetText}
-          </Badge>
-        </div>
-      </CardHeader>
-
-      <CardContent className="p-6">
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="space-y-2">
-            <Label
-              htmlFor="income"
-              className="text-slate-600 font-semibold text-xs uppercase tracking-wide"
-            >
-              Annual Salary (₹)
-            </Label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-                ₹
-              </span>
-              <Input
-                id="income"
-                type="number"
-                value={income}
-                onChange={(e) =>
-                  setIncome(Math.max(0, Number(e.target.value) || 0))
-                }
-                step={50000}
-                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-brand-400 font-semibold text-slate-900"
-              />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label
-              htmlFor="deductions"
-              className="text-slate-600 font-semibold text-xs uppercase tracking-wide"
-            >
-              Total Deductions (Old Regime)
-            </Label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-                ₹
-              </span>
-              <Input
-                id="deductions"
-                type="number"
-                value={deductions}
-                onChange={(e) =>
-                  setDeductions(Math.max(0, Number(e.target.value) || 0))
-                }
-                placeholder="e.g. 150000"
-                className="pl-7 bg-slate-50 border-slate-200 focus-visible:ring-brand-400 font-semibold text-slate-900"
-              />
-            </div>
-            <p className="text-[10px] text-slate-500">
-              Includes 80C, 80D, HRA, Home Loan Interest etc.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <div
-            className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
-              isNewBetter
-                ? 'bg-brand-50 border-brand-200'
-                : 'bg-slate-50 border-slate-200 opacity-70'
-            }`}
-          >
-            <span className="text-[10px] uppercase font-semibold text-slate-500 mb-1">
-              New Regime Tax
-            </span>
-            <span
-              className={`text-xl sm:text-2xl font-black ${
-                isNewBetter ? 'text-brand-700' : 'text-slate-700'
+    <div className="no-print rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+        <p className="text-sm font-semibold text-slate-900">Quick tax check · {TAX_RULES.fy}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {PRESETS.map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => setIncome(p)}
+              className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${
+                income === p
+                  ? 'border-slate-900 bg-slate-900 text-brand-400'
+                  : 'border-slate-200 text-slate-600 hover:border-brand-500'
               }`}
             >
-              {formatCurrency(taxNew)}
-            </span>
-            {isNewBetter && (
-              <CheckCircle2 className="h-4 w-4 text-brand-700 mt-2" />
-            )}
-          </div>
-
-          <div
-            className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
-              !isNewBetter
-                ? 'bg-blue-50 border-blue-200'
-                : 'bg-slate-50 border-slate-200 opacity-70'
-            }`}
-          >
-            <span className="text-[10px] uppercase font-semibold text-slate-500 mb-1">
-              Old Regime Tax
-            </span>
-            <span
-              className={`text-xl sm:text-2xl font-black ${
-                !isNewBetter ? 'text-blue-700' : 'text-slate-700'
-              }`}
-            >
-              {formatCurrency(taxOld)}
-            </span>
-            {!isNewBetter && (
-              <CheckCircle2 className="h-4 w-4 text-blue-600 mt-2" />
-            )}
-          </div>
+              ₹{p / 1_00_000}L
+            </button>
+          ))}
         </div>
+      </div>
 
-        <div
-          className={`text-center py-3 px-4 rounded-lg border-2 border-dashed ${
-            isNewBetter
-              ? 'bg-brand-50/50 border-brand-100 text-brand-900'
-              : 'bg-blue-50/50 border-blue-100 text-blue-900'
-          }`}
-        >
-          {isNewBetter ? (
-            <p className="font-medium flex items-center justify-center gap-2">
-              <Calculator className="h-4 w-4 text-brand-700" />
-              New Regime saves you{' '}
-              <span className="font-semibold text-brand-700">
-                {formatCurrency(savings)}
-              </span>{' '}
-              🎉
-            </p>
-          ) : (
-            <p className="font-medium flex items-center justify-center gap-2">
-              <Calculator className="h-4 w-4 text-blue-600" />
-              Old Regime saves you{' '}
-              <span className="font-semibold text-blue-700">
-                {formatCurrency(Math.abs(savings))}
-              </span>{' '}
-              ✅
-            </p>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+      <div className="mb-5 grid gap-4 md:grid-cols-2">
+        <MoneyInput id="itc-income" label="Annual gross salary" value={income} onChange={setIncome} step={50_000} />
+        <MoneyInput
+          id="itc-deductions"
+          label="Old-regime deductions"
+          value={deductions}
+          onChange={setDeductions}
+          step={25_000}
+          hint="80C, 80D, HRA exemption, home-loan interest, NPS. Standard deduction is added for you."
+        />
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {tile('New regime', r.n.total, r.handNew, newBetter)}
+        {tile('Old regime', r.o.total, r.handOld, !newBetter)}
+      </div>
+
+      <p className="mt-4 rounded-lg bg-slate-900 px-4 py-3 text-center text-sm text-white" aria-live="polite">
+        {diff === 0 ? (
+          'Both regimes cost the same at these numbers.'
+        ) : (
+          <>
+            {newBetter ? 'New' : 'Old'} regime saves you{' '}
+            <strong className="text-brand-400">{inr(diff)}</strong> a year.
+          </>
+        )}
+      </p>
+    </div>
   );
 }
