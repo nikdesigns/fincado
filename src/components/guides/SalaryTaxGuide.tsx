@@ -370,7 +370,7 @@ export default function SalaryTaxGuide({ lakh: lakhs }: { lakh: number }) {
     nextSlab && Number.isFinite(nextSlab.upTo) ? nextSlab.upTo - newR.taxable : null;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: `${SITE}/` },
@@ -479,8 +479,8 @@ export default function SalaryTaxGuide({ lakh: lakhs }: { lakh: number }) {
         </div>
       </section>
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <article className="min-w-0 max-w-4xl">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <article className="min-w-0">
           {/* Calculation */}
           <section className="mb-14">
             <SectionHead
@@ -878,6 +878,9 @@ export default function SalaryTaxGuide({ lakh: lakhs }: { lakh: number }) {
         {/* Sidebar */}
         <aside className="hidden lg:block">
           <div className="sticky top-24 space-y-5">
+            <div className="no-print flex min-h-62.5 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              <AdSlot id="guides-sidebar-sticky" type="box" />
+            </div>
             <nav aria-label="On this page" className={`${PANEL} p-5`}>
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">On this page</p>
               <ol className="space-y-2 text-sm">

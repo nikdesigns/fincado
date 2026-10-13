@@ -21,6 +21,12 @@ export default function GuidesLayout({
   const showTaxWidget =
     pathname?.includes('tax') || pathname?.includes('salary');
 
+  // Salary tax guides render their own full-width layout and sidebar
+  // (see components/guides/SalaryTaxGuide.tsx).
+  if (pathname && /^\/guides\/tax-on-[\d-]+-lakh-salary\/?$/.test(pathname)) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
