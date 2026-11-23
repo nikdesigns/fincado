@@ -1,0 +1,81 @@
+# Fincado
+
+> Free financial calculators and plain-language guides for India: income tax (FY 2026-27, Income Tax Act 2025), salary in-hand, loan EMI, SIP, PPF, EPF, NPS and retirement. Available in English and Hindi. Calculations follow official slabs and rules, with assumptions stated on each page.
+
+Fincado is written and maintained by Nitin Kaushik. Editorial policy: https://fincado.com/editorial-guidelines/ . Figures are estimates for planning, not tax or investment advice.
+
+## Calculators
+
+- [Income Tax Calculator FY 2026-27](https://fincado.com/income-tax-calculator/): Old vs new regime under the Income Tax Act 2025
+- [Salary (In-Hand) Calculator](https://fincado.com/salary-calculator/): CTC to monthly take-home
+- [EMI Calculator](https://fincado.com/emi-calculator/): Home, car and personal loan EMI with amortisation
+- [Home Loan Calculator](https://fincado.com/home-loan-calculator/)
+- [SIP Calculator](https://fincado.com/sip-calculator/)
+- [Lumpsum Calculator](https://fincado.com/lumpsum-calculator/)
+- [PPF Calculator](https://fincado.com/ppf-calculator/)
+- [EPF Calculator](https://fincado.com/epf-calculator/)
+- [NPS Calculator](https://fincado.com/nps-calculator/)
+- [FD Calculator](https://fincado.com/fd-calculator/)
+- [RD Calculator](https://fincado.com/rd-calculator/)
+- [HRA Calculator](https://fincado.com/hra-calculator/)
+- [Gratuity Calculator](https://fincado.com/gratuity-calculator/)
+- [GST Calculator](https://fincado.com/gst-calculator/)
+- [Retirement Calculator](https://fincado.com/retirement-calculator/)
+- [Sukanya Samriddhi Calculator](https://fincado.com/sukanya-samriddhi/)
+- [Rent Receipt Generator](https://fincado.com/rent-receipt-generator/)
+
+## Tax on salary (FY 2026-27)
+
+Each page gives the exact tax under the new and old regime, slab-wise working, break-even deductions and monthly in-hand pay.
+
+- [Tax on ₹5 lakh salary](https://fincado.com/guides/tax-on-5-lakh-salary/)
+- [Tax on ₹6 lakh salary](https://fincado.com/guides/tax-on-6-lakh-salary/)
+- [Tax on ₹7 lakh salary](https://fincado.com/guides/tax-on-7-lakh-salary/)
+- [Tax on ₹7.5 lakh salary](https://fincado.com/guides/tax-on-7-5-lakh-salary/)
+- [Tax on ₹8 lakh salary](https://fincado.com/guides/tax-on-8-lakh-salary/)
+- [Tax on ₹9 lakh salary](https://fincado.com/guides/tax-on-9-lakh-salary/)
+- [Tax on ₹10 lakh salary](https://fincado.com/guides/tax-on-10-lakh-salary/)
+- [Tax on ₹11 lakh salary](https://fincado.com/guides/tax-on-11-lakh-salary/)
+- [Tax on ₹12 lakh salary](https://fincado.com/guides/tax-on-12-lakh-salary/)
+- [Tax on ₹12.75 lakh salary](https://fincado.com/guides/tax-on-12-75-lakh-salary/)
+- [Tax on ₹13 lakh salary](https://fincado.com/guides/tax-on-13-lakh-salary/)
+- [Tax on ₹14 lakh salary](https://fincado.com/guides/tax-on-14-lakh-salary/)
+- [Tax on ₹15 lakh salary](https://fincado.com/guides/tax-on-15-lakh-salary/)
+- [Tax on ₹16 lakh salary](https://fincado.com/guides/tax-on-16-lakh-salary/)
+- [Tax on ₹17 lakh salary](https://fincado.com/guides/tax-on-17-lakh-salary/)
+- [Tax on ₹18 lakh salary](https://fincado.com/guides/tax-on-18-lakh-salary/)
+- [Tax on ₹19 lakh salary](https://fincado.com/guides/tax-on-19-lakh-salary/)
+- [Tax on ₹20 lakh salary](https://fincado.com/guides/tax-on-20-lakh-salary/)
+- [Tax on ₹21 lakh salary](https://fincado.com/guides/tax-on-21-lakh-salary/)
+- [Tax on ₹22 lakh salary](https://fincado.com/guides/tax-on-22-lakh-salary/)
+- [Tax on ₹24 lakh salary](https://fincado.com/guides/tax-on-24-lakh-salary/)
+- [Tax on ₹25 lakh salary](https://fincado.com/guides/tax-on-25-lakh-salary/)
+- [Tax on ₹28 lakh salary](https://fincado.com/guides/tax-on-28-lakh-salary/)
+- [Tax on ₹30 lakh salary](https://fincado.com/guides/tax-on-30-lakh-salary/)
+- [Tax on ₹35 lakh salary](https://fincado.com/guides/tax-on-35-lakh-salary/)
+- [Tax on ₹40 lakh salary](https://fincado.com/guides/tax-on-40-lakh-salary/)
+- [Tax on ₹45 lakh salary](https://fincado.com/guides/tax-on-45-lakh-salary/)
+- [Tax on ₹50 lakh salary](https://fincado.com/guides/tax-on-50-lakh-salary/)
+- [Tax on ₹60 lakh salary](https://fincado.com/guides/tax-on-60-lakh-salary/)
+- [Tax on ₹75 lakh salary](https://fincado.com/guides/tax-on-75-lakh-salary/)
+
+## Guides
+
+- [New vs Old Tax Regime FY 2026-27](https://fincado.com/guides/new-vs-old-tax-regime-2026/)
+- [Best 80C Tax Saving Options](https://fincado.com/guides/best-tax-saving-options-80c/)
+- [Home Loan Guide](https://fincado.com/guides/home-loan-guide/)
+- [Personal Loan Interest Rates](https://fincado.com/guides/personal-loan-interest-rates/)
+- [Credit Score Guide](https://fincado.com/guides/credit-score-guide/)
+- [SIP Investment Guide](https://fincado.com/guides/sip-investment-guide/)
+- [SIP for ₹1 Crore in 10 Years](https://fincado.com/guides/sip-for-1-crore-in-10-years/)
+- [PPF Guide](https://fincado.com/guides/ppf-guide/)
+- [NPS Guide](https://fincado.com/guides/nps-guide/)
+- [Health Insurance Buying Guide](https://fincado.com/guides/health-insurance-buying-guide/)
+- [Credit Card Guide](https://fincado.com/guides/credit-card-guide/)
+
+## Optional
+
+- [All calculators](https://fincado.com/calculators/)
+- [All guides](https://fincado.com/guides/)
+- [Hindi version](https://fincado.com/hi/)
+- [About](https://fincado.com/about/)

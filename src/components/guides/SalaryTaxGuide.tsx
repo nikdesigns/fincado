@@ -17,6 +17,7 @@ import {
   Wallet,
 } from 'lucide-react';
 import AdSlot from '@/components/AdSlot';
+import AffiliateOffers from '@/components/AffiliateOffers';
 import AuthorBio from '@/components/AuthorBio';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 import FAQSchema from '@/components/FAQSchema';
@@ -539,6 +540,7 @@ export default function SalaryTaxGuide({ lakh: lakhs }: { lakh: number }) {
           </section>
 
           <div className="no-print mb-14">
+            <AffiliateOffers topic="tax" className="mb-6" />
             <AdSlot id={`tax-${page.slug}-1`} type="in-article" />
           </div>
 

@@ -7,6 +7,7 @@ import EMIClient from './EMIClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
+import AffiliateOffers from '@/components/AffiliateOffers';
 import LiveRateTable from '@/components/LiveRateTable';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
@@ -544,6 +545,8 @@ export default function EMIPage() {
 
             {/* 💰 AD 2: AFTER RESULT (High Engagement) */}
             <div className="no-print" style={{ margin: '32px 0' }}>
+              <AffiliateOffers topic="loan" className="mb-6" />
+
               <AdSlot id="emi-after-calc" type="banner" />
             </div>
 

@@ -5,6 +5,7 @@ import RetirementCalculatorClient from './RetirementCalculatorClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
+import AffiliateOffers from '@/components/AffiliateOffers';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -354,6 +355,8 @@ export default function RetirementCalculatorPage() {
 
             {/* AD #2: AFTER CALCULATOR */}
             <div className="no-print my-8">
+              <AffiliateOffers topic="invest" className="mb-6" />
+
               <AdSlot id="retirement-after-calc" type="square" />
             </div>
 

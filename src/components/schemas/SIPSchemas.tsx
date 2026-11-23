@@ -19,31 +19,6 @@ export function SIPSchemas() {
     ],
   };
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://fincado.com/',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Calculators',
-        item: 'https://fincado.com/calculators/',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'SIP Calculator',
-        item: 'https://fincado.com/sip-calculator/',
-      }
-    ],
-  };
-
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
@@ -82,12 +57,6 @@ export function SIPSchemas() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(softwareApplicationSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
       <script

@@ -5,6 +5,7 @@ import SalaryClient from './SalaryClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
+import AffiliateOffers from '@/components/AffiliateOffers';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -306,6 +307,8 @@ export default function SalaryCalculatorPage() {
 
             {/* 💰 AD 2: AFTER RESULT */}
             <div className="no-print" style={{ margin: '32px 0' }}>
+              <AffiliateOffers topic="tax" className="mb-6" />
+
               <AdSlot id="salary-after-calc" type="banner" />
             </div>
 
