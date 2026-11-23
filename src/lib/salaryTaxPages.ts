@@ -7,7 +7,9 @@ export interface SalaryTaxPage {
 }
 
 const LEVELS: { lakh: number; published: string }[] = [
+  { lakh: 5, published: '2026-11-23' },
   { lakh: 6, published: '2025-02-15' },
+  { lakh: 7, published: '2026-11-23' },
   { lakh: 7.5, published: '2025-02-15' },
   { lakh: 8, published: '2025-02-15' },
   { lakh: 9, published: '2025-02-15' },
@@ -19,14 +21,22 @@ const LEVELS: { lakh: number; published: string }[] = [
   { lakh: 14, published: '2025-02-15' },
   { lakh: 15, published: '2025-02-15' },
   { lakh: 16, published: '2025-02-15' },
+  { lakh: 17, published: '2026-11-23' },
   { lakh: 18, published: '2025-02-15' },
+  { lakh: 19, published: '2026-11-23' },
   { lakh: 20, published: '2025-02-15' },
+  { lakh: 21, published: '2026-11-23' },
   { lakh: 22, published: '2026-10-13' },
+  { lakh: 24, published: '2026-11-23' },
   { lakh: 25, published: '2025-02-15' },
+  { lakh: 28, published: '2026-11-23' },
   { lakh: 30, published: '2025-02-15' },
   { lakh: 35, published: '2026-10-13' },
   { lakh: 40, published: '2026-10-13' },
+  { lakh: 45, published: '2026-11-23' },
   { lakh: 50, published: '2026-10-13' },
+  { lakh: 60, published: '2026-11-23' },
+  { lakh: 75, published: '2026-11-23' },
 ];
 
 export const salarySlug = (lakh: number) =>

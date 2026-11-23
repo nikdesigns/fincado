@@ -5,6 +5,7 @@ import IncomeTaxClient from './IncomeTaxClient';
 import FinancialNavWidget from '@/components/FinancialNavWidget';
 import SidebarCompareWidget from '@/components/SidebarCompareWidget';
 import AdSlot from '@/components/AdSlot';
+import AffiliateOffers from '@/components/AffiliateOffers';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -381,6 +382,8 @@ The **Income Tax Calculator** for **Tax Year 2026-27** (Income Tax Act 2025) hel
 
             {/* AD #2: AFTER CALCULATOR */}
             <div className="no-print my-8">
+              <AffiliateOffers topic="tax" className="mb-6" />
+
               <AdSlot id="tax-after-calc" type="square" />
             </div>
 

@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import MutualFundsClient from './MutualFundsClient';
 import AdSlot from '@/components/AdSlot';
+import AffiliateOffers from '@/components/AffiliateOffers';
 import AuthorBio from '@/components/AuthorBio';
 import WikiText from '@/components/WikiText';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
@@ -206,6 +207,8 @@ export default function MutualFundPage() {
 
             {/* AD SLOT */}
             <div className="no-print my-8">
+              <AffiliateOffers topic="invest" className="mb-6" />
+
               <AdSlot id="mf-after-calc" type="banner" />
             </div>
 
